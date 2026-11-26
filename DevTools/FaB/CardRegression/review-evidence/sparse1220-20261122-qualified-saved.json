@@ -1,0 +1,181 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "independent breadth_review",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1220-20261122.json",
+  "source_spec_sha256": "95b8decfb51aaf0dbcac7d1840bdba98ee1356bb8584560b6566d511611b2388",
+  "input_sha256": "95b8decfb51aaf0dbcac7d1840bdba98ee1356bb8584560b6566d511611b2388",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-bridge-of-damnation-blue-four-live-sparse1220-play-persistence-and-go-again-spent-on-real-attack-only",
+      "card_id": "bridge_of_damnation_blue",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "380558342cd666b9d6c0563a6b553071b954457777b347ddffd1143ca9d1e42b",
+        "actions.json": "0af8a1ea1ec8c5c1cd86d16e2bbdc5cce415580ef97f75c13ce0010d1f71cfc6",
+        "assertions.json": "0bfdbfbc545ccd161917d8f34d8ff02987186b81cf8dc072d5b3f05fba2a5a3c",
+        "expected_final_gamestate.txt": "13d53c921a6cfbfcae24c5ba4c587ce37701da3763a0c45cbe51452ba43fce91",
+        "meta.json": "4db248ee1ad074c5ed77ae410900d27d9cc2905dd4b47454925b8236cb32afa9"
+      },
+      "fixture_sha256": "0786f1ca8ceab9d199a1281025d72a21f9b068390ddaa7ff54cdeadd813562f4",
+      "actions": 32,
+      "native_assertions": 323,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 29,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1220-20261122.json",
+      "input_sha256": "95b8decfb51aaf0dbcac7d1840bdba98ee1356bb8584560b6566d511611b2388",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1220-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-bridge-of-damnation-blue-four-live-sparse1220-play-persistence-and-go-again-spent-on-real-attack-only",
+        "fixture_slug": "card-bridge-of-damnation-blue-four-live-sparse1220-play-persistence-and-go-again-spent-on-real-attack-only",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-shifting-tides-blue-four-live-sparse1220-play-persistence-and-go-again-spent-on-real-attack-only",
+      "card_id": "shifting_tides_blue",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "f97d4350e0b729204fcaf49a7850b919fb0c08382006d899cb1ade7f7757fcab",
+        "actions.json": "0af8a1ea1ec8c5c1cd86d16e2bbdc5cce415580ef97f75c13ce0010d1f71cfc6",
+        "assertions.json": "13bd81b5c557fff2840030fda8fd88f1a07cd936634338e6b9105c513c13dbac",
+        "expected_final_gamestate.txt": "c086ad49612af42cabe5f7df0ed2aefb52b2d911b58953ec5a8b12c441ca67f6",
+        "meta.json": "abd21c44a80cb00d4a52815e1d0dfb90322c245eced3a168ee3419decf91144d"
+      },
+      "fixture_sha256": "689d209c396d5c9779627bfe28771512fbf452e1de0fefbf93aeef478d983c54",
+      "actions": 32,
+      "native_assertions": 323,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 29,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1220-20261122.json",
+      "input_sha256": "95b8decfb51aaf0dbcac7d1840bdba98ee1356bb8584560b6566d511611b2388",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1220-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-shifting-tides-blue-four-live-sparse1220-play-persistence-and-go-again-spent-on-real-attack-only",
+        "fixture_slug": "card-shifting-tides-blue-four-live-sparse1220-play-persistence-and-go-again-spent-on-real-attack-only",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-doomsaying-red-four-live-sparse1220-play-persistence-and-go-again-spent-on-real-attack-only",
+      "card_id": "doomsaying_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "f44ea59804305eca51c4ff175bc61b1fb3c5f3595ae806062c2b237bccd6a8d6",
+        "actions.json": "0af8a1ea1ec8c5c1cd86d16e2bbdc5cce415580ef97f75c13ce0010d1f71cfc6",
+        "assertions.json": "2143878df8dc01b8338adda2d3290f0c76a4c1cb7b2d15b78ac1884e94763782",
+        "expected_final_gamestate.txt": "55485ce01fe6fbcb61d58d1dfd3ba4b7b3c63bb370a912a89a7c5f9366911686",
+        "meta.json": "a587cfcf1e0ed06d48e38396f64ac7236d0e727888d600087e76a93c24f0966c"
+      },
+      "fixture_sha256": "4661cbb58fe8d86cddbeb6cbfc0577db1a63e3eaa13ff012f1cc0f7dcb4433d3",
+      "actions": 32,
+      "native_assertions": 323,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 29,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1220-20261122.json",
+      "input_sha256": "95b8decfb51aaf0dbcac7d1840bdba98ee1356bb8584560b6566d511611b2388",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1220-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-doomsaying-red-four-live-sparse1220-play-persistence-and-go-again-spent-on-real-attack-only",
+        "fixture_slug": "card-doomsaying-red-four-live-sparse1220-play-persistence-and-go-again-spent-on-real-attack-only",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "reviewer": "independent breadth_review",
+    "spec_sha256": "95b8decfb51aaf0dbcac7d1840bdba98ee1356bb8584560b6566d511611b2388",
+    "source_note_sha256": "3225b6fe0970893be62c1f1988c981971136c962da37f756451ef2db0f7eed14",
+    "case_count": 3,
+    "native_controls": 96,
+    "query_checks": 969,
+    "persistable_assertions": 969,
+    "author_only_checks_omitted": 0,
+    "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+    "runtime_verification_scope": "Root fresh isolation/runtime/HEAD verification reused; exact source/cache preflight and frozen spec checked independently. Prior bound GameLogic/cache/macro hashes recomputed unchanged, no native/engine/Git execution.",
+    "coverage_category": "PLAY_PERSISTENCE_AND_GO_AGAIN_ONLY_PHASE_BODY_UNTESTED",
+    "cases": [
+      {
+        "card_id": "bridge_of_damnation_blue",
+        "group_id": "identity:bridge_of_damnation_blue",
+        "hero": "malice",
+        "native_controls": 32,
+        "persistable_assertions": 323,
+        "cost": 0,
+        "own_go_again_action_refund": 1,
+        "refund_spent_on_real_attack": true,
+        "actual_followthrough_damage": 4,
+        "final_target_health": 16,
+        "final_action_points": 0,
+        "same_turn_number": 2
+      },
+      {
+        "card_id": "shifting_tides_blue",
+        "group_id": "identity:shifting_tides_blue",
+        "hero": "gravy_bones",
+        "native_controls": 32,
+        "persistable_assertions": 323,
+        "cost": 0,
+        "own_go_again_action_refund": 1,
+        "refund_spent_on_real_attack": true,
+        "actual_followthrough_damage": 4,
+        "final_target_health": 16,
+        "final_action_points": 0,
+        "same_turn_number": 2
+      },
+      {
+        "card_id": "doomsaying_red",
+        "group_id": "identity:doomsaying_red",
+        "hero": "florian",
+        "native_controls": 32,
+        "persistable_assertions": 323,
+        "cost": 0,
+        "own_go_again_action_refund": 1,
+        "refund_spent_on_real_attack": true,
+        "actual_followthrough_damage": 4,
+        "final_target_health": 16,
+        "final_action_points": 0,
+        "same_turn_number": 2
+      }
+    ],
+    "basis": [
+      "Three exact identity groups, not a pitch matrix, are uncovered and exact ledger guard found no selected-entry-route exclusion. Actual cache makes all three cost0ActionAura with standalone GoAgain and only later Start/End-phase printed bodies. Legal youngMaliceShadowNecro20, GravyPirateNecro20 and FlorianElementalRuneblade20 each have three youngDorinthea20 peers. SameTurn2 initialACTION/empty effects and primary5+realGenericWoundingRed6Hand are explicit.",
+      "Independent canonical comparison confirms identical heroes-adjusted setup/input/query skeletons after only primaryCardID and legalactorHero literals are rebound. Each43-step case has32realcontrols and323persistent queries; all969 queries normalize1:1 with zero author-only omissions. Normal target popup for Wounding occurs before card moves: HandUID6/Stack0/AP1, then actualHero4answer creates ownedStack6/AP0.",
+      "GameLogic2044 identifies Aura as persistent;2062 moves physicalsource5 from Stack into controller1Arena and2064-2066 awards exactly its own printedGoAgain after resolution. FaBResolveRules2082-2089 dispatches ResolveCard/fallback, not future ResolveAbility/StartTurn. No special entryWHEN exists for these cards. Explicit four manual source responses keep5Stack/Arena0/AP0; only fourth resolves to ownedphysical5Arena/AP1, not an early or injected AP.",
+      "Real subsequent Wounding6 cost0 spends that earnedAP1->0 and gets four fresh source/combat response rounds. Active attack nativecomputedPower4/computedGAfalse beforeDamage and cachedDamage4/defense0/attackHittrue/HP4=16 pin the effect and exclude an inheritedGoAgain refund. All four manual windows complete back toACTION1/TurnNumber2/TurnPlayer1, finalAP0/R0/maxUID6, source5retainedownedArena and attack6ownedGraveyard with no other assets/Stack/queues/chains.",
+      "Exact control sequence enters no beginning-turn or end-phase boundary. Bridge start-each-turn body(IARRuntime153), Shifting start-turn macro and Doomsaying beginning-End body(PENCards662) are therefore unearned in these scenes. NoZombie dies, Bluecard entersGravygraveyard, EarthBanish/auraToken creation or weaponHit occurs; no actor/defender Hero trigger is omitted. Existing future-phase source-only holds remain separate and unresolved."
+    ],
+    "limits": [
+      "Limited play/persistence/own-GoAgain continuation baselines only, with actual follow-up attack witnessing the AP. Native execution/save/targeted replay remain Root-pending; no coverage or successful replay claimed here.",
+      "No Bridge upkeep/Zombie recovery, Shifting top pitch/bottom/destroy, Doomsaying doom-counter/Aura destruction, phase admission/timing, source-lifetime, Hero/support/sibling or whole-card credit. Qualification of a distinct current-turn branch does not release any earlier phase hold.",
+      "Corrected source-note identity-group wording bound; spec unchanged. Only this W receipt written; no native/PHP/tests/replay/T/source/framework/Git/original/network actions."
+    ],
+    "source_sha256": {
+      "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+      "FaBSim/Custom/GameLogic.php": "c60fa151561f959e4e3e341b814de0e2b47c9e9f153bbc8793a04c43b5075061",
+      "FaBSim/Custom/IARRuntime.php": "a867233dd027ea6466d776cb9c3bfdbbeedc5e4e535f67f09b1c6e7d9cb3924e",
+      "FaBSim/Custom/PENCards.php": "9d4f443c833ec535bdae15c1973910925c1b7a1223fbfab7fcb89a5b204a7ed8",
+      "FaBSim/GeneratedCode/GeneratedMacroCode.php": "fe6a7982611df8f4de98ce2671b317b671b580146aa4b8c28e8f4b86d8461056"
+    }
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1220-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "abf047ae62cc625606d3f1ecc4d24e49397d6fa258acb2f9312940f28c82b757"
+  },
+  "full_suite_run": false
+}

@@ -1,0 +1,40 @@
+{
+  "runtime": "f70e854eeadde93b82dc4f880dae3c8d59e8307d3fa89c321cbb887bb2a063b5",
+  "fixtures": [
+    {
+      "slug": "repair-peaceful-sanctuary-red-four-live-20261126-paid-spell-aura-token-prohibited",
+      "passed": true,
+      "runtime": "f70e854eeadde93b82dc4f880dae3c8d59e8307d3fa89c321cbb887bb2a063b5",
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=repair-peaceful-sanctuary-red-four-live-20261126-paid-spell-aura-token-prohibited",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\token-creation216-217\\peaceful_sanctuary_red\\strict1.log"
+      ],
+      "returncode": 0,
+      "complete_log_sha256": "8004a462cc51b0e11b343c972858b038ae976af4b1f7bf72781a7a86f9a8ac55",
+      "raw5_unchanged": true
+    },
+    {
+      "slug": "card-seismic-stir-red-four-live-sparse-actual-blue-pitch-paid-action-creates-three-owned-seismic-surges",
+      "passed": true,
+      "runtime": "f70e854eeadde93b82dc4f880dae3c8d59e8307d3fa89c321cbb887bb2a063b5",
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-seismic-stir-red-four-live-sparse-actual-blue-pitch-paid-action-creates-three-owned-seismic-surges",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\token-creation216-217\\peaceful_sanctuary_red\\strict2.log"
+      ],
+      "returncode": 0,
+      "complete_log_sha256": "b9852ce8e1e20cf44ba9a7950dccf623e5bbb476072583fdf21f40fbcbb1dde2",
+      "raw5_unchanged": true
+    }
+  ],
+  "full_suite_run": false
+}

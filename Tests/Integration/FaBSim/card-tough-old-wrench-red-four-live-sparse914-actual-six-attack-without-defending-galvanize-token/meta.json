@@ -1,0 +1,7 @@
+{
+    "name": "Tough Old Wrench / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T19:13:23+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "**Galvanize** - When this defends, you may destroy an item you control. If you do, create a Golden Cog token. Representative only: actual_six_attack_without_defending_galvanize_token. Other pitch siblings, alternate targets and unexercised branches receive no credit. All four live/manual; only native entry-point actions. Sources: FaBSim/GeneratedCode/cardArrayCache.json#tough_old_wrench_red"
+}

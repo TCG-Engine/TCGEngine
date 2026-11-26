@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-bloodspill-invocation-red-four-live-sparse1583-own-real-weapon-hit-does-not-qualify-as-aa-hit",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-bloodspill-invocation-red-four-live-sparse1583-own-real-weapon-hit-does-not-qualify-as-aa-hit",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1583-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1583-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "8b5ee2ca2daf71b9ceaabdc641dc9b71ecf589a4299609db1aa6160c7a8b7e7e",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "1d0e52d33dd8521588520161a19ed798df9efeb4922bfae0700ca2c65b0b4984",
+        "actions.json": "91793b139344e716350ffd8c133439a0fadf917ae0fe6ffcea2b772b05f57f25",
+        "assertions.json": "9aef68018f3d35de1206d35e0e5270f3786fa7cecc867944b27475d11a605f15",
+        "expected_final_gamestate.txt": "8acdef61231cd0285911250460e8bf46499ad4bd5afbe5733b06ade6340023f2",
+        "meta.json": "5d8c78c3da69c70f832e86751026629dca4650bcebadef34468736ef3b7a79a5"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

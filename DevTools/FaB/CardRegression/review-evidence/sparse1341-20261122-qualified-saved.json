@@ -1,0 +1,164 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "independent breadth_review1252",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1341-20261122.json",
+  "source_spec_sha256": "54c6041f1a4363ac84444c614421ed05b326f2c20153e03062e5ca7f4d88c896",
+  "input_sha256": "54c6041f1a4363ac84444c614421ed05b326f2c20153e03062e5ca7f4d88c896",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-last-ditch-effort-blue-four-live-sparse1341-real-nonempty-deck-no-power-or-go-again-bonus",
+      "card_id": "last_ditch_effort_blue",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "4d9f9148e4d4c62a531254088fc70c52c64765bb6b7245118a2b88a7a9276fe2",
+        "actions.json": "0c005a52a51dc48a24f481bec6cbd5cfe2cb93ecd847ec1063490764f1d7d9ea",
+        "assertions.json": "0f91da44b4506a8c0e54d1a904e0b705b38989aeeee6bab40967894612084074",
+        "expected_final_gamestate.txt": "aec190b34ba1d011b93ff7d51de34e707b4d583bcb08465241cf6744589670bf",
+        "meta.json": "0f677cd967b7099a7805f00829142a6d61232feca8120c346d8a46e95348ccd1"
+      },
+      "fixture_sha256": "aeb7868b6e00a6da7f54460fc28089b7802976993469b340ddd298cbf1f7f0c8",
+      "actions": 29,
+      "native_assertions": 444,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1341-20261122.json",
+      "input_sha256": "54c6041f1a4363ac84444c614421ed05b326f2c20153e03062e5ca7f4d88c896",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1341-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-last-ditch-effort-blue-four-live-sparse1341-real-nonempty-deck-no-power-or-go-again-bonus",
+        "fixture_slug": "card-last-ditch-effort-blue-four-live-sparse1341-real-nonempty-deck-no-power-or-go-again-bonus",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-demolition-crew-red-four-live-sparse1341-no-other-costly-hand-card-rejects-self-or-deck-reveal-and-preserves-real-followup",
+      "card_id": "demolition_crew_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "a0e3879fb9364ab497a2214880ccd4f378fe1051ba20ac7ba4a8245fe3f79942",
+        "actions.json": "b18dba19c6e1a9a22f08df0db536f803ccbe3582e85a855466962018fb52da72",
+        "assertions.json": "1d06d4a91bf75e868da6a17c745389223b01b830ddaaa97bbcb0ac0216aab4bb",
+        "expected_final_gamestate.txt": "6e8d555ef4c2f1fb96e5aca0b390b43379d08af554e1c1cfa3c024d0efbd8936",
+        "meta.json": "93cc469222dbaaa1d841fee0d4420a0b767ebf6ede2743dc0dd33fdd6bf9a199"
+      },
+      "fixture_sha256": "c1324b85ecffc72c98b387f25e3e3609d4f812be1cf90533e87bf49024ddc8e3",
+      "actions": 28,
+      "native_assertions": 376,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1341-20261122.json",
+      "input_sha256": "54c6041f1a4363ac84444c614421ed05b326f2c20153e03062e5ca7f4d88c896",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1341-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-demolition-crew-red-four-live-sparse1341-no-other-costly-hand-card-rejects-self-or-deck-reveal-and-preserves-real-followup",
+        "fixture_slug": "card-demolition-crew-red-four-live-sparse1341-no-other-costly-hand-card-rejects-self-or-deck-reveal-and-preserves-real-followup",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "reviewer": "independent breadth_review1252",
+    "spec_sha256": "54c6041f1a4363ac84444c614421ed05b326f2c20153e03062e5ca7f4d88c896",
+    "source_note_sha256": "3ad13c98721ca8bf9ef0983e3a3bc423009472451b13b8eb1feb63530a62fe2e",
+    "case_count": 2,
+    "active_seats": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "players": "four_live_manual",
+    "native_controls": 57,
+    "query_checks": 820,
+    "persistable_assertions": 820,
+    "author_only_checks_omitted": 0,
+    "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+    "coverage_category": "NAMED_NONEMPTY_DECK_FALSE_CONDITION_AND_UNAVAILABLE_MANDATORY_REVEAL_REJECTION_ONLY",
+    "per_case": [
+      {
+        "card_id": "last_ditch_effort_blue",
+        "group_id": "identity:last_ditch_effort_blue",
+        "native_controls": 29,
+        "persistable_assertions": 444,
+        "coverage_category": "CONDITION_FALSE_NONEMPTY_DECK_WITH_REAL_BASE_DAMAGE_AND_NO_REFUND_CONSUMER"
+      },
+      {
+        "card_id": "demolition_crew_red",
+        "group_id": "pitch-cycle:demolition_crew",
+        "native_controls": 28,
+        "persistable_assertions": 376,
+        "coverage_category": "REJECTION_ONLY_MANDATORY_OTHER_HAND_COST_UNAVAILABLE_WITH_REAL_NATIVE_FOLLOWUP"
+      }
+    ],
+    "basis": [
+      "Two cached Generic AA representatives are legal under four natural YoungDori20/manual UPF; distinct groups unrepresented/unheld. LastDitchBlue AA3/base4 has When played if emptyDeck +4/GA; DemolitionRed AA2/base6 has mandatory reveal another Hand card cost>=2 and Dominate. Physical HeroUID1..4 then primary5/Bluefunder6/faceDownArsenalWounding7/realDeck8, no seeded permissions/history/effects. No Dori weapon-hit event is earned by these Generic attack actions.",
+      "LastDitch transformation independently checked all eight UID8 four-field bundles: each is p1Deck0 CriticalStrikeRed8 Owner1 Controller1, with no staleTiger/Ira or Hand8 ownership queries. InitialHand2/Deck1, postpaymentHand0, finalHand0/Deck1 and exact real source/funder zones are consistent. ActualBlue6pitch3 pays3/R0/AP0, realDeck8 stays present before played condition. WTRCards607 only tags WTR_POWER4/GO_AGAIN when Deck count0, so selected WHEN intervening condition false, no earned trigger. Strict base4/noGA/actual4damageHP16, fullclose5GY/6Pitch/8Deck/7Arsenal; actual affordable0Arsenal click rejected atAP0 preserves all physical/resources/health/Stack/queues/pendingPayment/UID8/RNG0.",
+      "Demolition WTRCanPlay458-460 scans only other Hand UID with cost>=2 and excludes primary5; CriticalBlue6 cost1 cannot qualify, BrutalBlue8 cost2 in Deck is wrong zone. ActualBluepitch3 potential andAP1 fund printed2, so missing reveal specifically prevents play. GameLogic1000 integrates WTR guard and DoPlayCard1011 returns before target/movement/preparation. Exact primary5/funder6Hand, Deck8, Arsenal7/AP1R0/UID8/emptyStack/queues/pendingPayment remain after rejected primary click; no reveal or physical effect-cost operation, avoiding known positive099 seam.",
+      "Actual Demolition-scene ArsenalWounding7 then targets Hero4, pays0/spends retainedAP1 and traverses fresh four-seat source/combat rounds for printed4/noGA/actual4damageHP16. Final only7GY, original5/6Hand and8Deck, APR0/UID8/RNG0 and quiet Stack/decisions/CC show action and permissions preserved. LastDitch29 controls/444 checks plus Demolition28/376 =57/820 persistable assertions."
+    ],
+    "limits": [
+      "Semantic review only for nonempty-Deck LastDitch condition and unavailable mandatory other-Hand reveal Demolition rejection, pending native save/replay. No native pass/qualified credit claimed.",
+      "LastDitch true emptyDeck bonus/GA/WHEN timing, Demolition successful reveal/cost ordering/primary attack/Dominate/target timing, alternate targets, Hero/support/sibling/full-card behavior untested/uncredited. No physical additional-cost operation performed; held positive cost path not retried.",
+      "Only W review receipt written; no native game/test/replay, T/source/engine edit, original checkout access, auth/network, full suite or Git operation."
+    ],
+    "source_sha256": {
+      "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+      "FaBSim/GeneratedCode/GeneratedMacroCode.php": "fe6a7982611df8f4de98ce2671b317b671b580146aa4b8c28e8f4b86d8461056",
+      "FaBSim/Custom/GameLogic.php": "c60fa151561f959e4e3e341b814de0e2b47c9e9f153bbc8793a04c43b5075061",
+      "FaBSim/Custom/WTRCards.php": "77d4452b30e45254a7199bc965396ded53e325717ecdd84a09b971f723f99f6a",
+      "FaBSim/Custom/ARCCards.php": "f6b6a21d214e71fdcfd6a084f0671ce610f08a40c51a1266041877a5a12c0d52",
+      "FaBSim/Custom/CardChoices.php": "c68ae2b8e984bcc64b00289cc2d71bc0c980b2fbbeaeadbca8ae3a9f9579c515",
+      "Core/EngineActionRunner.php": "add14b53dc571d2a6e64407bfa4038a98d6554d6410de7a9233810d99c46ea2a",
+      "Schemas/FaBSim/GameSchema.txt": "7783800bd47bc85885cc915066aadca58cdf99f0c1180602ac312d9af5ebf643",
+      "Core/ShortcutPreferences.php": "25f300ea0b6fbc409f5b92e8bc3587a74b2ab0eaf31ccef38e18c455598eaba6",
+      "DevTools/FaB/CardRegression/record_card_regressions.php": "e53055b29e9ea641949b77019c4455607f41ca233325d716a9500637e19efd28"
+    },
+    "workspace_source_sha256": {
+      "author_breadth1341.py": "e68f0c56a3340712003addb3d4ac8b308d80d53ed59f3c0d847063a0cbe02b0c",
+      "breadth1068_helpers.py": "997f949ec26c7e494ad26a818f9f2078f6f4f2a0c49ca7f61aa8c71f3b091b0a"
+    },
+    "secondary_identity_credit": false,
+    "whole_card_credit": false,
+    "positive_empty_deck_bonus_credit": false,
+    "positive_reveal_cost_credit": false,
+    "primary_demolition_play_credit": false,
+    "primary_demolition_dominate_credit": false
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1341-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "d995051b2272efafffa6e507a326ea253654a284b62d1aed3b8ec1ee24514537"
+  },
+  "full_suite_run": false
+}

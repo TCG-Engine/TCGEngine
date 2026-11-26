@@ -1,0 +1,94 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "breadth_review independent printed-text/source/transport review",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1000-20261122.json",
+  "source_spec_sha256": "e2f6fada60c519e0d87effb7f3d6fe806045ad0bd8fa6dc447ed56f8177dcfbe",
+  "input_sha256": "e2f6fada60c519e0d87effb7f3d6fe806045ad0bd8fa6dc447ed56f8177dcfbe",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-amulet-of-lightning-blue-four-live-sparse1000-live-action-without-lightning-fusion",
+      "card_id": "amulet_of_lightning_blue",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "debd300406ae2fb09ef87241e25043ca76cc412207066a68d223d923b843a715",
+        "actions.json": "28239c88b64affb3a6e6e9939aaa74baf5f12dbab24237908125f76fd12a86eb",
+        "assertions.json": "60a02961c914ab7c9d05b10e0837388d1c7097bf699e3af3370cf812a5193412",
+        "expected_final_gamestate.txt": "b3efb50034d7f87d8f2e3ab59dc4f0716c33a25cf1de320945eef5ebe3018277",
+        "meta.json": "497f6d6e8078b05804da0d321f854061690872852517de266cbc69aa749a40eb"
+      },
+      "fixture_sha256": "184cf606dfbace3db09529e44b822acb92db7b3cf6dfbf1aae59e9f7c735c269",
+      "actions": 28,
+      "native_assertions": 175,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1000-20261122.json",
+      "input_sha256": "e2f6fada60c519e0d87effb7f3d6fe806045ad0bd8fa6dc447ed56f8177dcfbe",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1000-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-amulet-of-lightning-blue-four-live-sparse1000-live-action-without-lightning-fusion",
+        "fixture_slug": "card-amulet-of-lightning-blue-four-live-sparse1000-live-action-without-lightning-fusion",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-amulet-of-assertiveness-yellow-four-live-sparse1000-live-reaction-with-three-hand-cards",
+      "card_id": "amulet_of_assertiveness_yellow",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "46bdb9a593a852833e1ade9203164ae07628fe184a91c76ae7004cd2cf391bad",
+        "actions.json": "ebd69b8728f67425a19902ede6958cef89fcb54101b6cde40f61f18abf275484",
+        "assertions.json": "c6cb5a46429f6c4ee898f8abc8f1d9a63ea36a3630cfeb724be1a94c5aaf96fc",
+        "expected_final_gamestate.txt": "7a1aa3ccff0d3378dfdd595264aa1156589135c767d69f953e587ee48d913c53",
+        "meta.json": "1acc89da0179be800fad092f38fcc79e41a4ca39a1649364a710d9c12eefee07"
+      },
+      "fixture_sha256": "24fcbfbeb87fe7a11f2f11266f2f43f5ffd2bd6b03f3dd6f55a03afac2424f88",
+      "actions": 28,
+      "native_assertions": 237,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1000-20261122.json",
+      "input_sha256": "e2f6fada60c519e0d87effb7f3d6fe806045ad0bd8fa6dc447ed56f8177dcfbe",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1000-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-amulet-of-assertiveness-yellow-four-live-sparse1000-live-reaction-with-three-hand-cards",
+        "fixture_slug": "card-amulet-of-assertiveness-yellow-four-live-sparse1000-live-reaction-with-three-hand-cards",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "spec_sha256": "e2f6fada60c519e0d87effb7f3d6fe806045ad0bd8fa6dc447ed56f8177dcfbe",
+    "reviewer": "breadth_review independent printed-text/source/transport review",
+    "basis": [
+      "Both actual owned ready Arena5 Items have zero-resource destroy costs fully available. Lightning is legal for Aurora20 through EssenceLightning; Assertiveness is Generic/legal Dorinthea20. No hero ability, synthetic fusion/modifier/history or extra target asset is assumed. Printed Item GoAgain is not resolved by a rejected activation.",
+      "Lightning attempt follows actual sourceAA6 resolution into current CombatChain/RoleATTACK atATTACK turn-playerpriority1. This is a valid Action card target and legal Instant window even AP0. ELE explicitInstant row/FUSED_Lightning and CombatChoicesAction guards match printed restriction; actual AA exists so no missingtarget/cost/timingmask. Freshhistory has no LightningFusion. Rejection then actual4damage/HP16/AP0/ownedGGY6 and retainedItem5 rules out leakedGA/target effect in this branch.",
+      "Assertiveness initialHand4 includes realAA6 plus7/8/9. ActualAA6 playscost0, leaving three real Hand cards. Its Item click is placed after DEFEND_PRIORITY\u2192REACTION and before first Reaction pass, actual turn-player/attacker1priority, so AttackReaction timing and currentAA6 target are legal evenAP0. EVR explicitREACTION0 row+Hand>=4 guard isolates falseHand3 prerequisite. Real Deck10/11 includes a genuine AA topcard, so emptydeck/target cannotmask an effect.",
+      "Both immediate rejection checkpoints preserve same Item5ready/owner/controller, Stack0/no cost/queues/payment, actual CC6/RoleATTACK, assets and relevant Hand/Deck identities. Source is never destroyed/targeted. Actual full fourmanual combat deals4/HP16 and source6 ownedGGY, while allthree remainingHand and orderedDeck10/11 persist for Assertiveness. No extra granted-hit event occurs; initialItem is not newlyplayed.",
+      "Both groups independentlyunrepresented/currentexactledger0; no author-only defense/can_play/can_activate kinds. Only named false-prerequisite branches are approved, with native/store/replay pending Root."
+    ],
+    "limits": [
+      "No positive fusion/Hand4 activation, formal-target declaration or granted hit/exile/play permission timing, hero activation, item entry/creator ownership, source/sibling/support/full-card credit.",
+      "Native input retention/rejection, exact saved assertions and one clean replay remain Root-owned. Any mismatch held unsaved/unqualified, no weakening or engine repair.",
+      "Reviewer ran no PHP/native/game/test and changed no T/source/original/Git/network/auth/engine; only this W receipt written."
+    ]
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1000-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "a643fd4eec3845930a14300314101e1571518bb85a030d1a03f309120e3d184a"
+  },
+  "full_suite_run": false
+}

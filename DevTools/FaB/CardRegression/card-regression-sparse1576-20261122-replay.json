@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-dorinthea-ironsong-two-live-sparse1576-blocked-first-sword-no-extra-use-despite-go-again",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-dorinthea-ironsong-two-live-sparse1576-blocked-first-sword-no-extra-use-despite-go-again",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1576-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1576-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "0b309f15ed800af4fe2e2e9461b03336994dbd3d72cea518336dd060f925f555",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "95fb4313c0cfce31ea827a6117a42eeaf74235ef9ec9f5f7a75e1b6bdbfe65fc",
+        "actions.json": "006a33828337780e8411b51a94c247a538c1b87a0672c1bb48dbc9278fee7596",
+        "assertions.json": "09c7536eb3c8449b2d7b7ee0879e30bd0af402b81f4492ce13a2b0ea83a80c70",
+        "expected_final_gamestate.txt": "24ca6a0398670d31b6e1de9098b3051e386a757da57aa9e4a453e314b50151e9",
+        "meta.json": "ac732902785067f13b55cca3e5edd74c830384c8614a0daa451148b3d9879c0e"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

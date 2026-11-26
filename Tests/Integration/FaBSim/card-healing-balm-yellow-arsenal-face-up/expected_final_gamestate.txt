@@ -82,7 +82,7 @@ healing_balm_yellow 3 1 1 0
 0
 1
 0
-{"window":"ACTION","combatOpen":false,"combatStep":"NONE","chainLink":0,"attacker":0,"defender":0,"attackUID":0,"attackTarget":null,"pendingAttackTarget":null,"previousAttackCardID":"","handBlockUIDs":[],"intimidated":[],"pendingPayment":null,"lastAttackName":"","attackHit":false,"attackPower":0,"defenseValue":0,"damageDealt":0,"declaredBlockUIDs":[],"passiveSeats":[],"gameMode":"","turnEffects":{"1":[{"type":"EVR_PLAYED","amount":1,"uses":1},{"type":"EVR_GRAVEYARD","amount":1,"uses":1},{"type":"ROS_LIFE","amount":2,"uses":1}],"2":[{"type":"EVR_GRAVEYARD","amount":1,"uses":1}]},"nextTurnEffects":[],"hitsThisTurn":[],"cardsPlayedThisTurn":{"1":["healing_balm_yellow"]},"arcCards":{"3":{"iarOrigin":1,"mstChiPitched":0,"rosMeld":-1,"rosSurgeGo":false,"faceUp":true,"evoDashPlay":false,"omnFirstDamage":false,"iarPlayedFrom":"Arsenal","mstFree":false,"rosLastLightning":false,"iarPermission":[]}},"arcActions":{"1":1},"eleKorshemActiveTurn":2}
+{"window":"ACTION","combatOpen":false,"combatStep":"NONE","chainLink":0,"attacker":0,"defender":0,"attackUID":0,"attackTarget":null,"pendingAttackTarget":null,"previousAttackCardID":"","handBlockUIDs":[],"intimidated":[],"pendingPayment":null,"lastAttackName":"","attackHit":false,"attackPower":0,"defenseValue":0,"damageDealt":0,"declaredBlockUIDs":[],"passiveSeats":[],"gameMode":"","turnEffects":{"1":[{"type":"EVR_PLAYED","amount":1,"uses":1},{"type":"ROS_LIFE","amount":2,"uses":1},{"type":"EVR_GRAVEYARD","amount":1,"uses":1}],"2":[{"type":"EVR_GRAVEYARD","amount":1,"uses":1}]},"nextTurnEffects":[],"hitsThisTurn":[],"cardsPlayedThisTurn":{"1":["healing_balm_yellow"]},"arcCards":{"3":{"iarOrigin":1,"mstChiPitched":0,"rosMeld":-1,"rosSurgeGo":false,"faceUp":true,"evoDashPlay":false,"omnFirstDamage":false,"iarPlayedFrom":"Arsenal","mstFree":false,"rosLastLightning":false,"iarPermission":[]}},"arcActions":{"1":1},"eleKorshemActiveTurn":2}
 0
 12
 12
@@ -100,7 +100,7 @@ healing_balm_yellow 3 1 1 0
 1
 MAIN
 
-{"mzID":"p1Graveyard-0","mzIDCardID":"healing_balm_yellow","cardID":"healing_balm_yellow","fromZone":"Arsenal","fabSourceZone":"Arsenal","evoEvent":""}
+{"mzID":"Stack-0","mzIDCardID":"healing_balm_yellow","cardID":"healing_balm_yellow","fromZone":"Arsenal","fabSourceZone":"Arsenal","evoEvent":""}
 {"PlayCardCalls":{"1":1},"PlayCard":{"1":{"healing_balm_yellow":1}}}
 {"PlayCardCalls":{"1":1},"PlayCard":{"1":{"healing_balm_yellow":1}}}
 3

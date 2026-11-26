@@ -1,0 +1,143 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "Root final card-text/schema/flow review of packet authored by /root/breadth_review; Root exact saved mapping and replay",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse886-20261122.json",
+  "source_spec_sha256": "e9a180f944b64d919c4eb67fe6caad3d19d3206f2f7199667e8c2256459605e8",
+  "input_sha256": "e9a180f944b64d919c4eb67fe6caad3d19d3206f2f7199667e8c2256459605e8",
+  "recorded_input_scope": "Exact original native input, possibly containing unsaved failed cases excluded from this qualified subset; each retained case compared verbatim.",
+  "fixtures": [
+    {
+      "slug": "card-bonebreaker-bellow-red-four-live-sparse886-actual-beat-chest-then-real-brute-attack-consumes-five-power-for-eleven-damage",
+      "card_id": "bonebreaker_bellow_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "1db650cf3534756bcb502d76558e94bd14f0fec69fb1d91a233a8cde2b353f27",
+        "actions.json": "5f21b973bae43eb1b457fcc594419f00515bbd83a13c48034a45ccefc7b21a05",
+        "assertions.json": "bf5f5492f159465ea2f664e8fb0860e77eee30fe0d160062edb9fd075828c692",
+        "expected_final_gamestate.txt": "125adf808165986a66751b1db7b4294dfcda6db4bc21c03805e6f6225efc4151",
+        "meta.json": "194050e3664fc8d771b048b5c32044e187b067e9081db59cd80b4268456ae3d2"
+      },
+      "fixture_sha256": "810e1c81e62d3211ffaef31c19b76a84ed08856edf7451a2497dd5c43ce06cc3",
+      "actions": 35,
+      "native_assertions": 178,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 29,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse886-20261122.json",
+      "input_sha256": "e9a180f944b64d919c4eb67fe6caad3d19d3206f2f7199667e8c2256459605e8",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse886-local-20261122\\save\\selected.json",
+      "real_primary_and_consumer_uid_conservation": {
+        "Graveyard": [
+          5,
+          7,
+          8
+        ],
+        "Pitch": [
+          6,
+          9
+        ]
+      }
+    },
+    {
+      "slug": "card-charge-of-the-light-brigade-red-four-live-sparse886-real-next-charged-attack-buff-and-yellow-charge-earn-seven-damage",
+      "card_id": "charge_of_the_light_brigade_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "22ba306b7fb3453d82be154075a80625d2133cbfa76b7867fa8e579ab6cd8f0a",
+        "actions.json": "5cfaa1b6fe12492ef6fa32998522c3344e131d7df975909687915e6fd2926a0d",
+        "assertions.json": "a6fe8642fafbe5bec29df2d69f75932eba133847cf630a61c686284a8905356b",
+        "expected_final_gamestate.txt": "8fa37ce2c4e255400b18e3c5f0a8adf17915169ef6b40e3cd86d894e1cfe8624",
+        "meta.json": "11bd8229eb09d770efe19e79daa5e3d864d26331d520534596ceac4166ef9b3e"
+      },
+      "fixture_sha256": "a9a97332fabe53aee407ca820aba9d0f7477a6a30ae07d8bdadfa57f026d8097",
+      "actions": 33,
+      "native_assertions": 157,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 29,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse886-20261122.json",
+      "input_sha256": "e9a180f944b64d919c4eb67fe6caad3d19d3206f2f7199667e8c2256459605e8",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse886-local-20261122\\save\\selected.json",
+      "real_primary_and_consumer_uid_conservation": {
+        "Graveyard": [
+          5,
+          6
+        ],
+        "Soul": [
+          7
+        ]
+      }
+    }
+  ],
+  "basis": {
+    "review_type": "independent_static_semantic_review",
+    "reviewer": "Root final card-text/schema/flow review of packet authored by /root/breadth_review; Root exact saved mapping and replay",
+    "result": "approved_named_branches_only_pending_native_execution",
+    "spec_sha256": "e9a180f944b64d919c4eb67fe6caad3d19d3206f2f7199667e8c2256459605e8",
+    "reviewed": [
+      {
+        "card": "bonebreaker_bellow_red",
+        "branch": "actual_beat_chest_then_real_brute_attack_consumes_five_power_for_eleven_damage"
+      },
+      {
+        "card": "charge_of_the_light_brigade_red",
+        "branch": "real_next_charged_attack_buff_and_yellow_charge_earn_seven_damage"
+      }
+    ],
+    "evidence": [
+      "Bonebreaker printedBeatChest chooses actual6powerSmashUID7 beforecost, firstBlue6cost1leaves2resources, sourceGAreturns1AP, later distinctBlue9 pays BeastWithin6cost3 leaving2R; actual11damage pins conditional5buff. Levia avoidsRhinar discard trigger; Beast graveyard clause excludesCombatChain.",
+      "ChargeBrigade printednextchargedattack3buff+Beamingbase3+actualYellowcharge1=7damage; noAAdefenders meansBoltyn defended bonus absent. SourceNAA GAreturns1 used by actualchargeattack; supportnoGAends0AP.",
+      "Root corrected one unsupported transport oracle: Soul schema onlyCardID/UID, so initialHand7Owner1 is guarded and exactUID7 move toSoul is pinned instead of querying nonexistentSoul.Owner. All charge, damage, zone conservation assertions preserved.",
+      "Costs and real physical UID flow, naturalHeroHP20, all4manualsourceandcombatphase responses checked. No seededbuffs or cachedpower substituted for actualtargetHealth."
+    ],
+    "limits": [
+      "Onepositiveconsumer branch each, no uncharged/declineBeatChest/wrongClass/secondAttack/blocks/deepcombos.",
+      "Onlyprimarygroups getcredit; supportingcards receive no newrepresentation credit."
+    ]
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse886-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "74bcd6ab0afe1b332fbeb8bd7ad4eb9dae7197e45d55386a579c849541d093cb"
+  },
+  "full_suite_run": false,
+  "additional_validation": [
+    {
+      "card": "bonebreaker_bellow_red",
+      "physical_uid_conservation": {
+        "Graveyard": [
+          5,
+          7,
+          8
+        ],
+        "Pitch": [
+          6,
+          9
+        ]
+      },
+      "support_cards_receive_group_credit": false
+    },
+    {
+      "card": "charge_of_the_light_brigade_red",
+      "physical_uid_conservation": {
+        "Graveyard": [
+          5,
+          6
+        ],
+        "Soul": [
+          7
+        ]
+      },
+      "support_cards_receive_group_credit": false
+    }
+  ]
+}

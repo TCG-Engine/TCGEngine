@@ -1,0 +1,7 @@
+{
+    "name": "Evo Cogspitter / four-live actual matching base transform",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-23T07:44:30+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "If you have a base arms equipped, **transform** it into this, then equip this.\n\n**Once per Turn Instant** - Destroy a card under this: Put an item with cost 1 or less from your hand into the arena.\n\n**Blade Break** Named positive transform/equip branch only. Legal naturalTeklovossen20 owns source5Hand and actual matching teklo_base_arms6 ready Equipment/Counters[]. Printedcost0 spendsAP1 to0 withoutpitch. Four live seats manually respond while source5Stack/baseoriginalEquipment unchanged. Resolution transforms actual matching base into source5Evo, nowreadyowned/controller1Equipment with SUBCARDS exactly[baseID]; base notindependentEquipment, Stack0/GY0/noArena/Temp/newUID/APgain. Noactivation/material destruction/export/defense/BladeBreak/equiptrigger/hero/support/sibling/fullcardcredit; inherited undercard-export owner concern unentered/unclosed. Sources: FaBSim/GeneratedCode/cardArrayCache.json#evo_cogspitter_yellow"
+}

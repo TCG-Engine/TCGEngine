@@ -1,0 +1,174 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "independent breadth_review",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse906-20261122.json",
+  "source_spec_sha256": "3f254560818cbfa1ab078f93604a71fdecb4b5abbcc7f7b97f849fe5cf6c11c0",
+  "input_sha256": "3f254560818cbfa1ab078f93604a71fdecb4b5abbcc7f7b97f849fe5cf6c11c0",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-shadowrealm-reaper-yellow-four-live-sparse906-actual-hand-origin-without-banish-origin-bonus",
+      "card_id": "shadowrealm_reaper_yellow",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "4c232b28533deda97b34c0ca1a95860d45670b1252f81d5ddbe473ccfdb2f129",
+        "actions.json": "25920dc16af50701b0be20453cc3345d5c14a09166881d7481930bfb87552093",
+        "assertions.json": "96840ecfe76f56bc46d6d3fb1695b4787c2c7e68d0d69701c4466dc48f43892e",
+        "expected_final_gamestate.txt": "eb46df50e74972dddb357b206bef75a26d46d29ade060e8cbd7e7ef6830fe2d5",
+        "meta.json": "4ab87324955633928af0a06e6d448d187cb2dd4c789c2f38e8d2882b67aa941d"
+      },
+      "fixture_sha256": "5794c70d37b737ecdc549314eb83ffc2f9de864f3cbd935e39fc9a11d1bc0df1",
+      "actions": 28,
+      "native_assertions": 121,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse906-20261122.json",
+      "input_sha256": "3f254560818cbfa1ab078f93604a71fdecb4b5abbcc7f7b97f849fe5cf6c11c0",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse906-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-shadowrealm-reaper-yellow-four-live-sparse906-actual-hand-origin-without-banish-origin-bonus",
+        "fixture_slug": "card-shadowrealm-reaper-yellow-four-live-sparse906-actual-hand-origin-without-banish-origin-bonus",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-slithering-shadowpede-red-four-live-sparse906-actual-hand-origin-without-banish-permission-claim",
+      "card_id": "slithering_shadowpede_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "24488c96dcea30be732b39fc1097e61b882a15eef16e364a6071092c88bd2e62",
+        "actions.json": "25920dc16af50701b0be20453cc3345d5c14a09166881d7481930bfb87552093",
+        "assertions.json": "19c46357625bbf1c92c59876d9481081ffe7087ab7bc7bf98622b556428f39a5",
+        "expected_final_gamestate.txt": "8f9f5d82cc771eec9a76784789a72fb9363a959c239facd617fa8c6bb91429ce",
+        "meta.json": "c23d66554130a20a497fa09e4b0069a647b7988c75688f135de62369a6e0fec8"
+      },
+      "fixture_sha256": "876e1c9a76ce124104d92fd890eb7664a3732f15c58a669da7a66c7e5b7d4be0",
+      "actions": 28,
+      "native_assertions": 121,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse906-20261122.json",
+      "input_sha256": "3f254560818cbfa1ab078f93604a71fdecb4b5abbcc7f7b97f849fe5cf6c11c0",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse906-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-slithering-shadowpede-red-four-live-sparse906-actual-hand-origin-without-banish-permission-claim",
+        "fixture_slug": "card-slithering-shadowpede-red-four-live-sparse906-actual-hand-origin-without-banish-permission-claim",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-skyzyk-red-four-live-sparse906-actual-three-without-go-again-power-bonus",
+      "card_id": "skyzyk_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "fc065a14cdefbc43e554de1c362012173142dbe8223302048e05192fd54f1942",
+        "actions.json": "71f0d0f07cf85244a3ec27fdb1f824cd62aa3126d639c98c13ca23327907bd8b",
+        "assertions.json": "41762c2e39c2521a71daa24afc1480c79418dded7d4979dd43bdf00ad6bc6d5f",
+        "expected_final_gamestate.txt": "581d26f9df1fb8fd066039d3bdfed3f5af3590d334c3044123e510ade437e260",
+        "meta.json": "85cc4b159a2d50d50f81a0bbefbda06ab1f71a88e8e2fe806e5427e39b8d9c7e"
+      },
+      "fixture_sha256": "296ef80c0c23682fc8970bf5314de1ff44e61e980a641e079086557ea0ab34d6",
+      "actions": 27,
+      "native_assertions": 113,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse906-20261122.json",
+      "input_sha256": "3f254560818cbfa1ab078f93604a71fdecb4b5abbcc7f7b97f849fe5cf6c11c0",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse906-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-skyzyk-red-four-live-sparse906-actual-three-without-go-again-power-bonus",
+        "fixture_slug": "card-skyzyk-red-four-live-sparse906-actual-three-without-go-again-power-bonus",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-back-heel-kick-red-four-live-sparse906-actual-three-without-combo-or-power-gain",
+      "card_id": "back_heel_kick_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "c856b974c224d645273d187a9cf8357f961473211605f6d27f998f20e78ff81c",
+        "actions.json": "71f0d0f07cf85244a3ec27fdb1f824cd62aa3126d639c98c13ca23327907bd8b",
+        "assertions.json": "b08bb31da061d59e4f0e12dccc043ecc039e1616350a3a5ce48bf3e0a566d9d7",
+        "expected_final_gamestate.txt": "f177e0e0c74f19f70624a02f052d7b8928422764da429a622962de5c53b3f761",
+        "meta.json": "aebf9f129dfe7fccf9b780112b346538c08cac384624a40e9f7647220113c8e0"
+      },
+      "fixture_sha256": "d9277cf6c5f2136715c61b2640accb4db408bb7a0a82dde2c1524ca5f9e5fdef",
+      "actions": 27,
+      "native_assertions": 113,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse906-20261122.json",
+      "input_sha256": "3f254560818cbfa1ab078f93604a71fdecb4b5abbcc7f7b97f849fe5cf6c11c0",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse906-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-back-heel-kick-red-four-live-sparse906-actual-three-without-combo-or-power-gain",
+        "fixture_slug": "card-back-heel-kick-red-four-live-sparse906-actual-three-without-combo-or-power-gain",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-crane-dance-red-four-live-sparse906-actual-three-without-combo-power-or-go-again",
+      "card_id": "crane_dance_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "7be5db7ca5fa7aff84b7a1ecdf2e414edb0c303065da7665b28b9a173fa50458",
+        "actions.json": "71f0d0f07cf85244a3ec27fdb1f824cd62aa3126d639c98c13ca23327907bd8b",
+        "assertions.json": "79a2d9bbc5879429c7004c2c18efa2beb5d66def0145d7866f3d195d57465c7e",
+        "expected_final_gamestate.txt": "deb4ed43c57d5173e78e51551e98d2d916f0839e46bd852505080366650e20a1",
+        "meta.json": "3ae5590a9e26db42179c0d8a1a4d7fef724c9bea13d5fdf6714b1f25771b15a7"
+      },
+      "fixture_sha256": "980bcce41cb6149a3a313e6d45247e9b8f6440e89c2b40816262f34d15b9c2d9",
+      "actions": 27,
+      "native_assertions": 113,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse906-20261122.json",
+      "input_sha256": "3f254560818cbfa1ab078f93604a71fdecb4b5abbcc7f7b97f849fe5cf6c11c0",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse906-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-crane-dance-red-four-live-sparse906-actual-three-without-combo-power-or-go-again",
+        "fixture_slug": "card-crane-dance-red-four-live-sparse906-actual-three-without-combo-power-or-go-again",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "reviewer": "independent breadth_review",
+    "result": "approved_named_branches_only_pending_native_execution",
+    "spec_sha256": "3f254560818cbfa1ab078f93604a71fdecb4b5abbcc7f7b97f849fe5cf6c11c0",
+    "reviewed": [
+      "Cached printed costs/powers2/5,1/6,0/3,0/3,0/3 match realBlue6 payment for first2 and no pitch for last3; AP0/noGA, physical5Hand/Stack/ATTACK/ownGY and actualHero4damage are meaningful native outcomes. Four live manual seats; proper prepayment attack target and lean combat phases.",
+      "Legal natural20HP LeviaShadow/Brute, LexiLightningEssence and FaiNinja. Fresh cases contain only primary+neededBlue, no previous attack, Banish, charge, power gain or GA effect; no Katsu/Briar hit triggers. Printed conditions are static, not earned WHEN layers.",
+      "Reaper IARPlayed +1/GA is restricted to actual Banish origin, while tested source is Hand. Shadowpede DTD_HAND_BANISH permission is irrelevant to legal Hand play. BackHeel OUTCombo requires actual TwinTwisters history and modifies an actual gained-power tag; neither occurs. Crane CRU condition checks prior SoulbeadStrike, absent. Skyzyk printed noGA means base3; only native base attack producer is covered, not its positive GA scaling."
+    ],
+    "limits": [
+      "Static source/spec review only; native execution and clean replay pending.",
+      "No positive Banish-origin/permission, BloodDebt end phase, Combo/gained-power/defense restriction or GA-scaling claim. Skyzyk positive-condition producer not established by this base branch.",
+      "No supporting-card or sibling group credit; no cost/target/mode/ownership/earned-trigger repair probe.",
+      "No native PHP/games, T edits, network or Git mutation by reviewer."
+    ]
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse906-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "bcc5a5b05a164ec64aed39648167499b38704f546c4acf6f4279b888cc796c5d"
+  },
+  "full_suite_run": false
+}

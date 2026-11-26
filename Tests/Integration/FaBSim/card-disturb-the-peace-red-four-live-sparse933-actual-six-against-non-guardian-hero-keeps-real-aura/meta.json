@@ -1,0 +1,7 @@
+{
+    "name": "Disturb the Peace / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T20:40:58+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "This can't be defended by Guardian auras.\n\nWhen this hits a Guardian hero, destroy an aura they control. Representative only: actual_six_against_non_guardian_hero_keeps_real_aura. Actual printed payment, four manual live seats/full unblocked combat, real health loss and physical owned source in graveyard. No positive typed-hit/Combo/Draconic threshold or pitch sibling credit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#disturb_the_peace_red"
+}

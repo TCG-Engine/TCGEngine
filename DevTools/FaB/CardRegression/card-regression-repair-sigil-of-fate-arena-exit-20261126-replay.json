@@ -1,0 +1,40 @@
+{
+  "runtime": "7fd1365f95dd62624d86af47191911fbd0b3b721983de93497c9087406e7cd9c",
+  "fixtures": [
+    {
+      "slug": "repair-sigil-of-fate-four-live-20261126-real-token-leave-observed",
+      "passed": true,
+      "runtime": "7fd1365f95dd62624d86af47191911fbd0b3b721983de93497c9087406e7cd9c",
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=repair-sigil-of-fate-four-live-20261126-real-token-leave-observed",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\arena-exit215-224\\sigil_of_fate\\strict1.log"
+      ],
+      "returncode": 0,
+      "complete_log_sha256": "a7cba625b99d589fcb122f0fd8a7cfabd95e1cf83f79a858ae2146bff9906d67",
+      "raw5_unchanged": true
+    },
+    {
+      "slug": "repair-rest-before-battle-yellow-four-live-20261125-no-history-rejected-real-weapon-four-damage-then-legal-aura",
+      "passed": true,
+      "runtime": "7fd1365f95dd62624d86af47191911fbd0b3b721983de93497c9087406e7cd9c",
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=repair-rest-before-battle-yellow-four-live-20261125-no-history-rejected-real-weapon-four-damage-then-legal-aura",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\arena-exit215-224\\sigil_of_fate\\strict2.log"
+      ],
+      "returncode": 0,
+      "complete_log_sha256": "d47463d9e0e56804265c3d6e4cc5bb75e59fb64e261723bb44afa538b9878c56",
+      "raw5_unchanged": true
+    }
+  ],
+  "full_suite_run": false
+}

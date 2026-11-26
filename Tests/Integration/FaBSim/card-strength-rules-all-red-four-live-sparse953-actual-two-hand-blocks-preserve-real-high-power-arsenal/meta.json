@@ -1,0 +1,7 @@
+{
+    "name": "Strength Rules All / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T21:38:44+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "When this hits a hero, turn a card in their arsenal face-up, then banish an attack action card in their arsenal with {p} less than the damage dealt this way. ActualtwoHandAAeachdef3block6>=printedpower, actual0damage/HP20/attackHitfalse/Stack0. Realeligiblephysicalitem/Arsenal/Aura andforSnuffHandretained withsameOwner/controller, so noearneddestruction/banish/discard. PrintedcostrealBlue6/AP0/source5andblockersGY. AlternateInstantandpositiveHituntested. Sources: FaBSim/GeneratedCode/cardArrayCache.json#strength_rules_all_red"
+}

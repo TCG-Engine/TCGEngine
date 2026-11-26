@@ -1,0 +1,253 @@
+{
+  "status": "APPROVED_ACTUAL_SAVED_B380_MELD_V2_ONLY_NO_GAMEPLAY_REPAIR",
+  "approved": true,
+  "source_approved": true,
+  "semantically_approved": true,
+  "reviewer": "/root/nov2_metadata_review",
+  "created_utc": "2026-11-04T19:29:53.490138+00:00",
+  "source_spec": "card-regression-batch380-meld-kind-v2.json",
+  "input_sha256": "be2924bbe7857a99a72d4ba9717a604371363d92b9c263efc5c44a98f5b318d8",
+  "manifest_sha256": "6df29868f67fc33107292d4ea8e2dd46834e36ee07914b3576e7626eadc7f57b",
+  "runtime_sha256": "a06b73d86676fe07a17afc400f983d03f85d55356c2347621ccd8196ad6645d3",
+  "recorded_runtime_sha256": "a06b73d86676fe07a17afc400f983d03f85d55356c2347621ccd8196ad6645d3",
+  "source_guards_verified": 26,
+  "prior_independent_semantic_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov4-batch380-meld-v2-independent-source-delta-review.json",
+    "sha256": "7cbabe467796d8dfd31936a9ddceb9dfcb3ac038eff20c1a564f357ad4e0904a",
+    "reused_exact_one_prechoice_oracle_delta": true
+  },
+  "original_source_semantic_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov4-batch380-independent-source-review.json",
+    "sha256": "21a39bc5ea697223757397f70f4b6b901a4e6643d36a6857fa5b598d8fea7bb3",
+    "reused_except_explicit_prechoice_kind_correction": true
+  },
+  "original_oracle_only_boundary": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov4-batch380-meld-independent-boundary-classification.json",
+    "sha256": "e850dc4252bcbfedaaa4577fe4574cb82346dc3186f217761a4c834f0a0b44f7"
+  },
+  "recording_receipt": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch380-meld-kind-v2-20261104T192644Z-6aeb86f4b261b.json",
+    "sha256": "1b901d25e61e1fd269e4eaadc1ee1f75342177f199352419acdf53b7d8d4cc74"
+  },
+  "root_wrapper_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov4-b380-meld-v2-native-a06-r1\\receipt.json",
+    "sha256": "357c12aac64e875439f2249f168a6345ee7db233b62af327c3317f03a7ace94b"
+  },
+  "actual_comparison_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov4_batch380_meld_v2_saved_readonly.py",
+    "sha256": "8c7dd89643a3a770280850c6d847a4b6668907742bd476f1aed324ae243c28d1"
+  },
+  "reviewer_independence": "Next authored the original case; Root prepared the one-value prechoice oracle delta. Reviewer authored neither scenario nor implementation and performed no native execution.",
+  "fixtures": [
+    {
+      "index": 0,
+      "card_id": "arcane_seeds_life_red",
+      "group_id": "identity:arcane_seeds_life_red",
+      "slug": "card-arcane-seeds-life-red-four-live-sparse-real-declared-meld-life-then-two-runechants-separate-responses",
+      "source_spec": "card-regression-batch380-meld-kind-v2.json",
+      "input_sha256": "be2924bbe7857a99a72d4ba9717a604371363d92b9c263efc5c44a98f5b318d8",
+      "reviewer": "/root/nov2_metadata_review",
+      "approved": true,
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_MELD_BOTH_TWO_DISTINCT_RESPONSE_ROUNDS",
+      "runtime_sha256": "a06b73d86676fe07a17afc400f983d03f85d55356c2347621ccd8196ad6645d3",
+      "recorded_runtime_sha256": "a06b73d86676fe07a17afc400f983d03f85d55356c2347621ccd8196ad6645d3",
+      "fixture_path": "Tests\\Integration\\FaBSim\\card-arcane-seeds-life-red-four-live-sparse-real-declared-meld-life-then-two-runechants-separate-responses",
+      "fixture_sha256": "ae732474b40fea0d0493b28c44e8e19cf86e181408c5b85ed94c625de6163f92",
+      "raw4_sha256": {
+        "initial_gamestate.txt": "5ddb1bc9b963745a0f9d175f2544cca83e079fa969d8ceeb52132a3447d96ece",
+        "actions.json": "c13ad2a9127376cf3232fc6353b3cfce6f1242a1821c91e12b6be6af1f46adc8",
+        "assertions.json": "2697757fb824eaece541875d610a862a63b94f88b5b65d42e063318feee86178",
+        "expected_final_gamestate.txt": "11eaec7c6026090d31fb2db31dd7d44c4d7ecbb72488f67f592ef12c6616981e"
+      },
+      "raw5_sha256": {
+        "initial_gamestate.txt": "5ddb1bc9b963745a0f9d175f2544cca83e079fa969d8ceeb52132a3447d96ece",
+        "actions.json": "c13ad2a9127376cf3232fc6353b3cfce6f1242a1821c91e12b6be6af1f46adc8",
+        "assertions.json": "2697757fb824eaece541875d610a862a63b94f88b5b65d42e063318feee86178",
+        "expected_final_gamestate.txt": "11eaec7c6026090d31fb2db31dd7d44c4d7ecbb72488f67f592ef12c6616981e",
+        "meta.json": "e9bddd5fd041acb8674026ad1294d9efe8a48efe682d77ea6ad2dabedfb9e32c"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "5ddb1bc9b963745a0f9d175f2544cca83e079fa969d8ceeb52132a3447d96ece",
+        "actions.json": "c13ad2a9127376cf3232fc6353b3cfce6f1242a1821c91e12b6be6af1f46adc8",
+        "assertions.json": "2697757fb824eaece541875d610a862a63b94f88b5b65d42e063318feee86178",
+        "expected_final_gamestate.txt": "11eaec7c6026090d31fb2db31dd7d44c4d7ecbb72488f67f592ef12c6616981e",
+        "meta.json": "e9bddd5fd041acb8674026ad1294d9efe8a48efe682d77ea6ad2dabedfb9e32c"
+      },
+      "actions": 10,
+      "native_assertions": 849,
+      "actual_manual_passes": 8,
+      "actual_priority_response_passes": 8,
+      "actual_defender_declaration_finish_inputs": 0,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4
+      ],
+      "actual_manual_actor_counts": {
+        "1": 2,
+        "2": 2,
+        "3": 2,
+        "4": 2
+      },
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "all_actions_and_assertions_exact": true,
+      "all_endpoint_physical_uid_card_zones_ownership_verified": true,
+      "all_terminal_assertions_evaluated_against_parsed_final_snapshot": true,
+      "initial_assertions_also_evaluated_against_parsed_initial_snapshot": true,
+      "initial_physical_uid_locations": {
+        "1": {
+          "card_id": "florian",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "5": {
+          "card_id": "arcane_seeds_life_red",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2
+        }
+      },
+      "final_physical_uid_locations": {
+        "1": {
+          "card_id": "florian",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "6": {
+          "card_id": "runechant",
+          "zone": "p1Arena",
+          "owner": 1,
+          "controller": 1,
+          "status": 2,
+          "damage": 0
+        },
+        "7": {
+          "card_id": "runechant",
+          "zone": "p1Arena",
+          "owner": 1,
+          "controller": 1,
+          "status": 2,
+          "damage": 0
+        },
+        "5": {
+          "card_id": "arcane_seeds_life_red",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2
+        }
+      },
+      "final_health": [
+        21,
+        20,
+        20,
+        20
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_AP": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "final_Hero_Status": [
+        2,
+        2,
+        2,
+        2
+      ],
+      "final_physical_uidset": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "final_UniqueIDCounter": 7,
+      "RandomCounter": 0,
+      "actual_raw_rosMeld": 2,
+      "actual_raw_rosSide": 0,
+      "actual_raw_RunesCreated": 2,
+      "actual_raw_LifeEvent": 1,
+      "checkpoint_assertion_mapping_sha256": "0479a4d1311e292e98dc600d56e1fa4d400d6255d0a386d9594d1376dfce963a",
+      "native_action_mapping_sha256": "a9e27b3fb7d83baba955500d4773d4e108e0341fcc6ff4580c9902cbf6a34b35",
+      "native_assertion_mapping_sha256": "6ce85e48969f5b297567526d01679d77d0be70ff24ebfb992d38ad2fef99db69"
+    }
+  ],
+  "blocked_attempts": [],
+  "total_actions": 10,
+  "total_native_assertions": 849,
+  "total_manual_passes": 8,
+  "total_priority_response_passes": 8,
+  "total_defender_declaration_finish_inputs": 0,
+  "material_findings": [
+    "Actual initial four live manual seats/young Florian Earth Runeblade20 and three Dorinthea20; sole Hand source5, no assets/Earth Banish/Aura/Runes/history/effects/permissions seeded. Actual modal answer2 declares BOTH, printed resource0+0 and one AP cost; provisional pre-choice KindINSTANT then all eight post-declaration KindACTION checkpoints match approved V2.",
+    "Two separate manual 1,2,3,4 response rounds. Actual first fourth response input6 heals exactly1 toHP21, retains physical5Stack ACTION/SourceHand5, Arenaempty/AP0/Counter5 and resets priority for another full round. Actual second fourth response input10 creates exactly owned ready undamaged Runechants6,7, places source5public ownGY, returns ownGA/AP1, HP remains21; no early Runechants or double healing.",
+    "All10 actual native envelopes/849 ordered persisted assertions/eight manual actors, whole initial/final physical UID/CardID/owner/controller zones/economy and all48 endpoint shortcut settings verified. Raw final confirms rosMeld2/rosSide0, RUNES_CREATED2 and one ROS_LIFE event; only original1..5 plus two new tokens6,7, no entropy, payment/DQ/Stack/combat/await cleanup."
+  ],
+  "limits": [
+    "One current Meld BOTH branch only. No half-only/other cost/tax/third resolution/Runechant attack/Florian replacement/sibling/support-primary/full-card credit.",
+    "Original failed prechoice enum was an oracle representation correction, not a gameplay defect or source repair. Original full packet and existing Savage fixture remain separate and are not rerecorded or retagged.",
+    "Intermediate facts are passed ordered native checks, not invented per-input raw snapshots; initial/final are fully parsed raw artifacts. Root focused replays/registration separate.",
+    "No PHP/native/replay/R/source/service/generation/full-suite execution by reviewer; ten old holds/Smash Item branch preserved."
+  ]
+}

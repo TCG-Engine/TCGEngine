@@ -128,6 +128,38 @@
         "inputText": ""
     },
     {
+        "playerID": 1,
+        "mode": 10001,
+        "buttonInput": "",
+        "cardID": "!CustomInput!Pass",
+        "chkInput": [],
+        "inputText": ""
+    },
+    {
+        "playerID": 2,
+        "mode": 10001,
+        "buttonInput": "",
+        "cardID": "!CustomInput!Pass",
+        "chkInput": [],
+        "inputText": ""
+    },
+    {
+        "playerID": 3,
+        "mode": 10001,
+        "buttonInput": "",
+        "cardID": "!CustomInput!Pass",
+        "chkInput": [],
+        "inputText": ""
+    },
+    {
+        "playerID": 4,
+        "mode": 10001,
+        "buttonInput": "",
+        "cardID": "!CustomInput!Pass",
+        "chkInput": [],
+        "inputText": ""
+    },
+    {
         "playerID": 4,
         "mode": 10001,
         "buttonInput": "",

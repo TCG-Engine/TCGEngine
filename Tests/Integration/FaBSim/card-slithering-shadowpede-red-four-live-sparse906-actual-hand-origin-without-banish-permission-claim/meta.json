@@ -1,0 +1,7 @@
+{
+    "name": "Slithering Shadowpede / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T18:38:37+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "If this was banished from your hand this turn, you may play it from your banished zone.\n\n**Blood Debt** Representative only: actual_hand_origin_without_banish_permission_claim. Other pitch siblings, alternate targets and unexercised branches receive no credit. All four live/manual; only native entry-point actions. Sources: FaBSim/GeneratedCode/cardArrayCache.json#slithering_shadowpede_red"
+}

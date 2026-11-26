@@ -1,0 +1,39 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch649.json",
+  "runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+  "returncode": 0,
+  "completed_utc": "2026-11-06T21:49:05.175846+00:00",
+  "fixtures": [
+    {
+      "slug": "card-second-tenet-of-chi-tide-blue-four-live-real-sigil-homage-transcend-and-seven-damage",
+      "fixture_sha256": "f3be141adae5a868dd5c2ed9b0e531f7b37204ffcb51f38339d4e639c8ddeb47",
+      "passed": true,
+      "result": "[PASS] second_tenet_of_chi_tide_blue / four live distinctive effect"
+    },
+    {
+      "slug": "card-second-tenet-of-chi-wind-blue-four-live-real-sigil-homage-transcend-and-go-again-consumer",
+      "fixture_sha256": "90a424040233449ed386b889871f48aebbe47a83d8a3345382a5ea22db7beb12",
+      "passed": true,
+      "result": "[PASS] second_tenet_of_chi_wind_blue / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-second-tenet-of-chi-tide-blue-four-live-real-sigil-homage-transcend-and-seven-damage",
+      "returncode": 0,
+      "stdout": "[PASS] second_tenet_of_chi_tide_blue / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-second-tenet-of-chi-wind-blue-four-live-real-sigil-homage-transcend-and-go-again-consumer",
+      "returncode": 0,
+      "stdout": "[PASS] second_tenet_of_chi_wind_blue / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 2,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

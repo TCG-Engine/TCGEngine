@@ -1,0 +1,7 @@
+{
+    "name": "Kick the Hornet's Nest / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-26T02:48:44+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "When an opponent's effect puts this into your graveyard from anywhere, create a Confidence, Might, Toughness, and Vigor token. Representative only: own_normal_combat_graveyard_not_opponent_effect_tokens. Other pitch siblings, alternate targets and unexercised branches receive no credit. All four live/manual; only native entry-point actions. Sources: FaBSim/GeneratedCode/cardArrayCache.json#kick_the_hornets_nest_yellow"
+}

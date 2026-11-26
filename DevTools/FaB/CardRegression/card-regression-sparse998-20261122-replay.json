@@ -1,0 +1,56 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-amulet-of-earth-blue-four-live-sparse998-no-earth-fusion-rejects-destroy-buff-then-real-base-attack",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-amulet-of-earth-blue-four-live-sparse998-no-earth-fusion-rejects-destroy-buff-then-real-base-attack",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse998-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse998-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "46ba56d1cdd5a668feec79097c272598c39b0f5e1b97117005591acb6cf82fb3",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "faac811bb41d76eefef99eb1f31feb59f3bd2f46d4476811f5766d9398e4486d",
+        "actions.json": "135f7e103758ae5362798979e3707659d4c74433be73bf0179ce6c49e55d45c2",
+        "assertions.json": "f39cffe5594a5bd416dc821e26f6b5c9e99ebbfd1bb30fc47c9e03d494cb02ee",
+        "expected_final_gamestate.txt": "f55de2097c081067d24d5021bc1a731d3c04ae7615244666dc68aa597479aba3",
+        "meta.json": "2361ab7878f3208f3b94f585efe68d6e8ff3b8c9d1c58a6f0ed35e178aecdbde"
+      }
+    },
+    {
+      "slug": "card-amulet-of-ice-blue-four-live-sparse998-no-ice-fusion-rejects-before-target-tax-then-real-attack",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-amulet-of-ice-blue-four-live-sparse998-no-ice-fusion-rejects-before-target-tax-then-real-attack",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse998-local-20261122\\clean-replays\\01.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse998-local-20261122\\clean-replays\\01.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "d3fff326462c95131abe2d15eb04a6e7fefbac49a4dfc4188c133ad8ffca463b",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "12a4d492fb00cd3f920422e500c4cac3097913c06c332481eba02c41e79a6bd1",
+        "actions.json": "135f7e103758ae5362798979e3707659d4c74433be73bf0179ce6c49e55d45c2",
+        "assertions.json": "06f92ccc443d49b34ba48daf953df87f7d77ceb21a88a02710b5da7036c2ef14",
+        "expected_final_gamestate.txt": "5495a948ea995dbe3abe0da86dfa44fc7cd1948d0319c35f4f05f9a3eb64e30e",
+        "meta.json": "eb4f38d3171c227c67ab662c727ea0617b05b8e5b6ca36a826f1fb0f528e9aef"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

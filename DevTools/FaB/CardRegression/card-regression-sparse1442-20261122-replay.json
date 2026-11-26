@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-malice-domina-of-the-dead-two-live-sparse1442-real-non-incarnate-zombie-death-trigger-banish-and-new-corpse",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-malice-domina-of-the-dead-two-live-sparse1442-real-non-incarnate-zombie-death-trigger-banish-and-new-corpse",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1442-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1442-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "1e1be6a076e14ce0a4dd9ff4f257353e69c867f8f6b175647ce83a668c0a3873",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "da108325b1ba04e3cd30cc5447a93494b16543e200e09fad6f8d7b6903f3d889",
+        "actions.json": "13359d023ee278cdb5acb01b4a72b59899fc3242944dd58d4a8f7484f1293643",
+        "assertions.json": "8c1e1be30fc788474ef2bffc0ce0730d099b0179e45cb6bd3bfc3930db225c4c",
+        "expected_final_gamestate.txt": "cee7664832eaca174322d69e4f827bb059040dc52f2c5d894478baf75c718a93",
+        "meta.json": "a257c66bfe0c82e6178ab39cfd1a8d59e2a7152b0b7a5bd5f26fdd7d4a70a977"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

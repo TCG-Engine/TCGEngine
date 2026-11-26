@@ -1,0 +1,7 @@
+{
+    "name": "Katsu, the Wanderer / first own attack action fully blocked earns no hit/discard/search trigger",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-25T15:17:58+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Two genuine manual adult CC KatsuWanderer40/DoriIronsong40. ActualHeadJabRed3Hand1cost0base3printedGA, actualWoundRed5Hand2DEF3. RealownWoundBlue4cost0remainsHand1/ComboWhelmingGustwaveBlue6Deck1 asnonvacuousavailablediscard/searchcandidates. FirstownAAformallydefaultssoleopposingHero2 beforeAP1to0. Bothmanualresponses/Attack/actualHanddefendercommit/Reaction; actual3minus3=0damage/noHit, noKatsuWHENdiscard/search/playpermissionlayerearned. ActualprintedHeadJabGA refundsAP1atResolution, fullClosebothphysicalcardsGY1/2, bothHero40/R0/UID6RNG0/noextraStack/DQ/Banish; eligibleownHand4andComboDeck6retained. No earlierhit/counter/historyseed; realeligiblecost0discardcardandComboDeckcardarepresent, butnosuccessfulsearchverificationisclaimed; onlygenuinezero-hit eventcondition, noteffectIFfalse. No positiveKatsuHit/search/ordinal/young/fourlive/support/wholecardcredit orenginechange. Sources: FaBSim/GeneratedCode/cardArrayCache.json#katsu_the_wanderer FaBSim/Custom/WTRCards.php FaBSim/Custom/WTRAbilities.php FaBSim/Custom/GameLogic.php FaBSim/GeneratedCode/GeneratedMacroCode.php"
+}

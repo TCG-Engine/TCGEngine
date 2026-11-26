@@ -1,0 +1,39 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-repair-edict120-fluid122-state-creation.json",
+  "runtime_sha256": "0bb5374c3ebce5ffe4c76d28e95d60954873489d005857e893f9c8453ec60e06",
+  "returncode": 0,
+  "completed_utc": "2026-11-16T23:04:15.300896+00:00",
+  "fixtures": [
+    {
+      "slug": "card-imperial-edict-red-four-live-post-close-same-turn-named-instant-remains-prohibited-correct-probe-v2",
+      "fixture_sha256": "f8492fa8bfb8aa2c965487ce7be2c668efd99a6cd3f29742881d894b6e98d775",
+      "passed": true,
+      "result": "[PASS] Imperial Edict Red: named Instant remains forbidden after combat closes in the same caster turn (correct probe V2)"
+    },
+    {
+      "slug": "card-fluid-motion-blue-four-live-real-created-graphene-token-earns-go-again-two-damage-and-action-refund-correct-probe",
+      "fixture_sha256": "5af4e5377d1f6d3501993a36bb75785fe50e26a2441e33258cc942f0c9088013",
+      "passed": true,
+      "result": "[PASS] fluid_motion_blue / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-imperial-edict-red-four-live-post-close-same-turn-named-instant-remains-prohibited-correct-probe-v2",
+      "returncode": 0,
+      "stdout": "[PASS] Imperial Edict Red: named Instant remains forbidden after combat closes in the same caster turn (correct probe V2)\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-fluid-motion-blue-four-live-real-created-graphene-token-earns-go-again-two-damage-and-action-refund-correct-probe",
+      "returncode": 0,
+      "stdout": "[PASS] fluid_motion_blue / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 2,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

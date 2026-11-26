@@ -1,0 +1,14 @@
+[
+    {
+        "slug": "repair-deathly-duet-red-four-live-20261125-false-pitch-condition-still-earns-layer",
+        "status": "recorded_semantically_checked",
+        "actions": 33,
+        "assertions": 348
+    },
+    {
+        "slug": "repair-deathly-duet-red-four-live-20261125-both-real-pitch-types-delayed-power-and-runes-six-damage",
+        "status": "recorded_semantically_checked",
+        "actions": 33,
+        "assertions": 164
+    }
+]

@@ -1,0 +1,23 @@
+{
+  "runtime": "3aa989176c22f1a39e08f36a370dfbbfa20e3956059d12417c8afff28a8e4c10",
+  "fixtures": [
+    {
+      "slug": "repair-cogwerx-zeppelin-red-four-live-20261126-ordinary-cost-not-cog-activation",
+      "passed": true,
+      "runtime": "3aa989176c22f1a39e08f36a370dfbbfa20e3956059d12417c8afff28a8e4c10",
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=repair-cogwerx-zeppelin-red-four-live-20261126-ordinary-cost-not-cog-activation",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\cog211-marlynn214\\cogwerx_zeppelin_red\\strict1.log"
+      ],
+      "returncode": 0,
+      "complete_log_sha256": "d16e24220d1e80d8cd213ab923caf45a330ffc22876e1ce92b4a45fa9da5c981",
+      "raw5_unchanged": true
+    }
+  ],
+  "full_suite_run": false
+}

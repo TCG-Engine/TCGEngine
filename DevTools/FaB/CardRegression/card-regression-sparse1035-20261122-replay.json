@@ -1,0 +1,56 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-spirit-of-eirina-yellow-four-live-sparse1035-actual-yellow-charge-redirects-same-physical-item-to-arena",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-spirit-of-eirina-yellow-four-live-sparse1035-actual-yellow-charge-redirects-same-physical-item-to-arena",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1035-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1035-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "ceedf30f8a464fda535af501be0b1bec68d05b2523e0b0d1e882aad78c9a36d6",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "65355bc575b3965ca74dbc6c4b22cb607c2118e4db3df23b2c81e624fcdab947",
+        "actions.json": "a950ce59591c7f31123076b0cd7a428cf4998e102d58f1cc6fb549001da696ed",
+        "assertions.json": "8a50bcfcef9b65b7c14903c5635a93f2adf35f78e9f96d03e49a8e495124de93",
+        "expected_final_gamestate.txt": "8e6b1f2e299aca5f57b180a447f0d14b0d8bd0e4508a95e611037c8544b306be",
+        "meta.json": "8e9ed4dba74c97ab40d591e77a8babfee104f20d3690eacda9cfb6b116f49fe8"
+      }
+    },
+    {
+      "slug": "card-spark-of-genius-yellow-four-live-sparse1035-x-one-real-double-cost-search-puts-item-and-retains-cost-two-marker",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-spark-of-genius-yellow-four-live-sparse1035-x-one-real-double-cost-search-puts-item-and-retains-cost-two-marker",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1035-local-20261122\\clean-replays\\01.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1035-local-20261122\\clean-replays\\01.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "322277a4b1f7f6e059762dc6e2ea642cb6624f26744825da4d21471e58df6009",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "3a5aa510a4687bd3e9115c0295f9d3bf43643208dbfa9d2b4aee456fd428844e",
+        "actions.json": "939249230df2da3d715e9be4a816df6d8165f1bd56ae1040627ce06a5a569b34",
+        "assertions.json": "2c02d584024f6b64ce6ea827915bc5e3d2149702fbba839f3d58ee9943e77134",
+        "expected_final_gamestate.txt": "eec12cd33521cf72008cd2111a97b16a92f7bace9db373f8a87d80153244dbc0",
+        "meta.json": "5716fdeac3f816234ee11cf6781b25ab5f36291c957baadaebb99f4aae96975f"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

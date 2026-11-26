@@ -1,0 +1,199 @@
+{
+  "status": "APPROVED_ACTUAL_SAVED_HEALTHY_CLOAK_SUBSET_PENDING_ROOT_QUALIFICATION",
+  "approved": true,
+  "source_approved": true,
+  "semantically_approved": true,
+  "reviewer": "/root/nov2_next_author",
+  "created_utc": "2026-11-03T03:19:14.982369+00:00",
+  "source_spec": "card-regression-batch279.json",
+  "input_sha256": "a64ee42f2fa13e3ea16365fd3874102144c1d6cd6e30855a43bc284362648c5e",
+  "manifest_sha256": "9bb1d6dbd3810ae72185d820b65ca6dd994774094bca125bebea1a1fd684490a",
+  "runtime_sha256": "0d877de49c131f29c152706e14bba3368630df61c59ef475c87a84f20b6e1a66",
+  "recorded_runtime_sha256": "0d877de49c131f29c152706e14bba3368630df61c59ef475c87a84f20b6e1a66",
+  "semantic_approval": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch279-independent-source-review\\review.json",
+    "sha256": "e4b6e4d40af2ea0b53661baaf8f3068a090e2e616484f17773336c43b5b73279"
+  },
+  "recording_receipt": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch279-20261103T030401Z-6ae94f216a05a.json",
+    "sha256": "7bd288909f06dbb89873606aefb8f686c8a2f587f06d77f5557963b194c25c61"
+  },
+  "root_wrapper_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch279-native-r1\\receipt.json",
+    "sha256": "c10cb71b722e23097245fa6916d5791601ee8505389fe62360dd99f04280e345"
+  },
+  "actual_comparison_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch279-cloak-independent-saved-review\\audit_saved.py",
+    "sha256": "ca657ff5fd06bc83c0e884d358c4a2fcb8fa1361f50dbfe38147ddaeb536c734"
+  },
+  "review_method": "Printed/source approval reused. Every native input/assertion mapped exactly; independent four-live actor schedule; strict full-schema endpoint physical UID/card/ownership/zone/economy/manual profiles; final assertions evaluated; raw4/raw5 stable. No PHP/native/replay/backend/R writes.",
+  "fixtures": [
+    {
+      "index": 0,
+      "card_id": "spell_fray_cloak",
+      "slug": "card-spell-fray-cloak-four-live-sparse-real-static-spellvoid-destroy-prevents-one-of-three-arcane",
+      "source_spec": "card-regression-batch279.json",
+      "input_sha256": "a64ee42f2fa13e3ea16365fd3874102144c1d6cd6e30855a43bc284362648c5e",
+      "reviewer": "/root/nov2_next_author",
+      "runtime_sha256": "0d877de49c131f29c152706e14bba3368630df61c59ef475c87a84f20b6e1a66",
+      "recorded_runtime_sha256": "0d877de49c131f29c152706e14bba3368630df61c59ef475c87a84f20b6e1a66",
+      "approved": true,
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_NEW_FOUR_LIVE_REPRESENTATIVE",
+      "fixture_path": "Tests\\Integration\\FaBSim\\card-spell-fray-cloak-four-live-sparse-real-static-spellvoid-destroy-prevents-one-of-three-arcane",
+      "fixture_sha256": "55743024d5747b80f19a150fff31a7760d740367fe3aed2719ddcce961a7a5fb",
+      "raw4_sha256": {
+        "initial_gamestate.txt": "18ed3b82ed47360d87b9cf40b210e50c76f35de4f1ccfa3cd2d3a294aafec08d",
+        "actions.json": "63fcdec970afb6bec58eb589afcdcd7b550391da47a593b4cb3ee062b81befd8",
+        "assertions.json": "7ff3f3bdbabc305f508144c499afdb4198049e5c1a2d7d657dc04c270a02c810",
+        "expected_final_gamestate.txt": "52656a8e0a42874bf5db1bc23b173c8f5eda22b14aa53a02d46383d54c057daa"
+      },
+      "raw5_sha256": {
+        "initial_gamestate.txt": "18ed3b82ed47360d87b9cf40b210e50c76f35de4f1ccfa3cd2d3a294aafec08d",
+        "actions.json": "63fcdec970afb6bec58eb589afcdcd7b550391da47a593b4cb3ee062b81befd8",
+        "assertions.json": "7ff3f3bdbabc305f508144c499afdb4198049e5c1a2d7d657dc04c270a02c810",
+        "expected_final_gamestate.txt": "52656a8e0a42874bf5db1bc23b173c8f5eda22b14aa53a02d46383d54c057daa",
+        "meta.json": "a6767a43b129f3faa19616d00dcab0809053fa38b492eabeda90fda124ba393c"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "18ed3b82ed47360d87b9cf40b210e50c76f35de4f1ccfa3cd2d3a294aafec08d",
+        "actions.json": "63fcdec970afb6bec58eb589afcdcd7b550391da47a593b4cb3ee062b81befd8",
+        "assertions.json": "7ff3f3bdbabc305f508144c499afdb4198049e5c1a2d7d657dc04c270a02c810",
+        "expected_final_gamestate.txt": "52656a8e0a42874bf5db1bc23b173c8f5eda22b14aa53a02d46383d54c057daa",
+        "meta.json": "a6767a43b129f3faa19616d00dcab0809053fa38b492eabeda90fda124ba393c"
+      },
+      "actions": 7,
+      "native_assertions": 646,
+      "actual_manual_passes": 4,
+      "actual_priority_response_passes": 4,
+      "actual_defender_declaration_finish_inputs": 0,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "all_actions_and_assertions_exact": true,
+      "all_endpoint_physical_uid_card_zones_ownership_verified": true,
+      "all_terminal_assertions_evaluated_against_parsed_final_snapshot": true,
+      "initial_physical_uid_locations": {
+        "1": {
+          "card_id": "verdance",
+          "zone": "p1Hero"
+        },
+        "6": {
+          "card_id": "zap_red",
+          "zone": "p1Hand"
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero"
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero"
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero"
+        },
+        "5": {
+          "card_id": "spell_fray_cloak",
+          "zone": "p4Equipment"
+        }
+      },
+      "final_physical_uid_locations": {
+        "1": {
+          "card_id": "verdance",
+          "zone": "p1Hero"
+        },
+        "6": {
+          "card_id": "zap_red",
+          "zone": "p1Graveyard"
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero"
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero"
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero"
+        },
+        "5": {
+          "card_id": "spell_fray_cloak",
+          "zone": "p4Graveyard"
+        }
+      },
+      "final_health": [
+        20,
+        20,
+        20,
+        18
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_Hero_Status": [
+        2,
+        2,
+        2,
+        2
+      ],
+      "checkpoint_count": 9,
+      "checkpoint_assertion_mapping_sha256": "42bf1504d51e52495d8ac1ee9d737fe06635bb5332b1f9a34c0e58b9dc808564",
+      "native_action_mapping_sha256": "8b735d1fc5863a6cbada9e39b64c43d4dec078fc35b6ae3225023504b2cbcf80",
+      "native_assertion_mapping_sha256": "82d36d2f2d1a1a7fcea0a11b2e5bd9e17f8fdfb8e64e034dc3b4c70c82f00f9c"
+    }
+  ],
+  "blocked_attempts": [
+    {
+      "slug": "card-sift-red-four-live-correct-probe-real-two-card-bottom-draw-retains-source-before-go-again-followthrough",
+      "card_id": "sift_red",
+      "semantically_approved": false,
+      "approved": false,
+      "fixture_saved": false,
+      "actual_attempted_actions": 5,
+      "error": "Expected p1ActionPoints to equal 0, got 1.",
+      "archive": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch279-20261103T030401Z-6ae94f216a05a.json",
+      "archive_sha256": "7bd288909f06dbb89873606aefb8f686c8a2f587f06d77f5557963b194c25c61",
+      "input_sha256": "a64ee42f2fa13e3ea16365fd3874102144c1d6cd6e30855a43bc284362648c5e",
+      "runtime_sha256": "0d877de49c131f29c152706e14bba3368630df61c59ef475c87a84f20b6e1a66",
+      "coverage_credit": false,
+      "native_material_mismatch_observed": true,
+      "bug_registration_credit": false,
+      "failure_class": "UNQUALIFIED_ORIGINAL_CORRECT_AWAIT_TIMING_PROBE_PREMATURE_AP",
+      "scope": "Actual play plus four real responses reached original MZMULTICHOOSE and CUSTOM continuation. First strict material failure expectedAP0 got1 while choice pending. No bottom/draw/earnedGA/followthrough suffix executed or credited. Parent physical prefix evidence remains separate; no source repair performed in this saved review."
+    }
+  ],
+  "total_actions": 7,
+  "total_native_assertions": 646,
+  "total_manual_passes": 4,
+  "total_priority_response_passes": 4,
+  "total_defender_declaration_finish_inputs": 0,
+  "material_findings": [
+    "Actual Zap6 Action0 targetsP4 before AP payment, spends AP1 without resource/pitch. Exact four manual source responders1/2/3/4 reach optional static Spellvoid choice. Successful native checkpoint retains Zap6StackKindACTION/SourceHand while originalownedCloak5 Equipment/HP20, with existing plainspell lifetime marker. No new triggered/activated layer.",
+    "Actual P4 acceptsEquipment5; sharedSpellvoid1 destroys samephysicalCloak5 toownpublicGY and prevents1ofactualZap3. Actual2arcane/P4HP18 corroborated by arcaneDealt1to4=2/CRU_DAMAGED2/ROS_ARCANE_TAKEN2. SameZap6 onlycompletestoownpublicGYafterawait. AlloriginalUIDs1-6, noextraUID/RNG, R/AP0, otherHP20, fourmanualprofiles/queues/frames/payment/combatclean.",
+    "Mixedexit1 is not allpass. OnlyCloak saved/approved. Sift firststrictmaterialfailure after5actualinputs expectedAP0 got1 while ownchoice+continuationpending; nofixture/no suffix or coverage credit. PhysicalSiftStack/GYprefix is separateparent evidence, not inferred from this AP assertion."
+  ],
+  "limits": [
+    "One accepted Cloak Spellvoid1 destruction versus owned ordinaryZap3 only; no decline/extra sources/packets/normalblock/equipcast/ArcaneBarrier/unpreventable/suppression/wholecard/control/support-primary credit.",
+    "Sift original failedprobe remains separate immutable unqualified case. No bottom/draw/GA-followthrough credit; no newbug/root classification in this saved review.",
+    "Intermediate material retention is supported by completed native assertion enforcement and exact persisted checkpoints, while endpoints alone do not snapshot all intermediate private locals.",
+    "Root two focusedcleanreplays and registration remain separate gates, not executed or claimed here."
+  ]
+}

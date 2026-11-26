@@ -1,0 +1,56 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-unworldly-bellow-red-four-live-sparse891-native-primary-then-real-eligible-attack-proves-10-damage",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-unworldly-bellow-red-four-live-sparse891-native-primary-then-real-eligible-attack-proves-10-damage",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse891-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse891-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "d82100154e235e3ec61fce916b5fdb3de89050ee7b33a0b467d2f294c0dcc6fc",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "8ab56e2e67aa7ae98a254faeaa54f507cb4734ac4373c87cf4b74658dcb4a115",
+        "actions.json": "ae7667bc1200ab8c6fcc0e738c39d71d92f2f685b3f383a9307ac5842a70ee2f",
+        "assertions.json": "73979543f1af23f5876cfa6b2a1a6c6965c2117867137a3ecd78cd4799b0430e",
+        "expected_final_gamestate.txt": "2b6d48cf35cff5ac6060182d2c73ce8f1213830c408fa107bd0f96bdd1c317aa",
+        "meta.json": "cf5f8eaba0a4c3d4d95d4ce5b30b26f75809300337845f85d5e5c6099f6d3a45"
+      }
+    },
+    {
+      "slug": "card-spellbane-trap-red-four-live-sparse891-native-primary-then-real-eligible-attack-proves-7-damage",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-spellbane-trap-red-four-live-sparse891-native-primary-then-real-eligible-attack-proves-7-damage",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse891-local-20261122\\clean-replays\\01.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse891-local-20261122\\clean-replays\\01.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "1415deef7edc02314ca8d3ca2ccf2709bfafed4b574beb52307ffff58452ac5d",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "77eb1cda9f244181a044e91cf4f7791b98c7a0c75040dd43f426dd4bdfaf1ef0",
+        "actions.json": "46f51134685cb98f0142fd6c6c574c2131e1e5047254b7e015c86141097297ab",
+        "assertions.json": "64885224ed23926bfea1cec0c064a9509ca4b4f0a8b39c66527a66825acf68d9",
+        "expected_final_gamestate.txt": "33ca5c90519a2fe1b7a9b8e8c0c0f7058670b89e76fd2dff8a04138792e21325",
+        "meta.json": "9fefa0bef3e64ced45e89eaab6e79925ad351946c4b9a7e7f540112ce19ab562"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

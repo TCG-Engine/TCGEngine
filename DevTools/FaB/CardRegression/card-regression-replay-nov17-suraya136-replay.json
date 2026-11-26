@@ -1,0 +1,27 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-repair-suraya136-required-shield-material.json",
+  "runtime_sha256": "1b196f3511c9a82f55d059e7bd7bd528935f6b5f4da22cb5503723048db6e5c5",
+  "returncode": 0,
+  "completed_utc": "2026-11-17T06:42:41.045376+00:00",
+  "fixtures": [
+    {
+      "slug": "card-invoke-suraya-yellow-four-live-original-correct-owned-shield-transform-retains-one-encoded-material",
+      "fixture_sha256": "cdafbb788480e53db9a0dda44358bab8c11d05ad31b4b87fcf785aa8ae0acc44",
+      "passed": true,
+      "result": "[PASS] invoke_suraya_yellow / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-invoke-suraya-yellow-four-live-original-correct-owned-shield-transform-retains-one-encoded-material",
+      "returncode": 0,
+      "stdout": "[PASS] invoke_suraya_yellow / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

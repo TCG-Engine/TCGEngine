@@ -1,0 +1,7396 @@
+[
+  {
+    "slug": "card-clear-conscience-red-four-live-sparse1212-two-real-blockers-two-separate-intrinsic-fragment-layers",
+    "name": "Clear Conscience / two actual blockers and separate intrinsic Fragment layers",
+    "cardIDs": [
+      "clear_conscience_red"
+    ],
+    "secondaryCardIDs": [
+      "sigil_of_solace_blue",
+      "sharpen_steel_red",
+      "sharpen_steel_blue"
+    ],
+    "branches": [
+      "actual_two_defense_three_cards_earn_two_separate_intrinsic_fragment_layers_with_fresh_responses_reduce_power_by_four_and_full_block_without_hit_effect"
+    ],
+    "activeSeats": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "heroes": [
+      "prism",
+      "dorinthea",
+      "dorinthea",
+      "dorinthea"
+    ],
+    "health": [
+      20,
+      20,
+      20,
+      20
+    ],
+    "resources": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "actionPoints": [
+      1,
+      0,
+      0,
+      0
+    ],
+    "state": {
+      "gameMode": "UPF",
+      "passiveSeats": []
+    },
+    "zones": [
+      {
+        "cardID": "clear_conscience_red",
+        "zone": "Hand",
+        "player": 1,
+        "properties": {}
+      },
+      {
+        "cardID": "sigil_of_solace_blue",
+        "zone": "Hand",
+        "player": 1,
+        "properties": {}
+      },
+      {
+        "cardID": "sharpen_steel_red",
+        "zone": "Hand",
+        "player": 4,
+        "properties": {}
+      },
+      {
+        "cardID": "sharpen_steel_blue",
+        "zone": "Hand",
+        "player": 4,
+        "properties": {}
+      }
+    ],
+    "sources": [
+      "FaBSim/GeneratedCode/cardArrayCache.json#clear_conscience_red",
+      "FaBSim/Custom/OMNCards.php#FaBOMNDefended",
+      "FaBSim/Custom/OMNCards.php#FaBOMNFragment",
+      "FaBSim/Custom/GameLogic.php",
+      "FaBSim/GeneratedCode/GeneratedMacroCode.php",
+      "https://rules.fabtcg.com/en/cr/08-keywords/"
+    ],
+    "printed_text": "When this hits a hero, each hero puts a card from their hand on the bottom of their deck and creates a Ponder token.\n\n**Fragment**",
+    "diagnostic_only": false,
+    "qualification_permitted": true,
+    "secondary_identity_credit": false,
+    "hit_effect_credit": false,
+    "steps": [
+      {
+        "kind": "checks",
+        "checkpoint": "four_live_natural_heroes_and_real_physical_assets",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "SeatOrder",
+            "value": 1234
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "LiveSeats",
+            "value": 1234
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "TurnPlayer",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "TurnNumber",
+            "value": 2
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "PriorityPlayer",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "RandomCounter",
+            "value": 0
+          },
+          {
+            "kind": "state",
+            "key": "window",
+            "value": "ACTION"
+          },
+          {
+            "kind": "state",
+            "key": "gameMode",
+            "value": "UPF"
+          },
+          {
+            "kind": "state",
+            "key": "passiveSeats",
+            "value": []
+          },
+          {
+            "kind": "state",
+            "key": "turnEffects",
+            "value": []
+          },
+          {
+            "kind": "state",
+            "key": "pendingPayment",
+            "value": null
+          },
+          {
+            "kind": "state",
+            "key": "resolvingReaction",
+            "value": null
+          },
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 0
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "1"
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "2"
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "3"
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "4"
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Health",
+            "value": 20
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 1
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Hero-0",
+            "property": "CardID",
+            "value": "prism"
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Hand",
+            "value": 2
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Graveyard",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Deck",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Banish",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Weapons",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Equipment",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Arena",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Arsenal",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Pitch",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Soul",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1CombatChain",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Temp",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 20
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p2Hero-0",
+            "property": "CardID",
+            "value": "dorinthea"
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2Hand",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2Graveyard",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2Deck",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2Banish",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2Weapons",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2Equipment",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2Arena",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2Arsenal",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2Pitch",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2Soul",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2CombatChain",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2Temp",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p3Health",
+            "value": 20
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p3Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p3ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p3Hero-0",
+            "property": "CardID",
+            "value": "dorinthea"
+          },
+          {
+            "type": "zone_count",
+            "zone": "p3Hand",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p3Graveyard",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p3Deck",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p3Banish",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p3Weapons",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p3Equipment",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p3Arena",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p3Arsenal",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p3Pitch",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p3Soul",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p3CombatChain",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p3Temp",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p4Health",
+            "value": 20
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p4Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p4ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4Hero-0",
+            "property": "CardID",
+            "value": "dorinthea"
+          },
+          {
+            "type": "zone_count",
+            "zone": "p4Hand",
+            "value": 2
+          },
+          {
+            "type": "zone_count",
+            "zone": "p4Graveyard",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p4Deck",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p4Banish",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p4Weapons",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p4Equipment",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p4Arena",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p4Arsenal",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p4Pitch",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p4Soul",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p4CombatChain",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p4Temp",
+            "value": 0
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Hand-0",
+            "property": "CardID",
+            "value": "clear_conscience_red"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Hand-0",
+            "property": "UniqueID",
+            "value": "5"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Hand-0",
+            "property": "Owner",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Hand-0",
+            "property": "Controller",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Hand-1",
+            "property": "CardID",
+            "value": "sigil_of_solace_blue"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Hand-1",
+            "property": "UniqueID",
+            "value": "6"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Hand-1",
+            "property": "Owner",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Hand-1",
+            "property": "Controller",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4Hand-0",
+            "property": "CardID",
+            "value": "sharpen_steel_red"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4Hand-0",
+            "property": "UniqueID",
+            "value": "7"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4Hand-0",
+            "property": "Owner",
+            "value": "4"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4Hand-0",
+            "property": "Controller",
+            "value": "4"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4Hand-1",
+            "property": "CardID",
+            "value": "sharpen_steel_blue"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4Hand-1",
+            "property": "UniqueID",
+            "value": "8"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4Hand-1",
+            "property": "Owner",
+            "value": "4"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4Hand-1",
+            "property": "Controller",
+            "value": "4"
+          }
+        ]
+      },
+      {
+        "kind": "checks",
+        "checkpoint": "real_two_defense_three_nonattack_cards_no_seeded_fragment",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "UniqueIDCounter",
+            "value": 8
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4Hand-0",
+            "property": "CardID",
+            "value": "sharpen_steel_red"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4Hand-0",
+            "property": "UniqueID",
+            "value": "7"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4Hand-0",
+            "property": "Owner",
+            "value": "4"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4Hand-0",
+            "property": "Controller",
+            "value": "4"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4Hand-1",
+            "property": "CardID",
+            "value": "sharpen_steel_blue"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4Hand-1",
+            "property": "UniqueID",
+            "value": "8"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4Hand-1",
+            "property": "Owner",
+            "value": "4"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4Hand-1",
+            "property": "Controller",
+            "value": "4"
+          }
+        ]
+      },
+      {
+        "kind": "click",
+        "player": 1,
+        "mzID": "p1Hand-0"
+      },
+      {
+        "kind": "checks",
+        "checkpoint": "actual_attack_declares_hero_before_payment",
+        "checks": [
+          {
+            "type": "card_property_equals",
+            "mzId": "p1DecisionQueue-0",
+            "property": "Type",
+            "value": "MZCHOOSE"
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 1
+          }
+        ]
+      },
+      {
+        "kind": "answer",
+        "player": 1,
+        "type": "MZCHOOSE",
+        "value": "p4Hero-0"
+      },
+      {
+        "kind": "checks",
+        "checkpoint": "real_three_cost_needs_blue_pitch",
+        "checks": [
+          {
+            "kind": "state",
+            "key": "window",
+            "value": "PITCH"
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 1
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "CardID",
+            "value": "clear_conscience_red"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "UniqueID",
+            "value": "5"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "Owner",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "Controller",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Hand-0",
+            "property": "CardID",
+            "value": "sigil_of_solace_blue"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Hand-0",
+            "property": "UniqueID",
+            "value": "6"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Hand-0",
+            "property": "Owner",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Hand-0",
+            "property": "Controller",
+            "value": "1"
+          }
+        ]
+      },
+      {
+        "kind": "click",
+        "player": 1,
+        "mzID": "p1Hand-0"
+      },
+      {
+        "kind": "checks",
+        "checkpoint": "actual_blue_pays_three_and_action_before_live_responses",
+        "checks": [
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 1
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "CardID",
+            "value": "clear_conscience_red"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "UniqueID",
+            "value": "5"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "Owner",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "Controller",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Pitch-0",
+            "property": "CardID",
+            "value": "sigil_of_solace_blue"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Pitch-0",
+            "property": "UniqueID",
+            "value": "6"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Pitch-0",
+            "property": "Owner",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Pitch-0",
+            "property": "Controller",
+            "value": "1"
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p4Health",
+            "value": 20
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "UniqueIDCounter",
+            "value": 8
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Arena",
+            "value": 0
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "1"
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "2"
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "3"
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "4"
+          },
+          {
+            "kind": "state",
+            "key": "window",
+            "value": "PRIORITY"
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "PriorityPlayer",
+            "value": 1
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "PRIORITY",
+          "priority": 2
+        }
+      },
+      {
+        "kind": "checks",
+        "checkpoint": "attack_source_waits_for_live_responder_2",
+        "checks": [
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 1
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "CardID",
+            "value": "clear_conscience_red"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "UniqueID",
+            "value": "5"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "Owner",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "Controller",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Pitch-0",
+            "property": "CardID",
+            "value": "sigil_of_solace_blue"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Pitch-0",
+            "property": "UniqueID",
+            "value": "6"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Pitch-0",
+            "property": "Owner",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Pitch-0",
+            "property": "Controller",
+            "value": "1"
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p4Health",
+            "value": 20
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "UniqueIDCounter",
+            "value": 8
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Arena",
+            "value": 0
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "1"
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "2"
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "3"
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "4"
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "PriorityPlayer",
+            "value": 2
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "PRIORITY",
+          "priority": 3
+        }
+      },
+      {
+        "kind": "checks",
+        "checkpoint": "attack_source_waits_for_live_responder_3",
+        "checks": [
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 1
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "CardID",
+            "value": "clear_conscience_red"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "UniqueID",
+            "value": "5"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "Owner",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "Controller",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Pitch-0",
+            "property": "CardID",
+            "value": "sigil_of_solace_blue"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Pitch-0",
+            "property": "UniqueID",
+            "value": "6"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Pitch-0",
+            "property": "Owner",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Pitch-0",
+            "property": "Controller",
+            "value": "1"
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p4Health",
+            "value": 20
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "UniqueIDCounter",
+            "value": 8
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Arena",
+            "value": 0
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "1"
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "2"
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "3"
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "4"
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "PriorityPlayer",
+            "value": 3
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "PRIORITY",
+          "priority": 4
+        }
+      },
+      {
+        "kind": "checks",
+        "checkpoint": "attack_source_waits_for_live_responder_4",
+        "checks": [
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 1
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "CardID",
+            "value": "clear_conscience_red"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "UniqueID",
+            "value": "5"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "Owner",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "Controller",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Pitch-0",
+            "property": "CardID",
+            "value": "sigil_of_solace_blue"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Pitch-0",
+            "property": "UniqueID",
+            "value": "6"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Pitch-0",
+            "property": "Owner",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Pitch-0",
+            "property": "Controller",
+            "value": "1"
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p4Health",
+            "value": 20
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "UniqueIDCounter",
+            "value": 8
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Arena",
+            "value": 0
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "1"
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "2"
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "3"
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "4"
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "PriorityPlayer",
+            "value": 4
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "ATTACK",
+          "priority": 1
+        }
+      },
+      {
+        "kind": "checks",
+        "checkpoint": "actual_printed_power_before_any_fragment",
+        "checks": [
+          {
+            "kind": "power",
+            "value": 8
+          },
+          {
+            "kind": "go_again",
+            "value": false
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1CombatChain-0",
+            "property": "CardID",
+            "value": "clear_conscience_red"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1CombatChain-0",
+            "property": "UniqueID",
+            "value": "5"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1CombatChain-0",
+            "property": "Owner",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1CombatChain-0",
+            "property": "Controller",
+            "value": "1"
+          },
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p4Health",
+            "value": 20
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "ATTACK",
+          "priority": 2
+        }
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "ATTACK",
+          "priority": 3
+        }
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "ATTACK",
+          "priority": 4
+        }
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "DEFEND_DECLARE",
+          "priority": 4
+        }
+      },
+      {
+        "kind": "click",
+        "player": 4,
+        "mzID": "p4Hand-0"
+      },
+      {
+        "kind": "checks",
+        "checkpoint": "first_real_nonattack_defender_declared_without_early_fragment",
+        "checks": [
+          {
+            "type": "card_property_equals",
+            "mzId": "p4CombatChain-0",
+            "property": "CardID",
+            "value": "sharpen_steel_red"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4CombatChain-0",
+            "property": "UniqueID",
+            "value": "7"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4CombatChain-0",
+            "property": "Owner",
+            "value": "4"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4CombatChain-0",
+            "property": "Controller",
+            "value": "4"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4CombatChain-0",
+            "property": "Role",
+            "value": "DEFENSE"
+          },
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 0
+          },
+          {
+            "kind": "power",
+            "value": 8
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p4Health",
+            "value": 20
+          }
+        ]
+      },
+      {
+        "kind": "click",
+        "player": 4,
+        "mzID": "p4Hand-0"
+      },
+      {
+        "kind": "checks",
+        "checkpoint": "second_real_defender_declared_before_defend_event_processing",
+        "checks": [
+          {
+            "type": "card_property_equals",
+            "mzId": "p4CombatChain-0",
+            "property": "CardID",
+            "value": "sharpen_steel_red"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4CombatChain-0",
+            "property": "UniqueID",
+            "value": "7"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4CombatChain-0",
+            "property": "Owner",
+            "value": "4"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4CombatChain-0",
+            "property": "Controller",
+            "value": "4"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4CombatChain-1",
+            "property": "CardID",
+            "value": "sharpen_steel_blue"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4CombatChain-1",
+            "property": "UniqueID",
+            "value": "8"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4CombatChain-1",
+            "property": "Owner",
+            "value": "4"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4CombatChain-1",
+            "property": "Controller",
+            "value": "4"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4CombatChain-1",
+            "property": "Role",
+            "value": "DEFENSE"
+          },
+          {
+            "type": "zone_count",
+            "zone": "p4Hand",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 0
+          },
+          {
+            "kind": "power",
+            "value": 8
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p4Health",
+            "value": 20
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "DEFEND_PRIORITY",
+          "priority": 1
+        }
+      },
+      {
+        "kind": "checks",
+        "checkpoint": "two_distinct_earned_intrinsic_layers_before_any_reduction",
+        "checks": [
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 2
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "CardID",
+            "value": "clear_conscience_red"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "UniqueID",
+            "value": "9"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "Kind",
+            "value": "ABILITY"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "Controller",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "SourceUniqueID",
+            "value": "5"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-1",
+            "property": "CardID",
+            "value": "clear_conscience_red"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-1",
+            "property": "UniqueID",
+            "value": "10"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-1",
+            "property": "Kind",
+            "value": "ABILITY"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-1",
+            "property": "Controller",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-1",
+            "property": "SourceUniqueID",
+            "value": "5"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4CombatChain-0",
+            "property": "CardID",
+            "value": "sharpen_steel_red"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4CombatChain-0",
+            "property": "UniqueID",
+            "value": "7"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4CombatChain-0",
+            "property": "Owner",
+            "value": "4"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4CombatChain-0",
+            "property": "Controller",
+            "value": "4"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4CombatChain-1",
+            "property": "CardID",
+            "value": "sharpen_steel_blue"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4CombatChain-1",
+            "property": "UniqueID",
+            "value": "8"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4CombatChain-1",
+            "property": "Owner",
+            "value": "4"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4CombatChain-1",
+            "property": "Controller",
+            "value": "4"
+          },
+          {
+            "type": "zone_count",
+            "zone": "p4CombatChain",
+            "value": 2
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1CombatChain-0",
+            "property": "CardID",
+            "value": "clear_conscience_red"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1CombatChain-0",
+            "property": "UniqueID",
+            "value": "5"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1CombatChain-0",
+            "property": "Owner",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1CombatChain-0",
+            "property": "Controller",
+            "value": "1"
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p4Health",
+            "value": 20
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "1"
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "2"
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "3"
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "4"
+          },
+          {
+            "kind": "power",
+            "value": 8
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "UniqueIDCounter",
+            "value": 10
+          },
+          {
+            "kind": "state",
+            "key": "window",
+            "value": "DEFEND_PRIORITY"
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "PriorityPlayer",
+            "value": 1
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "DEFEND_PRIORITY",
+          "priority": 2
+        }
+      },
+      {
+        "kind": "checks",
+        "checkpoint": "both_layers_and_unreduced_power_before_fragment_responder_2",
+        "checks": [
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 2
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "CardID",
+            "value": "clear_conscience_red"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "UniqueID",
+            "value": "9"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "Kind",
+            "value": "ABILITY"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "Controller",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "SourceUniqueID",
+            "value": "5"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-1",
+            "property": "CardID",
+            "value": "clear_conscience_red"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-1",
+            "property": "UniqueID",
+            "value": "10"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-1",
+            "property": "Kind",
+            "value": "ABILITY"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-1",
+            "property": "Controller",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-1",
+            "property": "SourceUniqueID",
+            "value": "5"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4CombatChain-0",
+            "property": "CardID",
+            "value": "sharpen_steel_red"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4CombatChain-0",
+            "property": "UniqueID",
+            "value": "7"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4CombatChain-0",
+            "property": "Owner",
+            "value": "4"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4CombatChain-0",
+            "property": "Controller",
+            "value": "4"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4CombatChain-1",
+            "property": "CardID",
+            "value": "sharpen_steel_blue"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4CombatChain-1",
+            "property": "UniqueID",
+            "value": "8"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4CombatChain-1",
+            "property": "Owner",
+            "value": "4"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4CombatChain-1",
+            "property": "Controller",
+            "value": "4"
+          },
+          {
+            "type": "zone_count",
+            "zone": "p4CombatChain",
+            "value": 2
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1CombatChain-0",
+            "property": "CardID",
+            "value": "clear_conscience_red"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1CombatChain-0",
+            "property": "UniqueID",
+            "value": "5"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1CombatChain-0",
+            "property": "Owner",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1CombatChain-0",
+            "property": "Controller",
+            "value": "1"
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p4Health",
+            "value": 20
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "1"
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "2"
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "3"
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "4"
+          },
+          {
+            "kind": "power",
+            "value": 8
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "UniqueIDCounter",
+            "value": 10
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "PriorityPlayer",
+            "value": 2
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "DEFEND_PRIORITY",
+          "priority": 3
+        }
+      },
+      {
+        "kind": "checks",
+        "checkpoint": "both_layers_and_unreduced_power_before_fragment_responder_3",
+        "checks": [
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 2
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "CardID",
+            "value": "clear_conscience_red"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "UniqueID",
+            "value": "9"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "Kind",
+            "value": "ABILITY"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "Controller",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "SourceUniqueID",
+            "value": "5"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-1",
+            "property": "CardID",
+            "value": "clear_conscience_red"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-1",
+            "property": "UniqueID",
+            "value": "10"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-1",
+            "property": "Kind",
+            "value": "ABILITY"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-1",
+            "property": "Controller",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-1",
+            "property": "SourceUniqueID",
+            "value": "5"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4CombatChain-0",
+            "property": "CardID",
+            "value": "sharpen_steel_red"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4CombatChain-0",
+            "property": "UniqueID",
+            "value": "7"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4CombatChain-0",
+            "property": "Owner",
+            "value": "4"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4CombatChain-0",
+            "property": "Controller",
+            "value": "4"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4CombatChain-1",
+            "property": "CardID",
+            "value": "sharpen_steel_blue"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4CombatChain-1",
+            "property": "UniqueID",
+            "value": "8"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4CombatChain-1",
+            "property": "Owner",
+            "value": "4"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4CombatChain-1",
+            "property": "Controller",
+            "value": "4"
+          },
+          {
+            "type": "zone_count",
+            "zone": "p4CombatChain",
+            "value": 2
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1CombatChain-0",
+            "property": "CardID",
+            "value": "clear_conscience_red"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1CombatChain-0",
+            "property": "UniqueID",
+            "value": "5"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1CombatChain-0",
+            "property": "Owner",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1CombatChain-0",
+            "property": "Controller",
+            "value": "1"
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p4Health",
+            "value": 20
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "1"
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "2"
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "3"
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "4"
+          },
+          {
+            "kind": "power",
+            "value": 8
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "UniqueIDCounter",
+            "value": 10
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "PriorityPlayer",
+            "value": 3
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "DEFEND_PRIORITY",
+          "priority": 4
+        }
+      },
+      {
+        "kind": "checks",
+        "checkpoint": "both_layers_and_unreduced_power_before_fragment_responder_4",
+        "checks": [
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 2
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "CardID",
+            "value": "clear_conscience_red"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "UniqueID",
+            "value": "9"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "Kind",
+            "value": "ABILITY"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "Controller",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "SourceUniqueID",
+            "value": "5"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-1",
+            "property": "CardID",
+            "value": "clear_conscience_red"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-1",
+            "property": "UniqueID",
+            "value": "10"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-1",
+            "property": "Kind",
+            "value": "ABILITY"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-1",
+            "property": "Controller",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-1",
+            "property": "SourceUniqueID",
+            "value": "5"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4CombatChain-0",
+            "property": "CardID",
+            "value": "sharpen_steel_red"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4CombatChain-0",
+            "property": "UniqueID",
+            "value": "7"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4CombatChain-0",
+            "property": "Owner",
+            "value": "4"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4CombatChain-0",
+            "property": "Controller",
+            "value": "4"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4CombatChain-1",
+            "property": "CardID",
+            "value": "sharpen_steel_blue"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4CombatChain-1",
+            "property": "UniqueID",
+            "value": "8"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4CombatChain-1",
+            "property": "Owner",
+            "value": "4"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4CombatChain-1",
+            "property": "Controller",
+            "value": "4"
+          },
+          {
+            "type": "zone_count",
+            "zone": "p4CombatChain",
+            "value": 2
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1CombatChain-0",
+            "property": "CardID",
+            "value": "clear_conscience_red"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1CombatChain-0",
+            "property": "UniqueID",
+            "value": "5"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1CombatChain-0",
+            "property": "Owner",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1CombatChain-0",
+            "property": "Controller",
+            "value": "1"
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p4Health",
+            "value": 20
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "1"
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "2"
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "3"
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "4"
+          },
+          {
+            "kind": "power",
+            "value": 8
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "UniqueIDCounter",
+            "value": 10
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "PriorityPlayer",
+            "value": 4
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "PRIORITY",
+          "priority": 1
+        }
+      },
+      {
+        "kind": "checks",
+        "checkpoint": "only_top_fragment_resolves_then_fresh_priority_for_remaining_layer",
+        "checks": [
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 1
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "CardID",
+            "value": "clear_conscience_red"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "UniqueID",
+            "value": "9"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "Kind",
+            "value": "ABILITY"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "Controller",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "SourceUniqueID",
+            "value": "5"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4CombatChain-0",
+            "property": "CardID",
+            "value": "sharpen_steel_red"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4CombatChain-0",
+            "property": "UniqueID",
+            "value": "7"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4CombatChain-0",
+            "property": "Owner",
+            "value": "4"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4CombatChain-0",
+            "property": "Controller",
+            "value": "4"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4CombatChain-1",
+            "property": "CardID",
+            "value": "sharpen_steel_blue"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4CombatChain-1",
+            "property": "UniqueID",
+            "value": "8"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4CombatChain-1",
+            "property": "Owner",
+            "value": "4"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4CombatChain-1",
+            "property": "Controller",
+            "value": "4"
+          },
+          {
+            "type": "zone_count",
+            "zone": "p4CombatChain",
+            "value": 2
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1CombatChain-0",
+            "property": "CardID",
+            "value": "clear_conscience_red"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1CombatChain-0",
+            "property": "UniqueID",
+            "value": "5"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1CombatChain-0",
+            "property": "Owner",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1CombatChain-0",
+            "property": "Controller",
+            "value": "1"
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p4Health",
+            "value": 20
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "1"
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "2"
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "3"
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "4"
+          },
+          {
+            "kind": "power",
+            "value": 6
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "UniqueIDCounter",
+            "value": 10
+          },
+          {
+            "kind": "state",
+            "key": "window",
+            "value": "PRIORITY"
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "PriorityPlayer",
+            "value": 1
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "PRIORITY",
+          "priority": 2
+        }
+      },
+      {
+        "kind": "checks",
+        "checkpoint": "second_fragment_waits_with_power_only_reduced_once_2",
+        "checks": [
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 1
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "CardID",
+            "value": "clear_conscience_red"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "UniqueID",
+            "value": "9"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "Kind",
+            "value": "ABILITY"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "Controller",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "SourceUniqueID",
+            "value": "5"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4CombatChain-0",
+            "property": "CardID",
+            "value": "sharpen_steel_red"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4CombatChain-0",
+            "property": "UniqueID",
+            "value": "7"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4CombatChain-0",
+            "property": "Owner",
+            "value": "4"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4CombatChain-0",
+            "property": "Controller",
+            "value": "4"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4CombatChain-1",
+            "property": "CardID",
+            "value": "sharpen_steel_blue"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4CombatChain-1",
+            "property": "UniqueID",
+            "value": "8"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4CombatChain-1",
+            "property": "Owner",
+            "value": "4"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4CombatChain-1",
+            "property": "Controller",
+            "value": "4"
+          },
+          {
+            "type": "zone_count",
+            "zone": "p4CombatChain",
+            "value": 2
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1CombatChain-0",
+            "property": "CardID",
+            "value": "clear_conscience_red"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1CombatChain-0",
+            "property": "UniqueID",
+            "value": "5"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1CombatChain-0",
+            "property": "Owner",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1CombatChain-0",
+            "property": "Controller",
+            "value": "1"
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p4Health",
+            "value": 20
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "1"
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "2"
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "3"
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "4"
+          },
+          {
+            "kind": "power",
+            "value": 6
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "UniqueIDCounter",
+            "value": 10
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "PriorityPlayer",
+            "value": 2
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "PRIORITY",
+          "priority": 3
+        }
+      },
+      {
+        "kind": "checks",
+        "checkpoint": "second_fragment_waits_with_power_only_reduced_once_3",
+        "checks": [
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 1
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "CardID",
+            "value": "clear_conscience_red"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "UniqueID",
+            "value": "9"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "Kind",
+            "value": "ABILITY"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "Controller",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "SourceUniqueID",
+            "value": "5"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4CombatChain-0",
+            "property": "CardID",
+            "value": "sharpen_steel_red"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4CombatChain-0",
+            "property": "UniqueID",
+            "value": "7"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4CombatChain-0",
+            "property": "Owner",
+            "value": "4"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4CombatChain-0",
+            "property": "Controller",
+            "value": "4"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4CombatChain-1",
+            "property": "CardID",
+            "value": "sharpen_steel_blue"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4CombatChain-1",
+            "property": "UniqueID",
+            "value": "8"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4CombatChain-1",
+            "property": "Owner",
+            "value": "4"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4CombatChain-1",
+            "property": "Controller",
+            "value": "4"
+          },
+          {
+            "type": "zone_count",
+            "zone": "p4CombatChain",
+            "value": 2
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1CombatChain-0",
+            "property": "CardID",
+            "value": "clear_conscience_red"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1CombatChain-0",
+            "property": "UniqueID",
+            "value": "5"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1CombatChain-0",
+            "property": "Owner",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1CombatChain-0",
+            "property": "Controller",
+            "value": "1"
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p4Health",
+            "value": 20
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "1"
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "2"
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "3"
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "4"
+          },
+          {
+            "kind": "power",
+            "value": 6
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "UniqueIDCounter",
+            "value": 10
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "PriorityPlayer",
+            "value": 3
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "PRIORITY",
+          "priority": 4
+        }
+      },
+      {
+        "kind": "checks",
+        "checkpoint": "second_fragment_waits_with_power_only_reduced_once_4",
+        "checks": [
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 1
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "CardID",
+            "value": "clear_conscience_red"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "UniqueID",
+            "value": "9"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "Kind",
+            "value": "ABILITY"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "Controller",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "SourceUniqueID",
+            "value": "5"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4CombatChain-0",
+            "property": "CardID",
+            "value": "sharpen_steel_red"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4CombatChain-0",
+            "property": "UniqueID",
+            "value": "7"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4CombatChain-0",
+            "property": "Owner",
+            "value": "4"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4CombatChain-0",
+            "property": "Controller",
+            "value": "4"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4CombatChain-1",
+            "property": "CardID",
+            "value": "sharpen_steel_blue"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4CombatChain-1",
+            "property": "UniqueID",
+            "value": "8"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4CombatChain-1",
+            "property": "Owner",
+            "value": "4"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4CombatChain-1",
+            "property": "Controller",
+            "value": "4"
+          },
+          {
+            "type": "zone_count",
+            "zone": "p4CombatChain",
+            "value": 2
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1CombatChain-0",
+            "property": "CardID",
+            "value": "clear_conscience_red"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1CombatChain-0",
+            "property": "UniqueID",
+            "value": "5"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1CombatChain-0",
+            "property": "Owner",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1CombatChain-0",
+            "property": "Controller",
+            "value": "1"
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p4Health",
+            "value": 20
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "1"
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "2"
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "3"
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "4"
+          },
+          {
+            "kind": "power",
+            "value": 6
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "UniqueIDCounter",
+            "value": 10
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "PriorityPlayer",
+            "value": 4
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "DEFEND_PRIORITY",
+          "priority": 1
+        }
+      },
+      {
+        "kind": "checks",
+        "checkpoint": "two_actual_fragment_resolutions_reduce_exactly_four_without_hit_effect",
+        "checks": [
+          {
+            "kind": "state",
+            "key": "window",
+            "value": "DEFEND_PRIORITY"
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "PriorityPlayer",
+            "value": 1
+          },
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 0
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4CombatChain-0",
+            "property": "CardID",
+            "value": "sharpen_steel_red"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4CombatChain-0",
+            "property": "UniqueID",
+            "value": "7"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4CombatChain-0",
+            "property": "Owner",
+            "value": "4"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4CombatChain-0",
+            "property": "Controller",
+            "value": "4"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4CombatChain-1",
+            "property": "CardID",
+            "value": "sharpen_steel_blue"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4CombatChain-1",
+            "property": "UniqueID",
+            "value": "8"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4CombatChain-1",
+            "property": "Owner",
+            "value": "4"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4CombatChain-1",
+            "property": "Controller",
+            "value": "4"
+          },
+          {
+            "type": "zone_count",
+            "zone": "p4CombatChain",
+            "value": 2
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1CombatChain-0",
+            "property": "CardID",
+            "value": "clear_conscience_red"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1CombatChain-0",
+            "property": "UniqueID",
+            "value": "5"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1CombatChain-0",
+            "property": "Owner",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1CombatChain-0",
+            "property": "Controller",
+            "value": "1"
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p4Health",
+            "value": 20
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "1"
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "2"
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "3"
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "4"
+          },
+          {
+            "kind": "power",
+            "value": 4
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Arena",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "UniqueIDCounter",
+            "value": 10
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "DEFEND_PRIORITY",
+          "priority": 2
+        }
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "DEFEND_PRIORITY",
+          "priority": 3
+        }
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "DEFEND_PRIORITY",
+          "priority": 4
+        }
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "REACTION",
+          "priority": 1
+        }
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "REACTION",
+          "priority": 2
+        }
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "REACTION",
+          "priority": 3
+        }
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "REACTION",
+          "priority": 4
+        }
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "DAMAGE",
+          "priority": 1
+        }
+      },
+      {
+        "kind": "checks",
+        "checkpoint": "real_damage_uses_reduced_power_and_six_defense_without_hit",
+        "checks": [
+          {
+            "kind": "state",
+            "key": "window",
+            "value": "DAMAGE"
+          },
+          {
+            "kind": "state",
+            "key": "attackPower",
+            "value": 4
+          },
+          {
+            "kind": "state",
+            "key": "defenseValue",
+            "value": 6
+          },
+          {
+            "kind": "state",
+            "key": "damageDealt",
+            "value": 0
+          },
+          {
+            "kind": "state",
+            "key": "attackHit",
+            "value": false
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p4Health",
+            "value": 20
+          },
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 0
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4CombatChain-0",
+            "property": "CardID",
+            "value": "sharpen_steel_red"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4CombatChain-0",
+            "property": "UniqueID",
+            "value": "7"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4CombatChain-0",
+            "property": "Owner",
+            "value": "4"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4CombatChain-0",
+            "property": "Controller",
+            "value": "4"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4CombatChain-1",
+            "property": "CardID",
+            "value": "sharpen_steel_blue"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4CombatChain-1",
+            "property": "UniqueID",
+            "value": "8"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4CombatChain-1",
+            "property": "Owner",
+            "value": "4"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4CombatChain-1",
+            "property": "Controller",
+            "value": "4"
+          },
+          {
+            "type": "zone_count",
+            "zone": "p4CombatChain",
+            "value": 2
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1CombatChain-0",
+            "property": "CardID",
+            "value": "clear_conscience_red"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1CombatChain-0",
+            "property": "UniqueID",
+            "value": "5"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1CombatChain-0",
+            "property": "Owner",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1CombatChain-0",
+            "property": "Controller",
+            "value": "1"
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p4Health",
+            "value": 20
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "1"
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "2"
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "3"
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "4"
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Arena",
+            "value": 0
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "DAMAGE",
+          "priority": 2
+        }
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "DAMAGE",
+          "priority": 3
+        }
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "DAMAGE",
+          "priority": 4
+        }
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "RESOLUTION",
+          "priority": 1
+        }
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "RESOLUTION",
+          "priority": 2
+        }
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "RESOLUTION",
+          "priority": 3
+        }
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "RESOLUTION",
+          "priority": 4
+        }
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "ACTION",
+          "priority": 1
+        }
+      },
+      {
+        "kind": "checks",
+        "checkpoint": "actual_owned_sources_finish_without_uneanred_hit_tokens_draw_or_copy",
+        "checks": [
+          {
+            "kind": "state",
+            "key": "window",
+            "value": "ACTION"
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "PriorityPlayer",
+            "value": 1
+          },
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 0
+          },
+          {
+            "kind": "state",
+            "key": "pendingPayment",
+            "value": null
+          },
+          {
+            "kind": "state",
+            "key": "resolvingReaction",
+            "value": null
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "RandomCounter",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "UniqueIDCounter",
+            "value": 10
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "1"
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "2"
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "3"
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "4"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Graveyard-0",
+            "property": "CardID",
+            "value": "clear_conscience_red"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Graveyard-0",
+            "property": "UniqueID",
+            "value": "5"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Graveyard-0",
+            "property": "Owner",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Graveyard-0",
+            "property": "Controller",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Pitch-0",
+            "property": "CardID",
+            "value": "sigil_of_solace_blue"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Pitch-0",
+            "property": "UniqueID",
+            "value": "6"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Pitch-0",
+            "property": "Owner",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Pitch-0",
+            "property": "Controller",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4Graveyard-0",
+            "property": "CardID",
+            "value": "sharpen_steel_red"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4Graveyard-0",
+            "property": "UniqueID",
+            "value": "7"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4Graveyard-0",
+            "property": "Owner",
+            "value": "4"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4Graveyard-0",
+            "property": "Controller",
+            "value": "4"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4Graveyard-1",
+            "property": "CardID",
+            "value": "sharpen_steel_blue"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4Graveyard-1",
+            "property": "UniqueID",
+            "value": "8"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4Graveyard-1",
+            "property": "Owner",
+            "value": "4"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4Graveyard-1",
+            "property": "Controller",
+            "value": "4"
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Health",
+            "value": 20
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Hand",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Graveyard",
+            "value": 1
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Deck",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Banish",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Weapons",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Equipment",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Arena",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Arsenal",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Pitch",
+            "value": 1
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Soul",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1CombatChain",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Temp",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 20
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2Hand",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2Graveyard",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2Deck",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2Banish",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2Weapons",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2Equipment",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2Arena",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2Arsenal",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2Pitch",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2Soul",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2CombatChain",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2Temp",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p3Health",
+            "value": 20
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p3Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p3ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p3Hand",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p3Graveyard",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p3Deck",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p3Banish",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p3Weapons",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p3Equipment",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p3Arena",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p3Arsenal",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p3Pitch",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p3Soul",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p3CombatChain",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p3Temp",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p4Health",
+            "value": 20
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p4Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p4ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p4Hand",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p4Graveyard",
+            "value": 2
+          },
+          {
+            "type": "zone_count",
+            "zone": "p4Deck",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p4Banish",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p4Weapons",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p4Equipment",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p4Arena",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p4Arsenal",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p4Pitch",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p4Soul",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p4CombatChain",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p4Temp",
+            "value": 0
+          }
+        ]
+      }
+    ],
+    "planned_actions": 38,
+    "oracle": "FourmanualYoungPrism20/3Dori20. Realprimary5Hand1/Blue6Hand1/tworealWarriorSharpenSteelRed7Blue8DEF3eachHand4. Nativecost3AttackdeclaresHero4beforeBlue3/AP1to0/R0; fourmanualresponsesandattackwindows, physical5atprinted8beforedefenders. BothrealNAAblocksdeclaredfirst,noearlyfragmentduringclicks; finishDeclareearnsTWOintrinsicABI9/10fromsameSource5. FourfreshDEFEND_PRIORITY1/2/3/4responsesbeforefirst-2, thenStack1windowPRIORITY1/power6, fourfreshPRIORITYresponsesbeforesecond-2, thenStack0DEFEND_PRIORITY1/power4. Freshnormaldefensepriority/reactionsfinishrealDamage power4vsactualDEF6=0/nohit/HP20all. ThusprintedWHENhitneverearnsreward, notomitted. NoWHENfragmentsecondaryprintedonthisprimary. Finalprimary5GY1/Blue6Pitch1/realblocks7/8GY4/UID10/AP/R0/noArenaStackDQschains. IntrinsicFragmenttwiceandfullblockonly; nohit/copy/Ponder/Handbottom/anotherpitch/D R/otherdefense/producer/Hero/support/fullcardcredit."
+  },
+  {
+    "slug": "card-fractal-creation-blue-four-live-sparse1212-two-real-blockers-two-separate-intrinsic-fragment-layers",
+    "name": "Fractal Creation / two actual blockers and separate intrinsic Fragment layers",
+    "cardIDs": [
+      "fractal_creation_blue"
+    ],
+    "secondaryCardIDs": [
+      "sigil_of_solace_blue",
+      "sharpen_steel_red",
+      "sharpen_steel_blue"
+    ],
+    "branches": [
+      "actual_two_defense_three_cards_earn_two_separate_intrinsic_fragment_layers_with_fresh_responses_reduce_power_by_four_and_full_block_without_hit_effect"
+    ],
+    "activeSeats": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "heroes": [
+      "prism",
+      "dorinthea",
+      "dorinthea",
+      "dorinthea"
+    ],
+    "health": [
+      20,
+      20,
+      20,
+      20
+    ],
+    "resources": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "actionPoints": [
+      1,
+      0,
+      0,
+      0
+    ],
+    "state": {
+      "gameMode": "UPF",
+      "passiveSeats": []
+    },
+    "zones": [
+      {
+        "cardID": "fractal_creation_blue",
+        "zone": "Hand",
+        "player": 1,
+        "properties": {}
+      },
+      {
+        "cardID": "sigil_of_solace_blue",
+        "zone": "Hand",
+        "player": 1,
+        "properties": {}
+      },
+      {
+        "cardID": "sharpen_steel_red",
+        "zone": "Hand",
+        "player": 4,
+        "properties": {}
+      },
+      {
+        "cardID": "sharpen_steel_blue",
+        "zone": "Hand",
+        "player": 4,
+        "properties": {}
+      }
+    ],
+    "sources": [
+      "FaBSim/GeneratedCode/cardArrayCache.json#fractal_creation_blue",
+      "FaBSim/Custom/OMNCards.php#FaBOMNDefended",
+      "FaBSim/Custom/OMNCards.php#FaBOMNFragment",
+      "FaBSim/Custom/GameLogic.php",
+      "FaBSim/GeneratedCode/GeneratedMacroCode.php",
+      "https://rules.fabtcg.com/en/cr/08-keywords/"
+    ],
+    "printed_text": "When this hits, you may create a token copy of an aura you control.\n\n**Fragment**",
+    "diagnostic_only": false,
+    "qualification_permitted": true,
+    "secondary_identity_credit": false,
+    "hit_effect_credit": false,
+    "steps": [
+      {
+        "kind": "checks",
+        "checkpoint": "four_live_natural_heroes_and_real_physical_assets",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "SeatOrder",
+            "value": 1234
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "LiveSeats",
+            "value": 1234
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "TurnPlayer",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "TurnNumber",
+            "value": 2
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "PriorityPlayer",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "RandomCounter",
+            "value": 0
+          },
+          {
+            "kind": "state",
+            "key": "window",
+            "value": "ACTION"
+          },
+          {
+            "kind": "state",
+            "key": "gameMode",
+            "value": "UPF"
+          },
+          {
+            "kind": "state",
+            "key": "passiveSeats",
+            "value": []
+          },
+          {
+            "kind": "state",
+            "key": "turnEffects",
+            "value": []
+          },
+          {
+            "kind": "state",
+            "key": "pendingPayment",
+            "value": null
+          },
+          {
+            "kind": "state",
+            "key": "resolvingReaction",
+            "value": null
+          },
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 0
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "1"
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "2"
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "3"
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "4"
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Health",
+            "value": 20
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 1
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Hero-0",
+            "property": "CardID",
+            "value": "prism"
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Hand",
+            "value": 2
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Graveyard",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Deck",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Banish",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Weapons",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Equipment",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Arena",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Arsenal",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Pitch",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Soul",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1CombatChain",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Temp",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 20
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p2Hero-0",
+            "property": "CardID",
+            "value": "dorinthea"
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2Hand",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2Graveyard",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2Deck",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2Banish",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2Weapons",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2Equipment",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2Arena",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2Arsenal",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2Pitch",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2Soul",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2CombatChain",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2Temp",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p3Health",
+            "value": 20
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p3Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p3ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p3Hero-0",
+            "property": "CardID",
+            "value": "dorinthea"
+          },
+          {
+            "type": "zone_count",
+            "zone": "p3Hand",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p3Graveyard",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p3Deck",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p3Banish",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p3Weapons",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p3Equipment",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p3Arena",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p3Arsenal",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p3Pitch",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p3Soul",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p3CombatChain",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p3Temp",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p4Health",
+            "value": 20
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p4Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p4ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4Hero-0",
+            "property": "CardID",
+            "value": "dorinthea"
+          },
+          {
+            "type": "zone_count",
+            "zone": "p4Hand",
+            "value": 2
+          },
+          {
+            "type": "zone_count",
+            "zone": "p4Graveyard",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p4Deck",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p4Banish",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p4Weapons",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p4Equipment",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p4Arena",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p4Arsenal",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p4Pitch",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p4Soul",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p4CombatChain",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p4Temp",
+            "value": 0
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Hand-0",
+            "property": "CardID",
+            "value": "fractal_creation_blue"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Hand-0",
+            "property": "UniqueID",
+            "value": "5"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Hand-0",
+            "property": "Owner",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Hand-0",
+            "property": "Controller",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Hand-1",
+            "property": "CardID",
+            "value": "sigil_of_solace_blue"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Hand-1",
+            "property": "UniqueID",
+            "value": "6"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Hand-1",
+            "property": "Owner",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Hand-1",
+            "property": "Controller",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4Hand-0",
+            "property": "CardID",
+            "value": "sharpen_steel_red"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4Hand-0",
+            "property": "UniqueID",
+            "value": "7"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4Hand-0",
+            "property": "Owner",
+            "value": "4"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4Hand-0",
+            "property": "Controller",
+            "value": "4"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4Hand-1",
+            "property": "CardID",
+            "value": "sharpen_steel_blue"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4Hand-1",
+            "property": "UniqueID",
+            "value": "8"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4Hand-1",
+            "property": "Owner",
+            "value": "4"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4Hand-1",
+            "property": "Controller",
+            "value": "4"
+          }
+        ]
+      },
+      {
+        "kind": "checks",
+        "checkpoint": "real_two_defense_three_nonattack_cards_no_seeded_fragment",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "UniqueIDCounter",
+            "value": 8
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4Hand-0",
+            "property": "CardID",
+            "value": "sharpen_steel_red"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4Hand-0",
+            "property": "UniqueID",
+            "value": "7"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4Hand-0",
+            "property": "Owner",
+            "value": "4"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4Hand-0",
+            "property": "Controller",
+            "value": "4"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4Hand-1",
+            "property": "CardID",
+            "value": "sharpen_steel_blue"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4Hand-1",
+            "property": "UniqueID",
+            "value": "8"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4Hand-1",
+            "property": "Owner",
+            "value": "4"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4Hand-1",
+            "property": "Controller",
+            "value": "4"
+          }
+        ]
+      },
+      {
+        "kind": "click",
+        "player": 1,
+        "mzID": "p1Hand-0"
+      },
+      {
+        "kind": "checks",
+        "checkpoint": "actual_attack_declares_hero_before_payment",
+        "checks": [
+          {
+            "type": "card_property_equals",
+            "mzId": "p1DecisionQueue-0",
+            "property": "Type",
+            "value": "MZCHOOSE"
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 1
+          }
+        ]
+      },
+      {
+        "kind": "answer",
+        "player": 1,
+        "type": "MZCHOOSE",
+        "value": "p4Hero-0"
+      },
+      {
+        "kind": "checks",
+        "checkpoint": "real_three_cost_needs_blue_pitch",
+        "checks": [
+          {
+            "kind": "state",
+            "key": "window",
+            "value": "PITCH"
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 1
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "CardID",
+            "value": "fractal_creation_blue"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "UniqueID",
+            "value": "5"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "Owner",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "Controller",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Hand-0",
+            "property": "CardID",
+            "value": "sigil_of_solace_blue"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Hand-0",
+            "property": "UniqueID",
+            "value": "6"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Hand-0",
+            "property": "Owner",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Hand-0",
+            "property": "Controller",
+            "value": "1"
+          }
+        ]
+      },
+      {
+        "kind": "click",
+        "player": 1,
+        "mzID": "p1Hand-0"
+      },
+      {
+        "kind": "checks",
+        "checkpoint": "actual_blue_pays_three_and_action_before_live_responses",
+        "checks": [
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 1
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "CardID",
+            "value": "fractal_creation_blue"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "UniqueID",
+            "value": "5"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "Owner",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "Controller",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Pitch-0",
+            "property": "CardID",
+            "value": "sigil_of_solace_blue"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Pitch-0",
+            "property": "UniqueID",
+            "value": "6"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Pitch-0",
+            "property": "Owner",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Pitch-0",
+            "property": "Controller",
+            "value": "1"
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p4Health",
+            "value": 20
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "UniqueIDCounter",
+            "value": 8
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Arena",
+            "value": 0
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "1"
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "2"
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "3"
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "4"
+          },
+          {
+            "kind": "state",
+            "key": "window",
+            "value": "PRIORITY"
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "PriorityPlayer",
+            "value": 1
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "PRIORITY",
+          "priority": 2
+        }
+      },
+      {
+        "kind": "checks",
+        "checkpoint": "attack_source_waits_for_live_responder_2",
+        "checks": [
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 1
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "CardID",
+            "value": "fractal_creation_blue"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "UniqueID",
+            "value": "5"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "Owner",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "Controller",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Pitch-0",
+            "property": "CardID",
+            "value": "sigil_of_solace_blue"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Pitch-0",
+            "property": "UniqueID",
+            "value": "6"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Pitch-0",
+            "property": "Owner",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Pitch-0",
+            "property": "Controller",
+            "value": "1"
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p4Health",
+            "value": 20
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "UniqueIDCounter",
+            "value": 8
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Arena",
+            "value": 0
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "1"
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "2"
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "3"
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "4"
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "PriorityPlayer",
+            "value": 2
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "PRIORITY",
+          "priority": 3
+        }
+      },
+      {
+        "kind": "checks",
+        "checkpoint": "attack_source_waits_for_live_responder_3",
+        "checks": [
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 1
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "CardID",
+            "value": "fractal_creation_blue"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "UniqueID",
+            "value": "5"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "Owner",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "Controller",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Pitch-0",
+            "property": "CardID",
+            "value": "sigil_of_solace_blue"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Pitch-0",
+            "property": "UniqueID",
+            "value": "6"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Pitch-0",
+            "property": "Owner",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Pitch-0",
+            "property": "Controller",
+            "value": "1"
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p4Health",
+            "value": 20
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "UniqueIDCounter",
+            "value": 8
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Arena",
+            "value": 0
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "1"
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "2"
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "3"
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "4"
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "PriorityPlayer",
+            "value": 3
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "PRIORITY",
+          "priority": 4
+        }
+      },
+      {
+        "kind": "checks",
+        "checkpoint": "attack_source_waits_for_live_responder_4",
+        "checks": [
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 1
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "CardID",
+            "value": "fractal_creation_blue"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "UniqueID",
+            "value": "5"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "Owner",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "Controller",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Pitch-0",
+            "property": "CardID",
+            "value": "sigil_of_solace_blue"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Pitch-0",
+            "property": "UniqueID",
+            "value": "6"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Pitch-0",
+            "property": "Owner",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Pitch-0",
+            "property": "Controller",
+            "value": "1"
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p4Health",
+            "value": 20
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "UniqueIDCounter",
+            "value": 8
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Arena",
+            "value": 0
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "1"
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "2"
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "3"
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "4"
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "PriorityPlayer",
+            "value": 4
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "ATTACK",
+          "priority": 1
+        }
+      },
+      {
+        "kind": "checks",
+        "checkpoint": "actual_printed_power_before_any_fragment",
+        "checks": [
+          {
+            "kind": "power",
+            "value": 6
+          },
+          {
+            "kind": "go_again",
+            "value": false
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1CombatChain-0",
+            "property": "CardID",
+            "value": "fractal_creation_blue"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1CombatChain-0",
+            "property": "UniqueID",
+            "value": "5"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1CombatChain-0",
+            "property": "Owner",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1CombatChain-0",
+            "property": "Controller",
+            "value": "1"
+          },
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p4Health",
+            "value": 20
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "ATTACK",
+          "priority": 2
+        }
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "ATTACK",
+          "priority": 3
+        }
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "ATTACK",
+          "priority": 4
+        }
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "DEFEND_DECLARE",
+          "priority": 4
+        }
+      },
+      {
+        "kind": "click",
+        "player": 4,
+        "mzID": "p4Hand-0"
+      },
+      {
+        "kind": "checks",
+        "checkpoint": "first_real_nonattack_defender_declared_without_early_fragment",
+        "checks": [
+          {
+            "type": "card_property_equals",
+            "mzId": "p4CombatChain-0",
+            "property": "CardID",
+            "value": "sharpen_steel_red"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4CombatChain-0",
+            "property": "UniqueID",
+            "value": "7"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4CombatChain-0",
+            "property": "Owner",
+            "value": "4"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4CombatChain-0",
+            "property": "Controller",
+            "value": "4"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4CombatChain-0",
+            "property": "Role",
+            "value": "DEFENSE"
+          },
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 0
+          },
+          {
+            "kind": "power",
+            "value": 6
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p4Health",
+            "value": 20
+          }
+        ]
+      },
+      {
+        "kind": "click",
+        "player": 4,
+        "mzID": "p4Hand-0"
+      },
+      {
+        "kind": "checks",
+        "checkpoint": "second_real_defender_declared_before_defend_event_processing",
+        "checks": [
+          {
+            "type": "card_property_equals",
+            "mzId": "p4CombatChain-0",
+            "property": "CardID",
+            "value": "sharpen_steel_red"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4CombatChain-0",
+            "property": "UniqueID",
+            "value": "7"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4CombatChain-0",
+            "property": "Owner",
+            "value": "4"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4CombatChain-0",
+            "property": "Controller",
+            "value": "4"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4CombatChain-1",
+            "property": "CardID",
+            "value": "sharpen_steel_blue"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4CombatChain-1",
+            "property": "UniqueID",
+            "value": "8"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4CombatChain-1",
+            "property": "Owner",
+            "value": "4"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4CombatChain-1",
+            "property": "Controller",
+            "value": "4"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4CombatChain-1",
+            "property": "Role",
+            "value": "DEFENSE"
+          },
+          {
+            "type": "zone_count",
+            "zone": "p4Hand",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 0
+          },
+          {
+            "kind": "power",
+            "value": 6
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p4Health",
+            "value": 20
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "DEFEND_PRIORITY",
+          "priority": 1
+        }
+      },
+      {
+        "kind": "checks",
+        "checkpoint": "two_distinct_earned_intrinsic_layers_before_any_reduction",
+        "checks": [
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 2
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "CardID",
+            "value": "fractal_creation_blue"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "UniqueID",
+            "value": "9"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "Kind",
+            "value": "ABILITY"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "Controller",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "SourceUniqueID",
+            "value": "5"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-1",
+            "property": "CardID",
+            "value": "fractal_creation_blue"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-1",
+            "property": "UniqueID",
+            "value": "10"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-1",
+            "property": "Kind",
+            "value": "ABILITY"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-1",
+            "property": "Controller",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-1",
+            "property": "SourceUniqueID",
+            "value": "5"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4CombatChain-0",
+            "property": "CardID",
+            "value": "sharpen_steel_red"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4CombatChain-0",
+            "property": "UniqueID",
+            "value": "7"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4CombatChain-0",
+            "property": "Owner",
+            "value": "4"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4CombatChain-0",
+            "property": "Controller",
+            "value": "4"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4CombatChain-1",
+            "property": "CardID",
+            "value": "sharpen_steel_blue"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4CombatChain-1",
+            "property": "UniqueID",
+            "value": "8"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4CombatChain-1",
+            "property": "Owner",
+            "value": "4"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4CombatChain-1",
+            "property": "Controller",
+            "value": "4"
+          },
+          {
+            "type": "zone_count",
+            "zone": "p4CombatChain",
+            "value": 2
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1CombatChain-0",
+            "property": "CardID",
+            "value": "fractal_creation_blue"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1CombatChain-0",
+            "property": "UniqueID",
+            "value": "5"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1CombatChain-0",
+            "property": "Owner",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1CombatChain-0",
+            "property": "Controller",
+            "value": "1"
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p4Health",
+            "value": 20
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "1"
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "2"
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "3"
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "4"
+          },
+          {
+            "kind": "power",
+            "value": 6
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "UniqueIDCounter",
+            "value": 10
+          },
+          {
+            "kind": "state",
+            "key": "window",
+            "value": "DEFEND_PRIORITY"
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "PriorityPlayer",
+            "value": 1
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "DEFEND_PRIORITY",
+          "priority": 2
+        }
+      },
+      {
+        "kind": "checks",
+        "checkpoint": "both_layers_and_unreduced_power_before_fragment_responder_2",
+        "checks": [
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 2
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "CardID",
+            "value": "fractal_creation_blue"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "UniqueID",
+            "value": "9"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "Kind",
+            "value": "ABILITY"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "Controller",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "SourceUniqueID",
+            "value": "5"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-1",
+            "property": "CardID",
+            "value": "fractal_creation_blue"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-1",
+            "property": "UniqueID",
+            "value": "10"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-1",
+            "property": "Kind",
+            "value": "ABILITY"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-1",
+            "property": "Controller",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-1",
+            "property": "SourceUniqueID",
+            "value": "5"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4CombatChain-0",
+            "property": "CardID",
+            "value": "sharpen_steel_red"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4CombatChain-0",
+            "property": "UniqueID",
+            "value": "7"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4CombatChain-0",
+            "property": "Owner",
+            "value": "4"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4CombatChain-0",
+            "property": "Controller",
+            "value": "4"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4CombatChain-1",
+            "property": "CardID",
+            "value": "sharpen_steel_blue"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4CombatChain-1",
+            "property": "UniqueID",
+            "value": "8"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4CombatChain-1",
+            "property": "Owner",
+            "value": "4"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4CombatChain-1",
+            "property": "Controller",
+            "value": "4"
+          },
+          {
+            "type": "zone_count",
+            "zone": "p4CombatChain",
+            "value": 2
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1CombatChain-0",
+            "property": "CardID",
+            "value": "fractal_creation_blue"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1CombatChain-0",
+            "property": "UniqueID",
+            "value": "5"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1CombatChain-0",
+            "property": "Owner",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1CombatChain-0",
+            "property": "Controller",
+            "value": "1"
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p4Health",
+            "value": 20
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "1"
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "2"
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "3"
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "4"
+          },
+          {
+            "kind": "power",
+            "value": 6
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "UniqueIDCounter",
+            "value": 10
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "PriorityPlayer",
+            "value": 2
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "DEFEND_PRIORITY",
+          "priority": 3
+        }
+      },
+      {
+        "kind": "checks",
+        "checkpoint": "both_layers_and_unreduced_power_before_fragment_responder_3",
+        "checks": [
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 2
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "CardID",
+            "value": "fractal_creation_blue"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "UniqueID",
+            "value": "9"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "Kind",
+            "value": "ABILITY"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "Controller",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "SourceUniqueID",
+            "value": "5"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-1",
+            "property": "CardID",
+            "value": "fractal_creation_blue"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-1",
+            "property": "UniqueID",
+            "value": "10"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-1",
+            "property": "Kind",
+            "value": "ABILITY"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-1",
+            "property": "Controller",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-1",
+            "property": "SourceUniqueID",
+            "value": "5"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4CombatChain-0",
+            "property": "CardID",
+            "value": "sharpen_steel_red"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4CombatChain-0",
+            "property": "UniqueID",
+            "value": "7"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4CombatChain-0",
+            "property": "Owner",
+            "value": "4"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4CombatChain-0",
+            "property": "Controller",
+            "value": "4"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4CombatChain-1",
+            "property": "CardID",
+            "value": "sharpen_steel_blue"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4CombatChain-1",
+            "property": "UniqueID",
+            "value": "8"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4CombatChain-1",
+            "property": "Owner",
+            "value": "4"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4CombatChain-1",
+            "property": "Controller",
+            "value": "4"
+          },
+          {
+            "type": "zone_count",
+            "zone": "p4CombatChain",
+            "value": 2
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1CombatChain-0",
+            "property": "CardID",
+            "value": "fractal_creation_blue"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1CombatChain-0",
+            "property": "UniqueID",
+            "value": "5"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1CombatChain-0",
+            "property": "Owner",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1CombatChain-0",
+            "property": "Controller",
+            "value": "1"
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p4Health",
+            "value": 20
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "1"
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "2"
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "3"
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "4"
+          },
+          {
+            "kind": "power",
+            "value": 6
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "UniqueIDCounter",
+            "value": 10
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "PriorityPlayer",
+            "value": 3
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "DEFEND_PRIORITY",
+          "priority": 4
+        }
+      },
+      {
+        "kind": "checks",
+        "checkpoint": "both_layers_and_unreduced_power_before_fragment_responder_4",
+        "checks": [
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 2
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "CardID",
+            "value": "fractal_creation_blue"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "UniqueID",
+            "value": "9"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "Kind",
+            "value": "ABILITY"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "Controller",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "SourceUniqueID",
+            "value": "5"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-1",
+            "property": "CardID",
+            "value": "fractal_creation_blue"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-1",
+            "property": "UniqueID",
+            "value": "10"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-1",
+            "property": "Kind",
+            "value": "ABILITY"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-1",
+            "property": "Controller",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-1",
+            "property": "SourceUniqueID",
+            "value": "5"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4CombatChain-0",
+            "property": "CardID",
+            "value": "sharpen_steel_red"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4CombatChain-0",
+            "property": "UniqueID",
+            "value": "7"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4CombatChain-0",
+            "property": "Owner",
+            "value": "4"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4CombatChain-0",
+            "property": "Controller",
+            "value": "4"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4CombatChain-1",
+            "property": "CardID",
+            "value": "sharpen_steel_blue"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4CombatChain-1",
+            "property": "UniqueID",
+            "value": "8"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4CombatChain-1",
+            "property": "Owner",
+            "value": "4"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4CombatChain-1",
+            "property": "Controller",
+            "value": "4"
+          },
+          {
+            "type": "zone_count",
+            "zone": "p4CombatChain",
+            "value": 2
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1CombatChain-0",
+            "property": "CardID",
+            "value": "fractal_creation_blue"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1CombatChain-0",
+            "property": "UniqueID",
+            "value": "5"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1CombatChain-0",
+            "property": "Owner",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1CombatChain-0",
+            "property": "Controller",
+            "value": "1"
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p4Health",
+            "value": 20
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "1"
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "2"
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "3"
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "4"
+          },
+          {
+            "kind": "power",
+            "value": 6
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "UniqueIDCounter",
+            "value": 10
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "PriorityPlayer",
+            "value": 4
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "PRIORITY",
+          "priority": 1
+        }
+      },
+      {
+        "kind": "checks",
+        "checkpoint": "only_top_fragment_resolves_then_fresh_priority_for_remaining_layer",
+        "checks": [
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 1
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "CardID",
+            "value": "fractal_creation_blue"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "UniqueID",
+            "value": "9"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "Kind",
+            "value": "ABILITY"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "Controller",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "SourceUniqueID",
+            "value": "5"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4CombatChain-0",
+            "property": "CardID",
+            "value": "sharpen_steel_red"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4CombatChain-0",
+            "property": "UniqueID",
+            "value": "7"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4CombatChain-0",
+            "property": "Owner",
+            "value": "4"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4CombatChain-0",
+            "property": "Controller",
+            "value": "4"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4CombatChain-1",
+            "property": "CardID",
+            "value": "sharpen_steel_blue"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4CombatChain-1",
+            "property": "UniqueID",
+            "value": "8"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4CombatChain-1",
+            "property": "Owner",
+            "value": "4"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4CombatChain-1",
+            "property": "Controller",
+            "value": "4"
+          },
+          {
+            "type": "zone_count",
+            "zone": "p4CombatChain",
+            "value": 2
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1CombatChain-0",
+            "property": "CardID",
+            "value": "fractal_creation_blue"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1CombatChain-0",
+            "property": "UniqueID",
+            "value": "5"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1CombatChain-0",
+            "property": "Owner",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1CombatChain-0",
+            "property": "Controller",
+            "value": "1"
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p4Health",
+            "value": 20
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "1"
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "2"
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "3"
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "4"
+          },
+          {
+            "kind": "power",
+            "value": 4
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "UniqueIDCounter",
+            "value": 10
+          },
+          {
+            "kind": "state",
+            "key": "window",
+            "value": "PRIORITY"
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "PriorityPlayer",
+            "value": 1
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "PRIORITY",
+          "priority": 2
+        }
+      },
+      {
+        "kind": "checks",
+        "checkpoint": "second_fragment_waits_with_power_only_reduced_once_2",
+        "checks": [
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 1
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "CardID",
+            "value": "fractal_creation_blue"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "UniqueID",
+            "value": "9"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "Kind",
+            "value": "ABILITY"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "Controller",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "SourceUniqueID",
+            "value": "5"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4CombatChain-0",
+            "property": "CardID",
+            "value": "sharpen_steel_red"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4CombatChain-0",
+            "property": "UniqueID",
+            "value": "7"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4CombatChain-0",
+            "property": "Owner",
+            "value": "4"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4CombatChain-0",
+            "property": "Controller",
+            "value": "4"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4CombatChain-1",
+            "property": "CardID",
+            "value": "sharpen_steel_blue"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4CombatChain-1",
+            "property": "UniqueID",
+            "value": "8"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4CombatChain-1",
+            "property": "Owner",
+            "value": "4"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4CombatChain-1",
+            "property": "Controller",
+            "value": "4"
+          },
+          {
+            "type": "zone_count",
+            "zone": "p4CombatChain",
+            "value": 2
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1CombatChain-0",
+            "property": "CardID",
+            "value": "fractal_creation_blue"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1CombatChain-0",
+            "property": "UniqueID",
+            "value": "5"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1CombatChain-0",
+            "property": "Owner",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1CombatChain-0",
+            "property": "Controller",
+            "value": "1"
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p4Health",
+            "value": 20
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "1"
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "2"
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "3"
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "4"
+          },
+          {
+            "kind": "power",
+            "value": 4
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "UniqueIDCounter",
+            "value": 10
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "PriorityPlayer",
+            "value": 2
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "PRIORITY",
+          "priority": 3
+        }
+      },
+      {
+        "kind": "checks",
+        "checkpoint": "second_fragment_waits_with_power_only_reduced_once_3",
+        "checks": [
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 1
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "CardID",
+            "value": "fractal_creation_blue"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "UniqueID",
+            "value": "9"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "Kind",
+            "value": "ABILITY"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "Controller",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "SourceUniqueID",
+            "value": "5"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4CombatChain-0",
+            "property": "CardID",
+            "value": "sharpen_steel_red"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4CombatChain-0",
+            "property": "UniqueID",
+            "value": "7"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4CombatChain-0",
+            "property": "Owner",
+            "value": "4"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4CombatChain-0",
+            "property": "Controller",
+            "value": "4"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4CombatChain-1",
+            "property": "CardID",
+            "value": "sharpen_steel_blue"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4CombatChain-1",
+            "property": "UniqueID",
+            "value": "8"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4CombatChain-1",
+            "property": "Owner",
+            "value": "4"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4CombatChain-1",
+            "property": "Controller",
+            "value": "4"
+          },
+          {
+            "type": "zone_count",
+            "zone": "p4CombatChain",
+            "value": 2
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1CombatChain-0",
+            "property": "CardID",
+            "value": "fractal_creation_blue"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1CombatChain-0",
+            "property": "UniqueID",
+            "value": "5"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1CombatChain-0",
+            "property": "Owner",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1CombatChain-0",
+            "property": "Controller",
+            "value": "1"
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p4Health",
+            "value": 20
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "1"
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "2"
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "3"
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "4"
+          },
+          {
+            "kind": "power",
+            "value": 4
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "UniqueIDCounter",
+            "value": 10
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "PriorityPlayer",
+            "value": 3
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "PRIORITY",
+          "priority": 4
+        }
+      },
+      {
+        "kind": "checks",
+        "checkpoint": "second_fragment_waits_with_power_only_reduced_once_4",
+        "checks": [
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 1
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "CardID",
+            "value": "fractal_creation_blue"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "UniqueID",
+            "value": "9"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "Kind",
+            "value": "ABILITY"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "Controller",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "SourceUniqueID",
+            "value": "5"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4CombatChain-0",
+            "property": "CardID",
+            "value": "sharpen_steel_red"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4CombatChain-0",
+            "property": "UniqueID",
+            "value": "7"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4CombatChain-0",
+            "property": "Owner",
+            "value": "4"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4CombatChain-0",
+            "property": "Controller",
+            "value": "4"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4CombatChain-1",
+            "property": "CardID",
+            "value": "sharpen_steel_blue"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4CombatChain-1",
+            "property": "UniqueID",
+            "value": "8"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4CombatChain-1",
+            "property": "Owner",
+            "value": "4"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4CombatChain-1",
+            "property": "Controller",
+            "value": "4"
+          },
+          {
+            "type": "zone_count",
+            "zone": "p4CombatChain",
+            "value": 2
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1CombatChain-0",
+            "property": "CardID",
+            "value": "fractal_creation_blue"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1CombatChain-0",
+            "property": "UniqueID",
+            "value": "5"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1CombatChain-0",
+            "property": "Owner",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1CombatChain-0",
+            "property": "Controller",
+            "value": "1"
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p4Health",
+            "value": 20
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "1"
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "2"
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "3"
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "4"
+          },
+          {
+            "kind": "power",
+            "value": 4
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "UniqueIDCounter",
+            "value": 10
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "PriorityPlayer",
+            "value": 4
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "DEFEND_PRIORITY",
+          "priority": 1
+        }
+      },
+      {
+        "kind": "checks",
+        "checkpoint": "two_actual_fragment_resolutions_reduce_exactly_four_without_hit_effect",
+        "checks": [
+          {
+            "kind": "state",
+            "key": "window",
+            "value": "DEFEND_PRIORITY"
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "PriorityPlayer",
+            "value": 1
+          },
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 0
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4CombatChain-0",
+            "property": "CardID",
+            "value": "sharpen_steel_red"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4CombatChain-0",
+            "property": "UniqueID",
+            "value": "7"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4CombatChain-0",
+            "property": "Owner",
+            "value": "4"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4CombatChain-0",
+            "property": "Controller",
+            "value": "4"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4CombatChain-1",
+            "property": "CardID",
+            "value": "sharpen_steel_blue"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4CombatChain-1",
+            "property": "UniqueID",
+            "value": "8"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4CombatChain-1",
+            "property": "Owner",
+            "value": "4"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4CombatChain-1",
+            "property": "Controller",
+            "value": "4"
+          },
+          {
+            "type": "zone_count",
+            "zone": "p4CombatChain",
+            "value": 2
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1CombatChain-0",
+            "property": "CardID",
+            "value": "fractal_creation_blue"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1CombatChain-0",
+            "property": "UniqueID",
+            "value": "5"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1CombatChain-0",
+            "property": "Owner",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1CombatChain-0",
+            "property": "Controller",
+            "value": "1"
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p4Health",
+            "value": 20
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "1"
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "2"
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "3"
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "4"
+          },
+          {
+            "kind": "power",
+            "value": 2
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Arena",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "UniqueIDCounter",
+            "value": 10
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "DEFEND_PRIORITY",
+          "priority": 2
+        }
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "DEFEND_PRIORITY",
+          "priority": 3
+        }
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "DEFEND_PRIORITY",
+          "priority": 4
+        }
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "REACTION",
+          "priority": 1
+        }
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "REACTION",
+          "priority": 2
+        }
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "REACTION",
+          "priority": 3
+        }
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "REACTION",
+          "priority": 4
+        }
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "DAMAGE",
+          "priority": 1
+        }
+      },
+      {
+        "kind": "checks",
+        "checkpoint": "real_damage_uses_reduced_power_and_six_defense_without_hit",
+        "checks": [
+          {
+            "kind": "state",
+            "key": "window",
+            "value": "DAMAGE"
+          },
+          {
+            "kind": "state",
+            "key": "attackPower",
+            "value": 2
+          },
+          {
+            "kind": "state",
+            "key": "defenseValue",
+            "value": 6
+          },
+          {
+            "kind": "state",
+            "key": "damageDealt",
+            "value": 0
+          },
+          {
+            "kind": "state",
+            "key": "attackHit",
+            "value": false
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p4Health",
+            "value": 20
+          },
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 0
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4CombatChain-0",
+            "property": "CardID",
+            "value": "sharpen_steel_red"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4CombatChain-0",
+            "property": "UniqueID",
+            "value": "7"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4CombatChain-0",
+            "property": "Owner",
+            "value": "4"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4CombatChain-0",
+            "property": "Controller",
+            "value": "4"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4CombatChain-1",
+            "property": "CardID",
+            "value": "sharpen_steel_blue"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4CombatChain-1",
+            "property": "UniqueID",
+            "value": "8"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4CombatChain-1",
+            "property": "Owner",
+            "value": "4"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4CombatChain-1",
+            "property": "Controller",
+            "value": "4"
+          },
+          {
+            "type": "zone_count",
+            "zone": "p4CombatChain",
+            "value": 2
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1CombatChain-0",
+            "property": "CardID",
+            "value": "fractal_creation_blue"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1CombatChain-0",
+            "property": "UniqueID",
+            "value": "5"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1CombatChain-0",
+            "property": "Owner",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1CombatChain-0",
+            "property": "Controller",
+            "value": "1"
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p4Health",
+            "value": 20
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "1"
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "2"
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "3"
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "4"
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Arena",
+            "value": 0
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "DAMAGE",
+          "priority": 2
+        }
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "DAMAGE",
+          "priority": 3
+        }
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "DAMAGE",
+          "priority": 4
+        }
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "RESOLUTION",
+          "priority": 1
+        }
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "RESOLUTION",
+          "priority": 2
+        }
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "RESOLUTION",
+          "priority": 3
+        }
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "RESOLUTION",
+          "priority": 4
+        }
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "ACTION",
+          "priority": 1
+        }
+      },
+      {
+        "kind": "checks",
+        "checkpoint": "actual_owned_sources_finish_without_uneanred_hit_tokens_draw_or_copy",
+        "checks": [
+          {
+            "kind": "state",
+            "key": "window",
+            "value": "ACTION"
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "PriorityPlayer",
+            "value": 1
+          },
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 0
+          },
+          {
+            "kind": "state",
+            "key": "pendingPayment",
+            "value": null
+          },
+          {
+            "kind": "state",
+            "key": "resolvingReaction",
+            "value": null
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "RandomCounter",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "UniqueIDCounter",
+            "value": 10
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "1"
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "2"
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "3"
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "4"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Graveyard-0",
+            "property": "CardID",
+            "value": "fractal_creation_blue"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Graveyard-0",
+            "property": "UniqueID",
+            "value": "5"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Graveyard-0",
+            "property": "Owner",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Graveyard-0",
+            "property": "Controller",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Pitch-0",
+            "property": "CardID",
+            "value": "sigil_of_solace_blue"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Pitch-0",
+            "property": "UniqueID",
+            "value": "6"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Pitch-0",
+            "property": "Owner",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Pitch-0",
+            "property": "Controller",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4Graveyard-0",
+            "property": "CardID",
+            "value": "sharpen_steel_red"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4Graveyard-0",
+            "property": "UniqueID",
+            "value": "7"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4Graveyard-0",
+            "property": "Owner",
+            "value": "4"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4Graveyard-0",
+            "property": "Controller",
+            "value": "4"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4Graveyard-1",
+            "property": "CardID",
+            "value": "sharpen_steel_blue"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4Graveyard-1",
+            "property": "UniqueID",
+            "value": "8"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4Graveyard-1",
+            "property": "Owner",
+            "value": "4"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4Graveyard-1",
+            "property": "Controller",
+            "value": "4"
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Health",
+            "value": 20
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Hand",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Graveyard",
+            "value": 1
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Deck",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Banish",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Weapons",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Equipment",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Arena",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Arsenal",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Pitch",
+            "value": 1
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Soul",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1CombatChain",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Temp",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 20
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2Hand",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2Graveyard",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2Deck",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2Banish",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2Weapons",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2Equipment",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2Arena",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2Arsenal",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2Pitch",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2Soul",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2CombatChain",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2Temp",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p3Health",
+            "value": 20
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p3Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p3ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p3Hand",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p3Graveyard",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p3Deck",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p3Banish",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p3Weapons",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p3Equipment",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p3Arena",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p3Arsenal",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p3Pitch",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p3Soul",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p3CombatChain",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p3Temp",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p4Health",
+            "value": 20
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p4Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p4ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p4Hand",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p4Graveyard",
+            "value": 2
+          },
+          {
+            "type": "zone_count",
+            "zone": "p4Deck",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p4Banish",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p4Weapons",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p4Equipment",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p4Arena",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p4Arsenal",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p4Pitch",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p4Soul",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p4CombatChain",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p4Temp",
+            "value": 0
+          }
+        ]
+      }
+    ],
+    "planned_actions": 38,
+    "oracle": "FourmanualYoungPrism20/3Dori20. Realprimary5Hand1/Blue6Hand1/tworealWarriorSharpenSteelRed7Blue8DEF3eachHand4. Nativecost3AttackdeclaresHero4beforeBlue3/AP1to0/R0; fourmanualresponsesandattackwindows, physical5atprinted6beforedefenders. BothrealNAAblocksdeclaredfirst,noearlyfragmentduringclicks; finishDeclareearnsTWOintrinsicABI9/10fromsameSource5. FourfreshDEFEND_PRIORITY1/2/3/4responsesbeforefirst-2, thenStack1windowPRIORITY1/power4, fourfreshPRIORITYresponsesbeforesecond-2, thenStack0DEFEND_PRIORITY1/power2. Freshnormaldefensepriority/reactionsfinishrealDamage power2vsactualDEF6=0/nohit/HP20all. ThusprintedWHENhitneverearnsreward, notomitted. NoWHENfragmentsecondaryprintedonthisprimary. Finalprimary5GY1/Blue6Pitch1/realblocks7/8GY4/UID10/AP/R0/noArenaStackDQschains. IntrinsicFragmenttwiceandfullblockonly; nohit/copy/Ponder/Handbottom/anotherpitch/D R/otherdefense/producer/Hero/support/fullcardcredit."
+  }
+]

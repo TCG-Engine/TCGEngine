@@ -1,0 +1,125 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-looking-for-a-scrap-red-four-live-sparse883-actual-one-power-graveyard-cost-earns-five-damage-and-go-again",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-looking-for-a-scrap-red-four-live-sparse883-actual-one-power-graveyard-cost-earns-five-damage-and-go-again",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse883-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse883-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "e1b4e26bbe518406b999f54639644b6cd39aa84c488cd6dcd014b4c592575a96",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "e53c6985743d259f580603624eb4987599ced6cc5255222d2ed73d6c6ff4c754",
+        "actions.json": "7bd9f55b9d73cb6cf39daf6ce506235b4285a93a20b6cfa90ff1bc25c55fe928",
+        "assertions.json": "605d6bf3e3fea1077f674b6ef1ac542280df4eeab3f381cfe4e782aabf5e141f",
+        "expected_final_gamestate.txt": "13c5bd9316b1565c684fb463102cd9952d9d3743b41a3c3293c1435942dc69e2",
+        "meta.json": "714ca0406aa502109f7637a185a642f3beaec40bdf7ad427270d149ee9572d98"
+      }
+    },
+    {
+      "slug": "card-burn-away-red-four-live-sparse883-actual-phoenix-flame-banish-cost-earns-four-damage-and-go-again",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-burn-away-red-four-live-sparse883-actual-phoenix-flame-banish-cost-earns-four-damage-and-go-again",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse883-local-20261122\\clean-replays\\01.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse883-local-20261122\\clean-replays\\01.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "c072e15f0961f1cd9b7dd1fec01d73d6714b33ea053ac1437b2f716ec4474bbc",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "b63e5956bedad2177e4740bcaa6dbcfdee5ca6766d096ce527e544f4ffc1966d",
+        "actions.json": "f28c213bb6a3c605981c5daa43df59747fbe2ccf8ee65fa91dd318cb7da7d4d2",
+        "assertions.json": "b9ad02487f0c0cefd36198c699b52547eb570b56340e54b95b748e352d732285",
+        "expected_final_gamestate.txt": "2698cf7fb0d2e38c558e62d3a9f9a5bdccc0eb61ca18d2d4d503c3273f4278ec",
+        "meta.json": "1e916635438e17f5dff2011fc252dea8a3600a7a10ef08f61c614a814308182c"
+      }
+    },
+    {
+      "slug": "card-beaming-bravado-red-four-live-sparse883-actual-yellow-charge-cost-earns-four-unblocked-damage",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-beaming-bravado-red-four-live-sparse883-actual-yellow-charge-cost-earns-four-unblocked-damage",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse883-local-20261122\\clean-replays\\02.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse883-local-20261122\\clean-replays\\02.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "6916a34dadd5626dc09d2a95182f13da5ae619ddac0def0f35f1f2b968acd6f5",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "33c27ddbbf6864690e0a689b035ed72a1c7b1174a1ca6ce4af73cd0003a69dbc",
+        "actions.json": "9dc6f3d7ee2230e11d18d663d812f852981beb6f9aed04156dfa0d5bc551da3f",
+        "assertions.json": "7a61078839a9fb1b281a4afe27076fc940ba150090bf23dc5be533b0f931f880",
+        "expected_final_gamestate.txt": "8cc4120ab5871f962a5880b7828b5c7aa16bab7b65b1fade6a6b9fd497f6d756",
+        "meta.json": "270cd121876542fa64efce10edeac6241e9e80e1706f604c0a02b5f69e2cd731"
+      }
+    },
+    {
+      "slug": "card-elemental-strike-red-four-live-sparse883-actual-earth-banish-cost-earns-seven-unblocked-damage",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-elemental-strike-red-four-live-sparse883-actual-earth-banish-cost-earns-seven-unblocked-damage",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse883-local-20261122\\clean-replays\\03.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse883-local-20261122\\clean-replays\\03.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "a3aea7e9ee00f8099e50d05456bd0e742b023f595f69a87c9b40d724d2e871ad",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "0944e9c31e3fd6b82658a0ee4fc2884757ed2e09d565032f0cf954123cbbc6fd",
+        "actions.json": "9dc6f3d7ee2230e11d18d663d812f852981beb6f9aed04156dfa0d5bc551da3f",
+        "assertions.json": "f78a1947fd0513a50029a5112aac6e8d2a24cecdaa412939fa6ac867a07772e8",
+        "expected_final_gamestate.txt": "f5831fb282bca9a4e43e97e160346925b7cbc1a10bdb1691f9cc156860588ef7",
+        "meta.json": "00f23dee0b8a0600c9593d69bdcc53da2dcaab8e5d15ad072500f74144a4896e"
+      }
+    },
+    {
+      "slug": "card-endless-maw-red-four-live-sparse883-actual-three-random-graveyard-cost-cards-earn-nine-unblocked-damage",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-endless-maw-red-four-live-sparse883-actual-three-random-graveyard-cost-cards-earn-nine-unblocked-damage",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse883-local-20261122\\clean-replays\\04.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse883-local-20261122\\clean-replays\\04.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "3e1ad9520ddaa27aee65dde64572287d6f3d5883537d7944bb9c3ea7854acae7",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "e3ce506497a887d6ef76e309ad8e25d4e8c6226ee0de57e96457d746efd8a3bc",
+        "actions.json": "25920dc16af50701b0be20453cc3345d5c14a09166881d7481930bfb87552093",
+        "assertions.json": "0e8cc6b86040b72d44df9b3d51790128cfcb062334ecc1bda0f59a3f96704388",
+        "expected_final_gamestate.txt": "0882c1f366869be47d3a014ebc73c5a4837ce267b06ffcaed704343ff81e01e3",
+        "meta.json": "a07cb95596dbbf1e485b1aacadbd6b2bfdc37c6c421e39bd827e9a0635fc7629"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

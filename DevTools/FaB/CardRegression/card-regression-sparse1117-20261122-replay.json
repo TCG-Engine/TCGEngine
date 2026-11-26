@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-proclaim-vengeance-red-four-live-sparse1117-real-predeclared-arakni-mark-gains-one-resource-without-action-cost",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-proclaim-vengeance-red-four-live-sparse1117-real-predeclared-arakni-mark-gains-one-resource-without-action-cost",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1117-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1117-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "046141f100101097cab1bf477c11c14742f0ec90c25b54da23ca32fdb7e54935",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "4b8ccfe51c1ee0a2e2a614d94a3355bdb4c0ef92f794ee1c792b7f8b679739c8",
+        "actions.json": "aa6d1eb088e8fcfde62fd18f65046982f7611fae91d4507b69a4fb4f97989b9a",
+        "assertions.json": "bd03120a320f2319d70dc50bc23cc8712d7665c2783bd8fbef7a0d577c726ae4",
+        "expected_final_gamestate.txt": "2eb22c603ed19e5e7757b57db733e6809590c5fb04215d7533f383818c69b3ec",
+        "meta.json": "afffa6f29fab6b2a4b5305074214c4b7ffe970d002ac15066069c830b6ab46df"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

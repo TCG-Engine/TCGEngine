@@ -1,0 +1,7 @@
+{
+    "name": "Smoldering Steel / real Frostbite creation replaced by physical graveyard banish",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-25T04:38:25+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Steel5physicalGYpriorstate; legalFang1/Oldhim4natural20/manual4. ActualWounding6declaresHero4/spendsAPandresolvesfourpower/noGA. Emptyblock thenproperreactionpriority4. RealSheath7cost1requiresactualIceBlue8pitch3, leavesR4=2/AP0. Separatefourresponses4,1,2,3resolveSheathonlyuntilactualP1optionalMZMulti0|1|ownSteel5GY; sameSheath7retainedStack/noDEFyet/Steelpresent/noFrostbite/UID8. ActualchooseSteel5 banishesitfaceup and REPLACEScreation, noFrostbiteallocated/payment/UID, Sheath7thenCC4DEFENSE_REACTION5. Freshreactionround actual4-5=0/HPall20/noFanghit. FullcloseSteel5Banish1,Wounding6GY1,Sheath7GY4,Ice8Pitch4/R4=2/APall0/noArena/proxy/DQ/await. OnlySteelpositiveGYreplacement, noprimaryattackreaction/decline/actualtokenowner/otherproducer/earlierentry/pitchsiblingscredit. Noenginechange. Sources: FaBSim/GeneratedCode/cardArrayCache.json#smoldering_steel_red FaBSim/GeneratedCode/GeneratedMacroCode.php#frosthaven_sheath_red FaBSim/GeneratedCode/GeneratedMacroCode.php#smoldering_scales FaBSim/Custom/PENCards.php#FaBPENReplaceFrost FaBSim/Custom/PENCards.php#FaBPENFinishFrost FaBSim/Custom/HVYCards.php#FaBHVYToken card-regression-repair-owner072107-after2a6b.json#Frosthaven"
+}

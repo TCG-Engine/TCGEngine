@@ -1,0 +1,68 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-22T17:37:08.757480+00:00",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse903-20261122.json",
+  "source_spec_sha256": "c3872a67c677059e0a7c18d4b6f20218a4c15e839ec9c3fbc91b4f317067cbb8",
+  "new_scenarios": 1,
+  "new_groups": 1,
+  "new_primary_ids": 1,
+  "actions": 29,
+  "native_assertions": 156,
+  "manual_passes": 25,
+  "totals": {
+    "saved_registered_scenarios": 4328,
+    "duels": 3075,
+    "four_live": 1253,
+    "recorded_primary_ids": 1476,
+    "identity_denominator": 5196,
+    "recorded_groups": 1350,
+    "group_denominator": 3324,
+    "four_live_groups": 1242,
+    "phase_qualified_scenarios_at_actual_contexts": 965,
+    "phase_qualified_unique_groups": 955,
+    "creation_replay_passes": 1706,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 126,
+  "scenarios": [
+    {
+      "card_id": "shield_beater",
+      "group_id": "identity:shield_beater",
+      "scenario_id": "card-shield-beater-four-live-sparse903-real-two-blue-payment-and-weapon-tap-pay-four-then-actual-attack-deals-five",
+      "effect_branches": [
+        "real_two_blue_payment_and_weapon_tap_pay_four_then_actual_attack_deals_five"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-shield-beater-four-live-sparse903-real-two-blue-payment-and-weapon-tap-pay-four-then-actual-attack-deals-five",
+      "source_spec": "card-regression-sparse903-20261122.json",
+      "source_spec_sha256": "c3872a67c677059e0a7c18d4b6f20218a4c15e839ec9c3fbc91b4f317067cbb8",
+      "review_evidence": "review-evidence/sparse903-20261122-qualified-saved.json",
+      "review_evidence_sha256": "f9bd1a99cede66b8f25d7c4dead968cb92e20a597f6aafb443a73192b9a7f751",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse903-20261122-replay.json",
+          "sha256": "d23742e20520c1e6c253f50001c9c3e72d646e5628c5f4bcfe9454c40c07afd6",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

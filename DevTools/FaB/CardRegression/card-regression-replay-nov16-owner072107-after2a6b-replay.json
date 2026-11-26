@@ -1,0 +1,39 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-repair-owner072107-after2a6b.json",
+  "runtime_sha256": "2a6b027d35a4be607109eb1d0de20c4b008562a9046732dd52bd1626ad912c6f",
+  "returncode": 0,
+  "completed_utc": "2026-11-16T18:53:31.484748+00:00",
+  "fixtures": [
+    {
+      "slug": "card-genis-wotchuneed-four-live-original-correct-probe-two-opponents-accept-caster-creates-silver",
+      "fixture_sha256": "7d1141aed169ffbd7a12a54270dfa8a5c0251ae493c88cab6dd54793ea200904",
+      "passed": true,
+      "result": "[PASS] genis_wotchuneed / four live distinctive effect"
+    },
+    {
+      "slug": "card-frosthaven-sheath-red-four-live-real-ice-pitch-earns-frostbite-and-five-defense",
+      "fixture_sha256": "fdfaa82e6eaad4e606d5d177cda61ea7630ac7794d36929cc5df2705f3e6bae7",
+      "passed": true,
+      "result": "[PASS] frosthaven_sheath_red / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-genis-wotchuneed-four-live-original-correct-probe-two-opponents-accept-caster-creates-silver",
+      "returncode": 0,
+      "stdout": "[PASS] genis_wotchuneed / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-frosthaven-sheath-red-four-live-real-ice-pitch-earns-frostbite-and-five-defense",
+      "returncode": 0,
+      "stdout": "[PASS] frosthaven_sheath_red / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 2,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

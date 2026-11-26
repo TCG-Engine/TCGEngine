@@ -1,0 +1,7 @@
+{
+    "name": "Breaking Point / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T23:07:11+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "**Rupture** - If this is played on chain link 4 or higher, it gets \"When this hits a hero, destroy all cards in their arsenal.\" Representative only: actual_first_link_damage_retains_arsenal_without_rupture. Physical Hand5 source/actual Blue6 pays printed1/2/3/R2/1/0/AP0, full four-live manual combat, owned source graveyard. Static grants/events not earned under these actual conditions; retained physical markers. No positive Hit/banished-source/Unity/clash/return or created ownership credit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#breaking_point_red"
+}

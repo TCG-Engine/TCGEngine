@@ -1,0 +1,27 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch848-haven-entry-one-arcane-two-target-positive.json",
+  "runtime_sha256": "cdc081ff4c87ff2f9338b1d69040d0dc98d7600ba33976384336534ea3f92d22",
+  "returncode": 0,
+  "completed_utc": "2026-11-16T05:34:07.375477+00:00",
+  "fixtures": [
+    {
+      "slug": "card-haven-veil-blue-four-live-entry-when-next-one-arcane-two-target-real-consumer",
+      "fixture_sha256": "998c64af9ccb256ed7e67c09c6d1c357ea16a2186b4ec9021423d6a515e35d2e",
+      "passed": true,
+      "result": "[PASS] Haven Veil Blue / earned entry protects one arcane of real Forked Lightning"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-haven-veil-blue-four-live-entry-when-next-one-arcane-two-target-real-consumer",
+      "returncode": 0,
+      "stdout": "[PASS] Haven Veil Blue / earned entry protects one arcane of real Forked Lightning\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

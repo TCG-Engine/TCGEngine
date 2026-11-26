@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-oldhim-grandfather-of-eternity-two-live-sparse1266-real-earth-blue-pays-three-defense-reaction-and-prevents-two-physical",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-oldhim-grandfather-of-eternity-two-live-sparse1266-real-earth-blue-pays-three-defense-reaction-and-prevents-two-physical",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1266-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1266-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "1cd7f6b9f575903379877c4aaebcf410aec6a7ab74733caad652fe1c6eb20006",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "1b1ad04678db4913c7b9e1fd47a0179ee3f63b9963a1ce04becd991ce188a120",
+        "actions.json": "23529b41e2d35ca17b249ec495cf81f8ea94253d4edb0775a6ec571e4f267aaa",
+        "assertions.json": "85b8dd1756aa0a632cedca45799f83455aabd90a7fdacf185800facc075dfaa1",
+        "expected_final_gamestate.txt": "f8f7562a449753d26db548124077eec4f59721e306070cc683c51918f38a6d68",
+        "meta.json": "65b9237d274df0293b991b1b963ad2c8a6d20e2088d344a6b31c4eccbcd700cb"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

@@ -1,0 +1,56 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-fang-dracai-of-blades-two-live-sparse1277-real-three-fealty-discount-makes-actual-dagger-attack-free",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-fang-dracai-of-blades-two-live-sparse1277-real-three-fealty-discount-makes-actual-dagger-attack-free",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1277-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1277-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "7e665b22713ce8986ba1f4659e3378c401cc9e42f2795e8e1d51046b472c314d",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "9975336b900cddbb0ed8a92499de5bd9aae528328e869d8ff98a76e445fa9a0f",
+        "actions.json": "f29f853d8b05170754fb1459afcb42561c70ee78273ee032a24583c6a586af80",
+        "assertions.json": "ed9f728631fff9f516154419d4935b2d6360bc414f52e945606a9ede0d50e63d",
+        "expected_final_gamestate.txt": "5e18ffdce08a96893aa88b89640e8c5bf4e684ca42a9e6c4b0ecfd145241310a",
+        "meta.json": "3057363436960830e9e2155c63eb9c6235ad84468e023a08f8950d8a483ac6d0"
+      }
+    },
+    {
+      "slug": "card-cindra-dracai-of-retribution-two-live-sparse1277-real-three-paid-instant-equips-two-owned-daggers-after-choice",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-cindra-dracai-of-retribution-two-live-sparse1277-real-three-paid-instant-equips-two-owned-daggers-after-choice",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1277-local-20261122\\clean-replays\\01.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1277-local-20261122\\clean-replays\\01.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "ef29b5e2965cfdeae2b026362ba9ce822ad67edce1c7ce9de069f9f0dcff68b3",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "84a2c70dc7e82d7d2d04f36de0e04f051e1e24c66619ab2c0144dee9f6c765a5",
+        "actions.json": "962c60f376bfc56606b9e55f310c4a73c6dfa2bde23599d78434978c5e81e146",
+        "assertions.json": "75946ac5079c7168db4652aa00496e6c32378b5de0460756c02867d851886e7a",
+        "expected_final_gamestate.txt": "274af9a006a117b71ba745f1720616667adf0910b1959617416be04f8d525019",
+        "meta.json": "d831c7f45ac6d18b4335f27befb5b86b149711e5db1e0d7c9b7c7ae69fb61b03"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

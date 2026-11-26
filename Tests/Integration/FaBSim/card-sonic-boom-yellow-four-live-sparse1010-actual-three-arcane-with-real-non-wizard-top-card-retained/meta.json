@@ -1,0 +1,7 @@
+{
+    "name": "Sonic Boom / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-23T02:13:37+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Deal 3 arcane damage to target opposing hero.\n\nIf this deals damage, look at the top card of your deck. If it's a Wizard non-attack action card, you may banish it. If you do, you may play it this turn as though it were an instant and it costs {x} less to play, where X is the damage dealt by this. Named branch: Kano15 cost2/realBlue6 pays3 leavingR1/AP0, actual opposingHero4 target announced in Prepare before payment/responses. Fourmanualseats, real3arcane/HP17. Actual ownDeck7 WoundingRed is AA and notWizard, so no eligible instant-play banish choice; it returns top unchanged, Temp/Banish0, Hand0/source5ownedGY. No positive Wizard-top permission/reduction, prevention/hero ability/support/sibling/full-card claim. Sources: FaBSim/GeneratedCode/cardArrayCache.json#sonic_boom_yellow"
+}

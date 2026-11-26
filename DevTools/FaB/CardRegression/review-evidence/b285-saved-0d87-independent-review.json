@@ -1,0 +1,109 @@
+{
+  "status": "APPROVED_EXACT_SAVED_ONE_ACTUAL_PRIOR_CHAIN_HIT_CASE_REPLAYS_SEPARATE",
+  "reviewer": "/root/nov2_metadata_review",
+  "reviewed_utc": "2026-11-03T04:28:38.767067+00:00",
+  "runtime_sha256": "0d877de49c131f29c152706e14bba3368630df61c59ef475c87a84f20b6e1a66",
+  "input_file": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch285.json",
+  "input_sha256": "61bf3b5e13b7a8b0321df79d588c726d6c02bc46abc01894cd5b3b4f71e9470c",
+  "fixtures": [
+    {
+      "slug": "card-salt-the-wound-yellow-four-live-sparse-real-kodachi-hit-earns-one-power-and-three-damage",
+      "card_id": "salt_the_wound_yellow",
+      "group_id": "identity:salt_the_wound_yellow",
+      "fixture_sha256": "852f9fe23289428ebf69298f10ad5c0c693be79a5c422a1db16e65e50e014909",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "e1b5aa5574506c0bda05dcf400228c52bd3ed5f1985d590900fdbab432527a5f",
+        "actions.json": "3c36009acfbf5285fd72472d01c6ff863a25fd85750aa02f3f32be8fcba578c1",
+        "assertions.json": "9b5bd114c3b6faadf86a82314df3bbbc6e3aed3ac66c4693b55fa853592ebcc0",
+        "expected_final_gamestate.txt": "30c53d2f0c6b3ab6a92138cf07fc1d549b8d06200273d6f25744585e8979818e",
+        "meta.json": "363772c6823636740491601b0e4a8656286d5fcdc93061a42055cffa4530586d"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "e1b5aa5574506c0bda05dcf400228c52bd3ed5f1985d590900fdbab432527a5f",
+        "actions.json": "3c36009acfbf5285fd72472d01c6ff863a25fd85750aa02f3f32be8fcba578c1",
+        "assertions.json": "9b5bd114c3b6faadf86a82314df3bbbc6e3aed3ac66c4693b55fa853592ebcc0",
+        "expected_final_gamestate.txt": "30c53d2f0c6b3ab6a92138cf07fc1d549b8d06200273d6f25744585e8979818e",
+        "meta.json": "363772c6823636740491601b0e4a8656286d5fcdc93061a42055cffa4530586d"
+      },
+      "actions": 50,
+      "native_assertions": 3936,
+      "actual_manual_passes": 46,
+      "manual_passes": 46,
+      "manual_pass_actor_counts": {
+        "1": 11,
+        "2": 11,
+        "3": 11,
+        "4": 13
+      },
+      "semantically_approved": true,
+      "every_native_action_and_assertion_exactly_maps_to_approved_source": true,
+      "initial_and_final_snapshots_fully_parsed": true,
+      "physical_uid_conservation_without_duplicates": true,
+      "final_graveyard_uid_sets": {
+        "1": [
+          6
+        ],
+        "2": [],
+        "3": [],
+        "4": []
+      },
+      "final_pitch_uid_order": {
+        "1": [
+          7
+        ],
+        "2": [],
+        "3": [],
+        "4": []
+      },
+      "final_health": [
+        20,
+        20,
+        20,
+        16
+      ],
+      "final_resources": [
+        2,
+        0,
+        0,
+        0
+      ],
+      "final_action_points": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "physical_findings": "Actual ready ownedKodachi5/primarySalt6/Blue7 with no initialhistory/R/AP/effect seeds. RealadjacentP4target/Blue7pitch3 paysweapon1andAP1 leavesR2/AP0; physical5used/proxy8SourceWeapons5. Actualfourresponders andfullcombatdeal1/P4HP19/chainHits1. RealfourDAMAGEpassesearnGAAP1 inRESOLUTION, sameproxy8ChainLink1retained. ActualprimarySalt6cost0click25spendsonlyearnedAP, nosecondtargetanswer, fourfreshresponders26-29retain6Stackand8Chain; fourthsame6ChainLink2/staticpower2+oneactualhit=3/noGA. Actualprimary3damage/P4HP16 at42; chainHits2/postownhitcurrentpower4doesnotretroactivelydeal4. FullremainingDAMAGE/RESOLUTIONandcloseendexactGY6/Pitch7/usedWeapon5WEAPON_ATTACKS1/R2AP0, allothersHP20, proxy8ceased, allphysicalUIDownershipconserved/emptyqueuesStackChains. No inferred/fabricatedpriorhit or fullclosebetweenattacks.",
+      "qualification": "One actual prior-hit positive standalone SaltYellow branch; no zero-hit/miss/multiplepriorhit/other targets/hero/support-primary/full-card/control credit. Dynamic post-self-hit power4 is distinguished from actual completed3damage."
+    }
+  ],
+  "source_expectation_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch285-independent-source-review.json",
+    "sha256": "4fee9ae9e65a881b7b7bc0b44debc04278f98cd5119727431ffcad7f102ca55c",
+    "manifest_sha256": "f53358e0b6f8b18299732954cc71e0070824f9e6de8cd3e80eaecc461b9483c5"
+  },
+  "immutable_native_archive": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch285-20261103T042536Z-6ae9624017240.json",
+    "sha256": "eac3d0f03448ae748e70a0d97069b442d1278b9ef9ffff0338c1619b2fe1b18c"
+  },
+  "recording_results": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch285.recording-results.json",
+    "sha256": "acbcb2107aad32f01d404d4717c2eedff5f38a17baf64046655411494feb0e75"
+  },
+  "native_wrapper": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch285-native-r1\\receipt.json",
+    "sha256": "176d71e086dca19e6762a5f50843600d6ee5edf1c7eff46318015fbfeff3719a",
+    "stdout_sha256": "f92b61c0919f3170ba4277f2a327dcb83891c1a4c77073e7c53a13cf8ddb1b05",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "exit_code": 0,
+    "stderr_bytes": 0,
+    "runtime_before": "0d877de49c131f29c152706e14bba3368630df61c59ef475c87a84f20b6e1a66",
+    "runtime_after": "0d877de49c131f29c152706e14bba3368630df61c59ef475c87a84f20b6e1a66"
+  },
+  "method": "Independent read-only exact saved raw5 review. All50actual actors/modes/payloads and3936ordered native assertions exactly map approved frozen source. Complete schema initial/final physicalUID/ownership/Counters/HP/economy/GY/Pitch/usedWeapon parsed; all46manualactors and separate before-hit3power/after-hit4power/actual3damage assertions checked. Reused pure prior AST parsers/normalizer/action only; noauthorbuilder/PHP/native/replay/R/backend.",
+  "limits": [
+    "Saved creation review only; Root two focused replays are separate evidence, not executed by reviewer.",
+    "One actual prior-hit positive standalone SaltYellow branch; no zero-hit/miss/multiplepriorhit/other targets/hero/support-primary/full-card/control credit. Dynamic post-self-hit power4 is distinguished from actual completed3damage.",
+    "Actual0d context retained; no source application, runtime migration or denied-action retry."
+  ]
+}

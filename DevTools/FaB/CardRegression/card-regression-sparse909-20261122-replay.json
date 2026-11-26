@@ -1,0 +1,102 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-thaw-red-four-live-sparse909-actual-hand-attack-deals-six-before-future-graveyard-start-ability",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-thaw-red-four-live-sparse909-actual-hand-attack-deals-six-before-future-graveyard-start-ability",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse909-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse909-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "a456c9f882565908a9ce3cb17284d7211d139409cf34163cd94174443ab1ccfa",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "497c7e49710f90cc3952e9ef72338a0953433a4dfcd66cc11da091c191fa01d3",
+        "actions.json": "25920dc16af50701b0be20453cc3345d5c14a09166881d7481930bfb87552093",
+        "assertions.json": "e8ce38e5807e7c60497d62389b68683054228f28e958ca0f26cc05291f15101b",
+        "expected_final_gamestate.txt": "52cf74a1c50156361fd43824383a4691a7402ffdf634307d96ab56cdd96536a7",
+        "meta.json": "056940629d1963a2a8af670267fdb9d7c3ff7d3994cf60392cfaa7901d10adc7"
+      }
+    },
+    {
+      "slug": "card-cyclone-roundhouse-yellow-four-live-sparse909-actual-five-without-combo-or-granted-reaction-step-banish-trigger",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-cyclone-roundhouse-yellow-four-live-sparse909-actual-five-without-combo-or-granted-reaction-step-banish-trigger",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse909-local-20261122\\clean-replays\\01.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse909-local-20261122\\clean-replays\\01.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "5bdf7d378a3b4cb47f7ebe07070d0b5d2dd6df52cd5f0c66d9bdce0167a3fde3",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "218a66e47519e5c82c6f09ea7a025d5884c3febee2980c87687d4d35a82b5d23",
+        "actions.json": "25920dc16af50701b0be20453cc3345d5c14a09166881d7481930bfb87552093",
+        "assertions.json": "4b63e11fbffc0eb8a9d353452335f3eb56849299787c18bca01d82907beb4947",
+        "expected_final_gamestate.txt": "bbfdd476b6c112480c8fa7e56ae7393178951da0909e5d524e8420b8959b21e3",
+        "meta.json": "e763358fef7f2ed2fcd177a99c1a21ced56cdf9e63fa2140e26ebc18b4ebe6ba"
+      }
+    },
+    {
+      "slug": "card-back-alley-breakline-red-four-live-sparse909-actual-hand-origin-deals-five-without-deck-movement-action-point-trigger",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-back-alley-breakline-red-four-live-sparse909-actual-hand-origin-deals-five-without-deck-movement-action-point-trigger",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse909-local-20261122\\clean-replays\\02.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse909-local-20261122\\clean-replays\\02.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "1dcbab9805e65c1dc3bd39fdbd646b9f5111f3ca1c5056432c5e05e50f400604",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "21ce9da06d0430ca00bea0dba33c3917f7b83874ce0f9161044f12c7cac47327",
+        "actions.json": "25920dc16af50701b0be20453cc3345d5c14a09166881d7481930bfb87552093",
+        "assertions.json": "5a7500ab1264c56054fefa677fbdea20c47208b92720d51869b14a8283ada5c1",
+        "expected_final_gamestate.txt": "b211d8f083d9398c595c18b04b4d15243fa4df706b149cfc1b4c7d5e4d66ca48",
+        "meta.json": "182202e6184903b4258a62f55eb1e31133db6ec8dbfef730f6d0598cd1a2a9d0"
+      }
+    },
+    {
+      "slug": "card-stadium-security-red-four-live-sparse909-actual-hand-attack-deals-seven-without-arsenal-ambush-branch",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-stadium-security-red-four-live-sparse909-actual-hand-attack-deals-seven-without-arsenal-ambush-branch",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse909-local-20261122\\clean-replays\\03.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse909-local-20261122\\clean-replays\\03.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "e985c6493b7a05d91ee891172140d2abd0f2b054b030a421425641dbb7a0fecc",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "2a08ab492d557e850a3cf822b9aa670607dd2934429d74546fd646477d39ec9a",
+        "actions.json": "25920dc16af50701b0be20453cc3345d5c14a09166881d7481930bfb87552093",
+        "assertions.json": "275ed1fb105f9dded6c797b368a8a7ba00289d403c25d7640663be0c88f86bfc",
+        "expected_final_gamestate.txt": "1a2f8a46287a2ae7d136b5ff3086b07fe24097e869d1b47cd9b2ba897a9633aa",
+        "meta.json": "1e4f617f0e7350d40320487c70362254bf924de252e6b38201e692ea0d7d2e56"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

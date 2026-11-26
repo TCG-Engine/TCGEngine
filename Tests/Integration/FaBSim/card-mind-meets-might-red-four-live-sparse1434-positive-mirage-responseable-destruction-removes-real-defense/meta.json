@@ -1,0 +1,7 @@
+{
+    "name": "Mind Meets Might / actual Mirage destroys defender before damage",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-24T19:18:37+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "FOUR_REAL_MANUAL_YOUNGDORI20SEATS1-3_ZYGGY20SEAT4. ActualGenericRagingOnslaught5AA3 paidrealBlue6pitch3/R0/AP0/formaladjacentHero4target/all4responses. ActualnonIllusionist7power. PrimaryMindMeetsMight7realHand4defends3beforedeclarationfinishes; Mirageconditiontrue(CR8.3.25)earnsoneseparateABILITY8Controller4Source7, source7stillCC/HP4still20beforeallresponses. Freshall4responsesresolveMirage: actualowned7GY4/notCC, attack5unchanged7power/HP4still20. Actualdamage7minusnow0defense=7HP4=13 pinsdestructioneffectbeyondinternalflags. Fullclose5GY1/6Pitch1/7GY4/ABI8gone/UID8RNG0/APR0/StackDQCCquiet/noextraLayer. DefendingprimarydidnotattackorhitsoitsprintedHitabilitynotearned/uncredited. PositiveMirageonly, noIllusionist/under6/responsechange/multipletransition/secondary/otherpitches/fullcardcredit. Noenginechange. Sources: FaBSim/GeneratedCode/cardArrayCache.json#mind_meets_might_red FaBSim/Custom/DTDRuntime.php FaBSim/Custom/GameLogic.php FaBSim/Custom/ROSCards.php FaBSim/Custom/MONCards.php https://rules.fabtcg.com/en/cr/08-keywords/"
+}

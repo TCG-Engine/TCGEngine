@@ -1,0 +1,1217 @@
+[
+  {
+    "slug": "card-dash-io-two-live-sparse1271-real-top-item-as-instant-additional-resource-and-once-limit",
+    "name": "Dash I/O / actual top-deck Item at zero actions pays additional resource then fresh second top Item rejected",
+    "cardIDs": [
+      "dash_io"
+    ],
+    "secondaryCardIDs": [
+      "fuel_injector_blue",
+      "titanium_bauble_blue"
+    ],
+    "branches": [
+      "adult_duel_real_top_mechanologist_item_played_as_instant_at_zero_actions_pays_additional_one_then_second_top_item_rejected"
+    ],
+    "heroes": [
+      "dash_io",
+      "dorinthea_ironsong"
+    ],
+    "health": [
+      36,
+      40
+    ],
+    "resources": [
+      0,
+      0
+    ],
+    "actionPoints": [
+      0,
+      0
+    ],
+    "state": {
+      "passiveSeats": []
+    },
+    "zones": [
+      {
+        "cardID": "titanium_bauble_blue",
+        "zone": "Hand",
+        "player": 1,
+        "properties": {}
+      },
+      {
+        "cardID": "fuel_injector_blue",
+        "zone": "Deck",
+        "player": 1,
+        "properties": {}
+      },
+      {
+        "cardID": "fuel_injector_blue",
+        "zone": "Deck",
+        "player": 1,
+        "properties": {}
+      }
+    ],
+    "sources": [
+      "FaBSim/GeneratedCode/cardArrayCache.json#dash_io",
+      "FaBSim/Custom/EVOCards.php",
+      "FaBSim/Custom/EVORuntime.php",
+      "FaBSim/Custom/GameLogic.php"
+    ],
+    "printed_text": "You may look at the top card of your deck at any time.\n\nOnce per turn, you may play a Mechanologist item with cost 1 or less from the top of your deck as though it were an instant. It costs an additional {r} to play.",
+    "diagnostic_only": false,
+    "qualification_permitted": true,
+    "coverage_mode": "two_live_manual",
+    "look_at_top_credit": false,
+    "secondary_identity_credit": false,
+    "steps": [
+      {
+        "kind": "checks",
+        "checkpoint": "two_live_natural_adult_heroes_and_real_physical_assets",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "SeatOrder",
+            "value": 12
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "LiveSeats",
+            "value": 12
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "TurnPlayer",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "TurnNumber",
+            "value": 2
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "PriorityPlayer",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "RandomCounter",
+            "value": 0
+          },
+          {
+            "kind": "state",
+            "key": "window",
+            "value": "ACTION"
+          },
+          {
+            "kind": "state",
+            "key": "gameMode",
+            "value": ""
+          },
+          {
+            "kind": "state",
+            "key": "passiveSeats",
+            "value": []
+          },
+          {
+            "kind": "state",
+            "key": "turnEffects",
+            "value": []
+          },
+          {
+            "kind": "state",
+            "key": "pendingPayment",
+            "value": null
+          },
+          {
+            "kind": "state",
+            "key": "resolvingReaction",
+            "value": null
+          },
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 0
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "1"
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "2"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Hero-0",
+            "property": "CardID",
+            "value": "dash_io"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Hero-0",
+            "property": "Status",
+            "value": "2"
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Health",
+            "value": 36
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Hand",
+            "value": 1
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Graveyard",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Deck",
+            "value": 2
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Banish",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Weapons",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Equipment",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Arena",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Arsenal",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Pitch",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Soul",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1CombatChain",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Temp",
+            "value": 0
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p2Hero-0",
+            "property": "CardID",
+            "value": "dorinthea_ironsong"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p2Hero-0",
+            "property": "Status",
+            "value": "2"
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 40
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2Hand",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2Graveyard",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2Deck",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2Banish",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2Weapons",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2Equipment",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2Arena",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2Arsenal",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2Pitch",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2Soul",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2CombatChain",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2Temp",
+            "value": 0
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Hand-0",
+            "property": "CardID",
+            "value": "titanium_bauble_blue"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Hand-0",
+            "property": "UniqueID",
+            "value": "3"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Hand-0",
+            "property": "Owner",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Hand-0",
+            "property": "Controller",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Deck-0",
+            "property": "CardID",
+            "value": "fuel_injector_blue"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Deck-0",
+            "property": "UniqueID",
+            "value": "4"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Deck-0",
+            "property": "Owner",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Deck-0",
+            "property": "Controller",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Deck-1",
+            "property": "CardID",
+            "value": "fuel_injector_blue"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Deck-1",
+            "property": "UniqueID",
+            "value": "5"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Deck-1",
+            "property": "Owner",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Deck-1",
+            "property": "Controller",
+            "value": "1"
+          }
+        ]
+      },
+      {
+        "kind": "checks",
+        "checkpoint": "actual_top_two_eligible_zero_cost_items_and_real_blue_without_resource_or_action_seed",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "UniqueIDCounter",
+            "value": 5
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Deck-0",
+            "property": "CardID",
+            "value": "fuel_injector_blue"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Deck-0",
+            "property": "UniqueID",
+            "value": "4"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Deck-0",
+            "property": "Owner",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Deck-0",
+            "property": "Controller",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Deck-1",
+            "property": "CardID",
+            "value": "fuel_injector_blue"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Deck-1",
+            "property": "UniqueID",
+            "value": "5"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Deck-1",
+            "property": "Owner",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Deck-1",
+            "property": "Controller",
+            "value": "1"
+          },
+          {
+            "kind": "state",
+            "key": "turnEffects",
+            "value": []
+          }
+        ]
+      },
+      {
+        "kind": "click",
+        "player": 1,
+        "mzID": "p1Deck-0"
+      },
+      {
+        "kind": "checks",
+        "checkpoint": "printed_zero_cost_item_requires_actual_additional_one_resource_even_at_zero_actions",
+        "checks": [
+          {
+            "kind": "state",
+            "key": "window",
+            "value": "PITCH"
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Arena",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Deck",
+            "value": 1
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Hand-0",
+            "property": "CardID",
+            "value": "titanium_bauble_blue"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Hand-0",
+            "property": "UniqueID",
+            "value": "3"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Hand-0",
+            "property": "Owner",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Hand-0",
+            "property": "Controller",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Deck-0",
+            "property": "CardID",
+            "value": "fuel_injector_blue"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Deck-0",
+            "property": "UniqueID",
+            "value": "5"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Deck-0",
+            "property": "Owner",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Deck-0",
+            "property": "Controller",
+            "value": "1"
+          }
+        ]
+      },
+      {
+        "kind": "click",
+        "player": 1,
+        "mzID": "p1Hand-0"
+      },
+      {
+        "kind": "checks",
+        "checkpoint": "real_blue_paid_additional_one_and_original_top_item_is_held_before_opponent_response",
+        "checks": [
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 1
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "CardID",
+            "value": "fuel_injector_blue"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "UniqueID",
+            "value": "4"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "Owner",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "Controller",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "Kind",
+            "value": "INSTANT"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "SourceZone",
+            "value": "Deck"
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Arena",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Hand",
+            "value": 0
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Pitch-0",
+            "property": "CardID",
+            "value": "titanium_bauble_blue"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Pitch-0",
+            "property": "UniqueID",
+            "value": "3"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Pitch-0",
+            "property": "Owner",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Pitch-0",
+            "property": "Controller",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Deck-0",
+            "property": "CardID",
+            "value": "fuel_injector_blue"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Deck-0",
+            "property": "UniqueID",
+            "value": "5"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Deck-0",
+            "property": "Owner",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Deck-0",
+            "property": "Controller",
+            "value": "1"
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 2
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Health",
+            "value": 36
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 40
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "1"
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "2"
+          },
+          {
+            "kind": "state",
+            "key": "window",
+            "value": "PRIORITY"
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "PriorityPlayer",
+            "value": 2
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "PRIORITY",
+          "priority": 1
+        }
+      },
+      {
+        "kind": "checks",
+        "checkpoint": "actual_same_top_item_waits_for_second_live_response",
+        "checks": [
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 1
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "CardID",
+            "value": "fuel_injector_blue"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "UniqueID",
+            "value": "4"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "Owner",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "Controller",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "Kind",
+            "value": "INSTANT"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "SourceZone",
+            "value": "Deck"
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Arena",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Hand",
+            "value": 0
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Pitch-0",
+            "property": "CardID",
+            "value": "titanium_bauble_blue"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Pitch-0",
+            "property": "UniqueID",
+            "value": "3"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Pitch-0",
+            "property": "Owner",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Pitch-0",
+            "property": "Controller",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Deck-0",
+            "property": "CardID",
+            "value": "fuel_injector_blue"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Deck-0",
+            "property": "UniqueID",
+            "value": "5"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Deck-0",
+            "property": "Owner",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Deck-0",
+            "property": "Controller",
+            "value": "1"
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 2
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Health",
+            "value": 36
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 40
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "1"
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "2"
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "PriorityPlayer",
+            "value": 1
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "ACTION",
+          "priority": 1
+        }
+      },
+      {
+        "kind": "checks",
+        "checkpoint": "only_after_both_responses_same_item_enters_and_distinct_next_top_remains",
+        "checks": [
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 0
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Arena-0",
+            "property": "CardID",
+            "value": "fuel_injector_blue"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Arena-0",
+            "property": "UniqueID",
+            "value": "4"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Arena-0",
+            "property": "Owner",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Arena-0",
+            "property": "Controller",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Deck-0",
+            "property": "CardID",
+            "value": "fuel_injector_blue"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Deck-0",
+            "property": "UniqueID",
+            "value": "5"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Deck-0",
+            "property": "Owner",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Deck-0",
+            "property": "Controller",
+            "value": "1"
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 2
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "UniqueIDCounter",
+            "value": 5
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "1"
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "2"
+          }
+        ]
+      },
+      {
+        "kind": "click",
+        "player": 1,
+        "mzID": "p1Deck-0"
+      },
+      {
+        "kind": "checks",
+        "checkpoint": "once_permission_spent_second_fresh_top_item_rejected_despite_enough_resource",
+        "checks": [
+          {
+            "kind": "state",
+            "key": "window",
+            "value": "ACTION"
+          },
+          {
+            "kind": "state",
+            "key": "combatOpen",
+            "value": false
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "TurnPlayer",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "TurnNumber",
+            "value": 2
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "PriorityPlayer",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "UniqueIDCounter",
+            "value": 5
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "RandomCounter",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 0
+          },
+          {
+            "kind": "state",
+            "key": "pendingPayment",
+            "value": null
+          },
+          {
+            "kind": "state",
+            "key": "resolvingReaction",
+            "value": null
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "1"
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "2"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Arena-0",
+            "property": "CardID",
+            "value": "fuel_injector_blue"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Arena-0",
+            "property": "UniqueID",
+            "value": "4"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Arena-0",
+            "property": "Owner",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Arena-0",
+            "property": "Controller",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Deck-0",
+            "property": "CardID",
+            "value": "fuel_injector_blue"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Deck-0",
+            "property": "UniqueID",
+            "value": "5"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Deck-0",
+            "property": "Owner",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Deck-0",
+            "property": "Controller",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Pitch-0",
+            "property": "CardID",
+            "value": "titanium_bauble_blue"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Pitch-0",
+            "property": "UniqueID",
+            "value": "3"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Pitch-0",
+            "property": "Owner",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Pitch-0",
+            "property": "Controller",
+            "value": "1"
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Health",
+            "value": 36
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 2
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Hand",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Graveyard",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Deck",
+            "value": 1
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Banish",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Weapons",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Equipment",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Arena",
+            "value": 1
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Arsenal",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Pitch",
+            "value": 1
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Soul",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1CombatChain",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Temp",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 40
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2Hand",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2Graveyard",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2Deck",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2Banish",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2Weapons",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2Equipment",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2Arena",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2Arsenal",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2Pitch",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2Soul",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2CombatChain",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2Temp",
+            "value": 0
+          }
+        ]
+      }
+    ],
+    "planned_actions": 5,
+    "oracle": "ADULT_DASH_IO36_NATIVE_DUEL_ONLY. ActualtopFuelInjector4Deck cost0MechanologistItem is playedfromDeckatAP0 asInstant, requiresprintedadditionalR1andactualBlue3Handpitch3paysleavesR2/AP0. Original4StackINSTANTbeforebothmanualresponses, notearlyArena. Bothresponsesresolveactual4Arena, untouchednexttop5Deck. Actualnexttop5clickmustrejectoncepermissionuseddespiteR2enoughtopay1andeligiblecost0; noStack/payment/UID/resource/APchange. No lookattopUIvisibility, Itemactivation, reset/otherturn, alternativecost<=1/itemclass/ineligiblecard controls, DashDatabase/Young/four-live/support/fullcardcredit."
+  }
+]

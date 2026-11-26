@@ -1,0 +1,7 @@
+{
+    "name": "Betsy / real Hand defense does not earn conditional Hero ability",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-24T10:29:48+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "FOUR_REAL_MANUAL_UPF_NATURAL_DORI20ACTOR_THREELIVEYOUNGHEROESINCLUDING_BETSY20DEFENDER4. ActualGenericCriticalRed5cost1paidBlue6pitch3/R2/AP0/fivepower. ActualdefenderHandbet_big_red7\u2192CC4RoleDEFENSEFromHand/printed3defense/2HerodamageHP4=18. DefendingisNOTplayinganddoesnotcauseattack-onlyabilities. PrimaryBetsy4doesnotcontrolwageringattack: BetBig7defendingdoesNOTattack/wager. NoHerooptional2resourcepayment/chooser/powergrant/overpower/newGoldMightVigor. RealownBlue8Handpitch3isavailablepotential2funderbutunspent/sameownedUID/index0afterdefender7moved; noresourceorPitch4change. Fullcloseattacker5GY1/fund6Pitch1/defender7GY4/extra8unchanged/allArena0/UID8RNG0/StackDQCCquiet/ownHero4Status2. OnlyHeroevent-rolefalseguard/realHanddefense/damage/physicalretention. PositiveContractplay/peekchoices/targettiming/wager/payment/triggerlayer/Heroactivation/support/siblings/fullcarduncredited. Sources: FaBSim/GeneratedCode/cardArrayCache.json#betsy FaBSim/GeneratedCode/GeneratedMacroCode.php FaBSim/Custom/GameLogic.php FaBSim/Custom/DYNCards.php FaBSim/Custom/DYNRuntime.php FaBSim/Custom/OUTCards.php FaBSim/Custom/HVYCards.php FaBSim/Custom/ARCCards.php FaBSim/Custom/WTRCards.php"
+}

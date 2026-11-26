@@ -1,0 +1,7 @@
+{
+    "name": "Ebbing Arcstride Blue / Fragment earns a separate go-again trigger and real Red attack",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-15T17:50:46+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Ebbing Arcstride Blue: actual Fragment resolves to -2 power and separately earns a responseable go-again trigger. All four live seats respond before each layer resolves. Same physical attack gains go again only after the secondary layer; defense blocks its remaining power, and the earned action point pays for a real Red attack dealing four damage to Hero4. Exact unchanged 63-control/4443-query route from the independently reviewed no-save diagnostic. Blue named partial branch only; no sibling, alternate branch, hero ability or general Fragment certification. Sources: https://rules.fabtcg.com/en/cr/06-gameplay/ https://rules.fabtcg.com/en/cr/07-combat/ https://rules.fabtcg.com/en/cr/08-keywords/"
+}

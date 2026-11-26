@@ -1,0 +1,43 @@
+{
+  "status": "EXISTING_UNRESOLVED_DEPENDENCY_BOUNDARIES_NO_GAMEPLAY_CHANGES",
+  "utc": "2026-11-17T03:51:57.058359+00:00",
+  "triage_source_manifest": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov17-codex161-creator-owner-one-helper-unapplied-proposal\\manifest.json",
+  "triage_source_manifest_sha256": "00397d823f2bcf662790e79389d24d95a2bd78b07761a6b4c3a7c87cdbbcece3",
+  "entries": {
+    "FAB-REG-200": {
+      "status": "HELD_FULL_ORIGINAL_ROUTE_DEPENDENCY_NO_SOURCE_PROPOSAL",
+      "original_source": "card-regression-batch865-mark-neverest-malice-two-layer-full-probe-r2.json",
+      "original_sha256": "49edceb62959005b2a1406bab1d9c520d9579469998596c160cb0d7225d48595",
+      "native_proof": "review-evidence/malice200-independent-native-before-cdc.json",
+      "native_proof_sha256": "9c998ae27bb16eca314f065f747a7ac306224375d620e0727d07ea27275f55be",
+      "current_earlier_cause": "IARRuntime FaBIARZombieDied still immediately banishes dead Zombie and creates Corpse instead of earned Malice layer. Native first publicGY-retention failure remains valid.",
+      "whole_route_dependency": "Actual BoundTriggers emits rosEvent=iarBound; current ROS falls through to an interactive ResolveAbility positive Mark choice. Its virtual lifetime is a094-family dependency.",
+      "specific094_proposal_boundary": "Current concrete094 proposal admits only empty/ability rosEvent and deliberately excludes iarBound. Do not assume applying that exact proposal would finish this original200 route. Named-event scope needs Root adjudication, not a silent admission or synchronous chooser stub.",
+      "repair_or_new_probe_executed": false
+    },
+    "FAB-REG-158": {
+      "status": "UNAPPLIED_CANONICAL_TRIGGER_OWNERSHIP_AND_EMISSION_WORK_PENDING",
+      "current_canonical": "DevTools/FaB/dtd_abilities.json",
+      "canonical_sha256": "eca8a13fd892fa879ec3e6b527e8661a0cc656551594bd313ec50ab4817de9e5",
+      "normalized_macro_bodies": {
+        "ResolveCard": "1ab63ad609ddfd48c3c1c3e02640f8f9b35474fb85a90f3f338039fb7b62c849"
+      },
+      "cause": "ResolveCard currently creates Ponder inline. A separate entry queue without suppressing/migrating that existing body would duplicate the effect.",
+      "required": "Review canonical/dispatch ownership and use guarded existing emission with usable repository input; no generated hand edit or arbitrary native interception supplied.",
+      "service_context": "Latest configured snapshot read during147 returnedHTTP403; no new158 fetch/emitter attempted. This is not a denial of a158 source application.",
+      "source_application_executed": false,
+      "native_after_run": false,
+      "qualification_credit": false
+    }
+  },
+  "current_source_hashes": {
+    "FaBSim/Custom/IARRuntime.php": "a84f4f64c3763b5bfbcc996ba7206e0b6b83599837160d4048714c5ee3cc7196",
+    "FaBSim/Custom/ROSCards.php": "238e573e1418c8612e8a16c3de35f61e827b2e9d4345ec62eca95b881f481113",
+    "FaBSim/Custom/GameLogic.php": "b61f735054c6811879762200680f53832b978818dd1c2dc5a3c7e8b85dbb0926"
+  },
+  "limits": [
+    "200 existing Malice inline producer remains unfixed. Its full original positive Mark/iarBound route needs continuation support beyond the current empty/ability-only094 proposal; no future094 approval is assumed to cover it.",
+    "158 still has no applied repair or passing fixture; canonical body inspection is source evidence, not a new Native reproduction or counted gameplay root.",
+    "All original failing evidence and expectations retained. No source/Native/service/emitter action by this update; no new coverage or full-suite check."
+  ]
+}

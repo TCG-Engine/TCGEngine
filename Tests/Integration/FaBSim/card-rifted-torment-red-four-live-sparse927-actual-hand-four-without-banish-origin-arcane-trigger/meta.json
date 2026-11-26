@@ -1,0 +1,7 @@
+{
+    "name": "Rifted Torment / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T20:13:41+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "You may play this from your banished zone.\n\nWhen this is played from your banished zone, deal 1 arcane damage to target hero.\n\n**Blood Debt** Representative only: actual_hand_four_without_banish_origin_arcane_trigger. Real printed cost, four manual live seats, actual unblocked damage and physical source in graveyard. Only named Hand-origin main attack; Banish-origin, phantasm destruction and Blood Debt end-phase branches untested. Sources: FaBSim/GeneratedCode/cardArrayCache.json#rifted_torment_red"
+}

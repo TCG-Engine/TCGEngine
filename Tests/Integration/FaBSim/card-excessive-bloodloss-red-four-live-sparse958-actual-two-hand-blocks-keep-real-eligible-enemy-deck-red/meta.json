@@ -1,0 +1,7 @@
+{
+    "name": "Excessive Bloodloss / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T21:53:23+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "**Contract** - You are contracted to banish opponents' red cards. Whenever you complete this contract, create a Silver token.\n\nWhen this hits a hero, banish the top card of their deck. If it's red, repeat this process once. Representative only: two actual Hand AA defenses totaling6 fully block printed4/5/5/3, zero damage/no hit/Stack0/AP0. Actual printed payment, physical source and defenders reach owned graveyards. Eligible real enemy Deck marker is retained with same UID/owner, no banish/Silver/secondary heal; positive hit/Contract/ownership behavior untested. Sources: FaBSim/GeneratedCode/cardArrayCache.json#excessive_bloodloss_red"
+}

@@ -1,0 +1,98 @@
+{
+  "status": "APPROVED_TREE083_FIVE_NATIVE_TIMING_GUARDS_V2_SOURCE_DELTA_NATIVE_PENDING",
+  "approved": true,
+  "source_approved": true,
+  "semantically_approved": true,
+  "reviewer": "/root/nov2_sparse_author",
+  "author": "/root",
+  "reviewed_utc": "2026-11-03T21:53:13.846292+00:00",
+  "input": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-tree083-native-amp-guards-v2\\batch371-tree083-same-sixteen-actions-five-native-amp-timing-guards-v2.json",
+  "input_file": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-tree083-native-amp-guards-v2\\batch371-tree083-same-sixteen-actions-five-native-amp-timing-guards-v2.json",
+  "source_spec": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-tree083-native-amp-guards-v2\\batch371-tree083-same-sixteen-actions-five-native-amp-timing-guards-v2.json",
+  "input_sha256": "9b714f12a591acabe8283189ba6683ca805c20d24fb07969d6848e7758dbfc3b",
+  "manifest": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-tree083-native-amp-guards-v2\\manifest.json",
+  "manifest_sha256": "5686e7ab840523d674c6f1c697925af12de54c58880df587b1fd531cb5e3eb05",
+  "delta": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-tree083-native-amp-guards-v2\\exact-five-check-delta.json",
+    "sha256": "93e45db21d6ce1a8f7c643853950347bbddeab847a9530c18eae79939ef793f4"
+  },
+  "runtime_sha256": "0a2a062faba12b15a119fa82f44fab56e0a6e02970b8d8d26f47f16b24397256",
+  "runtime_fingerprint_verified": true,
+  "source_guards_verified": 23,
+  "source_guards": {
+    ".github/copilot-instructions.md": "27d6d8211b219cc826a4f2bf63d6d59765ed805feea6fb6571bfd225eb824543",
+    "AGENTS.md": "98e92f639d0768613c07759d84393fe2a58ff145e239bbd5bb0c3f8fdcf1f09d",
+    "Core/DecisionQueueController.php": "65bfcf5b4f595d62d6dfb8bde0b884de42cd1a726618b5431fccf8939eed9a9d",
+    "Core/RegressionTestFramework.php": "670028e69e1a59c22aef5e6512edd2cd0dee5fdcaed4cf8c31374b8eb2b7ca6a",
+    "DevTools/FaB/CardRegression/record_card_regressions.php": "1cae8e955665e2dde73f2eb92d34e191036dbaa87f379b5d5ce015303e0ecb15",
+    "DevTools/FaB/arc_abilities.json": "ca670664228ddd31ad2a9475434ecb2bc95b83721503772f091c75239e1aa909",
+    "DevTools/FaB/ros_abilities.json": "2851433ce5bc948fec9532a33ffc709d4a595f74078fcb9d956c922a8ff18ff8",
+    "FaBSim/Custom/ARCAbilities.php": "5330205cf8b98a1ba93cb15aa42f67c76d01dac3cb53b206669e7d00b0e9daca",
+    "FaBSim/Custom/ARCCards.php": "542227b196338a40c49f83966d9d2b0979a98676d4c9d39d00b0f5cc9a32323f",
+    "FaBSim/Custom/CodeGeneration.php": "944fa1506535116e40ca1c5f0f0ed7566795fe683540eb8923eb3e805612500d",
+    "FaBSim/Custom/GameLogic.php": "7d475db6dcd99f151b41818ad0dca7111329e951af68e97badf943333d927a23",
+    "FaBSim/Custom/MSTCards.php": "52e9e34fbc2734c4b1b7b6040ebb4d784a27f32f748b53b961dd46c9f843e1ef",
+    "FaBSim/Custom/MSTRuntime.php": "b96f21727c089c90c21bf3aadaf913301b1ef7c922f2a17ac055258682ed45ce",
+    "FaBSim/Custom/ROSCards.php": "41dc8057b503c1eb33417e93515ec1e86d89197115391c64c18f195f794848b5",
+    "FaBSim/Custom/ROSRuntime.php": "3b8c1f2c03339b46500221a61c83a2aef06eb2845331c6bcf18c6f72287c61e1",
+    "FaBSim/Custom/UPRCards.php": "144c369209e0a53f5f0ad540f2e549f4c4c0f0234b9a2c9bf703c2e22cd4e8af",
+    "FaBSim/Custom/WTRAbilities.php": "f33a915de3a95208a7d29b7acb5dbbc8c5b0f4f2d56ace281c3c9c7b8bbc5448",
+    "FaBSim/Custom/WTRCards.php": "4c1331a4f5c53d231f94bff6f08cefec875047ff424aa443ed22eedc8644652c",
+    "FaBSim/GeneratedCode/GeneratedCardDictionaries.php": "1be127d10c8f7fe3fa10b8aa098678fa43b2790910c95666226b18eb79ea7c60",
+    "FaBSim/GeneratedCode/GeneratedMacroCode.php": "1adb9203e51af18ef76111dbcab7a01f15a337a8324b2b18bc182cc5696a99d6",
+    "FaBSim/ZoneAccessors.php": "9967567a9a10df81a6f22df820d4d77258828657e95c4ad145b8b13ce17866a7",
+    "FaBSim/ZoneClasses.php": "874bb2ae00a80a8ba3dfe1789b4c932fd0b7cf1286504a62828e0055ca1cb355",
+    "Schemas/FaBSim/GameSchema.txt": "7783800bd47bc85885cc915066aadca58cdf99f0c1180602ac312d9af5ebf643"
+  },
+  "original_source": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch371.json",
+    "sha256": "cabb55b4e1279343b8799d29ebb2313c4188aea3ef78fcb696c35feaff59744f",
+    "case_index": 1
+  },
+  "original_source_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch371-independent-source-review.json",
+    "sha256": "ebc3dcc250fd738a73537420212df40d76b8667881d52f42a0ec5b0b65ef805c",
+    "reused_unchanged_material_model": true
+  },
+  "checkpoint_model": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-tree083-amp-timing-checkpoints-readonly.json",
+    "sha256": "14e6efd1b1025e8bcb278e0ddbca1e903cb005d467362ac4a052730b641fab79"
+  },
+  "cases": [
+    {
+      "slug": "card-channel-the-millennium-tree-red-four-live-original-correct-entry-trigger-amp-three-before-real-zap-six",
+      "card_id": "channel_the_millennium_tree_red",
+      "group_id": "identity:channel_the_millennium_tree_red",
+      "source_approved": true,
+      "semantically_approved": true,
+      "actions": 16,
+      "authored_assertions": 1378,
+      "original_assertions_preserved": 1373,
+      "added_assertions": 5,
+      "manual_pass_inputs": 12,
+      "manual_pass_actor_counts": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "inverse_entire_original_case_exact": true
+    }
+  ],
+  "findings": [
+    "Exactly five appended native game_state_field checks at recipe steps12/14/16/18/20; removing them reconstructs the entire original case, including every setup/action/cost/choice/layer/UID/HP/economy/suffix oracle.",
+    "Existing literal nested JSON equality path turnEffects/1 preserves all seven legitimate ordered bookkeeping rows; native6/7/8/9 exclude AMP and native10 appends exactly MST_AMP3/uses1. No arbitrary effect index, private-flag seed, source or assertion framework change.",
+    "The original successful1373 assertions do not measure intermediate raw AMP. This stronger spec is approved before native execution; it does not retroactively add observations to the old recording."
+  ],
+  "recording_requirements": [
+    "Root must verify an external W backup of all original five owned Tree fixture files before supported --rerecord-authored.",
+    "Only this owned, unregistered Tree may be rerecorded; initial/actions/expected_final must remain byte-identical to the verified old fixture. Assertions/meta may change for five added checks.",
+    "After modified native success, independent exact saved review and two new selected replays remain necessary. No native/replay/qualification credit granted by this source proof.",
+    "Old Seeds is not part of V2 and remains independently qualified at bc14; no rerecord, retag or blocked label."
+  ],
+  "native_executed_by_reviewer": false,
+  "PHP_executed_by_reviewer": false,
+  "R_writes": false,
+  "source_changes": false,
+  "qualified": false
+}

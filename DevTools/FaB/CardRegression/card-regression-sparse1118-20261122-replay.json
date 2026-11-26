@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-public-bounty-red-four-live-sparse1118-real-predeclared-mark-then-next-attack-gains-three-and-deals-seven",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-public-bounty-red-four-live-sparse1118-real-predeclared-mark-then-next-attack-gains-three-and-deals-seven",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1118-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1118-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "c7a1f7fdf5beeb3469bc68635c40bc401da96f6cef8e7b70858ca3371404acfb",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "81079001b250fec7d51ce0795f0709cafcf9bbbe9012fd700d8d6bdd7967c455",
+        "actions.json": "dd9f1b0ff7d138d79b1c77ff6ec48e54eabc53938e3df4528b75cac34ba73119",
+        "assertions.json": "90759c38a00f43d3cb92222a34a3392e7414850ba37b18a86286dd9739dafb1f",
+        "expected_final_gamestate.txt": "d9d8e525880fa2c5223573a7f667a0102f23d50c6fb3eddc379786a2291fd282",
+        "meta.json": "828f39b5953506cdf6c01ff597645883d3f830f5554e19a1d9992e6a4a5c1b6c"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

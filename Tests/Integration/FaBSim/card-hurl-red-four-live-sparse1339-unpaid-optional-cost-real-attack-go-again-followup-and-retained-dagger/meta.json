@@ -1,0 +1,7 @@
+{
+    "name": "Hurl / unpaid optional cost with real attack and physical controls",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-24T09:10:15+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "FOUR_REAL_MANUAL_UPF_NATURAL_FAI20_THREEDORI20. ActualHurl5Handonlycard/zeroR, Wounding6FACEDOWNArsenalnotpitchableandrealKodachiDagger7Weaponsready; source5movedStackbeforePreparesoavailablePitch0\u2192optional1resourceNOTpaid/noOUT_HURL/nodaggertriggerowed. Realvaliddaggerretainednotemptytargetvacuity; actualHurl3damageHP17(noextra1)andprintedGArefundfundactualArsenalWounding4damageHP13/noGA/AP0. Allfourresponsefloweachattack; primary5then6GY1/dagger7sameUIDreadyWeapons/noBanish/newUID7RNG0/APR0/StackDQCCquiet. Onlyunpaidresourceguard/retaineddagger/printedGAactualconsumer. Paidoptionalcost/daggerhit/throw/targettiming/pitches/Hero/support/fullcarduncredited. Sources: FaBSim/GeneratedCode/cardArrayCache.json#hurl_red FaBSim/GeneratedCode/GeneratedMacroCode.php FaBSim/Custom/GameLogic.php FaBSim/Custom/ARCCards.php FaBSim/Custom/WTRCards.php FaBSim/Custom/OUTCards.php FaBSim/Custom/HVYCards.php FaBSim/Custom/EVOCards.php FaBSim/Custom/EVORuntime.php"
+}

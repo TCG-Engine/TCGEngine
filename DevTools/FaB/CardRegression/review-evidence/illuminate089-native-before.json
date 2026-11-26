@@ -1,0 +1,273 @@
+{
+  "status": "CONFIRMED_NATIVE_CURRENT_WHEN_HIT_RESPONSE_LAYER_MISSING_ILLUMINATE_RED_NO_FIXTURE",
+  "reviewer": "/root/nov2_metadata_review",
+  "reviewed_utc": "2026-11-04T20:39:12.592868+00:00",
+  "runtime_sha256": "527c3e3bf7e18d626fbaf23ae221d77fc65bf1ec080080758a7009069800afa2",
+  "input_sha256": "b102f81a04d7cdf38bb5ab88bd90c65795c8ee8d42e3080f7a30ddf4599e842b",
+  "source_spec": "card-regression-batch387.json",
+  "card_id": "illuminate_red",
+  "slug": "card-illuminate-red-four-live-current-when-hit-correct-probe-retains-source-before-own-soul",
+  "semantically_approved": false,
+  "fixture_saved": false,
+  "passing_coverage_credit": false,
+  "gameplay_discrepancy_confirmed": true,
+  "recording_archive": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch387-20261104T203625Z-6aeb97499ec75.json",
+    "sha256": "d7a0cb5330b244f6ffb6e4bb146ca85a0587a7e33808924a8ef4ef00e9168565"
+  },
+  "root_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov4-b387-native-527c-r1\\receipt.json",
+    "sha256": "790ea31afa6452dfe848d4fb5eed1b6550ad21ea0c610a9ddcb08a36580ca92f"
+  },
+  "correct_source_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov4-batch387-independent-source-review.json",
+    "sha256": "92017d58a9dff77549bf28306e9674d97966bea3f0bcf03d5f1bea3ece0c303b"
+  },
+  "accepted_native_inputs": 19,
+  "actual_inputs": [
+    {
+      "playerID": 1,
+      "mode": 10002,
+      "buttonInput": "",
+      "cardID": "p1Hand-0!FSM",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 1,
+      "mode": 100,
+      "buttonInput": "",
+      "cardID": "p4Hero-0",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 1,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 2,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 3,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 4,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 1,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 2,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 3,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 4,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 4,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 1,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 2,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 3,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 4,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 1,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 2,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 3,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 4,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    }
+  ],
+  "first_failed_source_step": 38,
+  "first_failed_check_index": 23,
+  "prior_sequential_checks_passed_derived": 1307,
+  "observed": {
+    "Stack_count_from_failure": 0,
+    "raw_window": "DAMAGE",
+    "combatOpen": true,
+    "combatStep": "DAMAGE",
+    "chainLink": 1,
+    "attackUID": 5,
+    "attackHit": true,
+    "damageDealt": 4,
+    "hitsThisTurn": {
+      "1": [
+        5
+      ]
+    },
+    "attackGoAgain": false,
+    "all_decision_queues_empty": true,
+    "MON_SOUL_ADDED_rows": [
+      {
+        "type": "MON_SOUL_ADDED",
+        "amount": 1,
+        "uses": 1
+      }
+    ],
+    "departedChainTypes": {
+      "1": {
+        "1": [
+          "Light",
+          "Action",
+          "Attack"
+        ]
+      }
+    }
+  },
+  "passed_prefix_not_fullraw": {
+    "P4Health": 16,
+    "allResources": 0,
+    "allAP": 0
+  },
+  "initial_snapshot_sha256": "75e794315e7f7d0f6669aacbc5c8d3f6344fde752c4d0e5161411a94f0ec8d3f",
+  "source_guards": {
+    "FaBSim/Custom/GameLogic.php": "1cdad1555c8d2e3bd3fa98d69bf52791b84d21bf2269363ddea7249f4ee35a43",
+    "FaBSim/Custom/MONCards.php": "50ccaa44bdd2c94db708dbf2b358aa066d71ceb2c56b8dad14bc2fd1d242953f",
+    "FaBSim/Custom/ROSCards.php": "24a0348f1ec45273784ed293ee57b5247596849797ada944d65f229bbd5c961c",
+    "DevTools/FaB/mon_abilities.json": "a06c06aa49853536c865fabcbe72f36cba1eab95f010aad2b4a17be3a4e3f77b",
+    "DevTools/FaB/build_mon_abilities.py": "a98a3d94eac8abfc3600212e98b76ffed7ed32c0ab064063378da3d8fbd4e7ad",
+    "FaBSim/GeneratedCode/GeneratedMacroCode.php": "63113a3d140cfd13409e1ad7ee737f8ecfbbc1f78c4eb8c540658a3bacc73c54",
+    "FaBSim/Custom/CodeGeneration.php": "50b64d437d5c41ff475d20bacbc1d6ce3b720c8af49990c95f46d024b6bdea69"
+  },
+  "canonical_body": "if (FaBFaiHeroHit()) {\n FaBMONToSoul($player, intval(FaBIdentityFromMZ($mzID)['object']->UniqueID));\n \n}\n",
+  "compiled_hit_body_sha256": "1f75ee6f64bc5c49dc699caac545938e76acbd528d71908a9de78b22280d1872",
+  "rule_basis": [
+    {
+      "url": "https://judge.fabtcg.com/cards/detail/802/",
+      "finding": "Current WHEN-hit text governs; oldMON072IF excluded."
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/06-effects/",
+      "rules": [
+        "6.6.1",
+        "6.6.5",
+        "6.6.6"
+      ],
+      "finding": "Actual hit creates responseable triggered layer; ownSoul effect resolves afterward."
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/07-combat/",
+      "rules": [
+        "7.5.2",
+        "7.5.3",
+        "7.5.4"
+      ],
+      "finding": "Damage/hit then priority, triggered layer must clear before leavingDamage."
+    }
+  ],
+  "source_derived_cause": [
+    "Actual canonical/builder/compiledHit calls ToSoul directly within Hit. GenericHit dispatch after damage invokes this code synchronously; no capturedresponseable layer is created.",
+    "MONToSoul caches currentattackGA then calls MoveUID toSoul immediately. Raw MON_SOUL_ADDED/departedChainTypes agree, but no physical postfailure fullChain/Soul snapshot exists; same5Soul destination is source-derived, not independentlyraw-observed.",
+    "Strict Stack1 assertion occurs before attempted Chain/Soul guards at samecheckpoint; those laterchecks were not reached and remain correct original expectations."
+  ],
+  "repair_recommendation": "Prepare exact canonical/builder+revision bridge changes for threeIlluminateHit macros to a scoped captured-source queue helper and existingROS trigger resolver; preserve unrelated MONToSoul uses. Actual supported guardedMacroCode emission is required, never hand-edit generated PHP. Independent peer/components/application/native/saved/replays remain pending.",
+  "root_attribution": {
+    "existing_pattern": "Prior043/084 responseable hit self-movement infrastructure is relevant; no new global/Core count assigned by reviewer.",
+    "native_scope": "Red owned unsuppressed Hero hit only; siblings at most canonicalcompatibility after reviewed change."
+  },
+  "limits": [
+    "No postfailure physicalChain/Soul contents are claimed beyond failedStackcount and archivedrawstate. No latertriggerresponses or suffix executed; nofixture/passcoverage.",
+    "Original b102f81 input/rules/expectedhit4/currentWHEN/source-retention/fourresponses are unchanged; no obsoleteIFmodel or oracleweakening.",
+    "No sourceapplication/PHP/native/R/service/generation by reviewer. Proposed repair is not active code; tenoldholds/SmashingItem preserved."
+  ]
+}

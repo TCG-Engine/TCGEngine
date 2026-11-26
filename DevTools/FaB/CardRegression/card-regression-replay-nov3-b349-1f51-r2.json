@@ -1,0 +1,39 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch349.json",
+  "runtime_sha256": "1f5122763a098fc452b0d810b2131d979a18b39e8a26633f59541507ea78de80",
+  "returncode": 0,
+  "completed_utc": "2026-11-03T17:02:10.623829+00:00",
+  "fixtures": [
+    {
+      "slug": "card-mutiny-on-the-battalion-barque-blue-four-live-sparse-real-gold-theft-earns-next-attack-two",
+      "fixture_sha256": "2faf9ec07713844254681a2de1d44f587f3c5bf7eb690242915142c59336d423",
+      "passed": true,
+      "result": "[PASS] mutiny_on_the_battalion_barque_blue / four live distinctive effect"
+    },
+    {
+      "slug": "card-not-so-fast-yellow-four-live-sparse-real-opponent-gold-draw-replaced-by-scurv-own-deck-card",
+      "fixture_sha256": "fe95b2ac45920d8fd74bc149e9645d418e29663f4ee365e55ca10f46f60c5ab5",
+      "passed": true,
+      "result": "[PASS] not_so_fast_yellow / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-mutiny-on-the-battalion-barque-blue-four-live-sparse-real-gold-theft-earns-next-attack-two",
+      "returncode": 0,
+      "stdout": "[PASS] mutiny_on_the_battalion_barque_blue / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-not-so-fast-yellow-four-live-sparse-real-opponent-gold-draw-replaced-by-scurv-own-deck-card",
+      "returncode": 0,
+      "stdout": "[PASS] not_so_fast_yellow / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 2,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

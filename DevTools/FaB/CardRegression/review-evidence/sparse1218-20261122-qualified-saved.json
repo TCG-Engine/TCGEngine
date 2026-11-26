@@ -1,0 +1,216 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "independent breadth_review",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1218-20261122.json",
+  "source_spec_sha256": "5b18d22d8d474682ac337ecc8f019cee48bc8c8176bc5f40123629db9ba655cd",
+  "input_sha256": "5b18d22d8d474682ac337ecc8f019cee48bc8c8176bc5f40123629db9ba655cd",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-proto-base-arms-four-live-sparse1218-native-matching-slot-evo-transform-keeps-base-under-owned-equipment",
+      "card_id": "proto_base_arms",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "88c5d9095282a165a5070e798a3d77b5721f8f2651d29e5d31593420b5db7044",
+        "actions.json": "c9e30c252fa7ee7dec5f8a364eea8e728c688845dd8df7f54427b2bc62c71d2d",
+        "assertions.json": "0517d031c374ce1b8823a1deefb6385c54a594cfb98342b995d2ecca1bcd747c",
+        "expected_final_gamestate.txt": "128c109321863ef10db227d6f05d519bfe941fd62158b655eb894cb58f57a9c2",
+        "meta.json": "66e68fe24ae53b8d05e04247f234d185a871361089223d82a7c1b2699aaadc3e"
+      },
+      "fixture_sha256": "3d8387b170f79413d19bde5c007f98303a624b2c46510432ecd4e4e4604a5be0",
+      "actions": 6,
+      "native_assertions": 312,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 4,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1218-20261122.json",
+      "input_sha256": "5b18d22d8d474682ac337ecc8f019cee48bc8c8176bc5f40123629db9ba655cd",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1218-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-proto-base-arms-four-live-sparse1218-native-matching-slot-evo-transform-keeps-base-under-owned-equipment",
+        "fixture_slug": "card-proto-base-arms-four-live-sparse1218-native-matching-slot-evo-transform-keeps-base-under-owned-equipment",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-proto-base-chest-four-live-sparse1218-native-matching-slot-evo-transform-keeps-base-under-owned-equipment",
+      "card_id": "proto_base_chest",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "0b3227380e904813bd4bcbb1d4975e437876318da720a65aa9537d0fae40c564",
+        "actions.json": "c9e30c252fa7ee7dec5f8a364eea8e728c688845dd8df7f54427b2bc62c71d2d",
+        "assertions.json": "af56fc5bfdb12867517b8aa51ab5d7f6564d6f22573a143b97bbcb5405634bb7",
+        "expected_final_gamestate.txt": "68f8930530ab6528f3dd5c2f3eec3d2059042682c908c3949cbb96633cdd3aac",
+        "meta.json": "e267224ae711dbc89c7d44f2a08731d08d89a580f9c6563edf4c13c339da63a2"
+      },
+      "fixture_sha256": "2af33d95175a5a59c6aeaee8b3f26c007778e91f5b62e125b52c0b8467c5dddf",
+      "actions": 6,
+      "native_assertions": 312,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 4,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1218-20261122.json",
+      "input_sha256": "5b18d22d8d474682ac337ecc8f019cee48bc8c8176bc5f40123629db9ba655cd",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1218-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-proto-base-chest-four-live-sparse1218-native-matching-slot-evo-transform-keeps-base-under-owned-equipment",
+        "fixture_slug": "card-proto-base-chest-four-live-sparse1218-native-matching-slot-evo-transform-keeps-base-under-owned-equipment",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-proto-base-head-four-live-sparse1218-native-matching-slot-evo-transform-keeps-base-under-owned-equipment",
+      "card_id": "proto_base_head",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "5794d8e2eb10fc437412de42657e052390328e5bc0247c2349cee2046805f5db",
+        "actions.json": "c9e30c252fa7ee7dec5f8a364eea8e728c688845dd8df7f54427b2bc62c71d2d",
+        "assertions.json": "9d1a0ddf43ecf01a62496676af256a9dfde3c031383e368c4208e98f244ad318",
+        "expected_final_gamestate.txt": "d9c3e2eca0f3ec3618017690eaa8e3b5db386daecf60ca4c21bae08fc4ecc710",
+        "meta.json": "1439f3c1ea86836d1bd2c693724df5542e5af98d29ae46e5cbd49d281144a262"
+      },
+      "fixture_sha256": "5a6d33b1b385d51b50e5b933e6e1663a7e3f1a7bc154fe69b6c51d2ea2a75c12",
+      "actions": 6,
+      "native_assertions": 312,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 4,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1218-20261122.json",
+      "input_sha256": "5b18d22d8d474682ac337ecc8f019cee48bc8c8176bc5f40123629db9ba655cd",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1218-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-proto-base-head-four-live-sparse1218-native-matching-slot-evo-transform-keeps-base-under-owned-equipment",
+        "fixture_slug": "card-proto-base-head-four-live-sparse1218-native-matching-slot-evo-transform-keeps-base-under-owned-equipment",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-proto-base-legs-four-live-sparse1218-native-matching-slot-evo-transform-keeps-base-under-owned-equipment",
+      "card_id": "proto_base_legs",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "80d2af0b3e0d1202520e8653ee2bafabc1274a43bbd3fcc1a75204104c984c84",
+        "actions.json": "c9e30c252fa7ee7dec5f8a364eea8e728c688845dd8df7f54427b2bc62c71d2d",
+        "assertions.json": "3d9d92f4206b489d1970a32da2811cf981ed107b56f429b459637a8f66e88c02",
+        "expected_final_gamestate.txt": "2facf41b4fd70cc5615003015e4980ffe11095049d7d5783986944db0e18786e",
+        "meta.json": "2a106684b24679e3fcb21f89628341487816a52014ac3eaeab814bb739db5835"
+      },
+      "fixture_sha256": "8fb2b1374918c26a6a3e9658531ebd90c4613c539a92d8d2636919a16f7474bb",
+      "actions": 6,
+      "native_assertions": 312,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 4,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1218-20261122.json",
+      "input_sha256": "5b18d22d8d474682ac337ecc8f019cee48bc8c8176bc5f40123629db9ba655cd",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1218-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-proto-base-legs-four-live-sparse1218-native-matching-slot-evo-transform-keeps-base-under-owned-equipment",
+        "fixture_slug": "card-proto-base-legs-four-live-sparse1218-native-matching-slot-evo-transform-keeps-base-under-owned-equipment",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "reviewer": "independent breadth_review",
+    "spec_sha256": "5b18d22d8d474682ac337ecc8f019cee48bc8c8176bc5f40123629db9ba655cd",
+    "source_note_sha256": "403e1c35726de5720f6ee154c83a5297bd29cfc7540f53e777a513e41cf156bd",
+    "case_count": 4,
+    "native_controls": 24,
+    "query_checks": 1248,
+    "persistable_assertions": 1248,
+    "author_only_checks_omitted": 0,
+    "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+    "runtime_verification_scope": "Root fresh restored-executor isolation/runtime/HEAD verification reused; W/O/T resolved paths and non-reparse roots checked read-only, selected current source/cache and exact frozen spec read independently. No native or aggregate runtime/Git execution by reviewer.",
+    "coverage_category": "BASE_MATCHING_SLOT_TRANSFORMATION_MATERIAL_ONLY",
+    "cases": [
+      {
+        "card_id": "proto_base_arms",
+        "group_id": "identity:proto_base_arms",
+        "support_evo": "evo_scatter_shot_blue",
+        "native_controls": 6,
+        "persistable_assertions": 312,
+        "starting_base_uid": 5,
+        "resulting_evo_uid": 6,
+        "actual_resource_cost": 3,
+        "final_resources": 0,
+        "final_action_points": 0
+      },
+      {
+        "card_id": "proto_base_chest",
+        "group_id": "identity:proto_base_chest",
+        "support_evo": "evo_energy_matrix_blue",
+        "native_controls": 6,
+        "persistable_assertions": 312,
+        "starting_base_uid": 5,
+        "resulting_evo_uid": 6,
+        "actual_resource_cost": 3,
+        "final_resources": 0,
+        "final_action_points": 0
+      },
+      {
+        "card_id": "proto_base_head",
+        "group_id": "identity:proto_base_head",
+        "support_evo": "evo_tekloscope_blue",
+        "native_controls": 6,
+        "persistable_assertions": 312,
+        "starting_base_uid": 5,
+        "resulting_evo_uid": 6,
+        "actual_resource_cost": 3,
+        "final_resources": 0,
+        "final_action_points": 0
+      },
+      {
+        "card_id": "proto_base_legs",
+        "group_id": "identity:proto_base_legs",
+        "support_evo": "evo_rapid_fire_blue",
+        "native_controls": 6,
+        "persistable_assertions": 312,
+        "starting_base_uid": 5,
+        "resulting_evo_uid": 6,
+        "actual_resource_cost": 3,
+        "final_resources": 0,
+        "final_action_points": 0
+      }
+    ],
+    "basis": [
+      "Exact four frozen 14-step cases have6 real controls and312 persistent assertions each. Independent canonical comparison shows all setup/input/query skeletons identical after only the matching Proto and support-Evo IDs/slot literals are rebound. Total24 controls/1248 queries all normalize1:1 without omitted author diagnostics. Four separate Proto Base identity groups are unrepresented in current coverage union and have no selected-card/sibling issue or source-only hold.",
+      "Actual blank-text Mechanologist Equipment/Base/Arms,Chest,Head,Legs cards are legal starting gear for young Dash20 with three young Dorinthea20 peers. Each primary5 is owned/controller1 ready2 and the only equipped Base. Initial properties{} imply empty Counters[] under Equipment constructor ZoneClasses164; no unsupported blank-defense declaration or inventory-equip path is attempted.",
+      "Actual support6 is matching ScatterShot/EnergyMatrix/Tekloscope/RapidFireBlue, each Mechanologist ActionEquipmentEvo cost3 with nontarget resolution instruction If matching Base equipped, transform it then equip this. Exact compiled ResolveCard wrappers at GeneratedMacroCode2663-2666/2620-2623/2732-2735/2653-2656 call FaBEvoEquip; no presumed generic fallback or unverified Beta/Sentry route is used.",
+      "Real support6 leaves Hand onto physical owned Stack6, normal PITCH/AP1/R0 retains base5 unchanged; actualGenericBlueSigil7 nativeHand0 pitch3 pays3/AP1->0/R0 before manual source responders1,2,3,4. All source/base/fuel UID, owner, counters, readiness and resource/AP checks remain held at separate response boundaries. No target chooser or additional effect-cost movement is required.",
+      "ProfessorCards22-29 matches actual equipped Base+slot and calls EVOCards45-52. The matching oldbase5 is removed only during resolution, and actualnew6 moves from Stack to Equipment, ready2, owner/controller1. Line51 explicitly resets Counters to exactly SUBCARDS:[oldProtoID], so private play-order bookkeeping is not inferred or carried into the final whole-Counters oracle. New6 is sole Equipment; no standalone oldbase, Graveyard, Arena, Banish or Temp object is left, and maxUID7/fuel7Pitch are asserted.",
+      "All encoded materials were owned1 before transformation. Existing CardID-array material contract is used, with no retained under-card UID or foreign owner/export claim. EVOSteelTriggers54-56 requires oldEvo; oldProto is notEvo, so no such trigger earned. EVOEquipped58 does not include these four supports, and no printed entry WHEN exists. Their Blaster continuous effects and Battleworn are unexercised. RapidFire grants GA to Blaster attacks, not its own played Action, so finalAP0 is correct with empty Stack/queues/combat and allHP20."
+    ],
+    "limits": [
+      "Only four primary Proto Base matching-slot qualification/material-consumption branches are approved pending native save and targeted replay; no native success or coverage claimed by reviewer.",
+      "No Evo/support-primary identity, blank-defense admission, inventory equip, wrong-slot/no-base rejection, foreign material/export, under-card UID retention, Blaster discount/power/GA/targeting, Battleworn, Hero or whole-card credit. No blanket supported-route claim for unused Beta/Sentry cards.",
+      "Restored command access verified by read-only work. Existing1217 spec/review hashes and qualified-proof/checkpoint/replay-receipt reference were reconciled without replaying Suraya; checkpoint remains5122/2144 before1218. Only this W review receipt was written; no T/native/PHP/tests/source/framework/Git/original-checkout/network actions."
+    ],
+    "source_sha256": {
+      "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+      "FaBSim/Custom/ProfessorCards.php": "6e5cc57b008552dc444d06831bd9dbec45db47214087de049da99b68deb96988",
+      "FaBSim/Custom/EVOCards.php": "7e946cadb04817da7a0c0b17d94cf5a6bd03655adba07b714d39654329b54dbe",
+      "FaBSim/Custom/GameLogic.php": "c60fa151561f959e4e3e341b814de0e2b47c9e9f153bbc8793a04c43b5075061",
+      "FaBSim/ZoneClasses.php": "874bb2ae00a80a8ba3dfe1789b4c932fd0b7cf1286504a62828e0055ca1cb355",
+      "FaBSim/GeneratedCode/GeneratedMacroCode.php": "fe6a7982611df8f4de98ce2671b317b671b580146aa4b8c28e8f4b86d8461056"
+    }
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1218-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "67fdd1252206f67788143574307b286d0aec959418b634b6b6c3135c08363a06"
+  },
+  "full_suite_run": false
+}

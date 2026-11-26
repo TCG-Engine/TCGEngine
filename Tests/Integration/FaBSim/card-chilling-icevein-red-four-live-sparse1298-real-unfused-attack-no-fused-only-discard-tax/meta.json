@@ -1,0 +1,7 @@
+{
+    "name": "Chilling Icevein / actual unfused normal-cost attack",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-24T04:17:01+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "UNFUSED_NORMAL_COST_AND_FALSE_FUSED_EFFECT_ONLY. FourrealYoungLexi20andDori20/manualUPF. Realprimary5Arsenal/Genericfunder6onlyHandeligiblefornormalpitchbutNOTEarth/Ice/Lightning soFusionadditionalcostcannotbepaid. AdmittedpriorfaceupArsenalArrow(notLexiHeroactivated). Nativeformaladjacenttargetthenactual6pitch1paysprintedcost/R0/AP1to0; allfourresponsewindows, nofakedfusedflags orarcanehistory. Printed5power/noGA; unfusedWHENifFusedfalse so noearnedattackarcane/taxtrigger. Actual5physicaldamagehitsHero4HP15butrealHandBlue7staysHand/R0/noTaxpayment/discard/choice. Full5ownedGY1/6Pitch/controlsuntouched/allArena0/APR0/UID8RNG0/StackDQsCCclean. NoPositiveFusion/truearcane/Goagain/permission/tax/Heroability/support/otherpitch/fullcardcredit. RequiredlegalBowDeathDealer8isadmittedpriorWeapons1/Status2andneveractivated; allcriticalsource/attack/damage/finalcheckpointsretainitsphysicalOwnerController1andStatus2. UIDmax8/P1Weapons1. NoBowproducer/activationcredit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#chilling_icevein_red FaBSim/GeneratedCode/GeneratedMacroCode.php FaBSim/Custom/ELECards.php FaBSim/Custom/ELEAbilities.php FaBSim/Custom/FaiCards.php FaBSim/Custom/UPRCards.php FaBSim/Custom/GameLogic.php"
+}

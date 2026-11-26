@@ -1,0 +1,39 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch269.json",
+  "runtime_sha256": "f40e5a26ad74eab8ea9d2e3bd779a26c917d8102e67ad41fa9bad5ca7f22e6e7",
+  "returncode": 0,
+  "completed_utc": "2026-11-03T00:21:44.366041+00:00",
+  "fixtures": [
+    {
+      "slug": "card-ninth-blade-of-the-blood-oath-yellow-four-live-sparse-one-real-rune-discounts-nine-to-eight-then-nine-damage",
+      "fixture_sha256": "d6efbf26d03996d60acb948ffb7ac8e0ec55f8301a001bfda023b3379c33f67c",
+      "passed": true,
+      "result": "[PASS] ninth_blade_of_the_blood_oath_yellow / four live distinctive effect"
+    },
+    {
+      "slug": "card-ode-to-wrath-yellow-four-live-sparse-actual-four-cost-aura-grants-go-again-to-fully-blocked-illusionist-attack",
+      "fixture_sha256": "ea683ca08964085bbd29b9d2f800cfc6169fb2c422244424de1795462cba3936",
+      "passed": true,
+      "result": "[PASS] ode_to_wrath_yellow / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-ninth-blade-of-the-blood-oath-yellow-four-live-sparse-one-real-rune-discounts-nine-to-eight-then-nine-damage",
+      "returncode": 0,
+      "stdout": "[PASS] ninth_blade_of_the_blood_oath_yellow / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-ode-to-wrath-yellow-four-live-sparse-actual-four-cost-aura-grants-go-again-to-fully-blocked-illusionist-attack",
+      "returncode": 0,
+      "stdout": "[PASS] ode_to_wrath_yellow / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 2,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

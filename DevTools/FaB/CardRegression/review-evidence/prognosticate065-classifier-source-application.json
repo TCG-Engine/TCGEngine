@@ -1,0 +1,26 @@
+{
+  "status": "APPLIED_EXACT_CLASSIFIER_EXTENSION_NATIVE_QUALIFICATION_PENDING",
+  "utc_start": "2026-11-03T14:14:54.928729+00:00",
+  "source_path": "FaBSim/Custom/ARCCards.php",
+  "before_sha256": "5bde46f342529508e33d983cc4a2475debbe2cfb2ba05a6c78a00da2f861672b",
+  "after_sha256": "542227b196338a40c49f83966d9d2b0979a98676d4c9d39d00b0f5cc9a32323f",
+  "base_runtime_sha256": "0d877de49c131f29c152706e14bba3368630df61c59ef475c87a84f20b6e1a66",
+  "projected_runtime_sha256": "90758aeb35536e3364b326789fc88b8eb9abc0f51b2de5f00426f0149fd9d51e",
+  "manifest_sha256": "120197a384b537e7d8178f61a819967c5c207faba173d0f7cf2cf9bdaa57c31a",
+  "source_review_sha256": "f3f21e05f191a92be3f3a5704f84596b818e91e0742a51d550d5844013182c2a",
+  "validation_sha256": "8bcae43b04c7df73781442ec7697c73533d1a67a65446b5b49c8f17da12a4952",
+  "backup": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-prognosticate065-source-application\\ARCCards.before.php",
+  "fixture_count_before": 3623,
+  "generator_run": false,
+  "remote_authoring_writes": false,
+  "full_suite_run": false,
+  "actual_R_lint": {
+    "exit_code": 0,
+    "stdout": "No syntax errors detected in C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\Custom\\ARCCards.php\n",
+    "stderr": ""
+  },
+  "actual_runtime_sha256": "90758aeb35536e3364b326789fc88b8eb9abc0f51b2de5f00426f0149fd9d51e",
+  "fixture_count_after": 3623,
+  "all_other_runtime_sources_preserved": true,
+  "utc_end": "2026-11-03T14:14:55.548328+00:00"
+}

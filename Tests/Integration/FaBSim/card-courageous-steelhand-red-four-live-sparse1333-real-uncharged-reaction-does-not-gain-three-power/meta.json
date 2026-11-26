@@ -1,0 +1,7 @@
+{
+    "name": "Courageous Steelhand / uncharged real reaction grants no power",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-24T08:25:30+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "FOUR_REAL_MANUAL_UPF_NATURAL_YOUNG_BOLTYN20_THREE_DORI20. PrimaryLightWarriorCourageousSteelhandRed6cost0/realHandsource, supportsGenericWounding5cost0power4. InitialSoulHandhistoryeffectsnone; onlyactualGenericAAplayedbeforeprimary, nochargeperformed/cost/producer/historyseed. WTRCanPlayallowsnamedCourageousSteelhandonownactiveAA; actuallegalconditional-ifARplayisnotPlayOnlyIfcharged. Allfourfreshreactionresponsesbeforeactualsource6GY1, powerstays4(noearnedRed3buff), actualunblocked4HeroDamageHP4=16 ratherthan7damage/HP13. Noresource/APreactioncost/additionalcostseam. Finalsource6thenattack5GY1/allotherzonesempty/Heroesready/APR0/UID6RNG0/StackDQCCquiet. NegativeconditionbranchONLY; positivecharged3buff/chargeproducer/targetvariation/responsechanges/fizzle/sibling/Hero/support/fullcardNOTcredited. Sources: FaBSim/GeneratedCode/cardArrayCache.json#courageous_steelhand_red FaBSim/GeneratedCode/GeneratedMacroCode.php FaBSim/Custom/GameLogic.php FaBSim/Custom/WTRCards.php FaBSim/Custom/MONCards.php FaBSim/Custom/MONAbilities.php"
+}

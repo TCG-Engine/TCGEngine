@@ -1,0 +1,3662 @@
+[
+  {
+    "slug": "card-driftwood-quiver-four-live-sparse-real-destroy-instant-bottoms-owned-arsenal-after-two-deck-cards",
+    "name": "driftwood_quiver / four live distinctive effect",
+    "cardIDs": [
+      "driftwood_quiver"
+    ],
+    "secondaryCardIDs": [
+      "raging_onslaught_red",
+      "wounding_blow_blue",
+      "wounding_blow_red"
+    ],
+    "branches": [
+      "driftwood-quiver-four-live-sparse-real-destroy-instant-bottoms-owned-arsenal-after-two-deck-cards"
+    ],
+    "activeSeats": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "heroes": [
+      "riptide",
+      "dorinthea",
+      "dorinthea",
+      "dorinthea"
+    ],
+    "health": [
+      19,
+      20,
+      20,
+      20
+    ],
+    "resources": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "actionPoints": [
+      1,
+      0,
+      0,
+      0
+    ],
+    "state": {
+      "gameMode": "UPF",
+      "passiveSeats": []
+    },
+    "zones": [
+      {
+        "cardID": "driftwood_quiver",
+        "zone": "Weapons",
+        "player": 1,
+        "properties": {
+          "Status": 2
+        }
+      },
+      {
+        "cardID": "raging_onslaught_red",
+        "zone": "Arsenal",
+        "player": 1,
+        "properties": {
+          "FaceDown": 1
+        }
+      },
+      {
+        "cardID": "wounding_blow_red",
+        "zone": "Deck",
+        "player": 1,
+        "properties": {}
+      },
+      {
+        "cardID": "wounding_blow_blue",
+        "zone": "Deck",
+        "player": 1,
+        "properties": {}
+      }
+    ],
+    "steps": [
+      {
+        "kind": "checks",
+        "checkpoint": "full_four_live_legal_young_Riptide19_Quiver5_Weapons_Arsenal6_facedown_Deck7_8_no_fake_history_or_assets",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "SeatOrder",
+            "value": 1234
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "LiveSeats",
+            "value": 1234
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "TurnPlayer",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "TurnNumber",
+            "value": 2
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "PriorityPlayer",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "ConsecutivePasses",
+            "value": 0
+          },
+          {
+            "kind": "state",
+            "key": "window",
+            "value": "ACTION"
+          },
+          {
+            "kind": "state",
+            "key": "gameMode",
+            "value": "UPF"
+          },
+          {
+            "kind": "state",
+            "key": "passiveSeats",
+            "value": []
+          },
+          {
+            "kind": "state",
+            "key": "combatOpen",
+            "value": false
+          },
+          {
+            "kind": "state",
+            "key": "resolvingReaction",
+            "value": null
+          },
+          {
+            "kind": "state",
+            "key": "pendingPayment",
+            "value": null
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Health",
+            "value": 19
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 1
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Hero",
+            "value": 1
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Hero-0",
+            "property": "CardID",
+            "value": "riptide"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Hero-0",
+            "property": "UniqueID",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Hero-0",
+            "property": "Owner",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Hero-0",
+            "property": "Controller",
+            "value": "1"
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "1"
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Hand",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Deck",
+            "value": 2
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Deck-0",
+            "property": "CardID",
+            "value": "wounding_blow_red"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Deck-0",
+            "property": "UniqueID",
+            "value": "7"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Deck-0",
+            "property": "Owner",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Deck-0",
+            "property": "Controller",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Deck-1",
+            "property": "CardID",
+            "value": "wounding_blow_blue"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Deck-1",
+            "property": "UniqueID",
+            "value": "8"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Deck-1",
+            "property": "Owner",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Deck-1",
+            "property": "Controller",
+            "value": "1"
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Arsenal",
+            "value": 1
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Arsenal-0",
+            "property": "CardID",
+            "value": "raging_onslaught_red"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Arsenal-0",
+            "property": "UniqueID",
+            "value": "6"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Arsenal-0",
+            "property": "Owner",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Arsenal-0",
+            "property": "Controller",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Arsenal-0",
+            "property": "FaceDown",
+            "value": "1"
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Graveyard",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Pitch",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Banish",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Soul",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Arena",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Equipment",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Weapons",
+            "value": 1
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Weapons-0",
+            "property": "CardID",
+            "value": "driftwood_quiver"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Weapons-0",
+            "property": "UniqueID",
+            "value": "5"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Weapons-0",
+            "property": "Owner",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Weapons-0",
+            "property": "Controller",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Weapons-0",
+            "property": "Status",
+            "value": "2"
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1CombatChain",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Temp",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Inventory",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 20
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2Hero",
+            "value": 1
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p2Hero-0",
+            "property": "CardID",
+            "value": "dorinthea"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p2Hero-0",
+            "property": "UniqueID",
+            "value": "2"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p2Hero-0",
+            "property": "Owner",
+            "value": "2"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p2Hero-0",
+            "property": "Controller",
+            "value": "2"
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "2"
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2Hand",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2Deck",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2Arsenal",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2Graveyard",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2Pitch",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2Banish",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2Soul",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2Arena",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2Equipment",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2Weapons",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2CombatChain",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2Temp",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2Inventory",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p3Health",
+            "value": 20
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p3Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p3ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p3Hero",
+            "value": 1
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p3Hero-0",
+            "property": "CardID",
+            "value": "dorinthea"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p3Hero-0",
+            "property": "UniqueID",
+            "value": "3"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p3Hero-0",
+            "property": "Owner",
+            "value": "3"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p3Hero-0",
+            "property": "Controller",
+            "value": "3"
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "3"
+          },
+          {
+            "type": "zone_count",
+            "zone": "p3Hand",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p3Deck",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p3Arsenal",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p3Graveyard",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p3Pitch",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p3Banish",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p3Soul",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p3Arena",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p3Equipment",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p3Weapons",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p3CombatChain",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p3Temp",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p3Inventory",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p4Health",
+            "value": 20
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p4Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p4ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p4Hero",
+            "value": 1
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4Hero-0",
+            "property": "CardID",
+            "value": "dorinthea"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4Hero-0",
+            "property": "UniqueID",
+            "value": "4"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4Hero-0",
+            "property": "Owner",
+            "value": "4"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4Hero-0",
+            "property": "Controller",
+            "value": "4"
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "4"
+          },
+          {
+            "type": "zone_count",
+            "zone": "p4Hand",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p4Deck",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p4Arsenal",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p4Graveyard",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p4Pitch",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p4Banish",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p4Soul",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p4Arena",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p4Equipment",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p4Weapons",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p4CombatChain",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p4Temp",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p4Inventory",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 0
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Hero-0",
+            "property": "Status",
+            "value": "2"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p2Hero-0",
+            "property": "Status",
+            "value": "2"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p3Hero-0",
+            "property": "Status",
+            "value": "2"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4Hero-0",
+            "property": "Status",
+            "value": "2"
+          }
+        ]
+      },
+      {
+        "kind": "click",
+        "player": 1,
+        "mzID": "p1Weapons-0"
+      },
+      {
+        "kind": "checks",
+        "checkpoint": "actual_Quiver5_Instant_resourceZERO_AP0_DESTROY_same_owned_Weapons5_before_four_responses_Arsenal6_Deck7_8_retained_R0_AP1",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "PriorityPlayer",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "ConsecutivePasses",
+            "value": 0
+          },
+          {
+            "kind": "state",
+            "key": "window",
+            "value": "PRIORITY"
+          },
+          {
+            "kind": "state",
+            "key": "combatOpen",
+            "value": false
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Health",
+            "value": 19
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 1
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "1"
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 20
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "2"
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p3Health",
+            "value": 20
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p3Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p3ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "3"
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p4Health",
+            "value": 20
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p4Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p4ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "4"
+          },
+          {
+            "kind": "state",
+            "key": "pendingPayment",
+            "value": null
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Deck",
+            "value": 2
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Deck-0",
+            "property": "CardID",
+            "value": "wounding_blow_red"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Deck-0",
+            "property": "UniqueID",
+            "value": "7"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Deck-0",
+            "property": "Owner",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Deck-0",
+            "property": "Controller",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Deck-1",
+            "property": "CardID",
+            "value": "wounding_blow_blue"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Deck-1",
+            "property": "UniqueID",
+            "value": "8"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Deck-1",
+            "property": "Owner",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Deck-1",
+            "property": "Controller",
+            "value": "1"
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Temp",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Equipment",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 1
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "CardID",
+            "value": "driftwood_quiver"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "Controller",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "Kind",
+            "value": "ABILITY"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "SourceZone",
+            "value": "Weapons"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "SourceUniqueID",
+            "value": "5"
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Hand",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Arsenal",
+            "value": 1
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Arsenal-0",
+            "property": "CardID",
+            "value": "raging_onslaught_red"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Arsenal-0",
+            "property": "UniqueID",
+            "value": "6"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Arsenal-0",
+            "property": "Owner",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Arsenal-0",
+            "property": "Controller",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Arsenal-0",
+            "property": "FaceDown",
+            "value": "1"
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Weapons",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Pitch",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Graveyard",
+            "value": 1
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Graveyard-0",
+            "property": "CardID",
+            "value": "driftwood_quiver"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Graveyard-0",
+            "property": "UniqueID",
+            "value": "5"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Graveyard-0",
+            "property": "Owner",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Graveyard-0",
+            "property": "Controller",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Graveyard-0",
+            "property": "FaceDown",
+            "value": "0"
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Arena",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1CombatChain",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p4Hand",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p4Equipment",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p4Pitch",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p4Graveyard",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p4CombatChain",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p4Arena",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "SeatOrder",
+            "value": 1234
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "LiveSeats",
+            "value": 1234
+          },
+          {
+            "kind": "state",
+            "key": "gameMode",
+            "value": "UPF"
+          },
+          {
+            "kind": "state",
+            "key": "passiveSeats",
+            "value": []
+          },
+          {
+            "kind": "state",
+            "key": "resolvingReaction",
+            "value": null
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Hero-0",
+            "property": "Status",
+            "value": "2"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p2Hero-0",
+            "property": "Status",
+            "value": "2"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p3Hero-0",
+            "property": "Status",
+            "value": "2"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4Hero-0",
+            "property": "Status",
+            "value": "2"
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "PRIORITY",
+          "priority": 2
+        }
+      },
+      {
+        "kind": "checks",
+        "checkpoint": "actual_Quiver_fresh_source_response_1_of_four_keep_virtual_source5_and_exact_Arsenal6_Deck7_8",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "PriorityPlayer",
+            "value": 2
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "ConsecutivePasses",
+            "value": 1
+          },
+          {
+            "kind": "state",
+            "key": "window",
+            "value": "PRIORITY"
+          },
+          {
+            "kind": "state",
+            "key": "combatOpen",
+            "value": false
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Health",
+            "value": 19
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 1
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "1"
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 20
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "2"
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p3Health",
+            "value": 20
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p3Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p3ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "3"
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p4Health",
+            "value": 20
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p4Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p4ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "4"
+          },
+          {
+            "kind": "state",
+            "key": "pendingPayment",
+            "value": null
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Deck",
+            "value": 2
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Deck-0",
+            "property": "CardID",
+            "value": "wounding_blow_red"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Deck-0",
+            "property": "UniqueID",
+            "value": "7"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Deck-0",
+            "property": "Owner",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Deck-0",
+            "property": "Controller",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Deck-1",
+            "property": "CardID",
+            "value": "wounding_blow_blue"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Deck-1",
+            "property": "UniqueID",
+            "value": "8"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Deck-1",
+            "property": "Owner",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Deck-1",
+            "property": "Controller",
+            "value": "1"
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Temp",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Equipment",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 1
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "CardID",
+            "value": "driftwood_quiver"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "Controller",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "Kind",
+            "value": "ABILITY"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "SourceZone",
+            "value": "Weapons"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "SourceUniqueID",
+            "value": "5"
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Hand",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Arsenal",
+            "value": 1
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Arsenal-0",
+            "property": "CardID",
+            "value": "raging_onslaught_red"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Arsenal-0",
+            "property": "UniqueID",
+            "value": "6"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Arsenal-0",
+            "property": "Owner",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Arsenal-0",
+            "property": "Controller",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Arsenal-0",
+            "property": "FaceDown",
+            "value": "1"
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Weapons",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Pitch",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Graveyard",
+            "value": 1
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Graveyard-0",
+            "property": "CardID",
+            "value": "driftwood_quiver"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Graveyard-0",
+            "property": "UniqueID",
+            "value": "5"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Graveyard-0",
+            "property": "Owner",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Graveyard-0",
+            "property": "Controller",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Graveyard-0",
+            "property": "FaceDown",
+            "value": "0"
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Arena",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1CombatChain",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p4Hand",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p4Equipment",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p4Pitch",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p4Graveyard",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p4CombatChain",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p4Arena",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "SeatOrder",
+            "value": 1234
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "LiveSeats",
+            "value": 1234
+          },
+          {
+            "kind": "state",
+            "key": "gameMode",
+            "value": "UPF"
+          },
+          {
+            "kind": "state",
+            "key": "passiveSeats",
+            "value": []
+          },
+          {
+            "kind": "state",
+            "key": "resolvingReaction",
+            "value": null
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Hero-0",
+            "property": "Status",
+            "value": "2"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p2Hero-0",
+            "property": "Status",
+            "value": "2"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p3Hero-0",
+            "property": "Status",
+            "value": "2"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4Hero-0",
+            "property": "Status",
+            "value": "2"
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "PRIORITY",
+          "priority": 3
+        }
+      },
+      {
+        "kind": "checks",
+        "checkpoint": "actual_Quiver_fresh_source_response_2_of_four_keep_virtual_source5_and_exact_Arsenal6_Deck7_8",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "PriorityPlayer",
+            "value": 3
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "ConsecutivePasses",
+            "value": 2
+          },
+          {
+            "kind": "state",
+            "key": "window",
+            "value": "PRIORITY"
+          },
+          {
+            "kind": "state",
+            "key": "combatOpen",
+            "value": false
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Health",
+            "value": 19
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 1
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "1"
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 20
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "2"
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p3Health",
+            "value": 20
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p3Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p3ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "3"
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p4Health",
+            "value": 20
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p4Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p4ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "4"
+          },
+          {
+            "kind": "state",
+            "key": "pendingPayment",
+            "value": null
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Deck",
+            "value": 2
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Deck-0",
+            "property": "CardID",
+            "value": "wounding_blow_red"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Deck-0",
+            "property": "UniqueID",
+            "value": "7"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Deck-0",
+            "property": "Owner",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Deck-0",
+            "property": "Controller",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Deck-1",
+            "property": "CardID",
+            "value": "wounding_blow_blue"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Deck-1",
+            "property": "UniqueID",
+            "value": "8"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Deck-1",
+            "property": "Owner",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Deck-1",
+            "property": "Controller",
+            "value": "1"
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Temp",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Equipment",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 1
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "CardID",
+            "value": "driftwood_quiver"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "Controller",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "Kind",
+            "value": "ABILITY"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "SourceZone",
+            "value": "Weapons"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "SourceUniqueID",
+            "value": "5"
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Hand",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Arsenal",
+            "value": 1
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Arsenal-0",
+            "property": "CardID",
+            "value": "raging_onslaught_red"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Arsenal-0",
+            "property": "UniqueID",
+            "value": "6"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Arsenal-0",
+            "property": "Owner",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Arsenal-0",
+            "property": "Controller",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Arsenal-0",
+            "property": "FaceDown",
+            "value": "1"
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Weapons",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Pitch",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Graveyard",
+            "value": 1
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Graveyard-0",
+            "property": "CardID",
+            "value": "driftwood_quiver"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Graveyard-0",
+            "property": "UniqueID",
+            "value": "5"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Graveyard-0",
+            "property": "Owner",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Graveyard-0",
+            "property": "Controller",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Graveyard-0",
+            "property": "FaceDown",
+            "value": "0"
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Arena",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1CombatChain",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p4Hand",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p4Equipment",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p4Pitch",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p4Graveyard",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p4CombatChain",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p4Arena",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "SeatOrder",
+            "value": 1234
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "LiveSeats",
+            "value": 1234
+          },
+          {
+            "kind": "state",
+            "key": "gameMode",
+            "value": "UPF"
+          },
+          {
+            "kind": "state",
+            "key": "passiveSeats",
+            "value": []
+          },
+          {
+            "kind": "state",
+            "key": "resolvingReaction",
+            "value": null
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Hero-0",
+            "property": "Status",
+            "value": "2"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p2Hero-0",
+            "property": "Status",
+            "value": "2"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p3Hero-0",
+            "property": "Status",
+            "value": "2"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4Hero-0",
+            "property": "Status",
+            "value": "2"
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "PRIORITY",
+          "priority": 4
+        }
+      },
+      {
+        "kind": "checks",
+        "checkpoint": "actual_Quiver_fresh_source_response_3_of_four_keep_virtual_source5_and_exact_Arsenal6_Deck7_8",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "PriorityPlayer",
+            "value": 4
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "ConsecutivePasses",
+            "value": 3
+          },
+          {
+            "kind": "state",
+            "key": "window",
+            "value": "PRIORITY"
+          },
+          {
+            "kind": "state",
+            "key": "combatOpen",
+            "value": false
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Health",
+            "value": 19
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 1
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "1"
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 20
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "2"
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p3Health",
+            "value": 20
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p3Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p3ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "3"
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p4Health",
+            "value": 20
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p4Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p4ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "4"
+          },
+          {
+            "kind": "state",
+            "key": "pendingPayment",
+            "value": null
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Deck",
+            "value": 2
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Deck-0",
+            "property": "CardID",
+            "value": "wounding_blow_red"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Deck-0",
+            "property": "UniqueID",
+            "value": "7"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Deck-0",
+            "property": "Owner",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Deck-0",
+            "property": "Controller",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Deck-1",
+            "property": "CardID",
+            "value": "wounding_blow_blue"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Deck-1",
+            "property": "UniqueID",
+            "value": "8"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Deck-1",
+            "property": "Owner",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Deck-1",
+            "property": "Controller",
+            "value": "1"
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Temp",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Equipment",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 1
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "CardID",
+            "value": "driftwood_quiver"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "Controller",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "Kind",
+            "value": "ABILITY"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "SourceZone",
+            "value": "Weapons"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "SourceUniqueID",
+            "value": "5"
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Hand",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Arsenal",
+            "value": 1
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Arsenal-0",
+            "property": "CardID",
+            "value": "raging_onslaught_red"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Arsenal-0",
+            "property": "UniqueID",
+            "value": "6"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Arsenal-0",
+            "property": "Owner",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Arsenal-0",
+            "property": "Controller",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Arsenal-0",
+            "property": "FaceDown",
+            "value": "1"
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Weapons",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Pitch",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Graveyard",
+            "value": 1
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Graveyard-0",
+            "property": "CardID",
+            "value": "driftwood_quiver"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Graveyard-0",
+            "property": "UniqueID",
+            "value": "5"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Graveyard-0",
+            "property": "Owner",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Graveyard-0",
+            "property": "Controller",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Graveyard-0",
+            "property": "FaceDown",
+            "value": "0"
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Arena",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1CombatChain",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p4Hand",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p4Equipment",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p4Pitch",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p4Graveyard",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p4CombatChain",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p4Arena",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "SeatOrder",
+            "value": 1234
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "LiveSeats",
+            "value": 1234
+          },
+          {
+            "kind": "state",
+            "key": "gameMode",
+            "value": "UPF"
+          },
+          {
+            "kind": "state",
+            "key": "passiveSeats",
+            "value": []
+          },
+          {
+            "kind": "state",
+            "key": "resolvingReaction",
+            "value": null
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Hero-0",
+            "property": "Status",
+            "value": "2"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p2Hero-0",
+            "property": "Status",
+            "value": "2"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p3Hero-0",
+            "property": "Status",
+            "value": "2"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4Hero-0",
+            "property": "Status",
+            "value": "2"
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "decision": {
+            "player": 1,
+            "type": "MZCHOOSE"
+          }
+        }
+      },
+      {
+        "kind": "checks",
+        "checkpoint": "fourth_actual_source_responder4_reaches_Arsenal6_choice_virtual_source5_retained_during_managed_await_private_priority_unconstrained",
+        "checks": [
+          {
+            "kind": "state",
+            "key": "combatOpen",
+            "value": false
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Health",
+            "value": 19
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 20
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "2"
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p3Health",
+            "value": 20
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p3Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p3ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "3"
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p4Health",
+            "value": 20
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p4Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p4ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "4"
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Deck",
+            "value": 2
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Deck-0",
+            "property": "CardID",
+            "value": "wounding_blow_red"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Deck-0",
+            "property": "UniqueID",
+            "value": "7"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Deck-0",
+            "property": "Owner",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Deck-0",
+            "property": "Controller",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Deck-1",
+            "property": "CardID",
+            "value": "wounding_blow_blue"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Deck-1",
+            "property": "UniqueID",
+            "value": "8"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Deck-1",
+            "property": "Owner",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Deck-1",
+            "property": "Controller",
+            "value": "1"
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Temp",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Equipment",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 1
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "CardID",
+            "value": "driftwood_quiver"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "Controller",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "Kind",
+            "value": "ABILITY"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "SourceZone",
+            "value": "Weapons"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "SourceUniqueID",
+            "value": "5"
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Hand",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Arsenal",
+            "value": 1
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Arsenal-0",
+            "property": "CardID",
+            "value": "raging_onslaught_red"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Arsenal-0",
+            "property": "UniqueID",
+            "value": "6"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Arsenal-0",
+            "property": "Owner",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Arsenal-0",
+            "property": "Controller",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Arsenal-0",
+            "property": "FaceDown",
+            "value": "1"
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Weapons",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Pitch",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Graveyard",
+            "value": 1
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Graveyard-0",
+            "property": "CardID",
+            "value": "driftwood_quiver"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Graveyard-0",
+            "property": "UniqueID",
+            "value": "5"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Graveyard-0",
+            "property": "Owner",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Graveyard-0",
+            "property": "Controller",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Graveyard-0",
+            "property": "FaceDown",
+            "value": "0"
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Arena",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1CombatChain",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p4Hand",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p4Equipment",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p4Pitch",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p4Graveyard",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p4CombatChain",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p4Arena",
+            "value": 0
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1DecisionQueue-0",
+            "property": "Type",
+            "value": "MZCHOOSE"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1DecisionQueue-0",
+            "property": "Param",
+            "value": "p1Arsenal-0"
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "SeatOrder",
+            "value": 1234
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "LiveSeats",
+            "value": 1234
+          },
+          {
+            "kind": "state",
+            "key": "gameMode",
+            "value": "UPF"
+          },
+          {
+            "kind": "state",
+            "key": "passiveSeats",
+            "value": []
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Hero-0",
+            "property": "Status",
+            "value": "2"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p2Hero-0",
+            "property": "Status",
+            "value": "2"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p3Hero-0",
+            "property": "Status",
+            "value": "2"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4Hero-0",
+            "property": "Status",
+            "value": "2"
+          }
+        ]
+      },
+      {
+        "kind": "answer",
+        "player": 1,
+        "type": "MZCHOOSE",
+        "value": "p1Arsenal-0"
+      },
+      {
+        "kind": "checks",
+        "checkpoint": "actual_choose_same_owned_Arsenal6_moves_to_Deck_BOTTOM_after7_8_no_shuffle_draw_or_play_virtualsource_clears_AP1_R0",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "PriorityPlayer",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "ConsecutivePasses",
+            "value": 0
+          },
+          {
+            "kind": "state",
+            "key": "window",
+            "value": "ACTION"
+          },
+          {
+            "kind": "state",
+            "key": "combatOpen",
+            "value": false
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Health",
+            "value": 19
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 1
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "1"
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 20
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "2"
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p3Health",
+            "value": 20
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p3Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p3ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "3"
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p4Health",
+            "value": 20
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p4Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p4ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "4"
+          },
+          {
+            "kind": "state",
+            "key": "pendingPayment",
+            "value": null
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Deck",
+            "value": 3
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Deck-0",
+            "property": "CardID",
+            "value": "wounding_blow_red"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Deck-0",
+            "property": "UniqueID",
+            "value": "7"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Deck-0",
+            "property": "Owner",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Deck-0",
+            "property": "Controller",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Deck-1",
+            "property": "CardID",
+            "value": "wounding_blow_blue"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Deck-1",
+            "property": "UniqueID",
+            "value": "8"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Deck-1",
+            "property": "Owner",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Deck-1",
+            "property": "Controller",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Deck-2",
+            "property": "CardID",
+            "value": "raging_onslaught_red"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Deck-2",
+            "property": "UniqueID",
+            "value": "6"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Deck-2",
+            "property": "Owner",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Deck-2",
+            "property": "Controller",
+            "value": "1"
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Temp",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Equipment",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Hand",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Arsenal",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Weapons",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Pitch",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Graveyard",
+            "value": 1
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Graveyard-0",
+            "property": "CardID",
+            "value": "driftwood_quiver"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Graveyard-0",
+            "property": "UniqueID",
+            "value": "5"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Graveyard-0",
+            "property": "Owner",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Graveyard-0",
+            "property": "Controller",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Graveyard-0",
+            "property": "FaceDown",
+            "value": "0"
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Arena",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1CombatChain",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p4Hand",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p4Equipment",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p4Pitch",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p4Graveyard",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p4CombatChain",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p4Arena",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "SeatOrder",
+            "value": 1234
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "LiveSeats",
+            "value": 1234
+          },
+          {
+            "kind": "state",
+            "key": "gameMode",
+            "value": "UPF"
+          },
+          {
+            "kind": "state",
+            "key": "passiveSeats",
+            "value": []
+          },
+          {
+            "kind": "state",
+            "key": "resolvingReaction",
+            "value": null
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Hero-0",
+            "property": "Status",
+            "value": "2"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p2Hero-0",
+            "property": "Status",
+            "value": "2"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p3Hero-0",
+            "property": "Status",
+            "value": "2"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4Hero-0",
+            "property": "Status",
+            "value": "2"
+          }
+        ]
+      },
+      {
+        "kind": "checks",
+        "checkpoint": "full_final_four_living_physical_ownership_economy_queues_and_cleanup",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "SeatOrder",
+            "value": 1234
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "LiveSeats",
+            "value": 1234
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "TurnPlayer",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "TurnNumber",
+            "value": 2
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "PriorityPlayer",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "ConsecutivePasses",
+            "value": 0
+          },
+          {
+            "kind": "state",
+            "key": "window",
+            "value": "ACTION"
+          },
+          {
+            "kind": "state",
+            "key": "gameMode",
+            "value": "UPF"
+          },
+          {
+            "kind": "state",
+            "key": "passiveSeats",
+            "value": []
+          },
+          {
+            "kind": "state",
+            "key": "combatOpen",
+            "value": false
+          },
+          {
+            "kind": "state",
+            "key": "resolvingReaction",
+            "value": null
+          },
+          {
+            "kind": "state",
+            "key": "pendingPayment",
+            "value": null
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Health",
+            "value": 19
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 1
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Hero",
+            "value": 1
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Hero-0",
+            "property": "CardID",
+            "value": "riptide"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Hero-0",
+            "property": "UniqueID",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Hero-0",
+            "property": "Owner",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Hero-0",
+            "property": "Controller",
+            "value": "1"
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "1"
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Hand",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Deck",
+            "value": 3
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Deck-0",
+            "property": "CardID",
+            "value": "wounding_blow_red"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Deck-0",
+            "property": "UniqueID",
+            "value": "7"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Deck-0",
+            "property": "Owner",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Deck-0",
+            "property": "Controller",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Deck-1",
+            "property": "CardID",
+            "value": "wounding_blow_blue"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Deck-1",
+            "property": "UniqueID",
+            "value": "8"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Deck-1",
+            "property": "Owner",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Deck-1",
+            "property": "Controller",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Deck-2",
+            "property": "CardID",
+            "value": "raging_onslaught_red"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Deck-2",
+            "property": "UniqueID",
+            "value": "6"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Deck-2",
+            "property": "Owner",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Deck-2",
+            "property": "Controller",
+            "value": "1"
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Arsenal",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Graveyard",
+            "value": 1
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Graveyard-0",
+            "property": "CardID",
+            "value": "driftwood_quiver"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Graveyard-0",
+            "property": "UniqueID",
+            "value": "5"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Graveyard-0",
+            "property": "Owner",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Graveyard-0",
+            "property": "Controller",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Graveyard-0",
+            "property": "FaceDown",
+            "value": "0"
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Pitch",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Banish",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Soul",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Arena",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Equipment",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Weapons",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1CombatChain",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Temp",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Inventory",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 20
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2Hero",
+            "value": 1
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p2Hero-0",
+            "property": "CardID",
+            "value": "dorinthea"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p2Hero-0",
+            "property": "UniqueID",
+            "value": "2"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p2Hero-0",
+            "property": "Owner",
+            "value": "2"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p2Hero-0",
+            "property": "Controller",
+            "value": "2"
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "2"
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2Hand",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2Deck",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2Arsenal",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2Graveyard",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2Pitch",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2Banish",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2Soul",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2Arena",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2Equipment",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2Weapons",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2CombatChain",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2Temp",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2Inventory",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p3Health",
+            "value": 20
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p3Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p3ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p3Hero",
+            "value": 1
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p3Hero-0",
+            "property": "CardID",
+            "value": "dorinthea"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p3Hero-0",
+            "property": "UniqueID",
+            "value": "3"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p3Hero-0",
+            "property": "Owner",
+            "value": "3"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p3Hero-0",
+            "property": "Controller",
+            "value": "3"
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "3"
+          },
+          {
+            "type": "zone_count",
+            "zone": "p3Hand",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p3Deck",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p3Arsenal",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p3Graveyard",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p3Pitch",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p3Banish",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p3Soul",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p3Arena",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p3Equipment",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p3Weapons",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p3CombatChain",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p3Temp",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p3Inventory",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p4Health",
+            "value": 20
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p4Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p4ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p4Hero",
+            "value": 1
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4Hero-0",
+            "property": "CardID",
+            "value": "dorinthea"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4Hero-0",
+            "property": "UniqueID",
+            "value": "4"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4Hero-0",
+            "property": "Owner",
+            "value": "4"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4Hero-0",
+            "property": "Controller",
+            "value": "4"
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "4"
+          },
+          {
+            "type": "zone_count",
+            "zone": "p4Hand",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p4Deck",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p4Arsenal",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p4Graveyard",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p4Pitch",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p4Banish",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p4Soul",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p4Arena",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p4Equipment",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p4Weapons",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p4CombatChain",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p4Temp",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p4Inventory",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 0
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Hero-0",
+            "property": "Status",
+            "value": "2"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p2Hero-0",
+            "property": "Status",
+            "value": "2"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p3Hero-0",
+            "property": "Status",
+            "value": "2"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p4Hero-0",
+            "property": "Status",
+            "value": "2"
+          }
+        ]
+      }
+    ],
+    "sources": [
+      "https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/LGS137-CF.webp",
+      "https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/HER080-CF.webp",
+      "https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/WTR188.webp",
+      "https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/DRO022.webp",
+      "https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/FAI027.webp",
+      "https://rules.fabtcg.com/en/cr/03-zones/",
+      "https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/"
+    ],
+    "oracle": "Four genuine living legal youngRiptide printed19/threeDorinthea20, all active/manualUPF/no passive seats. Legal RiptideSpecialization RangerEquipmentQuiver5 is actually equipped in Weapons zone ready, not a head/chest/arms/legs slot. Owned GenericRagingRed6 facedownArsenal and ownedGenericWoundingRed7/Blue8 Deck top-to-bottom are legal explicit prior fixture; no equip/Arsenal-entry/cardplay/history/effect seed or support-primary credit. Initial/finalhealth[19,20,20,20], allR0/APonlyP1=1. Actually clickQuiver5 as Instant printedresource0/noAP/destroy: samephysical5 leavesWeapons to ownpublicP1GYFaceDown0 as cost BEFOREfour fresh manual source responses1/2/3/4; Arsenal6facedown1 and exactDeck7/8 unchanged, AP1R0 and allHP unchanged. Source virtualabilityKindABILITY/CardIDDriftwood/Controller1/SourceZoneWeapons/SourceUniqueID5 staysStack across firstthree responses and fourth while existing managedARC_ABILITY ResolveAbility awaits realownArsenalMZCHOOSE. Printedchoice is made duringeffect, no target is printed; no fabricated Prepare/target declaration. Fourth pass waits exactP1MZCHOOSE rather than private priority; internalwindow/passcount/priority/marker/framekeys/virtualUID unspecified, physicalsource5GY/virtualsourcebinding/Arsenal6/Deck7,8/economy strict. Actually answer samep1Arsenal6: ownphysical6 moves toBOTTOM of actualDeck behindoriginal7/8, exactliveDeckUIDorder7,8,6/CardIDsWoundingRed/WoundingBlue/RagingRed; Arsenalempty, no shuffle/draw/Handcardplay/APspend/GA. Virtualsource ceases aftereffect/managedmarker clears, finalACTIONpriorityP1/no pendingpayment/allfourqueuesempty. Physicalsource5 remainsownpublicGY, noEquipment/Weapons/Hand/Arsenal/Stack/Chain/Arena/Temp/Soul/Banish. Printed Instant doesnotuseAP; finalAP1 is unchangedoriginalAP, not a seeded extraAP or reward. No card playedfromHand, so Riptide Hand-load/trap-damage hero abilities untriggered/uncredited. One positive realdestroy/mandatoryArsenalbottom/exactphysicalorder branch only: no emptyArsenal/illegalhero/restriction/faceup/foreignowner/multiArsenal/endphase/hero/fullcard/control/sibling/support-primary credit. No held065-070/sourcefix dependency; no currentwrongoutputs chosen. First actual native mismatch must stop with no failing fixture/oracle fit.",
+    "coverage_kind": "ONE_BOUNDED_DISTINCTIVE_EFFECT_REPRESENTATIVE",
+    "proposal_status": "SCRATCH_UNEXECUTED_INDEPENDENT_REVIEW_AND_NATIVE_QUALIFICATION_REQUIRED",
+    "expected_supported_actions": 6
+  }
+]

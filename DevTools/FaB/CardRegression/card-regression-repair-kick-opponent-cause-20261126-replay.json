@@ -1,0 +1,40 @@
+{
+  "runtime": "79a3134bdb7ea723f2fa9d257db5fb2ff75591065b2d56259fc3a45fdb34b5b0",
+  "fixtures": [
+    {
+      "slug": "repair-kick-hornets-nest-four-live-20261126-normal-combat-is-not-opponent-effect",
+      "passed": true,
+      "runtime": "79a3134bdb7ea723f2fa9d257db5fb2ff75591065b2d56259fc3a45fdb34b5b0",
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=repair-kick-hornets-nest-four-live-20261126-normal-combat-is-not-opponent-effect",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\kick210\\strict1.log"
+      ],
+      "returncode": 0,
+      "complete_log_sha256": "efcb2785cd131cdfd3df44e2d2b829ea4ba78248f3c9e19c6509fadf16830775",
+      "raw5_unchanged": true
+    },
+    {
+      "slug": "card-nasty-surprise-blue-four-live-sparse911-normal-owned-attack-not-opponent-effect-graveyard-tokens",
+      "passed": true,
+      "runtime": "79a3134bdb7ea723f2fa9d257db5fb2ff75591065b2d56259fc3a45fdb34b5b0",
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-nasty-surprise-blue-four-live-sparse911-normal-owned-attack-not-opponent-effect-graveyard-tokens",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\kick210\\strict2.log"
+      ],
+      "returncode": 0,
+      "complete_log_sha256": "81facd3f9b7faf828d397ae8bb6753722adfe109b44f6afdf9b07501c93824f4",
+      "raw5_unchanged": true
+    }
+  ],
+  "full_suite_run": false
+}

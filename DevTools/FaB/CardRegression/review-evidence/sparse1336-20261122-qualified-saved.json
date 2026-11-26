@@ -1,0 +1,121 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "independent breadth_review1252",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1336-20261122.json",
+  "source_spec_sha256": "8b2e1665f687fc83d949e16385edabb4497c24b8e5e274ab9c10d71c896cd557",
+  "input_sha256": "8b2e1665f687fc83d949e16385edabb4497c24b8e5e274ab9c10d71c896cd557",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-moonshot-yellow-four-live-sparse1336-no-boost-rejected-before-x-choice-and-real-followup-keeps-action-and-buff",
+      "card_id": "moonshot_yellow",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "05c2da1a51851aded166ca4b730ebcbf4e4c7b654759777826fba3f69e106b00",
+        "actions.json": "d8e9f7f8b6ce1dfec7c6f6d8dbaa2b0cacd151de15eccbcff57f026859c85474",
+        "assertions.json": "24e23d1b4837e25a4de432e33aee60ef7dfbf87a33178518538e0c0d5f50d458",
+        "expected_final_gamestate.txt": "7b993376f9af3b0ef17b04d7b88de62aa61ebe924a69f8027655182099aebd8a",
+        "meta.json": "ba98d4bab13ebf79f7ad1652b9e3e0e137fd7069649ec3a1b0570bb26117839a"
+      },
+      "fixture_sha256": "a764bdae7db0d6f5cf62300a90ab9a0fba9788b8ef0568d34f37ea5a40c7e313",
+      "actions": 33,
+      "native_assertions": 316,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 29,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1336-20261122.json",
+      "input_sha256": "8b2e1665f687fc83d949e16385edabb4497c24b8e5e274ab9c10d71c896cd557",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1336-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-moonshot-yellow-four-live-sparse1336-no-boost-rejected-before-x-choice-and-real-followup-keeps-action-and-buff",
+        "fixture_slug": "card-moonshot-yellow-four-live-sparse1336-no-boost-rejected-before-x-choice-and-real-followup-keeps-action-and-buff",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "reviewer": "independent breadth_review1252",
+    "spec_sha256": "8b2e1665f687fc83d949e16385edabb4497c24b8e5e274ab9c10d71c896cd557",
+    "source_note_sha256": "94e910a884e35833a6a9f3d0fe5f17e50b140d54aaf3dce3688445cbe8da072f",
+    "case_count": 1,
+    "active_seats": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "players": "four_live_manual",
+    "native_controls": 33,
+    "query_checks": 316,
+    "persistable_assertions": 316,
+    "author_only_checks_omitted": 0,
+    "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+    "coverage_category": "REJECTION_ONLY_NO_BOOST_BEFORE_X_SELECTION_WITH_REAL_ACTION_AND_BUFF_CONSUMER",
+    "per_case": [
+      {
+        "card_id": "moonshot_yellow",
+        "group_id": "identity:moonshot_yellow",
+        "native_controls": 33,
+        "persistable_assertions": 316
+      }
+    ],
+    "basis": [
+      "Cached Moonshot Yellow is a Mechanologist Attack Action with cost XX and explicit Play only if boosted restriction; natural Young Dash20 supplies legal class identity, with three Young Dori20 and four real manual UPF seats. Dash optional starting item is declined. Coverage index and source-only hold ledger show this distinct group unrepresented/unheld. Actual physical HeroUID1..4, Nimblism5/Moonshot6/Wounding7 begin in owned Hand with no history/effects/resources seeded.",
+      "EVORuntime.php32 FaBEVOCanPlay rejects exact moonshot_yellow when ARC_BOOSTED is false. GameLogic.php1001 integrates that guard in CanPlayCard; DoPlayCard1011 returns before attack target request1022, source movement1040, stack insertion and later cost preparation. Generic Nimblism is not Boost: its actual source play/resolution and all four responses refund AP1 without earning ARC_BOOSTED. Thus actual Moonshot6 click must reject before target, X selection, payment or HyperDriver cost, retaining real owned Hand6/7, AP1/R0, UID7, Stack/queues empty and pendingPayment null. No X value or X affordability is inferred.",
+      "Actual Generic Wounding7 then uses retained AP1, selects adjacent Hero4 through normal four-seat target options and resolves all fresh source/combat response rounds. Printed cost0/base4 plus preserved Nimblism3 gives strict actual7power and7damage/HP13, no GA/AP0. Final original5 then7 ownGY and original6 ownHand, natural ready Heroes, empty other zones/Stack/queues/CC, UID7 and RNG0 provide observable preservation checks. Moonshot never reaches When attacks, so no attack trigger is earned; all316 checks across33 controls persist."
+    ],
+    "limits": [
+      "Source/spec review only, approved named rejection branch pending native save and targeted replay. No native pass or coverage credit is claimed.",
+      "Restriction-only no-Boost branch before X selection. Positive boosted play, any X choice/value/XX payment/affordability, HyperDriver destruction, power/overpower, primary attack, alternate targets, secondary identities, Hero ability or full-card behavior remain untested/uncredited. Existing holds untouched.",
+      "Only this W review receipt is written. No native game/test/replay, T/source/engine edit, original-checkout access, authentication/network, full suite or Git operation."
+    ],
+    "source_sha256": {
+      "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+      "FaBSim/GeneratedCode/GeneratedMacroCode.php": "fe6a7982611df8f4de98ce2671b317b671b580146aa4b8c28e8f4b86d8461056",
+      "FaBSim/Custom/GameLogic.php": "c60fa151561f959e4e3e341b814de0e2b47c9e9f153bbc8793a04c43b5075061",
+      "FaBSim/Custom/EVORuntime.php": "d57f99b22981b970a55facbee812dc398b8dd104bb2fb386e6e3014eb79512b5",
+      "FaBSim/Custom/ARCCards.php": "f6b6a21d214e71fdcfd6a084f0671ce610f08a40c51a1266041877a5a12c0d52",
+      "FaBSim/Custom/WTRCards.php": "77d4452b30e45254a7199bc965396ded53e325717ecdd84a09b971f723f99f6a",
+      "Core/EngineActionRunner.php": "add14b53dc571d2a6e64407bfa4038a98d6554d6410de7a9233810d99c46ea2a",
+      "Schemas/FaBSim/GameSchema.txt": "7783800bd47bc85885cc915066aadca58cdf99f0c1180602ac312d9af5ebf643",
+      "Core/ShortcutPreferences.php": "25f300ea0b6fbc409f5b92e8bc3587a74b2ab0eaf31ccef38e18c455598eaba6",
+      "DevTools/FaB/CardRegression/record_card_regressions.php": "e53055b29e9ea641949b77019c4455607f41ca233325d716a9500637e19efd28"
+    },
+    "workspace_source_sha256": {
+      "author_breadth1336.py": "490aa9711921562cd4d4753a192f8db3942500c72ad88c9c32a4682729b7a38a",
+      "breadth1068_helpers.py": "997f949ec26c7e494ad26a818f9f2078f6f4f2a0c49ca7f61aa8c71f3b091b0a"
+    },
+    "secondary_identity_credit": false,
+    "primary_play_credit": false,
+    "successful_primary_attack_credit": false,
+    "whole_card_credit": false,
+    "positive_boosted_play_credit": false,
+    "x_cost_credit": false,
+    "hyper_driver_cost_credit": false,
+    "overpower_credit": false
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1336-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "2162e078944bd256cae7d6facc88ae2f6ba2f8f52fa0be74727b67ba32c40c4b"
+  },
+  "full_suite_run": false
+}

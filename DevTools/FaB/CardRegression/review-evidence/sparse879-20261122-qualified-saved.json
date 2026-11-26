@@ -1,0 +1,304 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "/root/breadth_review independent cached-text/source-spec batch semantic review; Root exact saved mapping and native clean replay",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse879-20261122.json",
+  "source_spec_sha256": "ade646b4330495ec53fd7c5e889c70f0cf960b3b3471d3d2e98063c9d5dfbf1c",
+  "input_sha256": "db7a7e1bc928d5b67a55794aef2afa325535a12c3f9767161c91148286290a2d",
+  "recorded_input_scope": "Exact original native input, possibly containing unsaved failed cases excluded from this qualified subset; each retained case compared verbatim.",
+  "fixtures": [
+    {
+      "slug": "card-evo-sentry-base-arms-red-four-live-sparse879-real-base-arms-transforms-into-owned-equipped-evo",
+      "card_id": "evo_sentry_base_arms_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "b31e5c4281702c50d2afec45d17b542a780e5f1663ff38c6b830a7d1746697ed",
+        "actions.json": "c9e30c252fa7ee7dec5f8a364eea8e728c688845dd8df7f54427b2bc62c71d2d",
+        "assertions.json": "ee8bfcca3093a5b2453932c7e877440a0f7f1a8328432514c64554c275148ebf",
+        "expected_final_gamestate.txt": "85830e00ba5cff445444ae83e6e18c13c69bd0c8a36c83a1bb424e5bb076426a",
+        "meta.json": "64e5c2223f5f1be3e7f63f549d966c47463f045d262fc4739fa1661110df4bbb"
+      },
+      "fixture_sha256": "b654eb148124491f65cbbd39c9960f4a5222003a4fc7ba5734201bf690c69b01",
+      "actions": 6,
+      "native_assertions": 86,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 4,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse879-20261122.json",
+      "input_sha256": "db7a7e1bc928d5b67a55794aef2afa325535a12c3f9767161c91148286290a2d",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse879-local-20261122\\save\\selected.json"
+    },
+    {
+      "slug": "card-evo-sentry-base-legs-red-four-live-sparse879-real-base-legs-transforms-into-owned-equipped-evo",
+      "card_id": "evo_sentry_base_legs_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "589d2ca7eeb13d6bb3fc7e659a14d265ff38597b422faffff49a66d6ee696c74",
+        "actions.json": "c9e30c252fa7ee7dec5f8a364eea8e728c688845dd8df7f54427b2bc62c71d2d",
+        "assertions.json": "28264a201913a4b3d608cd97c29a8a238ecc8ffdf9cebc319b7739b78406405f",
+        "expected_final_gamestate.txt": "ddcdc917c82f9db5c7fb8c18b057c741cb170842d1d8dd82806456d68b1f4323",
+        "meta.json": "6bff30a12e58fba23cd803efbfcd2de7dda31593a7804a1b78045b1a4f9c541a"
+      },
+      "fixture_sha256": "309324ad7fc2997ff01242e97aff6e950715bd3ca80b29e190ee31fac5d9a97d",
+      "actions": 6,
+      "native_assertions": 86,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 4,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse879-20261122.json",
+      "input_sha256": "db7a7e1bc928d5b67a55794aef2afa325535a12c3f9767161c91148286290a2d",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse879-local-20261122\\save\\selected.json"
+    },
+    {
+      "slug": "card-evo-charging-rods-yellow-four-live-sparse879-real-base-legs-transforms-into-owned-equipped-evo",
+      "card_id": "evo_charging_rods_yellow",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "e2c996bea839238741493f9accf08db7f163a2f702d7b8a712888884b4fb3e5f",
+        "actions.json": "ecfc3b356d170d3adcd369c59f64176c3b17ffe7af3900115b2de1a20afbaf7c",
+        "assertions.json": "2413dc27f1e410a87e98c6974429a4dd315b846ab65ff6af453b90bf9b60b6a9",
+        "expected_final_gamestate.txt": "adde32d6e7a958354021df687c4e6dfd729716d823b595a12c39d70c392a9d19",
+        "meta.json": "979e8bffc28386d29dc8116735eb7f7aeac60a28044c3b83022030781416fd74"
+      },
+      "fixture_sha256": "d4250b0adb936d8e17a57ee5df31bcaf3ec3c68dde8653102def79ddeeb8e721",
+      "actions": 5,
+      "native_assertions": 83,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 4,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse879-20261122.json",
+      "input_sha256": "db7a7e1bc928d5b67a55794aef2afa325535a12c3f9767161c91148286290a2d",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse879-local-20261122\\save\\selected.json"
+    },
+    {
+      "slug": "card-evo-energy-matrix-blue-four-live-sparse879-real-base-chest-transforms-into-owned-equipped-evo",
+      "card_id": "evo_energy_matrix_blue",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "97a4f057ee69ebdbee338f37fd80e1ad78941bf41ddfbc7d708975d96cda37aa",
+        "actions.json": "c9e30c252fa7ee7dec5f8a364eea8e728c688845dd8df7f54427b2bc62c71d2d",
+        "assertions.json": "bc2d87a41ce55976c449fcbdae59e45eccf4f30b776ab99331e58e6b7c6fe50e",
+        "expected_final_gamestate.txt": "e622fb1e269d265733cf75620884235400337079eb945b4c9260f77ec5a6f8e4",
+        "meta.json": "5e84d3b7b257ec7ff5e04212b4829109ebbc109e44589eaff1de8ad0afffd01f"
+      },
+      "fixture_sha256": "f6154149676385d8a85aa55e0c5d27e9f9e4e3882ace82ad0ce5a8ef5d5dfca4",
+      "actions": 6,
+      "native_assertions": 86,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 4,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse879-20261122.json",
+      "input_sha256": "db7a7e1bc928d5b67a55794aef2afa325535a12c3f9767161c91148286290a2d",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse879-local-20261122\\save\\selected.json"
+    },
+    {
+      "slug": "card-evo-rapid-fire-blue-four-live-sparse879-real-base-legs-transforms-into-owned-equipped-evo",
+      "card_id": "evo_rapid_fire_blue",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "48db2c533923f57cc32c7c8e6932f7c4e33c1bc067be1f5dc42629be93520ccd",
+        "actions.json": "c9e30c252fa7ee7dec5f8a364eea8e728c688845dd8df7f54427b2bc62c71d2d",
+        "assertions.json": "e8d5afca456952fd9bab0c033a2cd0f2725b4ad3fb835e3e0324a18f6a5b1ee3",
+        "expected_final_gamestate.txt": "6c4dabc8272300dd62782ebe59d90fde9362c5aa9af1cbcd2cd3f39af9cb99b4",
+        "meta.json": "4b7f6c869df6fe2f16453f2c1142ad2ea7fa1687b4cebe8994b100c10f45c55c"
+      },
+      "fixture_sha256": "a337f9833902126a4783c0ea098828bead134691e8eff1926dd325933b228968",
+      "actions": 6,
+      "native_assertions": 86,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 4,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse879-20261122.json",
+      "input_sha256": "db7a7e1bc928d5b67a55794aef2afa325535a12c3f9767161c91148286290a2d",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse879-local-20261122\\save\\selected.json"
+    },
+    {
+      "slug": "card-evo-scatter-shot-blue-four-live-sparse879-real-base-arms-transforms-into-owned-equipped-evo",
+      "card_id": "evo_scatter_shot_blue",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "bf53b74cc0fa7c7e8f2d6c678bde10868a4b9a26e3cebcbce1433721d927ca67",
+        "actions.json": "c9e30c252fa7ee7dec5f8a364eea8e728c688845dd8df7f54427b2bc62c71d2d",
+        "assertions.json": "d08b3b32e09a9264da85240889d9ca263977d6caebc57d29652414052554a584",
+        "expected_final_gamestate.txt": "4e59c4cede75c2217d675c37ea66d08889f93f8103a57f0ae151d0d401147a80",
+        "meta.json": "263cbd01c31203768bc183416f0e915a48bb78ef66adf91932ab49e1d079bb6c"
+      },
+      "fixture_sha256": "f0cbe166a5b1f8585a752699f0f1529ad99539486a4aaab192461bd3156e5bca",
+      "actions": 6,
+      "native_assertions": 86,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 4,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse879-20261122.json",
+      "input_sha256": "db7a7e1bc928d5b67a55794aef2afa325535a12c3f9767161c91148286290a2d",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse879-local-20261122\\save\\selected.json"
+    },
+    {
+      "slug": "card-construct-bank-breaker-yellow-four-live-sparse879-real-wrench-and-three-hyper-drivers-transform-into-equipped-bank-breaker",
+      "card_id": "construct_bank_breaker_yellow",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "c28a36485f4816d059f685dcb877ef5517f803faade6aecaddc7b8c6863a7495",
+        "actions.json": "ff73c9bc56d4dbe8c7ddee5eb4a5fd6b25fca5fc970f25c976eaa30f94abfeb6",
+        "assertions.json": "3073b5ed0c997ed41813d8ac8cdb2b902b6e75580c8aa0bf30a184bf2c3cfc86",
+        "expected_final_gamestate.txt": "c790e1165d610690b4c134dfc768fe55038d012bdd0dd270c3cee920c5978d7c",
+        "meta.json": "026f2d5ead661d646c268be0e93f873c868f2818bcd0840c86a75e978f981f40"
+      },
+      "fixture_sha256": "4c67de0c3901cc2c8bab0cc790028fbd7f42575dc0d5230b7db5decc26d38106",
+      "actions": 7,
+      "native_assertions": 87,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 4,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse879-20261122.json",
+      "input_sha256": "ec1b4865b58a4cbe6b523d503e4fa97ea72a5d40e4cbc1b26d64bd319cb9dae6",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse879-local-20261122\\construct-retry\\selected.json"
+    },
+    {
+      "slug": "card-renounce-violence-blue-four-live-sparse879-destroys-three-real-tokens-across-seats-and-creates-three-owned-replacements",
+      "card_id": "renounce_violence_blue",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "49e867ac31a178d840b9f558dd59df4f6ca6b552b1566cdca0504b4cad856caa",
+        "actions.json": "0cad22f6f3ba2f18f5732c5dc1f1f7809d4bcdcf95bffa37a576f614d2d2a4a7",
+        "assertions.json": "0a9277b44f1d1a019d5d45d883d8a3c85da082710bba8ec02df4e0adfb13a41d",
+        "expected_final_gamestate.txt": "f0a2f899895a8b2d08ac5e3a5a139b7f6233574d4d28f129f9283ed6ea1a1e21",
+        "meta.json": "2e15881a3dc6763a238e7a8e0143c0716b33d8cb7515e22fb05db71e65c4bcb0"
+      },
+      "fixture_sha256": "25d8e60cf5601e96025914e0962da5370bdef4b523b4870bdea4152d67d7fdfb",
+      "actions": 6,
+      "native_assertions": 95,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 4,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse879-20261122.json",
+      "input_sha256": "db7a7e1bc928d5b67a55794aef2afa325535a12c3f9767161c91148286290a2d",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse879-local-20261122\\save\\selected.json"
+    },
+    {
+      "slug": "card-rip-up-their-virtues-blue-four-live-sparse879-destroys-three-real-tokens-across-seats-and-creates-three-owned-replacements",
+      "card_id": "rip_up_their_virtues_blue",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "40b8af61e567df508dab62ebcc70a8783eeb1b27f11086b3274214ef46082d78",
+        "actions.json": "0cad22f6f3ba2f18f5732c5dc1f1f7809d4bcdcf95bffa37a576f614d2d2a4a7",
+        "assertions.json": "ac6ce459e01fe54dd4d7478335160d01d65bfd640c4eaf3c4a8122d81a55e093",
+        "expected_final_gamestate.txt": "e23d750c04630ba3b09cd6fd233532e67af659df06269f0f0f9b61556b7d0e5a",
+        "meta.json": "2484b26d575c2485c7ac2747965dc83c8dad0ab3cab3a04c8728e7c85f9ee146"
+      },
+      "fixture_sha256": "3c1ed21b64eed163598c76b145db422a2d5fc90ea9c568b1f8a84e03f63f3997",
+      "actions": 6,
+      "native_assertions": 95,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 4,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse879-20261122.json",
+      "input_sha256": "db7a7e1bc928d5b67a55794aef2afa325535a12c3f9767161c91148286290a2d",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse879-local-20261122\\save\\selected.json"
+    }
+  ],
+  "basis": {
+    "review_type": "independent_static_semantic_review",
+    "result": "approved_named_branches_only_pending_native_execution",
+    "spec_sha256": "db7a7e1bc928d5b67a55794aef2afa325535a12c3f9767161c91148286290a2d",
+    "reviewed": [
+      {
+        "card": "evo_sentry_base_arms_red",
+        "branch": "real_base_arms_transforms_into_owned_equipped_evo"
+      },
+      {
+        "card": "evo_sentry_base_legs_red",
+        "branch": "real_base_legs_transforms_into_owned_equipped_evo"
+      },
+      {
+        "card": "evo_charging_rods_yellow",
+        "branch": "real_base_legs_transforms_into_owned_equipped_evo"
+      },
+      {
+        "card": "evo_energy_matrix_blue",
+        "branch": "real_base_chest_transforms_into_owned_equipped_evo"
+      },
+      {
+        "card": "evo_rapid_fire_blue",
+        "branch": "real_base_legs_transforms_into_owned_equipped_evo"
+      },
+      {
+        "card": "evo_scatter_shot_blue",
+        "branch": "real_base_arms_transforms_into_owned_equipped_evo"
+      },
+      {
+        "card": "construct_bank_breaker_yellow",
+        "branch": "real_wrench_and_three_hyper_drivers_transform_into_equipped_bank_breaker"
+      },
+      {
+        "card": "renounce_violence_blue",
+        "branch": "destroys_three_real_tokens_across_seats_and_creates_three_owned_replacements"
+      },
+      {
+        "card": "rip_up_their_virtues_blue",
+        "branch": "destroys_three_real_tokens_across_seats_and_creates_three_owned_replacements"
+      }
+    ],
+    "evidence": [
+      "Cached printed text/types/costs and natural health20 checked. Six Evo names/slots are distinct groups: Sentry Arms/Legs cost2 with blue residue1; Charging Rods cost0; Energy Matrix/Rapid Fire/Scatter Shot cost3 with blue residue0. All six consume sole action point without go-again.",
+      "Each Evo starts real source in hand plus matching actual equipped Proto base, then requires sourceUID5 equipped/owned/status2 with correct actual base SUBCARDS and no graveyard copy. Native direct/wrapper routes both call transform helper.",
+      "Construct Bank Breaker costs0 and has printed go-again. Maxx legally equips specialization wrench Banksy; three distinct real existing live Hyper Drivers each with steam1 are prerequisites, not seeded payoff. Native choices select actual wrench and all three actual items.",
+      "Construct requires all drivers/wrench removed, single equipped Bank Breaker sourceUID5 and exactly Banksy+three Hyper Driver material IDs; no graveyard copy. This matches printed transform and native construct representation.",
+      "Renounce on Revered young Pleiades and Rip Virtues on Reviled young Lyath are legal cost0 Instants; AP1 preserved throughout. No hero cheers/boos activated.",
+      "Each token instant selects actual three eligible tokens across own/P2/P4 arenas and destroys them, producing exactly three NEW owned/controlled replacement tokens UID10/11/12 at caster. Unrelated opposite-kind P3 tokenUID8 remains, guarding global-selection/type confusion."
+    ],
+    "oracle_or_flow_errors": [],
+    "engine_concerns": [],
+    "limitations": [
+      "Static source-spec review only; no native execution, tests, recordings or network performed. Parent verifies runtime replays/queue schema.",
+      "Only positive named transform and token replacement branches approved; no pitch siblings, missing/wrong prerequisites, alternate subsets/counts or target-loss cases.",
+      "No Evo/Teklo Blaster static cost/power/go-again combat outcomes, Charging Rods activation, blade break/battleworn defense, Bank Breaker attack/material activation or Might/Toughness future turn effects certified."
+    ],
+    "mutation_scope": "Only this independent-review.json written.",
+    "final_delta_review": {
+      "review_type": "independent_static_construct_interim_delta_review",
+      "result": "approved_corrected_interim_oracle_pending_native_retry",
+      "spec_sha256": "ade646b4330495ec53fd7c5e889c70f0cf960b3b3471d3d2e98063c9d5dfbf1c",
+      "reviewed": {
+        "card": "construct_bank_breaker_yellow",
+        "delta": "Only real_three_driver_transform_choice now counts Arena4 and explicitly identifies own pending Construct sourceUID5 at Arena3. Final gameplay assertions unchanged; other eight specs unchanged."
+      },
+      "evidence": [
+        "Cached Construct source has persistent Construct type; current resolution route moves persistent source to Arena before card-local choices.",
+        "FaBAMXConstruct finds sourceUID independent of zone and separately validates real owned equipped Wrench plus exactly three distinct owned Hyper Drivers. The fourth Arena card is explicitly identified as source, not treated as another material.",
+        "Unchanged final assertions require three drivers and wrench consumed, sourceUID5 equipped as Bank Breaker with exact four material IDs, no Arena leftovers or graveyard copy."
+      ],
+      "native_status": {
+        "eight_other_cases": "Eight native passes reported by parent; not rerun here.",
+        "construct": "Pending retry with corrected interim oracle; no gameplay fix or pass claimed."
+      },
+      "limitations": [
+        "Approves current native intermediate representation for this positive branch; no independent ruling about every Construct timing interaction.",
+        "Prior B879 exclusions remain: no combat, activated abilities, static Blaster effects or token future-turn effects.",
+        "No native execution, recordings, source edits or network performed."
+      ],
+      "mutation_scope": "Only independent-final-review.json written."
+    }
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse879-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "3c5bafed8a382f60217efa9e9cb3b92b1b9006bc4bbb7a3c2a87d3828e3dca3b"
+  },
+  "full_suite_run": false
+}

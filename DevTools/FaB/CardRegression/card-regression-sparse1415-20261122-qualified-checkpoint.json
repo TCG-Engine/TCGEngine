@@ -1,0 +1,184 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-24T15:57:45.878493+00:00",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1415-20261122.json",
+  "source_spec_sha256": "c453630d9f9df45fc6179d0aa31083ddca715ee011992141dd1d71e429f94b3b",
+  "new_scenarios": 5,
+  "new_groups": 5,
+  "new_primary_ids": 5,
+  "actions": 34,
+  "native_assertions": 1165,
+  "manual_passes": 16,
+  "totals": {
+    "saved_registered_scenarios": 5425,
+    "duels": 3122,
+    "four_live": 2303,
+    "recorded_primary_ids": 2573,
+    "identity_denominator": 5196,
+    "recorded_groups": 2447,
+    "group_denominator": 3324,
+    "four_live_groups": 2292,
+    "phase_qualified_scenarios_at_actual_contexts": 2062,
+    "phase_qualified_unique_groups": 2052,
+    "creation_replay_passes": 2804,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 1223,
+  "scenarios": [
+    {
+      "card_id": "turn_to_mindfire_red",
+      "group_id": "identity:turn_to_mindfire_red",
+      "scenario_id": "card-turn-to-mindfire-red-two-live-sparse1415-actual-damage-hero-tap-earns-physical-token",
+      "effect_branches": [
+        "native_single_opponent_default_actual_5_arcane_then_real_hero_tap_creates_ponder"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-turn-to-mindfire-red-two-live-sparse1415-actual-damage-hero-tap-earns-physical-token",
+      "source_spec": "card-regression-sparse1415-20261122.json",
+      "source_spec_sha256": "c453630d9f9df45fc6179d0aa31083ddca715ee011992141dd1d71e429f94b3b",
+      "review_evidence": "review-evidence/sparse1415-20261122-qualified-saved.json",
+      "review_evidence_sha256": "0cc3bbd4475745400ea199357304ac06e269ce3bce0b66cc5b2d7e544f0a5bb4",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1415-20261122-replay.json",
+          "sha256": "52118317a5e0474bff7114ef9d4b2bdba777609985481280b935fe1d92a2400f",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "two_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "enion_surge_red",
+      "group_id": "pitch-cycle:enion_surge",
+      "scenario_id": "card-enion-surge-red-two-live-sparse1415-actual-damage-hero-tap-earns-physical-token",
+      "effect_branches": [
+        "native_single_opponent_default_actual_3_arcane_then_real_hero_tap_creates_lightning_flow"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-enion-surge-red-two-live-sparse1415-actual-damage-hero-tap-earns-physical-token",
+      "source_spec": "card-regression-sparse1415-20261122.json",
+      "source_spec_sha256": "c453630d9f9df45fc6179d0aa31083ddca715ee011992141dd1d71e429f94b3b",
+      "review_evidence": "review-evidence/sparse1415-20261122-qualified-saved.json",
+      "review_evidence_sha256": "0cc3bbd4475745400ea199357304ac06e269ce3bce0b66cc5b2d7e544f0a5bb4",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1415-20261122-replay.json",
+          "sha256": "52118317a5e0474bff7114ef9d4b2bdba777609985481280b935fe1d92a2400f",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "two_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "comet_collision_red",
+      "group_id": "pitch-cycle:comet_collision",
+      "scenario_id": "card-comet-collision-red-two-live-sparse1415-actual-instant-earns-starfall-printed-reward",
+      "effect_branches": [
+        "native_single_opponent_default_real_prior_instant_starfall_4_damage_instead_of_three"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-comet-collision-red-two-live-sparse1415-actual-instant-earns-starfall-printed-reward",
+      "source_spec": "card-regression-sparse1415-20261122.json",
+      "source_spec_sha256": "c453630d9f9df45fc6179d0aa31083ddca715ee011992141dd1d71e429f94b3b",
+      "review_evidence": "review-evidence/sparse1415-20261122-qualified-saved.json",
+      "review_evidence_sha256": "0cc3bbd4475745400ea199357304ac06e269ce3bce0b66cc5b2d7e544f0a5bb4",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1415-20261122-replay.json",
+          "sha256": "52118317a5e0474bff7114ef9d4b2bdba777609985481280b935fe1d92a2400f",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "two_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "meteoric_impact_red",
+      "group_id": "pitch-cycle:meteoric_impact",
+      "scenario_id": "card-meteoric-impact-red-two-live-sparse1415-actual-instant-earns-starfall-printed-reward",
+      "effect_branches": [
+        "native_single_opponent_default_real_prior_instant_starfall_5_damage_instead_of_three"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-meteoric-impact-red-two-live-sparse1415-actual-instant-earns-starfall-printed-reward",
+      "source_spec": "card-regression-sparse1415-20261122.json",
+      "source_spec_sha256": "c453630d9f9df45fc6179d0aa31083ddca715ee011992141dd1d71e429f94b3b",
+      "review_evidence": "review-evidence/sparse1415-20261122-qualified-saved.json",
+      "review_evidence_sha256": "0cc3bbd4475745400ea199357304ac06e269ce3bce0b66cc5b2d7e544f0a5bb4",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1415-20261122-replay.json",
+          "sha256": "52118317a5e0474bff7114ef9d4b2bdba777609985481280b935fe1d92a2400f",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "two_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "lightning_overload_red",
+      "group_id": "pitch-cycle:lightning_overload",
+      "scenario_id": "card-lightning-overload-red-two-live-sparse1415-actual-instant-earns-starfall-printed-reward",
+      "effect_branches": [
+        "native_single_opponent_default_real_prior_instant_starfall_lightning_flow_reward"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-lightning-overload-red-two-live-sparse1415-actual-instant-earns-starfall-printed-reward",
+      "source_spec": "card-regression-sparse1415-20261122.json",
+      "source_spec_sha256": "c453630d9f9df45fc6179d0aa31083ddca715ee011992141dd1d71e429f94b3b",
+      "review_evidence": "review-evidence/sparse1415-20261122-qualified-saved.json",
+      "review_evidence_sha256": "0cc3bbd4475745400ea199357304ac06e269ce3bce0b66cc5b2d7e544f0a5bb4",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1415-20261122-replay.json",
+          "sha256": "52118317a5e0474bff7114ef9d4b2bdba777609985481280b935fe1d92a2400f",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "two_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

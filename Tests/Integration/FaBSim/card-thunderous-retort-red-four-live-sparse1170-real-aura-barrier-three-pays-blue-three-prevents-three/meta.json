@@ -1,0 +1,7 @@
+{
+    "name": "Thunderous Retort / actual Aura Arcane Barrier3 pays3 and prevents3",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-23T12:52:16+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "AURABARRIERONLY: PriorownedLightningAura5admittedunderlegalYoungAurora20, noentry/startphasehistory. ActualopposingWizardZap7cost0/AP1to0declareshero4beforeallfourmanualresponses. PrintedAB3isonepayment3notthreeoptional1s: realmodalPay3prevent3thenrealBlue6Handpitch3pays3/R0, notpreseededR. Actualdamage3fullyprevented/HP20; ownedAura5retainedArena4ready/countersunchanged/nodestruction, Blue6Pitch4, Zap7GY1. NoQuell/Ward/Equipment/Alluvion/producer/Herouse; nofuturebeginningactiondestroy+nextGAtrigger/decline/partialpayment/capacity/multiplepacket/fullcardcredit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#thunderous_retort_red FaBSim/Custom/UPRCards.php FaBSim/GeneratedCode/GeneratedMacroCode.php"
+}

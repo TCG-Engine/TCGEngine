@@ -1,0 +1,56 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-glaring-impact-red-four-live-sparse1539-real-potion-funding-zero-charge-no-unearned-bonus",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-glaring-impact-red-four-live-sparse1539-real-potion-funding-zero-charge-no-unearned-bonus",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1539-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1539-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "841790645ee36c25cea08565e63c8cea3e27f8e9ed0de63e36ce44d537e7249f",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "f079fa0484b5b09531e892926492f342ea25eb94b034e94a028207e849213714",
+        "actions.json": "a958c574a5728cced459062d3ff97d2b93f77219192409f1925f599d156c71e4",
+        "assertions.json": "28131427b92cc0ede3e8e9e7079f9c1774b076033dd37ff70c0dc212c9fa71c2",
+        "expected_final_gamestate.txt": "47cd9a822549c773e942d7457ecd7e53be2d1536216dc11ae0978d7f899e3269",
+        "meta.json": "5d1f82bc7dd67c7c3551d884a738963b9d5df489600a0674a9fa10aae7678dc3"
+      }
+    },
+    {
+      "slug": "card-v-of-the-vanguard-yellow-four-live-sparse1539-real-potion-funding-zero-charge-no-unearned-bonus",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-v-of-the-vanguard-yellow-four-live-sparse1539-real-potion-funding-zero-charge-no-unearned-bonus",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1539-local-20261122\\clean-replays\\01.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1539-local-20261122\\clean-replays\\01.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "5704b406a625d08b93da0b3b2475eec3021bbd3ed2ef7952a4a1fb52bd86dc01",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "04a18eebcdddf166b97e203cd8744869b7587072d83e02e8f9494ad790df242a",
+        "actions.json": "6fe9468c40cb1e401d54d890b029e90e347c3ad222e50a9d9a1df61d0b0514d8",
+        "assertions.json": "a2c7fb7244ae276b6125f139d91d956e255688dc07f14bd8d797336ac60f5676",
+        "expected_final_gamestate.txt": "80eed06779c8d0296244514cd5c25fbd87db54f6b538e5495deb92061c6e434d",
+        "meta.json": "4c3fa58d6ded26911219c9f942a9e00d753034f2a6d73f8e657173a937296931"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

@@ -1,0 +1,93 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "independent breadth_review1240",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1245-20261122.json",
+  "source_spec_sha256": "e8dac903fa1b54e65d077ca37ab05eb2a30070332804365a0b0df2362fe653bd",
+  "input_sha256": "e8dac903fa1b54e65d077ca37ab05eb2a30070332804365a0b0df2362fe653bd",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-bait-four-live-sparse1245-foreign-owned-bait-locks-own-cards-uses-real-reaction-then-destruction-unlocks-own-weapon",
+      "card_id": "bait",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "79dbc2f1f4771518a9126798af5657a4b7f7611a29e5140fcba85ab222c7d3be",
+        "actions.json": "5c0afd2dde29cdbc465fc6083b1ce21017b55b1fa889532436be757c477f83fe",
+        "assertions.json": "fa054b11a98fe4174575a279dd139a784491e341475cd93435cbd0084b30e444",
+        "expected_final_gamestate.txt": "a7171206f238b6b4179258becabf74df742ba48633e0a3c3539de82257eed51d",
+        "meta.json": "64d2c052cb14969ff869652fabc74eec74f9cfa13e5c3fc48fbc1c2684c67697"
+      },
+      "fixture_sha256": "5adead0640c02feffc8c201de622b5b5f50191aefff06ac3b7d9233ec4471e61",
+      "actions": 61,
+      "native_assertions": 349,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 54,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1245-20261122.json",
+      "input_sha256": "e8dac903fa1b54e65d077ca37ab05eb2a30070332804365a0b0df2362fe653bd",
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1245-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-bait-four-live-sparse1245-foreign-owned-bait-locks-own-cards-uses-real-reaction-then-destruction-unlocks-own-weapon",
+        "fixture_slug": "card-bait-four-live-sparse1245-foreign-owned-bait-locks-own-cards-uses-real-reaction-then-destruction-unlocks-own-weapon",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "reviewer": "independent breadth_review1240",
+    "spec_sha256": "e8dac903fa1b54e65d077ca37ab05eb2a30070332804365a0b0df2362fe653bd",
+    "source_note_sha256": "d0328ee7ec7632ca0cb4070233b8d6b39eb4f511ec45f2fa4e1df343bb268a72",
+    "case_count": 1,
+    "native_controls": 61,
+    "query_checks": 349,
+    "persistable_assertions": 349,
+    "author_only_checks_omitted": 0,
+    "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+    "coverage_category": "FOREIGN_OWNED_BAIT_RESTRICTIONS_REAL_ATTACK_REACTION_AND_DESTRUCTION",
+    "basis": [
+      "Unrepresented Bait identity, no source-only hold. Prior real Token5Owner4/Controller1 is lawful foreign-created setup: SUPBait creates under victim then assigns creator Owner. Initial physical guard explicitly matches4/1; no false history or temporary permission. Natural Young Kassai1 admits Warrior Dawnblade6 and Generic Wounding7; RangerAzalea4 could have produced Bait, but no production credit claimed.",
+      "SUPBaitLocked prevents play/activation only for cards owned by current controller1. Real own Wounding0/AP1 and Dawnblade1/R1/AP1 are otherwise affordable/legal; two actual clicks must leave complete ACTION, asset, queue and UID state unchanged. Foreign physicalOwner4 Bait is exempt, so its own zero-resource Action attack and reaction are permitted.",
+      "Native ArenaAttack uses source5\u2192virtualAttack8, pays actual AP1 to0 after adjacentHero4 declaration; no effect-discard Prepare path occurs. Bait starts power0/noGA. Its real REACTION0 ability9Source5 has no cost choices or formal target; managed ARC ability waits four fresh responses before generated ResolveAbility tags active8 power+1/GA. No buff or damage is seeded.",
+      "The text before Action colon is a delayed destruction cost, rather than a separately worded card WHEN ability. Source ChainLinkResolved\u2192SUPBaitResolved destroys physical5 by captured MON_SOURCE_UID. Spec checks source5 still exists at actual DAMAGE1/HP4=19, then gone after RESOLUTION passes; it does not claim an extra responseable trigger or exact atomic ordering among other resolution events. Token and proxy must not export to any Graveyard; real GA must refund AP1.",
+      "Same Dawnblade6 previously rejected must then actually activate after Bait departure, spending realR1/AP1 and producing proxy10, power3/unblocked3damage to HP4=16. Kassai has drawn no card and has no Gold permission, so no discount or created Gold; first Dawnblade Sword hit does not earn its second-hit counter trigger. Final ownHand7 remains, ownWeapon6 persists, no foreign token/proxy/GY export, R0/AP0/UID10/RNG0 and empty Stack/DQs/CC are meaningful observed endpoint expectations.",
+      "Revised only the post-activation window value and three subsequent response window guards from PRIORITY to REACTION. ARCActivate captures REACTION returnWindow; TryCompletePayment preserves this for an activated ability and resets passes/priority without resolving it. PassPriority resolves nonempty Stack after all four passes before considering empty REACTION to Damage. Stack9, power0/noGA and all physical/cost/damage/destruction/unlock expectations are unchanged."
+    ],
+    "limits": [
+      "Semantic/source-spec approval only pending native save and targeted replay. No native pass or coverage credit claimed.",
+      "Only admitted foreign-owned Bait restrictions, one reaction, post-link destruction and own weapon unlock. No Token production, repeated reaction, alternate controller/owner, exact atomic delayed-cost ordering, support/Hero/whole-card credit.",
+      "Only this W receipt written; no native/test/T/source/auth/network/Git/original action."
+    ],
+    "source_sha256": {
+      "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+      "FaBSim/Custom/SUPCards.php": "d0cf162a89b60b29590121e4c97e1e5fe0e2dc790130bf181949ca068092c1fa",
+      "FaBSim/Custom/MONAbilities.php": "7e5a6ba9e0523c03c7ece084793564d87ecd9d6fbba55b9252cb83f3d952b4fa",
+      "FaBSim/Custom/ARCAbilities.php": "e49ce4685f148ef423ea38aac544266b3298527ea8ca9eef11b12fb974e7c9f0",
+      "FaBSim/Custom/WTRCards.php": "77d4452b30e45254a7199bc965396ded53e325717ecdd84a09b971f723f99f6a",
+      "FaBSim/Custom/GameLogic.php": "c60fa151561f959e4e3e341b814de0e2b47c9e9f153bbc8793a04c43b5075061",
+      "FaBSim/GeneratedCode/GeneratedMacroCode.php": "fe6a7982611df8f4de98ce2671b317b671b580146aa4b8c28e8f4b86d8461056",
+      "DevTools/FaB/CardRegression/record_card_regressions.php": "e53055b29e9ea641949b77019c4455607f41ca233325d716a9500637e19efd28"
+    },
+    "supersedes_label_oracle_review": {
+      "path": "first-label-oracle/independent-review.json",
+      "sha256": "a0e881c5b168f886da98ff7bd089bb8501ae035da84f4ab9eb6820daf9d4cc2c",
+      "previous_spec_sha256": "60d253b309980651cd4b8195e50a9b7053ae1f753c04a2b5c470906ff7dd94a0",
+      "classification": "window-classification.json"
+    }
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1245-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "c01867d0cb5cdde4e139f6a7087da3d7049439b8b63e3ccd5bd9a4f897e88ac7"
+  },
+  "full_suite_run": false
+}

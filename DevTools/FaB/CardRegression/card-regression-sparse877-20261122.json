@@ -1,0 +1,5917 @@
+[
+  {
+    "slug": "card-forbidden-harvest-yellow-four-live-sparse877-three-real-banished-cards-turn-down-but-only-two-shadow-cards-make-runes",
+    "name": "Forbidden Harvest / sparse four-live representative",
+    "cardIDs": [
+      "forbidden_harvest_yellow"
+    ],
+    "secondaryCardIDs": [
+      "critical_strike_blue",
+      "rift_bind_red",
+      "rifted_torment_red"
+    ],
+    "branches": [
+      "three_real_banished_cards_turn_down_but_only_two_shadow_cards_make_runes"
+    ],
+    "activeSeats": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "heroes": [
+      "chane",
+      "dorinthea",
+      "dorinthea",
+      "dorinthea"
+    ],
+    "health": [
+      20,
+      20,
+      20,
+      20
+    ],
+    "resources": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "actionPoints": [
+      1,
+      0,
+      0,
+      0
+    ],
+    "state": {
+      "gameMode": "UPF",
+      "passiveSeats": []
+    },
+    "zones": [
+      {
+        "cardID": "forbidden_harvest_yellow",
+        "zone": "Hand",
+        "player": 1,
+        "properties": {}
+      },
+      {
+        "cardID": "critical_strike_blue",
+        "zone": "Hand",
+        "player": 1,
+        "properties": {}
+      },
+      {
+        "cardID": "rift_bind_red",
+        "zone": "Banish",
+        "player": 1,
+        "properties": {}
+      },
+      {
+        "cardID": "rifted_torment_red",
+        "zone": "Banish",
+        "player": 1,
+        "properties": {}
+      },
+      {
+        "cardID": "critical_strike_blue",
+        "zone": "Banish",
+        "player": 1,
+        "properties": {}
+      }
+    ],
+    "oracle": "Turn up to 3 cards in your banished zone face-down, then create a Runechant token for each Shadow card turned face-down this way.\n\n**Go again** Representative only: three_real_banished_cards_turn_down_but_only_two_shadow_cards_make_runes. Other pitch siblings, alternate targets and unexercised branches receive no credit. All four live/manual; only native entry-point actions.",
+    "sources": [
+      "FaBSim/GeneratedCode/cardArrayCache.json#forbidden_harvest_yellow"
+    ],
+    "printed_text": "Turn up to 3 cards in your banished zone face-down, then create a Runechant token for each Shadow card turned face-down this way.\n\n**Go again**",
+    "diagnostic_only": false,
+    "qualification_permitted": true,
+    "steps": [
+      {
+        "kind": "checks",
+        "checkpoint": "explicit_four_live_initial_state_and_actual_owned_source",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "SeatOrder",
+            "value": 1234
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "LiveSeats",
+            "value": 1234
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "TurnPlayer",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "TurnNumber",
+            "value": 2
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "PriorityPlayer",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "RandomCounter",
+            "value": 0
+          },
+          {
+            "kind": "state",
+            "key": "window",
+            "value": "ACTION"
+          },
+          {
+            "kind": "state",
+            "key": "gameMode",
+            "value": "UPF"
+          },
+          {
+            "kind": "state",
+            "key": "passiveSeats",
+            "value": []
+          },
+          {
+            "kind": "state",
+            "key": "turnEffects",
+            "value": []
+          },
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 0
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Hand-0",
+            "property": "CardID",
+            "value": "forbidden_harvest_yellow"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Hand-0",
+            "property": "UniqueID",
+            "value": "5"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Hand-0",
+            "property": "Owner",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Hand-0",
+            "property": "Controller",
+            "value": "1"
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Health",
+            "value": 20
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 20
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p3Health",
+            "value": 20
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p3Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p3ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p4Health",
+            "value": 20
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p4Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p4ActionPoints",
+            "value": 0
+          },
+          {
+            "kind": "state",
+            "key": "pendingPayment",
+            "value": null
+          },
+          {
+            "kind": "state",
+            "key": "resolvingReaction",
+            "value": null
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "1"
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "2"
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "3"
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "4"
+          }
+        ]
+      },
+      {
+        "kind": "click",
+        "player": 1,
+        "mzID": "p1Hand-0"
+      },
+      {
+        "kind": "checks",
+        "checkpoint": "native_pitch_required_for_printed_resource_cost",
+        "checks": [
+          {
+            "kind": "state",
+            "key": "window",
+            "value": "PITCH"
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 1
+          }
+        ]
+      },
+      {
+        "kind": "click",
+        "player": 1,
+        "mzID": "p1Hand-0"
+      },
+      {
+        "kind": "checks",
+        "checkpoint": "printed_cost_paid_source_waits_for_real_responses",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 2
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Pitch",
+            "value": 1
+          },
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 1
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "UniqueID",
+            "value": "5"
+          },
+          {
+            "kind": "state",
+            "key": "pendingPayment",
+            "value": null
+          },
+          {
+            "kind": "state",
+            "key": "resolvingReaction",
+            "value": null
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "1"
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "2"
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "3"
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "4"
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "priority": 2
+        }
+      },
+      {
+        "kind": "checks",
+        "checkpoint": "fresh_manual_response_2",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "PriorityPlayer",
+            "value": 2
+          },
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 1
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "UniqueID",
+            "value": "5"
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p4Health",
+            "value": 20
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "priority": 3
+        }
+      },
+      {
+        "kind": "checks",
+        "checkpoint": "fresh_manual_response_3",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "PriorityPlayer",
+            "value": 3
+          },
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 1
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "UniqueID",
+            "value": "5"
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p4Health",
+            "value": 20
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "priority": 4
+        }
+      },
+      {
+        "kind": "checks",
+        "checkpoint": "fresh_manual_response_4",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "PriorityPlayer",
+            "value": 4
+          },
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 1
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "UniqueID",
+            "value": "5"
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p4Health",
+            "value": 20
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "decision": {
+            "player": 1,
+            "type": "MZMULTICHOOSE"
+          }
+        }
+      },
+      {
+        "kind": "answer",
+        "player": 1,
+        "type": "MZMULTICHOOSE",
+        "value": "p1Banish-0&p1Banish-1&p1Banish-2"
+      },
+      {
+        "kind": "checks",
+        "checkpoint": "physical_printed_effect_and_completion",
+        "checks": [
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Temp",
+            "value": 0
+          },
+          {
+            "kind": "state",
+            "key": "window",
+            "value": "ACTION"
+          },
+          {
+            "kind": "state",
+            "key": "combatOpen",
+            "value": false
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 2
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 1
+          },
+          {
+            "kind": "state",
+            "key": "pendingPayment",
+            "value": null
+          },
+          {
+            "kind": "state",
+            "key": "resolvingReaction",
+            "value": null
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "1"
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "2"
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "3"
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "4"
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Health",
+            "value": 20
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 20
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p3Health",
+            "value": 20
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p4Health",
+            "value": 20
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Graveyard-0",
+            "property": "UniqueID",
+            "value": "5"
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Banish",
+            "value": 3
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Banish-0",
+            "property": "FaceDown",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Banish-1",
+            "property": "FaceDown",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Banish-2",
+            "property": "FaceDown",
+            "value": "1"
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Arena",
+            "value": 2
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Arena-0",
+            "property": "CardID",
+            "value": "runechant"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Arena-1",
+            "property": "CardID",
+            "value": "runechant"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Arena-0",
+            "property": "UniqueID",
+            "value": "10"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Arena-1",
+            "property": "UniqueID",
+            "value": "11"
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Graveyard",
+            "value": 1
+          }
+        ]
+      }
+    ],
+    "planned_actions": 7
+  },
+  {
+    "slug": "card-goldwing-turbine-red-four-live-sparse877-creates-owned-golden-cog-and-declines-optional-crank",
+    "name": "Goldwing Turbine / sparse four-live representative",
+    "cardIDs": [
+      "goldwing_turbine_red"
+    ],
+    "secondaryCardIDs": [
+      "critical_strike_blue"
+    ],
+    "branches": [
+      "creates_owned_golden_cog_and_declines_optional_crank"
+    ],
+    "activeSeats": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "heroes": [
+      "dash",
+      "dorinthea",
+      "dorinthea",
+      "dorinthea"
+    ],
+    "health": [
+      20,
+      20,
+      20,
+      20
+    ],
+    "resources": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "actionPoints": [
+      1,
+      0,
+      0,
+      0
+    ],
+    "state": {
+      "gameMode": "UPF",
+      "passiveSeats": []
+    },
+    "zones": [
+      {
+        "cardID": "goldwing_turbine_red",
+        "zone": "Hand",
+        "player": 1,
+        "properties": {}
+      },
+      {
+        "cardID": "critical_strike_blue",
+        "zone": "Hand",
+        "player": 1,
+        "properties": {}
+      }
+    ],
+    "oracle": "Your next Mechanologist attack this turn gets +3{p}.\n\nCreate a Golden Cog token. Representative only: creates_owned_golden_cog_and_declines_optional_crank. Other pitch siblings, alternate targets and unexercised branches receive no credit. All four live/manual; only native entry-point actions.",
+    "sources": [
+      "FaBSim/GeneratedCode/cardArrayCache.json#goldwing_turbine_red"
+    ],
+    "printed_text": "Your next Mechanologist attack this turn gets +3{p}.\n\nCreate a Golden Cog token.",
+    "diagnostic_only": false,
+    "qualification_permitted": true,
+    "steps": [
+      {
+        "kind": "checks",
+        "checkpoint": "explicit_four_live_initial_state_and_actual_owned_source",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "SeatOrder",
+            "value": 1234
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "LiveSeats",
+            "value": 1234
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "TurnPlayer",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "TurnNumber",
+            "value": 2
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "PriorityPlayer",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "RandomCounter",
+            "value": 0
+          },
+          {
+            "kind": "state",
+            "key": "window",
+            "value": "ACTION"
+          },
+          {
+            "kind": "state",
+            "key": "gameMode",
+            "value": "UPF"
+          },
+          {
+            "kind": "state",
+            "key": "passiveSeats",
+            "value": []
+          },
+          {
+            "kind": "state",
+            "key": "turnEffects",
+            "value": []
+          },
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 0
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Hand-0",
+            "property": "CardID",
+            "value": "goldwing_turbine_red"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Hand-0",
+            "property": "UniqueID",
+            "value": "5"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Hand-0",
+            "property": "Owner",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Hand-0",
+            "property": "Controller",
+            "value": "1"
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Health",
+            "value": 20
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 20
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p3Health",
+            "value": 20
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p3Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p3ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p4Health",
+            "value": 20
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p4Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p4ActionPoints",
+            "value": 0
+          },
+          {
+            "kind": "state",
+            "key": "pendingPayment",
+            "value": null
+          },
+          {
+            "kind": "state",
+            "key": "resolvingReaction",
+            "value": null
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "1"
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "2"
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "3"
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "4"
+          }
+        ]
+      },
+      {
+        "kind": "click",
+        "player": 1,
+        "mzID": "p1Hand-0"
+      },
+      {
+        "kind": "checks",
+        "checkpoint": "native_pitch_required_for_printed_resource_cost",
+        "checks": [
+          {
+            "kind": "state",
+            "key": "window",
+            "value": "PITCH"
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 1
+          }
+        ]
+      },
+      {
+        "kind": "click",
+        "player": 1,
+        "mzID": "p1Hand-0"
+      },
+      {
+        "kind": "checks",
+        "checkpoint": "printed_cost_paid_source_waits_for_real_responses",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 1
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Pitch",
+            "value": 1
+          },
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 1
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "UniqueID",
+            "value": "5"
+          },
+          {
+            "kind": "state",
+            "key": "pendingPayment",
+            "value": null
+          },
+          {
+            "kind": "state",
+            "key": "resolvingReaction",
+            "value": null
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "1"
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "2"
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "3"
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "4"
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "priority": 2
+        }
+      },
+      {
+        "kind": "checks",
+        "checkpoint": "fresh_manual_response_2",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "PriorityPlayer",
+            "value": 2
+          },
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 1
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "UniqueID",
+            "value": "5"
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p4Health",
+            "value": 20
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "priority": 3
+        }
+      },
+      {
+        "kind": "checks",
+        "checkpoint": "fresh_manual_response_3",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "PriorityPlayer",
+            "value": 3
+          },
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 1
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "UniqueID",
+            "value": "5"
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p4Health",
+            "value": 20
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "priority": 4
+        }
+      },
+      {
+        "kind": "checks",
+        "checkpoint": "fresh_manual_response_4",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "PriorityPlayer",
+            "value": 4
+          },
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 1
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "UniqueID",
+            "value": "5"
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p4Health",
+            "value": 20
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "decision": {
+            "player": 1,
+            "type": "MZMODAL"
+          }
+        }
+      },
+      {
+        "kind": "answer",
+        "player": 1,
+        "type": "MZMODAL",
+        "value": "1"
+      },
+      {
+        "kind": "checks",
+        "checkpoint": "physical_printed_effect_and_completion",
+        "checks": [
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Temp",
+            "value": 0
+          },
+          {
+            "kind": "state",
+            "key": "window",
+            "value": "ACTION"
+          },
+          {
+            "kind": "state",
+            "key": "combatOpen",
+            "value": false
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "kind": "state",
+            "key": "pendingPayment",
+            "value": null
+          },
+          {
+            "kind": "state",
+            "key": "resolvingReaction",
+            "value": null
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "1"
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "2"
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "3"
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "4"
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Health",
+            "value": 20
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 20
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p3Health",
+            "value": 20
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p4Health",
+            "value": 20
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Graveyard-0",
+            "property": "UniqueID",
+            "value": "5"
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Arena",
+            "value": 1
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Arena-0",
+            "property": "CardID",
+            "value": "golden_cog"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Arena-0",
+            "property": "UniqueID",
+            "value": "7"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Arena-0",
+            "property": "Owner",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Arena-0",
+            "property": "Controller",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Arena-0",
+            "property": "Counters",
+            "value": "{\"STEAM\":1}"
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Graveyard",
+            "value": 1
+          }
+        ]
+      }
+    ],
+    "planned_actions": 7
+  },
+  {
+    "slug": "card-hit-the-gas-blue-four-live-sparse877-turns-three-real-hyper-drivers-down-gains-three-action-points-and-draws",
+    "name": "Hit the Gas / sparse four-live representative",
+    "cardIDs": [
+      "hit_the_gas_blue"
+    ],
+    "secondaryCardIDs": [
+      "hyper_driver_red",
+      "critical_strike_red"
+    ],
+    "branches": [
+      "turns_three_real_hyper_drivers_down_gains_three_action_points_and_draws"
+    ],
+    "activeSeats": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "heroes": [
+      "maxx_nitro",
+      "dorinthea",
+      "dorinthea",
+      "dorinthea"
+    ],
+    "health": [
+      20,
+      20,
+      20,
+      20
+    ],
+    "resources": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "actionPoints": [
+      1,
+      0,
+      0,
+      0
+    ],
+    "state": {
+      "gameMode": "UPF",
+      "passiveSeats": []
+    },
+    "zones": [
+      {
+        "cardID": "hit_the_gas_blue",
+        "zone": "Hand",
+        "player": 1,
+        "properties": {}
+      },
+      {
+        "cardID": "hyper_driver_red",
+        "zone": "Banish",
+        "player": 1,
+        "properties": {}
+      },
+      {
+        "cardID": "hyper_driver_red",
+        "zone": "Banish",
+        "player": 1,
+        "properties": {}
+      },
+      {
+        "cardID": "hyper_driver_red",
+        "zone": "Banish",
+        "player": 1,
+        "properties": {}
+      },
+      {
+        "cardID": "critical_strike_red",
+        "zone": "Deck",
+        "player": 1,
+        "properties": {}
+      }
+    ],
+    "oracle": "**Maxx Specialization**\n\nTurn any number of Hyper Drivers in your banished zone face-down and gain that many action points. If 3 or more cards are turned face-down this way, draw a card. Representative only: turns_three_real_hyper_drivers_down_gains_three_action_points_and_draws. Other pitch siblings, alternate targets and unexercised branches receive no credit. All four live/manual; only native entry-point actions.",
+    "sources": [
+      "FaBSim/GeneratedCode/cardArrayCache.json#hit_the_gas_blue"
+    ],
+    "printed_text": "**Maxx Specialization**\n\nTurn any number of Hyper Drivers in your banished zone face-down and gain that many action points. If 3 or more cards are turned face-down this way, draw a card.",
+    "diagnostic_only": false,
+    "qualification_permitted": true,
+    "steps": [
+      {
+        "kind": "checks",
+        "checkpoint": "explicit_four_live_initial_state_and_actual_owned_source",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "SeatOrder",
+            "value": 1234
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "LiveSeats",
+            "value": 1234
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "TurnPlayer",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "TurnNumber",
+            "value": 2
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "PriorityPlayer",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "RandomCounter",
+            "value": 0
+          },
+          {
+            "kind": "state",
+            "key": "window",
+            "value": "ACTION"
+          },
+          {
+            "kind": "state",
+            "key": "gameMode",
+            "value": "UPF"
+          },
+          {
+            "kind": "state",
+            "key": "passiveSeats",
+            "value": []
+          },
+          {
+            "kind": "state",
+            "key": "turnEffects",
+            "value": []
+          },
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 0
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Hand-0",
+            "property": "CardID",
+            "value": "hit_the_gas_blue"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Hand-0",
+            "property": "UniqueID",
+            "value": "5"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Hand-0",
+            "property": "Owner",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Hand-0",
+            "property": "Controller",
+            "value": "1"
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Health",
+            "value": 20
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 20
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p3Health",
+            "value": 20
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p3Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p3ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p4Health",
+            "value": 20
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p4Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p4ActionPoints",
+            "value": 0
+          },
+          {
+            "kind": "state",
+            "key": "pendingPayment",
+            "value": null
+          },
+          {
+            "kind": "state",
+            "key": "resolvingReaction",
+            "value": null
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "1"
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "2"
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "3"
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "4"
+          }
+        ]
+      },
+      {
+        "kind": "click",
+        "player": 1,
+        "mzID": "p1Hand-0"
+      },
+      {
+        "kind": "checks",
+        "checkpoint": "printed_cost_paid_source_waits_for_real_responses",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Pitch",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 1
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "UniqueID",
+            "value": "5"
+          },
+          {
+            "kind": "state",
+            "key": "pendingPayment",
+            "value": null
+          },
+          {
+            "kind": "state",
+            "key": "resolvingReaction",
+            "value": null
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "1"
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "2"
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "3"
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "4"
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "priority": 2
+        }
+      },
+      {
+        "kind": "checks",
+        "checkpoint": "fresh_manual_response_2",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "PriorityPlayer",
+            "value": 2
+          },
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 1
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "UniqueID",
+            "value": "5"
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p4Health",
+            "value": 20
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "priority": 3
+        }
+      },
+      {
+        "kind": "checks",
+        "checkpoint": "fresh_manual_response_3",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "PriorityPlayer",
+            "value": 3
+          },
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 1
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "UniqueID",
+            "value": "5"
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p4Health",
+            "value": 20
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "priority": 4
+        }
+      },
+      {
+        "kind": "checks",
+        "checkpoint": "fresh_manual_response_4",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "PriorityPlayer",
+            "value": 4
+          },
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 1
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "UniqueID",
+            "value": "5"
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p4Health",
+            "value": 20
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "decision": {
+            "player": 1,
+            "type": "MZMULTICHOOSE"
+          }
+        }
+      },
+      {
+        "kind": "answer",
+        "player": 1,
+        "type": "MZMULTICHOOSE",
+        "value": "p1Banish-0&p1Banish-1&p1Banish-2"
+      },
+      {
+        "kind": "checks",
+        "checkpoint": "physical_printed_effect_and_completion",
+        "checks": [
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Temp",
+            "value": 0
+          },
+          {
+            "kind": "state",
+            "key": "window",
+            "value": "ACTION"
+          },
+          {
+            "kind": "state",
+            "key": "combatOpen",
+            "value": false
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 3
+          },
+          {
+            "kind": "state",
+            "key": "pendingPayment",
+            "value": null
+          },
+          {
+            "kind": "state",
+            "key": "resolvingReaction",
+            "value": null
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "1"
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "2"
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "3"
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "4"
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Health",
+            "value": 20
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 20
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p3Health",
+            "value": 20
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p4Health",
+            "value": 20
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Graveyard-0",
+            "property": "UniqueID",
+            "value": "5"
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Banish",
+            "value": 3
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Banish-0",
+            "property": "FaceDown",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Banish-1",
+            "property": "FaceDown",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Banish-2",
+            "property": "FaceDown",
+            "value": "1"
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Hand",
+            "value": 1
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Hand-0",
+            "property": "UniqueID",
+            "value": "9"
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Deck",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Graveyard",
+            "value": 1
+          }
+        ]
+      }
+    ],
+    "planned_actions": 6
+  },
+  {
+    "slug": "card-hook-blue-four-live-sparse877-loads-real-top-arrow-face-up-and-marks-printed-bonus",
+    "name": "Hook / sparse four-live representative",
+    "cardIDs": [
+      "hook_blue"
+    ],
+    "secondaryCardIDs": [
+      "barbed_barrage_red",
+      "wounding_blow_blue"
+    ],
+    "branches": [
+      "loads_real_top_arrow_face_up_and_marks_printed_bonus"
+    ],
+    "activeSeats": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "heroes": [
+      "marlynn",
+      "dorinthea",
+      "dorinthea",
+      "dorinthea"
+    ],
+    "health": [
+      20,
+      20,
+      20,
+      20
+    ],
+    "resources": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "actionPoints": [
+      1,
+      0,
+      0,
+      0
+    ],
+    "state": {
+      "gameMode": "UPF",
+      "passiveSeats": []
+    },
+    "zones": [
+      {
+        "cardID": "hook_blue",
+        "zone": "Hand",
+        "player": 1,
+        "properties": {}
+      },
+      {
+        "cardID": "barbed_barrage_red",
+        "zone": "Deck",
+        "player": 1,
+        "properties": {}
+      },
+      {
+        "cardID": "wounding_blow_blue",
+        "zone": "Deck",
+        "player": 1,
+        "properties": {}
+      }
+    ],
+    "oracle": "Look at the top card of your deck. If it's an arrow, you may put it face-up into your arsenal. If you do, it gets +1{p} this turn.\n\n**Go again** Representative only: loads_real_top_arrow_face_up_and_marks_printed_bonus. Other pitch siblings, alternate targets and unexercised branches receive no credit. All four live/manual; only native entry-point actions.",
+    "sources": [
+      "FaBSim/GeneratedCode/cardArrayCache.json#hook_blue"
+    ],
+    "printed_text": "Look at the top card of your deck. If it's an arrow, you may put it face-up into your arsenal. If you do, it gets +1{p} this turn.\n\n**Go again**",
+    "diagnostic_only": false,
+    "qualification_permitted": true,
+    "steps": [
+      {
+        "kind": "checks",
+        "checkpoint": "explicit_four_live_initial_state_and_actual_owned_source",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "SeatOrder",
+            "value": 1234
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "LiveSeats",
+            "value": 1234
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "TurnPlayer",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "TurnNumber",
+            "value": 2
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "PriorityPlayer",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "RandomCounter",
+            "value": 0
+          },
+          {
+            "kind": "state",
+            "key": "window",
+            "value": "ACTION"
+          },
+          {
+            "kind": "state",
+            "key": "gameMode",
+            "value": "UPF"
+          },
+          {
+            "kind": "state",
+            "key": "passiveSeats",
+            "value": []
+          },
+          {
+            "kind": "state",
+            "key": "turnEffects",
+            "value": []
+          },
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 0
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Hand-0",
+            "property": "CardID",
+            "value": "hook_blue"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Hand-0",
+            "property": "UniqueID",
+            "value": "5"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Hand-0",
+            "property": "Owner",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Hand-0",
+            "property": "Controller",
+            "value": "1"
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Health",
+            "value": 20
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 20
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p3Health",
+            "value": 20
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p3Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p3ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p4Health",
+            "value": 20
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p4Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p4ActionPoints",
+            "value": 0
+          },
+          {
+            "kind": "state",
+            "key": "pendingPayment",
+            "value": null
+          },
+          {
+            "kind": "state",
+            "key": "resolvingReaction",
+            "value": null
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "1"
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "2"
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "3"
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "4"
+          }
+        ]
+      },
+      {
+        "kind": "click",
+        "player": 1,
+        "mzID": "p1Hand-0"
+      },
+      {
+        "kind": "checks",
+        "checkpoint": "printed_cost_paid_source_waits_for_real_responses",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Pitch",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 1
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "UniqueID",
+            "value": "5"
+          },
+          {
+            "kind": "state",
+            "key": "pendingPayment",
+            "value": null
+          },
+          {
+            "kind": "state",
+            "key": "resolvingReaction",
+            "value": null
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "1"
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "2"
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "3"
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "4"
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "priority": 2
+        }
+      },
+      {
+        "kind": "checks",
+        "checkpoint": "fresh_manual_response_2",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "PriorityPlayer",
+            "value": 2
+          },
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 1
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "UniqueID",
+            "value": "5"
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p4Health",
+            "value": 20
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "priority": 3
+        }
+      },
+      {
+        "kind": "checks",
+        "checkpoint": "fresh_manual_response_3",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "PriorityPlayer",
+            "value": 3
+          },
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 1
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "UniqueID",
+            "value": "5"
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p4Health",
+            "value": 20
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "priority": 4
+        }
+      },
+      {
+        "kind": "checks",
+        "checkpoint": "fresh_manual_response_4",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "PriorityPlayer",
+            "value": 4
+          },
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 1
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "UniqueID",
+            "value": "5"
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p4Health",
+            "value": 20
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "decision": {
+            "player": 1,
+            "type": "MZMULTICHOOSE"
+          }
+        }
+      },
+      {
+        "kind": "checks",
+        "checkpoint": "actual_top_arrow_peeked",
+        "checks": [
+          {
+            "type": "zone_count",
+            "zone": "p1Temp",
+            "value": 1
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Temp-0",
+            "property": "UniqueID",
+            "value": "6"
+          }
+        ]
+      },
+      {
+        "kind": "answer",
+        "player": 1,
+        "type": "MZMULTICHOOSE",
+        "value": "p1Temp-0"
+      },
+      {
+        "kind": "checks",
+        "checkpoint": "physical_printed_effect_and_completion",
+        "checks": [
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Temp",
+            "value": 0
+          },
+          {
+            "kind": "state",
+            "key": "window",
+            "value": "ACTION"
+          },
+          {
+            "kind": "state",
+            "key": "combatOpen",
+            "value": false
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 1
+          },
+          {
+            "kind": "state",
+            "key": "pendingPayment",
+            "value": null
+          },
+          {
+            "kind": "state",
+            "key": "resolvingReaction",
+            "value": null
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "1"
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "2"
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "3"
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "4"
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Health",
+            "value": 20
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 20
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p3Health",
+            "value": 20
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p4Health",
+            "value": 20
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Graveyard-0",
+            "property": "UniqueID",
+            "value": "5"
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Arsenal",
+            "value": 1
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Arsenal-0",
+            "property": "UniqueID",
+            "value": "6"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Arsenal-0",
+            "property": "FaceDown",
+            "value": "0"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Arsenal-0",
+            "property": "TurnEffects",
+            "value": "[\"WTR_POWER:1\"]"
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Deck",
+            "value": 1
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Deck-0",
+            "property": "UniqueID",
+            "value": "7"
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Graveyard",
+            "value": 1
+          }
+        ]
+      }
+    ],
+    "planned_actions": 6
+  },
+  {
+    "slug": "card-line-blue-four-live-sparse877-loads-real-top-arrow-face-up-and-marks-printed-bonus",
+    "name": "Line / sparse four-live representative",
+    "cardIDs": [
+      "line_blue"
+    ],
+    "secondaryCardIDs": [
+      "barbed_barrage_red",
+      "wounding_blow_blue"
+    ],
+    "branches": [
+      "loads_real_top_arrow_face_up_and_marks_printed_bonus"
+    ],
+    "activeSeats": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "heroes": [
+      "marlynn",
+      "dorinthea",
+      "dorinthea",
+      "dorinthea"
+    ],
+    "health": [
+      20,
+      20,
+      20,
+      20
+    ],
+    "resources": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "actionPoints": [
+      1,
+      0,
+      0,
+      0
+    ],
+    "state": {
+      "gameMode": "UPF",
+      "passiveSeats": []
+    },
+    "zones": [
+      {
+        "cardID": "line_blue",
+        "zone": "Hand",
+        "player": 1,
+        "properties": {}
+      },
+      {
+        "cardID": "barbed_barrage_red",
+        "zone": "Deck",
+        "player": 1,
+        "properties": {}
+      },
+      {
+        "cardID": "wounding_blow_blue",
+        "zone": "Deck",
+        "player": 1,
+        "properties": {}
+      }
+    ],
+    "oracle": "Look at the top card of your deck. If it's an arrow, you may put it face-up into your arsenal. If you do, it gets **go again** this turn.\n\n**Go again** Representative only: loads_real_top_arrow_face_up_and_marks_printed_bonus. Other pitch siblings, alternate targets and unexercised branches receive no credit. All four live/manual; only native entry-point actions.",
+    "sources": [
+      "FaBSim/GeneratedCode/cardArrayCache.json#line_blue"
+    ],
+    "printed_text": "Look at the top card of your deck. If it's an arrow, you may put it face-up into your arsenal. If you do, it gets **go again** this turn.\n\n**Go again**",
+    "diagnostic_only": false,
+    "qualification_permitted": true,
+    "steps": [
+      {
+        "kind": "checks",
+        "checkpoint": "explicit_four_live_initial_state_and_actual_owned_source",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "SeatOrder",
+            "value": 1234
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "LiveSeats",
+            "value": 1234
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "TurnPlayer",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "TurnNumber",
+            "value": 2
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "PriorityPlayer",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "RandomCounter",
+            "value": 0
+          },
+          {
+            "kind": "state",
+            "key": "window",
+            "value": "ACTION"
+          },
+          {
+            "kind": "state",
+            "key": "gameMode",
+            "value": "UPF"
+          },
+          {
+            "kind": "state",
+            "key": "passiveSeats",
+            "value": []
+          },
+          {
+            "kind": "state",
+            "key": "turnEffects",
+            "value": []
+          },
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 0
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Hand-0",
+            "property": "CardID",
+            "value": "line_blue"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Hand-0",
+            "property": "UniqueID",
+            "value": "5"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Hand-0",
+            "property": "Owner",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Hand-0",
+            "property": "Controller",
+            "value": "1"
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Health",
+            "value": 20
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 20
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p3Health",
+            "value": 20
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p3Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p3ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p4Health",
+            "value": 20
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p4Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p4ActionPoints",
+            "value": 0
+          },
+          {
+            "kind": "state",
+            "key": "pendingPayment",
+            "value": null
+          },
+          {
+            "kind": "state",
+            "key": "resolvingReaction",
+            "value": null
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "1"
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "2"
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "3"
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "4"
+          }
+        ]
+      },
+      {
+        "kind": "click",
+        "player": 1,
+        "mzID": "p1Hand-0"
+      },
+      {
+        "kind": "checks",
+        "checkpoint": "printed_cost_paid_source_waits_for_real_responses",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Pitch",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 1
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "UniqueID",
+            "value": "5"
+          },
+          {
+            "kind": "state",
+            "key": "pendingPayment",
+            "value": null
+          },
+          {
+            "kind": "state",
+            "key": "resolvingReaction",
+            "value": null
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "1"
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "2"
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "3"
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "4"
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "priority": 2
+        }
+      },
+      {
+        "kind": "checks",
+        "checkpoint": "fresh_manual_response_2",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "PriorityPlayer",
+            "value": 2
+          },
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 1
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "UniqueID",
+            "value": "5"
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p4Health",
+            "value": 20
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "priority": 3
+        }
+      },
+      {
+        "kind": "checks",
+        "checkpoint": "fresh_manual_response_3",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "PriorityPlayer",
+            "value": 3
+          },
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 1
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "UniqueID",
+            "value": "5"
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p4Health",
+            "value": 20
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "priority": 4
+        }
+      },
+      {
+        "kind": "checks",
+        "checkpoint": "fresh_manual_response_4",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "PriorityPlayer",
+            "value": 4
+          },
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 1
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "UniqueID",
+            "value": "5"
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p4Health",
+            "value": 20
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "decision": {
+            "player": 1,
+            "type": "MZMULTICHOOSE"
+          }
+        }
+      },
+      {
+        "kind": "checks",
+        "checkpoint": "actual_top_arrow_peeked",
+        "checks": [
+          {
+            "type": "zone_count",
+            "zone": "p1Temp",
+            "value": 1
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Temp-0",
+            "property": "UniqueID",
+            "value": "6"
+          }
+        ]
+      },
+      {
+        "kind": "answer",
+        "player": 1,
+        "type": "MZMULTICHOOSE",
+        "value": "p1Temp-0"
+      },
+      {
+        "kind": "checks",
+        "checkpoint": "physical_printed_effect_and_completion",
+        "checks": [
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Temp",
+            "value": 0
+          },
+          {
+            "kind": "state",
+            "key": "window",
+            "value": "ACTION"
+          },
+          {
+            "kind": "state",
+            "key": "combatOpen",
+            "value": false
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 1
+          },
+          {
+            "kind": "state",
+            "key": "pendingPayment",
+            "value": null
+          },
+          {
+            "kind": "state",
+            "key": "resolvingReaction",
+            "value": null
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "1"
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "2"
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "3"
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "4"
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Health",
+            "value": 20
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 20
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p3Health",
+            "value": 20
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p4Health",
+            "value": 20
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Graveyard-0",
+            "property": "UniqueID",
+            "value": "5"
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Arsenal",
+            "value": 1
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Arsenal-0",
+            "property": "UniqueID",
+            "value": "6"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Arsenal-0",
+            "property": "FaceDown",
+            "value": "0"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Arsenal-0",
+            "property": "TurnEffects",
+            "value": "[\"GO_AGAIN\"]"
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Deck",
+            "value": 1
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Deck-0",
+            "property": "UniqueID",
+            "value": "7"
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Graveyard",
+            "value": 1
+          }
+        ]
+      }
+    ],
+    "planned_actions": 6
+  },
+  {
+    "slug": "card-look-within-blue-four-live-sparse877-searches-real-middeck-chi-to-top",
+    "name": "Look Within / sparse four-live representative",
+    "cardIDs": [
+      "look_within_blue"
+    ],
+    "secondaryCardIDs": [
+      "wounding_blow_red",
+      "inner_chi_blue"
+    ],
+    "branches": [
+      "searches_real_middeck_chi_to_top"
+    ],
+    "activeSeats": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "heroes": [
+      "nuu",
+      "dorinthea",
+      "dorinthea",
+      "dorinthea"
+    ],
+    "health": [
+      20,
+      20,
+      20,
+      20
+    ],
+    "resources": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "actionPoints": [
+      1,
+      0,
+      0,
+      0
+    ],
+    "state": {
+      "gameMode": "UPF",
+      "passiveSeats": []
+    },
+    "zones": [
+      {
+        "cardID": "look_within_blue",
+        "zone": "Hand",
+        "player": 1,
+        "properties": {}
+      },
+      {
+        "cardID": "wounding_blow_red",
+        "zone": "Deck",
+        "player": 1,
+        "properties": {}
+      },
+      {
+        "cardID": "inner_chi_blue",
+        "zone": "Deck",
+        "player": 1,
+        "properties": {}
+      }
+    ],
+    "oracle": "Search your deck for a Chi, reveal it, shuffle, then put it on top.\n\n**Go again** Representative only: searches_real_middeck_chi_to_top. Other pitch siblings, alternate targets and unexercised branches receive no credit. All four live/manual; only native entry-point actions.",
+    "sources": [
+      "FaBSim/GeneratedCode/cardArrayCache.json#look_within_blue"
+    ],
+    "printed_text": "Search your deck for a Chi, reveal it, shuffle, then put it on top.\n\n**Go again**",
+    "diagnostic_only": false,
+    "qualification_permitted": true,
+    "steps": [
+      {
+        "kind": "checks",
+        "checkpoint": "explicit_four_live_initial_state_and_actual_owned_source",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "SeatOrder",
+            "value": 1234
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "LiveSeats",
+            "value": 1234
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "TurnPlayer",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "TurnNumber",
+            "value": 2
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "PriorityPlayer",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "RandomCounter",
+            "value": 0
+          },
+          {
+            "kind": "state",
+            "key": "window",
+            "value": "ACTION"
+          },
+          {
+            "kind": "state",
+            "key": "gameMode",
+            "value": "UPF"
+          },
+          {
+            "kind": "state",
+            "key": "passiveSeats",
+            "value": []
+          },
+          {
+            "kind": "state",
+            "key": "turnEffects",
+            "value": []
+          },
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 0
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Hand-0",
+            "property": "CardID",
+            "value": "look_within_blue"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Hand-0",
+            "property": "UniqueID",
+            "value": "5"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Hand-0",
+            "property": "Owner",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Hand-0",
+            "property": "Controller",
+            "value": "1"
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Health",
+            "value": 20
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 20
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p3Health",
+            "value": 20
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p3Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p3ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p4Health",
+            "value": 20
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p4Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p4ActionPoints",
+            "value": 0
+          },
+          {
+            "kind": "state",
+            "key": "pendingPayment",
+            "value": null
+          },
+          {
+            "kind": "state",
+            "key": "resolvingReaction",
+            "value": null
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "1"
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "2"
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "3"
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "4"
+          }
+        ]
+      },
+      {
+        "kind": "click",
+        "player": 1,
+        "mzID": "p1Hand-0"
+      },
+      {
+        "kind": "checks",
+        "checkpoint": "printed_cost_paid_source_waits_for_real_responses",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Pitch",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 1
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "UniqueID",
+            "value": "5"
+          },
+          {
+            "kind": "state",
+            "key": "pendingPayment",
+            "value": null
+          },
+          {
+            "kind": "state",
+            "key": "resolvingReaction",
+            "value": null
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "1"
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "2"
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "3"
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "4"
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "priority": 2
+        }
+      },
+      {
+        "kind": "checks",
+        "checkpoint": "fresh_manual_response_2",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "PriorityPlayer",
+            "value": 2
+          },
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 1
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "UniqueID",
+            "value": "5"
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p4Health",
+            "value": 20
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "priority": 3
+        }
+      },
+      {
+        "kind": "checks",
+        "checkpoint": "fresh_manual_response_3",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "PriorityPlayer",
+            "value": 3
+          },
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 1
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "UniqueID",
+            "value": "5"
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p4Health",
+            "value": 20
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "priority": 4
+        }
+      },
+      {
+        "kind": "checks",
+        "checkpoint": "fresh_manual_response_4",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "PriorityPlayer",
+            "value": 4
+          },
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 1
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "UniqueID",
+            "value": "5"
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p4Health",
+            "value": 20
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "decision": {
+            "player": 1,
+            "type": "MZMULTICHOOSE"
+          }
+        }
+      },
+      {
+        "kind": "checks",
+        "checkpoint": "real_chi_only_search_candidate",
+        "checks": [
+          {
+            "type": "zone_count",
+            "zone": "p1Temp",
+            "value": 1
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Temp-0",
+            "property": "UniqueID",
+            "value": "7"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Temp-0",
+            "property": "CardID",
+            "value": "inner_chi_blue"
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Deck",
+            "value": 1
+          }
+        ]
+      },
+      {
+        "kind": "answer",
+        "player": 1,
+        "type": "MZMULTICHOOSE",
+        "value": "p1Temp-0"
+      },
+      {
+        "kind": "checks",
+        "checkpoint": "physical_printed_effect_and_completion",
+        "checks": [
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Temp",
+            "value": 0
+          },
+          {
+            "kind": "state",
+            "key": "window",
+            "value": "ACTION"
+          },
+          {
+            "kind": "state",
+            "key": "combatOpen",
+            "value": false
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 1
+          },
+          {
+            "kind": "state",
+            "key": "pendingPayment",
+            "value": null
+          },
+          {
+            "kind": "state",
+            "key": "resolvingReaction",
+            "value": null
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "1"
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "2"
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "3"
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "4"
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Health",
+            "value": 20
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 20
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p3Health",
+            "value": 20
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p4Health",
+            "value": 20
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Graveyard-0",
+            "property": "UniqueID",
+            "value": "5"
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Deck",
+            "value": 2
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Deck-0",
+            "property": "UniqueID",
+            "value": "7"
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Graveyard",
+            "value": 1
+          }
+        ]
+      }
+    ],
+    "planned_actions": 6
+  },
+  {
+    "slug": "card-portside-exchange-blue-four-live-sparse877-discards-real-yellow-draws-actual-card-and-creates-gold",
+    "name": "Portside Exchange / sparse four-live representative",
+    "cardIDs": [
+      "portside_exchange_blue"
+    ],
+    "secondaryCardIDs": [
+      "sigil_of_solace_yellow",
+      "critical_strike_blue"
+    ],
+    "branches": [
+      "discards_real_yellow_draws_actual_card_and_creates_gold"
+    ],
+    "activeSeats": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "heroes": [
+      "gravy_bones",
+      "dorinthea",
+      "dorinthea",
+      "dorinthea"
+    ],
+    "health": [
+      20,
+      20,
+      20,
+      20
+    ],
+    "resources": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "actionPoints": [
+      1,
+      0,
+      0,
+      0
+    ],
+    "state": {
+      "gameMode": "UPF",
+      "passiveSeats": []
+    },
+    "zones": [
+      {
+        "cardID": "portside_exchange_blue",
+        "zone": "Hand",
+        "player": 1,
+        "properties": {}
+      },
+      {
+        "cardID": "sigil_of_solace_yellow",
+        "zone": "Hand",
+        "player": 1,
+        "properties": {}
+      },
+      {
+        "cardID": "critical_strike_blue",
+        "zone": "Deck",
+        "player": 1,
+        "properties": {}
+      }
+    ],
+    "oracle": "Discard a card, then draw a card. If a yellow card is discarded this way, create a Gold token.\n\n**Go again** Representative only: discards_real_yellow_draws_actual_card_and_creates_gold. Other pitch siblings, alternate targets and unexercised branches receive no credit. All four live/manual; only native entry-point actions.",
+    "sources": [
+      "FaBSim/GeneratedCode/cardArrayCache.json#portside_exchange_blue"
+    ],
+    "printed_text": "Discard a card, then draw a card. If a yellow card is discarded this way, create a Gold token.\n\n**Go again**",
+    "diagnostic_only": false,
+    "qualification_permitted": true,
+    "steps": [
+      {
+        "kind": "checks",
+        "checkpoint": "explicit_four_live_initial_state_and_actual_owned_source",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "SeatOrder",
+            "value": 1234
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "LiveSeats",
+            "value": 1234
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "TurnPlayer",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "TurnNumber",
+            "value": 2
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "PriorityPlayer",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "RandomCounter",
+            "value": 0
+          },
+          {
+            "kind": "state",
+            "key": "window",
+            "value": "ACTION"
+          },
+          {
+            "kind": "state",
+            "key": "gameMode",
+            "value": "UPF"
+          },
+          {
+            "kind": "state",
+            "key": "passiveSeats",
+            "value": []
+          },
+          {
+            "kind": "state",
+            "key": "turnEffects",
+            "value": []
+          },
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 0
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Hand-0",
+            "property": "CardID",
+            "value": "portside_exchange_blue"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Hand-0",
+            "property": "UniqueID",
+            "value": "5"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Hand-0",
+            "property": "Owner",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Hand-0",
+            "property": "Controller",
+            "value": "1"
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Health",
+            "value": 20
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 20
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p3Health",
+            "value": 20
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p3Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p3ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p4Health",
+            "value": 20
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p4Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p4ActionPoints",
+            "value": 0
+          },
+          {
+            "kind": "state",
+            "key": "pendingPayment",
+            "value": null
+          },
+          {
+            "kind": "state",
+            "key": "resolvingReaction",
+            "value": null
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "1"
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "2"
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "3"
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "4"
+          }
+        ]
+      },
+      {
+        "kind": "click",
+        "player": 1,
+        "mzID": "p1Hand-0"
+      },
+      {
+        "kind": "checks",
+        "checkpoint": "printed_cost_paid_source_waits_for_real_responses",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Pitch",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 1
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "UniqueID",
+            "value": "5"
+          },
+          {
+            "kind": "state",
+            "key": "pendingPayment",
+            "value": null
+          },
+          {
+            "kind": "state",
+            "key": "resolvingReaction",
+            "value": null
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "1"
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "2"
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "3"
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "4"
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "priority": 2
+        }
+      },
+      {
+        "kind": "checks",
+        "checkpoint": "fresh_manual_response_2",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "PriorityPlayer",
+            "value": 2
+          },
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 1
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "UniqueID",
+            "value": "5"
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p4Health",
+            "value": 20
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "priority": 3
+        }
+      },
+      {
+        "kind": "checks",
+        "checkpoint": "fresh_manual_response_3",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "PriorityPlayer",
+            "value": 3
+          },
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 1
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "UniqueID",
+            "value": "5"
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p4Health",
+            "value": 20
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "priority": 4
+        }
+      },
+      {
+        "kind": "checks",
+        "checkpoint": "fresh_manual_response_4",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "PriorityPlayer",
+            "value": 4
+          },
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 1
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "UniqueID",
+            "value": "5"
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p4Health",
+            "value": 20
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "decision": {
+            "player": 1,
+            "type": "MZCHOOSE"
+          }
+        }
+      },
+      {
+        "kind": "answer",
+        "player": 1,
+        "type": "MZCHOOSE",
+        "value": "p1Hand-0"
+      },
+      {
+        "kind": "checks",
+        "checkpoint": "physical_printed_effect_and_completion",
+        "checks": [
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Temp",
+            "value": 0
+          },
+          {
+            "kind": "state",
+            "key": "window",
+            "value": "ACTION"
+          },
+          {
+            "kind": "state",
+            "key": "combatOpen",
+            "value": false
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 1
+          },
+          {
+            "kind": "state",
+            "key": "pendingPayment",
+            "value": null
+          },
+          {
+            "kind": "state",
+            "key": "resolvingReaction",
+            "value": null
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "1"
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "2"
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "3"
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "4"
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Health",
+            "value": 20
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 20
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p3Health",
+            "value": 20
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p4Health",
+            "value": 20
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Graveyard-1",
+            "property": "UniqueID",
+            "value": "5"
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Graveyard",
+            "value": 2
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Graveyard-0",
+            "property": "UniqueID",
+            "value": "6"
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Hand",
+            "value": 1
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Hand-0",
+            "property": "UniqueID",
+            "value": "7"
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Deck",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Arena",
+            "value": 1
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Arena-0",
+            "property": "CardID",
+            "value": "gold"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Arena-0",
+            "property": "Owner",
+            "value": "1"
+          }
+        ]
+      }
+    ],
+    "planned_actions": 6
+  },
+  {
+    "slug": "card-pull-from-beyond-red-four-live-sparse877-opt-orders-real-red-top-then-banishes-it-and-creates-gate",
+    "name": "Pull from Beyond / sparse four-live representative",
+    "cardIDs": [
+      "pull_from_beyond_red"
+    ],
+    "secondaryCardIDs": [
+      "critical_strike_blue",
+      "rift_bind_red"
+    ],
+    "branches": [
+      "opt_orders_real_red_top_then_banishes_it_and_creates_gate"
+    ],
+    "activeSeats": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "heroes": [
+      "chane",
+      "dorinthea",
+      "dorinthea",
+      "dorinthea"
+    ],
+    "health": [
+      20,
+      20,
+      20,
+      20
+    ],
+    "resources": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "actionPoints": [
+      1,
+      0,
+      0,
+      0
+    ],
+    "state": {
+      "gameMode": "UPF",
+      "passiveSeats": []
+    },
+    "zones": [
+      {
+        "cardID": "pull_from_beyond_red",
+        "zone": "Hand",
+        "player": 1,
+        "properties": {}
+      },
+      {
+        "cardID": "critical_strike_blue",
+        "zone": "Deck",
+        "player": 1,
+        "properties": {}
+      },
+      {
+        "cardID": "rift_bind_red",
+        "zone": "Deck",
+        "player": 1,
+        "properties": {}
+      }
+    ],
+    "oracle": "**Opt 2**\n\nBanish the top card of your deck. If it's red, create a Gate to i'Arathael token. **Go again** Representative only: opt_orders_real_red_top_then_banishes_it_and_creates_gate. Other pitch siblings, alternate targets and unexercised branches receive no credit. All four live/manual; only native entry-point actions.",
+    "sources": [
+      "FaBSim/GeneratedCode/cardArrayCache.json#pull_from_beyond_red"
+    ],
+    "printed_text": "**Opt 2**\n\nBanish the top card of your deck. If it's red, create a Gate to i'Arathael token. **Go again**",
+    "diagnostic_only": false,
+    "qualification_permitted": true,
+    "steps": [
+      {
+        "kind": "checks",
+        "checkpoint": "explicit_four_live_initial_state_and_actual_owned_source",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "SeatOrder",
+            "value": 1234
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "LiveSeats",
+            "value": 1234
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "TurnPlayer",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "TurnNumber",
+            "value": 2
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "PriorityPlayer",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "RandomCounter",
+            "value": 0
+          },
+          {
+            "kind": "state",
+            "key": "window",
+            "value": "ACTION"
+          },
+          {
+            "kind": "state",
+            "key": "gameMode",
+            "value": "UPF"
+          },
+          {
+            "kind": "state",
+            "key": "passiveSeats",
+            "value": []
+          },
+          {
+            "kind": "state",
+            "key": "turnEffects",
+            "value": []
+          },
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 0
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Hand-0",
+            "property": "CardID",
+            "value": "pull_from_beyond_red"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Hand-0",
+            "property": "UniqueID",
+            "value": "5"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Hand-0",
+            "property": "Owner",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Hand-0",
+            "property": "Controller",
+            "value": "1"
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Health",
+            "value": 20
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 20
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p3Health",
+            "value": 20
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p3Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p3ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p4Health",
+            "value": 20
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p4Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p4ActionPoints",
+            "value": 0
+          },
+          {
+            "kind": "state",
+            "key": "pendingPayment",
+            "value": null
+          },
+          {
+            "kind": "state",
+            "key": "resolvingReaction",
+            "value": null
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "1"
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "2"
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "3"
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "4"
+          }
+        ]
+      },
+      {
+        "kind": "click",
+        "player": 1,
+        "mzID": "p1Hand-0"
+      },
+      {
+        "kind": "checks",
+        "checkpoint": "printed_cost_paid_source_waits_for_real_responses",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Pitch",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 1
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "UniqueID",
+            "value": "5"
+          },
+          {
+            "kind": "state",
+            "key": "pendingPayment",
+            "value": null
+          },
+          {
+            "kind": "state",
+            "key": "resolvingReaction",
+            "value": null
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "1"
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "2"
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "3"
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "4"
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "priority": 2
+        }
+      },
+      {
+        "kind": "checks",
+        "checkpoint": "fresh_manual_response_2",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "PriorityPlayer",
+            "value": 2
+          },
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 1
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "UniqueID",
+            "value": "5"
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p4Health",
+            "value": 20
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "priority": 3
+        }
+      },
+      {
+        "kind": "checks",
+        "checkpoint": "fresh_manual_response_3",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "PriorityPlayer",
+            "value": 3
+          },
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 1
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "UniqueID",
+            "value": "5"
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p4Health",
+            "value": 20
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "priority": 4
+        }
+      },
+      {
+        "kind": "checks",
+        "checkpoint": "fresh_manual_response_4",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "PriorityPlayer",
+            "value": 4
+          },
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 1
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "UniqueID",
+            "value": "5"
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p4Health",
+            "value": 20
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "decision": {
+            "player": 1,
+            "type": "MZREARRANGE"
+          }
+        }
+      },
+      {
+        "kind": "checks",
+        "checkpoint": "actual_opt_two_staged",
+        "checks": [
+          {
+            "type": "zone_count",
+            "zone": "p1Temp",
+            "value": 2
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Temp-0",
+            "property": "UniqueID",
+            "value": "6"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Temp-1",
+            "property": "UniqueID",
+            "value": "7"
+          }
+        ]
+      },
+      {
+        "kind": "answer",
+        "player": 1,
+        "type": "MZREARRANGE",
+        "value": "Top=rift_bind_red;Bottom=critical_strike_blue"
+      },
+      {
+        "kind": "checks",
+        "checkpoint": "physical_printed_effect_and_completion",
+        "checks": [
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Temp",
+            "value": 0
+          },
+          {
+            "kind": "state",
+            "key": "window",
+            "value": "ACTION"
+          },
+          {
+            "kind": "state",
+            "key": "combatOpen",
+            "value": false
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 1
+          },
+          {
+            "kind": "state",
+            "key": "pendingPayment",
+            "value": null
+          },
+          {
+            "kind": "state",
+            "key": "resolvingReaction",
+            "value": null
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "1"
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "2"
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "3"
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "4"
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Health",
+            "value": 20
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 20
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p3Health",
+            "value": 20
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p4Health",
+            "value": 20
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Graveyard-0",
+            "property": "UniqueID",
+            "value": "5"
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Banish",
+            "value": 1
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Banish-0",
+            "property": "UniqueID",
+            "value": "7"
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Deck",
+            "value": 1
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Deck-0",
+            "property": "UniqueID",
+            "value": "6"
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Arena",
+            "value": 1
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Arena-0",
+            "property": "CardID",
+            "value": "gate_to_iarathael"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Arena-0",
+            "property": "Owner",
+            "value": "1"
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Graveyard",
+            "value": 1
+          }
+        ]
+      }
+    ],
+    "planned_actions": 6
+  },
+  {
+    "slug": "card-phoenix-bannerman-arms-red-four-live-sparse877-finds-real-phoenix-flame-to-hand-and-creates-might",
+    "name": "Phoenix Bannerman: Arms / sparse four-live representative",
+    "cardIDs": [
+      "phoenix_bannerman_arms_red"
+    ],
+    "secondaryCardIDs": [
+      "wounding_blow_red",
+      "phoenix_flame_red"
+    ],
+    "branches": [
+      "finds_real_phoenix_flame_to_hand_and_creates_might"
+    ],
+    "activeSeats": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "heroes": [
+      "fai",
+      "dorinthea",
+      "dorinthea",
+      "dorinthea"
+    ],
+    "health": [
+      20,
+      20,
+      20,
+      20
+    ],
+    "resources": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "actionPoints": [
+      1,
+      0,
+      0,
+      0
+    ],
+    "state": {
+      "gameMode": "UPF",
+      "passiveSeats": []
+    },
+    "zones": [
+      {
+        "cardID": "phoenix_bannerman_arms_red",
+        "zone": "Hand",
+        "player": 1,
+        "properties": {}
+      },
+      {
+        "cardID": "wounding_blow_red",
+        "zone": "Deck",
+        "player": 1,
+        "properties": {}
+      },
+      {
+        "cardID": "phoenix_flame_red",
+        "zone": "Deck",
+        "player": 1,
+        "properties": {}
+      }
+    ],
+    "oracle": "**Legendary**\n\nSearch your deck for a Phoenix Flame, reveal it, put it into your hand, then shuffle.\n\nCreate a Might token.\n\n**Go again** Representative only: finds_real_phoenix_flame_to_hand_and_creates_might. Other pitch siblings, alternate targets and unexercised branches receive no credit. All four live/manual; only native entry-point actions.",
+    "sources": [
+      "FaBSim/GeneratedCode/cardArrayCache.json#phoenix_bannerman_arms_red"
+    ],
+    "printed_text": "**Legendary**\n\nSearch your deck for a Phoenix Flame, reveal it, put it into your hand, then shuffle.\n\nCreate a Might token.\n\n**Go again**",
+    "diagnostic_only": false,
+    "qualification_permitted": true,
+    "steps": [
+      {
+        "kind": "checks",
+        "checkpoint": "explicit_four_live_initial_state_and_actual_owned_source",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "SeatOrder",
+            "value": 1234
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "LiveSeats",
+            "value": 1234
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "TurnPlayer",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "TurnNumber",
+            "value": 2
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "PriorityPlayer",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "RandomCounter",
+            "value": 0
+          },
+          {
+            "kind": "state",
+            "key": "window",
+            "value": "ACTION"
+          },
+          {
+            "kind": "state",
+            "key": "gameMode",
+            "value": "UPF"
+          },
+          {
+            "kind": "state",
+            "key": "passiveSeats",
+            "value": []
+          },
+          {
+            "kind": "state",
+            "key": "turnEffects",
+            "value": []
+          },
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 0
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Hand-0",
+            "property": "CardID",
+            "value": "phoenix_bannerman_arms_red"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Hand-0",
+            "property": "UniqueID",
+            "value": "5"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Hand-0",
+            "property": "Owner",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Hand-0",
+            "property": "Controller",
+            "value": "1"
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Health",
+            "value": 20
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 20
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p3Health",
+            "value": 20
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p3Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p3ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p4Health",
+            "value": 20
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p4Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p4ActionPoints",
+            "value": 0
+          },
+          {
+            "kind": "state",
+            "key": "pendingPayment",
+            "value": null
+          },
+          {
+            "kind": "state",
+            "key": "resolvingReaction",
+            "value": null
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "1"
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "2"
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "3"
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "4"
+          }
+        ]
+      },
+      {
+        "kind": "click",
+        "player": 1,
+        "mzID": "p1Hand-0"
+      },
+      {
+        "kind": "checks",
+        "checkpoint": "printed_cost_paid_source_waits_for_real_responses",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Pitch",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 1
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "UniqueID",
+            "value": "5"
+          },
+          {
+            "kind": "state",
+            "key": "pendingPayment",
+            "value": null
+          },
+          {
+            "kind": "state",
+            "key": "resolvingReaction",
+            "value": null
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "1"
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "2"
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "3"
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "4"
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "priority": 2
+        }
+      },
+      {
+        "kind": "checks",
+        "checkpoint": "fresh_manual_response_2",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "PriorityPlayer",
+            "value": 2
+          },
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 1
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "UniqueID",
+            "value": "5"
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p4Health",
+            "value": 20
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "priority": 3
+        }
+      },
+      {
+        "kind": "checks",
+        "checkpoint": "fresh_manual_response_3",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "PriorityPlayer",
+            "value": 3
+          },
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 1
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "UniqueID",
+            "value": "5"
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p4Health",
+            "value": 20
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "priority": 4
+        }
+      },
+      {
+        "kind": "checks",
+        "checkpoint": "fresh_manual_response_4",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "PriorityPlayer",
+            "value": 4
+          },
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 1
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "UniqueID",
+            "value": "5"
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p4Health",
+            "value": 20
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "decision": {
+            "player": 1,
+            "type": "MZMULTICHOOSE"
+          }
+        }
+      },
+      {
+        "kind": "checks",
+        "checkpoint": "only_actual_flame_search_candidate",
+        "checks": [
+          {
+            "type": "zone_count",
+            "zone": "p1Temp",
+            "value": 1
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Temp-0",
+            "property": "UniqueID",
+            "value": "7"
+          }
+        ]
+      },
+      {
+        "kind": "answer",
+        "player": 1,
+        "type": "MZMULTICHOOSE",
+        "value": "p1Temp-0"
+      },
+      {
+        "kind": "checks",
+        "checkpoint": "physical_printed_effect_and_completion",
+        "checks": [
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Temp",
+            "value": 0
+          },
+          {
+            "kind": "state",
+            "key": "window",
+            "value": "ACTION"
+          },
+          {
+            "kind": "state",
+            "key": "combatOpen",
+            "value": false
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 1
+          },
+          {
+            "kind": "state",
+            "key": "pendingPayment",
+            "value": null
+          },
+          {
+            "kind": "state",
+            "key": "resolvingReaction",
+            "value": null
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "1"
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "2"
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "3"
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "4"
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Health",
+            "value": 20
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 20
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p3Health",
+            "value": 20
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p4Health",
+            "value": 20
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Graveyard-0",
+            "property": "UniqueID",
+            "value": "5"
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Hand",
+            "value": 1
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Hand-0",
+            "property": "UniqueID",
+            "value": "7"
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Deck",
+            "value": 1
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Arena",
+            "value": 1
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Arena-0",
+            "property": "CardID",
+            "value": "might"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Arena-0",
+            "property": "Owner",
+            "value": "1"
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Graveyard",
+            "value": 1
+          }
+        ]
+      }
+    ],
+    "planned_actions": 6
+  },
+  {
+    "slug": "card-prayer-of-bellona-yellow-four-live-sparse877-real-yellow-top-card-enters-hand-then-charges-soul",
+    "name": "Prayer of Bellona / sparse four-live representative",
+    "cardIDs": [
+      "prayer_of_bellona_yellow"
+    ],
+    "secondaryCardIDs": [
+      "critical_strike_blue",
+      "wounding_blow_yellow",
+      "critical_strike_red"
+    ],
+    "branches": [
+      "real_yellow_top_card_enters_hand_then_charges_soul"
+    ],
+    "activeSeats": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "heroes": [
+      "boltyn",
+      "dorinthea",
+      "dorinthea",
+      "dorinthea"
+    ],
+    "health": [
+      20,
+      20,
+      20,
+      20
+    ],
+    "resources": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "actionPoints": [
+      1,
+      0,
+      0,
+      0
+    ],
+    "state": {
+      "gameMode": "UPF",
+      "passiveSeats": []
+    },
+    "zones": [
+      {
+        "cardID": "prayer_of_bellona_yellow",
+        "zone": "Hand",
+        "player": 1,
+        "properties": {}
+      },
+      {
+        "cardID": "critical_strike_blue",
+        "zone": "Hand",
+        "player": 1,
+        "properties": {}
+      },
+      {
+        "cardID": "wounding_blow_yellow",
+        "zone": "Deck",
+        "player": 1,
+        "properties": {}
+      },
+      {
+        "cardID": "critical_strike_red",
+        "zone": "Deck",
+        "player": 1,
+        "properties": {}
+      }
+    ],
+    "oracle": "Your next attack this turn gets +2{p}.\n\nReveal the top card of your deck. If it's yellow, put it into your hand, then **charge** your hero's soul.\n\n**Go again** Representative only: real_yellow_top_card_enters_hand_then_charges_soul. Other pitch siblings, alternate targets and unexercised branches receive no credit. All four live/manual; only native entry-point actions.",
+    "sources": [
+      "FaBSim/GeneratedCode/cardArrayCache.json#prayer_of_bellona_yellow"
+    ],
+    "printed_text": "Your next attack this turn gets +2{p}.\n\nReveal the top card of your deck. If it's yellow, put it into your hand, then **charge** your hero's soul.\n\n**Go again**",
+    "diagnostic_only": false,
+    "qualification_permitted": true,
+    "steps": [
+      {
+        "kind": "checks",
+        "checkpoint": "explicit_four_live_initial_state_and_actual_owned_source",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "SeatOrder",
+            "value": 1234
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "LiveSeats",
+            "value": 1234
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "TurnPlayer",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "TurnNumber",
+            "value": 2
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "PriorityPlayer",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "RandomCounter",
+            "value": 0
+          },
+          {
+            "kind": "state",
+            "key": "window",
+            "value": "ACTION"
+          },
+          {
+            "kind": "state",
+            "key": "gameMode",
+            "value": "UPF"
+          },
+          {
+            "kind": "state",
+            "key": "passiveSeats",
+            "value": []
+          },
+          {
+            "kind": "state",
+            "key": "turnEffects",
+            "value": []
+          },
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 0
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Hand-0",
+            "property": "CardID",
+            "value": "prayer_of_bellona_yellow"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Hand-0",
+            "property": "UniqueID",
+            "value": "5"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Hand-0",
+            "property": "Owner",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Hand-0",
+            "property": "Controller",
+            "value": "1"
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Health",
+            "value": 20
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 20
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p3Health",
+            "value": 20
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p3Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p3ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p4Health",
+            "value": 20
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p4Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p4ActionPoints",
+            "value": 0
+          },
+          {
+            "kind": "state",
+            "key": "pendingPayment",
+            "value": null
+          },
+          {
+            "kind": "state",
+            "key": "resolvingReaction",
+            "value": null
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "1"
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "2"
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "3"
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "4"
+          }
+        ]
+      },
+      {
+        "kind": "click",
+        "player": 1,
+        "mzID": "p1Hand-0"
+      },
+      {
+        "kind": "checks",
+        "checkpoint": "native_pitch_required_for_printed_resource_cost",
+        "checks": [
+          {
+            "kind": "state",
+            "key": "window",
+            "value": "PITCH"
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 1
+          }
+        ]
+      },
+      {
+        "kind": "click",
+        "player": 1,
+        "mzID": "p1Hand-0"
+      },
+      {
+        "kind": "checks",
+        "checkpoint": "printed_cost_paid_source_waits_for_real_responses",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 2
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Pitch",
+            "value": 1
+          },
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 1
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "UniqueID",
+            "value": "5"
+          },
+          {
+            "kind": "state",
+            "key": "pendingPayment",
+            "value": null
+          },
+          {
+            "kind": "state",
+            "key": "resolvingReaction",
+            "value": null
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "1"
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "2"
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "3"
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "4"
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "priority": 2
+        }
+      },
+      {
+        "kind": "checks",
+        "checkpoint": "fresh_manual_response_2",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "PriorityPlayer",
+            "value": 2
+          },
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 1
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "UniqueID",
+            "value": "5"
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p4Health",
+            "value": 20
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "priority": 3
+        }
+      },
+      {
+        "kind": "checks",
+        "checkpoint": "fresh_manual_response_3",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "PriorityPlayer",
+            "value": 3
+          },
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 1
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "UniqueID",
+            "value": "5"
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p4Health",
+            "value": 20
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "priority": 4
+        }
+      },
+      {
+        "kind": "checks",
+        "checkpoint": "fresh_manual_response_4",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "PriorityPlayer",
+            "value": 4
+          },
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 1
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "UniqueID",
+            "value": "5"
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p4Health",
+            "value": 20
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "decision": {
+            "player": 1,
+            "type": "MZCHOOSE"
+          }
+        }
+      },
+      {
+        "kind": "checks",
+        "checkpoint": "yellow_drawn_before_charge_choice",
+        "checks": [
+          {
+            "type": "zone_count",
+            "zone": "p1Hand",
+            "value": 1
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Hand-0",
+            "property": "UniqueID",
+            "value": "7"
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Soul",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Deck",
+            "value": 1
+          }
+        ]
+      },
+      {
+        "kind": "answer",
+        "player": 1,
+        "type": "MZCHOOSE",
+        "value": "p1Hand-0"
+      },
+      {
+        "kind": "checks",
+        "checkpoint": "physical_printed_effect_and_completion",
+        "checks": [
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Temp",
+            "value": 0
+          },
+          {
+            "kind": "state",
+            "key": "window",
+            "value": "ACTION"
+          },
+          {
+            "kind": "state",
+            "key": "combatOpen",
+            "value": false
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 2
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 1
+          },
+          {
+            "kind": "state",
+            "key": "pendingPayment",
+            "value": null
+          },
+          {
+            "kind": "state",
+            "key": "resolvingReaction",
+            "value": null
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "1"
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "2"
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "3"
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "4"
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Health",
+            "value": 20
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 20
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p3Health",
+            "value": 20
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p4Health",
+            "value": 20
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Graveyard-0",
+            "property": "UniqueID",
+            "value": "5"
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Hand",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Soul",
+            "value": 1
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Soul-0",
+            "property": "UniqueID",
+            "value": "7"
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Deck",
+            "value": 1
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Deck-0",
+            "property": "UniqueID",
+            "value": "8"
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Graveyard",
+            "value": 1
+          }
+        ]
+      }
+    ],
+    "planned_actions": 7
+  }
+]

@@ -1,0 +1,7 @@
+{
+    "name": "Drawn to the Dark Dimension / actual two-Runechant discount, paid Attack prefix",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-24T22:29:47+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "FOUR real manual young Vynnset20/three Dorinthea20. Owned real Runechants6/7Arena, actual Drawn8Hand printedcost2, actual Blue9Hand, R0/AP1. Real Sigil5Instant0 resolves after all four responses, HP1=21/AP1/R0, noRunechant consumed/triggered. Actual Drawn8Hand play formallytargets adjacent Hero4 then pays discounted2-2=0 with realAP1to0, Blue9retained/unpitched, Runechants remainArena(notcost). Exact separate RunechantTRIGGER10/11Source6/7 declareHero4beforepriority. Fresh allfour rounds each resolves1arcane and ceases only its source; Hero4=18, noRunechants or proxyStack, GYonlySigil5. Fullypaid primary8ATTACKStack/SourceHand/targetHero4 remainsPRIORITY1/noCC/DQpaymentawaitquiet/UID11RNG0, R0/AP0, Blue9Hand. Later primary Attack resolution/drawtrigger/timing/physicaldamage, fewerRunechantcosts and otherpitchesUNRUN_UNCREDITED. No engine change. Sources: FaBSim/GeneratedCode/cardArrayCache.json#drawn_to_the_dark_dimension_red FaBSim/Custom/ARCCards.php FaBSim/Custom/ARCAbilities.php FaBSim/Custom/GameLogic.php"
+}

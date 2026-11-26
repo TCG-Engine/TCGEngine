@@ -1,0 +1,63 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "breadth_review independent printed/source/spec review",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1052-20261122.json",
+  "source_spec_sha256": "106fbfc3230e9bc393d920efa4160f533b2bdcd8b7f0f119864fae8268129d3d",
+  "input_sha256": "106fbfc3230e9bc393d920efa4160f533b2bdcd8b7f0f119864fae8268129d3d",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "teklo-pounder-blue-four-live-sparse1052-actual-spark-search-enters-three-steam",
+      "card_id": "teklo_pounder_blue",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "d5715b2288c4fb93d9aa8f614049e442f0aaeaeef10ac14db4d400cec3b015bc",
+        "actions.json": "a3bbe25cb82b30e9d6a2c6ab361f834a5ef301377f12655e161d8373d3387f4e",
+        "assertions.json": "121f066c30bc083bcab3d130cdbffe584c260073947494c0231e4ca3d537bbba",
+        "expected_final_gamestate.txt": "faf943174ad3412803f5cd2616daa574b72068f0e25a10a0df473f2a1e71a95f",
+        "meta.json": "6e4e13295c310fca00d0457f00005f148b1a0f230ed24aa76e79c93f212040ab"
+      },
+      "fixture_sha256": "24f641d4ec5c8947b46b9aec50ace6379bf3313c1e6713c53b278d2b335c50c7",
+      "actions": 9,
+      "native_assertions": 280,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 4,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1052-20261122.json",
+      "input_sha256": "106fbfc3230e9bc393d920efa4160f533b2bdcd8b7f0f119864fae8268129d3d",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1052-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "teklo-pounder-blue-four-live-sparse1052-actual-spark-search-enters-three-steam",
+        "fixture_slug": "teklo-pounder-blue-four-live-sparse1052-actual-spark-search-enters-three-steam",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "spec_sha256": "106fbfc3230e9bc393d920efa4160f533b2bdcd8b7f0f119864fae8268129d3d",
+    "reviewer": "breadth_review independent printed/source/spec review",
+    "basis": [
+      "PrimaryTekloPounder8actuallystartsDeck/nosteampreset, printedcost2/entersWITH3steam. ActualsponsorSpark5/Dash20declaresNUMBERX2beforeassets, actualBlue6/7payXX4: firstR3insufficient/AP1, secondR2/AP0. Fourmanualsourcepriorityresponsesbeforelegitimateexactcost2search; source5Stack/GY0 andprimary8Tempwhilecost1Aether9remainsDeck.",
+      "Choose8puts sameownedphysicalItemArena; explicitEVRAfterMove toArena mapsbase teklo_pounder\u2192STEAM3, noOwnResolveCard inference, noenterWHEN orCrank. ARCput-item callsentryhooks butdoesnotplayItem8, so noFAB_PLAY_ORDER/EVR_TURN. FinalSTEAM3/owner1/UID8, sponsor5ownedGY/Blue6,7Pitch/R2/AP0/Hand0/nonemptyDeck9 pinssearch andfalseBoostdraw. NoBoostAAoccurred, so nosteamremoval/+2power event. One-cardshuffle remainder.",
+      "Exacttwo-label-only finaldelta: reversing source-note checkpoint corrections reconstructs reviewedinitial05eaf543...SHA. Noaction/assertion/setup/identity/oracle change; originalcounter/cost/UIDsemantic review bindscurrent106fbfc...without repeatedaudit. Noauthor-onlydiagnostics."
+    ],
+    "limits": [
+      "Effect-producedPounderentryonly, notnormalItemplay/Boosttrigger/steamconsumption/zeroSteamdestruction/otherentryroute/Crank/cardmatrix orpitchsiblings/fullcard. SponsorSparkandotherunrunCerebellumcounterfamilyuncredited; no newenginebug inferred. No native/PHP/T/source/Git/original/network actions byreviewer."
+    ]
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1052-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "94b6df23c2d4bbeaf79f15e572130bb086084c07ba54928c34a3c3b6d4c19b02"
+  },
+  "full_suite_run": false
+}

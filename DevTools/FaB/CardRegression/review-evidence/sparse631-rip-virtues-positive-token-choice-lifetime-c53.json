@@ -1,0 +1,67 @@
+{
+  "status": "APPROVED_AS_PLANNING_LIMITS_ONLY",
+  "reviewer": "/root/nov2_metadata_review",
+  "reviewer_independent": true,
+  "author": "/root/nov2_sparse_author",
+  "planning_limits_approved": true,
+  "created_utc": "2026-11-06T19:02:08.363601+00:00",
+  "card_id": "rip_up_their_virtues_blue",
+  "group_id": "identity:rip_up_their_virtues_blue",
+  "runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+  "recorder_sha256": "ab33a3250462d0453f71d38dd4138cb9fbc3d595d2586742e989a52251c9c4a9",
+  "planning_hold": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch631-two-b625-remainder-planning-limits\\planning-holds.json",
+    "sha256": "43a00d4c5e4500a8df699258f29766ad93cea0c494bd9e4530ef4e4615cc7794",
+    "entry_index": 1
+  },
+  "manifest": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch631-two-b625-remainder-planning-limits\\manifest.json",
+    "sha256": "eca27daf6235fd9ff09efed49c0395af091e401aa50e6b5677ba444b35546c47"
+  },
+  "author_QA": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch631-two-b625-remainder-planning-limits\\frozen-author-QA.json",
+    "sha256": "0b1fa732f01c11595d4e0c40f70797e9fddd15e633c3053e847b7c70357be9dc"
+  },
+  "source_guard_count": 73,
+  "all_actual_source_guards_freshly_verified": true,
+  "selected_current_group_newness_verified": true,
+  "canonical_body_and_compiled_dispatch_exist": true,
+  "primary_evidence": {
+    "official_urls": [
+      "https://judge.fabtcg.com/cards/detail/4293/",
+      "https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/"
+    ],
+    "official_text_retrieved": true,
+    "local_issuer_face_actually_viewed": true
+  },
+  "source_anchors": [
+    "GameLogic.php:1264-1296,1541-1552,1604-1639,1655-1678,1762-1808",
+    "SUPCards.php:72-74",
+    "HVYCards.php:20-29,154",
+    "GeneratedMacroCode.php:6202-6206,90850-90868"
+  ],
+  "independent_finding": "Independently confirmed a nonempty positive Toughness conversion reaches an existing physical Instant ResolveCard await, after the ordinary fallback clears the source to graveyard. Earlier virtual/reaction/persistent/managed ordinary-spell admissions do not cover it. Real body/chooser/destruction/Might helpers exist; no empty-condition baseline or native observation is approved.",
+  "normative_scope": "CR5.3.4-7 orders resolving effects and their choices before clearing the physical nonpersistent card-layer.",
+  "limits": [
+    "Only nonempty positive Toughness-to-Might choice path reviewed; no menu/owner/controller/creator/destruction/creation or token future effect certified.",
+    "No empty-token or zero-destruction baseline, source-fitted early Graveyard assertion, current history seed, alternative primary/support hunt, native repro or coverage credit.",
+    "Approval covers only the accuracy and boundaries of this unattempted source observation. No runnable recipe or gameplay oracle is approved."
+  ],
+  "executable_cases": 0,
+  "source_approved": false,
+  "source_spec_approved": false,
+  "gameplay_approved": false,
+  "semantically_approved": false,
+  "semantic_gameplay_approved": false,
+  "runnable": false,
+  "runnable_approved": false,
+  "installable": false,
+  "native_attempted": false,
+  "fixture_saved": false,
+  "coverage_credit": false,
+  "confirmed_engine_bug": false,
+  "confirmed_gameplay_bug": false,
+  "source_fix_applied": false,
+  "no_native_PHP_or_R_writes": true,
+  "author_frozen_bytes_unchanged": true
+}

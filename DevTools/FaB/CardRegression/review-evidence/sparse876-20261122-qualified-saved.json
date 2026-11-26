@@ -1,0 +1,278 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "/root/breadth_review independent cached-text/source-spec batch semantic review; Root exact saved mapping and native clean replay",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse876-20261122.json",
+  "source_spec_sha256": "04bc9469b1cc027cb5247d5ef02cd4e75d4e069493e58913b51d3eaac4ea95ce",
+  "input_sha256": "d672b4687a7b51874e9a6a0bd936992f959b200eec812500f8449e3d277abb19",
+  "recorded_input_scope": "Exact original native input, possibly containing unsaved failed cases excluded from this qualified subset; each retained case compared verbatim.",
+  "fixtures": [
+    {
+      "slug": "card-become-the-shadow-lord-blue-four-live-sparse876-banishes-real-shadow-runeblade-and-creates-both-reward-tokens",
+      "card_id": "become_the_shadow_lord_blue",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "7143102fb9f97198b04524858189921659fbdf134411e6ac1796f0b18c9879cc",
+        "actions.json": "fd41a737eb3a336e908a0167e41f583c2015a2192736fb6658abdb26f3dc7e30",
+        "assertions.json": "a6955548070f2861d2f8f6e4820373de9a63c1159555f6b5d8273efba1c814a3",
+        "expected_final_gamestate.txt": "9bbfc9913f12949f778962cf19a62a8f98aaed32fb501a3758d46207f6da246e",
+        "meta.json": "fb996e9da86e30328ac7a72ba06106af6d7884610703a39312f54a022c947814"
+      },
+      "fixture_sha256": "599e83cbed3fa54333db413e2283203c5bb93906db40ef62ed6fb8309e327320",
+      "actions": 6,
+      "native_assertions": 85,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 4,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse876-20261122.json",
+      "input_sha256": "d672b4687a7b51874e9a6a0bd936992f959b200eec812500f8449e3d277abb19"
+    },
+    {
+      "slug": "card-dimenxxional-ferryman-blue-four-live-sparse876-real-blood-debt-action-and-source-move-to-deck-bottom",
+      "card_id": "dimenxxional_ferryman_blue",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "b8878b9f7fcdd11c0cb7c21c00df2039cb580f051a1d1ab9a32643a3bc10da10",
+        "actions.json": "96cf929b503085fac189c5c7c3974da37161658c9b22ea8d075df97d6a728a76",
+        "assertions.json": "427ab181dac716a92c36c8411e5df92ffa1692c8879aaa46369641dcf17e751e",
+        "expected_final_gamestate.txt": "63b2eb47003b8698cdee079b005cb888b0e6d843b93b4e7dc2d8ae420fc8df1e",
+        "meta.json": "3297a2ce0e34ccbfdf5772cdfebc69983b05365ae635022c9205c0b9ea718463"
+      },
+      "fixture_sha256": "378b1a63fb098a2a15170e892cf9d739c049b07ede3bdad2b4e50aca1de6cce5",
+      "actions": 6,
+      "native_assertions": 81,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 4,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse876-20261122.json",
+      "input_sha256": "d672b4687a7b51874e9a6a0bd936992f959b200eec812500f8449e3d277abb19"
+    },
+    {
+      "slug": "card-enshrine-sin-red-four-live-sparse876-from-hand-opts-real-card-to-bottom-then-creates-runechant",
+      "card_id": "enshrine_sin_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "055514278747b30c9bd27916ef305c15302be82b50ff88c8faf5fac1e88a2c4c",
+        "actions.json": "3a01536853bb765896d3e8329db35a133fa07e086f17383b57e8bf4abc91aa1b",
+        "assertions.json": "7cd11374cb43a5d0183ef0ea425b7926150b34d53bc1359ee4f8227dd3660f76",
+        "expected_final_gamestate.txt": "91301be97af8e4c374bedf54601ea64d45f8129cdb8b14c76d8c49ae9344bebb",
+        "meta.json": "703f5086c5610648e31454e5bd3d9d682c948220ebdff54db890090d958c6449"
+      },
+      "fixture_sha256": "01798189af99063f8c6a66a8eb0ed87c0a6e0e92af581994d4decd315295d106",
+      "actions": 6,
+      "native_assertions": 83,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 4,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse876-20261122.json",
+      "input_sha256": "d672b4687a7b51874e9a6a0bd936992f959b200eec812500f8449e3d277abb19"
+    },
+    {
+      "slug": "card-deadwood-dirge-red-four-live-sparse876-destroys-real-owned-aura-and-creates-three-new-runechants",
+      "card_id": "deadwood_dirge_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "e28e0844bdebca466bf24c515580e3cc4039bf6d771905155549fb0a7f481bef",
+        "actions.json": "316ee518dd6bebea9adb3d9fdb8c2c10212b1d8dd87e1642449ce08e2be36425",
+        "assertions.json": "680f353590f864676e3862ccc5a116550b6d63a67eab3acc898c872df8f583b9",
+        "expected_final_gamestate.txt": "573bd4bae804c8f37a52277593930acb6e7c8496454e01b997d29ca58ae775b5",
+        "meta.json": "04f83e0fd995cdbec3bd900bb8fa7d3c94739c9bf7bde7553830ec6d7b7d6ff8"
+      },
+      "fixture_sha256": "0521153711f8808ceca0f3e0f64ca2eeaaed601d877fa34af4079ab973db83a7",
+      "actions": 6,
+      "native_assertions": 89,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 4,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse876-20261122.json",
+      "input_sha256": "d672b4687a7b51874e9a6a0bd936992f959b200eec812500f8449e3d277abb19"
+    },
+    {
+      "slug": "card-chart-the-high-seas-blue-four-live-sparse876-pitches-real-blue-top-card-and-yellow-remainder-creates-gold",
+      "card_id": "chart_the_high_seas_blue",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "d6983df0b10b147e970d402b2b99b271a7469946fa59d1f81e11de29dc69f5fb",
+        "actions.json": "c2e0bb39d588a299d199e38394fb2d4901c534feaf25a626780644900ae564c1",
+        "assertions.json": "3d8de209527a537a927a2c76140cb0700521b1b3880318afd4b5385cf09cc05f",
+        "expected_final_gamestate.txt": "5e9883c3cc3be9e27ea8f0b2f3b600262f39e40d8a876c29d38b5f66cb6f4003",
+        "meta.json": "6ce1430f928a3d7f7c37ffab10d409be74ddba6e0439a0c8a4935f3b8988697a"
+      },
+      "fixture_sha256": "ed560b2fda10f87629fb392977c3069f690d3bd21b2b43210fef5a85bcab7c6c",
+      "actions": 6,
+      "native_assertions": 88,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 4,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse876-20261122.json",
+      "input_sha256": "d672b4687a7b51874e9a6a0bd936992f959b200eec812500f8449e3d277abb19"
+    },
+    {
+      "slug": "card-emboldened-blade-blue-four-live-sparse876-destroys-real-opponent-facedown-defense-reaction",
+      "card_id": "emboldened_blade_blue",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "34d45fa4fb17d1e23addc413a38021c9e293120804c365442449626ac80c5e6f",
+        "actions.json": "5bf2475ed05161155a7ca8bb6b295d15305f4eb88d06c629421885109b1235f3",
+        "assertions.json": "5af26f087130446d1b8c91d1f8dc3ed1855a330ea9f40a6be00a876ddf586cb6",
+        "expected_final_gamestate.txt": "b42f9382b56b247661176ac583cf2cfa305ebee3bacfad2a89d196d64688a386",
+        "meta.json": "bed0f4756f5b3c7467d29257cbcaee1192824796cc95ce80314a2c03e4c77741"
+      },
+      "fixture_sha256": "3d72d2e014b626a41abc52ada31a36a80a08be775195b0ccf8d2bce4c5d71077",
+      "actions": 6,
+      "native_assertions": 83,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 4,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse876-20261122.json",
+      "input_sha256": "d672b4687a7b51874e9a6a0bd936992f959b200eec812500f8449e3d277abb19"
+    },
+    {
+      "slug": "card-dimenxxional-vortex-four-live-sparse876-hand-cast-makes-each-of-four-live-heroes-banish-real-arsenal",
+      "card_id": "dimenxxional_vortex",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "931a13571866296dcc1faf9cf7156f998285179160f0f08e50b0cef40f1e6018",
+        "actions.json": "bc98c9749f1be3b223d6c3d1e0b21c08975e2e732f00eacef90466fb14492763",
+        "assertions.json": "da356410f652784cbe3f5298be2c6739d2843d1ae2a2b163e12fa0e2c5710078",
+        "expected_final_gamestate.txt": "b6ac6a9b6dce943221fdbae9fc3d257a822d63b9bdb06dbc429e9f0cb6abc6bf",
+        "meta.json": "8f514e3be9c7e366f6ab4b776b18c7e82b039258a5d34cb728a85c8422860240"
+      },
+      "fixture_sha256": "4a39ed4201f68514dd412b1e72a846fd0297ee83fa9c601ec05bd3a7a2b1ae27",
+      "actions": 10,
+      "native_assertions": 108,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 4,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse876-20261122.json",
+      "input_sha256": "d672b4687a7b51874e9a6a0bd936992f959b200eec812500f8449e3d277abb19"
+    },
+    {
+      "slug": "card-evo-sentry-base-head-red-four-live-sparse876-real-base-head-transforms-into-owned-equipped-evo",
+      "card_id": "evo_sentry_base_head_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "81930cb08f8f3436e30489c0f4dd385545bc7cad51dad332d1c5780707c1cb92",
+        "actions.json": "c9e30c252fa7ee7dec5f8a364eea8e728c688845dd8df7f54427b2bc62c71d2d",
+        "assertions.json": "193a0ad0b3bad03db5ece87ca0a0e417930581088e385eea18c0b436e45e3e88",
+        "expected_final_gamestate.txt": "0d1b2930308e7e8a93d1565873deea50f36b8ad773a2e1844edd6f636f1a9caf",
+        "meta.json": "ec87a0a340029e57903287e61763a46154799df9d10e922806d1d7b5103e276e"
+      },
+      "fixture_sha256": "88347c98abdda4d026987b7684ef24abf093a371de4b72d86c27ce3948cb09ad",
+      "actions": 6,
+      "native_assertions": 86,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 4,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse876-20261122.json",
+      "input_sha256": "d672b4687a7b51874e9a6a0bd936992f959b200eec812500f8449e3d277abb19"
+    },
+    {
+      "slug": "card-evo-sentry-base-chest-red-four-live-sparse876-real-base-chest-transforms-into-owned-equipped-evo",
+      "card_id": "evo_sentry_base_chest_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "86d8c6c6dd2d36bef2ebb905c01e2eb4dd3ffc5e260b230ff159fa97916638d4",
+        "actions.json": "c9e30c252fa7ee7dec5f8a364eea8e728c688845dd8df7f54427b2bc62c71d2d",
+        "assertions.json": "766c2a713c0c1c8f63dc29a55c88e20880339cff6a176e93ee0ac5a8457e2db3",
+        "expected_final_gamestate.txt": "04292cb6d220114832e4311c6ff96d78d2486cb3d7ff676c8fe6c1885437ac32",
+        "meta.json": "c103601140c158a10fed809e96820799019829e96c9284e63d6839c83b6b1169"
+      },
+      "fixture_sha256": "82a7cba1dcbcc363caabe265e6c7984aca9de914cccc86d5ca714a3b391f4597",
+      "actions": 6,
+      "native_assertions": 86,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 4,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse876-20261122.json",
+      "input_sha256": "d672b4687a7b51874e9a6a0bd936992f959b200eec812500f8449e3d277abb19"
+    }
+  ],
+  "basis": {
+    "review_type": "independent_static_semantic_review",
+    "result": "approved_named_branches_only_pending_native_execution",
+    "spec_sha256": "d672b4687a7b51874e9a6a0bd936992f959b200eec812500f8449e3d277abb19",
+    "reviewed": [
+      {
+        "card": "become_the_shadow_lord_blue",
+        "branch": "banishes_real_shadow_runeblade_and_creates_both_reward_tokens"
+      },
+      {
+        "card": "dimenxxional_ferryman_blue",
+        "branch": "real_blood_debt_action_and_source_move_to_deck_bottom"
+      },
+      {
+        "card": "enshrine_sin_red",
+        "branch": "from_hand_opts_real_card_to_bottom_then_creates_runechant"
+      },
+      {
+        "card": "deadwood_dirge_red",
+        "branch": "destroys_real_owned_aura_and_creates_three_new_runechants"
+      },
+      {
+        "card": "chart_the_high_seas_blue",
+        "branch": "pitches_real_blue_top_card_and_yellow_remainder_creates_gold"
+      },
+      {
+        "card": "emboldened_blade_blue",
+        "branch": "destroys_real_opponent_facedown_defense_reaction"
+      },
+      {
+        "card": "dimenxxional_vortex",
+        "branch": "hand_cast_makes_each_of_four_live_heroes_banish_real_arsenal"
+      },
+      {
+        "card": "codex_of_bloodrot_yellow",
+        "branch": "four_heroes_make_own_hand_choices_then_owned_ponder_and_opposing_pox"
+      },
+      {
+        "card": "evo_sentry_base_head_red",
+        "branch": "real_base_head_transforms_into_owned_equipped_evo"
+      },
+      {
+        "card": "evo_sentry_base_chest_red",
+        "branch": "real_base_chest_transforms_into_owned_equipped_evo"
+      }
+    ],
+    "evidence": [
+      "Ten printed texts/costs/types and natural hero health20 checked against cached card metadata; source and real prerequisite/choice cards initially exist, with resources0/AP1 and no seeded payoff effects.",
+      "Blue pitch3 pays Vortex hand cost3 (residue0) and Evo cost2 (residue1). Ordinary Actions consume AP; printed go-again restores AP1 only for the seven go-again branches. Vortex/Evos end AP0.",
+      "Become banishes actual Shadow Runeblade Rift Bind and earns both tokens; Ferryman moves actual blood-debt Action and source behind existing deck card in one valid bottom order.",
+      "Enshrine from Hand costs0 and moves actual Opt1 top card below remaining deck before Runechant creation; no banished-zone surcharge claim.",
+      "Deadwood destroys real old aura UID6 then leaves exactly three new Runechants UID7/8/9, avoiding credit for merely retaining old aura. No prior nonattack seeds Viserai.",
+      "Chart stages real top two, pitches actual blue for3 resources, graves actual yellow for one Gold and preserves third deck card; Gravy ability not activated.",
+      "Emboldened destroys real previously facedown opposing Sink Below; printed turn-face-up helper statically confirmed but separately observable flip and weapon buff combat are excluded.",
+      "Vortex and Codex require each live hero own actual Arsenal/Hand choice, source remains stack until choices finish; final UIDs prove four actual banishes or facedown Arsenal transfers. Codex creates own Ponder and each opponent Pox, with owner/controller checks.",
+      "Evo Head/Chest use distinct real matching Proto bases; source UID5 ends equipped/owned/status2 and base becomes its SUBCARDS entry, consistent with native transform representation rather than preseeded outcome."
+    ],
+    "oracle_or_flow_errors": [],
+    "engine_concerns": [],
+    "limitations": [
+      "Read-only static semantic review; no execution, native tests, recordings or network performed. Parent verifies native replay and queue/object schema.",
+      "Approval limited to named physical branches; no pitch siblings, weapon-buff attack, Runechant/Gate combat, Blood Debt or token end-phase behavior, Gold activation, battleworn defense, banished-play cost/permission, negative conditional cases, empty choices or alternate Ferryman bottom order.",
+      "No independent observable assertion that Emboldened flipped before destruction; branch scope correctly reduced to destruction of real previously facedown defense reaction."
+    ],
+    "mutation_scope": "Only this independent-review.json written."
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse876-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "46f5e951e7e6b446029bbcc491ccee1ab8a7bdc920c1fcd4a60a1f259ffb809e"
+  },
+  "full_suite_run": false
+}

@@ -1,0 +1,83 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "independent breadth_review",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1204-20261122.json",
+  "source_spec_sha256": "09c6fce03ce61b92e0a461d9ad975c80dcfa9b353cb25d38589eb0ec88caaad6",
+  "input_sha256": "09c6fce03ce61b92e0a461d9ad975c80dcfa9b353cb25d38589eb0ec88caaad6",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-supercell-blue-four-live-sparse1204-real-declared-target-paid-x-one-adds-steam-and-creates-owned-driver",
+      "card_id": "supercell_blue",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "f91984954d32f069ec325f34e373d2d3ab1f3893b7dd0d1f2c08d19944f99fb1",
+        "actions.json": "c482c5e521af239447bc8ea769dde87a84a817946ec9c675fe6cc17c8ea8d346",
+        "assertions.json": "f43b3e2dd9b8e9102ef755f84a3ff9f9f12d0f847781934f8ae04b3b5c477f4d",
+        "expected_final_gamestate.txt": "cac3bb7fd5dc69615aef0fbf2fdf7dfc394d0367ae69254e486dd5b5e1cfd429",
+        "meta.json": "3c32f6d159653311fd9ccd96f8201e69890f16097a2cc8d38d129bcb745502e9"
+      },
+      "fixture_sha256": "d00313c32dd6e0db6e559672bca5ce84e2b4c2198eb2d840f31fb6d8ecd87281",
+      "actions": 8,
+      "native_assertions": 318,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 4,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1204-20261122.json",
+      "input_sha256": "09c6fce03ce61b92e0a461d9ad975c80dcfa9b353cb25d38589eb0ec88caaad6",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1204-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-supercell-blue-four-live-sparse1204-real-declared-target-paid-x-one-adds-steam-and-creates-owned-driver",
+        "fixture_slug": "card-supercell-blue-four-live-sparse1204-real-declared-target-paid-x-one-adds-steam-and-creates-owned-driver",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "reviewer": "independent breadth_review",
+    "spec_sha256": "09c6fce03ce61b92e0a461d9ad975c80dcfa9b353cb25d38589eb0ec88caaad6",
+    "case_count": 1,
+    "native_controls": 8,
+    "persistable_assertions": 318,
+    "author_only_checks_omitted": 0,
+    "card_id": "supercell_blue",
+    "group_id": "identity:supercell_blue",
+    "basis": [
+      "Exact frozen setup, native sequence and all318 checks reviewed. Legal young Dash20/threeDorinthea20; actual prior owned HyperDriverRed5Arena1STEAM2, primary6Hand1 and Blue7Hand1 are valid. Prior2steam is an admitted lawful post-use state, not an entry/Boost producer claim. Primary is unrepresented and both current ledgers checked.",
+      "Unlike unprepared SystemReset, exact Prepare12711/runner7e8950e054ba83d5545c declares X and real formal targets before assets. maxX is min(available X budget3,actual HyperDriver count1), so NUMBERCHOOSE0|1 and answer1 are correct. It stores sourceUID6/x/refs/chosen/target data across its awaits, offers exact MZMULTICHOOSE1|1|p1Arena-0, and captures that actual Driver UID5 before FinishPrepared.",
+      "HVYCards249-250 delegates this card to EVOSetX87. Printed cost has one X, so declared1 adds exactly1 to pending base0, stores actual evoX1 and does not charge a fixed extra component. All early changes are cost/target parameter declarations; old Driver remainsSTEAM2 and no token exists before payment/effect. Normal PITCH/native Hand0 Blue7 click actually yields3\u22121=R2 and AP1\u21920.",
+      "Four fresh live responders1,2,3,4 occur with old5STEAM2/onlyArena1 and physical6 held onStack. Exact Resolve7711/runnerbfef16c6f0a19e83d941 reads stored evoX and captured mstDriversUIDs, then calls MSTCards190 FaBMSTSupercell. It addsX1 to real owned Driver5 (2\u21923) and creates actual owned HyperDriver token8 withX1steam.",
+      "New token CardIDhyper_driver differs from the prior nonToken Red card and correctly has STEAM1/Owner1/Controller1/Status2. The helper explicitly queues an empty-driver ability only forX0; X1 does not earn the printed no-steam condition or allocate another layer. No Boost is performed, and neither card has Crank in this route; no other Hero/entry observer is present.",
+      "The higher-X optional Construct shuffle is guarded by ordinary resolver conditionX>=3 and is not entered atX1, so no shuffle/known entropy dependency is used. Managed plain-spell completion then moves source6 to ownedGY1 after actual counters/token creation. Final old5STEAM3/new8STEAM1, Blue7Pitch1/R2/AP0/allnaturalHP20/maxUID8/Stack0/DQs/otherzones empty are correct. All318 checks normalize to saved assertions with no author-only omissions or conflicting repeated checkpoint values."
+    ],
+    "source_sha256": {
+      "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+      "FaBSim/GeneratedCode/GeneratedMacroCode.php": "fe6a7982611df8f4de98ce2671b317b671b580146aa4b8c28e8f4b86d8461056",
+      "FaBSim/Custom/MSTCards.php": "cd98a9b734b984bfc19af7d0e4a3eebd5496f298d08c7c79d7f6d43c363513c7",
+      "FaBSim/Custom/HVYCards.php": "1387ecf0971fae9aa4bfb7bc99baec47a46e9c8770030884b722915eb87a31f1",
+      "FaBSim/Custom/EVOCards.php": "7e946cadb04817da7a0c0b17d94cf5a6bd03655adba07b714d39654329b54dbe",
+      "FaBSim/Custom/GameLogic.php": "c60fa151561f959e4e3e341b814de0e2b47c9e9f153bbc8793a04c43b5075061"
+    },
+    "source_note_sha256": "4d8a30ecfc019840412c5eca3a41e53012e87448f647cea5b03bef236ca12dfd",
+    "limits": [
+      "Pending Root native recording, saved-assertion mapping and targeted replay; no execution success claimed here.",
+      "Only paidX1/one actual own HyperDriver target, its positive counter increase and exact one-steam token creation. NoX0/empty-driver destruction, otherX/target failure, Boost/Crank, higher-X optional shuffle, expiry/repeat, prior item entry/young Dash setup, Hero/support-group or whole-card credit.",
+      "No engine/framework/source changes or general X-cost repair claim. SystemReset remains independently deferred; known099/094/Close/entry-counter and other held routes remain untouched. This narrow route does not certify transient-entry observer timing beyond the asserted completed outcomes."
+    ]
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1204-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "80e1ff57e7f1376ef1bfbd01ca45f2d7087c4d2dcb191040d9d53323c68a65bc"
+  },
+  "full_suite_run": false
+}

@@ -1,0 +1,7 @@
+{
+    "name": "hatchet_of_mind repair / false and true WHEN response layers with actual two then three damage",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-25T18:44:18+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Four manual live young heroes. Native Potions7/8 each fund2, HitAndRun9 costs0 and refunds ownAction then grants only nextweaponGA (no priorweapon so no+3). Firstaxe5/proxy12 earns separate false-payload WHEN13: fourfreshresponses before ATTACK, still2power and deals2HP20to18, GArefundAP1 atClose. Secondaxe6/proxy14 earns true-payload WHEN15, remains2/noearlybuff through allfourfreshresponses, then physical6 gainsWTR_POWER1, proxy3/noGA, deals3HP18to15, CloseAP0/R2. Body/Mind inverse pair proves both bonuses; no earlyeffect, duplicate payout, support primary credit or newgroupcredit. Source epoch/crossactor history are component checks only; copied/later-renamed native interactions not certified. Sources: FaBSim/GeneratedCode/cardArrayCache.json#hatchet_of_mind FaBSim/GeneratedCode/cardArrayCache.json#hit_and_run_red FaBSim/Custom/GameLogic.php FaBSim/Custom/MONCards.php FaBSim/Custom/ROSCards.php https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/"
+}

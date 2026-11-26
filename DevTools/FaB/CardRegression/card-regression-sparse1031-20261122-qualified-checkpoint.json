@@ -1,0 +1,68 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-23T02:30:02.373439+00:00",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1031-20261122.json",
+  "source_spec_sha256": "d7ba669513bef72e0d26be178659a8c0f2756b511e1f10f457f3fe8dacbf9d34",
+  "new_scenarios": 1,
+  "new_groups": 1,
+  "new_primary_ids": 1,
+  "actions": 35,
+  "native_assertions": 257,
+  "manual_passes": 29,
+  "totals": {
+    "saved_registered_scenarios": 4793,
+    "duels": 3075,
+    "four_live": 1718,
+    "recorded_primary_ids": 1941,
+    "identity_denominator": 5196,
+    "recorded_groups": 1815,
+    "group_denominator": 3324,
+    "four_live_groups": 1707,
+    "phase_qualified_scenarios_at_actual_contexts": 1430,
+    "phase_qualified_unique_groups": 1420,
+    "creation_replay_passes": 2172,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 591,
+  "scenarios": [
+    {
+      "card_id": "double_down_red",
+      "group_id": "identity:double_down_red",
+      "scenario_id": "card-double-down-red-four-live-sparse1031-real-two-cost-nonwager-sword-no-power-or-overpower",
+      "effect_branches": [
+        "actual_two_resource_payment_no_gold_nonwager_sword_no_bonus_or_overpower"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-double-down-red-four-live-sparse1031-real-two-cost-nonwager-sword-no-power-or-overpower",
+      "source_spec": "card-regression-sparse1031-20261122.json",
+      "source_spec_sha256": "d7ba669513bef72e0d26be178659a8c0f2756b511e1f10f457f3fe8dacbf9d34",
+      "review_evidence": "review-evidence/sparse1031-20261122-qualified-saved.json",
+      "review_evidence_sha256": "cdd4da6e9edf4efb1f9cd6e8c664f6fc37657cce6518740d40b56d25b2cdb9cb",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1031-20261122-replay.json",
+          "sha256": "eb339f461b6576ff0917f9edc1f38f066b090a61f713e677aa7abe62e5d741ae",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-arakni-marionette-two-live-sparse1449-real-stealth-hit-on-unmarked-hero-has-no-marked-power-or-go-again",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-arakni-marionette-two-live-sparse1449-real-stealth-hit-on-unmarked-hero-has-no-marked-power-or-go-again",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1449-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1449-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "0ca884ba68a173ac402952a8ee05807226c6379edc73e125325edef5c4e13672",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "50b6e64b1ac63f36be5268e23a10b38e92b9589ebaafd8938193385117a68947",
+        "actions.json": "e787ff08bfbdffa26852ab0b654bd450f09573416d1bcd3f5d651794d40632f7",
+        "assertions.json": "29a1f80d639de5bbcdf9d656e343f30ac1ec76796e7d3bb847de52ba3c19d02a",
+        "expected_final_gamestate.txt": "77cb5bafece85bf554283459db77f3a154e577c86bb80c0545aa75459ed3fff7",
+        "meta.json": "656aa457a93cf5dd658ed66fefaa5a5156dd264b2eaa3c3cf210f58999ced8e3"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

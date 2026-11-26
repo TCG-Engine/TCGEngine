@@ -1,0 +1,376 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-22T05:08:19.466793+00:00",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse874-20261122.json",
+  "source_spec_sha256": "fe9cc0cedad5d51dd9d32cd87c131a116f7e605657dedda2b342c4916ebb3ba3",
+  "new_scenarios": 10,
+  "new_groups": 10,
+  "new_primary_ids": 10,
+  "actions": 68,
+  "native_assertions": 917,
+  "manual_passes": 40,
+  "totals": {
+    "saved_registered_scenarios": 4212,
+    "duels": 3075,
+    "four_live": 1137,
+    "recorded_primary_ids": 1360,
+    "identity_denominator": 5196,
+    "recorded_groups": 1234,
+    "group_denominator": 3324,
+    "four_live_groups": 1126,
+    "phase_qualified_scenarios_at_actual_contexts": 849,
+    "phase_qualified_unique_groups": 839,
+    "creation_replay_passes": 1590,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 10,
+  "scenarios": [
+    {
+      "card_id": "sap_red",
+      "group_id": "pitch-cycle:sap",
+      "scenario_id": "card-sap-red-four-live-sparse874-three-arcane-without-surge-preserves-energy-counter",
+      "effect_branches": [
+        "three_arcane_without_surge_preserves_energy_counter"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-sap-red-four-live-sparse874-three-arcane-without-surge-preserves-energy-counter",
+      "source_spec": "card-regression-sparse874-20261122.json",
+      "source_spec_sha256": "fe9cc0cedad5d51dd9d32cd87c131a116f7e605657dedda2b342c4916ebb3ba3",
+      "review_evidence": "review-evidence/sparse874-20261122-qualified-saved.json",
+      "review_evidence_sha256": "7afa781381dd3c75a94ec0688f55c5508a3ed1468701149cd078ef31cc85c0a7",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse874-20261122-replay.json",
+          "sha256": "9ec6c366010cab550b06bf884a0c66b9be592f79901fa7ac74ca153797d16010",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "mind_warp_yellow",
+      "group_id": "identity:mind_warp_yellow",
+      "scenario_id": "card-mind-warp-yellow-four-live-sparse874-two-arcane-without-surge-preserves-actual-hand",
+      "effect_branches": [
+        "two_arcane_without_surge_preserves_actual_hand"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-mind-warp-yellow-four-live-sparse874-two-arcane-without-surge-preserves-actual-hand",
+      "source_spec": "card-regression-sparse874-20261122.json",
+      "source_spec_sha256": "fe9cc0cedad5d51dd9d32cd87c131a116f7e605657dedda2b342c4916ebb3ba3",
+      "review_evidence": "review-evidence/sparse874-20261122-qualified-saved.json",
+      "review_evidence_sha256": "7afa781381dd3c75a94ec0688f55c5508a3ed1468701149cd078ef31cc85c0a7",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse874-20261122-replay.json",
+          "sha256": "9ec6c366010cab550b06bf884a0c66b9be592f79901fa7ac74ca153797d16010",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "destructive_aethertide_blue",
+      "group_id": "identity:destructive_aethertide_blue",
+      "scenario_id": "card-destructive-aethertide-blue-four-live-sparse874-one-arcane-without-surge-preserves-actual-arsenal",
+      "effect_branches": [
+        "one_arcane_without_surge_preserves_actual_arsenal"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-destructive-aethertide-blue-four-live-sparse874-one-arcane-without-surge-preserves-actual-arsenal",
+      "source_spec": "card-regression-sparse874-20261122.json",
+      "source_spec_sha256": "fe9cc0cedad5d51dd9d32cd87c131a116f7e605657dedda2b342c4916ebb3ba3",
+      "review_evidence": "review-evidence/sparse874-20261122-qualified-saved.json",
+      "review_evidence_sha256": "7afa781381dd3c75a94ec0688f55c5508a3ed1468701149cd078ef31cc85c0a7",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse874-20261122-replay.json",
+          "sha256": "9ec6c366010cab550b06bf884a0c66b9be592f79901fa7ac74ca153797d16010",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "glyph_power_spell_red",
+      "group_id": "identity:glyph_power_spell_red",
+      "scenario_id": "card-glyph-power-spell-red-four-live-sparse874-real-sigil-condition-and-blue-pitch-pay-for-six-arcane",
+      "effect_branches": [
+        "real_sigil_condition_and_blue_pitch_pay_for_six_arcane"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-glyph-power-spell-red-four-live-sparse874-real-sigil-condition-and-blue-pitch-pay-for-six-arcane",
+      "source_spec": "card-regression-sparse874-20261122.json",
+      "source_spec_sha256": "fe9cc0cedad5d51dd9d32cd87c131a116f7e605657dedda2b342c4916ebb3ba3",
+      "review_evidence": "review-evidence/sparse874-20261122-qualified-saved.json",
+      "review_evidence_sha256": "7afa781381dd3c75a94ec0688f55c5508a3ed1468701149cd078ef31cc85c0a7",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse874-20261122-replay.json",
+          "sha256": "9ec6c366010cab550b06bf884a0c66b9be592f79901fa7ac74ca153797d16010",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "foreboding_bolt_red",
+      "group_id": "pitch-cycle:foreboding_bolt",
+      "scenario_id": "card-foreboding-bolt-red-four-live-sparse874-three-arcane-then-actual-opt-one-bottom",
+      "effect_branches": [
+        "three_arcane_then_actual_opt_one_bottom"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-foreboding-bolt-red-four-live-sparse874-three-arcane-then-actual-opt-one-bottom",
+      "source_spec": "card-regression-sparse874-20261122.json",
+      "source_spec_sha256": "fe9cc0cedad5d51dd9d32cd87c131a116f7e605657dedda2b342c4916ebb3ba3",
+      "review_evidence": "review-evidence/sparse874-20261122-qualified-saved.json",
+      "review_evidence_sha256": "7afa781381dd3c75a94ec0688f55c5508a3ed1468701149cd078ef31cc85c0a7",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse874-20261122-replay.json",
+          "sha256": "9ec6c366010cab550b06bf884a0c66b9be592f79901fa7ac74ca153797d16010",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "call_to_the_grave_blue",
+      "group_id": "identity:call_to_the_grave_blue",
+      "scenario_id": "card-call-to-the-grave-blue-four-live-sparse874-choose-real-deck-card-to-graveyard-then-shuffle-and-go-again",
+      "effect_branches": [
+        "choose_real_deck_card_to_graveyard_then_shuffle_and_go_again"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-call-to-the-grave-blue-four-live-sparse874-choose-real-deck-card-to-graveyard-then-shuffle-and-go-again",
+      "source_spec": "card-regression-sparse874-20261122.json",
+      "source_spec_sha256": "fe9cc0cedad5d51dd9d32cd87c131a116f7e605657dedda2b342c4916ebb3ba3",
+      "review_evidence": "review-evidence/sparse874-20261122-qualified-saved.json",
+      "review_evidence_sha256": "7afa781381dd3c75a94ec0688f55c5508a3ed1468701149cd078ef31cc85c0a7",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse874-20261122-replay.json",
+          "sha256": "9ec6c366010cab550b06bf884a0c66b9be592f79901fa7ac74ca153797d16010",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "soul_food_yellow",
+      "group_id": "identity:soul_food_yellow",
+      "scenario_id": "card-soul-food-yellow-four-live-sparse874-moves-itself-and-both-real-hand-cards-to-soul",
+      "effect_branches": [
+        "moves_itself_and_both_real_hand_cards_to_soul"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-soul-food-yellow-four-live-sparse874-moves-itself-and-both-real-hand-cards-to-soul",
+      "source_spec": "card-regression-sparse874-20261122.json",
+      "source_spec_sha256": "fe9cc0cedad5d51dd9d32cd87c131a116f7e605657dedda2b342c4916ebb3ba3",
+      "review_evidence": "review-evidence/sparse874-20261122-qualified-saved.json",
+      "review_evidence_sha256": "7afa781381dd3c75a94ec0688f55c5508a3ed1468701149cd078ef31cc85c0a7",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse874-20261122-replay.json",
+          "sha256": "9ec6c366010cab550b06bf884a0c66b9be592f79901fa7ac74ca153797d16010",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "cog_in_the_machine_red",
+      "group_id": "identity:cog_in_the_machine_red",
+      "scenario_id": "card-cog-in-the-machine-red-four-live-sparse874-creates-two-owned-cogs-then-real-tap-puts-source-on-deck-bottom",
+      "effect_branches": [
+        "creates_two_owned_cogs_then_real_tap_puts_source_on_deck_bottom"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-cog-in-the-machine-red-four-live-sparse874-creates-two-owned-cogs-then-real-tap-puts-source-on-deck-bottom",
+      "source_spec": "card-regression-sparse874-20261122.json",
+      "source_spec_sha256": "fe9cc0cedad5d51dd9d32cd87c131a116f7e605657dedda2b342c4916ebb3ba3",
+      "review_evidence": "review-evidence/sparse874-20261122-qualified-saved.json",
+      "review_evidence_sha256": "7afa781381dd3c75a94ec0688f55c5508a3ed1468701149cd078ef31cc85c0a7",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse874-20261122-replay.json",
+          "sha256": "9ec6c366010cab550b06bf884a0c66b9be592f79901fa7ac74ca153797d16010",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "cogwerx_workshop_blue",
+      "group_id": "identity:cogwerx_workshop_blue",
+      "scenario_id": "card-cogwerx-workshop-blue-four-live-sparse874-creates-golden-cog-and-adds-steam-to-two-real-cogs",
+      "effect_branches": [
+        "creates_golden_cog_and_adds_steam_to_two_real_cogs"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-cogwerx-workshop-blue-four-live-sparse874-creates-golden-cog-and-adds-steam-to-two-real-cogs",
+      "source_spec": "card-regression-sparse874-20261122.json",
+      "source_spec_sha256": "fe9cc0cedad5d51dd9d32cd87c131a116f7e605657dedda2b342c4916ebb3ba3",
+      "review_evidence": "review-evidence/sparse874-20261122-qualified-saved.json",
+      "review_evidence_sha256": "7afa781381dd3c75a94ec0688f55c5508a3ed1468701149cd078ef31cc85c0a7",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse874-20261122-replay.json",
+          "sha256": "9ec6c366010cab550b06bf884a0c66b9be592f79901fa7ac74ca153797d16010",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "index_red",
+      "group_id": "pitch-cycle:index",
+      "scenario_id": "card-index-red-four-live-sparse874-chooses-one-of-five-then-orders-remaining-four-on-bottom",
+      "effect_branches": [
+        "chooses_one_of_five_then_orders_remaining_four_on_bottom"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-index-red-four-live-sparse874-chooses-one-of-five-then-orders-remaining-four-on-bottom",
+      "source_spec": "card-regression-sparse874-20261122.json",
+      "source_spec_sha256": "fe9cc0cedad5d51dd9d32cd87c131a116f7e605657dedda2b342c4916ebb3ba3",
+      "review_evidence": "review-evidence/sparse874-20261122-qualified-saved.json",
+      "review_evidence_sha256": "7afa781381dd3c75a94ec0688f55c5508a3ed1468701149cd078ef31cc85c0a7",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse874-20261122-replay.json",
+          "sha256": "9ec6c366010cab550b06bf884a0c66b9be592f79901fa7ac74ca153797d16010",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": [],
+  "publication_state": "LOCAL_UNCOMMITTED_NOT_PUSHED",
+  "baseline_head": "aa67228188d97c1437e4785e471fc44daece8f17",
+  "independent_review_scope": "One local printed-text/source-spec batch review and targeted flow delta review; Root exact saved mapping and clean replay; no redundant independent saved pass.",
+  "source_or_framework_changed": false,
+  "search_input_amendment": {
+    "utc": "2026-11-22T14:34:19.012757+00:00",
+    "affected_slug": "card-call-to-the-grave-blue-four-live-sparse874-choose-real-deck-card-to-graveyard-then-shuffle-and-go-again",
+    "independent_delta_review": {
+      "review_type": "independent_static_search_input_delta_review",
+      "result": "approved_reduced_inputs_pending_targeted_requalification",
+      "spec_sha256": "6ce8967f8b3deaa78c2796e285b068a63996dcd60bc545951b01f61baaf76ad6",
+      "batch878_spec_sha256": "37900f02ce9e28b52dcf511525e705c95f04a50a792f3c53e155b0bef368efd6",
+      "reviewed": [
+        "call_to_the_grave_blue",
+        "lesson_in_lava_yellow",
+        "look_within_blue",
+        "phoenix_bannerman_arms_red",
+        "phoenix_bannerman_chest_red",
+        "phoenix_bannerman_head_red",
+        "phoenix_bannerman_legs_red",
+        "ominous_excavation_blue"
+      ],
+      "evidence": [
+        "Compared four amended specs with manifest source-spec backups and four changed B878 specs with 878-before.json. Each loses exactly one irrelevant initial Deck card. Native actions and all unrelated top-level fields remain unchanged; assertion deltas only reduce corresponding staged/deck counts and remove deleted filler existence checks.",
+        "Call to Grave retains two real selectable cards and chooses second to graveyard, leaving actual first card in deck. Source/selected UID and go-again checks remain.",
+        "Lesson and Look Within retain real ineligible first card plus eligible actual middeck Wizard/Chi, preserving eligibility discrimination and causal middeck-to-top outcomes.",
+        "Four Bannerman variants retain actual middeck Flame and one non-Flame, preserving eligible search, hand movement and correct distinct token outcomes.",
+        "Ominous retains actual graveyard Instant, moves it to initially empty real deck(count1/existence), preserves AP and requires no false Ponder; only irrelevant initial deck filler removed.",
+        "Twenty raw fixture backup hashes independently checked against manifest; all20 match.",
+        "Read-only RNG source confirms strong-entropy EngineShuffle uses random_int; reducing irrelevant remainders makes final fixture observations stable without changing runtime behavior."
+      ],
+      "oracle_or_flow_errors": [],
+      "engine_concerns": [
+        "Native multi-card strong-entropy shuffle remains outside deterministic snapshot certification; this amendment does not repair or certify it."
+      ],
+      "limitations": [
+        "No game execution, native tests, source edits, recordings or network performed.",
+        "Only named physical search/movement branches approved. No shuffle randomness/distribution or reveal observability claim.",
+        "Prior B874 Call and B875 Lesson require targeted requalification; this static review adds no coverage count. Other affected cases remain subject to actual record/replay results.",
+        "All prior named-branch exclusions remain, including token timing, later combat/buffs and alternate selections."
+      ],
+      "mutation_scope": "Only this independent-review.json written; original fixture backups preserved."
+    },
+    "backup_manifest": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\search-replay-boundary-20261122\\manifest.json",
+    "backup_manifest_sha256": "354a16caa8ca1277cb10105f3c7748b0456600001827e3655e5851f9ebd3f0f6",
+    "limits": "Search movement/eligibility, not shuffle-randomness certification. Unchanged nine fixtures/replays reused."
+  }
+}

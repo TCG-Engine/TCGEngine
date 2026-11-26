@@ -1,0 +1,56 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-abyssal-rush-blue-four-live-sparse1033-printed-banish-permission-real-cost-and-go-again",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-abyssal-rush-blue-four-live-sparse1033-printed-banish-permission-real-cost-and-go-again",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1033-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1033-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "3c148b7ef62e823a6eff0a331b81bc01867fa67f3cc3ac0afd9939ce14849bc5",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "80aa4ce572b367e5d1d3beb445451725f4e6f3bc8c8b8b2dafdf2afbbff3ecc8",
+        "actions.json": "771d77e6cbbe083a33526650e17dc264cefe7b6c278e68ad02aa51c632c2736d",
+        "assertions.json": "969cbeebf519cffd11dded94ee3e6fe19d917a52bd6ec3ac639127f4813b57ec",
+        "expected_final_gamestate.txt": "00226c5b50c6ad20fac99f768d86d33bad07cbcb80b9260efd0b80b304c2fcc3",
+        "meta.json": "0054b8b79c156e407b2674cf092d8ce7caea7f0f4d02dfd0d848fdf8392ef2e6"
+      }
+    },
+    {
+      "slug": "card-sense-weakness-blue-four-live-sparse1033-real-guardian-plus-one-dominate-rejects-second-hand-exact-block",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-sense-weakness-blue-four-live-sparse1033-real-guardian-plus-one-dominate-rejects-second-hand-exact-block",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1033-local-20261122\\clean-replays\\01.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1033-local-20261122\\clean-replays\\01.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "6b399f38c70d9c98d6d16454cf606c3bda70b538cc067acd3fd29e90cdb5631d",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "45f860bb87b1ef47ca8171300a821bd515506c05748a51200a9e3160aac6c506",
+        "actions.json": "23b30ade90f20961aceb4b301aee52d34ca72f8c3b5d09d4b03d54ce816617e9",
+        "assertions.json": "2d78a7b426b325b48916805b0f59802724e253d12b8af6a3c33bf59c8d333fe1",
+        "expected_final_gamestate.txt": "34ed672d657eda57f959656a434dcecf805680992fc64df74c3ae2703a397bfa",
+        "meta.json": "dd4488c56b3fb9f618870b55950612669ed68e7c9430c0b74db24bf57cc2ac93"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

@@ -1,0 +1,104 @@
+{
+  "status": "SAVED_APPROVED_INDEPENDENT_FOUR_LIVE_ACT_R4_ZERO_SEPARATE_LEAVE_REAL_EIGHT_DAMAGE",
+  "phase": "SAVED",
+  "batch": 826,
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer": "/root/ebbing_recovery_review",
+  "reviewer_independent": true,
+  "created_utc": "2026-11-15T20:01:12.221812+00:00",
+  "runtime_sha256": "a11fb2abaf062a707ad2c9372bf41321fcde25d5fe32a99bf55a1b4d2bae4223",
+  "source_spec": "card-regression-batch826-act-real-zero-leave-consumer-positive-r4.json",
+  "input_sha256": "07e46a2bad961d4c2b2f223cd5e5a8731a202ad6c1ddae105420e742f676f61d",
+  "manifest_sha256": "92fe6b677efae713978da12dbc7cb1c9ab8854f3313bf352a65041d133819b78",
+  "independent_positive_Source": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-batch826-act-r4-independent-normal-positive-source-review.json",
+    "sha256": "093d82e74e92ff789b8fffe15405d21da76713e9ea4880f00856e3b368fd2e27"
+  },
+  "root_native_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-b826-act-r4-positive-native-save-a11\\receipt.json",
+    "sha256": "e8b473e33c61b3283028f9308e55a69ca94ec83f99f01b8ad28e3d6ad8376b30"
+  },
+  "actual_result": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch826-act-real-zero-leave-consumer-positive-r4.recording-results.json",
+    "sha256": "f012824def30cbd0b39687cb37029e13964afa8c82b38fe76816fcfa8e01df48"
+  },
+  "actual_immutable_archive": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch826-act-real-zero-leave-consumer-positive-r4-20261115T195722Z-6afa0ea279f3e.json",
+    "sha256": "5044e95a54de737077d4eaa289b74ac68b901abd9011f509363959b665841c50"
+  },
+  "fixtures": [
+    {
+      "card_id": "act_of_glory_blue",
+      "slug": "card-act-of-glory-blue-four-live-real-zero-leave-and-eight-damage-consumer",
+      "actions": 41,
+      "native_assertions": 4609,
+      "manual_passes": 37,
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "bf38caa87238416a38dcffb02ee22210b3c82d6555d754e3b54ff141713766ae",
+        "actions.json": "8e55ad0ca5aeb86a6d46859de5b88ccaab775b9f59108c70f128369e0c3ebf7e",
+        "assertions.json": "a6f8114fc20e9925b55e741e199fd7bd6fc2ab938bf480a1a89333f265c1d8c8",
+        "expected_final_gamestate.txt": "6edc0311ba3ab284ea3e133df3b806905a17859b8790f300f2eb0d0768115fef",
+        "meta.json": "1e0ed950f2dbd0f7ef7fd6df67326802b385b3e9ba4b68f9bdd82b1b0c13b1ee"
+      },
+      "fixture_sha256": "e83dd23145d1f0c37e8dbf7d4636d552e18e92b78b4fbc04370db2d6a9f5a2ba",
+      "input_sha256": "07e46a2bad961d4c2b2f223cd5e5a8731a202ad6c1ddae105420e742f676f61d",
+      "runtime_sha256": "a11fb2abaf062a707ad2c9372bf41321fcde25d5fe32a99bf55a1b4d2bae4223",
+      "recorded_runtime_sha256": "a11fb2abaf062a707ad2c9372bf41321fcde25d5fe32a99bf55a1b4d2bae4223",
+      "actual_manual_actor_counts": {
+        "1": 9,
+        "2": 9,
+        "3": 9,
+        "4": 10
+      },
+      "initial_raw_48_manual_controls": true,
+      "final_raw_48_manual_controls": true,
+      "genuine_four_live_manual_seats": true,
+      "initial_queries_independently_evaluated": 127,
+      "terminal_queries_independently_evaluated": 222,
+      "expected_original_41_controls_4609_queries_unchanged": true,
+      "native_fault_credit": 0,
+      "scope": "Exact Blue pre-existing one-counter zero/leave and real8damage consumer only; no own cast/entry/startphase/pitch-sibling/general-layer-order coverage."
+    }
+  ],
+  "full_saved_action_and_query_order_matched": true,
+  "all_4609_native_queries_semantically_reviewed_against_approved_R4_source": true,
+  "all_41_saved_native_envelopes_and_manual_actors_matched": true,
+  "checkpoint_count": 43,
+  "typed_property_queries": 814,
+  "source_guard_count": 82,
+  "selected_support_guard_count": 21,
+  "actual_initial_and_final_raw_schema_fully_consumed": true,
+  "initial_and_final_raw_manual_shortcut_checks": 96,
+  "sibling_native_coverage": false,
+  "saved_review_only_not_replay_certificate": true,
+  "two_new_only_clean_replays_required": true,
+  "confirmed_gameplay_bug": false,
+  "source_fix": false,
+  "full_suite_run": false,
+  "historical_corpus_replay": false,
+  "PHP_native_network_executed_by_reviewer": false,
+  "R_writes_by_reviewer": false,
+  "B787_denied_operation_untouched": true,
+  "review_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov15_batch826_actual_saved.py",
+    "sha256": "92b7f4658b854e16ebf13b2380a3f74d618a6806d698a192e5780c980d7da73b"
+  },
+  "reused_pure_parser_source": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov15_batch824_actual_saved.py",
+    "sha256": "e91764c206e187ff9f80bb4a39b705aa97abdf186777c4451832c34b8eddb97f"
+  },
+  "semantic_witnesses": [
+    "Actual41Native envelopes and4609ordered assertions exactly match approvedR4Source. All37manual inputs are persisted:9each seats1/2/3 and10seat4 including formaldefendfinish; no pass_until hides more inputs.",
+    "ActualHero1 click and choice pay physicalAct6 SUSP1tozero[] and tapHero beforepriority; originalABILITY7/zero8 are separate. Fourzero responses physicallydestroy6toGY and createleave9withnoSUP_NEXT. Fourleave responses then addSUP_NEXT4; separatefourresponses finish originalHero7withouteligibleAura orrefund.",
+    "Exact source-derived history arrays are verified through actual persistedqueries: EVR_ACTIVATED/DTD_HERO_USED/EVR_GRAVEYARD/SEA_BLUE_GRAVE; next4appears onlyafterleavecompletion and remains through formalattacktargetrequest, then realRed5consumesit onceasWTR_POWER:4. No OMN turnEffects row or separate OMN-counter coverage is claimed.",
+    "ActualformalHero4target, Red5source and allAttack/Defend/Reaction/Damage/Resolution windows give power8/noGA and physicalHP4=12. Rawfinal independently shows sameAct6andRed5publicGY1, Hero1tapped/RAP0, fourlivingYoung/UPF/manual, no Stack/queues/await/combat. All127initial and222terminal semanticqueries independently evaluatedonraw endpoints."
+  ],
+  "limitations": [
+    "Savedreview is not a replaycertificate. Two separate new-only clean replays and Rootregistration remain qualification gates.",
+    "Only Blue pre-existing one-counter/zero/leave/real consumer. Owncast4/entry2/startphase/replenishment/otherlisteners/control/suppression/generalvirtualdeletionorder/heroCrowd/fullcard/nativepitchsiblings remain untested.",
+    "R2 stopped on wrongzero-wire oracle; its immutablefailure is retained and not counted as gameplaybug or passingcoverage. R3wasunapproved/unexecuted. R4 source-derived protocol corrections preserved all gameplayassertions.",
+    "Read-only W validator narrowly decodes native array TurnEffects wire and Counters JSON from schema. It changes no native query, rawfixture, or runtime. No nativefault/fullsuite/historicalcorpus credit."
+  ]
+}

@@ -1,0 +1,7 @@
+{
+    "name": "Fight Dirty / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T20:40:56+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "If this is defended by a Revered card, this gets +1{p}.\n\nWhen this hits a Revered hero, destroy the top card of their deck. Representative only: lyath_base_four_against_non_revered_hero_keeps_real_deck. Actual printed payment, four manual live seats/full unblocked combat, real health loss and physical owned source in graveyard. No positive typed-hit/Combo/Draconic threshold or pitch sibling credit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#fight_dirty_red"
+}

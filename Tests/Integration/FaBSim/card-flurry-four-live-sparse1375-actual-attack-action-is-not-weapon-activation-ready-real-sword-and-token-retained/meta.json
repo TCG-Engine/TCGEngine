@@ -1,0 +1,7 @@
+{
+    "name": "Flurry / attack action is not the qualifying event",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-24T12:20:59+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "FOUR_REAL_MANUAL_UPF_NATURAL_FOURDORI20. RealTokenflurry8Arena1ownedreadyinitialpositiononly/no creationprovenance. ActualGenericCriticalRed5AAcost1paidCriticalBlue6pitch3/R2/AP0/base5/noGA/native5damageHP4=15. RealreadyDawnblade9Weapons1eligiblefutureweaponexistsbutcurrenteventisAAplay/attacknotweaponactivation. BoltynCardsWeapongaterequiredforFlurry; noearnedWHEN/destruction/weaponextraattack. Token8andSword9sameownedUID/status2/CountersEffects[]throughfullclose. Allfourmanualresponses/fullclose5GY1/6Pitch1/FDArsenal7same/Token8same/asset9same/UID9RNG0/ownHP20/R2/AP0/StackDQquiet. Onlynonqualifyingactionkind/nativefunding/damage/noGA/fates/consumer guard. Positiveweaponactivation/NAAplay/earnedWHEN/timing/destruction/GA/extraweaponattack/creation/support/fullcarduncredited. Sources: FaBSim/GeneratedCode/cardArrayCache.json#flurry FaBSim/GeneratedCode/GeneratedMacroCode.php FaBSim/Custom/GameLogic.php FaBSim/Custom/BoltynCards.php FaBSim/Custom/DTDRuntime.php FaBSim/Custom/WTRCards.php FaBSim/Custom/ARCCards.php"
+}

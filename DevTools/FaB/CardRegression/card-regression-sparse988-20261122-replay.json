@@ -1,0 +1,102 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-turn-timber-red-four-live-sparse988-unfused-real-blue-payment-six-defense-one-damage",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-turn-timber-red-four-live-sparse988-unfused-real-blue-payment-six-defense-one-damage",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse988-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse988-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "50d76107b2d1cfa0e8f48b3469025d5e8df2c75ada9dbc86c7ae0fb016ab43a2",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "e94d64b8eb439b26114c175fff4407ebb935dd134c59c6c0c9b430df258a151f",
+        "actions.json": "ebc372d17953d501be58ca3614769b44127b225021b6de8d5af1a3045ce3a44a",
+        "assertions.json": "2c372a0715858b87efcfbfa00d170b9080ad9a11ba95fe32aad6a76e4f478abe",
+        "expected_final_gamestate.txt": "2ab4f5614f25713c0695e3ed00b593344e42d25229c1c4a1eee4d7b75b24194b",
+        "meta.json": "b1c4585772ab4b2cfb5d447518ac2290a1ebaa47469fb656af635e882160faff"
+      }
+    },
+    {
+      "slug": "card-golden-company-red-four-live-sparse988-normal-resource-payment-without-gold-six-defense-one-damage",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-golden-company-red-four-live-sparse988-normal-resource-payment-without-gold-six-defense-one-damage",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse988-local-20261122\\clean-replays\\01.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse988-local-20261122\\clean-replays\\01.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "1d805b5d7ce5446475b3ad06c2ef7c7988f9bee780a8c50ff355690c88a28de4",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "cec64e2884daa136e084c9caa2316b343ffed8e1822678ad2ca7ebbe6545940d",
+        "actions.json": "ebc372d17953d501be58ca3614769b44127b225021b6de8d5af1a3045ce3a44a",
+        "assertions.json": "39085ad76c4f08863cd315c9edfa68a28473db542659d71f852a12ecb222ed58",
+        "expected_final_gamestate.txt": "b25961a880e89dc2486cc6401b91c014f33769b593356094f9ffb4276aff87ac",
+        "meta.json": "8c4a9eac786a1fd6a9e7070bcd8a0fcb67627b34888febbca86f9a15b868f23a"
+      }
+    },
+    {
+      "slug": "card-sigil-of-parapets-blue-four-live-sparse988-own-cast-before-defending-base-two-no-later-wizard-play",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-sigil-of-parapets-blue-four-live-sparse988-own-cast-before-defending-base-two-no-later-wizard-play",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse988-local-20261122\\clean-replays\\02.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse988-local-20261122\\clean-replays\\02.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "dec36b39f2a1aad7066c4b4ec8f95498fd1e6223f5f82f813fe5e0508bf8b3ec",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "5b6275d6895c5a5db36436ce73480ceb6fe02e80a8ab105164376d8dc995c5f3",
+        "actions.json": "ebc372d17953d501be58ca3614769b44127b225021b6de8d5af1a3045ce3a44a",
+        "assertions.json": "ef6e7316ed73d0b65eaf898e39732ca40f9542cd02293c477062f4d7db25524d",
+        "expected_final_gamestate.txt": "ea20fe3aefb2d3f3576d311c942adffa396f59a454d7b216065197eb755b9a86",
+        "meta.json": "08aac95e04f9a19a91b6aeaa76137a107961c345a51d282776ced9902d436eab"
+      }
+    },
+    {
+      "slug": "card-loyalty-beyond-the-grave-red-four-live-sparse988-actual-arsenal-reaction-base-three-no-future-start-step",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-loyalty-beyond-the-grave-red-four-live-sparse988-actual-arsenal-reaction-base-three-no-future-start-step",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse988-local-20261122\\clean-replays\\03.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse988-local-20261122\\clean-replays\\03.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "d122abc9ea359f78b47437aa6ae4df4704f9fd19a8246e23b1f430dbe3fef295",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "b635e5a862226b69644630e4824cf2e3df59ca566dca81e109016e43e86ac2a8",
+        "actions.json": "83add76d0e874fd8ae016e14517db6ea206c3b9e206dbce873083282bf38c1a3",
+        "assertions.json": "6ecd66c9bef58141c830e215d7e457a74529546824e76260c3e53de456d155d8",
+        "expected_final_gamestate.txt": "1e7267f74c87ea59e73eda0dc96149ddb39048b9df0306c37d7eff1c7480d3f1",
+        "meta.json": "ed93b75eec581bde00344176f62b528251785cf0dfa027d1c16cc8824054be1f"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

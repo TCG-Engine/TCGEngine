@@ -1,0 +1,39 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch720.json",
+  "runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+  "returncode": 0,
+  "completed_utc": "2026-11-08T16:52:28.287701+00:00",
+  "fixtures": [
+    {
+      "slug": "card-gas-up-blue-four-live-real-next-boost-plus-two-and-physical-damage",
+      "fixture_sha256": "1e3d8fb3bca476ad73a37a86e789e585b5364323b7e5850087c738e49b35ea9e",
+      "passed": true,
+      "result": "[PASS] gas_up_blue / four live distinctive effect"
+    },
+    {
+      "slug": "card-leech-renown-red-four-live-real-next-aa-plus-three-and-surviving-ally-damage",
+      "fixture_sha256": "f58a2d693a8ce33f105f1dde4f6d54c73f38524504d9f7297aeebc6413b7ae8e",
+      "passed": true,
+      "result": "[PASS] leech_renown_red / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-gas-up-blue-four-live-real-next-boost-plus-two-and-physical-damage",
+      "returncode": 0,
+      "stdout": "[PASS] gas_up_blue / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-leech-renown-red-four-live-real-next-aa-plus-three-and-surviving-ally-damage",
+      "returncode": 0,
+      "stdout": "[PASS] leech_renown_red / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 2,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

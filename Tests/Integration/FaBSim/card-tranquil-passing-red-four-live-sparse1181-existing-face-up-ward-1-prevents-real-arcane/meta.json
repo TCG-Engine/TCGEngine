@@ -1,0 +1,7 @@
+{
+    "name": "Tranquil Passing / Ward1 only",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-23T14:27:52+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "WARDONLY. LegalYoungprism20victim4/YoungVerdance20caster1/2Dori20manual. PriorlawfulownedArena5admittedwithnoboundexile/entryhistoryseed; entryabilitiesnotearnedbythisadmittedpriorstate. ActualZap6Action0formallytargetsHero4beforepayment/AP1->0and4manualsource responses. ActualmandatoryWardorderingchoosesreal5, destroys5ownedGY4, preventsmin(1,3)ofreal3arcane, actualHP18; source6ownedGY1/nootherzones/AP0/R0/RNG0/UID6/emptyStack/DQs. Noentryabilitycredit; Tranquilpriorentryhadnoboundcard; duration-until-leave hasnoexistingexiledobjecttoreturn. Noentryexile/returncredit. NoHero/support/sibling/fullcardcredit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#tranquil_passing_red FaBSim/GeneratedCode/cardArrayCache.json#zyggy FaBSim/Custom/DTDCards.php FaBSim/GeneratedCode/GeneratedMacroCode.php"
+}

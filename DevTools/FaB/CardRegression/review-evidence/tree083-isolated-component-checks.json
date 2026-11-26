@@ -1,0 +1,87 @@
+{
+  "status": "PASS_ISOLATED_EXTRACTED_CHECKS_NOT_NATIVE",
+  "started_utc": "2026-11-03T21:34:32.775939+00:00",
+  "runtime_before": "bc14dcabff3f9b4b1592a0afc364de72de1c9bd326e0204056369b1c1ff9574b",
+  "candidate_manifest_sha256": "392440e0d22e55d18449e02f393e64b72bd06d6c664db70c87194784ee4b4c83",
+  "source_extractions_sha256": "3b5a975753391bb56a9bae9ebf5aeed4aecebb1ba1ef261b4b161d124d10f51a",
+  "contracts_sha256": "bf960361dd8ad3c3680b7117242039ec49684983cd48b8e2ac133939e727bff4",
+  "checks": [
+    {
+      "argv": [
+        "C:\\xampp\\php\\php.exe",
+        "-l",
+        "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-tree083-entry-queue-proposed\\candidates\\FaBSim\\Custom\\ROSCards.php"
+      ],
+      "returncode": 0,
+      "stdout": "No syntax errors detected in C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-tree083-entry-queue-proposed\\candidates\\FaBSim\\Custom\\ROSCards.php\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "C:\\xampp\\php\\php.exe",
+        "-l",
+        "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-tree083-entry-queue-proposed\\candidates\\FaBSim\\Custom\\CodeGeneration.php"
+      ],
+      "returncode": 0,
+      "stdout": "No syntax errors detected in C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-tree083-entry-queue-proposed\\candidates\\FaBSim\\Custom\\CodeGeneration.php\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "C:\\xampp\\php\\php.exe",
+        "-l",
+        "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-tree083-validation-preparation\\before-actual-bodies.php"
+      ],
+      "returncode": 0,
+      "stdout": "No syntax errors detected in C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-tree083-validation-preparation\\before-actual-bodies.php\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "C:\\xampp\\php\\php.exe",
+        "-l",
+        "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-tree083-validation-preparation\\after-actual-bodies.php"
+      ],
+      "returncode": 0,
+      "stdout": "No syntax errors detected in C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-tree083-validation-preparation\\after-actual-bodies.php\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "C:\\xampp\\php\\php.exe",
+        "-l",
+        "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-tree083-validation-preparation\\contracts.php"
+      ],
+      "returncode": 0,
+      "stdout": "No syntax errors detected in C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-tree083-validation-preparation\\contracts.php\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "C:\\xampp\\php\\php.exe",
+        "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-tree083-validation-preparation\\contracts.php",
+        "before"
+      ],
+      "returncode": 0,
+      "stdout": "{\"status\":\"PASS_ISOLATED_OLD_BASELINE_NOT_RULE_APPROVAL\",\"phase\":\"before\",\"contracts\":2,\"assertions\":4,\"contract_names\":[\"actual old entry hook plus canonical grants inline AMP3 and no layer\",\"actual old entry hook alone has no responseable Tree producer\"],\"native_credit\":false,\"caller_and_pop_limits\":\"Full unchanged movement/caller/ABI-pop excluded; Stack pop is explicitly an isolated stub and no native idempotence is certified. Original unchanged native16 will test integration.\"}\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "C:\\xampp\\php\\php.exe",
+        "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-tree083-validation-preparation\\contracts.php",
+        "after"
+      ],
+      "returncode": 0,
+      "stdout": "{\"status\":\"PASS_ISOLATED_EXTRACTED_AFTER_CONTRACTS_NOT_NATIVE\",\"phase\":\"after\",\"contracts\":13,\"assertions\":42,\"contract_names\":[\"actual changed hook queues captured source and canonical noop adds no AMP\",\"actual queue preserves pending payment and current window\",\"suppressed entering source earns no entry layer\",\"actual nonentry and nonArena destinations earn no Tree layer\",\"other Aura and invalid UID cannot invent Tree source\",\"eliminated controller earns no layer through unchanged existing queue\",\"actual controller rather than owner controls earned AMP\",\"earned layer survives source departure suppression and controller change\",\"AMP additive only on resolution and popped test driver grants once\",\"event and CardID pair restricts new resolution branch\",\"two independent entries retain separate captured UID records\",\"canonical afterbody is noop and StartTurn source bytes unchanged\",\"exact bridge normalizes legacy and preserves fixed and known StartTurn identity\"],\"native_credit\":false,\"caller_and_pop_limits\":\"Full unchanged movement/caller/ABI-pop excluded; Stack pop is explicitly an isolated stub and no native idempotence is certified. Original unchanged native16 will test integration.\"}\n",
+      "stderr": ""
+    }
+  ],
+  "native_credit": false,
+  "scope": "Actual changed ROS hook/dispatch, existing Queue/MST/effect functions and bridge extracted unchanged. Lookup/type/Stack-pop/state/unselected hooks stubbed. Unchanged full movement/MON/ABI-pop excluded; independently source-reviewed call order and original native16 integration remain separate.",
+  "builder_AST": true,
+  "json_only_changed_path": "/47/abilities/1/abilityCode",
+  "runtime_after": "bc14dcabff3f9b4b1592a0afc364de72de1c9bd326e0204056369b1c1ff9574b",
+  "repository_runtime_unchanged": true,
+  "completed_utc": "2026-11-03T21:34:34.603854+00:00"
+}

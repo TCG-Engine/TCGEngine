@@ -1,0 +1,137 @@
+{
+  "status": "HISTORICAL_REGISTRATION_CHECKPOINT_SEMANTICALLY_SUPERSEDED",
+  "utc": "2026-11-25T02:15:32.544476+00:00",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1464-20261122.json",
+  "source_spec_sha256": "f197edd93e6135dc770097c628eca0150b44b59f9ccffcdc701e1803285fdbfe",
+  "new_scenarios": 3,
+  "new_groups": 3,
+  "new_primary_ids": 3,
+  "actions": 74,
+  "native_assertions": 1278,
+  "manual_passes": 63,
+  "totals": {
+    "saved_registered_scenarios": 5503,
+    "duels": 3136,
+    "four_live": 2367,
+    "recorded_primary_ids": 2651,
+    "identity_denominator": 5196,
+    "recorded_groups": 2525,
+    "group_denominator": 3324,
+    "four_live_groups": 2356,
+    "phase_qualified_scenarios_at_actual_contexts": 2140,
+    "phase_qualified_unique_groups": 2130,
+    "creation_replay_passes": 2882,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 1301,
+  "scenarios": [
+    {
+      "card_id": "dam_the_shadowake_red",
+      "group_id": "pitch-cycle:dam_the_shadowake",
+      "scenario_id": "card-dam-the-shadowake-red-four-live-sparse1464-real-defense-without-qualifying-shadow-attacking-hero",
+      "effect_branches": [
+        "actual_basic_defense_4_and_real_damage_0_without_Shadow_attacking_Hero"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-dam-the-shadowake-red-four-live-sparse1464-real-defense-without-qualifying-shadow-attacking-hero",
+      "source_spec": "card-regression-sparse1464-20261122.json",
+      "source_spec_sha256": "f197edd93e6135dc770097c628eca0150b44b59f9ccffcdc701e1803285fdbfe",
+      "review_evidence": "review-evidence/sparse1464-20261122-qualified-saved.json",
+      "review_evidence_sha256": "f80f29bd411e98a55a41142fc2cfc5e4914d252beffa0b374da15e80fec56ac8",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1464-20261122-replay.json",
+          "sha256": "aa9f53fbeca3ec602c375db2b3a3f7e5fd344f2e6b9a8f5c4d8e61fb4c733458",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "stand_tall_yellow",
+      "group_id": "identity:stand_tall_yellow",
+      "scenario_id": "card-stand-tall-yellow-four-live-sparse1464-real-defense-without-qualifying-actual-attacking-hero-reaction-play-or-activation",
+      "effect_branches": [
+        "actual_basic_defense_3_and_real_damage_1_without_actual_attacking_Hero_reaction_play_or_activation"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-stand-tall-yellow-four-live-sparse1464-real-defense-without-qualifying-actual-attacking-hero-reaction-play-or-activation",
+      "source_spec": "card-regression-sparse1464-20261122.json",
+      "source_spec_sha256": "f197edd93e6135dc770097c628eca0150b44b59f9ccffcdc701e1803285fdbfe",
+      "review_evidence": "review-evidence/sparse1464-20261122-qualified-saved.json",
+      "review_evidence_sha256": "f80f29bd411e98a55a41142fc2cfc5e4914d252beffa0b374da15e80fec56ac8",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1464-20261122-replay.json",
+          "sha256": "aa9f53fbeca3ec602c375db2b3a3f7e5fd344f2e6b9a8f5c4d8e61fb4c733458",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "unforgetting_unforgiving_red",
+      "group_id": "identity:unforgetting_unforgiving_red",
+      "scenario_id": "card-unforgetting-unforgiving-red-two-live-sparse1464-real-defense-without-qualifying-attacker-equipment-has-minus-one-defense-counter",
+      "effect_branches": [
+        "actual_basic_defense_4_and_real_damage_0_without_attacker_equipment_has_minus_one_defense_counter"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-unforgetting-unforgiving-red-two-live-sparse1464-real-defense-without-qualifying-attacker-equipment-has-minus-one-defense-counter",
+      "source_spec": "card-regression-sparse1464-20261122.json",
+      "source_spec_sha256": "f197edd93e6135dc770097c628eca0150b44b59f9ccffcdc701e1803285fdbfe",
+      "review_evidence": "review-evidence/sparse1464-20261122-qualified-saved.json",
+      "review_evidence_sha256": "f80f29bd411e98a55a41142fc2cfc5e4914d252beffa0b374da15e80fec56ac8",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1464-20261122-replay.json",
+          "sha256": "aa9f53fbeca3ec602c375db2b3a3f7e5fd344f2e6b9a8f5c4d8e61fb4c733458",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "two_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": [],
+  "historical_registration_checkpoint": true,
+  "historical_status_at_recording": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "semantic_reconciliation": {
+    "evidence": "review-evidence/conditional-trigger-qualification-withdrawals-20261125.json",
+    "historical_before_after_counts_unchanged": true,
+    "withdrawn_scenario_ids": [
+      "card-unforgetting-unforgiving-red-two-live-sparse1464-real-defense-without-qualifying-attacker-equipment-has-minus-one-defense-counter"
+    ],
+    "current_global_counts": "coverage-additions-after218.json",
+    "new_replay_run": false
+  }
+}

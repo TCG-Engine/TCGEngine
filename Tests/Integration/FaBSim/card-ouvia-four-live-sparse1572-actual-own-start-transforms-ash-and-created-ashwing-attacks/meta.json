@@ -1,0 +1,7 @@
+{
+    "name": "Ouvia / actual own Start transforms a real Ash and created Ashwing attacks",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-25T16:09:03+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Four genuine manual20Dori/Dromai/Dori/Dori. Valid priorinvokedOuvia6withfront/Ashmaterial, Storm5 andactualownAsh7; no createdWing/currentturnproducer seeded. ActualemptyP1Endturn2 toP2Start3 triggers singleOuviaoptionalup-to-oneownAshtransform. SelectactualAsh7, consumesAshToken(noGY) andcreatesnewUID8AetherAshwingwithAshmaterial/Phantasm/readyStatus2 beforeActionpriority. ActualcreatedDragon8 zeroresourceAction viaStormtargetsHero1, paysAP1to0/taps8/newproxy9power1/nogoagain(noRedplayed). NoCarddefenderssoAshPhantasmnotearned/olddeathholdnotentered. Actualphysical1damageHero1=19; ordinaryfullCloseproxyretires/source8remainsused1lifeDamage0/Ouvia6untouched6lifeDamage0/Storm5ready, noHand/GY/Banish cards. ExplicitP2attackrefs/Startchoice/adjacentmenu/allfourmanualpriority/UID9RNG0. NoInvocation/entryproducer/Phantasmdeath/support/fullcardcredit orenginechange. Sources: FaBSim/GeneratedCode/cardArrayCache.json#ouvia FaBSim/GeneratedCode/GeneratedMacroCode.php FaBSim/Custom/UPRCards.php FaBSim/Custom/MONAbilities.php FaBSim/Custom/MONCards.php FaBSim/Custom/CRUCards.php FaBSim/Custom/WTRCards.php FaBSim/Custom/GameLogic.php FaBSim/ZoneClasses.php https://rules.fabtcg.com/en/cr/04-game-structure/"
+}

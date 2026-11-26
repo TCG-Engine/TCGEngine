@@ -1,0 +1,268 @@
+{
+  "status": "APPROVED_ACTUAL_SAVED_BEAMING_SUBSET",
+  "approved": true,
+  "source_approved": true,
+  "semantically_approved": true,
+  "reviewer": "/root/nov2_sparse_author",
+  "reviewer_independent": true,
+  "created_utc": "2026-11-06T17:27:39.424971+00:00",
+  "source_spec": "card-regression-batch624-conditional-weapons-v2.json",
+  "input_sha256": "6389ffeb64fc9f26772cf48c7a5584c7c15ba81d5b0ec814a3a2c0bf4982e5bd",
+  "source_sha256": "6389ffeb64fc9f26772cf48c7a5584c7c15ba81d5b0ec814a3a2c0bf4982e5bd",
+  "manifest_sha256": "b8618c4ea3bcb52e0b71a0eb1aab77f9d967f6382656341068ddadab0a0db033",
+  "runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+  "recorded_runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+  "recorder_sha256": "ab33a3250462d0453f71d38dd4138cb9fbc3d595d2586742e989a52251c9c4a9",
+  "source_guards_verified": 71,
+  "prior_independent_semantic_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch624-v2-independent-source-review.json",
+    "sha256": "800c285934d86f7aeca527539dfb667bc66085bdfe84bc9352f9d218fe376fc6",
+    "unchanged_normative_model_reused": true
+  },
+  "recording_receipt": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch624-conditional-weapons-v2-20261106T171959Z-6aee0c3fac324.json",
+    "sha256": "e99f48e8943c172efbaea2855a05539d267ef240fac5783348f2ecafb19870b8"
+  },
+  "results": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch624-conditional-weapons-v2.recording-results.json",
+    "sha256": "6f51747d95df4653cc500723e0ec59b28f1f5070b2f3da163a6f4e95a9aa5cb1"
+  },
+  "root_wrapper_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch624-conditional-weapons-v2-native-c53\\receipt.json",
+    "sha256": "ca4bb3c5cf98999d7418a69a1912c7b0fc086b578849d0f3eb3e8f286eee9db1"
+  },
+  "fixtures": [
+    {
+      "index": 0,
+      "card_id": "beaming_blade",
+      "group_id": "identity:beaming_blade",
+      "slug": "card-beaming-blade-four-live-real-yellow-soul-entry-and-paid-five-damage",
+      "source_spec": "card-regression-batch624-conditional-weapons-v2.json",
+      "input_sha256": "6389ffeb64fc9f26772cf48c7a5584c7c15ba81d5b0ec814a3a2c0bf4982e5bd",
+      "reviewer": "/root/nov2_sparse_author",
+      "approved": true,
+      "semantically_approved": true,
+      "runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+      "recorded_runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+      "fixture_path": "Tests\\Integration\\FaBSim\\card-beaming-blade-four-live-real-yellow-soul-entry-and-paid-five-damage",
+      "fixture_sha256": "4c7224951b8f65983eaf012192f2fa56b995c6a1b1aedd5e51455cb6618f7c3b",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "47cca520dd536ef3aca951a5159d95412296818637bdebfaa8f87c4680213c01",
+        "actions.json": "80e79e8343893720afa884e166e7ccb70da3ba89de14a0b97f7bc6dc26a02273",
+        "assertions.json": "b85c1b41940a7fee6ec19d5adbb6afe5acc5e56f18be11dc6a8cb881734d33dd",
+        "expected_final_gamestate.txt": "2a0ffc6bc0dee7355a69957c67084bbf82ba4c627b2e6b3d47dc72ffd9aca112",
+        "meta.json": "92a04feead4c3223eb1c1edd46a1336c33085bfd55b36cf305dad9fbb2be1c1e"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "47cca520dd536ef3aca951a5159d95412296818637bdebfaa8f87c4680213c01",
+        "actions.json": "80e79e8343893720afa884e166e7ccb70da3ba89de14a0b97f7bc6dc26a02273",
+        "assertions.json": "b85c1b41940a7fee6ec19d5adbb6afe5acc5e56f18be11dc6a8cb881734d33dd",
+        "expected_final_gamestate.txt": "2a0ffc6bc0dee7355a69957c67084bbf82ba4c627b2e6b3d47dc72ffd9aca112",
+        "meta.json": "92a04feead4c3223eb1c1edd46a1336c33085bfd55b36cf305dad9fbb2be1c1e"
+      },
+      "actions": 34,
+      "native_assertions": 2833,
+      "actual_manual_passes": 29,
+      "actual_manual_actor_counts": {
+        "1": 7,
+        "2": 7,
+        "3": 7,
+        "4": 8
+      },
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4
+      ],
+      "schema_property_assertions": 808,
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "all_actions_and_assertions_exact": true,
+      "all_endpoint_physical_uid_card_zones_verified": true,
+      "all_terminal_assertions_evaluated": true,
+      "initial_physical_uid_locations": {
+        "1": {
+          "card_id": "boltyn",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "wounding_blow_yellow",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "8": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "halo_of_illumination",
+          "zone": "p1Equipment",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "beaming_blade",
+          "zone": "p1Weapons",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_physical_uid_locations": {
+        "1": {
+          "card_id": "boltyn",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "beaming_blade",
+          "zone": "p1Weapons",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "halo_of_illumination",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "8": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Pitch",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "wounding_blow_yellow",
+          "zone": "p1Soul",
+          "schema_owner_controller_unavailable": true
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_health": [
+        20,
+        20,
+        20,
+        15
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "actual_power": 5,
+      "actual_damage": 5,
+      "actual_go_again": false,
+      "virtual_UIDs_ceased": [
+        9,
+        10
+      ],
+      "final_UniqueIDCounter": 10,
+      "full_card_certification": false
+    }
+  ],
+  "blocked_attempts": [
+    {
+      "card_id": "obsidian_fire_vein",
+      "slug": "card-obsidian-fire-vein-four-live-real-same-link-draconic-plus-one-go-again-and-consumer",
+      "semantically_approved": false,
+      "fixture_saved": false,
+      "classification": "TEST_ORACLE_COMBAT_INSTANT_WINDOW_LABEL",
+      "classification_proof": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch624-obsidian-native-window-oracle-classification.json",
+      "classification_sha256": "cd9503cdc02c6ebff16f297cbc023d5d8805c54f4da4a896f5c5d3a0b5027ba1"
+    }
+  ],
+  "total_actions": 34,
+  "total_native_assertions": 2833,
+  "total_manual_passes": 29,
+  "total_schema_property_assertions": 808,
+  "material_findings": [
+    "Exact raw5/all34actual native envelopes/2833ordered assertions/29manual inputs/four live seats/48preferences perendpoint match approved6389/source800c.",
+    "ActualHalo1/Blue8pitch3\u2192R2AP1 and physicalHalo6destroycost; capturedABI9 retained through freshfour/resolving actualHandchoice. SameGenericYellow7Soul placement earns THISturn continuous+5; no Charge or Lightdraw, physicalschemaSoul doesnotinventOwner/Controller.",
+    "ActualBlade2 spends realR2/AP1 before freshfour; sameproxy10/source5 power5/noGA, actual5physicalHP15/noAPrefund/fullClose. InitialUID1..8 conserved/virtual9and10ceased/usedphysicalBlade5retained/Halo6GY/Yellow7Soul/Blue8Pitch/allRAP0/RNG0. ActualMON_YELLOW_SOUL condition carrier remainsafterClose, no hidden duration loss.",
+    "Obsidian nofixture is separately classified window-only oracle failure with unrun functional suffix; it receives no Saved approval."
+  ],
+  "limits": [
+    "Saved approval applies ONLY to Beaming fixture. Root two focused Beaming replays/registration remain separate. No duplicate native recording/replay byreviewer.",
+    "No second Blade use/End reset/Charge/Lightdraw/HaloSpellvoid/Boltynreaction/alternate colors/support/Hero/sibling/fullcard credit. Combat-opening semantics at omitted framing points remain unqualified.",
+    "No extra per-input rawsnapshot claim; ordered executed assertions plus parsed full endpoints reviewed. No R/PHP/native/source/fullsuite/denied-repair operation."
+  ],
+  "blockers": [],
+  "actual_comparison_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov6_batch624_beaming_saved_readonly.py",
+    "sha256": "07baacacded3a91d0cea2d6dc937953977ca97dfe17add7b0dc5fea279302eb0"
+  }
+}

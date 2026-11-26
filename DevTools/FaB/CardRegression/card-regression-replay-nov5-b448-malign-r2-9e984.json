@@ -1,0 +1,27 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch448.json",
+  "runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+  "returncode": 0,
+  "completed_utc": "2026-11-05T10:41:57.890933+00:00",
+  "fixtures": [
+    {
+      "slug": "card-malign-red-four-live-real-unpreventable-three-damage-despite-owned-zen-state-prevention",
+      "fixture_sha256": "91999434fc7466a03ecb599d09f58368c02097eb10d3aebd17254ab7b80a2ae1",
+      "passed": true,
+      "result": "[PASS] malign_red / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-malign-red-four-live-real-unpreventable-three-damage-despite-owned-zen-state-prevention",
+      "returncode": 0,
+      "stdout": "[PASS] malign_red / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

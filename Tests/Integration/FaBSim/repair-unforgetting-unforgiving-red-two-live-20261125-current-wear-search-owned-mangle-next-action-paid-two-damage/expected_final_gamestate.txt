@@ -1,0 +1,117 @@
+1
+41
+1
+dorinthea_ironsong 2 1 1 0 1 - eyJNU1RfQ09MT1JMRVNTX1VOVElMIjowfQ==
+1
+jarl_vetreidi 2 2 2 0 2 - -
+0
+0
+0
+0
+0
+0
+1
+courage_of_bladehold 2 0 1 1 0 8 - eyJERUZFTlNFIjoxfQ==
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+1
+wounding_blow_blue 13 2 2
+0
+0
+2
+energy_potion_blue 7 1 1
+wounding_blow_blue 5 1 1
+0
+0
+0
+0
+0
+0
+0
+3
+wounding_blow_red 3 1 1 0
+wounding_blow_blue 9 1 1 0
+wounding_blow_blue 10 1 1 0
+2
+unforgetting_unforgiving_red 4 2 2 0
+mangle_red 6 2 2 0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+2
+energy_potion_blue 11 2 2
+energy_potion_blue 12 2 2
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+38
+40
+20
+20
+0
+2
+0
+0
+0
+0
+0
+0
+0
+0
+1
+1
+{"version":1,"holdPriority":false,"windows":{"BLOCK":false,"ATTACK_REACTION":false,"DEFENSE_REACTION":false,"ACTION_PRIORITY":false,"INSTANT_PRIORITY":false,"ATTACK_PRIORITY":false,"DEFEND_PRIORITY":false,"OTHER_REACTION":false,"DAMAGE_PRIORITY":false,"RESOLUTION_PRIORITY":false,"END_PHASE":false}}
+{"version":1,"holdPriority":false,"windows":{"BLOCK":false,"ATTACK_REACTION":false,"DEFENSE_REACTION":false,"ACTION_PRIORITY":false,"INSTANT_PRIORITY":false,"ATTACK_PRIORITY":false,"DEFEND_PRIORITY":false,"OTHER_REACTION":false,"DAMAGE_PRIORITY":false,"RESOLUTION_PRIORITY":false,"END_PHASE":false}}
+
+
+0
+2
+0
+{"window":"ACTION","combatOpen":false,"combatStep":"NONE","chainLink":0,"attacker":0,"defender":0,"attackUID":0,"attackTarget":null,"pendingAttackTarget":null,"previousAttackCardID":"","handBlockUIDs":[],"intimidated":[],"pendingPayment":null,"lastAttackName":"","attackHit":false,"attackPower":0,"defenseValue":0,"damageDealt":0,"declaredBlockUIDs":[],"passiveSeats":[],"gameMode":"","turnEffects":{"1":[{"type":"SEA_ATTACKED_HERO","amount":1,"uses":1},{"type":"MST_BLUE_DEFENDED","amount":1,"uses":1},{"type":"ELE_AA_COMBAT","amount":1,"uses":1},{"type":"MST_BLUE_DEFENDED","amount":1,"uses":1},{"type":"ELE_AA_COMBAT","amount":1,"uses":1},{"type":"DTD_DAMAGE_EVENT","amount":1,"uses":1},{"type":"CRU_DAMAGED","amount":2,"uses":1},{"type":"HNT_DAMAGED_BY","amount":1,"uses":1,"uid":2},{"type":"MON_PHYSICAL","amount":1,"uses":1},{"type":"DTD_LOST","amount":2,"uses":1},{"type":"ELE_DAMAGED","amount":2,"uses":1},{"type":"EVR_GRAVEYARD","amount":1,"uses":1},{"type":"SEA_BLUE_GRAVE","amount":1,"uses":1},{"type":"EVR_GRAVEYARD","amount":1,"uses":1},{"type":"SEA_BLUE_GRAVE","amount":1,"uses":1},{"type":"EVR_GRAVEYARD","amount":1,"uses":1}],"2":[{"type":"MST_BLUE_PITCHED","amount":1,"uses":1},{"type":"MST_BLUE_PITCHED","amount":1,"uses":1},{"type":"SUP_COST_ONE","amount":1,"uses":1},{"type":"CRU_ATTACKS","amount":1,"uses":1},{"type":"MON_BANISH_PLAYED","amount":1,"uses":1},{"type":"EVR_PLAYED","amount":1,"uses":1},{"type":"HNT_ATTACKS","amount":1,"uses":1},{"type":"HNT_AA_ATTACK","amount":1,"uses":1},{"type":"HNT_ATTACKED_1","amount":1,"uses":1},{"type":"SEA_ATTACKED","amount":1,"uses":1},{"type":"SUP_ATTACKS","amount":1,"uses":1},{"type":"MON_LAST_mangle","amount":1,"uses":1},{"type":"ELE_AA_COMBAT","amount":1,"uses":1},{"type":"ROS_DAMAGE","amount":2,"uses":1},{"type":"ROS_VALLEY_HIT","amount":1,"uses":1},{"type":"MON_PHYSICAL","amount":1,"uses":1},{"type":"EVR_PHYSICAL","amount":2,"uses":1},{"type":"EVR_GRAVEYARD","amount":1,"uses":1},{"type":"EVR_GRAVEYARD","amount":1,"uses":1},{"type":"EVR_GRAVEYARD","amount":1,"uses":1}]},"nextTurnEffects":[],"hitsThisTurn":{"2":[6]},"cardsPlayedThisTurn":{"2":["mangle_red"]},"mpgDurations":[],"botProfiles":[],"weaponHits":[],"attackActionHits":{"2":1},"arcNames":[],"arcaneDealt":[],"arcCards":{"3":{"iarOrigin":1,"mstChiPitched":0,"rosMeld":-1,"rosSurgeGo":false,"evoDashPlay":false,"omnFirstDamage":false,"iarPlayedFrom":"Hand","outPreviousNames":[],"mstFree":false,"mstPreviousPitch":0,"mstPreviousAA":false,"rosLastLightning":false,"iarPermission":[],"mstReactions":0,"mstBanished":[],"supFirst":true,"dtdPrevention2":true,"hvyWagers":[],"mstZeroDefense":false,"penFreezeSources":[]},"4":{"iarPermission":[],"mstZeroDefense":false,"penFreezeSources":[]},"6":{"iarPermission":[],"penMirageChain":-1,"iarOrigin":2,"mstChiPitched":0,"rosMeld":-1,"rosSurgeGo":false,"evoDashPlay":false,"penPitchTypes":["Generic","Action","Item"],"dynPitchNAA":true,"omnFirstDamage":false,"iarPlayedFrom":"Banish","monFromBanish":true,"outPreviousNames":[],"mstFree":false,"mstPreviousPitch":0,"mstPreviousAA":false,"rosLastLightning":false,"mstReactions":0,"mstBanished":[],"supFirst":true,"dtdPrevention1":true,"hntHitMarked1":false,"hvyWagers":[],"mstZeroDefense":false,"penFreezeSources":[]},"5":{"iarPermission":[]},"11":{"iarPermission":[]},"12":{"iarPermission":[]},"9":{"iarPermission":[],"mstZeroDefense":false,"penFreezeSources":[]},"10":{"iarPermission":[],"mstZeroDefense":false,"penFreezeSources":[]}},"arcActions":{"2":1}}
+0
+12
+12
+0
+0
+0
+0
+1
+0:Before passing priority<vname>2<v0>MAIN<v0>3<v0><v0>12<v0>12<v0>dorinthea_ironsong<v2>2<v2>1<v2>1<v2>0<v2>1<v2>-<v2>eyJNU1RfQ09MT1JMRVNTX1VOVElMIjowfQ==<v0><v0>courage_of_bladehold<v2>2<v2>0<v2>1<v2>1<v2>0<v2>8<v2>-<v2>eyJERUZFTlNFIjoxfQ==<v0><v0>wounding_blow_blue<v2>2<v2>1<v2>1<v2>0<v2>9<v2>-<v2>-<v2>DEFENSE<v2>1<v2>Hand<v1>wounding_blow_blue<v2>2<v2>1<v2>1<v2>0<v2>10<v2>-<v2>-<v2>DEFENSE<v2>1<v2>Hand<v0><v0>energy_potion_blue<v2>7<v2>1<v2>1<v1>wounding_blow_blue<v2>5<v2>1<v2>1<v0><v0>wounding_blow_red<v2>3<v2>1<v2>1<v2>0<v0><v0><v0><v0><v0><v0><v0>38<v0>0<v0>0<v0>0<v0>{"version":1,"holdPriority":false,"windows":{"BLOCK":false,"ATTACK_REACTION":false,"DEFENSE_REACTION":false,"ACTION_PRIORITY":false,"INSTANT_PRIORITY":false,"ATTACK_PRIORITY":false,"DEFEND_PRIORITY":false,"OTHER_REACTION":false,"DAMAGE_PRIORITY":false,"RESOLUTION_PRIORITY":false,"END_PHASE":false}}<v0>jarl_vetreidi<v2>2<v2>2<v2>2<v2>0<v2>2<v2>-<v2>-<v0><v0><v0><v0>mangle_red<v2>2<v2>2<v2>2<v2>0<v2>6<v2>-<v2>eyJGQUJfUExBWV9PUkRFUiI6MX0=<v2>ATTACK<v2>1<v2>Banish<v0>wounding_blow_blue<v2>13<v2>2<v2>2<v0><v0><v0>unforgetting_unforgiving_red<v2>4<v2>2<v2>2<v2>0<v0><v0><v0>energy_potion_blue<v2>11<v2>2<v2>2<v1>energy_potion_blue<v2>12<v2>2<v2>2<v0><v0><v0><v0>40<v0>2<v0>0<v0>0<v0>{"version":1,"holdPriority":false,"windows":{"BLOCK":false,"ATTACK_REACTION":false,"DEFENSE_REACTION":false,"ACTION_PRIORITY":false,"INSTANT_PRIORITY":false,"ATTACK_PRIORITY":false,"DEFEND_PRIORITY":false,"OTHER_REACTION":false,"DAMAGE_PRIORITY":false,"RESOLUTION_PRIORITY":false,"END_PHASE":false}}<v0><v0><v0><v0><v0><v0><v0><v0><v0><v0><v0><v0><v0><v0><v0><v0>20<v0>0<v0>0<v0>1<v0><v0><v0><v0><v0><v0><v0><v0><v0><v0><v0><v0><v0><v0><v0><v0><v0>20<v0>0<v0>0<v0>1<v0><v0>{"mzID":"p2CombatChain-0","mzIDCardID":"energy_potion_blue","cardID":"mangle_red","fromZone":"Banish","attacker":2,"defender":1,"fabSourceZone":"Banish","evoEvent":"","supUnforgetAttacker":1,"mode":"1","chosen":"p2Temp-0","amount":2}<v0><v0>1<v0>1<v0>{"window":"RESOLUTION","combatOpen":true,"combatStep":"RESOLUTION","chainLink":1,"attacker":2,"defender":1,"attackUID":6,"attackTarget":{"type":"HERO","player":1,"uid":1,"zone":"Hero"},"pendingAttackTarget":null,"previousAttackCardID":"","handBlockUIDs":[],"intimidated":[],"pendingPayment":null,"lastAttackName":"Mangle","attackHit":true,"attackPower":8,"defenseValue":6,"damageDealt":2,"declaredBlockUIDs":[9,10],"passiveSeats":[],"gameMode":"","turnEffects":{"1":[{"type":"SEA_ATTACKED_HERO","amount":1,"uses":1},{"type":"MST_BLUE_DEFENDED","amount":1,"uses":1},{"type":"ELE_AA_COMBAT","amount":1,"uses":1},{"type":"MST_BLUE_DEFENDED","amount":1,"uses":1},{"type":"ELE_AA_COMBAT","amount":1,"uses":1},{"type":"DTD_DAMAGE_EVENT","amount":1,"uses":1},{"type":"CRU_DAMAGED","amount":2,"uses":1},{"type":"HNT_DAMAGED_BY","amount":1,"uses":1,"uid":2},{"type":"MON_PHYSICAL","amount":1,"uses":1},{"type":"DTD_LOST","amount":2,"uses":1},{"type":"ELE_DAMAGED","amount":2,"uses":1}],"2":[{"type":"MST_BLUE_PITCHED","amount":1,"uses":1},{"type":"MST_BLUE_PITCHED","amount":1,"uses":1},{"type":"SUP_COST_ONE","amount":1,"uses":1},{"type":"CRU_ATTACKS","amount":1,"uses":1},{"type":"MON_BANISH_PLAYED","amount":1,"uses":1},{"type":"EVR_PLAYED","amount":1,"uses":1},{"type":"HNT_ATTACKS","amount":1,"uses":1},{"type":"HNT_AA_ATTACK","amount":1,"uses":1},{"type":"HNT_ATTACKED_1","amount":1,"uses":1},{"type":"SEA_ATTACKED","amount":1,"uses":1},{"type":"SUP_ATTACKS","amount":1,"uses":1},{"type":"MON_LAST_mangle","amount":1,"uses":1},{"type":"ELE_AA_COMBAT","amount":1,"uses":1},{"type":"ROS_DAMAGE","amount":2,"uses":1},{"type":"ROS_VALLEY_HIT","amount":1,"uses":1},{"type":"MON_PHYSICAL","amount":1,"uses":1},{"type":"EVR_PHYSICAL","amount":2,"uses":1}]},"nextTurnEffects":[],"hitsThisTurn":{"2":[6]},"cardsPlayedThisTurn":{"2":["mangle_red"]},"mpgDurations":[],"botProfiles":[],"weaponHits":[],"attackActionHits":{"2":1},"arcNames":[],"arcaneDealt":[],"arcCards":{"3":{"iarOrigin":1,"mstChiPitched":0,"rosMeld":-1,"rosSurgeGo":false,"evoDashPlay":false,"omnFirstDamage":false,"iarPlayedFrom":"Hand","outPreviousNames":[],"mstFree":false,"mstPreviousPitch":0,"mstPreviousAA":false,"rosLastLightning":false,"iarPermission":[],"mstReactions":0,"mstBanished":[],"supFirst":true,"dtdPrevention2":true,"hvyWagers":[],"mstZeroDefense":false,"penFreezeSources":[]},"4":{"iarPermission":[],"mstZeroDefense":false,"penFreezeSources":[]},"6":{"iarPermission":[],"penMirageChain":-1,"iarOrigin":2,"mstChiPitched":0,"rosMeld":-1,"rosSurgeGo":false,"evoDashPlay":false,"penPitchTypes":["Generic","Action","Item"],"dynPitchNAA":true,"omnFirstDamage":false,"iarPlayedFrom":"Banish","monFromBanish":true,"outPreviousNames":[],"mstFree":false,"mstPreviousPitch":0,"mstPreviousAA":false,"rosLastLightning":false,"mstReactions":0,"mstBanished":[],"supFirst":true,"dtdPrevention1":true,"hntHitMarked1":false,"hvyWagers":[]},"5":{"iarPermission":[]},"11":{"iarPermission":[]},"12":{"iarPermission":[]},"9":{"iarPermission":[]},"10":{"iarPermission":[]}},"arcActions":{"2":1},"dtdPermissions":[],"dtdStarting":false,"uprRefill":false,"dynEdicts":[],"iar":{"3":{"2":{"CHORUS_ATTACK":1,"DAMAGE:1":1}}},"outPreviousNames":{"2":[]},"lastAttackCardID":"mangle_red","attackTargets":[{"type":"HERO","player":1,"uid":1,"zone":"Hero"}],"defendIndex":0,"attackGoAgain":false,"omn":{"3":{"1":{"REPROACH":1}}},"chainHits":1,"consecutiveHits":1,"mstPreviousPitch":1,"mstPreviousAA":true,"hntPreviousDraconic":false}<v0>0<v0>{"PlayCardCalls":{"1":1,"2":1},"PlayCard":{"1":{"wounding_blow_red":1},"2":{"mangle_red":1}},"PitchCardCalls":{"2":2},"PitchCard":{"2":{"energy_potion_blue":2}}}<v0>{"PlayCardCalls":{"1":1,"2":1},"PlayCard":{"1":{"wounding_blow_red":1},"2":{"mangle_red":1}},"PitchCardCalls":{"2":2},"PitchCard":{"2":{"energy_potion_blue":2}}}<v0>14<v0>0
+1
+0:Before passing priority<vname>2<v0>MAIN<v0>3<v0><v0>12<v0>12<v0>dorinthea_ironsong<v2>2<v2>1<v2>1<v2>0<v2>1<v2>-<v2>eyJNU1RfQ09MT1JMRVNTX1VOVElMIjowfQ==<v0><v0>courage_of_bladehold<v2>2<v2>0<v2>1<v2>1<v2>0<v2>8<v2>-<v2>eyJERUZFTlNFIjoxfQ==<v0><v0>wounding_blow_blue<v2>2<v2>1<v2>1<v2>0<v2>9<v2>-<v2>-<v2>DEFENSE<v2>1<v2>Hand<v1>wounding_blow_blue<v2>2<v2>1<v2>1<v2>0<v2>10<v2>-<v2>-<v2>DEFENSE<v2>1<v2>Hand<v0><v0>energy_potion_blue<v2>7<v2>1<v2>1<v1>wounding_blow_blue<v2>5<v2>1<v2>1<v0><v0>wounding_blow_red<v2>3<v2>1<v2>1<v2>0<v0><v0><v0><v0><v0><v0><v0>38<v0>0<v0>0<v0>0<v0>{"version":1,"holdPriority":false,"windows":{"BLOCK":false,"ATTACK_REACTION":false,"DEFENSE_REACTION":false,"ACTION_PRIORITY":false,"INSTANT_PRIORITY":false,"ATTACK_PRIORITY":false,"DEFEND_PRIORITY":false,"OTHER_REACTION":false,"DAMAGE_PRIORITY":false,"RESOLUTION_PRIORITY":false,"END_PHASE":false}}<v0>jarl_vetreidi<v2>2<v2>2<v2>2<v2>0<v2>2<v2>-<v2>-<v0><v0><v0><v0>mangle_red<v2>2<v2>2<v2>2<v2>0<v2>6<v2>-<v2>eyJGQUJfUExBWV9PUkRFUiI6MX0=<v2>ATTACK<v2>1<v2>Banish<v0>wounding_blow_blue<v2>13<v2>2<v2>2<v0><v0><v0>unforgetting_unforgiving_red<v2>4<v2>2<v2>2<v2>0<v0><v0><v0>energy_potion_blue<v2>11<v2>2<v2>2<v1>energy_potion_blue<v2>12<v2>2<v2>2<v0><v0><v0><v0>40<v0>2<v0>0<v0>0<v0>{"version":1,"holdPriority":false,"windows":{"BLOCK":false,"ATTACK_REACTION":false,"DEFENSE_REACTION":false,"ACTION_PRIORITY":false,"INSTANT_PRIORITY":false,"ATTACK_PRIORITY":false,"DEFEND_PRIORITY":false,"OTHER_REACTION":false,"DAMAGE_PRIORITY":false,"RESOLUTION_PRIORITY":false,"END_PHASE":false}}<v0><v0><v0><v0><v0><v0><v0><v0><v0><v0><v0><v0><v0><v0><v0><v0>20<v0>0<v0>0<v0>1<v0><v0><v0><v0><v0><v0><v0><v0><v0><v0><v0><v0><v0><v0><v0><v0><v0>20<v0>0<v0>0<v0>1<v0><v0>{"mzID":"p2CombatChain-0","mzIDCardID":"energy_potion_blue","cardID":"mangle_red","fromZone":"Banish","attacker":2,"defender":1,"fabSourceZone":"Banish","evoEvent":"","supUnforgetAttacker":1,"mode":"1","chosen":"p2Temp-0","amount":2}<v0><v0>2<v0>0<v0>{"window":"RESOLUTION","combatOpen":true,"combatStep":"RESOLUTION","chainLink":1,"attacker":2,"defender":1,"attackUID":6,"attackTarget":{"type":"HERO","player":1,"uid":1,"zone":"Hero"},"pendingAttackTarget":null,"previousAttackCardID":"","handBlockUIDs":[],"intimidated":[],"pendingPayment":null,"lastAttackName":"Mangle","attackHit":true,"attackPower":8,"defenseValue":6,"damageDealt":2,"declaredBlockUIDs":[9,10],"passiveSeats":[],"gameMode":"","turnEffects":{"1":[{"type":"SEA_ATTACKED_HERO","amount":1,"uses":1},{"type":"MST_BLUE_DEFENDED","amount":1,"uses":1},{"type":"ELE_AA_COMBAT","amount":1,"uses":1},{"type":"MST_BLUE_DEFENDED","amount":1,"uses":1},{"type":"ELE_AA_COMBAT","amount":1,"uses":1},{"type":"DTD_DAMAGE_EVENT","amount":1,"uses":1},{"type":"CRU_DAMAGED","amount":2,"uses":1},{"type":"HNT_DAMAGED_BY","amount":1,"uses":1,"uid":2},{"type":"MON_PHYSICAL","amount":1,"uses":1},{"type":"DTD_LOST","amount":2,"uses":1},{"type":"ELE_DAMAGED","amount":2,"uses":1}],"2":[{"type":"MST_BLUE_PITCHED","amount":1,"uses":1},{"type":"MST_BLUE_PITCHED","amount":1,"uses":1},{"type":"SUP_COST_ONE","amount":1,"uses":1},{"type":"CRU_ATTACKS","amount":1,"uses":1},{"type":"MON_BANISH_PLAYED","amount":1,"uses":1},{"type":"EVR_PLAYED","amount":1,"uses":1},{"type":"HNT_ATTACKS","amount":1,"uses":1},{"type":"HNT_AA_ATTACK","amount":1,"uses":1},{"type":"HNT_ATTACKED_1","amount":1,"uses":1},{"type":"SEA_ATTACKED","amount":1,"uses":1},{"type":"SUP_ATTACKS","amount":1,"uses":1},{"type":"MON_LAST_mangle","amount":1,"uses":1},{"type":"ELE_AA_COMBAT","amount":1,"uses":1},{"type":"ROS_DAMAGE","amount":2,"uses":1},{"type":"ROS_VALLEY_HIT","amount":1,"uses":1},{"type":"MON_PHYSICAL","amount":1,"uses":1},{"type":"EVR_PHYSICAL","amount":2,"uses":1}]},"nextTurnEffects":[],"hitsThisTurn":{"2":[6]},"cardsPlayedThisTurn":{"2":["mangle_red"]},"mpgDurations":[],"botProfiles":[],"weaponHits":[],"attackActionHits":{"2":1},"arcNames":[],"arcaneDealt":[],"arcCards":{"3":{"iarOrigin":1,"mstChiPitched":0,"rosMeld":-1,"rosSurgeGo":false,"evoDashPlay":false,"omnFirstDamage":false,"iarPlayedFrom":"Hand","outPreviousNames":[],"mstFree":false,"mstPreviousPitch":0,"mstPreviousAA":false,"rosLastLightning":false,"iarPermission":[],"mstReactions":0,"mstBanished":[],"supFirst":true,"dtdPrevention2":true,"hvyWagers":[],"mstZeroDefense":false,"penFreezeSources":[]},"4":{"iarPermission":[],"mstZeroDefense":false,"penFreezeSources":[]},"6":{"iarPermission":[],"penMirageChain":-1,"iarOrigin":2,"mstChiPitched":0,"rosMeld":-1,"rosSurgeGo":false,"evoDashPlay":false,"penPitchTypes":["Generic","Action","Item"],"dynPitchNAA":true,"omnFirstDamage":false,"iarPlayedFrom":"Banish","monFromBanish":true,"outPreviousNames":[],"mstFree":false,"mstPreviousPitch":0,"mstPreviousAA":false,"rosLastLightning":false,"mstReactions":0,"mstBanished":[],"supFirst":true,"dtdPrevention1":true,"hntHitMarked1":false,"hvyWagers":[]},"5":{"iarPermission":[]},"11":{"iarPermission":[]},"12":{"iarPermission":[]},"9":{"iarPermission":[]},"10":{"iarPermission":[]}},"arcActions":{"2":1},"dtdPermissions":[],"dtdStarting":false,"uprRefill":false,"dynEdicts":[],"iar":{"3":{"2":{"CHORUS_ATTACK":1,"DAMAGE:1":1}}},"outPreviousNames":{"2":[]},"lastAttackCardID":"mangle_red","attackTargets":[{"type":"HERO","player":1,"uid":1,"zone":"Hero"}],"defendIndex":0,"attackGoAgain":false,"omn":{"3":{"1":{"REPROACH":1}}},"chainHits":1,"consecutiveHits":1,"mstPreviousPitch":1,"mstPreviousAA":true,"hntPreviousDraconic":false}<v0>0<v0>{"PlayCardCalls":{"1":1,"2":1},"PlayCard":{"1":{"wounding_blow_red":1},"2":{"mangle_red":1}},"PitchCardCalls":{"2":2},"PitchCard":{"2":{"energy_potion_blue":2}}}<v0>{"PlayCardCalls":{"1":1,"2":1},"PlayCard":{"1":{"wounding_blow_red":1},"2":{"mangle_red":1}},"PitchCardCalls":{"2":2},"PitchCard":{"2":{"energy_potion_blue":2}}}<v0>14<v0>0
+0
+0
+3
+2
+MAIN
+
+{"mzID":"p2CombatChain-0","mzIDCardID":"energy_potion_blue","cardID":"mangle_red","fromZone":"Banish","attacker":2,"defender":1,"fabSourceZone":"Banish","evoEvent":"","supUnforgetAttacker":1,"mode":"1","chosen":"p2Temp-0","amount":2}
+{"PlayCardCalls":{"1":1,"2":1},"PlayCard":{"1":{"wounding_blow_red":1},"2":{"mangle_red":1}},"PitchCardCalls":{"2":2},"PitchCard":{"2":{"energy_potion_blue":2}}}
+{"PlayCardCalls":{"1":1,"2":1},"PlayCard":{"1":{"wounding_blow_red":1},"2":{"mangle_red":1}},"PitchCardCalls":{"2":2},"PitchCard":{"2":{"energy_potion_blue":2}}}
+14
+0

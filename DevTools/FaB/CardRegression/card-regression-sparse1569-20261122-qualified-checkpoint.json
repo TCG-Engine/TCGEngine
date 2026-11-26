@@ -1,0 +1,68 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-25T14:53:33.279094+00:00",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1569-20261122.json",
+  "source_spec_sha256": "b2a4cb16ffccce1ac76e1af9c8306c16d5fbfdd07a3af30149d6548dc8eb86f0",
+  "new_scenarios": 1,
+  "new_groups": 1,
+  "new_primary_ids": 1,
+  "actions": 69,
+  "native_assertions": 698,
+  "manual_passes": 65,
+  "totals": {
+    "saved_registered_scenarios": 5660,
+    "duels": 3139,
+    "four_live": 2521,
+    "recorded_primary_ids": 2808,
+    "identity_denominator": 5196,
+    "recorded_groups": 2682,
+    "group_denominator": 3324,
+    "four_live_groups": 2510,
+    "phase_qualified_scenarios_at_actual_contexts": 2297,
+    "phase_qualified_unique_groups": 2287,
+    "creation_replay_passes": 3039,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 1458,
+  "scenarios": [
+    {
+      "card_id": "blessing_of_qi_red",
+      "group_id": "pitch-cycle:blessing_of_qi",
+      "scenario_id": "card-blessing-of-qi-red-four-live-sparse1569-real-next-own-start-banish-tiger-plus-three-and-allowed-play",
+      "effect_branches": [
+        "positive_next_own_Start_Aura_to_GY_created_Banish_Tiger_plus_three_and_current_turn_play_damage_follow_through"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-blessing-of-qi-red-four-live-sparse1569-real-next-own-start-banish-tiger-plus-three-and-allowed-play",
+      "source_spec": "card-regression-sparse1569-20261122.json",
+      "source_spec_sha256": "b2a4cb16ffccce1ac76e1af9c8306c16d5fbfdd07a3af30149d6548dc8eb86f0",
+      "review_evidence": "review-evidence/sparse1569-20261122-qualified-saved.json",
+      "review_evidence_sha256": "679684ad8a83b519d421aa9417f74e2eeab94e232f6faa309c2dbf2af590c397",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1569-20261122-replay.json",
+          "sha256": "69bfff6034232072b5b6ea2fa3a25c5c5351778f5e8697d470b8f57de29c3fe3",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

@@ -1,0 +1,73 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-03T15:03:43.963301+00:00",
+  "runtime_sha256": "2193d53b1dff3b62f59a0fc2d1de83e95653f9973a587dfb9e6a3cc637b5e26b",
+  "source_spec": "card-regression-batch275-prognosticate-managed-opt-v2.json",
+  "source_spec_sha256": "75e5e182a1bd06b90714d465d4c9341ca8fdb1db746565dc9adfa3c24126f489",
+  "new_scenarios": 1,
+  "new_groups": 1,
+  "new_primary_ids": 1,
+  "actions": 13,
+  "native_assertions": 1177,
+  "manual_passes": 8,
+  "totals": {
+    "saved_registered_scenarios": 3627,
+    "duels": 3074,
+    "four_live": 553,
+    "recorded_primary_ids": 782,
+    "identity_denominator": 5196,
+    "recorded_groups": 656,
+    "group_denominator": 3324,
+    "four_live_groups": 547,
+    "phase_qualified_scenarios_at_actual_contexts": 264,
+    "phase_qualified_unique_groups": 260,
+    "creation_replay_passes": 528,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 2,
+  "scenarios": [
+    {
+      "card_id": "prognosticate_red",
+      "group_id": "pitch-cycle:prognosticate",
+      "scenario_id": "card-prognosticate-red-four-live-correct-probe-real-crucible-four-arcane-earns-opt-one-source-retained",
+      "effect_branches": [
+        "prognosticate-red-four-live-correct-probe-real-crucible-four-arcane-earns-opt-one-source-retained"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-prognosticate-red-four-live-correct-probe-real-crucible-four-arcane-earns-opt-one-source-retained",
+      "source_spec": "card-regression-batch275-prognosticate-managed-opt-v2.json",
+      "source_spec_sha256": "75e5e182a1bd06b90714d465d4c9341ca8fdb1db746565dc9adfa3c24126f489",
+      "review_evidence": "review-evidence/prognosticate065-saved-2193-independent-review.json",
+      "review_evidence_sha256": "2a7beaa6b9807798d2a4b10437563443a69cb9eb6d96333ef00d124d6a94c4fb",
+      "recorded_runtime_sha256": "2193d53b1dff3b62f59a0fc2d1de83e95653f9973a587dfb9e6a3cc637b5e26b",
+      "qualification_runtime_sha256": "2193d53b1dff3b62f59a0fc2d1de83e95653f9973a587dfb9e6a3cc637b5e26b",
+      "matches_current_runtime": true,
+      "two_clean_replays": [
+        {
+          "path": "card-regression-replay-nov3-prognosticate065-2193-r1.json",
+          "sha256": "6180eee686f646a76541b3a6f34e8abf3aa86a526a2fe213609704712734a260",
+          "runtime_sha256": "2193d53b1dff3b62f59a0fc2d1de83e95653f9973a587dfb9e6a3cc637b5e26b",
+          "passed": true
+        },
+        {
+          "path": "card-regression-replay-nov3-prognosticate065-2193-r2.json",
+          "sha256": "7fbfdf5c8394c17fc6465f118190dc3d61e49cefce355fba4693f8a2c96e6cd9",
+          "runtime_sha256": "2193d53b1dff3b62f59a0fc2d1de83e95653f9973a587dfb9e6a3cc637b5e26b",
+          "passed": true
+        }
+      ],
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

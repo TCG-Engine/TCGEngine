@@ -1,0 +1,7 @@
+{
+    "name": "Break Tide / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T20:30:20+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "**Combo** - If Rushing River or Flood of Force was the last attack this combat chain, this gets +3{p}, **dominate**, and \"When this hits, banish the top card of your deck. Until the end of your next turn, you may play it.\" Representative only: actual_first_attack_two_without_combo_keeps_real_own_deck. Actual printed zero-cost Hand attack, four manual live seats/full unblocked combat, real HP loss and owned physical source in graveyard. No positive Tower/Combo/greater-than-base bonus or pitch sibling credit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#break_tide_yellow"
+}

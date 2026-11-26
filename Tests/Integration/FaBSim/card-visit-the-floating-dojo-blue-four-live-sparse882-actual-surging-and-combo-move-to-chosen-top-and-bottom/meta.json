@@ -1,0 +1,7 @@
+{
+    "name": "Visit the Floating Dojo / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T16:15:35+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "**Katsu Specialization**\n\nPut a Surging Strike and a card with **combo** from your graveyard on the top and/or bottom of your deck. Representative only: actual_surging_and_combo_move_to_chosen_top_and_bottom. Other pitch siblings, alternate targets and unexercised branches receive no credit. All four live/manual; only native entry-point actions. Sources: FaBSim/GeneratedCode/cardArrayCache.json#visit_the_floating_dojo_blue"
+}

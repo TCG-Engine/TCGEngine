@@ -1,0 +1,339 @@
+{
+  "status": "APPROVED_ACTUAL_SAVED_B371_SEEDS_HEALTHY_SUBSET_TREE_CORRECT_EXPECTATION_NATIVE_FAILED_NO_FIXTURE",
+  "approved": true,
+  "source_approved": true,
+  "semantically_approved": true,
+  "reviewer": "/root/nov2_metadata_review",
+  "created_utc": "2026-11-03T21:08:06.793114+00:00",
+  "source_spec": "card-regression-batch371.json",
+  "input_sha256": "cabb55b4e1279343b8799d29ebb2313c4188aea3ef78fcb696c35feaff59744f",
+  "manifest_sha256": "06017563f007c837da46e3d11386cc035e7d3c4765dd2eb57f2cb4c4ed046dc1",
+  "runtime_sha256": "bc14dcabff3f9b4b1592a0afc364de72de1c9bd326e0204056369b1c1ff9574b",
+  "recorded_runtime_sha256": "bc14dcabff3f9b4b1592a0afc364de72de1c9bd326e0204056369b1c1ff9574b",
+  "source_guards_verified": 21,
+  "prior_independent_semantic_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch371-independent-source-review.json",
+    "sha256": "ebc3dcc250fd738a73537420212df40d76b8667881d52f42a0ec5b0b65ef805c",
+    "reviewer": "/root/nov2_metadata_review",
+    "reused_not_new_source_review": true
+  },
+  "source_expectation_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch371-independent-source-review.json",
+    "sha256": "ebc3dcc250fd738a73537420212df40d76b8667881d52f42a0ec5b0b65ef805c",
+    "selected_source_case": "seeds_of_tomorrow_blue",
+    "Tree_correct_spec_not_wrong_or_weakened": true
+  },
+  "recording_receipt": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch371-20261103T210155Z-6aea4bc3d8899.json",
+    "sha256": "c2d03b6dd5c3c1d8e9de5c220345497d63b7f417e85ed0012ff1c24c5140511b"
+  },
+  "immutable_native_archive": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch371-20261103T210155Z-6aea4bc3d8899.json",
+    "sha256": "c2d03b6dd5c3c1d8e9de5c220345497d63b7f417e85ed0012ff1c24c5140511b"
+  },
+  "root_wrapper_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch371-native-bc14-r1\\receipt.json",
+    "sha256": "ede1a001882e44728a595228a4fd7174d12642c321e1cd989a386ffedda6054d"
+  },
+  "actual_comparison_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov3_batch371_seeds_saved_readonly.py",
+    "sha256": "106fc1640bd728b20b5d36ee130606b42ddd4c17ea143009cd93d452a8bbb771"
+  },
+  "reviewer_independence": "Next authored both cases. Meta independently reviewed source/ledger and actual saved Seeds; reviewer authored neither and ran no engine/game/PHP/replay.",
+  "fixtures": [
+    {
+      "index": 0,
+      "card_id": "seeds_of_tomorrow_blue",
+      "group_id": "identity:seeds_of_tomorrow_blue",
+      "slug": "card-seeds-of-tomorrow-blue-four-live-sparse-real-arsenal-bottom-cost-and-five-prevention",
+      "source_spec": "card-regression-batch371.json",
+      "input_sha256": "cabb55b4e1279343b8799d29ebb2313c4188aea3ef78fcb696c35feaff59744f",
+      "reviewer": "/root/nov2_metadata_review",
+      "runtime_sha256": "bc14dcabff3f9b4b1592a0afc364de72de1c9bd326e0204056369b1c1ff9574b",
+      "recorded_runtime_sha256": "bc14dcabff3f9b4b1592a0afc364de72de1c9bd326e0204056369b1c1ff9574b",
+      "approved": true,
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_HEALTHY_SEEDS_SUBSET_ONLY",
+      "fixture_path": "Tests\\Integration\\FaBSim\\card-seeds-of-tomorrow-blue-four-live-sparse-real-arsenal-bottom-cost-and-five-prevention",
+      "fixture_sha256": "c7be9bcdda7a718ae082c277e4c69a55bc1cdce16c55e918c0a0e3ccee2b9a4a",
+      "raw4_sha256": {
+        "initial_gamestate.txt": "4373f5c73700e1babf7b88b4e7e2172c2f9bb6b1d67c062dcbe5907bb514f341",
+        "actions.json": "5eb3b9dac4a3941552bbafa63badcc4b3574442d6378c089916af542ff7f24c0",
+        "assertions.json": "bcef9fc59ecb5d4ec7c884043b18a3fcf6b7668fac385beaec421dbb6d79a8e0",
+        "expected_final_gamestate.txt": "f9a32d1f32dd0c1d0a6851f352dccc2af82969d0a03a3a32c0472359cad09991"
+      },
+      "raw5_sha256": {
+        "initial_gamestate.txt": "4373f5c73700e1babf7b88b4e7e2172c2f9bb6b1d67c062dcbe5907bb514f341",
+        "actions.json": "5eb3b9dac4a3941552bbafa63badcc4b3574442d6378c089916af542ff7f24c0",
+        "assertions.json": "bcef9fc59ecb5d4ec7c884043b18a3fcf6b7668fac385beaec421dbb6d79a8e0",
+        "expected_final_gamestate.txt": "f9a32d1f32dd0c1d0a6851f352dccc2af82969d0a03a3a32c0472359cad09991",
+        "meta.json": "0580819104e7dbe5a98058c67111de4d55f6adf102a21234df81f2d53dc9a4dd"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "4373f5c73700e1babf7b88b4e7e2172c2f9bb6b1d67c062dcbe5907bb514f341",
+        "actions.json": "5eb3b9dac4a3941552bbafa63badcc4b3574442d6378c089916af542ff7f24c0",
+        "assertions.json": "bcef9fc59ecb5d4ec7c884043b18a3fcf6b7668fac385beaec421dbb6d79a8e0",
+        "expected_final_gamestate.txt": "f9a32d1f32dd0c1d0a6851f352dccc2af82969d0a03a3a32c0472359cad09991",
+        "meta.json": "0580819104e7dbe5a98058c67111de4d55f6adf102a21234df81f2d53dc9a4dd"
+      },
+      "actions": 37,
+      "native_assertions": 3386,
+      "actual_manual_passes": 32,
+      "actual_priority_response_passes": 31,
+      "actual_defender_declaration_finish_inputs": 1,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4
+      ],
+      "actual_manual_actor_counts": {
+        "1": 8,
+        "2": 8,
+        "3": 8,
+        "4": 8
+      },
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "all_actions_and_assertions_exact": true,
+      "all_endpoint_physical_uid_card_zones_ownership_verified": true,
+      "all_terminal_assertions_evaluated_against_parsed_final_snapshot": true,
+      "initial_assertions_also_evaluated_against_parsed_initial_snapshot": true,
+      "initial_physical_uid_locations": {
+        "1": {
+          "card_id": "dorinthea",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "7": {
+          "card_id": "raging_onslaught_red",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "8": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "florian",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2
+        },
+        "5": {
+          "card_id": "seeds_of_tomorrow_blue",
+          "zone": "p4Hand",
+          "owner": 4,
+          "controller": 4
+        },
+        "9": {
+          "card_id": "wounding_blow_yellow",
+          "zone": "p4Deck",
+          "owner": 4,
+          "controller": 4
+        },
+        "6": {
+          "card_id": "wounding_blow_red",
+          "zone": "p4Arsenal",
+          "owner": 4,
+          "controller": 4,
+          "FaceDown": 1
+        }
+      },
+      "final_physical_uid_locations": {
+        "1": {
+          "card_id": "dorinthea",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "7": {
+          "card_id": "raging_onslaught_red",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1,
+          "FaceDown": 0
+        },
+        "8": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Pitch",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "florian",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2
+        },
+        "9": {
+          "card_id": "wounding_blow_yellow",
+          "zone": "p4Deck",
+          "owner": 4,
+          "controller": 4
+        },
+        "6": {
+          "card_id": "wounding_blow_red",
+          "zone": "p4Deck",
+          "owner": 4,
+          "controller": 4
+        },
+        "5": {
+          "card_id": "seeds_of_tomorrow_blue",
+          "zone": "p4Graveyard",
+          "owner": 4,
+          "controller": 4,
+          "FaceDown": 0
+        }
+      },
+      "final_health": [
+        20,
+        20,
+        20,
+        18
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_Hero_Status": [
+        2,
+        2,
+        2,
+        2
+      ],
+      "final_physical_uidset": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "final_UniqueIDCounter": 9,
+      "RandomCounter": 0,
+      "final_Deck4_UIDs": [
+        9,
+        6
+      ],
+      "no_positive_ROS_PREVENT_residue": true,
+      "checkpoint_assertion_mapping_sha256": "5d867f0de65a65d2347a038152095840c0cd30c850afb48ba3e89682a8b402eb",
+      "native_action_mapping_sha256": "3754b2656f77e261fcbd7c2b165e025bcd7200d50b2c6fd6bfbf7ae7eb6d0877",
+      "native_assertion_mapping_sha256": "85c37d526ac5ba7832d60c6045003e3fec8391511c12623dac0c311474a44fef"
+    }
+  ],
+  "blocked_attempts": [
+    {
+      "index": 1,
+      "card_id": "channel_the_millennium_tree_red",
+      "group_id": "identity:channel_the_millennium_tree_red",
+      "slug": "card-channel-the-millennium-tree-red-four-live-original-correct-entry-trigger-amp-three-before-real-zap-six",
+      "semantically_approved": false,
+      "fixture_saved": false,
+      "passing_credit": false,
+      "correct_expectation_spec_approved": true,
+      "reason": "Engine fails the independently approved correct printed entry-WHEN expectation: after6nativeinputs the fourth primaryresponse has Stack0 instead of1 and actual archivedMST_AMP3 alreadyexists. Spec is not weakened or classified as wrong; noTreefixture saved. Freshentryresponses/Zapconsumer/suffix unreached.",
+      "status": "blocked_or_incorrect",
+      "captured_attempted_native_inputs": 6,
+      "error": "Expected Stack count 1, got 0.",
+      "fixture_absence_verified": true,
+      "independent_native_before_classification": {
+        "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-tree083-independent-native-before-classification.json",
+        "sha256": "cbfe550cde649bcd0cb4b8c71181cef5de87e296659f3e6944329b4855f5dd80"
+      }
+    }
+  ],
+  "reviewed_subset": true,
+  "total_actions": 37,
+  "total_native_assertions": 3386,
+  "total_manual_passes": 32,
+  "total_priority_response_passes": 31,
+  "total_defender_declaration_finish_inputs": 1,
+  "material_findings": [
+    "ActualSeeds5P4Hand\u2192Stack, printedzeroInstant/noAP and actualArsenal6costchoice/answer beforefour; same6bottomDeck4after9 physicallystrictalllatercheckpoints. RealBlue8fundsattack3/AP1.",
+    "Fresh4/1/2/3retainsphysical5Stackfirstthree; fourthsource5ownGYarms5prevention. FreshReactionfour actualattackpower7/damage2/P4HP18; rawfinalno positiveROS_PREVENTresidue, noearlydamage orhealing.",
+    "Exactsavedrawfive/all37nativeactions3386orderedpersistedchecks/32manualpasses8each; fullparsedinitial/finalallUID1..9/ownercontroller/Deck9,6/ownGY5+7/Pitch8/allRAP0/DQawaitcleanup and48manualsettingsperendpointverified.",
+    "Tree excluded completely from passing fixture/coverage: exactoriginalcorrectspec/nativefailure/archive6inputs/Stack0+earlyAMP3 are retained separately; no incorrectfixture or lowered expectation."
+  ],
+  "limits": [
+    "Saved Seeds subset only; Root twofocusedSeeds replays separate and not claimed as reviewer execution.",
+    "No Seeds falseArsenal/othercostchoices/multipacket/expiry/hero/otherorigin/sibling/supportprimary/fullcard/control credit.",
+    "Tree future Actionphase/ChannelEarth/upkeep/entrytriggerresponses/Zap6damage allunreached/uncredited; source/spec correct but native failed.",
+    "NoPHP/native/R/source/service/generation/fullsuite by reviewer; tenoldholds/SmashItem unchanged."
+  ]
+}

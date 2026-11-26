@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-suraya-archangel-of-knowledge-four-live-sparse1217-ward-four-real-seven-physical-front-face-and-consumed-token-material",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-suraya-archangel-of-knowledge-four-live-sparse1217-ward-four-real-seven-physical-front-face-and-consumed-token-material",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1217-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1217-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "c7d1d64a1b3860910ef835d0e8330f9f344fb612e87cdd5fad7ea680a8b7c640",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "38db6b3bb8b7184d9e3dbd8aee471c9750dc44642ec7a8d50d9a77a88eda3dba",
+        "actions.json": "627e6257c48305183c5b1ac8f7a6299fb04cf2f4230c1d4013f63220cf0fd327",
+        "assertions.json": "d6e32b30dc1fef6d25c7810e640ad24a1b915bc18302589ff6ec91107481d166",
+        "expected_final_gamestate.txt": "4524509d453a769a658ddd2587fb45e9f7a28e83a3ec0aa9001f1eff263e85ec",
+        "meta.json": "0a9ebfd652c6ea68d9142238643a102a7ea964f76361a90b0186d6dcf37bd375"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

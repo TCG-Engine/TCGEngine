@@ -1,0 +1,7 @@
+{
+    "name": "Mark of the Huntsman / four-live paid full-block weapon",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-23T05:11:18+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "**Once per Turn Action** - {r}{r}: **Attack**. **Go again**\n\nWhen this hits a hero, you may choose to destroy this and **mark** them.\n\nIf this is attacking a **marked** hero, this gets +1{p}. Named branch actual_paid_unmarked_weapon_full_block_printed_go_again. Legal natural20 uzuri, sole ready owned Weapon5; actual GenericBlue6 pays printed cost2, R1/AP0. Native adjacent Hero4 announcement before payment. Four live seats manually respond in every window. Actual printed power1 is fully blocked by 1 real Hand AA(s), defense3: persisted Damage attackPower/defenseValue/damage0/noHit/HP20 and physical DEFENSE Roles/owned graveyard fates. Physical Weapon5 used/retained with WEAPON_ATTACK_TURN2/WEAPON_ATTACKS1; proxy source uses WEAPON_UID5, no opaque proxy UID/owner assertion. Actual target4 unmarked HeroCounters[] means static+1 absent; blocked attack still returns printed GA/AP1 only at Resolution. No Hit means no destroy/mark trigger; Weapon5 retained/Hero4Counters[] both guarded. No hero activation, positive hit, repeated attack, support/pitch sibling/full-card credit. No author-only diagnostics; native/save/replay pending Root. Sources: FaBSim/GeneratedCode/cardArrayCache.json#mark_of_the_huntsman"
+}

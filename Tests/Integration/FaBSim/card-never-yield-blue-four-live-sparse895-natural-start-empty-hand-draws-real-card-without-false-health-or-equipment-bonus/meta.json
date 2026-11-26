@@ -1,0 +1,7 @@
+{
+    "name": "Never Yield / sparse natural start effect representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T17:41:45+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "At the start of your turn, destroy this, then if you have no cards in hand, draw a card. If you have less {h} than all other heroes, gain 2{h}. If you control fewer equipment than all other heroes, remove a -1{d} counter from an equipment you control. Representative only: natural_start_empty_hand_draws_real_card_without_false_health_or_equipment_bonus. Actual owned existing Arena source and natural turn transition; no source entry/cost, supporting-card or whole-card credit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#never_yield_blue"
+}

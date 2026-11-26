@@ -1,0 +1,483 @@
+[
+  {
+    "slug": "card-unmovable-blue-hand-paid-blue-three",
+    "name": "Unmovable / hand-paid-blue-three",
+    "cardIDs": [
+      "unmovable_blue"
+    ],
+    "branches": [
+      "hand-paid-blue-three"
+    ],
+    "zones": [
+      {
+        "cardID": "disable_red",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "wounding_blow_blue",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "raging_onslaught_blue",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "unmovable_blue",
+        "player": 2,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "wounding_blow_blue",
+        "player": 2,
+        "zone": "Hand",
+        "properties": {}
+      }
+    ],
+    "steps": [
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "REACTION",
+          "priority": 2
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "kind": "power",
+            "value": 9
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          }
+        ]
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "kind": "can_play",
+            "value": true,
+            "player": 2,
+            "mzID": "p2Hand-0"
+          }
+        ]
+      },
+      {
+        "kind": "click",
+        "mzID": "p2Hand-0",
+        "player": 2
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "kind": "state",
+            "value": "PITCH",
+            "key": "window"
+          }
+        ]
+      },
+      {
+        "kind": "click",
+        "mzID": "p2Hand-0",
+        "player": 2
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "REACTION",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "kind": "defense",
+            "value": 5
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2Hand",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2Arsenal",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2Pitch",
+            "value": 1
+          },
+          {
+            "type": "card_exists",
+            "zone": "p2CombatChain",
+            "cardID": "unmovable_blue"
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 20
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "RESOLUTION"
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 16
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2Arsenal",
+            "value": 0
+          }
+        ]
+      }
+    ],
+    "heroes": [
+      "bravo",
+      "ira_crimson_haze"
+    ],
+    "actionPoints": [
+      1,
+      0
+    ],
+    "oracle": "Unmovable printed defense is 5; Hand origin adds 0, for exact defense 5. Pay cost3 with blue-three; no defender action point exists or is consumed. Disable red (Bravo Guardian, cost5) attacks for9, so expected damage is 4 and defender life is 16. All expected defense values leave positive damage, so missing or excessive defense modifiers change a persisted life checkpoint. Defender arsenal is empty after the reaction; Disable crush has no card to move even in the blue-hand branch that takes4. Repair-only 20261125: existing pass_until Resolution now records the earned Disable crush response layer before advancing. Keep the original empty Arsenal condition, all defense/cost/life assertions and partial Resolution endpoint; no new coverage credit.",
+    "sources": [
+      "FaBSim/GeneratedCode/cardArrayCache.json#unmovable_blue",
+      "https://rules.fabtcg.com/en/cr/07-combat/#7.4",
+      "https://rules.fabtcg.com/en/cr/07-combat/#7.5"
+    ],
+    "validationStatus": "proposed-unrecorded",
+    "reviewNotes": [
+      "Independent oracle: printed card text and CR7.4.2b/d, CR7.5.2; WTRCards.php:214 is implementation evidence only.",
+      "Pilot fault control: remove the arsenal WTR_DEFENSE:1 tag only in an isolated fixture state before resolution; expect p2Health exactly one lower.",
+      "Opposite fault control: add one extra defense only in the isolated hand fixture; expect life assertion to reject the extra prevention."
+    ],
+    "repair_only": true,
+    "new_coverage_group_credit": false
+  },
+  {
+    "slug": "card-unmovable-blue-hand-paid-red-one-yellow-two",
+    "name": "Unmovable / hand-paid-red-one-yellow-two",
+    "cardIDs": [
+      "unmovable_blue"
+    ],
+    "branches": [
+      "hand-paid-red-one-yellow-two"
+    ],
+    "zones": [
+      {
+        "cardID": "disable_red",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "wounding_blow_blue",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "raging_onslaught_blue",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "unmovable_blue",
+        "player": 2,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "wounding_blow_red",
+        "player": 2,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "wounding_blow_yellow",
+        "player": 2,
+        "zone": "Hand",
+        "properties": {}
+      }
+    ],
+    "steps": [
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "REACTION",
+          "priority": 2
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "kind": "power",
+            "value": 9
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          }
+        ]
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "kind": "can_play",
+            "value": true,
+            "player": 2,
+            "mzID": "p2Hand-0"
+          }
+        ]
+      },
+      {
+        "kind": "click",
+        "mzID": "p2Hand-0",
+        "player": 2
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "kind": "state",
+            "value": "PITCH",
+            "key": "window"
+          }
+        ]
+      },
+      {
+        "kind": "click",
+        "mzID": "p2Hand-0",
+        "player": 2
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "kind": "state",
+            "value": "PITCH",
+            "key": "window"
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Resources",
+            "value": 1
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2Pitch",
+            "value": 1
+          }
+        ]
+      },
+      {
+        "kind": "click",
+        "mzID": "p2Hand-0",
+        "player": 2
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "REACTION",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "kind": "defense",
+            "value": 5
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2Hand",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2Arsenal",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2Pitch",
+            "value": 2
+          },
+          {
+            "type": "card_exists",
+            "zone": "p2CombatChain",
+            "cardID": "unmovable_blue"
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 20
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "RESOLUTION"
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 16
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2Arsenal",
+            "value": 0
+          }
+        ]
+      }
+    ],
+    "heroes": [
+      "bravo",
+      "ira_crimson_haze"
+    ],
+    "actionPoints": [
+      1,
+      0
+    ],
+    "oracle": "Unmovable printed defense is 5; Hand origin adds 0, for exact defense 5. Pay cost3 with red-one-yellow-two; no defender action point exists or is consumed. Disable red (Bravo Guardian, cost5) attacks for9, so expected damage is 4 and defender life is 16. All expected defense values leave positive damage, so missing or excessive defense modifiers change a persisted life checkpoint. Defender arsenal is empty after the reaction; Disable crush has no card to move even in the blue-hand branch that takes4. Repair-only 20261125: existing pass_until Resolution now records the earned Disable crush response layer before advancing. Keep the original empty Arsenal condition, all defense/cost/life assertions and partial Resolution endpoint; no new coverage credit.",
+    "sources": [
+      "FaBSim/GeneratedCode/cardArrayCache.json#unmovable_blue",
+      "https://rules.fabtcg.com/en/cr/07-combat/#7.4",
+      "https://rules.fabtcg.com/en/cr/07-combat/#7.5"
+    ],
+    "validationStatus": "proposed-unrecorded",
+    "reviewNotes": [
+      "Independent oracle: printed card text and CR7.4.2b/d, CR7.5.2; WTRCards.php:214 is implementation evidence only.",
+      "Pilot fault control: remove the arsenal WTR_DEFENSE:1 tag only in an isolated fixture state before resolution; expect p2Health exactly one lower.",
+      "Opposite fault control: add one extra defense only in the isolated hand fixture; expect life assertion to reject the extra prevention."
+    ],
+    "repair_only": true,
+    "new_coverage_group_credit": false
+  }
+]

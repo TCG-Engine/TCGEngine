@@ -1,0 +1,125 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-plutonic-starplate-four-live-sparse1077-real-arcane-barrier-one-paid-by-blue-pitch-equipment-retained",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-plutonic-starplate-four-live-sparse1077-real-arcane-barrier-one-paid-by-blue-pitch-equipment-retained",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1077-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1077-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "50d4115842a626a9a3c16c234b5a7c70a93d44ae91f1b7a0727c71b2ec4be7e4",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "afd2ea9f230dffe6b7c7dfe688017919f389ba00ad71913cbdc5eec5adc5a320",
+        "actions.json": "abeb3c8b027bfa26d05afb7a0c385c41d6388c2ae6f8105e03a2cd84dc242119",
+        "assertions.json": "40c9fdf676e4128bba0e1f72e4bb8f8b88ef6a796e8b06c121dc3dfab0a14cb1",
+        "expected_final_gamestate.txt": "f8e8e1b438e393baf17f6c46c4dc515d14e8c365ccf9e11a9f71aa4268973b29",
+        "meta.json": "07d981bb4c2220d93fd43e85c8ba31c43b24f60b2283a420d27056cdf6456de4"
+      }
+    },
+    {
+      "slug": "card-robe-of-autumns-fall-four-live-sparse1077-real-arcane-barrier-one-paid-by-blue-pitch-equipment-retained",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-robe-of-autumns-fall-four-live-sparse1077-real-arcane-barrier-one-paid-by-blue-pitch-equipment-retained",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1077-local-20261122\\clean-replays\\01.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1077-local-20261122\\clean-replays\\01.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "b4d7084d2f4541d81b5664c8f0fd9f7d8f24888c02b6b4d7fea475d3b3e22807",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "fc89b70fa4854eaab2945ac6f6acad9697ad77cb3b90b119fa64826222e03242",
+        "actions.json": "abeb3c8b027bfa26d05afb7a0c385c41d6388c2ae6f8105e03a2cd84dc242119",
+        "assertions.json": "3e9e97f2ad0b83f3a339d68e35311039d3aa0be0521aaa4571e2223dd99a60ae",
+        "expected_final_gamestate.txt": "4209af6891b1b3a92933f0a0b925d34b32103ceae9ff8c520a5af302f8e2fe4e",
+        "meta.json": "69544f8126207789419367aa11b585537a5a490b4ef91505901620ffe3c82201"
+      }
+    },
+    {
+      "slug": "card-scuttle-toes-four-live-sparse1077-real-arcane-barrier-one-paid-by-blue-pitch-equipment-retained",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-scuttle-toes-four-live-sparse1077-real-arcane-barrier-one-paid-by-blue-pitch-equipment-retained",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1077-local-20261122\\clean-replays\\02.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1077-local-20261122\\clean-replays\\02.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "8479fdfb44f316e8ec8ce7fb7da26603524969cbab33630e86da7df3eae6450a",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "79445f56e2850a04120b80e82b87b0bb8f6e03ee3fb2cdd29a24d9a58961ffe6",
+        "actions.json": "abeb3c8b027bfa26d05afb7a0c385c41d6388c2ae6f8105e03a2cd84dc242119",
+        "assertions.json": "461479e73642508d2d0b30dae872b942a5f2d05ae55b936050f2a58cfda3bfa0",
+        "expected_final_gamestate.txt": "cc0353c0fe6f67365481548ae26476a80a6ea2cfbdee4eb5759123a8363fdb32",
+        "meta.json": "285ae37523b79832af7ad649daf7483460e856a05919f16e9586257d2ed73fae"
+      }
+    },
+    {
+      "slug": "card-silent-stilettos-four-live-sparse1077-real-arcane-barrier-one-paid-by-blue-pitch-equipment-retained",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-silent-stilettos-four-live-sparse1077-real-arcane-barrier-one-paid-by-blue-pitch-equipment-retained",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1077-local-20261122\\clean-replays\\03.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1077-local-20261122\\clean-replays\\03.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "eb16d39d953e79135d3d0731465654d4a602b265ef932ad3108371aeb0cd2008",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "a8741ecdb50078c1a62bb38d3bed56901774b2148dd4446f056eec97f1ef2cf1",
+        "actions.json": "abeb3c8b027bfa26d05afb7a0c385c41d6388c2ae6f8105e03a2cd84dc242119",
+        "assertions.json": "c39f25a779712fee3b43c9b7be99111f29926a66829c5285f3fd1105cfaef7ec",
+        "expected_final_gamestate.txt": "cc1c1d99b33f8be21cac64f8e3e5735367fb57d1d977cb93dca88b209762eb0b",
+        "meta.json": "8d706125322cc12f0d23b959af1cd0c29a663d1ef6e4b92adcca8b5fdd503ee5"
+      }
+    },
+    {
+      "slug": "card-solforge-gauntlet-four-live-sparse1077-real-arcane-barrier-one-paid-by-blue-pitch-equipment-retained",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-solforge-gauntlet-four-live-sparse1077-real-arcane-barrier-one-paid-by-blue-pitch-equipment-retained",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1077-local-20261122\\clean-replays\\04.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1077-local-20261122\\clean-replays\\04.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "ad9efc40b035f3ab46dda42526498dc1c9ee68f715c023954b0cdaabe0a20e18",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "b880406c98968df7850f48f499b7555551ce990b88681d7dd356cdd8ac09cfb7",
+        "actions.json": "abeb3c8b027bfa26d05afb7a0c385c41d6388c2ae6f8105e03a2cd84dc242119",
+        "assertions.json": "2e969ca53d985ccbad1a3cc97c77b37967a39e4fa6325ad49687c072129e11a5",
+        "expected_final_gamestate.txt": "c9e5e77996595393b83894174068b009c5fbce7e701c1c211d857ba4a0f4222d",
+        "meta.json": "c00c42c951be0e9abe8246f0ee4088efa940da3b627e14b76751c951fb1589f6"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

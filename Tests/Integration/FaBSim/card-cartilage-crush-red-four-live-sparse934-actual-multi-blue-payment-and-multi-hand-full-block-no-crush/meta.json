@@ -1,0 +1,7 @@
+{
+    "name": "Cartilage Crush / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T20:43:20+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "**Crush** - When this deals 4 or more damage to a hero, their first action during their next turn costs an additional {r} to play or activate. Representative only: actual_multi_blue_payment_and_multi_hand_full_block_no_crush. Other pitch siblings, alternate targets and unexercised branches receive no credit. All four live/manual; only native entry-point actions. Sources: FaBSim/GeneratedCode/cardArrayCache.json#cartilage_crush_red"
+}

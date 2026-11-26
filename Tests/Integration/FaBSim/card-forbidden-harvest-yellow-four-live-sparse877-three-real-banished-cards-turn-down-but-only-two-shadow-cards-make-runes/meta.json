@@ -1,0 +1,7 @@
+{
+    "name": "Forbidden Harvest / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T15:23:09+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Turn up to 3 cards in your banished zone face-down, then create a Runechant token for each Shadow card turned face-down this way.\n\n**Go again** Representative only: three_real_banished_cards_turn_down_but_only_two_shadow_cards_make_runes. Other pitch siblings, alternate targets and unexercised branches receive no credit. All four live/manual; only native entry-point actions. Sources: FaBSim/GeneratedCode/cardArrayCache.json#forbidden_harvest_yellow"
+}

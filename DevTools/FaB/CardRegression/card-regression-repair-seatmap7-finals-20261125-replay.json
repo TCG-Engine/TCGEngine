@@ -1,0 +1,55 @@
+{
+  "runtime_sha256": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+  "fixtures": [
+    {
+      "slug": "card-comet-storm-shock-red-four-live-declared-left-action-half-real-two-cost-blue-funding-and-five-arcane",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "18156c8c824e461982ba52d8abc57763f9b2d4ea331751a564d4a8c0e3c894ec"
+    },
+    {
+      "slug": "card-dampen-red-four-live-sparse-real-four-arcane-earned-prevention-four-against-five",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "18ff10e5fb111853d419ba7009cd90bee5c63adf5f560604c7e0952e1e1c4290"
+    },
+    {
+      "slug": "card-emboldened-by-the-crowd-yellow-four-live-real-cheer-cost-three-to-zero-and-six-defense",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "4414fdcbcffa680aa92c9c625af2a3cc396d9924b763d426c12b544ce282cb27"
+    },
+    {
+      "slug": "card-painful-premonition-blue-four-live-real-adjacent-arcane-damage-creates-owned-sigil-of-fate",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "b558c10ce97ec037158417acb858b905bc570f37bda0a1e3d854c25048492e5d"
+    },
+    {
+      "slug": "card-photon-splicing-red-four-live-sparse-real-paid-action-four-arcane-to-declared-hero",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "00730cb21d3822e846eb59c9037b288abe0a2eed310968a6582f3d40e0239e36"
+    },
+    {
+      "slug": "card-pulsing-aether-life-red-four-live-sparse-real-left-only-mode-target-paid-four-arcane",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "fddc4f22ae099df4f119a5f8c6dc428ab38e5d87abca2a6c932d9b5a5497f5ab"
+    },
+    {
+      "slug": "card-swell-tidings-red-four-live-sparse-real-target-and-blue-pays-two-for-five-arcane-no-surge",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "fca59596e400d1714ee5bc40e71d9126c699054c36d1af338db4bd51f0dd48eb"
+    }
+  ],
+  "full_suite_run": false
+}

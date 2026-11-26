@@ -1,0 +1,7 @@
+{
+    "name": "Cadaverous Contraband / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T21:09:49+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "When this hits, you may put a non-attack action card from your graveyard on top of your deck. Representative only: actual_two_hand_blocks_prevent_hit_and_primary_effect. Other pitch siblings, alternate targets and unexercised branches receive no credit. All four live/manual; only native entry-point actions. Sources: FaBSim/GeneratedCode/cardArrayCache.json#cadaverous_contraband_red"
+}

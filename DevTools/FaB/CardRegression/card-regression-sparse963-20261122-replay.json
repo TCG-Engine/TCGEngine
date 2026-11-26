@@ -1,0 +1,148 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-boulder-drop-red-four-live-sparse963-actual-multi-blue-payment-and-multi-hand-full-block-no-crush",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-boulder-drop-red-four-live-sparse963-actual-multi-blue-payment-and-multi-hand-full-block-no-crush",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse963-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse963-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "f811c2c277a3dbb4f119e7413629a2246609edd4e9bdefc2e7fa7b8ceee23a03",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "703047dd220def8f1d948c3cc609bbf7818cfca6b4341af5ef3e30fb6a14f07f",
+        "actions.json": "b9996f47ad8378619b85a79eb0a8a53a9e095b4296bec37843ce3c891f30ed90",
+        "assertions.json": "9987d685969aaffe7a48807da2b84f7545d8aeb4da021c956d3ac225a31c52eb",
+        "expected_final_gamestate.txt": "f74928dd76256945e08701215d7572d2b37cb41c1a7e51024de22a424f52685d",
+        "meta.json": "f7dd17c3923d49d0dbbb5c9dc02b98191055798bf6aff2ecabd60764f42edb9b"
+      }
+    },
+    {
+      "slug": "card-crush-confidence-red-four-live-sparse963-actual-multi-blue-payment-and-multi-hand-full-block-no-crush",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-crush-confidence-red-four-live-sparse963-actual-multi-blue-payment-and-multi-hand-full-block-no-crush",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse963-local-20261122\\clean-replays\\01.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse963-local-20261122\\clean-replays\\01.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "5becc54223bacf2bc8cd64637944bd765759d718ca861fa8ec6cdf22e55cb0ed",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "42d02cf2338ff5be07e19279f9ed01887b058abfccd5c9fdc3d30737f51139c6",
+        "actions.json": "b9996f47ad8378619b85a79eb0a8a53a9e095b4296bec37843ce3c891f30ed90",
+        "assertions.json": "41dcd164fba0d598ead123bc97b1252bb28dd85e6e7c23a0275b51e33d45891a",
+        "expected_final_gamestate.txt": "b0f0aef8794a22c1bdbe998e4447b695ab0c3e1ed94f140f02a8150235441f2e",
+        "meta.json": "d0b6e8828469edb10e314bef950d4abe97b6f89154b85dc32486191d7890c461"
+      }
+    },
+    {
+      "slug": "card-crush-the-weak-red-four-live-sparse963-actual-multi-blue-payment-and-multi-hand-full-block-no-crush",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-crush-the-weak-red-four-live-sparse963-actual-multi-blue-payment-and-multi-hand-full-block-no-crush",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse963-local-20261122\\clean-replays\\02.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse963-local-20261122\\clean-replays\\02.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "b86b26fdc3dd4fe194b6b093a3ce34875a0ce411c2784d7161c309dc421287b2",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "ef7d675b00054267f0806397fb962795b74ac365f9cfbf196f3426a487e32fd7",
+        "actions.json": "b9996f47ad8378619b85a79eb0a8a53a9e095b4296bec37843ce3c891f30ed90",
+        "assertions.json": "4f14911abd3861ea33b56f59cc573143c1766b80b143b1c4d949210dcde5ac7f",
+        "expected_final_gamestate.txt": "6345b73ee6825f4648e3d599778ae2930490958b54bbc85e17d8c730ba94c03f",
+        "meta.json": "5e65fe92da6e908c4e15fc3de68ed83d041b2171ca0b3e1f6318b4c99a4080e1"
+      }
+    },
+    {
+      "slug": "card-grind-them-down-red-four-live-sparse963-actual-multi-blue-payment-and-multi-hand-full-block-no-crush",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-grind-them-down-red-four-live-sparse963-actual-multi-blue-payment-and-multi-hand-full-block-no-crush",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse963-local-20261122\\clean-replays\\03.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse963-local-20261122\\clean-replays\\03.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "10dfdaa61691d6214fc6634866e7c30285e139e3a97f3c967d9e827a053b0f36",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "eef1886560876ba952150543a94a0a2a5e22b373505f2cf14b8af8a15f61e1b9",
+        "actions.json": "b9996f47ad8378619b85a79eb0a8a53a9e095b4296bec37843ce3c891f30ed90",
+        "assertions.json": "6a1a8b21161929c739012a7ec0a30bbcb7216ff61686e3c2602cba415216a564",
+        "expected_final_gamestate.txt": "3a41731a93df368a5d98bc94105bddd7aadde3959e61e3bc5fd8ae6405fd4be5",
+        "meta.json": "f4caa473c5a8f0f529470aaf9dcf33a0c338fa561a04497f0f04dedbfa2044f2"
+      }
+    },
+    {
+      "slug": "card-command-respect-red-four-live-sparse963-actual-multi-blue-payment-and-multi-hand-full-block-no-crush",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-command-respect-red-four-live-sparse963-actual-multi-blue-payment-and-multi-hand-full-block-no-crush",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse963-local-20261122\\clean-replays\\04.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse963-local-20261122\\clean-replays\\04.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "593f90f4e1df9e2b657eb9ac9b50cdfdb34235981547d43ded75f194f2236bee",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "e70c1554645f6955ecea59d29f644fe41c661aff9aa06641310b73182ab0fe08",
+        "actions.json": "a44e24b9f9b348ce659c847e7dbea1e0cd33c5233e8ac4933f9391118d55ee4b",
+        "assertions.json": "8b528338b2405927d805a2c73e1aae809a319a65c1fa4a51cd80d2d5a08f8be6",
+        "expected_final_gamestate.txt": "6def6e3e245f0302f9983bbad999e2b416a08bb9b4f19cf05327de676b0acb7d",
+        "meta.json": "d55eef6fcbac5665e4d6321cb143a853882e5c5af98674749a32e6c7ea4ae7d8"
+      }
+    },
+    {
+      "slug": "card-concuss-red-four-live-sparse963-actual-multi-blue-payment-and-multi-hand-full-block-no-crush",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-concuss-red-four-live-sparse963-actual-multi-blue-payment-and-multi-hand-full-block-no-crush",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse963-local-20261122\\clean-replays\\05.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse963-local-20261122\\clean-replays\\05.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "4096886da2f8b3686595799738d99dc59a5786d22e5c8449be4e2143e33214be",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "6930cc0103a099b3f60adfd33187deb3f4810408b4aeae9b63436c7528f2e5fd",
+        "actions.json": "a44e24b9f9b348ce659c847e7dbea1e0cd33c5233e8ac4933f9391118d55ee4b",
+        "assertions.json": "1db379f53fec08fbca13c14c3ac2dbe4379989525b4d678c6d543fe634be71d1",
+        "expected_final_gamestate.txt": "b4c1175b96c39d85117631bed9276fa370dbfc2355aa11326585cee5060c0b66",
+        "meta.json": "4c1ed0883a624b5f7685e418159fc629fd9bb4ff67dfc0d14ae6c81197803fc1"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

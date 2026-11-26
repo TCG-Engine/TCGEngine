@@ -1,0 +1,7 @@
+{
+    "name": "Dam the Shadowake / real defense without printed qualifying event",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-25T03:15:18+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "RealDori1GenericWounding54 targetslegalHero4; primarydam_the_shadowake_red6 ownedchane4actuallyHanddefends. AttackingHeronotShadow, noGate. PrintedbaseDefense4 yieldsactualphysical0/Hero4=20; noearnedconditionalWHENorabilityeffect. Alllive manualresponses/fullclose sourceGYandretainedDeck/Hand/equipment, noAura/UIDallocation/RNG. AP0actualPotionItemclickreject. Limitedbasicdefense+negativecondition only, no positiveeffect, siblings or supportidentitycredit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#dam_the_shadowake_red FaBSim/GeneratedCode/GeneratedMacroCode.php#dam_the_shadowake_red FaBSim/Custom/GameLogic.php#OnDefended"
+}

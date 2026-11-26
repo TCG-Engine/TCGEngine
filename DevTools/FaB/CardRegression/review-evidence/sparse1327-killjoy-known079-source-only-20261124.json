@@ -1,0 +1,27 @@
+{
+  "classification": "SOURCE_ONLY_KNOWN079_HERO_PERMISSION_EXTENSION_UNRUN",
+  "card_id": "killjoy_the_crooked_blade",
+  "group_id": "identity:killjoy_the_crooked_blade",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "printed_text": "You may attack any opposing hero.\nWhenever you steal a Gold, the crowd boos you.\nThe first time the crowd boos you each turn, each hero with more {h} than you loses 1{h}.",
+  "source_findings": [
+    "GameLogic.php FaBAttackableSeats180-188 broadens UPF Hero eligibility only for a live Deathmatch Arena; otherwise adjacency.",
+    "FaBLegalAttackTargets722 and FaBResolveAttackTarget740 consume that eligibility. No exact Killjoy route was found in Custom PHP or generated handlers.",
+    "The missing Hero permission appears to extend existing FAB-REG-079 attack eligibility family; this is source-only and no new causal root or native failure is claimed."
+  ],
+  "source_sha256": {
+    "FaBSim/Custom/GameLogic.php": "c60fa151561f959e4e3e341b814de0e2b47c9e9f153bbc8793a04c43b5075061",
+    "FaBSim/GeneratedCode/GeneratedMacroCode.php": "fe6a7982611df8f4de98ce2671b317b671b580146aa4b8c28e8f4b86d8461056",
+    "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3"
+  },
+  "expected_unrun_route": "Native ordinary Hero1 Hand attack should permit nonadjacent Hero3 under active Killjoy in four-live UPF without Deathmatch Arena. No scenario or game was authored/executed.",
+  "native_attempted": false,
+  "fixture_saved": false,
+  "coverage_credit": false,
+  "source_changed": false,
+  "repair_applied": false,
+  "scope": [
+    "Selected nonadjacent Hero-attack permission only; no initial recipe, passing fixture, alternate blank baseline, steal-Gold/Boo/life-loss ability, full Hero or new root credit.",
+    "Do not repeat known-family probes or repair the engine during this breadth pass."
+  ]
+}

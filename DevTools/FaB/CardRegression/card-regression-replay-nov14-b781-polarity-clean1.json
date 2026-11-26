@@ -1,0 +1,27 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch781-polarity.json",
+  "runtime_sha256": "cd7348b373b8adc0d4e5108b74b44fff9fd6e1b9a2e855e8cd14661bc2b66edf",
+  "returncode": 0,
+  "completed_utc": "2026-11-14T03:10:37.519035+00:00",
+  "fixtures": [
+    {
+      "slug": "card-polarity-reversal-script-red-four-live-real-crank-paid-mech-attack-blue-defense-reduced-four-damage",
+      "fixture_sha256": "5256559e91cafa2e0845266566b2d7aa8843a9ef664a86e602e84f2a5a927351",
+      "passed": true,
+      "result": "[PASS] Polarity Reversal Script / real Crank and three defense becomes two"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-polarity-reversal-script-red-four-live-real-crank-paid-mech-attack-blue-defense-reduced-four-damage",
+      "returncode": 0,
+      "stdout": "[PASS] Polarity Reversal Script / real Crank and three defense becomes two\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

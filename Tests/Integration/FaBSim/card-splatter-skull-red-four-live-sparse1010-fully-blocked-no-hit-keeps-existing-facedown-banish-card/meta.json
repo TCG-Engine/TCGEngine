@@ -1,0 +1,7 @@
+{
+    "name": "Splatter Skull / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-23T02:13:41+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "When this hits a hero, choose a face-down card in their banished zone that was banished by **intimidate** this turn. Put it into their graveyard. Named main/full-block branch only. Legalnatural20rhinar, actualHand5/Blue6 paysprinted2 beforefourmanualsource/combatresponses. Printed6 fullyblockedbyrealHandAA defense6/0damage/HP20/noHit/Stack0/AP0; samephysicalsource5andallblockersownedGY, realfacedownenemyBanish9retained. No earned hit ability, payment/discard/tax/destruction. Existing facedown card is NOT asserted IntimidatedThisTurn; Arsenal is NOT asserted frozen. Neither eligibility prerequisite/positivehit is isolated or credited. No hero ability/support/pitch-sibling/full-card credit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#splatter_skull_red"
+}

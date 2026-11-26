@@ -1,0 +1,7 @@
+{
+    "name": "Infuse Titanium / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T19:45:34+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "**Galvanize** - When this defends, you may destroy an item you control. If you do, this gets +2{d}. Representative only: actual_seven_hand_attack_without_defended_galvanize. Real printed cost, four manual live seats, actual unblocked damage and physical source in graveyard. No positive Defended/Clash/Galvanize/Blood Debt branch or pitch sibling credit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#infuse_titanium_red"
+}

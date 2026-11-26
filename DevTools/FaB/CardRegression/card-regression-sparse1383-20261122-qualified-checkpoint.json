@@ -1,0 +1,97 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-24T12:22:04.256831+00:00",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1383-20261122.json",
+  "source_spec_sha256": "7c210f77212a54f3e783d0e9648aa242eb343892da3de0852638029de9421d8c",
+  "new_scenarios": 2,
+  "new_groups": 2,
+  "new_primary_ids": 2,
+  "actions": 82,
+  "native_assertions": 760,
+  "manual_passes": 66,
+  "totals": {
+    "saved_registered_scenarios": 5375,
+    "duels": 3113,
+    "four_live": 2262,
+    "recorded_primary_ids": 2523,
+    "identity_denominator": 5196,
+    "recorded_groups": 2397,
+    "group_denominator": 3324,
+    "four_live_groups": 2251,
+    "phase_qualified_scenarios_at_actual_contexts": 2012,
+    "phase_qualified_unique_groups": 2002,
+    "creation_replay_passes": 2754,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 1173,
+  "scenarios": [
+    {
+      "card_id": "bigger_than_big_red",
+      "group_id": "pitch-cycle:bigger_than_big",
+      "scenario_id": "card-bigger-than-big-red-four-live-sparse1383-actual-guardian-attack-same-turn-no-premature-five-power-or-wager",
+      "effect_branches": [
+        "native_aura_play_and_real_same_turn_guardian_attack_without_next_turn_power_or_wager"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-bigger-than-big-red-four-live-sparse1383-actual-guardian-attack-same-turn-no-premature-five-power-or-wager",
+      "source_spec": "card-regression-sparse1383-20261122.json",
+      "source_spec_sha256": "7c210f77212a54f3e783d0e9648aa242eb343892da3de0852638029de9421d8c",
+      "review_evidence": "review-evidence/sparse1383-20261122-qualified-saved.json",
+      "review_evidence_sha256": "ba286c4f69a6f8e9e1af600a38f19402e6bdf5a449e21aa99a5d161c0f79120b",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1383-20261122-replay.json",
+          "sha256": "e946cff869bca8963e98b0c6f0e5b7eeec3b1242ce8f0e344851c56aa0d24bf0",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "big_bop_red",
+      "group_id": "pitch-cycle:big_bop",
+      "scenario_id": "card-big-bop-red-four-live-sparse1383-actual-guardian-attack-same-turn-no-premature-five-power-or-wager",
+      "effect_branches": [
+        "native_aura_play_and_real_same_turn_guardian_attack_without_next_turn_power_or_wager"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-big-bop-red-four-live-sparse1383-actual-guardian-attack-same-turn-no-premature-five-power-or-wager",
+      "source_spec": "card-regression-sparse1383-20261122.json",
+      "source_spec_sha256": "7c210f77212a54f3e783d0e9648aa242eb343892da3de0852638029de9421d8c",
+      "review_evidence": "review-evidence/sparse1383-20261122-qualified-saved.json",
+      "review_evidence_sha256": "ba286c4f69a6f8e9e1af600a38f19402e6bdf5a449e21aa99a5d161c0f79120b",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1383-20261122-replay.json",
+          "sha256": "e946cff869bca8963e98b0c6f0e5b7eeec3b1242ce8f0e344851c56aa0d24bf0",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

@@ -1,0 +1,27 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch576.json",
+  "runtime_sha256": "9fbaaee63ccedad1dc7cad440f09376d21106a761ce61bad719156bdd7d20709",
+  "returncode": 0,
+  "completed_utc": "2026-11-06T06:13:29.359479+00:00",
+  "fixtures": [
+    {
+      "slug": "card-rust-belt-four-live-real-cog-tap-destroy-cost-resource-and-paid-attack-consumer",
+      "fixture_sha256": "a5773dd6274070319706e09667ba3f905e2cbc258ceb6f69e11bed2d8a026afc",
+      "passed": true,
+      "result": "[PASS] Rust Belt / real Cog tap and destroy cost / resource-funded attack"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-rust-belt-four-live-real-cog-tap-destroy-cost-resource-and-paid-attack-consumer",
+      "returncode": 0,
+      "stdout": "[PASS] Rust Belt / real Cog tap and destroy cost / resource-funded attack\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

@@ -1,0 +1,19 @@
+{
+  "status": "SOURCE_ONLY_DEFERRED_NOT_NATIVE_REPRODUCED",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "primary_card_id": "invoke_ouvia_red",
+  "dependent_card_id": "ouvia",
+  "native_attempted": false,
+  "fixture_saved": false,
+  "coverage_credit": false,
+  "new_distinct_gameplay_root_credit": 0,
+  "reason": "UPRCards FaBUPRTransform calls Ouvia StartTurn macro inline when invocation enters. Ouvia unconditional when-enters ability exists even when no Ash remains; zero assets make its resolution ineffective, not its trigger nonexistent. A complete followthrough would bypass the missing separate response layer. Deferred under the existing trigger-timing policy; no native defect or new defect-root count established.",
+  "independent_source_review": "Existing breadth_review1252 inspected this exact candidate and recommended deferral before any draft/game. This is source assessment, not native or saved-fixture approval.",
+  "source_sha256": {
+    "FaBSim/Custom/UPRCards.php": "62798bd281afc17805c396e92deab22497b9c80d881f99e943833cb82d449321",
+    "FaBSim/GeneratedCode/GeneratedMacroCode.php": "fe6a7982611df8f4de98ce2671b317b671b580146aa4b8c28e8f4b86d8461056",
+    "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3"
+  },
+  "observed_outcome": null,
+  "repair_attempted": false
+}

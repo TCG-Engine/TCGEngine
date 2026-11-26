@@ -1,0 +1,99 @@
+{
+  "status": "INDEPENDENT_SOURCE_ONLY_UNATTEMPTED_TWO_EXACT_REQUIRED_KNOWN_CONTRACT_NOTES_APPROVED",
+  "phase": "SOURCE_PLANNING",
+  "batch": 841,
+  "reviewer": "/root/ebbing_recovery_review",
+  "reviewer_independent": true,
+  "approved": true,
+  "planning_evidence_approved": true,
+  "source_notes_approved": true,
+  "manifest": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch841-two-required-known-contract-notes-manifest.json",
+    "sha256": "521c7b4530b4fa47b1386654a5fe54addb9ffefa0d142190de05a87adcbb6152"
+  },
+  "manifest_sha256": "521c7b4530b4fa47b1386654a5fe54addb9ffefa0d142190de05a87adcbb6152",
+  "firm_reservation": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch841-firm-reservation.json",
+    "sha256": "65644f88d21ed28ae5d785e5dbd3d1b86897370817d60bdb7d6b2a0eb2c19ee5"
+  },
+  "runtime_sha256": "cdc081ff4c87ff2f9338b1d69040d0dc98d7600ba33976384336534ea3f92d22",
+  "all_current_source_preimage_guards_matched": true,
+  "guard_count": 20,
+  "notes": [
+    {
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch841-anka-required-known-delayed-discard-layer-unattempted-note.json",
+      "sha256": "a94870ffca7c1e8ee865e6ff0226369d3ec464c2ec57563fbff1e9ebac7ee269"
+    },
+    {
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch841-golden-glare-required-known-joint-defense-when-unattempted-note.json",
+      "sha256": "80272169c8b2f5cfcffac61f8cd4e5cb5db61e4fc9c57d1ce2f88fc4ac25dd75"
+    }
+  ],
+  "cards": [
+    {
+      "card_id": "anka_drag_under_yellow",
+      "group_id": "identity:anka_drag_under_yellow",
+      "status": "UNATTEMPTED",
+      "classification": "EXACT_KNOWN094_GENERIC_ROS_EARNED_LAYER_PRECLEAR_BEFORE_REQUIRED_NONEMPTY_HAND_DISCARD_AWAIT",
+      "independent_causality": "SEADrew84 captures a real opposing draw into ROSQueue seaDiscard, so a trigger producer exists. Fixed actual draw supplies a positive victim Hand. Canonical and emitted runner18ab610f at152169..152179 necessarily yield MZChoose and resume FaBDiscardChoice at152164..152166. ROSQueue24 creates KindABILITY/rosTrigger; managed class GL1592..1599 excludes it, so GL1730 removes it before1731 ROSResolveTrigger and actual compiled resolving choice. Exact retained094/WhoBlinks earned virtual-layer completion contract, not a blanket all-await hold.",
+      "initial_cost_not_held": "SEA native Instant row17, watery-Hand legal gate45, NeedsPrepare91 and canonical Prepare discard/Finish path exist; SEAPaid54..56 taps physical source before response priority. Ready owned Anka under real Young GravyBones and actual MorayYellowWatery discard is legal. Its initial managed ARC activation is a distinct stage and not classified as broken or executed here.",
+      "full_unrun_route": "Native actual costs/four responses establish watcher, then actual opposing Betsy1 Gorganian Tome0 with no initial TomeGY draws real Deck card and printedGA after its complete resolution; full earned Anka responses then victim1 native Hand discard while that layer remains resolving; original tapped Anka/ownership/one watcher consumption/economy/physical cleanup remain mandatory. No cast/attack/WateryGrave play or support credit.",
+      "separate_unattempted_source_limits": "Current SEA84 queues drawn-opponent as Controller with SourceUID0 and clears watcher at capture. Correct original-controller/LKI attribution and watcher wire are preserved as source-only downstream concerns, not a B841 native repro, new root or excuse to omit the meaningful consumer.",
+      "retained_contract": {
+        "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\review-evidence\\sparse833-sea-legs-source-and-who-blinks-unattempted-a11.json",
+        "sha256": "2e53bc9ad841d21a9365419e522f93bd1eab36e82af0f3ffad9863726f4953f9"
+      }
+    },
+    {
+      "card_id": "golden_glare",
+      "group_id": "identity:golden_glare",
+      "status": "UNATTEMPTED",
+      "classification": "EXACT_KNOWN_APEX_SHARED_DEFEND_GROUP_INLINE_TOKEN_BEFORE_EARNED_WHEN_RESPONSES",
+      "independent_causality": "Actual GL1911 invokes HVYDefendGroup before DEFEND_PRIORITY1920. HVYRuntime87..91 counts simultaneous declared yellow cards then immediately creates Gold for GoldenGlare at>=2, in the same helper/caller as retained ApexBonebreaker row163. Empty canonical abilities therefore is not missing implementation. No separately earned primary response layer precedes token creation.",
+      "legal_fixed_route": "Printed Young VictorGoldmane20 satisfies Guardian/Victor specialization. Native Generic RagingRed7 cost3 actually Blue-pitched, opposed GoldenDEF2 plus TWO distinct actual yellow Hand cards DEF3+DEF3 equals8, so no damage; no clash/wager branch is required. Gold begins0; no seededGold/once-used marker/Hero suppression.",
+      "full_unrun_route": "Primary earned layer and four responses with Gold0, then one new Gold under owner/controller4. First controlled Gold creation then earns Victors mandatory draw layer/four responses before actual owned Deck card to Hand; never use emptyDeck as quiet omission. Source BladeBreak owner4GY/hand defenders faithful cleanup, actual zero damage/resources/AP/queues remain required.",
+      "separate_unattempted_source_limits": "HVYToken30..31 presently draws Victors firstGold inline; this is downstream source-only timing concern behind the earlier group seam, not a new Native-confirmed issue or additional coverage.",
+      "retained_contract": {
+        "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\review-evidence\\sparse670-apex-bonebreaker-selected-defense-when-unattempted-c53.json",
+        "sha256": "91e4c5555cecb96dedefd8835ecfc6b20979da944f3f8062b94018f911e7add8"
+      }
+    }
+  ],
+  "primary_rules": [
+    {
+      "url": "https://rules.fabtcg.com/en/cr/06-effects/",
+      "paragraphs": [
+        "6.6.5",
+        "6.6.6"
+      ],
+      "official_read_only_web_read": true
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/08-keywords/",
+      "paragraphs": [
+        "8.3.3",
+        "8.3.7"
+      ],
+      "official_read_only_web_read": true
+    }
+  ],
+  "limits": [
+    "Two exact selected full routes are source-only and UNATTEMPTED. No executable, Native failure observation, new issue/root, fix, fixture, coverage or qualification.",
+    "Body/queue/cost paths exist. No blanket Defended/optional-await or initial activation cost hold, direct helper, empty Hand/Deck, omitted Hero trigger, false-condition baseline or alternate primary.",
+    "Whole generated-source guard, actual selected emitted route/causal helper and prior compact proof hashes were verified. No expanded fragment-hash/corpus audit or repeated Touch validation.",
+    "Current20 source guards matched; metadata/newness read context4096 is retained without awarding any support or sibling credit. No PHP/native/Rwrites/fullsuite or denied188/184/B787 repair action."
+  ],
+  "source_approved": false,
+  "native_probe_approved": false,
+  "native_execution_approved": false,
+  "normal_save_approved": false,
+  "passing_fixture_approved": false,
+  "qualification": false,
+  "coverage_credit": false,
+  "new_issue": false,
+  "confirmed_gameplay_bug": false,
+  "source_fix": false,
+  "PHP_native_executed_by_reviewer": false,
+  "R_writes_by_reviewer": false,
+  "created_utc": "2026-11-16T03:15:28.425232+00:00"
+}

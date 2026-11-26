@@ -1,0 +1,155 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-24T23:22:48.415288+00:00",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1452-20261122.json",
+  "source_spec_sha256": "381f0180ad75db4f0c72fb42d051c11d9fa9d3b21a454410208ea1f643d130a6",
+  "new_scenarios": 4,
+  "new_groups": 4,
+  "new_primary_ids": 4,
+  "actions": 44,
+  "native_assertions": 1596,
+  "manual_passes": 32,
+  "totals": {
+    "saved_registered_scenarios": 5466,
+    "duels": 3132,
+    "four_live": 2334,
+    "recorded_primary_ids": 2614,
+    "identity_denominator": 5196,
+    "recorded_groups": 2488,
+    "group_denominator": 3324,
+    "four_live_groups": 2323,
+    "phase_qualified_scenarios_at_actual_contexts": 2103,
+    "phase_qualified_unique_groups": 2093,
+    "creation_replay_passes": 2845,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 1264,
+  "scenarios": [
+    {
+      "card_id": "evo_zoom_call_yellow",
+      "group_id": "identity:evo_zoom_call_yellow",
+      "scenario_id": "card-evo-zoom-call-yellow-four-live-sparse1452-nonbase-matching-slot-and-wrong-slot-base-do-not-transform-real-other-slot-control",
+      "effect_branches": [
+        "no_matching_Base_false_condition_after_actual_Instant_play_preserves_same_slot_nonBase_and_other_slot_Base_then_real_matching_other_slot_Evo_transforms_with_actual_three_pitch_payment"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-evo-zoom-call-yellow-four-live-sparse1452-nonbase-matching-slot-and-wrong-slot-base-do-not-transform-real-other-slot-control",
+      "source_spec": "card-regression-sparse1452-20261122.json",
+      "source_spec_sha256": "381f0180ad75db4f0c72fb42d051c11d9fa9d3b21a454410208ea1f643d130a6",
+      "review_evidence": "review-evidence/sparse1452-20261122-qualified-saved.json",
+      "review_evidence_sha256": "5c41dfa63f713bcac05042399288889cf0c9ababb1964447870e2f151fb2e463",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1452-20261122-replay.json",
+          "sha256": "f9b0c82ef12500f17f6fecb15742d827e06387a7dfce077ae3d89595f483a40f",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "evo_buzz_hive_yellow",
+      "group_id": "identity:evo_buzz_hive_yellow",
+      "scenario_id": "card-evo-buzz-hive-yellow-four-live-sparse1452-nonbase-matching-slot-and-wrong-slot-base-do-not-transform-real-other-slot-control",
+      "effect_branches": [
+        "no_matching_Base_false_condition_after_actual_Instant_play_preserves_same_slot_nonBase_and_other_slot_Base_then_real_matching_other_slot_Evo_transforms_with_actual_three_pitch_payment"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-evo-buzz-hive-yellow-four-live-sparse1452-nonbase-matching-slot-and-wrong-slot-base-do-not-transform-real-other-slot-control",
+      "source_spec": "card-regression-sparse1452-20261122.json",
+      "source_spec_sha256": "381f0180ad75db4f0c72fb42d051c11d9fa9d3b21a454410208ea1f643d130a6",
+      "review_evidence": "review-evidence/sparse1452-20261122-qualified-saved.json",
+      "review_evidence_sha256": "5c41dfa63f713bcac05042399288889cf0c9ababb1964447870e2f151fb2e463",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1452-20261122-replay.json",
+          "sha256": "f9b0c82ef12500f17f6fecb15742d827e06387a7dfce077ae3d89595f483a40f",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "evo_whizz_bang_yellow",
+      "group_id": "identity:evo_whizz_bang_yellow",
+      "scenario_id": "card-evo-whizz-bang-yellow-four-live-sparse1452-nonbase-matching-slot-and-wrong-slot-base-do-not-transform-real-other-slot-control",
+      "effect_branches": [
+        "no_matching_Base_false_condition_after_actual_Instant_play_preserves_same_slot_nonBase_and_other_slot_Base_then_real_matching_other_slot_Evo_transforms_with_actual_three_pitch_payment"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-evo-whizz-bang-yellow-four-live-sparse1452-nonbase-matching-slot-and-wrong-slot-base-do-not-transform-real-other-slot-control",
+      "source_spec": "card-regression-sparse1452-20261122.json",
+      "source_spec_sha256": "381f0180ad75db4f0c72fb42d051c11d9fa9d3b21a454410208ea1f643d130a6",
+      "review_evidence": "review-evidence/sparse1452-20261122-qualified-saved.json",
+      "review_evidence_sha256": "5c41dfa63f713bcac05042399288889cf0c9ababb1964447870e2f151fb2e463",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1452-20261122-replay.json",
+          "sha256": "f9b0c82ef12500f17f6fecb15742d827e06387a7dfce077ae3d89595f483a40f",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "evo_zip_line_yellow",
+      "group_id": "identity:evo_zip_line_yellow",
+      "scenario_id": "card-evo-zip-line-yellow-four-live-sparse1452-nonbase-matching-slot-and-wrong-slot-base-do-not-transform-real-other-slot-control",
+      "effect_branches": [
+        "no_matching_Base_false_condition_after_actual_Instant_play_preserves_same_slot_nonBase_and_other_slot_Base_then_real_matching_other_slot_Evo_transforms_with_actual_three_pitch_payment"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-evo-zip-line-yellow-four-live-sparse1452-nonbase-matching-slot-and-wrong-slot-base-do-not-transform-real-other-slot-control",
+      "source_spec": "card-regression-sparse1452-20261122.json",
+      "source_spec_sha256": "381f0180ad75db4f0c72fb42d051c11d9fa9d3b21a454410208ea1f643d130a6",
+      "review_evidence": "review-evidence/sparse1452-20261122-qualified-saved.json",
+      "review_evidence_sha256": "5c41dfa63f713bcac05042399288889cf0c9ababb1964447870e2f151fb2e463",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1452-20261122-replay.json",
+          "sha256": "f9b0c82ef12500f17f6fecb15742d827e06387a7dfce077ae3d89595f483a40f",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

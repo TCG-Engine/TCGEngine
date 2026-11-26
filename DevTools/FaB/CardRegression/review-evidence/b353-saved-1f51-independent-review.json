@@ -1,0 +1,150 @@
+{
+  "status": "APPROVED_EXACT_SAVED_B353_CONDEMN_REAL_RUNEBLADE_WEAPON_PLUS_THREE_NO_AURAS_REPLAYS_SEPARATE",
+  "approved": true,
+  "reviewer": "/root/nov2_sparse_author",
+  "reviewed_utc": "2026-11-03T17:25:00.002340+00:00",
+  "runtime_sha256": "1f5122763a098fc452b0d810b2131d979a18b39e8a26633f59541507ea78de80",
+  "input_file": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch353.json",
+  "input_sha256": "d094f90419c67adf458c86eb46de29e3655da4ce72dc7c758791b4507c6f9188",
+  "manifest_sha256": "a4e46fe4330f475f357b42c14c0939081f725d8be1bee54b448c695a860c40b3",
+  "fixtures": [
+    {
+      "slug": "card-condemn-to-slaughter-red-four-live-sparse-real-paid-next-runeblade-weapon-plus-three-no-auras",
+      "card_id": "condemn_to_slaughter_red",
+      "group_id": "pitch-cycle:condemn_to_slaughter",
+      "fixture_sha256": "08a4063f2084a1de2fc4edaac25b3151891187f4664a3211ec0412b3f6077268",
+      "behavior_sha256": "08a4063f2084a1de2fc4edaac25b3151891187f4664a3211ec0412b3f6077268",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "2e0b88fadb41d855c862225e55311f17a221b9df29ecf4bfee42457122c40d10",
+        "actions.json": "b5fa8753a1583db3941956e36428e6f3d26d41023d964e319731e111e3e47c52",
+        "assertions.json": "9222aa20c27c5c930b3580657daa79bf9cf918834ff7ad2750a687e5486cca9c",
+        "expected_final_gamestate.txt": "e1ee3b28c4dbe0e2712077fceaf5c3313db20f69b866274d65df18c5ddf95b40",
+        "meta.json": "4c591c10678dd30942c34e425a1091d191ebb467515491653177e75c457be9dc"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "2e0b88fadb41d855c862225e55311f17a221b9df29ecf4bfee42457122c40d10",
+        "actions.json": "b5fa8753a1583db3941956e36428e6f3d26d41023d964e319731e111e3e47c52",
+        "assertions.json": "9222aa20c27c5c930b3580657daa79bf9cf918834ff7ad2750a687e5486cca9c",
+        "expected_final_gamestate.txt": "e1ee3b28c4dbe0e2712077fceaf5c3313db20f69b866274d65df18c5ddf95b40",
+        "meta.json": "4c591c10678dd30942c34e425a1091d191ebb467515491653177e75c457be9dc"
+      },
+      "actions": 33,
+      "native_assertions": 2699,
+      "actual_manual_pass_inputs": 29,
+      "actual_manual_passes": 29,
+      "manual_passes": 29,
+      "priority_pass_inputs": 28,
+      "defending_declaration_finish_inputs": 1,
+      "manual_pass_actor_counts": {
+        "1": 7,
+        "2": 7,
+        "3": 7,
+        "4": 8
+      },
+      "priority_actor_counts": {
+        "1": 7,
+        "2": 7,
+        "3": 7,
+        "4": 7
+      },
+      "semantically_approved": true,
+      "every_native_action_and_assertion_exactly_maps_to_approved_source": true,
+      "initial_and_final_snapshots_fully_parsed": true,
+      "all_terminal_native_oracles_evaluated_against_saved_snapshot": 186,
+      "all_four_live_and_all_48_manual_preferences_verified": true,
+      "physical_uid_conservation_without_duplicates": true,
+      "original_physical_uids": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "virtual8_absent": true,
+      "final_graveyard_uid_sets": {
+        "1": [
+          5
+        ],
+        "2": [],
+        "3": [],
+        "4": []
+      },
+      "final_pitch_uid_order": {
+        "1": [
+          6
+        ],
+        "2": [],
+        "3": [],
+        "4": []
+      },
+      "final_weapon_uid": 7,
+      "actual_weapon_status": 1,
+      "actual_weapon_counters": {
+        "WEAPON_ATTACK_TURN": 2,
+        "WEAPON_ATTACKS": 1
+      },
+      "no_positive_ROS_RUNE_NEXT_remaining": true,
+      "actual_attack_action_card_history_empty": true,
+      "actual_arcane_damage_zero": true,
+      "final_health": [
+        20,
+        20,
+        20,
+        15
+      ],
+      "final_resources": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "final_action_points": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "physical_findings": "Real primary5 Action1 waits Blue6; pitch3 pays1/AP before four fresh1,2,3,4 responses. Same5 retainedStack first3, fourth5ownGY/ownGAAP1/R2. Real Rosetta7 normalP4target, cost1 paid floatingR2->1/AP1->0/ownedweaponused, virtual8SourceWeapons7 holds exactlyPOWER3 through sourcefour. ActualChain8 printed2+3=5/noGA, no AAcardhistory/Rosetta arcane condition unearned. Manual P4 emptydecl and actual rounds yield only5physical/P4HP15, no arcane. Fullclose original1..7/GY5/Pitch6/Weapon7Status1 oncecounter/virtual8ceased/R1AP0/RNG0. PositiveROS_RUNE_NEXT absent, allqueues/await/payment/work clear.",
+      "qualification": "Only Red nextRuneblade weapon+3/ownGA/noAura representative. Optional aura destruction, Rosetta AA+NAA arcane, Chane, secondattack/expiry/siblings/support-primary/fullcard/controls not executed or credited."
+    }
+  ],
+  "blocked_attempts": [],
+  "source_expectation_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch353-independent-source-review.json",
+    "sha256": "5da42308e4fca71b8a3d1111f56ae3068d30f3e5e639b34a0c6e4532d76236ca",
+    "manifest_sha256": "a4e46fe4330f475f357b42c14c0939081f725d8be1bee54b448c695a860c40b3"
+  },
+  "source_guards_verified": 21,
+  "immutable_native_archive": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch353-20261103T172236Z-6aea185c54277.json",
+    "sha256": "92a3b62151d7053e91bef68c30c13f5b03b4e0c7737f4dbf0ccfbb69c5c5cd38"
+  },
+  "recording_results": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch353.recording-results.json",
+    "sha256": "1b0286842a5d36b97632c219ee4bdd027afc57e6bb2d53372f73ba2c378ca669"
+  },
+  "native_wrapper": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch353-native-r1\\receipt.json",
+    "sha256": "0a555cccff79ee1bcd7da79a1e36d126c3e65cd94835ee654ace9ece2dec72ae"
+  },
+  "reused_pure_readonly_helpers": {
+    "review_nov3_batch269_saved_readonly.py": "e339d37f4f4da91e01b26ae282f6302b1b1c4c6ec4a13715e4f7726016fb0641",
+    "review_nov3_batch270_saved_readonly.py": "16278de0c810a2c4909430c44e4d3e76dc4e716e92172eb403b4e33089adf8a0",
+    "review_nov3_batch271_saved_readonly.py": "e3b66ee7901ab0c0b5ebbec9176e4b29c02b97b67a93254d6dee572237058813"
+  },
+  "reused_raw_five_review_prefix": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov3_batch318_saved_readonly.py",
+    "sha256": "e52ffe6e9d7e82c8c129d6fa83edb1909f7e6db0db43b47c6c30b111d455dedc",
+    "scope": "Source/wrapper/archive/rawfive/meta/exactnative action and assertion prefix; B353 physical/economy/consumer/history and every terminal snapshot oracle independently explicit."
+  },
+  "behavior_digest_definition": "SHA256 ordered filenames and raw bytes of initial/actions/assertions/expected_final; raw-five individual hashes also bound.",
+  "focused_controls": "NOT_RUN_NOT_CLAIMED",
+  "replays": "NOT_CLAIMED_BY_THIS_SAVED_REVIEW",
+  "limits": [
+    "Root actual native COMPLETE0/stderr0; reviewer pure reads of exact five files. All original source-approved expectations unchanged.",
+    "Optional aura destruction and Rosetta intervening condition were unearned; no branch/full-card/support-primary credit.",
+    "Root targeted replay results remain separate; no PHP/native/R/source repair/generation/backend/service/full suite by reviewer."
+  ]
+}

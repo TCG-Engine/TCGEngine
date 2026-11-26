@@ -1,0 +1,7 @@
+{
+    "name": "Turn Heads / real suspense entry and Instant action preservation",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-24T06:05:08+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "FOUR_REAL_MANUAL_UPF_NATURAL_YOUNG_BRAVO20_DORI20_DORI20_RHINAR20. TurnHeadsBlue5HandInstantcost3paysactualGenericBlue6pitch3/R0, preservingoriginalAP1ratherthanspending/refunding. Allfourresponsesbeforephysicalsame5ownedArena1withprintedSuspense2/FAB_PLAY_ORDER1. RealWoundingBlow7cost0thenplaysusingpreservedAP1to0, declaresadjacentRhinarHero4/allfourfreshresponses/deals4physicaldamageHP16. SameAura5retainsSuspense2throughactualattack/fullclose/sameTurn2ACTION, realeligibleBruteHero4Status2untapped: noleaveeventorowedtap/untaplock. Final5Arena1/6Pitch1/7ownedGY1/APR0/UID7RNG0/StackDQsCCclean. PositiveSuspenseentryandInstantAPpreservationonly; noStartcounterremoval/zeroSuspense/destroy/leaveTap/untapduration/Herofunction/support/sibling/fullcardcredit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#turn_heads_blue FaBSim/GeneratedCode/GeneratedMacroCode.php FaBSim/Custom/GameLogic.php FaBSim/Custom/SUPCards.php"
+}

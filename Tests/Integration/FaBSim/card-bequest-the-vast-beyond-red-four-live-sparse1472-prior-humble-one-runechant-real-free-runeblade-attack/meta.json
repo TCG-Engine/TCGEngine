@@ -1,0 +1,7 @@
+{
+    "name": "Bequest the Vast Beyond / Runechant discounts actual next Runeblade attack under prior Humble",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-25T04:26:57+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "PriorHumbleHero-onlysuppression is explicitsetup, sourceHumble8opponentGY, not earned or expiry/capturecredit. Actual Bequest5 consumesAP0, no Runechant trigger onnonattack. Fourpasses source5GY/AP1 andrealRunechant7 retained/noViseraitoken. Nextcost1RunebladeAttack6 targetHero4 thenpaidatR0/noPitch/AP0 thanks oneRunechant+Bequest. ActualRunechanttrigger9source7 choosesHero4 beforepriority; fourpasses1arcane/HP19/physicaltokenremoved, attack6stillStack. Separatefourpassesattack6CC/base4 noauraplaybonus. Actual4physical/HP15, noR/APleft, fullclose5+6GY/Humble8untouched/noArena. UnsuppressedViseraihold, priorsuppression/creation/expiry/siblings uncredited; noenginechange. Sources: FaBSim/GeneratedCode/cardArrayCache.json#bequest_the_vast_beyond_red FaBSim/GeneratedCode/cardArrayCache.json#humble_red FaBSim/Custom/OUTCards.php#FaBOUTHumble FaBSim/Custom/WTRCards.php#FaBWTRHeroActive FaBSim/GeneratedCode/GeneratedMacroCode.php#bequest_the_vast_beyond_red FaBSim/Custom/DTDCards.php#FaBDTDCost FaBSim/Custom/DTDRuntime.php FaBSim/Custom/ARCCards.php#FaBARCResolveRunechantTrigger"
+}

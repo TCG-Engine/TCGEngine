@@ -1,0 +1,141 @@
+{
+  "status": "APPROVED_SOURCE_SEMANTICS_TREE083_ENTRY_WHEN_QUEUE_COMPONENTS_EMISSION_NATIVE_PENDING",
+  "approved": true,
+  "source_approved": true,
+  "semantically_approved": true,
+  "reviewer": "/root/nov2_sparse_author",
+  "reviewed_utc": "2026-11-03T21:18:02.796976+00:00",
+  "runtime_before_sha256": "bc14dcabff3f9b4b1592a0afc364de72de1c9bd326e0204056369b1c1ff9574b",
+  "projected_source_only_runtime_sha256": "a7dd44cd03059cbe0da041e3aec42b54fa6360fbffa83046032b465b66c781a6",
+  "manifest": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-tree083-entry-queue-proposed\\manifest.json",
+    "sha256": "392440e0d22e55d18449e02f393e64b72bd06d6c664db70c87194784ee4b4c83"
+  },
+  "patch": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-tree083-entry-queue-proposed\\proposal.patch",
+    "sha256": "02466b246b3411e3de303103c00596fe65c938bf8cead95baeb57f0ba27d0211"
+  },
+  "validation_plan": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-tree083-entry-queue-proposed\\validation-plan.json",
+    "sha256": "bf9d2114fc7595e05d6fc743666dd4984164e0d3e8f575f68e7bdaf51c0c33b9",
+    "execution": "NOT_RUN_REVIEWED_PLAN_ONLY"
+  },
+  "candidates": [
+    {
+      "path": "FaBSim/Custom/ROSCards.php",
+      "candidate": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-tree083-entry-queue-proposed\\candidates\\FaBSim\\Custom\\ROSCards.php",
+      "before_sha256": "fd52fcc1ce037db4c8204509713c6d743e494a5ffd26cd6ed71348efd76c4a9d",
+      "after_sha256": "41dc8057b503c1eb33417e93515ec1e86d89197115391c64c18f195f794848b5",
+      "application": "EXACT_GUARDED_W_SOURCE_CANDIDATE_NOT_APPLIED"
+    },
+    {
+      "path": "DevTools/FaB/ros_abilities.json",
+      "candidate": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-tree083-entry-queue-proposed\\candidates\\DevTools\\FaB\\ros_abilities.json",
+      "before_sha256": "b123b36f73a7bb45210eee6dcd4ce2326e2be071ef5366444376c9484e4ed229",
+      "after_sha256": "2851433ce5bc948fec9532a33ffc709d4a595f74078fcb9d956c922a8ff18ff8",
+      "application": "EXACT_GUARDED_W_SOURCE_CANDIDATE_NOT_APPLIED"
+    },
+    {
+      "path": "DevTools/FaB/build_ros_abilities.py",
+      "candidate": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-tree083-entry-queue-proposed\\candidates\\DevTools\\FaB\\build_ros_abilities.py",
+      "before_sha256": "772cf758cb896edc2925f79a44d5f5c4bb2cf0c88ad673429527c15722550a36",
+      "after_sha256": "48b89a4b9f3fb19956dc9bfa526dd984c60e07c27180f7f4938cb6947848da9f",
+      "application": "EXACT_GUARDED_W_SOURCE_CANDIDATE_NOT_APPLIED"
+    },
+    {
+      "path": "FaBSim/Custom/CodeGeneration.php",
+      "candidate": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-tree083-entry-queue-proposed\\candidates\\FaBSim\\Custom\\CodeGeneration.php",
+      "before_sha256": "95907fd9ae6b679d115c29af526352e95668f49528d82ef639ed5be0db478ce5",
+      "after_sha256": "944fa1506535116e40ca1c5f0f0ed7566795fe683540eb8923eb3e805612500d",
+      "application": "EXACT_GUARDED_W_SOURCE_CANDIDATE_NOT_APPLIED"
+    }
+  ],
+  "source_guards": {
+    "AGENTS.md": "98e92f639d0768613c07759d84393fe2a58ff145e239bbd5bb0c3f8fdcf1f09d",
+    ".github/copilot-instructions.md": "27d6d8211b219cc826a4f2bf63d6d59765ed805feea6fb6571bfd225eb824543",
+    "FaBSim/Custom/GameLogic.php": "7d475db6dcd99f151b41818ad0dca7111329e951af68e97badf943333d927a23",
+    "FaBSim/Custom/MONCards.php": "50ccaa44bdd2c94db708dbf2b358aa066d71ceb2c56b8dad14bc2fd1d242953f",
+    "FaBSim/Custom/WTRCards.php": "4c1331a4f5c53d231f94bff6f08cefec875047ff424aa443ed22eedc8644652c",
+    "FaBSim/Custom/ARCAbilities.php": "5330205cf8b98a1ba93cb15aa42f67c76d01dac3cb53b206669e7d00b0e9daca",
+    "FaBSim/Custom/ARCCards.php": "542227b196338a40c49f83966d9d2b0979a98676d4c9d39d00b0f5cc9a32323f",
+    "FaBSim/Custom/MSTCards.php": "52e9e34fbc2734c4b1b7b6040ebb4d784a27f32f748b53b961dd46c9f843e1ef",
+    "FaBSim/Custom/ROSRuntime.php": "3b8c1f2c03339b46500221a61c83a2aef06eb2845331c6bcf18c6f72287c61e1",
+    "FaBSim/Custom/ROSCards.php": "fd52fcc1ce037db4c8204509713c6d743e494a5ffd26cd6ed71348efd76c4a9d",
+    "DevTools/FaB/ros_abilities.json": "b123b36f73a7bb45210eee6dcd4ce2326e2be071ef5366444376c9484e4ed229",
+    "DevTools/FaB/build_ros_abilities.py": "772cf758cb896edc2925f79a44d5f5c4bb2cf0c88ad673429527c15722550a36",
+    "FaBSim/Custom/CodeGeneration.php": "95907fd9ae6b679d115c29af526352e95668f49528d82ef639ed5be0db478ce5",
+    "FaBSim/GeneratedCode/GeneratedMacroCode.php": "d914a1e15dc334dd4951fea75c1ccaa14f67ff5b85d3a0f2e5ebcdbc8125e4e3",
+    "FaBSim/GeneratedCode/GeneratedMacroCount.js": "760ab242a13d1e53e08f6bcd92240f3838f81ce7d1062477652d0d9a57a61132",
+    "FaBSim/GeneratedCode/GeneratedCardDictionaries.php": "1be127d10c8f7fe3fa10b8aa098678fa43b2790910c95666226b18eb79ea7c60",
+    "Core/DecisionQueueController.php": "65bfcf5b4f595d62d6dfb8bde0b884de42cd1a726618b5431fccf8939eed9a9d",
+    "Schemas/FaBSim/GameSchema.txt": "7783800bd47bc85885cc915066aadca58cdf99f0c1180602ac312d9af5ebf643"
+  },
+  "source_guards_verified": 18,
+  "actual_native_before": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-tree083-independent-native-before-classification.json",
+    "sha256": "cbfe550cde649bcd0cb4b8c71181cef5de87e296659f3e6944329b4855f5dd80"
+  },
+  "independent_direct_impact": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-tree083-direct-impact-lookup.json",
+    "sha256": "16c26814be3c8f0cb43849d3ab70905e62f33100639633c1bc664f20761ecf22"
+  },
+  "correct_probe": {
+    "input_sha256": "cabb55b4e1279343b8799d29ebb2313c4188aea3ef78fcb696c35feaff59744f",
+    "source_review_sha256": "ebc3dcc250fd738a73537420212df40d76b8667881d52f42a0ec5b0b65ef805c"
+  },
+  "exact_scope_verified": {
+    "ROSCards": "Reverse exactly new Tree entry insertion and event dispatch restores full original bytes. Sharedqueue and all prior082/081/unrelated branches preserved.",
+    "canonical_json": "Only /47/abilities/1/abilityCode changed; one serializedbody replacement restores entire original bytes and semantic inverse; StartTurn identical.",
+    "builder": "Only matching one Tree ResolveCard producer string changed; Python AST syntax parsed, not executed.",
+    "CodeGeneration": "One invocation plus appended hashbridge only; removal restores original byte prefix exactly. PriorBIOS helper byte-identical. Knownfixed/StartTurn identities, legacy-only conversion/unknown reject reviewed statically.",
+    "GameLogic_Core_AMP_consumers": "No candidates/changes; existing move/queue/lifecycle/AMP storage-consumers unchanged."
+  },
+  "independent_semantic_findings": [
+    "Actual Tree face viewed: EarthAura3/GoAgain/WHENentersArena and beginningownActionphase amp3; ChannelEarth futureupkeep. This approval repairs entryWHEN only, not unreached future phase/upkeep/fullcard behavior.",
+    "Actual persistent path FaBMoveStackUID first adds/normalizes NEW Arena object retaining actualCardID/UID/Owner/Controller, then FaBMONAfterMove passes that same new object to ROSAfterMove. General FaBMoveUID likewise supports legal nonplayed entry/reentry. Producer gates exactTree/nonArena\u2192Arena/positiveUID/!HasNoAbilities on actualnewobject atEARN time, captures its Controller and UID; no owner substitution, play-only assumption or globalnonce. Queue live-seat guard reused.",
+    "Actual DoResolveCard then calls canonicalResolveCard no-op, completes original printedAuraGA independently, rereads currentstate and restores PRIORITY if earned ABI remains. Hook neither grants earlyAMP nor loses queued layer to ACTION reset. Fourfreshresponses are still required by original unchangedstrictprobe.",
+    "Existing ROS nativeABILITY dispatch marks layer removed before invoking handler; event+TreeCardID exactbranch grantsAMP3 to captured layercontroller. It does not re-read source availability/suppression/owner, so earned trigger remains independent if source leaves/losesabilities. One real entry/reentry earns one ordinary layer; no globalper-source marker could suppress later legal reentry. Nativepop once-only, not arbitrary direct-callback-idempotence, remains existing manager responsibility.",
+    "CanonicaloldResolveCard inlineAMP becomes comment-only no-op to prevent early/doubleAMP. Exactguardbridge also whitelists ONLY unchangedknownTreeStartTurn body because preprocessor sees everymacrofor samecard. Unknownsamecard body failsclosed. Rootremote-readmust require exactlyknownResolveCard+knownStartTurn macros before actualguardedMacroCode generation.",
+    "Projected generated scope is ONE directTreeResolveCard closure/comment change, no newawait/helper/callback. TreeStartTurn/BIOS/allunselectedgeneratedbytes/countsubstance mustremainidentical under later actualscopecheck; no emitted-body or syntax result is claimed now.",
+    "Zero identifieddirectlegacycandidates reuse16c268 impactproof. Nativebefore onlysixinputs/Stack0+rawearlyAMP3; no postfailurephysicalArena5 or suffix claim imported. Originalcabb55 unchanged; actualafter qualification stillpending."
+  ],
+  "printed_face": {
+    "path": "FaBSim/WebpImages/channel_the_millennium_tree_red.webp",
+    "sha256": "d0b3d2cefdb00b62e9a6aa7aa105615e844874b82f8525f791c3cf723966b008"
+  },
+  "bounded_plan_requirements": [
+    "Root actual-extracted FaBMoveStackUID/newArenaobject/MONAfterMove/ROSAfterMove contracts with isolated unrelatedcallbacks; noAMP untilearned-layerdispatch and originalownGA independent.",
+    "Producer controls exactID/destination/nonentry/UID/suppression-atEARN/controller/liveseat; actual nativepop grantsonce, sourcegone/laterNO_ABILITIES stillearned, twolegalentries queueindependently.",
+    "Root PHP syntax for2customcandidates, builderPython syntax and exactbridge legacy/fixed/knownStartTurn/unknown/unselected/BIOSpreservation controls.",
+    "Guardedonecardreadpreflight must require exactly2knownmacroshapes andprotectedcurrentconfig; then existingMacroCode emitteronce/verifiedbackups/strictoneclosure+timestampcount scope/independentactualbodyreview.",
+    "Unchanged originalcorrectTreecase only, strictsourcefour\u2192Aura+entryABI/noearlyAMP\u2192freshentryfour\u2192AMP3\u2192realZap3+3=6/fullUIDcleanup; exactsavedandtwofocusedreplays. No duplicatingalreadyqualifiedSeeds."
+  ],
+  "remaining_gates": [
+    "Root actual component contracts/lints",
+    "Read-only known-body preflight and guarded application/emission",
+    "Actual emitted-body review",
+    "UnchangedcorrectTree native/exactsaved/twofocusedreplays"
+  ],
+  "holds": [],
+  "source_applied": false,
+  "native_after_qualified": false,
+  "coverage_credit": false,
+  "new_global_root_count_claimed": false,
+  "execution": {
+    "PHP": false,
+    "native": false,
+    "replay": false,
+    "R_writes": 0,
+    "generation": false,
+    "service": false,
+    "full_suite": false
+  },
+  "limits": [
+    "Fourcandidate source semantics/exactscope only. Root execution evidence is separate and not fabricated.",
+    "Existing ROSStart beginningActionphase directAMP and canonicalChannelEarth body are byte-identical/unattempted/uncredited; no fullTree-card fix claim.",
+    "Hook covers actual supported AfterMove APIs/callback path inspected. Raw object construction bypassing existing AfterMove is outside this source-path approval; no globalcreation-hook audit or redesign.",
+    "ActualController is captured fromnewArenaobject; existing FaBAddToZone preserves nonzero storedController. No owner\u2192controller rewrite or arbitrarycontrol-transfer correctness claim.",
+    "No new per-trigger/globalnonce/incarnation framework or arbitrarydirecthandler repeated-callback claim.",
+    "Held070079/SmashingItem and unrelated sources unchanged."
+  ]
+}

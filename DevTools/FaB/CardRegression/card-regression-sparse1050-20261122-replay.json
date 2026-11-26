@@ -1,0 +1,102 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "gold-baited-hook-four-live-sparse1050-real-defense-battleworn-close",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=gold-baited-hook-four-live-sparse1050-real-defense-battleworn-close",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1050-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1050-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "bfac6711dd602aa0e41540fa69eba019e0ab26611fcf4f3b4cb10d206ed644b6",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "555e1c9709582a9e2b756846d3a930fa9db40de06248290ed765fa79d43ead72",
+        "actions.json": "511bf2f3686ee96e12e3d9cdbe580febcac902b797e5ec827a96d5ccd74ac457",
+        "assertions.json": "ee79f4c630091d90fb1c822fee8fd628449386e8603bcfcc8ed7a6bc3b4cef42",
+        "expected_final_gamestate.txt": "d4c2abdf1107f8972cbc61b191444548b4fe59dd05165dc6448265c7cf8876c6",
+        "meta.json": "03a96ecf2d8cbd3c5b7a0c12b2dcce5473c4cb828071578952148d0759b4c5fb"
+      }
+    },
+    {
+      "slug": "graven-justaucorpse-four-live-sparse1050-real-defense-battleworn-close",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=graven-justaucorpse-four-live-sparse1050-real-defense-battleworn-close",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1050-local-20261122\\clean-replays\\01.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1050-local-20261122\\clean-replays\\01.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "4c5a5faa4a4ab552ca5fcaf96029f362ab0103f796e26d326b4e5bb75e7fae0d",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "057a6fc06138bda5d80b31542a281e4090654e20891418ff6c5421583ea9c30d",
+        "actions.json": "511bf2f3686ee96e12e3d9cdbe580febcac902b797e5ec827a96d5ccd74ac457",
+        "assertions.json": "ddbdab11054ce9ef2c80022d297a527d907e52b6a00281fbfa33e1db54e4d06d",
+        "expected_final_gamestate.txt": "3e49be448c1652747ad491fc8edf913df1759ae69c3f7a34b295b920d132d4a4",
+        "meta.json": "06b640da62747603673c4cc6e4c345dc304f7aeb92cd7f5f4697b05844215860"
+      }
+    },
+    {
+      "slug": "shattering-grasp-four-live-sparse1050-real-defense-battleworn-close",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=shattering-grasp-four-live-sparse1050-real-defense-battleworn-close",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1050-local-20261122\\clean-replays\\02.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1050-local-20261122\\clean-replays\\02.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "d71afdd3adea4c503f8864c909b6b36b9aa9b3aaa40bc5bb191effc3a0a83818",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "ae879d2d8e1bf82455c5be293fb6925207f27336ffb44a25a2b51b19397dac69",
+        "actions.json": "511bf2f3686ee96e12e3d9cdbe580febcac902b797e5ec827a96d5ccd74ac457",
+        "assertions.json": "ef406e4c5218b3b62b337645d3d20c212bd7fe0186418443542d6fd9ff6d4e5b",
+        "expected_final_gamestate.txt": "bb821bb85d3c0829b34e14aad7fb7d62663093a90e089d50148022172dfbc1be",
+        "meta.json": "0c73e8c2e82fece0176f474769e04a6490537039d2619986ee0af89dbceb2446"
+      }
+    },
+    {
+      "slug": "shock-frock-four-live-sparse1050-real-defense-battleworn-close",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=shock-frock-four-live-sparse1050-real-defense-battleworn-close",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1050-local-20261122\\clean-replays\\03.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1050-local-20261122\\clean-replays\\03.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "5375c93e3cb7a8110a4d2f75383fa291cca9859b644d1c2662017a50eda0390d",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "50d119a90dea219ce3452d6cb216cc0276f242ef042fa671bb455b6da2c6e968",
+        "actions.json": "511bf2f3686ee96e12e3d9cdbe580febcac902b797e5ec827a96d5ccd74ac457",
+        "assertions.json": "6ea77c7505e76ecee771814d99693db8f2c85b4f6b6d27697d8316f9d135464c",
+        "expected_final_gamestate.txt": "1da90c571772cc0c8bd0064815da656932da20720c94abdde5a0402bc0441b77",
+        "meta.json": "a5333549548aead2512140e4248812649da88f043ff2f5cb6d1e33b6ec8c1dd4"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

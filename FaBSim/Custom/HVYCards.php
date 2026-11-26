@@ -43,7 +43,85 @@ function FaBHVYSix(int $p,string $zone='Hand'): string {
     return implode('&',array_filter(FaBChoiceRefs($p,$zone),fn($r)=>FaBHVYOwnedPower($p,FaBIdentityFromMZ($r)['object'])>=6));
 }
 function FaBHVYBeatChoices(int $p): string { $cost=intval(FaBGetState()['pendingPayment']['cost']??0);return implode('&',array_filter(explode('&',FaBHVYSix($p)),function($r)use($p,$cost){$f=FaBIdentityFromMZ($r);return $f&&FaBAvailablePitch($p,intval($f['object']->UniqueID))>=$cost;}));}
-function FaBHVYBeat(int $p,string $r): void {if(in_array($r,explode('&',FaBHVYSix($p)),true)&&FaBDiscardChoice($p,$r))FaBHVYAdd($p,'BEAT');}
+function FaBHVYUsesBeatChestCost(string $id): bool {
+ return in_array($id,['assault_and_battery_red','assault_and_battery_yellow','assault_and_battery_blue',
+  'bonebreaker_bellow_red','bonebreaker_bellow_yellow','bonebreaker_bellow_blue',
+  'pound_town_red','pound_town_yellow','pound_town_blue',
+  'rawhide_rumble_red','rawhide_rumble_yellow','rawhide_rumble_blue'],true);
+}
+function FaBHVYBeat(int $p,string $r): void {
+ $pending=FaBGetState()['pendingPayment']??null;
+ if(!is_array($pending)||intval($pending['player']??0)!==$p
+  ||!FaBHVYUsesBeatChestCost((string)($pending['preparedEffectCardID']??'')))return;
+ $source=FaBPreparedEffectCostSource($pending);if($source===null)return;
+ FaBDeclarePreparedEffectCost($p,intval($source['object']->UniqueID),'DISCARD_SIX_BEAT',$r);
+}
+function FaBHVYQueueAssaultAttack(int $p,object $o): void {
+ $s=FaBGetState();$uid=intval($o->UniqueID??0);$link=intval($o->ChainLink??0);$turn=intval(GetTurnNumber());
+ if(!FaBSeatIsLive($p)||$uid<1||$link<1||$turn<1
+  ||!in_array((string)($o->CardID??''),['assault_and_battery_red','assault_and_battery_yellow','assault_and_battery_blue'],true)
+  ||($o->Role??'')!=='ATTACK'||intval($o->Controller??0)!==$p||HasNoAbilities($o)
+  ||empty($s['combatOpen'])||intval($s['attacker']??0)!==$p||intval($s['attackUID']??0)!==$uid
+  ||intval($s['chainLink']??0)!==$link)return;
+ $found=FaBFindUID($uid);if($found===null||$found['zone']!=='CombatChain'||$found['object']!==$o)return;
+ $old=$s['hvyAssaultAttack']??null;
+ if(is_array($old)&&intval($old['uid']??0)===$uid&&intval($old['link']??0)===$link
+  &&intval($old['turn']??0)===$turn)return;
+ FaBROSQueue($p,(string)$o->CardID,$uid,['rosEvent'=>'hvyAssaultAttack']);
+ $layer=FaBStackTop();
+ if(!$layer||intval($layer->UniqueID??0)<1||($layer->Kind??'')!=='ABILITY'
+  ||($layer->Params['rosEvent']??'')!=='hvyAssaultAttack'||intval($layer->Controller??0)!==$p
+  ||intval($layer->SourceUniqueID??0)!==$uid||(string)$layer->CardID!==(string)$o->CardID)return;
+ $s=FaBGetState();$s['hvyAssaultAttack']=['uid'=>$uid,'link'=>$link,'turn'=>$turn,'layer'=>intval($layer->UniqueID)];FaBSetState($s);
+}
+function FaBHVYResolveAssaultAttack(int $p,object $layer): void {
+ $params=is_array($layer->Params??null)?$layer->Params:[];
+ if(!FaBSeatIsLive($p)||($layer->Kind??'')!=='ABILITY'||intval($layer->Controller??0)!==$p
+  ||intval($layer->UniqueID??0)<1||intval($layer->SourceUniqueID??0)<1
+  ||!in_array((string)($layer->CardID??''),['assault_and_battery_red','assault_and_battery_yellow','assault_and_battery_blue'],true)
+  ||($params['rosTrigger']??false)!==true||($params['rosEvent']??'')!=='hvyAssaultAttack'
+  ||!empty($params['hvyAssaultResolved']))return;
+ $params['hvyAssaultResolved']=true;$layer->Params=$params;
+ // IF is generated-effect condition, not part of the attack trigger condition.
+ if(!FaBHVYCount($p,'BEAT'))return;
+ $previous=$GLOBALS['fabEffectController']??0;$GLOBALS['fabEffectController']=$p;
+ try{FaBHVYToken($p,'agility',1,$p);}finally{$GLOBALS['fabEffectController']=$previous;}
+}
+/** Writer projection of original offered refs; no await-local or live-zone changes. */
+function FaBHVYBeatChoicesForSave(array $zone,int $p): array {
+ if(!FaBSeatIsLive($p))return $zone;$pending=FaBGetState()['pendingPayment']??null;
+ if(!is_array($pending)||intval($pending['player']??0)!==$p||isset($pending['preparedEffectCost'])
+  ||!FaBHVYUsesBeatChestCost((string)($pending['preparedEffectCardID']??'')))return $zone;
+ $source=FaBPreparedEffectCostSource($pending);
+ if($source===null||($pending['fromZone']??'')!=='Hand'||($source['object']->SourceZone??'')!=='Hand')return $zone;
+ $id=(string)$source['object']->CardID;$uid=intval($source['object']->UniqueID);
+ $live=[];foreach($zone as$i=>$q)if(is_object($q)&&!$q->Removed())$live[]=$i;
+ if(count($live)<2)return $zone;$index=$live[0];$choice=$zone[$index];$resume=$zone[$live[1]];
+ if(($choice->Type??'')!=='MZMULTICHOOSE'||($choice->Tooltip??'')!=='Discard_six_power_to_beat_chest'
+  ||intval($choice->Block??0)!==1||($resume->Type??'')!=='CUSTOM'||intval($resume->Block??0)!==1)return $zone;
+ $selection=explode('|',(string)($choice->Param??''));$callback=explode('|',(string)($resume->Param??''));
+ if(count($selection)!==3||$selection[0]!=='0'||$selection[1]!=='1'||count($callback)!==4
+  ||$callback[0]!==$id.':0:PrepareCard-await'||$callback[2]!=='1'||$callback[3]!=='chosen'
+  ||preg_match('/^'.preg_quote($id.':0:PrepareCard#','/').'[1-9][0-9]*$/D',$callback[1])!==1)return $zone;
+ $frame=DecisionQueueController::GetAwaitFrame($callback[1]);$locals=is_array($frame)?($frame['locals']??null):null;
+ if(!is_array($locals)||intval($locals['uid']??0)!==$uid||($locals['mzID']??null)!==$source['mzID']
+  ||($locals['refs']??null)!==$selection[2])return $zone;
+ $offered=explode('&',$selection[2]);$eligible=explode('&',FaBHVYBeatChoices($p));
+ if($offered===['']||count(array_unique($offered))!==count($offered))return $zone;
+ $map=[];$removed=[];$next=0;
+ foreach(GetHand($p)as$old=>$o){$ref='p'.$p.'Hand-'.$old;
+  if($o==null||$o->Removed()){$removed[$ref]=true;continue;}
+  if(intval($o->UniqueID??0)<1)return $zone;$map[$ref]='p'.$p.'Hand-'.$next++;
+ }
+ $refs=[];foreach($offered as$ref){
+  if(preg_match('/^p'.$p.'Hand-(0|[1-9][0-9]*)$/D',$ref)!==1)return $zone;
+  if(isset($removed[$ref]))continue;if(!isset($map[$ref]))return $zone;
+  if(in_array($ref,$eligible,true))$refs[]=$map[$ref];
+ }
+ $param='0|1|'.($refs?implode('&',$refs):'p'.$p.'Hand-999999');
+ if($param!==(string)$choice->Param){$copy=clone$choice;$copy->Param=$param;$zone[$index]=$copy;}
+ return $zone;
+}
 function FaBHVYBottom(int $uid): void {if(FaBFindUID($uid))FaBARCToDeck(FaBFindUID($uid)['player'],$uid,false);}
 function FaBHVYClash(int $a,int $b): array {
     $out=['winner'=>0,'cards'=>[],'seats'=>[$a,$b]];

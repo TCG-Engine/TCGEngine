@@ -1,0 +1,39 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch352.json",
+  "runtime_sha256": "1f5122763a098fc452b0d810b2131d979a18b39e8a26633f59541507ea78de80",
+  "returncode": 0,
+  "completed_utc": "2026-11-03T17:20:38.384992+00:00",
+  "fixtures": [
+    {
+      "slug": "card-cleave-red-four-live-sparse-real-paid-next-axe-plus-four-full-block-no-hit",
+      "fixture_sha256": "53bfb943e72a0b8ec2350505675c0b1832477fe2d21d9a362ca9e83e375a4143",
+      "passed": true,
+      "result": "[PASS] cleave_red / four live distinctive effect"
+    },
+    {
+      "slug": "card-madcap-charger-red-four-live-sparse-real-paid-six-discard-earns-five-power-go-again",
+      "fixture_sha256": "ff671e69ab73fab517b8d80298c880eaa2a5bd0da650e6df39fad9b928b65c08",
+      "passed": true,
+      "result": "[PASS] madcap_charger_red / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-cleave-red-four-live-sparse-real-paid-next-axe-plus-four-full-block-no-hit",
+      "returncode": 0,
+      "stdout": "[PASS] cleave_red / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-madcap-charger-red-four-live-sparse-real-paid-six-discard-earns-five-power-go-again",
+      "returncode": 0,
+      "stdout": "[PASS] madcap_charger_red / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 2,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

@@ -1,0 +1,300 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-22T14:43:39.960669+00:00",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse879-20261122.json",
+  "source_spec_sha256": "ade646b4330495ec53fd7c5e889c70f0cf960b3b3471d3d2e98063c9d5dfbf1c",
+  "new_scenarios": 9,
+  "new_groups": 9,
+  "new_primary_ids": 9,
+  "actions": 54,
+  "native_assertions": 790,
+  "manual_passes": 36,
+  "totals": {
+    "saved_registered_scenarios": 4260,
+    "duels": 3075,
+    "four_live": 1185,
+    "recorded_primary_ids": 1408,
+    "identity_denominator": 5196,
+    "recorded_groups": 1282,
+    "group_denominator": 3324,
+    "four_live_groups": 1174,
+    "phase_qualified_scenarios_at_actual_contexts": 897,
+    "phase_qualified_unique_groups": 887,
+    "creation_replay_passes": 1638,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 58,
+  "scenarios": [
+    {
+      "card_id": "evo_sentry_base_arms_red",
+      "group_id": "identity:evo_sentry_base_arms_red",
+      "scenario_id": "card-evo-sentry-base-arms-red-four-live-sparse879-real-base-arms-transforms-into-owned-equipped-evo",
+      "effect_branches": [
+        "real_base_arms_transforms_into_owned_equipped_evo"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-evo-sentry-base-arms-red-four-live-sparse879-real-base-arms-transforms-into-owned-equipped-evo",
+      "source_spec": "card-regression-sparse879-20261122.json",
+      "source_spec_sha256": "ade646b4330495ec53fd7c5e889c70f0cf960b3b3471d3d2e98063c9d5dfbf1c",
+      "review_evidence": "review-evidence/sparse879-20261122-qualified-saved.json",
+      "review_evidence_sha256": "75756b91e09a4e0c0d7390622bc3ab8cec5c62bc08d3c87b831877b085a6128f",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse879-20261122-replay.json",
+          "sha256": "3c5bafed8a382f60217efa9e9cb3b92b1b9006bc4bbb7a3c2a87d3828e3dca3b",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "evo_sentry_base_legs_red",
+      "group_id": "identity:evo_sentry_base_legs_red",
+      "scenario_id": "card-evo-sentry-base-legs-red-four-live-sparse879-real-base-legs-transforms-into-owned-equipped-evo",
+      "effect_branches": [
+        "real_base_legs_transforms_into_owned_equipped_evo"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-evo-sentry-base-legs-red-four-live-sparse879-real-base-legs-transforms-into-owned-equipped-evo",
+      "source_spec": "card-regression-sparse879-20261122.json",
+      "source_spec_sha256": "ade646b4330495ec53fd7c5e889c70f0cf960b3b3471d3d2e98063c9d5dfbf1c",
+      "review_evidence": "review-evidence/sparse879-20261122-qualified-saved.json",
+      "review_evidence_sha256": "75756b91e09a4e0c0d7390622bc3ab8cec5c62bc08d3c87b831877b085a6128f",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse879-20261122-replay.json",
+          "sha256": "3c5bafed8a382f60217efa9e9cb3b92b1b9006bc4bbb7a3c2a87d3828e3dca3b",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "evo_charging_rods_yellow",
+      "group_id": "identity:evo_charging_rods_yellow",
+      "scenario_id": "card-evo-charging-rods-yellow-four-live-sparse879-real-base-legs-transforms-into-owned-equipped-evo",
+      "effect_branches": [
+        "real_base_legs_transforms_into_owned_equipped_evo"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-evo-charging-rods-yellow-four-live-sparse879-real-base-legs-transforms-into-owned-equipped-evo",
+      "source_spec": "card-regression-sparse879-20261122.json",
+      "source_spec_sha256": "ade646b4330495ec53fd7c5e889c70f0cf960b3b3471d3d2e98063c9d5dfbf1c",
+      "review_evidence": "review-evidence/sparse879-20261122-qualified-saved.json",
+      "review_evidence_sha256": "75756b91e09a4e0c0d7390622bc3ab8cec5c62bc08d3c87b831877b085a6128f",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse879-20261122-replay.json",
+          "sha256": "3c5bafed8a382f60217efa9e9cb3b92b1b9006bc4bbb7a3c2a87d3828e3dca3b",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "evo_energy_matrix_blue",
+      "group_id": "identity:evo_energy_matrix_blue",
+      "scenario_id": "card-evo-energy-matrix-blue-four-live-sparse879-real-base-chest-transforms-into-owned-equipped-evo",
+      "effect_branches": [
+        "real_base_chest_transforms_into_owned_equipped_evo"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-evo-energy-matrix-blue-four-live-sparse879-real-base-chest-transforms-into-owned-equipped-evo",
+      "source_spec": "card-regression-sparse879-20261122.json",
+      "source_spec_sha256": "ade646b4330495ec53fd7c5e889c70f0cf960b3b3471d3d2e98063c9d5dfbf1c",
+      "review_evidence": "review-evidence/sparse879-20261122-qualified-saved.json",
+      "review_evidence_sha256": "75756b91e09a4e0c0d7390622bc3ab8cec5c62bc08d3c87b831877b085a6128f",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse879-20261122-replay.json",
+          "sha256": "3c5bafed8a382f60217efa9e9cb3b92b1b9006bc4bbb7a3c2a87d3828e3dca3b",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "evo_rapid_fire_blue",
+      "group_id": "identity:evo_rapid_fire_blue",
+      "scenario_id": "card-evo-rapid-fire-blue-four-live-sparse879-real-base-legs-transforms-into-owned-equipped-evo",
+      "effect_branches": [
+        "real_base_legs_transforms_into_owned_equipped_evo"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-evo-rapid-fire-blue-four-live-sparse879-real-base-legs-transforms-into-owned-equipped-evo",
+      "source_spec": "card-regression-sparse879-20261122.json",
+      "source_spec_sha256": "ade646b4330495ec53fd7c5e889c70f0cf960b3b3471d3d2e98063c9d5dfbf1c",
+      "review_evidence": "review-evidence/sparse879-20261122-qualified-saved.json",
+      "review_evidence_sha256": "75756b91e09a4e0c0d7390622bc3ab8cec5c62bc08d3c87b831877b085a6128f",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse879-20261122-replay.json",
+          "sha256": "3c5bafed8a382f60217efa9e9cb3b92b1b9006bc4bbb7a3c2a87d3828e3dca3b",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "evo_scatter_shot_blue",
+      "group_id": "identity:evo_scatter_shot_blue",
+      "scenario_id": "card-evo-scatter-shot-blue-four-live-sparse879-real-base-arms-transforms-into-owned-equipped-evo",
+      "effect_branches": [
+        "real_base_arms_transforms_into_owned_equipped_evo"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-evo-scatter-shot-blue-four-live-sparse879-real-base-arms-transforms-into-owned-equipped-evo",
+      "source_spec": "card-regression-sparse879-20261122.json",
+      "source_spec_sha256": "ade646b4330495ec53fd7c5e889c70f0cf960b3b3471d3d2e98063c9d5dfbf1c",
+      "review_evidence": "review-evidence/sparse879-20261122-qualified-saved.json",
+      "review_evidence_sha256": "75756b91e09a4e0c0d7390622bc3ab8cec5c62bc08d3c87b831877b085a6128f",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse879-20261122-replay.json",
+          "sha256": "3c5bafed8a382f60217efa9e9cb3b92b1b9006bc4bbb7a3c2a87d3828e3dca3b",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "construct_bank_breaker_yellow",
+      "group_id": "identity:construct_bank_breaker_yellow",
+      "scenario_id": "card-construct-bank-breaker-yellow-four-live-sparse879-real-wrench-and-three-hyper-drivers-transform-into-equipped-bank-breaker",
+      "effect_branches": [
+        "real_wrench_and_three_hyper_drivers_transform_into_equipped_bank_breaker"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-construct-bank-breaker-yellow-four-live-sparse879-real-wrench-and-three-hyper-drivers-transform-into-equipped-bank-breaker",
+      "source_spec": "card-regression-sparse879-20261122.json",
+      "source_spec_sha256": "ade646b4330495ec53fd7c5e889c70f0cf960b3b3471d3d2e98063c9d5dfbf1c",
+      "review_evidence": "review-evidence/sparse879-20261122-qualified-saved.json",
+      "review_evidence_sha256": "75756b91e09a4e0c0d7390622bc3ab8cec5c62bc08d3c87b831877b085a6128f",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse879-20261122-replay.json",
+          "sha256": "3c5bafed8a382f60217efa9e9cb3b92b1b9006bc4bbb7a3c2a87d3828e3dca3b",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "renounce_violence_blue",
+      "group_id": "identity:renounce_violence_blue",
+      "scenario_id": "card-renounce-violence-blue-four-live-sparse879-destroys-three-real-tokens-across-seats-and-creates-three-owned-replacements",
+      "effect_branches": [
+        "destroys_three_real_tokens_across_seats_and_creates_three_owned_replacements"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-renounce-violence-blue-four-live-sparse879-destroys-three-real-tokens-across-seats-and-creates-three-owned-replacements",
+      "source_spec": "card-regression-sparse879-20261122.json",
+      "source_spec_sha256": "ade646b4330495ec53fd7c5e889c70f0cf960b3b3471d3d2e98063c9d5dfbf1c",
+      "review_evidence": "review-evidence/sparse879-20261122-qualified-saved.json",
+      "review_evidence_sha256": "75756b91e09a4e0c0d7390622bc3ab8cec5c62bc08d3c87b831877b085a6128f",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse879-20261122-replay.json",
+          "sha256": "3c5bafed8a382f60217efa9e9cb3b92b1b9006bc4bbb7a3c2a87d3828e3dca3b",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "rip_up_their_virtues_blue",
+      "group_id": "identity:rip_up_their_virtues_blue",
+      "scenario_id": "card-rip-up-their-virtues-blue-four-live-sparse879-destroys-three-real-tokens-across-seats-and-creates-three-owned-replacements",
+      "effect_branches": [
+        "destroys_three_real_tokens_across_seats_and_creates_three_owned_replacements"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-rip-up-their-virtues-blue-four-live-sparse879-destroys-three-real-tokens-across-seats-and-creates-three-owned-replacements",
+      "source_spec": "card-regression-sparse879-20261122.json",
+      "source_spec_sha256": "ade646b4330495ec53fd7c5e889c70f0cf960b3b3471d3d2e98063c9d5dfbf1c",
+      "review_evidence": "review-evidence/sparse879-20261122-qualified-saved.json",
+      "review_evidence_sha256": "75756b91e09a4e0c0d7390622bc3ab8cec5c62bc08d3c87b831877b085a6128f",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse879-20261122-replay.json",
+          "sha256": "3c5bafed8a382f60217efa9e9cb3b92b1b9006bc4bbb7a3c2a87d3828e3dca3b",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

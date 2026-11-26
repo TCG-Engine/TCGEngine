@@ -1,0 +1,97 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-24T04:25:41.006350+00:00",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1308-20261122.json",
+  "source_spec_sha256": "0cb7d8f6aa4336de31df92d2cd2d08cf453f4d03de2d28a9cba9c9134e87f2b5",
+  "new_scenarios": 2,
+  "new_groups": 2,
+  "new_primary_ids": 2,
+  "actions": 58,
+  "native_assertions": 687,
+  "manual_passes": 50,
+  "totals": {
+    "saved_registered_scenarios": 5248,
+    "duels": 3097,
+    "four_live": 2151,
+    "recorded_primary_ids": 2396,
+    "identity_denominator": 5196,
+    "recorded_groups": 2270,
+    "group_denominator": 3324,
+    "four_live_groups": 2140,
+    "phase_qualified_scenarios_at_actual_contexts": 1885,
+    "phase_qualified_unique_groups": 1875,
+    "creation_replay_passes": 2627,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 1046,
+  "scenarios": [
+    {
+      "card_id": "spectral_prowler_red",
+      "group_id": "pitch-cycle:spectral_prowler",
+      "scenario_id": "card-spectral-prowler-red-four-live-sparse1308-no-shield-no-refund-rejects-real-zero-cost-followup",
+      "effect_branches": [
+        "without_shield_actual_four_damage_no_go_again_refund_and_native_zero_cost_attack_followup_rejected"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-spectral-prowler-red-four-live-sparse1308-no-shield-no-refund-rejects-real-zero-cost-followup",
+      "source_spec": "card-regression-sparse1308-20261122.json",
+      "source_spec_sha256": "0cb7d8f6aa4336de31df92d2cd2d08cf453f4d03de2d28a9cba9c9134e87f2b5",
+      "review_evidence": "review-evidence/sparse1308-20261122-qualified-saved.json",
+      "review_evidence_sha256": "a74f0db95226b3cb70bf6b17a2fd0e50e83d7352af7a9f8769d18ff5781e8272",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1308-20261122-replay.json",
+          "sha256": "73a604d07a58c47a8fd5c9d5342197a8c2d01cb6506126fceb391b60d45945c5",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "spectral_rider_red",
+      "group_id": "pitch-cycle:spectral_rider",
+      "scenario_id": "card-spectral-rider-red-four-live-sparse1308-no-shield-allows-two-action-defenders-without-summing-phantasm-power",
+      "effect_branches": [
+        "without_shield_two_real_action_cards_can_defend_and_separate_five_and_three_power_do_not_trigger_phantasm"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-spectral-rider-red-four-live-sparse1308-no-shield-allows-two-action-defenders-without-summing-phantasm-power",
+      "source_spec": "card-regression-sparse1308-20261122.json",
+      "source_spec_sha256": "0cb7d8f6aa4336de31df92d2cd2d08cf453f4d03de2d28a9cba9c9134e87f2b5",
+      "review_evidence": "review-evidence/sparse1308-20261122-qualified-saved.json",
+      "review_evidence_sha256": "a74f0db95226b3cb70bf6b17a2fd0e50e83d7352af7a9f8769d18ff5781e8272",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1308-20261122-replay.json",
+          "sha256": "73a604d07a58c47a8fd5c9d5342197a8c2d01cb6506126fceb391b60d45945c5",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

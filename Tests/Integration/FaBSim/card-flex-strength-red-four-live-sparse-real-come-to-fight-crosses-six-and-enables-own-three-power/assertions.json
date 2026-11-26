@@ -1581,7 +1581,7 @@
             "1"
         ],
         "comparison": "equals",
-        "valueJson": "[{\"type\":\"MST_BLUE_PITCHED\",\"amount\":1,\"uses\":1},{\"type\":\"SUP_COST_ONE\",\"amount\":1,\"uses\":1},{\"type\":\"EVR_PLAYED\",\"amount\":1,\"uses\":1},{\"type\":\"EVR_GRAVEYARD\",\"amount\":1,\"uses\":1},{\"type\":\"ARC_NEXT_AA\",\"amount\":3,\"uses\":1}]"
+        "valueJson": "[{\"type\":\"MST_BLUE_PITCHED\",\"amount\":1,\"uses\":1},{\"type\":\"SUP_COST_ONE\",\"amount\":1,\"uses\":1},{\"type\":\"EVR_PLAYED\",\"amount\":1,\"uses\":1},{\"type\":\"ARC_NEXT_AA\",\"amount\":3,\"uses\":1},{\"type\":\"EVR_GRAVEYARD\",\"amount\":1,\"uses\":1}]"
     },
     {
         "step": 6,

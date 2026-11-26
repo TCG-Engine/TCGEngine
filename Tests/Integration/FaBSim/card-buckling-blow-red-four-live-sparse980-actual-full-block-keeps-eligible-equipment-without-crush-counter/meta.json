@@ -1,0 +1,7 @@
+{
+    "name": "Buckling Blow / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T23:28:03+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "**Crush** - When this deals 4 or more damage to a hero, put a -1{d} counter on target equipment they control. Named representative actual_full_block_keeps_eligible_equipment_without_crush_counter. Allfourlive/manual, legal natural20 Hero, physical printedcost/card/ownedsource5. Twin actualBlue6 pays1/R2, source staysStack throughMZMODAL This_attack/index1, buff3->4 actualHP20->16, printedGoAgain restoresAP1 atresolution. Guardian twoactualBlue6/7pay4/R2, actual3HandAAdef9 block8/noHit, physicaleligibleEquipment11Counters[] orenemySeismic11 retained, noCrush choice/negativecounter/destroy. PositiveCrush, alternateTwin on-hit mode/nextattack and Hero abilities untested. Sources: FaBSim/GeneratedCode/cardArrayCache.json#buckling_blow_red"
+}

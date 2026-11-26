@@ -1,0 +1,79 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-high-pitched-howl-red-four-live-sparse1344-actual-three-power-card-pitched-below-six-threshold-no-vigor",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-high-pitched-howl-red-four-live-sparse1344-actual-three-power-card-pitched-below-six-threshold-no-vigor",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1344-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1344-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "30d18f78dc08d04eb6fcc4da87d52b0a0033292b1cdeb5abff5425374da18c77",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "0b1eafbf172eea1af325ab7bc3ef70edcad8b8229b12654b87d5e73b28b5b34d",
+        "actions.json": "0c005a52a51dc48a24f481bec6cbd5cfe2cb93ecd847ec1063490764f1d7d9ea",
+        "assertions.json": "eb2ed892c9ab7146e638ff8f699a43bd53cd9a0cae568d6344ba2c6b46224d85",
+        "expected_final_gamestate.txt": "6bcdfa2f983dc47d3e7d5c806607674246a3a79386a852e6a493fc39cd7e8d75",
+        "meta.json": "90e4f4e1ed1f0d3f40c14c7349462b5b1c16eb9ad19d63b87131b134554756ac"
+      }
+    },
+    {
+      "slug": "card-pound-town-red-four-live-sparse1344-no-six-power-discard-available-beat-chest-unpaid-no-might",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-pound-town-red-four-live-sparse1344-no-six-power-discard-available-beat-chest-unpaid-no-might",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1344-local-20261122\\clean-replays\\01.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1344-local-20261122\\clean-replays\\01.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "d4ef02a12d915bd493fa1f7ed45b1dcfe24dbd9e03ef50fe74a869c6cda2726e",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "69f65de2c622efaa3b96a1495b4e1c31c7431ac08b90cca7912cf80f4352cde2",
+        "actions.json": "0c005a52a51dc48a24f481bec6cbd5cfe2cb93ecd847ec1063490764f1d7d9ea",
+        "assertions.json": "a72322ade7481cd691b807b46dde4060849a2e887c1ff1cd6057eb633fc600d0",
+        "expected_final_gamestate.txt": "98258f89f656a88204fd43f310cbac87f169671f56bf7b1663e80460eb31f017",
+        "meta.json": "6a06caf39bf43a8835d877344c8afe21a5e51c4e668fad7b31a28abbe14d9cb7"
+      }
+    },
+    {
+      "slug": "card-rawhide-rumble-red-four-live-sparse1344-no-six-power-discard-available-beat-chest-unpaid-real-victim-hand-not-intimidated",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-rawhide-rumble-red-four-live-sparse1344-no-six-power-discard-available-beat-chest-unpaid-real-victim-hand-not-intimidated",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1344-local-20261122\\clean-replays\\02.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1344-local-20261122\\clean-replays\\02.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "ae7427090d80b1473a6bd46321bccaf849a3951eac8c1ad4787bc7d642401786",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "1111b512c9f33175ff8537deb311ca954dcde74de4c5a5363e62ee71cb88f149",
+        "actions.json": "0c005a52a51dc48a24f481bec6cbd5cfe2cb93ecd847ec1063490764f1d7d9ea",
+        "assertions.json": "cb4f2646ca3b0a16217899072ff475c6bf3ea1418d8e6db7b70dac19903be740",
+        "expected_final_gamestate.txt": "b75ad2117bb1b1a16a0ea6ea9662c6bbd70f104f1f6d78c0f838e29197c8578f",
+        "meta.json": "9d181aced1f55fa01502c56b7eb198744c85deb2bd9ca17ce7bedf757d35cc83"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

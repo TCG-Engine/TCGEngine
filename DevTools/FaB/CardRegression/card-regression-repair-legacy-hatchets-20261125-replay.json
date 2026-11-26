@@ -1,0 +1,52 @@
+{
+  "runtime": "2cfa73379c7cb718817903fee81340976f3f970ba870165a19c7d1c1d7d9b533",
+  "full_suite_run": false,
+  "fixtures": [
+    {
+      "slug": "card-hatchet-of-body-four-live-sparse1295-real-first-attack-then-once-per-turn-rejects-affordable-repeat",
+      "status": "PASS",
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-hatchet-of-body-four-live-sparse1295-real-first-attack-then-once-per-turn-rejects-affordable-repeat",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\hatchet-events\\legacy-migration\\replay-0.complete.log"
+      ],
+      "runtime": "2cfa73379c7cb718817903fee81340976f3f970ba870165a19c7d1c1d7d9b533",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "623d173f07847f2b8a6905ed2c8c4e6315414cb85ca036fa82d6f868c5bf4275",
+        "actions.json": "b63b877a3a7604408555dd744a4f72890cef84af350ed524255f096134159572",
+        "assertions.json": "185f6b97d340b8c3854d5b8959c95b81e2dbbcf828ee2f589e7f58220ee293eb",
+        "expected_final_gamestate.txt": "fbf1ab6984f29f630bd0a1de47070d45c43fc9ec2f788e51306026f6665b4997",
+        "meta.json": "cc3f05547ba2a432f31e408a9765923a3b1cc6113b48addeaa86ea6c07e978ca"
+      },
+      "log_sha256": "12cba25d7635addf2e8e6c8f608c4b3ed7ab6bed3a4a641ea116e9840cf5319a"
+    },
+    {
+      "slug": "card-hatchet-of-mind-four-live-sparse1295-real-first-attack-then-once-per-turn-rejects-affordable-repeat",
+      "status": "PASS",
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-hatchet-of-mind-four-live-sparse1295-real-first-attack-then-once-per-turn-rejects-affordable-repeat",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\hatchet-events\\legacy-migration\\replay-1.complete.log"
+      ],
+      "runtime": "2cfa73379c7cb718817903fee81340976f3f970ba870165a19c7d1c1d7d9b533",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "fd6b1741f626ed7334f71cb450f5b863fa577c56040e2ae5aeee614ee5fa3d1a",
+        "actions.json": "b63b877a3a7604408555dd744a4f72890cef84af350ed524255f096134159572",
+        "assertions.json": "6d09917785dda5c32970915326a67b4c77ce710110957b383b722a0a36fed127",
+        "expected_final_gamestate.txt": "4285135f8a35fb2dd94bf987d231688efe6b5d1f06825de783bd7e0f237553a4",
+        "meta.json": "7962c80c33e049b3ad1d5b471c3ec88c971504d3a1a339f056aea69337384ac6"
+      },
+      "log_sha256": "1797b82330701e0cf54d14bae13a1f49b9faed0d34ee8bbf0a5c092fbb2776e0"
+    }
+  ]
+}

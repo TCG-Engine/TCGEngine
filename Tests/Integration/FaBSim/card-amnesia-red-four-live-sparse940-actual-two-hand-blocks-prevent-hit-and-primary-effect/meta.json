@@ -1,0 +1,7 @@
+{
+    "name": "Amnesia / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T21:04:58+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "When this hits a hero, cards and tokens they own lose and can't gain names until the start of your next turn. ActualGenericHandblocks3+3fullyblock5/6, zeroactualdamage/nohit/AP0, physicalcardsownerGY. Positivehiteffects andexactunblockedpower notcertified. Sources: FaBSim/GeneratedCode/cardArrayCache.json#amnesia_red"
+}

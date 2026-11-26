@@ -1,0 +1,7 @@
+{
+    "name": "Rapturous Applause / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T23:07:16+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "When you win a clash revealing this, **the crowd cheers** you. Representative only: actual_hand_attack_not_clash_win_reveal. Physical Hand5 source/actual Blue6 pays printed1/2/3/R2/1/0/AP0, full four-live manual combat, owned source graveyard. Static grants/events not earned under these actual conditions; retained physical markers. No positive Hit/banished-source/Unity/clash/return or created ownership credit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#rapturous_applause_red"
+}

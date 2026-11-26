@@ -1,0 +1,27 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch513.json",
+  "runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+  "returncode": 0,
+  "completed_utc": "2026-11-05T19:53:40.315912+00:00",
+  "fixtures": [
+    {
+      "slug": "card-savor-bloodshed-red-four-live-real-dagger-plus-four-leaves-six-life-ally-at-one-life",
+      "fixture_sha256": "62f58a6a0bf887aea9f08b2aa8b10d188a5ea0a2543989e6252a0cb036902a42",
+      "passed": true,
+      "result": "[PASS] savor_bloodshed_red / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-savor-bloodshed-red-four-live-real-dagger-plus-four-leaves-six-life-ally-at-one-life",
+      "returncode": 0,
+      "stdout": "[PASS] savor_bloodshed_red / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

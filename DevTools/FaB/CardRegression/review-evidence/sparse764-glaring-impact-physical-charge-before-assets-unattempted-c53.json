@@ -1,0 +1,125 @@
+{
+  "planning_review_approved": true,
+  "approved": false,
+  "reviewer": "/root/b750_saved_recovery",
+  "reviewer_independent": true,
+  "created_utc": "2026-11-09T01:44:20.081197+00:00",
+  "runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+  "recorder_sha256": "ab33a3250462d0453f71d38dd4138cb9fbc3d595d2586742e989a52251c9c4a9",
+  "manifest": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov9-batch764-two-source-only-planning\\manifest.json",
+    "sha256": "380dee491d39a8f2ce999cac692c475c9d21826f9844dd92bccc1a79d5c8453b"
+  },
+  "author_QA": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov9-batch764-two-source-only-planning\\frozen-author-QA.json",
+    "sha256": "6941b6102b25e786310e84eb478ab1328a20f03a6c610ae4934b3dd042911fc0"
+  },
+  "rule_notes": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov9-batch764-two-source-only-planning\\SOURCE_RULES_NOTES.json",
+    "sha256": "9e48fb04c31b32307c1c8283e98ab8083b337e3215ef73c903d382f935574453"
+  },
+  "combined_planning_input": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov9-batch764-two-source-only-planning\\batch764-two-source-only-planning-input.json",
+    "sha256": "73f836c20e5e1c69980dd1bc298e370770c4830c8f506a285567254d31a27471"
+  },
+  "source_is_recorder_input": false,
+  "reservation": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov9-batch764-firm-reservation.json",
+    "sha256": "99a4a1fcd780f79f46186e54eb36a90a485cadd1b86b01f29441680736d4ac5b"
+  },
+  "pool": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov9-batch764-printed-keyword-nonpermanent-metadata-pool.json",
+    "sha256": "439a41889d1b020b38669864499292f6a8882ac21ac619f7c5f744e0fc8ae60d"
+  },
+  "source_guard_count": 71,
+  "source_guards_verified": true,
+  "source_guards_sha256": "95d9d00652bcb6b2d2297f9619253994b318239f86f8c8515ce325e4486f44e0",
+  "source_guards_binding": "Every current path of the exact71 map in pinned manifest independently matches; includes actual DTD canonical.",
+  "executable_cases": 0,
+  "native_actions": 0,
+  "native_assertions": 0,
+  "passing_fixtures": 0,
+  "source_body_present": true,
+  "engine_implementation_concern": true,
+  "actual_review_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov9_batch764_planning_readonly.py",
+    "sha256": "25b1faf7322b9772e8a1e47cb0b26fb7a86d150995e24c9e99cc624b8ed1147a"
+  },
+  "source_approved": false,
+  "source_spec_approved": false,
+  "gameplay_approved": false,
+  "semantically_approved": false,
+  "semantic_gameplay_approved": false,
+  "runnable": false,
+  "runnable_approved": false,
+  "installable": false,
+  "native_attempted": false,
+  "native_executed": false,
+  "native_bug": false,
+  "replay_executed": false,
+  "fixture_saved": false,
+  "coverage_credit": false,
+  "qualification_permitted": false,
+  "executable_admission": false,
+  "confirmed_engine_bug": false,
+  "confirmed_gameplay_bug": false,
+  "confirmed_bug": false,
+  "bug_reproduced": false,
+  "source_fix": false,
+  "repair_attempted": false,
+  "repository_writes": false,
+  "full_suite_run": false,
+  "status": "SOURCE_ONLY_UNATTEMPTED_GLARING_YELLOW_CHARGE_BEFORE_ASSETS_PLANNING_LIMIT",
+  "card_id": "glaring_impact_blue",
+  "group_id": "pitch-cycle:glaring_impact",
+  "planning_hold": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov9-batch764-two-source-only-planning\\batch764-glaring-impact-charge-cost-source-only-plan.json",
+    "sha256": "64476185cdbec45d573ac88c59e4fe77d1fb45e85656083bf3861d0cbe99c6ac"
+  },
+  "input": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov9-batch764-two-source-only-planning\\batch764-glaring-impact-charge-cost-source-only-plan.json",
+  "input_sha256": "64476185cdbec45d573ac88c59e4fe77d1fb45e85656083bf3861d0cbe99c6ac",
+  "independent_findings": [
+    "Viewed selected blue Glaring Impact publisher face: printed1resource/base2, optional charge as additional cost; a yellow charged this way grants Overpower. This positive branch and actual selected canonical/live Prepare and AttackDeclared bodies exist.",
+    "Canonical/compiled Prepare chooses a Hand card, physically FaBMONCharge moves the same owned UID into Soul and records CHARGED history, then applies DTD_YELLOW, all before FaBFinishPreparedCard. It is actual cost payment, not merely early optional-cost declaration or target collection.",
+    "Selected entry invokes Prepare while initial resource0/AP1 remains unpaid. Glaring is not in the bounded deferred-effect cohort. FinishPrepared reaches TryCompletePayment and actual resource/AP debits only afterward. CR5.1.7 precedes5.1.9; CR8.5.29 defines charge movement. The selected card makes this particular charge an additional cost.",
+    "Only this blue positive yellow-charge cost-order inference is approved as a planning limit. Proposed Overpower block rejection, Boltyn power3 versus physicalDEF3,0damage, Soul UID and final cleanup are unattempted/unqualified, not native observations."
+  ],
+  "source_evidence": {
+    "paths": [
+      "DevTools/FaB/dtd_abilities.json:glaring_impact_blue PrepareCard/AttackDeclared",
+      "FaBSim/GeneratedCode/GeneratedMacroCode.php:10705-10709,129711-129769",
+      "FaBSim/Custom/MONCards.php:16-20",
+      "FaBSim/Custom/CardChoices.php:217-233",
+      "FaBSim/Custom/GameLogic.php:968-991,1080-1102"
+    ]
+  },
+  "official_rules": [
+    {
+      "url": "https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/",
+      "actually_retrieved": true,
+      "sections": [
+        "5.1.3",
+        "5.1.7",
+        "5.1.9"
+      ]
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/08-keywords/",
+      "actually_retrieved": true,
+      "sections": [
+        "8.5.29"
+      ]
+    }
+  ],
+  "primary_face": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\WebpImages\\glaring_impact_blue.webp",
+    "sha256": "913ca2db15014e0846ed5858f61b673ae09a450587002aa69de858ebca41c8ec",
+    "actually_viewed": true
+  },
+  "limits": [
+    "Only selected Glaring blue positive yellow-charge additional-cost route is held; no red/yellow sibling, Boltyn/support or whole-card certification.",
+    "Two original positive recipes remain unattempted; no executable recorder input, game/native/replay/fixture/coverage/confirmed-bug or full-card qualification. Four living natural20/manual48 endpoint preferences were proposed only, not observed.",
+    "No replacement primary/support/producer hunt, private history/AP/GA/RNG flag seed, pre-floating, PASS/false-condition/blank-play workaround, source fix or denied-repair retry."
+  ],
+  "canonical_selected_row_sha256": "61194d134fe4f3bc717701d28874d29aa2691d66e6ba205d2abbd1fa0ecd0ac6"
+}

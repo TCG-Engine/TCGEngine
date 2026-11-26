@@ -1,0 +1,385 @@
+{
+  "status": "APPROVED_ACTUAL_SAVED_PENDING_ROOT_TARGETED_QUALIFICATION_REGISTRATION",
+  "approved": true,
+  "source_approved": true,
+  "semantically_approved": true,
+  "reviewer": "/root/nov2_next_author",
+  "created_utc": "2026-11-02T23:48:50.975626+00:00",
+  "source_spec": "card-regression-batch267.json",
+  "input_sha256": "40fe23b7a3a33cea0bfbec1e3e63490d0bd74d9fd1ef9ab245dbefc2ebbdc4c4",
+  "manifest_sha256": "647683893374987ee176a703169913fbd2c104561770933f73737086489abab7",
+  "runtime_sha256": "eccb0e932251262e0a946fcca0fcdf03d3c8705eef951f11cd51acc8e38ab421",
+  "recorded_runtime_sha256": "eccb0e932251262e0a946fcca0fcdf03d3c8705eef951f11cd51acc8e38ab421",
+  "semantic_approval": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov2-batch267-independent-source-review.json",
+    "sha256": "bbcb2d87ee8171f3c2231136f56fe4b1b0a70ed40f5666b56004ab95d273ae77"
+  },
+  "recording_receipt": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch267-20261102T233747Z-6ae91ecb222b6.json",
+    "sha256": "ef100a82c7f490b182f550a96a7bde3ee7d6b263ae503e87c19f43524ec87384"
+  },
+  "root_wrapper_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov2-batch267-native-r1\\receipt.json",
+    "sha256": "441ed3a35cfa095222acefe31ebb72a5d1c6ae5faca48111365d5f152902dbc4"
+  },
+  "actual_comparison_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov2-batch267-independent-saved-review\\audit_saved.py",
+    "sha256": "18467b1a90a4e58577665a006efd6b98b5696baba115c67f290b4f0737b142ba"
+  },
+  "read_only_helper": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\saved_fixture_review_tools.py",
+    "sha256": "57cb7672feb98a00216f1e194fd1df0395826af02e0d76f7042af920851c39e8"
+  },
+  "review_method": "Exact raw4/raw5, every actual native input and persisted assertion mapped against approved input; manually derived four-seat pass actors; strict full-schema/field snapshots and complete physical/ownership/economy/manual endpoint profiles. Printed/source approval reused; static read-only audit, no game/model/PHP/replay/backend execution.",
+  "fixtures": [
+    {
+      "index": 0,
+      "card_id": "pack_hunt_red",
+      "slug": "card-pack-hunt-red-four-live-sparse-real-captured-intimidate-trigger-banishes-single-hand-card-then-six-damage",
+      "source_spec": "card-regression-batch267.json",
+      "input_sha256": "40fe23b7a3a33cea0bfbec1e3e63490d0bd74d9fd1ef9ab245dbefc2ebbdc4c4",
+      "reviewer": "/root/nov2_next_author",
+      "runtime_sha256": "eccb0e932251262e0a946fcca0fcdf03d3c8705eef951f11cd51acc8e38ab421",
+      "recorded_runtime_sha256": "eccb0e932251262e0a946fcca0fcdf03d3c8705eef951f11cd51acc8e38ab421",
+      "approved": true,
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_NEW_FOUR_LIVE_REPRESENTATIVE",
+      "fixture_path": "Tests\\Integration\\FaBSim\\card-pack-hunt-red-four-live-sparse-real-captured-intimidate-trigger-banishes-single-hand-card-then-six-damage",
+      "fixture_sha256": "749ad4a8624e35efe395a58b2892489c03ae8267e658028bb10d6d8fde280331",
+      "raw4_sha256": {
+        "initial_gamestate.txt": "0eba9f8c6285123133fd4903ed5ba16c097c122456931e15c900f365bbfb7064",
+        "actions.json": "a8de0d3a788928fbc9972eafc6921af8125b3bd30f5768cba61585655d7e82a9",
+        "assertions.json": "e69f0142bbb7ae7915f043bd56564999ddc1e5770b77d91da1623de7a0d0a495",
+        "expected_final_gamestate.txt": "a0abc34411b2ea030c9fdba356ce3450c5db45cdf50096746eda8e3a57c2ad48"
+      },
+      "raw5_sha256": {
+        "initial_gamestate.txt": "0eba9f8c6285123133fd4903ed5ba16c097c122456931e15c900f365bbfb7064",
+        "actions.json": "a8de0d3a788928fbc9972eafc6921af8125b3bd30f5768cba61585655d7e82a9",
+        "assertions.json": "e69f0142bbb7ae7915f043bd56564999ddc1e5770b77d91da1623de7a0d0a495",
+        "expected_final_gamestate.txt": "a0abc34411b2ea030c9fdba356ce3450c5db45cdf50096746eda8e3a57c2ad48",
+        "meta.json": "30560d39040593dc46c4df55ca9ecd1c6105e42727b5b4125a5cee0cf51616ea"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "0eba9f8c6285123133fd4903ed5ba16c097c122456931e15c900f365bbfb7064",
+        "actions.json": "a8de0d3a788928fbc9972eafc6921af8125b3bd30f5768cba61585655d7e82a9",
+        "assertions.json": "e69f0142bbb7ae7915f043bd56564999ddc1e5770b77d91da1623de7a0d0a495",
+        "expected_final_gamestate.txt": "a0abc34411b2ea030c9fdba356ce3450c5db45cdf50096746eda8e3a57c2ad48",
+        "meta.json": "30560d39040593dc46c4df55ca9ecd1c6105e42727b5b4125a5cee0cf51616ea"
+      },
+      "actions": 33,
+      "native_assertions": 2460,
+      "actual_manual_passes": 29,
+      "actual_priority_response_passes": 28,
+      "actual_defender_declaration_finish_inputs": 1,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4
+      ],
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "all_actions_and_assertions_exact": true,
+      "all_endpoint_physical_uid_card_zones_ownership_verified": true,
+      "all_terminal_assertions_evaluated_against_parsed_final_snapshot": true,
+      "initial_physical_uid_locations": {
+        "1": {
+          "card_id": "rhinar",
+          "zone": "p1Hero"
+        },
+        "5": {
+          "card_id": "pack_hunt_red",
+          "zone": "p1Hand"
+        },
+        "6": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Hand"
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero"
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero"
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero"
+        },
+        "7": {
+          "card_id": "wounding_blow_yellow",
+          "zone": "p4Hand"
+        }
+      },
+      "final_physical_uid_locations": {
+        "1": {
+          "card_id": "rhinar",
+          "zone": "p1Hero"
+        },
+        "5": {
+          "card_id": "pack_hunt_red",
+          "zone": "p1Graveyard"
+        },
+        "6": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Pitch"
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero"
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero"
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero"
+        },
+        "7": {
+          "card_id": "wounding_blow_yellow",
+          "zone": "p4Banish"
+        }
+      },
+      "final_health": [
+        20,
+        20,
+        20,
+        14
+      ],
+      "final_resources": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_Hero_Status": [
+        2,
+        2,
+        2,
+        2
+      ],
+      "checkpoint_count": 35,
+      "checkpoint_assertion_mapping_sha256": "144b65fd37b19013a62f4df96d0c285408a7464043ccda974e5d21962cd1e834",
+      "native_action_mapping_sha256": "0264dda5d37b9bd2d023bb19fd01088089b299daea35441c119fa394e9a68dd0",
+      "native_assertion_mapping_sha256": "e8e9767c93c44419408eff265bd75d017aa207975149b657177b194698dc10ae"
+    },
+    {
+      "index": 1,
+      "card_id": "mechanical_strength_red",
+      "slug": "card-mechanical-strength-red-four-live-sparse-two-physical-equipped-evos-make-real-seven-power-attack",
+      "source_spec": "card-regression-batch267.json",
+      "input_sha256": "40fe23b7a3a33cea0bfbec1e3e63490d0bd74d9fd1ef9ab245dbefc2ebbdc4c4",
+      "reviewer": "/root/nov2_next_author",
+      "runtime_sha256": "eccb0e932251262e0a946fcca0fcdf03d3c8705eef951f11cd51acc8e38ab421",
+      "recorded_runtime_sha256": "eccb0e932251262e0a946fcca0fcdf03d3c8705eef951f11cd51acc8e38ab421",
+      "approved": true,
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_NEW_FOUR_LIVE_REPRESENTATIVE",
+      "fixture_path": "Tests\\Integration\\FaBSim\\card-mechanical-strength-red-four-live-sparse-two-physical-equipped-evos-make-real-seven-power-attack",
+      "fixture_sha256": "ec243639170a437ceeefeb0a16d23d53c349eaec184d5b26812eaf0c90533820",
+      "raw4_sha256": {
+        "initial_gamestate.txt": "a0a99b32819e11ac8944a45b1441264927a77a671c4712b13f73c6ac3e4e904c",
+        "actions.json": "25920dc16af50701b0be20453cc3345d5c14a09166881d7481930bfb87552093",
+        "assertions.json": "76ea9edd01ac83bfc181ae2f2f4efcefdcdeae70a4ddb075aba83a1ddf4adbb8",
+        "expected_final_gamestate.txt": "6a346ac028eb2194db634b84cc665b53f8fad6b86f75da5bc0706cb3cfb02977"
+      },
+      "raw5_sha256": {
+        "initial_gamestate.txt": "a0a99b32819e11ac8944a45b1441264927a77a671c4712b13f73c6ac3e4e904c",
+        "actions.json": "25920dc16af50701b0be20453cc3345d5c14a09166881d7481930bfb87552093",
+        "assertions.json": "76ea9edd01ac83bfc181ae2f2f4efcefdcdeae70a4ddb075aba83a1ddf4adbb8",
+        "expected_final_gamestate.txt": "6a346ac028eb2194db634b84cc665b53f8fad6b86f75da5bc0706cb3cfb02977",
+        "meta.json": "c4a7f6b5d0ca63e8f6aca8973479565319ef9a04e07166080de55fc73c509482"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "a0a99b32819e11ac8944a45b1441264927a77a671c4712b13f73c6ac3e4e904c",
+        "actions.json": "25920dc16af50701b0be20453cc3345d5c14a09166881d7481930bfb87552093",
+        "assertions.json": "76ea9edd01ac83bfc181ae2f2f4efcefdcdeae70a4ddb075aba83a1ddf4adbb8",
+        "expected_final_gamestate.txt": "6a346ac028eb2194db634b84cc665b53f8fad6b86f75da5bc0706cb3cfb02977",
+        "meta.json": "c4a7f6b5d0ca63e8f6aca8973479565319ef9a04e07166080de55fc73c509482"
+      },
+      "actions": 28,
+      "native_assertions": 2359,
+      "actual_manual_passes": 25,
+      "actual_priority_response_passes": 24,
+      "actual_defender_declaration_finish_inputs": 1,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4
+      ],
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "all_actions_and_assertions_exact": true,
+      "all_endpoint_physical_uid_card_zones_ownership_verified": true,
+      "all_terminal_assertions_evaluated_against_parsed_final_snapshot": true,
+      "initial_physical_uid_locations": {
+        "1": {
+          "card_id": "teklovossen",
+          "zone": "p1Hero"
+        },
+        "7": {
+          "card_id": "mechanical_strength_red",
+          "zone": "p1Hand"
+        },
+        "8": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Hand"
+        },
+        "5": {
+          "card_id": "evo_steel_soul_memory_blue",
+          "zone": "p1Equipment"
+        },
+        "6": {
+          "card_id": "evo_steel_soul_processor_blue",
+          "zone": "p1Equipment"
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero"
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero"
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero"
+        }
+      },
+      "final_physical_uid_locations": {
+        "1": {
+          "card_id": "teklovossen",
+          "zone": "p1Hero"
+        },
+        "5": {
+          "card_id": "evo_steel_soul_memory_blue",
+          "zone": "p1Equipment"
+        },
+        "6": {
+          "card_id": "evo_steel_soul_processor_blue",
+          "zone": "p1Equipment"
+        },
+        "7": {
+          "card_id": "mechanical_strength_red",
+          "zone": "p1Graveyard"
+        },
+        "8": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Pitch"
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero"
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero"
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero"
+        }
+      },
+      "final_health": [
+        20,
+        20,
+        20,
+        13
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_Hero_Status": [
+        2,
+        2,
+        2,
+        2
+      ],
+      "checkpoint_count": 30,
+      "checkpoint_assertion_mapping_sha256": "87c08581922c0fad9c34ecec2f2f7cdbb6611cf90d8631dc98a16d080436e602",
+      "native_action_mapping_sha256": "10106b3cff7bf54b5859648be80acf1921358723f8fd8a3df37986bef665b913",
+      "native_assertion_mapping_sha256": "f4929387c126653ce7d6a9c5e69a778557af1472df677a910b378464fcc5a72c"
+    }
+  ],
+  "total_actions": 61,
+  "total_native_assertions": 4819,
+  "total_manual_passes": 54,
+  "total_priority_response_passes": 52,
+  "total_defender_declaration_finish_inputs": 2,
+  "material_findings": [
+    "Pack actual Blue6 pays printed2/AP1, source5 attacks at6/noGA. Real separate target answer atinput8 captures ABI8 SourceUID5/target4/amount1. Four actual trigger responders retain Hand7 until input12 banishes exactUID7 facedown through existing one-candidate native random path, then ABI8 ceases. Final actual6damage/P4HP14/R1/AP0, source5 ownpublicGY/Pitch6 and P4Banish7 FaceDown1/ReturnAtEndTurn1; intimidated[7] plus exact unqueued delayed group retains controller1/source5/cardPack/uid7owner4holder4. No beginning-endphase return was crossed.",
+    "Mechanical actual Blue8 pays printed3/AP1; exactly two physical faceup equipped Evo instances Head5/Chest6 with proper original base SUBCARDS give printed5+2=7/noGA and actual7damage/P4HP13. Both full raw Evo objects are identical initial/final, with actual owned base-under representation preserved and no extra equipped base objects. Final primary7 ownpublicGY/Pitch8/R0/AP0, no Evo cast/transform/hero ability recorded.",
+    "All61 native inputs/4819 assertions match exactly. Actual54 manual passes are52 priority responses plus2 P4defender-finish inputs; all four actors, manual preferences, endpoint physical UIDs/ownership/health/economy, Stack/queues/frame cleanup and raw4/raw5 verified."
+  ],
+  "limits": [
+    "Positive initial native recording only. Root two focused replays and registration remain separate evidence gates, not executed or claimed by reviewer.",
+    "Only two red representatives in original pitch cycles; no sibling/control/full-card/support-primary/Evo cast/transform/Temper/hero credit.",
+    "Pack endphase return, other random choices/amounts, source removal and empty Hand remain unexercised. One eligible card uses existing native RNG without authored override; this is not a random-algorithm test.",
+    "Intermediate material boundaries are supported by completed native recording and exact persisted assertions; endpoint files alone do not capture every intermediate private local.",
+    "Aether061 repair remains separate/unapplied context; no R/source/generated/backend/native/PHP/fullsuite/historical replay performed by reviewer."
+  ]
+}

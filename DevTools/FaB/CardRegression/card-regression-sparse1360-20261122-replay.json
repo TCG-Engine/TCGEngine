@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-olympia-four-live-sparse1360-real-successful-plain-attack-hit-is-not-winning-wager-no-gold-reward",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-olympia-four-live-sparse1360-real-successful-plain-attack-hit-is-not-winning-wager-no-gold-reward",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1360-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1360-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "e56d016efe301e8710d4d3d4882ca26bc046d962c08bfb153766bc5b6275ea30",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "9e33e1fb8fa7410109faeaa9aa6728e832d2b643a912bbb1ed39ffb204e0e6d9",
+        "actions.json": "0c005a52a51dc48a24f481bec6cbd5cfe2cb93ecd847ec1063490764f1d7d9ea",
+        "assertions.json": "c2cb845da6c2a5ce9be58f07aa07044aea3ad20ab977b676b44bd446e5ea0989",
+        "expected_final_gamestate.txt": "d92a2f394b1ad7035546cea034258f47168525ddff453c16bb1d4b328caf64c6",
+        "meta.json": "2a6511b652b8121f7f34f881aa8487b2d8fc7f3a16b88de6d327678100e39e5b"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

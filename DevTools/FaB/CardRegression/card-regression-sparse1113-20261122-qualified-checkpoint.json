@@ -1,0 +1,68 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-23T07:48:35.959536+00:00",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1113-20261122.json",
+  "source_spec_sha256": "f4291d93f9b218a953af7241737b080c6359659f7d4d1da085c4f464ec2263eb",
+  "new_scenarios": 1,
+  "new_groups": 1,
+  "new_primary_ids": 1,
+  "actions": 13,
+  "native_assertions": 298,
+  "manual_passes": 8,
+  "totals": {
+    "saved_registered_scenarios": 4988,
+    "duels": 3075,
+    "four_live": 1913,
+    "recorded_primary_ids": 2136,
+    "identity_denominator": 5196,
+    "recorded_groups": 2010,
+    "group_denominator": 3324,
+    "four_live_groups": 1902,
+    "phase_qualified_scenarios_at_actual_contexts": 1625,
+    "phase_qualified_unique_groups": 1615,
+    "creation_replay_passes": 2367,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 786,
+  "scenarios": [
+    {
+      "card_id": "surgent_aethertide",
+      "group_id": "identity:surgent_aethertide",
+      "scenario_id": "card-surgent-aethertide-four-live-sparse1113-real-paid-one-arcane-earns-go-again-and-amplifies-next-actual-zap-three-to-four",
+      "effect_branches": [
+        "real_paid_one_arcane_earns_go_again_and_amplifies_next_actual_zap_three_to_four"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-surgent-aethertide-four-live-sparse1113-real-paid-one-arcane-earns-go-again-and-amplifies-next-actual-zap-three-to-four",
+      "source_spec": "card-regression-sparse1113-20261122.json",
+      "source_spec_sha256": "f4291d93f9b218a953af7241737b080c6359659f7d4d1da085c4f464ec2263eb",
+      "review_evidence": "review-evidence/sparse1113-20261122-qualified-saved.json",
+      "review_evidence_sha256": "4dfb066d99cffd5d22d9f83669948603f0ab2fe41642e75ed84148f00ff4c946",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1113-20261122-replay.json",
+          "sha256": "9297c3e35affbe6df8bbb288ce23d939a3d2951e2ee7ab02bb312deaf3728868",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

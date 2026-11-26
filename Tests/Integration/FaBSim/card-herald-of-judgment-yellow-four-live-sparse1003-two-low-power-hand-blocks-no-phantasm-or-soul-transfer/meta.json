@@ -1,0 +1,7 @@
+{
+    "name": "Herald of Judgment / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-23T01:45:34+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "**Prism Specialization**\n\nWhen this hits, put it into your soul and the defending hero can't play cards from their banished zone until the end of their next turn.\n\n**Phantasm** Named partial branch two_low_power_hand_blocks_no_phantasm_or_soul_transfer. Legal natural20 prism, primary5 Hand, realBlue6 pays printed2 leavingR1/AP0; actual6 attack fully blocked by real Hand AA defense6. Persisted attackPower/defenseValue/0damage/HP20/noHit/Stack0, source5 and all real defenders reach respective owner graveyards. Allfour live/manual; no hero activation or hit effect earned. ActualPrism specialization. Defender AA WoundingRed7 base4 and CriticalRed8 base5 are both below6, so no Phantasm destruction event; no Soul transfer. No positive hit/creator/permission/hero/support/pitch-sibling/full-card credit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#herald_of_judgment_yellow"
+}

@@ -1,0 +1,56 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-duskblade-four-live-sparse1296-first-use-no-two-card-types-and-affordable-repeat-rejected",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-duskblade-four-live-sparse1296-first-use-no-two-card-types-and-affordable-repeat-rejected",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1296-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1296-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "39fcf33954b965517a3eb5ca93935dbfe560f36385e4514348a4cd171e7fe29c",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "ac731f918eb1215c94b411bc33750d42ba086455bb2a54eed74c3ef5024cbeed",
+        "actions.json": "1be231ce67fbe812aec3b6ae6fe1427c199df664bd0ec77932891a88cbf42d55",
+        "assertions.json": "9da966209b1dcbd1c73af08859c481cd5a8bb54a6cb65ec868e99e2b183a8ca1",
+        "expected_final_gamestate.txt": "7d66f58bc783ae362138f51fb82402b46baf3fb56f643318dabd7e24c5bed8cf",
+        "meta.json": "70d43b7cadea6bca4580f2484eddceb609c3bae8acba064e9b57d3b2c8e6c430"
+      }
+    },
+    {
+      "slug": "card-rosetta-thorn-four-live-sparse1296-first-use-no-two-card-types-and-affordable-repeat-rejected",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-rosetta-thorn-four-live-sparse1296-first-use-no-two-card-types-and-affordable-repeat-rejected",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1296-local-20261122\\clean-replays\\01.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1296-local-20261122\\clean-replays\\01.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "4f2d4a9a3a1366513729a732220644821a6399bd82fd252c989d4c739ba2b05e",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "8c7408ce2beaeb4efd3877ddb48ccdb9bdcfed307cf901ebbb82f525e3583ca8",
+        "actions.json": "1be231ce67fbe812aec3b6ae6fe1427c199df664bd0ec77932891a88cbf42d55",
+        "assertions.json": "68684c6694e78cc51bdc2df9a57a823fc415c1dd8eb1074083db92eeba51b41e",
+        "expected_final_gamestate.txt": "972728e45627b63f01a056347a6f12d4a08e61ada448cc35cc149f1ddc4be1c2",
+        "meta.json": "6dde63d753e8bbbbe9575fd96f0c2b90f5c7a17e9fa3edf97269606df8a33242"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

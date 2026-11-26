@@ -1,0 +1,34 @@
+{
+  "status": "SHARED074_RESOLVED_BY133_ORIGINAL32_2293_DIRECT_UNSAVED_PASS",
+  "reviewer": "Root independent of original074 recipe and b820 code author",
+  "reviewer_independent": true,
+  "runtime_sha256": "72324c9568ea99ae02eb555554f301403e088b6b39782f7966cdc9ce402ad02e",
+  "source_spec": "card-regression-batch299-v2-banish-witness.json",
+  "input_sha256": "48be40cad60b803d76865f17a64ce476c0ca2bd9950ccd13c6db77bca248941d",
+  "probe_receipt_sha256": "64dbd1b867b1030444bfef5270f477710805d0a22d4cc0dd5f5a087ee87cd3b2",
+  "full_native_result_sha256": "c364c46ad6b86ceb7d6d54ba7c1b4baaacb9c5327327c2758ce4937030707a9e",
+  "native_inputs": 32,
+  "native_assertions": 2293,
+  "original_actions_and_assertions_unchanged": true,
+  "fixture_saved": false,
+  "new_scenario_credit": false,
+  "new_group_credit": false,
+  "existing_primary_regression": "Tests/Integration/FaBSim/card-data-doll-mkii-four-live-correct-deck-boost-item-earns-responseable-hero-trigger-then-owned-entry-and-six-damage",
+  "existing_saved_proof": {
+    "runtime_sha256": "72324c9568ea99ae02eb555554f301403e088b6b39782f7966cdc9ce402ad02e",
+    "proof": "review-evidence/data-doll133-7232-qualified-saved.json",
+    "proof_sha256": "6f1bec315660d29f586732247bcc75c55ed9a3051410cc21c7b6dcd681934fd2",
+    "checkpoint": "card-regression-data-doll133-7232-qualified-checkpoint.json",
+    "limits": [
+      "One original Hyper Driver Red boost/entry branch. Other Item cost/type boundaries, Crank/Stasis/Plasma Mainline/Symbiosis interactive entry, source loss/control/target return gameplay and full Data Doll behavior unqualified; isolated controls are separate evidence.",
+      "21 actual-function checks exercise producer/resolver, public movement/entry helpers and Boost consequence loop with modeled primitives. No new generic094 continuation or certification of all nested Item-entry interactions.",
+      "Original074 Induction branch is separately run no-save; it earns no extra saved fixture/replay/group credit. No full suite/historical corpus run, generation/Core/schema/service/remote write or new breadth."
+    ],
+    "scope": "Exact original corrected branch only; preserve before evidence and historical runtimes."
+  },
+  "basis": "074 and133 share the exact Data Doll Deck-to-Banish inline Item-entry producer. Original074 Induction Chamber branch now passes all32inputs/2293assertions through genuine four-live priority and actual earned Hero response before own Item entry, parent combat/economy/cleanup. Shared133 Hyper Driver regression separately pins payment R1, no retroactive resource, entry Steam3 and real6damage with Native/Saved/clean replay at this runtime.074 is direct unsaved alternate-Item verification, not an additional replayed fixture or extra identity/group coverage.",
+  "limits": [
+    "074 has no new durable fixture or clean replay. Its exact original accepted-input/recorded-assertion evidence is retained separately;133 is the saved shared-root anchor.",
+    "Other item-entry interactions and full Data Doll behavior remain unqualified as stated in133 proof. No full suite or new breadth."
+  ]
+}

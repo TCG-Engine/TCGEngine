@@ -1,0 +1,7 @@
+{
+    "name": "Flood of Force / Snag response suppresses own bonus, not put or GA",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-26T00:53:58+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "OfficialFlood text WHENattacks-if earns responseable layer even false. Source ordinary predecessor is captured before currentFlood can selfmatch. Falsefirst1power/1damage noReveal/put/GA. ActualTimesnapActiongivesAP2; firstFloodfalse1damage, KEEPchainOPENatResolution; secondFloodtrue usesactualpriorfirstFlood, noearlyeffects, CURRENTComboDecktopPUT(notdraw) intoHand then+3ownpower/GA. RealopponentSnagrespondsaboveownedlayer; own+3suppressed, stillput+GA andactualsecond1damage/finalHP38. Sources:"
+}

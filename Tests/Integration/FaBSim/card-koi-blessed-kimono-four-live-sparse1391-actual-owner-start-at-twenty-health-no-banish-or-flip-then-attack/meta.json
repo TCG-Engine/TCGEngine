@@ -1,0 +1,7 @@
+{
+    "name": "Koi Blessed Kimono / actual owner start at twenty health",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-24T14:08:32+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "FOUR_REAL_MANUAL_UPF_zen20_THREEDORI20. StartsCURRENTTURN4/TurnID2/AP4=1, properownpriorEquipment5FaceDown1/HandWounding6/allDecksempty. All4actualACTIONpasses\u2192realEndPhase4, all4actualENDpasses\u2192realowner1StartTurn/TurnID3/AP1=1. OwnerHP20means KoiCloakedexactly1Healthinterveningconditionfalse, so remainsfaceDown1/noFlip/Destroy/SearchInnerChi. NoearnedWHENlayer/choice/UID, primary5sameownedreadyEquipment. ActualnativeownstartAPspentbyrealWounding6AA0toadjacent4/all4manualcombat/base4/noGA/real4damageHP4=16/fullclose. Equipment5sameFaceDown/status, source6GY1/HandDeckempty/Banishall0/Arenas0/UID6RNG0/ownHP20/others20/AP0/R0/StackDQquiet. OnlyrealStartTurnfalse-lifeguard+actualattackfollowthrough, noeligiblethresholdpositive/choice/timing/defendbranch/provenance/support/fullcardcredit. Noenginechange. Sources: FaBSim/GeneratedCode/cardArrayCache.json#koi_blessed_kimono FaBSim/GeneratedCode/GeneratedMacroCode.php FaBSim/Custom/GameLogic.php FaBSim/Custom/MONCards.php FaBSim/Custom/MSTCards.php FaBSim/Custom/WTRCards.php"
+}

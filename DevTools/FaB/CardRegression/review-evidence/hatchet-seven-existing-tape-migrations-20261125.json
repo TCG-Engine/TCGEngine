@@ -1,0 +1,429 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "/root/breadth_review1457",
+  "reviewer_scope": "Exact seven migration source arrays/raw35 guards/ordered assertions reviewed; six Felling source steps unchanged, Spill adds false owned Hatchet layer UID9 source7 fresh4seat round. Root verified saved controls, original assertion payloads and native action order retained, only2duel/4UPF real response inputs added. Partial original endpoints retained, not full Close; reviewer ran no games.",
+  "runtime_sha256": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+  "source_spec": "card-regression-repair-hatchet-seven-tapes-20261125.json",
+  "input_sha256": "2667330b49d9e5561d16e11322bec080710717a6418e896c1073bae0be574529",
+  "fixtures": [
+    {
+      "slug": "card-felling-swing-blue-nonattack-action-preserves-buff",
+      "card_id": "felling_swing_blue",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "f75300051ce9bfc8c0dd72eab5f8a3f8cb39a5b3584b3deadcf86ebf5b489278",
+        "actions.json": "1995409585f4e9d96d3d0fee53a2c23fb4705287dc9a6d4763a2747504a0d8ef",
+        "assertions.json": "a1375b813d8314c2188fac6fcd994e0088f872d93acc50d11c84a4135ff08e61",
+        "expected_final_gamestate.txt": "2035ba5da5c23967dd7be763b1d9322aba43e550e5862a54e5e2ea36f9f47fd8",
+        "meta.json": "5cdb7ee3e75bb0044be65b22d68d33f34c412adb5e1a0d1390b32f47fbdf61dc"
+      },
+      "fixture_sha256": "1de21f2d99abf36fc3ca5792a3b52ea347330bfd7cd9975e4c95e28df72899c1",
+      "actions": 20,
+      "native_assertions": 89,
+      "author_only_checks_not_persisted": [
+        {
+          "step": 0,
+          "check": {
+            "kind": "can_play",
+            "player": 1,
+            "mzID": "p1Hand-0",
+            "value": true
+          }
+        }
+      ],
+      "actual_manual_pass_inputs": 17,
+      "recorded_runtime_sha256": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "runtime_sha256": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "source_spec": "card-regression-repair-hatchet-seven-tapes-20261125.json",
+      "input_sha256": "2667330b49d9e5561d16e11322bec080710717a6418e896c1073bae0be574529",
+      "active_seats": [
+        1,
+        2
+      ],
+      "players": "two_live_manual",
+      "number": 147,
+      "all_original_assertion_payloads_preserved": true,
+      "original_actions_ordered_subsequence": true,
+      "extra_actual_pass_actions": 2,
+      "initial_original_raw_bytes_retained": true,
+      "partial_endpoint": "RESOLUTION"
+    },
+    {
+      "slug": "card-felling-swing-blue-opponent-response-before-buff-resolves",
+      "card_id": "felling_swing_blue",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "f04564227557347f1eadf31e2d84b90733ec01f0d1de1c943dfe60c38bf03019",
+        "actions.json": "c78c76d06b6ac9c217a410ff8e93295efcae76505a3a6e2d5878f09924a38ac2",
+        "assertions.json": "b1df7b288703b13f3babd19f3c119d37b8426b09c4f36dc5ebc2e5cf62a811ac",
+        "expected_final_gamestate.txt": "8f6f0a4a5383bfb0ebcc7d36f2a3656cbcc962a1c263c228ed62e167cd94ec03",
+        "meta.json": "ec7959abc48bd0ef4f656e9215beffd0d7f698d7cdd36e4d56e1ff679fa86b33"
+      },
+      "fixture_sha256": "80e603de5ac5ee58ea38990fa8b6c139da4e0243eca53790cfbad5bd57cc6d93",
+      "actions": 20,
+      "native_assertions": 94,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 17,
+      "recorded_runtime_sha256": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "runtime_sha256": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "source_spec": "card-regression-repair-hatchet-seven-tapes-20261125.json",
+      "input_sha256": "2667330b49d9e5561d16e11322bec080710717a6418e896c1073bae0be574529",
+      "active_seats": [
+        1,
+        2
+      ],
+      "players": "two_live_manual",
+      "number": 148,
+      "all_original_assertion_payloads_preserved": true,
+      "original_actions_ordered_subsequence": true,
+      "extra_actual_pass_actions": 2,
+      "initial_original_raw_bytes_retained": true,
+      "partial_endpoint": "RESOLUTION"
+    },
+    {
+      "slug": "card-felling-swing-red-nonattack-action-preserves-buff",
+      "card_id": "felling_swing_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "f810847f2dc9f13aff24f0ba8909e2206cae426da1bc28a02904da3ef67ce960",
+        "actions.json": "1995409585f4e9d96d3d0fee53a2c23fb4705287dc9a6d4763a2747504a0d8ef",
+        "assertions.json": "e816524f5ff80dad72c589c24dfa9e0ad172bdc5c6cef133451b00c0d2da3555",
+        "expected_final_gamestate.txt": "fc196ad657ad8cd2c49a5b130a9e65d671759dcb7659a8efc619437e7a2c3689",
+        "meta.json": "4beed93d2474d18e74887a172d28a32387f9ebbb4dc608dd7e62da7bdf99f97d"
+      },
+      "fixture_sha256": "5045a88a95e10c6ea72dee100e10a4cb33f3e9eadb5f25588c725448f8caa319",
+      "actions": 20,
+      "native_assertions": 89,
+      "author_only_checks_not_persisted": [
+        {
+          "step": 0,
+          "check": {
+            "kind": "can_play",
+            "player": 1,
+            "mzID": "p1Hand-0",
+            "value": true
+          }
+        }
+      ],
+      "actual_manual_pass_inputs": 17,
+      "recorded_runtime_sha256": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "runtime_sha256": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "source_spec": "card-regression-repair-hatchet-seven-tapes-20261125.json",
+      "input_sha256": "2667330b49d9e5561d16e11322bec080710717a6418e896c1073bae0be574529",
+      "active_seats": [
+        1,
+        2
+      ],
+      "players": "two_live_manual",
+      "number": 149,
+      "all_original_assertion_payloads_preserved": true,
+      "original_actions_ordered_subsequence": true,
+      "extra_actual_pass_actions": 2,
+      "initial_original_raw_bytes_retained": true,
+      "partial_endpoint": "RESOLUTION"
+    },
+    {
+      "slug": "card-felling-swing-red-opponent-response-before-buff-resolves",
+      "card_id": "felling_swing_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "fe572fa717bc8025d842e7391b9c891284390b152efeea3d48e8b6b56ae81a97",
+        "actions.json": "c78c76d06b6ac9c217a410ff8e93295efcae76505a3a6e2d5878f09924a38ac2",
+        "assertions.json": "cf3b7871f3099db5384c3b3468b461b685106d8eba50648d77bac7583fe98719",
+        "expected_final_gamestate.txt": "d3794f80119d38f8885234c2db02365f7ef59f75b5b8f8d45b798745fe5c1dfc",
+        "meta.json": "71e2feef0b25e10e60c18931b50b072916d7aefb767cc9737f776cd724961a75"
+      },
+      "fixture_sha256": "26dbcd7bdca3bec2ed50953ee01bee1bd7688ee160cb99b3484bca447a806259",
+      "actions": 20,
+      "native_assertions": 94,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 17,
+      "recorded_runtime_sha256": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "runtime_sha256": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "source_spec": "card-regression-repair-hatchet-seven-tapes-20261125.json",
+      "input_sha256": "2667330b49d9e5561d16e11322bec080710717a6418e896c1073bae0be574529",
+      "active_seats": [
+        1,
+        2
+      ],
+      "players": "two_live_manual",
+      "number": 150,
+      "all_original_assertion_payloads_preserved": true,
+      "original_actions_ordered_subsequence": true,
+      "extra_actual_pass_actions": 2,
+      "initial_original_raw_bytes_retained": true,
+      "partial_endpoint": "RESOLUTION"
+    },
+    {
+      "slug": "card-felling-swing-yellow-nonattack-action-preserves-buff",
+      "card_id": "felling_swing_yellow",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "43ceb5c5dac017a158b2d9fc32725580efa1013beec1e520e5eaeda5663a703b",
+        "actions.json": "1995409585f4e9d96d3d0fee53a2c23fb4705287dc9a6d4763a2747504a0d8ef",
+        "assertions.json": "1a394b39f3a65be17c20a17abe88b344ec971e9f2d31b63f168be1f3399e7f4a",
+        "expected_final_gamestate.txt": "4440af17db0a41263dbf459a1eeee1f39f401e735db94a4790b74e5f654ce148",
+        "meta.json": "a55ff074179e698d986121c0f5d775d984401b383dea5f5deaae4211e48a5eb5"
+      },
+      "fixture_sha256": "76cc8e2b8afe043c6bc27da9b7f21f35928d7dd4309be4def8999673e51e1cb0",
+      "actions": 20,
+      "native_assertions": 89,
+      "author_only_checks_not_persisted": [
+        {
+          "step": 0,
+          "check": {
+            "kind": "can_play",
+            "player": 1,
+            "mzID": "p1Hand-0",
+            "value": true
+          }
+        }
+      ],
+      "actual_manual_pass_inputs": 17,
+      "recorded_runtime_sha256": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "runtime_sha256": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "source_spec": "card-regression-repair-hatchet-seven-tapes-20261125.json",
+      "input_sha256": "2667330b49d9e5561d16e11322bec080710717a6418e896c1073bae0be574529",
+      "active_seats": [
+        1,
+        2
+      ],
+      "players": "two_live_manual",
+      "number": 151,
+      "all_original_assertion_payloads_preserved": true,
+      "original_actions_ordered_subsequence": true,
+      "extra_actual_pass_actions": 2,
+      "initial_original_raw_bytes_retained": true,
+      "partial_endpoint": "RESOLUTION"
+    },
+    {
+      "slug": "card-felling-swing-yellow-opponent-response-before-buff-resolves",
+      "card_id": "felling_swing_yellow",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "091c181d95f0cf3bc8bb4bc546c87bb6aceb8ae2883957b46be3f6b3d1acfbac",
+        "actions.json": "c78c76d06b6ac9c217a410ff8e93295efcae76505a3a6e2d5878f09924a38ac2",
+        "assertions.json": "26e8f6d74382e947bb0725dafd457594807f146b226ad2377e6fb579053e8c7f",
+        "expected_final_gamestate.txt": "b22ff8938512e34ffcac53e8a465025ec93d5dcee4e752ab75bbaa4372eaa709",
+        "meta.json": "59718eef9fa0004a1f5bb52d4846bdea058b7597abffc0a11aa8602e22c7c9b9"
+      },
+      "fixture_sha256": "d22f02bb63552d93e0917befaf6b6a00dc6e65467ccbbe57d48848b157f1b882",
+      "actions": 20,
+      "native_assertions": 94,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 17,
+      "recorded_runtime_sha256": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "runtime_sha256": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "source_spec": "card-regression-repair-hatchet-seven-tapes-20261125.json",
+      "input_sha256": "2667330b49d9e5561d16e11322bec080710717a6418e896c1073bae0be574529",
+      "active_seats": [
+        1,
+        2
+      ],
+      "players": "two_live_manual",
+      "number": 152,
+      "all_original_assertion_payloads_preserved": true,
+      "original_actions_ordered_subsequence": true,
+      "extra_actual_pass_actions": 2,
+      "initial_original_raw_bytes_retained": true,
+      "partial_endpoint": "RESOLUTION"
+    },
+    {
+      "slug": "card-spill-blood-red-four-live-sparse-actual-owned-axe-plus-two-and-four-physical-damage",
+      "card_id": "spill_blood_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "1dc48b4a3c54fc2e70087ee99017e6ae0d25e26fb904058f58cf695e02c9216a",
+        "actions.json": "59d5db00e694901831c0cb9e8b2840de6c9dc7fc62f81ab9b8271612dacf27da",
+        "assertions.json": "67d45f0e858fdac17540ad04c9585eaef228ac7ff5177b9d7fac1ff05aeeae62",
+        "expected_final_gamestate.txt": "c46db2b18e9bfe4ccc1d81d541ae10c2e8c7c8ce9242dfea3f534317cf434893",
+        "meta.json": "6db4e0b71be555e6d9b458df465936b9c306a2325c6cdca2ea2a27a11ffcbd83"
+      },
+      "fixture_sha256": "0c363e073a3a57dbe390356530131555b53754443005eb46b0d14fe1259f647d",
+      "actions": 29,
+      "native_assertions": 779,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "runtime_sha256": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "source_spec": "card-regression-repair-hatchet-seven-tapes-20261125.json",
+      "input_sha256": "2667330b49d9e5561d16e11322bec080710717a6418e896c1073bae0be574529",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "number": 396,
+      "all_original_assertion_payloads_preserved": true,
+      "original_actions_ordered_subsequence": true,
+      "extra_actual_pass_actions": 4,
+      "initial_original_raw_bytes_retained": true,
+      "partial_endpoint": "DAMAGE"
+    }
+  ],
+  "replays": [
+    {
+      "slug": "card-felling-swing-blue-nonattack-action-preserves-buff",
+      "passed": true,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-felling-swing-blue-nonattack-action-preserves-buff",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\hatchet-seven\\replay147.log"
+      ],
+      "complete_log_sha256": "330891f9b3db0266729286e6a3c34303803bb4b8e289af319edd0f9de0720e23"
+    },
+    {
+      "slug": "card-felling-swing-blue-opponent-response-before-buff-resolves",
+      "passed": true,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-felling-swing-blue-opponent-response-before-buff-resolves",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\hatchet-seven\\replay148.log"
+      ],
+      "complete_log_sha256": "3d4501da1db71b2a242af2c7338d9ab2509f56b39a4d29dffee5a0faed9be558"
+    },
+    {
+      "slug": "card-felling-swing-red-nonattack-action-preserves-buff",
+      "passed": true,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-felling-swing-red-nonattack-action-preserves-buff",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\hatchet-seven\\replay149.log"
+      ],
+      "complete_log_sha256": "bcdb687c898237c1ab1037106e72f2c7e2ff399fc3afd69ce5162c551fbcdbd4"
+    },
+    {
+      "slug": "card-felling-swing-red-opponent-response-before-buff-resolves",
+      "passed": true,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-felling-swing-red-opponent-response-before-buff-resolves",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\hatchet-seven\\replay150.log"
+      ],
+      "complete_log_sha256": "cefb6a62a2d8f32c1acef2df04aec126210d0f4255a1cbf75d17e9e61b6299c1"
+    },
+    {
+      "slug": "card-felling-swing-yellow-nonattack-action-preserves-buff",
+      "passed": true,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-felling-swing-yellow-nonattack-action-preserves-buff",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\hatchet-seven\\replay151.log"
+      ],
+      "complete_log_sha256": "4f38677d7ffd2e3c58eabcd9993853f2fb070b9f12c484969eb51a66de066926"
+    },
+    {
+      "slug": "card-felling-swing-yellow-opponent-response-before-buff-resolves",
+      "passed": true,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-felling-swing-yellow-opponent-response-before-buff-resolves",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\hatchet-seven\\replay152.log"
+      ],
+      "complete_log_sha256": "be7689d69770668cbc54be6a13cf1323a818b5a6bb1fe6b6e98e6941ad74695f"
+    },
+    {
+      "slug": "card-spill-blood-red-four-live-sparse-actual-owned-axe-plus-two-and-four-physical-damage",
+      "passed": true,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-spill-blood-red-four-live-sparse-actual-owned-axe-plus-two-and-four-physical-damage",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\hatchet-seven\\replay396.log"
+      ],
+      "complete_log_sha256": "5ff4f99b83000385b49cac7c7726b6e029b0fc40232ffa53cfa92eff54e895f1"
+    }
+  ],
+  "repair_only": true,
+  "new_groups_or_scenarios": 0,
+  "full_suite_run": false,
+  "before_raw5": {
+    "card-felling-swing-blue-nonattack-action-preserves-buff": {
+      "initial_gamestate.txt": "f75300051ce9bfc8c0dd72eab5f8a3f8cb39a5b3584b3deadcf86ebf5b489278",
+      "actions.json": "c1804421c0d59c924ad246fe2b74eaae4fcd6875512265604bb6013e3aec53af",
+      "assertions.json": "cd1cd5ee32f94f5e9df86815b949e5ef8334d636dbc37a3f07f196fdaec1b2ab",
+      "expected_final_gamestate.txt": "e9442bac79f08d4a1164bf2f0a2651ad07201417a23e3ebf4c1dddb542392ae0",
+      "meta.json": "fac10532f7bfcff05107ccec8816a8fa64553dffadc8168a3326113f416a7d38"
+    },
+    "card-felling-swing-blue-opponent-response-before-buff-resolves": {
+      "initial_gamestate.txt": "f04564227557347f1eadf31e2d84b90733ec01f0d1de1c943dfe60c38bf03019",
+      "actions.json": "96fa400787b44a97190374d5ff9516a11b0689c833af9b494d802f806445d53c",
+      "assertions.json": "5ace497481011e758ce3268e8bdf091223c029e06ceea5ca9160a04ab39a5c49",
+      "expected_final_gamestate.txt": "213d266f781e2e81746627a126435c8bcc69ef5c8637be5eb59cb17b91892b90",
+      "meta.json": "3c0ed09316cea27efad89dfa91793c6f92d11cad7191940524b503ab7e1ac74b"
+    },
+    "card-felling-swing-red-nonattack-action-preserves-buff": {
+      "initial_gamestate.txt": "f810847f2dc9f13aff24f0ba8909e2206cae426da1bc28a02904da3ef67ce960",
+      "actions.json": "c1804421c0d59c924ad246fe2b74eaae4fcd6875512265604bb6013e3aec53af",
+      "assertions.json": "309ddd2f486c4625e987d594a090624210eb878906fb8011c5917b2dacf1fe11",
+      "expected_final_gamestate.txt": "c754c0149e5e5696e0600cde1bb1a72ff5131dea1609f405b9faf149053fe6b1",
+      "meta.json": "f40165f70eb068b739ec91603fab6ec2335dc1c18e6f30368dda59c61803d4ff"
+    },
+    "card-felling-swing-red-opponent-response-before-buff-resolves": {
+      "initial_gamestate.txt": "fe572fa717bc8025d842e7391b9c891284390b152efeea3d48e8b6b56ae81a97",
+      "actions.json": "96fa400787b44a97190374d5ff9516a11b0689c833af9b494d802f806445d53c",
+      "assertions.json": "047ab3733fc50951c89c7c2f74debccecac964701e26b9b2575205dbd0f4a61c",
+      "expected_final_gamestate.txt": "ac32095e49ed5448e7ea7b389f8e426ea0c716b81693be4ddb4b1333d9913fc3",
+      "meta.json": "ddf18692fe4122d34568fe6d32e2ce8a54ee7f7de39557179be2a6dc9f0370e5"
+    },
+    "card-felling-swing-yellow-nonattack-action-preserves-buff": {
+      "initial_gamestate.txt": "43ceb5c5dac017a158b2d9fc32725580efa1013beec1e520e5eaeda5663a703b",
+      "actions.json": "c1804421c0d59c924ad246fe2b74eaae4fcd6875512265604bb6013e3aec53af",
+      "assertions.json": "7f6245a09a194b6acbce9c1205256647c03d38e199d51658bf5efc97b1c60ca0",
+      "expected_final_gamestate.txt": "d0d06ebcd6108000f10947355a5d91186394ce9d289b7fca0ec3be9a49289e95",
+      "meta.json": "5a8b4b85b264a18affa802cb7e66c589eab94a7d25e1fcf256951f1b5481a48a"
+    },
+    "card-felling-swing-yellow-opponent-response-before-buff-resolves": {
+      "initial_gamestate.txt": "091c181d95f0cf3bc8bb4bc546c87bb6aceb8ae2883957b46be3f6b3d1acfbac",
+      "actions.json": "96fa400787b44a97190374d5ff9516a11b0689c833af9b494d802f806445d53c",
+      "assertions.json": "b6d0d2a80b2a36f2b5eb40f5c00a2ca7851ebd83bc522d977a02ec2e5fb6f9fd",
+      "expected_final_gamestate.txt": "f77d35308aac6b1a0c9d7eb6b8a16aa0b4f80c1c426bd756e46e8c5b3003d845",
+      "meta.json": "da04bed69470321c74e46c32326dbd27e423a5928639d7f88d179a5bb2c9577d"
+    },
+    "card-spill-blood-red-four-live-sparse-actual-owned-axe-plus-two-and-four-physical-damage": {
+      "initial_gamestate.txt": "1dc48b4a3c54fc2e70087ee99017e6ae0d25e26fb904058f58cf695e02c9216a",
+      "actions.json": "9d69d40d153993a97e051a9617ece798121bac473278372cebd836943acec296",
+      "assertions.json": "7aeb04d1c2809965f2e2a06bc849b754753efa648cdada64d84eaf9992300cee",
+      "expected_final_gamestate.txt": "1287f5758fa0d4bd3768e5d6b65674d662b561b39ba021097058a6b57fb2292b",
+      "meta.json": "5cce188726a4950a397e5b8130fd4de6c759c69c15e4edfa64175e071428b0ea"
+    }
+  }
+}

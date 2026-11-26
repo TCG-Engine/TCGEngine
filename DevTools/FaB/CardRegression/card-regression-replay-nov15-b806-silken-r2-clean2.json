@@ -1,0 +1,27 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch806-silken_shroud-ward-choice-r2.json",
+  "runtime_sha256": "6695d68163d313f4f61cb20ad9122c7038e621a60c847909598150fe8da09d11",
+  "returncode": 0,
+  "completed_utc": "2026-11-15T01:09:10.979246+00:00",
+  "fixtures": [
+    {
+      "slug": "card-silken-real-ward-one-destruction-earned-ponder-four-priority-ward-choice-r2",
+      "fixture_sha256": "27f08718be087d22d40be59dc809825ecd5991b3749594c5ab091af6a0639124",
+      "passed": true,
+      "result": "[PASS] Silken Shroud / actual Ward destruction and responseable Ponder creation / explicit supported Ward selection R2"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-silken-real-ward-one-destruction-earned-ponder-four-priority-ward-choice-r2",
+      "returncode": 0,
+      "stdout": "[PASS] Silken Shroud / actual Ward destruction and responseable Ponder creation / explicit supported Ward selection R2\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

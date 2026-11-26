@@ -1,0 +1,124 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "independent breadth_review1252",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1401-20261122.json",
+  "source_spec_sha256": "8fe87079f8ea12a6c37a5a15c0520d9956d26e655c98e6b0c1cdb70c737033e4",
+  "input_sha256": "8fe87079f8ea12a6c37a5a15c0520d9956d26e655c98e6b0c1cdb70c737033e4",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-berserk-yellow-four-live-sparse1401-real-random-two-power-discard-below-six-no-banish-or-draw",
+      "card_id": "berserk_yellow",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "b470bf45a12954a8aef275dd2620de513ab35354fd5b3f372087794925d3d03d",
+        "actions.json": "e7883609931cd292e15dd194be539d742c22db1e67454e7c307ad2e4b9037da2",
+        "assertions.json": "0e4afbdfb8e4df50e013d4d45cc09d068074ed1ccb7ac9aa2323767b154e997d",
+        "expected_final_gamestate.txt": "2da151333e570a4add66b312dd860bf255c3b1bdd2124e0ac5295f47c7db1533",
+        "meta.json": "81c3e6ddc9a66464292320405f8cc360cb3c324c179062d142dc27e5509d8ed8"
+      },
+      "fixture_sha256": "4b0f1cd6c7c84b29cebb7b85112b8164915bc32e10792fd9d007cb8671107a7d",
+      "actions": 33,
+      "native_assertions": 442,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 29,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1401-20261122.json",
+      "input_sha256": "8fe87079f8ea12a6c37a5a15c0520d9956d26e655c98e6b0c1cdb70c737033e4",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1401-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-berserk-yellow-four-live-sparse1401-real-random-two-power-discard-below-six-no-banish-or-draw",
+        "fixture_slug": "card-berserk-yellow-four-live-sparse1401-real-random-two-power-discard-below-six-no-banish-or-draw",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "reviewer": "independent breadth_review1252",
+    "spec_sha256": "8fe87079f8ea12a6c37a5a15c0520d9956d26e655c98e6b0c1cdb70c737033e4",
+    "source_note_sha256": "3d907db832581768fb88c819dba8901cf05ae27f3738cdce1641abcbe8e8b49e",
+    "case_count": 1,
+    "active_seats": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "players": "four_live_manual",
+    "native_controls": 33,
+    "query_checks": 442,
+    "persistable_assertions": 442,
+    "author_only_checks_omitted": 0,
+    "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+    "coverage_category": "PRINTED_RANDOM_DISCARD_SIX_POWER_THRESHOLD_WITH_REAL_DISCARD_COST_AND_HIGH_POWER_DRAW_CONTROL",
+    "per_case": [
+      {
+        "card_id": "berserk_yellow",
+        "group_id": "identity:berserk_yellow",
+        "native_controls": 33,
+        "persistable_assertions": 442
+      }
+    ],
+    "basis": [
+      "Unrepresented/unheld Berserk BruteAction1/GA under natural YoungRhinar20 and threeDori20, four manual UPF. Cached upf_banned=false independently checked; Berserk Blitz/CC banned and Rhinar BlitzLL do not establish any eligibility claim in those formats. No current external-policy claim.",
+      "Actual Berserk5Hand paid CriticalBlue7 Handindex1 pitch3 leavesR2/AP0. Four responses resolve generated729 FaBDYNAdd BERSERK and printedGA refundsAP1. Savage6Handindex0 formalHero4 target precedes payment, spends1R/AP leavingR1/AP0; sole remaining WoundingBlue8 is actually randomly discarded as mandatory additional cost.",
+      "WTRCards451/529 SavageSwing route calls FaBDiscardRandom; GameLogic526/536 picks soleUID8, moves same owned card GY then dispatches discard hooks. Core/DeterministicRNG138 equal endpoints return without advancing RNG. DYNRuntime216-218 gates Berserk on discarded printed power>=6; actual WoundingBlue2 also fails Rhinar WTRCards505 six-power gate. No earned trigger layer bypassed.",
+      "High-power SavageRed9 Deck would draw if Berserk wrongly fires, so exact DeckUID9/Hand0/Banish0 and discardUID8GY give a nonvacuous below-six witness, without reveal-log claim. Savage6 printed7/noGA; full four-manual combat expects7 damage HP4=13; final GY5,8,6/Pitch7/Deck9/AP0/R1/UID9/RNG0 and quiet Stack/DQs coherent."
+    ],
+    "limits": [
+      "Only actual primary payment/GA plus below-six random-discard guard and observable discard/attack fates. Positive six-plus WHEN timing/banish/reveal/draw/replacements, Rhinar positive trigger, support identities/siblings/whole-card untested.",
+      "Approval pending native execution. No game/test/replay, engine/repository edit, original checkout access, auth/network, full suite or Git operation."
+    ],
+    "source_sha256": {
+      "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+      "FaBSim/GeneratedCode/GeneratedMacroCode.php": "fe6a7982611df8f4de98ce2671b317b671b580146aa4b8c28e8f4b86d8461056",
+      "FaBSim/Custom/GameLogic.php": "c60fa151561f959e4e3e341b814de0e2b47c9e9f153bbc8793a04c43b5075061",
+      "FaBSim/Custom/DYNRuntime.php": "b8cec432428757988b02fa831b6311cc32ef5671b2fcc2dd9eecbf82d0c5e231",
+      "FaBSim/Custom/DYNCards.php": "c3460cf12b68a92af4d9c4f836de4c2495d117e3a97e73fb23e8c026aa2f20f4",
+      "FaBSim/Custom/WTRCards.php": "77d4452b30e45254a7199bc965396ded53e325717ecdd84a09b971f723f99f6a",
+      "Core/DeterministicRNG.php": "1dab74f1628bf52a89a1aca6941dfe5e4513fef660ef7b8b58fe057c70fa517a",
+      "FaBSim/ZoneAccessors.php": "9967567a9a10df81a6f22df820d4d77258828657e95c4ad145b8b13ce17866a7",
+      "Schemas/FaBSim/GameSchema.txt": "7783800bd47bc85885cc915066aadca58cdf99f0c1180602ac312d9af5ebf643",
+      "Core/EngineActionRunner.php": "add14b53dc571d2a6e64407bfa4038a98d6554d6410de7a9233810d99c46ea2a",
+      "Core/ShortcutPreferences.php": "25f300ea0b6fbc409f5b92e8bc3587a74b2ab0eaf31ccef38e18c455598eaba6",
+      "DevTools/FaB/CardRegression/record_card_regressions.php": "e53055b29e9ea641949b77019c4455607f41ca233325d716a9500637e19efd28"
+    },
+    "workspace_source_sha256": {
+      "author_breadth1401.py": "2dc5962d5d0fdbab225f4f820f9f3fc31468b7e5bdc0fd67c1d85eb532a72f04",
+      "breadth1068_helpers.py": "997f949ec26c7e494ad26a818f9f2078f6f4f2a0c49ca7f61aa8c71f3b091b0a"
+    },
+    "secondary_identity_credit": false,
+    "whole_card_credit": false,
+    "authoring_template": {
+      "path": "DevTools/FaB/CardRegression/card-regression-batch31.json",
+      "sha256": "f530f97086d90c34da961ce9477e5172146b29ab16d3987f9b3cac9170bd826b",
+      "legacy_replay": false
+    },
+    "positive_six_power_trigger_credit": false,
+    "direct_reveal_log_credit": false
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1401-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "1a7da8089d026aeecaa412ced0ee3791b33260bbe4bbd9e64f79769b3da1bb18"
+  },
+  "full_suite_run": false
+}

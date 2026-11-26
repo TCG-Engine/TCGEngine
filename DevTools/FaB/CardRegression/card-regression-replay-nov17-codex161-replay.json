@@ -1,0 +1,27 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-repair-codex161-creator-owner.json",
+  "runtime_sha256": "9288d75e4546ad2770671297cbfe5076ba5155e0b44a7aff46f16d9bf3f0c8e4",
+  "returncode": 0,
+  "completed_utc": "2026-11-17T03:41:52.464776+00:00",
+  "fixtures": [
+    {
+      "slug": "card-codex-of-inertia-yellow-four-live-diagnostic-creator-owner-and-opponent-controller",
+      "fixture_sha256": "ffeb78d8a3abb83a102153fee361dcafa3cbb672ee2d8bae48f827962195d208",
+      "passed": true,
+      "result": "[PASS] codex_of_inertia_yellow / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-codex-of-inertia-yellow-four-live-diagnostic-creator-owner-and-opponent-controller",
+      "returncode": 0,
+      "stdout": "[PASS] codex_of_inertia_yellow / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

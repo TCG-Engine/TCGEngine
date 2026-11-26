@@ -1,0 +1,56 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-deathly-duet-red-four-live-sparse1462-real-resource-pitch-does-not-satisfy-either-action-type-guard",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-deathly-duet-red-four-live-sparse1462-real-resource-pitch-does-not-satisfy-either-action-type-guard",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1462-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1462-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "912753ecddd348b72d029283b75819b8b999aee3448bd461f79f627a24295db2",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "f42a417af0a6a8d9ff734c60b0e7e35112c6afdcf3d3c29077f87cbb6b38dea6",
+        "actions.json": "03d8ba6664b359988a254b0b85136b29a95f48d60e969fe7103afff3ef5a7a2a",
+        "assertions.json": "e52f2cfbab4fa37d2e6113828c6cb891e2b229e91244ad6c87f880bdd307cc61",
+        "expected_final_gamestate.txt": "92eaee1380d06c765c6e5e21eb7f1cbf74927ed87126c94f79df6e55b2fec25a",
+        "meta.json": "351597634b11dae793e2411198b9d9d80e3586cc08f5f79201c28103ad7fbdb6"
+      }
+    },
+    {
+      "slug": "card-bracken-rap-red-four-live-sparse1462-real-resource-pitch-does-not-satisfy-earth-bond",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-bracken-rap-red-four-live-sparse1462-real-resource-pitch-does-not-satisfy-earth-bond",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1462-local-20261122\\clean-replays\\01.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1462-local-20261122\\clean-replays\\01.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "372d39e8b99bf587cd17eef6d5bca8316911b9775343cd4825331c9a46d379bc",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "59d6e27e22fd3e0e4b3484bf6438461ec33759aaafc0056d4b3d7c0a81945b4f",
+        "actions.json": "03d8ba6664b359988a254b0b85136b29a95f48d60e969fe7103afff3ef5a7a2a",
+        "assertions.json": "43906ba0f022b52fbcac4c943fd1ae8c725e835756f2b8d6c66c7fcbf49fc832",
+        "expected_final_gamestate.txt": "a689c8f6725b216b1e7dc5f69176321cdc418ea2f208a0da57385824b7165230",
+        "meta.json": "ecd70f0af480e6b7e75fe88ed44a6790f0958940456bf846827fc11b93098ce4"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

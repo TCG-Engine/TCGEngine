@@ -1,0 +1,102 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-aspect-of-tiger-mind-blue-four-live-sparse1300-first-link-not-its-own-combo-prerequisite",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-aspect-of-tiger-mind-blue-four-live-sparse1300-first-link-not-its-own-combo-prerequisite",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1300-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1300-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "87b94385fc3d958fe69bde1d87b4a035f8c3c9133f11295f8a2efb9d0c3b5904",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "2a144df81bc5589448964d4717c77df7adc6fd6918da527142c4f29854b952e1",
+        "actions.json": "71f0d0f07cf85244a3ec27fdb1f824cd62aa3126d639c98c13ca23327907bd8b",
+        "assertions.json": "15ce318f295101c61275a446efc5a0960a674854810b938df277669eb307d61c",
+        "expected_final_gamestate.txt": "8d90ccfb72477666f133e48fcda00e14c6c85ab0fecf77562a9e143469917f29",
+        "meta.json": "e4cb06d82c5bef656c36203b9d3715fa66a2afcbed15b65b85b40fcc91099a5c"
+      }
+    },
+    {
+      "slug": "card-aspect-of-tiger-soul-yellow-four-live-sparse1300-first-link-not-its-own-combo-prerequisite",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-aspect-of-tiger-soul-yellow-four-live-sparse1300-first-link-not-its-own-combo-prerequisite",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1300-local-20261122\\clean-replays\\01.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1300-local-20261122\\clean-replays\\01.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "1b8d083c2b4952260e26abec03eb85c3ff31211c4c5f83f069f834b8f7909907",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "db1ccd36f0035d07cfd1ed6558a82a6d9f176ecb1ee14acb1bf97029e7243f1f",
+        "actions.json": "71f0d0f07cf85244a3ec27fdb1f824cd62aa3126d639c98c13ca23327907bd8b",
+        "assertions.json": "dd884adb4dca2c5cc05d18bfaaae9c7d07db7fb91156eb7a6c145380e6bca864",
+        "expected_final_gamestate.txt": "5f0733c082cc3eff369943cd8cf9feb331e8acf9eafe56349ab22b18b2e0c56d",
+        "meta.json": "baa83735fee3642bf8c3fb11f3399549303f7e40f4eb9c46cf3d969fc9d46520"
+      }
+    },
+    {
+      "slug": "card-herons-flight-red-four-live-sparse1300-first-link-not-its-own-combo-prerequisite",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-herons-flight-red-four-live-sparse1300-first-link-not-its-own-combo-prerequisite",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1300-local-20261122\\clean-replays\\02.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1300-local-20261122\\clean-replays\\02.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "6b9b4a4709c6c3a765515dc0ca51d15706cae1536c0b032eadd943f03c6c184f",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "f11b192d780e92b3a06389078b99ca9575c6ce63123957979d47c9a47e2c2a9a",
+        "actions.json": "71f0d0f07cf85244a3ec27fdb1f824cd62aa3126d639c98c13ca23327907bd8b",
+        "assertions.json": "5d0cfb67dc80a6216c3007cea135274a1e2a63156e8c7a5f5ac90c2fc3a9b87d",
+        "expected_final_gamestate.txt": "6e3666daf29d3b337876a6e4109091aff54044b3cd746fab92cdb1e24fb9ab34",
+        "meta.json": "1b8b512d9c72e03d063957dfa65b8faf5976122a4790647d1eff0874edd70834"
+      }
+    },
+    {
+      "slug": "card-chase-the-tail-red-four-live-sparse1300-first-link-not-its-own-combo-prerequisite",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-chase-the-tail-red-four-live-sparse1300-first-link-not-its-own-combo-prerequisite",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1300-local-20261122\\clean-replays\\03.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1300-local-20261122\\clean-replays\\03.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "20ea4158f0e9ac47b5b51d9336c84af28b48a1b86f1d840a8da90dd25bf8abb5",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "5906d71e89c5b689d24b4f5e0f53a519d797519d33d2c7f094f77dfcdfdac14d",
+        "actions.json": "25920dc16af50701b0be20453cc3345d5c14a09166881d7481930bfb87552093",
+        "assertions.json": "2599118ff1cf3d1a7d8177fd65dec72d572a93aeef458411531195bc0bae26b0",
+        "expected_final_gamestate.txt": "d5add26d65821f6a0da00246c09c2f5aa004b59fa96c91383026c98f37fd67cb",
+        "meta.json": "d2537e5d90ff7eae356be7d1b6a6752ef6dd3bb0c262e07cb49d55f12b03c0f7"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

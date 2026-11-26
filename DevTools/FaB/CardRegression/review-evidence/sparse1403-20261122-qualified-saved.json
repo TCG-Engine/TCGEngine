@@ -1,0 +1,226 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "independent breadth_review1252",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1403-20261122.json",
+  "source_spec_sha256": "352df1424334fce93d111e722b4745433c69d25ecb27511dad321494aa3e8383",
+  "input_sha256": "352df1424334fce93d111e722b4745433c69d25ecb27511dad321494aa3e8383",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-flurry-stance-red-four-live-sparse1403-actual-other-hero-start-no-controller-aura-destroy-or-dagger-grant",
+      "card_id": "flurry_stance_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "71d38d5bd62114e3dd96835c7ab6201905c55469eee12cade44557f112cd04e7",
+        "actions.json": "73ef51e215e1504678b3e0f836f4d2cf64bb9c544b0fe52aa164cd428e12e720",
+        "assertions.json": "96afcfbf76da48b4a731f2928b71882b425235ea51d5406af3db7c06a042b462",
+        "expected_final_gamestate.txt": "28069ce81f9881ad9e93b194393677e2b5d86dfd788e84bb9aae9409ae9f734c",
+        "meta.json": "8c5ec1a6f0caa67ae84a3287547092c90dd03cdb378c26366cde437e134b68c1"
+      },
+      "fixture_sha256": "b63cabdbdb9a0452d776a90dbcd6634a129bb79e967cc44ed553f99718a05576",
+      "actions": 35,
+      "native_assertions": 422,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 33,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1403-20261122.json",
+      "input_sha256": "352df1424334fce93d111e722b4745433c69d25ecb27511dad321494aa3e8383",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "computed_attack_refs_by_step": {
+        "14": "p4CombatChain-0"
+      },
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1403-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-flurry-stance-red-four-live-sparse1403-actual-other-hero-start-no-controller-aura-destroy-or-dagger-grant",
+        "fixture_slug": "card-flurry-stance-red-four-live-sparse1403-actual-other-hero-start-no-controller-aura-destroy-or-dagger-grant",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-draw-a-crowd-blue-four-live-sparse1403-actual-other-hero-action-phase-no-controller-aura-destroy-or-guardian-buff",
+      "card_id": "draw_a_crowd_blue",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "7e2cf47c44f11768accb0dc9c3219fb80b7cb6719d763d8ef80dc27e4cec1a79",
+        "actions.json": "73ef51e215e1504678b3e0f836f4d2cf64bb9c544b0fe52aa164cd428e12e720",
+        "assertions.json": "0457e71b1cb12d970bf2e25f66d5cc5426c3cf654acfc2eb004ac4908cbdadbb",
+        "expected_final_gamestate.txt": "b0add1e580c2d69b4b52d615c49b3499aeee4997eb9dd47d4e1957e16daf9471",
+        "meta.json": "5b9043427f5f424140cb7d6d078b229e79a21956612b2f2adcb66850ca7c5a66"
+      },
+      "fixture_sha256": "af816ad67868b38a7342213c2c2bd38adbe5db2cbc274385739c70138a81937c",
+      "actions": 35,
+      "native_assertions": 422,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 33,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1403-20261122.json",
+      "input_sha256": "352df1424334fce93d111e722b4745433c69d25ecb27511dad321494aa3e8383",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "computed_attack_refs_by_step": {
+        "14": "p4CombatChain-0"
+      },
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1403-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-draw-a-crowd-blue-four-live-sparse1403-actual-other-hero-action-phase-no-controller-aura-destroy-or-guardian-buff",
+        "fixture_slug": "card-draw-a-crowd-blue-four-live-sparse1403-actual-other-hero-action-phase-no-controller-aura-destroy-or-guardian-buff",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-rites-of-earthlore-blue-four-live-sparse1403-actual-other-hero-start-no-controller-aura-destroy-or-guardian-buff",
+      "card_id": "rites_of_earthlore_blue",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "2a1b770dab370f81e535ab41e24cd32b2f19288d3170eeb2f720637ff775941d",
+        "actions.json": "73ef51e215e1504678b3e0f836f4d2cf64bb9c544b0fe52aa164cd428e12e720",
+        "assertions.json": "1b23ca0021c02b915844dcac6ff03c11bd602bc9aee0b3a01a516f4d3a5ad16c",
+        "expected_final_gamestate.txt": "519da6e7cb10c280ec4faaac66c30fc78bfe77679633a25dd6e1f4d9e22e8685",
+        "meta.json": "6010624f7e46aa6bb82514f79780284cc37070b6dd08afed8f4c99e7d1846546"
+      },
+      "fixture_sha256": "8a4f1919870cf8594d73ed96024f3e8498a494b983aa63aa86cc57c28949493d",
+      "actions": 35,
+      "native_assertions": 422,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 33,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1403-20261122.json",
+      "input_sha256": "352df1424334fce93d111e722b4745433c69d25ecb27511dad321494aa3e8383",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "computed_attack_refs_by_step": {
+        "14": "p4CombatChain-0"
+      },
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1403-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-rites-of-earthlore-blue-four-live-sparse1403-actual-other-hero-start-no-controller-aura-destroy-or-guardian-buff",
+        "fixture_slug": "card-rites-of-earthlore-blue-four-live-sparse1403-actual-other-hero-start-no-controller-aura-destroy-or-guardian-buff",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "reviewer": "independent breadth_review1252",
+    "spec_sha256": "352df1424334fce93d111e722b4745433c69d25ecb27511dad321494aa3e8383",
+    "source_note_sha256": "2d6404cbb3ad992a5781b2a0d4e64a03844a37e65c65d03a3c48be7d98f75914",
+    "case_count": 3,
+    "active_seats": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "players": "four_live_manual",
+    "native_controls": 105,
+    "query_checks": 1266,
+    "persistable_assertions": 1266,
+    "author_only_checks_omitted": 0,
+    "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+    "coverage_category": "CONTROLLER_START_OR_ACTION_PHASE_EVENT_FILTER_WITH_REAL_OTHER_SEAT_PHASE_AND_ATTACK",
+    "per_case": [
+      {
+        "card_id": "flurry_stance_red",
+        "group_id": "identity:flurry_stance_red",
+        "native_controls": 35,
+        "persistable_assertions": 422
+      },
+      {
+        "card_id": "draw_a_crowd_blue",
+        "group_id": "identity:draw_a_crowd_blue",
+        "native_controls": 35,
+        "persistable_assertions": 422
+      },
+      {
+        "card_id": "rites_of_earthlore_blue",
+        "group_id": "pitch-cycle:rites_of_earthlore",
+        "native_controls": 35,
+        "persistable_assertions": 422
+      }
+    ],
+    "basis": [
+      "Three unrepresented/unheld primary groups; cached printed FlurryStance WarriorAura under Dori20 and DrawCrowd/RitesEarthlore GuardianAuras under Bravo20, all other Dori20, legal four-manual UPF. Primary5 priorArena1, real GenericHandWounding6/DeckBlue8 and seat4Wounding7. Initial prior entry/maintenance/provenance uncredited; no initial Aura enters event synthesized.",
+      "Delta against qualified1398 template independently compared: all35 native control objects exactly unchanged and every checkpoint length retained. Only17 CardID substitutions per case (Hero1, primaryAura5, ownerHand6) plus checkpoint/oracle labels; initial rebuilt with current tuple. ActualTurn3ID2/AP3=1 and four ACTION then four END responses reach nativeTurn4ID3/AP4=1; controller1 start/action phase has not occurred.",
+      "Active owner-specific handlers verified: HNTRuntime88-90 scans only FaBChoiceRefs(p,Arena) for FlurryStance; MPGCards28-30 scans FaBMPGAuras(p,draw_a_crowd) at action begin; PENCards167/173-180 scans only player Arena for Rites StartTurn. GameLogic2993-3003 routes actual new player4; none of these owner1 Auras earn a trigger/destroy/buff at another hero phase. Positive owner-phase inline timing is not certified.",
+      "Actual nextseat4 zero-costWounding7 targetsHero1 (exclusive target enumeration omitted), spends nativeAP4, full four-manual source/combat rounds produce4damage HP1=16. Same ownedAura5/Hand6/Deck8 and UID8/no extra token/destruction, AP0R0/quietStackDQs retain all physical fates. Actor4power/go_again check sourcearray20 follows14 native inputs; source-bound expected-attack-refs key14->p4CombatChain-0 verified against common-review input-count contract."
+    ],
+    "limits": [
+      "Only named wrong-controller start/action-phase event filters with actual other-seat phase progression and combat fates. Initial Aura entry/play/maintenance/provenance, positive own phase destruction/grants/timing, dagger extra attacks, Guardian buffs, entry draw/Seismic, support identities/siblings/whole-card untested.",
+      "Approval pending native execution; no game/test/replay, engine/repository edit, original checkout access, auth/network, full suite or Git operation."
+    ],
+    "source_sha256": {
+      "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+      "FaBSim/GeneratedCode/GeneratedMacroCode.php": "fe6a7982611df8f4de98ce2671b317b671b580146aa4b8c28e8f4b86d8461056",
+      "FaBSim/Custom/GameLogic.php": "c60fa151561f959e4e3e341b814de0e2b47c9e9f153bbc8793a04c43b5075061",
+      "FaBSim/Custom/HNTRuntime.php": "d5554642848c3f271112e542c20d3744662c0007ebd7bb741d5d4d2dd1b210a1",
+      "FaBSim/Custom/MPGCards.php": "75bacd40bf08b76f2a5af3d6c1a8b033d6b942bdcf52045a73a4244f992eeca6",
+      "FaBSim/Custom/PENCards.php": "9d4f443c833ec535bdae15c1973910925c1b7a1223fbfab7fcb89a5b204a7ed8",
+      "FaBSim/Custom/WTRCards.php": "77d4452b30e45254a7199bc965396ded53e325717ecdd84a09b971f723f99f6a",
+      "FaBSim/ZoneAccessors.php": "9967567a9a10df81a6f22df820d4d77258828657e95c4ad145b8b13ce17866a7",
+      "Schemas/FaBSim/GameSchema.txt": "7783800bd47bc85885cc915066aadca58cdf99f0c1180602ac312d9af5ebf643",
+      "Core/EngineActionRunner.php": "add14b53dc571d2a6e64407bfa4038a98d6554d6410de7a9233810d99c46ea2a",
+      "Core/ShortcutPreferences.php": "25f300ea0b6fbc409f5b92e8bc3587a74b2ab0eaf31ccef38e18c455598eaba6",
+      "DevTools/FaB/CardRegression/record_card_regressions.php": "e53055b29e9ea641949b77019c4455607f41ca233325d716a9500637e19efd28"
+    },
+    "workspace_source_sha256": {
+      "author_breadth1403.py": "d7de604b2e76d2d737411b1d4b76ceb7f862f8a7ce506db46692588a8ec1380b",
+      "breadth1068_helpers.py": "997f949ec26c7e494ad26a818f9f2078f6f4f2a0c49ca7f61aa8c71f3b091b0a",
+      "sparse1398-local-20261122/proposed.json": "5bbaf4cb32c23b57ec3f7e7e021033af3bff6793a8f8c167309a59ab2549d064",
+      "nov16_saved_repair_review_common.py": "9f6dee765a3433840bd6886579faf6b8ab24ec290120b5999581053e2276ba0c",
+      "breadth_batch.py": "b340fa062c7ced832ff7a8468ae2aa128a976ef4cb891b31aa188bb2323c5109",
+      "sparse1403-local-20261122/expected-attack-refs.json": "893fdcef1d7900f903bc889881777ef87f263f82b3b25ee62ca0cfc4b85357f0"
+    },
+    "secondary_identity_credit": false,
+    "whole_card_credit": false,
+    "required_qualification_attack_refs_by_step": {
+      "card-flurry-stance-red-four-live-sparse1403-actual-other-hero-start-no-controller-aura-destroy-or-dagger-grant": {
+        "14": "p4CombatChain-0"
+      },
+      "card-draw-a-crowd-blue-four-live-sparse1403-actual-other-hero-action-phase-no-controller-aura-destroy-or-guardian-buff": {
+        "14": "p4CombatChain-0"
+      },
+      "card-rites-of-earthlore-blue-four-live-sparse1403-actual-other-hero-start-no-controller-aura-destroy-or-guardian-buff": {
+        "14": "p4CombatChain-0"
+      }
+    },
+    "positive_controller_start_credit": false,
+    "positive_entry_credit": false,
+    "primary_play_credit": false,
+    "initial_aura_provenance_credit": false
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1403-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "8e41b8bc6ca993e22b3480c264225f5942295fe226cbaf99b3259e30b0eb252d"
+  },
+  "full_suite_run": false
+}

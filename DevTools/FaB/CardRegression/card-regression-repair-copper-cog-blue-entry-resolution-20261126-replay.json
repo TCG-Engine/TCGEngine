@@ -1,0 +1,23 @@
+{
+  "runtime": "18b5dfaebbb9a0ccf98d50ae1de6fb6fc4b592059d7f7c37add3c2fad8b5e574",
+  "fixtures": [
+    {
+      "slug": "repair-copper-cog-blue-four-live-20261126-two-steam-entry-real-crank",
+      "passed": true,
+      "runtime": "18b5dfaebbb9a0ccf98d50ae1de6fb6fc4b592059d7f7c37add3c2fad8b5e574",
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=repair-copper-cog-blue-four-live-20261126-two-steam-entry-real-crank",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\entry206-207-library220\\copper_cog_blue\\strict1.log"
+      ],
+      "returncode": 0,
+      "complete_log_sha256": "2f7612cbcee2bf9affed47c8d23828a84e19e59ae1df22b6e60afb9fdc75ea45",
+      "raw5_unchanged": true
+    }
+  ],
+  "full_suite_run": false
+}

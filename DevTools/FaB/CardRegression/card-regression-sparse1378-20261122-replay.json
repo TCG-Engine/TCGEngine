@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-never-give-up-yellow-four-live-sparse1378-native-graveyard-ability-no-cheer-despite-lowest-natural-life-valid-defender-and-two-resources",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-never-give-up-yellow-four-live-sparse1378-native-graveyard-ability-no-cheer-despite-lowest-natural-life-valid-defender-and-two-resources",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1378-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1378-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "4efbdfd3f81c9693025a10159da41eeeeaa13d97194676f546f4e824c4c95d34",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "c8ab5e094e2229bc53ce58d73b3f5b14ec513ced5ee1680bf8200f48995c83bc",
+        "actions.json": "d614e4e12d6c8398eb8c88ea43685601dee317e2221773d3b269d0e4fd436ebe",
+        "assertions.json": "e46ba0ca73c949c763a0f4e6b8dcfedf97d38f389c5f624565d59b7f32fa9f08",
+        "expected_final_gamestate.txt": "ac023b1639a04bab51fca76541a04ccfd116ceb024dcf1f4f6c2bc6926a8aab3",
+        "meta.json": "b0323936fb4f269d7bffa1ee0f995148d201341af0bee6a297c3bab88b882f8f"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

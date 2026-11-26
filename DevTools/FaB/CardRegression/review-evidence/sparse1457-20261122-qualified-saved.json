@@ -1,0 +1,427 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "/root/breadth_review independent cached-text/source-spec batch semantic review; Root exact saved mapping and native clean replay",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1457-20261122.json",
+  "source_spec_sha256": "9f109d8fd50d17b633cc25d132cdaba2773210ec27b1b979a33d849bee0fb4ee",
+  "input_sha256": "9f109d8fd50d17b633cc25d132cdaba2773210ec27b1b979a33d849bee0fb4ee",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-tempt-over-yellow-four-live-sparse1457-real-ally-target-excludes-hero-only-trigger",
+      "card_id": "tempt_over_yellow",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "d434f04a73e302b000474d97cc5f8883d729162dcd9aa7e20c6d693f5cf177b0",
+        "actions.json": "4e1e3f90dd951a74f0a06c57278f2a9a3950894856940e665137a12daa2a957d",
+        "assertions.json": "026529f4d83e4a86fa0dbaeafc8ec00fcdf08993fd9b4a532a41914e92d6cfae",
+        "expected_final_gamestate.txt": "c2a1065a2c06c1b10c8272feac5da966de8228d8134d43fe53bf29b56b6587a3",
+        "meta.json": "fc3361cb6851957ab075f5b645de485a5d9d53c78f9be6a1b79ec780d4b3ba2b"
+      },
+      "fixture_sha256": "6f47fc9fe868f3f66831c77202f75641474bee67249906147bfeb9173e2a9828",
+      "actions": 28,
+      "native_assertions": 579,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1457-20261122.json",
+      "input_sha256": "9f109d8fd50d17b633cc25d132cdaba2773210ec27b1b979a33d849bee0fb4ee",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1457-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-tempt-over-yellow-four-live-sparse1457-real-ally-target-excludes-hero-only-trigger",
+        "fixture_slug": "card-tempt-over-yellow-four-live-sparse1457-real-ally-target-excludes-hero-only-trigger",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-wage-agility-red-four-live-sparse1457-real-ally-target-excludes-hero-only-trigger",
+      "card_id": "wage_agility_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "bf3b9c1d4afa343cff42306433b322028b5ac3a0e4046c5f50a0bfe7c04b2906",
+        "actions.json": "386a58cf11a83fb06512f7989a3b0e293204789ecf439c6cac47297cd7eecbaa",
+        "assertions.json": "b09785957cb02fb366c03723fc7eae4d7af3a0d3e36f19279723c65efd5687e3",
+        "expected_final_gamestate.txt": "27fbd5f13c0e002c6f455f918b46d070a8fb859f633683ffd695f308839e2de1",
+        "meta.json": "3d207ca43914111edafa23a575fb8ea0192349346147e5f616184458b9c59f33"
+      },
+      "fixture_sha256": "74c2428072273b177de8b817e3093a84ae5281f9cccb9d3909233f82b63c02e4",
+      "actions": 29,
+      "native_assertions": 589,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1457-20261122.json",
+      "input_sha256": "9f109d8fd50d17b633cc25d132cdaba2773210ec27b1b979a33d849bee0fb4ee",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1457-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-wage-agility-red-four-live-sparse1457-real-ally-target-excludes-hero-only-trigger",
+        "fixture_slug": "card-wage-agility-red-four-live-sparse1457-real-ally-target-excludes-hero-only-trigger",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-wage-might-red-four-live-sparse1457-real-ally-target-excludes-hero-only-trigger",
+      "card_id": "wage_might_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "89d529140e595c850aebe0ce5ff5952e087bda7d35952bc4d6c9c34e81de06e8",
+        "actions.json": "386a58cf11a83fb06512f7989a3b0e293204789ecf439c6cac47297cd7eecbaa",
+        "assertions.json": "38df9840895ce734938672208d73221789c23a99d0453afb20f471c854d5cfa6",
+        "expected_final_gamestate.txt": "d3c8f5d09ddc7fb1ca657736ec16e2bf43452a41c18ea8f7a2c263db1eb9f614",
+        "meta.json": "783d7b20f78ba136c1d6ce0328ebd98a8f4452b67a0d3bb7fcf45cbad2826293"
+      },
+      "fixture_sha256": "71fc8e715c2601975fd1926facb062a63ff98bf4844f0e4af4f5ff3d51950c62",
+      "actions": 29,
+      "native_assertions": 589,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1457-20261122.json",
+      "input_sha256": "9f109d8fd50d17b633cc25d132cdaba2773210ec27b1b979a33d849bee0fb4ee",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1457-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-wage-might-red-four-live-sparse1457-real-ally-target-excludes-hero-only-trigger",
+        "fixture_slug": "card-wage-might-red-four-live-sparse1457-real-ally-target-excludes-hero-only-trigger",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-wage-vigor-red-four-live-sparse1457-real-ally-target-excludes-hero-only-trigger",
+      "card_id": "wage_vigor_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "c9897c6cafce1e096efca31e5c686c65162d9eee9a18df476d027b5db3ccb8be",
+        "actions.json": "386a58cf11a83fb06512f7989a3b0e293204789ecf439c6cac47297cd7eecbaa",
+        "assertions.json": "d565d12f119a007789cde08983684757dfe7ed3afad7254cdbdd985da6515bd9",
+        "expected_final_gamestate.txt": "cf3760ed0ed706102b38bd2cade0a09899748dcec424140b5486be99144bc6d5",
+        "meta.json": "0c7060a063a4013880e17864738c7a4e5c5d97f9bf35a321c23675ba38d562e7"
+      },
+      "fixture_sha256": "e4a253b6b369318d87cbdd5fad09c38c56c0a4f55ca575bcfb0c870caebd6a57",
+      "actions": 29,
+      "native_assertions": 589,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1457-20261122.json",
+      "input_sha256": "9f109d8fd50d17b633cc25d132cdaba2773210ec27b1b979a33d849bee0fb4ee",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1457-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-wage-vigor-red-four-live-sparse1457-real-ally-target-excludes-hero-only-trigger",
+        "fixture_slug": "card-wage-vigor-red-four-live-sparse1457-real-ally-target-excludes-hero-only-trigger",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-violent-gusto-red-four-live-sparse1457-real-ally-target-excludes-hero-only-trigger",
+      "card_id": "violent_gusto_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "c39bce60206257bb8e9b853b35045152c8f0f51743864afba490f524dd1d1b9d",
+        "actions.json": "386a58cf11a83fb06512f7989a3b0e293204789ecf439c6cac47297cd7eecbaa",
+        "assertions.json": "31f9afff6739ff7da30382fc7db9be350770dd6de5682e0bbca9cc7fa03e7da1",
+        "expected_final_gamestate.txt": "b6f62a69b04b7ae254ab1eaba7754d7696f0484d8f8f16e3741ec96cf361af90",
+        "meta.json": "4a20722c64ec547315a5607eadb99bf6ec4fc2b36b4edf6293c27442db7ab265"
+      },
+      "fixture_sha256": "f98f59d3c2e08c44ff8bb9aef1b3b404dc5f721b83c3edfd20b180dadea09c16",
+      "actions": 29,
+      "native_assertions": 589,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1457-20261122.json",
+      "input_sha256": "9f109d8fd50d17b633cc25d132cdaba2773210ec27b1b979a33d849bee0fb4ee",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1457-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-violent-gusto-red-four-live-sparse1457-real-ally-target-excludes-hero-only-trigger",
+        "fixture_slug": "card-violent-gusto-red-four-live-sparse1457-real-ally-target-excludes-hero-only-trigger",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-crash-down-the-gates-red-four-live-sparse1457-real-ally-target-excludes-hero-only-trigger",
+      "card_id": "crash_down_the_gates_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "f11ad4c430a4b0703e942f7e163bdbbc5c7a8c4b061f5b27fa9f33614f78e26c",
+        "actions.json": "386a58cf11a83fb06512f7989a3b0e293204789ecf439c6cac47297cd7eecbaa",
+        "assertions.json": "4f98f7d7313b883c1b64159549637af2e4fe94ac04161a2cb963a13d2ba5680d",
+        "expected_final_gamestate.txt": "3dd9727e66bd27dfefed465a1f354de76404d3f82ff8180abdac432ae7174e94",
+        "meta.json": "ee1c3ef228cb85cd0b04f879f1403587ab4eb0f469b6d04cfeb7c97dd99dd024"
+      },
+      "fixture_sha256": "2eaf02a4720bfaed2c149f4d61c2835d8469b3877656d64f1a1fb548d91901b3",
+      "actions": 29,
+      "native_assertions": 589,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1457-20261122.json",
+      "input_sha256": "9f109d8fd50d17b633cc25d132cdaba2773210ec27b1b979a33d849bee0fb4ee",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1457-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-crash-down-the-gates-red-four-live-sparse1457-real-ally-target-excludes-hero-only-trigger",
+        "fixture_slug": "card-crash-down-the-gates-red-four-live-sparse1457-real-ally-target-excludes-hero-only-trigger",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-gravekeeping-red-four-live-sparse1457-real-ally-target-excludes-hero-only-trigger",
+      "card_id": "gravekeeping_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "6e64b5003db58e57afd3f6335fda72e563fe8294e30373246ae0452ff369e3d5",
+        "actions.json": "386a58cf11a83fb06512f7989a3b0e293204789ecf439c6cac47297cd7eecbaa",
+        "assertions.json": "554fec043e41b4e43ebf37d7bf66f56ed6a2ce86ec33c0081336ef7f13519a63",
+        "expected_final_gamestate.txt": "b7b1b6f21b7957930f13191094a6d1c62f4c98e96e7078343bf1d081739ed5b0",
+        "meta.json": "577eea68758cb10fa7fc52ebb7a812dcdb31c5772fef7a23f2680fa90e801f68"
+      },
+      "fixture_sha256": "2c108bf1bd67c35f6773567d1b563a8442ffa73d0bb5ee2a0bdadb31eb3d3eb8",
+      "actions": 29,
+      "native_assertions": 623,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1457-20261122.json",
+      "input_sha256": "9f109d8fd50d17b633cc25d132cdaba2773210ec27b1b979a33d849bee0fb4ee",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1457-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-gravekeeping-red-four-live-sparse1457-real-ally-target-excludes-hero-only-trigger",
+        "fixture_slug": "card-gravekeeping-red-four-live-sparse1457-real-ally-target-excludes-hero-only-trigger",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-bite-red-four-live-sparse1457-real-ally-target-excludes-hero-only-trigger",
+      "card_id": "bite_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "011970aa726f80b0aac7385c7270b9aa8f99eab77bc388a0e548cc71efda5895",
+        "actions.json": "4e1e3f90dd951a74f0a06c57278f2a9a3950894856940e665137a12daa2a957d",
+        "assertions.json": "56776f7e8c6a9485fd638c4da9a786f72e9e91f265476a44e21be997afd2a16f",
+        "expected_final_gamestate.txt": "dd1fc45e8454b7728e4d4f4684225d08c09200ddda1ea7de1ab2720e9d3b5978",
+        "meta.json": "fc4e75da5f7b20cbcf5535d532b1e4e6746bcd6d68634c41aeb209b5b579455d"
+      },
+      "fixture_sha256": "a26f1da7ec7a2d28dc25f9f5522ca7225cf1fda3c4e7e9ae78276d8e39304380",
+      "actions": 28,
+      "native_assertions": 620,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1457-20261122.json",
+      "input_sha256": "9f109d8fd50d17b633cc25d132cdaba2773210ec27b1b979a33d849bee0fb4ee",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1457-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-bite-red-four-live-sparse1457-real-ally-target-excludes-hero-only-trigger",
+        "fixture_slug": "card-bite-red-four-live-sparse1457-real-ally-target-excludes-hero-only-trigger",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-throw-yourself-at-them-red-four-live-sparse1457-real-ally-target-excludes-hero-only-trigger-printed-go-again-and-earned-action-consumer",
+      "card_id": "throw_yourself_at_them_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "7c9228fcab4bb0298f242f627295a57180408c0bb8ac2ec6c43decb91370fa40",
+        "actions.json": "ed45ea9a21b7f0704af7376f147867ae303bc351865e1fc48dbad302f1a5e183",
+        "assertions.json": "539d7df39e964b5147b63afdfe471ff7ba9e64edb95a63413d7aa2542bcae75f",
+        "expected_final_gamestate.txt": "8d2a8a5618793d7926f494a08e1a76ce6a17fa3f6f0e64644c82012089b79968",
+        "meta.json": "8e15aea80ae35a72ecf45ff4ecc8afd5e57f09ee4da9efb6778fc686869b839e"
+      },
+      "fixture_sha256": "a67f61f7c1820bc67e416cbc884d17457139975c4ea2825b41ebef89c3692189",
+      "actions": 33,
+      "native_assertions": 646,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 29,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1457-20261122.json",
+      "input_sha256": "9f109d8fd50d17b633cc25d132cdaba2773210ec27b1b979a33d849bee0fb4ee",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1457-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-throw-yourself-at-them-red-four-live-sparse1457-real-ally-target-excludes-hero-only-trigger-printed-go-again-and-earned-action-consumer",
+        "fixture_slug": "card-throw-yourself-at-them-red-four-live-sparse1457-real-ally-target-excludes-hero-only-trigger-printed-go-again-and-earned-action-consumer",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-attune-with-cosmic-vibrations-blue-four-live-sparse1457-real-ally-target-excludes-hero-only-trigger",
+      "card_id": "attune_with_cosmic_vibrations_blue",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "f9b369cd16d924367debc86d42a7e2f85bc9355cf68340a2ef6b405f7b60b72a",
+        "actions.json": "4e1e3f90dd951a74f0a06c57278f2a9a3950894856940e665137a12daa2a957d",
+        "assertions.json": "e85e4e3e7887e59cce79a673e964d8d32cae28efc4645a1735daf146a4a490c4",
+        "expected_final_gamestate.txt": "f949c3e79af981747dc4c1ef8c1b5664a99d24f28919c105cc82369ac3939ab5",
+        "meta.json": "d12348ac3b09a15ae23b6ecd43c42bc28c3a48e59f2b96cceb89a3b6ac81fdec"
+      },
+      "fixture_sha256": "3301910d430f360f042b3a897396b74a76fd9f90b9970e1473f6b2e89369c821",
+      "actions": 28,
+      "native_assertions": 579,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1457-20261122.json",
+      "input_sha256": "9f109d8fd50d17b633cc25d132cdaba2773210ec27b1b979a33d849bee0fb4ee",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1457-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-attune-with-cosmic-vibrations-blue-four-live-sparse1457-real-ally-target-excludes-hero-only-trigger",
+        "fixture_slug": "card-attune-with-cosmic-vibrations-blue-four-live-sparse1457-real-ally-target-excludes-hero-only-trigger",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "schema_version": 1,
+    "batch": 1457,
+    "result": "approved_named_branches_only_pending_native_execution",
+    "reviewed_utc": "2026-11-25T01:35:26.247486+00:00",
+    "spec_sha256": "9f109d8fd50d17b633cc25d132cdaba2773210ec27b1b979a33d849bee0fb4ee",
+    "source_note_sha256": "e9506aa6137efb07d5f7ae5d12486745362956b6868307f4d8a8c1cbf5ff419a",
+    "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+    "source_hashes": {
+      "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+      "FaBSim/GeneratedCode/GeneratedMacroCode.php": "fe6a7982611df8f4de98ce2671b317b671b580146aa4b8c28e8f4b86d8461056",
+      "FaBSim/Custom/GameLogic.php": "c60fa151561f959e4e3e341b814de0e2b47c9e9f153bbc8793a04c43b5075061",
+      "FaBSim/Custom/FaiCards.php": "222e95c7670e2df62aaec1185f75e63b6cc563bbd8fcfd52b4dd8f1f14110786",
+      "FaBSim/Custom/IARRuntime.php": "a867233dd027ea6466d776cb9c3bfdbbeedc5e4e535f67f09b1c6e7d9cb3924e",
+      "FaBSim/Custom/UPRCards.php": "62798bd281afc17805c396e92deab22497b9c80d881f99e943833cb82d449321"
+    },
+    "cases": 10,
+    "planned_actions": 291,
+    "persistable_checks": 5992,
+    "named_primary_ids": [
+      "tempt_over_yellow",
+      "wage_agility_red",
+      "wage_might_red",
+      "wage_vigor_red",
+      "violent_gusto_red",
+      "crash_down_the_gates_red",
+      "gravekeeping_red",
+      "bite_red",
+      "throw_yourself_at_them_red",
+      "attune_with_cosmic_vibrations_blue"
+    ],
+    "findings": [
+      "Ten distinct groups are unrepresented in the union of both coverage indexes and have no direct card match in either hold ledger. Cached young legal UPF heroes and class-compatible cards; four live manual seats.",
+      "Actual attack target is formally selected before payment. Assertions bind native PERMANENT/player4/UID9/Arena descriptor to real Ashwing with canonical prior UPR_ASH1/DYN_ASHash material, actual damage and death, and all Hero health20.",
+      "All primary attack WHENs require attacking a Hero: generated callbacks use FaBFaiHeroHit or equivalent FaBIARAttacksHero, both test attackTarget.type HERO. Therefore no earned card trigger is bypassed against the declared Ally. Crash and Gusto Hero-hit abilities are also false; Attune defense branch is not entered.",
+      "Might aura10 is nonvacuous for Tempt/Gusto; actual target DeckRed13 for Crash and DeckBlue13 for Attune; opposing GYBlue16 for Gravekeeping; owned ready legal SpiderBite16 for Bite/Throw. Retained assets and quiet queues are asserted through complete link.",
+      "Throw Yourself at Them printed unconditional Go again is positively asserted through actual AP1 refund then native zero-cost Item8 play to spend it after all four response passes. Nine other cases provide only the narrowly named Hero-target-condition exclusion plus native paid Ally attack and damage."
+    ],
+    "limits": [
+      "Source/spec review only: no games or replays run by reviewer; no saved passing or coverage credit granted here.",
+      "No positive Hero-only effect, trigger timing, target-of-trigger timing, defense branch, keyword response interaction, prior Ashwing creation, support identity, pitch sibling, or whole-card credit.",
+      "Shattering Stardust excluded because its exact compiled callback support was not established. Resolve-time target/inline granted-hit candidates remain excluded rather than waived by no-response scope."
+    ]
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1457-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "95ff39bf66b14546fd7ddfcd2f58a6b01366d4144be07061feaeed032c061504"
+  },
+  "full_suite_run": false
+}

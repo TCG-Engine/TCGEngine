@@ -1,0 +1,92 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "independent breadth_review1225",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1237-20261122.json",
+  "source_spec_sha256": "b99a6531e7347bd5320b8d0f9c8e51d5eac697b017982c1ba493b6ea0a6c04cc",
+  "input_sha256": "b99a6531e7347bd5320b8d0f9c8e51d5eac697b017982c1ba493b6ea0a6c04cc",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-mistcloak-gully-four-live-sparse1237-only-first-resolved-attack-at-controller-loses-one-power",
+      "card_id": "mistcloak_gully",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "4a5c80f43247f94b59a93c56553fd7b1aebf51df0f393a3655747f40d2e26265",
+        "actions.json": "0085e1ff6a57350226ffa1417ac4645efc3bb59432d9e66c8c74dc8234c8fd52",
+        "assertions.json": "fbfab01c47054cabfc36be0b82647f932186d2fe6001934c88277e5b77c7a784",
+        "expected_final_gamestate.txt": "836179bdd9f7cc304e4b36898ee4f6494d5bf11ca4e187dbc2b679d8f77b3cfa",
+        "meta.json": "dbfde4dc410bca1afc05a533e89ea63b820fe14b48fa59bf7461afd9ade4ab49"
+      },
+      "fixture_sha256": "cc63b93bc2822998a33a393c8e5c08a3cd37c38392abd1acc5f4a1d0947b2ec5",
+      "actions": 54,
+      "native_assertions": 295,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 50,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1237-20261122.json",
+      "input_sha256": "b99a6531e7347bd5320b8d0f9c8e51d5eac697b017982c1ba493b6ea0a6c04cc",
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1237-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-mistcloak-gully-four-live-sparse1237-only-first-resolved-attack-at-controller-loses-one-power",
+        "fixture_slug": "card-mistcloak-gully-four-live-sparse1237-only-first-resolved-attack-at-controller-loses-one-power",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "reviewer": "independent breadth_review1225",
+    "spec_sha256": "b99a6531e7347bd5320b8d0f9c8e51d5eac697b017982c1ba493b6ea0a6c04cc",
+    "source_note_sha256": "50e2f22bd5134098a781027e295c617ec6063a0f94fe3b4ed6bbaaa0635da1d4",
+    "case_count": 1,
+    "native_controls": 54,
+    "query_checks": 295,
+    "persistable_assertions": 295,
+    "author_only_checks_omitted": 0,
+    "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+    "coverage_category": "EXISTING_LANDMARK_FIRST_AND_SECOND_RESOLVED_ATTACK_AT_CONTROLLER",
+    "basis": [
+      "The frozen case has 54 native controls and 295 persistable assertions, with no author-only checks. Four natural Young heroes satisfy setup. Fai admits Ninja Head Jab and Generic Wounding; Mystic Enigma admits the existing owned Mystic Landmark. Its primary group is unrepresented with no source-only hold.",
+      "The parent supplied its current official read-only rule verification: CR1.1.2b makes you refer to controller, or owner if none; CR1.3.1b supplies normal Arena control; CR8.2.9 makes Landmark a permanent without a controller exception. This supports the limited owned/controller4 Arena setup. The reviewer does not infer special global control from the Landmark type.",
+      "Printed first-attack reduction has no WHEN phrase. On the first actual attack at Hero4, GameLogic calls MSTDeclared174-176; the actual victim has the active Gully, the unseeded GULLY_USED count is zero, and the helper marks it used and tags that attack WTR_POWER:-1. The native scene queries power only after the actual attack is on CombatChain.",
+      "Real Head Jab6 base3 becomes power2 and deals2, leaving HP4=18. Its intrinsic printed go again refunds AP only at Resolution and funds actual second Wounding7 in the same turn. With the once-per-turn Gully use already earned, Wounding remains power4, deals4 and leaves HP4=14 with no second AP refund. Each attack has fresh four-seat source and combat responses.",
+      "Neither attack has an earned additional hit ability; Fai Phoenix activation and Enigma Spectral Shield activation are unused. Gully remains owned Arena4, both physical attacks reach owned GY1, final UID7/RNG0/APR0 and empty Stack/DQs/CC match the limited route. No end phase or blue-history-dependent upkeep/Transcend condition is entered."
+    ],
+    "rules_evidence": {
+      "provenance": "Current official rule excerpts and verification supplied by parent; reviewer performed no network access.",
+      "controller_and_you": "https://rules.fabtcg.com/en/cr/01-game-concepts/",
+      "landmark_type": "https://rules.fabtcg.com/en/cr/08-keywords/",
+      "sections": [
+        "1.1.2b",
+        "1.3.1b",
+        "8.2.9"
+      ]
+    },
+    "limits": [
+      "Semantic/source-spec approval only pending native saving and targeted replay; no native success or coverage credit claimed by reviewer.",
+      "Only two actual resolved attacks aimed at the existing Landmark controller in the same turn. No negated/nonresolving attack timing, redirect, earlier other target, next-turn reset, multiple Landmarks, Landmark play/upkeep/Transcend, Hero/support or full-card credit.",
+      "Only this W review receipt was written; no native actions, tests, T/source changes, Git, authentication, network or original-checkout access."
+    ],
+    "source_sha256": {
+      "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+      "FaBSim/Custom/MSTCards.php": "cd98a9b734b984bfc19af7d0e4a3eebd5496f298d08c7c79d7f6d43c363513c7",
+      "FaBSim/Custom/GameLogic.php": "c60fa151561f959e4e3e341b814de0e2b47c9e9f153bbc8793a04c43b5075061",
+      "DevTools/FaB/CardRegression/record_card_regressions.php": "e53055b29e9ea641949b77019c4455607f41ca233325d716a9500637e19efd28"
+    }
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1237-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "419ae9e2119b97311b239be23573e69cafd6ac2d23d578d98372de5c3b7edd0e"
+  },
+  "full_suite_run": false
+}

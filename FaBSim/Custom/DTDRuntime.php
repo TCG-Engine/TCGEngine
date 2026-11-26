@@ -1,8 +1,10 @@
 <?php
 function FaBDTDAfterMove(int $p,object $o,string $from,string $to): void {
+ FaBAdvanceCapturedSourceEpochs($o,$from,$to,['dtdRadiantSourceEpoch']);
+ if($from==='Banish'&&$to!=='Banish'){$s=FaBGetState();unset($s['dtdPermissions'][intval($o->UniqueID??0)]);FaBSetState($s);}
  if($from==='CombatChain'&&$to!=='CombatChain'&&!empty(FaBObjectCounters($o)['DTD_ORIGINAL_ID']))$o->CardID=FaBObjectCounters($o)['DTD_ORIGINAL_ID'];
  if($from==='Arena'&&$to!=='Arena'){$front=array_search($o->CardID,FaBDTDAngels(),true);if($front!==false)$o->CardID=$front;}
- if($to==='Arena'&&$o->CardID==='radiant_forcefield_yellow'&&FaBMONSoul($p)==='')FaBMONDestroy(intval($o->UniqueID));
+ $radiant=[];if($to==='Arena'&&$from!=='Arena'&&$o->CardID==='radiant_forcefield_yellow')$radiant[intval($o->UniqueID??0)]=true;
  if($to==='Soul'){
   if(FaBDTDHerald($o)){FaBDTDAdd($p,'HERALD_SOUL');if(GetCurrentPhase()==='MAIN'&&empty(FaBGetState()['dtdStarting'])&&(FaBMONHero($p,'prism_advent_of_thrones')||FaBMONHero($p,'prism_awakener_of_sol')))FaBRunSourceMacro('ResolveAbility',$p,'prism_advent_of_thrones',['dtdSearch'=>true,'mzID'=>FaBDTDSource(intval($o->UniqueID))]);}
  }
@@ -10,7 +12,32 @@ function FaBDTDAfterMove(int $p,object $o,string $from,string $to): void {
   if($from==='Hand')FaBSetObjectCounter($o,'DTD_HAND_BANISH',intval(GetTurnNumber()));
   
  }
- if($from==='Soul'&&FaBMONSoul($p)==='')foreach(FaBMONArena($p,'radiant_forcefield') as $r)FaBMONDestroy(intval(FaBIdentityFromMZ($r)['object']->UniqueID));
+ if($from==='Soul'&&$to!=='Soul'&&FaBMONSoul($p)==='')foreach(FaBMONArena($p,'radiant_forcefield') as $r){
+  $found=FaBIdentityFromMZ($r);if($found!==null)$radiant[intval($found['object']->UniqueID??0)]=true;
+ }
+ // Deduplicate only this move event, never a still-pending layer or source epoch.
+ foreach(array_keys($radiant) as $uid)FaBDTDCaptureRadiantEmptySoul($p,intval($uid));
+}
+/** Existing move events observe only the selected Radiant state transitions. */
+function FaBDTDCaptureRadiantEmptySoul(int $p,int $uid): void {
+ if(!FaBSeatIsLive($p)||$uid<1||FaBMONSoul($p)!=='')return;
+ $found=FaBFindUID($uid);if($found===null||$found['zone']!=='Arena')return;
+ $source=$found['object'];$controller=intval($source->Controller??$found['player']);
+ if($source->CardID!=='radiant_forcefield_yellow'||$controller!==$p||HasNoAbilities($source))return;
+ $epoch=FaBArmCapturedSourceEpoch($uid,'dtdRadiantSourceEpoch');
+ FaBROSQueue($p,'radiant_forcefield_yellow',$uid,['rosEvent'=>'dtdRadiantEmptySoul','dtdRadiantSourceEpoch'=>$epoch]);
+}
+function FaBDTDResolveRadiantEmptySoul(int $p,object $layer): void {
+ $params=is_array($layer->Params??null)?$layer->Params:[];
+ $uid=intval($layer->SourceUniqueID??0);$epoch=intval($params['dtdRadiantSourceEpoch']??0);
+ if(!FaBSeatIsLive($p)||($layer->Kind??'')!=='ABILITY'||intval($layer->Controller??0)!==$p
+    ||($layer->CardID??'')!=='radiant_forcefield_yellow'||($params['rosTrigger']??false)!==true
+    ||($params['rosEvent']??'')!=='dtdRadiantEmptySoul'||$uid<1||$epoch<1)return;
+ $source=FaBFindUID($uid);
+ if($source===null||$source['zone']!=='Arena'||intval(FaBARCCard($uid,'dtdRadiantSourceEpoch',0))!==$epoch)return;
+ // The earned effect survives later Soul, ability, name and control changes, not a new Arena entry.
+ $previous=$GLOBALS['fabEffectController']??0;$GLOBALS['fabEffectController']=$p;
+ try{FaBMONDestroy($uid);}finally{$GLOBALS['fabEffectController']=$previous;}
 }
 function FaBDTDCharged(int $p,string $id): void {
  $token=['banneret_of_courage_yellow'=>'courage','banneret_of_gallantry_yellow'=>'quicken','banneret_of_protection_yellow'=>'spellbane_aegis'][$id]??null;if($token)FaBWTRCreateArena($p,$token);
@@ -38,7 +65,7 @@ function FaBDTDPower(int $p,object $o): int {
  if($b==='beaming_blade'&&FaBMONCount($p,'YELLOW_SOUL'))$n+=5;
  if($b==='searing_ray'&&FaBChoiceRefs($p,'Pitch',['pitch'=>2]))$n+=2;
  if($b==='soul_butcher'&&FaBMONSoul($victim)!=='')$n+=2;
- if($b==='lay_to_rest'&&FaBHasType(GetHero($victim)[0]??'','Shadow'))++$n;
+
  if(FaBHasType($o,'Brute')||FaBHasType($o,'Shadow'))$n+=FaBDTDCount($p,'FRENZY');
  if(FaBWTRIsAttackAction($o))foreach(FaBOpponents($p) as $seat)$n-=FaBDTDCount($seat,'TRIUMPH');
  if(FaBHasType($o,'Angel')){$f=FaBFindUID(intval(FaBObjectCounters($o)['MON_SOURCE_UID']??$o->UniqueID));if($f)$n+=intval(FaBObjectCounters($f['object'])['POWER']??0);}
@@ -54,9 +81,69 @@ function FaBDTDDefended(int $p,object $o): void {
  if(!in_array(intval($o->UniqueID),(array)(FaBGetState()['declaredBlockUIDs']??[]),true))FaBDTDDefendEvents($p,[$o]);
  FaBDTDMirage();
 }
+// Mirage is state-triggered (CR 8.3.25, 6.6.5c); its layer rechecks CR 5.3.2a.
+function FaBDTDMirageCondition(array $s, object $defender): bool {
+ $a=FaBFindCurrentAttack($s); // Keep the qualified current-attack lookup (085).
+ return !empty($s['combatOpen']) && $a!==null
+  && intval($defender->ChainLink??0)===intval($s['chainLink']??0)
+  && in_array($defender->Role??'', ['DEFENSE','DEFENSE_REACTION'], true)
+  && !FaBHasType($a['object'],'Illusionist') && FaBAttackPower($s)>=6;
+}
+function FaBDTDMiragePendingIDs(int $uid, int $epoch): array {
+ $ids=[];if($epoch<=0)return $ids;
+ foreach(GetStack() as $layer){
+  if(is_object($layer) && empty($layer->removed) && ($layer->Params['rosEvent']??'')==='dtdMirage'
+   && intval($layer->SourceUniqueID??0)===$uid && intval($layer->Params['dtdMirageEpoch']??0)===$epoch)$ids[]=intval($layer->UniqueID);
+ }
+ return array_values(array_unique($ids));
+}
 function FaBDTDMirage(): void {
- $s=FaBGetState();if(($s['window']??'')==='DEFEND_DECLARE')return;$a=FaBFindUID(intval($s['attackUID']));if(!$a||FaBHasType($a['object'],'Illusionist')||FaBAttackPower($s)<6)return;
- foreach(FaBLiveSeats() as $p)foreach(FaBChoiceRefs($p,'CombatChain') as $r){$o=FaBIdentityFromMZ($r)['object'];if(intval($o->ChainLink)===intval($s['chainLink'])&&in_array($o->Role,['DEFENSE','DEFENSE_REACTION'],true)&&FaBHasKeyword($o,'Mirage'))FaBMONDestroy(intval($o->UniqueID));}
+ $s=FaBGetState();if(($s['window']??'')==='DEFEND_DECLARE')return;
+ foreach(FaBLiveSeats() as $p)foreach(FaBChoiceRefs($p,'CombatChain') as $r){
+  $o=FaBIdentityFromMZ($r)['object'];$uid=intval($o->UniqueID);
+  $meta=(array)FaBARCCard($uid,'dtdMirage',[]);
+  if($meta){
+   $pending=FaBDTDMiragePendingIDs($uid,intval($meta['epoch']??0));
+   if(($meta['pendingIDs']??[])!==$pending){$meta['pendingIDs']=$pending;FaBARCSetCard($uid,'dtdMirage',$meta);}
+  }
+  // Observe false states even while older layers are pending (CR 6.6.5c).
+  $qualifies=!HasNoAbilities($o) && FaBHasKeyword($o,'Mirage') && FaBDTDMirageCondition($s,$o);
+  if(!$qualifies){
+   if(!empty($meta['activeAttack'])){$meta['activeAttack']=0;$meta['activeLink']=0;FaBARCSetCard($uid,'dtdMirage',$meta);}
+   continue;
+  }
+  $attack=intval($s['attackUID']);$link=intval($s['chainLink']);
+  if(intval($meta['activeAttack']??0)===$attack && intval($meta['activeLink']??0)===$link)continue;
+  $controller=intval($o->Controller??$p)?:$p;if(!FaBSeatIsLive($controller))continue;
+  $epoch=intval($meta['epoch']??0);$transition=intval($meta['transition']??0)+1;
+  $meta['activeAttack']=$attack;$meta['activeLink']=$link;$meta['transition']=$transition;
+  FaBARCSetCard($uid,'dtdMirage',$meta);
+  FaBROSQueue($controller,$o->CardID,$uid,['rosEvent'=>'dtdMirage','dtdMirageAttack'=>$attack,'dtdMirageLink'=>$link,'dtdMirageEpoch'=>$epoch,'dtdMirageTransition'=>$transition]);
+  $layer=FaBStackTop();
+  if(!$layer || ($layer->Params['rosEvent']??'')!=='dtdMirage' || intval($layer->SourceUniqueID)!==$uid || intval($layer->Params['dtdMirageTransition']??0)!==$transition){$meta['activeAttack']=0;$meta['activeLink']=0;FaBARCSetCard($uid,'dtdMirage',$meta);continue;}
+  if($epoch===0){$epoch=intval($layer->UniqueID);$meta['epoch']=$epoch;$layer->Params['dtdMirageEpoch']=$epoch;}
+  $meta['pendingIDs']=FaBDTDMiragePendingIDs($uid,$epoch);
+  FaBARCSetCard($uid,'dtdMirage',$meta);
+ }
+}
+function FaBDTDResolveMirage(int $p, object $layer): void {
+ $uid=intval($layer->SourceUniqueID??0);$epoch=intval($layer->Params['dtdMirageEpoch']??0);$event=intval($layer->UniqueID??0);
+ $transition=intval($layer->Params['dtdMirageTransition']??0);
+ $attack=intval($layer->Params['dtdMirageAttack']??0);$link=intval($layer->Params['dtdMirageLink']??0);
+ $f=FaBFindUID($uid);$meta=(array)FaBARCCard($uid,'dtdMirage',[]);
+ if(!$f || $f['zone']!=='CombatChain' || $epoch<=0 || $event<=0 || $transition<=0 || $attack<=0 || $link<=0
+  || intval($meta['epoch']??0)!==$epoch || !in_array($event,(array)($meta['pendingIDs']??[]),true))return;
+ // DoResolveCard removes this layer before dispatch. Consume only this event ID;
+ // a newer transition/latch or another pending event must remain untouched.
+ $meta['pendingIDs']=array_values(array_filter((array)$meta['pendingIDs'],fn($id)=>intval($id)!==$event));
+ FaBARCSetCard($uid,'dtdMirage',$meta);
+ $s=FaBGetState();
+ if(intval($s['attackUID']??0)!==$attack || intval($s['chainLink']??0)!==$link || !FaBDTDMirageCondition($s,$f['object']))return;
+ $current=FaBFindUID($uid);$live=(array)FaBARCCard($uid,'dtdMirage',[]);
+ if(!$current || $current['zone']!=='CombatChain' || intval($live['epoch']??0)!==$epoch)return;
+ // Later loss of Mirage/abilities does not cancel an already earned layer.
+ // Keep the observed-state latch through callbacks; never rewrite after destroy.
+ FaBMONDestroy($uid);
 }
 function FaBDTDDefendGroup(int $p,array $uids): void {
  $objects=[];foreach($uids as $uid){$f=FaBFindUID(intval($uid));if($f&&$f['player']===$p)$objects[]=$f['object'];}
@@ -84,11 +171,11 @@ function FaBDTDHit(int $p,object $o,int $n): void {
  if(FaBFaiHeroHit()&&FaBDTDCount($p,'HACK')){FaBDTDClear($p,'HACK');FaBRunSourceMacro('ResolveAbility',$p,'hack_to_reality_yellow',['mzID'=>$r,'amount'=>$n,'dtdVictim'=>intval($s['defender'])]);}
 }
 function FaBDTDStart(int $p): void {
- $s=FaBGetState();foreach($s['dtdPermissions']??[] as $uid=>$e)if(!$e['next']&&intval($e['created'])!==intval(GetTurnNumber()))unset($s['dtdPermissions'][$uid]);FaBSetState($s);
+ $s=FaBGetState();foreach($s['dtdPermissions']??[] as $uid=>$e)if((!$e['next']&&intval($e['created'])!==intval(GetTurnNumber()))||(!empty($e['next'])&&intval($e['activeTurn']??0)>0&&intval($e['activeTurn'])<intval(GetTurnNumber())))unset($s['dtdPermissions'][$uid]);FaBSetState($s);
  foreach(FaBMONArena($p,'chains_of_mephetis') as $r){$o=FaBIdentityFromMZ($r)['object'];if(intval(FaBObjectCounters($o)['DTD_DOOM']??0)>0)FaBSetObjectCounter($o,'DTD_DOOM',0);else FaBMONDestroy(intval($o->UniqueID));}
  if(FaBMONHero($p,'vynnset'))FaBRunSourceMacro('StartTurn',$p,'vynnset',['mzID'=>FaBDTDSource(FaBUPRHeroUID($p))]);
 }
-function FaBDTDEnd(int $p): void {foreach(['frontline_helm','frontline_plating','frontline_gauntlets','frontline_legs'] as $id)foreach(FaBCRUEquipment($p,$id) as $r)FaBWeakenEquipment($r);}
+function FaBDTDEnd(int $p): void {FaBDTDEndActionPermissions($p);foreach(['frontline_helm','frontline_plating','frontline_gauntlets','frontline_legs'] as $id)foreach(FaBCRUEquipment($p,$id) as $r)FaBWeakenEquipment($r);}
 function FaBDTDBloodDebt(int $p): bool {
  if(FaBMONHero($p,'levia_redeemed'))return true;
  if(FaBMONHero($p,'blasmophet_levia_consumed')){for($i=0,$n=FaBMONBloodDebt($p);$i<$n;++$i)FaBDTDTop($p);return true;}
@@ -114,7 +201,33 @@ function FaBDTDDestroyed(int $p,object $o): void {
  FaBDTDAdd($p,'DIADEM');FaBRunSourceMacro('ResolveAbility',$p,'diadem_of_dreamstate',['mzID'=>FaBDTDSource(intval($o->UniqueID))]);
 }
 function FaBDTDPrevent(int $p,int $n,string $source): int {
- $f=FaBIdentityFromMZ($source);if($n>0&&$f&&FaBHasType($f['object'],'Shadow'))foreach(FaBLiveSeats() as $seat){$prevent=FaBDTDCount($seat,'BREAK');if($prevent){$n=max(0,$n-$prevent);FaBDTDClear($seat,'BREAK');break;}}
+ $f=FaBDamageSourceView($source);if($n>0&&$f&&FaBDamageSourceHasType($f['object'],'Shadow'))foreach(FaBLiveSeats() as $seat){$prevent=FaBDTDCount($seat,'BREAK');if($prevent){$n=max(0,$n-$prevent);FaBDTDClear($seat,'BREAK');break;}}
  if($n>0&&!FaBDTDCount($p,'DAMAGE_EVENT')){FaBDTDAdd($p,'DAMAGE_EVENT');if(FaBMONCount($p,'CHARGED')&&FaBCRUEquipment($p,'soulbond_resolve'))--$n;}
  return $n;
+}
+
+
+/** The event is attacking a Shadow HERO, not attacking an Ally that hero controls. */
+function FaBDTDQueueLayAttack(int $player,object $attack,array $params): int {
+    $state=FaBGetState();$target=(array)($state['attackTarget']??[]);
+    if (!in_array((string)$attack->CardID,['lay_to_rest_red','lay_to_rest_yellow','lay_to_rest_blue'],true)
+        || ($attack->Role??'')!=='ATTACK' || intval($state['attackUID']??0)!==intval($attack->UniqueID)
+        || intval($state['attacker']??0)!==$player || ($target['type']??'')!=='HERO') return 0;
+    $resolved=FaBResolveAttackTarget($target,$player);
+    $hero=$resolved!==null?FaBFindUID(intval($resolved['uid'])):null;
+    if ($hero===null || $hero['zone']!=='Hero' || !FaBHasType($hero['object'],'Shadow')) return 0;
+    return FaBQueueOwnedEventMacro($player,$attack,'AttackDeclared',
+        $params+['dtdLayEarned'=>true,'dtdLayLink'=>intval($state['chainLink'])]);
+}
+
+/** Eligibility was captured when earned; only the original attack can receive this self bonus. */
+function FaBDTDResolveLayAttack(int $controller,object $layer): void {
+    if (FaBOwnedEventMacro($layer)!=='AttackDeclared'
+        || !in_array((string)$layer->CardID,['lay_to_rest_red','lay_to_rest_yellow','lay_to_rest_blue'],true)
+        || ($layer->Params['eventParams']['dtdLayEarned']??false)!==true) return;
+    $state=FaBGetState();$uid=intval($layer->SourceUniqueID);$source=FaBFindUID($uid);
+    if (empty($state['combatOpen']) || intval($state['attackUID']??0)!==$uid
+        || intval($state['chainLink']??0)!==intval($layer->Params['eventParams']['dtdLayLink']??0)
+        || $source===null || $source['zone']!=='CombatChain' || ($source['object']->Role??'')!=='ATTACK') return;
+    FaBCRUSelfTag($source['object'],'WTR_POWER:1');
 }

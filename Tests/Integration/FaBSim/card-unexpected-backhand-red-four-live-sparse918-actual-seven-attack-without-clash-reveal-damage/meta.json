@@ -1,0 +1,7 @@
+{
+    "name": "Unexpected Backhand / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T19:20:37+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "When you win a clash revealing this, deal 1 damage to the other hero. Representative only: actual_seven_attack_without_clash_reveal_damage. Other pitch siblings, alternate targets and unexercised branches receive no credit. All four live/manual; only native entry-point actions. Sources: FaBSim/GeneratedCode/cardArrayCache.json#unexpected_backhand_red"
+}

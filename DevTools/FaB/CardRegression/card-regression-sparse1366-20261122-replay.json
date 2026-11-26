@@ -1,0 +1,56 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-mark-of-lightning-four-live-sparse1366-generic-attack-real-hand-block-not-lightning-no-destruction-or-extra-damage",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-mark-of-lightning-four-live-sparse1366-generic-attack-real-hand-block-not-lightning-no-destruction-or-extra-damage",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1366-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1366-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "95fa65ade9efe1d78e34cab86c4317e018460168e8046d64a4218723c30c8ddb",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "dd5de1afac59c0d155a74a1ac31014ad9f34cf5a4dd7e803f15d200dd3ab0112",
+        "actions.json": "391d0c3198a3462eb041e6d636e4470fb6e77a744dbc147221d49725d7cc518a",
+        "assertions.json": "a51d3091b284bf7ce3d595df90afb8b47db377a2b535eb8f67f41468f1fd5460",
+        "expected_final_gamestate.txt": "2aeeb65cea1f00495b0d7dd873794f049068b1d393e8132479575f7a08f97e43",
+        "meta.json": "13bb3d500568543a7941681553920d95bfa4cbf81bf1a64f7dec012bf9d95b58"
+      }
+    },
+    {
+      "slug": "card-soulbond-resolve-four-live-sparse1366-existing-soul-is-not-charged-this-turn-first-five-damage-not-prevented",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-soulbond-resolve-four-live-sparse1366-existing-soul-is-not-charged-this-turn-first-five-damage-not-prevented",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1366-local-20261122\\clean-replays\\01.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1366-local-20261122\\clean-replays\\01.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "506ac0db89223af5c38c4e78130881eb0cc50ef1c8203a786b4482eb8cd05f18",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "a88430a18a273b22ce1f5d78a6c0ad12dc62166170c420e04860bf95d38c06e1",
+        "actions.json": "0c005a52a51dc48a24f481bec6cbd5cfe2cb93ecd847ec1063490764f1d7d9ea",
+        "assertions.json": "bde38469d081db442a4dbd9f2556cac829a142d57d8fcfa6c55f21e7736952cc",
+        "expected_final_gamestate.txt": "b29d2ec142fbaed0bfbb1915337e85697481615c6f02a23fdcde272620dcf1b4",
+        "meta.json": "12e0a958d5c956b729207c9f3c32238a800fe29ff22535b4d20c0b93e85dc833"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

@@ -1,0 +1,110 @@
+{
+  "status": "INDEPENDENT_SOURCE_ONLY_TWO_KNOWN_TIMING_HOLDS_APPROVED_AS_UNATTEMPTED",
+  "phase": "SOURCE_PLANNING",
+  "batch": 834,
+  "approved": true,
+  "approved_as_planning_limits": true,
+  "reviewer": "/root/ebbing_recovery_review",
+  "reviewer_independent": true,
+  "created_utc": "2026-11-15T22:07:45.409490+00:00",
+  "manifest": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-batch834-two-known-defend-hit-timing-holds-manifest.json",
+    "sha256": "983ee042fefb0b7efccfc2e379b32ceff34a8fe2732518290870056a08020464"
+  },
+  "manifest_sha256": "983ee042fefb0b7efccfc2e379b32ceff34a8fe2732518290870056a08020464",
+  "runtime_sha256": "a11fb2abaf062a707ad2c9372bf41321fcde25d5fe32a99bf55a1b4d2bae4223",
+  "firm_reservation": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-batch834-firm-reservation.json",
+    "sha256": "bfb9335b24e37d226037e90059977d8b8e3590f7a9759b96f459814705b8ec1a"
+  },
+  "source_preimage_guard_count": 18,
+  "all_current_source_preimages_matched": true,
+  "source_only_held_cases": [
+    {
+      "card_id": "crown_of_frozen_thoughts",
+      "group_id": "identity:crown_of_frozen_thoughts",
+      "status": "SOURCE_ONLY_UNATTEMPTED_KNOWN_FORMAL_DEFENDED_WHEN_CONTRACT",
+      "classification": "KNOWN_FORMAL_DEFENDED_WHEN_BEFORE_FREEZE_EFFECT_CONTRACT",
+      "author_note": {
+        "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-batch834-crown-known-defended-freeze-when-unattempted-note.json",
+        "sha256": "27fdd502af7242311be7ed9d7fddecd9896c26ff051b1a69fdd42eeb74b7a00b"
+      },
+      "retained_known_contract_reference": {
+        "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\review-evidence\\sparse826-act-r4-source-and-toby-unattempted-a11.json",
+        "sha256": "093d82e74e92ff789b8fffe15405d21da76713e9ea4880f00856e3b368fd2e27"
+      },
+      "native_attempted": false,
+      "fixture_saved": false,
+      "coverage_credit": false
+    },
+    {
+      "card_id": "pursuit_of_knowledge_blue",
+      "group_id": "identity:pursuit_of_knowledge_blue",
+      "status": "SOURCE_ONLY_UNATTEMPTED_KNOWN_EARNED_HIT_WHEN_CONTRACT",
+      "classification": "KNOWN_DIRECT_HIT_WHEN_BEFORE_INTELLECT_EFFECT_CONTRACT",
+      "author_note": {
+        "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-batch834-pursuit-known-hit-intellect-when-unattempted-note.json",
+        "sha256": "f5e6c1f96e89da349b8851962efa6dbcd3643b474e34e1799308cd4771e0b915"
+      },
+      "retained_known_contract_reference": {
+        "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\review-evidence\\sparse811-independent-known-contract-planning-review-6695.json",
+        "sha256": "fd3540e34307f90573725550de56e0233e85623be1a7eb531bb3f8ed4394791f"
+      },
+      "native_attempted": false,
+      "fixture_saved": false,
+      "coverage_credit": false
+    }
+  ],
+  "independently_checked_canonical": {
+    "crown_of_frozen_thoughts": [
+      {
+        "macroName": "Defended",
+        "abilityCode": "$victim = intval(FaBGetState()['attacker']);\n FaBPENFreezeHero($victim);\n",
+        "isImplemented": true
+      }
+    ],
+    "pursuit_of_knowledge_blue": [
+      {
+        "macroName": "Hit",
+        "abilityCode": "FaBWTRAddEffect($player, 'INTELLECT', 1);",
+        "isImplemented": true
+      }
+    ]
+  },
+  "current_compiled_entry_sha256": {
+    "crown_of_frozen_thoughts": "b634fceca35e29e71220b8075790fad7427a0aca4888e350de9e81ed7f00d4eb",
+    "pursuit_of_knowledge_blue": "8b673572cc1752c19dee4a912b3cf9d66a781421e2a95422f1a494fae856221f"
+  },
+  "source_approved": false,
+  "native_case_approved": false,
+  "normal_save_approved": false,
+  "executable_cases": 0,
+  "native_attempted": false,
+  "fixture_saved": false,
+  "coverage_credit": false,
+  "qualification": false,
+  "confirmed_gameplay_bug": false,
+  "confirmed_new_issue": false,
+  "source_fix": false,
+  "independent_findings": [
+    "Crown printed WHEN defends is an earned responseable trigger, including its synchronous freeze effect. Actual canonical/emitted Defended reaches PENFreezeHero then UPRFreeze directly from ordinary GameLogic OnDefended1226, with no captured Crown layer. This is the retained Toby/Trench formal Defended contract; no new probe is warranted.",
+    "Young Oldhim Essence of Ice admits the Ice equipment without inventing an Ice Hero type. The fixed real Tuffnut/ready Instant/nonempty Blue Deck follow-through remains required but wholly unattempted; no basic DEF/inline-freeze fallback or expiry claim.",
+    "Pursuit Blue printed hit WHEN gives +1 intellect until end of turn. Canonical/emitted INTELLECT1 body exists. Ordinary OnHit executes it directly at GameLogic1247 outside named captured exceptions, matching retained Cryptic generated-Hit contract rather than an absent implementation.",
+    "The fixed full Pursuit route retains cost2 Blue3/R1, real4 damage, four earned hit responses before intellect increases, cleanup and later actual fifth-card endphase benefit/expiry. The earlier required hit-layer contract blocks admission; no EOT wire/query/order, draw5/expiry, or full-route correctness certificate is issued.",
+    "Both notes are source-only UNATTEMPTED planning limits. Neither creates an executable packet, native bug allocation, coverage, alternative primary or quiet branch."
+  ],
+  "limits": [
+    "Review verifies exact selected canonical/emitted bodies, known caller seam, relevant guards and retained contract proof; no native execution or complete later-branch rule/fixture certification.",
+    "No sibling, support-card, printed Blade Break/thaw/next-turn or full-card coverage awarded."
+  ],
+  "full_suite_run": false,
+  "historical_corpus_replay": false,
+  "PHP_native_network_executed_by_reviewer": false,
+  "R_writes_by_reviewer": false,
+  "B787_denied_operation_untouched": true,
+  "Elliptical184_denied_operation_untouched": true,
+  "review_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov15_batch834_known.py",
+    "sha256": "a45b8f33cf52721538d7fb247816f27c58c5c491076ef50c9b84eccdfddef643"
+  }
+}

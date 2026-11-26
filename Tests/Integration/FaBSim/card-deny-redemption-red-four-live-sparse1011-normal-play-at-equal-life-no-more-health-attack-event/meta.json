@@ -1,0 +1,7 @@
+{
+    "name": "Deny Redemption / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-23T02:19:32+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "When this attacks a hero with more {h} than you, deal 1 arcane damage to them. This damage can't be prevented.\n\n**Instant** - Discard this: Heroes can't gain {h} this turn. Named branch normal_play_at_equal_life_no_more_health_attack_event. NaturalChane20/cost0, explicit nativeMZMODAL0PLAY before Hero4 target/payment. Initial both heroes20, actual Dorinthea4 is not higher-life, so qualified more-health attack event absent. Actual3physical/HP17/AP0, no arcane extra point/layer, source5ownedGY. Alternate discard Instant/NO_HEAL not activated or credited. Allfour live/manual, actualprintedcost/power/HP/roles/physicalfates. No supporting identities/pitch siblings/full-card credit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#deny_redemption_red"
+}

@@ -1,0 +1,139 @@
+{
+  "status": "APPROVED_EXACT_SAVED_IRA_REAL_SECOND_ATTACK_REPLAYS_SEPARATE",
+  "reviewer": "/root/nov2_sparse_author",
+  "reviewed_utc": "2026-11-03T06:13:18.373634+00:00",
+  "runtime_sha256": "0d877de49c131f29c152706e14bba3368630df61c59ef475c87a84f20b6e1a66",
+  "input_file": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch295.json",
+  "input_sha256": "a585aaa790af75cc23b121c2e8bda568a7d8f7c63afa367fe2e7a3b2ed8512f3",
+  "manifest_sha256": "e982b6f6a1efb024b047c3f1523cd71489c48499a72bcdf74a60b9273573544d",
+  "fixtures": [
+    {
+      "slug": "card-ira-crimson-haze-four-live-sparse-real-first-kodachi-then-other-kodachi-earns-second-attack-plus-one",
+      "card_id": "ira_crimson_haze",
+      "group_id": "identity:ira_crimson_haze",
+      "fixture_sha256": "3b50f5d527fb8c048d5bc9011c122319026c1e26632ec4a7233238dab1f16f6b",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "1018ab0f1b4841f2cf05f5fa7c4d8b412ebac679a3d2c6132a1cc72a44beaf4c",
+        "actions.json": "7d36aa926a9c7df8c7a08dd9683f6b2ee87076aff47b7d3b8e0ece293c55160b",
+        "assertions.json": "045f1ecd0714ed28dd149bcde8195fc6eb16e933e981d16f40ffc8505a80aea0",
+        "expected_final_gamestate.txt": "17c29aa7b48fed441e8e991e58d8da1cf32ef8964d3fd458ff9c0025a9a5501a",
+        "meta.json": "b3a918b3a0b01578a9b38fe8d8c540ed1b0ac7a02e21d6b299ba0890c196b5d4"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "1018ab0f1b4841f2cf05f5fa7c4d8b412ebac679a3d2c6132a1cc72a44beaf4c",
+        "actions.json": "7d36aa926a9c7df8c7a08dd9683f6b2ee87076aff47b7d3b8e0ece293c55160b",
+        "assertions.json": "045f1ecd0714ed28dd149bcde8195fc6eb16e933e981d16f40ffc8505a80aea0",
+        "expected_final_gamestate.txt": "17c29aa7b48fed441e8e991e58d8da1cf32ef8964d3fd458ff9c0025a9a5501a",
+        "meta.json": "b3a918b3a0b01578a9b38fe8d8c540ed1b0ac7a02e21d6b299ba0890c196b5d4"
+      },
+      "actions": 55,
+      "native_assertions": 4313,
+      "actual_manual_pass_inputs": 50,
+      "actual_manual_passes": 50,
+      "manual_passes": 50,
+      "priority_pass_inputs": 48,
+      "defending_declaration_finish_inputs": 2,
+      "manual_pass_actor_counts": {
+        "1": 12,
+        "2": 12,
+        "3": 12,
+        "4": 14
+      },
+      "priority_actor_counts": {
+        "1": 12,
+        "2": 12,
+        "3": 12,
+        "4": 12
+      },
+      "semantically_approved": true,
+      "every_native_action_and_assertion_exactly_maps_to_approved_source": true,
+      "initial_and_final_snapshots_fully_parsed": true,
+      "all_four_live_and_all_48_manual_preferences_verified": true,
+      "physical_uid_conservation_without_duplicates": true,
+      "final_original_physical_uids": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "final_proxy_uids_absent": [
+        8,
+        9
+      ],
+      "final_weapon_uids": [
+        5,
+        6
+      ],
+      "final_pitch_uids": [
+        7
+      ],
+      "final_graveyard_uid_sets": {
+        "1": [],
+        "2": [],
+        "3": [],
+        "4": []
+      },
+      "final_health": [
+        20,
+        20,
+        20,
+        17
+      ],
+      "final_resources": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "final_action_points": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "durable_actual_CRU_ATTACKS_total": 2,
+      "physical_findings": "ActualBlue7pitch3 paysfirstphysicalKodachi5cost1/AP1\u2192R2/AP0, actualfirstproxy8power1/damage1HP19; actualGAAP1 then completechaincloseproxy8ceases. ActualOTHERreadyKodachi6freshP4target usesremainingR2/AP1\u2192R1/AP0/noextrapitch, secondrealattackearnedIrapassive+1 givesproxy9power2/damage2HP17; GAAP1/fullsecondcloseproxy9ceases. Actualrawfinaltwoowned5/6usedonceStatus1/CountersTurn2Attacks1each, Pitch7/R1AP1/Hero1Iraready/allotherHP20/emptyGYChainsStackqueues. FullphysicalUIDidentityset1-7conserved, durableCRU_ATTACKStworows/amount2nativelyearned fromemptyinitialeffects; genericcachedvariablesnotoracles.",
+      "qualification": "One positive primaryyoungIra passive secondattack+1 acrossclosedchains. Noheroactivation/staticastrigger/thirdattack/reset/disabledhero/AAvariant/restrictionenforcement/supportweapon/adult/fullcard/control/siblingcredit; noisolatedfaultcontrolclaimed."
+    }
+  ],
+  "source_expectation_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch295-independent-source-review.json",
+    "sha256": "ba3dc6696f50950e96a5ae3cff66edf3f377e7dccdddd4c13632c237ec5dff64",
+    "manifest_sha256": "e982b6f6a1efb024b047c3f1523cd71489c48499a72bcdf74a60b9273573544d"
+  },
+  "immutable_native_archive": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch295-20261103T061034Z-6ae97ada0fbe1.json",
+    "sha256": "eb71f42bc0a5a90328d153e851a07d6142e4c1ceacb931896e1d251bd6f5fc89"
+  },
+  "recording_results": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch295.recording-results.json",
+    "sha256": "48090bed184cdd2de01abc0d2eb877d2825f5f6083eda18829612b8e9cfeb9c5"
+  },
+  "native_wrapper": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch295-native-r1\\receipt.json",
+    "sha256": "b78441cbb36391ea02244dfd47df607a2a0e9695acc96eaa964523f827bf108b",
+    "stdout_sha256": "072efe5cae67f3cdcd143eecaccdff612b8a8b437aca9716947de725e55a232a",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "exit_code": 0,
+    "stderr_bytes": 0,
+    "runtime_before": "0d877de49c131f29c152706e14bba3368630df61c59ef475c87a84f20b6e1a66",
+    "runtime_after": "0d877de49c131f29c152706e14bba3368630df61c59ef475c87a84f20b6e1a66"
+  },
+  "review_script_sha256": "08bb515b93ef06e0eb11532acb2cc060a2b723eb8c26ab1e5c34f146c018e3f7",
+  "reused_pure_parser_definitions_sha256": {
+    "review_nov3_batch269_saved_readonly.py": "e339d37f4f4da91e01b26ae282f6302b1b1c4c6ec4a13715e4f7726016fb0641",
+    "review_nov3_batch270_saved_readonly.py": "16278de0c810a2c4909430c44e4d3e76dc4e716e92172eb403b4e33089adf8a0",
+    "review_nov3_batch271_saved_readonly.py": "e3b66ee7901ab0c0b5ebbec9176e4b29c02b97b67a93254d6dee572237058813"
+  },
+  "method": "Independentread-only raw-five savedreview. All55actualactors/modes/payloads and4313orderedpersistedassertions exactlymatchapprovedinput. Fullschema-backedinitial/finalsnapshots physicalUIDs/ownership/economy/Counters/HP/manualpreferences parsed; all50passinputs verified including48realpriorityresponders/twoactualdefendingdeclarationfinishes. Source/printedsemantics approvalreused; nopriorhelpers/legacycorpusaudit orengine/PHP/native/Rwrites.",
+  "focused_controls": "NOT_RUN_NOT_CLAIMED",
+  "replay_credit": "NOT_CLAIMED_ROOT_RECEIPTS_SEPARATE",
+  "limits": [
+    "Savedcreationreviewonly; rootfocusedreplaysremainseparateevidence, nofullsuite/isolatedfaultcredit.",
+    "OnlyonepositiveIrapassivesecondattackacrossclosedchains; no3rd/reset/disabledhero/AAvariant/heroactivation/supportweapon/adult/fullcard/control/siblingcredit.",
+    "NoR/native/PHP/backend/generator/sourcefix/remote writes byreviewer; actual0dcontext retained."
+  ]
+}

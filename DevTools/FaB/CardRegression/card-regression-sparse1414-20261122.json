@@ -1,0 +1,2272 @@
+[
+  {
+    "slug": "card-verdance-thorn-of-the-rose-two-live-sparse1414-eight-earth-actual-life-gain-separate-hero-layer-and-arcane",
+    "name": "Verdance Thorn of the Rose / eight Earth actual heal and Hero arcane",
+    "cardIDs": [
+      "verdance_thorn_of_the_rose"
+    ],
+    "secondaryCardIDs": [
+      "sigil_of_solace_blue",
+      "burgeoning_red",
+      "burgeoning_yellow",
+      "burgeoning_blue",
+      "autumns_touch_red",
+      "autumns_touch_yellow",
+      "autumns_touch_blue",
+      "weave_earth_red",
+      "weave_earth_blue"
+    ],
+    "branches": [
+      "eight_real_faceup_earth_cards_enable_actual_own_turn_heal_separate_hero_trigger_and_one_arcane_to_single_opponent_default"
+    ],
+    "heroes": [
+      "verdance_thorn_of_the_rose",
+      "dorinthea_ironsong"
+    ],
+    "health": [
+      40,
+      40
+    ],
+    "resources": [
+      0,
+      0
+    ],
+    "actionPoints": [
+      1,
+      0
+    ],
+    "state": {
+      "gameMode": "",
+      "passiveSeats": []
+    },
+    "zones": [
+      {
+        "cardID": "sigil_of_solace_blue",
+        "zone": "Hand",
+        "player": 1,
+        "properties": {}
+      },
+      {
+        "cardID": "burgeoning_red",
+        "zone": "Banish",
+        "player": 1,
+        "properties": {
+          "FaceDown": 0
+        }
+      },
+      {
+        "cardID": "burgeoning_yellow",
+        "zone": "Banish",
+        "player": 1,
+        "properties": {
+          "FaceDown": 0
+        }
+      },
+      {
+        "cardID": "burgeoning_blue",
+        "zone": "Banish",
+        "player": 1,
+        "properties": {
+          "FaceDown": 0
+        }
+      },
+      {
+        "cardID": "autumns_touch_red",
+        "zone": "Banish",
+        "player": 1,
+        "properties": {
+          "FaceDown": 0
+        }
+      },
+      {
+        "cardID": "autumns_touch_yellow",
+        "zone": "Banish",
+        "player": 1,
+        "properties": {
+          "FaceDown": 0
+        }
+      },
+      {
+        "cardID": "autumns_touch_blue",
+        "zone": "Banish",
+        "player": 1,
+        "properties": {
+          "FaceDown": 0
+        }
+      },
+      {
+        "cardID": "weave_earth_red",
+        "zone": "Banish",
+        "player": 1,
+        "properties": {
+          "FaceDown": 0
+        }
+      },
+      {
+        "cardID": "weave_earth_blue",
+        "zone": "Banish",
+        "player": 1,
+        "properties": {
+          "FaceDown": 0
+        }
+      }
+    ],
+    "printed_text": "If there are 8 or more Earth cards in your banished zone, Verdance gets \"Whenever you gain {h} during your turn, you may deal 1 arcane damage to any opposing target.\"\n\n**Essence of Earth**",
+    "sources": [
+      "FaBSim/GeneratedCode/cardArrayCache.json#verdance_thorn_of_the_rose",
+      "FaBSim/GeneratedCode/GeneratedMacroCode.php",
+      "FaBSim/Custom/GameLogic.php",
+      "FaBSim/Custom/ROSCards.php",
+      "FaBSim/Custom/ROSRuntime.php",
+      "FaBSim/Custom/CRUCards.php",
+      "https://rules.fabtcg.com/en/trp/05-gameplay-logistics/"
+    ],
+    "diagnostic_only": false,
+    "qualification_permitted": true,
+    "coverage_category": "POSITIVE_ADULT_EIGHT_EARTH_THRESHOLD_NATIVE_HEAL_SEPARATE_HERO_TRIGGER_AND_REAL_ARCANE",
+    "four_player_or_target_binding_credit": false,
+    "prior_banish_provenance_credit": false,
+    "below_eight_boundary_credit": false,
+    "whole_card_credit": false,
+    "secondary_identity_credit": false,
+    "adult_mode_reason": "AdultVerdance40/Dori40CClegal; two manual live seats. Printedadultthreshold8 differs fromyoung4. DamageinstanceusesTRP5.14onlyopposingHero2default; noUPF/earlybindingclaim.",
+    "steps": [
+      {
+        "kind": "checks",
+        "checkpoint": "two_live_natural_adult_heroes_and_real_physical_assets",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "SeatOrder",
+            "value": 12
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "LiveSeats",
+            "value": 12
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "TurnPlayer",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "TurnNumber",
+            "value": 2
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "PriorityPlayer",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "RandomCounter",
+            "value": 0
+          },
+          {
+            "kind": "state",
+            "key": "window",
+            "value": "ACTION"
+          },
+          {
+            "kind": "state",
+            "key": "gameMode",
+            "value": ""
+          },
+          {
+            "kind": "state",
+            "key": "passiveSeats",
+            "value": []
+          },
+          {
+            "kind": "state",
+            "key": "turnEffects",
+            "value": []
+          },
+          {
+            "kind": "state",
+            "key": "pendingPayment",
+            "value": null
+          },
+          {
+            "kind": "state",
+            "key": "resolvingReaction",
+            "value": null
+          },
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 0
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "1"
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "2"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Hero-0",
+            "property": "CardID",
+            "value": "verdance_thorn_of_the_rose"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Hero-0",
+            "property": "Status",
+            "value": "2"
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Health",
+            "value": 40
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 1
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Hand",
+            "value": 1
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Graveyard",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Deck",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Banish",
+            "value": 8
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Weapons",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Equipment",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Arena",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Arsenal",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Pitch",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Soul",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1CombatChain",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Temp",
+            "value": 0
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p2Hero-0",
+            "property": "CardID",
+            "value": "dorinthea_ironsong"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p2Hero-0",
+            "property": "Status",
+            "value": "2"
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 40
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2Hand",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2Graveyard",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2Deck",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2Banish",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2Weapons",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2Equipment",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2Arena",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2Arsenal",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2Pitch",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2Soul",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2CombatChain",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2Temp",
+            "value": 0
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Hand-0",
+            "property": "CardID",
+            "value": "sigil_of_solace_blue"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Hand-0",
+            "property": "UniqueID",
+            "value": "3"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Hand-0",
+            "property": "Owner",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Hand-0",
+            "property": "Controller",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Banish-0",
+            "property": "CardID",
+            "value": "burgeoning_red"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Banish-0",
+            "property": "UniqueID",
+            "value": "4"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Banish-0",
+            "property": "Owner",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Banish-0",
+            "property": "Controller",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Banish-1",
+            "property": "CardID",
+            "value": "burgeoning_yellow"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Banish-1",
+            "property": "UniqueID",
+            "value": "5"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Banish-1",
+            "property": "Owner",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Banish-1",
+            "property": "Controller",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Banish-2",
+            "property": "CardID",
+            "value": "burgeoning_blue"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Banish-2",
+            "property": "UniqueID",
+            "value": "6"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Banish-2",
+            "property": "Owner",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Banish-2",
+            "property": "Controller",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Banish-3",
+            "property": "CardID",
+            "value": "autumns_touch_red"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Banish-3",
+            "property": "UniqueID",
+            "value": "7"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Banish-3",
+            "property": "Owner",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Banish-3",
+            "property": "Controller",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Banish-4",
+            "property": "CardID",
+            "value": "autumns_touch_yellow"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Banish-4",
+            "property": "UniqueID",
+            "value": "8"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Banish-4",
+            "property": "Owner",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Banish-4",
+            "property": "Controller",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Banish-5",
+            "property": "CardID",
+            "value": "autumns_touch_blue"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Banish-5",
+            "property": "UniqueID",
+            "value": "9"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Banish-5",
+            "property": "Owner",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Banish-5",
+            "property": "Controller",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Banish-6",
+            "property": "CardID",
+            "value": "weave_earth_red"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Banish-6",
+            "property": "UniqueID",
+            "value": "10"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Banish-6",
+            "property": "Owner",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Banish-6",
+            "property": "Controller",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Banish-7",
+            "property": "CardID",
+            "value": "weave_earth_blue"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Banish-7",
+            "property": "UniqueID",
+            "value": "11"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Banish-7",
+            "property": "Owner",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Banish-7",
+            "property": "Controller",
+            "value": "1"
+          }
+        ]
+      },
+      {
+        "kind": "checks",
+        "checkpoint": "eight_real_earth_face_up_owners_no_seeded_heal_history",
+        "checks": [
+          {
+            "kind": "state",
+            "key": "cardsPlayedThisTurn",
+            "value": []
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Banish",
+            "value": 8
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Banish-0",
+            "property": "CardID",
+            "value": "burgeoning_red"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Banish-0",
+            "property": "UniqueID",
+            "value": "4"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Banish-0",
+            "property": "Owner",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Banish-0",
+            "property": "Controller",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Banish-0",
+            "property": "FaceDown",
+            "value": "0"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Banish-1",
+            "property": "CardID",
+            "value": "burgeoning_yellow"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Banish-1",
+            "property": "UniqueID",
+            "value": "5"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Banish-1",
+            "property": "Owner",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Banish-1",
+            "property": "Controller",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Banish-1",
+            "property": "FaceDown",
+            "value": "0"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Banish-2",
+            "property": "CardID",
+            "value": "burgeoning_blue"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Banish-2",
+            "property": "UniqueID",
+            "value": "6"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Banish-2",
+            "property": "Owner",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Banish-2",
+            "property": "Controller",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Banish-2",
+            "property": "FaceDown",
+            "value": "0"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Banish-3",
+            "property": "CardID",
+            "value": "autumns_touch_red"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Banish-3",
+            "property": "UniqueID",
+            "value": "7"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Banish-3",
+            "property": "Owner",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Banish-3",
+            "property": "Controller",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Banish-3",
+            "property": "FaceDown",
+            "value": "0"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Banish-4",
+            "property": "CardID",
+            "value": "autumns_touch_yellow"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Banish-4",
+            "property": "UniqueID",
+            "value": "8"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Banish-4",
+            "property": "Owner",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Banish-4",
+            "property": "Controller",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Banish-4",
+            "property": "FaceDown",
+            "value": "0"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Banish-5",
+            "property": "CardID",
+            "value": "autumns_touch_blue"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Banish-5",
+            "property": "UniqueID",
+            "value": "9"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Banish-5",
+            "property": "Owner",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Banish-5",
+            "property": "Controller",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Banish-5",
+            "property": "FaceDown",
+            "value": "0"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Banish-6",
+            "property": "CardID",
+            "value": "weave_earth_red"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Banish-6",
+            "property": "UniqueID",
+            "value": "10"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Banish-6",
+            "property": "Owner",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Banish-6",
+            "property": "Controller",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Banish-6",
+            "property": "FaceDown",
+            "value": "0"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Banish-7",
+            "property": "CardID",
+            "value": "weave_earth_blue"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Banish-7",
+            "property": "UniqueID",
+            "value": "11"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Banish-7",
+            "property": "Owner",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Banish-7",
+            "property": "Controller",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Banish-7",
+            "property": "FaceDown",
+            "value": "0"
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "UniqueIDCounter",
+            "value": 11
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "RandomCounter",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Arena",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2Arena",
+            "value": 0
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "1"
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "2"
+          }
+        ]
+      },
+      {
+        "kind": "click",
+        "player": 1,
+        "mzID": "p1Hand-0"
+      },
+      {
+        "kind": "checks",
+        "checkpoint": "native_instant_waits_both_responses_no_early_heal_or_hero_arcane",
+        "checks": [
+          {
+            "kind": "state",
+            "key": "window",
+            "value": "PRIORITY"
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "PriorityPlayer",
+            "value": 2
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "CardID",
+            "value": "sigil_of_solace_blue"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "UniqueID",
+            "value": "3"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "Owner",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "Controller",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "Kind",
+            "value": "INSTANT"
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Health",
+            "value": 40
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 40
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "UniqueIDCounter",
+            "value": 11
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "RandomCounter",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Arena",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2Arena",
+            "value": 0
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "1"
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "2"
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "PRIORITY",
+          "priority": 1
+        }
+      },
+      {
+        "kind": "checks",
+        "checkpoint": "first_response_no_early_life_or_hero_layer",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Health",
+            "value": 40
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 40
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "CardID",
+            "value": "sigil_of_solace_blue"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "UniqueID",
+            "value": "3"
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "UniqueIDCounter",
+            "value": 11
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "RandomCounter",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Arena",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2Arena",
+            "value": 0
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "1"
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "2"
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "PRIORITY",
+          "priority": 2,
+          "stackCount": 1
+        }
+      },
+      {
+        "kind": "checks",
+        "checkpoint": "actual_heal_then_separate_hero_layer_still_waits_opponent_no_early_arcane",
+        "checks": [
+          {
+            "kind": "state",
+            "key": "window",
+            "value": "PRIORITY"
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "PriorityPlayer",
+            "value": 2
+          },
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 1
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "CardID",
+            "value": "verdance_thorn_of_the_rose"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "UniqueID",
+            "value": "12"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "Kind",
+            "value": "ABILITY"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "Controller",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "SourceUniqueID",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Graveyard-0",
+            "property": "CardID",
+            "value": "sigil_of_solace_blue"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Graveyard-0",
+            "property": "UniqueID",
+            "value": "3"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Graveyard-0",
+            "property": "Owner",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Graveyard-0",
+            "property": "Controller",
+            "value": "1"
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Health",
+            "value": 41
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 40
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 1
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Hero-0",
+            "property": "Status",
+            "value": "2"
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Banish",
+            "value": 8
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Banish-0",
+            "property": "CardID",
+            "value": "burgeoning_red"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Banish-0",
+            "property": "UniqueID",
+            "value": "4"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Banish-0",
+            "property": "Owner",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Banish-0",
+            "property": "Controller",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Banish-0",
+            "property": "FaceDown",
+            "value": "0"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Banish-1",
+            "property": "CardID",
+            "value": "burgeoning_yellow"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Banish-1",
+            "property": "UniqueID",
+            "value": "5"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Banish-1",
+            "property": "Owner",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Banish-1",
+            "property": "Controller",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Banish-1",
+            "property": "FaceDown",
+            "value": "0"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Banish-2",
+            "property": "CardID",
+            "value": "burgeoning_blue"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Banish-2",
+            "property": "UniqueID",
+            "value": "6"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Banish-2",
+            "property": "Owner",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Banish-2",
+            "property": "Controller",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Banish-2",
+            "property": "FaceDown",
+            "value": "0"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Banish-3",
+            "property": "CardID",
+            "value": "autumns_touch_red"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Banish-3",
+            "property": "UniqueID",
+            "value": "7"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Banish-3",
+            "property": "Owner",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Banish-3",
+            "property": "Controller",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Banish-3",
+            "property": "FaceDown",
+            "value": "0"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Banish-4",
+            "property": "CardID",
+            "value": "autumns_touch_yellow"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Banish-4",
+            "property": "UniqueID",
+            "value": "8"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Banish-4",
+            "property": "Owner",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Banish-4",
+            "property": "Controller",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Banish-4",
+            "property": "FaceDown",
+            "value": "0"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Banish-5",
+            "property": "CardID",
+            "value": "autumns_touch_blue"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Banish-5",
+            "property": "UniqueID",
+            "value": "9"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Banish-5",
+            "property": "Owner",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Banish-5",
+            "property": "Controller",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Banish-5",
+            "property": "FaceDown",
+            "value": "0"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Banish-6",
+            "property": "CardID",
+            "value": "weave_earth_red"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Banish-6",
+            "property": "UniqueID",
+            "value": "10"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Banish-6",
+            "property": "Owner",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Banish-6",
+            "property": "Controller",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Banish-6",
+            "property": "FaceDown",
+            "value": "0"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Banish-7",
+            "property": "CardID",
+            "value": "weave_earth_blue"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Banish-7",
+            "property": "UniqueID",
+            "value": "11"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Banish-7",
+            "property": "Owner",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Banish-7",
+            "property": "Controller",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Banish-7",
+            "property": "FaceDown",
+            "value": "0"
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "UniqueIDCounter",
+            "value": 12
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "RandomCounter",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Arena",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2Arena",
+            "value": 0
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "1"
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "2"
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "decision": {
+            "player": 1,
+            "type": "MZMULTICHOOSE"
+          }
+        }
+      },
+      {
+        "kind": "checks",
+        "checkpoint": "hero_ability_holds_own_frame_and_optional_choice_before_damage",
+        "checks": [
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 1
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "CardID",
+            "value": "verdance_thorn_of_the_rose"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "UniqueID",
+            "value": "12"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "Kind",
+            "value": "ABILITY"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "Controller",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "SourceUniqueID",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Graveyard-0",
+            "property": "CardID",
+            "value": "sigil_of_solace_blue"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Graveyard-0",
+            "property": "UniqueID",
+            "value": "3"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Graveyard-0",
+            "property": "Owner",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Graveyard-0",
+            "property": "Controller",
+            "value": "1"
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Health",
+            "value": 41
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 40
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 1
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Hero-0",
+            "property": "Status",
+            "value": "2"
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Banish",
+            "value": 8
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Banish-0",
+            "property": "CardID",
+            "value": "burgeoning_red"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Banish-0",
+            "property": "UniqueID",
+            "value": "4"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Banish-0",
+            "property": "Owner",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Banish-0",
+            "property": "Controller",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Banish-0",
+            "property": "FaceDown",
+            "value": "0"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Banish-1",
+            "property": "CardID",
+            "value": "burgeoning_yellow"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Banish-1",
+            "property": "UniqueID",
+            "value": "5"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Banish-1",
+            "property": "Owner",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Banish-1",
+            "property": "Controller",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Banish-1",
+            "property": "FaceDown",
+            "value": "0"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Banish-2",
+            "property": "CardID",
+            "value": "burgeoning_blue"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Banish-2",
+            "property": "UniqueID",
+            "value": "6"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Banish-2",
+            "property": "Owner",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Banish-2",
+            "property": "Controller",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Banish-2",
+            "property": "FaceDown",
+            "value": "0"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Banish-3",
+            "property": "CardID",
+            "value": "autumns_touch_red"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Banish-3",
+            "property": "UniqueID",
+            "value": "7"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Banish-3",
+            "property": "Owner",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Banish-3",
+            "property": "Controller",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Banish-3",
+            "property": "FaceDown",
+            "value": "0"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Banish-4",
+            "property": "CardID",
+            "value": "autumns_touch_yellow"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Banish-4",
+            "property": "UniqueID",
+            "value": "8"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Banish-4",
+            "property": "Owner",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Banish-4",
+            "property": "Controller",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Banish-4",
+            "property": "FaceDown",
+            "value": "0"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Banish-5",
+            "property": "CardID",
+            "value": "autumns_touch_blue"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Banish-5",
+            "property": "UniqueID",
+            "value": "9"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Banish-5",
+            "property": "Owner",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Banish-5",
+            "property": "Controller",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Banish-5",
+            "property": "FaceDown",
+            "value": "0"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Banish-6",
+            "property": "CardID",
+            "value": "weave_earth_red"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Banish-6",
+            "property": "UniqueID",
+            "value": "10"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Banish-6",
+            "property": "Owner",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Banish-6",
+            "property": "Controller",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Banish-6",
+            "property": "FaceDown",
+            "value": "0"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Banish-7",
+            "property": "CardID",
+            "value": "weave_earth_blue"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Banish-7",
+            "property": "UniqueID",
+            "value": "11"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Banish-7",
+            "property": "Owner",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Banish-7",
+            "property": "Controller",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Banish-7",
+            "property": "FaceDown",
+            "value": "0"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1DecisionQueue-0",
+            "property": "Type",
+            "value": "MZMULTICHOOSE"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1DecisionQueue-0",
+            "property": "Param",
+            "value": "0|1|p2Hero-0"
+          }
+        ]
+      },
+      {
+        "kind": "answer",
+        "player": 1,
+        "type": "MZMULTICHOOSE",
+        "value": "p2Hero-0"
+      },
+      {
+        "kind": "checks",
+        "checkpoint": "actual_one_heal_and_one_hero_arcane_exact_physical_banish_and_source_fates_no_extra_reward",
+        "checks": [
+          {
+            "kind": "state",
+            "key": "window",
+            "value": "ACTION"
+          },
+          {
+            "kind": "state",
+            "key": "combatOpen",
+            "value": false
+          },
+          {
+            "kind": "state",
+            "key": "pendingPayment",
+            "value": null
+          },
+          {
+            "kind": "state",
+            "key": "resolvingReaction",
+            "value": null
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "PriorityPlayer",
+            "value": 1
+          },
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 0
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Graveyard-0",
+            "property": "CardID",
+            "value": "sigil_of_solace_blue"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Graveyard-0",
+            "property": "UniqueID",
+            "value": "3"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Graveyard-0",
+            "property": "Owner",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Graveyard-0",
+            "property": "Controller",
+            "value": "1"
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Banish",
+            "value": 8
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Banish-0",
+            "property": "CardID",
+            "value": "burgeoning_red"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Banish-0",
+            "property": "UniqueID",
+            "value": "4"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Banish-0",
+            "property": "Owner",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Banish-0",
+            "property": "Controller",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Banish-0",
+            "property": "FaceDown",
+            "value": "0"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Banish-1",
+            "property": "CardID",
+            "value": "burgeoning_yellow"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Banish-1",
+            "property": "UniqueID",
+            "value": "5"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Banish-1",
+            "property": "Owner",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Banish-1",
+            "property": "Controller",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Banish-1",
+            "property": "FaceDown",
+            "value": "0"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Banish-2",
+            "property": "CardID",
+            "value": "burgeoning_blue"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Banish-2",
+            "property": "UniqueID",
+            "value": "6"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Banish-2",
+            "property": "Owner",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Banish-2",
+            "property": "Controller",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Banish-2",
+            "property": "FaceDown",
+            "value": "0"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Banish-3",
+            "property": "CardID",
+            "value": "autumns_touch_red"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Banish-3",
+            "property": "UniqueID",
+            "value": "7"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Banish-3",
+            "property": "Owner",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Banish-3",
+            "property": "Controller",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Banish-3",
+            "property": "FaceDown",
+            "value": "0"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Banish-4",
+            "property": "CardID",
+            "value": "autumns_touch_yellow"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Banish-4",
+            "property": "UniqueID",
+            "value": "8"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Banish-4",
+            "property": "Owner",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Banish-4",
+            "property": "Controller",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Banish-4",
+            "property": "FaceDown",
+            "value": "0"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Banish-5",
+            "property": "CardID",
+            "value": "autumns_touch_blue"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Banish-5",
+            "property": "UniqueID",
+            "value": "9"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Banish-5",
+            "property": "Owner",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Banish-5",
+            "property": "Controller",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Banish-5",
+            "property": "FaceDown",
+            "value": "0"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Banish-6",
+            "property": "CardID",
+            "value": "weave_earth_red"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Banish-6",
+            "property": "UniqueID",
+            "value": "10"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Banish-6",
+            "property": "Owner",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Banish-6",
+            "property": "Controller",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Banish-6",
+            "property": "FaceDown",
+            "value": "0"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Banish-7",
+            "property": "CardID",
+            "value": "weave_earth_blue"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Banish-7",
+            "property": "UniqueID",
+            "value": "11"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Banish-7",
+            "property": "Owner",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Banish-7",
+            "property": "Controller",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Banish-7",
+            "property": "FaceDown",
+            "value": "0"
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "UniqueIDCounter",
+            "value": 12
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "RandomCounter",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Arena",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2Arena",
+            "value": 0
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "1"
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "2"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Hero-0",
+            "property": "Status",
+            "value": "2"
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Health",
+            "value": 41
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 1
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Hand",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Graveyard",
+            "value": 1
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Deck",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Banish",
+            "value": 8
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Weapons",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Equipment",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Arena",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Arsenal",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Pitch",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Soul",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1CombatChain",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Temp",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 39
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2Hand",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2Graveyard",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2Deck",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2Banish",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2Weapons",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2Equipment",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2Arena",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2Arsenal",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2Pitch",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2Soul",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2CombatChain",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2Temp",
+            "value": 0
+          }
+        ]
+      }
+    ],
+    "planned_actions": 5,
+    "oracle": "TWO_REAL_MANUAL_ADULTCC_VERDANCE40_DORI40. EightactualfaceupEarthBanishedcards4through11(priorlegallocalpositions, creationnotcredited), noeffects/healhistory. Printedadult8thresholdmet. RealSigilBlue3Instant0waitsbothmanualresponsesbeforeactualheal40to41/AP1preserved/3GY. HeroWHENearnedseparateABI12SourceHero1, freshresponsesbeforearcane. Control2executesoldSigilfinalpass1thennewHerofirstpass1toPriority2 (exact2nativepasses), explicitheldABI12/HP2still40. Opp2responseopensoptionalMZMulti0|1onlyHero2; soleopposingHero2defaultprecommittedunderTRP5.14, noformalbinding/UPFcredit. ChooseactualHero2onearcane\u2192HP39, ownHP41/readyHero/noAPcost, 3GY/eightEarthsameUIDFaceUp/UID12RNG0/allquiet. Positiveadultthreshold/actualheal/separatelayer/observable1arcane, notwrongownernegative. Below8/beyond8/hiddenEarth/priorbanishprovenance/targetbinding/pitches/secondary/fullcarduncredited."
+  }
+]

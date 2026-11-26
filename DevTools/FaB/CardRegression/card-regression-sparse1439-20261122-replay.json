@@ -1,0 +1,56 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-moray-le-fay-yellow-four-live-sparse1439-real-ally-lethal-damage-then-watery-grave-separate-layer-face-down",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-moray-le-fay-yellow-four-live-sparse1439-real-ally-lethal-damage-then-watery-grave-separate-layer-face-down",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1439-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1439-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "757a2e647e0d58f20e7713b0b4cc99229db877e24f1bb67898b4ebf6d7b44246",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "a22fc0baf57287bf214ffd9297884342441eece322db352c6f75e4c70bc0afdf",
+        "actions.json": "48367a48ead9eb90d6796b9e635756948bb416e17cd5e249f348bc4bc6028f44",
+        "assertions.json": "cccc076cb2379301ccf3eb5d37752ccc6ecffe3e80dce8170ae41b90afb60ecf",
+        "expected_final_gamestate.txt": "a910fe46b05a5ea6e993f00239fe9d4729637df0f02be86d2c47483fd297f28c",
+        "meta.json": "d490e87bfb46bd039d3c6df01e9b42beb4ff8c0ee24d61499c69a2f3582b40b9"
+      }
+    },
+    {
+      "slug": "card-scooba-salty-sea-dog-yellow-four-live-sparse1439-real-ally-lethal-damage-then-watery-grave-separate-layer-face-down",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-scooba-salty-sea-dog-yellow-four-live-sparse1439-real-ally-lethal-damage-then-watery-grave-separate-layer-face-down",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1439-local-20261122\\clean-replays\\01.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1439-local-20261122\\clean-replays\\01.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "181b13b0effa16d6a6645702ea20476c85c2e692fbb088b895d143c92aa73833",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "23487300af2798a04dbfeb8450f76dca6284daadf6720b603b1b17472b1f4cb3",
+        "actions.json": "48367a48ead9eb90d6796b9e635756948bb416e17cd5e249f348bc4bc6028f44",
+        "assertions.json": "05ae9607dc4436e84cdb46596a944023bc97b7a215b37182245d1f528246a013",
+        "expected_final_gamestate.txt": "2b77f1ff144dfa1805fa47163ccba5795f833f1bad94d540de0b3baa78cc1baa",
+        "meta.json": "86cceb6bf9d366a4f5a8d9cf5a22b8ed39a385d3b8708c54a32bdc3620e7a65b"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

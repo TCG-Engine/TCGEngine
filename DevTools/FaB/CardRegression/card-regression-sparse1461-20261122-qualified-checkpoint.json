@@ -1,0 +1,79 @@
+{
+  "status": "HISTORICAL_REGISTRATION_CHECKPOINT_SEMANTICALLY_SUPERSEDED",
+  "utc": "2026-11-25T02:03:37.363550+00:00",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1461-20261122.json",
+  "source_spec_sha256": "e39070f8bef0bd2feef8353375849adb0dcb82f22f92c6abfba94a68c05020e7",
+  "new_scenarios": 1,
+  "new_groups": 1,
+  "new_primary_ids": 1,
+  "actions": 41,
+  "native_assertions": 602,
+  "manual_passes": 33,
+  "totals": {
+    "saved_registered_scenarios": 5492,
+    "duels": 3135,
+    "four_live": 2357,
+    "recorded_primary_ids": 2640,
+    "identity_denominator": 5196,
+    "recorded_groups": 2514,
+    "group_denominator": 3324,
+    "four_live_groups": 2346,
+    "phase_qualified_scenarios_at_actual_contexts": 2129,
+    "phase_qualified_unique_groups": 2119,
+    "creation_replay_passes": 2871,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 1290,
+  "scenarios": [
+    {
+      "card_id": "snap_shot_red",
+      "group_id": "pitch-cycle:snap_shot",
+      "scenario_id": "card-snap-shot-red-four-live-sparse1461-declined-fusion-no-instant-bow-permission-with-real-spare-action",
+      "effect_branches": [
+        "declined_real_optional_Lightning_Fusion_does_not_make_own_ready_Bow_Instant_despite_spare_AP_assets_and_loadable_Arrow"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-snap-shot-red-four-live-sparse1461-declined-fusion-no-instant-bow-permission-with-real-spare-action",
+      "source_spec": "card-regression-sparse1461-20261122.json",
+      "source_spec_sha256": "e39070f8bef0bd2feef8353375849adb0dcb82f22f92c6abfba94a68c05020e7",
+      "review_evidence": "review-evidence/sparse1461-20261122-qualified-saved.json",
+      "review_evidence_sha256": "8ba9bad1d3c6f95cc257d131f8a07adf4a5e8873080b7ca96b0f2ef1c1288c20",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1461-20261122-replay.json",
+          "sha256": "34841d904d1d8f1c17bed3a6b736c7e50467db3fd9da8a63b9b47e3a94169325",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": [],
+  "historical_registration_checkpoint": true,
+  "historical_status_at_recording": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "semantic_reconciliation": {
+    "evidence": "review-evidence/conditional-trigger-qualification-withdrawals-20261125.json",
+    "historical_before_after_counts_unchanged": true,
+    "withdrawn_scenario_ids": [
+      "card-snap-shot-red-four-live-sparse1461-declined-fusion-no-instant-bow-permission-with-real-spare-action"
+    ],
+    "current_global_counts": "coverage-additions-after218.json",
+    "new_replay_run": false
+  }
+}

@@ -1,0 +1,50 @@
+{
+  "status": "FEATHERFOOT098_ORIGINAL36_2928_SINGLE_CLEAN_REPLAY_PASS",
+  "reviewer": "Root independent of b820 patch/checker and original420 recipe author",
+  "reviewer_independent": true,
+  "approved": true,
+  "semantically_approved": true,
+  "runtime_sha256": "59514a44fc3a9d500c98d91897374f7c5672f04e623ee650c921fbc37f52c193",
+  "input_sha256": "c84e308b9f72b95c733a728d73b7b797b08ad7d568a3b6aa298f4369ef682e2a",
+  "source_spec": "card-regression-repair-featherfoot098-known-plus-one-trigger.json",
+  "fixtures": [
+    {
+      "slug": "card-talisman-of-featherfoot-yellow-four-live-correct-probe-real-plus-one-reaction-earns-destroy-and-go-again-layer",
+      "card_id": "talisman_of_featherfoot_yellow",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "fdfdc21bab265f72a43f8637076ae38fe3b3a61b942a0d67202ffdc9a8245502",
+        "actions.json": "3a5f8b2f6f7a9ea4bdcdffc66d6bdfbc84adb1a2247c84f3e4ed01387f486a8a",
+        "assertions.json": "02d070b47c91b9ed57b800d7bd7a3607e3e6e6f51e200b1cca21ea49129b58aa",
+        "expected_final_gamestate.txt": "a3f39e5e00c1a7fd0cb71cb1509521245c5a00a58ff0970f9910bf15cca79c0c",
+        "meta.json": "db8193eb4f11f447065fa884d6c81880fe449320ad89badbac51290f29ad7e53"
+      },
+      "fixture_sha256": "b69f9edf4a5ac3e9e509e54c660a059d7b103e651b32d5a997d739b14425b3d6",
+      "actions": 36,
+      "native_assertions": 2928,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 33,
+      "recorded_runtime_sha256": "59514a44fc3a9d500c98d91897374f7c5672f04e623ee650c921fbc37f52c193",
+      "runtime_sha256": "59514a44fc3a9d500c98d91897374f7c5672f04e623ee650c921fbc37f52c193",
+      "source_spec": "card-regression-repair-featherfoot098-known-plus-one-trigger.json",
+      "input_sha256": "c84e308b9f72b95c733a728d73b7b797b08ad7d568a3b6aa298f4369ef682e2a"
+    }
+  ],
+  "replay": {
+    "path": "card-regression-replay-nov17-featherfoot098-replay.json",
+    "sha256": "9576127304afbf0e426802253a4c78df1a2a3af8bc910315607fded014309f88",
+    "passed": true
+  },
+  "source_review_sha256": "28e1cb04276612cb4373073639dcd401dabb04138ba1d5ed2a0a24e64eceb549",
+  "components": 25,
+  "component_receipt_sha256": "092d74ba16b55e4980a11f716139e1cd140ad73537b9cd3f2873ba2ac8b04de8",
+  "basis": "All original36actions/2928queries/setup unchanged. Real Wounding6 starts4power/noGA; actual Lunging7 declaration/payment/accepted target gives exactly+1. Item5 remains Arena and same attack lacksGA while earned Talisman source5 layer awaits freshfourlive responses. Only resolution destroys sameItem5 and grants sameattackGA; real5damage/HP4=15 and earned AP1 refund follow. Same5/6/7 ownedGY, R0/full Stack/DQ/await/combat cleanup and reset attack-token absence verified. Tag pipeline unchanged; explicit known+1 prefixes use actual reaction combat step. Root-required R2 scopes actual destruction to captured effect controller and restores prior context. R1 was superseded/unexecuted; final R2 checks ran once.",
+  "official_sources": [
+    "https://rules.fabtcg.com/en/cr/06-effects/"
+  ],
+  "limits": [
+    "Only original real Lunging explicit+1 path. Other power-application routes, static modifiers, replacement/Snag interactions and universal exactly-one detection remain source-only/unqualified. No untested power semantics are blessed.",
+    "25 actual-function controls cover multiple Items/repeated gains/token reuse, sameUID new-entry protection, Item departure/control/blanking and independent GA with modeled primitives. These are not Native alternate branch or true destruction-hook certification.",
+    "Three native custom files only; no GL edit, generic094 continuation, Core/generated/canonical/schema/service/remote authoring change, full suite, historical corpus replay or new breadth."
+  ]
+}

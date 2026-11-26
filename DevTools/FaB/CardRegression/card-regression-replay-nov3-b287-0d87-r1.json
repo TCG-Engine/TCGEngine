@@ -1,0 +1,27 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch287.json",
+  "runtime_sha256": "0d877de49c131f29c152706e14bba3368630df61c59ef475c87a84f20b6e1a66",
+  "returncode": 0,
+  "completed_utc": "2026-11-03T04:41:17.975840+00:00",
+  "fixtures": [
+    {
+      "slug": "card-bunker-beard-four-live-sparse-real-destroy-defense-reaction-adds-owned-arsenal-action-block-three",
+      "fixture_sha256": "ab7cb97f15bb41673a8f80fef2297b7e7a5ff220cd532e9cb65667b8245edf6e",
+      "passed": true,
+      "result": "[PASS] bunker_beard / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-bunker-beard-four-live-sparse-real-destroy-defense-reaction-adds-owned-arsenal-action-block-three",
+      "returncode": 0,
+      "stdout": "[PASS] bunker_beard / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

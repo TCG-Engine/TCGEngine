@@ -1,0 +1,7 @@
+{
+    "name": "Amulet of Oblation / four-live activation history restriction",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-23T01:19:56+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "**Go again**\n\n**Instant** - Destroy this: Until end of turn, target attack action card gets \"If this would be put into a graveyard, instead put it on the bottom of its owner's deck.\" Activate this only if a card has entered a graveyard this turn. Named history restriction only. Legalnatural20Dori/actualownArena5ready/R0/0destroycost available. LegitimateinitialownedGGY7doesnotmeanenteredGGYthisturn; initialturnEffects[] andnoGraveyardmovementbeforeattempt. ActualWounding6isalreadyATTACKroleCC/own/eligiblepositivecombat target atpriority1, so missingattackcannotmaskguard. Arena5clickrejectswithAP0/CC6/GGY7retained/nochooser/Stack0. ActualAA6thencompletesfourmanualcombatdeals4/AP0/ownedGGYindex1, old7retainedindex0, Deck0 notbottom. Conditionbecomestrueonlyafter6entersGGY, notattemptedagain. No positive discard/replace/GGA/target-timing/hero/support/sibling/fullcardcredit. No author-onlydiagnostic kinds. Sources: FaBSim/GeneratedCode/cardArrayCache.json#amulet_of_oblation_blue"
+}

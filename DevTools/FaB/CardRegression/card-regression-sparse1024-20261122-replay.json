@@ -1,0 +1,79 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-twist-and-turn-red-four-live-sparse1024-actual-dagger-plus-four-full-block-no-extra-attack",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-twist-and-turn-red-four-live-sparse1024-actual-dagger-plus-four-full-block-no-extra-attack",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1024-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1024-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "b6c685814b045494384a0c0c7c8c72d97820e4df1f30c5eb6af3721a2bec109f",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "01c58c6801545d13682dbdeac8adcd6e3b7e9d88b9bb274debdad08978d0c0da",
+        "actions.json": "dd790a33bd5a3648af3b6d7becaa3a22f1d19a78a1dd1aaba0d430cf08cfddce",
+        "assertions.json": "d66aea050d349b75fa9458b4ef888f600f99a36d8196b884a5424ebacee446d6",
+        "expected_final_gamestate.txt": "7daed3740e34df80afff67fd3e9477a4bbd65491f5d01f9af27dc71d1e4802dc",
+        "meta.json": "35f2f95cf0082d179e4441d1d74091a4ac2e60a6b391a94ed2a1d47b633f80e0"
+      }
+    },
+    {
+      "slug": "card-mercurial-skies-red-four-live-sparse1024-matching-aa-gains-go-again-and-quickstrike-full-block",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-mercurial-skies-red-four-live-sparse1024-matching-aa-gains-go-again-and-quickstrike-full-block",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1024-local-20261122\\clean-replays\\01.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1024-local-20261122\\clean-replays\\01.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "afdc1c1e7f2e35f8747a3c4a796ceea00f6d9337d109e592c9aeb10396bbefc9",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "3dc33bbf124f8049123139b4a7f4e8358d0ece2730c457e24b91c34a71ea650f",
+        "actions.json": "db6de1e5d161a06aa6f777f51cf01fdf0b2c3f93f797b1ff872183ab152427b4",
+        "assertions.json": "5cbcaa9d1238c23580e2cab6655830e7bae4311fab1684442f95bf1f4fb66228",
+        "expected_final_gamestate.txt": "eb11f903e9167d4fa389159b5a97a391eb6dc8ce555fc939cd643ef08c5c3d5a",
+        "meta.json": "e3857829cc3646c7b47f7bfd674fc9efb266f4a7410b2d9af74c3ccba2920ef1"
+      }
+    },
+    {
+      "slug": "card-step-through-realms-red-four-live-sparse1024-actual-shadow-plus-four-two-cost-then-one-cost-full-block",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-step-through-realms-red-four-live-sparse1024-actual-shadow-plus-four-two-cost-then-one-cost-full-block",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1024-local-20261122\\clean-replays\\02.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1024-local-20261122\\clean-replays\\02.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "e37d26ab9530a1901640ba6095980c40653f822ba5cc2f817a8434683d0d4deb",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "b23e1cd09c6a5c194a9023ddbf20b62f1e79c33adf95484d525f9d6abe2a8378",
+        "actions.json": "ff5b5e1b9430f781eafc7ed3e67336353d1cb8bc51b4b5a911b1c6c7493603e8",
+        "assertions.json": "18dce0c746d13842f048dfb0782134855aadb0b6d143b6a45f720d8dd6cafa54",
+        "expected_final_gamestate.txt": "b7c69ebd4e67a273318c0879bd6f9c813e21c7a12b50818d0490a5f947a54dcc",
+        "meta.json": "e009e7adeca576533c3935eae8d14bd2056911cc44199303a8e64852972daa4e"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

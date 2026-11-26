@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-big-game-trophy-shot-yellow-four-live-sparse1228-real-draw-discard-queued-marlynn-trigger-and-eight-damage-arrow",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-big-game-trophy-shot-yellow-four-live-sparse1228-real-draw-discard-queued-marlynn-trigger-and-eight-damage-arrow",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1228-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1228-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "169b7a545219199cded5114374e5436aa7a791446d6f78fea15bf69cdfa14a59",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "2a91ed4083059add31b62039bdfcc56c348fafd7cda0186a0357d4b417162e50",
+        "actions.json": "0c7a656282e3e992d027bc2de97bc33e49c0f348b5c239bc16a1c2a2e771805f",
+        "assertions.json": "f75f3eb5773ce291a42d9b3a89809e3b8121e2f02523ef99572d926653b7b642",
+        "expected_final_gamestate.txt": "c1d1874b6984fb51d02b0ffdadfb63aeffc354d45954dd60a86c1ad5b3fbe3d5",
+        "meta.json": "3416bc17f51ed3252822e43594e3488fa92f2a92c67429e5d09f866211d9fb56"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

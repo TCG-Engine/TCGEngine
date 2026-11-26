@@ -1,0 +1,7 @@
+{
+    "name": "Succumb to Temptation / four-live actual Generic hit",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-23T04:05:13+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "If you've dealt arcane damage this turn, you may play this as though it were an instant.\n\nThe next time a Runeblade attack action card you control hits a hero this turn, look at their hand and choose a card. They discard it.\n\n**Go again** LegalChane20Runeblade, normalownActionphase/noearlierArcane, source5Action0/ownGA afterfourmanualpasses. ActualGenericWounding6AA0playedHand thenactuallyhitsadjacentDori4for4/HP16 withnodefenders. ControlledbyRunebladeHero doesnotchangeGenericAAcardclass; typedRunebladeAAHITeventnotearned, so noTEMPTATIONlook/discard orchoice despite3realeligibleHandcards8/9/10. Allfourmanualsource+combat/damage/close, AP0/R0, 5then6ownedGGYafterold11, Blue7Hand/Deck12/opponentHand3retained/queuesempty. No positiveRunebladeHit/discard/Instantpermission/hero/support/sibling/fullcardcredit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#succumb_to_temptation_yellow"
+}

@@ -1,0 +1,246 @@
+{
+  "status": "FOCUSED_REPAIR_BATCH_QUALIFIED_REGISTERED",
+  "utc": "2026-11-20T19:01:34.242692+00:00",
+  "runtime_sha256": "5cae26a34b6c22b5f197534fef70c1e165d65b1f14e0dd96326493f3ef8dbb32",
+  "source_spec": "card-regression-remaining17-20261120.json",
+  "source_spec_sha256": "3534dec23ae5e057ed9a58b11e38cfe6d4713ca11e3398cdd896ee1ac0d72711",
+  "new_scenarios": 7,
+  "new_groups": 6,
+  "new_primary_ids": 6,
+  "actions": 301,
+  "native_assertions": 27534,
+  "manual_passes": 269,
+  "totals": {
+    "saved_registered_scenarios": 4188,
+    "duels": 3074,
+    "four_live": 1114,
+    "recorded_primary_ids": 1339,
+    "identity_denominator": 5196,
+    "recorded_groups": 1213,
+    "group_denominator": 3324,
+    "four_live_groups": 1105,
+    "phase_qualified_scenarios_at_actual_contexts": 825,
+    "phase_qualified_unique_groups": 818,
+    "creation_replay_passes": 1566,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 7,
+  "scenarios": [
+    {
+      "card_id": "powder_keg_blue",
+      "group_id": "identity:powder_keg_blue",
+      "scenario_id": "repair-powder195-four-live-earned-gun-hit-retained-choice-destroys-only-defending-equipment",
+      "effect_branches": [
+        "actualGun3BluePayment-physicalDEF1-actual1hit-earnedfour-positiveOptionalSelfAndEquipmentDestroy"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/repair-powder195-four-live-earned-gun-hit-retained-choice-destroys-only-defending-equipment",
+      "source_spec": "card-regression-remaining17-20261120.json",
+      "source_spec_sha256": "3534dec23ae5e057ed9a58b11e38cfe6d4713ca11e3398cdd896ee1ac0d72711",
+      "review_evidence": "review-evidence/remaining17-5cae-qualified-saved.json",
+      "review_evidence_sha256": "432917d1a20e276414ca6c33f19b605c66c6ae2410f03b18dbf2d21ed6ac3b0d",
+      "recorded_runtime_sha256": "8062a12f7594e1b95dafb811691e6487703cdba4ce9f3eae24a93e52538bb8a9",
+      "qualification_runtime_sha256": "5cae26a34b6c22b5f197534fef70c1e165d65b1f14e0dd96326493f3ef8dbb32",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-replay-remaining17-5cae.json",
+          "sha256": "75c7bb42ca762cb38d3678dcb2a52e1680f0187ae62b11d5a51ec903c520de61",
+          "runtime_sha256": "5cae26a34b6c22b5f197534fef70c1e165d65b1f14e0dd96326493f3ef8dbb32",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "drowning_dire_red",
+      "group_id": "pitch-cycle:drowning_dire",
+      "scenario_id": "card-drowning-dire-red-four-live-original-correct-aura-dominate-hit-layer-and-optional-naa-bottom",
+      "effect_branches": [
+        "drowning-dire-red-four-live-original-correct-aura-dominate-hit-layer-and-optional-naa-bottom"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-drowning-dire-red-four-live-original-correct-aura-dominate-hit-layer-and-optional-naa-bottom",
+      "source_spec": "card-regression-remaining17-20261120.json",
+      "source_spec_sha256": "3534dec23ae5e057ed9a58b11e38cfe6d4713ca11e3398cdd896ee1ac0d72711",
+      "review_evidence": "review-evidence/remaining17-5cae-qualified-saved.json",
+      "review_evidence_sha256": "432917d1a20e276414ca6c33f19b605c66c6ae2410f03b18dbf2d21ed6ac3b0d",
+      "recorded_runtime_sha256": "ad1c704236d97cb28a23fa923000d7e151aa73fb48696fc1b6ded1c233bf1b59",
+      "qualification_runtime_sha256": "5cae26a34b6c22b5f197534fef70c1e165d65b1f14e0dd96326493f3ef8dbb32",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-replay-remaining17-5cae.json",
+          "sha256": "75c7bb42ca762cb38d3678dcb2a52e1680f0187ae62b11d5a51ec903c520de61",
+          "runtime_sha256": "5cae26a34b6c22b5f197534fef70c1e165d65b1f14e0dd96326493f3ef8dbb32",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "head_leads_the_tail_red",
+      "group_id": "identity:head_leads_the_tail_red",
+      "scenario_id": "card-head-leads-the-tail-red-four-live-correct-attack-trigger-name-earns-real-same-chain-head-jab-power",
+      "effect_branches": [
+        "head-leads-the-tail-red-four-live-correct-attack-trigger-name-earns-real-same-chain-head-jab-power"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-head-leads-the-tail-red-four-live-correct-attack-trigger-name-earns-real-same-chain-head-jab-power",
+      "source_spec": "card-regression-remaining17-20261120.json",
+      "source_spec_sha256": "3534dec23ae5e057ed9a58b11e38cfe6d4713ca11e3398cdd896ee1ac0d72711",
+      "review_evidence": "review-evidence/remaining17-5cae-qualified-saved.json",
+      "review_evidence_sha256": "432917d1a20e276414ca6c33f19b605c66c6ae2410f03b18dbf2d21ed6ac3b0d",
+      "recorded_runtime_sha256": "ad1c704236d97cb28a23fa923000d7e151aa73fb48696fc1b6ded1c233bf1b59",
+      "qualification_runtime_sha256": "5cae26a34b6c22b5f197534fef70c1e165d65b1f14e0dd96326493f3ef8dbb32",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-replay-remaining17-5cae.json",
+          "sha256": "75c7bb42ca762cb38d3678dcb2a52e1680f0187ae62b11d5a51ec903c520de61",
+          "runtime_sha256": "5cae26a34b6c22b5f197534fef70c1e165d65b1f14e0dd96326493f3ef8dbb32",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "burn_them_all_red",
+      "group_id": "identity:burn_them_all_red",
+      "scenario_id": "card-burn-them-all-red-four-live-real-dragon-attack-trigger-before-one-arcane-each-opponent-correct-probe",
+      "effect_branches": [
+        "burn-them-all-red-four-live-real-dragon-attack-trigger-before-one-arcane-each-opponent-correct-probe"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-burn-them-all-red-four-live-real-dragon-attack-trigger-before-one-arcane-each-opponent-correct-probe",
+      "source_spec": "card-regression-remaining17-20261120.json",
+      "source_spec_sha256": "3534dec23ae5e057ed9a58b11e38cfe6d4713ca11e3398cdd896ee1ac0d72711",
+      "review_evidence": "review-evidence/remaining17-5cae-qualified-saved.json",
+      "review_evidence_sha256": "432917d1a20e276414ca6c33f19b605c66c6ae2410f03b18dbf2d21ed6ac3b0d",
+      "recorded_runtime_sha256": "6617913063f142e9d2e0076f7896e15d4c399f9f0150adbf17d239ab60588321",
+      "qualification_runtime_sha256": "5cae26a34b6c22b5f197534fef70c1e165d65b1f14e0dd96326493f3ef8dbb32",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-replay-remaining17-5cae.json",
+          "sha256": "75c7bb42ca762cb38d3678dcb2a52e1680f0187ae62b11d5a51ec903c520de61",
+          "runtime_sha256": "5cae26a34b6c22b5f197534fef70c1e165d65b1f14e0dd96326493f3ef8dbb32",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "burn_them_all_red",
+      "group_id": "identity:burn_them_all_red",
+      "scenario_id": "repair-burn125-four-live-captured-dragon-source-specific-prevention",
+      "effect_branches": [
+        "Existing125 repair source attribution: Aura5 earns trigger; physicalDragon6 deals damage; source6-specific prevention protects onlyP2, withP3/4 taking1. All four manual responses and original cleanup retained."
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/repair-burn125-four-live-captured-dragon-source-specific-prevention",
+      "source_spec": "card-regression-remaining17-20261120.json",
+      "source_spec_sha256": "3534dec23ae5e057ed9a58b11e38cfe6d4713ca11e3398cdd896ee1ac0d72711",
+      "review_evidence": "review-evidence/remaining17-5cae-qualified-saved.json",
+      "review_evidence_sha256": "432917d1a20e276414ca6c33f19b605c66c6ae2410f03b18dbf2d21ed6ac3b0d",
+      "recorded_runtime_sha256": "6617913063f142e9d2e0076f7896e15d4c399f9f0150adbf17d239ab60588321",
+      "qualification_runtime_sha256": "5cae26a34b6c22b5f197534fef70c1e165d65b1f14e0dd96326493f3ef8dbb32",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-replay-remaining17-5cae.json",
+          "sha256": "75c7bb42ca762cb38d3678dcb2a52e1680f0187ae62b11d5a51ec903c520de61",
+          "runtime_sha256": "5cae26a34b6c22b5f197534fef70c1e165d65b1f14e0dd96326493f3ef8dbb32",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS",
+      "coverage_kind": "EXISTING_GROUP_FOCUSED_REPAIR_WITNESS",
+      "new_group_credit": false,
+      "new_primary_id_credit": false
+    },
+    {
+      "card_id": "refraction_bolters",
+      "group_id": "identity:refraction_bolters",
+      "scenario_id": "repair-refraction101-four-live-owned-hit-listener-destroy-go-again-real-ap-consumer",
+      "effect_branches": [
+        "refraction-bolters-four-live-original-correct-weapon-hit-layer-destroy-go-again-and-real-ap-consumer"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/repair-refraction101-four-live-owned-hit-listener-destroy-go-again-real-ap-consumer",
+      "source_spec": "card-regression-remaining17-20261120.json",
+      "source_spec_sha256": "3534dec23ae5e057ed9a58b11e38cfe6d4713ca11e3398cdd896ee1ac0d72711",
+      "review_evidence": "review-evidence/remaining17-5cae-qualified-saved.json",
+      "review_evidence_sha256": "432917d1a20e276414ca6c33f19b605c66c6ae2410f03b18dbf2d21ed6ac3b0d",
+      "recorded_runtime_sha256": "6b229f608c6db3c0a1fadbad20ba417a4e4f9984fdef5bdc28ed6704c4df6369",
+      "qualification_runtime_sha256": "5cae26a34b6c22b5f197534fef70c1e165d65b1f14e0dd96326493f3ef8dbb32",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-replay-remaining17-5cae.json",
+          "sha256": "75c7bb42ca762cb38d3678dcb2a52e1680f0187ae62b11d5a51ec903c520de61",
+          "runtime_sha256": "5cae26a34b6c22b5f197534fef70c1e165d65b1f14e0dd96326493f3ef8dbb32",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "mark_of_neverest_blue",
+      "group_id": "identity:mark_of_neverest_blue",
+      "scenario_id": "repair-mark200-four-live-bound-zombie-death-malice-and-owned-mark-two-corpses",
+      "effect_branches": [
+        "realAllyLethal-MaliceAndGrantedMark-earnedLayers-publicGYCorpse0-positiveSameRedTurnDown-finalTwoCorpse"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/repair-mark200-four-live-bound-zombie-death-malice-and-owned-mark-two-corpses",
+      "source_spec": "card-regression-remaining17-20261120.json",
+      "source_spec_sha256": "3534dec23ae5e057ed9a58b11e38cfe6d4713ca11e3398cdd896ee1ac0d72711",
+      "review_evidence": "review-evidence/remaining17-5cae-qualified-saved.json",
+      "review_evidence_sha256": "432917d1a20e276414ca6c33f19b605c66c6ae2410f03b18dbf2d21ed6ac3b0d",
+      "recorded_runtime_sha256": "5cae26a34b6c22b5f197534fef70c1e165d65b1f14e0dd96326493f3ef8dbb32",
+      "qualification_runtime_sha256": "5cae26a34b6c22b5f197534fef70c1e165d65b1f14e0dd96326493f3ef8dbb32",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-replay-remaining17-5cae.json",
+          "sha256": "75c7bb42ca762cb38d3678dcb2a52e1680f0187ae62b11d5a51ec903c520de61",
+          "runtime_sha256": "5cae26a34b6c22b5f197534fef70c1e165d65b1f14e0dd96326493f3ef8dbb32",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "existing_group_witnesses": 1,
+  "source_scenarios_not_in_this_qualification": []
+}

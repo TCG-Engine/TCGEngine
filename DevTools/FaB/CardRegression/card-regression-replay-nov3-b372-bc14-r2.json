@@ -1,0 +1,39 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch372.json",
+  "runtime_sha256": "bc14dcabff3f9b4b1592a0afc364de72de1c9bd326e0204056369b1c1ff9574b",
+  "returncode": 0,
+  "completed_utc": "2026-11-03T21:14:17.761112+00:00",
+  "fixtures": [
+    {
+      "slug": "card-trench-of-sunken-treasure-four-live-sparse-real-facedown-arsenal-bottom-cost-earns-resource-funding-paid-attack",
+      "fixture_sha256": "a1d5da64358abf592817172db285f4dbde6ef3c4019fff3b54785ec7732074f1",
+      "passed": true,
+      "result": "[PASS] trench_of_sunken_treasure / four live distinctive effect"
+    },
+    {
+      "slug": "card-dead-eye-yellow-four-live-sparse-real-paid-next-arrow-plus-three-with-no-aim-full-block",
+      "fixture_sha256": "020409fe4c5e8db30c70a047827874e762cf42de7c5adaa5f9ba9a58ae887c06",
+      "passed": true,
+      "result": "[PASS] dead_eye_yellow / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-trench-of-sunken-treasure-four-live-sparse-real-facedown-arsenal-bottom-cost-earns-resource-funding-paid-attack",
+      "returncode": 0,
+      "stdout": "[PASS] trench_of_sunken_treasure / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-dead-eye-yellow-four-live-sparse-real-paid-next-arrow-plus-three-with-no-aim-full-block",
+      "returncode": 0,
+      "stdout": "[PASS] dead_eye_yellow / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 2,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

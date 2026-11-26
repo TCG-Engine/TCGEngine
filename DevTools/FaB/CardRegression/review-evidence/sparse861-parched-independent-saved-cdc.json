@@ -1,0 +1,123 @@
+{
+  "status": "SAVED_APPROVED_INDEPENDENT_PARCHED_GLOBAL_OPPONENT_REAL_POTION_HEAL_PREVENTION",
+  "phase": "SAVED",
+  "batch": 861,
+  "reviewer": "/root/ebbing_recovery_review",
+  "reviewer_independent": true,
+  "approved": true,
+  "semantically_approved": true,
+  "source_spec": "card-regression-batch861-parched-global-opponent-potion-positive.json",
+  "source": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch861-parched-global-opponent-real-healing-potion-positive-author\\parched-global-opponent-real-healing-potion-positive.json",
+    "sha256": "3b52b362b827953e52690c762e5e85662df3e07b8e5fb9f8b62d56d7c602befe"
+  },
+  "input_sha256": "3b52b362b827953e52690c762e5e85662df3e07b8e5fb9f8b62d56d7c602befe",
+  "manifest": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch861-parched-global-opponent-real-healing-potion-positive-author\\manifest.json",
+    "sha256": "496dbd222dfb3b0fcde2f5458c63700e1abb50a47e4e8c0396db8d9fc4eb0cbd"
+  },
+  "manifest_sha256": "496dbd222dfb3b0fcde2f5458c63700e1abb50a47e4e8c0396db8d9fc4eb0cbd",
+  "runtime_sha256": "cdc081ff4c87ff2f9338b1d69040d0dc98d7600ba33976384336534ea3f92d22",
+  "recorded_runtime_sha256": "cdc081ff4c87ff2f9338b1d69040d0dc98d7600ba33976384336534ea3f92d22",
+  "independent_positive_Source": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch861-parched-independent-normal-positive-source-review.json",
+    "sha256": "45fe1055f3e12d68e5108b3e6a50784f3a5792d06a84daf84c894d49f25ccde5"
+  },
+  "root_native_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-b861-parched-normal-native-save-cdc\\receipt.json",
+    "sha256": "eb81231b8b45b55c447de5649a334a9195783b3c1dac795a9871b4bfc5ee2277"
+  },
+  "actual_result": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch861-parched-global-opponent-potion-positive.recording-results.json",
+    "sha256": "734da524ee7581b6219d91fa25f4d46d9596635eab2c09d1ec8921900c98ec4a"
+  },
+  "actual_immutable_archive": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch861-parched-global-opponent-potion-positive-20261116T103726Z-6afadce693019.json",
+    "sha256": "e4a16a2b34934d24e5f61e3be266796117bc4a55331ade08e6dabb783a839fc4"
+  },
+  "fixtures": [
+    {
+      "card_id": "parched_terrain_red",
+      "slug": "card-parched-terrain-red-four-live-global-opponent-real-healing-potion-prevented",
+      "actions": 5,
+      "native_assertions": 783,
+      "manual_passes": 4,
+      "actual_manual_actor_counts": {
+        "4": 1,
+        "1": 1,
+        "2": 1,
+        "3": 1
+      },
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "6b8234a14b6665359780eca9965a3d7a3a581dc4b7157e1e7519bad89b20a36a",
+        "actions.json": "889d16f29bb98c14a9c6b6e1c92e2fab8452321bbcf55ceef728b5dd9a8fa7f8",
+        "assertions.json": "d3163c61adff962c08353481001f8f825de8f408383ca7c8a9819cdd80d33086",
+        "expected_final_gamestate.txt": "a08454452ba4fd7f3fddde62ab3241799f24d1117d88e1ca2747bb9885117b11",
+        "meta.json": "9ddf12c3f0aba964250a32bcd328c04ab14d0e975b5459322690aae9a21d88e2"
+      },
+      "fixture_sha256": "f92a3377e802123d8979c623ba56bfcb6ef168864909f6dc755816a334ad672c",
+      "behaviorfixture_sha256": "f92a3377e802123d8979c623ba56bfcb6ef168864909f6dc755816a334ad672c",
+      "input_sha256": "3b52b362b827953e52690c762e5e85662df3e07b8e5fb9f8b62d56d7c602befe",
+      "runtime_sha256": "cdc081ff4c87ff2f9338b1d69040d0dc98d7600ba33976384336534ea3f92d22",
+      "recorded_runtime_sha256": "cdc081ff4c87ff2f9338b1d69040d0dc98d7600ba33976384336534ea3f92d22",
+      "genuine_four_live_manual_seats": true,
+      "initial_raw_48_manual_controls": true,
+      "final_raw_48_manual_controls": true,
+      "initial_endpoint_queries_independently_evaluated": 127,
+      "terminal_endpoint_queries_independently_evaluated": 228
+    }
+  ],
+  "actions": 5,
+  "native_assertions": 783,
+  "manual_passes": 4,
+  "actual_manual_actor_counts": {
+    "4": 1,
+    "1": 1,
+    "2": 1,
+    "3": 1
+  },
+  "legal_priority_response_controls": 4,
+  "nonpriority_END_transport_controls": 0,
+  "formal_defense_finish_inputs": 0,
+  "actual_expected_envelope_mapping_sha256": "00e3bd34e8f1dfa7610d9983e7df9ce5f8538f8da7a327d34203d41902fbd21d",
+  "actual_ordered_query_mapping_sha256": "c424a1412f4efe5eeef1900776eca70916d2b5900a26cb118e7e93f5c4b6ff5f",
+  "checkpoint_mapping_sha256": "5cb5666b7f71670816a5a4b31307e75c812b441f53a792edf2c0d03701dea3de",
+  "all_saved_actions_and_queries_match_exact_approved_Source": true,
+  "checkpoint_count": 7,
+  "typed_property_queries": 166,
+  "initial_raw_48_manual_controls": true,
+  "final_raw_48_manual_controls": true,
+  "genuine_four_live_manual_seats": true,
+  "actual_initial_and_final_raw_schema_fully_consumed": true,
+  "initial_and_final_raw_manual_shortcut_checks": 96,
+  "actual_semantics": [
+    "All5 actual Native envelopes and783 persisted successful ordered queries match exact approved Source. Four genuine priority responses actors4/1/2/3 are one each seat; no phase transport or passive seat is substituted. Both fresh raw48 manual controls/Young living Fai1+Betsy2,3,4/UPF/noBotPassive independently checked.",
+    "Actual opponent4 activates physicalPotion6 from Arena4, spends AP1to0 and destroys same6 to public owner/controller4 Graveyard as COST before responses. Successful actual ABI queries retain KindABILITY/controller4/SourceZoneArena/source6 through the firstthree responses; no guessed virtualUID. ActualSourcefourth completes while HP4remains17 and printedGA refunds AP4to1.",
+    "This is actual opposingHero healing prevention by owner1Parched: source/canonical/current managed gain2 path was independently closed at Source; actual costs, retained pending layer and completeGA execute. HP17 is neither maximum-cap nor undamaged health. No current positive-healing control or historical raw-state equivalence is claimed.",
+    "Fresh rawfinal has exact unchanged wholephysicalParched5Arena1 and Potion6faceupGY4,HP20/20/20/17,R/Chi0,AP4one/stillTurn4MAIN/Turn2. All other physical zones,Stack/queues/await/payment/target/chain are clear. All initial127 and terminal228 queries are independently evaluated against their fresh raw endpoints."
+  ],
+  "qualification": false,
+  "coverage_credit": false,
+  "passing_replay_certificate": false,
+  "required_remaining_gates": [
+    "Root independently binds two own new-only clean replays and performs guarded registration/index update."
+  ],
+  "limits": [
+    "Only one global static rule via real opponentPotion attempt. Prior casting,endphase Sand/redbanish upkeep,multiplecopies/otherlifecases/suppression/reset/support/fullcard untested.",
+    "Saved review does not certify replays/fullsuite. No PHP/Native/Rwrites/sourcefix or deferred/denied repair retry by reviewer. Historical B93 is not retagged/requalified."
+  ],
+  "review_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov16_batch861_parched_actual_saved.py",
+    "sha256": "611f1be9ea54dfd1d0ddc23377ee255d1d7f6d26479453644697c7d428ac4a69"
+  },
+  "reused_pure_parser_source": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov15_batch824_actual_saved.py",
+    "sha256": "e91764c206e187ff9f80bb4a39b705aa97abdf186777c4451832c34b8eddb97f"
+  },
+  "reused_endpoint_evaluator": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov16_batch858_blessing_r2_actual_saved.py",
+    "sha256": "df0d19021a639688c3ff281eaa0596e2d380829ed0cea03f75c10b92367fd7ff"
+  },
+  "created_utc": "2026-11-16T10:39:45.402099+00:00"
+}

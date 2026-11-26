@@ -1,0 +1,174 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "breadth_review independent source/semantic review",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse950-20261122.json",
+  "source_spec_sha256": "89d07d948abe544d0da08505f7c440349eae4bb2c2e7baa1cf349aa9d09216e5",
+  "input_sha256": "89d07d948abe544d0da08505f7c440349eae4bb2c2e7baa1cf349aa9d09216e5",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-consuming-volition-red-four-live-sparse950-actual-first-attack-no-arcane-history-no-discard-grant",
+      "card_id": "consuming_volition_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "38012c7701abb909bbf79a138bda7e88db0415bd93e0e2fa22a5767d3d9cad86",
+        "actions.json": "25920dc16af50701b0be20453cc3345d5c14a09166881d7481930bfb87552093",
+        "assertions.json": "eaf819edae230897e1f47d948e6c222da558f9981add830a0d83880d39249dfc",
+        "expected_final_gamestate.txt": "d4a2404c7e187fde5c68ec49fe3475d2d72cebccd8ab39c3dfabc5307536d04d",
+        "meta.json": "2eb0bfc261d65f07e7fbbeedf78d864fc6b6b0aaaed5a34ca9a425ce9830d1ba"
+      },
+      "fixture_sha256": "0850a9c65e9a23a9e1983080127919858afd22023d64ac329ee4f074c277fa25",
+      "actions": 28,
+      "native_assertions": 163,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse950-20261122.json",
+      "input_sha256": "89d07d948abe544d0da08505f7c440349eae4bb2c2e7baa1cf349aa9d09216e5",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse950-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-consuming-volition-red-four-live-sparse950-actual-first-attack-no-arcane-history-no-discard-grant",
+        "fixture_slug": "card-consuming-volition-red-four-live-sparse950-actual-first-attack-no-arcane-history-no-discard-grant",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-reek-of-corruption-red-four-live-sparse950-actual-first-attack-no-played-created-aura-no-discard-grant",
+      "card_id": "reek_of_corruption_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "cfb75807757c9118295f9ef737c6d725dcfda359b3acc2773b76e99cbe90177c",
+        "actions.json": "25920dc16af50701b0be20453cc3345d5c14a09166881d7481930bfb87552093",
+        "assertions.json": "66f0d37c3c3cffbbb376ab542a74ef5d10fd2bd050061d180e205bd4dc90d7c0",
+        "expected_final_gamestate.txt": "22bd9ef60b97b2f7f62d23f1f52d978608ab9992dd5cd88536cf3dd20de37e7c",
+        "meta.json": "7c184cd7b988fe2f6baff395c8a567f6f655053f54cc79283ef91570b91ef884"
+      },
+      "fixture_sha256": "6bb01957b5d106cdb32ab3a40647eaeb0b85ef6fd712253e9baa9349531e445b",
+      "actions": 28,
+      "native_assertions": 163,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse950-20261122.json",
+      "input_sha256": "89d07d948abe544d0da08505f7c440349eae4bb2c2e7baa1cf349aa9d09216e5",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse950-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-reek-of-corruption-red-four-live-sparse950-actual-first-attack-no-played-created-aura-no-discard-grant",
+        "fixture_slug": "card-reek-of-corruption-red-four-live-sparse950-actual-first-attack-no-played-created-aura-no-discard-grant",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-bonds-of-agony-blue-four-live-sparse950-actual-first-attack-zero-reactions-no-three-reaction-grant",
+      "card_id": "bonds_of_agony_blue",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "779e679165f6fea26961cd2e6eddcb2c9229eb9bdb07da156262f16d9aa815ec",
+        "actions.json": "71f0d0f07cf85244a3ec27fdb1f824cd62aa3126d639c98c13ca23327907bd8b",
+        "assertions.json": "9a9480123b71b8fff13aa689bbcf7c705afac367ac5d9b2093d30e8d8bfad486",
+        "expected_final_gamestate.txt": "e30a4904782b662d9e2fbe894beb02403bb336181cd87332901f49c31c415b20",
+        "meta.json": "c11ed4e4958c554e130ea7f129e014be90dc88283a6df5cc297af66def758887"
+      },
+      "fixture_sha256": "eb53fa9da088614174b30a8b36b6148fe3718811378604128e486c2dfef7dcda",
+      "actions": 27,
+      "native_assertions": 141,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse950-20261122.json",
+      "input_sha256": "89d07d948abe544d0da08505f7c440349eae4bb2c2e7baa1cf349aa9d09216e5",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse950-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-bonds-of-agony-blue-four-live-sparse950-actual-first-attack-zero-reactions-no-three-reaction-grant",
+        "fixture_slug": "card-bonds-of-agony-blue-four-live-sparse950-actual-first-attack-zero-reactions-no-three-reaction-grant",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-double-trouble-red-four-live-sparse950-actual-first-attack-three-power-without-two-reaction-power-bonus",
+      "card_id": "double_trouble_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "985dda2ca5829b4b895f3530e0a46398b0888bd8e8f3444168be9ad4ae370548",
+        "actions.json": "71f0d0f07cf85244a3ec27fdb1f824cd62aa3126d639c98c13ca23327907bd8b",
+        "assertions.json": "5f8149ee7cbae0558a1c3b73d35b7a4d75da0b8e42b51a4c3bf32154e4992acb",
+        "expected_final_gamestate.txt": "b734f96e4956b8e022aff78595e66e986198e8f95fc345bc82f37657720b687e",
+        "meta.json": "0428454d6de8d423fd1a4fa058e1aaabb821a4e527c481acea147a721f988e91"
+      },
+      "fixture_sha256": "af71eebc094fa661937d37dfba28a03832461db0cc5bd62492f37668bf670ec8",
+      "actions": 27,
+      "native_assertions": 141,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse950-20261122.json",
+      "input_sha256": "89d07d948abe544d0da08505f7c440349eae4bb2c2e7baa1cf349aa9d09216e5",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse950-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-double-trouble-red-four-live-sparse950-actual-first-attack-three-power-without-two-reaction-power-bonus",
+        "fixture_slug": "card-double-trouble-red-four-live-sparse950-actual-first-attack-three-power-without-two-reaction-power-bonus",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-shake-down-red-four-live-sparse950-actual-first-attack-zero-reactions-no-specialization-hit-grant",
+      "card_id": "shake_down_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "70dde34a9a573f96f4c31fe07d1b01fcadc7f10d138b91e7ce5af37002389db5",
+        "actions.json": "25920dc16af50701b0be20453cc3345d5c14a09166881d7481930bfb87552093",
+        "assertions.json": "1129105ca9104c465f73eccb36c0d475440f3eb1f7813712911c30a1e2ec5da5",
+        "expected_final_gamestate.txt": "ea527bf919b164b852ccfef882fdac3a526ed97d161db692665f321b779ea1a3",
+        "meta.json": "592d4bf35b2035d74b72de268b4dc2b8890e9584e1e81e83ebefa0c583db16f2"
+      },
+      "fixture_sha256": "1b55e95187b04ebf0817c648c8a5c989400c08bed43244a5c70fa05054938f0e",
+      "actions": 28,
+      "native_assertions": 163,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse950-20261122.json",
+      "input_sha256": "89d07d948abe544d0da08505f7c440349eae4bb2c2e7baa1cf349aa9d09216e5",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse950-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-shake-down-red-four-live-sparse950-actual-first-attack-zero-reactions-no-specialization-hit-grant",
+        "fixture_slug": "card-shake-down-red-four-live-sparse950-actual-first-attack-zero-reactions-no-specialization-hit-grant",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "spec_sha256": "89d07d948abe544d0da08505f7c440349eae4bb2c2e7baa1cf349aa9d09216e5",
+    "reviewer": "breadth_review independent source/semantic review",
+    "basis": [
+      "Printed static If...gets quoted WHEN abilities are absent at fresh turn/zero arcane, aura and reaction history. Legal Chane20 for plain Runeblade cards; legal Uzuri20 for Assassin cards including her specialization. No hero activation or attack reaction occurs.",
+      "Actual physical Hand5 attack, adjacent target before payment, actual Blue6 for costs1/2, remaining R2/1 or0 for cost0, AP0, four manual seats, base4/4/1/3/6 HP loss and owned UID5 graveyard. Opponent real Hand marker is retained; initial counts/UIDs match setup.",
+      "CRUCards259 and EVRCards177 set discard-hit tag only with qualifying history; generated Consuming continuation checks tag. Bonds of Agony continuation requires mstReactions>=3; Shake Down continuation requires FaBOUTReaction. MSTRuntime45 gates extra power by reaction count.",
+      "Final delta explicitly renames Double Trouble branch/slug/oracle to base3 damage/no+2 bonus; no conditional-banish suppression claim. All physical outcomes and action flow retain earlier review basis."
+    ],
+    "limits": [
+      "Only named base/main and no extra power/discard/hand-choice branches. No positive thresholds, granted-hit timing, hero activation, banish/search/permission, or full-card/sibling certification.",
+      "Double Trouble enemy Deck is empty, so final Deck0/Banish0 cannot prove suppression of top-deck banish. Its generated Hit callback calls FaBMSTBanishTop without its own reaction guard; no additional native probe or defect claim is made here. Treat this as base-power branch only, with banish-condition behavior untested/source concern.",
+      "Native execution and replay remain pending."
+    ]
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse950-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "14154e68a5bb1dd90211f01cb5158d605c5fc3d6feb5474e7821e8fd450f789a"
+  },
+  "full_suite_run": false
+}

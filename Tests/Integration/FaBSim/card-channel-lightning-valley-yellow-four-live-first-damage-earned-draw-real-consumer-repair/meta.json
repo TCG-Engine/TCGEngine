@@ -1,0 +1,7 @@
+{
+    "name": "Channel Lightning Valley / first damage earned draw supplies actual second attack",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-16T18:24:55+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "STRICTfulloriginalcorrect/noSaveevenPASS. PrefirmedpartialfirstDamage/onceperturnbranch, notupkeep/priorcast/fullcard. Aurora1HP17/Betsy2,3,4HP20; Aura5Arena, Scar6Hand, Blue7thenRed8Deck/noDamageDrawGAflags. NativeScar0/AP0/formalHero4target, actualcapturedPlayedWHEN4BEFOREGO_AGAIN thenfreshScarSource4/fullcombat. Actual4damageHP4=16 andnoHandDraw/Deck7then8 BEFOREChannelAura5/controller1earnedlayer; freshfourTHENDrawsameBlue7Hand/noSourceguess. APstays0untilDAMAGEquorum\u2192realRESOLUTIONrefund1viaScarGA. USEdrawnBlue7actualnative0attack/samechain/AP0, real2damageHP4=14, NOadditionalChannelDraw/Red8Deckunchanged. FulltruecloseScar6+Blue7GY/Aura5Arena/HP17,20,20,14/R0/AP0/StackDQchainsclear. No seededHand/firstflag/privatehelper/cachedpoweronlytest, noSource005/218waiver. Heroactivation/playedLightning/endFlow/upkeep/otherdamageevents/siblings/support/fullcarduncredited. StrictprobeonlyevenPASS; independentactualreview/explicitpromotion/freshnormalSource beforeanyfutureSave. Operational repair successor: original setup/actions/queries unchanged; normal Save only after every original correct oracle passes. Sources: https://rules.fabtcg.com/en/cr/06-effects/ https://legacy.fabtcg.com/en/resources/rules-and-policy-center/release-notes/rosetta-1st-strike/ https://fabtcg.com/articles/rules-reprise-23-rosetta/"
+}

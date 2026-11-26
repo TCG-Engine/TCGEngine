@@ -1,0 +1,7 @@
+{
+    "name": "Song of Sinew / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T15:45:02+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Reveal the top 4 cards of your deck. Your next attack this turn gets +X{p}, where X is the number of cards with 6 or more {p} revealed this way. Put them back in any order.\n\n**Go again** Representative only: reorders_all_four_real_revealed_cards. Other pitch siblings, alternate targets and unexercised branches receive no credit. All four live/manual; only native entry-point actions. Sources: FaBSim/GeneratedCode/cardArrayCache.json#song_of_sinew_yellow"
+}

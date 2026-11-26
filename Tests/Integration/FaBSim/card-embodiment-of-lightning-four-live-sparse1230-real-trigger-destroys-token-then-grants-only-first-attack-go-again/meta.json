@@ -1,0 +1,7 @@
+{
+    "name": "Embodiment of Lightning / responseable destruction and one-attack go again",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-23T21:23:59+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "EXISTING_TOKEN_TRIGGER_AND_SINGLE_ATTACK_GA. FourmanualYoungBoltyn20/3Dori20. LawfulpriorownedEmbodimentLightning5Arena1, actualWounding6/7Hand1(nointrinsicGA). FormalHero4targetbeforefirstcost0/AP0; actualplayearnsTokenTrigger8Source5withcapturedAttack6Epoch1, token5staysArenaandAA6staysownedStackthrough4freshtriggerresponses. Onlytriggerresolutiondestroystoken(noGY)andgrantstoactualstillpending6, thenAA6getsitsownfresh4source/combatresponses; actual4damageHP16/AP0untilResolutionrefund1. ThatAPfundsrealWounding7sameTurn/freshall4rounds/noToken/noGA/4damageHP12/no2ndrefund. Final6then7ownGY1/noTokenGY/noArenaStackDQCC/APR0/maxUID8/RNG0. NoTokenproducer/multipleToken/removedsource/replayedUIDepoch/Negate/othercontroller/Hero/support/fullcardcredit. NochargedSoul/AAdefenderWHENorotherArenaobserver. Sources: FaBSim/GeneratedCode/cardArrayCache.json#embodiment_of_lightning FaBSim/Custom/ELECards.php FaBSim/Custom/ROSCards.php FaBSim/Custom/GameLogic.php"
+}

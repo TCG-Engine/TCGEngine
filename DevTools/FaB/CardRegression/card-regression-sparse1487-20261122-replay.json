@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-a-bit-off-the-side-red-four-live-sparse1487-real-axe-hit-earned-layer-victim-discard",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-a-bit-off-the-side-red-four-live-sparse1487-real-axe-hit-earned-layer-victim-discard",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1487-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1487-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "5bd4ecb04bd9c5c8ccf577cc55c79654cc6e348b054add945866dd88c8d30d03",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "50feccccc4f36da3546dcc1a989244e8ee127d97e1b2caeea37279f8b123e2cf",
+        "actions.json": "7f3e8023029af8e300a3c0fa28936a54eaba63835d69c1ac4e128305cd80ebe0",
+        "assertions.json": "b9c823e17c0f367610d7a5d483dee3c9a78697d42033122ded87fc0b04ba0ebf",
+        "expected_final_gamestate.txt": "5ce27f52063de29a8213ac9375ea66c72738698547bee51f87f24955ec513ad2",
+        "meta.json": "3a13b525f2a79e303c2657af304b0c324f735aaf4a309dad64bd8c6ea5dbfd12"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

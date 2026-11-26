@@ -1,0 +1,79 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-expedite-red-four-live-sparse1432-actual-paid-boost-mechanologist-banish-and-go-again-consumer-no-hit",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-expedite-red-four-live-sparse1432-actual-paid-boost-mechanologist-banish-and-go-again-consumer-no-hit",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1432-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1432-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "6a13ecd369d7bcd404f92cc4e323e6f050eae5870e79cfd0ce64287cb348939d",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "76cb61b4895c53de766a9bf87321a05772dcdaaed72f317d40b1af727635ad6d",
+        "actions.json": "9e19b8d2390dccb81740b22d21a1d43833ca84c52f25b2e48ce3a6826274bbc2",
+        "assertions.json": "783c57eadde0261bc9258db16ee73321d9b3deba6951cb83b567d2f8e6dc1498",
+        "expected_final_gamestate.txt": "9a4ff502db07522f44b2c735cf30c7cf898a8d7bb85e9429cb96a2955475dc22",
+        "meta.json": "1b7d1d28d110e415c9f51d11eb6095f4a23da80b5594fedbcf2362ac483d4853"
+      }
+    },
+    {
+      "slug": "card-high-speed-impact-red-four-live-sparse1432-actual-paid-boost-mechanologist-banish-and-go-again-consumer-no-hit",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-high-speed-impact-red-four-live-sparse1432-actual-paid-boost-mechanologist-banish-and-go-again-consumer-no-hit",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1432-local-20261122\\clean-replays\\01.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1432-local-20261122\\clean-replays\\01.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "4d3172e310d1f39ca381108b171cc59f5e91ddf263994b2114b1820cbb897279",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "c6910fd8816cf8ef66bf63661d82786002d96773c1af7481cf1a119f4703a3a1",
+        "actions.json": "6abb41c17f578058cab1c3a67af099dc11d6c5c2b14eb0369eaf1958f8c8bf26",
+        "assertions.json": "537f8fc8152e13d254fe715301078ed36f4a67391283b9b81ad28a8a6f8cd4b0",
+        "expected_final_gamestate.txt": "714c23854ba02818389186d891c1c3bc0d8c815f81b563319345083e4abe3a23",
+        "meta.json": "64001f1aa26f66e98843e81edf626bb03930cfb3e7cc71253d4c60eac47c11a1"
+      }
+    },
+    {
+      "slug": "card-heist-red-four-live-sparse1432-actual-paid-boost-mechanologist-banish-and-go-again-consumer-no-hit",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-heist-red-four-live-sparse1432-actual-paid-boost-mechanologist-banish-and-go-again-consumer-no-hit",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1432-local-20261122\\clean-replays\\02.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1432-local-20261122\\clean-replays\\02.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "e31515fb24f4ad9ed9d08e902f3c8b029f036d3ee8fbc42723968413d1f4debb",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "66ebd3ce1c731faf078d9b07bf0a08f482c8265117fb983793fdea6d88517323",
+        "actions.json": "6abb41c17f578058cab1c3a67af099dc11d6c5c2b14eb0369eaf1958f8c8bf26",
+        "assertions.json": "affa9b867a9f499988425252e885c3364103dc0e9e998a7db19f1534a4f9950a",
+        "expected_final_gamestate.txt": "bc70f1d635d5c925304c8587ad2cfc48f2de9acec30fe04a3b198e8ef799295a",
+        "meta.json": "853674195019f9668e55ab3458cc567db16f0d78e8c6c595d4991a44a9dcf525"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

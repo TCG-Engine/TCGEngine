@@ -1,0 +1,313 @@
+{
+  "status": "APPROVED_ACTUAL_SAVED_SMASHING067068_NAMED_RED_NO_ITEMS_EXISTING_INVIG_RETAINS_C08",
+  "approved": true,
+  "source_approved": true,
+  "semantically_approved": true,
+  "reviewer": "/root/nov2_next_author",
+  "created_utc": "2026-11-03T15:33:41.847872+00:00",
+  "source_spec": "card-regression-batch278-trigger-probes.json",
+  "input_sha256": "eea92c1fa5fd0e30b8f868c6dd1f54353f2992acaafde3c2072b59536e9dcc47",
+  "manifest_sha256": "ef5702cf65e93b629d3b37be3bcf1fc4b889e019f04d15ba7ee529ff2d0d9df5",
+  "runtime_sha256": "1f5122763a098fc452b0d810b2131d979a18b39e8a26633f59541507ea78de80",
+  "recorded_runtime_sha256": "1f5122763a098fc452b0d810b2131d979a18b39e8a26633f59541507ea78de80",
+  "source_guards_verified": 17,
+  "source_guard_rebinds": [
+    {
+      "target": "FaBSim/Custom/GameLogic.php",
+      "historical_sha256": "ac90c758c64c079d3dde209920d1a01e4b937e03562a0f4f69fd5e88c1a92ff8",
+      "current_sha256": "7d475db6dcd99f151b41818ad0dca7111329e951af68e97badf943333d927a23"
+    },
+    {
+      "target": "FaBSim/Custom/ARCCards.php",
+      "historical_sha256": "5bde46f342529508e33d983cc4a2475debbe2cfb2ba05a6c78a00da2f861672b",
+      "current_sha256": "542227b196338a40c49f83966d9d2b0979a98676d4c9d39d00b0f5cc9a32323f"
+    },
+    {
+      "target": "FaBSim/Custom/MONCards.php",
+      "historical_sha256": "61ffc3d4c3c446b33cac71828436e9b08badc76da4eb3a7208c43d2934e1bcb7",
+      "current_sha256": "50ccaa44bdd2c94db708dbf2b358aa066d71ceb2c56b8dad14bc2fd1d242953f"
+    },
+    {
+      "target": "FaBSim/Custom/EVRCards.php",
+      "historical_sha256": "dee27af62c574dc67e99daf1455fb35e806f4a2299479401027cd999c386ff52",
+      "current_sha256": "ad988b0e0e3d3f80bb0f9de0eb66bb826e32c8edbddbb15d5034926baa31e6af"
+    },
+    {
+      "target": "FaBSim/GeneratedCode/GeneratedMacroCode.php",
+      "historical_sha256": "6a318ca63856aff98427ea1f9ecbdbcdf677e67f0f476895fac863926e9c52a6",
+      "current_sha256": "6d481f35d589ba79ec3cdce21d08b7a57112ae76b64b0e4bd45ee57e50f392df"
+    },
+    {
+      "target": "DevTools/FaB/evr_abilities.json",
+      "historical_sha256": "4c5f45496d8b1536729525f3a017d3e0f267dd19d571c0d137295b0ed3ee90f8",
+      "current_sha256": "3cfdd494730e34946cbfaa1c4bd75ee892901c157c43ebcaa3c486c99052fc2e"
+    },
+    {
+      "target": "FaBSim/Custom/ROSCards.php",
+      "historical_sha256": "12bdf8c17c7781d949dd424e2e007d5b07d582135934e98a6a3f5fedb2a2cb00",
+      "current_sha256": "daf6eea7ee5ac409e0f45e69e539df4de47af1877b65f04964a204d3e7b071f7"
+    }
+  ],
+  "prior_correct_spec_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch278-v2-independent-source-review.json",
+    "sha256": "8dae34455297e72aeb594f27ec0a8f5f479cd0d1c4ffc1ea4443642423310ad0"
+  },
+  "prior_independent_source_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-smashing-v2-independent-source-review.json",
+    "sha256": "2730e404303a147d8eac9c337c793bce2c0317fdfda0dabc014a19654909ebaf",
+    "reused_not_new_source_approval": true
+  },
+  "actual_generated_limited_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-smashing-v2-actual-generated-independent-review-limited.json",
+    "sha256": "85440c858ce3f508c8bb5f845e8fc8efa3a3b23ff75a2310d4b5906e80272467"
+  },
+  "source_pairing": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-smashing-v2-reviewed-emission-completion\\receipt.json",
+    "sha256": "4020a7271d11e790dca8525f8dd089b5b6ade6863f18789f0e9eb7b09b0c9c52"
+  },
+  "recording_receipt": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch278-trigger-probes-20261103T152423Z-6ae9fca719f56.json",
+    "sha256": "e1d516c5086941168c0de022a161b2c701620b8d5017028daa62509f6470175b"
+  },
+  "root_wrapper_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-smashing067068-native-after-v2-r1\\receipt.json",
+    "sha256": "182981b264c60d09f3a727c0c198fa8ac94afa3d85ab484ede76097e71b82ad6"
+  },
+  "actual_comparison_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov3_smashing067068_saved_readonly.py",
+    "sha256": "d4601d62ad2ac0bbc9452157a6b4d0542f801b5a4111a9dd513fd3cde43d005b"
+  },
+  "registration_mode": "--existing-reviewed-rest",
+  "reviewer_independence": "Meta authored original278 probe; Sparse authored Smashing source. Reviewer authored neither. Prior semantic/source/body proofs reused with their stated scope.",
+  "fixtures": [
+    {
+      "index": 1,
+      "card_id": "smashing_good_time_red",
+      "slug": "card-smashing-good-time-red-four-live-correct-probe-real-arsenal-action-earns-next-attack-plus-three",
+      "source_spec": "card-regression-batch278-trigger-probes.json",
+      "input_sha256": "eea92c1fa5fd0e30b8f868c6dd1f54353f2992acaafde3c2072b59536e9dcc47",
+      "reviewer": "/root/nov2_next_author",
+      "runtime_sha256": "1f5122763a098fc452b0d810b2131d979a18b39e8a26633f59541507ea78de80",
+      "recorded_runtime_sha256": "1f5122763a098fc452b0d810b2131d979a18b39e8a26633f59541507ea78de80",
+      "approved": true,
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_NEW_FOUR_LIVE_REPRESENTATIVE",
+      "fixture_path": "Tests\\Integration\\FaBSim\\card-smashing-good-time-red-four-live-correct-probe-real-arsenal-action-earns-next-attack-plus-three",
+      "fixture_sha256": "2a68c4af89093eec471ce81acdd490b6dc967bb01a911363b97fe0e7dcf7e260",
+      "raw4_sha256": {
+        "initial_gamestate.txt": "00e2f4b5d11a9ef8e616759dc390b7ca6c75f6951e85c55c8664c8d1515ec111",
+        "actions.json": "1041a29da75afe026390be1a8036cd72819c1b17eafbcef27c95563e9ad728c7",
+        "assertions.json": "1cf20e256bb14e71564d6ca9ea336873b0f6c5c758253420fb96983986f88ca8",
+        "expected_final_gamestate.txt": "ad40f76b35b863507e5684cce34a4271d26814d18b6f9c61c2c6027cf73f13ab"
+      },
+      "raw5_sha256": {
+        "initial_gamestate.txt": "00e2f4b5d11a9ef8e616759dc390b7ca6c75f6951e85c55c8664c8d1515ec111",
+        "actions.json": "1041a29da75afe026390be1a8036cd72819c1b17eafbcef27c95563e9ad728c7",
+        "assertions.json": "1cf20e256bb14e71564d6ca9ea336873b0f6c5c758253420fb96983986f88ca8",
+        "expected_final_gamestate.txt": "ad40f76b35b863507e5684cce34a4271d26814d18b6f9c61c2c6027cf73f13ab",
+        "meta.json": "655fbb93de39964d930badfe285db4818198594650fb6fe822966ffc9c8cb7f9"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "00e2f4b5d11a9ef8e616759dc390b7ca6c75f6951e85c55c8664c8d1515ec111",
+        "actions.json": "1041a29da75afe026390be1a8036cd72819c1b17eafbcef27c95563e9ad728c7",
+        "assertions.json": "1cf20e256bb14e71564d6ca9ea336873b0f6c5c758253420fb96983986f88ca8",
+        "expected_final_gamestate.txt": "ad40f76b35b863507e5684cce34a4271d26814d18b6f9c61c2c6027cf73f13ab",
+        "meta.json": "655fbb93de39964d930badfe285db4818198594650fb6fe822966ffc9c8cb7f9"
+      },
+      "actions": 36,
+      "native_assertions": 2421,
+      "actual_manual_passes": 33,
+      "actual_priority_response_passes": 32,
+      "actual_defender_declaration_finish_inputs": 1,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4
+      ],
+      "actual_manual_actor_counts": {
+        "1": 8,
+        "2": 8,
+        "3": 8,
+        "4": 9
+      },
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "all_actions_and_assertions_exact": true,
+      "all_endpoint_physical_uid_card_zones_ownership_verified": true,
+      "all_terminal_assertions_evaluated_against_parsed_final_snapshot": true,
+      "initial_physical_uid_locations": {
+        "1": {
+          "card_id": "dorinthea",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "6": {
+          "card_id": "wounding_blow_red",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "smashing_good_time_red",
+          "zone": "p1Arsenal",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2
+        }
+      },
+      "final_physical_uid_locations": {
+        "1": {
+          "card_id": "dorinthea",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "5": {
+          "card_id": "smashing_good_time_red",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "wounding_blow_red",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2
+        }
+      },
+      "final_health": [
+        20,
+        20,
+        20,
+        13
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_Hero_Status": [
+        2,
+        2,
+        2,
+        2
+      ],
+      "checkpoint_count": 38,
+      "checkpoint_assertion_mapping_sha256": "c692ae5d8b655f3d57d151a7a5cbdaa346d1acf82ade37a378c5e2b89dcf2637",
+      "native_action_mapping_sha256": "c014d593ce69c156dbd48a8bf4febcda969ccf5885070e1626b1f83ad118d32a",
+      "native_assertion_mapping_sha256": "e5a10801ada1d7bf5935ea6b9b0bb1aa6ffcec12cf1ebf1b4a9f7b3a4437c3a2"
+    }
+  ],
+  "blocked_attempts": [],
+  "existing_reviewed_rest": [
+    {
+      "slug": "card-invigorating-light-red-four-live-sparse-real-empty-soul-play-six-damage-then-full-close-to-own-soul",
+      "existing_source_spec": "card-regression-batch278-trigger-probes.json",
+      "existing_review_evidence": "review-evidence/invigorating066-saved-c08c-independent-review.json",
+      "existing_review_evidence_sha256": "030de483ac7c0ab17460079c00afa00ce9af4e43baef1962d36a3d6392876087",
+      "existing_fixture_sha256": "016a7faf52b838d5105b9351134b480bcefca3cc5b22fb663193ea4b4a798d41",
+      "qualification_runtime_sha256": "c08c2ae9712038723aee74f040771fe5fdb494e207f6f40b0e303f493425e720",
+      "re_reviewed": false,
+      "replayed": false,
+      "retagged": false,
+      "new_coverage_credit": false
+    }
+  ],
+  "total_actions": 36,
+  "total_native_assertions": 2421,
+  "total_manual_passes": 33,
+  "total_priority_response_passes": 32,
+  "total_defender_declaration_finish_inputs": 1,
+  "material_findings": [
+    "Actual originalArsenal5 cost0 spendsAP1; four manual responses retain physical5, then GY/ownGA/AP1. ActualHandAA6 declared/paidAP, four source responses yields physicalpower4+3=7/noGA, no seeded bonus or resources.",
+    "Full four-live combat and empty defender declaration produce actual7 damage/P4HP13. Even with no Items, earned ABILITY7 with CardIDSmashing/SourceUID5/Controller1 remains through three actual responders, then fourth resolves it. AA6 stays Chain, primary5 stays GY; no choice/Item destruction is claimed.",
+    "Full DAMAGE/Resolution cleanup leaves owned publicGY exactUIDset5,6/all original1..6 conserved/virtual7 ceased/Counter7/random0/RAP0. All four young heroes remain ready/live with48 manual preference values verified at both endpoints; Stack/chains/decisions/payment/manager/awaitframes clear.",
+    "Existing Invigorating fixture retains its registered c08 proof/context; neither replayed nor re-reviewed/retagged by this proof. Original eea92 input and old failure archives untouched."
+  ],
+  "limits": [
+    "Named owned Red/actualArsenal bonus/one AA hero hit/noItems delayed trigger positive branch only. No weapon discriminator, sibling pitch, Items optional choice/destruction/await source lifetime, foreignowner, source removal, elimination, stacking, fullcard, support primary or isolated fault-control credit.",
+    "Actual generated limited8544 scope is reused. Trigger UniqueID7 follows source allocation and final Counter7; intermediate native assertions pin Stack count/CardID/Controller/Kind/SourceUID5, not its private UniqueID. No Item-await or sibling native credit.",
+    "No PHP/native/R/source/generator/service/fullsuite/old-fixture replay by reviewer. Root focused replays/registration are separate gates."
+  ]
+}

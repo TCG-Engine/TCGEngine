@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-blessing-of-themis-yellow-four-live-sparse1381-opponent-named-aura-does-not-turn-differently-named-self-banished-instant-face-down",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-blessing-of-themis-yellow-four-live-sparse1381-opponent-named-aura-does-not-turn-differently-named-self-banished-instant-face-down",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1381-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1381-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "5fb0633c09e12d30edaf069b011971e10290ffe4abc97571bec741ad2cb158c4",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "a2f6f307a93150a0db516cdecb92eb8654052a76dac92e2399afd2063aced8d9",
+        "actions.json": "79546c6b52b161f21e6196d31822f611f7c548529405f005bfc6953ee644cb4f",
+        "assertions.json": "0ab763814aeef50c6321c58371563ad3dbfdf9633c4ac28f02426fbd8d9ab491",
+        "expected_final_gamestate.txt": "c6d1ec898fb3946af73d6b34c3301c9e1b03793f31bdbc5f9db7f08fcd32dc27",
+        "meta.json": "ce144db2c2a48153121211e088c414773ec22b05e8207b192f5b7e307754e494"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

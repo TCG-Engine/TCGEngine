@@ -1,0 +1,103 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "/root/breadth_review independent cached-text/source-spec batch semantic review; Root exact saved mapping and native clean replay",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse884-20261122.json",
+  "source_spec_sha256": "d68bab5aeef4bb8cbbd1263e7c0d3acaa341a0643f0cbbf28bd10813ddc1e0ab",
+  "input_sha256": "d68bab5aeef4bb8cbbd1263e7c0d3acaa341a0643f0cbbf28bd10813ddc1e0ab",
+  "recorded_input_scope": "Exact original native input, possibly containing unsaved failed cases excluded from this qualified subset; each retained case compared verbatim.",
+  "fixtures": [
+    {
+      "slug": "card-tribute-to-demolition-red-four-live-sparse884-real-blue-pitch-before-single-random-six-power-banish-earns-eight-damage",
+      "card_id": "tribute_to_demolition_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "82b9a3a99b7e7e3a4d28ef8e9fa21dc9ad055b8c71bfe09032a97b5b4b59aec8",
+        "actions.json": "9dc6f3d7ee2230e11d18d663d812f852981beb6f9aed04156dfa0d5bc551da3f",
+        "assertions.json": "13e1d71d6664a845eb025f7ecb14274562248c5f9352ca8ab467d8afc8620ca2",
+        "expected_final_gamestate.txt": "e27a5e57497ed6a0abbe503a62be792b01e1c91edeb7eca94f6ed6283f82d8df",
+        "meta.json": "2fd442437a3ddecc21f251cb09b5d62a86996474525036e54f1f8e7959eef9cb"
+      },
+      "fixture_sha256": "c4ca7dfe6ea4ab189d26b5522521b90b8aa6a067f4bd2b206270fbe3e4f4d71b",
+      "actions": 28,
+      "native_assertions": 98,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse884-20261122.json",
+      "input_sha256": "d68bab5aeef4bb8cbbd1263e7c0d3acaa341a0643f0cbbf28bd10813ddc1e0ab",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse884-local-20261122\\save\\selected.json"
+    },
+    {
+      "slug": "card-tribute-to-the-legions-of-doom-red-four-live-sparse884-real-blue-pitch-before-single-random-six-power-banish-earns-nine-damage",
+      "card_id": "tribute_to_the_legions_of_doom_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "326d280e726a594e77e8846c1294e975062db9bb036cf98013ddce2c80649566",
+        "actions.json": "9dc6f3d7ee2230e11d18d663d812f852981beb6f9aed04156dfa0d5bc551da3f",
+        "assertions.json": "95360ebed4320585d36f0c660c207610625ad515455c778475e2c5ba06248b6e",
+        "expected_final_gamestate.txt": "10fb7a8c87d680648ba41a2d87c403d4a5e2b1b6bf81340cb36a9cf9fbdc638c",
+        "meta.json": "62c18f3c065f92bd04d6c1a6fe9875f243bc6b4df8a763d21cff8ab9bf27811d"
+      },
+      "fixture_sha256": "6b44cf363e58e28447cb3782b8306629bf3845ee78093e06d60becfba695f144",
+      "actions": 28,
+      "native_assertions": 98,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse884-20261122.json",
+      "input_sha256": "d68bab5aeef4bb8cbbd1263e7c0d3acaa341a0643f0cbbf28bd10813ddc1e0ab",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse884-local-20261122\\save\\selected.json"
+    }
+  ],
+  "basis": {
+    "review_type": "independent_static_semantic_review",
+    "result": "approved_named_branches_only_pending_native_execution",
+    "spec_sha256": "d68bab5aeef4bb8cbbd1263e7c0d3acaa341a0643f0cbbf28bd10813ddc1e0ab",
+    "reviewed": [
+      {
+        "card": "tribute_to_demolition_red",
+        "branch": "real_blue_pitch_before_single_random_six_power_banish_earns_eight_damage",
+        "scope": "positive real-blue-pitch then singleton random hand banish, unblocked attack only"
+      },
+      {
+        "card": "tribute_to_the_legions_of_doom_red",
+        "branch": "real_blue_pitch_before_single_random_six_power_banish_earns_nine_damage",
+        "scope": "positive real-blue-pitch then singleton random hand banish, unblocked attack only"
+      }
+    ],
+    "evidence": [
+      "Cached printed texts/types/base powers/costs independently checked: Shadow Brute cards legally played by Levia, natural hero health20 at all four seats; Demolition cost2/base6 and Legions cost3/base7 both gain2 for six-plus-power banish. Expected physical damage8/9 and no go-again/AP0 are correct.",
+      "Canonical DevTools/FaB/dtd_abilities.json PrepareCard for both Tributes explicitly loops while resources below real pending cost, chooses FaBDTDCostPitchChoices reserve1 via MZCHOOSE, performs FaBARCPitchForEffect, then FaBDTDHandBanish and conditional power2 before FaBFinishPreparedCard. Generated route agrees; no extra normal pitch click belongs after that choice.",
+      "Initial owned sourceUID5, real blue Critical StrikeUID6 and sole remaining seven-power Smash InstinctUID7 are actual cards. P4 adjacent hero is declared before costs; answering own Hand0 pitches blueUID6, leaving exactly redUID7 for random banish. Smash was banished, not played/discarded, so no intimidate trigger.",
+      "Strengthened paid guards require Hand0, Pitch count1 plus actual owned Critical StrikeUID6, Banish count1/SmashUID7 and correct residue1/0 with sourceUID5 still stack and no pending cost/choices. This pins physical resource payment instead of seeded resource totals.",
+      "Lean native combat flow requires sourceUID5 Role ATTACK, real four-live manual windows/no blocks, unchanged target health before damage, actual target20\u219212/11 and matching damageDealt8/9, AP0 through resolution and final actual sourceUID5 in own graveyard with chain closed/quiet public state."
+    ],
+    "oracle_or_flow_errors": [],
+    "corrected_during_review": [
+      "Added direct physical blue-pitch/empty-hand proof to both paid checkpoints.",
+      "Author baseline batch label corrected884."
+    ],
+    "engine_concerns": [],
+    "limitations": [
+      "Static source-spec review only; no native games, tests, recordings, T writes or network performed.",
+      "Approval covers named positive red representatives only, not pitch siblings, six-plus condition false, larger random hand pools/distribution, insufficient mana/cost failures, blocks, reactions, prevention or follow-on attacks.",
+      "No Levia end-phase/blood-debt behavior certified; sourceUID refers to the actual owned card, not a virtual earned trigger."
+    ],
+    "mutation_scope": "Only this independent-review.json written."
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse884-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "f2d14c8f3844da727574667d701b0ef8ebc00286a52acfed4886ff0e5843143e"
+  },
+  "full_suite_run": false
+}

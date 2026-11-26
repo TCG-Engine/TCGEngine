@@ -1,0 +1,39 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-repair-rune108-crackling110-consumers.json",
+  "runtime_sha256": "3698b89ef8d6cf26f44020523316a0fc4a75da13cd1c84240c8447fcdbdac70c",
+  "returncode": 0,
+  "completed_utc": "2026-11-16T22:02:24.772051+00:00",
+  "fixtures": [
+    {
+      "slug": "card-rune-snare-red-four-live-correct-next-arrow-three-consumer-and-seven-hero-damage-probe",
+      "fixture_sha256": "c2122e1adf723ff9bbad80fa688f3fbeca128fba55f684fa5987213d15ffd668",
+      "passed": true,
+      "result": "[PASS] rune_snare_red / four live distinctive effect"
+    },
+    {
+      "slug": "card-crackling-red-four-live-correct-real-lightning-play-earns-flow-plus-one-and-five-damage",
+      "fixture_sha256": "77a6b9264895a0c6d3409d0d330f268ccd0ffb2e0f9de9a3e833b901311383b9",
+      "passed": true,
+      "result": "[PASS] crackling_red / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-rune-snare-red-four-live-correct-next-arrow-three-consumer-and-seven-hero-damage-probe",
+      "returncode": 0,
+      "stdout": "[PASS] rune_snare_red / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-crackling-red-four-live-correct-real-lightning-play-earns-flow-plus-one-and-five-damage",
+      "returncode": 0,
+      "stdout": "[PASS] crackling_red / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 2,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

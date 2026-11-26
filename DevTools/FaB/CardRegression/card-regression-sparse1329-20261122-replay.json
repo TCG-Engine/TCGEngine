@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-vengeful-apparition-red-four-live-sparse1329-sole-ward-prevents-one-and-retained-illusionist-aura-rejects-instant-consumer",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-vengeful-apparition-red-four-live-sparse1329-sole-ward-prevents-one-and-retained-illusionist-aura-rejects-instant-consumer",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1329-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1329-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "d7a7df35771100c70fabfe76661345536254b1cfd8d089723b17cd28d9932080",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "23d44abe872f8a78329ac9beb39f8e6287ef296ca1d568aac0a91bd67694e123",
+        "actions.json": "bc0d64b9a9f6f319ad32aefad88fed299b25b927fea9db45506666e4c7f382ec",
+        "assertions.json": "1b9c213f2436baf2ba991a4ea29c2217763f895fa98013ee6a8708d6f590a196",
+        "expected_final_gamestate.txt": "121cd83d0be4261e05b26fb3001b6853e6a13a5f7f40d90bdb586dbaaeb8fb76",
+        "meta.json": "29ed34e187bd3df0e2c091ebf11efd94db6c76af41e314a778f0645bc23ea733"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

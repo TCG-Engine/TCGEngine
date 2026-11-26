@@ -1,0 +1,7 @@
+{
+    "name": "Seven Sin Nebula / four-live activation history restriction",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-23T01:37:23+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "**Action** - {r}, {t}: **Attack**. Activate this only if you've played a card from a banished zone this turn.\n\nWhen this hits a hero, create a Runechant token. Named activationrestriction only. Natural20Chane/actualreadyWeapon5/R1 fullycoversprintedcost1, actualBanish7existsbutno cardwasplayedfromBanish. WTRexplicitfallback guardBANISH_PLAYEDfalse rejects beforetarget/tap/Stack/payment/AP; presenceofBanishcardisnothistory. ThenrealHandWounding6cost0plays/deals4/HP4=16/AP0 throughall4manual, source6ownedGGYwhile5ready/R1/Banish7retained. InitialR1/Banish7 are declaredassets, no activationpayment/positiveRunechant/hit/hero/support/sibling/fullcardcredit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#seven_sin_nebula"
+}

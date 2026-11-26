@@ -1,0 +1,7 @@
+{
+    "name": "Glacial Footsteps / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T19:28:02+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "**Ice Fusion**\n\nIf this was **fused**, it gets **dominate**. Representative only: actual_two_blue_cost_six_unfused_without_dominate. Positive dormant conditions and pitch siblings untested. Sources: FaBSim/GeneratedCode/cardArrayCache.json#glacial_footsteps_red"
+}

@@ -1,0 +1,7 @@
+{
+    "name": "Chill to the Bone / actual go-again funding and generic attack is ineligible for ice or elemental hit token",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-24T06:10:15+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "FOUR_REAL_MANUAL_UPF_NATURAL_YOUNG_lexi20_AND_DORI20. Primary5HandActionnormalcost0actuallypaysassets/AP1to0/fourresponses/ownedGYthenprintedGoAgainrefundAP1. RealWoundingBlowisGeneric/notIceorElemental, soHeroHitdoesnotqualify/produceFrostbite. KnownpositiveFrostbiteownershipbranchNOTdependedonorcredited. Realfollowupwounding_blow_red6Handcost0thenreallyusesearnedAP1to0/formalHero4target/actualnormalpitchifneeded/allfourfreshresponses. ReallegalHandblockcontrol7underHero4stayswhiletheydeclarenoblocks. Printed4physicaldamage/allotherHP20/noextraUIDRNG/Arena0/StackDQCCclean; primary5anddriver6ownGY1/funder6Pitchifany/APR0. No trueconditionalproducer/Fusion/Banishpermission/Unity/Hero/support/sibling/fullcardcredit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#chill_to_the_bone_red FaBSim/GeneratedCode/GeneratedMacroCode.php FaBSim/Custom/GameLogic.php FaBSim/Custom/ELECards.php FaBSim/Custom/ELEAbilities.php FaBSim/Custom/DTDCards.php FaBSim/Custom/MONCards.php"
+}

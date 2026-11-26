@@ -1,0 +1,102 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-teklo-core-blue-four-live-sparse882-actual-owned-specialization-item-enters-with-two-steam",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-teklo-core-blue-four-live-sparse882-actual-owned-specialization-item-enters-with-two-steam",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse882-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse882-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "d1ef784b8838585774d679667a1b857c8ab7400d158c803ff354235b874da264",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "7b5a72d820b8cdf058889c6d1bc0b2ccf8ef80fce58966a905f1e7f970bb7bd1",
+        "actions.json": "ecfc3b356d170d3adcd369c59f64176c3b17ffe7af3900115b2de1a20afbaf7c",
+        "assertions.json": "037bac1f1495d830a11c8ab603ff2c10cda31f8ad20728cd62e6cd8270695062",
+        "expected_final_gamestate.txt": "a79f86712a94b0d1f19a92bbdcf4c0d2a5b9fe2d7c75ff20a17d89ade2cfd409",
+        "meta.json": "7e66429e03385ad1f985cd2f8f6f04648ff6b8adcd6926fd026b54feceb6bd68"
+      }
+    },
+    {
+      "slug": "card-tick-tock-clock-red-four-live-sparse882-actual-item-enters-with-one-steam-and-declines-crank",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-tick-tock-clock-red-four-live-sparse882-actual-item-enters-with-one-steam-and-declines-crank",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse882-local-20261122\\clean-replays\\01.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse882-local-20261122\\clean-replays\\01.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "0db101d8ce8cc323184f805e9703032a7d3908016f4e8de6227fe2568f63ee82",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "45527de1c8e783aa27f8aad65d46ba8a040ba4884708d81511e0a53f06fe0ece",
+        "actions.json": "28c1d262ce37f99b248fadefb719a7204777f945445684c91d210c0b2729f92b",
+        "assertions.json": "0f21e6f24d356c3c6706f37c850f1350d54ecbff524fe75da9a34b5feea552ad",
+        "expected_final_gamestate.txt": "e0f324de535515d60a573a66ddd9ff8dbad890b5a4b352d6d2e88c7a0e81b17f",
+        "meta.json": "f8d57b7bc46979eb7477d7c0ed3e786c418967abc274006ba9159abb3a4a1d6e"
+      }
+    },
+    {
+      "slug": "card-visit-the-golden-anvil-blue-four-live-sparse882-actual-gold-additional-cost-equips-real-inventory-equipment",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-visit-the-golden-anvil-blue-four-live-sparse882-actual-gold-additional-cost-equips-real-inventory-equipment",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse882-local-20261122\\clean-replays\\02.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse882-local-20261122\\clean-replays\\02.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "d1b4ac666b35efb1b4eb618beafa809813b501845924133c4da4998f5ae1fdf8",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "b9f89cd8e7dc8fba37633a5631c0b4b04b70f47607f59611a75e5783d7a09382",
+        "actions.json": "9e59d00210cdc3dd377a00d3341bc1ea6427f3a3499e75d6e01370a785b161c5",
+        "assertions.json": "ab51e021fd1ac668436e832ad71222d08e8e75da6fec1b1c53a0255d666cd08f",
+        "expected_final_gamestate.txt": "cf3985ec6893188a16df65ec43cf5f3e304341f66258b1126312722d33c414bc",
+        "meta.json": "19f6c025ac97e38cf88c2b70ba22853e8b7afb64930ed3085aa325c9b6dfefde"
+      }
+    },
+    {
+      "slug": "card-visit-the-floating-dojo-blue-four-live-sparse882-actual-surging-and-combo-move-to-chosen-top-and-bottom",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-visit-the-floating-dojo-blue-four-live-sparse882-actual-surging-and-combo-move-to-chosen-top-and-bottom",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse882-local-20261122\\clean-replays\\03.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse882-local-20261122\\clean-replays\\03.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "dd1fbefde9cac166d2e0160f7ecc401acf05e1599e00c753ca4f2d63bcda4a2c",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "46033b0342bb3f1b046f739c000f0ed28cb2d4604484ab88d53adc6683fd549a",
+        "actions.json": "96d64e3ea266b74157775c193d7ad255b8a40dce54e062c9e85943e901e61ab9",
+        "assertions.json": "05f43246b96675535724eb25d832c8661bf30d7ea26490459375eb5b64a4f0ab",
+        "expected_final_gamestate.txt": "4769e877a8dac68aa5ac71f0066c718efaa3b604c2da6e1ff1ff5caf01b3c07d",
+        "meta.json": "d5d16898b771989fd4819166c7c10599628319a07b636e3a77d4b915e9f849b1"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

@@ -1,0 +1,39 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch771.json",
+  "runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+  "returncode": 0,
+  "completed_utc": "2026-11-09T03:10:45.446603+00:00",
+  "fixtures": [
+    {
+      "slug": "card-skywalker-keikoi-four-live-real-cloaked-destroy-cost-prevents-one-of-seven",
+      "fixture_sha256": "a3e7529a441bffd168c8d022d10e843d423a0a2c60c9a87d3c8ef99aa67a4f15",
+      "passed": true,
+      "result": "[PASS] skywalker_keikoi / four live distinctive effect"
+    },
+    {
+      "slug": "card-mbrio-base-vizier-four-live-real-hyper-driver-steam-cost-prevents-one-arcane",
+      "fixture_sha256": "8b1275db5a690a79518eb8330e4044dedaf93ec8b9051c69286535cd8c946234",
+      "passed": true,
+      "result": "[PASS] mbrio_base_vizier / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-skywalker-keikoi-four-live-real-cloaked-destroy-cost-prevents-one-of-seven",
+      "returncode": 0,
+      "stdout": "[PASS] skywalker_keikoi / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-mbrio-base-vizier-four-live-real-hyper-driver-steam-cost-prevents-one-arcane",
+      "returncode": 0,
+      "stdout": "[PASS] mbrio_base_vizier / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 2,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

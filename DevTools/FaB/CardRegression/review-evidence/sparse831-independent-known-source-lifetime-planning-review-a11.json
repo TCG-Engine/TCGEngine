@@ -1,0 +1,139 @@
+{
+  "status": "INDEPENDENT_APPROVED_SOURCE_ONLY_TWO_UNATTEMPTED_PLAIN_SOURCE_LIFETIME_CONTRACTS",
+  "phase": "SOURCE_PLANNING_HOLDS",
+  "batch": 831,
+  "approved": true,
+  "approved_as_planning_limits": true,
+  "reviewer": "/root/ebbing_recovery_review",
+  "reviewer_independent": true,
+  "created_utc": "2026-11-15T21:09:19.117872+00:00",
+  "manifest": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-batch831-two-known-source-lifetime-holds-manifest.json",
+    "sha256": "5fd3401f7482081a497c26de9b54660e606c0764170703973ee600e2015a856b"
+  },
+  "manifest_sha256": "5fd3401f7482081a497c26de9b54660e606c0764170703973ee600e2015a856b",
+  "runtime_sha256": "a11fb2abaf062a707ad2c9372bf41321fcde25d5fe32a99bf55a1b4d2bae4223",
+  "firm_reservation": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-batch831-firm-reservation.json",
+    "sha256": "4facd8545ecbc3b12be16aacf057d02d036f01ede251f781a0da805ace031d0f"
+  },
+  "source_preimage_guard_count": 22,
+  "all_current_source_preimages_matched": true,
+  "source_only_held_cases": [
+    {
+      "card_id": "rolling_thunder_red",
+      "group_id": "identity:rolling_thunder_red",
+      "status": "SOURCE_ONLY_UNATTEMPTED_KNOWN_PHYSICAL_SOURCE_LIFETIME",
+      "classification": "KNOWN_UNMANAGED_PLAIN_ACTION_PHYSICAL_SOURCE_LIFETIME",
+      "author_note": {
+        "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-batch831-rolling-thunder-known-source-lifetime-unattempted-note.json",
+        "sha256": "c60d50c09687d732fa6bbc5c96b254c96f70b1049a96936ba137af3eb6cb4498"
+      },
+      "reason": "Both GameLogic1571..1573 and1637..1682 managed physical-source predicates exclude the selected ordinary ACTION. It therefore follows1823 Stack-to-ownGraveyard BEFORE1824 ResolveCard instructions and1827 go-again handling. Exact known ordinary physical-source lifetime contract, explicitly including straight-line instructions in retained WhatHappensNext/ComeToFight and VolticVanguard evidence; absence of an await on this branch does not make early clearing correct.",
+      "retained_known_contract_references": [
+        {
+          "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\review-evidence\\sparse814-independent-planning-limit-review-6695.json",
+          "sha256": "57df3645322ed993c00f33e3fd478b746a067e5acc27707f8465660160224f3e"
+        },
+        {
+          "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\review-evidence\\sparse819-independent-two-known-helper-contract-planning-review-6695.json",
+          "sha256": "cadab28fe372f78a84bc441d2ca82f2b4364adef114c80553807be4fe044004c"
+        }
+      ],
+      "native_attempted": false,
+      "fixture_saved": false,
+      "coverage_credit": false,
+      "confirmed_new_issue": false,
+      "source_fix": false,
+      "native_case_approved": false
+    },
+    {
+      "card_id": "teklovossens_workshop_blue",
+      "group_id": "identity:teklovossens_workshop_blue",
+      "status": "SOURCE_ONLY_UNATTEMPTED_KNOWN_PHYSICAL_SOURCE_LIFETIME",
+      "classification": "KNOWN_UNMANAGED_PLAIN_ACTION_PHYSICAL_SOURCE_LIFETIME",
+      "author_note": {
+        "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-batch831-workshop-known-source-lifetime-unattempted-note.json",
+        "sha256": "be771390204f1dd4f4df4c7ddbac3469fedcade27fd4beddc608ca97c8671341"
+      },
+      "reason": "Both GameLogic1571..1573 and1637..1682 managed physical-source predicates exclude the selected ordinary ACTION. It therefore follows1823 Stack-to-ownGraveyard BEFORE1824 ResolveCard instructions and1827 go-again handling. Exact known ordinary physical-source lifetime contract, explicitly including straight-line instructions in retained WhatHappensNext/ComeToFight and VolticVanguard evidence; absence of an await on this branch does not make early clearing correct.",
+      "retained_known_contract_references": [
+        {
+          "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\review-evidence\\sparse814-independent-planning-limit-review-6695.json",
+          "sha256": "57df3645322ed993c00f33e3fd478b746a067e5acc27707f8465660160224f3e"
+        },
+        {
+          "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\review-evidence\\sparse819-independent-two-known-helper-contract-planning-review-6695.json",
+          "sha256": "cadab28fe372f78a84bc441d2ca82f2b4364adef114c80553807be4fe044004c"
+        }
+      ],
+      "native_attempted": false,
+      "fixture_saved": false,
+      "coverage_credit": false,
+      "confirmed_new_issue": false,
+      "source_fix": false,
+      "native_case_approved": false
+    }
+  ],
+  "independently_checked_canonical": {
+    "rolling_thunder_red": {
+      "cardId": "rolling_thunder_red",
+      "abilities": [
+        {
+          "macroName": "ResolveCard",
+          "abilityCode": "$roll = FaBEVRRoll($player);\n FaBEVRNext($player, 'BRUTE_ATTACK', $roll);\n",
+          "isImplemented": true
+        }
+      ]
+    },
+    "teklovossens_workshop_blue": {
+      "cardId": "teklovossens_workshop_blue",
+      "abilities": [
+        {
+          "macroName": "ResolveCard",
+          "abilityCode": "$optUIDs = FaBARCStageTop($player, FaBARCEffect($player, 'ARC_BOOSTED'));\n\nif (count($optUIDs) > 0) {\n\n $orderParam = FaBARCOrderParam($optUIDs);\n\n $order = await $player.Rearrange($orderParam);\n\n FaBARCFinishOrder($player, $optUIDs, $order);\n\n\n}\n\n$ref = FaBChoiceRefs($player, 'Deck')[0] ?? '';\n\nFaBRevealChoices($player, $ref);\n\n$o = FaBIdentityFromMZ($ref);\n\nif ($o !== null && FaBHasType($o['object'], 'Mechanologist') && FaBHasType($o['object'], 'Item') && intval(CardCost($o['object']->CardID)) <= 2) {\n FaBARCPutItem($player, $ref, 'Deck');\n \n}\n\n",
+          "isImplemented": true
+        }
+      ]
+    }
+  },
+  "current_compiled_entry_sha256": {
+    "rolling_thunder_red": "3ff8dac82fdc1054d5d57fd44f56c144d0d185f0000b07e1446931d9b820ba7b",
+    "teklovossens_workshop_blue": "cf51b24a97ab15f5eea936ba4d9aa3eb886b64467d8e802871ede00015e881f7"
+  },
+  "source_approved": false,
+  "native_case_approved": false,
+  "normal_save_approved": false,
+  "executable_cases": 0,
+  "native_attempted": false,
+  "fixture_saved": false,
+  "coverage_credit": false,
+  "qualification": false,
+  "confirmed_gameplay_bug": false,
+  "confirmed_new_issue": false,
+  "source_fix": false,
+  "RNG_admission_assessed": false,
+  "RNG_impossible_claim": false,
+  "full_suite_run": false,
+  "historical_corpus_replay": false,
+  "PHP_native_network_executed_by_reviewer": false,
+  "R_writes_by_reviewer": false,
+  "B787_denied_operation_untouched": true,
+  "Elliptical184_denied_operation_untouched": true,
+  "review_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov15_batch831_two_holds.py",
+    "sha256": "27ec5f45fb0a893bd5f8ee52c4a0daf9ce378e91dd750f8a6f5bc012dbb43283"
+  },
+  "independent_findings": [
+    "Both actual ordinary Action identities are absent from both managed plain-spell predicates; nonpersistent path moves Stack source toGY before ResolveRules instructions. Retained WhatHappensNext/ComeToFight review explicitly includes straight-line instructions and Voltic229 precedent. No await is needed to make early source clearing incorrect; this is inherited source-only lifetime scope, not a new Native symptom.",
+    "Rolling has real D6Roll/BRUTE_ATTACK payload and legal Brute consumer support. No roll occurred, no seed/admission contract was assessed, and RNG is not declared impossible or qualified. Earlier required lifetime gate alone blocks the full fixed route.",
+    "Workshop has implemented boost-count Opt/reveal/item-placement body. Fixed zeroBoost Opt0 route would not enter its optional rearrange branch and remains blocked by the same lifetime gate. No pending choice was observed or claimed. Legal YoungDash/cost0 TekloCore support is distinct from deck-start or item-start-phase coverage.",
+    "Secondary Blue printed cost0 versus canonical <=2 predicate is explicitly SOURCE_ONLY_UNTESTED. Fixed cost0 support satisfies both and cannot distinguish the wider boundary. No alternate cost1/2 item probe, confirmed gameplay defect, repair or new root is awarded."
+  ],
+  "limitations": [
+    "Two source-only UNATTEMPTED planning records; no executable, Native game, new issue/root, passing fixture or coverage.",
+    "Historical known review hashes retain their original runtime labels; current guarded causal code was checked independently. No old Native evidence was replayed or relabelled current.",
+    "Do not substitute quiet final-output checks, forced RNG, alternative item/support/primary or bonus-only route for the blocked full fixed routes. Distribution, other costs/boosts and later consumer/cleanup branches remain untested.",
+    "Metadata-only recovery/index work and qualified totals are Root-owned context, not independently re-audited by this bounded review. Denied repairs remain unchanged."
+  ]
+}

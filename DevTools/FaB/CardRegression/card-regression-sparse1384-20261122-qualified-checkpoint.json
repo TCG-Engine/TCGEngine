@@ -1,0 +1,68 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-24T12:24:25.939765+00:00",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1384-20261122.json",
+  "source_spec_sha256": "e7bf622abbcb81dff3c338c7d4a62df41f5f8467b13756039bfb4b4d51269057",
+  "new_scenarios": 1,
+  "new_groups": 1,
+  "new_primary_ids": 1,
+  "actions": 43,
+  "native_assertions": 404,
+  "manual_passes": 33,
+  "totals": {
+    "saved_registered_scenarios": 5376,
+    "duels": 3113,
+    "four_live": 2263,
+    "recorded_primary_ids": 2524,
+    "identity_denominator": 5196,
+    "recorded_groups": 2398,
+    "group_denominator": 3324,
+    "four_live_groups": 2252,
+    "phase_qualified_scenarios_at_actual_contexts": 2013,
+    "phase_qualified_unique_groups": 2003,
+    "creation_replay_passes": 2755,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 1174,
+  "scenarios": [
+    {
+      "card_id": "towering_titan_red",
+      "group_id": "pitch-cycle:towering_titan",
+      "scenario_id": "card-towering-titan-red-four-live-sparse1384-paid-nine-cost-aura-after-action-phase-began-no-premature-ten-power",
+      "effect_branches": [
+        "native_nine_cost_aura_play_after_action_phase_began_and_real_same_phase_guardian_attack_without_premature_ten_power"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-towering-titan-red-four-live-sparse1384-paid-nine-cost-aura-after-action-phase-began-no-premature-ten-power",
+      "source_spec": "card-regression-sparse1384-20261122.json",
+      "source_spec_sha256": "e7bf622abbcb81dff3c338c7d4a62df41f5f8467b13756039bfb4b4d51269057",
+      "review_evidence": "review-evidence/sparse1384-20261122-qualified-saved.json",
+      "review_evidence_sha256": "faef3005027d215e7419502159b372a07619e0e2b58b39659286470148a87f5e",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1384-20261122-replay.json",
+          "sha256": "f8cb395cc4614b011131fd92133031ef67ccd493727a9a9110f42f46d7b90cc0",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

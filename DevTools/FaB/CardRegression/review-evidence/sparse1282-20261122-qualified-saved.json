@@ -1,0 +1,107 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "independent breadth_review1252",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1282-20261122.json",
+  "source_spec_sha256": "8c99a6b1299dd0e97a6e93543b15c62fdd837f0439ff6feda945f47894935e53",
+  "input_sha256": "8c99a6b1299dd0e97a6e93543b15c62fdd837f0439ff6feda945f47894935e53",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-uzuri-four-live-sparse1282-real-face-down-cost-replaces-stealth-old-bottom-deck-and-new-damage",
+      "card_id": "uzuri",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "efc8602feb4b70ce469b63b0ee0febb448f68fcbb916642ddfc7cd53d1bd3d1c",
+        "actions.json": "b603ac145afd5791f3617233a889d5fe4c71fecf948f5dc4b15b27ac5f12eae7",
+        "assertions.json": "a61313bd44597e9306de94b8bd9b59b202f9738308c3b9b823ed0c5d190e74db",
+        "expected_final_gamestate.txt": "0750a324de9f3e35f7458f31e2b067e513a2fe7c2a2c98fd958665108a7d2804",
+        "meta.json": "c75de12386025a60e7759041c91d22ca07bc0f0ff2780a299fba9910b6a8dcfe"
+      },
+      "fixture_sha256": "570e1632d54bb273e83e75e15aca35e89903d1233db6bcd2a0220569aabdf3bd",
+      "actions": 33,
+      "native_assertions": 382,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 29,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1282-20261122.json",
+      "input_sha256": "8c99a6b1299dd0e97a6e93543b15c62fdd837f0439ff6feda945f47894935e53",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1282-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-uzuri-four-live-sparse1282-real-face-down-cost-replaces-stealth-old-bottom-deck-and-new-damage",
+        "fixture_slug": "card-uzuri-four-live-sparse1282-real-face-down-cost-replaces-stealth-old-bottom-deck-and-new-damage",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "reviewer": "independent breadth_review1252",
+    "spec_sha256": "8c99a6b1299dd0e97a6e93543b15c62fdd837f0439ff6feda945f47894935e53",
+    "source_note_sha256": "f722452bc41e8f27c25a6a628ef8c408c43dd5d1ec6f99e359eb420582e60d3d",
+    "case_count": 1,
+    "active_seats": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "players": "four_live_manual",
+    "native_controls": 33,
+    "query_checks": 382,
+    "persistable_assertions": 382,
+    "author_only_checks_omitted": 0,
+    "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+    "coverage_category": "ACTUAL_YOUNG_UZURI_FOUR_LIVE_HIDDEN_COST_SINGLETON_STEALTH_REPLACEMENT_AND_DAMAGE",
+    "basis": [
+      "Natural YoungUzuri20 plus three YoungDorinthea20, explicit four live seats1234/manual UPF/no passives, four-hero UID allocation gives realWither5Hand, Wounding6Hand, deck-order control7. Identity absent from both current coverage indexes. ActualWither0 Stealth attack declares legal adjacentHero4 before AP payment and waits all four source/combat responses into unblocked Reaction1.",
+      "Printed Uzuri cost is actual Hand banish face-down, separate from reveal/replacement resolution. ActualReaction0 ABI8 offers sole realHand6, then native answer banishes same6 hidden before payment completes and opponent priority. OUTAbilityLegal requires current own active Stealth attack; OUTTargets returns exactly that unique active attack. OUTBanishCost stores outSwapUID6 and outSwapTarget5 against ABI8 before FaBFinishPreparedCard opens response priority.",
+      "Narrow target-binding assessment: with only one legal active attacking Stealth card and no state change to it during cost, automatic implicit binding of UID5 before any opponent response represents the singleton target selection for this branch. This is a rules inference about the selected observable path, not a card-specific ruling or certification of canonical target records, target-before-cost ordering in changing states, retargeting or multiple-target contracts. It does not select a target for the first time on resolution.",
+      "Generated ResolveAbility retrieves fabAbilityStackUID8 and OUTSwap uses that ABI-bound target, revalidating same activeUID5, CombatChain zone and Stealth. It reveals actual6, checks AAC printedcost0<=2, puts old5 on owner1 bottomDeck after untouched7, and moves same6 onto active chain as ATTACK/FromZoneBanish with no card-play event, resource/AP expenditure or inherited Wither text. No defenders need preservation in this selected case.",
+      "Pending checks require original5CC, hidden6Banish, deck7 and ABI8 through all four responses; only afterward actual6CC/attackUID6 and deck7then5. Fresh all-seat Reaction passes then real4power/noGA, unblocked4damage/HP4=16 and no Frailty demonstrate replacement outcome. Actual5 no longer attacks or hits, so its on-hit trigger is unearned.",
+      "Complete link cleanup expects only original6 ownedGY, old5 bottomDeck behind7, AP/R0/UID8/RNG0 and empty Stack/queues/combat. All382 query/state/power/go_again assertions persist through native recorder;33 controls are single native actions."
+    ],
+    "limits": [
+      "Semantic/source review only pending actual native save and targeted replay; no native pass, replay or coverage credit claimed.",
+      "Only positive singleton unchanged Stealth target with eligible0-cost AAC replacement/no defenders. No invalid/nonAAC/cost2 boundary/other target/reassignment/during-response replacement/once repeat/reveal-log/adult/secondary/support/whole-Hero credit.",
+      "Only W receipt written; no native/test/replay execution, T/source/engine/registry edits, authentication/network, Git or original checkout access."
+    ],
+    "source_sha256": {
+      "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+      "FaBSim/GeneratedCode/GeneratedMacroCode.php": "fe6a7982611df8f4de98ce2671b317b671b580146aa4b8c28e8f4b86d8461056",
+      "FaBSim/Custom/OUTCards.php": "93f83523894205662afb911abd42b5c82b618020597b2ffecf6612fccc362d91",
+      "FaBSim/Custom/OUTRuntime.php": "c0230fc9eb9948e3e2a93e2b33b6d1ebb588604957196b114991e23a19c22961",
+      "FaBSim/Custom/ARCAbilities.php": "e49ce4685f148ef423ea38aac544266b3298527ea8ca9eef11b12fb974e7c9f0",
+      "FaBSim/Custom/ARCCards.php": "f6b6a21d214e71fdcfd6a084f0671ce610f08a40c51a1266041877a5a12c0d52",
+      "FaBSim/Custom/GameLogic.php": "c60fa151561f959e4e3e341b814de0e2b47c9e9f153bbc8793a04c43b5075061",
+      "Schemas/FaBSim/GameSchema.txt": "7783800bd47bc85885cc915066aadca58cdf99f0c1180602ac312d9af5ebf643",
+      "Core/ShortcutPreferences.php": "25f300ea0b6fbc409f5b92e8bc3587a74b2ab0eaf31ccef38e18c455598eaba6",
+      "DevTools/FaB/CardRegression/record_card_regressions.php": "e53055b29e9ea641949b77019c4455607f41ca233325d716a9500637e19efd28"
+    },
+    "workspace_source_sha256": {
+      "author_breadth1282_py": "83b4ebc461ba66875285643696332fa54697cca028a668e052520da676135e41",
+      "breadth1068_helpers_py": "997f949ec26c7e494ad26a818f9f2078f6f4f2a0c49ca7f61aa8c71f3b091b0a"
+    }
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1282-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "068a262ff956162f22939ba75506b272a1587c2785cfa24e961327978871c90e"
+  },
+  "full_suite_run": false
+}

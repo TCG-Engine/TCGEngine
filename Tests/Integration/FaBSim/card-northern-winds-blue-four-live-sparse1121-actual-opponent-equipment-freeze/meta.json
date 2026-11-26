@@ -1,0 +1,7 @@
+{
+    "name": "Northern Winds / actual opposing equipment freeze during resolution",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-23T09:40:26+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "**Oldhim Specialization**\n\nFor each hero, **freeze** up to 1 equipment, item, and ally they control until the start of your next turn.\n\n**Unity** - When this defends together with a card from hand, create a Spellbane Aegis token under any number of heroes' control. Named one real opponent-equipment freeze branch. Young natural Oldhim20 is legal for Ice/Oldhim specialization. Actual primary5Hand costs0 and spends AP1 to0. Four live heroes manually respond before the printed nonTarget resolution choice; only real opponent4 IronrotHelm6 is eligible. Caster1 chooses actual6 while physicalsource5 remains owned Stack and6 is not yet frozen. Actual6 retains Equipment/owner4/controller4/ready status and acquires UPR_FROZEN_BY1 recognized by current freeze predicate; actual5 clears to owner1graveyard, allHP20/R0/AP0/noGA. No frozen-ability admission, expiry/start-turn lifetime, all-kinds/all-seats matrix, Unity defense/Spellbane creation, source/target identity secondary credit, ownership export, alternate pitch or whole-card claim. Pending independent Root review/native Save/one clean replay. Sources: FaBSim/GeneratedCode/cardArrayCache.json#northern_winds_blue"
+}

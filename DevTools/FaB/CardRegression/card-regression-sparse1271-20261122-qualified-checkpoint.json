@@ -1,0 +1,68 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-24T00:44:25.335489+00:00",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1271-20261122.json",
+  "source_spec_sha256": "5ea3b681801c819a0d0a2f9bef987a3c6c82136c9e4fd8b9de61723f4f742fb1",
+  "new_scenarios": 1,
+  "new_groups": 1,
+  "new_primary_ids": 1,
+  "actions": 5,
+  "native_assertions": 201,
+  "manual_passes": 2,
+  "totals": {
+    "saved_registered_scenarios": 5174,
+    "duels": 3084,
+    "four_live": 2090,
+    "recorded_primary_ids": 2322,
+    "identity_denominator": 5196,
+    "recorded_groups": 2196,
+    "group_denominator": 3324,
+    "four_live_groups": 2079,
+    "phase_qualified_scenarios_at_actual_contexts": 1811,
+    "phase_qualified_unique_groups": 1801,
+    "creation_replay_passes": 2553,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 972,
+  "scenarios": [
+    {
+      "card_id": "dash_io",
+      "group_id": "identity:dash_io",
+      "scenario_id": "card-dash-io-two-live-sparse1271-real-top-item-as-instant-additional-resource-and-once-limit",
+      "effect_branches": [
+        "adult_duel_real_top_mechanologist_item_played_as_instant_at_zero_actions_pays_additional_one_then_second_top_item_rejected"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-dash-io-two-live-sparse1271-real-top-item-as-instant-additional-resource-and-once-limit",
+      "source_spec": "card-regression-sparse1271-20261122.json",
+      "source_spec_sha256": "5ea3b681801c819a0d0a2f9bef987a3c6c82136c9e4fd8b9de61723f4f742fb1",
+      "review_evidence": "review-evidence/sparse1271-20261122-qualified-saved.json",
+      "review_evidence_sha256": "02f7b4d36ad5828d3823d30cbc043c2039522803911422e8f48dd8d17ce2e97c",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1271-20261122-replay.json",
+          "sha256": "68be90311db81dadd34d7f042957a4ee416024a32d159cc31fed26611210df3e",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "two_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

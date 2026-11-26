@@ -1,0 +1,7 @@
+{
+    "name": "Tiger Trap / four-live absent typed defend event",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-23T01:11:47+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "When this defends and the attacking hero controls 3 or more attacks with {p} greater than their base, attacks they control can't gain {p} this turn. Named base-defense/typed-event-absent branch only. Raging7actualprintedbase7/noGA/noDom/oneactualATTACK. Therefore TarpitWHENdefendsGA absent; RainbowWHENdefends>base+dom+GA absent; TigerWHENdefendsAND3boosted-powerattacks absent. No earned trap event/Riptide1damage, no false suppression/powerreduction; actualattackerHP20/allArenas0/realHand9NAA+orderedDeck10/11retained. ActualRiptide19/ownedArsenal5cost0/DEF3 vs7 gives4physicaldamage/HP15; unusedHandBlue6retained, actualattackerBlue8pays3 andsupport7ownedGGY1, primary5RoleDEFENSE_REACTIONthenGGY4, all4manual/AP0/R0. Positive trap conditions and laterhit-trigger/power-gain suppression are UNRUN, no future-suppression claim. No hero/support/sibling/fullcardcredit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#tiger_trap_red"
+}

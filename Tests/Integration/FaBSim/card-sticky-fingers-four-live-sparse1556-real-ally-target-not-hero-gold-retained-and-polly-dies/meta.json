@@ -1,0 +1,7 @@
+{
+    "name": "Sticky Fingers / actual Ally-target attack preserves opposing Gold",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-25T14:34:25+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Fourmanual20ScurvStowaway/Dori/Dori/Puffin. PrioralreadyunequippedSticky5ArenaReady, opposingrealGold6Arena4/PollyCranka7Arena4Status1STEAM1(legalpriorreturnedstate). ActualArenaAllyAction0/tap5/proxy8 targetsadjacentPolly7PERMANENT, notHero4. PrintedWHENattacksHEROeventunearned, no ScurvRumactivation/PuffinCrankoccurs. Actualpower2physicaldamagekills1HPnonTokenPollytoGY4; allHero20, realGold6Owner4Controller4retained, Sticky5ArenausedDamage0. FullfourmanualClose/proxy8retired/UID8RNG0/noHeroStealor equipped-unequipcostbranchcredit. Noenginechange/fakecurrenthistory/support/sibling/wholecardcredit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#sticky_fingers FaBSim/Custom/MONAbilities.php FaBSim/Custom/MONCards.php FaBSim/Custom/UPRCards.php FaBSim/Custom/SEARuntime.php FaBSim/Custom/SEACards.php FaBSim/Custom/CRUCards.php FaBSim/Custom/GameLogic.php FaBSim/GeneratedCode/GeneratedMacroCode.php"
+}

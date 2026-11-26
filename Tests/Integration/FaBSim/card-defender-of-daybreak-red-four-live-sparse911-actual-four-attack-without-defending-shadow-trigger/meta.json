@@ -1,0 +1,7 @@
+{
+    "name": "Defender of Daybreak / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T19:08:31+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "When this defends a Shadow attack, non-equipment Light cards get +1{d} this combat chain. Representative only: actual_four_attack_without_defending_shadow_trigger Sources: FaBSim/GeneratedCode/cardArrayCache.json#defender_of_daybreak_red"
+}

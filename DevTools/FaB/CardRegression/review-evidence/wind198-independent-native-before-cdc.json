@@ -1,0 +1,187 @@
+{
+  "status": "ACTUAL_NO_SAVE_CONFIRMED_WIND_ITEM_REAL_HIT_MISSING_EARNED_RESPONSEABLE_LAYER",
+  "phase": "ACTUAL_NO_SAVE",
+  "batch": 856,
+  "reviewer": "/root/ebbing_recovery_review",
+  "reviewer_independent": true,
+  "actual_failure_review_complete": true,
+  "confirmed_gameplay_bug": true,
+  "new_issue": false,
+  "confirmed_missing_earned_trigger_layer": true,
+  "confirmed_functional_next_phase_Hero_ability_loss": false,
+  "confirmed_chain_close_destruction": false,
+  "oracle_correction_required": false,
+  "diagnostic_review_complete": true,
+  "actual_no_save_route_approved": false,
+  "positive_promotion_recommended": false,
+  "normal_save_approved": false,
+  "qualification": false,
+  "coverage_credit": false,
+  "fixture_saved": false,
+  "source_fix_applied": false,
+  "new_distinct_gameplay_root_group": false,
+  "new_core_root": false,
+  "root_attribution_status": "Fresh native IARHit Wind listener finding: missing earned hit layer after real hero damage. Root may allocate finding; no distinct shared-root/Core count, next-phase suppression functionality, close failure, repair or coverage inferred.",
+  "source_spec": "card-regression-batch856-wind-real-item-hit-earned-next-ira-probe.json",
+  "input_sha256": "a6a1b8ab49cdab5510740db149527d5905a0ee9e9b70ee216792f84690c159f1",
+  "source": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch856-wind-real-item-hit-earned-next-ira-two-kodachi-strict-probe-r2-pass-accounting-author\\wind-real-item-hit-earned-next-ira-two-kodachi-full-probe.json",
+    "sha256": "a6a1b8ab49cdab5510740db149527d5905a0ee9e9b70ee216792f84690c159f1"
+  },
+  "manifest": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch856-wind-real-item-hit-earned-next-ira-two-kodachi-strict-probe-r2-pass-accounting-author\\manifest.json",
+    "sha256": "7986226ae5c4db27a941a44e2e719bc31e5aa1452869e9929e59013f92aa1b8c"
+  },
+  "runtime_sha256": "cdc081ff4c87ff2f9338b1d69040d0dc98d7600ba33976384336534ea3f92d22",
+  "recorded_runtime_sha256": "cdc081ff4c87ff2f9338b1d69040d0dc98d7600ba33976384336534ea3f92d22",
+  "independent_original_correct_Source": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch856-wind-independent-full-next-ira-diagnostic-source-review.json",
+    "sha256": "4ff088611a2bad8ebeda18c2c45940ca0e4288aedcb78436fb48e5980288ee14"
+  },
+  "root_native_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-b856-wind-next-ira-strict-nosave-cdc\\receipt.json",
+    "sha256": "f704b379d5ea1ecce8f93a309b5cd7ddb21f773e83746661f7ac37c8b040cd85"
+  },
+  "actual_result": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-b856-wind-next-ira-strict-nosave-cdc\\actual-result.json",
+    "sha256": "d37671f26fd3e2c8f05622a034cc34d389d8ac14b4685cda50d0d687cf91374f"
+  },
+  "actual_immutable_archive": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch856-wind-real-item-hit-earned-next-ira-probe-20261116T084807Z-6afac3479e1db.json",
+    "sha256": "f138fc34cf1ebd20a408a958244327a64b0884f71e425c98d5a7ed83c5d65216"
+  },
+  "native_recording_results": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch856-wind-real-item-hit-earned-next-ira-probe.recording-results.json",
+    "sha256": "d37671f26fd3e2c8f05622a034cc34d389d8ac14b4685cda50d0d687cf91374f"
+  },
+  "planned_controls": 111,
+  "planned_queries": 13746,
+  "planned_pass_controls": 103,
+  "planned_legal_priority_response_controls": 88,
+  "planned_defense_finalizers": 3,
+  "planned_nonpriority_END_transports": 12,
+  "actual_native_inputs": 20,
+  "actual_manual_inputs": 17,
+  "actual_manual_actor_counts": {
+    "1": 4,
+    "2": 4,
+    "3": 4,
+    "4": 5
+  },
+  "actual_legal_priority_response_controls": 16,
+  "actual_defense_finalizer_controls": 1,
+  "actual_nonpriority_END_transports": 0,
+  "actual_earned_Wind_response_inputs": 0,
+  "persisted_successful_queries": 2480,
+  "persisted_prefix_matches_original_ordered_Source": true,
+  "persisted_prefix_sha256": "7eccfca9c3565143473ee16fce66aa481579784924a0f5ca4870176d7a435b6f",
+  "first_failed_query": {
+    "source_step_index": 40,
+    "source_check_index": 3,
+    "native_after_input": 20,
+    "checkpoint": "Wind_REACTION_four_realONEdamage_thenEarnedHitABI_beforeANYhitResponses_fourth_legalActionResponse",
+    "global_query_ordinal": 2481,
+    "query_ordinal_in_checkpoint": 4,
+    "query": {
+      "step": 20,
+      "type": "zone_count",
+      "zone": "Stack",
+      "value": 1,
+      "viewerPlayerID": 1
+    },
+    "expected": 1,
+    "actual": 0,
+    "error": "Expected Stack count 1, got 0."
+  },
+  "queries_unrun_after_failed_query": 11265,
+  "not_passed_including_failed_query": 11266,
+  "native_controls_unrun": 91,
+  "declarative_controls_unrun": 91,
+  "manual_inputs_unrun": 86,
+  "unrun_control_breakdown": {
+    "earned_Wind_responses": 4,
+    "Wind_Damage_responses": 4,
+    "Wind_Resolution_responses": 4,
+    "turn_transition_controls": 24,
+    "first_Kodachi_controls": 28,
+    "second_Kodachi_controls": 27
+  },
+  "unrun_pass_control_breakdown": {
+    "legal_priority_responses": 72,
+    "defense_finalizers": 2,
+    "nonpriority_END_transports": 12
+  },
+  "passed_current_cluster_queries": 3,
+  "initial_raw_sha256": "d6e7a26a1a13ea4f668ea1171dc72f60f75cc7d8ce57f32ba1ffa06fcbaf508e",
+  "initial_raw_48_manual_controls": true,
+  "genuine_four_live_manual_seats_initial": true,
+  "final_raw_48_manual_controls": false,
+  "final_physical_raw_snapshot_available": false,
+  "actual_passed_facts": [
+    "All20 actual envelopes and2480 persisted assertions exactly match the original Source. Actual native20 is actor4 fourth Reaction response.17 recorded passes4/4/4/5 comprise16 legal priority responses and1 P4 defense finalizer; there are0 END transports and0 earned Wind responses. Fresh initial raw48/manual Young/live UPF seats/all20/no passive, Wind5 real Item Arena1 and two distinct physical Kodachi7/8/HeadJab9 under Ira4 were verified.",
+    "Prior completed boundary19 directly passed native Wind5 targetHero4, real Blue6 pitch3 paying printed1/R2/AP0, physicalWind5 owner/controller1/tappedStatus1, actual first attack/computed power1/printedGA1 and no blockers. AllheroesHP20 and real P4Kodachi7/8 ready/ownercontroller4 plus HeadJab9Hand4 were prior successful witnesses, not later current post-hit physical observations.",
+    "At boundary20 only three semantic queries passed before failure: P1resources2, P1AP0 and actual P4HP19. The next direct Stack count query reports0 instead of expected1. This directly establishes missing current earned layer after the real hit; no inference from private scheduled metadata or internal window label is needed.",
+    "Captured state separately corroborates DAMAGE/combatOpen/attacker1/defender4, Hero4 target, attackHittrue/damageDealt1/no payment and empty DQs. Captured iarWind[4]={after:2,active:-1} is scheduled future effect metadata, not observed active Hero blanking. Captured arcCards[5].omnShurikenUsed=true supports real activation-cost scheduling but does not prove later physical destruction. Raw attackPower1/GA cache are not substituted for the prior computed query witnesses."
+  ],
+  "causal_source_findings": [
+    "GameLogic1258 calls native IARHit before the ordinary own-Hit macro route. IARCards136 recognizes real Wind hero hit and immediately calls WindLock355..356, which writes iarWind scheduling data without creating an earned responseable layer. The direct Stack0 failure and separately captured schedule match this exact native path. Canonical empty abilities is not absence of implementation; ordinary own-Hit285/295 is not the route tested.",
+    "Printed WHEN hero hit must create its triggered layer before next priority under CR6.6.1d/6.6.5/6.6.6; scheduling its later action-phase duration does not eliminate that response opportunity. Expected captured Wind layer/source5/controller1 and fresh four remain correct. The actual confirmed defect is missing layer, not proof that the target Hero already lost abilities or that future suppression works.",
+    "Later expected ABI source/controller/kind, current physical Wind state and the rest of the post-hit boundary were UNRUN after the count failure. Existing prior physical5 references and captured attack context cannot be represented as later typed UID observations. Actual Stack0 itself is a direct query error, not an unrun inference.",
+    "MONShuriken activation records its used marker and OMNClose444 has actual Arena destruction support; no earlier tentative Weapons-only close concern is revived. Chain-close ownerGY, GA/AP refund, all three true turn transitions and next-Ira twoKodachi1+1/HP1=18 consumer remain unrun. No functional suppression, expiry/restoration, close correctness or full-card support credit is awarded.",
+    "No broader Core/shared-root allocation or source fix is inferred.111 planned controls/13746 queries remain fully correct and unchanged;11265 queries after the first failure and91 controls are unrun."
+  ],
+  "captured_corroboration": {
+    "window": "DAMAGE",
+    "combatStep": "DAMAGE",
+    "damageDealt": 1,
+    "attackHit": true,
+    "pendingPayment": null,
+    "scheduled_metadata_path": [
+      "observed_state",
+      "iarWind",
+      "4"
+    ],
+    "scheduled_metadata": {
+      "after": 2,
+      "active": -1
+    },
+    "scheduled_metadata_is_not_functional_suppression_proof": true,
+    "activation_schedule_path": [
+      "observed_state",
+      "arcCards",
+      "5",
+      "omnShurikenUsed"
+    ],
+    "activation_schedule_value": true
+  },
+  "postfailure_raw_limit": {
+    "unique_game_name": "regression_fab_author_6afac326e8518",
+    "existing_isolated_game_directory": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\Games\\regression_fab_author_6afac326e8518",
+    "existing_directory_present": false,
+    "reason": "Isolated recorder game deleted. Frozen actual result/archive retain initial raw and captured game fields/decisions/hand refs, not final physical zones. No rerun or terminal capture."
+  },
+  "primary_rules": [
+    {
+      "url": "https://rules.fabtcg.com/en/cr/06-effects/",
+      "sections": [
+        "6.6.1d",
+        "6.6.5",
+        "6.6.6"
+      ]
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/04-game-structure/",
+      "scope": "No priority in End/Start; END inputs solely current API phase transport."
+    },
+    {
+      "url": "https://fabtcg.com/rules-and-policy-center/release-notes/usurp-the-shadow-throne/",
+      "scope": "Official indexed text rechecked: deferred destruction is activation cost; suppression only next action phase. Direct page403 disclosed."
+    }
+  ],
+  "limits": [
+    "Confirmed missing earned hit layer only. Actual next-phase Ira loss/twoKodachi damage/close/GA refund/terminal source zones remain unrun.",
+    "11265 after-failure queries/91 controls unrun;11266 not-passed includes failed query.103 planned pass controls are not all game-priority responses.",
+    "No fixture, qualification, coverage, repair, PHP/native/R writes/rerun/fullsuite/Git/remote/deferred or denied repair action."
+  ],
+  "created_utc": "2026-11-16T08:51:45.190916+00:00"
+}

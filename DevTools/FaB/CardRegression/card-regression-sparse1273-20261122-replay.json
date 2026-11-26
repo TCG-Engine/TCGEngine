@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-iyslander-stormbind-two-live-sparse1273-real-blue-arsenal-action-as-instant-on-opponents-turn-before-physical-attack",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-iyslander-stormbind-two-live-sparse1273-real-blue-arsenal-action-as-instant-on-opponents-turn-before-physical-attack",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1273-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1273-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "9d19ad0bde2dca7161beca0e05fc87d80a94168a995e8daabda6e74dd6e556af",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "caf1643c3857cd8efe12fa8a17784c5a59618756cce80ce87803177747ba8bb8",
+        "actions.json": "d28421f71d8f210a961b2b376f8cf1d33be1240fb76606d108f479f94382ce99",
+        "assertions.json": "4e82e0630ed24a3b3ecc509fc37708dafa1691fa12535269442723136650e651",
+        "expected_final_gamestate.txt": "9f0f6c4fbdee25a661761e30c3f56ccc6fa8545ef7789f484d41418f01f04227",
+        "meta.json": "0118e82df0a138579f9fd6cb3cc38dfd56a4f7c6ec204e92a2e994b56a96d99c"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

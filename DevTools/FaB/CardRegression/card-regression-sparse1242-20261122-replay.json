@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-arcane-cussing-red-four-live-sparse1242-foreign-vaporize-earns-owned-three-runechant-leave-trigger-on-controller-turn",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-arcane-cussing-red-four-live-sparse1242-foreign-vaporize-earns-owned-three-runechant-leave-trigger-on-controller-turn",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1242-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1242-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "e94cac30eebe294c0535102d42500500a7b7fb4591cb15124577fb2c96ff7000",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "e5bbaa306f7f2dcc94f78cd613651fde7cb07d05204c8230f6c9d137c1cfb8d3",
+        "actions.json": "19b3785e471164e5be45016ea3f3adaa9631b3405211a9e47c0364cbc2bc7d30",
+        "assertions.json": "89aba1cecaa05ffe29f215eba9de150a5d55edec6baefd767948e3b4ef81bed5",
+        "expected_final_gamestate.txt": "f64cbf022b99e804b28d114f09285195c48976f84b727584708f30e98fe7f0d0",
+        "meta.json": "20bffaa36bf18e2f2356a438921a88da63262de1d6775ce34b097938eefcfbaa"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

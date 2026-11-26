@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-verdance-thorn-of-the-rose-two-live-sparse1414-eight-earth-actual-life-gain-separate-hero-layer-and-arcane",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-verdance-thorn-of-the-rose-two-live-sparse1414-eight-earth-actual-life-gain-separate-hero-layer-and-arcane",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1414-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1414-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "fbf75c8834a4b3761796e28cfa8551025c918cda361fce48ac27d8997df14347",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "c89417a0ee0d51b0b5940f030e93841a7d5aca3d82926a0b253f2b51521e2226",
+        "actions.json": "93843f4ddfc1b17b6e25656301f0e9d3372a24ab055bc3430e9ba8e36ba7c1fa",
+        "assertions.json": "9f5b4c24baf3d11412a1ea004fcd1c11eb3d7e7a6b127c504c8827f81266ac99",
+        "expected_final_gamestate.txt": "af5ac33381116c750ac328a52d6c91eb552a3d94be6702dde4f97e1a064c833e",
+        "meta.json": "45d2a5d6ef42d2a30a941e5ac8f128e353109a2dcb0ac8e58e162a928df72e94"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

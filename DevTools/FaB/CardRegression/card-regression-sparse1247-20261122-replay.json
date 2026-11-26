@@ -1,0 +1,79 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-dust-from-the-golden-plains-red-four-live-sparse1247-real-material-under-themai-six-power-block-does-not-earn-phantasm",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-dust-from-the-golden-plains-red-four-live-sparse1247-real-material-under-themai-six-power-block-does-not-earn-phantasm",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1247-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1247-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "062dfcbbef8bbce89ac6d9ccce063a0275035a5e4a580424b6fcb7523165bd8c",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "07d1c070ec5469290df314695c59cbc3f954591ffd950bc8f927b0cf126d4f29",
+        "actions.json": "d507b1d15f44902b7598df9051e42b8acba1d10ef6b50af37a5b2afabef2a5f3",
+        "assertions.json": "155c439315edb115f8e2c42aa9da622109596a75e184ab580148ba7719e4d106",
+        "expected_final_gamestate.txt": "4944582719ef087a9230297829354dee7711b7fea6d28b7ca9dd3e6129041178",
+        "meta.json": "fcb01bb0ad56788b9cfb965b5af4f872664184b05b5649d0bc70ae7439b8a3d6"
+      }
+    },
+    {
+      "slug": "card-dust-from-the-shadow-crypts-red-four-live-sparse1247-real-material-under-nekria-six-power-block-does-not-earn-phantasm",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-dust-from-the-shadow-crypts-red-four-live-sparse1247-real-material-under-nekria-six-power-block-does-not-earn-phantasm",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1247-local-20261122\\clean-replays\\01.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1247-local-20261122\\clean-replays\\01.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "09c454199757077558dbae8768a775e8e8cea498677427f2c8467ae7ad596148",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "8f7209a2f8b692771cc0855e5d5d8b454337fc9970ac06e2e9b4be76cc894ee0",
+        "actions.json": "4e6d97624e470a4b93fe9530883be104238807416a3a8e2458977a7e57b46704",
+        "assertions.json": "1bb03668b1b0f2cadc7b16350c8b53f28056fa7ed4f85195ab06fdbacb252502",
+        "expected_final_gamestate.txt": "14c20812f3c5148595afeb563b77a90fae234b5511d3105032cd73a10d11bc72",
+        "meta.json": "ea4f3dd9b01cddee4126da5f1587245f7431bbce4864efeafd391a577540cdc3"
+      }
+    },
+    {
+      "slug": "card-dust-from-the-red-desert-red-four-live-sparse1247-real-material-under-vynserakai-six-power-block-does-not-earn-phantasm",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-dust-from-the-red-desert-red-four-live-sparse1247-real-material-under-vynserakai-six-power-block-does-not-earn-phantasm",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1247-local-20261122\\clean-replays\\02.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1247-local-20261122\\clean-replays\\02.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "d12cd9bbf37c5dcf25de4039c864f43959953e2be0da49ec9685c1430e253718",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "402fb2b211c3eda7798836131fb56b56a67457a96e1db0d26488288dc9353aa3",
+        "actions.json": "4e6d97624e470a4b93fe9530883be104238807416a3a8e2458977a7e57b46704",
+        "assertions.json": "25f53c0a71f9c76c28d0c36f85c5454562cb71963f4307bb628247cfe0287792",
+        "expected_final_gamestate.txt": "79b006071b00bce4792b1af4e444680ae7bcbbe20aaee93138a03daea08d479a",
+        "meta.json": "98e2a3996f72dd34dcd378fa3a933c689e907e2a5c78e0cebc1920ea4065ddca"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

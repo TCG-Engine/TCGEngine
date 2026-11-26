@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-baalghor-omen-of-the-end-four-live-sparse1137-real-banish-attack-gets-three-and-deals-seven-without-pitch-event",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-baalghor-omen-of-the-end-four-live-sparse1137-real-banish-attack-gets-three-and-deals-seven-without-pitch-event",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1137-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1137-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "3262ef5ea387f5d69c0633cf82c02488de2781be0b6a4efc9824f1baf997f388",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "80e8ea0960344f2d4f5159df2976265f45a7f6d9facf9071761d52cb795b95dd",
+        "actions.json": "f5dc4733045507ccdf810018d928d9d19918c64cc4f2c93d20aa18d4bbb15a24",
+        "assertions.json": "116d467b0a1ce1e3e3f246f47c407447ba6b40b283a9d6ac35e0542f6e2abaa2",
+        "expected_final_gamestate.txt": "3b7033c0d2e2d0993aa7638ef1721ed1bcc109cf1f078474c7800bc5b753ea15",
+        "meta.json": "02bfe4bf71a9285c45561ebc8654e65a78aa4c2102d8fcddaa387a6bef17025f"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

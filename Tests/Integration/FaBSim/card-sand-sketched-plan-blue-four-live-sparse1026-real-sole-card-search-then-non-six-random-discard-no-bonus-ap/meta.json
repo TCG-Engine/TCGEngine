@@ -1,0 +1,7 @@
+{
+    "name": "Sand Sketched Plan / four-live actual effect representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-23T03:22:17+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Rhinar Specialization\nSearch your deck for a card, put it into your hand, discard a random card, then shuffle.\nIf the discarded card has 6 or more {p}, gain 2 action points. Positiveactualsearch/discardwithfalsebonus. NaturallegalRhinar20ownSpecialization, physical0costAction5consumesAP1\u21920/noGA. AllfourmanualresponsesbeforeactualonlyDeck6stagedTempandMZMAYCHOOSE; source5Stack/owned1/AP0, Hand0/GGY0/Deck0/Temp1. ChooseTemp6\u2192Hand, soleHand6necessarilyrandomdiscardstoownGY0, source5finishGGY1; actualGenericCriticalStrikeBluepower3<6givesno2APanddoesnotearnRhinar6+discardIntimidate. FinalAP0/Hand0/Deck0/Temp0/Banish0/ownedGY[6,5]/allHP20. NoRNGvalue/discard-ordering-extra-cost/positive6bonus/Intimidate/reveal/othersearch/shuffle-randomness/support/sibling/full-cardcredit; zero-cardremainingDeckeliminatesknownshuffleentropy. Sources: FaBSim/GeneratedCode/cardArrayCache.json#sand_sketched_plan_blue"
+}

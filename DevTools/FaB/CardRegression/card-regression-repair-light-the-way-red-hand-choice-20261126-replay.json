@@ -1,0 +1,74 @@
+{
+  "runtime": "7d3ae36c63eb83c9e25afd21293da03797410bed3cbe81ff70dfbf362ca47cb5",
+  "fixtures": [
+    {
+      "slug": "repair-light-the-way-red-four-live-20261126-hand-cost-choice-and-attack-entry",
+      "passed": true,
+      "runtime": "7d3ae36c63eb83c9e25afd21293da03797410bed3cbe81ff70dfbf362ca47cb5",
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=repair-light-the-way-red-four-live-20261126-hand-cost-choice-and-attack-entry",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\prepared-hand-226-229-231\\light_the_way_red\\strict1.log"
+      ],
+      "returncode": 0,
+      "complete_log_sha256": "2ff790d106a2ae4c05dfeabe09001d6b6e4059cf5d365770a06ac4467da9dd7f",
+      "raw5_unchanged": true
+    },
+    {
+      "slug": "card-rise-above-red-four-live-sparse-actual-topdeck-alternative-cost-and-physical-defense",
+      "passed": true,
+      "runtime": "7d3ae36c63eb83c9e25afd21293da03797410bed3cbe81ff70dfbf362ca47cb5",
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-rise-above-red-four-live-sparse-actual-topdeck-alternative-cost-and-physical-defense",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\prepared-hand-226-229-231\\light_the_way_red\\strict2.log"
+      ],
+      "returncode": 0,
+      "complete_log_sha256": "7f25e71e36100d70d5b456033e1fc034ab96fc302e63f2a72b15fa09c12be6c1",
+      "raw5_unchanged": true
+    },
+    {
+      "slug": "fab-reg-039-rouse-the-ancients-four-live-declared-reveal-uids-assets-before-thirteen-power-cost",
+      "passed": true,
+      "runtime": "7d3ae36c63eb83c9e25afd21293da03797410bed3cbe81ff70dfbf362ca47cb5",
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=fab-reg-039-rouse-the-ancients-four-live-declared-reveal-uids-assets-before-thirteen-power-cost",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\prepared-hand-226-229-231\\light_the_way_red\\strict3.log"
+      ],
+      "returncode": 0,
+      "complete_log_sha256": "6d8d7d2e7289044e6b76525936d8a2b2a4af038661902433fb83a5eb97001905",
+      "raw5_unchanged": true
+    },
+    {
+      "slug": "card-entwine-earth-red-four-live-sparse-real-earth-fusion-reveal-paid-eight-power-attack",
+      "passed": true,
+      "runtime": "7d3ae36c63eb83c9e25afd21293da03797410bed3cbe81ff70dfbf362ca47cb5",
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-entwine-earth-red-four-live-sparse-real-earth-fusion-reveal-paid-eight-power-attack",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\prepared-hand-226-229-231\\light_the_way_red\\strict4.log"
+      ],
+      "returncode": 0,
+      "complete_log_sha256": "e07815390519497a3d0b610e2ed226309c272e56dcb0dd8a5ffdbe32d87d5fb4",
+      "raw5_unchanged": true
+    }
+  ],
+  "full_suite_run": false
+}

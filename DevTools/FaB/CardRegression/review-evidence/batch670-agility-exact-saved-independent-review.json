@@ -1,0 +1,308 @@
+{
+  "status": "APPROVED_ACTUAL_SAVED_B670_AGILITY",
+  "approved": true,
+  "source_approved": true,
+  "semantically_approved": true,
+  "reviewer": "/root/b106_semantic_review",
+  "reviewer_independent": true,
+  "created_utc": "2026-11-07T01:04:38.068672+00:00",
+  "source_spec": "card-regression-batch670-agility.json",
+  "input_sha256": "b4323a72e36180350ba8793cefaecbbc7aef023cdd209e3a4436e8da221cf0f3",
+  "manifest_sha256": "5f4c11f054104b86fb87bb786e304c65e71f86bccb58d14f1c5b64dbab356360",
+  "runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+  "recorded_runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+  "recorder_sha256": "ab33a3250462d0453f71d38dd4138cb9fbc3d595d2586742e989a52251c9c4a9",
+  "source_guards_verified": 70,
+  "prior_independent_semantic_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov7-batch670-agility-independent-source-review.json",
+    "sha256": "a3586894808f51225b6a7ea2f1fc1a4b01ae03cb7ed17d6b38e46d396a05edeb",
+    "unchanged_semantics_reused": true
+  },
+  "recording_receipt": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch670-agility-20261107T010154Z-6aee788214653.json",
+    "sha256": "d65e44cde4e443f1c5938df4af9f7a11fc9f0a3f259b4bbeb1d4c7f5dd5a5be6"
+  },
+  "specific_results": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch670-agility.recording-results.json",
+    "sha256": "5712f41dcb348c7da8292922429a35d76b1014063073313acce571cebc4a29b2"
+  },
+  "root_wrapper_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov7-b670-agility-native-recording\\receipt.json",
+    "sha256": "bfa4f4f04d6e9eb8a16c98f32028817a6ee72fa1eaa1aa94a5a901b26ede5cd6"
+  },
+  "fixtures": [
+    {
+      "index": 0,
+      "card_id": "agility_stance_yellow",
+      "group_id": "identity:agility_stance_yellow",
+      "slug": "card-agility-stance-yellow-four-live-real-next-start-dagger-go-again-and-paid-consumer",
+      "source_spec": "card-regression-batch670-agility.json",
+      "input_sha256": "b4323a72e36180350ba8793cefaecbbc7aef023cdd209e3a4436e8da221cf0f3",
+      "reviewer": "/root/b106_semantic_review",
+      "approved": true,
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_START_AURA_DAGGER_GA_AND_REFUND_CONSUMER",
+      "runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+      "recorded_runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+      "fixture_path": "Tests\\Integration\\FaBSim\\card-agility-stance-yellow-four-live-real-next-start-dagger-go-again-and-paid-consumer",
+      "fixture_sha256": "af48b6e451e4bada07cbbb8ed77cb6e58ee8cea7b5ee7155135e25f7c3bb3259",
+      "raw4_sha256": {
+        "initial_gamestate.txt": "9b45d6660f7d90f65bd71720e06f74b6794542d296826badbd8ea698e5148f1d",
+        "actions.json": "1217dbfabb3d22394ed20283f076b3377f96176c5dee4885f4271d020cd4acd2",
+        "assertions.json": "a9e706029b2aeae42ae2fe8375e91f0d6dc29fff244179792570387ae5c0b586",
+        "expected_final_gamestate.txt": "4cacb49bc6e8f65f7bbe99e19d477d8e9bc116b4ba6fa1a4423cd08b0c9ea77c"
+      },
+      "raw5_sha256": {
+        "initial_gamestate.txt": "9b45d6660f7d90f65bd71720e06f74b6794542d296826badbd8ea698e5148f1d",
+        "actions.json": "1217dbfabb3d22394ed20283f076b3377f96176c5dee4885f4271d020cd4acd2",
+        "assertions.json": "a9e706029b2aeae42ae2fe8375e91f0d6dc29fff244179792570387ae5c0b586",
+        "expected_final_gamestate.txt": "4cacb49bc6e8f65f7bbe99e19d477d8e9bc116b4ba6fa1a4423cd08b0c9ea77c",
+        "meta.json": "8c44fc46f720a09c07ef339003c29545315ece6a176f33ca3e4ee78a0bd81e78"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "9b45d6660f7d90f65bd71720e06f74b6794542d296826badbd8ea698e5148f1d",
+        "actions.json": "1217dbfabb3d22394ed20283f076b3377f96176c5dee4885f4271d020cd4acd2",
+        "assertions.json": "a9e706029b2aeae42ae2fe8375e91f0d6dc29fff244179792570387ae5c0b586",
+        "expected_final_gamestate.txt": "4cacb49bc6e8f65f7bbe99e19d477d8e9bc116b4ba6fa1a4423cd08b0c9ea77c",
+        "meta.json": "8c44fc46f720a09c07ef339003c29545315ece6a176f33ca3e4ee78a0bd81e78"
+      },
+      "actions": 58,
+      "native_assertions": 4328,
+      "actual_manual_passes": 54,
+      "actual_priority_response_passes": 44,
+      "actual_transition_transport_acknowledgments": 8,
+      "actual_defender_declaration_finish_inputs": 2,
+      "actual_pass_actors": [
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4
+      ],
+      "actual_manual_actor_counts": {
+        "4": 15,
+        "1": 13,
+        "2": 13,
+        "3": 13
+      },
+      "schema_property_assertions": 916,
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "all_actions_and_assertions_exact": true,
+      "no_recorder_only_assertions": true,
+      "all_endpoint_physical_uid_card_zones_ownership_verified": true,
+      "all_terminal_assertions_evaluated_against_parsed_final_snapshot": true,
+      "initial_assertions_also_evaluated_against_parsed_initial_snapshot": true,
+      "initial_physical_uid_locations": {
+        "1": {
+          "card_id": "kassai_cintari_sellsword",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "8": {
+          "card_id": "wounding_blow_red",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "quicksilver_dagger",
+          "zone": "p1Weapons",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "agility_stance_yellow",
+          "zone": "p1Arena",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_physical_uid_locations": {
+        "1": {
+          "card_id": "kassai_cintari_sellsword",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "quicksilver_dagger",
+          "zone": "p1Weapons",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "agility_stance_yellow",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "8": {
+          "card_id": "wounding_blow_red",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Pitch",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_physical_uidset": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "final_UniqueIDCounter": 9,
+      "RandomCounter": 0,
+      "final_health": [
+        20,
+        20,
+        20,
+        15
+      ],
+      "final_resources": [
+        2,
+        0,
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_Chi": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "full_card_certification": false,
+      "native_action_mapping_sha256": "8ae92a1ebd847001f359b76e045611a536d6e19d2f4b9739c83cb9a40d62d183",
+      "native_assertion_mapping_sha256": "9c8a71b584fe3939eebe08aeadf19050ad40dc4ce0e457897c5ca5d9768960ad"
+    }
+  ],
+  "blocked_attempts": [],
+  "total_actions": 58,
+  "total_native_assertions": 4328,
+  "total_manual_passes": 54,
+  "total_schema_property_assertions": 916,
+  "material_findings": [
+    "Actualrawfive/all58envelopes4328orderedqueries/54manualactors/48preferences at each endpoint/current70c53ab33 exactly match Sourcea358. Full endpointUID/card/zone/ownership and terminal queries independently parsed; no legacy/rule re-review.",
+    "Eight native transition acknowledgments4/1/2/3twice advance realP4turn2 toP1turn3; they certify transport only, never legal End/Start priority or general phase sequencing. Actual automatic Start destroys sameAura5 and gives normalAP1, with earned ongoing HNT_DAGGER_GO1amount1uses1. No fresh Start response round.",
+    "Actual formalHero4 target before proxy9/assets; Blue7pitch3 paysDagger1/AP1→R2AP0. SoleQuicksilver6/proxy9 attacks for1 with Aura-earnedGA, actualHP19; AP remains0 until resolution then refunds1. Actualsame-chain Generic8 spendsrefund, power4/noGA/HP15. Ongoing grant remains after unrelated consumer and fullClose.",
+    "Finalsame5and8publicGY1/7Pitch1/6usedWeapons/fullUID1..8/temporary9ceased/counter9/RNG0/R2AP0/quiet. Incidental full weaponCountermap is not a normative oracle; raw bytes remain hash-bound."
+  ],
+  "limits": [
+    "Only positive actual Start destruction/ongoingDaggerGA/paidDagger/realrefundconsumer. No legal End/Start priority or full phase-order certification from rawlabels/transport; no freshStart round.",
+    "Prior Aura play/GA and Hand provenance unexecuted/uncredited. No futureexpiry/secondDagger/otherStance/blanking/modifiedweapon/Hero/support/fullcard credit. Adaptive/Apex remain separate unattempted planning limits.",
+    "No reviewer PHP/native/replay/R/source/fullsuite/Git/remote/denied retry. Root focusedreplays/registration/qualification separate; RawVersions hash-bound/excluded from physical inventory."
+  ],
+  "qualification_credit_before_registration": false,
+  "blockers": [],
+  "actual_comparison_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov7_batch670_agility_saved_readonly.py",
+    "sha256": "d5794775df649dd58df589db990fefbf65446b2cbb8f1c4709d51c6e8bdc5e71"
+  }
+}

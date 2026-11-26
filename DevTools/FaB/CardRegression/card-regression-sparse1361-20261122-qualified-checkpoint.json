@@ -1,0 +1,97 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-24T10:31:43.304639+00:00",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1361-20261122.json",
+  "source_spec_sha256": "86a228d608b4e8e106ea3adf952a50813f697ffe62751710ff198cf102c375bf",
+  "new_scenarios": 2,
+  "new_groups": 2,
+  "new_primary_ids": 2,
+  "actions": 57,
+  "native_assertions": 854,
+  "manual_passes": 50,
+  "totals": {
+    "saved_registered_scenarios": 5339,
+    "duels": 3103,
+    "four_live": 2236,
+    "recorded_primary_ids": 2487,
+    "identity_denominator": 5196,
+    "recorded_groups": 2361,
+    "group_denominator": 3324,
+    "four_live_groups": 2225,
+    "phase_qualified_scenarios_at_actual_contexts": 1976,
+    "phase_qualified_unique_groups": 1966,
+    "creation_replay_passes": 2718,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 1137,
+  "scenarios": [
+    {
+      "card_id": "riptide",
+      "group_id": "identity:riptide",
+      "scenario_id": "card-riptide-four-live-sparse1361-real-arsenal-play-not-hand-play-no-load-despite-eligible-hand-and-empty-arsenal",
+      "effect_branches": [
+        "actual_arsenal_attack_not_hand_play_no_hero_load_with_real_eligible_hand_and_vacant_arsenal"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-riptide-four-live-sparse1361-real-arsenal-play-not-hand-play-no-load-despite-eligible-hand-and-empty-arsenal",
+      "source_spec": "card-regression-sparse1361-20261122.json",
+      "source_spec_sha256": "86a228d608b4e8e106ea3adf952a50813f697ffe62751710ff198cf102c375bf",
+      "review_evidence": "review-evidence/sparse1361-20261122-qualified-saved.json",
+      "review_evidence_sha256": "d0e2184da649087186907f1315d48a6e87b2a26b044fb065e081412d48cbf020",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1361-20261122-replay.json",
+          "sha256": "c249e2e3ab524a666fb87f72b4fa4ed5151be3f249bab9b3c18bcc69e009c3b3",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "prism_advent_of_thrones",
+      "group_id": "identity:prism_advent_of_thrones",
+      "scenario_id": "card-prism-advent-of-thrones-four-live-sparse1361-real-herald-pitch-not-soul-no-figment-search-with-eligible-deck",
+      "effect_branches": [
+        "actual_herald_blue_pitch_not_soul_addition_no_hero_figment_search_despite_real_eligible_deck_figment"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-prism-advent-of-thrones-four-live-sparse1361-real-herald-pitch-not-soul-no-figment-search-with-eligible-deck",
+      "source_spec": "card-regression-sparse1361-20261122.json",
+      "source_spec_sha256": "86a228d608b4e8e106ea3adf952a50813f697ffe62751710ff198cf102c375bf",
+      "review_evidence": "review-evidence/sparse1361-20261122-qualified-saved.json",
+      "review_evidence_sha256": "d0e2184da649087186907f1315d48a6e87b2a26b044fb065e081412d48cbf020",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1361-20261122-replay.json",
+          "sha256": "c249e2e3ab524a666fb87f72b4fa4ed5151be3f249bab9b3c18bcc69e009c3b3",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

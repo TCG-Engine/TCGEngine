@@ -1,0 +1,29 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-repair-cog105137-after587b.json",
+  "runtime_sha256": "587be9dade3767b542cd4daf172f2cc5000c62c89af020ceaf2c094a5357540d",
+  "returncode": 0,
+  "completed_utc": "2026-11-16T18:40:53.389476+00:00",
+  "fixtures": [
+    {
+      "slug": "card-backspin-thrust-red-four-live-sparse-real-gun-tap-earns-cog-untap-cost-and-resolving-power-choice",
+      "fixture_sha256": "797c1c3c7e2967c87f6cbde765db4436d92e47e0e44c92b83e4c0ae9dc5c18cd",
+      "passed": true,
+      "result": "[PASS] backspin_thrust_red / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-backspin-thrust-red-four-live-sparse-real-gun-tap-earns-cog-untap-cost-and-resolving-power-choice",
+      "returncode": 0,
+      "stdout": "[PASS] backspin_thrust_red / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [
+    "card-cloud-skiff-blue-four-live-correct-normal-cost-then-separate-cog-tap-instant-deals-four"
+  ],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

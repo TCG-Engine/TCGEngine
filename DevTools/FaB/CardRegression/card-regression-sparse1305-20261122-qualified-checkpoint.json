@@ -1,0 +1,97 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-24T04:09:33.870507+00:00",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1305-20261122.json",
+  "source_spec_sha256": "d6e77cb59f44012499ae80dc3d301366a403cd291e4a9bf7e86b6a6b3e3a9a45",
+  "new_scenarios": 2,
+  "new_groups": 2,
+  "new_primary_ids": 2,
+  "actions": 56,
+  "native_assertions": 694,
+  "manual_passes": 50,
+  "totals": {
+    "saved_registered_scenarios": 5240,
+    "duels": 3097,
+    "four_live": 2143,
+    "recorded_primary_ids": 2388,
+    "identity_denominator": 5196,
+    "recorded_groups": 2262,
+    "group_denominator": 3324,
+    "four_live_groups": 2132,
+    "phase_qualified_scenarios_at_actual_contexts": 1877,
+    "phase_qualified_unique_groups": 1867,
+    "creation_replay_passes": 2619,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 1038,
+  "scenarios": [
+    {
+      "card_id": "red_hot_red",
+      "group_id": "identity:red_hot_red",
+      "scenario_id": "card-red-hot-red-four-live-sparse1305-first-link-does-not-earn-rupture-extra-damage",
+      "effect_branches": [
+        "actual_first_draconic_chain_link_normal_cost_printed_damage_no_rupture_damage_reveal_or_shuffle"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-red-hot-red-four-live-sparse1305-first-link-does-not-earn-rupture-extra-damage",
+      "source_spec": "card-regression-sparse1305-20261122.json",
+      "source_spec_sha256": "d6e77cb59f44012499ae80dc3d301366a403cd291e4a9bf7e86b6a6b3e3a9a45",
+      "review_evidence": "review-evidence/sparse1305-20261122-qualified-saved.json",
+      "review_evidence_sha256": "29fd01857c9d935352d3dc3433018745f3a4d8b42e3f99f5d91e3ab7188a0e76",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1305-20261122-replay.json",
+          "sha256": "c707dac2b6cb9062e3e550befc737e265495544b538eb733d80754f9ece2de29",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "searing_touch_red",
+      "group_id": "identity:searing_touch_red",
+      "scenario_id": "card-searing-touch-red-four-live-sparse1305-first-link-does-not-earn-rupture-extra-damage",
+      "effect_branches": [
+        "actual_first_draconic_chain_link_normal_cost_printed_damage_no_rupture_damage_reveal_or_shuffle"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-searing-touch-red-four-live-sparse1305-first-link-does-not-earn-rupture-extra-damage",
+      "source_spec": "card-regression-sparse1305-20261122.json",
+      "source_spec_sha256": "d6e77cb59f44012499ae80dc3d301366a403cd291e4a9bf7e86b6a6b3e3a9a45",
+      "review_evidence": "review-evidence/sparse1305-20261122-qualified-saved.json",
+      "review_evidence_sha256": "29fd01857c9d935352d3dc3433018745f3a4d8b42e3f99f5d91e3ab7188a0e76",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1305-20261122-replay.json",
+          "sha256": "c707dac2b6cb9062e3e550befc737e265495544b538eb733d80754f9ece2de29",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

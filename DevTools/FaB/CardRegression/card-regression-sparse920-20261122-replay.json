@@ -1,0 +1,102 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-call-for-backup-red-four-live-sparse920-actual-seven-hand-attack-without-defended-graveyard-choice",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-call-for-backup-red-four-live-sparse920-actual-seven-hand-attack-without-defended-graveyard-choice",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse920-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse920-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "45d1258d4425ca5b7e5f47e2ca6684bd31b9328f6a752dacc649d2620447e6aa",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "98b8687a0aca14abe7f5561336a5873049b8a1b20071dd43445dd6d422799c8d",
+        "actions.json": "25920dc16af50701b0be20453cc3345d5c14a09166881d7481930bfb87552093",
+        "assertions.json": "bb75833ed59f6fd81cff27c8521dba9c349f6cbd3085f9466822aeb387609924",
+        "expected_final_gamestate.txt": "6f1ce768e131ef67cce6001b9ba5d880301604c0a430345ab767ca61e881f820",
+        "meta.json": "0759bc18a658c732180e2eb63df903ddefc98a251ad02e404accb57df6f024f6"
+      }
+    },
+    {
+      "slug": "card-depths-of-despair-red-four-live-sparse920-actual-seven-hand-attack-without-defended-banish",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-depths-of-despair-red-four-live-sparse920-actual-seven-hand-attack-without-defended-banish",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse920-local-20261122\\clean-replays\\01.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse920-local-20261122\\clean-replays\\01.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "ea7c24a30ab55d4ef2d134a44b9464f90e112d05c67a4fd06a3e3251735b04d6",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "6b117fcff061c75563e063c63b8a5943c0d349bbb7118e3d3d201de42e1f0332",
+        "actions.json": "25920dc16af50701b0be20453cc3345d5c14a09166881d7481930bfb87552093",
+        "assertions.json": "674c051d11bf997782bd025d504e1b97afaa384f4060a5559bf5bf3c7e9317d8",
+        "expected_final_gamestate.txt": "fcc9a84e092c079671779ea3de9319b2082d46f6cc9052477aa78d1660ce3e2e",
+        "meta.json": "8c5823c032d51a5df05ba2e80762512d036129cad9c87842ce0b2f308bf44760"
+      }
+    },
+    {
+      "slug": "card-infuse-alloy-red-four-live-sparse920-actual-four-hand-attack-without-defended-galvanize",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-infuse-alloy-red-four-live-sparse920-actual-four-hand-attack-without-defended-galvanize",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse920-local-20261122\\clean-replays\\02.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse920-local-20261122\\clean-replays\\02.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "d348b0ad024b2c4011ba0e0073d3b997d7c20dc1fa85b959d4e3407e9f719a45",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "5483ffe843033d18fc83c23b7b2da398e36cdae0fe2355adfd9a0060acdb54ed",
+        "actions.json": "71f0d0f07cf85244a3ec27fdb1f824cd62aa3126d639c98c13ca23327907bd8b",
+        "assertions.json": "58541a10d0337a4ed81b690d63f7988e999658e8bb03c7cee615e606c098e23a",
+        "expected_final_gamestate.txt": "da8ee399f47c1147519e25896cd83df3a31093267faf54f7798a84e5d94efe2f",
+        "meta.json": "13252f4227343cb5c2015caf317c6068d970eb088cbeb9da7da11b45077ce749"
+      }
+    },
+    {
+      "slug": "card-infuse-titanium-red-four-live-sparse920-actual-seven-hand-attack-without-defended-galvanize",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-infuse-titanium-red-four-live-sparse920-actual-seven-hand-attack-without-defended-galvanize",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse920-local-20261122\\clean-replays\\03.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse920-local-20261122\\clean-replays\\03.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "e18d4fa6296bf1df80ccbe342dfdcc745b90d6dbeee1474617a6badd00e0a659",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "ea93bfaf9bc7ebb0abbc4723df62b940ff5ff09704ae5c480c6b66307bb29623",
+        "actions.json": "25920dc16af50701b0be20453cc3345d5c14a09166881d7481930bfb87552093",
+        "assertions.json": "192f3a3a4e2fd38f0862e48fd9eebfa02249543f935081aeb2673bddaccb906e",
+        "expected_final_gamestate.txt": "af1d989ea648f095391ae1934bfc5f9a55fb3ef1fb16ea85ad98e1d1547a7339",
+        "meta.json": "ead288bfb318462c2acbde70ee49d900f0f166ac2f43eb9397b38d73c9409cad"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

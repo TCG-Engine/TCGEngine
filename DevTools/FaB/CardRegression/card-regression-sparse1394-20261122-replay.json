@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-talisman-of-balance-blue-four-live-sparse1394-equal-empty-arsenals-no-end-load-normal-draw-then-next-seat-attack",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-talisman-of-balance-blue-four-live-sparse1394-equal-empty-arsenals-no-end-load-normal-draw-then-next-seat-attack",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1394-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1394-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "8977cdd75a82e5df5f69a751c74b500dc74ee4b91814daeff724db1bbee1d5d6",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "9ba4170dac408fa01785fb67c0f8d00cd0056eaf1318f06696e77383e263ac83",
+        "actions.json": "61ac927767a079acaab582068ba3fb59c5bc45e196b6a781cc09518890ec67fb",
+        "assertions.json": "248ec38c0a2cea6361e57b3929700923714419736d4f860421ced7f45e01daf9",
+        "expected_final_gamestate.txt": "002661ddf84447eb098e90526010cc5d4c8d24232793568b7a0574e1b169280e",
+        "meta.json": "354a30f6908b72ce17959b5b055bbb1b946cfb0562650a21b559d67d47d3660c"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

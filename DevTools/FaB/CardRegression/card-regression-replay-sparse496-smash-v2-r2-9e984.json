@@ -1,0 +1,27 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch496-smash-v2.json",
+  "runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+  "returncode": 0,
+  "completed_utc": "2026-11-05T18:22:45.638515+00:00",
+  "fixtures": [
+    {
+      "slug": "card-smash-and-grab-red-four-live-two-real-boost-costs-earn-seven-power-and-cause-owned-ward-consumption-without-hit",
+      "fixture_sha256": "d9272b1f6ae3407c24370b00eb38a757612d24b84f81819a81f98829ecd46049",
+      "passed": true,
+      "result": "[PASS] smash_and_grab_red / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-smash-and-grab-red-four-live-two-real-boost-costs-earn-seven-power-and-cause-owned-ward-consumption-without-hit",
+      "returncode": 0,
+      "stdout": "[PASS] smash_and_grab_red / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

@@ -1,0 +1,7 @@
+{
+    "name": "Instill Fear / actual Ally target does not earn Hero-only trigger",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-25T02:58:33+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "FourmanualyoungUPFkayo_strong_arm1/Dori2/3/Dromai4all20. Realinstill_fear_red5formallytargetsrealAshwing9Arena4withnativePERMANENTdescriptor/notHero4. CanonicalpriorAshmaterialUPR_ASH1/DYN_ASHash andMight10; actualController4HandPotion11/Razor12andDeck13nonempty. Printedcost0paidactualBlue6/7ifneeded\u00e2\u2020\u2019R0/AP0; printedpower3; Hero-onlyWHENnotearned. Actual3physicalkillsAllyonly, allHeroHP20anduntouchedMight/Hand/Deckfatesretained.  NoGO/refund; actualretainedWounding8zero-costclickrejectsAP0. LimitednegativeHero-eventconditiononly. NoAllycreation/history/support/siblings/fullcardcredit/enginechange. Actual opposing two-card Hand11/12 stays unchanged and RandomCounter0 excludes any accidental Intimidate. Sources: FaBSim/GeneratedCode/cardArrayCache.json#instill_fear_red FaBSim/GeneratedCode/GeneratedMacroCode.php#instill_fear_red FaBSim/Custom/GameLogic.php FaBSim/Custom/FaiCards.php#FaBFaiHeroHit FaBSim/Custom/UPRCards.php#FaBUPRTransform FaBSim/Custom/UPRCards.php#FaBUPRDeal"
+}

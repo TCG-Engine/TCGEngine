@@ -1,0 +1,84 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "independent breadth_review1240",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1251-20261122.json",
+  "source_spec_sha256": "a304223f5e4a9d3ecb1bbdad49caef0497289b8c745c38134a16da095f1908b7",
+  "input_sha256": "a304223f5e4a9d3ecb1bbdad49caef0497289b8c745c38134a16da095f1908b7",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-leave-em-speechless-blue-four-live-sparse1251-existing-hand-name-lock-allows-same-name-from-real-arsenal",
+      "card_id": "leave_em_speechless_blue",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "0c26363f6eee54dc5d28d6cc2754a47c789bcf96ac036a6684504a09264a9ea9",
+        "actions.json": "b18dba19c6e1a9a22f08df0db536f803ccbe3582e85a855466962018fb52da72",
+        "assertions.json": "7dce8f6d34fe2033aba663b1222c8e0fec92c8a56e53a314b294c61e168c2af7",
+        "expected_final_gamestate.txt": "e7fd226e519dad901962ea274901e51e2dd8dca57570ae8afccfd5e91c4545ea",
+        "meta.json": "08d223bf3aea67628132ad00c71927eca88f1bbb9125ec735670878e755a65c7"
+      },
+      "fixture_sha256": "01b14c2a5e65cb822fd5ef1f3b68473d45a8d8ef005bf6bf5d4dbf716b223369",
+      "actions": 28,
+      "native_assertions": 277,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1251-20261122.json",
+      "input_sha256": "a304223f5e4a9d3ecb1bbdad49caef0497289b8c745c38134a16da095f1908b7",
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1251-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-leave-em-speechless-blue-four-live-sparse1251-existing-hand-name-lock-allows-same-name-from-real-arsenal",
+        "fixture_slug": "card-leave-em-speechless-blue-four-live-sparse1251-existing-hand-name-lock-allows-same-name-from-real-arsenal",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "reviewer": "independent breadth_review1240",
+    "spec_sha256": "a304223f5e4a9d3ecb1bbdad49caef0497289b8c745c38134a16da095f1908b7",
+    "source_note_sha256": "c847b2204b062985b192969626c706874e57a45fb40d9cb2c04b387eb0104ce8",
+    "case_count": 1,
+    "native_controls": 28,
+    "query_checks": 277,
+    "persistable_assertions": 277,
+    "author_only_checks_omitted": 0,
+    "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+    "coverage_category": "EXISTING_PERMANENT_PERSISTENT_NAME_RESTRICTION_AND_NATIVE_FOLLOWTHROUGH",
+    "basis": [
+      "Unrepresented Leave Em Speechless group, no source-only hold. Four natural Young Dori20/Dori20/Dori20/Reviled Kayo StrongArm20 seats; adult40 was not used. Existing owned Reviled Aura5Arena4 is lawful prior Action permanent under Kayo. All current health20 means no conditional Instant permission is being tested. No Crowd boos, hero activation or other Kayo observer is earned.",
+      "Persistent source-bound arcCards5.penProhibitedName=Wounding Blow is exactly the normal generated NAMECARD continuation format (e458 case1 ARCSetCard uid,penProhibitedName,name). It represents an admitted prior-controller-turn choice, not a current-turn flag or fabricated permission. No controller4 beginning-action phase occurs this turn.",
+      "Native controls are byte-for-structure identical to qualified1249 Null Hand-versus-Arsenal pattern. Only distinct primary, persistent-name key, legal Hero4 and Aura Counters[] replace Item STEAM2. PENCanPlay returns true for non-Hand then scans live Aura/source5/name for Hand. Actual affordable ownHand6 click must reject without movement/target/payment/AP changes.",
+      "Same-name own Arsenal7 begins supported FaceDown1 and must actually play while Aura5 stays active. Supported StackKindATTACK/CardID/UID/owner/controller, native target4, cost0/AP1to0, four fresh manual responses and actual4damage give positive zone-scope evidence. No unsupported StackFaceDown or dedicated public-render claim.",
+      "Final Aura5 remains ownedArena4/Counters[], originalHand6 unchanged, played7GY1/Arsenalempty, HP4=16/others20/R0/AP0/UID7/RNG0 and empty Stack/DQs/CC match intended limited branch."
+    ],
+    "limits": [
+      "Semantic/spec review only pending native save and targeted replay; no native pass/coverage credit claimed.",
+      "Only existing Aura Hand-name prohibition and actual same-name Arsenal play. No entry/naming/conditional Instant/health condition, beginning-action phase, pitch/defense, alternate name/owner, Hero/support or whole-card credit.",
+      "Only W review written; no native/test/T/source/auth/network/Git/original access."
+    ],
+    "source_sha256": {
+      "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+      "FaBSim/Custom/PENCards.php": "9d4f443c833ec535bdae15c1973910925c1b7a1223fbfab7fcb89a5b204a7ed8",
+      "FaBSim/Custom/ARCCards.php": "f6b6a21d214e71fdcfd6a084f0671ce610f08a40c51a1266041877a5a12c0d52",
+      "FaBSim/Custom/GameLogic.php": "c60fa151561f959e4e3e341b814de0e2b47c9e9f153bbc8793a04c43b5075061",
+      "FaBSim/GeneratedCode/GeneratedMacroCode.php": "fe6a7982611df8f4de98ce2671b317b671b580146aa4b8c28e8f4b86d8461056",
+      "DevTools/FaB/CardRegression/record_card_regressions.php": "e53055b29e9ea641949b77019c4455607f41ca233325d716a9500637e19efd28"
+    }
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1251-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "4eadff996dbcfc08c15b228f2f66825d08aaae56eb655a1261c9ae5218395e2b"
+  },
+  "full_suite_run": false
+}

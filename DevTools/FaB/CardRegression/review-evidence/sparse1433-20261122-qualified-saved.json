@@ -1,0 +1,162 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "independent breadth_review1252",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1433-20261122.json",
+  "source_spec_sha256": "541b24f4513e51c70a00427beb5403a38528cdc9484b9b58124fce9500b63dca",
+  "input_sha256": "541b24f4513e51c70a00427beb5403a38528cdc9484b9b58124fce9500b63dca",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-metex-red-four-live-sparse1433-actual-paid-boost-mechanologist-banish-and-go-again-consumer-no-hit",
+      "card_id": "metex_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "7c89b2777e08e5d8bd7c53c35a0fed04f609fbf2fa60458b00648d227fe31520",
+        "actions.json": "6abb41c17f578058cab1c3a67af099dc11d6c5c2b14eb0369eaf1958f8c8bf26",
+        "assertions.json": "be80df95e6ae39345abc1682551a5efac96c681e66af7aa1bb92d3a110249843",
+        "expected_final_gamestate.txt": "2d7228a43c3629fa8e655a862e304df708d1756b16f7311d66415537d8e992e0",
+        "meta.json": "2ccd79ddaac967e367281a2c6afc261065aea0cdac738107b330cec4819fea19"
+      },
+      "fixture_sha256": "d5ada82e3716af3f2c7226c4922125990bf8c751aaa6889d4af8097fc3f2eee4",
+      "actions": 36,
+      "native_assertions": 411,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 29,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1433-20261122.json",
+      "input_sha256": "541b24f4513e51c70a00427beb5403a38528cdc9484b9b58124fce9500b63dca",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1433-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-metex-red-four-live-sparse1433-actual-paid-boost-mechanologist-banish-and-go-again-consumer-no-hit",
+        "fixture_slug": "card-metex-red-four-live-sparse1433-actual-paid-boost-mechanologist-banish-and-go-again-consumer-no-hit",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-spring-a-leak-red-four-live-sparse1433-actual-paid-boost-mechanologist-banish-and-go-again-consumer-no-hit",
+      "card_id": "spring_a_leak_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "a0ead710106e286de8fde3e7b0c499139dc215acaba79cef500172b98afba3ea",
+        "actions.json": "6abb41c17f578058cab1c3a67af099dc11d6c5c2b14eb0369eaf1958f8c8bf26",
+        "assertions.json": "326213292fe8af46cfd8b8d09b67aa79e91d5a693e1c63a49dcd37a8036a4b4b",
+        "expected_final_gamestate.txt": "5fc84022b23b44f68ce6362c4097c9a69b4a6629485f84ff4021e5e08b848aee",
+        "meta.json": "8413212cd9ca4027eb6b4d0004dd26eb20013c3f1698c8033a2634ef604696e5"
+      },
+      "fixture_sha256": "94d05be4246fe11cc4743697159d1c84b6189eeb032657be759588877d333fa3",
+      "actions": 36,
+      "native_assertions": 411,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 29,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1433-20261122.json",
+      "input_sha256": "541b24f4513e51c70a00427beb5403a38528cdc9484b9b58124fce9500b63dca",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1433-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-spring-a-leak-red-four-live-sparse1433-actual-paid-boost-mechanologist-banish-and-go-again-consumer-no-hit",
+        "fixture_slug": "card-spring-a-leak-red-four-live-sparse1433-actual-paid-boost-mechanologist-banish-and-go-again-consumer-no-hit",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "reviewer": "independent breadth_review1252",
+    "spec_sha256": "541b24f4513e51c70a00427beb5403a38528cdc9484b9b58124fce9500b63dca",
+    "source_note_sha256": "a6464b7c0267bca2fd3a868da25bfd373626738bc208ab626c64cfb7d26b783f",
+    "case_count": 2,
+    "active_seats": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "players": "four_live_manual",
+    "native_controls": 72,
+    "query_checks": 822,
+    "persistable_assertions": 822,
+    "author_only_checks_omitted": 0,
+    "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+    "coverage_category": "POSITIVE_PAID_PRINTED_BOOST_WITH_REAL_MECHANLOGIST_BANISH_AND_EARNED_ACTION_CONSUMER",
+    "per_case": [
+      {
+        "card_id": "metex_red",
+        "group_id": "pitch-cycle:metex",
+        "native_controls": 36,
+        "persistable_assertions": 411
+      },
+      {
+        "card_id": "spring_a_leak_red",
+        "group_id": "pitch-cycle:spring_a_leak",
+        "native_controls": 36,
+        "persistable_assertions": 411
+      }
+    ],
+    "basis": [
+      "Focused new-card delta review only. MetexRed matches priorHighSpeedImpact cost1/power4; SpringALeakRed matches priorHeist cost2/power5. Each is MechanologistAA with printedBoost/cachedUPFallowed, legalYoungDash20/threeDori20/manual4. Newgroups uncovered/unheld verified. After reversing primaryCardID substitution, every authored step equals its B1432 reviewed donor exactly; only primaryzone/ID/name/slug/printedtext/source metadata differs outside steps.",
+      "ActualgeneratedPrepare Metex134483-134515 andSpring145847-145879 are one modalBoost declaration, currentactualsourceUID, FaBARCBoost onanswer0, FinishPreparedCard; no extra physicalHand-selection/cost route introduced. Previously reviewed asset-first payment bridge unchanged by exactfilehash: actualBlue6pays1/2 leavingR2/1, currenttopMech8banishedbeforefourresponses and grantsGO. PhysicalUIDs/defaultallfourmanualflow/realPotionHand0consumer remain donor-identical.",
+      "Metex WhenThisHits optionalitem placement and Spring WhenHitsHero steam-removal conditions are unearned because twoactual3DEFcards give6def vs4/5power, damage0/nohit. PositiveBoost/normalcost/earnedAPactuallyspentPotion7Arena only; no hitabilities/triggerlayers/source-guard implementation credit. Fullphysicalfates/HP20/UID10RNG0/AP0/quietCOMPLETE same approved donor.36controls411persistableassertions each."
+    ],
+    "limits": [
+      "Only positiveprintedBoost/fixedresourcepayment/actualMechbanish and realearnedactionconsumer. No printedhitability, declineBoost, nonMech/emptyDeck, Hero/startupItem, Potionactivation, supportingidentity/sibling/wholecard or broaderordering repaircredit.",
+      "Pending native only. No game/test/replay, engine/repository edit, original checkout access, authentication, fullsuite or Git operation performed. Stop/log firstunexpected result; no expectation fitting or engine repair."
+    ],
+    "positive_hit_ability_credit": false,
+    "secondary_identity_credit": false,
+    "whole_card_credit": false,
+    "initial_item_provenance_credit": false,
+    "source_sha256": {
+      "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+      "FaBSim/GeneratedCode/GeneratedMacroCode.php": "fe6a7982611df8f4de98ce2671b317b671b580146aa4b8c28e8f4b86d8461056",
+      "FaBSim/Custom/GameLogic.php": "c60fa151561f959e4e3e341b814de0e2b47c9e9f153bbc8793a04c43b5075061",
+      "FaBSim/Custom/ARCAbilities.php": "e49ce4685f148ef423ea38aac544266b3298527ea8ca9eef11b12fb974e7c9f0",
+      "FaBSim/Custom/ARCCards.php": "f6b6a21d214e71fdcfd6a084f0671ce610f08a40c51a1266041877a5a12c0d52",
+      "FaBSim/Custom/WTRCards.php": "77d4452b30e45254a7199bc965396ded53e325717ecdd84a09b971f723f99f6a",
+      "FaBSim/ZoneAccessors.php": "9967567a9a10df81a6f22df820d4d77258828657e95c4ad145b8b13ce17866a7",
+      "Schemas/FaBSim/GameSchema.txt": "7783800bd47bc85885cc915066aadca58cdf99f0c1180602ac312d9af5ebf643",
+      "Core/EngineActionRunner.php": "add14b53dc571d2a6e64407bfa4038a98d6554d6410de7a9233810d99c46ea2a",
+      "Core/ShortcutPreferences.php": "25f300ea0b6fbc409f5b92e8bc3587a74b2ab0eaf31ccef38e18c455598eaba6",
+      "DevTools/FaB/CardRegression/record_card_regressions.php": "e53055b29e9ea641949b77019c4455607f41ca233325d716a9500637e19efd28"
+    },
+    "workspace_source_sha256": {
+      "author_breadth1433.py": "16c2c51f7bbca0022b335a5990e91973a887e57646892ac0d0f0189a043b4f47",
+      "author_breadth1432.py": "92c7f5aae6ed59f0aefe31c2e65b322ffe955fa37995cfb0dc3cb027ecf9e8af",
+      "breadth1068_helpers.py": "997f949ec26c7e494ad26a818f9f2078f6f4f2a0c49ca7f61aa8c71f3b091b0a",
+      "sparse1432-local-20261122/proposed.json": "2eea9ab9e73784c3fa54e26150e7f3392c1298d39e7b8ebf93ff1a6e644016fc",
+      "sparse1432-local-20261122/independent-review.json": "3eb3cc6d1cb4779bed88eb9d9605e5729a0077af92c9e77c14361168967730ff"
+    }
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1433-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "1e1576d80c469501575993cd38a5cb9d614169d6ddc5836af3156d39a187ea89"
+  },
+  "full_suite_run": false
+}

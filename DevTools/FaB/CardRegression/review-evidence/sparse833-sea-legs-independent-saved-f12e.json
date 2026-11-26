@@ -1,0 +1,100 @@
+{
+  "status": "SAVED_APPROVED_INDEPENDENT_FOUR_LIVE_SEA_LEGS_REAL_DISCARD_EARNED_RUM",
+  "phase": "SAVED",
+  "batch": 833,
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer": "/root/ebbing_recovery_review",
+  "reviewer_independent": true,
+  "created_utc": "2026-11-15T23:06:08.992136+00:00",
+  "runtime_sha256": "f12eb9daa29ed523fa63dd2432755205503f4a7a341c00e56728faf03741a6c0",
+  "source_spec": "card-regression-batch833-sea-legs-positive-f12e.json",
+  "input_sha256": "7658105ce9e53b8c8fcfd193d7db1c11cf0ad1d1f513b13b464b961cc05119f7",
+  "manifest_sha256": "6a2e45827e3b50beeb4674928fefe8625bad4c776355c10f617064cfcf672ce1",
+  "independent_positive_Source": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-batch833-sea-legs-f12e-independent-normal-positive-source-review.json",
+    "sha256": "b859735e042f501c0699d808bdeb8eadd76ec9b8694cc741b4bb02e1d08bd539"
+  },
+  "root_native_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-b833-sea-legs-positive-native-save-f12e\\receipt.json",
+    "sha256": "728283f4d4ad3768affbdf14a65774badc189e029af277deb22743dfb9e8232c"
+  },
+  "actual_result": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch833-sea-legs-positive-f12e.recording-results.json",
+    "sha256": "b36e20bb3b1948f81872f54ac7ad7fbee6cac2a0439250c1ebb40b85213a0c62"
+  },
+  "actual_immutable_archive": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch833-sea-legs-positive-f12e-20261115T225716Z-6afa38ccdf1db.json",
+    "sha256": "5f99f9281032ca490d8f34b26bbd126e1c43f781740542949c241fff209b476c"
+  },
+  "fixtures": [
+    {
+      "card_id": "sea_legs_yellow",
+      "slug": "card-sea-legs-yellow-four-live-skullhorn-real-discard-earned-rum",
+      "actions": 9,
+      "native_assertions": 1185,
+      "manual_passes": 8,
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "62c49e4070727885ee8bfec0d8daeb16f831711be48065b789bdaf85b1ec35fd",
+        "actions.json": "d464a929c2a54a194cf67b7986a9a552c17680e164cd8e6ffbf3c935e005a646",
+        "assertions.json": "5630a68620d2a960a6f59d1534a7da8fecf76fcb8f74c37946e307491436278a",
+        "expected_final_gamestate.txt": "a3087e2745239de5e82df99eb0d6e97fde33f1bc1b58c65184b0860a450dee4e",
+        "meta.json": "2931013eec59b9d226ac17d83fc27f6f74d23c12e40bdd90b7dc5c43119d40d8"
+      },
+      "fixture_sha256": "026515f4da3feaf373d704cdfa809f60f3c100341a87a320d943351aa812c033",
+      "input_sha256": "7658105ce9e53b8c8fcfd193d7db1c11cf0ad1d1f513b13b464b961cc05119f7",
+      "runtime_sha256": "f12eb9daa29ed523fa63dd2432755205503f4a7a341c00e56728faf03741a6c0",
+      "recorded_runtime_sha256": "f12eb9daa29ed523fa63dd2432755205503f4a7a341c00e56728faf03741a6c0",
+      "actual_manual_actor_counts": {
+        "1": 2,
+        "2": 2,
+        "3": 2,
+        "4": 2
+      },
+      "initial_raw_48_manual_controls": true,
+      "final_raw_48_manual_controls": true,
+      "genuine_four_live_manual_seats": true,
+      "initial_queries_independently_evaluated": 125,
+      "terminal_queries_independently_evaluated": 232,
+      "observed_new_Rum_UID": 9,
+      "scope": "Exact real singleton Skullhorn draw/discard Sea Legs earned-Rum route only; no Gold/chosen/HVY/suppression/multicard RNG/support/fullcard native credit."
+    }
+  ],
+  "full_saved_action_and_query_order_matched": true,
+  "all_1185_native_queries_reviewed_against_approved_Source": true,
+  "all_9_saved_envelopes_and_manual_actors_matched": true,
+  "checkpoint_count": 11,
+  "typed_property_queries": 220,
+  "actual_initial_and_final_raw_schema_fully_consumed": true,
+  "initial_and_final_raw_manual_shortcut_checks": 96,
+  "saved_review_only_not_replay_certificate": true,
+  "two_new_only_clean_replays_required": true,
+  "qualification": false,
+  "coverage_credit": false,
+  "sibling_native_coverage": false,
+  "semantic_witnesses": [
+    "Saved9 envelopes/1185 ordered successful assertions match own Source, with8 manual passes2perseat. Same physical Skull5/Sea6GYP1 and AP1 are directly pinned after the whole Skullhorn ability.",
+    "Arena0 remains through first three earned responses; source6/controller1/kindABILITY are actual queries. Only fourth response produces exactly one owned/controlled Rum. Fresh raw final proves actual goldkiss_rum UID recorded above, publicSkull5+Sea6GY1, Hand/Deck0, unusedHeroes/allHP20/AP1onlyP1 and full intended cleanup.",
+    "Both raw48manual profiles checked independently; every initial125 and terminal232 query is re-evaluated against fresh raw endpoints. No no-save final snapshot certificate is reused."
+  ],
+  "limitations": [
+    "Saved review is not replay qualification; two own targeted clean replays and explicit registration remain separate.",
+    "Only this physical singleton discard/Rum route is natively covered. Gold, chosen/HVY forwarding and suppression/LKI edge cases remain source/component-only. Own attack play, multi-card random distribution, hero/SkullhornAB2/Rum activation and full-card branches remain untested.",
+    "Narrow schema-array decoder only, no raw fixture/native query/runtime modification or global dash normalization."
+  ],
+  "full_suite_run": false,
+  "historical_corpus_replay": false,
+  "PHP_native_network_executed_by_reviewer": false,
+  "R_writes_by_reviewer": false,
+  "B787_denied_operation_untouched": true,
+  "Elliptical184_denied_operation_untouched": true,
+  "review_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov15_batch833_actual_saved.py",
+    "sha256": "d9dc2f6b48c2a8dd70d4ecd635b8550a5bbc78a7e4bb2ae1d11f4453bd8c2286"
+  },
+  "reused_pure_parser_source": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov15_batch824_actual_saved.py",
+    "sha256": "e91764c206e187ff9f80bb4a39b705aa97abdf186777c4451832c34b8eddb97f"
+  }
+}

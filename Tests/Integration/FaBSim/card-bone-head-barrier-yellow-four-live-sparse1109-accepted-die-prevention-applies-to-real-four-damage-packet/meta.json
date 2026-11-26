@@ -1,0 +1,7 @@
+{
+    "name": "Bone Head Barrier / four-live actual roll and physical prevention",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-23T08:21:21+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Roll a 6 sided die. Prevent the next X damage that would be dealt to you this turn, where X is the number rolled. Named firstacceptedroll/firstactualphysicalpacketbranch. LegalRhinar20 defender4 uses primary5Instant1inactualincomingClub4reaction; realBlue6pitch3 pays1/R2/AP0, allfourmanualsource/combat. NoGamblerGloves/reroll/otherrollhooks. Exactunsavedprobe prefix25input/201checks gaveacceptedvalidface1; independently requireoneEVR_ROLLED_1andPREVENT_DAMAGE amount1 fromprintedrule. Fullsameprefixwithfrozenexpectations thenactualClub4packetmustprevent1anddeal3/HP17. Source5ownedGY4/Blue6Pitch4/Club7usedretained/attackerBlue8Pitch1/R1/AP0, defenderR2, RandomCounter1. No PRNGdistribution/reroll/otherfaces/laterpackets/expiry/hero/support/pitchsiblings/fullcardcredit. One additionalprobe isdiagnosticunsavednotcoverage. Sources: FaBSim/GeneratedCode/cardArrayCache.json#bone_head_barrier_yellow"
+}

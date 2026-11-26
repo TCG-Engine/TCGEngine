@@ -1,0 +1,119 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "Root independent cached-text/rules/source/native-flow review of packet authored by /root/breadth_review; Root exact saved checks and replay",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse888-20261122.json",
+  "source_spec_sha256": "0b1e5be077c9fd96c15b58006ccddff542da3685e907d3223e20e013440d3ae9",
+  "input_sha256": "0b1e5be077c9fd96c15b58006ccddff542da3685e907d3223e20e013440d3ae9",
+  "recorded_input_scope": "Exact original native input, possibly containing unsaved failed cases excluded from this qualified subset; each retained case compared verbatim.",
+  "fixtures": [
+    {
+      "slug": "card-vigor-four-live-sparse888-natural-owner-turn-start-destroys-real-token-and-gains-one-resource",
+      "card_id": "vigor",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "98dbf055ae3c32bb2c13b78aee22e2b8e0fd2e56d9879193c05273316ecbcf79",
+        "actions.json": "428361a0de200568d722608d01d74a10ee09bda5c08f41bd3b024c61c2943037",
+        "assertions.json": "a4c2cc5543354e3e678d8eb98c48ac223d370aaeb165a50ff129d4c1b16731f1",
+        "expected_final_gamestate.txt": "2c65eee69650ef07dc563e4c565a5587b19e794246d32f0bf71c8ae3bfe73c42",
+        "meta.json": "120206bac8cd470b869ad4667f47bdcbed986ecf6cc0c4e9b4f531f7d47d122e"
+      },
+      "fixture_sha256": "01e342f901f3f62845ad1577d00b1bd8fbd16b540713420f26ff89d63f57b9d7",
+      "actions": 8,
+      "native_assertions": 83,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 8,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse888-20261122.json",
+      "input_sha256": "0b1e5be077c9fd96c15b58006ccddff542da3685e907d3223e20e013440d3ae9",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse888-local-20261122\\save\\selected.json"
+    },
+    {
+      "slug": "card-might-four-live-sparse888-natural-owner-turn-start-then-actual-next-attack-deals-five",
+      "card_id": "might",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "8f6cfebaded570cc459cf3a4ce89d0b53dcd7ec8be237b2e786c5a0450f6442d",
+        "actions.json": "d31e3f79c80d6f646b4c964adf5005df2d1e2ac37c6089310daa679ee0cde91d",
+        "assertions.json": "fe1f1b3ebfb87df13d26713051824a741bf842d71ad0151cc97d33d0edabe83c",
+        "expected_final_gamestate.txt": "caa6705d79ea7acc8db9e3c36789d0e064044b7ba3623ddb12fe34b6d7974c15",
+        "meta.json": "1cc967705a63a14449d6c57c5fdb13da83bb778bcfdc32e6412b9639c120a8ec"
+      },
+      "fixture_sha256": "3ab69b65cfed0977ae2bc36e47fd50972663f1265aa85ac8b1e996016b3b5cca",
+      "actions": 35,
+      "native_assertions": 160,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 33,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse888-20261122.json",
+      "input_sha256": "0b1e5be077c9fd96c15b58006ccddff542da3685e907d3223e20e013440d3ae9",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse888-local-20261122\\save\\selected.json"
+    },
+    {
+      "slug": "card-agility-four-live-sparse888-natural-owner-turn-start-then-actual-next-attack-earns-go-again",
+      "card_id": "agility",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "06400907d03d2be905c4b82556fce749d030f6b7382ffc97de3d48ccb68d57da",
+        "actions.json": "d31e3f79c80d6f646b4c964adf5005df2d1e2ac37c6089310daa679ee0cde91d",
+        "assertions.json": "816db515fc02059cb6006ddb88d921cb2d641b3bb3502d18768bc7decd29bfe8",
+        "expected_final_gamestate.txt": "dda615f895082568ee157f3a6f40ebe685030b6b2d2c9c9300e105ab286e07c9",
+        "meta.json": "5ce4fdfd18b6a5d42ad383dad594c1ab1c86b79e51b26573b02f16461f8069ef"
+      },
+      "fixture_sha256": "e9e56705da37c504db24b9fb7427e554ce9c5cc07027478c111dd53890899327",
+      "actions": 35,
+      "native_assertions": 160,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 33,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse888-20261122.json",
+      "input_sha256": "0b1e5be077c9fd96c15b58006ccddff542da3685e907d3223e20e013440d3ae9",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse888-local-20261122\\save\\selected.json"
+    }
+  ],
+  "basis": {
+    "review_type": "independent_static_semantic_review",
+    "reviewer": "Root independent cached-text/rules/source/native-flow review of packet authored by /root/breadth_review; Root exact saved checks and replay",
+    "result": "approved_named_branches_only_pending_native_execution",
+    "spec_sha256": "0b1e5be077c9fd96c15b58006ccddff542da3685e907d3223e20e013440d3ae9",
+    "reviewed": [
+      {
+        "card": "vigor",
+        "branch": "natural_owner_turn_start_destroys_real_token_and_gains_one_resource"
+      },
+      {
+        "card": "might",
+        "branch": "natural_owner_turn_start_then_actual_next_attack_deals_five"
+      },
+      {
+        "card": "agility",
+        "branch": "natural_owner_turn_start_then_actual_next_attack_earns_go_again"
+      }
+    ],
+    "evidence": [
+      "Root read printed three tokens and actual StartOfTurnPhase, FaBHVYStart and FaBBoltynStart: resources/AP reset before actual Might/Vigor/Agility destruction and effect. Setup4/priority4 supported explicitly by existing FCRCaseSetup; no new framework.",
+      "Nativeeightoldturn4 ACTION/END_PHASE controls reachnewTurn1. Finalrolloverwaitpriority1only, followedbyACTION/Stack0/tokenGone/noDQs guards, so a wronglyqueuedmanualstartlayer wouldfail ratherthanbeauto-passed byrecipe.",
+      "OfficialCR4.2.1/4.2.2: players have no start-phase priority; layers resolve as though all pass. Source directtoken effects are consistent with this phase, unlike WHEN-enter ShowTime timing. https://rules.fabtcg.com/en/cr/04-game-structure/",
+      "Vigor actualR0to1/tokenCeases pinsmainresourceeffect. Might actualSupportbase4+1=5damage/AP0 andAgilitybase4damage/GAreturnAP1atRESOLUTION pin naturallyearned effects withoutseededhistory. All4live/manual andnaturalHP20."
+    ],
+    "limits": [
+      "No token creation or multi-token stacking, differentowner/controller, blocks/secondconsumers orsupportCardgroupcredit.",
+      "Correct-expectation boundary mustpassnative execution; authoring/source support alone is not coverage."
+    ]
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse888-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "ae673497c37b19f6a85e37dbfc7894c8c24f7e1cd45d32f08cf8153946f83310"
+  },
+  "full_suite_run": false
+}

@@ -1,0 +1,7 @@
+{
+    "name": "Song of Larinkmorth White / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-26T03:09:50+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Create a Frostbite token under each other hero's control. Representative only: creates_owned_frostbite_under_each_other_live_hero. Other pitch siblings, alternate targets and unexercised branches receive no credit. All four live/manual; only native entry-point actions. Sources: FaBSim/GeneratedCode/cardArrayCache.json#song_of_larinkmorth_white_blue"
+}

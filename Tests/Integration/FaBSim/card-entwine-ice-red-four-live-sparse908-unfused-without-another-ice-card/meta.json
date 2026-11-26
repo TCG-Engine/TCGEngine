@@ -1,0 +1,7 @@
+{
+    "name": "Entwine Ice / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T18:46:34+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "**Ice Fusion**\n\nIf this was **fused**, it gets **dominate**. Representative only: unfused_without_another_ice_card. No positive fusion/Evo/Boost condition or supporting/pitch-sibling credit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#entwine_ice_red"
+}

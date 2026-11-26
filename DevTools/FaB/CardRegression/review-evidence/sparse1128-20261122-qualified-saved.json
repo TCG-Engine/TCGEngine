@@ -1,0 +1,64 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "breadth_review independent below-six Tuffnut actual top-pitch review",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1128-20261122.json",
+  "source_spec_sha256": "3ba2f6678b530a0ced7ecc6fc4066f4c81405b930e2fe3f1c8c93699490c31b1",
+  "input_sha256": "3ba2f6678b530a0ced7ecc6fc4066f4c81405b930e2fe3f1c8c93699490c31b1",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-tuffnut-four-live-sparse1128-real-tap-pitches-actual-under-six-blue-top-card-and-gains-three-resources",
+      "card_id": "tuffnut",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "2ad2ea1d826d13668a03c066317413a47893a145f3f8471726f0406168436140",
+        "actions.json": "a554307e66e216bc71b59e061718d65cd71e130124f20a8329663b0b453ceadf",
+        "assertions.json": "0223cad65946ae69e6cb8781cc67ac66ca0eac8721330dd169af819f3ce2de29",
+        "expected_final_gamestate.txt": "3dc7da08024af9a79a288d7b5613aa251f3f0f76f7ed8c2e7a3b6c09deae658d",
+        "meta.json": "848e7e5b9c07d77062b4058ac398ced38aa517fe555022e5f597ecb46c15e1d1"
+      },
+      "fixture_sha256": "b2426563e2f64585233ac9f27e64bac3484659d3ee9acd8c872e7afdb30cc09c",
+      "actions": 5,
+      "native_assertions": 279,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 4,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1128-20261122.json",
+      "input_sha256": "3ba2f6678b530a0ced7ecc6fc4066f4c81405b930e2fe3f1c8c93699490c31b1",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1128-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-tuffnut-four-live-sparse1128-real-tap-pitches-actual-under-six-blue-top-card-and-gains-three-resources",
+        "fixture_slug": "card-tuffnut-four-live-sparse1128-real-tap-pitches-actual-under-six-blue-top-card-and-gains-three-resources",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "spec_sha256": "3ba2f6678b530a0ced7ecc6fc4066f4c81405b930e2fe3f1c8c93699490c31b1",
+    "reviewer": "breadth_review independent below-six Tuffnut actual top-pitch review",
+    "basis": [
+      "Natural young Tuffnut20 has explicit SUPAbilityRows Instant0 plus SUPTapCost, so native Hero1 activation taps ready2 to1 without AP/resource cost. VirtualABILITY6 rawOwner0/Controller1/SourceUID1 is representation-only; real Hero1 stays owned/controller1. Actual top Generic CriticalStrikeBlue5 is printedpower3/pitch3 and not modified by Kayo/Lyath/other effects.",
+      "Four manual responses occur while actual5 remains Deck and R0/AP1. Generated ResolveAbility tuffnut:0 directly calls FaBSUPPitchTop; SUPCards77-81 reveals actual top, evaluates ownedpower3<6, moves same5 to ownedPitch and gains realpitchvalue3. No reroll, target or asynchronous source chooser.",
+      "The conditional six predicate is false inside the activated effect, so FaBSUPCrowd is not called: no cheer event is earned and Tuffnut Whenever-cheer Toughness layer does not exist in this branch. Persisted same physical5 Pitch, R3/AP1/hero tapped, ABIremoved/allArena0/HP20/maxUID6 validate the actual effect without masking an earned trigger."
+    ],
+    "limits": [
+      "Below-six top-pitch resource branch only. No positive six/cheer/Toughness trigger, alternate pitch/card, other hero ability or whole-hero/support identity credit. No reveal-log credit or activated-token lifetime dependency.",
+      "Native Save and one clean replay pending. No known exact Tuffnut source-only hold found; existing positive-cheer timing families remain unrun."
+    ]
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1128-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "f0d2214ac26f683328f1ffadcf4cbc46cd8690e69e6870480786062f775a0332"
+  },
+  "full_suite_run": false
+}

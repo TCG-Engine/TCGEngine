@@ -1,0 +1,7 @@
+{
+    "name": "Silken Shawl / real Ward destruction and separately responseable vigor creation",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-23T12:35:26+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "LegalYoungIllusionistPrism4ownsphysicalWard1Eq5/nootherWard. YoungWizardVerdance1ownturnplaysrealZap6cost0/AP1to0,target4declaredbeforefourmanualresponses. Actualdamage3: mandatoryWard1destroys5/prevents1, HP4=18, sameEq5GY4/Zap6GY1. PrintedWhenDestroyedearnsABI7controller4SourceUID5; Arena4still0, so noinlinecreationbeforeallfourtriggerresponses. Fourthresponsecreatesexactownedvigor8Arena4/noextraUID/otherplayergifts. EmptyStackDQs/ACTION/HP18fixed. NoEqproducer/Wardorderingmultiple/unpreventable/tokenability/start/endphase/fullcard/Hero/supportidentitycredit. LegacyZap fullDTDpreventionaskscontroller4toordertheonlyWardreplacement; actualMZCHOOSEanswerselectsEq5beforesourcedamagefinishes. NotanactivatedabilityoroptionalWarddecline. Sources: FaBSim/GeneratedCode/cardArrayCache.json#silken_shawl FaBSim/Custom/PENCards.php FaBSim/Custom/DYNRuntime.php FaBSim/GeneratedCode/GeneratedMacroCode.php"
+}

@@ -1,0 +1,498 @@
+{
+  "status": "APPROVED_ACTUAL_SAVED_B746_GRAVY_AND_TEKLO_PAIR",
+  "approved": true,
+  "source_approved": true,
+  "semantically_approved": true,
+  "reviewer": "/root/b106_semantic_review",
+  "reviewer_independent": true,
+  "created_utc": "2026-11-08T21:18:38.958650+00:00",
+  "source_spec": "card-regression-batch746.json",
+  "input_sha256": "d712758a595fba49b52b7f4557cd3dedc8090695a9f122e9c297a0051cb58fc8",
+  "manifest_sha256": "1b761f8934a6848e1ca306b4f22744c7d97631c4a0872a85ab159302549ca3e1",
+  "runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+  "recorded_runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+  "recorder_sha256": "ab33a3250462d0453f71d38dd4138cb9fbc3d595d2586742e989a52251c9c4a9",
+  "source_guards_verified": 70,
+  "prior_independent_semantic_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov8-batch746-gravy-teklo-independent-source-review.json",
+    "sha256": "1ec9e86b76b32d194a78bf19009bcf00a5ada4a92b15746132defb7b62d839b6",
+    "unchanged_semantics_reused": true
+  },
+  "recording_receipt": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch746-20261108T211610Z-6af0e69a075a7.json",
+    "sha256": "536b7c9636ab5afcd34968f6abe393e68fe9734fbc56f3bd129392ac867c6dc3"
+  },
+  "specific_results": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch746.recording-results.json",
+    "sha256": "f86b2ee13ec7e7ed882f7da2f8a3d3d78c5b5a1ace613d453206a6364fd5da49"
+  },
+  "root_wrapper_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov8-b746-gravy-teklo-native-recording\\receipt.json",
+    "sha256": "4d68e1828984e5d0547170c42061b356f3cae827a0be371f380e46beeebada7a"
+  },
+  "fixtures": [
+    {
+      "index": 0,
+      "card_id": "gravy_bones",
+      "group_id": "identity:gravy_bones",
+      "slug": "card-gravy-bones-four-live-real-gold-destruction-hero-tap-draw-and-red-discard",
+      "source_spec": "card-regression-batch746.json",
+      "input_sha256": "d712758a595fba49b52b7f4557cd3dedc8090695a9f122e9c297a0051cb58fc8",
+      "reviewer": "/root/b106_semantic_review",
+      "approved": true,
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_SELECTED_HERO_DRAW_DISCARD",
+      "runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+      "recorded_runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+      "fixture_path": "Tests\\Integration\\FaBSim\\card-gravy-bones-four-live-real-gold-destruction-hero-tap-draw-and-red-discard",
+      "fixture_sha256": "969cea0bb3721180fb8bb796f2f04ecc35cb7390394aaec54d2e62d3e4f7bb84",
+      "raw4_sha256": {
+        "initial_gamestate.txt": "471f0f8868e7696dcdaafd79f159f312c6d0ff4f263c030795b61733fd7093af",
+        "actions.json": "d5b927013e65dfb3abc18c65b5fba4d09670a1c97a1ccae577247dce6b2e020b",
+        "assertions.json": "c2e17cd9cbedd0bc9e74ebfbc0dff8f304125365db476d4d422e14117321ad85",
+        "expected_final_gamestate.txt": "65781b5c695af272b796610a686ad7b2274f4ac3123972ec0f84172299c4d827"
+      },
+      "raw5_sha256": {
+        "initial_gamestate.txt": "471f0f8868e7696dcdaafd79f159f312c6d0ff4f263c030795b61733fd7093af",
+        "actions.json": "d5b927013e65dfb3abc18c65b5fba4d09670a1c97a1ccae577247dce6b2e020b",
+        "assertions.json": "c2e17cd9cbedd0bc9e74ebfbc0dff8f304125365db476d4d422e14117321ad85",
+        "expected_final_gamestate.txt": "65781b5c695af272b796610a686ad7b2274f4ac3123972ec0f84172299c4d827",
+        "meta.json": "a5c32ce7e141f7e9d0ba98430b5b07836dba041260109ff39f7424d22e332c3e"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "471f0f8868e7696dcdaafd79f159f312c6d0ff4f263c030795b61733fd7093af",
+        "actions.json": "d5b927013e65dfb3abc18c65b5fba4d09670a1c97a1ccae577247dce6b2e020b",
+        "assertions.json": "c2e17cd9cbedd0bc9e74ebfbc0dff8f304125365db476d4d422e14117321ad85",
+        "expected_final_gamestate.txt": "65781b5c695af272b796610a686ad7b2274f4ac3123972ec0f84172299c4d827",
+        "meta.json": "a5c32ce7e141f7e9d0ba98430b5b07836dba041260109ff39f7424d22e332c3e"
+      },
+      "actions": 7,
+      "native_assertions": 709,
+      "actual_manual_passes": 4,
+      "actual_priority_response_passes": 4,
+      "actual_defender_declaration_finish_inputs": 0,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "actual_manual_actor_counts": {
+        "1": 1,
+        "2": 1,
+        "3": 1,
+        "4": 1
+      },
+      "schema_property_assertions": 194,
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "all_actions_and_assertions_exact": true,
+      "no_recorder_only_assertions": true,
+      "all_endpoint_physical_uid_card_zones_ownership_verified": true,
+      "all_terminal_assertions_evaluated_against_parsed_final_snapshot": true,
+      "initial_assertions_also_evaluated_against_parsed_initial_snapshot": true,
+      "initial_physical_uid_locations": {
+        "1": {
+          "card_id": "gravy_bones",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "6": {
+          "card_id": "wounding_blow_red",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Deck",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "gold",
+          "zone": "p1Arena",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2
+        }
+      },
+      "final_physical_uid_locations": {
+        "1": {
+          "card_id": "gravy_bones",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 1
+        },
+        "7": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "wounding_blow_red",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2
+        }
+      },
+      "final_physical_uidset": [
+        1,
+        2,
+        3,
+        4,
+        6,
+        7
+      ],
+      "actual_resources_paid": 0,
+      "actual_AP_paid": 0,
+      "actual_Gold5_ceased": true,
+      "actual_Hero1_tapped": true,
+      "actual_equipped_Evos": 0,
+      "actual_drawn_UID": 7,
+      "actual_discarded_UID": 6,
+      "actual_physical_damage": 0,
+      "ceased_ability_or_proxy_UID": 8,
+      "final_UniqueIDCounter": 8,
+      "RandomCounter": 0,
+      "final_health": [
+        20,
+        20,
+        20,
+        20
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_AP": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "final_Chi": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "full_card_certification": false,
+      "native_action_mapping_sha256": "150ce418563e44d82430faeca718fc069cbd25a5a8a33d7bf6b3fa5075b978b8",
+      "native_assertion_mapping_sha256": "96817735b0064ad7b86c88ff0eb6c16d8180fc06fe8c88a08b71dd046c2c9a83"
+    },
+    {
+      "index": 1,
+      "card_id": "teklo_leveler",
+      "group_id": "identity:teklo_leveler",
+      "slug": "card-teklo-leveler-four-live-real-two-equipped-evos-grant-attack-cost-one-and-two-damage",
+      "source_spec": "card-regression-batch746.json",
+      "input_sha256": "d712758a595fba49b52b7f4557cd3dedc8090695a9f122e9c297a0051cb58fc8",
+      "reviewer": "/root/b106_semantic_review",
+      "approved": true,
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_TWO_EVO_LEVELER_COST_ONE_AND_DAMAGE",
+      "runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+      "recorded_runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+      "fixture_path": "Tests\\Integration\\FaBSim\\card-teklo-leveler-four-live-real-two-equipped-evos-grant-attack-cost-one-and-two-damage",
+      "fixture_sha256": "f3ef54571542017024b039dd719be5f8365af718015f87326c53a632ca1c7356",
+      "raw4_sha256": {
+        "initial_gamestate.txt": "2510f9a9a186ec745986d0fe78ae26f1b5ef73b16fcf5f6887f92a6f7d93b81f",
+        "actions.json": "68555e1adb5ee3e99f23ac84afbf2383b3f3d2f96b985ad1552a9d323967372b",
+        "assertions.json": "96e3a0f8568d7ed07d258f1d25b0804b8540bc5699345795aa64c0673e1b7300",
+        "expected_final_gamestate.txt": "6e406125b95f0095de25b3308bb99950f5133700564a63eb2e50d5bd4a576c79"
+      },
+      "raw5_sha256": {
+        "initial_gamestate.txt": "2510f9a9a186ec745986d0fe78ae26f1b5ef73b16fcf5f6887f92a6f7d93b81f",
+        "actions.json": "68555e1adb5ee3e99f23ac84afbf2383b3f3d2f96b985ad1552a9d323967372b",
+        "assertions.json": "96e3a0f8568d7ed07d258f1d25b0804b8540bc5699345795aa64c0673e1b7300",
+        "expected_final_gamestate.txt": "6e406125b95f0095de25b3308bb99950f5133700564a63eb2e50d5bd4a576c79",
+        "meta.json": "2a67edbeeb8f18625c8b718ddf921964d877c267d0b88a5ee28b8db2234179f6"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "2510f9a9a186ec745986d0fe78ae26f1b5ef73b16fcf5f6887f92a6f7d93b81f",
+        "actions.json": "68555e1adb5ee3e99f23ac84afbf2383b3f3d2f96b985ad1552a9d323967372b",
+        "assertions.json": "96e3a0f8568d7ed07d258f1d25b0804b8540bc5699345795aa64c0673e1b7300",
+        "expected_final_gamestate.txt": "6e406125b95f0095de25b3308bb99950f5133700564a63eb2e50d5bd4a576c79",
+        "meta.json": "2a67edbeeb8f18625c8b718ddf921964d877c267d0b88a5ee28b8db2234179f6"
+      },
+      "actions": 28,
+      "native_assertions": 2688,
+      "actual_manual_passes": 25,
+      "actual_priority_response_passes": 24,
+      "actual_defender_declaration_finish_inputs": 1,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4
+      ],
+      "actual_manual_actor_counts": {
+        "1": 6,
+        "2": 6,
+        "3": 6,
+        "4": 7
+      },
+      "schema_property_assertions": 988,
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "all_actions_and_assertions_exact": true,
+      "no_recorder_only_assertions": true,
+      "all_endpoint_physical_uid_card_zones_ownership_verified": true,
+      "all_terminal_assertions_evaluated_against_parsed_final_snapshot": true,
+      "initial_assertions_also_evaluated_against_parsed_initial_snapshot": true,
+      "initial_physical_uid_locations": {
+        "1": {
+          "card_id": "dash",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "8": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "evo_sentry_base_head_red",
+          "zone": "p1Equipment",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "evo_sentry_base_chest_red",
+          "zone": "p1Equipment",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "teklo_leveler",
+          "zone": "p1Weapons",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2
+        }
+      },
+      "final_physical_uid_locations": {
+        "1": {
+          "card_id": "dash",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "6": {
+          "card_id": "evo_sentry_base_head_red",
+          "zone": "p1Equipment",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "evo_sentry_base_chest_red",
+          "zone": "p1Equipment",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "teklo_leveler",
+          "zone": "p1Weapons",
+          "owner": 1,
+          "controller": 1
+        },
+        "8": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Pitch",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2
+        }
+      },
+      "final_physical_uidset": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "actual_resources_paid": 1,
+      "actual_AP_paid": 1,
+      "actual_Gold5_ceased": false,
+      "actual_Hero1_tapped": false,
+      "actual_equipped_Evos": 2,
+      "actual_drawn_UID": null,
+      "actual_discarded_UID": null,
+      "actual_physical_damage": 2,
+      "ceased_ability_or_proxy_UID": 9,
+      "final_UniqueIDCounter": 9,
+      "RandomCounter": 0,
+      "final_health": [
+        20,
+        20,
+        20,
+        18
+      ],
+      "final_resources": [
+        2,
+        0,
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_Chi": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "full_card_certification": false,
+      "native_action_mapping_sha256": "52641f0a316a73fa9d413e4c03a54ee4fba128d1048edf7f538eaddbf45102bc",
+      "native_assertion_mapping_sha256": "1e704307951b668bf378c2b5a61813edef62449955dfd01585406544a2d30792"
+    }
+  ],
+  "blocked_attempts": [],
+  "total_actions": 35,
+  "total_native_assertions": 3397,
+  "total_manual_passes": 29,
+  "total_schema_property_assertions": 1182,
+  "material_findings": [
+    "Exact rawfive each/behavior/35 normalizedcontrols3397 ordered persisted queries29manual/1182typed/all48preferences each endpoint/current70c53ab33 match Source1ec9/inputd712/native receipt/results/archive. Every initial/final assertion and complete physical UID/card/owner/zone map independently parsed.",
+    "Actual Gravy Instant0 costGold5ceases/Hero1Status1 remains strict with allfourlivingmanual. CapturedABI8 firstthree held, fourth draws SAMEBlue7 behindRed6 and stays for resolving non-target Handchoice; actualRed6discardGY1 leavesBlue7Hand/AP1R0/HP20/ABI8ceased. No BlueGYpermission/Wateryconsumer, Gold activation or priorproducer certificate.",
+    "Actual Leveler has exactly two equipped Sentries6/7/materialmaps throughout; formalHero4target/source5proxy9/cost3-2=1, actualBlue8pitch3 leavesR2AP0/nativeweaponfirstuseStatus1. Physical2HP18/noGA; fullCloseproxy9ceased/SAMEweapon5+Evos retained/full originalUID1..8/counter9/RNG0/quiet. No3/4Evo threshold, repeat-once rejection or transformproducer/under-cardUIDtrace credit."
+  ],
+  "limits": [
+    "Gravy selected zero-resource/AP Instant effect costs +real draw/Reddiscard only; noBlueGYWaterypermission/consumer/readyreset/repeat-use/Herofullcard credit.",
+    "Teklo exactly2actualequippedEvos/grantedAttack/paid1/resource2/physical2damage only; no3/4Evo branches/matrix/supportproducer/repeatedonce-rejection credit.",
+    "InitialGold and priortransformedSentries are ordinarylegalpublicfixtures; no producers/privatecurrenthistory/discountflags/under-cardUIDtrace credited.",
+    "Hero1Status1 REQUIRED from firstGravy post-costcheckpoint4throughendpoint; all4LIVE/manual/48preferences remainstrict.",
+    "Rootnative/independentexactSaved/twoNEWfocusedcleanreplays required; frozen authoring has no gameplay/coverage result.",
+    "Source approval only; actual native/Saved raw5/all48preferences/two new focused replays/Root registration are separate. Gravy Gold is destroyed as a cost, not activated; no tokenproducer, BlueGYpermission/Wateryconsumer, future untap/repeat, Hero/support/fullcard credit.",
+    "Teklo is exactly two Evos only, no three/fourEvo branches, repeat-once rejection or supportproducer execution. PriorSentry transforms/name-material representation reused rules-only, no exposed underlying physical UID trace or matrix behavior certificate.",
+    "No reviewer PHP/native/replay/R/source/Git/remote/fullsuite/deniedretry.",
+    "Only these actual branches and all four living/manual participation are reviewed. Public initialGold and priorSentry transform/material-name premises remain unexecuted/uncredited; no otherHero/support/sibling/wholecard certificate.",
+    "Root two new-only packet replays/registration/index/promotion remain separate; no qualification before registration. RawVersions hash-bound/excluded from physical inventory. No reviewerPHP/native/replay/R/source/Git/remote/fullsuite/deniedretry."
+  ],
+  "qualification_credit_before_registration": false,
+  "blockers": [],
+  "actual_comparison_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov8_batch746_gravy_teklo_saved_readonly.py",
+    "sha256": "084e58ffb9951796092b85596f1d5e0100196ea1fc510173a9c657756647e40e"
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-vynnset-four-live-sparse1358-actual-non-shadow-runeblade-nonattack-no-hero-life-payment-choice-existing-runechant-retained",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-vynnset-four-live-sparse1358-actual-non-shadow-runeblade-nonattack-no-hero-life-payment-choice-existing-runechant-retained",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1358-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1358-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "2e237e6938a73f3402386936933862d77797cb455d41d892d79c4e64905c3c4f",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "335b754206965af2a285cca782b025e5a4b8fd53786d24b68c88538cbc225958",
+        "actions.json": "2fc498690b4373cb4bfedec828403596e6afc9cf12487c75e6b03be6d20cbc46",
+        "assertions.json": "a6298509f072d579d439e470243599126350e28523d04ce074d0c853ae645fd9",
+        "expected_final_gamestate.txt": "843872f30848d32411dfeee09e3864251677737b7a34bf1ea00be48e085ffd70",
+        "meta.json": "e0c1d90b986903dc8cd31080701879abb7d7cad95f1f42a2a9868ac0f55e3dd4"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

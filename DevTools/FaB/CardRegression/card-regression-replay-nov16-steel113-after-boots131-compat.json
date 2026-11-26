@@ -1,0 +1,29 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-repair-steel113-offhand114-after-native-helpers.json",
+  "runtime_sha256": "1ef6a1a18aeb87a1fd220e59552a0da5e51ea3ebaee2ce39d86a6a7d288ff84e",
+  "returncode": 0,
+  "completed_utc": "2026-11-16T20:41:35.018413+00:00",
+  "fixtures": [
+    {
+      "slug": "card-steel-on-steel-red-four-live-original-correct-real-anothos-weapon-attack-earns-four-defense-and-two-damage",
+      "fixture_sha256": "40da9eb6e625c8170bc6e5011c7010ceb853527bc34259c4b21182668927920c",
+      "passed": true,
+      "result": "[PASS] steel_on_steel_red / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-steel-on-steel-red-four-live-original-correct-real-anothos-weapon-attack-earns-four-defense-and-two-damage",
+      "returncode": 0,
+      "stdout": "[PASS] steel_on_steel_red / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [
+    "card-shield-bash-red-four-live-real-offhand-block-and-empty-attacker-hand-earns-one-damage-before-two-incoming-and-temper"
+  ],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

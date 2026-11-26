@@ -1,0 +1,7 @@
+{
+    "name": "Disembody / real base attack with false grant condition",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-24T09:49:11+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "FOUR_REAL_MANUAL_UPF_NATURAL_TUFFNUT20_THREEDORI20. Noearliercheer/nohistory/allArenaempty, interveningattackIFfalse/noToughness. Actual7baseattack/cost3; no defending-card6defensebranchperformed. Allfourmanualsourceandcombatresponses/nativeactualbasepower7/damage7/HP4=13/AP1to0/R0. Originalprimary5GY1/fund6Pitch1/legalFDGenericWounding7Arsenal1/sameUIDandFaceDown/otherzonesempty/UID7/RNG0. Fullcloseactual0costArsenalresourceaffordablebutnativeclickrejectsAP0beforeTarget/StackDQ/payment/movement; finalresources/HP/physicalassetsunchanged. Onlynamedfalsecondition/baseattack/nativeconsumerGuard; positivecondition/WHENtiming/grants/GA/tokens/bloodDebt/Hero/support/siblings/fullcarduncredited. Sources: FaBSim/GeneratedCode/cardArrayCache.json#disembody_red FaBSim/GeneratedCode/GeneratedMacroCode.php FaBSim/Custom/GameLogic.php FaBSim/Custom/SUPCards.php FaBSim/Custom/ARCCards.php FaBSim/Custom/WTRCards.php"
+}

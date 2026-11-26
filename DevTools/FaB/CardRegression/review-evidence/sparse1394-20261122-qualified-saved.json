@@ -1,0 +1,164 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "independent breadth_review1252",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1394-20261122.json",
+  "source_spec_sha256": "69db727b18ae881d7c3e23e49c7bafa3410bad402714fb15f663e4147bf8c386",
+  "input_sha256": "69db727b18ae881d7c3e23e49c7bafa3410bad402714fb15f663e4147bf8c386",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-talisman-of-balance-blue-four-live-sparse1394-equal-empty-arsenals-no-end-load-normal-draw-then-next-seat-attack",
+      "card_id": "talisman_of_balance_blue",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "9ba4170dac408fa01785fb67c0f8d00cd0056eaf1318f06696e77383e263ac83",
+        "actions.json": "61ac927767a079acaab582068ba3fb59c5bc45e196b6a781cc09518890ec67fb",
+        "assertions.json": "248ec38c0a2cea6361e57b3929700923714419736d4f860421ced7f45e01daf9",
+        "expected_final_gamestate.txt": "002661ddf84447eb098e90526010cc5d4c8d24232793568b7a0574e1b169280e",
+        "meta.json": "354a30f6908b72ce17959b5b055bbb1b946cfb0562650a21b559d67d47d3660c"
+      },
+      "fixture_sha256": "0707e07708f3fa69e38144bd284cb3ca95295f554f490e649340bd986c2ff479",
+      "actions": 40,
+      "native_assertions": 381,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 37,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1394-20261122.json",
+      "input_sha256": "69db727b18ae881d7c3e23e49c7bafa3410bad402714fb15f663e4147bf8c386",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "computed_attack_refs_by_step": {
+        "19": "p2CombatChain-0"
+      },
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1394-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-talisman-of-balance-blue-four-live-sparse1394-equal-empty-arsenals-no-end-load-normal-draw-then-next-seat-attack",
+        "fixture_slug": "card-talisman-of-balance-blue-four-live-sparse1394-equal-empty-arsenals-no-end-load-normal-draw-then-next-seat-attack",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "reviewer": "independent breadth_review1252",
+    "spec_sha256": "69db727b18ae881d7c3e23e49c7bafa3410bad402714fb15f663e4147bf8c386",
+    "source_note_sha256": "15e3dbd329d0c2e3fe30df2436b0246ddb52dea67a5eb3d585383fe54c32537b",
+    "case_count": 1,
+    "active_seats": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "players": "four_live_manual",
+    "native_controls": 40,
+    "query_checks": 381,
+    "persistable_assertions": 381,
+    "author_only_checks_omitted": 0,
+    "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+    "coverage_category": "END_PHASE_LESS_THAN_BOUNDARY_GUARD_WITH_NATIVE_ITEM_PLAY_NORMAL_DRAW_AND_NEXT_SEAT_ATTACK",
+    "per_case": [
+      {
+        "card_id": "talisman_of_balance_blue",
+        "group_id": "identity:talisman_of_balance_blue",
+        "native_controls": 40,
+        "persistable_assertions": 381
+      }
+    ],
+    "required_qualification_attack_refs_by_step": {
+      "19": "p2CombatChain-0"
+    },
+    "basis": [
+      "Unrepresented/unheld GenericItemBalance0/printedGA legalunderfournaturalYoungDori20/manualUPF. Actualprimary5Hand Action0spendsAP1to0; fourmanualresponses actualsame5Arena/GAAP1. AllfourArsenal0 and actualownDeckBlue6 nonempty whileownHand0 preventsemptytop-cardvacuity.",
+      "PrintedbeginningownEndphase IFfewerthanANopponent hasfalsecondition atall0equals0. EVRCards259 loopsstrictopponentArsenalCount>own. NoearnedDestroy/load/triggerlayer; source5remainsArena, top6Deck/Arsenal0/StackDQquiet atactualEND_PHASE1 afterfourActionpasses. Positiveinlineendtrigger timing not entered.",
+      "Fourendpasses completeowner1end. OwnHand0 yieldsno normalarsenalplacementchoice; endcleanup drawsoriginalDeck6toHand notArsenal, thenGameLogic3104 incrementsTurnNumber2to3/seat2/StartAP2=1. FinishEndTurn3073+clearsallAPbeforerefill; normalDoDrawCard preservesphysical6. No fatigue or DrawHeroeffects withfourDori.",
+      "Actualactor2Wounding7AA0targetP1 viaformalchooser(p3,p1), paidpriority2/manualresponses3,4,1 thenATTACK2. Combatdeclarationdefender1/defendpriority2,3,4,1/reaction2,3,4,1/damage2/resolution2,3,4,1 coherent. Actual4power/noGA/4damageHP1=16, untoucheddrawn6Hand1/Talisman5Arena/7GY2/UID7/RNG0/AP0/R0/Arsenals0quietfinalfates.",
+      "common.review lines9-25 increments step only per native action, with checks attached at current consumed-input count. Source-array index27 follows19 nativeinputs; actualsaved computedpower4/go_againfalse bothalready bindp2CombatChain0 atnativeStep19. CorrectedONLY workspaceexpectedmapkey27to19; source-array27 recordedseparately. Existingadapter/schema unchanged. Prior qualifierfailed its assertion-normalization equality beforefirstPHPcleanreplay; PID32696absent/clean-replaydirempty. Allsavedraw5frozenbeforemetadatawritesandverifiedunchangedafter; no rerecord/replay or engine/spec/assertion amendment."
+    ],
+    "limits": [
+      "Onlyequal-emptyarsenalstrictinequality guard withnativeItemplay/GA, realendcleanup/normaldraw/nextseatattack. Positivefewer/load/WHENtiming/opponentquantifiervariants/othermodes, supportingidentities/wholecard untested.",
+      "Semantic approval unchanged; native recording nowobservedpassed40inputs381assertions. First cleanreplay remains pending after metadata-only native-step19 reference correction. Reviewer ran no nativegame/test/replay, changed no engine/source/spec/nativefixture/assertions/runtime, and used no original/auth/network/fullsuite/Git operation."
+    ],
+    "source_sha256": {
+      "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+      "FaBSim/GeneratedCode/GeneratedMacroCode.php": "fe6a7982611df8f4de98ce2671b317b671b580146aa4b8c28e8f4b86d8461056",
+      "FaBSim/Custom/GameLogic.php": "c60fa151561f959e4e3e341b814de0e2b47c9e9f153bbc8793a04c43b5075061",
+      "FaBSim/Custom/EVRCards.php": "ae4e1ea2da09ac679821be116bc55f898ed8de2e5ceadf16f548e13d0495c275",
+      "FaBSim/Custom/WTRCards.php": "77d4452b30e45254a7199bc965396ded53e325717ecdd84a09b971f723f99f6a",
+      "FaBSim/ZoneAccessors.php": "9967567a9a10df81a6f22df820d4d77258828657e95c4ad145b8b13ce17866a7",
+      "Schemas/FaBSim/GameSchema.txt": "7783800bd47bc85885cc915066aadca58cdf99f0c1180602ac312d9af5ebf643",
+      "Core/EngineActionRunner.php": "add14b53dc571d2a6e64407bfa4038a98d6554d6410de7a9233810d99c46ea2a",
+      "Core/ShortcutPreferences.php": "25f300ea0b6fbc409f5b92e8bc3587a74b2ab0eaf31ccef38e18c455598eaba6",
+      "DevTools/FaB/CardRegression/record_card_regressions.php": "e53055b29e9ea641949b77019c4455607f41ca233325d716a9500637e19efd28"
+    },
+    "workspace_source_sha256": {
+      "author_breadth1394.py": "a18154d25c1e5296b7c46ab2475832df3dfadc750910cb10c4a0d614aac3bdcc",
+      "breadth1068_helpers.py": "997f949ec26c7e494ad26a818f9f2078f6f4f2a0c49ca7f61aa8c71f3b091b0a",
+      "breadth_batch.py": "b340fa062c7ced832ff7a8468ae2aa128a976ef4cb891b31aa188bb2323c5109",
+      "sparse1394-local-20261122/expected-attack-refs.json": "8b34c6dc16e4d05455c794051e11cae06d1a7930307f1dfaa6facd94831a8ee5",
+      "nov16_saved_repair_review_common.py": "9f6dee765a3433840bd6886579faf6b8ab24ec290120b5999581053e2276ba0c"
+    },
+    "secondary_identity_credit": false,
+    "whole_card_credit": false,
+    "positive_condition_credit": false,
+    "positive_trigger_timing_credit": false,
+    "positive_fewer_arsenal_trigger_credit": false,
+    "correction_provenance": {
+      "classification": "AUTHORING_CHOOSER_ORDER_ORACLE_CORRECTION_NOT_ENGINE_DEFECT",
+      "prior_review_sha256": "81f3f20d58752dba462d2f73301296752a31d96f6ce21eb02754e994fa5787ab",
+      "original_spec_sha256": "4425d6dfe00467766c759eef4ce8d0dacf27096dc3fb6f9258a66140d7227a38",
+      "native_receipt_sha256": "351fda09df985ab551a66ac8140645740681bdf251998df74337de66fec6fe5b",
+      "native_inputs": 14,
+      "only_change": "p2DecisionQueue-0.Param p1Hero-0&p3Hero-0 to p3Hero-0&p1Hero-0",
+      "assertions_removed": 0,
+      "controls_changed": 0,
+      "gameplay_expectations_changed": false,
+      "fixture_saved": false,
+      "replay_run": false
+    },
+    "qualification_mapping_correction": {
+      "classification": "WORKSPACE_QUALIFICATION_REFERENCE_INDEX_CORRECTION_ONLY",
+      "prior_map_sha256": "e44450b80c6a08b3c7eddcdb6131f19c60a81ab497d1695d886481d3c72b0dc3",
+      "prior_review_sha256": "7f5d0876d96e9cbc496d6c67f2ffa7f43fb65d6233291ec0c2fa7bd68bb39950",
+      "corrected_map_sha256": "8b34c6dc16e4d05455c794051e11cae06d1a7930307f1dfaa6facd94831a8ee5",
+      "source_array_step": 27,
+      "native_input_count": 19,
+      "reference": "p2CombatChain-0",
+      "raw5_sha256": {
+        "actions.json": "61ac927767a079acaab582068ba3fb59c5bc45e196b6a781cc09518890ec67fb",
+        "assertions.json": "248ec38c0a2cea6361e57b3929700923714419736d4f860421ced7f45e01daf9",
+        "initial_gamestate.txt": "9ba4170dac408fa01785fb67c0f8d00cd0056eaf1318f06696e77383e263ac83",
+        "expected_final_gamestate.txt": "002661ddf84447eb098e90526010cc5d4c8d24232793568b7a0574e1b169280e",
+        "meta.json": "354a30f6908b72ce17959b5b055bbb1b946cfb0562650a21b559d67d47d3660c"
+      },
+      "native_receipt_sha256": "a0838c3ba2690e50d39466c453b558baead37ab6ddc6c9901f61eac0c09ca32b",
+      "raw5_unchanged": true,
+      "native_recording_passed": true,
+      "native_actions": 40,
+      "native_assertions": 381,
+      "clean_replay_started": false,
+      "prior_qualifier_absent": true,
+      "spec_author_note_unchanged": true
+    }
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1394-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "1e3be07b7f00240cbb740ba554948f32707e7933de251321761ddecb90fb5646"
+  },
+  "full_suite_run": false
+}

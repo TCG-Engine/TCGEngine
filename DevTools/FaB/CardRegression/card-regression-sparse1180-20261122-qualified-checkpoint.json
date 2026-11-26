@@ -1,0 +1,68 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-23T13:31:48.728020+00:00",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1180-20261122.json",
+  "source_spec_sha256": "c7903fb6b147731f44f819d0d29a9b5f388208ce04d0299d1e79c6e4e1616e3d",
+  "new_scenarios": 1,
+  "new_groups": 1,
+  "new_primary_ids": 1,
+  "actions": 54,
+  "native_assertions": 389,
+  "manual_passes": 50,
+  "totals": {
+    "saved_registered_scenarios": 5065,
+    "duels": 3075,
+    "four_live": 1990,
+    "recorded_primary_ids": 2213,
+    "identity_denominator": 5196,
+    "recorded_groups": 2087,
+    "group_denominator": 3324,
+    "four_live_groups": 1979,
+    "phase_qualified_scenarios_at_actual_contexts": 1702,
+    "phase_qualified_unique_groups": 1692,
+    "creation_replay_passes": 2444,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 863,
+  "scenarios": [
+    {
+      "card_id": "fealty",
+      "group_id": "identity:fealty",
+      "scenario_id": "card-fealty-four-live-sparse1180-real-next-card-draconic-earns-phoenix-flame-power-through-chain-history",
+      "effect_branches": [
+        "actual_fealty_cost_and_next_card_draconic_create_second_draconic_link_for_phoenix_flame_damage"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-fealty-four-live-sparse1180-real-next-card-draconic-earns-phoenix-flame-power-through-chain-history",
+      "source_spec": "card-regression-sparse1180-20261122.json",
+      "source_spec_sha256": "c7903fb6b147731f44f819d0d29a9b5f388208ce04d0299d1e79c6e4e1616e3d",
+      "review_evidence": "review-evidence/sparse1180-20261122-qualified-saved.json",
+      "review_evidence_sha256": "a812152d2ba05028599fa77fc71a32b37d5b1ce400c6ca6e64fe4b3b3ac0bbe6",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1180-20261122-replay.json",
+          "sha256": "c7fba0bd46f8c7607112414cf0ea2885a4f7fc4041ec1562529f1bd34d5e4956",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

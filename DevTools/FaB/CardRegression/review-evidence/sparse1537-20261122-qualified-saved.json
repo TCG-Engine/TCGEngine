@@ -1,0 +1,124 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "/root/breadth_review1457",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1537-20261122.json",
+  "source_spec_sha256": "413c3668709a77f5fe748f8e4c6524acaba69528b1c8711d2fe90e687e07571c",
+  "input_sha256": "413c3668709a77f5fe748f8e4c6524acaba69528b1c8711d2fe90e687e07571c",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-demolition-protocol-red-four-live-sparse1537-real-ally-attack-excludes-hero-attack-reward",
+      "card_id": "demolition_protocol_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "bf9353eca482aa460de7e820980a048ae46651a5bab3ed88d109b15b72fe403a",
+        "actions.json": "1ef1359f0cb6a63079e6f6cd368d56bb483cc14d047b770aadf86c15dfedfbeb",
+        "assertions.json": "bff56c2b51c76e5f4323bb842078213cbe9cbd1a3045563bae2fec5e5bc8249c",
+        "expected_final_gamestate.txt": "896653835da5c48a02da3f3dec82984ccfda791d0177cbba91856e7b1f80141a",
+        "meta.json": "9005f84484d276337eed05ff81b4a14e492f0e4da861229eb36cfb09e70b0962"
+      },
+      "fixture_sha256": "30fbb72a26bcba0bcc16c0525d220ca5354a499324096fe35ac94379d6bf3c60",
+      "actions": 28,
+      "native_assertions": 422,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1537-20261122.json",
+      "input_sha256": "413c3668709a77f5fe748f8e4c6524acaba69528b1c8711d2fe90e687e07571c",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1537-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-demolition-protocol-red-four-live-sparse1537-real-ally-attack-excludes-hero-attack-reward",
+        "fixture_slug": "card-demolition-protocol-red-four-live-sparse1537-real-ally-attack-excludes-hero-attack-reward",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-wage-gold-red-four-live-sparse1537-real-ally-attack-excludes-hero-attack-reward",
+      "card_id": "wage_gold_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "fdb7ab83f8cb5a1f0ab2e8a4a78745f5d46c83da17ddac138a7ee50ba3f10dc5",
+        "actions.json": "1ef1359f0cb6a63079e6f6cd368d56bb483cc14d047b770aadf86c15dfedfbeb",
+        "assertions.json": "fe5136ece497adc873f764d8c7284594ba288bcf9d06e91c3fe4a11a0342b475",
+        "expected_final_gamestate.txt": "5bacbc5b7a5f77584750f2f2ec1122d4f68abf91d621ea13b19d6d1c0d1c0f03",
+        "meta.json": "3650f84c5ce0694870a5aea49ab7065982ac32021e8b8652ec1ca0b30a532834"
+      },
+      "fixture_sha256": "e668c648867af37f4be512d6822bae0248a9e9a330aafaf99bc7867c1b296650",
+      "actions": 28,
+      "native_assertions": 422,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1537-20261122.json",
+      "input_sha256": "413c3668709a77f5fe748f8e4c6524acaba69528b1c8711d2fe90e687e07571c",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1537-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-wage-gold-red-four-live-sparse1537-real-ally-attack-excludes-hero-attack-reward",
+        "fixture_slug": "card-wage-gold-red-four-live-sparse1537-real-ally-attack-excludes-hero-attack-reward",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "schema_version": 1,
+    "batch": 1537,
+    "reviewer": "/root/breadth_review1457",
+    "result": "approved_named_branches_only_pending_native_execution",
+    "reviewed_utc": "2026-11-25T11:20:45.672089+00:00",
+    "spec_sha256": "413c3668709a77f5fe748f8e4c6524acaba69528b1c8711d2fe90e687e07571c",
+    "source_note_sha256": "ac41d0f2b4b348536e6dde856b1a0218b07e5ce2e07729820b6b213ec0b5e04a",
+    "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+    "source_sha256": {
+      "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+      "FaBSim/GeneratedCode/GeneratedMacroCode.php": "fe6a7982611df8f4de98ce2671b317b671b580146aa4b8c28e8f4b86d8461056",
+      "FaBSim/Custom/EVOCards.php": "7e946cadb04817da7a0c0b17d94cf5a6bd03655adba07b714d39654329b54dbe",
+      "FaBSim/Custom/SEACards.php": "5400728b0cfe26f7f9e60f7e135e0ee9b28ac85d39420f64aaade0fa9826f00f",
+      "FaBSim/Custom/SEARuntime.php": "6d998ea92dd3817d3329695a08db8c2fff78228967ee3bc35923f79eccdd3587",
+      "FaBSim/Custom/FaiCards.php": "222e95c7670e2df62aaec1185f75e63b6cc563bbd8fcfd52b4dd8f1f14110786",
+      "FaBSim/Custom/GameLogic.php": "c60fa151561f959e4e3e341b814de0e2b47c9e9f153bbc8793a04c43b5075061"
+    },
+    "cases": 2,
+    "findings": [
+      "Rebind exact diff verified: unexecuted PistolSTEAM2 setup/control corrected to printed-lawfulSTEAM1 only. No native attempt with invalid2.",
+      "Polly printed/SEA116 return gives unequippedArena/tapped/Steam1. CR8.3.39 only blocks attacking whileequipped. PriorEvoSUBCARDSProtoHead canonical. Actual7damage killsnonTokenPolly toGY4.",
+      "Hero-attack qualifier not earned by actualAlly attack, both guards beforechoices; no Puffincrank/Battleworn/HeroHit/wager/endphase. OwnEvo andnonemptyopposingsteam preserved.",
+      "Follow-up exactdiff approval: only4 strictCounterequalities []->FAB_PLAY_ORDER1 derivedfromGameLogic1057-1059 firstrealHandplay; allcontrols/gameplayunchanged. Both7input/no-fixturefailures archived."
+    ],
+    "limits": [
+      "Selected Ally-attack exclusions only. No positivepayload/Wager/UniversalBoost/priorproducer/support/sibling credit. Source/spec review only; no games/tests/writes."
+    ]
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1537-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "daefc26711cc685c89b256255464966dc51273b11183b0bc5111db7852c720c8"
+  },
+  "full_suite_run": false
+}

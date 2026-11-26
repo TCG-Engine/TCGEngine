@@ -1,0 +1,7 @@
+{
+    "name": "Mulch / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T23:20:55+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "**Earth Fusion**\n\nIf this was **fused**, it gets \"When this hits a hero, put a card from their arsenal on the bottom of their deck.\" Named unfused representative: legal natural Oldhim20, ordinary Hand play with ONLY Generic Blue3 pitch cards, no Earth/Ice reveal candidate, no hero ability or extra action. Actual printed cost/pitches/all4manual combat/owned sourceGY/AP0. Unblocked actualbase7or8, Oaken realHand+Deck retained, Mulch realfacedownArsenal retained; Snow no Frostbite. Endless three actual HandAAdef9 fullyblock8, no fused-on-defense Frostbite and noHit, allArenas0. Positive fusion, future debuff, dominate admission, Frostbite ownership/tax and Hero abilities untested. Sources: FaBSim/GeneratedCode/cardArrayCache.json#mulch_red"
+}

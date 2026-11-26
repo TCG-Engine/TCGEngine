@@ -1,0 +1,7 @@
+{
+    "name": "Meet Madness / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T23:18:44+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "**Stealth**\n\nWhen this hits a hero, choose 1 at random;\n- They choose a card in their hand. Banish it.\n- They choose a card in their arsenal. Banish it.\n- Banish the top card of their deck. Representative only: actual_unmarked_full_block_retains_three_real_opponent_zones. Actual Hand5 play with real printed payment, real Hand AA defenses, four live/manual seats, zero damage/nohit/Stack0/AP0/source and defenders in owned graveyards. Legitimate physical cards/counters retained; no positive hit/reaction/banish/steal/random/entry/ownership credit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#meet_madness_red"
+}

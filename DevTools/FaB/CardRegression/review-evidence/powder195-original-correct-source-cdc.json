@@ -1,0 +1,150 @@
+{
+  "status": "SOURCE_APPROVED_DIAGNOSTIC_ONLY_POWDER_REAL_GUN_HIT_EARNED_EQUIPMENT_DESTRUCTION",
+  "phase": "SOURCE",
+  "batch": 853,
+  "reviewer": "/root/ebbing_recovery_review",
+  "reviewer_independent": true,
+  "approved": true,
+  "source_approved": true,
+  "semantically_approved": true,
+  "native_probe_approved": true,
+  "normal_save_approved": false,
+  "native_fixture_recording_approved": false,
+  "passing_fixture_approved": false,
+  "diagnostic_only": true,
+  "mandatory_probe_only": true,
+  "no_save_even_if_pass": true,
+  "no_automatic_promotion": true,
+  "qualification_permitted": false,
+  "qualification": false,
+  "coverage_credit": false,
+  "required_native_flags": [
+    "--probe-only"
+  ],
+  "source_spec": "card-regression-batch853-powder-real-gun-earned-equipment-probe.json",
+  "source": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch853-powder-real-gun-hit-defending-equipment-strict-probe-author\\powder-real-gun-hit-positive-earned-equipment-full-probe.json",
+    "sha256": "d7d3bdbbf542db770fc60c85832cd3b3d76a557339d5c8a81fd4246472282be4"
+  },
+  "input_sha256": "d7d3bdbbf542db770fc60c85832cd3b3d76a557339d5c8a81fd4246472282be4",
+  "manifest": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch853-powder-real-gun-hit-defending-equipment-strict-probe-author\\manifest.json",
+    "sha256": "05b1c84d555c56a9d9cf71dbe9ac39d30fe2ddf5164b463b5c577eb07c7126a5"
+  },
+  "manifest_sha256": "05b1c84d555c56a9d9cf71dbe9ac39d30fe2ddf5164b463b5c577eb07c7126a5",
+  "runtime_sha256": "cdc081ff4c87ff2f9338b1d69040d0dc98d7600ba33976384336534ea3f92d22",
+  "recorder_sha256": "ab33a3250462d0453f71d38dd4138cb9fbc3d595d2586742e989a52251c9c4a9",
+  "firm_reservation": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch853-firm-reservation.json",
+    "sha256": "f16b4d9bdc8f07c216e492deaf2d450e6bb2cd8b6b96ea945d17dd0a9493276f"
+  },
+  "support_admission_supplement": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch853-firm-reservation-support-admission.json",
+    "sha256": "271a93e155b73b36e26b8499adc01399e4b1cb4f7bc86ddecdb37f801b334393"
+  },
+  "support_preflight": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch853-powder-real-gun-hit-defending-equipment-strict-probe-author\\preflight.json",
+    "sha256": "c43ab246b311832d00523020451d02458206fa526fb204d613cef33281ad6e9a"
+  },
+  "author_QA": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch853-powder-real-gun-hit-defending-equipment-strict-probe-author\\frozen-author-QA.json",
+    "sha256": "5f97f0b68b0d488d90d5bcbdcf05e7da8c8b77bb8771042bb8cbd526fe3b3c0a"
+  },
+  "ordered_control_query_model": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch853-powder-real-gun-hit-defending-equipment-strict-probe-author\\ordered-control-query-model.json",
+    "sha256": "4fda2d37a32e5b0c45d6d4d33fae2c96ca964ab501c069eb66dbdee2280c3205"
+  },
+  "source_guard_count": 72,
+  "additional_guard_count": 10,
+  "selected_support_guard_count": 18,
+  "all_current_guards_independently_matched": true,
+  "actions": 34,
+  "declarative_controls": 34,
+  "planned_native_inputs": 34,
+  "assertions": 4619,
+  "native_assertions": 4619,
+  "planned_native_assertions": 4619,
+  "manual_passes": 29,
+  "expected_manual_pass_actors": [
+    1,
+    2,
+    3,
+    4,
+    1,
+    2,
+    3,
+    4,
+    4,
+    1,
+    2,
+    3,
+    4,
+    1,
+    2,
+    3,
+    4,
+    1,
+    2,
+    3,
+    4,
+    1,
+    2,
+    3,
+    4,
+    1,
+    2,
+    3,
+    4
+  ],
+  "expected_manual_actor_counts": {
+    "1": 7,
+    "2": 7,
+    "3": 7,
+    "4": 8
+  },
+  "expected_formal_defense_finish_inputs": 1,
+  "checkpoints": 36,
+  "schema_property_checks": 1439,
+  "all_typed_properties_checked_against_actual_schema": true,
+  "native_expected_envelope_mapping_sha256": "dc727af4b4149ccc496758cadd50bbcedfa9f190d45578b9e8e3e1b7108e9f59",
+  "expected_native_query_mapping_sha256": "d441baf2ce1e109c8a49924715f5916b46760bb6837cc3a0c2594445bd0041b0",
+  "checkpoint_mapping_sha256": "24d9c2d6d2f3c55b13ed3cfbbf5cd2ca1ddeaaf721043c5f158d1b5a19662572",
+  "initial_final_raw48_each_remaining_actual_gate": true,
+  "independent_semantic_findings": [
+    "Legal four Young heroes Dash/Betsy/Betsy/Zen, all20. Unmodified Keg5 Arena1 is a valid prior-state Item, not a trigger seed. Teklo Blaster6 is actual Mechanologist Gun power2/2H/printed Action3 without go again; Blue7 pays real3 to R0/AP0. No Pistol-to-Gun type override, steam or Evo prerequisite is invented.",
+    "Aqua Seeing Shell8 is Mystic Equipment Head DEF1 and real schema FaceDown0 under legal Mystic Zen. This is a valid midgame prior-flip precondition; earlier3R/draw is unclaimed. Own-start destruction and activated ability are unentered. No BladeBreak/Temper/Battleworn or Defended trigger; it otherwise survives this chain. Nondefending Nullrune Gloves9/AB is untouched and no arcane event occurs.",
+    "Native weapon announcement declares adjacent Hero4 before real Blue payment; proxy carries physical WEAPON_UID6 but no guessed proxy UniqueID/Owner or game attackUID. Physical weapon identity remains constrained. Postcost legacy weapon Status marker is not asserted as a printed tap cost; no tap/steam cost is introduced.",
+    "After four Source/Attack responses, native face-up Shell8 is actually declared/finalized DEF1. Real computed Gun2 and one physical defender give actual HP4=19. Keg5 and defending Shell8 remain through four earned responses before any optional equipment chooser. No damage-only quiet baseline or compulsory-destroy assumption.",
+    "Actual emitted176568 uses MZMAYCHOOSE and sole defending ref p4CombatChain-0. This is an optional resolution choice, not a formally targeted effect. On fourth earned response, captured source5/controller1/ABILITY must still resolve through the chooser; positive answer then physically destroys owner1 Keg5 and owner4 Shell8 while Gloves9 remains. No guessed ABI UID/CardID/event parameters.",
+    "DYNHit110..112 directly invokes Powder ResolveAbility/await, a fresh literal Gun-hit producer concern. It is distinct from the ordinary own Hit macro contract285/295; no exact required Keg producer hold found and no waiver of another selected support contract is adopted. Actual printed body exists; no Native bug is confirmed by Source alone.",
+    "All34 expected envelopes/4619 ordered queries/1439 schema fields and72+10+18 guards independently matched.29 manual passes7/7/7/8 include one P4 defense finish. Full Damage/Resolution removes only the attack proxy; actual Gun6 remains Weapons, Blue7 Pitch1, both owners GY, HP4=19/allAP/R0/Stack and queues clear."
+  ],
+  "primary_rules": [
+    {
+      "url": "https://rules.fabtcg.com/en/cr/06-effects/",
+      "sections": [
+        "6.6.5",
+        "6.6.6"
+      ],
+      "reuses_independent_trigger_review": true
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/08-keywords/",
+      "sections": [
+        "8.3.36"
+      ],
+      "reuses_Cloaked_midgame_legality_review": true
+    }
+  ],
+  "required_remaining_gates": [
+    "One Root exact full --probe-only attempt, no Save even PASS.",
+    "Independent actual ordered trace and physical destruction/timing review.",
+    "Any promotion requires a separate explicit Root decision, fresh normal Source, actual Saved raw5/both48 profiles and two own focused replays."
+  ],
+  "limits": [
+    "No Native result, fixture, bug confirmation, fix, qualification or coverage.",
+    "Only this positive real Gun hit/defending-equipment branch. Keg prior play, Shell flip/start, optional decline, non-Gun/other equipment/negative choices, weapon Status semantics, Hero/support/fullcard branches are untested.",
+    "No PHP/native/R writes, source fix/full suite/Git/remote/new agents/deferred189..194 or denied188/184/B787 action."
+  ],
+  "created_utc": "2026-11-16T07:46:31.518190+00:00"
+}

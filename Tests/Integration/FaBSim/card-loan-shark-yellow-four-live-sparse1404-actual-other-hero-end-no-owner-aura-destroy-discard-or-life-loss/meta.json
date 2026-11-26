@@ -1,0 +1,7 @@
+{
+    "name": "Loan Shark / another hero End is not your End",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-24T15:44:02+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "FOUR_REAL_MANUAL_UPF_GRAVY_BONES20_THREEDORI20. PriorownedAura5Arena1/realGenericWoundingRed6Hand1/Blue8Deck1andactualWoundingRed7Hand4. InitialTurn3ID2/AP3=1\u2192all4ActionpassesactualEnd3\u2192all4EndpassesnativeStart4Action4ID3/AP4=1. PrintedYOURcontroller1EndeventnotearnedatOTHERhero3End. Same5ArenaownedreadyCounters[]/Hand6/Deck8/noUID9/noStackchoice. LoanSharkpriorAurahistoricalentry/Goldoriginuncredited(noinitialGoldorGoldGainhistoryseed). Controller1hasrealHandcardandHP20, soincorrectEndpunishmentwouldbeobservableasAuraDestroy/choice/discard/lifechange. Currentgoldcreation/stolen-conditionbranchesandpositiveownerEnduncredited. Actualnextseat4spendsnativeAPonWounding7AA0toHero1/all4manualcombat/base4/noGA/real4damageHP1=16/fullclose7GY4/same5Arena6Hand8Deck/UID8RNG0/AP0R0/quietStackDQ. ActualownerroutesDYNEndownArenaorSEAEndv==p. Onlywrong-ownerEndfilter/nativephaseanddamage, notentry/counter/Goldhistory/positiveWHENtiming/provenance/support/fullcard/pitches. Noenginechange. Sources: FaBSim/GeneratedCode/cardArrayCache.json#loan_shark_yellow FaBSim/GeneratedCode/GeneratedMacroCode.php FaBSim/Custom/GameLogic.php FaBSim/Custom/DYNRuntime.php FaBSim/Custom/SEARuntime.php FaBSim/Custom/SEACards.php FaBSim/Custom/WTRCards.php"
+}

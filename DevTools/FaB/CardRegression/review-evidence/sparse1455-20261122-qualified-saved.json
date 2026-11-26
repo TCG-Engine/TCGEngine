@@ -1,0 +1,113 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "/root/breadth_review1454 independent read-only source-spec semantic review",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1455-20261122.json",
+  "source_spec_sha256": "90f283a1683bb6035af74dd2030bc326b20f9232a56f681d004f22da94c2bbc4",
+  "input_sha256": "90f283a1683bb6035af74dd2030bc326b20f9232a56f681d004f22da94c2bbc4",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-weeping-battleground-red-two-live-sparse1455-real-aura-banish-one-arcane-and-three-defense",
+      "card_id": "weeping_battleground_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "01fd03ccb43f23155d1abdfa604ea9726583a2261b632d46a92d7733b8e56061",
+        "actions.json": "9b40de19b5caccb93835ac574a315e412a3fd4afcb7bb21e8290005723924ded",
+        "assertions.json": "a77b69e30fc0f4727f322d2dd433198fcd974f7ad7d4853dc8b1a54617a0aa40",
+        "expected_final_gamestate.txt": "5014a4d7d272e48558db492eaac21ac1f881520e8e10771d5e51526d98f2fc73",
+        "meta.json": "7697f9750107ac2492079879d39fdec98e35db50624b35168a9fe8192d2df83e"
+      },
+      "fixture_sha256": "68150fea3e5bcf3d20085311918d197a12ba0639b23990d7ae3a18ad5cbbbcf1",
+      "actions": 20,
+      "native_assertions": 231,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 16,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1455-20261122.json",
+      "input_sha256": "90f283a1683bb6035af74dd2030bc326b20f9232a56f681d004f22da94c2bbc4",
+      "active_seats": [
+        1,
+        2
+      ],
+      "players": "two_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1455-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-weeping-battleground-red-two-live-sparse1455-real-aura-banish-one-arcane-and-three-defense",
+        "fixture_slug": "card-weeping-battleground-red-two-live-sparse1455-real-aura-banish-one-arcane-and-three-defense",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "spec_sha256": "90f283a1683bb6035af74dd2030bc326b20f9232a56f681d004f22da94c2bbc4",
+    "source_note_sha256": "acbab06a5288bd5641e40329e9aaf017ec46842847f4948f36d64de6a0b1eddc",
+    "reviewer": "/root/breadth_review1454 independent read-only source-spec semantic review",
+    "reviewed_utc": "2026-11-25T00:23:01.306394+00:00",
+    "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+    "persistable_assertions": 231,
+    "source_sha256": {
+      "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+      "FaBSim/GeneratedCode/GeneratedMacroCode.php": "fe6a7982611df8f4de98ce2671b317b671b580146aa4b8c28e8f4b86d8461056",
+      "FaBSim/Custom/GameLogic.php": "c60fa151561f959e4e3e341b814de0e2b47c9e9f153bbc8793a04c43b5075061"
+    },
+    "review_scope": "Exact twenty-control two-live adult positive DR branch: normal4power attack, real0costDR, actual owned non-token Aura graveyard\u2192Banish as untargeted resolution choice, sole-opponent damage default repeated in UI, real1arcane, physical DR finally entersCC with3defense, actual1physical and full cleanup. Native execution/save mapping/replay remain root gates.",
+    "basis": [
+      "Official TRP5.14 damage-effect sole-opponent default applies before any response or optional banish; later UI repeats attackerHero1. Banish is printed untargeted may-choice, not a delayed formal target. No four-live/early binding/retargeting credit.",
+      "Generated Weeping Resolve18\u2192optionalAuraMZMULTICHOOSE0|1|GYref\u2192physicalBanish then HeroMZCHOOSE\u2192native1arcane. Managed DR source remainsStack until completion. FaBFinishDefenseReactionLayer then enters physical sameUID4 toCC2 RoleDEFENSE_REACTION/FromZoneHand; no duplicate source.",
+      "Actual WoundingRed4power versus primaryDR3defense yields1physical, and actual arcane1 hits attacker40to39. Prior real non-token RunebloodIncantation is legal owned Runeblade Aura in GY; it earns no entry/start event here. Florian Earthcount0 and generic Bravo attack earn no other Hero WHEN."
+    ],
+    "official_rules": [
+      {
+        "url": "https://rules.fabtcg.com/en/trp/05-gameplay-logistics/",
+        "section": "5.14",
+        "verified": "Official public rule checked during1454review."
+      }
+    ],
+    "limits": [
+      "declining_aura_banish_or_empty_graveyard",
+      "four_live_target_declaration_or_retargeting",
+      "arcane_prevention",
+      "multiple_aura_choices",
+      "pitch_siblings_or_Aura_entry_history"
+    ],
+    "positive_primary_ability_credit": true,
+    "whole_card_credit": false,
+    "independent_saved_file_review": false,
+    "native_execution": "PENDING final native completion",
+    "pre_native_protocol_correction": {
+      "changed_fields": [
+        [
+          "/0/steps/14/checks/0/value",
+          "PRIORITY",
+          "REACTION"
+        ],
+        [
+          "/0/steps/15/until/window",
+          "PRIORITY",
+          "REACTION"
+        ]
+      ],
+      "reason": "DR payment retains its prior REACTION window while physical Stack layer awaits responses. DoPass resolves top Stack after both passes independently of label. No semantic Aura/damage/defense/source-fate expectation changed.",
+      "native_attempt_preserved": "pre-response-window-correction",
+      "failed_inputs": 10,
+      "fixture_saved": false
+    }
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1455-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "bd5ab460226be5b8fe0b0ce9e6327a89c466ec041afc5d9e8649de2c5300549b"
+  },
+  "full_suite_run": false
+}

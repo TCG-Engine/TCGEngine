@@ -1,0 +1,7 @@
+{
+    "name": "Save the Thought / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T15:56:49+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Shuffle up to 3 non-attack action cards from your graveyard into your deck.\n\nCreate a Ponder token. Representative only: recycles_real_nonattack_action_and_creates_owned_ponder. Other pitch siblings, alternate targets and unexercised branches receive no credit. All four live/manual; only native entry-point actions. Sources: FaBSim/GeneratedCode/cardArrayCache.json#save_the_thought_red"
+}

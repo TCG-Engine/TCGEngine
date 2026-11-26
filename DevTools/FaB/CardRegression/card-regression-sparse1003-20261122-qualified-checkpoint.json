@@ -1,0 +1,155 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-23T00:45:39.570676+00:00",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1003-20261122.json",
+  "source_spec_sha256": "2a78471fc0d470ff266f3f129476087f0b8ddfa3308b976d98fa58f8734fb2ad",
+  "new_scenarios": 4,
+  "new_groups": 4,
+  "new_primary_ids": 4,
+  "actions": 121,
+  "native_assertions": 807,
+  "manual_passes": 100,
+  "totals": {
+    "saved_registered_scenarios": 4729,
+    "duels": 3075,
+    "four_live": 1654,
+    "recorded_primary_ids": 1877,
+    "identity_denominator": 5196,
+    "recorded_groups": 1751,
+    "group_denominator": 3324,
+    "four_live_groups": 1643,
+    "phase_qualified_scenarios_at_actual_contexts": 1366,
+    "phase_qualified_unique_groups": 1356,
+    "creation_replay_passes": 2108,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 527,
+  "scenarios": [
+    {
+      "card_id": "frost_fang_red",
+      "group_id": "pitch-cycle:frost_fang",
+      "scenario_id": "card-frost-fang-red-four-live-sparse1003-no-hit-keeps-real-hand-without-discard-or-resource-tax",
+      "effect_branches": [
+        "no_hit_keeps_real_hand_without_discard_or_resource_tax"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-frost-fang-red-four-live-sparse1003-no-hit-keeps-real-hand-without-discard-or-resource-tax",
+      "source_spec": "card-regression-sparse1003-20261122.json",
+      "source_spec_sha256": "2a78471fc0d470ff266f3f129476087f0b8ddfa3308b976d98fa58f8734fb2ad",
+      "review_evidence": "review-evidence/sparse1003-20261122-qualified-saved.json",
+      "review_evidence_sha256": "d269db2ea1d551f347b120ed34cc7733c9fa946a20f93ce7f0505794579a9d5f",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1003-20261122-replay.json",
+          "sha256": "3831061fdb684f7eb023f1025f20e72de6adb6293c35fb10464e3a6876c48fa2",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "rift_breaker_red",
+      "group_id": "pitch-cycle:rift_breaker",
+      "scenario_id": "card-rift-breaker-red-four-live-sparse1003-no-hit-keeps-real-opponent-lightning-flow",
+      "effect_branches": [
+        "no_hit_keeps_real_opponent_lightning_flow"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-rift-breaker-red-four-live-sparse1003-no-hit-keeps-real-opponent-lightning-flow",
+      "source_spec": "card-regression-sparse1003-20261122.json",
+      "source_spec_sha256": "2a78471fc0d470ff266f3f129476087f0b8ddfa3308b976d98fa58f8734fb2ad",
+      "review_evidence": "review-evidence/sparse1003-20261122-qualified-saved.json",
+      "review_evidence_sha256": "d269db2ea1d551f347b120ed34cc7733c9fa946a20f93ce7f0505794579a9d5f",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1003-20261122-replay.json",
+          "sha256": "3831061fdb684f7eb023f1025f20e72de6adb6293c35fb10464e3a6876c48fa2",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "lunartide_plunderer_red",
+      "group_id": "pitch-cycle:lunartide_plunderer",
+      "scenario_id": "card-lunartide-plunderer-red-four-live-sparse1003-no-hit-keeps-real-opponent-soul-and-source-in-graveyard",
+      "effect_branches": [
+        "no_hit_keeps_real_opponent_soul_and_source_in_graveyard"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-lunartide-plunderer-red-four-live-sparse1003-no-hit-keeps-real-opponent-soul-and-source-in-graveyard",
+      "source_spec": "card-regression-sparse1003-20261122.json",
+      "source_spec_sha256": "2a78471fc0d470ff266f3f129476087f0b8ddfa3308b976d98fa58f8734fb2ad",
+      "review_evidence": "review-evidence/sparse1003-20261122-qualified-saved.json",
+      "review_evidence_sha256": "d269db2ea1d551f347b120ed34cc7733c9fa946a20f93ce7f0505794579a9d5f",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1003-20261122-replay.json",
+          "sha256": "3831061fdb684f7eb023f1025f20e72de6adb6293c35fb10464e3a6876c48fa2",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "herald_of_judgment_yellow",
+      "group_id": "identity:herald_of_judgment_yellow",
+      "scenario_id": "card-herald-of-judgment-yellow-four-live-sparse1003-two-low-power-hand-blocks-no-phantasm-or-soul-transfer",
+      "effect_branches": [
+        "two_low_power_hand_blocks_no_phantasm_or_soul_transfer"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-herald-of-judgment-yellow-four-live-sparse1003-two-low-power-hand-blocks-no-phantasm-or-soul-transfer",
+      "source_spec": "card-regression-sparse1003-20261122.json",
+      "source_spec_sha256": "2a78471fc0d470ff266f3f129476087f0b8ddfa3308b976d98fa58f8734fb2ad",
+      "review_evidence": "review-evidence/sparse1003-20261122-qualified-saved.json",
+      "review_evidence_sha256": "d269db2ea1d551f347b120ed34cc7733c9fa946a20f93ce7f0505794579a9d5f",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1003-20261122-replay.json",
+          "sha256": "3831061fdb684f7eb023f1025f20e72de6adb6293c35fb10464e3a6876c48fa2",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

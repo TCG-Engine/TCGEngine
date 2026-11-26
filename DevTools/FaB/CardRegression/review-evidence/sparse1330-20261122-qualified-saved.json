@@ -1,0 +1,236 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "independent breadth_review1252",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1330-20261122.json",
+  "source_spec_sha256": "a363f2b4e5cb2f3c818380c770b7f4b27167f47fd2a3f254515ef2a108add840",
+  "input_sha256": "a363f2b4e5cb2f3c818380c770b7f4b27167f47fd2a3f254515ef2a108add840",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-essence-of-ancestry-body-red-four-live-sparse1330-sole-ward-2-prevents-real-unblocked-damage",
+      "card_id": "essence_of_ancestry_body_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "5d70fa77ca656c67f509ddf194ec826d62549d959fdf2d50abd1416b444f1035",
+        "actions.json": "a651ec66209f5fba1a69512d7c7246a041b8369869a61de636abeb01cc98ff8b",
+        "assertions.json": "294ad8a2b78b45984f94d7707947d4c543bb86d899dde51d97be4131aab84894",
+        "expected_final_gamestate.txt": "a9fcda1c21a8d7b05e73057a57339b32ad2fd897a3b265582d652f256def7d2d",
+        "meta.json": "70a04d52f30719b9d9b9b9e627e853ebdeda360f82cfb67d5af89a49745645b2"
+      },
+      "fixture_sha256": "c4d677f26158d661bedf4772dde7a9f5d2b14924d70c205ee9a75df02559ad45",
+      "actions": 28,
+      "native_assertions": 434,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1330-20261122.json",
+      "input_sha256": "a363f2b4e5cb2f3c818380c770b7f4b27167f47fd2a3f254515ef2a108add840",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1330-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-essence-of-ancestry-body-red-four-live-sparse1330-sole-ward-2-prevents-real-unblocked-damage",
+        "fixture_slug": "card-essence-of-ancestry-body-red-four-live-sparse1330-sole-ward-2-prevents-real-unblocked-damage",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-essence-of-ancestry-mind-blue-four-live-sparse1330-sole-ward-2-prevents-real-unblocked-damage",
+      "card_id": "essence_of_ancestry_mind_blue",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "ace2fb2ecc24e47860c68e10f3b912dc72cbae3f5721a5b6b25f048a5f17bee9",
+        "actions.json": "a651ec66209f5fba1a69512d7c7246a041b8369869a61de636abeb01cc98ff8b",
+        "assertions.json": "0b34bdb351e961b7da10cf315206de0476f20b3ea37191765d5afa804c4ab6a9",
+        "expected_final_gamestate.txt": "e392a67510a3907c1bd0d9a9b85448f6daf9787a98181381282978ec05bbabfa",
+        "meta.json": "b95642341eea7f0e45e48bec50b0b5aa396ab69e1266b09eab8ead2c41713f34"
+      },
+      "fixture_sha256": "38e68ae72c5db696a436a2d8f95d285c6a64ed60d2e6ee4873cc2ae8e3d720b1",
+      "actions": 28,
+      "native_assertions": 434,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1330-20261122.json",
+      "input_sha256": "a363f2b4e5cb2f3c818380c770b7f4b27167f47fd2a3f254515ef2a108add840",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1330-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-essence-of-ancestry-mind-blue-four-live-sparse1330-sole-ward-2-prevents-real-unblocked-damage",
+        "fixture_slug": "card-essence-of-ancestry-mind-blue-four-live-sparse1330-sole-ward-2-prevents-real-unblocked-damage",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-waning-vengeance-red-four-live-sparse1330-sole-ward-3-prevents-real-unblocked-damage",
+      "card_id": "waning_vengeance_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "2832b0cfe65c5af41783cb01954cd89610e6a1968c70d476337d8ed2a64a89e4",
+        "actions.json": "a651ec66209f5fba1a69512d7c7246a041b8369869a61de636abeb01cc98ff8b",
+        "assertions.json": "bec7d1092adb6cc1974f76711644c7345ffdcda1b3dc7d15abdd4bb142829f20",
+        "expected_final_gamestate.txt": "f347bd5a3c71c40399886c9959c61807adf8ee12ecc15f659b4df33122a49d90",
+        "meta.json": "dd1cf43ce272d9a9092a6a6a3e0dcc53e6347ce5405739f5fbd0ffe7e079417d"
+      },
+      "fixture_sha256": "5bbcaf28ad79019e9a5c6cb3c6b06a333f0c2f06700c6547aa2903e8868751f6",
+      "actions": 28,
+      "native_assertions": 434,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1330-20261122.json",
+      "input_sha256": "a363f2b4e5cb2f3c818380c770b7f4b27167f47fd2a3f254515ef2a108add840",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1330-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-waning-vengeance-red-four-live-sparse1330-sole-ward-3-prevents-real-unblocked-damage",
+        "fixture_slug": "card-waning-vengeance-red-four-live-sparse1330-sole-ward-3-prevents-real-unblocked-damage",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "reviewer": "independent breadth_review1252",
+    "spec_sha256": "a363f2b4e5cb2f3c818380c770b7f4b27167f47fd2a3f254515ef2a108add840",
+    "source_note_sha256": "e08157d065e278b53a0906b57a211736ed03c001fdd6daa38e4139341875608a",
+    "case_count": 3,
+    "active_seats": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "players": "four_live_manual",
+    "native_controls": 84,
+    "query_checks": 1302,
+    "persistable_assertions": 1302,
+    "author_only_checks_omitted": 0,
+    "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+    "coverage_category": "POSITIVE_SOLE_WARD_AMOUNT_AND_SOURCE_DESTRUCTION_WITH_FALSE_LEAVE_CONDITION_ONLY",
+    "per_case": [
+      {
+        "card_id": "essence_of_ancestry_body_red",
+        "group_id": "identity:essence_of_ancestry_body_red",
+        "native_controls": 28,
+        "persistable_assertions": 434,
+        "ward_amount": 2,
+        "remaining_damage": 2,
+        "final_defender_health": 18
+      },
+      {
+        "card_id": "essence_of_ancestry_mind_blue",
+        "group_id": "identity:essence_of_ancestry_mind_blue",
+        "native_controls": 28,
+        "persistable_assertions": 434,
+        "ward_amount": 2,
+        "remaining_damage": 2,
+        "final_defender_health": 18
+      },
+      {
+        "card_id": "waning_vengeance_red",
+        "group_id": "pitch-cycle:waning_vengeance",
+        "native_controls": 28,
+        "persistable_assertions": 434,
+        "ward_amount": 3,
+        "remaining_damage": 1,
+        "final_defender_health": 19
+      }
+    ],
+    "basis": [
+      "Three distinct fresh groups unrepresented/no group holds. Independently cached printed BodyRed/MindBlue are plain Illusionist Aura Ward2, legal prior owned Arena under natural Young Prism20. WaningRed is Mystic Illusionist Instant Aura Ward3 and initially mismatched Prism; corrected before execution to natural Young Mystic Illusionist Enigma20 with matching initial actual Hero4 CardID guard. Both printed Hero health20 and other three Young Dori20/manual UPF are correct; neither Hero has an automatic event relevant to selected damage/destruction. Prior permanent setup only, no entry/play credit.",
+      "Four HeroUIDs1..4 then real Wounding5Hand1, non-Ward PassingMirageBlue6Arena4 index0 and actual primary7Arena4 index1. Ward text parser MST36\u201346 returns actual2/2/3; no other Ward/defenders/prevention assets, old history/effects/resources/blue-pitch flags. Actual unblocked zero-cost Generic4 attack formal adjacent Hero4 target/all four source/combat responses creates actual4 damage packet, so only Ward amount accounts for difference.",
+      "ACTIVE GameLogic2504\u2192DTDCombatPrevention235\u2013241 offers existing interactive mandatory Radiant choice even with one Ward; no fallback-only assumption or no-choice claim. Last REACTIONpass4 leaves windowREACTION/priority4 and all physical Auras alive, HP20/Stack0. Correct MZCHOOSE Type/Param p4Arena-1/Choose_damage_prevention and answer4 select actual owned primary7. DTDPreventionPay221 destroys same7/returnsWard2or3; Radiant callback177031/177023 stores reduction2or3 then177003\u2013177004 reenters damage automatically. Remaining positive2/2/1 has no further prevention candidates. DoDamage consumes stored packet, final actual damage2/2/1/HP18/18/19/attackHittrue. No extra pass or fabricated choice/queue layer.",
+      "Essence leave condition no Illusionist Auras is false because real PassingMirage6 remains; MST57/120\u2013125 implements that predicate before color prevention flag. Waning sourceMST123 requires actual BLUE_PITCHED count via MST21; fresh empty effects and no pitch action this turn leave false, so no Shield/token/UID created. Merely playing or controlling a Blue Aura is not pitching it. Passing Mirage Spectra is not attacked and its first-Illusionist-attack effect does not modify incoming Generic attack. Positive leave triggers and color prevention/Shield consumers untested.",
+      "Original7 ownGY4 index0/other6Arena4 index0 remain through all four Damage/Resolution passes and full close, source5 ownGY1, no other cards/zones, all APresources0/otherHealth20/UID7/RNG0/Stack decisions combat quiet. Each434 assertions across28 controls persists, total1302/84. Multiple Ward source ordering is untested; prior broad unsupported-choices assessment stays withdrawn.",
+      "Exact target-option correction independently verified: only three p1DecisionQueue Param equality strings change p2Hero-0&p4Hero-0 to p2Hero-0&p4Hero-0&p4Arena-0; reverse substitution reproduces entire original parsed packet. GameLogic707\u2013710 treats actual Spectra permanent as attackable; LegalAttackTargets722\u2013736 enumerates adjacent seat2 Hero then adjacent seat4 Hero and Arena0. Passing Mirage6 has Spectra, so its presence correctly adds the option. Chosen answer remains Hero4, so no Spectra destruction/alternate target branch is exercised and all Ward/damage/fate assertions stay identical. Earlier review missed that extra target in the exact chooser oracle, not an engine bug."
+    ],
+    "limits": [
+      "Only current corrected packet semantic/source review pending native saves/replays; no native pass or coverage credit claimed. Initial Mystic mismatch was corrected before any game; no engine change.",
+      "Ward amount and physical source destruction only with false leave prerequisites. No entry/play/true leave/color prevention/Shield positive effect/consumer, Hero/support/sibling/multiple-Ward ordering/full-card credit. Existing holds unchanged.",
+      "Only W receipt written; no native tests/games/replays, T/engine/original-checkout edit or access, auth/network or Git."
+    ],
+    "source_sha256": {
+      "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+      "FaBSim/GeneratedCode/GeneratedMacroCode.php": "fe6a7982611df8f4de98ce2671b317b671b580146aa4b8c28e8f4b86d8461056",
+      "FaBSim/Custom/GameLogic.php": "c60fa151561f959e4e3e341b814de0e2b47c9e9f153bbc8793a04c43b5075061",
+      "FaBSim/Custom/DYNRuntime.php": "b8cec432428757988b02fa831b6311cc32ef5671b2fcc2dd9eecbf82d0c5e231",
+      "FaBSim/Custom/DTDCards.php": "3b31d7627858a24d9e6444285de1671c448e5a79d3a71f4d7dfcb2824a5273d4",
+      "FaBSim/Custom/CodeGeneration.php": "951c17c1ecf263339fa860d4842911bca7122535ab9047cf65ab533ef49e4b86",
+      "FaBSim/Custom/MSTCards.php": "cd98a9b734b984bfc19af7d0e4a3eebd5496f298d08c7c79d7f6d43c363513c7",
+      "FaBSim/Custom/MONCards.php": "2eb22bda6f1dba583df2879046f9f4dec94f47f2e9b28f369758f3af72c9c3ac",
+      "Schemas/FaBSim/GameSchema.txt": "7783800bd47bc85885cc915066aadca58cdf99f0c1180602ac312d9af5ebf643",
+      "DevTools/FaB/CardRegression/record_card_regressions.php": "e53055b29e9ea641949b77019c4455607f41ca233325d716a9500637e19efd28"
+    },
+    "workspace_source_sha256": {
+      "author_breadth1330.py": "0d2694b54bc690bdb65abb16cfbb78ca3377751e03c42b1c187a3389d92e7a9c",
+      "breadth1068_helpers.py": "997f949ec26c7e494ad26a818f9f2078f6f4f2a0c49ca7f61aa8c71f3b091b0a"
+    },
+    "secondary_identity_credit": false,
+    "primary_play_credit": false,
+    "positive_leave_trigger_credit": false,
+    "multiple_ward_source_choice_credit": false,
+    "target_option_correction_review": {
+      "classification": "AUTHOR_ORACLE_OMITTED_LEGAL_SPECTRA_ATTACK_TARGET",
+      "original_spec_sha256": "deac4b95ab5363b0f6e97d9330fe74b1ae8eb0d2a7c3e9eed54d8c7aabadc67e",
+      "original_review_sha256": "51da6f2d4dbde69cc525314e2cbaa66fa7613dc2d5bbd1db1a8ad1e0bf97e7d8",
+      "original_native_receipt_sha256": "c7b7d0dc3675b31288d8aa29847f38e9a9d99cad2b66a5178223303f0bfeae1d",
+      "original_recorded_input_sha256": "deac4b95ab5363b0f6e97d9330fe74b1ae8eb0d2a7c3e9eed54d8c7aabadc67e",
+      "old_author_sha256": "511d92ac61a476ffeb1e3ba1b03b67e9589c84114692d249d5c8ce8f952ef64c",
+      "corrected_exact_param_equalities": 3,
+      "expected_target_param": "p2Hero-0&p4Hero-0&p4Arena-0",
+      "chosen_target_unchanged": "p4Hero-0",
+      "all_other_spec_fields_and_assertions_identical": true,
+      "prior_attempted_cases": 3,
+      "native_inputs_per_case_before_failure": 1,
+      "first_failure": "Expected target Param p2Hero-0&p4Hero-0, actual added lawful p4Arena-0 Spectra",
+      "post_target_selection_payment_prevention_damage_outcomes": "UNRUN",
+      "fixture_saved": false,
+      "clean_replay_run": false,
+      "engine_defect_claim": false,
+      "native_execution_by_reviewer": false,
+      "prior_bound_source_hashes_unchanged": true,
+      "prior_enigma_setup_correction_preserved": true,
+      "broad_ward_choice_claim_remains_withdrawn": true
+    }
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1330-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "4eaeb659c8d861412d7259f4477ef4e868dd35ac77fcfdf2c88750537f1b9252"
+  },
+  "full_suite_run": false
+}

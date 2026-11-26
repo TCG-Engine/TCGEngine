@@ -1,0 +1,62 @@
+{
+  "status": "MALICE200_PARTIAL_DEATH_BRANCH_QUALIFIED_FULL_MARK_ORIGINAL_STILL_HELD",
+  "approved": true,
+  "reviewer_independent": true,
+  "reviewer": "Root independent of source/spec author b820",
+  "runtime_sha256": "5a8c088126ff8d9c581c7eb97e4b9cc77511e4011c8fd3faed3a5328b7b47379",
+  "source_spec": "card-regression-repair-malice200-partial-earned-death.json",
+  "input_sha256": "45dd57b7bdc834373d89407757db3ec0cfa6c9d673f8b6cd139e278081b2f143",
+  "fixtures": [
+    {
+      "slug": "repair-malice200-four-live-earned-zombie-death-one-corpse-partial",
+      "card_id": "malice",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "ead543f8c2823e47ba3a795b616b2ea30a208fa00dca593bec4983553159cbd1",
+        "actions.json": "fb79b86f19b6237a5d4b28f7d9a768a2a4b19aa70b9e8a5674a53ade0c2091fe",
+        "assertions.json": "a8e75294f977cc9b0cc056889fb54fb3671cca2fd630897e9eaa97a94ab30c53",
+        "expected_final_gamestate.txt": "d6c9af85fbf8064b043ce7c025ad62548c8279028ca680a79b905aa6f15d7edd",
+        "meta.json": "8ca47a1d3c68dd8c41c117823e3217469839a6d1c881e638040bebe3ba2e5abc"
+      },
+      "fixture_sha256": "aba6a7fc713ea8fbaf0227453cfd5947329c6c93b7a829d308eec1041f3d0fb1",
+      "actions": 32,
+      "native_assertions": 1155,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 29,
+      "recorded_runtime_sha256": "5a8c088126ff8d9c581c7eb97e4b9cc77511e4011c8fd3faed3a5328b7b47379",
+      "runtime_sha256": "5a8c088126ff8d9c581c7eb97e4b9cc77511e4011c8fd3faed3a5328b7b47379",
+      "source_spec": "card-regression-repair-malice200-partial-earned-death.json",
+      "input_sha256": "45dd57b7bdc834373d89407757db3ec0cfa6c9d673f8b6cd139e278081b2f143"
+    }
+  ],
+  "original_full200_input_unchanged": true,
+  "full_original200_remains_open": true,
+  "source_review_sha256": "6fc533b54bc257b8cee0fa378dcfeaaf13f333360857999849cc42313c9d2b81",
+  "component_receipt_sha256": "0b638130b865935224dc1c7ec6db9f6f3adb354b1456f1ce3b66d84d0ecd8c4f",
+  "basis": "Exact32 native inputs and1155 persisted source assertions, source-mapped current P4 attack refs and actual eight-pass final transport. Four manual live seats. Actual6 lethal to legitimate life2 Zombie5 leaves allHeroes20, printed real Blue7 pitch3 paysBrutal6cost2/AP1 leavingR1/AP0. Host5 remains publicGY before captured MaliceHero1 ability and four actual fresh responses; only then same5 banishedFD plus one created Corpse9, followed by actual fullclose and complete Stack/payment/await/queue cleanup. Existing full Mark original remains held and unchanged.",
+  "limits": [
+    "One separately scoped Malice death branch only; not full record200 closure or Mark ordering/await validation.",
+    "No Native token/control-change/reentry/other pitch/fullcard coverage from components.",
+    "Existing Malice primary/group already represented; no new identity/group credit."
+  ],
+  "full_suite_run": false,
+  "replay": {
+    "path": "card-regression-replay-nov17-malice200-5a8c-replay.json",
+    "sha256": "5bea5534f7a765fca1fc98f30ffbd20752fe3ec4eb351ebe3cf77ec0f4bfb0d5",
+    "passed": true
+  },
+  "direct_hero_compatibility": {
+    "path": "card-regression-replay-nov17-malice200-5a8c-hero-compat.json",
+    "sha256": "957cfd0c74e231623ad3b23dea833732936ff987a18ed95b3d105269ac93cb94",
+    "passed": true
+  },
+  "independent_saved_review_sha256": "2821e2ddcf33a383a456ce8bb887f623193314dd8df0c9f200a68af38fc4d33f",
+  "creation": {
+    "path": "nov17-malice200-5a8c-native/receipt.json",
+    "sha256": "d6a450120d372ad26d42662448f759a6f594e15b95127d5a9c11eb2b6f10db5a"
+  },
+  "components": 19,
+  "full_issue_record_resolved": false,
+  "new_primary_identity_credit": false,
+  "new_group_credit": false
+}

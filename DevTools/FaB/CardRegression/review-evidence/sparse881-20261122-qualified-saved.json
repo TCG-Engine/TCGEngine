@@ -1,0 +1,229 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "Root independent semantic review of packet authored by /root/breadth_review; Root exact saved checks and replay",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse881-20261122.json",
+  "source_spec_sha256": "be1f7fc73c70bf8768d156fd4dfd9cd0ac8eab4779dfbad60da1420ac4ad5931",
+  "input_sha256": "be1f7fc73c70bf8768d156fd4dfd9cd0ac8eab4779dfbad60da1420ac4ad5931",
+  "recorded_input_scope": "Exact original native input, possibly containing unsaved failed cases excluded from this qualified subset; each retained case compared verbatim.",
+  "fixtures": [
+    {
+      "slug": "card-scrap-trader-red-four-live-sparse881-two-real-scrap-payments-banish-item-and-equipment-then-gain-four-resources",
+      "card_id": "scrap_trader_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "3bbf262d20eb6100bf3d8f628e30b92909349b18da84c150bfe62e699440b889",
+        "actions.json": "396ee5711fca32c60add401d07631e8a8147d914fc95c2fcc231b5f4f7c02ca2",
+        "assertions.json": "579c138942d6bcef36da8fe2fdef59e1e98854548ac2a22e23e7ec577d8df8ff",
+        "expected_final_gamestate.txt": "66be63ee5722a0aef384807549eb6382ef09939f2618b5e36db6481989443796",
+        "meta.json": "ff7d100dad27c96ba883d14e6f4139069872c8a4acde2edff6034a01b0855f8a"
+      },
+      "fixture_sha256": "01586bacdd92691b1651729815443234608f1a72eb4b9c66776b12a7c5283ac3",
+      "actions": 6,
+      "native_assertions": 99,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 4,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse881-20261122.json",
+      "input_sha256": "be1f7fc73c70bf8768d156fd4dfd9cd0ac8eab4779dfbad60da1420ac4ad5931",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse881-local-20261122\\save\\selected.json"
+    },
+    {
+      "slug": "card-save-the-thought-red-four-live-sparse881-recycles-real-nonattack-action-and-creates-owned-ponder",
+      "card_id": "save_the_thought_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "dcdc27fca9293100915a0de7d934ebb7553945d76d6904656354d700d0b1865e",
+        "actions.json": "bba03b07a2d7cc63db8e8e309c16642c85121ccedae45ce9b274da2f84ec353f",
+        "assertions.json": "d70daf4860e9432fa726c418086975b5713bbcff4ecdc56bbf3da3293f920c58",
+        "expected_final_gamestate.txt": "70d8ef8aebf2db5acb6294a3db5a5996a9c9bf59177d5f754d7b964052f07517",
+        "meta.json": "890d80c39b1a14cd90e4c5bb17d95f0f1caa6026b0e0af1fec9b8e5c37ee2fa5"
+      },
+      "fixture_sha256": "0c67aaf71b2d81f66ff660c73323c3fbc5e1c5f38c1ff018ddcca25a96472911",
+      "actions": 7,
+      "native_assertions": 100,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 4,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse881-20261122.json",
+      "input_sha256": "be1f7fc73c70bf8768d156fd4dfd9cd0ac8eab4779dfbad60da1420ac4ad5931",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse881-local-20261122\\save\\selected.json"
+    },
+    {
+      "slug": "card-settle-the-bill-red-four-live-sparse881-loads-real-hand-arrow-face-up-with-printed-power-marker",
+      "card_id": "settle_the_bill_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "df126ff14909d6330c8a47e7e40bfcfbaeffc9f330bd1cfa1047ac421e3166ab",
+        "actions.json": "c4b2391abfbcf981b4ab16a79e1ef67007c67c23a0abc426d453339481bfbb4a",
+        "assertions.json": "ebc13bae586652687e8b892ab80f450e9538f582ec1740f3251833e9e41f728b",
+        "expected_final_gamestate.txt": "d4f8cac8e3fc7d08b0096eaf4993efb2f7eb0d51034f0c966b3d91012c00411c",
+        "meta.json": "ee1ce3cafb389fb1a9a9eac7df4c771b777c683b842619a433c09d8caab94db2"
+      },
+      "fixture_sha256": "37fddaca62a45eb5ae4a5c8913b6254e64c30e5c66a9792c4f161386a0bacdd8",
+      "actions": 7,
+      "native_assertions": 97,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 4,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse881-20261122.json",
+      "input_sha256": "be1f7fc73c70bf8768d156fd4dfd9cd0ac8eab4779dfbad60da1420ac4ad5931",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse881-local-20261122\\save\\selected.json"
+    },
+    {
+      "slug": "card-tome-of-duplicity-blue-four-live-sparse881-banishes-actual-second-peeked-nonattack-and-restores-other-card",
+      "card_id": "tome_of_duplicity_blue",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "e8366db937588df47ca7d2b88da4bac284deb09d8a8a20bafebe70fce596b5b5",
+        "actions.json": "c7c76ef9657a26c1fb8cbb3f7262aff4367436a409bd830f8f24877930c4f8b8",
+        "assertions.json": "12184c2bb835f5cc3b60fc5dc9a830d7c80b84d5e61a2b4235cfe3de6cd4bbfe",
+        "expected_final_gamestate.txt": "c87a753a0e44efb573d0b3f0ac468aa0a3683fc3dac5d97e9a5dee027382a0b9",
+        "meta.json": "60ef9fdda1a344ae23cab84f479ad082df6cd03efadde28c129a1e855c2ed6f7"
+      },
+      "fixture_sha256": "1c852ccdf3da10be08213a1e9821dc24529d4949a4e09caffc17a775496404d0",
+      "actions": 7,
+      "native_assertions": 98,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 4,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse881-20261122.json",
+      "input_sha256": "be1f7fc73c70bf8768d156fd4dfd9cd0ac8eab4779dfbad60da1420ac4ad5931",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse881-local-20261122\\save\\selected.json"
+    },
+    {
+      "slug": "card-teklovossens-workshop-red-four-live-sparse881-unboosted-reveal-puts-actual-top-item-into-arena-with-three-steam",
+      "card_id": "teklovossens_workshop_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "982fcace9d18f6d9ae26e12528b7d3d20582b994f2c4b5926a5c2b454a6506a1",
+        "actions.json": "ecfc3b356d170d3adcd369c59f64176c3b17ffe7af3900115b2de1a20afbaf7c",
+        "assertions.json": "925391efe9ace94998ca7dba7f8bcab704bbd9c6595ce352b4aeba51b52eed9e",
+        "expected_final_gamestate.txt": "384ab89f7f0d3ea36750ed0db945108f04bb69c658564d83b4b44bb91dca72b4",
+        "meta.json": "ea48e7de6098dccc55a07a09237b654e1a266528b66d0305821eaf2170cc85e3"
+      },
+      "fixture_sha256": "d7b665e37d1970d57cef56824fc444505f92518479170eb878f26cce62ea36cd",
+      "actions": 5,
+      "native_assertions": 92,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 4,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse881-20261122.json",
+      "input_sha256": "be1f7fc73c70bf8768d156fd4dfd9cd0ac8eab4779dfbad60da1420ac4ad5931",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse881-local-20261122\\save\\selected.json"
+    },
+    {
+      "slug": "card-twintek-charging-station-red-four-live-sparse881-recycles-actual-hyper-driver-to-empty-deck-and-gains-one-resource",
+      "card_id": "twintek_charging_station_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "dbbb4901497fc83efa3eb75b03f32d7358303375cc250d93eadd03d57af4b830",
+        "actions.json": "79546c6b52b161f21e6196d31822f611f7c548529405f005bfc6953ee644cb4f",
+        "assertions.json": "1e0755c49357124596495e1254709f9f2e319aaa195494e40fd00831d9e53be1",
+        "expected_final_gamestate.txt": "2ddd38ca5cc80118252ae5d99e998789a17dcd32cb4d17398c1bac3c7fe1dad7",
+        "meta.json": "7f55efe812edd325f70fa2dcbea287732d1da817329fd3b8fe7d9f7e01f77964"
+      },
+      "fixture_sha256": "1ca80edd2b8c3513f5d73f50d168e08afd1e0fc7a721a88831842485ea46b1d7",
+      "actions": 6,
+      "native_assertions": 91,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 4,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse881-20261122.json",
+      "input_sha256": "be1f7fc73c70bf8768d156fd4dfd9cd0ac8eab4779dfbad60da1420ac4ad5931",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse881-local-20261122\\save\\selected.json"
+    },
+    {
+      "slug": "card-visit-the-boneyard-blue-four-live-sparse881-actual-six-plus-power-card-moves-to-deck-top-and-creates-vigor",
+      "card_id": "visit_the_boneyard_blue",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "b84d98b3b0b8b04851cae4c2bed984eba2246342240059a267773f915a36edde",
+        "actions.json": "79546c6b52b161f21e6196d31822f611f7c548529405f005bfc6953ee644cb4f",
+        "assertions.json": "29a9f233a0c121db3a1eea466bb06f78864abab5b42b8cbe0f7a5e30d844e444",
+        "expected_final_gamestate.txt": "095f61c86d7552b7e3cf9d0f5a42219998d34bee7beb059888336993567ebd9e",
+        "meta.json": "cb30ea29316ce15dbece4ae596aa4c3fe27e161dd446ff2f5dbe84b40c8d7a94"
+      },
+      "fixture_sha256": "40548e8249ecf654121c3652c4c65d9e2fdb9cda84668b7de137e4c0468f703b",
+      "actions": 6,
+      "native_assertions": 97,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 4,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse881-20261122.json",
+      "input_sha256": "be1f7fc73c70bf8768d156fd4dfd9cd0ac8eab4779dfbad60da1420ac4ad5931",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse881-local-20261122\\save\\selected.json"
+    }
+  ],
+  "basis": {
+    "review_type": "independent_static_semantic_review",
+    "reviewer": "Root independent semantic review of packet authored by /root/breadth_review; Root exact saved checks and replay",
+    "result": "approved_named_branches_only_pending_native_execution",
+    "spec_sha256": "be1f7fc73c70bf8768d156fd4dfd9cd0ac8eab4779dfbad60da1420ac4ad5931",
+    "reviewed": [
+      {
+        "card": "scrap_trader_red",
+        "branch": "two_real_scrap_payments_banish_item_and_equipment_then_gain_four_resources"
+      },
+      {
+        "card": "save_the_thought_red",
+        "branch": "recycles_real_nonattack_action_and_creates_owned_ponder"
+      },
+      {
+        "card": "settle_the_bill_red",
+        "branch": "loads_real_hand_arrow_face_up_with_printed_power_marker"
+      },
+      {
+        "card": "tome_of_duplicity_blue",
+        "branch": "banishes_actual_second_peeked_nonattack_and_restores_other_card"
+      },
+      {
+        "card": "teklovossens_workshop_red",
+        "branch": "unboosted_reveal_puts_actual_top_item_into_arena_with_three_steam"
+      },
+      {
+        "card": "twintek_charging_station_red",
+        "branch": "recycles_actual_hyper_driver_to_empty_deck_and_gains_one_resource"
+      },
+      {
+        "card": "visit_the_boneyard_blue",
+        "branch": "actual_six_plus_power_card_moves_to_deck_top_and_creates_vigor"
+      }
+    ],
+    "evidence": [
+      "Root read author script and cached types/cost/printed text for all eight proposed cards, checked costs, legal young heroes and physical UID consequences for retained seven.",
+      "Scrap pays two actual item/equipment graveyard costs before completing play; unrelated attack remains unspent; positive 4-resource result.",
+      "Save selects genuine Wizard nonattack action Zap rather than attack Wounding Blow, empty destination deck, real Ponder; Instant preserves AP.",
+      "Settle uses ordinary legal Arrow, face-up arsenal and printed power marker, not its subsequent combat effect.",
+      "Tome chooses actual second real peeked nonattack and keeps real other card; actual instant replay from Banish remains unentered.",
+      "Workshop checks eligible actual revealed top item and natural three steam entry, no seeded boost history.",
+      "TwinTek one real Driver returns to initially empty deck, resource gain and GA. Boneyard real7power card moves to top above real existing card and creates actual Vigor.",
+      "Resolution decision waits track queue ownership without incorrectly requiring priority1 while final responder priority can persist."
+    ],
+    "limitations": [
+      "Only exact named branches; no downstream attack buffs/onhits/token timing or whole-card credit.",
+      "No shuffle entropy/distribution certification; shuffled zones have one card.",
+      "Estate not run: source-only shared Victor producer timing concern, not a confirmed native failure. FaBHVYToken directly DoDrawCard; source draft had insufficient separate earned-response witness. No coverage credit; no repair in this breadth packet."
+    ],
+    "author_provenance": "source-note.json and authored-eight.json retained outside repository"
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse881-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "59a7e691055352075e4732817f98307010671ed9cea2df3902fb836c33947b3f"
+  },
+  "full_suite_run": false
+}

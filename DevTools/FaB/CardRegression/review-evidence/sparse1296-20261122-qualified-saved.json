@@ -1,0 +1,162 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "independent breadth_review1252",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1296-20261122.json",
+  "source_spec_sha256": "080b33232d3659977fc75e17f06b714060687332c4979f2dee105cbb44816ecb",
+  "input_sha256": "080b33232d3659977fc75e17f06b714060687332c4979f2dee105cbb44816ecb",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-duskblade-four-live-sparse1296-first-use-no-two-card-types-and-affordable-repeat-rejected",
+      "card_id": "duskblade",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "ac731f918eb1215c94b411bc33750d42ba086455bb2a54eed74c3ef5024cbeed",
+        "actions.json": "1be231ce67fbe812aec3b6ae6fe1427c199df664bd0ec77932891a88cbf42d55",
+        "assertions.json": "9da966209b1dcbd1c73af08859c481cd5a8bb54a6cb65ec868e99e2b183a8ca1",
+        "expected_final_gamestate.txt": "7d66f58bc783ae362138f51fb82402b46baf3fb56f643318dabd7e24c5bed8cf",
+        "meta.json": "70d43b7cadea6bca4580f2484eddceb609c3bae8acba064e9b57d3b2c8e6c430"
+      },
+      "fixture_sha256": "25dd3b60c6cf24046094025bb42e1cf9ed3f5523d991dffb0a0e1bde4bd18574",
+      "actions": 34,
+      "native_assertions": 565,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 29,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1296-20261122.json",
+      "input_sha256": "080b33232d3659977fc75e17f06b714060687332c4979f2dee105cbb44816ecb",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1296-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-duskblade-four-live-sparse1296-first-use-no-two-card-types-and-affordable-repeat-rejected",
+        "fixture_slug": "card-duskblade-four-live-sparse1296-first-use-no-two-card-types-and-affordable-repeat-rejected",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-rosetta-thorn-four-live-sparse1296-first-use-no-two-card-types-and-affordable-repeat-rejected",
+      "card_id": "rosetta_thorn",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "8c7408ce2beaeb4efd3877ddb48ccdb9bdcfed307cf901ebbb82f525e3583ca8",
+        "actions.json": "1be231ce67fbe812aec3b6ae6fe1427c199df664bd0ec77932891a88cbf42d55",
+        "assertions.json": "68684c6694e78cc51bdc2df9a57a823fc415c1dd8eb1074083db92eeba51b41e",
+        "expected_final_gamestate.txt": "972728e45627b63f01a056347a6f12d4a08e61ada448cc35cc149f1ddc4be1c2",
+        "meta.json": "6dde63d753e8bbbbe9575fd96f0c2b90f5c7a17e9fa3edf97269606df8a33242"
+      },
+      "fixture_sha256": "32bbe323251707157cf90d17bcfd8e46aa96ad6c3894868e9510a1aa4c74bd76",
+      "actions": 34,
+      "native_assertions": 565,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 29,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1296-20261122.json",
+      "input_sha256": "080b33232d3659977fc75e17f06b714060687332c4979f2dee105cbb44816ecb",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1296-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-rosetta-thorn-four-live-sparse1296-first-use-no-two-card-types-and-affordable-repeat-rejected",
+        "fixture_slug": "card-rosetta-thorn-four-live-sparse1296-first-use-no-two-card-types-and-affordable-repeat-rejected",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "reviewer": "independent breadth_review1252",
+    "spec_sha256": "080b33232d3659977fc75e17f06b714060687332c4979f2dee105cbb44816ecb",
+    "source_note_sha256": "434a4e64ecfc284cf0d6fefc955e2ce0fa41ee2f0e55a713b8beb96835b1559f",
+    "case_count": 2,
+    "active_seats": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "players": "four_live_manual",
+    "native_controls": 68,
+    "query_checks": 1130,
+    "persistable_assertions": 1130,
+    "author_only_checks_omitted": 0,
+    "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+    "coverage_category": "FIRST_ATTACK_FALSE_TWO_CARD_TYPES_AND_AFFORDABLE_ONCE_PER_TURN_REJECTION_ONLY",
+    "positive_two_card_type_condition_credit": false,
+    "hero_ability_credit": false,
+    "turn_reset_credit": false,
+    "per_case": [
+      {
+        "card_id": "duskblade",
+        "group_id": "identity:duskblade",
+        "native_controls": 34,
+        "persistable_assertions": 565
+      },
+      {
+        "card_id": "rosetta_thorn",
+        "group_id": "identity:rosetta_thorn",
+        "native_controls": 34,
+        "persistable_assertions": 565
+      }
+    ],
+    "basis": [
+      "Two distinct uncovered standalone RunebladeSword2H weapons are legal under naturalYoungViserai20 versus threeYoungDorinthea20/exact1234/manualUPF/no passives; cached upf_banned=false. Copied initial assertions correctly regenerate Viserai and actualweapon identity. PhysicalPotion5Arena/weapon6Weapons/Blue7Hand, virtualPotionABI8 and weaponATTACKproxy9/sourceUID6 match unchanged allocation; authored1295 template reused as design only.",
+      "ActualPotionAction destroy cost spendsAP1to0 and movesphysical5GY, then allfourresponses earn2AP. Activating this Item is not playing the Action card. GameLogic payment isAbility branch calls only ability-cost hook, not OnCardPlayed/FaBWTRCardPlayed. Realfirstweapon activation is not playing an attackAction card; internal weapon entry may be tracked in cardsPlayedThisTurn, but it has Weapon rather than Action/Attack types. FaBELEBothActions requires actualNAA plus actualAA card predicates, both false here.",
+      "Printed attack WHENs have intervening-if both-card-types condition, so no Duskblade+1counter or Rosetta2arcane/target trigger is earned. Current Dusk hook checks FaBELEBothActions; powercounter source is zero. Viserai requires actualRuneblade card play plus anotherNAA, also unearned: no NAA was played and ability activation is not card play. AllArena0/UIDstable, actualprintedpower2/noGA/damage2 only and otherHeroHP20 must remain strict, with no unearned Runechant/arcane/buff.",
+      "ActualSword6 declares adjacentHero4 and realBlue7pitch3 pays normalweaponcost1, leavingR2/AP1/physicalusedStatus1 and boundvirtualproxy9Controller1/SourceUID6/SourceZoneWeapons with no proxyOwner assumption. Freshfourresponses/combatpasses give actualunblocked2damage/HP4=18; fullclose retains sameactor1Turn2/AP1/R2. No prerequisite card/history/modifier or discount seeded.",
+      "Actualsameweapon6 nativeclick then must reject once-per-turn despite affordableAP/R and clearACTION window. Existing WTRCanActivate/CRUWeaponReady usage gate precedes choice/payment/allocation; native mode10002 FSM click supports a no-legal-action no-op. Repeated fullstate/physical assertions require no newStack/target/pendingPayment/UID/secondDamage or AP/R spending. All1130 query/state/power/go_again assertions persist across68 single native controls,34/565 each."
+    ],
+    "limits": [
+      "Semantic/source review only pending native saves and targeted replays; no native pass, replay or coverage credit claimed.",
+      "Only positivefirstuse/normalcost/damage, falseAA+NAA prerequisite and affordableonce-per-turn rejection. No positivecombo/counter/arcane or true-trigger timing, ViseraiRunechant producer, Dusk endphase counter removal, turnreset, support or whole-card credit.",
+      "Only W receipt written; no native/test/replay execution, T/source/engine/registry edits, authentication/network, Git or original checkout access."
+    ],
+    "source_sha256": {
+      "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+      "FaBSim/GeneratedCode/GeneratedMacroCode.php": "fe6a7982611df8f4de98ce2671b317b671b580146aa4b8c28e8f4b86d8461056",
+      "FaBSim/Custom/WTRCards.php": "77d4452b30e45254a7199bc965396ded53e325717ecdd84a09b971f723f99f6a",
+      "FaBSim/Custom/WTRAbilities.php": "8c7b73f87e5151823dc8aab1546d7e0452e6a948e36fdf9b157d4aa5da0e2209",
+      "FaBSim/Custom/CRUCards.php": "5f0ff2122f9e033b8ad9ced75e9ee2210f459c868633f3f1741f419bc437c12d",
+      "FaBSim/Custom/MONCards.php": "2eb22bda6f1dba583df2879046f9f4dec94f47f2e9b28f369758f3af72c9c3ac",
+      "FaBSim/Custom/ELECards.php": "5319104c32fb648c9ef90ee5e7e3a6a22e29c35a26c2cca31b338aada0e6110f",
+      "FaBSim/Custom/ELEAbilities.php": "d0da7637932733ee6c0e77f4786c4950fbaa4e41eb74c5d1f5d536961fa27ab8",
+      "FaBSim/Custom/ARCCards.php": "f6b6a21d214e71fdcfd6a084f0671ce610f08a40c51a1266041877a5a12c0d52",
+      "FaBSim/Custom/GameLogic.php": "c60fa151561f959e4e3e341b814de0e2b47c9e9f153bbc8793a04c43b5075061",
+      "Core/EngineActionRunner.php": "add14b53dc571d2a6e64407bfa4038a98d6554d6410de7a9233810d99c46ea2a",
+      "Schemas/FaBSim/GameSchema.txt": "7783800bd47bc85885cc915066aadca58cdf99f0c1180602ac312d9af5ebf643",
+      "Core/ShortcutPreferences.php": "25f300ea0b6fbc409f5b92e8bc3587a74b2ab0eaf31ccef38e18c455598eaba6",
+      "DevTools/FaB/CardRegression/record_card_regressions.php": "e53055b29e9ea641949b77019c4455607f41ca233325d716a9500637e19efd28"
+    },
+    "workspace_source_sha256": {
+      "author_breadth1296.py": "b898504f86a2a1535ffcc6c8b053b9e065a50b73164ca81354ce8614d8844764",
+      "breadth1068_helpers.py": "997f949ec26c7e494ad26a818f9f2078f6f4f2a0c49ca7f61aa8c71f3b091b0a"
+    }
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1296-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "9f1b8497637e6aef29408f35447d5d8b151a0ee7dd36bfe08cbbfc88ea94537f"
+  },
+  "full_suite_run": false
+}

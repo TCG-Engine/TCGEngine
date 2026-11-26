@@ -1,0 +1,68 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-23T16:01:34.318467+00:00",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1205-20261122.json",
+  "source_spec_sha256": "fd26ce0ea09845de0441219653c06885106077bd4b8b9b80a4dca3c358145aa3",
+  "new_scenarios": 1,
+  "new_groups": 1,
+  "new_primary_ids": 1,
+  "actions": 14,
+  "native_assertions": 403,
+  "manual_passes": 8,
+  "totals": {
+    "saved_registered_scenarios": 5108,
+    "duels": 3075,
+    "four_live": 2033,
+    "recorded_primary_ids": 2256,
+    "identity_denominator": 5196,
+    "recorded_groups": 2130,
+    "group_denominator": 3324,
+    "four_live_groups": 2022,
+    "phase_qualified_scenarios_at_actual_contexts": 1745,
+    "phase_qualified_unique_groups": 1735,
+    "creation_replay_passes": 2487,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 906,
+  "scenarios": [
+    {
+      "card_id": "regrowth_shock_blue",
+      "group_id": "identity:regrowth_shock_blue",
+      "scenario_id": "card-regrowth-shock-blue-four-live-sparse1205-real-one-arcane-returns-owned-cheaper-attack-and-go-again",
+      "effect_branches": [
+        "actual_right_instant_shock_deals_one_then_left_regrowth_action_returns_real_owned_cost_zero_attack_below_one_and_own_go_again"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-regrowth-shock-blue-four-live-sparse1205-real-one-arcane-returns-owned-cheaper-attack-and-go-again",
+      "source_spec": "card-regression-sparse1205-20261122.json",
+      "source_spec_sha256": "fd26ce0ea09845de0441219653c06885106077bd4b8b9b80a4dca3c358145aa3",
+      "review_evidence": "review-evidence/sparse1205-20261122-qualified-saved.json",
+      "review_evidence_sha256": "191cdaba767435a64e644f9d204f623172a62fb754c44922e525fd3ae5ef6084",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1205-20261122-replay.json",
+          "sha256": "9d2183aabe38f33bd54d327910763fd2581c1cc4698076b94a3de5bd1d92a442",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

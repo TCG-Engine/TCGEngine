@@ -1,0 +1,7 @@
+{
+    "name": "Polar Cap / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T15:14:36+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "**Ice Fusion**\n\nDeal 4 arcane damage to any target. If this was **fused** and deals damage to a hero, create a Frostbite token under their control. Representative only: unfused_four_arcane_creates_no_frostbite. Other pitch siblings, alternate targets and unexercised branches receive no credit. All four live/manual; only native entry-point actions. Sources: FaBSim/GeneratedCode/cardArrayCache.json#polar_cap_red"
+}

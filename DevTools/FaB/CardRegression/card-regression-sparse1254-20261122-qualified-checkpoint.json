@@ -1,0 +1,97 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-23T23:28:34.810988+00:00",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1254-20261122.json",
+  "source_spec_sha256": "d75164e1a7ea780deb251dcba0a0f90a65f67c5c6113386e77a809d722e84228",
+  "new_scenarios": 2,
+  "new_groups": 2,
+  "new_primary_ids": 2,
+  "actions": 46,
+  "native_assertions": 664,
+  "manual_passes": 34,
+  "totals": {
+    "saved_registered_scenarios": 5159,
+    "duels": 3075,
+    "four_live": 2084,
+    "recorded_primary_ids": 2307,
+    "identity_denominator": 5196,
+    "recorded_groups": 2181,
+    "group_denominator": 3324,
+    "four_live_groups": 2073,
+    "phase_qualified_scenarios_at_actual_contexts": 1796,
+    "phase_qualified_unique_groups": 1786,
+    "creation_replay_passes": 2538,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 957,
+  "scenarios": [
+    {
+      "card_id": "dust_from_the_chrome_caverns_red",
+      "group_id": "identity:dust_from_the_chrome_caverns_red",
+      "scenario_id": "card-dust-from-the-chrome-caverns-red-four-live-sparse1254-real-kyloria-transform-material-phantasm-pop",
+      "effect_branches": [
+        "actual_specific_ash_material_transformed_under_non_exempt_kyloria_grants_phantasm_real_six_power_defender_queues_and_destroys_host_after_four_responses"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-dust-from-the-chrome-caverns-red-four-live-sparse1254-real-kyloria-transform-material-phantasm-pop",
+      "source_spec": "card-regression-sparse1254-20261122.json",
+      "source_spec_sha256": "d75164e1a7ea780deb251dcba0a0f90a65f67c5c6113386e77a809d722e84228",
+      "review_evidence": "review-evidence/sparse1254-20261122-qualified-saved.json",
+      "review_evidence_sha256": "1adb48ace3937273d1d04232a3c79479a3018cc4d34a563caf72f13eb869d8f4",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1254-20261122-replay.json",
+          "sha256": "ea83b7293fcdd861dee4576e09844ed842dcf3582f7932764bdd472777096986",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "dust_from_the_fertile_fields_red",
+      "group_id": "identity:dust_from_the_fertile_fields_red",
+      "scenario_id": "card-dust-from-the-fertile-fields-red-four-live-sparse1254-real-kyloria-transform-material-phantasm-pop",
+      "effect_branches": [
+        "actual_specific_ash_material_transformed_under_non_exempt_kyloria_grants_phantasm_real_six_power_defender_queues_and_destroys_host_after_four_responses"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-dust-from-the-fertile-fields-red-four-live-sparse1254-real-kyloria-transform-material-phantasm-pop",
+      "source_spec": "card-regression-sparse1254-20261122.json",
+      "source_spec_sha256": "d75164e1a7ea780deb251dcba0a0f90a65f67c5c6113386e77a809d722e84228",
+      "review_evidence": "review-evidence/sparse1254-20261122-qualified-saved.json",
+      "review_evidence_sha256": "1adb48ace3937273d1d04232a3c79479a3018cc4d34a563caf72f13eb869d8f4",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1254-20261122-replay.json",
+          "sha256": "ea83b7293fcdd861dee4576e09844ed842dcf3582f7932764bdd472777096986",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

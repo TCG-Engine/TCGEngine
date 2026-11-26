@@ -1,0 +1,7 @@
+{
+    "name": "Blunt Retort / four-live nonweapon block and Blade Break",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-23T08:07:00+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "When this defends a weapon attack, you may remove a +1{p} counter from the weapon.\n\n**Blade Break** Named positive ordinaryDEF1/BladeBreak branch while printedweapon-defendingeventisabsent. NaturalWarriorDori20 owns primaryEquipment5, GenericHandCriticalBlue6DEF3. Opponent1actualGenericWoundingRed7AApower4cost0targetsadjacent4/AP0, allfourmanualsource/combatresponses. RealHand6thenEquipment5defend3+1=4, noWeaponattack and no weapon-defend-triggerearned. Actual0damage/noHit/HP20, neitherdefenderinGYbeforeClose. AtCloseBladeBreakdestroysphysicalEquipment5toowner4GYafterHand6, AA7ownedGY1; noasset/RNG/AP/HPchangeotherwise. No weapon-defense positive body, counterremoval/ARgraveyardtop, equipmentproducer/hero/support/fullcard credit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#blunt_retort"
+}

@@ -1,0 +1,7 @@
+{
+    "name": "Evo Scatter Shot / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T15:37:23+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "If you have a base arms equipped, **transform** it into this, then equip this.\n\nYour Teklo Blaster gets +1{p} for each opponent.\n\n**Battleworn** Representative only: real_base_arms_transforms_into_owned_equipped_evo. Other pitch siblings, alternate targets and unexercised branches receive no credit. All four live/manual; only native entry-point actions. Sources: FaBSim/GeneratedCode/cardArrayCache.json#evo_scatter_shot_blue"
+}

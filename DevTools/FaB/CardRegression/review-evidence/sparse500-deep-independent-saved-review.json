@@ -1,0 +1,299 @@
+{
+  "status": "APPROVED_ACTUAL_SAVED_B500_DEEP_ONLY",
+  "approved": true,
+  "source_approved": true,
+  "semantically_approved": true,
+  "reviewer": "/root/nov2_metadata_review",
+  "reviewer_independent": true,
+  "semantic_author": "/root/b106_semantic_review",
+  "mechanical_subset_packager": "/root/nov2_metadata_review",
+  "created_utc": "2026-11-05T18:37:21.171404+00:00",
+  "source_spec": "card-regression-batch500-deep-only.json",
+  "input_sha256": "f1b71dff45bed890a1b9cdc384892e0aed727cc76435ed01a43ec117de72b2e3",
+  "manifest_sha256": "c2fabfef785829d19f8b223e1c4580db28c06813829b2f95df1ca9531cf85429",
+  "runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+  "recorded_runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+  "source_guards_verified": 69,
+  "prior_independent_source_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch500-deep-only-independent-source-review.json",
+    "sha256": "fdc89859f58ea6abad5cc2b54cb64b98fe9ef980dfc324f211ee155a69128665",
+    "reused_not_expanded": true
+  },
+  "original_author_input": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch500-banish-cost-and-earned-permission-author\\batch500-burn-away-and-deep-rooted-evil-two-real-graveyard-cost-and-earned-banish-permission-groups.json",
+    "sha256": "d16e02ba32217369d9bb7b8ac9354a5c39ee83c66e1fd59d12290071d4b5e1a7",
+    "case_index": 1
+  },
+  "mechanical_extraction_provenance": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch500-deep-rooted-only-source-approved\\extraction-provenance.json",
+    "sha256": "f971a0306d1f22edc30daac7a4a9ad4b926122928c50a53b6ef66d5d8f7a1dc9"
+  },
+  "recording_receipt": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch500-deep-only-20261105T183140Z-6aeccb8ceeeec.json",
+    "sha256": "7f1319877fc656782db38f012de57d9a5bfd5850fe4661027b15119d32ca160f"
+  },
+  "specific_results": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch500-deep-only.recording-results.json",
+    "sha256": "22e9346c29cb196e006fd7ef5854f5ee7810a56eada85a28c4647b5083facb57"
+  },
+  "root_wrapper_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch500-deep-native-r1-9e984\\receipt.json",
+    "sha256": "aab9c4e6be2ba31da23fb79ff0b49348fa61f26ae6a1a6bc26ba1840342165b1"
+  },
+  "actual_comparison_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov5_batch500_deep_saved_readonly.py",
+    "sha256": "86bf1f8cb4b365e370293a51426fb6b47828fa540941fe72f2f6dc504f2dd947"
+  },
+  "fixtures": [
+    {
+      "index": 0,
+      "original_author_case_index": 1,
+      "card_id": "deep_rooted_evil_yellow",
+      "group_id": "identity:deep_rooted_evil_yellow",
+      "slug": "card-deep-rooted-evil-yellow-four-live-real-six-power-cost-banish-earns-flag-zero-banish-play-paid-six-damage",
+      "source_spec": "card-regression-batch500-deep-only.json",
+      "input_sha256": "f1b71dff45bed890a1b9cdc384892e0aed727cc76435ed01a43ec117de72b2e3",
+      "reviewer": "/root/nov2_metadata_review",
+      "approved": true,
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_NEW_FOUR_LIVE_DEEP_ONLY",
+      "runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+      "recorded_runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+      "fixture_path": "Tests\\Integration\\FaBSim\\card-deep-rooted-evil-yellow-four-live-real-six-power-cost-banish-earns-flag-zero-banish-play-paid-six-damage",
+      "fixture_sha256": "6240409f0815d76c2cbb1bc367474bc45f974951dfdbccf78d8f852972de0e03",
+      "raw4_sha256": {
+        "initial_gamestate.txt": "d913de0cba353a415149cb79f321f3dc886c21992fd042d82db7daf0a4ec3738",
+        "actions.json": "0dfd9858516c0c742dafc2c9e68a345b3a662389cf8e36bfea634ab712eae818",
+        "assertions.json": "dcec24d42bcc698f71365f6fb166c8c43afa2c80a8d142fd093e9a29740f382f",
+        "expected_final_gamestate.txt": "62ce8309ff03474c00595e67f3c359202cd1e50ce92b7c517902956c7f6e0b7b"
+      },
+      "raw5_sha256": {
+        "initial_gamestate.txt": "d913de0cba353a415149cb79f321f3dc886c21992fd042d82db7daf0a4ec3738",
+        "actions.json": "0dfd9858516c0c742dafc2c9e68a345b3a662389cf8e36bfea634ab712eae818",
+        "assertions.json": "dcec24d42bcc698f71365f6fb166c8c43afa2c80a8d142fd093e9a29740f382f",
+        "expected_final_gamestate.txt": "62ce8309ff03474c00595e67f3c359202cd1e50ce92b7c517902956c7f6e0b7b",
+        "meta.json": "b7d270d99da90f3c2b84aff64451745af5748028924b9c3f76b6a5c4957f7af1"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "d913de0cba353a415149cb79f321f3dc886c21992fd042d82db7daf0a4ec3738",
+        "actions.json": "0dfd9858516c0c742dafc2c9e68a345b3a662389cf8e36bfea634ab712eae818",
+        "assertions.json": "dcec24d42bcc698f71365f6fb166c8c43afa2c80a8d142fd093e9a29740f382f",
+        "expected_final_gamestate.txt": "62ce8309ff03474c00595e67f3c359202cd1e50ce92b7c517902956c7f6e0b7b",
+        "meta.json": "b7d270d99da90f3c2b84aff64451745af5748028924b9c3f76b6a5c4957f7af1"
+      },
+      "actions": 34,
+      "native_assertions": 2984,
+      "actual_manual_passes": 29,
+      "actual_priority_response_passes": 28,
+      "actual_defender_declaration_finish_inputs": 1,
+      "actual_administrative_END_PHASE_passes": 0,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4
+      ],
+      "actual_manual_actor_counts": {
+        "1": 7,
+        "2": 7,
+        "3": 7,
+        "4": 8
+      },
+      "schema_property_assertions": 948,
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "all_actions_and_assertions_exact": true,
+      "no_recorder_only_assertions": true,
+      "all_endpoint_physical_uid_card_zones_ownership_verified": true,
+      "all_terminal_assertions_evaluated_against_parsed_final_snapshot": true,
+      "initial_assertions_also_evaluated_against_parsed_initial_snapshot": true,
+      "endpoint_assertion_counts": {
+        "0": 129,
+        "34": 203
+      },
+      "initial_physical_uid_locations": {
+        "1": {
+          "card_id": "levia",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "consuming_lash_yellow",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "8": {
+          "card_id": "raging_onslaught_blue",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "deep_rooted_evil_yellow",
+          "zone": "p1Banish",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3
+        },
+        "4": {
+          "card_id": "arakni",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_physical_uid_locations": {
+        "1": {
+          "card_id": "levia",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "deep_rooted_evil_yellow",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "consuming_lash_yellow",
+          "zone": "p1Banish",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Pitch",
+          "owner": 1,
+          "controller": 1
+        },
+        "8": {
+          "card_id": "raging_onslaught_blue",
+          "zone": "p1Pitch",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3
+        },
+        "4": {
+          "card_id": "arakni",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_health": [
+        20,
+        20,
+        20,
+        14
+      ],
+      "final_resources": [
+        2,
+        0,
+        0,
+        0
+      ],
+      "final_AP": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "final_Chi": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_UniqueIDCounter": 9,
+      "final_RandomCounter": 0,
+      "actual_Lash6_Banish_counter": {
+        "DTD_HAND_BANISH": 2
+      },
+      "actual_initial_primary5_PlayableFromBanish": 0,
+      "actual_single_earned_MON_BANISHED_SIX": 1,
+      "actual6damage": true,
+      "checkpoint_assertion_mapping_sha256": "8f1351a22d636f352b1b610247e2a00162c34643e9bc5c3a385bce44a1282331",
+      "native_action_mapping_sha256": "f63529e03c6c48d411c39b662e1b76d7edc60d2eb8d5e3fcc11a59e187095bad",
+      "native_assertion_mapping_sha256": "772505e7173b7112c7435343b5edb54465279e94725c9c91226a566a5e8b3d1e"
+    }
+  ],
+  "blocked_attempts": [],
+  "total_actions": 34,
+  "total_native_assertions": 2984,
+  "total_manual_passes": 29,
+  "total_priority_response_passes": 28,
+  "total_defender_declaration_finish_inputs": 1,
+  "total_administrative_END_PHASE_passes": 0,
+  "total_schema_property_assertions": 948,
+  "material_findings": [
+    "Exactallraw5/34actualenvelopes/2984orderedchecks/29manual/948properties/current69guards/native9; originalB106case1equaltoapprovedmechanicalslice and actualinstalledwholeinput. Bothendpoint48manualprefs/fullUIDmapsverified.",
+    "Initialprimary5publicBanishFLAG0/currentturnEffectsandhistoryempty; no current6+permissionseed. ActualHandLash6Instant1 paidbyrealBlue7pitch3R2AP1, actualprintedpower6card6selfbanishespublicown/ABI9capturesSourceHand6; actualMON_BANISHED_SIX1onlylatercorroboratesearnedcondition.",
+    "FreshABI9four resolvesnextANYGA; actualnormalclicksame5Banish0atFLAG0\u2192targetP4/printed3pending/R2insufficient thenrealBlue8pitch3/R2AP0; source5StackBanish thenfreshactiveChainFromBanish/current6power/GAtrue. Actual6physicalHP14/defense0, GAAP1onlyResolution/fullclose.",
+    "FinalownGY1UID5/publicBanish1Lash6FLAG0/ReturnAtEndTurn0/PlayableChainLink0; LashrawcounterDTD_HAND_BANISH2isactualcostturnbookkeeping, notempty/inventedpermission. Blue7,8orderedPitch/actualR2AP1/allphysical1..8conserved/virtual9ceased/counter9/RNG0/allotherzonesandStackChainsDQpaymentawaitquiet. HistoricalDQVscalarcachesnotpendingwork."
+  ],
+  "limits": [
+    "ONEDeepYellowearnedpublicBanishplay/real6+costevent/realcost3/actual6damage+supportGA; noinitialnegativepermissionattempt/foreignprivateBanish/otherorigins/expiry/ownerendphaseBloodDebt/keywordloss/heroability/otherpitches/fullcard/supportprimarycredit.",
+    "Burn originalauthoredWcase0 remainsoutsideinstalledpacket/thisSavedproof; noBurnnative orsourceaudit repeated and no passingrow/qualification mixedin.",
+    "Nativeledgerandparsedendpoints only; no per-inputrawsnapshot claim. Roottwofocusedreplays/registrationseparate; noPHP/native/replay/R/source/gen/service/fullsuite/git/remote/deniedretrybyreviewer."
+  ],
+  "blockers": [],
+  "native_executed_by_reviewer": false,
+  "repository_writes": false,
+  "source_changes": false
+}

@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-goldkiss-rum-four-live-sparse899-actual-instant-taps-real-hero-and-destroys-token-then-real-next-attack-gets-go-again",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-goldkiss-rum-four-live-sparse899-actual-instant-taps-real-hero-and-destroys-token-then-real-next-attack-gets-go-again",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse899-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse899-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "a2be5481f839f39a15cdd3398ef8175567341bd9bd43a506011c67746d9bbd29",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "699e4c02c8bed4b445e65701c2cba51b68168dc45bd137cbf577a1c216dfd4ba",
+        "actions.json": "6fe9468c40cb1e401d54d890b029e90e347c3ad222e50a9d9a1df61d0b0514d8",
+        "assertions.json": "307a915bb798ade79c61799a192748419102aade62965094e0e1bbabd5c9e5b8",
+        "expected_final_gamestate.txt": "e7bd51d395163a84b46e9c32bc8e818214ca80b3accdc53ef9cfe6f3d1e0d03d",
+        "meta.json": "156a119d03b1094419277a4f398c0c33d76662b068a0b1a3c303927ff29af94f"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

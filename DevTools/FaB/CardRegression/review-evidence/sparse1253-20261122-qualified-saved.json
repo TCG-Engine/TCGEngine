@@ -1,0 +1,85 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "independent breadth_review1252",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1253-20261122.json",
+  "source_spec_sha256": "ddaa6432c7912c08ff557be88f29c95cc1b8ba7c8571556c6a94fafbfe947aab",
+  "input_sha256": "ddaa6432c7912c08ff557be88f29c95cc1b8ba7c8571556c6a94fafbfe947aab",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-cosmic-suture-red-four-live-sparse1253-real-blue-payment-prevents-four-incoming-physical-without-starfall",
+      "card_id": "cosmic_suture_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "979de404a5882a679fa5fddbc2e7c541e6e44e5bac65b3f7f176b3a693289411",
+        "actions.json": "203ad6a99f59cb2839b74ea2192ea2ba0a4f88951fb2b19d0f849528833f65b1",
+        "assertions.json": "1dfcfcc8f1b6e7ec3489d012a61dd86132833237885c6035a707e0809369afce",
+        "expected_final_gamestate.txt": "88db1cc69149aef1c85f85a9a56a9602d6d323131ede6b9b1d221a8739f80405",
+        "meta.json": "a39f1ad238e6b7aa7860d7eac9e54deee7c0bc3c7d6d32fc306040c321870af4"
+      },
+      "fixture_sha256": "428558d1f08d017ca8fa5a2e22fc7a3bbc0a9825bc1013146aaf9699a911e416",
+      "actions": 36,
+      "native_assertions": 265,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 32,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1253-20261122.json",
+      "input_sha256": "ddaa6432c7912c08ff557be88f29c95cc1b8ba7c8571556c6a94fafbfe947aab",
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1253-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-cosmic-suture-red-four-live-sparse1253-real-blue-payment-prevents-four-incoming-physical-without-starfall",
+        "fixture_slug": "card-cosmic-suture-red-four-live-sparse1253-real-blue-payment-prevents-four-incoming-physical-without-starfall",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "reviewer": "independent breadth_review1252",
+    "spec_sha256": "ddaa6432c7912c08ff557be88f29c95cc1b8ba7c8571556c6a94fafbfe947aab",
+    "source_note_sha256": "6d0c0a0ecc7afefc3f1432ae9e6eb2b9964d941f1c0423758b420e79a630e5e1",
+    "case_count": 1,
+    "native_controls": 36,
+    "query_checks": 265,
+    "persistable_assertions": 265,
+    "author_only_checks_omitted": 0,
+    "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+    "coverage_category": "ACTUAL_PAID_DEFENSIVE_INSTANT_PREVENTION_WITHOUT_PRIOR_STARFALL",
+    "basis": [
+      "Printed Cosmic Suture Red is Lightning Wizard Instant cost2 and prevents next4 damage this turn. Young Oscilio18 has Essence of Lightning, so primary is lawful; three other natural young Dorinthea seats remain20. Generic Blue Sigil pitches3 and is not played or used to heal.",
+      "Four live manual seats, empty passive list, real Hand assets UID5 attack/UID6 primary/UID7 blue, empty current-turn history and no seeded prevention. Actual ownHand attack0/AP1to0 declares adjacent hero4, then four manual responses produce printed4 combat attack. Defender4 passes declaration without any blocker and plays primary in a real reaction priority window with AP0.",
+      "Primary costs actual2 from real Blue7 pitch3 leaving R1. It remains owned Stack UID6 while all four fresh responses pass4,1,2,3. Managed ordinary Instant lifecycle resolves while source is Stack, then moves6 to owner4 graveyard. OMN Starfall only records an Instant entering graveyard; initial graveyard/history are empty and pitched7 is in Pitch, so own primary cannot enable its own conditional arcane effect during resolution. No active target phrase is exercised on this false condition branch.",
+      "Generated Cosmic case56 actually creates PREVENT_DAMAGE4 before case55 checks Starfall. WTR prevention consumes up to packet amount. Correct observable result is physical incoming power4/defense0 but actual damage0, attackHit false and Oscilio HP18. No healing, defensive card, armor or other prevention competes. Actual damage phase and later owned fates prevent granting credit for merely creating a pool.",
+      "Priority sequence covers four seats through attack, defense priority, reaction, damage and resolution. The four post-Instant passes reset to turn player1, then a fresh four passes cause physical damage. Final original attack5GY1/primary6GY4/blue7Pitch4, unchanged health20/20/20/18, R4=1, all AP0, UID7/RNG0 and empty Stack/four queues/combat chain match limited branch. All 265 checks are native assertions, recorded state checks or recorded computed power; none is author-only."
+    ],
+    "limits": [
+      "Semantic/spec approval only pending actual native record and targeted replay; no native pass or coverage credit claimed.",
+      "Only paid defensive Instant prevention4 with no prior Starfall. No positive Starfall, arcane target timing, bonus damage, partial or later packets, alternate pitch, hero/support identity or whole-card credit.",
+      "Oracle shorthand allHP18 is read alongside explicit assertions, which correctly require HP20/20/20/18; it does not authorize changing any health expectation.",
+      "Only W review receipt written. No test/native execution, engine/repository edits, authentication, network, Git or original-checkout access."
+    ],
+    "source_sha256": {
+      "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+      "FaBSim/GeneratedCode/GeneratedMacroCode.php": "fe6a7982611df8f4de98ce2671b317b671b580146aa4b8c28e8f4b86d8461056",
+      "FaBSim/Custom/WTRCards.php": "77d4452b30e45254a7199bc965396ded53e325717ecdd84a09b971f723f99f6a",
+      "FaBSim/Custom/OMNCards.php": "f679d81ac69c6d5d23fa3b0d4cd5ee3e44a0a180f7d0a896f31d2e9817090284",
+      "FaBSim/Custom/GameLogic.php": "c60fa151561f959e4e3e341b814de0e2b47c9e9f153bbc8793a04c43b5075061",
+      "DevTools/FaB/CardRegression/record_card_regressions.php": "e53055b29e9ea641949b77019c4455607f41ca233325d716a9500637e19efd28"
+    }
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1253-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "8151b50c61b8f6b6c99af9c1ae22f9c9b1d0e9817b952be5b7a0518362b7543f"
+  },
+  "full_suite_run": false
+}

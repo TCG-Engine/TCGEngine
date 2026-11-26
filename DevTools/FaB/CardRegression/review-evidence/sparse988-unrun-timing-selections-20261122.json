@@ -1,0 +1,74 @@
+{
+  "scope": "Source-only selection holds from continuation beginning988, not new native defect records",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "cards": [
+    {
+      "batch": 991,
+      "card_id": "four_feathers_one_crown_red",
+      "group_id": "identity:four_feathers_one_crown_red",
+      "status": "UNRUN_KNOWN_SHARED_EARNED_ATTACK_TRIGGER_TIMING_FAMILY",
+      "native_executed": false,
+      "fixture_saved": false,
+      "coverage_credit": false,
+      "new_native_bug_claim": false,
+      "reason": "Earned attack trigger requires a separate response round; draft inline expectations would pin the known defect. Skipped before execution; do not reprobe shared family or record those expectations."
+    },
+    {
+      "batch": 991,
+      "card_id": "enflame_the_firebrand_red",
+      "group_id": "identity:enflame_the_firebrand_red",
+      "status": "UNRUN_KNOWN_SHARED_EARNED_ATTACK_TRIGGER_TIMING_FAMILY",
+      "native_executed": false,
+      "fixture_saved": false,
+      "coverage_credit": false,
+      "new_native_bug_claim": false,
+      "reason": "Earned attack trigger requires a separate response round; draft inline expectations would pin the known defect. Skipped before execution; do not reprobe shared family or record those expectations."
+    },
+    {
+      "batch": 992,
+      "card_id": "hunt_to_the_ends_of_rathe_red",
+      "group_id": "identity:hunt_to_the_ends_of_rathe_red",
+      "status": "UNRUN_KNOWN_SHARED_EARNED_ATTACK_TRIGGER_TIMING_FAMILY",
+      "native_executed": false,
+      "fixture_saved": false,
+      "coverage_credit": false,
+      "new_native_bug_claim": false,
+      "reason": "Earned attack trigger requires a separate response round; draft inline expectations would pin the known defect. Skipped before execution; do not reprobe shared family or record those expectations.",
+      "held_branch": "actual_arakni_mark_trigger_then_static_bonus",
+      "later_independent_qualified_branch": {
+        "scenario_id": "card-hunt-to-the-ends-of-rathe-red-four-live-sparse1008-unmarked-non-arakni-printed-go-again",
+        "branch": "actual_non_arakni_unmarked_target_base_two_printed_go_again",
+        "source": "card-regression-sparse1008-20261122.json",
+        "proof": "review-evidence/sparse1008-20261122-qualified-saved.json",
+        "proof_sha256": "3f8006c937ec4cd564a9679f49b3493b688d8042a3829b5b5383a2a4f1212f35",
+        "scope": "Only non-Arakni/unmarked target: typed Arakni event absent. No qualification or repair of the original actual-Arakni earned-trigger timing branch."
+      }
+    },
+    {
+      "batch": 992,
+      "card_id": "second_strike_red",
+      "group_id": "pitch-cycle:second_strike",
+      "status": "UNRUN_KNOWN_SHARED_EARNED_ATTACK_TRIGGER_TIMING_FAMILY",
+      "native_executed": false,
+      "fixture_saved": false,
+      "coverage_credit": false,
+      "new_native_bug_claim": false,
+      "reason": "Earned attack trigger requires a separate response round; draft inline expectations would pin the known defect. Skipped before execution; do not reprobe shared family or record those expectations."
+    },
+    {
+      "batch": 992,
+      "card_id": "silver_talons_red",
+      "group_id": "pitch-cycle:silver_talons",
+      "status": "UNRUN_KNOWN_SHARED_EARNED_ATTACK_TRIGGER_TIMING_FAMILY",
+      "native_executed": false,
+      "fixture_saved": false,
+      "coverage_credit": false,
+      "new_native_bug_claim": false,
+      "reason": "Earned attack trigger requires a separate response round; draft inline expectations would pin the known defect. Skipped before execution; do not reprobe shared family or record those expectations."
+    }
+  ],
+  "count": 5,
+  "runnable_inputs": false,
+  "archival_inputs": "Unexecuted drafts and reviews retained in local workspace sparse991/sparse992 folders; not regression fixtures or test discovery inputs. Canonical991/992 repository source files contain only qualified independent branches.",
+  "scope_note": "The five original earned-trigger candidate branches remain unrun. Whole-card exclusion is not implied: Hunt now has a separately qualified non-Arakni branch."
+}

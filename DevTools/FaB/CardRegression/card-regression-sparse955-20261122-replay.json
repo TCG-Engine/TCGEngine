@@ -1,0 +1,102 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-pay-up-red-four-live-sparse955-actual-multi-hand-full-block-prevents-hit-and-preserves-physical-objects",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-pay-up-red-four-live-sparse955-actual-multi-hand-full-block-prevents-hit-and-preserves-physical-objects",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse955-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse955-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "6baa644425bf5a616eab16c954c03da02c1552e86625a9564a57489b71dbf67c",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "accc8c00daa5be2582d68ed8cf3f5012be44e40daa82c3c959f787dad0a085ea",
+        "actions.json": "a44e24b9f9b348ce659c847e7dbea1e0cd33c5233e8ac4933f9391118d55ee4b",
+        "assertions.json": "ed2c6405641a76d0554515968295985cff5f793acf9d8b7edb96cdbbbbcba967",
+        "expected_final_gamestate.txt": "e6e2600880fa21e822ba4b2ae65de7d734b740381fa247fa6b9a53f69b7cf92d",
+        "meta.json": "c04979dc7b8be1a92d96b216ae167fe2caabb9a474d0a3b7a3b62bd5b6ce971d"
+      }
+    },
+    {
+      "slug": "card-money-or-your-life-red-four-live-sparse955-actual-multi-hand-full-block-prevents-hit-and-preserves-physical-objects",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-money-or-your-life-red-four-live-sparse955-actual-multi-hand-full-block-prevents-hit-and-preserves-physical-objects",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse955-local-20261122\\clean-replays\\01.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse955-local-20261122\\clean-replays\\01.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "846c4e4e3b296b057379a17a3cd804030a5ecb2d9fc730c12a12f35598b713d0",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "e230f33a09cceced447334506117d6756ab16893c4b47749e3fbe9f1c3c7d150",
+        "actions.json": "a44e24b9f9b348ce659c847e7dbea1e0cd33c5233e8ac4933f9391118d55ee4b",
+        "assertions.json": "83c9bd6690bf8da77d96c3fe7a6d84622a730c2f9eab9d7208607a8966eddf65",
+        "expected_final_gamestate.txt": "a60570faffcffd2bd2864ee03b95f1c12df290715b523eec4a1eb4d86a19360b",
+        "meta.json": "2222655b323ffa969637c7742ffbe7524cbbda66c9b626a2b3a8c42cdf2e8aed"
+      }
+    },
+    {
+      "slug": "card-blanch-red-four-live-sparse955-actual-multi-hand-full-block-prevents-hit-and-preserves-physical-objects",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-blanch-red-four-live-sparse955-actual-multi-hand-full-block-prevents-hit-and-preserves-physical-objects",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse955-local-20261122\\clean-replays\\02.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse955-local-20261122\\clean-replays\\02.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "c9602a7b1724df5adc6cba9ddac999db9f3572401c2c81d68507e1a2af6ddb19",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "8e8bed61752451ec661f8c3353d549afd5abc111b1cc178c319a17536fa3a5d5",
+        "actions.json": "b9996f47ad8378619b85a79eb0a8a53a9e095b4296bec37843ce3c891f30ed90",
+        "assertions.json": "5d8915c39c49eddb22d9b3ae484b61c4b91852608e6f2354ecac9f905830ab6d",
+        "expected_final_gamestate.txt": "c2460875229711e2c5c47fac998c47fe7771f05ffaf96ca296c823a2a0dc0d84",
+        "meta.json": "eb1692db5312d4327d75a82f3a8ef73867377b3964edc8624925542f07822195"
+      }
+    },
+    {
+      "slug": "card-tongue-tied-red-four-live-sparse955-actual-multi-hand-full-block-prevents-hit-and-preserves-physical-objects",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-tongue-tied-red-four-live-sparse955-actual-multi-hand-full-block-prevents-hit-and-preserves-physical-objects",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse955-local-20261122\\clean-replays\\03.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse955-local-20261122\\clean-replays\\03.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "2930e9cf795e074eaa401f6f81990bcc0195d39a07868fedf373974593b74b45",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "b53d34adee05003a62619463d91db3c31b2c1ee6fc52d8ff7e640bb49c9920fd",
+        "actions.json": "b9996f47ad8378619b85a79eb0a8a53a9e095b4296bec37843ce3c891f30ed90",
+        "assertions.json": "5ca2b8a932651c594d80dba0709b8c187e79d695e99cdd076a189ff93a8d247a",
+        "expected_final_gamestate.txt": "1f914e6ff4eaabd727b7427a733b4b04a74c0a028bd35c10e2d4b93bacd1d159",
+        "meta.json": "cb7c6c1fa9c8c3d3277e5abf87ee538f0c9b51e4c2a8f82d7705df9c21c3ad13"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

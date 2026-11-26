@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-helios-mitre-four-live-sparse1150-real-foreign-blue-payment-and-chosen-source-prevention",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-helios-mitre-four-live-sparse1150-real-foreign-blue-payment-and-chosen-source-prevention",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1150-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1150-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "17831a85f457f93505ced7e6fc51180a4236ccc3bf5e37055358b9d80298216c",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "d0432b2f37076db67e7c33cfa196dfcaa648da46079f3157bf8a492f4cd6cddc",
+        "actions.json": "355022f30e264a2728a7ae83c4c68b0a0f046b9a8436ad9c0efb8842d41bde56",
+        "assertions.json": "888c1c86f9ae4507d90094c33b8e434f2112c6f3b4e900cd72ffc4ada8b9388a",
+        "expected_final_gamestate.txt": "82cd4a508df55f5a903d309378299ea9c787852df6c404e7c04405fabe9cab3f",
+        "meta.json": "82a94bbbb637854dbebdfeba717f370a85961756c915e856d0b31cff085f275b"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

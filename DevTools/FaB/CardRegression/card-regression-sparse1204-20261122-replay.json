@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-supercell-blue-four-live-sparse1204-real-declared-target-paid-x-one-adds-steam-and-creates-owned-driver",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-supercell-blue-four-live-sparse1204-real-declared-target-paid-x-one-adds-steam-and-creates-owned-driver",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1204-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1204-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "3168d41ee5d58fc37062a66dee4a1094450ee6833e7938f56388af44c5e0820f",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "f91984954d32f069ec325f34e373d2d3ab1f3893b7dd0d1f2c08d19944f99fb1",
+        "actions.json": "c482c5e521af239447bc8ea769dde87a84a817946ec9c675fe6cc17c8ea8d346",
+        "assertions.json": "f43b3e2dd9b8e9102ef755f84a3ff9f9f12d0f847781934f8ae04b3b5c477f4d",
+        "expected_final_gamestate.txt": "cac3bb7fd5dc69615aef0fbf2fdf7dfc394d0367ae69254e486dd5b5e1cfd429",
+        "meta.json": "3c32f6d159653311fd9ccd96f8201e69890f16097a2cc8d38d129bcb745502e9"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

@@ -1,0 +1,56 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-scrap-prospector-red-four-live-sparse1348-unpaid-scrap-no-one-resource-gain",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-scrap-prospector-red-four-live-sparse1348-unpaid-scrap-no-one-resource-gain",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1348-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1348-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "a5a27e8ffa3e67927b8b9b5083aa0d3e43099bdca3108bfb5153c770b56434a5",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "f311770a8a2995e587c3fa48bbbb38e0a8e173f12f53bbb6f8ca406e5705148b",
+        "actions.json": "fe03a00a1cfa6df31d2c375f01660530ab48b13cd35b8a3f9bf2d28f29a73c5b",
+        "assertions.json": "f3eb52e471acd6f445594687af7410707336d85771dfba5ae9c4c508be6a4936",
+        "expected_final_gamestate.txt": "e7540b856b9edbad3cb7fbab2cb4b03b82f00fe59a0d82177a52a3a6581bd4d6",
+        "meta.json": "6c10e8f6626edb8b54c16d8994088e79a9f14ea322d4c2c1f1f171f574172c31"
+      }
+    },
+    {
+      "slug": "card-scrap-harvester-red-four-live-sparse1348-unpaid-scrap-real-controlled-crank-item-retains-two-steam",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-scrap-harvester-red-four-live-sparse1348-unpaid-scrap-real-controlled-crank-item-retains-two-steam",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1348-local-20261122\\clean-replays\\01.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1348-local-20261122\\clean-replays\\01.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "13ad7f9b6ba0de9150d6620524f3634a5115a0dc4add97c6bd4104caa0be7a84",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "3f73b7c0c4331515a93ebaced5b3a2cd54a3d3bab2935db6416bc7d7e11c93bd",
+        "actions.json": "0c005a52a51dc48a24f481bec6cbd5cfe2cb93ecd847ec1063490764f1d7d9ea",
+        "assertions.json": "c490328b1cf9213693908e44fb55d147b44deabce9f0bc1e9bfc6e1ce3f68c4b",
+        "expected_final_gamestate.txt": "73b71bf4190136047cf4911add309fa0d84db796b758cdb4092aaad0c881d75d",
+        "meta.json": "9d69ae1df886c288e3f8624f197db2b6c2da6f52ebfa17adeba2ee3f65c7b871"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

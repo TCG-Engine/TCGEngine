@@ -1,0 +1,143 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "breadth_review independent cached-text/spec delta review",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1057-20261122.json",
+  "source_spec_sha256": "2d7863a615bf156c5bd72fd464abd42ed482f842f26cd2660e7cc714a0fb87aa",
+  "input_sha256": "2d7863a615bf156c5bd72fd464abd42ed482f842f26cd2660e7cc714a0fb87aa",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "golden-gait-four-live-sparse1057-actual-printed-two-defense-and-temper-close",
+      "card_id": "golden_gait",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "5735a9818e27e972bb3a423071507472dd5208db7b3e24b8597f28812d9203f3",
+        "actions.json": "511bf2f3686ee96e12e3d9cdbe580febcac902b797e5ec827a96d5ccd74ac457",
+        "assertions.json": "162a9989397b696b9d6acdb1ee4326c06d15a1ee95b6a5bd091631f726bd5275",
+        "expected_final_gamestate.txt": "7bb1bf91f7c9c4c3b91ef8c8f6a973319d40d5ae8d2bc89af8bb19a260613cf9",
+        "meta.json": "2bfad05d77517b673530a8ec64c6321419ab7b6314c8116146b6ddcf7369d309"
+      },
+      "fixture_sha256": "8f030c537b85a244eb1f7c175a5d8f203039a3287929847f483988e3210339ef",
+      "actions": 30,
+      "native_assertions": 270,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1057-20261122.json",
+      "input_sha256": "2d7863a615bf156c5bd72fd464abd42ed482f842f26cd2660e7cc714a0fb87aa",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1057-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "golden-gait-four-live-sparse1057-actual-printed-two-defense-and-temper-close",
+        "fixture_slug": "golden-gait-four-live-sparse1057-actual-printed-two-defense-and-temper-close",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "golden-heart-plate-four-live-sparse1057-actual-printed-two-defense-and-temper-close",
+      "card_id": "golden_heart_plate",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "4b994de8152eeeb2b9023dc3326935385136af1691e02559a7c5acc1e7737ba5",
+        "actions.json": "511bf2f3686ee96e12e3d9cdbe580febcac902b797e5ec827a96d5ccd74ac457",
+        "assertions.json": "1de815babece30b43742f2b7ae6d76e3bbfbd977e3678fb0c864ac25c3be7d4f",
+        "expected_final_gamestate.txt": "6e5deb1f25f7a528ed2b75f7ec2bcd39ce3147dc880da0ff398d1f2dbe628252",
+        "meta.json": "c94752f74fc3a5fcf6c9da4fee0c3508bce46e02fd34cda48fd1b1cd62f3d644"
+      },
+      "fixture_sha256": "14858a26a54062ad736e219d5266717b935431016cd5e14a78d5f2c6152fd828",
+      "actions": 30,
+      "native_assertions": 270,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1057-20261122.json",
+      "input_sha256": "2d7863a615bf156c5bd72fd464abd42ed482f842f26cd2660e7cc714a0fb87aa",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1057-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "golden-heart-plate-four-live-sparse1057-actual-printed-two-defense-and-temper-close",
+        "fixture_slug": "golden-heart-plate-four-live-sparse1057-actual-printed-two-defense-and-temper-close",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "good-time-chapeau-four-live-sparse1057-actual-printed-two-defense-and-temper-close",
+      "card_id": "good_time_chapeau",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "f33298615bf55cfcafc53f67de05db56d5cd83629d664c3d13fa9eadcbe7b9e4",
+        "actions.json": "511bf2f3686ee96e12e3d9cdbe580febcac902b797e5ec827a96d5ccd74ac457",
+        "assertions.json": "1d84a5c7c067456b26773768ab0772d488f5a107c486e834fc55a6e641753217",
+        "expected_final_gamestate.txt": "4a4f5e71f496208a34a57f055369e0e4cb4cf4f9cf22bf0a13ad624f24577b07",
+        "meta.json": "eafd389c13348b70e8e197be8bc1055411f217614c6e26916406258c05c2c566"
+      },
+      "fixture_sha256": "4626d53d36e181e28c1bb76019ccf9176677eb904cb4a985fdc673cde9be085f",
+      "actions": 30,
+      "native_assertions": 270,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1057-20261122.json",
+      "input_sha256": "2d7863a615bf156c5bd72fd464abd42ed482f842f26cd2660e7cc714a0fb87aa",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1057-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "good-time-chapeau-four-live-sparse1057-actual-printed-two-defense-and-temper-close",
+        "fixture_slug": "good-time-chapeau-four-live-sparse1057-actual-printed-two-defense-and-temper-close",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "knucklehead-four-live-sparse1057-actual-printed-two-defense-and-temper-close",
+      "card_id": "knucklehead",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "047e1385a5190fa02e1c307244988301d95a5e5032e81db58b96bc35210c57a9",
+        "actions.json": "511bf2f3686ee96e12e3d9cdbe580febcac902b797e5ec827a96d5ccd74ac457",
+        "assertions.json": "769039ab890697bd536ccab825e725014dac1d1bd361a1bc70fdbeba3cb21bb0",
+        "expected_final_gamestate.txt": "df5dbafcd52eed617b4b91c897b40d6a5be5c8919452bd2defca47fd10a3c601",
+        "meta.json": "5f35f71fd0e6cd817b418c65c3fee1f40e2da6368e39d1f64e815e4db64a6e8c"
+      },
+      "fixture_sha256": "a1a10105dc9302a692f39e8009ded399ff7a09a22bc1672f93b77b433697f9ad",
+      "actions": 30,
+      "native_assertions": 270,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1057-20261122.json",
+      "input_sha256": "2d7863a615bf156c5bd72fd464abd42ed482f842f26cd2660e7cc714a0fb87aa",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1057-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "knucklehead-four-live-sparse1057-actual-printed-two-defense-and-temper-close",
+        "fixture_slug": "knucklehead-four-live-sparse1057-actual-printed-two-defense-and-temper-close",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "spec_sha256": "2d7863a615bf156c5bd72fd464abd42ed482f842f26cd2660e7cc714a0fb87aa",
+    "reviewer": "breadth_review independent cached-text/spec delta review",
+    "basis": [
+      "Olympia specialization correctly owns Golden Gait/HeartPlate; their static counts-as-Gold is not Gold creation or Wager. Betsy specialization Chapeau and Kayo specialization Knucklehead use correct natural20 heroes. No activation, wager, die, discard or owning attack event. Kayo owns only Generic NAA blocker, not an attack action altered off-chain. All four Temper retain DEFENSE1 at remaining defense1.",
+      "All exact native controls and persisted assertions equal qualified1037 Steelbraid donor after only primaryID/defenderHero and descriptive headers are rebound. Actual owned Equipment5 DEF2 plus real NAA6 DEF2 versus Rhinar Club7 power4; actual Blue8 pays2/R1/AP0, all four seats manual, zero damage/noHit/HP20. Equipment5 declared DEFENSE then retained owned Equipment with DEFENSE1 after close; NAA6 owned graveyard, weapon7 used, Blue8 Pitch. No author-only diagnostics."
+    ],
+    "limits": [
+      "Ordinary defense and first keyword close only. No activated body, hero ability, charge/beat chest/boost/sharpen/die/Gold creation/wager/positive hit, repeated defense/destruction threshold/future phase/support/sibling/full-card credit; no prior hold closure. No native/PHP/T/source/Git/original/network actions by reviewer."
+    ]
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1057-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "040b8ce1dd7de9fb9b22d5888a116ed25a532ecc610d065fa5ecfde6cebdb3a8"
+  },
+  "full_suite_run": false
+}

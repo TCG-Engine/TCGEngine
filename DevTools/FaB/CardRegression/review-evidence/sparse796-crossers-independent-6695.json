@@ -1,0 +1,255 @@
+{
+  "status": "APPROVED_ACTUAL_SAVED_B796_CROSSERS",
+  "phase": "SAVED",
+  "approved": true,
+  "saved_approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "/root/sand_saved_recovery",
+  "created_utc": "2026-11-14T22:01:14.153106+00:00",
+  "source_spec": "card-regression-batch796-line_crossers.json",
+  "input_sha256": "1ab97de9222bccd7df7887e96c7b86a9659ff744c4cfa69cf15f45737ea706f5",
+  "manifest_sha256": "c2146bea5480a56450ab0c94b5c153f3be36e1770fdebc3dc156a292057e0055",
+  "runtime_sha256": "6695d68163d313f4f61cb20ad9122c7038e621a60c847909598150fe8da09d11",
+  "recorded_runtime_sha256": "6695d68163d313f4f61cb20ad9122c7038e621a60c847909598150fe8da09d11",
+  "recorder_sha256": "ab33a3250462d0453f71d38dd4138cb9fbc3d595d2586742e989a52251c9c4a9",
+  "manifest": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov14-batch796-crossers-opponent-tie-hulk-cost-three-physical-consumer-author\\manifest.json",
+    "sha256": "c2146bea5480a56450ab0c94b5c153f3be36e1770fdebc3dc156a292057e0055"
+  },
+  "prior_independent_source_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov14-batch796-crossers-independent-correct-positive-source-review.json",
+    "sha256": "27df9581b637ba9a3a7e568428e4a038bdaaabe0639eb4cc9a59f89575088fb9"
+  },
+  "root_wrapper_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov14-b796-crossers-native-correct-opponent-tie-cost\\receipt.json",
+    "sha256": "fd5e3f4fecafa59e8b51b1a53ae43737e0962619787ddca8401badd6d28da733"
+  },
+  "recording_receipt": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch796-line_crossers-20261114T215800Z-6af8d9685b069.json",
+    "sha256": "63d6089b07fc6e4c55752d6fbfab0ce911efd8bb7788a46398775f9b14c4415f"
+  },
+  "specific_results": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch796-line_crossers.recording-results.json",
+    "sha256": "0ffbc33eb401b553864c9e29e2075a6a2d98bfe136571acecdcd09a106013587"
+  },
+  "fixtures": [
+    {
+      "slug": "card-crossers-opponent-tie-hulk-cost-three-physical-consumer",
+      "card_id": "line_crossers",
+      "group_id": "identity:line_crossers",
+      "source_spec": "card-regression-batch796-line_crossers.json",
+      "input_sha256": "1ab97de9222bccd7df7887e96c7b86a9659ff744c4cfa69cf15f45737ea706f5",
+      "runtime_sha256": "6695d68163d313f4f61cb20ad9122c7038e621a60c847909598150fe8da09d11",
+      "recorded_runtime_sha256": "6695d68163d313f4f61cb20ad9122c7038e621a60c847909598150fe8da09d11",
+      "approved": true,
+      "semantically_approved": true,
+      "reviewer_independent": true,
+      "fixture_path": "Tests/Integration/FaBSim/card-crossers-opponent-tie-hulk-cost-three-physical-consumer",
+      "fixture_sha256": "fe26242e0d617df85e06b2bc95064316722cb3bffe803086219af08d1d8f0280",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "47367b1a50652f0f5da3c56d640b9b576d027e1ecf59dc6f049a5854ccc6cabe",
+        "actions.json": "fa3667850ede7c4d898da212b8d6208f4c575774cbcb47e049baf90eab7af6d0",
+        "assertions.json": "bb88a3508dde19f030c1a1d4fd39f98c1b6ca0743f45b32d837eabc6c4a60a6e",
+        "expected_final_gamestate.txt": "5627172c759dadef387027d11ed9e30a4451aad5f1ecbc3cd5f73197b8e4b7e1",
+        "meta.json": "e54062d8788a8c8ecd102148f368842af25ca69c5cf5d165e90666f25e4610d9"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "47367b1a50652f0f5da3c56d640b9b576d027e1ecf59dc6f049a5854ccc6cabe",
+        "actions.json": "fa3667850ede7c4d898da212b8d6208f4c575774cbcb47e049baf90eab7af6d0",
+        "assertions.json": "bb88a3508dde19f030c1a1d4fd39f98c1b6ca0743f45b32d837eabc6c4a60a6e",
+        "expected_final_gamestate.txt": "5627172c759dadef387027d11ed9e30a4451aad5f1ecbc3cd5f73197b8e4b7e1",
+        "meta.json": "e54062d8788a8c8ecd102148f368842af25ca69c5cf5d165e90666f25e4610d9"
+      },
+      "raw4_sha256": {
+        "initial_gamestate.txt": "47367b1a50652f0f5da3c56d640b9b576d027e1ecf59dc6f049a5854ccc6cabe",
+        "actions.json": "fa3667850ede7c4d898da212b8d6208f4c575774cbcb47e049baf90eab7af6d0",
+        "assertions.json": "bb88a3508dde19f030c1a1d4fd39f98c1b6ca0743f45b32d837eabc6c4a60a6e",
+        "expected_final_gamestate.txt": "5627172c759dadef387027d11ed9e30a4451aad5f1ecbc3cd5f73197b8e4b7e1"
+      },
+      "actions": 29,
+      "native_assertions": 2051,
+      "manual_passes": 25,
+      "actual_manual_passes": 25,
+      "actual_priority_response_passes": 24,
+      "actual_defender_declaration_finish_inputs": 1,
+      "actual_manual_actor_counts": {
+        "1": 6,
+        "2": 6,
+        "3": 6,
+        "4": 7
+      },
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4
+      ],
+      "schema_property_assertions": 611,
+      "checkpoint_count": 31,
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "endpoint_assertions_evaluated": {
+        "0": 130,
+        "29": 187
+      },
+      "all_actions_and_assertions_exact": true,
+      "all_terminal_assertions_evaluated_against_parsed_final_snapshot": true,
+      "initial_assertions_also_evaluated_against_parsed_initial_snapshot": true,
+      "initial_physical_uid_locations": {
+        "1": {
+          "card_id": "pleiades",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "hulk_up_blue",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "yoji_royal_protector",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2
+        },
+        "3": {
+          "card_id": "valda_brightaxe",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3
+        },
+        "4": {
+          "card_id": "killjoy_the_crooked_blade",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4
+        },
+        "7": {
+          "card_id": "line_crossers",
+          "zone": "p4Equipment",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_physical_uid_locations": {
+        "1": {
+          "card_id": "pleiades",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "hulk_up_blue",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Pitch",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "yoji_royal_protector",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2
+        },
+        "3": {
+          "card_id": "valda_brightaxe",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3
+        },
+        "4": {
+          "card_id": "killjoy_the_crooked_blade",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4
+        },
+        "7": {
+          "card_id": "line_crossers",
+          "zone": "p4Graveyard",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "native_action_mapping_sha256": "c0e48576ee5ced1fadd4cea9d1b77a9fb27077f0fc4c2ca6c1b0d631a4babbcd",
+      "native_assertion_mapping_sha256": "4de10a604c2719bd4ccd2ec931cc1517fe8a7584f26ef4b4bb4ad8e2b7acfa91",
+      "checkpoint_assertion_mapping_sha256": "133c01950a1f76ee4f441c26e865f9d7088dc3a9ee0d66cedc30e2d8ee224412",
+      "intermediate_equipment_CombatChain_UID_Role_directly_queried": false,
+      "full_card_certification": false
+    }
+  ],
+  "source_guard_count": 82,
+  "selected_support_guard_count": 10,
+  "all_current_guards_matched": true,
+  "total_actions": 29,
+  "total_native_assertions": 2051,
+  "total_manual_passes": 25,
+  "total_schema_property_assertions": 611,
+  "total_checkpoints": 31,
+  "total_endpoint_assertions_evaluated": 317,
+  "actual_initial_health": [
+    20,
+    22,
+    21,
+    20
+  ],
+  "actual_final_health": [
+    20,
+    22,
+    21,
+    15
+  ],
+  "material_findings": [
+    "Actual raw naturalPleiades20/Yoji22/Valda21/Killjoy20 exist before the first query, with ownCrossers7 equipped under tied opponent. Real oneBlue6 pitch3 completes Hulk5 payment/R0/AP0 and source resumes priority; no cached cost or fabricated comparison resource. ActualHulk6power versus soleArms1 block yields5damage/HP4_15. Same ownedCrossers7GY4/Hulk5GY1/Blue6Pitch.",
+    "Every actual native envelope/25 individual manual actors and ordered successful query matches exact Source. Raw endpoints independently confirm48 manual values EACH, all original physical owned identities and complete terminal Stack/chain/queues/targets/payment/manager/await cleanup.",
+    "Same equipment identity is bound at actual raw initial/final endpoints. Actual equipment click, separate formal finish, slot/GY/Arena transitions and physical damage/payment are verified. Intermediate equipment CombatChain UID/Role is not directly queried and is not certified as a direct observation."
+  ],
+  "intermediate_equipment_CombatChain_UID_Role_directly_queried": false,
+  "limits": [
+    "One bounded fixed positive only; no self/two-Crossers/comparison universe, dynamic life changes, other set/equipment, suppression/elimination/copy, full-card or Hero ability/crowd/draw/Gold/Seismic/Yoji111 credit.",
+    "No intermediate equipment Chain identity query claim; cached defense is post-HP corroboration, not sole oracle. Cost for Crossers is evidenced by actual one-Blue funding and resumption, not cached cost.",
+    "Root focused replays and registration remain separate. Reviewer ran no PHP/game/native/replay/fullsuite/R/source/Git/remote mutation/new-agent/B787 operation."
+  ],
+  "qualification_credit_before_registration": false,
+  "replays_executed_by_reviewer": false,
+  "B787_denied_operation_untouched": true,
+  "blockers": [],
+  "comparison_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov14_batch796_equipment_saved.py",
+    "sha256": "2207c9b5b015d12ca2212d7dc7b0c3bf0b8d3a24932d6ba2b0607ba401f0bacc"
+  }
+}

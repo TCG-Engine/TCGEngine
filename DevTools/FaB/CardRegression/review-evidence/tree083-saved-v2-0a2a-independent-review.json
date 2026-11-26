@@ -1,0 +1,268 @@
+{
+  "status": "APPROVED_EXACT_SAVED_TREE083_V2_FIVE_NATIVE_AMP_TIMING_GUARDS",
+  "approved": true,
+  "reviewer": "/root/nov2_sparse_author",
+  "reviewed_utc": "2026-11-03T22:00:18.410580+00:00",
+  "runtime_sha256": "0a2a062faba12b15a119fa82f44fab56e0a6e02970b8d8d26f47f16b24397256",
+  "input_file": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch371-tree083-amp-v2.json",
+  "input_sha256": "9b714f12a591acabe8283189ba6683ca805c20d24fb07969d6848e7758dbfc3b",
+  "manifest_sha256": "5686e7ab840523d674c6f1c697925af12de54c58880df587b1fd531cb5e3eb05",
+  "fixtures": [
+    {
+      "slug": "card-channel-the-millennium-tree-red-four-live-original-correct-entry-trigger-amp-three-before-real-zap-six",
+      "card_id": "channel_the_millennium_tree_red",
+      "group_id": "identity:channel_the_millennium_tree_red",
+      "fixture_sha256": "bdf19d1a1d4b00eca95ecbff2277a71fd6fcd71aae34c1c37245aaeb547d121f",
+      "behavior_sha256": "bdf19d1a1d4b00eca95ecbff2277a71fd6fcd71aae34c1c37245aaeb547d121f",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "6996d0bccd038fc262844b461519badeac7f0e7b3e9896cf84430fbc4db349c6",
+        "actions.json": "5e5614b0be1b4e33c8f05f7affab9f1f9dd72ddfadea3209c7bf711ef10c07ea",
+        "assertions.json": "a7d589434ab955e65e52cde1829e97361988b19a066237032dbd38d65999d7d4",
+        "expected_final_gamestate.txt": "15a0c3587ad545bfae2c0400389bdf143b3eb9799eae736a37f3281f3ea5b0a4",
+        "meta.json": "4f201090b8d105b9de41038e863c749e3f85a1031223714afe4f4ed0f88b716e"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "6996d0bccd038fc262844b461519badeac7f0e7b3e9896cf84430fbc4db349c6",
+        "actions.json": "5e5614b0be1b4e33c8f05f7affab9f1f9dd72ddfadea3209c7bf711ef10c07ea",
+        "assertions.json": "a7d589434ab955e65e52cde1829e97361988b19a066237032dbd38d65999d7d4",
+        "expected_final_gamestate.txt": "15a0c3587ad545bfae2c0400389bdf143b3eb9799eae736a37f3281f3ea5b0a4",
+        "meta.json": "4f201090b8d105b9de41038e863c749e3f85a1031223714afe4f4ed0f88b716e"
+      },
+      "actions": 16,
+      "native_assertions": 1378,
+      "actual_manual_pass_inputs": 12,
+      "actual_manual_passes": 12,
+      "manual_passes": 12,
+      "priority_pass_inputs": 12,
+      "defending_declaration_finish_inputs": 0,
+      "manual_pass_actor_counts": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "semantically_approved": true,
+      "every_native_action_and_assertion_exactly_maps_to_reviewed_source": true,
+      "all_original_1373_persisted_assertions_inverse_exact": true,
+      "five_extra_native_AMP_assertions": [
+        {
+          "step": 6,
+          "type": "game_state_field",
+          "viewerPlayerID": 1,
+          "rootName": "FaBSim",
+          "path": [
+            "turnEffects",
+            "1"
+          ],
+          "comparison": "equals",
+          "valueJson": "[{\"type\":\"MST_BLUE_PITCHED\",\"amount\":1,\"uses\":1},{\"type\":\"SUP_COST_ONE\",\"amount\":1,\"uses\":1},{\"type\":\"PEN_AURAS\",\"amount\":1,\"uses\":1},{\"type\":\"ROS_AURA\",\"amount\":1,\"uses\":1},{\"type\":\"EVR_PLAYED\",\"amount\":1,\"uses\":1},{\"type\":\"EVR_AURAS\",\"amount\":1,\"uses\":1},{\"type\":\"ROS_AURA\",\"amount\":1,\"uses\":1}]"
+        },
+        {
+          "step": 7,
+          "type": "game_state_field",
+          "viewerPlayerID": 1,
+          "rootName": "FaBSim",
+          "path": [
+            "turnEffects",
+            "1"
+          ],
+          "comparison": "equals",
+          "valueJson": "[{\"type\":\"MST_BLUE_PITCHED\",\"amount\":1,\"uses\":1},{\"type\":\"SUP_COST_ONE\",\"amount\":1,\"uses\":1},{\"type\":\"PEN_AURAS\",\"amount\":1,\"uses\":1},{\"type\":\"ROS_AURA\",\"amount\":1,\"uses\":1},{\"type\":\"EVR_PLAYED\",\"amount\":1,\"uses\":1},{\"type\":\"EVR_AURAS\",\"amount\":1,\"uses\":1},{\"type\":\"ROS_AURA\",\"amount\":1,\"uses\":1}]"
+        },
+        {
+          "step": 8,
+          "type": "game_state_field",
+          "viewerPlayerID": 1,
+          "rootName": "FaBSim",
+          "path": [
+            "turnEffects",
+            "1"
+          ],
+          "comparison": "equals",
+          "valueJson": "[{\"type\":\"MST_BLUE_PITCHED\",\"amount\":1,\"uses\":1},{\"type\":\"SUP_COST_ONE\",\"amount\":1,\"uses\":1},{\"type\":\"PEN_AURAS\",\"amount\":1,\"uses\":1},{\"type\":\"ROS_AURA\",\"amount\":1,\"uses\":1},{\"type\":\"EVR_PLAYED\",\"amount\":1,\"uses\":1},{\"type\":\"EVR_AURAS\",\"amount\":1,\"uses\":1},{\"type\":\"ROS_AURA\",\"amount\":1,\"uses\":1}]"
+        },
+        {
+          "step": 9,
+          "type": "game_state_field",
+          "viewerPlayerID": 1,
+          "rootName": "FaBSim",
+          "path": [
+            "turnEffects",
+            "1"
+          ],
+          "comparison": "equals",
+          "valueJson": "[{\"type\":\"MST_BLUE_PITCHED\",\"amount\":1,\"uses\":1},{\"type\":\"SUP_COST_ONE\",\"amount\":1,\"uses\":1},{\"type\":\"PEN_AURAS\",\"amount\":1,\"uses\":1},{\"type\":\"ROS_AURA\",\"amount\":1,\"uses\":1},{\"type\":\"EVR_PLAYED\",\"amount\":1,\"uses\":1},{\"type\":\"EVR_AURAS\",\"amount\":1,\"uses\":1},{\"type\":\"ROS_AURA\",\"amount\":1,\"uses\":1}]"
+        },
+        {
+          "step": 10,
+          "type": "game_state_field",
+          "viewerPlayerID": 1,
+          "rootName": "FaBSim",
+          "path": [
+            "turnEffects",
+            "1"
+          ],
+          "comparison": "equals",
+          "valueJson": "[{\"type\":\"MST_BLUE_PITCHED\",\"amount\":1,\"uses\":1},{\"type\":\"SUP_COST_ONE\",\"amount\":1,\"uses\":1},{\"type\":\"PEN_AURAS\",\"amount\":1,\"uses\":1},{\"type\":\"ROS_AURA\",\"amount\":1,\"uses\":1},{\"type\":\"EVR_PLAYED\",\"amount\":1,\"uses\":1},{\"type\":\"EVR_AURAS\",\"amount\":1,\"uses\":1},{\"type\":\"ROS_AURA\",\"amount\":1,\"uses\":1},{\"type\":\"MST_AMP\",\"amount\":3,\"uses\":1}]"
+        }
+      ],
+      "initial_actions_final_byte_identical_to_original": true,
+      "initial_and_final_snapshots_fully_parsed": true,
+      "all_four_live_and_all_48_manual_preferences_verified": true,
+      "original_physical_uid_conservation_without_duplicates": true,
+      "terminal_assertions_independently_checked": 194,
+      "final_original_physical_uids": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "final_allocation_counter": 8,
+      "intermediate_virtual_uid_unpinned": true,
+      "all_ability_layers_cleared": true,
+      "final_arena": [
+        {
+          "CardID": "channel_the_millennium_tree_red",
+          "Status": 2,
+          "Owner": 1,
+          "Controller": 1,
+          "Damage": 0,
+          "UniqueID": 5,
+          "TurnEffects": [],
+          "Counters": {
+            "FAB_PLAY_ORDER": 1
+          }
+        }
+      ],
+      "final_graveyard_uid_sets": {
+        "1": [
+          7
+        ],
+        "2": [],
+        "3": [],
+        "4": []
+      },
+      "final_pitch_uid_order": {
+        "1": [
+          6
+        ],
+        "2": [],
+        "3": [],
+        "4": []
+      },
+      "final_health": [
+        20,
+        20,
+        20,
+        14
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_action_points": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "actual_raw_arcane_dealt": {
+        "1": {
+          "4": 6
+        }
+      },
+      "no_positive_final_MST_AMP": true,
+      "physical_findings": "Blue6 pitch3 pays printedAura3/AP1\u2192R0AP0. First3 source responders retainphysical5Stack; fourth6 putsSAME5ownArena/ownGAAP1 and earnedTreeABI source5/controller1. Native6/7/8/9 effect-list guards retain seven legitimate bookkeeping rows and prove AMP absent while ABI pending; onlyfourth entry responder10 appends AMP3/uses1. RealZap7 normalP4target/cost0 spends earnedAP1; freshfour13..16 onlyfourth deals3+3=6/HP14, ownGY7. FinalAura5 ready/Damage0/earnedFAB_PLAY_ORDER1; Pitch6/GY7/R0AP0/allUID1..7 conserved/counter8/emptyqueuesStackmanagerawait and no positiveAMP.",
+      "qualification": "One entry-WHEN/responseablelayer/noearlyAMP/AMP3/realZapconsumer positive. BeginningActionphase/ChannelEarth/upkeep/expiry/reentry/suppression/controllerchange/fullcard/supportprimary/nativeidempotence unexecuted/uncredited."
+    }
+  ],
+  "blocked_attempts": [],
+  "source_expectation_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-tree083-native-amp-guards-v2-independent-source-review.json",
+    "sha256": "da1b45271e83328ad779d6e0710c0090f11d6baf99e679d6b0259aed102f6c2f",
+    "manifest_sha256": "5686e7ab840523d674c6f1c697925af12de54c58880df587b1fd531cb5e3eb05"
+  },
+  "source_guards": {
+    ".github/copilot-instructions.md": "27d6d8211b219cc826a4f2bf63d6d59765ed805feea6fb6571bfd225eb824543",
+    "AGENTS.md": "98e92f639d0768613c07759d84393fe2a58ff145e239bbd5bb0c3f8fdcf1f09d",
+    "Core/DecisionQueueController.php": "65bfcf5b4f595d62d6dfb8bde0b884de42cd1a726618b5431fccf8939eed9a9d",
+    "Core/RegressionTestFramework.php": "670028e69e1a59c22aef5e6512edd2cd0dee5fdcaed4cf8c31374b8eb2b7ca6a",
+    "DevTools/FaB/CardRegression/record_card_regressions.php": "1cae8e955665e2dde73f2eb92d34e191036dbaa87f379b5d5ce015303e0ecb15",
+    "DevTools/FaB/arc_abilities.json": "ca670664228ddd31ad2a9475434ecb2bc95b83721503772f091c75239e1aa909",
+    "DevTools/FaB/ros_abilities.json": "2851433ce5bc948fec9532a33ffc709d4a595f74078fcb9d956c922a8ff18ff8",
+    "FaBSim/Custom/ARCAbilities.php": "5330205cf8b98a1ba93cb15aa42f67c76d01dac3cb53b206669e7d00b0e9daca",
+    "FaBSim/Custom/ARCCards.php": "542227b196338a40c49f83966d9d2b0979a98676d4c9d39d00b0f5cc9a32323f",
+    "FaBSim/Custom/CodeGeneration.php": "944fa1506535116e40ca1c5f0f0ed7566795fe683540eb8923eb3e805612500d",
+    "FaBSim/Custom/GameLogic.php": "7d475db6dcd99f151b41818ad0dca7111329e951af68e97badf943333d927a23",
+    "FaBSim/Custom/MSTCards.php": "52e9e34fbc2734c4b1b7b6040ebb4d784a27f32f748b53b961dd46c9f843e1ef",
+    "FaBSim/Custom/MSTRuntime.php": "b96f21727c089c90c21bf3aadaf913301b1ef7c922f2a17ac055258682ed45ce",
+    "FaBSim/Custom/ROSCards.php": "41dc8057b503c1eb33417e93515ec1e86d89197115391c64c18f195f794848b5",
+    "FaBSim/Custom/ROSRuntime.php": "3b8c1f2c03339b46500221a61c83a2aef06eb2845331c6bcf18c6f72287c61e1",
+    "FaBSim/Custom/UPRCards.php": "144c369209e0a53f5f0ad540f2e549f4c4c0f0234b9a2c9bf703c2e22cd4e8af",
+    "FaBSim/Custom/WTRAbilities.php": "f33a915de3a95208a7d29b7acb5dbbc8c5b0f4f2d56ace281c3c9c7b8bbc5448",
+    "FaBSim/Custom/WTRCards.php": "4c1331a4f5c53d231f94bff6f08cefec875047ff424aa443ed22eedc8644652c",
+    "FaBSim/GeneratedCode/GeneratedCardDictionaries.php": "1be127d10c8f7fe3fa10b8aa098678fa43b2790910c95666226b18eb79ea7c60",
+    "FaBSim/GeneratedCode/GeneratedMacroCode.php": "1adb9203e51af18ef76111dbcab7a01f15a337a8324b2b18bc182cc5696a99d6",
+    "FaBSim/ZoneAccessors.php": "9967567a9a10df81a6f22df820d4d77258828657e95c4ad145b8b13ce17866a7",
+    "FaBSim/ZoneClasses.php": "874bb2ae00a80a8ba3dfe1789b4c932fd0b7cf1286504a62828e0055ca1cb355",
+    "Schemas/FaBSim/GameSchema.txt": "7783800bd47bc85885cc915066aadca58cdf99f0c1180602ac312d9af5ebf643"
+  },
+  "source_guards_verified": 23,
+  "actual_emission_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-tree083-actual-emission-independent-review.json",
+    "sha256": "5c9c6c5f4bf68738e97f30d8bad5e7e7d247d48c71aa1927f19d4260ef8fd377"
+  },
+  "immutable_native_archive": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch371-tree083-amp-v2-20261103T215548Z-6aea5864de3e4.json",
+    "sha256": "dd55c7b08d6f9933ee184aa051dd2a2b4800eed15885d99cd429d60d7fc4b450"
+  },
+  "recording_results": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch371-tree083-amp-v2.recording-results.json",
+    "sha256": "3f0e78ce003aaafd06840f375521edc6117fa6e8ce0ded2d6580c1ef0f1a87d8"
+  },
+  "native_wrapper": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-tree083-native-amp-v2-rerecord-0a2a-r1\\receipt.json",
+    "sha256": "b4acbf1cb71283af22e91f594131077680a9f4a7584fcac94c8fd708b74747ab",
+    "stdout_sha256": "e1823a912c1460eabc9fadf32e5c88ef4a95dd99b6be2a8fe04ffe33104121ca",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "exit_code": 0,
+    "stderr_bytes": 0,
+    "runtime_before": "0a2a062faba12b15a119fa82f44fab56e0a6e02970b8d8d26f47f16b24397256",
+    "runtime_after": "0a2a062faba12b15a119fa82f44fab56e0a6e02970b8d8d26f47f16b24397256",
+    "selected_filter": "card-channel-the-millennium-tree-red-four-live-original-correct-entry-trigger-amp-three-before-real-zap-six",
+    "supported_owned_rerecord": true
+  },
+  "original_external_backup": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-tree083-native-amp-v2-rerecord-0a2a-r1\\before",
+    "raw5_sha256": {
+      "initial_gamestate.txt": "6996d0bccd038fc262844b461519badeac7f0e7b3e9896cf84430fbc4db349c6",
+      "actions.json": "5e5614b0be1b4e33c8f05f7affab9f1f9dd72ddfadea3209c7bf711ef10c07ea",
+      "assertions.json": "111f242134c6bf6f07c8d10d188692a81239067471edd9b55d4d40435f673b65",
+      "expected_final_gamestate.txt": "15a0c3587ad545bfae2c0400389bdf143b3eb9799eae736a37f3281f3ea5b0a4",
+      "meta.json": "285813b4f5063e8189a7962127dd7f0fe9825af8ed94aa0b58b3068a776c2e34"
+    },
+    "behavior_sha256": "619d6177c008ccfca31196dbf0c7d13648ed3ca50b1c24574124afc17fff0257",
+    "all_five_actual_backups_hash_verified": true
+  },
+  "reused_pure_readonly_helpers": {
+    "review_nov3_batch269_saved_readonly.py": "e339d37f4f4da91e01b26ae282f6302b1b1c4c6ec4a13715e4f7726016fb0641",
+    "review_nov3_batch270_saved_readonly.py": "16278de0c810a2c4909430c44e4d3e76dc4e716e92172eb403b4e33089adf8a0",
+    "review_nov3_batch271_saved_readonly.py": "e3b66ee7901ab0c0b5ebbec9176e4b29c02b97b67a93254d6dee572237058813",
+    "review_nov3_batch364_saved_readonly.py": "1b973180271e4a817d1db729d9fb41454faa13205a492d76b0259d5243338f56"
+  },
+  "method": "Compared actual rawfive, all16nativeactions and all1378persistedassertions with independent source-approved strengthenedV2. Independently compared original1373 inverse and initial/actions/final exact bytes against actual verified externalWbackup. Parsed fullinitial/final, allterminalassertions, UID/owner/economy/manualprofiles and five raw native AMP timing guards.",
+  "behavior_digest_definition": "SHA256 ordered filenames and raw bytes initial/actions/assertions/expected_final; individual raw5 hashes separately bound.",
+  "focused_controls": "NOT_RUN_NOT_CLAIMED",
+  "replays": "NOT_CLAIMED_BY_THIS_SAVED_REVIEW",
+  "limits": [
+    "Original1373 success and oldreplays remain historical with no intermediateAMP claim; V2 supplies five actual native state assertions.",
+    "This RsourceV2 has Treeonly; oldSeeds source/review/runtime is unchanged and is not reviewed, blocked, rerecorded or retagged here.",
+    "No PHP/native/replay/R/source/service/generator/fullsuite by reviewer; Root newV2replays separate.",
+    "No new shared-root/Corecount, global creation framework, nativepop-idempotence or fullcard coverage claim."
+  ]
+}

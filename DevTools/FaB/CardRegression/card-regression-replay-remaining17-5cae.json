@@ -1,0 +1,45 @@
+{
+  "status": "PASS_ONE_CLEAN_REPLAY_EACH",
+  "runtime_sha256": "5cae26a34b6c22b5f197534fef70c1e165d65b1f14e0dd96326493f3ef8dbb32",
+  "returncode": 0,
+  "fixtures": [
+    {
+      "slug": "repair-powder195-four-live-earned-gun-hit-retained-choice-destroys-only-defending-equipment",
+      "passed": true,
+      "complete_log": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\remaining17-final-focused-replays\\0.complete.log"
+    },
+    {
+      "slug": "card-drowning-dire-red-four-live-original-correct-aura-dominate-hit-layer-and-optional-naa-bottom",
+      "passed": true,
+      "complete_log": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\remaining17-final-focused-replays\\1.complete.log"
+    },
+    {
+      "slug": "card-head-leads-the-tail-red-four-live-correct-attack-trigger-name-earns-real-same-chain-head-jab-power",
+      "passed": true,
+      "complete_log": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\remaining17-final-focused-replays\\2.complete.log"
+    },
+    {
+      "slug": "card-burn-them-all-red-four-live-real-dragon-attack-trigger-before-one-arcane-each-opponent-correct-probe",
+      "passed": true,
+      "complete_log": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\remaining17-final-focused-replays\\3.complete.log"
+    },
+    {
+      "slug": "repair-burn125-four-live-captured-dragon-source-specific-prevention",
+      "passed": true,
+      "complete_log": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\remaining17-final-focused-replays\\4.complete.log"
+    },
+    {
+      "slug": "repair-refraction101-four-live-owned-hit-listener-destroy-go-again-real-ap-consumer",
+      "passed": true,
+      "complete_log": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\remaining17-final-focused-replays\\5.complete.log"
+    },
+    {
+      "slug": "repair-mark200-four-live-bound-zombie-death-malice-and-owned-mark-two-corpses",
+      "passed": true,
+      "complete_log": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\remaining17-final-focused-replays\\6.complete.log"
+    }
+  ],
+  "execution_receipt_workspace": "remaining17-final-focused-replays/receipt.json",
+  "execution_receipt_sha256": "0d1f03d21803c2d673546a4088d6977c1fa28226f9f6437205ddae869526ad4d",
+  "full_suite_run": false
+}

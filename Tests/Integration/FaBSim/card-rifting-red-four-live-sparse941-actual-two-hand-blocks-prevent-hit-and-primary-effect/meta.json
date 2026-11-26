@@ -1,0 +1,7 @@
+{
+    "name": "Rifting / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T21:06:55+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "When this hits, you may play your next non-attack action card this turn as though it were an instant. ActualtwoHandAA3defeachfullyblock, zeroHP/nohit, samephysicalcardsGY; positivehits/exactunblockedpower untested. Sources: FaBSim/GeneratedCode/cardArrayCache.json#rifting_red"
+}

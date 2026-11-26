@@ -1,0 +1,62 @@
+{
+  "scope": "Compact continuation evidence; runner inputs are the saved five-file fixtures, not these local historical receipts.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "fixture_oracle_correction": {
+    "batch": 1001,
+    "classification": "FIXTURE_ORACLE_COPY_ERROR_NOT_GAMEPLAY_DEFECT",
+    "cards": [
+      "bravery_of_the_blade_red",
+      "beckoning_light_red"
+    ],
+    "old_power_query": 4,
+    "correct_printed_power": 3,
+    "intended_damage_and_health_unchanged": [
+      3,
+      17
+    ],
+    "initial_unsaved_failure_attempts": 2,
+    "inputs_per_initial_failed_attempt": 6,
+    "failed_fixtures_saved": false,
+    "corrected_native_cases_recorded": 2,
+    "healthy_two_rerecorded": false,
+    "first_clean_replays": 4,
+    "all_four_replay_passed": true,
+    "canonical_spec": "card-regression-sparse1001-20261122.json",
+    "canonical_sha256": "e30cdc9eebebc2e1c5ffeb26b9d3adf76cd2926c53421b51289ae190c6955c54",
+    "qualified_proof": "review-evidence/sparse1001-20261122-qualified-saved.json",
+    "local_historical_receipts": [
+      {
+        "workspace_path": "sparse1001-local-20261122/save/initial-native-receipt.json",
+        "sha256": "a75c640dba1c59f06b9666a468f4984d815f0b4524e34685c7a3b737666e276e",
+        "role": "Unaltered initial native result:2recorded,2oracle-failed/unsaved."
+      },
+      {
+        "workspace_path": "sparse1001-local-20261122/corrected-power-recording/receipt.json",
+        "sha256": "d431b775603f516a76e6fb8ba959ae1a346def5e8102e757ae26d10f9e2cf538",
+        "role": "Actual native retry of only2corrected unsaved cases."
+      },
+      {
+        "workspace_path": "sparse1001-local-20261122/save/receipt.json",
+        "sha256": "536768d5ac42fb5e6cef90c8d23e79add9fce198f65f24e9cd4a58118ab9360f",
+        "role": "Clearly labeled aggregate of both actual native runs; per-case recording-inputs.json maps exact executed definitions."
+      }
+    ]
+  },
+  "held_branch_scope": {
+    "card_id": "hunt_to_the_ends_of_rathe_red",
+    "qualified": "card-hunt-to-the-ends-of-rathe-red-four-live-sparse1008-unmarked-non-arakni-printed-go-again",
+    "still_unrun": "actual Arakni marking-trigger response timing; no repair or credit",
+    "detail": "review-evidence/sparse988-unrun-timing-selections-20261122.json"
+  },
+  "source_only_unrun_selection": {
+    "cards": [
+      "evo_beta_base_head_blue",
+      "evo_beta_base_chest_blue",
+      "evo_beta_base_arms_blue",
+      "evo_beta_base_legs_blue"
+    ],
+    "status": "No explicit selected Resolve route established in bounded review; Arms also has existing FAB-REG-118 lifecycle/callback hold. No native probe, fixture, gameplay-defect claim or credit.",
+    "local_source_note": "sparse1007-local-20261122/source-note.json"
+  },
+  "validation_policy": "One exact-name targeted clean replay/new passing fixture. No full suite, historical gameplay replay, engine/framework edit, new fault-control or authenticated request."
+}

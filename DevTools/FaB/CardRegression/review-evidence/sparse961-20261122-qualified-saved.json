@@ -1,0 +1,145 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "breadth_review independent source/semantic review",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse961-20261122.json",
+  "source_spec_sha256": "a90f3e7de3e7bc35dec7b6f1c70843b5475a2058d33de14fcea6b77c6d25d3da",
+  "input_sha256": "a90f3e7de3e7bc35dec7b6f1c70843b5475a2058d33de14fcea6b77c6d25d3da",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-offensive-behavior-blue-four-live-sparse961-actual-exact-two-block-without-might-vigor-bonus-or-hit",
+      "card_id": "offensive_behavior_blue",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "c35cfdf8981ff0f09722ef2387008bacbe4ebf7afe884180131f07321550da69",
+        "actions.json": "5af67ec73dd5988db1a058227e5dcccf44c896ddc4b34170fb8eb2fb4f3ccefb",
+        "assertions.json": "a5b20c3264932772997efc5d4f21258fd8383ddde669092a6df3282244c2f780",
+        "expected_final_gamestate.txt": "b7b4b1d7a5bb10a1d9547b763a2538e701703f87c7abffed9ac7444c2977b26f",
+        "meta.json": "c7e67bdcf78f62412f83d708ed24c3c8d2c306db3c977c9eadacfe4b5ef92740"
+      },
+      "fixture_sha256": "30d1613352455ad2df708d974a82e2c834e0fb423dec679295c3be8576a60ed6",
+      "actions": 28,
+      "native_assertions": 144,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse961-20261122.json",
+      "input_sha256": "a90f3e7de3e7bc35dec7b6f1c70843b5475a2058d33de14fcea6b77c6d25d3da",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse961-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-offensive-behavior-blue-four-live-sparse961-actual-exact-two-block-without-might-vigor-bonus-or-hit",
+        "fixture_slug": "card-offensive-behavior-blue-four-live-sparse961-actual-exact-two-block-without-might-vigor-bonus-or-hit",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-spew-obscenities-yellow-four-live-sparse961-actual-halved-base-two-exact-block-without-token-bonus-or-hit",
+      "card_id": "spew_obscenities_yellow",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "48ef2f82828aea8d0433b3fcadb7047c946fcf0feca5658ada8238cc960cca0d",
+        "actions.json": "5af67ec73dd5988db1a058227e5dcccf44c896ddc4b34170fb8eb2fb4f3ccefb",
+        "assertions.json": "4801cb77be5d05eaab10ab23a9b6fc00cbb1b05bbfa3cf27d591849d123e34e5",
+        "expected_final_gamestate.txt": "7f028470668274fa895cfe16eba882d4c2a32dfba8b4c3c8d557b6e46dd2e888",
+        "meta.json": "22fe008a801cde470b91d12cde116fb036099980a8d3e12607a953610dc9f194"
+      },
+      "fixture_sha256": "b809e3f250bb08f3792120b3c0f8de3d145072d203402ce7fcfab9032574018a",
+      "actions": 28,
+      "native_assertions": 144,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse961-20261122.json",
+      "input_sha256": "a90f3e7de3e7bc35dec7b6f1c70843b5475a2058d33de14fcea6b77c6d25d3da",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse961-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-spew-obscenities-yellow-four-live-sparse961-actual-halved-base-two-exact-block-without-token-bonus-or-hit",
+        "fixture_slug": "card-spew-obscenities-yellow-four-live-sparse961-actual-halved-base-two-exact-block-without-token-bonus-or-hit",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-uplifting-performance-blue-four-live-sparse961-actual-exact-five-block-without-confidence-toughness-bonus-or-hit",
+      "card_id": "uplifting_performance_blue",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "e5e8d65aa2a97fa1a872a72ee62e2d0a6271cdbf3543e4f9d4ffe98e78f2235a",
+        "actions.json": "a44e24b9f9b348ce659c847e7dbea1e0cd33c5233e8ac4933f9391118d55ee4b",
+        "assertions.json": "fee0e1c64e4d329a84d6b9ba3bf0eeb46f6220056ba5090ab2fbce078327ae2d",
+        "expected_final_gamestate.txt": "ff2daed22b9bd5c1059e194d66689331445bace6a0cef0659ee123988e9f8f9a",
+        "meta.json": "c7d685099b65eb7133f3e9b271cb283e9e1e40f8daaea70d62d8392f7972f934"
+      },
+      "fixture_sha256": "dcd257269907a4b449807a63561e83ccc2f61413743a7754e24953e4ad980e20",
+      "actions": 30,
+      "native_assertions": 178,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse961-20261122.json",
+      "input_sha256": "a90f3e7de3e7bc35dec7b6f1c70843b5475a2058d33de14fcea6b77c6d25d3da",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse961-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-uplifting-performance-blue-four-live-sparse961-actual-exact-five-block-without-confidence-toughness-bonus-or-hit",
+        "fixture_slug": "card-uplifting-performance-blue-four-live-sparse961-actual-exact-five-block-without-confidence-toughness-bonus-or-hit",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-chain-of-brutality-red-four-live-sparse961-actual-base-two-below-six-without-go-again-or-hit-grant",
+      "card_id": "chain_of_brutality_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "acdb06f55f1b0e74b658632bd8d9b483e0dd0c2f8d20c020428cfaf68deff6c9",
+        "actions.json": "71f0d0f07cf85244a3ec27fdb1f824cd62aa3126d639c98c13ca23327907bd8b",
+        "assertions.json": "332f5fdd9f942e756492d3810c50459fbf29bdffbf891e09190d4f08fff4ec6e",
+        "expected_final_gamestate.txt": "bb977316068d1b931d364213c95324316efc93974723d1f361aa7a89617d3cf7",
+        "meta.json": "d5dc4a143166b45e29329d5cafdffbca6792b894e36e74f3838bc6b4eb2031b9"
+      },
+      "fixture_sha256": "b86dfe586bf5b18bb458f4680941062fe71525da54e5610e4852526b73ace8fc",
+      "actions": 27,
+      "native_assertions": 131,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse961-20261122.json",
+      "input_sha256": "a90f3e7de3e7bc35dec7b6f1c70843b5475a2058d33de14fcea6b77c6d25d3da",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse961-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-chain-of-brutality-red-four-live-sparse961-actual-base-two-below-six-without-go-again-or-hit-grant",
+        "fixture_slug": "card-chain-of-brutality-red-four-live-sparse961-actual-base-two-below-six-without-go-again-or-hit-grant",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "spec_sha256": "a90f3e7de3e7bc35dec7b6f1c70843b5475a2058d33de14fcea6b77c6d25d3da",
+    "reviewer": "breadth_review independent source/semantic review",
+    "basis": [
+      "Cached types/natural health match legal young Kayo Strong Arm20 Reviled Brute, Lyath Goldmane20 Reviled Guardian and Pleiades20 Revered Guardian. No Hero Instant or crowd/clash/wager event is invoked. SUPCards61 halves Lyath base power rounded up, so Spew printed3 becomes2; other tested bases are2/5/2.",
+      "Own Arena0 excludes each static +1 token pair (SUPCards99-100). Offensive2 and Spew2 are blocked by one actual Lead the Charge Red2def; Uplifting5 by actual Wounding Blow3def plus Lead2def. These exact blocks make an unearned+1 visible as damage. Actual0damage/HP20/attackHit=false/Stack0 excludes hit token creation.",
+      "Lead is a Generic non-attack Action with numeric2 defense, not a Defense Reaction. GameLogic2092-2105 permits its Hand defense; declaring it does not play it or resolve its go again. Each new defense checkpoint pins CardID/UniqueID/Role=DEFENSE/Owner4, Hand count and proper chain index; physical blockers end owner4 graveyard and source5 owner1 graveyard. Native shifted Hand0 clicks and all four manual windows are consistent.",
+      "Uplifting real Blue6 pays printed3/R0/AP0; others cost0/R0/AP0. Chain of Brutality real unblocked2 damage/HP18 is below static6 threshold, so no granted go again; GameLogic491 gates go again on actual power>=6. AP remains0 at resolution/final. Initial zone counts and natural HP agree with setup."
+    ],
+    "limits": [
+      "Only named main/negative-token/exact-defense/payment and below6 go-again threshold. No positive token bonus/creation/ownership, crowd/hero ability,6power/go again or next-attack base consumer, other pitches or full-card certification. No later attack is run to observe absence of Chain next-attack modification. Native execution/replay pending."
+    ]
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse961-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "b6764cdb33c3dcd04956ebd9167250d1ac79958af1d6ded5489c43906c1aa05e"
+  },
+  "full_suite_run": false
+}

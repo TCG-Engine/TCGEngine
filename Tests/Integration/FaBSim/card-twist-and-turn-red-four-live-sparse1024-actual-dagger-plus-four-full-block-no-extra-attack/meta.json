@@ -1,0 +1,7 @@
+{
+    "name": "Twist and Turn / four-live actual buff consumer",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-23T03:12:46+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Your next dagger attack this turn gets +4{p} and \"When this hits, you may attack with it an additional time this turn.\"\nGo again Named positive buff only. Legal Dorinthea20 plays0-cost NAA5, all four seats respond, then actual owned QuicksilverDagger7 targets adjacent hero4 and real Blue6 pays1 leavingR2/AP0. Dagger printed1+4=5 is asserted on actual chain and DAMAGE against two actual HandAA DEF6: HP20/zero damage/no hit, source5GY and weapon7retained used. No earlier weapon attack gained go again; NAA go again is not a weapon attack, so daggerAP0 at resolution. No earned HNT_EXTRA hit ability, extra attack, hero hit, primary pitch sibling, or whole-card credit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#twist_and_turn_red"
+}

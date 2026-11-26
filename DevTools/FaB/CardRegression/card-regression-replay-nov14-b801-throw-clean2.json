@@ -1,0 +1,27 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch801-throw_caution_blue.json",
+  "runtime_sha256": "6695d68163d313f4f61cb20ad9122c7038e621a60c847909598150fe8da09d11",
+  "returncode": 0,
+  "completed_utc": "2026-11-14T23:28:30.911800+00:00",
+  "fixtures": [
+    {
+      "slug": "card-throw-actual-owned-blue-reveal-prevention-three-physical-consumer",
+      "fixture_sha256": "12988909d3b6c829450c280e82d049bd6a93c2ad41b302a687a2b25d0598d0e9",
+      "passed": true,
+      "result": "[PASS] Throw Caution to the Wind / actual revealed blue pitch prevents three physical damage"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-throw-actual-owned-blue-reveal-prevention-three-physical-consumer",
+      "returncode": 0,
+      "stdout": "[PASS] Throw Caution to the Wind / actual revealed blue pitch prevents three physical damage\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

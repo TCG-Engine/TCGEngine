@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-viserai-between-worlds-four-live-sparse1231-real-single-runechant-earns-hero-top-banish-before-traverse-threshold",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-viserai-between-worlds-four-live-sparse1231-real-single-runechant-earns-hero-top-banish-before-traverse-threshold",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1231-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1231-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "aac4a70d751ffa471783acb2866be1d18b7cc97e9a4486341677039b9894f181",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "8fb83ea4b5edc7c8397a08c8cd0c5cb3b0bbc67eaa5f3dd97bc0d620810a1741",
+        "actions.json": "f3e77449fd4ff1d41c7037b53b69fbdd8caf39b45b2c7ad3a240a10c062ff792",
+        "assertions.json": "17d048d5400fbd5541ea970786964eadc4f51c4d3242bfd031669008dc3e8f1c",
+        "expected_final_gamestate.txt": "33d48711a97a475d4f3996e9ffe2c6885ceace3ae956885b7cd77b062539aa96",
+        "meta.json": "225e9bf48b198ba605466901266f77e38c2be2ba59114db9cd602ff40de574ca"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

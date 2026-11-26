@@ -1,0 +1,119 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "/root/breadth_review1457",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1516-20261122.json",
+  "source_spec_sha256": "384ff05eb9968245fd06107791fce3b2dede11611717963c9eccb2412cb82d19",
+  "input_sha256": "384ff05eb9968245fd06107791fce3b2dede11611717963c9eccb2412cb82d19",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-agile-engagement-red-four-live-sparse1516-actual-generic-attack-fails-specific-reaction-target-guard",
+      "card_id": "agile_engagement_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "2d4da6524728e11042e6f433886355441f4794df4060f45de07d126ebd0aab49",
+        "actions.json": "33011af21c84c32e1d3403a2fc580d1e46c0bef8b774f34c7533978a762bb108",
+        "assertions.json": "15db71e6bda8a004b4cd99e9534c1a07e203bddf4f885d07dfbed5c42a05304b",
+        "expected_final_gamestate.txt": "6882265ac84b2631c0b61d12c5de2e9672819790f0edda12f644692498faa1b9",
+        "meta.json": "bacfa51e8a52e68b5f0ff1f9166c2e25695c504b8ccd72834774d7a725dda7e1"
+      },
+      "fixture_sha256": "c53a3e58a2ec771c5e80b204bc7d29fe08034fae9e7ad757b1b9c5935479a2a4",
+      "actions": 28,
+      "native_assertions": 384,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1516-20261122.json",
+      "input_sha256": "384ff05eb9968245fd06107791fce3b2dede11611717963c9eccb2412cb82d19",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1516-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-agile-engagement-red-four-live-sparse1516-actual-generic-attack-fails-specific-reaction-target-guard",
+        "fixture_slug": "card-agile-engagement-red-four-live-sparse1516-actual-generic-attack-fails-specific-reaction-target-guard",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-vigorous-engagement-red-four-live-sparse1516-actual-generic-attack-fails-specific-reaction-target-guard",
+      "card_id": "vigorous_engagement_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "cc9088f8a7648bef4e61aca45b2f319fd2b18bb4e633b695f353a92dfb69ef7c",
+        "actions.json": "33011af21c84c32e1d3403a2fc580d1e46c0bef8b774f34c7533978a762bb108",
+        "assertions.json": "44984143619c786b22204b7805d9d0d00764a5093561402f066da81f35ecc08e",
+        "expected_final_gamestate.txt": "d553490c314319a61b11e507c3e81318dce8f1c6025c342d2bc789f5ac40c2c2",
+        "meta.json": "4d3abda6c1685aab78c77b5fd95b483262db72780c706559d39806582f0c1adb"
+      },
+      "fixture_sha256": "bdad45ff0baa2f403ecc06b9ab26155d416c88c87103b23ba15dde9e2692408b",
+      "actions": 28,
+      "native_assertions": 384,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1516-20261122.json",
+      "input_sha256": "384ff05eb9968245fd06107791fce3b2dede11611717963c9eccb2412cb82d19",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1516-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-vigorous-engagement-red-four-live-sparse1516-actual-generic-attack-fails-specific-reaction-target-guard",
+        "fixture_slug": "card-vigorous-engagement-red-four-live-sparse1516-actual-generic-attack-fails-specific-reaction-target-guard",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "schema_version": 1,
+    "batch": 1516,
+    "reviewer": "/root/breadth_review1457",
+    "result": "approved_named_branches_only_pending_native_execution",
+    "reviewed_utc": "2026-11-25T08:15:13.192055+00:00",
+    "spec_sha256": "384ff05eb9968245fd06107791fce3b2dede11611717963c9eccb2412cb82d19",
+    "source_note_sha256": "d526b891ff4a63e6666ab734b14861ddf94ee9459e4ca0f6ea3a84f1e4200448",
+    "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+    "source_sha256": {
+      "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+      "FaBSim/Custom/WTRCards.php": "77d4452b30e45254a7199bc965396ded53e325717ecdd84a09b971f723f99f6a",
+      "FaBSim/Custom/GameLogic.php": "c60fa151561f959e4e3e341b814de0e2b47c9e9f153bbc8793a04c43b5075061"
+    },
+    "cases": 2,
+    "findings": [
+      "BothnecessaryWarriorattackexclusions: WTR477testactualattackerWarriortype. EquippedWarriorHatchet8notattackingcannotgranttypetoGenericWounding5.",
+      "LegalBoltyn20/Blue3fundscost1/correctREACTION1/AP0; noHatchetactivationortrigger, primaryunplayednoprimarytoken/effectcondition.",
+      "Exact28inputseach/power4/damage4/HP16/fullmanualfourclose/physicalHand6Blue7readyHatchet8emptyCounters sound."
+    ],
+    "limits": [
+      "PositiveEngagementtargets/timing/Agility/Vigor/siblingsremainheld. Source/spec review only, no reviewer native games or writes."
+    ]
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1516-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "f58fe2fe8fef009a5edfa5cf911119acd1cbdf76e927178297060aa5e808d546"
+  },
+  "full_suite_run": false
+}

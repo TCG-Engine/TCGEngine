@@ -1,0 +1,39 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch506.json",
+  "runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+  "returncode": 0,
+  "completed_utc": "2026-11-05T19:20:03.118274+00:00",
+  "fixtures": [
+    {
+      "slug": "card-rally-the-coast-guard-red-four-live-real-defending-instant-discards-owned-card-and-prevents-three-of-seven-by-defense",
+      "fixture_sha256": "5dafdedd4d80e0e1b7d916c2ef641b4c63897637598ff0e5f1eaa003c57d9907",
+      "passed": true,
+      "result": "[PASS] rally_the_coast_guard_red / four live distinctive effect"
+    },
+    {
+      "slug": "card-lay-down-the-law-red-four-live-real-paid-sloggism-earns-thirteen-power-tower-and-reduces-non-equipment-defense",
+      "fixture_sha256": "855adcb1691dcd785e43a5a7781370c0bea49ea30a86d9092cf8e487ca7bcced",
+      "passed": true,
+      "result": "[PASS] lay_down_the_law_red / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-rally-the-coast-guard-red-four-live-real-defending-instant-discards-owned-card-and-prevents-three-of-seven-by-defense",
+      "returncode": 0,
+      "stdout": "[PASS] rally_the_coast_guard_red / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-lay-down-the-law-red-four-live-real-paid-sloggism-earns-thirteen-power-tower-and-reduces-non-equipment-defense",
+      "returncode": 0,
+      "stdout": "[PASS] lay_down_the_law_red / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 2,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

@@ -1,0 +1,79 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-enflame-the-firebrand-red-four-live-sparse1320-first-draconic-chain-link-does-not-earn-second-link-go-again-or-fourth-link-power",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-enflame-the-firebrand-red-four-live-sparse1320-first-draconic-chain-link-does-not-earn-second-link-go-again-or-fourth-link-power",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1320-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1320-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "913103022d91ce1c2b97eb89a922521c8f2efa72e15948efce013288c77edcd1",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "5256eb2a7c55d6c568404765df59c11f63f60dad7051312557323c29e41815aa",
+        "actions.json": "cb28b47f5dc15b249b3654ad141cf5f2ccf833368e3cb287e1fd2c33043e8215",
+        "assertions.json": "aa281fa3b2dfb11078732209eee0ec5cc462e9ba6f7a43938537589ca668776e",
+        "expected_final_gamestate.txt": "530d1a3d806a4d922615daf0132b457b91d89b9d64b63ab1826292590561297c",
+        "meta.json": "840f317e0d50e13e7cc5d742b769b9635a3b7d74ef9e0c6fcaedcbafa3f8a902"
+      }
+    },
+    {
+      "slug": "card-gold-hunter-lightsail-yellow-four-live-sparse1320-equal-zero-gold-does-not-earn-go-again",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-gold-hunter-lightsail-yellow-four-live-sparse1320-equal-zero-gold-does-not-earn-go-again",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1320-local-20261122\\clean-replays\\01.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1320-local-20261122\\clean-replays\\01.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "9562d0aad15da90270b3478f3dfe5e4753b8525d61a09ad216f76fbd0dada876",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "58e0d6c3b7642b60332e2297bf68d6d4e253a53421ff0e80b1f4ca4ef26a8a8e",
+        "actions.json": "03d8ba6664b359988a254b0b85136b29a95f48d60e969fe7103afff3ef5a7a2a",
+        "assertions.json": "b86746f9263d0aaf8f24fa640cbe8a41fdb07823139703582db688ad2b9b328c",
+        "expected_final_gamestate.txt": "64750ea623c6d841010dae6ef338e73b34912c27fa7e1ed38872b2d72c291095",
+        "meta.json": "1c23eb97aa7be810a7f64cf4e92cfc4744925b9e8ed43a591d28ccedeb90c5c0"
+      }
+    },
+    {
+      "slug": "card-clench-the-upper-hand-red-four-live-sparse1320-equal-natural-health-does-not-earn-boo-or-hero-vigor",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-clench-the-upper-hand-red-four-live-sparse1320-equal-natural-health-does-not-earn-boo-or-hero-vigor",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1320-local-20261122\\clean-replays\\02.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1320-local-20261122\\clean-replays\\02.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "d26123f4100d7754aa7187e01a13911024a488352059444d97525b553689fed7",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "263ad08a9a267731b15957063abe891b5c5fc066ceec1b32dd23e87431e0e1cf",
+        "actions.json": "cb28b47f5dc15b249b3654ad141cf5f2ccf833368e3cb287e1fd2c33043e8215",
+        "assertions.json": "f3ac57b38aa9a14e53dbf88fc34da344ed8f4f8302b457af47255ce96fbcb57e",
+        "expected_final_gamestate.txt": "b6431380139f3e8703220cfb0f75b4101e21afdb058af4533d5924217dcc0434",
+        "meta.json": "0144fd7f3a045b554dd8ebaa7d40fff4420bc302b544030f790d37b3d83c845f"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

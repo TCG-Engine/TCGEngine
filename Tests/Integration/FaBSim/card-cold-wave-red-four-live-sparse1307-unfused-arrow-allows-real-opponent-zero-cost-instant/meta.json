@@ -1,0 +1,7 @@
+{
+    "name": "Cold Wave / native untaxed opponent Instant witness",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-24T05:16:58+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "FOUR_MANUAL_NATURAL_YOUNG_LEXI20_REQUIRED_UNACTIVATED_DEATHDEALER8_FALSE_PREREQUISITE_ONLY. PrimaryColdWave5Arsenal faceup/actualGenericRed6pitch1paysnormal1/R0/AP1to0. NoIceinHandtoFusion, nofusedhistoryseed. Actual5physicalHero4damageHP15andallfourresponses/fullclose. ActualsameTurn2TurnPlayer1, allAP0, nativePriority1then2then3then4; opponent4reallyplaysownSigilRed9Hand1(cost0Instant), acceptedStack9withoutpendingPayment/R0/AP0. Holdpriority4thenactual1,2,3responses; true3HPgainresolvesHP18/Sigil9ownGY4/noadditionalpitch/Blue7Hand4stays. Awrongfusedtaxwouldrequire1resourceandblockthiswitness. NoLexiHero/Bowproducer/taxpositive/otheropponentrestrictioncredit. Nootherpitch/support/fullcardcredit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#cold_wave_red FaBSim/GeneratedCode/GeneratedMacroCode.php FaBSim/Custom/ELECards.php FaBSim/Custom/ELEAbilities.php FaBSim/Custom/FaiCards.php FaBSim/Custom/UPRCards.php FaBSim/Custom/GameLogic.php"
+}

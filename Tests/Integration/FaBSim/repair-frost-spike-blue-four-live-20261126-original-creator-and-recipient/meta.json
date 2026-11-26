@@ -1,0 +1,7 @@
+{
+    "name": "Frost Spike / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-26T03:09:53+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Create a Frostbite token in an exposed head, chest, arms, or legs zone. Representative only: own_turn_instant_creates_real_frostbite_in_exposed_opponent_head_zone. Other pitch siblings, alternate targets and unexercised branches receive no credit. All four live/manual; only native entry-point actions. Sources: FaBSim/GeneratedCode/cardArrayCache.json#frost_spike_blue"
+}

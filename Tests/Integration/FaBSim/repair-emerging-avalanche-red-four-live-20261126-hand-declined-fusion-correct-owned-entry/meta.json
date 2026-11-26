@@ -1,0 +1,7 @@
+{
+    "name": "Emerging Avalanche / repair false fusion still declares target and earns layer",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-26T02:35:38+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Hand-source caller of the correct233-repaired falseFusion/owned-entry template; initial Source5Hand beforeIce6/Item7, same liveIce6 atHand0 after play, realdecline/printedcost/declaredHero4/ownedfalseentry/allfourresponses; ItemActionspendsGA as established. No false no-trigger oracle restored. Sources:"
+}

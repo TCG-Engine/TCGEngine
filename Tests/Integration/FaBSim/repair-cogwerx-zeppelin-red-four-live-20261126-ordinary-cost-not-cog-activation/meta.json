@@ -1,0 +1,7 @@
+{
+    "name": "Cogwerx Zeppelin / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-26T03:21:07+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "When this hits a hero, you may {t} a cog you control. If you do, create a Golden Cog token.\n\n**Twice per Turn Instant** - {t} a cog you control: This gets +1{p}. LegalDash20/actualBlue6paysprinted1/3/2/R2/0/1/AP0, twoHandAAdef6fullyblock5or6, 0HP/nohit/Stack0/ownedsourceandblockersGY/all4manual. RealeligibleDeckCog9retainedorArenaCog9sameStatus/STEAM2/owner/controller, nosearch/untap/steamaddition/newCog. Markerpreexistingfixture, notplayedentryorownershiptest. NooptionalInstantactivated. Sources: FaBSim/GeneratedCode/cardArrayCache.json#cogwerx_zeppelin_red"
+}

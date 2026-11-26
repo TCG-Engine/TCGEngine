@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-flicker-reality-blue-four-live-sparse1526-actual-ward-one-and-earned-leave-layer-with-no-other-aura",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-flicker-reality-blue-four-live-sparse1526-actual-ward-one-and-earned-leave-layer-with-no-other-aura",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1526-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1526-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "107a6e779771b96538a76ca41327e3c5c1728f86be9d9cf9c07dff1fe739a81a",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "2eaf246e2ed7e05e7aba1a0fc979e9ee0861cbb785f74eeab383c940d0816933",
+        "actions.json": "9f25e65f825937a2eda9643d116981a99957d00bce9450b53b4cd007f90d636c",
+        "assertions.json": "7630a64f7d1d4f823c2d54cbd8de2975d79ea6e2e588e7dc6cc1c231582b8d3b",
+        "expected_final_gamestate.txt": "db88e763122a3400e37dc19320f1c520ac62afec38da5d4875a7deef69797719",
+        "meta.json": "3352ba0fc8156c373131ae57bbfba6dc9d25e1f7529f160ba1c3dab827955c3a"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

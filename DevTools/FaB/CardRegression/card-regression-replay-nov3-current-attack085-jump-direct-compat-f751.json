@@ -1,0 +1,29 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch374.json",
+  "runtime_sha256": "f7511a245981f49fce106a3d920c9f1a474d1e09c6107463fea92c426701965f",
+  "returncode": 0,
+  "completed_utc": "2026-11-03T23:13:09.416930+00:00",
+  "fixtures": [
+    {
+      "slug": "card-jump-start-red-four-live-sparse-real-controlled-hyper-driver-reduces-paid-cost-with-boost-declined",
+      "fixture_sha256": "a289fc34a44f85c6a496dcd55f9794574a697b1a255693eb75cf0196fdc4e27e",
+      "passed": true,
+      "result": "[PASS] jump_start_red / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-jump-start-red-four-live-sparse-real-controlled-hyper-driver-reduces-paid-cost-with-boost-declined",
+      "returncode": 0,
+      "stdout": "[PASS] jump_start_red / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [
+    "card-descendent-gustwave-red-four-live-sparse-real-paid-surging-chain-earns-cost-zero-and-five-power"
+  ],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

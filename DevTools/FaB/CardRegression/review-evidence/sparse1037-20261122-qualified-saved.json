@@ -1,0 +1,114 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "Root independent printed/source/spec review of breadth_review authored cases",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1037-20261122.json",
+  "source_spec_sha256": "4852d805bf42eba2cc501e4c9c24a7b0cba4a16cdcfe2ab5161c54f53510f17a",
+  "input_sha256": "4852d805bf42eba2cc501e4c9c24a7b0cba4a16cdcfe2ab5161c54f53510f17a",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-aether-bindings-of-the-third-age-four-live-sparse1037-real-armor-block-and-battleworn-close",
+      "card_id": "aether_bindings_of_the_third_age",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "c3d3a1ad2050cbad7527b6999490473dbf7fd655cfcf2b2730b29fc59ab9c0e1",
+        "actions.json": "511bf2f3686ee96e12e3d9cdbe580febcac902b797e5ec827a96d5ccd74ac457",
+        "assertions.json": "c6254e0e85d14e18766ec9af2277bb863c8d4f8c020870481952e4485eb7ffe7",
+        "expected_final_gamestate.txt": "3062f7c28b436d3d4454789371ae1125cdf4a9fbec114387498e63492d7a9f7b",
+        "meta.json": "43ad2380f0d13acab7cdab178710bb73def1d933df357d1fe6967a4ab55a3a44"
+      },
+      "fixture_sha256": "ec7420734615a8bc6b4dc76bdaad197bbf6e7582a4ec85fc54e64877e6c841b1",
+      "actions": 30,
+      "native_assertions": 270,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1037-20261122.json",
+      "input_sha256": "4852d805bf42eba2cc501e4c9c24a7b0cba4a16cdcfe2ab5161c54f53510f17a",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1037-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-aether-bindings-of-the-third-age-four-live-sparse1037-real-armor-block-and-battleworn-close",
+        "fixture_slug": "card-aether-bindings-of-the-third-age-four-live-sparse1037-real-armor-block-and-battleworn-close",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-beckoning-haunt-four-live-sparse1037-real-armor-block-and-guardwell-close",
+      "card_id": "beckoning_haunt",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "b29ee78ba89bda27e807d23b26d48d05756b54b3d55f2a22f7124203e7527d49",
+        "actions.json": "511bf2f3686ee96e12e3d9cdbe580febcac902b797e5ec827a96d5ccd74ac457",
+        "assertions.json": "8d34067e5304083c1583927dcab42ca50928722a65c1b9aa150d83c28d82ed2a",
+        "expected_final_gamestate.txt": "59359aaab07be395ce1591ef1132887bfaa68fb3989c849a7229bb9cfc12717d",
+        "meta.json": "8de0543e10a0f43b4c428828f8f3dd18391473cd62fd54071095c1234635770d"
+      },
+      "fixture_sha256": "fdbcdefb3bce861ae78385be40db84e6896e3868f3cc0813dcce8b1324031948",
+      "actions": 30,
+      "native_assertions": 270,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1037-20261122.json",
+      "input_sha256": "4852d805bf42eba2cc501e4c9c24a7b0cba4a16cdcfe2ab5161c54f53510f17a",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1037-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-beckoning-haunt-four-live-sparse1037-real-armor-block-and-guardwell-close",
+        "fixture_slug": "card-beckoning-haunt-four-live-sparse1037-real-armor-block-and-guardwell-close",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-steelbraid-buckler-four-live-sparse1037-real-armor-block-and-temper-close",
+      "card_id": "steelbraid_buckler",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "6eddcae5ef9c7c5db3bea63c150360c20875fff5250b328eaed327b8e93ad575",
+        "actions.json": "511bf2f3686ee96e12e3d9cdbe580febcac902b797e5ec827a96d5ccd74ac457",
+        "assertions.json": "cda4e8711933e29da8909d113b426b757c2015dbdc33f221bf11ad4b5f35d0ad",
+        "expected_final_gamestate.txt": "d6c077ab9d8badb300f43485c8143927cd999aa73585b70dd4d94c921c337150",
+        "meta.json": "2dfec4fac1a66f5ca1b24119141351366f21f8b67ee9123c4aa174cfd57a09da"
+      },
+      "fixture_sha256": "69c79f7275426999bd33772f35758d15e11665a6c9810473af716e2da24c37eb",
+      "actions": 30,
+      "native_assertions": 270,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1037-20261122.json",
+      "input_sha256": "4852d805bf42eba2cc501e4c9c24a7b0cba4a16cdcfe2ab5161c54f53510f17a",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1037-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-steelbraid-buckler-four-live-sparse1037-real-armor-block-and-temper-close",
+        "fixture_slug": "card-steelbraid-buckler-four-live-sparse1037-real-armor-block-and-temper-close",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "spec_sha256": "4852d805bf42eba2cc501e4c9c24a7b0cba4a16cdcfe2ab5161c54f53510f17a",
+    "reviewer": "Root independent printed/source/spec review of breadth_review authored cases",
+    "basis": [
+      "Actual legalclassNaturalhero/printedDEF guards: WizardKano15 ownsAetherBindingsDEF1/Battleworn, Chane20ownsBeckoningHauntDEF2/Guardwell, Oldhim20ownsSteelbraidBucklerDEF2/Temper. Source abilities unactivated and no earnedWHENDefends/rider. ActualLeadChargeRednonAADEF2 plus actualequipment exactlyblocksDawnblade3/Club4; nohero/weaponhit trigger earned.",
+      "Reviewed fourmanualsource/combat/nativeclick+target+Bluepayment andphysicalEquipment5/Hand6/Weapon7/funder8, actual0damage/numericHP15/20 and RoleDEFENSE/owner4/currentChain/outcome saved. PrintedBattlewornbase1retainsEquipmentat0aftercounter1; Guardwellcounter2retainedthroughordinaryClose; Temperbase2counter1current1>0retained. CurrentdeferredBattleworn/Temper source and existingGuardwellclose helper preserved.",
+      "Savednormalkeywordclose only, all assertionspersist and noauthor-onlydiagnostics. NoactivatedSigilamp/auraretrieval/GuardwellEOT/Temperzero/subsequentdefense/hero/support/wholecardcredit. Allnative executionstillpending."
+    ]
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1037-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "f045094545d64bc55461ed025aaf08ec0bdb2d195c8d961f48aaa2617945b027"
+  },
+  "full_suite_run": false
+}

@@ -1,0 +1,7 @@
+{
+    "name": "Sea Legs Yellow / strict real Skullhorn discard then responseable Rum",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-15T23:57:16+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Skullhorn pays real destroy/AP costs, draws and discards sole Sea Legs and finishes with AP1. No Rum exists before all four earned Sea Legs responses; exactly one owned Rum exists afterward, with full physical cleanup. Gold/chosen-discard/HVY/suppression/alternate branches and support cards are not individually verified. Sources: https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/ https://rules.fabtcg.com/en/cr/06-effects/ https://rules.fabtcg.com/en/cr/01-game-concepts/"
+}

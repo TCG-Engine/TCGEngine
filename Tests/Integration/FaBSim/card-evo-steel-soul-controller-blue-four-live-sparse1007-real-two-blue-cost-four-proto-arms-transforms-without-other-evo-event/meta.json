@@ -1,0 +1,7 @@
+{
+    "name": "Evo Steel Soul Controller / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-23T02:01:38+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "If you have a base arms equipped, **transform** it into this, then equip this.\n\nWhen this **transforms** from or into an Evo with a different name, you may put an attack action card with 6{p} from your graveyard into your deck fifth from the top. If that Evo is a hero, instead this triggers twice.\n\n**Temper** Named actual initial transformation branch only. Natural legalDash20, sourceHand5/two physicalBlue6and7/matchingproto_base_arms8ready equipped. First actualpitch givesR3/AP1/PITCH becauseprinted4 notpaid; secondpitch completes4/R2/AP0 before four manual responses. Same physical source5 equipsready, exactlyoneEquipment, SUBCARDS names actual oldProtoBase; noHand/GY/Banish/Arena/Deck residue, both actual6/7Pitch retained. OldProtoBase is Base but NOT an Evo, so qualified transforms-from/into-another-Evo event is absent. This does not claim positive SteelSoul callback, intellect/deck-placement/extraResources/AP/hero transformation/Temper/Battleworn/support/pitch-sibling/full-card behavior. Allfour live/manual, no seeded benefit state or engine change. Sources: FaBSim/GeneratedCode/cardArrayCache.json#evo_steel_soul_controller_blue"
+}

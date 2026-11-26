@@ -1,0 +1,120 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "independent breadth_review1252",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1350-20261122.json",
+  "source_spec_sha256": "d6c65fbb9a210cd64a30d3b11f50ed7810526dd9d4460711918361ed8e46a217",
+  "input_sha256": "d6c65fbb9a210cd64a30d3b11f50ed7810526dd9d4460711918361ed8e46a217",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-old-favorite-yellow-four-live-sparse1350-real-three-defense-below-six-goes-graveyard-not-bottom-of-existing-deck",
+      "card_id": "old_favorite_yellow",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "458b1d629fcf3cb745ee3f9821e4713b1ba51a9eaf2b38037cf4c49e76269fa3",
+        "actions.json": "391d0c3198a3462eb041e6d636e4470fb6e77a744dbc147221d49725d7cc518a",
+        "assertions.json": "984d45d2d43eafb354cec99a3398ff9733f00c7b609a2c32de60b2e58562b7bc",
+        "expected_final_gamestate.txt": "b070d532e5af5c35b262c822ecc36154cd09ccab152e600ce0a75a0f4f449803",
+        "meta.json": "9adb91122b082f09a96206b732fc4d53b9cd8088cbe264aab424f5ed05b724c3"
+      },
+      "fixture_sha256": "0d6a6555e15774c518d808dcac8c06ca3cdb726f75eeabdde193428be7b76bca",
+      "actions": 29,
+      "native_assertions": 373,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1350-20261122.json",
+      "input_sha256": "d6c65fbb9a210cd64a30d3b11f50ed7810526dd9d4460711918361ed8e46a217",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1350-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-old-favorite-yellow-four-live-sparse1350-real-three-defense-below-six-goes-graveyard-not-bottom-of-existing-deck",
+        "fixture_slug": "card-old-favorite-yellow-four-live-sparse1350-real-three-defense-below-six-goes-graveyard-not-bottom-of-existing-deck",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "reviewer": "independent breadth_review1252",
+    "spec_sha256": "d6c65fbb9a210cd64a30d3b11f50ed7810526dd9d4460711918361ed8e46a217",
+    "source_note_sha256": "3cf2b784d6a8a701b1bc822d8e9df006a10536f78c6aed37b162dcb7f7594bbf",
+    "case_count": 1,
+    "active_seats": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "players": "four_live_manual",
+    "native_controls": 29,
+    "query_checks": 373,
+    "persistable_assertions": 373,
+    "author_only_checks_omitted": 0,
+    "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+    "coverage_category": "CONDITION_FALSE_DEFENSE_THRESHOLD_WITH_REAL_BLOCK_DAMAGE_AND_GRAVEYARD_DESTINATION",
+    "per_case": [
+      {
+        "card_id": "old_favorite_yellow",
+        "group_id": "identity:old_favorite_yellow",
+        "native_controls": 29,
+        "persistable_assertions": 373
+      }
+    ],
+    "basis": [
+      "Cached OldFavoriteYellow ReveredAA3/power6/defense3 is the primary representative under legal naturalYoungReveredTuffnut20 seat4, with YoungDori20 seats1/2/3 andmanual4UPF. Distinct group unrepresented/unheld. Actualsupport attackGenericCriticalRed5Hand1/cost1/base5, BlueCritical6Hand1pitch3, primary7Hand4 and realexistingWounding8Deck4; correct fourHeroUID1..4/physicalmappings/owners/controller andreadyHero/noArena/noeffect setup. Primary is not cast or attacking, and its attack-Cheer/Toughness branch is unearned/uncredited.",
+      "Actual actor1source5 declares adjacentHero4, Blue6pitch3 pays1/R2/AP0, allfour source/combat response windows retained. Native primaryHand4 click atDEFEND_DECLARE moves actual7 toCC4 RoleDEFENSE/FromZoneHand, Hand4empty, owner/controller4, noresource/AP play cost orsourceKind claim for primary. Printeddefense3/no modifiers/emptyeffects and Tuffnut notLyath mean actual3defense remains below6.",
+      "GameLogic normalHand block invokes OnDefended onrealCC source,1318-1322 dispatches exactDefended macro. Generated25664 checks FaBCurrentDefense(primary,player)>=6 before EVR_BOTTOM tag; selected3 is false, no earned bottom-deck delayed trigger/tag. Primaryneverattacks; Tuffnutunused/noCheer, so no separate automatic producer. Strict actualattackPower5/defense3/damage2/HP4=18 observes realblock.",
+      "Fullclose actualownedprimary7GY4, notDeck; Deck4count1 exactexistingownedWounding8 remains, no newUID/RNG. Actor5GY1/funder6Pitch1, allHands/Arenas/Arsenals/CC/Stack/queues empty, AP0R2/readyHeroes/UID8/RNG0 pin ordinary destination. No separateArsenalconsumer in this narrowed defending scenario. Queryrole/FromZoneHand/primaryowner/deck/finalzone counts checked, no staleArsenal/Wounding7 claim. All29controls/373assertions persist."
+    ],
+    "limits": [
+      "Only actualbelow6 Handdefense/blockdamage/ordinaryGraveyard-versus-Deck destination approved pending native save/replay; no nativepass/qualifiedcoverage claimed.",
+      "No primarycast/attack/CheerToughness branch, sixplusdefense/delayedbottom positive ortrigger timing, Heroactivation/otherdefensemodifiers/support/sibling/wholecard coverage. Existingholdsuntouched/noenginerepair.",
+      "Only W receipt written; no nativegame/test/replay, T/source/engineedit, originalcheckoutaccess, auth/network, fullsuite orGitoperation."
+    ],
+    "source_sha256": {
+      "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+      "FaBSim/GeneratedCode/GeneratedMacroCode.php": "fe6a7982611df8f4de98ce2671b317b671b580146aa4b8c28e8f4b86d8461056",
+      "FaBSim/Custom/GameLogic.php": "c60fa151561f959e4e3e341b814de0e2b47c9e9f153bbc8793a04c43b5075061",
+      "FaBSim/Custom/SUPCards.php": "d0cf162a89b60b29590121e4c97e1e5fe0e2dc790130bf181949ca068092c1fa",
+      "FaBSim/Custom/WTRCards.php": "77d4452b30e45254a7199bc965396ded53e325717ecdd84a09b971f723f99f6a",
+      "FaBSim/Custom/ARCCards.php": "f6b6a21d214e71fdcfd6a084f0671ce610f08a40c51a1266041877a5a12c0d52",
+      "Core/EngineActionRunner.php": "add14b53dc571d2a6e64407bfa4038a98d6554d6410de7a9233810d99c46ea2a",
+      "Schemas/FaBSim/GameSchema.txt": "7783800bd47bc85885cc915066aadca58cdf99f0c1180602ac312d9af5ebf643",
+      "Core/ShortcutPreferences.php": "25f300ea0b6fbc409f5b92e8bc3587a74b2ab0eaf31ccef38e18c455598eaba6",
+      "DevTools/FaB/CardRegression/record_card_regressions.php": "e53055b29e9ea641949b77019c4455607f41ca233325d716a9500637e19efd28"
+    },
+    "workspace_source_sha256": {
+      "author_breadth1350.py": "58cd89384d0c0bd15c40c1dc5369d284e9ce60e11707108be5780eb13e0c1299",
+      "breadth1068_helpers.py": "997f949ec26c7e494ad26a818f9f2078f6f4f2a0c49ca7f61aa8c71f3b091b0a"
+    },
+    "secondary_identity_credit": false,
+    "whole_card_credit": false,
+    "positive_condition_credit": false,
+    "positive_trigger_timing_credit": false,
+    "positive_six_defense_credit": false,
+    "primary_play_credit": false
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1350-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "b741e0674a16124535a561d8f250534c59fa1639a9b13b8b5078d4b36d79d2c8"
+  },
+  "full_suite_run": false
+}

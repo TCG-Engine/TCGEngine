@@ -1,0 +1,300 @@
+{
+  "status": "APPROVED_ACTUAL_SAVED_PENDING_ROOT_TARGETED_QUALIFICATION_REGISTRATION",
+  "approved": true,
+  "source_approved": true,
+  "semantically_approved": true,
+  "reviewer": "/root/nov2_next_author",
+  "created_utc": "2026-11-02T23:58:50.979142+00:00",
+  "source_spec": "card-regression-batch266-aether-spindle-correct-probe.json",
+  "input_sha256": "c178ec1308581f2cfa87965eb4af2cc3c1450ffe849bc18cc89f8b28d6a706d5",
+  "manifest_sha256": "5fd2e5da893e6df89c56fff49411ba189b8c555004ba25dd9cb4136f64fc4c40",
+  "runtime_sha256": "f40e5a26ad74eab8ea9d2e3bd779a26c917d8102e67ad41fa9bad5ca7f22e6e7",
+  "recorded_runtime_sha256": "f40e5a26ad74eab8ea9d2e3bd779a26c917d8102e67ad41fa9bad5ca7f22e6e7",
+  "original_probe_review_runtime_sha256": "eccb0e932251262e0a946fcca0fcdf03d3c8705eef951f11cd51acc8e38ab421",
+  "semantic_approval": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov2-batch266-aether-spindle-v2-independent-probe-review.json",
+    "sha256": "8bcbed9f57fe13bfe60961d130fb4e3b6446c4ad7366b7e088b6bfd79bf6dc57"
+  },
+  "source_repair_approval": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov2-aether-spindle-061-independent-source-review.json",
+    "sha256": "405c99d0994e9bd9b263f4915acce45adb9107f2dc41d568fee806593ba44e63"
+  },
+  "source_application_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov2-aether061-source-application\\receipt.json",
+    "sha256": "1687f2150520bf79ae74afc64bf932e1e452110d435d8e91f4fb3c6a92006988"
+  },
+  "recording_receipt": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch266-aether-spindle-correct-probe-20261102T235350Z-6ae9228e7a16e.json",
+    "sha256": "b199c33f2983246f4caa7f9d6fe714ebd983f3922d44cfe53bc5f423e448f159"
+  },
+  "root_wrapper_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov2-aether061-native-after-r1\\receipt.json",
+    "sha256": "0e52d064612e8df7729714c7f0f9f9ac2ef28ad5b6aa77f7050456ae1fb497b2"
+  },
+  "native_before_evidence": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\review-evidence\\aether-spindle-061-native-before.json",
+    "sha256": "d6360a4bcb1b536f8bed3349dbd59c45881a4bd23b286a250b9c2e77a6128b70",
+    "archive": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch266-aether-spindle-correct-probe-20261102T232315Z-6ae91b63076ad.json",
+    "archive_sha256": "3a8efd5b603df1d21fca30af79e405f2721aaf79e3a2910a54b7b6ac4b4d19e8",
+    "prefix_receipt": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov2-aether266-failed-prefix-observation\\receipt.json",
+    "prefix_receipt_sha256": "5cbd16850ce6bbef348730f65f39d762df0f47e108a84e6692fc76a4a74f2e8e",
+    "runtime_sha256": "eccb0e932251262e0a946fcca0fcdf03d3c8705eef951f11cd51acc8e38ab421",
+    "actual_inputs": 7,
+    "fixture_saved": false
+  },
+  "actual_comparison_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov2-aether061-independent-saved-review\\audit_saved.py",
+    "sha256": "a877d1f0698c5d33de1e3775daaffeda77637384a00d41e7a55a9e1c18118dae"
+  },
+  "review_method": "Independent exact raw4/raw5 saved audit, every native input/assertion/action-step, strict full-schema endpoint physical/manual profiles, and unchanged first7 native inputs/raw initial state against actual failing archive. Original printed/rule/source-probe and approved 3-line caller-extension reviews reused. No author model, game/PHP/native/replay/backend/source write by reviewer.",
+  "fixtures": [
+    {
+      "index": 0,
+      "card_id": "aether_spindle_red",
+      "group_id": "pitch-cycle:aether_spindle",
+      "slug": "card-aether-spindle-red-four-live-correct-probe-real-four-arcane-opt-four-retains-spell-until-final-choice",
+      "source_spec": "card-regression-batch266-aether-spindle-correct-probe.json",
+      "input_sha256": "c178ec1308581f2cfa87965eb4af2cc3c1450ffe849bc18cc89f8b28d6a706d5",
+      "reviewer": "/root/nov2_next_author",
+      "runtime_sha256": "f40e5a26ad74eab8ea9d2e3bd779a26c917d8102e67ad41fa9bad5ca7f22e6e7",
+      "recorded_runtime_sha256": "f40e5a26ad74eab8ea9d2e3bd779a26c917d8102e67ad41fa9bad5ca7f22e6e7",
+      "approved": true,
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_OWNED_ORDINARY_RED_SOURCE_RETAINED_THROUGH_OPT",
+      "fixture_path": "Tests\\Integration\\FaBSim\\card-aether-spindle-red-four-live-correct-probe-real-four-arcane-opt-four-retains-spell-until-final-choice",
+      "fixture_sha256": "9cbac3dd7a98039a3927ce1c00ea7ff9f36b7cac7a1522dafa28f15b9b058adf",
+      "raw4_sha256": {
+        "initial_gamestate.txt": "c8e81a219430a4044ef4651aa7e61779c9b993c1384d43ed06f1f94f975728e8",
+        "actions.json": "21f8b9425a0b53dda7380456c10251da62c2493fd3ebe6e7b429bec82207855c",
+        "assertions.json": "a54c407e36266c2626ae7e0b0a90965d485ffc2a4735447a78230cd1b3e1effd",
+        "expected_final_gamestate.txt": "90802dddcba96aebd40af00d2ba716e599e7c3a117b94596991b2ffe2b44c4bf"
+      },
+      "raw5_sha256": {
+        "initial_gamestate.txt": "c8e81a219430a4044ef4651aa7e61779c9b993c1384d43ed06f1f94f975728e8",
+        "actions.json": "21f8b9425a0b53dda7380456c10251da62c2493fd3ebe6e7b429bec82207855c",
+        "assertions.json": "a54c407e36266c2626ae7e0b0a90965d485ffc2a4735447a78230cd1b3e1effd",
+        "expected_final_gamestate.txt": "90802dddcba96aebd40af00d2ba716e599e7c3a117b94596991b2ffe2b44c4bf",
+        "meta.json": "145f46338c4e0b94c9a900d57f9d4b17f9ea4f0a6ef71d67907eada17d79010d"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "c8e81a219430a4044ef4651aa7e61779c9b993c1384d43ed06f1f94f975728e8",
+        "actions.json": "21f8b9425a0b53dda7380456c10251da62c2493fd3ebe6e7b429bec82207855c",
+        "assertions.json": "a54c407e36266c2626ae7e0b0a90965d485ffc2a4735447a78230cd1b3e1effd",
+        "expected_final_gamestate.txt": "90802dddcba96aebd40af00d2ba716e599e7c3a117b94596991b2ffe2b44c4bf",
+        "meta.json": "145f46338c4e0b94c9a900d57f9d4b17f9ea4f0a6ef71d67907eada17d79010d"
+      },
+      "actions": 8,
+      "native_assertions": 824,
+      "actual_manual_passes": 4,
+      "actual_priority_response_passes": 4,
+      "actual_defender_declaration_finish_inputs": 0,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "all_actions_and_assertions_exact": true,
+      "first_seven_actual_native_inputs_exact_before_after": true,
+      "raw_initial_snapshot_exact_before_after": true,
+      "all_endpoint_physical_uid_card_zones_ownership_verified": true,
+      "all_terminal_assertions_evaluated_against_parsed_final_snapshot": true,
+      "initial_physical_uid_locations": {
+        "1": {
+          "card_id": "verdance",
+          "zone": "p1Hero"
+        },
+        "5": {
+          "card_id": "aether_spindle_red",
+          "zone": "p1Hand"
+        },
+        "6": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Hand"
+        },
+        "7": {
+          "card_id": "wounding_blow_red",
+          "zone": "p1Deck"
+        },
+        "8": {
+          "card_id": "wounding_blow_yellow",
+          "zone": "p1Deck"
+        },
+        "9": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Deck"
+        },
+        "10": {
+          "card_id": "raging_onslaught_red",
+          "zone": "p1Deck"
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero"
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero"
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero"
+        }
+      },
+      "final_physical_uid_locations": {
+        "1": {
+          "card_id": "verdance",
+          "zone": "p1Hero"
+        },
+        "10": {
+          "card_id": "raging_onslaught_red",
+          "zone": "p1Deck"
+        },
+        "9": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Deck"
+        },
+        "8": {
+          "card_id": "wounding_blow_yellow",
+          "zone": "p1Deck"
+        },
+        "7": {
+          "card_id": "wounding_blow_red",
+          "zone": "p1Deck"
+        },
+        "5": {
+          "card_id": "aether_spindle_red",
+          "zone": "p1Graveyard"
+        },
+        "6": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Pitch"
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero"
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero"
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero"
+        }
+      },
+      "final_health": [
+        20,
+        20,
+        20,
+        16
+      ],
+      "final_resources": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_Hero_Status": [
+        2,
+        2,
+        2,
+        2
+      ],
+      "checkpoint_assertions": [
+        {
+          "source_step": 0,
+          "action_step": 0,
+          "checkpoint": "full_four_live_legal_Wizard_spell5_Blue6_exact_four_Deck_UIDs7_8_9_10_no_barrier_no_history",
+          "native_assertions": 129
+        },
+        {
+          "source_step": 2,
+          "action_step": 1,
+          "checkpoint": "actual_spell_announced_physical5_Stack_target_declaration_before_resource_or_Action_cost",
+          "native_assertions": 75
+        },
+        {
+          "source_step": 4,
+          "action_step": 2,
+          "checkpoint": "actual_adjacent_P4_arcane_target_declared_cost_TWO_still_unpaid_AP1_R0",
+          "native_assertions": 75
+        },
+        {
+          "source_step": 6,
+          "action_step": 3,
+          "checkpoint": "actual_Blue6_pitch_THREE_pays_TWO_and_AP1_R1_AP0_spell5_Stack_no_damage_or_Opt_yet",
+          "native_assertions": 70
+        },
+        {
+          "source_step": 8,
+          "action_step": 4,
+          "checkpoint": "actual_spell_response_1_of_four_retains_source5_and_all_four_Deck_UIDs",
+          "native_assertions": 70
+        },
+        {
+          "source_step": 10,
+          "action_step": 5,
+          "checkpoint": "actual_spell_response_2_of_four_retains_source5_and_all_four_Deck_UIDs",
+          "native_assertions": 70
+        },
+        {
+          "source_step": 12,
+          "action_step": 6,
+          "checkpoint": "actual_spell_response_3_of_four_retains_source5_and_all_four_Deck_UIDs",
+          "native_assertions": 70
+        },
+        {
+          "source_step": 14,
+          "action_step": 7,
+          "checkpoint": "correct_fourth_response_deals_four_arcane_then_OptFOUR_choice_SOURCE5_STILL_STACK_GY_EMPTY",
+          "native_assertions": 67
+        },
+        {
+          "source_step": 16,
+          "action_step": 8,
+          "checkpoint": "correct_complete_Opt_choice_reorders_exact_UIDs10_9_8_7_then_and_only_then_spell5_clears_to_own_GY",
+          "native_assertions": 68
+        },
+        {
+          "source_step": 17,
+          "action_step": 8,
+          "checkpoint": "full_final_four_living_physical_ownership_economy_queues_and_cleanup",
+          "native_assertions": 130
+        }
+      ]
+    }
+  ],
+  "total_actions": 8,
+  "total_native_assertions": 824,
+  "total_manual_passes": 4,
+  "total_priority_response_passes": 4,
+  "total_defender_declaration_finish_inputs": 0,
+  "original_13_probe_source_guards": {
+    "unchanged": 12,
+    "sole_approved_change": "FaBSim/Custom/GameLogic.php",
+    "before_sha256": "00ed8abbfeb17986e4fcb0e84d74547c6a51705b84b5a6d3a8c29b31ee05b9d3",
+    "after_sha256": "255dd2159c666828d78c6e5b5f63f03658a31e4dfc539eaffa92a33067387b53"
+  },
+  "material_findings": [
+    "Unchanged strict input and raw initial fixture, identical first7 actual native inputs at oldECCB/newf40e. Before actual Stack0/GYsource5 while Temp7-10/Opt4 pending failed correctly and saved no fixture. After input7 passes the original sourceStack1/GY0 and same physical5 ACTION/Owner1/Controller1/SourceHand5 assertions while real Opt4 choice is pending. No expected rule/effect/oracle changed.",
+    "Actual targetP4 declared before Blue6 pitch3 pays2/AP1, R1/AP0. Responders1/2/3/4 remain fully manual; fourth resolves actual4arcane/P4HP16 and stages TempUID7-10. Input8 applies legal two-top/two-bottom answer; exact final Deck10/9/8/7 and only then same spell5 publicownGY. Pitch6/HandTempStackqueuesframesempty, otherHP20/heroesready/R1/AP0, noGA.",
+    "Source application binds known3 allowlist additions only: GameLogic255dd... and f40e runtime, other12 original probe guards unchanged; no generated macro/service change. This is existing family021 caller registration extension, not a new shared infrastructure root."
+  ],
+  "existing_family": "021",
+  "new_shared_infrastructure_root_count": 0,
+  "limits": [
+    "Only actual owned ordinary red ACTION branch at f40e; no sibling, INSTANT, barrier/Spellvoid, foreign owner, suppression/source removal, GA, hero/support-primary/full-card or isolated-control credit.",
+    "Root two focused replay receipts/registration remain separate gates; no replay run/claimed by reviewer.",
+    "Intermediate lifetime is witnessed by the completed actual recording and exact persisted assertions; endpoint files do not independently capture all private pending-frame locals. All active endpoint frames/queues drain.",
+    "No R/source/generated/backend/service writes, native/PHP/game/codegen/fullsuite/historical replay or proposed broader repair performed by reviewer."
+  ]
+}

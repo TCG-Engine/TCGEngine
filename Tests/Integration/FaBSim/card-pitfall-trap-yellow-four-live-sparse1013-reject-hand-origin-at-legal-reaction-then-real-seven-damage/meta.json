@@ -1,0 +1,7 @@
+{
+    "name": "Pitfall Trap / sparse four-live origin restriction representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-23T02:23:00+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "This can only be played from arsenal.\n\nWhen this defends, deal 2 damage to the attacking hero unless they pay {r}. Named origin-negative branch only. NaturallegalLexi20 defender4 owns actualHand5, printedDRcost0 affordable and a real attack7 targetsHero4. ActualRaging7cost3Blue8/R0/AP0, allfourmanual source/combat responses, no Hand blocks. AtactualREACTIONpriority4 the Hand5 click is rejected by explicit Arsenal-only printed text: Hand2/owned5+6, Stack0/noDQ/noMove/payment/defense. Then remaining real reaction pass and full manual combat yield7damage/HP4=13, support7ownedGY1/Pitch8, ownunplayed5+6Handretained. No positive Arsenal play/printeddefense/WHEN-defends response/tax/suppression/prevention orhero/support/sibling/full-card claim. Those timing branches remain unrun. Sources: FaBSim/GeneratedCode/cardArrayCache.json#pitfall_trap_yellow"
+}

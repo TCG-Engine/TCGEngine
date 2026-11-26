@@ -1,0 +1,7 @@
+{
+    "name": "Read the Glide Path / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T15:35:14+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Your next arrow attack this turn gets +3{p}.\n\n**Opt 1**\n\n**Go again** Representative only: opts_actual_top_card_to_bottom_and_completes_go_again. Other pitch siblings, alternate targets and unexercised branches receive no credit. All four live/manual; only native entry-point actions. Sources: FaBSim/GeneratedCode/cardArrayCache.json#read_the_glide_path_red"
+}

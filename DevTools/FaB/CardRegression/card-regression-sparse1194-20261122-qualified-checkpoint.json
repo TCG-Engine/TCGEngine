@@ -1,0 +1,242 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-23T15:03:07.362372+00:00",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1194-20261122.json",
+  "source_spec_sha256": "f3b126a1af4e9f061b0a194b6d2fba10082a2af2820b15ce4cfff981acc1d056",
+  "new_scenarios": 7,
+  "new_groups": 7,
+  "new_primary_ids": 7,
+  "actions": 77,
+  "native_assertions": 2576,
+  "manual_passes": 56,
+  "totals": {
+    "saved_registered_scenarios": 5095,
+    "duels": 3075,
+    "four_live": 2020,
+    "recorded_primary_ids": 2243,
+    "identity_denominator": 5196,
+    "recorded_groups": 2117,
+    "group_denominator": 3324,
+    "four_live_groups": 2009,
+    "phase_qualified_scenarios_at_actual_contexts": 1732,
+    "phase_qualified_unique_groups": 1722,
+    "creation_replay_passes": 2474,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 893,
+  "scenarios": [
+    {
+      "card_id": "runechant_of_envy_yellow",
+      "group_id": "identity:runechant_of_envy_yellow",
+      "scenario_id": "card-runechant-of-envy-yellow-four-live-sparse1194-real-opposing-destruction-separate-owned-runechant-trigger",
+      "effect_branches": [
+        "actual_opposing_vaporize_destroys_non_token_runechant_aura_then_separate_destroyed_trigger_creates_one_owned_runechant"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-runechant-of-envy-yellow-four-live-sparse1194-real-opposing-destruction-separate-owned-runechant-trigger",
+      "source_spec": "card-regression-sparse1194-20261122.json",
+      "source_spec_sha256": "f3b126a1af4e9f061b0a194b6d2fba10082a2af2820b15ce4cfff981acc1d056",
+      "review_evidence": "review-evidence/sparse1194-20261122-qualified-saved.json",
+      "review_evidence_sha256": "33011276e744a94c32991e1b9f9b4d0ca6277780d66487b0b6bf2f4bb7df865c",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1194-20261122-replay.json",
+          "sha256": "021644628994cb05b91dd67449f8ebf52d4006a3543cb39e13c70fcebab3e450",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "runechant_of_gluttony_yellow",
+      "group_id": "identity:runechant_of_gluttony_yellow",
+      "scenario_id": "card-runechant-of-gluttony-yellow-four-live-sparse1194-real-opposing-destruction-separate-owned-runechant-trigger",
+      "effect_branches": [
+        "actual_opposing_vaporize_destroys_non_token_runechant_aura_then_separate_destroyed_trigger_creates_one_owned_runechant"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-runechant-of-gluttony-yellow-four-live-sparse1194-real-opposing-destruction-separate-owned-runechant-trigger",
+      "source_spec": "card-regression-sparse1194-20261122.json",
+      "source_spec_sha256": "f3b126a1af4e9f061b0a194b6d2fba10082a2af2820b15ce4cfff981acc1d056",
+      "review_evidence": "review-evidence/sparse1194-20261122-qualified-saved.json",
+      "review_evidence_sha256": "33011276e744a94c32991e1b9f9b4d0ca6277780d66487b0b6bf2f4bb7df865c",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1194-20261122-replay.json",
+          "sha256": "021644628994cb05b91dd67449f8ebf52d4006a3543cb39e13c70fcebab3e450",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "runechant_of_greed_yellow",
+      "group_id": "identity:runechant_of_greed_yellow",
+      "scenario_id": "card-runechant-of-greed-yellow-four-live-sparse1194-real-opposing-destruction-separate-owned-runechant-trigger",
+      "effect_branches": [
+        "actual_opposing_vaporize_destroys_non_token_runechant_aura_then_separate_destroyed_trigger_creates_one_owned_runechant"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-runechant-of-greed-yellow-four-live-sparse1194-real-opposing-destruction-separate-owned-runechant-trigger",
+      "source_spec": "card-regression-sparse1194-20261122.json",
+      "source_spec_sha256": "f3b126a1af4e9f061b0a194b6d2fba10082a2af2820b15ce4cfff981acc1d056",
+      "review_evidence": "review-evidence/sparse1194-20261122-qualified-saved.json",
+      "review_evidence_sha256": "33011276e744a94c32991e1b9f9b4d0ca6277780d66487b0b6bf2f4bb7df865c",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1194-20261122-replay.json",
+          "sha256": "021644628994cb05b91dd67449f8ebf52d4006a3543cb39e13c70fcebab3e450",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "runechant_of_lust_yellow",
+      "group_id": "identity:runechant_of_lust_yellow",
+      "scenario_id": "card-runechant-of-lust-yellow-four-live-sparse1194-real-opposing-destruction-separate-owned-runechant-trigger",
+      "effect_branches": [
+        "actual_opposing_vaporize_destroys_non_token_runechant_aura_then_separate_destroyed_trigger_creates_one_owned_runechant"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-runechant-of-lust-yellow-four-live-sparse1194-real-opposing-destruction-separate-owned-runechant-trigger",
+      "source_spec": "card-regression-sparse1194-20261122.json",
+      "source_spec_sha256": "f3b126a1af4e9f061b0a194b6d2fba10082a2af2820b15ce4cfff981acc1d056",
+      "review_evidence": "review-evidence/sparse1194-20261122-qualified-saved.json",
+      "review_evidence_sha256": "33011276e744a94c32991e1b9f9b4d0ca6277780d66487b0b6bf2f4bb7df865c",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1194-20261122-replay.json",
+          "sha256": "021644628994cb05b91dd67449f8ebf52d4006a3543cb39e13c70fcebab3e450",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "runechant_of_pride_yellow",
+      "group_id": "identity:runechant_of_pride_yellow",
+      "scenario_id": "card-runechant-of-pride-yellow-four-live-sparse1194-real-opposing-destruction-separate-owned-runechant-trigger",
+      "effect_branches": [
+        "actual_opposing_vaporize_destroys_non_token_runechant_aura_then_separate_destroyed_trigger_creates_one_owned_runechant"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-runechant-of-pride-yellow-four-live-sparse1194-real-opposing-destruction-separate-owned-runechant-trigger",
+      "source_spec": "card-regression-sparse1194-20261122.json",
+      "source_spec_sha256": "f3b126a1af4e9f061b0a194b6d2fba10082a2af2820b15ce4cfff981acc1d056",
+      "review_evidence": "review-evidence/sparse1194-20261122-qualified-saved.json",
+      "review_evidence_sha256": "33011276e744a94c32991e1b9f9b4d0ca6277780d66487b0b6bf2f4bb7df865c",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1194-20261122-replay.json",
+          "sha256": "021644628994cb05b91dd67449f8ebf52d4006a3543cb39e13c70fcebab3e450",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "runechant_of_sloth_yellow",
+      "group_id": "identity:runechant_of_sloth_yellow",
+      "scenario_id": "card-runechant-of-sloth-yellow-four-live-sparse1194-real-opposing-destruction-separate-owned-runechant-trigger",
+      "effect_branches": [
+        "actual_opposing_vaporize_destroys_non_token_runechant_aura_then_separate_destroyed_trigger_creates_one_owned_runechant"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-runechant-of-sloth-yellow-four-live-sparse1194-real-opposing-destruction-separate-owned-runechant-trigger",
+      "source_spec": "card-regression-sparse1194-20261122.json",
+      "source_spec_sha256": "f3b126a1af4e9f061b0a194b6d2fba10082a2af2820b15ce4cfff981acc1d056",
+      "review_evidence": "review-evidence/sparse1194-20261122-qualified-saved.json",
+      "review_evidence_sha256": "33011276e744a94c32991e1b9f9b4d0ca6277780d66487b0b6bf2f4bb7df865c",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1194-20261122-replay.json",
+          "sha256": "021644628994cb05b91dd67449f8ebf52d4006a3543cb39e13c70fcebab3e450",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "runechant_of_wrath_yellow",
+      "group_id": "identity:runechant_of_wrath_yellow",
+      "scenario_id": "card-runechant-of-wrath-yellow-four-live-sparse1194-real-opposing-destruction-separate-owned-runechant-trigger",
+      "effect_branches": [
+        "actual_opposing_vaporize_destroys_non_token_runechant_aura_then_separate_destroyed_trigger_creates_one_owned_runechant"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-runechant-of-wrath-yellow-four-live-sparse1194-real-opposing-destruction-separate-owned-runechant-trigger",
+      "source_spec": "card-regression-sparse1194-20261122.json",
+      "source_spec_sha256": "f3b126a1af4e9f061b0a194b6d2fba10082a2af2820b15ce4cfff981acc1d056",
+      "review_evidence": "review-evidence/sparse1194-20261122-qualified-saved.json",
+      "review_evidence_sha256": "33011276e744a94c32991e1b9f9b4d0ca6277780d66487b0b6bf2f4bb7df865c",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1194-20261122-replay.json",
+          "sha256": "021644628994cb05b91dd67449f8ebf52d4006a3543cb39e13c70fcebab3e450",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

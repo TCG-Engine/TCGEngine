@@ -1,0 +1,39 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-repair-steel113-offhand114-after-native-helpers.json",
+  "runtime_sha256": "81b6a0c6268155836922f3798d996a5b681929aa23d42bfc117ceaa09da350bc",
+  "returncode": 0,
+  "completed_utc": "2026-11-16T19:30:31.552168+00:00",
+  "fixtures": [
+    {
+      "slug": "card-steel-on-steel-red-four-live-original-correct-real-anothos-weapon-attack-earns-four-defense-and-two-damage",
+      "fixture_sha256": "40da9eb6e625c8170bc6e5011c7010ceb853527bc34259c4b21182668927920c",
+      "passed": true,
+      "result": "[PASS] steel_on_steel_red / four live distinctive effect"
+    },
+    {
+      "slug": "card-shield-bash-red-four-live-real-offhand-block-and-empty-attacker-hand-earns-one-damage-before-two-incoming-and-temper",
+      "fixture_sha256": "11deb1ead56e6e03195c9804b3e9fbe200171ecd3eadb7425a64b0cb91c0ed68",
+      "passed": true,
+      "result": "[PASS] shield_bash_red / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-steel-on-steel-red-four-live-original-correct-real-anothos-weapon-attack-earns-four-defense-and-two-damage",
+      "returncode": 0,
+      "stdout": "[PASS] steel_on_steel_red / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-shield-bash-red-four-live-real-offhand-block-and-empty-attacker-hand-earns-one-damage-before-two-incoming-and-temper",
+      "returncode": 0,
+      "stdout": "[PASS] shield_bash_red / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 2,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

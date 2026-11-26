@@ -1,0 +1,244 @@
+{
+  "issue": "FAB-REG-097",
+  "status": "CONFIRMED_NATIVE_EARLY_DROWNING_DIRE_WHEN_HIT_RESOLVING_CHOICE_NO_FIX_APPLIED",
+  "reviewer": "/root/nov2_sparse_author",
+  "reviewer_independent": true,
+  "runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+  "source_spec": "card-regression-batch419-counter-oracle-v2.json",
+  "input_sha256": "69516cac97e4c6cfc6a40bc961995f2a79930a6fb2dec9d453c0688ffb1fed53",
+  "independent_full_classification": {
+    "external_workspace_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-drowning419-v2-independent-native-before-classification-final.json",
+    "sha256": "308a27db30861182e141f096c66a99dd3a0d12c74421f6de9025655f829b88fd"
+  },
+  "root_native_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-b419-drowning-v2-native-9e984-r1\\receipt.json",
+    "sha256": "d6efade67d507990041aa4e401c1c535d6aa69900c82d89aae5ccdb909f41c12"
+  },
+  "native_recording_results": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch419-counter-oracle-v2.recording-results.json",
+    "sha256": "4a8c7acbf132e6a24c8f9d1abbe226ccdfa02bec26c45d25b22d28f115123a66"
+  },
+  "immutable_archive": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch419-counter-oracle-v2-20261105T052441Z-6aec13190f3f0.json",
+    "sha256": "5f108793fa1a6c017132b9e916db8fba56c71c7e0601b4ec82ce70b9ec4a7ecc"
+  },
+  "preservation": {
+    "folder": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-drowning419-v2-native-before-independent-preserved",
+    "files": [
+      {
+        "original": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch419-counter-oracle-v2.json",
+        "preserved": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-drowning419-v2-native-before-independent-preserved\\card-regression-batch419-counter-oracle-v2.json",
+        "sha256": "69516cac97e4c6cfc6a40bc961995f2a79930a6fb2dec9d453c0688ffb1fed53"
+      },
+      {
+        "original": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch419-v2-runeblood-play-order-metadata\\batch419-v2-drowning-dire-correct-hit-probe-with-runeblood-play-order.json",
+        "preserved": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-drowning419-v2-native-before-independent-preserved\\batch419-v2-drowning-dire-correct-hit-probe-with-runeblood-play-order.json",
+        "sha256": "69516cac97e4c6cfc6a40bc961995f2a79930a6fb2dec9d453c0688ffb1fed53"
+      },
+      {
+        "original": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch419-counter-oracle-v2.recording-results.json",
+        "preserved": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-drowning419-v2-native-before-independent-preserved\\card-regression-batch419-counter-oracle-v2.recording-results.json",
+        "sha256": "4a8c7acbf132e6a24c8f9d1abbe226ccdfa02bec26c45d25b22d28f115123a66"
+      },
+      {
+        "original": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch419-counter-oracle-v2-20261105T052441Z-6aec13190f3f0.json",
+        "preserved": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-drowning419-v2-native-before-independent-preserved\\card-regression-batch419-counter-oracle-v2-20261105T052441Z-6aec13190f3f0.json",
+        "sha256": "5f108793fa1a6c017132b9e916db8fba56c71c7e0601b4ec82ce70b9ec4a7ecc"
+      },
+      {
+        "original": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-b419-drowning-v2-native-9e984-r1\\receipt.json",
+        "preserved": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-drowning419-v2-native-before-independent-preserved\\root-native-receipt.json",
+        "sha256": "d6efade67d507990041aa4e401c1c535d6aa69900c82d89aae5ccdb909f41c12"
+      },
+      {
+        "original": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch419-v2-independent-source-delta-review.json",
+        "preserved": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-drowning419-v2-native-before-independent-preserved\\nov5-batch419-v2-independent-source-delta-review.json",
+        "sha256": "e338ba99f8903d13fde511d831a18515d9d00a788e8f08df21522d238247d965"
+      },
+      {
+        "original": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-drowning419-counter-oracle-native-before-classification.json",
+        "preserved": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-drowning419-v2-native-before-independent-preserved\\nov5-drowning419-counter-oracle-native-before-classification.json",
+        "sha256": "5ebd68a45d689af1510313b43f882e29cd5b008d7c19633450f55af01a3a8e5e"
+      },
+      {
+        "original": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch419-independent-source-review.json",
+        "preserved": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-drowning419-v2-native-before-independent-preserved\\nov5-batch419-independent-source-review.json",
+        "sha256": "7b9c534c6b7960fb0fc03984bbfc054745fbd1e2fb8725a00850ae186e383b58"
+      },
+      {
+        "original": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch419-v2-runeblood-play-order-metadata\\manifest.json",
+        "preserved": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-drowning419-v2-native-before-independent-preserved\\V2-source-manifest.json",
+        "sha256": "c82a5ea4c9e4aafc7d169782389736c3cecfbc74a837f1d7898a92af22b45951"
+      },
+      {
+        "original": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch419-v2-runeblood-play-order-metadata\\frozen-author-QA.json",
+        "preserved": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-drowning419-v2-native-before-independent-preserved\\frozen-author-QA.json",
+        "sha256": "ca6a4da0e4bd6a6c543cc8bb724aafbcfe390200e5d6bd80361f1d62de3bc666"
+      },
+      {
+        "original": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch419-v2-runeblood-play-order-metadata\\exact-34-counter-map-delta.json",
+        "preserved": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-drowning419-v2-native-before-independent-preserved\\exact-34-counter-map-delta.json",
+        "sha256": "d471e5db59b07a290d3ec05defb1d45b720b8bff5e572c252fd329f550c25427"
+      },
+      {
+        "original": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-b419-drowning-v2-native-9e984-r1\\stdout.log",
+        "preserved": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-drowning419-v2-native-before-independent-preserved\\stdout.log",
+        "sha256": "7d4dfca58af93304e9260575f28376a03a977e2f4a2719ef0997e93f9cc6d9ea"
+      },
+      {
+        "original": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-b419-drowning-v2-native-9e984-r1\\stderr.log",
+        "preserved": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-drowning419-v2-native-before-independent-preserved\\stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    ],
+    "initial_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-drowning419-v2-native-before-independent-preserved\\initial_gamestate.txt",
+    "initial_sha256": "2fb3f68f3102005be219369aad53becb5d9d7b316c7ee22c90f14a7b8911f669",
+    "same_V1_full48manual_initial": true
+  },
+  "earliest_failure": {
+    "error": "Expected decision queue for player 1 to be empty.",
+    "accepted_inputs": 30,
+    "first_failed_native_check_ordinal_1based": 2506,
+    "preceding_checks_passed": 2505,
+    "prior_boundary_checks_passed": 2499,
+    "same_boundary_checks_passed": 6,
+    "source_step_index": 60,
+    "source_check_index": 6,
+    "assertion": {
+      "step": 30,
+      "source_step": 60,
+      "source_check_index": 6,
+      "type": "decision_queue_empty",
+      "player": "1",
+      "viewerPlayerID": 1
+    },
+    "unchanged_complete_actions": 43,
+    "unchanged_complete_assertions": 3852
+  },
+  "direct_same_boundary_checks": {
+    "PriorityPlayer": 1,
+    "ConsecutivePasses": 0,
+    "combatOpen": true,
+    "P1Health": 20,
+    "P1Resources": 0,
+    "P1AP": 0
+  },
+  "observed_state": {
+    "window": "DAMAGE",
+    "combatOpen": true,
+    "combatStep": "DAMAGE",
+    "chainLink": 1,
+    "attacker": 1,
+    "defender": 4,
+    "attackUID": 5,
+    "attackTarget": {
+      "type": "HERO",
+      "player": 4,
+      "uid": 4,
+      "zone": "Hero"
+    },
+    "pendingPayment": null,
+    "attackHit": true,
+    "attackPower": 5,
+    "defenseValue": 0,
+    "damageDealt": 5,
+    "gameMode": "UPF"
+  },
+  "observed_decisions": {
+    "1": [
+      {
+        "Type": "MZMAYCHOOSE",
+        "Param": "p1Graveyard-0",
+        "Block": 1,
+        "Tooltip": "Bottom_non_attack",
+        "DontSkipOnPass": 0,
+        "removed": null,
+        "Location": "DecisionQueue",
+        "PlayerID": 1,
+        "mzIndex": 0,
+        "_sourceZone": null
+      },
+      {
+        "Type": "CUSTOM",
+        "Param": "drowning_dire_red:0:Hit-await|drowning_dire_red:0:Hit#1|2|chosen",
+        "Block": 1,
+        "Tooltip": "",
+        "DontSkipOnPass": 0,
+        "removed": null,
+        "Location": "DecisionQueue",
+        "PlayerID": 1,
+        "mzIndex": 1,
+        "_sourceZone": null
+      }
+    ],
+    "2": [],
+    "3": [],
+    "4": []
+  },
+  "actual_manual_inputs": 25,
+  "precision_limits": {
+    "Stack": "Expected Stack1 check is sourcecheck27 after failedcheck6; NOT REACHED. No actual Stack0 or absent ABI observation claimed.",
+    "P4Health": "Expected P4HP15 check is sourcecheck15 after failedcheck6; NOT REACHED. Last passed P4HP20 boundary29; direct observed damageDealt5/hittrue plus initial20 support derived15 only, not a passed HP15 witness.",
+    "physical_failure_zones": "No full postfailure physical zone dump. Same Chain5/Deck9/GY8/Aura7/Pitch6 were directly asserted at29; observed attackUID5 and actual MZMayChoose p1Graveyard0 do not independently dump every physical object at30.",
+    "await_payload": "Observed CUSTOM references canonical Hit#1 continuation, but frame-local payload/controller/source capture is not dumped and is not claimed as directly observed.",
+    "future_bottom": "No choice answer or ToDeck executed; neither Deck9,8 result nor cleanup is claimed."
+  },
+  "classification": {
+    "category": "NATIVE_CONFIRMED_MISSING_RESPONSEABLE_WHEN_HIT_BOUNDARY_EARLY_OPTIONAL_CHOICE",
+    "oracle_error": false,
+    "protocol_error": false,
+    "confirmed_gameplay_defect": true,
+    "mechanism": "After real hit damage, current generic OnHit invokes the unchanged generated Hit macro immediately. It starts the effect-resolution optional ownNAA graveyard choice before a fresh responseable earned hit layer can resolve. The actual native prompt matches the supported generated protocol, but appears at the wrong rules boundary.",
+    "expected": "Current official Drowning Dire WHEN hit is a triggered ability. At the30th input after actualhit, a separately responseable layer must exist with P1 priority and no resolving graveyard choice. Fresh four1,2,3,4 precede the effect choice; its ABI/source lifetime remains strict.",
+    "existing_family": "Existing043 missing-responseable-trigger named producer family; secondary004/084/089 hit-timing relatives. This is not a new Core/root allocation and no issueID is allocated by this review.",
+    "conditional_094_dependency": "The actual observed continuation is drowning_dire_red:0:Hit-await, not ResolveAbility-await. Current direct Hit producer timing is distinct from held094 generic ROS ResolveAbility completion. The denied094 candidate admits only matching ResolveAbility frames and does NOT automatically cover this Hit frame; named events/Hit frames would require separately reviewed capture and completion. Whether any future safe producer/continuation design depends on another held boundary is conditional and unexecuted. No routing, repair design, widening, integration or bypass is proposed."
+  },
+  "source_findings": {
+    "files": {
+      "FaBSim\\Custom\\GameLogic.php": "1cdad1555c8d2e3bd3fa98d69bf52791b84d21bf2269363ddea7249f4ee35a43",
+      "FaBSim\\Custom\\EVRCards.php": "ad988b0e0e3d3f80bb0f9de0eb66bb826e32c8edbddbb15d5034926baa31e6af",
+      "FaBSim\\GeneratedCode\\GeneratedMacroCode.php": "63113a3d140cfd13409e1ad7ee737f8ecfbbc1f78c4eb8c540658a3bacc73c54",
+      "DevTools\\FaB\\evr_abilities.json": "3cfdd494730e34946cbfaa1c4bd75ee892901c157c43ebcaa3c486c99052fc2e",
+      "FaBSim\\Custom\\ROSCards.php": "881b788c96ac6fe7382461b82c23c0fc28a40c393f92784401bf5d8955ae8dfa"
+    },
+    "generated_helper": "__RunAwait_38a03d1a77d944b3617b",
+    "normalized_helper_sha256": "99ef00a368a4fa1f6bc47797f8f036bfd8f12f8cfe8515b36c5586d93a84e04c",
+    "current_caller": "GameLogic FaBApplyCombatDamage->OnHit->FaBRunSourceMacro(Hit)->generated soleHit await helper. Canonical and compiled selected body are direct choice and ToDeck onanswer, not responseable producer.",
+    "new_source_or_generated_changes": false
+  },
+  "primary_sources": [
+    {
+      "url": "https://judge.fabtcg.com/cards/detail/1385/",
+      "finding": "Redcost2/base5/Aura-conditionDominate; WHEN hit optionalownNAA tobottom ownDeck."
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/06-effects/",
+      "finding": "Triggered ability layer before priority; resolving choice follows only after trigger responses."
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/",
+      "finding": "Resolution choices/effects precede ability clearing; later lifecycle branch remains unexecuted."
+    }
+  ],
+  "unexecuted_suffix_limits": [
+    "No fresh hit-trigger response round inputs31..34, no selected NAA8 answer35, no actualDeck9,8 outcome, no Damage/Resolution suffix or finalcleanup.",
+    "No current failureStack count/ABIvirtualUID/framepayload/physicalGY orDeckdump/P4HP15passedassertion claims beyond precision limits.",
+    "No current native sibling/control/decline/fullcard/support-primary credit. Strict43actions3852checks preserved; no oracle relaxation/current-output fit.",
+    "V1countermap oracle omission remains separate from V2 now-confirmed hit timing failure; no097allocation or patch by reviewer.",
+    "No PHP/native/additionalcapture/R/source/gen/service/remote/fullsuite/denied094096089090 retry/reroute/integration."
+  ],
+  "V1_oracle_correction": {
+    "classification": "ORACLE_ONLY_NOT_GAMEPLAY_DEFECT",
+    "external_classification": "nov5-drowning419-counter-oracle-native-before-classification.json",
+    "classification_sha256": "5ebd68a45d689af1510313b43f882e29cd5b008d7c19633450f55af01a3a8e5e",
+    "independent_V2_delta_review": "nov5-batch419-v2-independent-source-delta-review.json",
+    "delta_review_sha256": "e338ba99f8903d13fde511d831a18515d9d00a788e8f08df21522d238247d965",
+    "exact_changed_counter_maps": 34,
+    "all43actions3852checks_and_normative_conditions_preserved": true,
+    "full_original_byte_inverse_independently_verified": true
+  },
+  "fixture_saved": false,
+  "coverage_credit": false,
+  "source_fix_applied": false,
+  "full_suite_run": false
+}

@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-glory-plate-four-live-sparse1552-actual-forged-defense-one-then-guardwell-counter-at-close",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-glory-plate-four-live-sparse1552-actual-forged-defense-one-then-guardwell-counter-at-close",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1552-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1552-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "6a3bd347f4e700eac3d68d6fe834b49010ea0b132a8d9831cfbbed19558f2637",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "8e4838cb61b4e87b2b4a9c843117781dad90561b8977f1ef3e00b735b11887ea",
+        "actions.json": "56db5e145a81cad87830efcaec50df8ff10c2925190f8a39d2e942936c8438ce",
+        "assertions.json": "db55adfb64286051fb941aaadb4e8be19db3cfb6b16c67610b7f363fd55282de",
+        "expected_final_gamestate.txt": "0c539f5e95f7005d127bd93825273ac0a70c6c1f06723ebfac233a70934220a6",
+        "meta.json": "866a0d2e74bf5817e8287e6b53fe92e9932aa71b65bcfd17f133b1efa51e8c10"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

@@ -1,0 +1,7 @@
+{
+    "name": "Emboldened Blade / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T15:19:39+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Turn a face-down card in any arsenal face-up. If it's a defense reaction, destroy it and your next weapon attack this turn gets +1{p}.\n\n**Go again** Representative only: destroys_real_opponent_facedown_defense_reaction. Other pitch siblings, alternate targets and unexercised branches receive no credit. All four live/manual; only native entry-point actions. Sources: FaBSim/GeneratedCode/cardArrayCache.json#emboldened_blade_blue"
+}

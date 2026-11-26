@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-heave-ho-blue-four-live-sparse1481-real-pirate-ally-overpower-rejects-second-action-paid-dr-prevents-hit",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-heave-ho-blue-four-live-sparse1481-real-pirate-ally-overpower-rejects-second-action-paid-dr-prevents-hit",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1481-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1481-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "fcf34672f6e19bd92a7023de2a06a82f8bada6bdba652586b1c8891527340cc5",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "db81f0adc694581413c4ec678a067aeef7cfd5cddcb1d9171182b01e27207565",
+        "actions.json": "48539ca0f6947722a0c3a717991e8c94c695c3a4e5dcf209a0c4b0b393b9cb3b",
+        "assertions.json": "8abb00101f416ff7a2b65ddf2a706ae668a627761307c2d5447d75b4c83c2625",
+        "expected_final_gamestate.txt": "8579a00f4740d28b6bbf721efec68780ca58f8cc294d9ad3487c1050908220db",
+        "meta.json": "d3ab38248b7009bd71cacafdda1814d2b9a0318b2b399a1ee1f858eb814a74e8"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

@@ -1,0 +1,68 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-24T00:03:07.956658+00:00",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1262-20261122.json",
+  "source_spec_sha256": "4516f4ba9ce8dcf7a75f0bd9cac5c208cb439f727884492bbf62382d3c32d987",
+  "new_scenarios": 1,
+  "new_groups": 1,
+  "new_primary_ids": 1,
+  "actions": 3,
+  "native_assertions": 318,
+  "manual_passes": 2,
+  "totals": {
+    "saved_registered_scenarios": 5167,
+    "duels": 3077,
+    "four_live": 2090,
+    "recorded_primary_ids": 2315,
+    "identity_denominator": 5196,
+    "recorded_groups": 2189,
+    "group_denominator": 3324,
+    "four_live_groups": 2079,
+    "phase_qualified_scenarios_at_actual_contexts": 1804,
+    "phase_qualified_unique_groups": 1794,
+    "creation_replay_passes": 2546,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 965,
+  "scenarios": [
+    {
+      "card_id": "florian_rotwood_harbinger",
+      "group_id": "identity:florian_rotwood_harbinger",
+      "scenario_id": "card-florian-rotwood-harbinger-two-live-sparse1262-eight-real-earth-banish-replaces-one-runechant-with-two",
+      "effect_branches": [
+        "adult_duel_eight_real_earth_banished_cards_replace_actual_single_runechant_creation_with_two_owned_tokens"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-florian-rotwood-harbinger-two-live-sparse1262-eight-real-earth-banish-replaces-one-runechant-with-two",
+      "source_spec": "card-regression-sparse1262-20261122.json",
+      "source_spec_sha256": "4516f4ba9ce8dcf7a75f0bd9cac5c208cb439f727884492bbf62382d3c32d987",
+      "review_evidence": "review-evidence/sparse1262-20261122-qualified-saved.json",
+      "review_evidence_sha256": "6267640090301e42234f681b8e4d268a5279d4c93cde2281df155d00f19ce31b",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1262-20261122-replay.json",
+          "sha256": "32af5a9353ac592c31c50332000176d2a80d061446381ad9755d321a2648e13d",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "two_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

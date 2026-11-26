@@ -1,0 +1,7 @@
+{
+    "name": "Marlynn / real queued hero trigger",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-26T03:21:11+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "YoungMarlynn20/3Dori20. ActualTomeFyendalYellow5HANDcost1paidBlue6pitch3/R2/AP0/all4responses, drawsactualArrow7thenWounding8fromDeck. HANDnotArsenalsonoTomeheal; Hero20stays20. TwoactualdrawsearntwoHeroLayers9/10SourceUID1. Afterparent5GYfirstLIFO10gets4freshresponsesandactualMZMULTICHOOSE0..1for7Hand0, chooses7; originalowned7movesfaceupArsenal(noBowneededtoload), Hand8remains, Hero9pendingitsownfresh4responses. SecondfindsArsenalfull/resolvesnochoice, noextraMove/newUID. NaturalHero1unchangedready/notactivated,noGold/Cardcreation/arrowplay/Aim/Drawproduceridentity/fullHeroabilitycredit. Final7Arsenalfaceup/8Hand/5GY/6Pitch/R2/AP0/RNG0/maxUID10/noStackDQs. Sources: FaBSim/GeneratedCode/cardArrayCache.json#marlynn FaBSim/Custom/GameLogic.php FaBSim/Custom/ROSCards.php FaBSim/GeneratedCode/GeneratedMacroCode.php FaBSim/Custom/SEACards.php FaBSim/Custom/SEARuntime.php FaBSim/Custom/WTRCards.php"
+}

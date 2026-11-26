@@ -1,0 +1,7 @@
+{
+    "name": "Cheers / actual destruction, separate cheer then separate owned Hero reward",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-23T16:08:30+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "FourmanualYoungBriar20caster1/twoDori20/legalReveredGuardianYoungPleiades20owner4. Priorownedcost0Cheers5Arena4, actualVaporize6left0paidbeforefourresponses, actualuntargetedresolutiondestroys5. Cheers5GY4/source6GY1thenearnedCheersABI7Source5controller4/noConfidence. Fresh1/2/3/4resolve7andactuallycheer4, separatelyearnedHeroPleiadesABI8SourceHero4/controller4, stillnoConfidence. Anotherfresh1/2/3/4resolves8andonlythenownedConfidence9Arena4. AllHP20/AP1caster1/R0/UID9/noStackDQs/otherzones. Twoindependentearnedlayerspinactualcheerandownership; noinlineHeroWHENshortcut. Noentry/phase/producer/GA/Confidenceuse/otherHero/secondary/fullcardcredit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#cheers_blue FaBSim/Custom/SUPCards.php FaBSim/Custom/GameLogic.php FaBSim/GeneratedCode/GeneratedMacroCode.php"
+}

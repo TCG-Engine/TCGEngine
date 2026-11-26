@@ -1,0 +1,124 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "/root/breadth_review1457",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1499-20261122.json",
+  "source_spec_sha256": "834ae89c06db46276db8aedff73835cc01c93992fda8a36c2b4d355c16ffc17c",
+  "input_sha256": "834ae89c06db46276db8aedff73835cc01c93992fda8a36c2b4d355c16ffc17c",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-take-up-the-mantle-yellow-four-live-sparse1499-actual-generic-attack-fails-specific-reaction-target-guard",
+      "card_id": "take_up_the_mantle_yellow",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "d5d6db117de37b9428bd319acbf8ab251a1ae5a82594db230a988868e52517fb",
+        "actions.json": "33011af21c84c32e1d3403a2fc580d1e46c0bef8b774f34c7533978a762bb108",
+        "assertions.json": "7776eec67bc76e40d3b63b37eeda6673003eca1415e7b675d301ac25029d9603",
+        "expected_final_gamestate.txt": "49ee6a1761da5859bcbc919dc19741b91c247f49f7f1ec752289e2135548a5c9",
+        "meta.json": "14bb480c83fcfe7829604774372024e6aa94f7f181af718b520ea128d73a31ef"
+      },
+      "fixture_sha256": "a4a13de954aa3107a675be7f40ff40d4f975be5c8e6f4294b960481108b9da84",
+      "actions": 28,
+      "native_assertions": 344,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1499-20261122.json",
+      "input_sha256": "834ae89c06db46276db8aedff73835cc01c93992fda8a36c2b4d355c16ffc17c",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1499-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-take-up-the-mantle-yellow-four-live-sparse1499-actual-generic-attack-fails-specific-reaction-target-guard",
+        "fixture_slug": "card-take-up-the-mantle-yellow-four-live-sparse1499-actual-generic-attack-fails-specific-reaction-target-guard",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-two-sides-to-the-blade-red-four-live-sparse1499-actual-generic-attack-fails-specific-reaction-target-guard",
+      "card_id": "two_sides_to_the_blade_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "755622eceffb7f4a7cda894ba21283d27db47ea118db3ea57dde47561000c756",
+        "actions.json": "33011af21c84c32e1d3403a2fc580d1e46c0bef8b774f34c7533978a762bb108",
+        "assertions.json": "b48ff5da80b2aec32e4c7de19cd71f2e8fa185b9085853c75de853408d2f0539",
+        "expected_final_gamestate.txt": "fabaac47426844f3efa38fd37a35ef131d302e4991d248637199987eed1b1624",
+        "meta.json": "5d0dded2cb77b38c84a442c47698762e5f71700e24186dd23481c5166fecf367"
+      },
+      "fixture_sha256": "9e2308f8e3113fc80b3fafbe325d717ad2cb41c7aad8c9580b10ecdb3b8c9072",
+      "actions": 28,
+      "native_assertions": 344,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1499-20261122.json",
+      "input_sha256": "834ae89c06db46276db8aedff73835cc01c93992fda8a36c2b4d355c16ffc17c",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1499-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-two-sides-to-the-blade-red-four-live-sparse1499-actual-generic-attack-fails-specific-reaction-target-guard",
+        "fixture_slug": "card-two-sides-to-the-blade-red-four-live-sparse1499-actual-generic-attack-fails-specific-reaction-target-guard",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "schema_version": 1,
+    "batch": 1499,
+    "reviewer": "/root/breadth_review1457",
+    "result": "approved_named_branches_only_pending_native_execution",
+    "reviewed_utc": "2026-11-25T06:04:26.930263+00:00",
+    "spec_sha256": "834ae89c06db46276db8aedff73835cc01c93992fda8a36c2b4d355c16ffc17c",
+    "source_note_sha256": "c08d1d6b240cb0d3c6d3d5bb9d5375afc83136b069e6dd03f8dd8474a31abcc6",
+    "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+    "source_sha256": {
+      "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+      "FaBSim/Custom/HNTRuntime.php": "d5554642848c3f271112e542c20d3744662c0007ebd7bb741d5d4d2dd1b210a1",
+      "FaBSim/Custom/HNTCards.php": "8c58ea4998016d2883b8b44f840000e94bff848ec4c07b65f8f976b283422ccc",
+      "FaBSim/Custom/GameLogic.php": "c60fa151561f959e4e3e341b814de0e2b47c9e9f153bbc8793a04c43b5075061"
+    },
+    "cases": 2,
+    "named_primary_ids": [
+      "take_up_the_mantle_yellow",
+      "two_sides_to_the_blade_red"
+    ],
+    "findings": [
+      "HNTRuntime47 requires STEALTHAA for Mantle and nonempty SidesOptions for Two Sides; actual generic AA satisfies neither Dagger nor Stealth target.",
+      "Legal Uzuri20, actual REACTIONpriority1 and realBlue3 exclude class/window/funding confounds; full4damage and physical fates agree.",
+      "Review corrected source-note wording and removed copied unrelated card basis; no spec/gameplay expectation changed."
+    ],
+    "limits": [
+      "Rejection-only target guards; positive effects and declaration timing remain untested. Independent source/spec review, no reviewer game execution."
+    ]
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1499-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "616b6e42931edc3c739e53fde48f9515e901c0de18dffba6772b6e06624217ff"
+  },
+  "full_suite_run": false
+}

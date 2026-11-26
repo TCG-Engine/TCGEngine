@@ -1,0 +1,104 @@
+{
+  "status": "SAVED_APPROVED_INDEPENDENT_MARK_USHERING_FULL_BOUND_ALLY_HIT_GATE_REVIEW",
+  "phase": "SAVED",
+  "batch": 844,
+  "reviewer": "/root/ebbing_recovery_review",
+  "reviewer_independent": true,
+  "approved": true,
+  "semantically_approved": true,
+  "source_spec": "card-regression-batch844-ushering-controlled-foreign-owned-ally-positive.json",
+  "source": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch844-ushering-foreign-owned-controlled-ally-positive-author\\ushering-real-bind-foreign-owned-controlled-ally-hit-gate.json",
+    "sha256": "9ba3984dcc4b732de4428a05fa38e2a0982525e6f855c75b491ce28825b6674c"
+  },
+  "input_sha256": "9ba3984dcc4b732de4428a05fa38e2a0982525e6f855c75b491ce28825b6674c",
+  "manifest": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch844-ushering-foreign-owned-controlled-ally-positive-author\\manifest.json",
+    "sha256": "31f47233c8f7f890b7e20adf08dbac4893edf70d522564297523d300ddf1a823"
+  },
+  "manifest_sha256": "31f47233c8f7f890b7e20adf08dbac4893edf70d522564297523d300ddf1a823",
+  "runtime_sha256": "cdc081ff4c87ff2f9338b1d69040d0dc98d7600ba33976384336534ea3f92d22",
+  "recorded_runtime_sha256": "cdc081ff4c87ff2f9338b1d69040d0dc98d7600ba33976384336534ea3f92d22",
+  "independent_positive_Source": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch844-ushering-independent-normal-positive-source-review.json",
+    "sha256": "f10f5fc2882deb9c0b74d7d094866a2867db1993a69b16a1a2dc21aea607fd09"
+  },
+  "root_native_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-b844-ushering-positive-native-save-cdc\\receipt.json",
+    "sha256": "27316b0971a60c07de5bdb861dd7524ac89cf6d8a63089feb8fe320d6ad3e619"
+  },
+  "actual_result": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-b844-ushering-positive-native-save-cdc\\actual-result.json",
+    "sha256": "3f3db0b58982b4340fe3fd392962e6c8d38ef662496f7fa1ac715df9f484691e"
+  },
+  "actual_immutable_archive": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch844-ushering-controlled-foreign-owned-ally-positive-20261116T041125Z-6afa826d76b28.json",
+    "sha256": "f26ba772b0b883d1f0c5fa4f70969645950a5d97da58d66f338d5154b26fd361"
+  },
+  "fixtures": [
+    {
+      "card_id": "mark_of_ushering_blue",
+      "slug": "card-mark-of-ushering-blue-four-live-controlled-foreign-owned-ally-hit-creates-gate",
+      "actions": 37,
+      "native_assertions": 4415,
+      "manual_passes": 33,
+      "actual_manual_actor_counts": {
+        "1": 8,
+        "2": 8,
+        "3": 8,
+        "4": 9
+      },
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "e6153a019cc572e20dc0b5c079d1d5c99d38f78fe08a903f79f759109c6e248a",
+        "actions.json": "f2455362071e0a8627a5fdb3cf0b8765986037bc7170eca705ceafe90423464b",
+        "assertions.json": "01058251570e2aa4a045bd039575f739c02b9ef2ec5e3d0c6972a092193b6c18",
+        "expected_final_gamestate.txt": "8593225fb035f6144317909f81e077c0978440108420408f3359b558b4ca78a5",
+        "meta.json": "8af800e1d95cee9b1334f622e7fc5b0c57e1632431c1fd138e6daf3ef426192e"
+      },
+      "fixture_sha256": "81423f0b5b71b7f6b18e80b24fad0c0385fddef22aae47fa6ef12c289e03b417",
+      "behaviorfixture_sha256": "81423f0b5b71b7f6b18e80b24fad0c0385fddef22aae47fa6ef12c289e03b417",
+      "input_sha256": "9ba3984dcc4b732de4428a05fa38e2a0982525e6f855c75b491ce28825b6674c",
+      "runtime_sha256": "cdc081ff4c87ff2f9338b1d69040d0dc98d7600ba33976384336534ea3f92d22",
+      "recorded_runtime_sha256": "cdc081ff4c87ff2f9338b1d69040d0dc98d7600ba33976384336534ea3f92d22",
+      "genuine_four_live_manual_seats": true,
+      "initial_raw_48_manual_controls": true,
+      "final_raw_48_manual_controls": true,
+      "initial_endpoint_queries_independently_evaluated": 125,
+      "terminal_endpoint_queries_independently_evaluated": 242,
+      "actual_created_gate_uid_measured_from_saved_snapshot": 9
+    }
+  ],
+  "actions": 37,
+  "native_assertions": 4415,
+  "manual_passes": 33,
+  "actual_manual_actor_counts": {
+    "1": 8,
+    "2": 8,
+    "3": 8,
+    "4": 9
+  },
+  "actual_expected_envelope_mapping_sha256": "948e9b1aea49704e39ec8c41e919c88f83b05664a533dbf1a51b279ea915a75f",
+  "actual_ordered_query_mapping_sha256": "32f31e973d7b5f237e624e9aa8ed59d3a87c8c222eba0f325e44da8e77f70445",
+  "all_saved_actions_and_queries_match_exact_approved_Source": true,
+  "initial_raw_48_manual_controls": true,
+  "final_raw_48_manual_controls": true,
+  "genuine_four_live_manual_seats": true,
+  "actual_semantics": [
+    "All37 actual Native envelopes/4415 persisted successful queries exactly equal approved input and Source mappings, no skipped/added/relaxed assertion. Thirty-three actual manual inputs8/8/8/9 include proper formal defense finish; both raw snapshots show four living Young manual seats, no bot/passive/auto windows.",
+    "Actual owned Mark6Instant0/AP1/fourSource responses entersAura before positive non-target Bind to controlled Moray5. RawInitial MorayOwner2/Controller1/base0 is real; actual typed3-key proxyalias+1 yields actual1damage/P4HP19, all otherHP20. RealprintedMoray0/tap/APdebit preserved, no GA refund or Hero activation.",
+    "Granted hit layer source5/controller1 gets four actual responses before exactly one actual GateShadowTokenAura appears Arena1/owner1/controller1. Fresh tokenUID was measured from actual Saved raw, never guessed in Source. Original Moray5 Owner2/Controller1 remains tapped, damage0; Mark6 bound5 and Gate persist, allresources/AP0 and Stack/payment/queue/await/chain cleanup verified.",
+    "Full raw5 hashes and schema consumption checked. Both fresh48manualprofiles independently verified, and all initial/terminal queries evaluated directly against respective raw snapshots. Narrow TurnEffects wire-dash empty-array decode reused; no query or fixture mutation."
+  ],
+  "qualification": false,
+  "coverage_credit": false,
+  "passing_replay_certificate": false,
+  "required_remaining_gates": [
+    "Root independently binds its two targeted clean replays and performs guarded registration/index update."
+  ],
+  "limits": [
+    "Only positive bound hit/Gate creation. Death/Watery/MaliceZombie, otherBindings/controlchanges/Gateactivation/Hero/support/siblings/fullcard and generic virtual deletion ordering remain untested.",
+    "Saved review does not itself certify replays/fullsuite. No PHP/native/Rwrites/sourcechanges or denied188184B787 action by reviewer."
+  ],
+  "created_utc": "2026-11-16T04:14:31.810954+00:00"
+}

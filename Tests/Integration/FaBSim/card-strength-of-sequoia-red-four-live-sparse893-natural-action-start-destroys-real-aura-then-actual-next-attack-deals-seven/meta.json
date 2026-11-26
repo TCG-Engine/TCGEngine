@@ -1,0 +1,7 @@
+{
+    "name": "Strength of Sequoia / sparse natural start effect representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T17:37:50+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "**Earth Fusion**\n\n**Go again**\n\nWhen this enters the arena, if it was **fused**, create a Seismic Surge token.\n\nAt the beginning of your action phase, destroy this then the next attack action card you play this turn gets +3{p}. Representative only: natural_action_start_destroys_real_aura_then_actual_next_attack_deals_seven. Actual owned existing Arena source and natural turn transition; no source entry/cost, supporting-card or whole-card credit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#strength_of_sequoia_red"
+}

@@ -1,0 +1,7 @@
+{
+    "name": "Submerge / Arsenal-source real additional cost inserts physical Hand card fifth",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-25T00:18:35+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "FourmanualyoungUPF PiratePuffin1/Dori2/3/4at20. RealSubmergeRed5priorface-downArsenalcost0formallytargetsadjacentHero4beforePrepareHandcost. RealBlue6andRed7eligibleHand; chooseBlue6(notpitch), actualadditionalcostmovesUID6toDeckindex4betweenrealDeckUID11and12, topfour8..11orderunchanged/bottom12unchanged/noRNG. AP1notspentuntilcostpaid; beforefirstpriorityAP0R0Hand7/Stack5/pendingPaymentnull. Allfourmanualresponse/combatwindows, actual6power/noGA/noWHEN\u21926physicalHP4=14. Fullclose5GY1/6stillfifthDeck/7Hand/AP0; actualRed7zero-costfollowupclickrejectswithoutnewStack. No pitch/siblings/emptyHand/shortDeck/formatuncertainroute/supportcredit. No enginechanges. Hand-source229remainsheld; no equivalent engine workaround or hidden remap. ActualArsenalsourcegoesStackandthenCCFromZoneArsenal, Handcostidentitiesanddeckorderunchanged. Sources: FaBSim/GeneratedCode/cardArrayCache.json#submerge_red FaBSim/GeneratedCode/GeneratedMacroCode.php#submerge_red:0:PrepareCard FaBSim/Custom/PENCards.php#FaBPENFifth FaBSim/Custom/CardChoices.php#FaBFinishPreparedCard FaBSim/Custom/GameLogic.php"
+}

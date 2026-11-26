@@ -1,0 +1,103 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "independent breadth_review1252",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1279-20261122.json",
+  "source_spec_sha256": "77355ae97b2bf0ebd7344968a8505c53b2ff768511b44a4b5a54d7632141e573",
+  "input_sha256": "77355ae97b2bf0ebd7344968a8505c53b2ff768511b44a4b5a54d7632141e573",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-nuu-alluring-desire-two-live-sparse1279-real-chi-cost-earns-foreign-blue-three-cost-attack-for-zero",
+      "card_id": "nuu_alluring_desire",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "2b66cc7495fc82e80875656becf2786be9fe825384d71eb8afefac93f4c38414",
+        "actions.json": "82b6f1bafed572462c700380a12040669fd9b7fdc5c784e1998948df02260ab5",
+        "assertions.json": "2fa2663a3439a6b965d825938c9509fa0cec5e3b68da5a7d3683bf1514f23ccd",
+        "expected_final_gamestate.txt": "3b0040934f49d51baa76784f003e1394e2e71e78fed452b10a5fc0773659cddf",
+        "meta.json": "2cdaced84f069ab4e00d08f8072a76896be9309cee73973dad83dd0a3608cab2"
+      },
+      "fixture_sha256": "575205e262fc1f3b9c1d989bc1529128e4be1c73a68014cd2cf43017fd02ad2f",
+      "actions": 21,
+      "native_assertions": 260,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 15,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1279-20261122.json",
+      "input_sha256": "77355ae97b2bf0ebd7344968a8505c53b2ff768511b44a4b5a54d7632141e573",
+      "active_seats": [
+        1,
+        2
+      ],
+      "players": "two_live_manual",
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1279-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-nuu-alluring-desire-two-live-sparse1279-real-chi-cost-earns-foreign-blue-three-cost-attack-for-zero",
+        "fixture_slug": "card-nuu-alluring-desire-two-live-sparse1279-real-chi-cost-earns-foreign-blue-three-cost-attack-for-zero",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "reviewer": "independent breadth_review1252",
+    "spec_sha256": "77355ae97b2bf0ebd7344968a8505c53b2ff768511b44a4b5a54d7632141e573",
+    "source_note_sha256": "bf89c91492f4f836918b968f9915ddb8464c7327ab0a04f2c6b87da1f7b35f76",
+    "case_count": 1,
+    "active_seats": [
+      1,
+      2
+    ],
+    "players": "two_live_manual",
+    "native_controls": 21,
+    "query_checks": 260,
+    "persistable_assertions": 260,
+    "author_only_checks_omitted": 0,
+    "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+    "coverage_category": "ACTUAL_ADULT_NUU_DUEL_CHI_LOOK_BANISH_FOREIGN_BLUE_RESOURCE_WAIVER",
+    "basis": [
+      "Natural adultNuuAlluring40 MysticAssassin versus adultDoriIronsong40, unchanged legacy duel/omittedactiveSeats/exact12/defaultgameModeempty/noPassives/both manual players. ActualInnerChi3Hand is an admitted legitimate prior-transcend asset, not a starting-deck or newTranscend producer claim. Actualopponent2 RagingOnslaughtBlue4Deck is GenericAAcost3/power5/blue. NoChi/resource or stolen-play flag/history is seeded.",
+      "ActualHeroInstant3Chi entersPITCH, realInnerChi3pitch3 supplies requiredChi and available resources then realpayment leavesChi0/R0/AP1, actual3Pitch and foreign4stillDeck2/ABI5SourceHero1 heldStack. NativePriority2 then realopponent2pass1 and actor1resolution precede any look/banish. The merged MST row uses managed ARC resolution and must retain5 through all resulting choices.",
+      "Printed opposing-hero selection has no target phrase, so actualMZCHOOSEHero2 at resolution is appropriate. Generated body grants selected-victim Nuu permission, then actualHVYPeek moves sameforeign4 into actor1Temp with Owner2/Controller2 preserved. Single-card MZREARRANGE Top=RagingBlue is normal private look ordering; positiveblue modal1 chooses banish while5 remainsStack. No preview clone or genericBanishPlayable flag is used.",
+      "Permission is granted by the Hero ability for the selected victim, independent of whether the optional banish is chosen; this fixture exercises only the yes path and does not establish banish as a prerequisite for all permission. Actualsame4 ends faceupBanish2/Owner2/Controller2/PlayableFromBanish0, with noTemp/Deck/ABI remaining after completing choices.",
+      "Current MSTStolen accepts faceupblue cards in selectedvictimBanish, and MSTCost subtracts printed resource cost; GameLogic captures mstFree before moving real4. Actualactor1 foreignBanish2 click must therefore announce actualcost3 atR0/noHand/Chi0 while still spendingAP1to0. Singleton attack target is opposingHero2. Physical4Stack/Owner2/Controller1/SourceZoneBanish waits freshresponses2and1, then actualpower5/noGA/5damage/HP2=35 proves use of earned waiver.",
+      "After complete combat, same4 returns originalOwner2GY2, not actor1GY. StoredController1 is retained last-controller serialization, not a rules-control claim for graveyard cards. Actual3Pitch1/APRChi0/HP40vs35/UID5/RNG0 and emptyStack/two queues/combat chain match scope. NoStealth attack or defender exists, so Nuu Stealth chain-resolution banish ability is unearned. All260 query/state/power/go_again assertions persist."
+    ],
+    "limits": [
+      "Semantic/spec review only pending actual native save and targeted replay. No native result, replay or coverage credit claimed.",
+      "Only actualChi/selected-opponent positiveblue optionalbanish and foreignresource-waived combat. NoTranscend production, Stealth branch, decline/nonblue/other victim/alternatecard/expiry/repeat, young/four-live, support or whole-card credit.",
+      "Young339 is design-only; no legacy replay/requalification. Only W review receipt written; no native/test/replay execution, T/source/engine/registry edits, authentication/network, Git or original-checkout access."
+    ],
+    "source_sha256": {
+      "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+      "FaBSim/GeneratedCode/GeneratedMacroCode.php": "fe6a7982611df8f4de98ce2671b317b671b580146aa4b8c28e8f4b86d8461056",
+      "FaBSim/Custom/MSTCards.php": "cd98a9b734b984bfc19af7d0e4a3eebd5496f298d08c7c79d7f6d43c363513c7",
+      "FaBSim/Custom/MSTRuntime.php": "b96f21727c089c90c21bf3aadaf913301b1ef7c922f2a17ac055258682ed45ce",
+      "FaBSim/Custom/HVYCards.php": "1387ecf0971fae9aa4bfb7bc99baec47a46e9c8770030884b722915eb87a31f1",
+      "FaBSim/Custom/ARCAbilities.php": "e49ce4685f148ef423ea38aac544266b3298527ea8ca9eef11b12fb974e7c9f0",
+      "FaBSim/Custom/ARCCards.php": "f6b6a21d214e71fdcfd6a084f0671ce610f08a40c51a1266041877a5a12c0d52",
+      "FaBSim/Custom/GameLogic.php": "c60fa151561f959e4e3e341b814de0e2b47c9e9f153bbc8793a04c43b5075061",
+      "Schemas/FaBSim/GameSchema.txt": "7783800bd47bc85885cc915066aadca58cdf99f0c1180602ac312d9af5ebf643",
+      "Core/ShortcutPreferences.php": "25f300ea0b6fbc409f5b92e8bc3587a74b2ab0eaf31ccef38e18c455598eaba6",
+      "DevTools/FaB/CardRegression/record_card_regressions.php": "e53055b29e9ea641949b77019c4455607f41ca233325d716a9500637e19efd28"
+    },
+    "workspace_source_sha256": {
+      "author_breadth1279.py": "d34023c47543eb6d84ea75b49e9559385f7156a95e13e6de44c5c0c07e00b25b"
+    }
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1279-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "5df43e473d250a8b4c8ff70a291dc340ec2df36f5ef688c474ac79c112295e40"
+  },
+  "full_suite_run": false
+}

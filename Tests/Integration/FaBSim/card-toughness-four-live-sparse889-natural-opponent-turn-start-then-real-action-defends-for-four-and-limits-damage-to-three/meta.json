@@ -1,0 +1,7 @@
+{
+    "name": "Toughness / sparse natural start effect representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T17:30:38+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "At the start of your opponent's turn, destroy this, then the next action card you defend with this turn gets +1{d} this chain link. Representative only: natural_opponent_turn_start_then_real_action_defends_for_four_and_limits_damage_to_three. Actual owned existing Arena source and natural turn transition; no source entry/cost, supporting-card or whole-card credit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#toughness"
+}

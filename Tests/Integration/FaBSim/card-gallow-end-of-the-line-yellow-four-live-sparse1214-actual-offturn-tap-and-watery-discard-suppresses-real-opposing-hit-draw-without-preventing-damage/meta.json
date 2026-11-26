@@ -1,0 +1,7 @@
+{
+    "name": "Gallow, End of the Line / actual offturn tap and watery discard suppresses real opposing hit draw without preventing damage",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-23T18:12:44+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Fourmanual3YoungDori20/YoungGravyBones20owner4. Actualpriorally5Arena4ready/BeneathSurfaceYellow6Hand4/main7Hand1/realBlue8Deck1. EmptyACTIONTurn1/Turn2threepassesreach4BEFOREfourthpass/endphase. Owner4actuallyactivatesInstant0, mandatoryrealWGHand6discard+tap5paidbeforeABI9fresh4/1/2/3responses; noR/APassetsor099orderingdependency. DiscardHanddoesNOTearnWateryGrave(onlyArena), publicownedGY6FaceDown0/noextraABI; YellowavoidsGravyblueGYpermission. Source5livesArena/noawait/094. ActualGalloweffectafterresolutionstopsopponent1Snatchhittrigger. RealSnatch7formalHero4/paysAP1to0/fourresponses/fullcombatactual4damage/HP4=16/attackHittrue,butNOdrawandNOearnedSnatchlayer: realDeck8retained/Hand0/Stack0. NotpreventingdamageorpretendingemptyDeck. Gallow5Damage0/tapped/lives. Final7GY1/6publicGY4/Deck8unchanged/AP/R0/UID9/emptyCCStackDQs. Onlyopposingcard-hit-drawsuppression; noWGtrigger/Gallowattack/otherdamageevent/wager/otheropponent/expiry/Hero/support/fullcardcredit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#gallow_end_of_the_line_yellow FaBSim/Custom/SEARuntime.php FaBSim/Custom/SEACards.php FaBSim/Custom/SUPCards.php FaBSim/Custom/GameLogic.php FaBSim/GeneratedCode/GeneratedMacroCode.php"
+}

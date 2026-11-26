@@ -1,0 +1,7 @@
+{
+    "name": "Become the Arknight / real attack-action discard searches Runeblade non-attack action",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-23T13:19:29+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "YoungViseraiBetweenWorlds20islegalViseraiSpecializationHero, ShadowRuneblade, notclassiconplayRunechantHero. Actualprimary5cost0/AP1to0beforeallfourmanualresponses. OrdinaryresolutionmaydiscardrealGenericAA6; actualanswerputs6ownedGYthenstagesonlyeligibleRunebladeNAA7fromtwo-cardDeck; actualnonmatchingGenericResource8remainsDeck. Source5heldStackandAP0throughsearchMZCHOOSETemp7. Choosing7fetchessameowned7Hand,6GY/5GY, marker8Deck, noTemp/Stack/DQs, ownGAreturnsAP1. NoRunechantcreatednorReadRunesplayed, sothisHeroprintedRunechantWHENisnotearned. FinishSearchcallsnormalhelperbutremainingDeckhasonlyrealmarker8, thusnoentropyloop/replaydependence; no meaningfulshuffle/seed/distributionorpublicrevealfeedassertioncredit. Revealhelpercallsourceverifiedonly. Notdecline/no-search/emptyDeck: realpositiveAA-discard\u2192eligibleNAA-fetchwithrealretainednonmatch. NoNAA-discard\u2192AAotherbranch, Heroability, token, largersearch/remainder, support/sibling/fullcardcredit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#become_the_arknight_blue FaBSim/GeneratedCode/cardArrayCache.json#viserai_between_worlds FaBSim/Custom/ARCCards.php FaBSim/Custom/CardChoices.php FaBSim/GeneratedCode/GeneratedMacroCode.php"
+}

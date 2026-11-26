@@ -1,0 +1,83 @@
+{
+  "runtime_sha256": "63922af5c7c3825f55e4e341bab330830cd84fef937ef2b7b01b7346e77061ec",
+  "returncode": 0,
+  "full_suite_run": false,
+  "fixtures": [
+    {
+      "slug": "card-tear-asunder-blue-four-live-correct-probe-real-guardian-five-hit-earns-responseable-discard-two",
+      "passed": true,
+      "returncode": 0,
+      "complete_log": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov20-eight-repair-focused-replays\\0.complete.log",
+      "complete_log_sha256": "0e65b04bd39761affe7b762ee22777450f7e6df9f45d0c90ab85cb692a1093a2"
+    },
+    {
+      "slug": "card-flicker-trick-red-four-live-original-correct-probe-responseable-mirage-before-defender-destruction",
+      "passed": true,
+      "returncode": 0,
+      "complete_log": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov20-eight-repair-focused-replays\\1.complete.log",
+      "complete_log_sha256": "39b34d4caa6139a77577e4a5fcc1f638bf003135343e186b37d7d19056d04932"
+    },
+    {
+      "slug": "card-elliptical-conflux-yellow-four-live-repair-ward-two-responseable-leave-token",
+      "passed": true,
+      "returncode": 0,
+      "complete_log": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov20-eight-repair-focused-replays\\2.complete.log",
+      "complete_log_sha256": "b00c8417db95c982ae3d4e07dd96b316d6be4dfc77fbbe4c2f6cae5cfab83014"
+    },
+    {
+      "slug": "card-fluttersteps-four-live-repair-ward-earned-offturn-aura-permission",
+      "passed": true,
+      "returncode": 0,
+      "complete_log": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov20-eight-repair-focused-replays\\3.complete.log",
+      "complete_log_sha256": "d55cefddcbe066cfeae96025f7d24d68ab54e5294d86099f2b46a533b43408c2"
+    },
+    {
+      "slug": "card-illuminate-red-four-live-current-when-hit-correct-probe-retains-source-before-own-soul",
+      "passed": true,
+      "returncode": 0,
+      "complete_log": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov20-eight-repair-focused-replays\\4.complete.log",
+      "complete_log_sha256": "d665d550d005424d7c5193f1197cc66ffde8462a5b7ffe422741e0375b2418e5"
+    },
+    {
+      "slug": "card-quantum-processor-yellow-four-live-strict-mechanologist-only-item-choice",
+      "passed": true,
+      "returncode": 0,
+      "complete_log": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov20-eight-repair-focused-replays\\5.complete.log",
+      "complete_log_sha256": "3d286aa36f0d42fc511235e121c7eeff3122f955d47814880a7abbb804bec541"
+    },
+    {
+      "slug": "card-hellbound-assault-blue-four-live-earned-hit-self-banish-and-real-end-phase-blood-debt",
+      "passed": true,
+      "returncode": 0,
+      "complete_log": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov20-eight-repair-focused-replays\\6.complete.log",
+      "complete_log_sha256": "557256a95fe6e79cc0b67530b159115e52925057ce98173463f82b19795810d9"
+    },
+    {
+      "slug": "card-vexing-malice-blue-four-live-early-attack-trigger-target-two-arcane-then-one-physical",
+      "passed": true,
+      "returncode": 0,
+      "complete_log": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov20-eight-repair-focused-replays\\7.complete.log",
+      "complete_log_sha256": "619b79b240884c42957650a10cfa4c109249ca05a7fedaac05fbf3e3907d99f6"
+    }
+  ],
+  "directly_affected_compatibility": [
+    {
+      "slug": "card-invigorating-light-red-four-live-sparse-real-empty-soul-play-six-damage-then-full-close-to-own-soul",
+      "passed": true,
+      "returncode": 0,
+      "complete_log": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov20-eight-repair-focused-replays\\8.complete.log",
+      "complete_log_sha256": "f0513add1771e918839dce70184a1694a6685578cf57a62570eaa077ba899ef1"
+    },
+    {
+      "slug": "card-arcanic-crackle-blue-four-live-responseable-trigger-real-effect-and-combat-cleanup",
+      "passed": true,
+      "returncode": 0,
+      "complete_log": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov20-eight-repair-focused-replays\\9.complete.log",
+      "complete_log_sha256": "15eeda437fe03d8e0f21c81f365e4eeb77f91de68b3809d0a7b9e024b6d2e43e"
+    }
+  ],
+  "receipt_external": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov20-eight-repair-focused-replays\\receipt.json",
+  "receipt_external_sha256": "82bcadff6404ca803b2152000d45dc4c100dd74bf82435e1030bc74b4667ddf7",
+  "all_selected_raw5_unchanged": true,
+  "runs_per_fixture": 1
+}

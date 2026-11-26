@@ -1,0 +1,119 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "independent breadth_review1252",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1334-20261122.json",
+  "source_spec_sha256": "654806efaaa3bfa4c6611cd8aa33c1b71f5b0999374c4fafbfa648c9df5318d6",
+  "input_sha256": "654806efaaa3bfa4c6611cd8aa33c1b71f5b0999374c4fafbfa648c9df5318d6",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-ser-boltyn-breaker-of-dawn-two-live-sparse1334-real-soul-reaction-funds-seven-then-four-damage",
+      "card_id": "ser_boltyn_breaker_of_dawn",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "1f780db89b95da9c64518745c57ecb7174a7cea75345cc611d8d29a989c1766f",
+        "actions.json": "fa92247d526b8ba681c57ac152d53d9901eaa2b8ae419354aa2aa12a12b4995e",
+        "assertions.json": "632f0cc3f92037bd9f828d4f132d064706a2b91a7aa540e44501ea12a8e6a3b4",
+        "expected_final_gamestate.txt": "a400aa9744662fd7d5a04325d151d7c99d20b6a7ac9243750a32ea49132bbb2f",
+        "meta.json": "b336bb0cc4876cd228a58fefda967dbb0c8174aa20d22b814bd0d462d8d2e9ec"
+      },
+      "fixture_sha256": "68b2d735dd67e11d6587fb519e881a9ec5a338596c0d33c40c36943127e1706e",
+      "actions": 35,
+      "native_assertions": 320,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 30,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1334-20261122.json",
+      "input_sha256": "654806efaaa3bfa4c6611cd8aa33c1b71f5b0999374c4fafbfa648c9df5318d6",
+      "active_seats": [
+        1,
+        2
+      ],
+      "players": "two_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1334-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-ser-boltyn-breaker-of-dawn-two-live-sparse1334-real-soul-reaction-funds-seven-then-four-damage",
+        "fixture_slug": "card-ser-boltyn-breaker-of-dawn-two-live-sparse1334-real-soul-reaction-funds-seven-then-four-damage",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "reviewer": "independent breadth_review1252",
+    "spec_sha256": "654806efaaa3bfa4c6611cd8aa33c1b71f5b0999374c4fafbfa648c9df5318d6",
+    "source_note_sha256": "09bb63a1ceef282406a42a7499d2b61092e0a7eeed7f555a3346b95bc27461a0",
+    "case_count": 1,
+    "active_seats": [
+      1,
+      2
+    ],
+    "players": "two_live_manual",
+    "native_controls": 35,
+    "query_checks": 320,
+    "persistable_assertions": 320,
+    "author_only_checks_omitted": 0,
+    "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+    "coverage_category": "POSITIVE_ADULT_DUEL_REAL_SOUL_REACTION_AND_GO_AGAIN_FUNDED_FOLLOWUP",
+    "per_case": [
+      {
+        "card_id": "ser_boltyn_breaker_of_dawn",
+        "group_id": "identity:ser_boltyn_breaker_of_dawn",
+        "native_controls": 35,
+        "persistable_assertions": 320
+      }
+    ],
+    "basis": [
+      "Distinct adult standalone Ser Boltyn group unrepresented/no group hold. Independently cached actual adult Light Warrior Ser Boltyn40 and adult Dori Ironsong40 have no Young type; activeSeats omitted correctly invokes native two-live12/default empty gameMode/no passive/manual duel. No four-live or repeat Young identity credit. Initial helper uses exactly physical Hero1/2 then Nimblism3/Wounding4/Wounding5/Soul6; ABI7max. Actual Soul helper only schemaCardID/UID, no unsupported OwnerController query.",
+      "Reviewed only new adult alias/duel binding and controls; all bound base source hashes match previously reviewed Young1331. Adult MONAbilities6 provides REACTION0 row; MONAbilityLegal30\u201331 explicitly includes adult/Soul/current7>printed4 threshold. Actual generated adult Prepare12296\u201312300 dispatches await9a443\u2026143483+, which selects real Soul and moves it Banish then FinishPrepared. Adult Resolve17412\u201317415 tags current unchanged active attack GO_AGAIN. Thus alias is implemented, not assumed from young identity. No resource/AP reaction asset cost or099 seam, no charge producer/history.",
+      "Actual Nimblism3 zero-cost NAA/both responses refundsAP1 then actual first Wounding4 cost0 gets3 for7>base4. Sole opposing Hero2 with all opponent Arena empty is selected automatically by existing duel native path, no missing MZ chooser or manually seeded target. Completed payment default duel holdPriority absent/false givesPP2; explicit response2\u21921 retains source/grantfalse, then response1 with stackEmpty true resolves Hero grant and returnsREACTION1. This differs correctly from four-live actor-held priority; both actual manual seats remain covered.",
+      "Real Soul6 cost Banish owns UID6/OwnerController1/FaceDown0 through existing MoveChoice/AddToZone ownership fallback. Virtual ABI7SourceHero1 has Controller1/ABILITY but no invented Owner. Hero stays ready; grant not present before both responses and AP remains0 until real7damage/HP33 and Damage-response refund1. Full first-link close then actual second Wounding5 spends earnedAP1, fresh both responses/printed4/noGA/HP29, showing no repeat Nimblism or Hero grant. Final original3/4/5 ownGY0/1/2, Soul6 ownBanish, all other zones empty/APR0/UID7/RNG0/Stack decisions combat clean are coherent. All320 queries across35 controls persist."
+    ],
+    "limits": [
+      "Only new adult format/alias/mapping/control semantic review pending native save/replay; no native pass or coverage credit claimed. Young1331 source expectations reused without rerunning or crediting that fixture.",
+      "Only adult reaction/Soul cost/sole unchanged active target grant and actual earned followup. No charged passive/invalid threshold/target changes/fizzle/support/Young/four-live/full-Hero credit; existing holds untouched.",
+      "Only W receipt written; no native tests/games/replays, T/engine/original-checkout edit or access, auth/network or Git."
+    ],
+    "source_sha256": {
+      "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+      "FaBSim/GeneratedCode/GeneratedMacroCode.php": "fe6a7982611df8f4de98ce2671b317b671b580146aa4b8c28e8f4b86d8461056",
+      "FaBSim/Custom/GameLogic.php": "c60fa151561f959e4e3e341b814de0e2b47c9e9f153bbc8793a04c43b5075061",
+      "FaBSim/Custom/ARCAbilities.php": "e49ce4685f148ef423ea38aac544266b3298527ea8ca9eef11b12fb974e7c9f0",
+      "FaBSim/Custom/MONAbilities.php": "7e5a6ba9e0523c03c7ece084793564d87ecd9d6fbba55b9252cb83f3d952b4fa",
+      "FaBSim/Custom/MONCards.php": "2eb22bda6f1dba583df2879046f9f4dec94f47f2e9b28f369758f3af72c9c3ac",
+      "FaBSim/Custom/WTRCards.php": "77d4452b30e45254a7199bc965396ded53e325717ecdd84a09b971f723f99f6a",
+      "FaBSim/Custom/CardChoices.php": "c68ae2b8e984bcc64b00289cc2d71bc0c980b2fbbeaeadbca8ae3a9f9579c515",
+      "FaBSim/ZoneClasses.php": "874bb2ae00a80a8ba3dfe1789b4c932fd0b7cf1286504a62828e0055ca1cb355",
+      "Schemas/FaBSim/GameSchema.txt": "7783800bd47bc85885cc915066aadca58cdf99f0c1180602ac312d9af5ebf643",
+      "Core/ShortcutPreferences.php": "25f300ea0b6fbc409f5b92e8bc3587a74b2ab0eaf31ccef38e18c455598eaba6",
+      "DevTools/FaB/CardRegression/record_card_regressions.php": "e53055b29e9ea641949b77019c4455607f41ca233325d716a9500637e19efd28"
+    },
+    "workspace_source_sha256": {
+      "author_breadth1334.py": "93f050a0142926954f097dd4776c7293ac8e8e73e25589d8dd7edfafd9b2ccaf",
+      "duel_breadth1261_helpers.py": "786de4cb45fa4cb12016e55b204ba1aa5f823bb576c7778732623fae7ed05dbd",
+      "breadth1068_helpers.py": "997f949ec26c7e494ad26a818f9f2078f6f4f2a0c49ca7f61aa8c71f3b091b0a"
+    },
+    "secondary_identity_credit": false,
+    "whole_hero_credit": false,
+    "charged_passive_credit": false,
+    "target_variations_credit": false,
+    "young_credit": false,
+    "four_live_credit": false
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1334-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "a2c52490f6b6e1da8113337389d0902b87496a67816de305d3565c2f68969d49"
+  },
+  "full_suite_run": false
+}

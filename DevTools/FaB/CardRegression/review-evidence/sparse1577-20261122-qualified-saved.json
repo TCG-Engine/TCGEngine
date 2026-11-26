@@ -1,0 +1,89 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "/root/breadth_review1457",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1577-20261122.json",
+  "source_spec_sha256": "d31c66cc1576bbec1c1b12dbfef59cbfe4c3d0de796423395fc02b38e4b1bc54",
+  "input_sha256": "d31c66cc1576bbec1c1b12dbfef59cbfe4c3d0de796423395fc02b38e4b1bc54",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-puffin-hightail-two-live-sparse1577-actual-first-crank-no-second-time-draw",
+      "card_id": "puffin_hightail",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "e1d7ccca7da200cce4ea25292ff7a87d20a676b847a21783443f6d81c2003100",
+        "actions.json": "fc23c8474ec6ec137e093753e96ba85d723fb3ceecfe0036811e8e185c10e719",
+        "assertions.json": "17aa92ee1b12ce9e9b0cd8eb96f845d009342a32c2a992fa32f33517d2a3ee4b",
+        "expected_final_gamestate.txt": "60fe6f8a7f5d81910f8cf5ebe934847bfa8e7b7ef6c2acbe63b5e51326c049f2",
+        "meta.json": "6a74f76639f60c1959fee264e6a4d66e8c8a0119882d9190688cf7877d7b7034"
+      },
+      "fixture_sha256": "224ba7d9e6d44782745691cc28e25adbc3bc92de449f7da3fde05a862c19116b",
+      "actions": 4,
+      "native_assertions": 157,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 2,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1577-20261122.json",
+      "input_sha256": "d31c66cc1576bbec1c1b12dbfef59cbfe4c3d0de796423395fc02b38e4b1bc54",
+      "active_seats": [
+        1,
+        2
+      ],
+      "players": "two_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1577-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-puffin-hightail-two-live-sparse1577-actual-first-crank-no-second-time-draw",
+        "fixture_slug": "card-puffin-hightail-two-live-sparse1577-actual-first-crank-no-second-time-draw",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "schema_version": 1,
+    "batch": 1577,
+    "reviewer": "/root/breadth_review1457",
+    "result": "approved_named_branches_only_pending_native_execution",
+    "reviewed_utc": "2026-11-25T15:37:45.357143+00:00",
+    "spec_sha256": "d31c66cc1576bbec1c1b12dbfef59cbfe4c3d0de796423395fc02b38e4b1bc54",
+    "source_note_sha256": "2872ff07168b8a2a27efa7db5f4c4f82b1701674a75f2978a8142ea1632591ab",
+    "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+    "source_sha256": {
+      "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+      "FaBSim/GeneratedCode/GeneratedMacroCode.php": "fe6a7982611df8f4de98ce2671b317b671b580146aa4b8c28e8f4b86d8461056",
+      "FaBSim/Custom/SEARuntime.php": "6d998ea92dd3817d3329695a08db8c2fff78228967ee3bc35923f79eccdd3587",
+      "FaBSim/Custom/EVOCards.php": "7e946cadb04817da7a0c0b17d94cf5a6bd03655adba07b714d39654329b54dbe",
+      "FaBSim/Custom/DYNRuntime.php": "b8cec432428757988b02fa831b6311cc32ef5671b2fcc2dd9eecbf82d0c5e231",
+      "FaBSim/Custom/GameLogic.php": "c60fa151561f959e4e3e341b814de0e2b47c9e9f153bbc8793a04c43b5075061",
+      "FaBSim/ZoneClasses.php": "874bb2ae00a80a8ba3dfe1789b4c932fd0b7cf1286504a62828e0055ca1cb355"
+    },
+    "cases": 1,
+    "findings": [
+      "Independent exact review approved naturaladultCC40/40 and distinctuncoveredHeroidentity. Duel opponent2 toactor1 responses/sourceItem3/Deck4 fit.",
+      "ActualAP0 beforeentry, ItemArenaSteam3/FAB1 beforestaticCrankchoice thenactualCrankSteam2/AP1 are source-backed; persistentItemStack0whileentrychoicepending is correct.",
+      "RealfirstCrank is notsecond, so HeroDraw event genuinely unearned. ExistingDeck4 andemptyHand make absenceofDraw nonvacuous; noGoldcost/039/743/1571route is entered."
+    ],
+    "limits": [
+      "Source/spec review only; native/save/replay pending.",
+      "positive_second_Crank_draw_trigger_timing_and_turn_reset",
+      "held_Gold_destroy_Hero_Action_cost_and_Golden_Cog_creation",
+      "young_Puffin_and_four_live_format",
+      "support_identity_or_whole_card_credit"
+    ]
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1577-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "b4d3d8d1f0f94291443f3485d4166f52933659c9cd9ce1061ec0e588a0928f66"
+  },
+  "full_suite_run": false
+}

@@ -1,0 +1,302 @@
+{
+  "status": "APPROVED_ACTUAL_SAVED_HELM_ONLY_MIXED_PACKET_STEP_ORACLE_FAILURE_UNQUALIFIED",
+  "approved": true,
+  "source_approved": true,
+  "semantically_approved": true,
+  "reviewer": "/root/nov2_sparse_author",
+  "reviewer_independent": true,
+  "created_utc": "2026-11-05T06:39:18.785531+00:00",
+  "source_spec": "card-regression-batch425.json",
+  "input_sha256": "36a29bdf69786fe386a6211ac3db41a4b5ea7286aff097958ff42fb8ab652117",
+  "manifest_sha256": "ca41906119df23a742979b4059a747ebf4a6b5708d537b6f52a56200b7574cba",
+  "runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+  "recorded_runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+  "source_guards_verified": 66,
+  "prior_independent_source_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch425-independent-source-review.json",
+    "sha256": "8aa6aa4a6e69c39c5d6a615cc1c1128e5a8c0df0307948c343314b50bfddbe2a",
+    "Step_window_oversight_classified_separately": true
+  },
+  "recording_receipt": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch425-20261105T063234Z-6aec230299c94.json",
+    "sha256": "a2ae075ae825e5d785f5ddbccd2a3c468e9d5fc41b49ff2861c4fad225de5bf6"
+  },
+  "root_wrapper_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch425-native-r1-9e984\\receipt.json",
+    "sha256": "da81ed0b4b54d32c904c4f899db6ff8128f5c58d8138a231b8858fd2848c9e69"
+  },
+  "actual_comparison_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov5_batch425_mixed_saved_and_window_readonly.py",
+    "sha256": "9619aa270aaf74f88653f4bef83cb5f27ba733fa17627e49c382392f6c107ae8"
+  },
+  "fixtures": [
+    {
+      "index": 0,
+      "card_id": "myrkhellir_helm",
+      "slug": "card-myrkhellir-helm-four-live-sparse-real-paid-next-gold-draws-two-with-retained-tail",
+      "source_spec": "card-regression-batch425.json",
+      "input_sha256": "36a29bdf69786fe386a6211ac3db41a4b5ea7286aff097958ff42fb8ab652117",
+      "reviewer": "/root/nov2_sparse_author",
+      "runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+      "recorded_runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+      "approved": true,
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_NEW_FOUR_LIVE_REPRESENTATIVE",
+      "fixture_path": "Tests\\Integration\\FaBSim\\card-myrkhellir-helm-four-live-sparse-real-paid-next-gold-draws-two-with-retained-tail",
+      "fixture_sha256": "0c38e985a686100278b534a80be24a72e1a2e91cae1c03ffea92cc1eb88e1446",
+      "raw4_sha256": {
+        "initial_gamestate.txt": "d688827cbec6a2c656e0e5c31df96af60a4ab925e35c438c2ac09347f114fcc6",
+        "actions.json": "98a90f1c314667ede4455375efd9144430359550a1f7e6c037479dda3ee4f96d",
+        "assertions.json": "f06ae7a1c5ca3e351e92a9aa71887ab7c9c6433e66a941c660a6629a1ccfffb4",
+        "expected_final_gamestate.txt": "2727b932ddf8017e8ba06fd234f5349385c4bcb0f790e977cb775a2caa7dd3d4"
+      },
+      "raw5_sha256": {
+        "initial_gamestate.txt": "d688827cbec6a2c656e0e5c31df96af60a4ab925e35c438c2ac09347f114fcc6",
+        "actions.json": "98a90f1c314667ede4455375efd9144430359550a1f7e6c037479dda3ee4f96d",
+        "assertions.json": "f06ae7a1c5ca3e351e92a9aa71887ab7c9c6433e66a941c660a6629a1ccfffb4",
+        "expected_final_gamestate.txt": "2727b932ddf8017e8ba06fd234f5349385c4bcb0f790e977cb775a2caa7dd3d4",
+        "meta.json": "2451be482a440fc1d803786c48b376bf24979ab6d36a51b556a5aeaa824c5fc4"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "d688827cbec6a2c656e0e5c31df96af60a4ab925e35c438c2ac09347f114fcc6",
+        "actions.json": "98a90f1c314667ede4455375efd9144430359550a1f7e6c037479dda3ee4f96d",
+        "assertions.json": "f06ae7a1c5ca3e351e92a9aa71887ab7c9c6433e66a941c660a6629a1ccfffb4",
+        "expected_final_gamestate.txt": "2727b932ddf8017e8ba06fd234f5349385c4bcb0f790e977cb775a2caa7dd3d4",
+        "meta.json": "2451be482a440fc1d803786c48b376bf24979ab6d36a51b556a5aeaa824c5fc4"
+      },
+      "actions": 12,
+      "native_assertions": 1320,
+      "actual_manual_passes": 8,
+      "actual_priority_response_passes": 8,
+      "actual_defender_declaration_finish_inputs": 0,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4
+      ],
+      "actual_manual_actor_counts": {
+        "1": 2,
+        "2": 2,
+        "3": 2,
+        "4": 2
+      },
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "all_actions_and_assertions_exact": true,
+      "all_endpoint_physical_uid_card_zones_ownership_verified": true,
+      "all_terminal_assertions_evaluated_against_parsed_final_snapshot": true,
+      "initial_assertions_evaluated_against_parsed_initial_snapshot": true,
+      "endpoint_assertion_counts": {
+        "0": 141,
+        "12": 214
+      },
+      "initial_physical_uid_locations": {
+        "1": {
+          "card_id": "dorinthea",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "7": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "8": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "9": {
+          "card_id": "wounding_blow_red",
+          "zone": "p1Deck",
+          "owner": 1,
+          "controller": 1
+        },
+        "10": {
+          "card_id": "wounding_blow_yellow",
+          "zone": "p1Deck",
+          "owner": 1,
+          "controller": 1
+        },
+        "11": {
+          "card_id": "nimble_strike_red",
+          "zone": "p1Deck",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "myrkhellir_helm",
+          "zone": "p1Equipment",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "gold",
+          "zone": "p1Arena",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2
+        }
+      },
+      "final_physical_uid_locations": {
+        "1": {
+          "card_id": "dorinthea",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "9": {
+          "card_id": "wounding_blow_red",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "10": {
+          "card_id": "wounding_blow_yellow",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "11": {
+          "card_id": "nimble_strike_red",
+          "zone": "p1Deck",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "myrkhellir_helm",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Pitch",
+          "owner": 1,
+          "controller": 1
+        },
+        "8": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Pitch",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2
+        }
+      },
+      "final_health": [
+        20,
+        20,
+        20,
+        20
+      ],
+      "final_resources": [
+        2,
+        0,
+        0,
+        0
+      ],
+      "final_AP": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "final_Hero_Status": [
+        2,
+        2,
+        2,
+        2
+      ],
+      "Gold6Token_ceased": true,
+      "PEN_GOLD_DRAW_positive_residue": false,
+      "checkpoint_assertion_mapping_sha256": "4014d78d2dff982ab8ed11db7a0c5d4eadd02a37bf1c5b55512c812d28137163",
+      "native_action_mapping_sha256": "3901b7c3444d83b3e000b7e77bcac811a385d04087998e25436f4b08b89b31b9",
+      "native_assertion_mapping_sha256": "60ef048f10fd74838296cb2bbfcb3da005af2abb4c1a53e1239d82b32de52d42"
+    }
+  ],
+  "blocked_attempts": [
+    {
+      "index": 1,
+      "card_id": "step_between_red",
+      "slug": "card-step-between-red-four-live-sparse-real-paid-hero-tap-instant-lock-and-unpreventable-five-damage",
+      "semantically_approved": false,
+      "fixture_saved": false,
+      "passing_fixture": null,
+      "status": "ORIGINAL_WINDOW_LABEL_ORACLE_FAILURE_NO_GAMEPLAY_BUG_NO_FIXTURE",
+      "accepted_inputs": 8,
+      "preceding_checks_passed": 666,
+      "error": "state window expected \"PRIORITY\" got \"ATTACK\"",
+      "hold_evidence": {
+        "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-step425-independent-window-oracle-native-before-classification.json",
+        "sha256": "64b13314b0b6a9b6e0e5de796f5a482ff183085f01949e9eda799fb63a4f5cc0"
+      },
+      "qualification_credit": false
+    }
+  ],
+  "registration_mode": "--reviewed-subset",
+  "total_actions": 12,
+  "total_native_assertions": 1320,
+  "total_manual_passes": 8,
+  "total_priority_response_passes": 8,
+  "total_defender_declaration_finish_inputs": 0,
+  "material_findings": [
+    "ActualHelmAction2/Blue7APpaid+sameHead5destroycostbeforefour/R1; four1..4 onlyfourthgeneratesreplacement/ownGAAP1, noearlydraw.",
+    "ActualGold6Action2 requiressecondBlue8fromR1/pays2+AP/destroysToken6beforefour/R2; virtual13capturesSource6Arena/controller1 afterToken6ceased. OnlyfourthGoldresponseactualUID9,10Hand,Deck11tail retained; rawdraw2records+noPEN_GOLD_DRAWresidue verifyconsumer/oneuse.",
+    "Every12actualnativeenvelope1320persistedcheck/8manualpasses2each/raw5/allphysicalUIDand48manualprefsperendpoint verified. FinalHelm5GY/Pitch7,8/Hand9,10/Deck11/R2AP1/Token6ceased/virtual12,13absent/queuesframespaymentclear."
+  ],
+  "limits": [
+    "OnlyHelmrealpaidnextGoldreplacementdraw2/ownGA/physicalcleanup; conditionalDEF/Temper/nonGolddraw/secondGold/stackedreplacement/endphase/fullcard untested.",
+    "Stepunqualified/no fixture: only8actualinputsprefix beforewindowlabel667 failure. NoTap/bonus/lock/damage/suffixnativecredit; sevenlabelcorrectionrequiresindependentexactdelta gate.",
+    "RootfocusedHelmonlyreplays andregistrationseparate; reviewerexecutednoPHP/native/replay/Rwrites/source/gen/service/fullsuite/deniedoperationretry."
+  ]
+}

@@ -1,0 +1,7 @@
+{
+    "name": "Scorpio, Comet Tail / four-live weapon activation restriction",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-23T00:17:03+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "**Action** - {t}: **Attack**. Activate this only if you control a Lightning attack.\n\nWhen this hits a hero, deal 1 arcane damage to them. Named activation prerequisite rejection only: legalnatural20 Aurora/Dash/Rhinar, physicalownreadyWeapon5/Status2 and realHandWounding6. Initialfloatingresourceasset 0 fullycoversprintedactivationcost; no cost/payment credit is claimed. FalseLightningAttack/Crank/Roll6 ornonemptyHand mustrejectbeforeattacktarget/tap/payment/AP: weapon5ready/R0/AP1/Hand1/Stack0/allqueuesempty. Then plainGeneric6actuallyplays0cost anddeals4 toHero4 throughall4manual/AP0/GY6 whileWeapon5/R0retained. No primaryattack/damage/prevention/overpower/GoAgain/Hit/heroabilities or wholecard/supportcredit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#scorpio_comet_tail"
+}

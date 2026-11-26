@@ -1,0 +1,56 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-bonebreaker-bellow-red-four-live-sparse886-actual-beat-chest-then-real-brute-attack-consumes-five-power-for-eleven-damage",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-bonebreaker-bellow-red-four-live-sparse886-actual-beat-chest-then-real-brute-attack-consumes-five-power-for-eleven-damage",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse886-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse886-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "6334d6bb45ba372ee52af3973f94b33ac76f99cb36a88d7941151f1f6ed3d2ef",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "1db650cf3534756bcb502d76558e94bd14f0fec69fb1d91a233a8cde2b353f27",
+        "actions.json": "5f21b973bae43eb1b457fcc594419f00515bbd83a13c48034a45ccefc7b21a05",
+        "assertions.json": "bf5f5492f159465ea2f664e8fb0860e77eee30fe0d160062edb9fd075828c692",
+        "expected_final_gamestate.txt": "125adf808165986a66751b1db7b4294dfcda6db4bc21c03805e6f6225efc4151",
+        "meta.json": "194050e3664fc8d771b048b5c32044e187b067e9081db59cd80b4268456ae3d2"
+      }
+    },
+    {
+      "slug": "card-charge-of-the-light-brigade-red-four-live-sparse886-real-next-charged-attack-buff-and-yellow-charge-earn-seven-damage",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-charge-of-the-light-brigade-red-four-live-sparse886-real-next-charged-attack-buff-and-yellow-charge-earn-seven-damage",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse886-local-20261122\\clean-replays\\01.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse886-local-20261122\\clean-replays\\01.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "2869aa1ec779d998d4c17a7e6bc64a7e9d0c49beb12a60c510e08b9df6db35c5",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "22ba306b7fb3453d82be154075a80625d2133cbfa76b7867fa8e579ab6cd8f0a",
+        "actions.json": "5cfaa1b6fe12492ef6fa32998522c3344e131d7df975909687915e6fd2926a0d",
+        "assertions.json": "a6fe8642fafbe5bec29df2d69f75932eba133847cf630a61c686284a8905356b",
+        "expected_final_gamestate.txt": "8fa37ce2c4e255400b18e3c5f0a8adf17915169ef6b40e3cd86d894e1cfe8624",
+        "meta.json": "11bd8229eb09d770efe19e79daa5e3d864d26331d520534596ceac4166ef9b3e"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

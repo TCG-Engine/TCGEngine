@@ -1,0 +1,69 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "breadth_review independent positive Staff/actual arcane-consumer review",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1113-20261122.json",
+  "source_spec_sha256": "f4291d93f9b218a953af7241737b080c6359659f7d4d1da085c4f464ec2263eb",
+  "input_sha256": "f4291d93f9b218a953af7241737b080c6359659f7d4d1da085c4f464ec2263eb",
+  "recorded_input_scope": "Sole successful input is virtual-owner-corrected-recording/selected.json; first failed raw-owner authoring attempt retained separately. Per-fixture recorded_input_local_path and hashes identify exact successful source.",
+  "fixtures": [
+    {
+      "slug": "card-surgent-aethertide-four-live-sparse1113-real-paid-one-arcane-earns-go-again-and-amplifies-next-actual-zap-three-to-four",
+      "card_id": "surgent_aethertide",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "9b9937ea78352bde98f4dfbe849de72f0905f24f8b2ce9d0bf80ce863a9b0484",
+        "actions.json": "39d3cd2943df5c4a139bd0659bdeaabc1d79961ef3e19ada07748203e054023e",
+        "assertions.json": "1210f8fa49a6be5d37dae3e44fed63243788a6fd90e98a6fbf7cb81e7fb844f1",
+        "expected_final_gamestate.txt": "730f3172cffce56d20a1921e899cd1bdc06a893d67958ccf40cf9bd839cc0c89",
+        "meta.json": "7682719675705a0d17b465b8922c871ce2c3041b1f2130205fe7e2c8396bfe66"
+      },
+      "fixture_sha256": "1b2c20305a2cbe3b1ebd8e22aeb78cd91e682bdea06dcb53f2d12b00c07c20fe",
+      "actions": 13,
+      "native_assertions": 298,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 8,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1113-20261122.json",
+      "input_sha256": "f4291d93f9b218a953af7241737b080c6359659f7d4d1da085c4f464ec2263eb",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1113-local-20261122\\virtual-owner-corrected-recording\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-surgent-aethertide-four-live-sparse1113-real-paid-one-arcane-earns-go-again-and-amplifies-next-actual-zap-three-to-four",
+        "fixture_slug": "card-surgent-aethertide-four-live-sparse1113-real-paid-one-arcane-earns-go-again-and-amplifies-next-actual-zap-three-to-four",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "spec_sha256": "f4291d93f9b218a953af7241737b080c6359659f7d4d1da085c4f464ec2263eb",
+    "reviewer": "breadth_review independent positive Staff/actual arcane-consumer review",
+    "basis": [
+      "Printed Wizard Staff2H is legal on natural young Verdance20. Native once-per-turn Action2 deals1 arcane to an opposing hero, with go again. It has no formal Target wording, so the source resolution hero choice after four manual responses is legitimate.",
+      "DYNRuntime.php:11 specifies Action2/GA/once. Real Blue6 pitch3 pays2/R1/AP0 before responses; actual opposing hero4 has no prevention, takes1 toHP19, ability completes to AP1 and same physical Staff5 remains. No attack proxy or weapon combat is involved.",
+      "Staff text is a static replacement for the first played arcane-effect card. DYNRuntime.php:75-81 excludes weapon activation and tags first actual played arcane card using actual SURGENT_DAMAGE; :263 records positive Staff damage1. Pitched Blue6 is not played, so Zap7 is the first qualifying card.",
+      "Real Zap Red7 cost0 declares its formal target before completion/payment, spends earned AP1 to0, and four manual responses resolve printed3 plus actual Staff1 to4 arcane: HP19 to15. Physical Staff5/Blue6Pitch/sourceZap7ownedgraveyard and economy/fates are guarded using persisted checks.",
+      "Exact pre-native correction: only three Staff virtual-ability Stack Owner1 to raw Owner0 plus KindABILITY/SourceUniqueID5 guards. WTRAbilities.php:71 omits Owner; ZoneAccessors.php:641 defaults0. Resolution uses Controller1 and removes this virtual layer (GameLogic.php:1940-1958); physical Staff5 stays Owner1, and actual Zap7 Stack/GY Owner1 guards are unchanged. No physical ownership failure is established."
+    ],
+    "limits": [
+      "Only unprevented Staff1 followed by first Zap. No once-limit rejection, prevented/zero amplifier, later cards/expiry/extra targets, attack/proxy, hero/support identity or whole-card claim.",
+      "Known trigger/target/ownership holds remain unrun/unrepaired; native recording and one clean replay pending."
+    ],
+    "supersedes_spec_sha256": "8728a86a47d60aa6b57ae717125165a9d763e9f446524f3e5fe1ddc0150138f7",
+    "correction_scope": "Representation oracle only; original first-click failed attempt unsaved. All native inputs/costs/damage/power/HP/economy and physical source fates byte-equivalent as parsed JSON."
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1113-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "9297c3e35affbe6df8bbb288ce23d939a3d2951e2ee7ab02bb312deaf3728868"
+  },
+  "full_suite_run": false,
+  "first_attempt_input_sha256": "8728a86a47d60aa6b57ae717125165a9d763e9f446524f3e5fe1ddc0150138f7"
+}

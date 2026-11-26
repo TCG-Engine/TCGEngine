@@ -1,0 +1,141 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "Root independent printed/source/spec review of breadth_review authored cases",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1044-20261122.json",
+  "source_spec_sha256": "5bad83062c048d14050cfd96faed58597a825721345ecb838f6394c70fa6aad8",
+  "input_sha256": "5bad83062c048d14050cfd96faed58597a825721345ecb838f6394c70fa6aad8",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-breakwater-undertow-four-live-sparse1044-actual-armor-block-and-blade-break-close",
+      "card_id": "breakwater_undertow",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "0c12bf99ffa27cbbb34871be3ea8a14a751841df61cdf88d4a3177e6ae4dd25b",
+        "actions.json": "511bf2f3686ee96e12e3d9cdbe580febcac902b797e5ec827a96d5ccd74ac457",
+        "assertions.json": "625cc23148fdf2be2a364f94d430abb5b4362a7ce75f2a3ab2e3582943a62691",
+        "expected_final_gamestate.txt": "c7314d4ef2cd2cb08bbc85a4ded1f9cd0c539a1be0304293ebc2f7732db46a0b",
+        "meta.json": "2456345591e99b4ad162a27271a74dcd79c903f93ae032919d40acfa4833896a"
+      },
+      "fixture_sha256": "9af9e22a790dfc0388c4e696b52900e891b26eb6e6198789739dbc95bf9422e2",
+      "actions": 30,
+      "native_assertions": 269,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1044-20261122.json",
+      "input_sha256": "5bad83062c048d14050cfd96faed58597a825721345ecb838f6394c70fa6aad8",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1044-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-breakwater-undertow-four-live-sparse1044-actual-armor-block-and-blade-break-close",
+        "fixture_slug": "card-breakwater-undertow-four-live-sparse1044-actual-armor-block-and-blade-break-close",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-torc-of-vim-four-live-sparse1044-actual-armor-block-and-battleworn-close",
+      "card_id": "torc_of_vim",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "31fb4336a6f76fcb9d3a6b7e2ed9afbd49325ca2bf2369b62da3bf354df371e3",
+        "actions.json": "511bf2f3686ee96e12e3d9cdbe580febcac902b797e5ec827a96d5ccd74ac457",
+        "assertions.json": "b122340b328ea85942a416c98c579b325d7fc135320e72b543aab8cd8148e113",
+        "expected_final_gamestate.txt": "6931894be7e35e795acd8b11e525e2ad792cb59fdfd13c005c13be4459beca77",
+        "meta.json": "09f58b643640541231c874433f0c38e4846e3d2d2ffa7fc5b48f9f25298f135f"
+      },
+      "fixture_sha256": "db31c475eb4fd2158e8ee31d98ea9b546d3b0d550c9f59f94bb926729db9e236",
+      "actions": 30,
+      "native_assertions": 270,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1044-20261122.json",
+      "input_sha256": "5bad83062c048d14050cfd96faed58597a825721345ecb838f6394c70fa6aad8",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1044-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-torc-of-vim-four-live-sparse1044-actual-armor-block-and-battleworn-close",
+        "fixture_slug": "card-torc-of-vim-four-live-sparse1044-actual-armor-block-and-battleworn-close",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-undead-grasp-four-live-sparse1044-actual-armor-block-and-battleworn-close",
+      "card_id": "undead_grasp",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "3b72edcdc49b383ffd75f02cda71794f018042a32ae0db7bd78995e5ea37cea9",
+        "actions.json": "511bf2f3686ee96e12e3d9cdbe580febcac902b797e5ec827a96d5ccd74ac457",
+        "assertions.json": "c179867a2b3441204293af777085b62b2972911851cb88eda62c9872ee5d5446",
+        "expected_final_gamestate.txt": "c1a87379609e829ce1d854cf7ef07653e656d5d845d530e60868aba9a38eb166",
+        "meta.json": "9a29cd98cad1d0ab52cf49ac942c794895a20fbe408b3a6a89985a2cabe1f0aa"
+      },
+      "fixture_sha256": "52dc49001c93bd49e2061daab8e9357dbd812cbe2a59e80cf9ebb84feb433436",
+      "actions": 30,
+      "native_assertions": 270,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1044-20261122.json",
+      "input_sha256": "5bad83062c048d14050cfd96faed58597a825721345ecb838f6394c70fa6aad8",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1044-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-undead-grasp-four-live-sparse1044-actual-armor-block-and-battleworn-close",
+        "fixture_slug": "card-undead-grasp-four-live-sparse1044-actual-armor-block-and-battleworn-close",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-tremorshield-sabatons-four-live-sparse1044-actual-armor-block-and-blade-break-close",
+      "card_id": "tremorshield_sabatons",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "84761bb2194c4ef881f49d270d869f5e9b314b090f85f34b1cf7e2295b468517",
+        "actions.json": "511bf2f3686ee96e12e3d9cdbe580febcac902b797e5ec827a96d5ccd74ac457",
+        "assertions.json": "040b5b6f50d3b8a3c5c1b2e599609fdcaa7a276504d413452b3e2983b88feca9",
+        "expected_final_gamestate.txt": "b26199d7a2310c6100d600420b64a63eb6fbc2443fa0a5fa04125a9018e93134",
+        "meta.json": "dae33610c71e110091343f431eb185f20558c6c573843b37082c35dd54847eb6"
+      },
+      "fixture_sha256": "dbc2ecfb529d5ca6cf7d0692bd6a1f7e5b5cf5ec18f06fc3186463492131fa77",
+      "actions": 30,
+      "native_assertions": 269,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1044-20261122.json",
+      "input_sha256": "5bad83062c048d14050cfd96faed58597a825721345ecb838f6394c70fa6aad8",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1044-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-tremorshield-sabatons-four-live-sparse1044-actual-armor-block-and-blade-break-close",
+        "fixture_slug": "card-tremorshield-sabatons-four-live-sparse1044-actual-armor-block-and-blade-break-close",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "spec_sha256": "5bad83062c048d14050cfd96faed58597a825721345ecb838f6394c70fa6aad8",
+    "reviewer": "Root independent printed/source/spec review of breadth_review authored cases",
+    "basis": [
+      "CurrentcachedDEF1/keywords andnatural20class/talentowners verified: BreakwaterPirateNecro/GravyBladeBreak, TorcBrute/RhinarBattleworn, UndeadShadowNecro/MaliceBattleworn, TremorGuardian/OldhimBladeBreak. NoearnedAlly/BeatChest/Zombiedeath/discard/blueGrave/Arcaneevent, noactivation/noheroability.",
+      "Allactualcontrolsandnumericguardsreusequalified1037/1040 exactnative transport: Eq5DEF1+realGenericNAA6DEF2vsDoriDawnblade3, nativeadjacenttarget/Blue8cost1/R2/AP0, allfourmanualsource/combat, actualEq/HandRoleDEFENSE/DEF3/0damage/noHit/HP20. Noauthor-onlydiagnostics.",
+      "BladeBreakprimary5movesownedGYbeforeHand6/Eq0; BattlewornEq5retainedcounter1/GY6atbase1to0, exactsource/currentkeywordpathalreadyreviewed. Printedactivated/conditionalbodies remainuntested; existingholdsnotclosed; hero/support/fullcardcreditabsent. Nativepending."
+    ]
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1044-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "d9b6fdf6ce79f00c4612660936477c53f25e706227c1f8c3323018587ab070f5"
+  },
+  "full_suite_run": false
+}

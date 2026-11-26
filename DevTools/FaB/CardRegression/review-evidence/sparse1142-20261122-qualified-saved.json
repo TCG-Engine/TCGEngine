@@ -1,0 +1,64 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "Root independent printed Vambrace/NoFear and native-spec review",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1142-20261122.json",
+  "source_spec_sha256": "07cd21f5a5057d69b9de6ca3d74c655a0af7fa6e7f3b36a57609734191d53d58",
+  "input_sha256": "07cd21f5a5057d69b9de6ca3d74c655a0af7fa6e7f3b36a57609734191d53d58",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-vambrace-of-determination-four-live-sparse1142-real-paid-reaction-reduces-actual-no-fear-prevention",
+      "card_id": "vambrace_of_determination",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "fb8f1a49fa1c5b851c7d6d27d4cfd9c5d64529307c5e1af3c2ee3fa879a2ac6d",
+        "actions.json": "bd91203c7e7f567d29010f65c56b5a9aa5208f0774dec2354f922ecc09a95500",
+        "assertions.json": "b6ab0493757113778c7e93157e77f4bfe26388435f74c9fb6d84da9015f9d9a3",
+        "expected_final_gamestate.txt": "712729de842f7814fb70347d8ee6a05dd354f1b9b9150c963001955d6d3a4c89",
+        "meta.json": "d89af48ab2d164be98826e0c96b5aa9c44397429e1e24eab2223bbb996505e35"
+      },
+      "fixture_sha256": "5d2dd1e07b5c5e15127db452fc677286b256ec6d486733af425b5631bc985cfe",
+      "actions": 41,
+      "native_assertions": 329,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 36,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1142-20261122.json",
+      "input_sha256": "07cd21f5a5057d69b9de6ca3d74c655a0af7fa6e7f3b36a57609734191d53d58",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1142-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-vambrace-of-determination-four-live-sparse1142-real-paid-reaction-reduces-actual-no-fear-prevention",
+        "fixture_slug": "card-vambrace-of-determination-four-live-sparse1142-real-paid-reaction-reduces-actual-no-fear-prevention",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "spec_sha256": "07cd21f5a5057d69b9de6ca3d74c655a0af7fa6e7f3b36a57609734191d53d58",
+    "reviewer": "Root independent printed Vambrace/NoFear and native-spec review",
+    "basis": [
+      "Printed Vambrace next physical prevention effect prevents1less. ActualNoFear zeroadditionalbanish printed2prevention is legitimate, so actualClub4 minusreduced1 yields3damage/HP17. This uses observable damage ratherthan onlycachedflag.",
+      "NoFear has no remaining Handcards and noSix eligiblecost, so prior1139 stalechooser is strictly notentered, consistent with qualified1085 zeroextra branch. No extra banish/endphase credit.",
+      "ActualClub2cost paidBlue3 leavesR1, paidVambraceAttackReaction1 spendslastR1/AP0 beforeallfourfreshresponses; Eq5ready/notapped/onceflagturn2 retained, ABIrawOwner0/Source5controller1 clears. Eqneverdefends so printeddefendedtrigger is notearned."
+    ],
+    "limits": [
+      "One nextphysicalprevention positive branch only, not defenseability, otherpackets/types/lifetimes/supportwholecard.",
+      "Native save and one clean replay pending. No engine change."
+    ]
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1142-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "2f0c350134693e4229b99dad2852dce41a2b162e1e4b9486e2c081d98f817910"
+  },
+  "full_suite_run": false
+}

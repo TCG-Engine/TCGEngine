@@ -1,0 +1,68 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-17T03:15:04.039900+00:00",
+  "runtime_sha256": "2b072f2c46c89f392fe7e90666b549c10a9d1449032b50dbc4828afe3219ede5",
+  "source_spec": "card-regression-repair-wind198-earned-hit-delayed-phase.json",
+  "source_spec_sha256": "c3a69011c2dbcafba7ee1969cb424adb5f62d3618a8b0834d23bc82130df373d",
+  "new_scenarios": 1,
+  "new_groups": 1,
+  "new_primary_ids": 1,
+  "actions": 111,
+  "native_assertions": 13746,
+  "manual_passes": 103,
+  "totals": {
+    "saved_registered_scenarios": 4157,
+    "duels": 3074,
+    "four_live": 1083,
+    "recorded_primary_ids": 1310,
+    "identity_denominator": 5196,
+    "recorded_groups": 1184,
+    "group_denominator": 3324,
+    "four_live_groups": 1076,
+    "phase_qualified_scenarios_at_actual_contexts": 794,
+    "phase_qualified_unique_groups": 789,
+    "creation_replay_passes": 1535,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 1,
+  "scenarios": [
+    {
+      "card_id": "wind_slicer_blue",
+      "group_id": "identity:wind_slicer_blue",
+      "scenario_id": "probe-wind-slicer-blue-four-live-real-item-hit-earned-next-ira-two-kodachi",
+      "effect_branches": [
+        "realItemAction1Blue3Tap-firstAttack1-realHit-earnedfour-chainCloseDestroy-nextIraAction-twoKodachi1plus1"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/probe-wind-slicer-blue-four-live-real-item-hit-earned-next-ira-two-kodachi",
+      "source_spec": "card-regression-repair-wind198-earned-hit-delayed-phase.json",
+      "source_spec_sha256": "c3a69011c2dbcafba7ee1969cb424adb5f62d3618a8b0834d23bc82130df373d",
+      "review_evidence": "review-evidence/wind198-2b07-qualified-saved.json",
+      "review_evidence_sha256": "20a4a6cb6bce754eed57267eadfe62b09cf4e652dd7e3a06701d704d1d2fe1e4",
+      "recorded_runtime_sha256": "2b072f2c46c89f392fe7e90666b549c10a9d1449032b50dbc4828afe3219ede5",
+      "qualification_runtime_sha256": "2b072f2c46c89f392fe7e90666b549c10a9d1449032b50dbc4828afe3219ede5",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-replay-nov17-wind198-replay.json",
+          "sha256": "4e697a18249303620c0d7b0fe142f4de8dc2232d4997310819fcbbc2d7dd8f76",
+          "runtime_sha256": "2b072f2c46c89f392fe7e90666b549c10a9d1449032b50dbc4828afe3219ede5",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

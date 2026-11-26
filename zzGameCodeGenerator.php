@@ -5174,6 +5174,10 @@ function GenerateMacroCode() {
     $abilitiesByMacro = [];
     foreach ($macrosByName as $macroName => $meta) {
       $abilities = $cardAbilityDB->getAbilitiesByMacro($rootName, $macroName);
+      if ($rootName === 'FaBSim') {
+        require_once __DIR__ . '/FaBSim/Custom/CodeGeneration.php';
+        $abilities = FaBLocalRepairMacroAbilities($macroName, $abilities);
+      }
       if (count($abilities) > 0) {
         $abilitiesByMacro[$macroName] = $abilities;
       }

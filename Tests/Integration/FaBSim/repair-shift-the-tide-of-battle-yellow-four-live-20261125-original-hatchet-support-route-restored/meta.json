@@ -1,0 +1,7 @@
+{
+    "name": "Shift the Tide of Battle / actual attack fails Warrior_attack_power_greater_than_base",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-25T23:14:32+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Legalboltyn20/manual4. RealHatchet7attack declaresHero4, Blue6pitch3pays1R2/AP0, proxy8canonicalsource7/power2=printedbase2/noGA, uncharged/noMind. AtactualREACTIONpriority1 primaryclickmustrejectspecificWarrior_attack_power_greater_than_base targetrestriction, preservingprimaryHand/realattack/funding/APR/UID/noStackDQ/modal/payment/effect. Fullcombatactual2Hero4damage/HP18 noGO/token/refund, correctphysicalclose. No positiveprimarytarget/effect/timing/secondaryconsumer/siblingcredit. Repair-only20261125: real supportingHatchet now earns falseWHEN response layer beforeAttack. Extra4nativepasses; all original physicalassets/gameplayconditions/damage and primarychoices retained. Only virtualallocationcounter shifts +1; ABitOff laterprimaryhitABI12. Existing separateDecimator qualification already represents thisgroup, so no newgroup/identity/siblingcredit. Original bad raw5 remainarchived/absent. Sources: FaBSim/GeneratedCode/cardArrayCache.json#shift_the_tide_of_battle_yellow FaBSim/Custom/WTRCards.php#FaBWTRCanPlay FaBSim/Custom/HNTRuntime.php#FaBHNTCanPlay FaBSim/Custom/DTDCards.php#FaBDTDCanPlay FaBSim/Custom/MSTCards.php#FaBMSTCanPlay FaBSim/Custom/HVYRuntime.php#FaBHVYCanPlay"
+}

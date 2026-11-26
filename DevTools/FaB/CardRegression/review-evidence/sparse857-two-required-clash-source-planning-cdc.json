@@ -1,0 +1,194 @@
+{
+  "status": "INDEPENDENT_APPROVED_TWO_SOURCE_ONLY_UNATTEMPTED_CLASH_DRIVER_AND_PLAIN_SPELL_LIFETIME_NOTES",
+  "phase": "PLANNING",
+  "batch": 857,
+  "reviewer": "/root/ebbing_recovery_review",
+  "reviewer_independent": true,
+  "approved": true,
+  "planning_note_approved": true,
+  "source_approved": false,
+  "native_probe_approved": false,
+  "normal_save_approved": false,
+  "native_fixture_recording_approved": false,
+  "qualification": false,
+  "coverage_credit": false,
+  "native_attempted": false,
+  "fixture_saved": false,
+  "confirmed_gameplay_bug": false,
+  "new_issue": false,
+  "new_distinct_gameplay_root_group": false,
+  "source_fix_applied": false,
+  "manifest": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch857-two-required-contract-notes-manifest.json",
+    "sha256": "baf5b7186739d842327b2610704e28fcf2f79043f6caa11dff83171067d8764b"
+  },
+  "manifest_sha256": "baf5b7186739d842327b2610704e28fcf2f79043f6caa11dff83171067d8764b",
+  "firm_reservation": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch857-firm-reservation.json",
+    "sha256": "ecd8608daa129a411d5280d5b513a5313493155141e070984a7ecb5a2d350db9"
+  },
+  "runtime_sha256": "cdc081ff4c87ff2f9338b1d69040d0dc98d7600ba33976384336534ea3f92d22",
+  "source_guard_count": 23,
+  "all_current_source_guards_matched": true,
+  "holds": [
+    {
+      "card_id": "unexpected_backhand_blue",
+      "group_id": "pitch-cycle:unexpected_backhand",
+      "status": "APPROVED_AS_SOURCE_ONLY_UNATTEMPTED_REQUIRED_SELECTED_CONTRACT",
+      "classification": "REQUIRED_SELECTED_SUPPORT_EDGE_MATCHES_RETAINED_CLASH_MIGHT_ROW201_NO_NATIVE",
+      "note": {
+        "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch857-backhand-required-clash-might-defended-unattempted-note.json",
+        "sha256": "88276484970293ece72c8fee5afdf940dd6bb92623219397b56ac44d8faf9f81"
+      },
+      "known_required_contract": {
+        "human_row": 201,
+        "card_id": "clash_of_might_blue",
+        "current_record": {
+          "card_id": "clash_of_might_blue",
+          "group_id": "pitch-cycle:clash_of_might",
+          "status": "source_only_unattempted_selected_route",
+          "classification": "APPROVED_AS_SOURCE_ONLY_UNATTEMPTED_SELECTED_DEFENDED_CLASH_TRIGGER_LAYER_LIMIT",
+          "reason": "The selected earned Defended-WHEN enters its own generated frame and reveals for clash inline without an established separate responseable triggered layer. Actual clash and prize bodies exist; generated await storage is distinct from trigger capture. No defense-only fallback, native bug, fixture or coverage claim.",
+          "scope": [
+            "No PHP/native/probe/replay/game execution, fixture, coverage, gameplaybug allocation, repair or currentcorpus invalidation.",
+            "No DEF3-only or ordinaryAttackAction baseline in place of printedmainclash effect; no seededMight/history/roll/reveal state, no forgedStack/proxy/API, no replacementprimary.",
+            "No primaryattack-playcost2/power4, tokenfutureStartfunction/expiry, VictorRetry/Gold/Switch, ties/missingpower, siblings/fullcard/Hero/support coverage certification.",
+            "Exactlyonefreshcap8 GuardianAAmetadata pool; alleightprintedmetadata read before onefirmclaim; othersevenbodies remainunread. Datedcandidatehints are not currentimplementationproof or an implementeddenominator.",
+            "Currentcommon70 guards plus actual earlier delegates DTDRuntime/ELEAbilities/MPGCards are pinned; Root remains soleR/native executor.",
+            "Blue representative only; no pitch-sibling/full-card coverage. No source or engine fix, new issue/root allocation or current native attempt; exact note and all73 current selected guards plus ab33 are bound."
+          ],
+          "runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+          "native_attempted_for_this_hold": false,
+          "native_attempted": false,
+          "confirmed_gameplay_bug": false,
+          "fixture_saved": false,
+          "coverage_credit": false,
+          "source_fix_applied": false,
+          "evidence": {
+            "path": "review-evidence/sparse716-clash-might-defended-when-unattempted-c53.json",
+            "sha256": "583cc98232ddf46f6648a2f417f995b784fe06ce13691c59c0a580fa86c697c2",
+            "kind": "INDEPENDENT_PLANNING_LIMIT_NOT_RUNNABLE_APPROVAL"
+          },
+          "external_W_preparation_reference": {
+            "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov8-batch716-clash-of-might-selected-defended-layer-limit\\clash_of_might_blue-selected-defended-trigger-layer-limit.json",
+            "sha256": "da938e4a0902fca039f39f70e5541766dcc717f722080f3b6370190e4ec20f92"
+          }
+        },
+        "retained_independent_proof": {
+          "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\review-evidence\\sparse716-clash-might-defended-when-unattempted-c53.json",
+          "sha256": "583cc98232ddf46f6648a2f417f995b784fe06ce13691c59c0a580fa86c697c2"
+        }
+      },
+      "native_attempted": false,
+      "fixture_saved": false,
+      "confirmed_gameplay_bug": false,
+      "coverage_credit": false
+    },
+    {
+      "card_id": "heave_ho_blue",
+      "group_id": "identity:heave_ho_blue",
+      "status": "APPROVED_AS_SOURCE_ONLY_UNATTEMPTED_REQUIRED_SELECTED_CONTRACT",
+      "classification": "EARLIER_EXACT218_PHYSICAL_SOURCE_PRECLEARED_BEFORE_SYNCHRONOUS_EFFECTS_NO_WAIVER",
+      "note": {
+        "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch857-heave-required218-superseding-unattempted-note.json",
+        "sha256": "43f9fde4667f7998f317066b303f20bcfe05f8a00d4e649fd8d411c594c56d44"
+      },
+      "known_required_contract": {
+        "human_row": 218,
+        "card_id": "bloodrush_bellow_yellow",
+        "record": {
+          "card_id": "bloodrush_bellow_yellow",
+          "group_id": "identity:bloodrush_bellow_yellow",
+          "status": "source_only_unattempted_selected_route",
+          "classification": "SOURCE_ONLY_UNATTEMPTED_SOURCE_LEAVES_BEFORE_RESOLUTION_EFFECTS_PLANNING_LIMIT",
+          "reason": "The selected payment path correctly pays assets before the random discard and the draw/buff bodies exist. Full resolution tracing nevertheless finds the fallback moves the original source to graveyard before its synchronous draw/buff/go-again instructions, rather than retaining it through resolution effects. The candidate was never installed or run. No native discard, draw, buff, damage, source-retention, fixture, coverage, confirmed bug or repair credit.",
+          "scope": [
+            "Only Bloodrush Yellow\u2019s selected ordinary positive paid-discard/draw/buff path is retained as an unattempted static Source lifecycle concern. It does not assert a payment-order defect, missing body, observed native bug, or a full-card/family failure.",
+            "No gameplay/native/replay/fixture/draw order/Brute power/GA refund/damage/UID/coverage/confirmed-bug outcome is certified. No support, weapon, Hero, sibling, full-card, alternative primary or replacement consumer credit.",
+            "The exact positive candidate and original author manifest/QA/notes remain unchanged and unapproved. Final planning manifest admits zero executable cases. No synchronous-retention exception, output-fitted oracle, workaround, source repair or denied-repair retry is authorized or performed."
+          ],
+          "runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+          "native_attempted_for_this_hold": false,
+          "native_attempted": false,
+          "confirmed_gameplay_bug": false,
+          "fixture_saved": false,
+          "coverage_credit": false,
+          "source_fix_applied": false,
+          "evidence": {
+            "path": "review-evidence/sparse756-bloodrush-source-cleared-before-synchronous-effects-unattempted-c53.json",
+            "sha256": "e86b76ef0f2653f2bc85d62d26223715f08599b1bb25c199b144fed1ca2c41f9",
+            "kind": "INDEPENDENT_PLANNING_LIMIT_NOT_RUNNABLE_APPROVAL"
+          },
+          "external_W_preparation_reference": {
+            "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov8-batch756-two-source-only-final-planning\\batch756-bloodrush-source-retention-source-only-plan.json",
+            "sha256": "1d3832a7c9e717591e5a5c85e60efcbb6c0d0dec205d74ab4021b98654893f3e"
+          }
+        },
+        "retained_independent_proof": {
+          "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\review-evidence\\sparse756-bloodrush-source-cleared-before-synchronous-effects-unattempted-c53.json",
+          "sha256": "e86b76ef0f2653f2bc85d62d26223715f08599b1bb25c199b144fed1ca2c41f9"
+        }
+      },
+      "native_attempted": false,
+      "fixture_saved": false,
+      "confirmed_gameplay_bug": false,
+      "coverage_credit": false
+    }
+  ],
+  "withdrawn_unattempted_heave_candidate": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch857-heave-real-pirate-ally-overpower-earned-gold-strict-probe-author\\manifest.json",
+    "sha256": "2215a98529750f8985f979510e20dbb53010ca61553e30812de2fb2206e21e33"
+  },
+  "original_Heave_input": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch857-heave-real-pirate-ally-overpower-earned-gold-strict-probe-author\\heave-real-pirate-ally-overpower-earned-gold-full-probe.json",
+    "sha256": "ceaf98f124d76c640e7f809ce87861bb0d41a8fa13c1804030a3e3d140f93d26"
+  },
+  "original_Heave_suggested_N_source_present": false,
+  "withdrawn_Heave_model_reviewed_or_approved": false,
+  "independent_findings": [
+    "Backhand full legal setup uses Young Rhinar1/Betsy2/3/4, primary Blue topDeck1 and real Generic WoundingBlue0/power2 attack, with legal ClashMightBlueDEF3 Hand4 as the selected driver. No Rhinar discard/Betsy wager/Victor retry/forged reveal or win seed is needed. The driver Defended event reaches GL1243 ordinary source macro, whose implemented HVY body begins FaBHVYClash before a separate earned Defended layer; exact retained201 contract, not a blanket absent-clash or primary-body claim.",
+    "Actual SUPCards161 FaBSUPClashWon detects winning owned revealed Backhand and queues ROS with actual revealed DeckUID/controllerwinner1/target4. Implemented canonical ResolveAbility deals1 physical damage. Primary capture body exists. Parent clash prize completes before the earned Backhand response opportunity; no fictitious mid-parent response is certified. All real reveals, Might prize, fresh four before1damage/HP19 and complete combat/source/DeckUID/ownerGY cleanup remain unrun behind the earlier driver201.",
+    "Heave is nonpersistent Pirate/Necromancer ACTION, not admitted by either literal managed plain-spell cohort GL1588..1589/1654..1698 and has no earlier named intercept. GL1840 clears physical original source to ownerGY before1841 FaBResolveRules executes both real SEA_NEXT GoldHit and OVERPOWER grants; printedGA follows1842..1844. This exact dispatch matches218 source-through-full-resolution contract even though the body has zero await. No synchronous or observable-only exception is accepted.",
+    "Heave original manifest2215/inputceaf/preflight bytes remain frozen, withdrawn UNAPPROVED before install/Native. Its suggested N source is absent at review; no executable Source/native admission or complete5046-query model approval is provided. No smaller later-Gold probe, seeded buff, quiet support swap or alternate route is approved.",
+    "Full future Heave0/GA\u2192real Riggermortis6P Action1+tap/Blue3R2AP0\u2192Overpower first ActionDEF3 accepted/second otherwiselegal Action rejected\u2192actual3damageHP17\u2192granted Gold layer/freshfour before ownedGold token and full physicalcleanup remains required and UNRUN. Young Gravy20 legally admits primary/Ally; initial Ally prior casting and Watery death are unentered. Later SEAHit122 inlineGold concern is SOURCE_ONLY_UNCONFIRMED behind218, no actual new gameplay issue or distinct root inferred.",
+    "All current selected23-source guard bindings, both exact notes, named retained201/218 evidence and current ledger records, selected primary/support printed metadata/printing aliases and canonical rows independently matched. Frozen candidate withdrawal is acknowledged without auditing its full model. No Native/PHP/R writes, fix, fixture, qualification or coverage."
+  ],
+  "primary_rules": [
+    {
+      "url": "https://rules.fabtcg.com/en/cr/05-layers-cards-and-abilities/",
+      "sections": [
+        "5.3.4",
+        "5.3.7"
+      ],
+      "reuses_prior_independent_source_lifecycle_rules": true
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/06-effects/",
+      "sections": [
+        "6.6.5",
+        "6.6.6"
+      ],
+      "reuses_prior_independent_trigger_rules": true
+    }
+  ],
+  "remaining_blockers": [
+    {
+      "card_id": "unexpected_backhand_blue",
+      "action": "Execute full selected Backhand clash driver route",
+      "reason": "Required known driver Defended-layer contract201",
+      "state": "UNATTEMPTED_SOURCE_ONLY_NOT_NEW_DENIAL"
+    },
+    {
+      "card_id": "heave_ho_blue",
+      "action": "Execute full Heave primary/Ally/Overpower/Gold route",
+      "reason": "Required218 physical source retained through all resolution effects; no synchronous waiver",
+      "state": "WITHDRAWN_UNAPPROVED_UNATTEMPTED_NOT_NEW_DENIAL"
+    }
+  ],
+  "limits": [
+    "Only planning-note accuracy/retention approved; no source/native/save execution approval.",
+    "Both complete positive routes and their followthrough remain unrun; no own primary/support/sibling/fullcard certification.",
+    "No Native/PHP/R writes/sourcefix/fullsuite/Git/remote/deferred Radiant or denied188/184/B787 action. B858 unstarted."
+  ],
+  "created_utc": "2026-11-16T08:57:54.865200+00:00"
+}

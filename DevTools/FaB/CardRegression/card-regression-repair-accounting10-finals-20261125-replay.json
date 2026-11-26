@@ -1,0 +1,76 @@
+{
+  "runtime_sha256": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+  "fixtures": [
+    {
+      "slug": "card-aether-flare-red-four-live-sparse-actual-three-arcane-earns-dynamic-next-spell-plus-three",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "54862ea195830cbdc715ec93bac9b6e50d4c8c5c662f138b2323d1af055032de"
+    },
+    {
+      "slug": "card-aether-wildfire-red-four-live-sparse-real-offturn-four-damage-increases-next-action-blue-arcane-to-five",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "49c8252add24c38f3d55eb0f51343d64f17a594aaf1c6bd1968c40733c9672fd"
+    },
+    {
+      "slug": "card-arc-ramp-red-four-live-real-timesnap-actionpoints-fund-amp-three-and-six-arcane-zap-no-flow-choice",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "cdcc3a5cdf2de58fca7ffa808adf73bd4b064502283c1d64878b30e37e8f87ab"
+    },
+    {
+      "slug": "card-aurora-four-live-sparse-actual-lightning-action-earns-condition-then-paid-instant-creates-owned-embodiment",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "0933ec0bc018f40be69e93a732645dcf33320b41de8ba2c428e71e29c3504785"
+    },
+    {
+      "slug": "card-exploding-aether-red-four-live-sparse-actual-paid-amp-three-consumed-by-real-six-arcane",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "a27240e619fa68e113e5b9bb19a020e78844c158d70a893d9e9b8dd52b58c68f"
+    },
+    {
+      "slug": "card-high-voltage-blue-four-live-sparse-actual-lightning-instant-amp-one-increases-real-targeted-zap-three-to-four",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "a138227d15032025e94a915137abd34e68a9eb15f9c8510fb1faced57a287842"
+    },
+    {
+      "slug": "card-rampant-growth-life-yellow-four-live-sparse-real-meld-life-earns-one-amp-paid-zap-damage",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "ba93fc51abd02a99a19f5be986182f59a85959b1c09e8d718b0c9d324ab6356e"
+    },
+    {
+      "slug": "card-robe-of-resourcefulness-four-live-sparse-real-cash-out-cost-leave-trigger-earns-two-mana-paid-wizard",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "762d643128005d379bd250d85cb6a9ef3d84b186d1c48fc451c2989ae9182038"
+    },
+    {
+      "slug": "card-twinkle-toes-four-live-sparse-real-instant-card-play-earns-destroy-prevent-two-gate",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "f39e4a3f6bd27250b61ecd07cecf642307283fd5e3e857d81e03f1be4ae85a0d"
+    },
+    {
+      "slug": "card-volzar-meteor-storm-four-live-real-instant-graveyard-tap-and-amped-four-arcane",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "f4331f51d2365490beaf7af293db14e237d053ae79be9c1102088118bad861a3"
+    }
+  ],
+  "full_suite_run": false
+}

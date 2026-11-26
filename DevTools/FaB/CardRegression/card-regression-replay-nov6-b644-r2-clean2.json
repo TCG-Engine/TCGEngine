@@ -1,0 +1,39 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch644-r2.json",
+  "runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+  "returncode": 0,
+  "completed_utc": "2026-11-06T21:18:16.912099+00:00",
+  "fixtures": [
+    {
+      "slug": "card-radiant-raiment-four-live-real-equipment-and-soul-banish-cost-prevents-two",
+      "fixture_sha256": "0be8caabb5116103bba193f399af4997dba0ebaba8b1dc2137a148b1106289d7",
+      "passed": true,
+      "result": "[PASS] radiant_raiment / four live distinctive effect"
+    },
+    {
+      "slug": "card-skyhold-keikoi-four-live-real-cloaked-destruction-prevents-one-damage",
+      "fixture_sha256": "d49cfdaaa1ee930c1bd5e0a10f91fcec6cdc8fc1df82c7fcf41f75ac35ca0beb",
+      "passed": true,
+      "result": "[PASS] skyhold_keikoi / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-radiant-raiment-four-live-real-equipment-and-soul-banish-cost-prevents-two",
+      "returncode": 0,
+      "stdout": "[PASS] radiant_raiment / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-skyhold-keikoi-four-live-real-cloaked-destruction-prevents-one-damage",
+      "returncode": 0,
+      "stdout": "[PASS] skyhold_keikoi / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 2,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

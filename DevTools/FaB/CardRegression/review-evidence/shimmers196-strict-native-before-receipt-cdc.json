@@ -1,0 +1,30 @@
+{
+  "status": "COMPLETE_UNSAVED_DIAGNOSTIC",
+  "started_utc": "2026-11-16T08:05:37.346624+00:00",
+  "runtime_before": "cdc081ff4c87ff2f9338b1d69040d0dc98d7600ba33976384336534ea3f92d22",
+  "spec_sha256": "3a8d6e299392069ae9c23fee803b841702b51791eeff6d6b2558692154445108",
+  "source_review_sha256": "76bad42f64b2dbbeee5b3b0558862bddc65216858b0d127bc531364eda3a04d6",
+  "recorder_sha256": "ab33a3250462d0453f71d38dd4138cb9fbc3d595d2586742e989a52251c9c4a9",
+  "actual_no_save_control_sha256": "3485fb84c5eec54cf4ff20a1c9a8c277f18cfa346973f61ade3700c28bee2805",
+  "command": [
+    "C:\\xampp\\php\\php.exe",
+    "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\record_card_regressions.php",
+    "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch854-shimmers-real-aura-weapon-earned-counter-probe.json",
+    "--probe-only"
+  ],
+  "fixture_count_before": 4099,
+  "fixture_saved": false,
+  "qualification": false,
+  "coverage_credit": false,
+  "full_suite": false,
+  "pid": 20996,
+  "exit_code": 1,
+  "result_status": "blocked_or_incorrect",
+  "error": "Expected p1Arena-1.Counters to equal '{\"WEAPON_ATTACK_TURN\":2,\"WEAPON_ATTACKS\":1}', got '{\"WEAPON_ATTACK_TURN\":2,\"WEAPON_ATTACKS\":1,\"POWER\":1}'.",
+  "result_sha256": "784e5796eccccf7788271dc9540e5501b81fe77bd8f1e50a5d833a994252c0e9",
+  "runtime_after": "cdc081ff4c87ff2f9338b1d69040d0dc98d7600ba33976384336534ea3f92d22",
+  "fixture_count_after": 4099,
+  "fixture_inventory_unchanged": true,
+  "recorded_native_inputs": 7,
+  "completed_utc": "2026-11-16T08:05:47.292363+00:00"
+}

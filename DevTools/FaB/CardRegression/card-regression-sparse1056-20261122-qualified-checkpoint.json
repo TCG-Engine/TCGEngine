@@ -1,0 +1,155 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-23T04:14:05.584856+00:00",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1056-20261122.json",
+  "source_spec_sha256": "ed93402d72e30f19d952dfcd61c7a61fb4001081054569ea2b05167f98c011b0",
+  "new_scenarios": 4,
+  "new_groups": 4,
+  "new_primary_ids": 4,
+  "actions": 120,
+  "native_assertions": 1076,
+  "manual_passes": 100,
+  "totals": {
+    "saved_registered_scenarios": 4871,
+    "duels": 3075,
+    "four_live": 1796,
+    "recorded_primary_ids": 2019,
+    "identity_denominator": 5196,
+    "recorded_groups": 1893,
+    "group_denominator": 3324,
+    "four_live_groups": 1785,
+    "phase_qualified_scenarios_at_actual_contexts": 1508,
+    "phase_qualified_unique_groups": 1498,
+    "creation_replay_passes": 2250,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 669,
+  "scenarios": [
+    {
+      "card_id": "iris_of_the_blossom",
+      "group_id": "identity:iris_of_the_blossom",
+      "scenario_id": "card-iris-of-the-blossom-four-live-sparse1056-actual-printed-two-defense-and-blade-break-close",
+      "effect_branches": [
+        "actual_printed_two_defense_and_blade_break_close"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-iris-of-the-blossom-four-live-sparse1056-actual-printed-two-defense-and-blade-break-close",
+      "source_spec": "card-regression-sparse1056-20261122.json",
+      "source_spec_sha256": "ed93402d72e30f19d952dfcd61c7a61fb4001081054569ea2b05167f98c011b0",
+      "review_evidence": "review-evidence/sparse1056-20261122-qualified-saved.json",
+      "review_evidence_sha256": "5d8537a81d4be7213c0ded64ebc320124395a0d6b5880950e67b1c7f21a4bb61",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1056-20261122-replay.json",
+          "sha256": "2a35c035b34cf8c917b10bbdd7e872f9c1fbd01f8b2a7ec68f6128a9b72c0b1e",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "mask_of_momentum",
+      "group_id": "identity:mask_of_momentum",
+      "scenario_id": "card-mask-of-momentum-four-live-sparse1056-actual-printed-two-defense-and-blade-break-close",
+      "effect_branches": [
+        "actual_printed_two_defense_and_blade_break_close"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-mask-of-momentum-four-live-sparse1056-actual-printed-two-defense-and-blade-break-close",
+      "source_spec": "card-regression-sparse1056-20261122.json",
+      "source_spec_sha256": "ed93402d72e30f19d952dfcd61c7a61fb4001081054569ea2b05167f98c011b0",
+      "review_evidence": "review-evidence/sparse1056-20261122-qualified-saved.json",
+      "review_evidence_sha256": "5d8537a81d4be7213c0ded64ebc320124395a0d6b5880950e67b1c7f21a4bb61",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1056-20261122-replay.json",
+          "sha256": "2a35c035b34cf8c917b10bbdd7e872f9c1fbd01f8b2a7ec68f6128a9b72c0b1e",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "okana_scar_wraps",
+      "group_id": "identity:okana_scar_wraps",
+      "scenario_id": "card-okana-scar-wraps-four-live-sparse1056-actual-printed-two-defense-and-blade-break-close",
+      "effect_branches": [
+        "actual_printed_two_defense_and_blade_break_close"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-okana-scar-wraps-four-live-sparse1056-actual-printed-two-defense-and-blade-break-close",
+      "source_spec": "card-regression-sparse1056-20261122.json",
+      "source_spec_sha256": "ed93402d72e30f19d952dfcd61c7a61fb4001081054569ea2b05167f98c011b0",
+      "review_evidence": "review-evidence/sparse1056-20261122-qualified-saved.json",
+      "review_evidence_sha256": "5d8537a81d4be7213c0ded64ebc320124395a0d6b5880950e67b1c7f21a4bb61",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1056-20261122-replay.json",
+          "sha256": "2a35c035b34cf8c917b10bbdd7e872f9c1fbd01f8b2a7ec68f6128a9b72c0b1e",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "mask_of_the_pouncing_lynx",
+      "group_id": "identity:mask_of_the_pouncing_lynx",
+      "scenario_id": "card-mask-of-the-pouncing-lynx-four-live-sparse1056-actual-printed-two-defense-and-blade-break-close",
+      "effect_branches": [
+        "actual_printed_two_defense_and_blade_break_close"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-mask-of-the-pouncing-lynx-four-live-sparse1056-actual-printed-two-defense-and-blade-break-close",
+      "source_spec": "card-regression-sparse1056-20261122.json",
+      "source_spec_sha256": "ed93402d72e30f19d952dfcd61c7a61fb4001081054569ea2b05167f98c011b0",
+      "review_evidence": "review-evidence/sparse1056-20261122-qualified-saved.json",
+      "review_evidence_sha256": "5d8537a81d4be7213c0ded64ebc320124395a0d6b5880950e67b1c7f21a4bb61",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1056-20261122-replay.json",
+          "sha256": "2a35c035b34cf8c917b10bbdd7e872f9c1fbd01f8b2a7ec68f6128a9b72c0b1e",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

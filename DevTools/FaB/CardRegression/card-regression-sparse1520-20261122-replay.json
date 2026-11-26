@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-regurgitating-slog-red-four-live-sparse1520-pitched-sloggism-does-not-pay-graveyard-banish-two-hand-defenders",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-regurgitating-slog-red-four-live-sparse1520-pitched-sloggism-does-not-pay-graveyard-banish-two-hand-defenders",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1520-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1520-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "0b4356987ce8d8ee91cfe6ed2dd2b344bf777db337c2fe2985018c26c28c8b8f",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "cc16abbaea176eadae43990c931bf8dc2fc303354e91053f1b7981eac64b9e8c",
+        "actions.json": "a44e24b9f9b348ce659c847e7dbea1e0cd33c5233e8ac4933f9391118d55ee4b",
+        "assertions.json": "0101c1b2c607f6f1cf83f3658f3d2711527e3a69323e760c5631422a6fd9adef",
+        "expected_final_gamestate.txt": "c608727189f2f8a3c9d85a065c01fe86f6174e9549ceac000d07472633a2f717",
+        "meta.json": "a90e942c65468321c5357fcc00112e4c503e9949a28c1c756a7f69228a38c6be"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

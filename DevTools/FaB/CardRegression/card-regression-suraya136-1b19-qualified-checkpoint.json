@@ -1,0 +1,68 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-17T06:45:19.248196+00:00",
+  "runtime_sha256": "1b196f3511c9a82f55d059e7bd7bd528935f6b5f4da22cb5503723048db6e5c5",
+  "source_spec": "card-regression-repair-suraya136-required-shield-material.json",
+  "source_spec_sha256": "b7c9e8b13675cabda1afe5dd966d6b5858cce87ffedf3721d8978224f64981bb",
+  "new_scenarios": 1,
+  "new_groups": 1,
+  "new_primary_ids": 1,
+  "actions": 7,
+  "native_assertions": 732,
+  "manual_passes": 4,
+  "totals": {
+    "saved_registered_scenarios": 4168,
+    "duels": 3074,
+    "four_live": 1094,
+    "recorded_primary_ids": 1321,
+    "identity_denominator": 5196,
+    "recorded_groups": 1195,
+    "group_denominator": 3324,
+    "four_live_groups": 1087,
+    "phase_qualified_scenarios_at_actual_contexts": 805,
+    "phase_qualified_unique_groups": 800,
+    "creation_replay_passes": 1546,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 1,
+  "scenarios": [
+    {
+      "card_id": "invoke_suraya_yellow",
+      "group_id": "identity:invoke_suraya_yellow",
+      "scenario_id": "card-invoke-suraya-yellow-four-live-original-correct-owned-shield-transform-retains-one-encoded-material",
+      "effect_branches": [
+        "invoke-suraya-yellow-four-live-original-correct-owned-shield-transform-retains-one-encoded-material"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-invoke-suraya-yellow-four-live-original-correct-owned-shield-transform-retains-one-encoded-material",
+      "source_spec": "card-regression-repair-suraya136-required-shield-material.json",
+      "source_spec_sha256": "b7c9e8b13675cabda1afe5dd966d6b5858cce87ffedf3721d8978224f64981bb",
+      "review_evidence": "review-evidence/suraya136-1b19-qualified-saved.json",
+      "review_evidence_sha256": "7139f91ee1cb370b5a09f469e899bb1d5e035cb762c03ad838f42424725e50de",
+      "recorded_runtime_sha256": "1b196f3511c9a82f55d059e7bd7bd528935f6b5f4da22cb5503723048db6e5c5",
+      "qualification_runtime_sha256": "1b196f3511c9a82f55d059e7bd7bd528935f6b5f4da22cb5503723048db6e5c5",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-replay-nov17-suraya136-replay.json",
+          "sha256": "b65594f73dbcb3f540983fdc4e6c3856d8d306c454f601643ca9b31aa2c2fd5b",
+          "runtime_sha256": "1b196f3511c9a82f55d059e7bd7bd528935f6b5f4da22cb5503723048db6e5c5",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

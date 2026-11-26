@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-blood-on-her-hands-yellow-four-live-sparse1337-zero-copper-zero-modes-real-go-again-funds-plain-sword-attack",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-blood-on-her-hands-yellow-four-live-sparse1337-zero-copper-zero-modes-real-go-again-funds-plain-sword-attack",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1337-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1337-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "09d78e21825d939e6fc3ebc633cc4ca691b50a0f2b6ec180b2e2b6f65b9f1368",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "e8dc4e58869dfde94ea4109c4d62398104a9e83d474e6ef11790cffd17d24af5",
+        "actions.json": "aa8c19cdf184a32215f004b4a9656beac99c105d01aeac5e9686ede0cf6f2874",
+        "assertions.json": "0fcd583645ef4a994e82f4ded7e0b7fa5f06f33e1d01c3e3470e81601e560ede",
+        "expected_final_gamestate.txt": "0263c8e1018d4fcb2544573897e5a1d799e671a7a03265d6c3a2f82b9823e140",
+        "meta.json": "407cd4fae569b00f5083aca0d776b7b5e15dafa6d8882e594d93a3a55e096a52"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

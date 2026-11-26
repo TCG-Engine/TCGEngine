@@ -1,0 +1,7 @@
+{
+    "name": "Rip Up Their Virtues / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T15:37:26+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Destroy up to 3 Toughness tokens. Create a Might token for each token destroyed this way. Representative only: destroys_three_real_tokens_across_seats_and_creates_three_owned_replacements. Other pitch siblings, alternate targets and unexercised branches receive no credit. All four live/manual; only native entry-point actions. Sources: FaBSim/GeneratedCode/cardArrayCache.json#rip_up_their_virtues_blue"
+}

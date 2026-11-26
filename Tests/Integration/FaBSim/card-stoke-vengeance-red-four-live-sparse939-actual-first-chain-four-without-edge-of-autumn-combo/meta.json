@@ -1,0 +1,7 @@
+{
+    "name": "Stoke Vengeance / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T21:02:04+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "**Combo** - If Edge of Autumn was the last attack this combat chain, this gets **go again** and \"When this hits, your next attack this combat chain gets +2{p}.\" Representative only: actual_first_chain_four_without_edge_of_autumn_combo. Actual printed payment, four live manual seats/full unblocked combat, real HP loss, no granted go again/hit ability, owned original source in graveyard. Positive Combo/control thresholds and pitch siblings untested. Sources: FaBSim/GeneratedCode/cardArrayCache.json#stoke_vengeance_red"
+}

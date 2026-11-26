@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "confront-adversity-four-live-sparse1060-no-vigor-rejects-defense",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=confront-adversity-four-live-sparse1060-no-vigor-rejects-defense",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1060-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1060-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "27e93e55d1497f2d67c4fbf0fd6cc89e2159f03f08ed039334934b85a6e16b39",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "305a1dfc8f1c91850d2dd189d55503d1905914b2f87b74a9a21b4729846a9e41",
+        "actions.json": "511bf2f3686ee96e12e3d9cdbe580febcac902b797e5ec827a96d5ccd74ac457",
+        "assertions.json": "b410b38ab805cb94be714b13d7848708ec3d280e1c1e4de02e071f3ecd93b303",
+        "expected_final_gamestate.txt": "ebfa18e263278d48620e19f0c72a63a6d1ad571e379054b7392c6f4cb7b95e63",
+        "meta.json": "17c1ce6a8957291c2870a71260e6a814c13b10d5524cb4ab4b19ca9791619842"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

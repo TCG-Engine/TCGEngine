@@ -1,0 +1,192 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "independent breadth_review",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1199-20261122.json",
+  "source_spec_sha256": "809aef2e400693fe4b1f1ae467ededd09d65dca9d7bc07a678d3ca3fc5c6821c",
+  "input_sha256": "809aef2e400693fe4b1f1ae467ededd09d65dca9d7bc07a678d3ca3fc5c6821c",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-evo-atom-breaker-red-four-live-sparse1199-real-one-driver-transform-in-response-prevents-two-of-four",
+      "card_id": "evo_atom_breaker_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "adcbfd7dd8d64a723dd680b1fbece1e0c72c6b8657d34e601548963c14582178",
+        "actions.json": "dedfdde28e53aac709e65d033becc6fc53dcde80067dc9cbf6d11475dea4eb8e",
+        "assertions.json": "c7fbb90f6413eafe0e82e117dbee3c46b324d0e6d9d08e9ade60b584bd308ebe",
+        "expected_final_gamestate.txt": "c6a0f6b5f415459f5e8b206ed6869544155522c1cbe8289860078ae396d34c1b",
+        "meta.json": "f5b4e47b5a004736f3a1736db1d8336890ce0c63933156cc1d3f3c39cc01e91e"
+      },
+      "fixture_sha256": "cad5507ca51ed7845db60f2020ef04b7373fa9115c230a53fb41a6b75d4d8c27",
+      "actions": 36,
+      "native_assertions": 553,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 32,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1199-20261122.json",
+      "input_sha256": "809aef2e400693fe4b1f1ae467ededd09d65dca9d7bc07a678d3ca3fc5c6821c",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1199-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-evo-atom-breaker-red-four-live-sparse1199-real-one-driver-transform-in-response-prevents-two-of-four",
+        "fixture_slug": "card-evo-atom-breaker-red-four-live-sparse1199-real-one-driver-transform-in-response-prevents-two-of-four",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-evo-circuit-breaker-red-four-live-sparse1199-real-one-driver-transform-in-response-prevents-two-of-four",
+      "card_id": "evo_circuit_breaker_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "5101691a9bbb00088dc02c9675ee6b1b174450fe5fcae43c39c6aaf1760d59b4",
+        "actions.json": "dedfdde28e53aac709e65d033becc6fc53dcde80067dc9cbf6d11475dea4eb8e",
+        "assertions.json": "88ab4aad6f3d3bcc3fcaeae77d0a12b7465ec373ed19b7d7f1321e1182ddab0e",
+        "expected_final_gamestate.txt": "52684201191e0cd3855d060c0938d2ea974c8b840ee646e4ba499fc619ac5c5c",
+        "meta.json": "220fac5da58f2493550e7f9b9217acc129a0a581390257eed1b656adf292471a"
+      },
+      "fixture_sha256": "cfda351d6c872a9ff6f91dcd54335d3a5ad7d995e2d4238b9afaf4c0316b169c",
+      "actions": 36,
+      "native_assertions": 553,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 32,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1199-20261122.json",
+      "input_sha256": "809aef2e400693fe4b1f1ae467ededd09d65dca9d7bc07a678d3ca3fc5c6821c",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1199-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-evo-circuit-breaker-red-four-live-sparse1199-real-one-driver-transform-in-response-prevents-two-of-four",
+        "fixture_slug": "card-evo-circuit-breaker-red-four-live-sparse1199-real-one-driver-transform-in-response-prevents-two-of-four",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-evo-face-breaker-red-four-live-sparse1199-real-one-driver-transform-in-response-prevents-two-of-four",
+      "card_id": "evo_face_breaker_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "b603781e8fe1a982cd19d6699d8ba5062119f651b31bfe0f08b1665164f505ac",
+        "actions.json": "dedfdde28e53aac709e65d033becc6fc53dcde80067dc9cbf6d11475dea4eb8e",
+        "assertions.json": "7bf812a94e1d661fbdfd309b8d6872459835b384de1bcb596be2a7dba6b0595f",
+        "expected_final_gamestate.txt": "30c69825255fda1904853d7b2a78c19497d0e616b107b660e440d8c0bf20ebb8",
+        "meta.json": "a8c9a195a3261adc7f7e01797b3956b6df52671c9604ad5563e77625dce785e3"
+      },
+      "fixture_sha256": "49d919eb432afa70207a1efa7cb7d78cd80749a616ac52775f75656970b60e74",
+      "actions": 36,
+      "native_assertions": 553,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 32,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1199-20261122.json",
+      "input_sha256": "809aef2e400693fe4b1f1ae467ededd09d65dca9d7bc07a678d3ca3fc5c6821c",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1199-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-evo-face-breaker-red-four-live-sparse1199-real-one-driver-transform-in-response-prevents-two-of-four",
+        "fixture_slug": "card-evo-face-breaker-red-four-live-sparse1199-real-one-driver-transform-in-response-prevents-two-of-four",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-evo-mach-breaker-red-four-live-sparse1199-real-one-driver-transform-in-response-prevents-two-of-four",
+      "card_id": "evo_mach_breaker_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "89053cfd23349c1b4b4451919b8769726744e9f2fd406becafcedb6438523959",
+        "actions.json": "dedfdde28e53aac709e65d033becc6fc53dcde80067dc9cbf6d11475dea4eb8e",
+        "assertions.json": "af73cc5566dd9e111d2be13634e8ddb2f765f4668f5d633659deb06b01c98786",
+        "expected_final_gamestate.txt": "e8553bceda539d669b099712570a1922801fa9657aba439f90e8abc24edcbf39",
+        "meta.json": "1b332055d1eb4fdee02b6d38de568a8200b40576ccf28162277186d8c0d3f826"
+      },
+      "fixture_sha256": "fe37b9ea952a1d45c33f9e35f5ae33aea7eded11718bcadd77c336d35891c446",
+      "actions": 36,
+      "native_assertions": 553,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 32,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1199-20261122.json",
+      "input_sha256": "809aef2e400693fe4b1f1ae467ededd09d65dca9d7bc07a678d3ca3fc5c6821c",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1199-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-evo-mach-breaker-red-four-live-sparse1199-real-one-driver-transform-in-response-prevents-two-of-four",
+        "fixture_slug": "card-evo-mach-breaker-red-four-live-sparse1199-real-one-driver-transform-in-response-prevents-two-of-four",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "reviewer": "independent breadth_review",
+    "spec_sha256": "809aef2e400693fe4b1f1ae467ededd09d65dca9d7bc07a678d3ca3fc5c6821c",
+    "case_count": 4,
+    "native_controls": 144,
+    "persistable_assertions": 2212,
+    "author_only_checks_omitted": 0,
+    "cases": [
+      {
+        "card_id": "evo_atom_breaker_red",
+        "group_id": "identity:evo_atom_breaker_red",
+        "native_controls": 36,
+        "persistable_assertions": 553,
+        "actual_base": "proto_base_chest"
+      },
+      {
+        "card_id": "evo_circuit_breaker_red",
+        "group_id": "identity:evo_circuit_breaker_red",
+        "native_controls": 36,
+        "persistable_assertions": 553,
+        "actual_base": "proto_base_head"
+      },
+      {
+        "card_id": "evo_face_breaker_red",
+        "group_id": "identity:evo_face_breaker_red",
+        "native_controls": 36,
+        "persistable_assertions": 553,
+        "actual_base": "proto_base_arms"
+      },
+      {
+        "card_id": "evo_mach_breaker_red",
+        "group_id": "identity:evo_mach_breaker_red",
+        "native_controls": 36,
+        "persistable_assertions": 553,
+        "actual_base": "proto_base_legs"
+      }
+    ],
+    "basis": [
+      "Four distinct unrepresented standalone Red Evo groups and both current ledgers checked. Legal young Dash20 at seat4 owns InstantEquipment5Hand, its exact matching ProtoBase6Equipment and actual prior HyperDriverRed7Arena with STEAM2. Three young Dorinthea20 seats and actual caster1 WoundingRed8 cost0/power4 are legal. Each header and all natural-health/current-AP/resource values are correct.",
+      "Lower attack8 properly declares adjacent Hero4 before zero-cost play, with actual four-player priority. At priority4, native InstantEquipment5 is played cost0/AP4unchanged above lower8; fresh upper responders4,1,2,3 precede the real untargeted resolution MZMULTICHOOSE0|1|p4Arena-0. The chosen real HyperDriver7 and matching Base6 still exist and source5 remains Stack1 above8 through this decision.",
+      "All four exact Generated ResolveCard bindings2572/2596/2631/2642 and runners224f8c4aac750c913eda,6a35363f8c320432bd31,6aac5645b3b04de267f7,fcf4bbbe6cc927f55bd9 checked. They capture/hydrate the same-player mzID/chosen/refs/n state, count selected DriverUIDs before movement, call FaBEVOTransform, then grant ARC_PREVENT_ONCE=2*n only on successful transformation. X1 is an actual effect choice, not a seeded flag or additional payment.",
+      "EVOCards45-52 validates correct base and owned actual HyperDriver, records base+driver CardIDs, removes the actual materials without Graveyard destruction, and moves physical source5 from Stack to owned Equipment4. It explicitly sets Status2/Owner4/Controller4, clears TurnEffects and overwrites Counters to exactly SUBCARDS[correctBase,hyper_driver_red], so no stale play-order or STEAM counter is expected there. All four typed native flows/checks are identical after exact primary/base-ID replacement.",
+      "GameLogic1915/2044-2060 manages nonpersistent INSTANT layers, including InstantEquipment; Equipment is not treated as a pre-moved persistent card by that branch. Physical5 remains held while the choice is pending. After its actual move,1693-1744 completion finds it in Equipment and does not clear it to Graveyard a second time. Lower8 remains Stack0 and receives fresh1,2,3,4 responses only after the upper effect has completed.",
+      "ARCCards444-448 ARC_PREVENT_ONCE applies to positive damage of either type, unlike the neighboring arcane-only pool. Real unblocked physical power4 minus prevention2 produces actual damage2/attackHittrue/HP4=18. This observable packet pins the positive effect, not merely a private prevention value. Full ordinary combat cleanup leaves attack8GY1, actual ready Evo5Equipment4 with both encoded materials, no original Base6/Driver7 in public zones/GY, no extra UID beyond8/Stack/DQs/resources and AP0.",
+      "No Boost occurs, so none of the four different Boost-trigger bodies is earned. ProtoBase is not an Evo, so SteelSoul transformation hooks are absent; EVOCards58 equip hooks do not include these Red identities. Dash has no relevant current event, Dori attacks with a Generic AA rather than a weapon, and no Gear actually defends. All2212 source checks normalize to portable saved assertions with no author-only omissions or conflicting duplicate checkpoint values."
+    ],
+    "source_sha256": {
+      "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+      "FaBSim/GeneratedCode/GeneratedMacroCode.php": "fe6a7982611df8f4de98ce2671b317b671b580146aa4b8c28e8f4b86d8461056",
+      "FaBSim/Custom/EVOCards.php": "7e946cadb04817da7a0c0b17d94cf5a6bd03655adba07b714d39654329b54dbe",
+      "FaBSim/Custom/ARCCards.php": "f6b6a21d214e71fdcfd6a084f0671ce610f08a40c51a1266041877a5a12c0d52",
+      "FaBSim/Custom/GameLogic.php": "c60fa151561f959e4e3e341b814de0e2b47c9e9f153bbc8793a04c43b5075061"
+    },
+    "source_note_sha256": "61fcfd4443899e02ce5978595caff944bb2f9a094c84c088797406644d1250dd",
+    "limits": [
+      "Pending Root native recording, saved-assertion mapping and targeted replay per case. No native success is claimed here.",
+      "Only X1 actual matching-Base/HyperDriver transformation and prevention of one real4physical packet. No Boost bodies, alternateX/invalidslot, repeated prevention/expiry, Equipment defense, initial Driver entry/STEAM producer, Hero ability, secondary/support-group or whole-card credit.",
+      "Material representation is checked as the existing encoded CardID list under owned Evo5 only. No material UID-conservation, later under-card destruction/export/owner reconstruction or source-lifecycle repair claim. Existing material-owner and other timing/cost/Close holds remain unrun and unrepaired;1198 remains separately held."
+    ]
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1199-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "087b7c6b22aff3c385e2609db78df6e9c1b77dad75a7a911bef099c7de3c4e17"
+  },
+  "full_suite_run": false
+}

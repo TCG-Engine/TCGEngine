@@ -1,0 +1,7 @@
+{
+    "name": "Flashfreeze / actual go-again funding and unfused action does not grant fusion only attack damage",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-24T06:10:21+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "FOUR_REAL_MANUAL_UPF_NATURAL_YOUNG_lexi20_AND_DORI20. Primary5HandActionnormalcost1actuallypaysassets/AP1to0/fourresponses/ownedGYthenprintedGoAgainrefundAP1. OnlyGenericcardsinHandcannotrevealIceorLightningFusion, so unfused/noIceDominateTaxgrantorLightningHit+3. Actual4damageHP16not7damage. Realfollowupwounding_blow_red7Handcost0thenreallyusesearnedAP1to0/formalHero4target/actualnormalpitchifneeded/allfourfreshresponses. ReallegalHandblockcontrol8underHero4stayswhiletheydeclarenoblocks. Printed4physicaldamage/allotherHP20/noextraUIDRNG/Arena0/StackDQCCclean; primary5anddriver7ownGY1/funder6Pitchifany/APR0. No trueconditionalproducer/Fusion/Banishpermission/Unity/Hero/support/sibling/fullcardcredit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#flashfreeze_red FaBSim/GeneratedCode/GeneratedMacroCode.php FaBSim/Custom/GameLogic.php FaBSim/Custom/ELECards.php FaBSim/Custom/ELEAbilities.php FaBSim/Custom/DTDCards.php FaBSim/Custom/MONCards.php"
+}

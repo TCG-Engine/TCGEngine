@@ -1,0 +1,7 @@
+{
+    "name": "Depths of Despair / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T19:45:31+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "When this defends, banish it when the combat chain closes.\n\n**Blood Debt** Representative only: actual_seven_hand_attack_without_defended_banish. Real printed cost, four manual live seats, actual unblocked damage and physical source in graveyard. No positive Defended/Clash/Galvanize/Blood Debt branch or pitch sibling credit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#depths_of_despair_red"
+}

@@ -1,0 +1,117 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "breadth_review independent source/semantic review",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse947-20261122.json",
+  "source_spec_sha256": "3d26f252c44bd61dc3f74de66fd801218eccd778f74e6ed055742e4762833c20",
+  "input_sha256": "3d26f252c44bd61dc3f74de66fd801218eccd778f74e6ed055742e4762833c20",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-barbed-undertow-red-four-live-sparse947-actual-facedown-arrow-base-damage-without-aim-or-named-class-hit",
+      "card_id": "barbed_undertow_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "385109d6e30c73d99c5696fd3fba756b13b434fa4f8fefb631ca9561f8d4634e",
+        "actions.json": "b96e8c04efb76e5837c8044bbe521bb58679cd607490b707f44b4b59901b066f",
+        "assertions.json": "55d5ee1a532dd7efcbf10d2cfdb31b28deb764e1cd2d448a030dfc7ff3aab647",
+        "expected_final_gamestate.txt": "ef24b6c80f008accb3a34c766eaeb76ac29ea48f9f3669c60b54808c90db82f0",
+        "meta.json": "aa53f60bc49b5e80c947a246b79660105a7a724879fccd9804e834799bc49807"
+      },
+      "fixture_sha256": "d00c26d69f7324493368ee6ffd76161c586f6aa6fe2e3e8e589ad2683d569725",
+      "actions": 28,
+      "native_assertions": 158,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse947-20261122.json",
+      "input_sha256": "3d26f252c44bd61dc3f74de66fd801218eccd778f74e6ed055742e4762833c20",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse947-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-barbed-undertow-red-four-live-sparse947-actual-facedown-arrow-base-damage-without-aim-or-named-class-hit",
+        "fixture_slug": "card-barbed-undertow-red-four-live-sparse947-actual-facedown-arrow-base-damage-without-aim-or-named-class-hit",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-immobilizing-shot-red-four-live-sparse947-actual-facedown-arrow-base-damage-without-aim-or-named-class-hit",
+      "card_id": "immobilizing_shot_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "32bc8e76ae8cd29a8fb0d0b62595c7e2d5af514e50a0294eaaf824bd5cdf0602",
+        "actions.json": "cc67f7d65a77546709030e1fe3686bb05d1ab8f278cc34ab0e82a711635d5012",
+        "assertions.json": "c692bd475e45dd6774a111f8edfe6121e9e438a6a18b0cd30680e31810dc6b8d",
+        "expected_final_gamestate.txt": "08606e0082da6182ab2f54f7f9cac068927df4433ed77fc5929772978674cd09",
+        "meta.json": "729767f998ce8f302084a6342e1b3fa7e6aaf3c8061d674ee0ee4f0e592cdaae"
+      },
+      "fixture_sha256": "04f66baf168c2a1c8e1ab2c27050fa9fa98b6a45917e93bf5476b9ed9b4a0050",
+      "actions": 27,
+      "native_assertions": 130,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse947-20261122.json",
+      "input_sha256": "3d26f252c44bd61dc3f74de66fd801218eccd778f74e6ed055742e4762833c20",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse947-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-immobilizing-shot-red-four-live-sparse947-actual-facedown-arrow-base-damage-without-aim-or-named-class-hit",
+        "fixture_slug": "card-immobilizing-shot-red-four-live-sparse947-actual-facedown-arrow-base-damage-without-aim-or-named-class-hit",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-mage-hunter-arrow-red-four-live-sparse947-actual-facedown-arrow-base-damage-without-aim-or-named-class-hit",
+      "card_id": "mage_hunter_arrow_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "ae29bc9b6038bb393f95ac985a2a37cc0258f1a799bfbf147a0fa2e5f7a6c822",
+        "actions.json": "b96e8c04efb76e5837c8044bbe521bb58679cd607490b707f44b4b59901b066f",
+        "assertions.json": "065338f9f2a98755638bb45798aa3c16e400d0302c3f9969d488f7c4cac75a26",
+        "expected_final_gamestate.txt": "b1e13dc512d581839380e0275404f197c7477a1a4390fa27971e49def8a7de67",
+        "meta.json": "3a88c493e2c85fb4d08d0a7067b3c71c966be9b78b2a98d432f2528a1186a66c"
+      },
+      "fixture_sha256": "569316ef69ca56a1c5deb478f0cd14a75b533a7e3b2396ff5043d4680dbac8c8",
+      "actions": 28,
+      "native_assertions": 158,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse947-20261122.json",
+      "input_sha256": "3d26f252c44bd61dc3f74de66fd801218eccd778f74e6ed055742e4762833c20",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse947-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-mage-hunter-arrow-red-four-live-sparse947-actual-facedown-arrow-base-damage-without-aim-or-named-class-hit",
+        "fixture_slug": "card-mage-hunter-arrow-red-four-live-sparse947-actual-facedown-arrow-base-damage-without-aim-or-named-class-hit",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "spec_sha256": "3d26f252c44bd61dc3f74de66fd801218eccd778f74e6ed055742e4762833c20",
+    "reviewer": "breadth_review independent source/semantic review",
+    "basis": [
+      "Three legal Lexi Ranger Arrow attacks from physical facedown Arsenal5 with real owned Shiver; target Hero4 before payment, actual printed costs0/1, blue UID6 when needed, AP0, full manual four-seat combat, actual4/5damage and owned source5 graveyard fate.",
+      "Barbed Undertow and Immobilizing Shot grant their quoted hit abilities only with an aim counter; none exists, so no earned hit trigger is omitted. Mage Hunter hits Dorinthea, neither Wizard nor Runeblade; its typed hit event is absent. SUPCards188 disallows its alternate Instant while facedown.",
+      "Last Ditch Effort is absent from these final bytes and remains unrun: its WHEN played trigger needs a separate response layer, while WTRCards607 applies its conditional bonus inline."
+    ],
+    "limits": [
+      "Named no-aim/main Arrow branches only. No positive aim, restriction duration, Mage Hunter Instant/typed hit, Bow loading, Last Ditch, siblings, or whole-card certification. Source-only review; native execution and replay remain pending."
+    ]
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse947-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "cf0462f594fb8ca02b42d00acd9a489d723035fe197b7ec419a188cc65b2321a"
+  },
+  "full_suite_run": false
+}

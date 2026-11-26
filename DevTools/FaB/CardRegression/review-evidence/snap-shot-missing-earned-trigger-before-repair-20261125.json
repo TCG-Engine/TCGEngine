@@ -1,0 +1,24 @@
+{
+  "status": "CONFIRMED_CORRECT_EXPECTATION_FAILURE_NO_FIXTURE",
+  "runtime": "3e817745b728fa5861d07de58cb7d165355266c78b68e9f9be5a7816eadb7d23",
+  "input_sha256": "b1d2051c80b965e43c6994f3532efee93bd436a8fef46966c4af87893a449afd",
+  "result_sha256": "b15a303dec3161d7d720242abf904358424b4ceafce7da7cf702c34730a9c841",
+  "command": [
+    "C:\\xampp\\php\\php.exe",
+    "DevTools/FaB/CardRegression/record_card_regressions.php",
+    "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\snap-shot-trigger\\before-probe.json",
+    "",
+    "--probe-only"
+  ],
+  "exit_code": 1,
+  "observed_error": "state window expected \"PRIORITY\" got \"ATTACK\"",
+  "fixture_saved": false,
+  "source_fix_applied": false,
+  "card_id": "snap_shot_red",
+  "issue": "FAB-REG-233",
+  "classification": "Confirmed native missing layer when real optional Fusion declined; no passing fixture or engine fix.",
+  "printed_text": "Lightning Fusion. When this attacks, if this was fused, you may activate abilities of bows you control an additional time this turn and as though they were an instant.",
+  "local_producer_lead": "Generated CardPlayed body grants SNAP inline when fused; FaBELEAttack has no Snap Shot earned event. Early positive permission is a source lead only; not yet independently reproduced.",
+  "source_oracle": "CR6.6.1c conditional generated effect is not the WHEN trigger condition.",
+  "detailed_local_evidence": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\snap-shot-trigger"
+}

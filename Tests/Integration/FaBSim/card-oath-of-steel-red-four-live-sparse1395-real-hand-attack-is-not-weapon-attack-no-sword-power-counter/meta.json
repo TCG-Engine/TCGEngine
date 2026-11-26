@@ -1,0 +1,7 @@
+{
+    "name": "Oath of Steel / real attack Action is not a weapon attack",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-24T14:49:47+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "FOUR_REAL_MANUAL_UPF_FOURDORI20. ActualOath5Action0spendsAP/all4responses\u21925GYandprintedGAAP1, noinitialeffectseed. RealDawnblade7readyequippedcountersemptyisactualeligiblefutureWeaponcontrol. ActuallyplayWounding6HandAA0toadjacent4/all4manualcombat/base4/noGA/real4damageHP4=16/AP0. This isATTACKACTIONnotWeaponattack/activation, so OathweaponWHENunearned/noLayer/counter; sword7sameownedready/countersemptybeforeandaftercurrentattack. DoriweaponhitWHENalso unearnedbecauseAAcardnotWeapon. Full5GY0/6GY1/sword7Weapons/HandDeckempty/UID7RNG0/others20/AP0/R0/StackDQquiet. NoassertiononknownFAB_PLAY_ORDERcounter. OnlyWeapon-vs-AAeventguard/nativeOathcost/GA/realattack, positiveWeaponWHEN/counterincrease/timing/endphasecountercleanup/sourceprovenance/support/fullcarduncredited; noenginechange. Sources: FaBSim/GeneratedCode/cardArrayCache.json#oath_of_steel_red FaBSim/GeneratedCode/GeneratedMacroCode.php FaBSim/Custom/GameLogic.php FaBSim/Custom/EVRCards.php FaBSim/Custom/WTRCards.php"
+}

@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-drawn-to-the-dark-dimension-red-four-live-sparse1444-real-runechant-two-resource-discount-and-consequences-paid-attack-prefix",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-drawn-to-the-dark-dimension-red-four-live-sparse1444-real-runechant-two-resource-discount-and-consequences-paid-attack-prefix",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1444-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1444-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "7f0c6a0c2c16009f813c1ff59a521c39c36e4b7b3aebe031dedf3a0b03930427",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "bba077d2867cd214e3fa78634f6b916477d5bb4150bede0510606d570d51a448",
+        "actions.json": "c6bbdadbba0b67d078d06e34467ea4302d68b39cbd4579bbe7f0c339867b9858",
+        "assertions.json": "d0cef1ad6a318a4c6d57f1b7774adb81ddfe53f4d85fc61b92299b629369e5c2",
+        "expected_final_gamestate.txt": "dbde130efcd3e714184135fdcc3e1605492d8ebf7198d559493508c4ea629020",
+        "meta.json": "10ef70bf2d11603b9e04bf2d24b1b5638c9a5e6cf48455dc7708352e7622ed21"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

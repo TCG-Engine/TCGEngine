@@ -1,0 +1,7 @@
+{
+    "name": "Gang Robbery / positive three-Aura bonus versus Ally does not steal a real opposing Aura",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-24T03:27:39+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "FOUR_REAL_YOUNG_MANUAL_UPF_POSITIVE_THREE_AURA_STATIC_BONUS_VS_ALLY_HERO_ONLY_STEAL_FALSE. ReviledYoungKayo20actualprimary5Hand/base1cost0, threeactualMight6/Vigor7/Agility8Arena. Dromai4ownsrealAshwing9withlegitimatepriorAshmaterial+HandBlue10+realAgility11Arena. Actualprimary5declaresALLY9notHero4/AP1to0/R0, allfour responsesretainallphysicalassets. Continuousown3Aura+3makesactualpower4/noGA; Hero-onlyWHEN conditionfalsebecauseactualattackTargetALLY, so noearnedstealtrigger/choice; existingeligibleopponentAura11mustnotmove/controllerchange. Actual4physicaldamagekills1lifeTokenAlly9/ceaseswithoutGY; allHeroHP20. Aura11remainsownedcontrolled4andbecomesArena4index0; ownAuras6..8unchanged, controlHand10unchanged,5ownedGY1/APR0/UID11RNG0/cleanStackDQsCC. NoHeroAuraSteal/true-triggerresponse/belowthreshold/Auraproducers/otherpitch/support/fullcardcredit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#gang_robbery_yellow FaBSim/GeneratedCode/GeneratedMacroCode.php FaBSim/Custom/SUPCards.php FaBSim/Custom/FaiCards.php FaBSim/Custom/UPRCards.php FaBSim/Custom/GameLogic.php"
+}

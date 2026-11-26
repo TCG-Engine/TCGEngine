@@ -1,0 +1,115 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "independent breadth_review1252",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1255-20261122.json",
+  "source_spec_sha256": "fdd23373601e8dd0c2f95075d6ed8584a1490ad60a0d1251a48bc809fb8dbc88",
+  "input_sha256": "fdd23373601e8dd0c2f95075d6ed8584a1490ad60a0d1251a48bc809fb8dbc88",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-constella-flowslide-yellow-four-live-sparse1255-real-owned-lightning-flow-created-after-four-responses-without-prior-starfall",
+      "card_id": "constella_flowslide_yellow",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "f4c95327acd6f41080e07c3633ec15145717db27c0152694083985d72ddc6d8d",
+        "actions.json": "ecfc3b356d170d3adcd369c59f64176c3b17ffe7af3900115b2de1a20afbaf7c",
+        "assertions.json": "7e6efc788c4b9e86a38369d40bdff2328fb197db69d52776b869f4041e88ac2c",
+        "expected_final_gamestate.txt": "f44068a14c1bcbd7c74caf031bfe1b948ec49201179dc53f164bb3fa20ead54d",
+        "meta.json": "c006a8402d8a86d745db497556a809431d0d95455a1a38fca4f50486317d2f28"
+      },
+      "fixture_sha256": "de31c66528b11ac34d3cd8535cf1a3947b0928ff1ffb3bad9fa8f761fc4befd0",
+      "actions": 5,
+      "native_assertions": 236,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 4,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1255-20261122.json",
+      "input_sha256": "fdd23373601e8dd0c2f95075d6ed8584a1490ad60a0d1251a48bc809fb8dbc88",
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1255-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-constella-flowslide-yellow-four-live-sparse1255-real-owned-lightning-flow-created-after-four-responses-without-prior-starfall",
+        "fixture_slug": "card-constella-flowslide-yellow-four-live-sparse1255-real-owned-lightning-flow-created-after-four-responses-without-prior-starfall",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-constella-uplift-yellow-four-live-sparse1255-real-untap-reenables-actual-tap-staff-activation-without-prior-starfall",
+      "card_id": "constella_uplift_yellow",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "8968eef3f19cd0805560ef4a91e0a4f2de6e6986c0e961f29bbdf00ecc328adf",
+        "actions.json": "f9e9e45c6d88d1ec076a2cba55d456dc270ae06dd5f5f1a8bb284f8ec0ae5d40",
+        "assertions.json": "706c92b147081b90f7f62c36c3fe52f5b41585d253d4dbc6cacc1ad2d9409188",
+        "expected_final_gamestate.txt": "060ba2c6bd3fd42f7f5fc3c3898cf9bc8c2b65fc42f2688c4252ec47b4a1869f",
+        "meta.json": "aac20b69fadb4de5094d29e0a79fc8536fe76078561cb32409f6428b942fc9a9"
+      },
+      "fixture_sha256": "2e42bd10b39ca8257846463f77bbe13079bd01ac5b9e1f6d2026d3b8321376f6",
+      "actions": 11,
+      "native_assertions": 297,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 8,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1255-20261122.json",
+      "input_sha256": "fdd23373601e8dd0c2f95075d6ed8584a1490ad60a0d1251a48bc809fb8dbc88",
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1255-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-constella-uplift-yellow-four-live-sparse1255-real-untap-reenables-actual-tap-staff-activation-without-prior-starfall",
+        "fixture_slug": "card-constella-uplift-yellow-four-live-sparse1255-real-untap-reenables-actual-tap-staff-activation-without-prior-starfall",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "reviewer": "independent breadth_review1252",
+    "spec_sha256": "fdd23373601e8dd0c2f95075d6ed8584a1490ad60a0d1251a48bc809fb8dbc88",
+    "source_note_sha256": "e6b9c4fad74dee328971b5974b4c0c0bce4ef60461cc3a65f2bb8ffc3412a8b8",
+    "case_count": 2,
+    "native_controls": 16,
+    "query_checks": 533,
+    "persistable_assertions": 533,
+    "author_only_checks_omitted": 0,
+    "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+    "coverage_category": "ACTUAL_FALSE_STARFALL_INSTANT_BASE_EFFECT_TOKEN_CREATE_OR_STAFF_UNTAP",
+    "basis": [
+      "Two distinct Yellow Lightning Wizard Instants each printed cost0. Natural Young Oscilio18 with Essence of Lightning and three Young Dorinthea20 admit both primaries and Lightning Wizard Staff; four manual/live seats, no passive seats, current-turn history/effects, resource, graveyard or earlier Instant is seeded. Actual play costs no AP and preserves AP1/R0.",
+      "Both real primary5 cards remain owned Stack through four fresh manual responses1,2,3,4 and through any own resolution choice. Generated Flowslide case56 creates one Lightning Flow, then case55 checks Starfall; Uplift case59 gathers owned Weapons Staff refs, case57 offers non-target untap choice, case56 readies chosen staff before conditional case55. OMN Starfall only increments on actual Instant movement into graveyard. Managed source lifecycle therefore leaves own Starfall false until after the primary effect/conditional finishes; no positive target or arcane branch is exercised.",
+      "Flowslide has no Arena token before resolution at each intermediate response. Actual resolution creates exactly one owned Lightning Flow6Arena1 while physical primary5 then goes owner1GY. HVY token creation has no extra producer/replacement source here. Explicit real token identity, owner/controller, total Arena count and UID6 demonstrate effect rather than merely a predicted creation.",
+      "Uplift starts with an admitted real owned Staff6Weapons Status1, supported by recorder entry properties and correctly overridden initial Status1 assertion. No previous Staff activation or current-turn Starfall producer is credited. Printed untap has no target phrase, so choice at resolution is lawful. Only own actual Staff6 is available; source5 stays Stack/GYempty until answer, then Staff6 must change Status1to2 and primary5 enters owned GY.",
+      "Actual primary5 graveyard entry now earns Starfall for later Volzar activation, not for its own bonus. OMNCanActivate requires realStaff Status2 and STARFALL>0; native tap cost sets sameStaff6 back Status1 while ability proxy7 SourceUID6 enters Stack with AP1/R0 retained. Four fresh manual responses resolve the ability and leave no exported proxy. This observable activation witnesses usable untap; Staff identity and Amp damage remain uncredited.",
+      "Final natural HP18/20/20/20 unchanged, AP1/R0, physical primary5GY, one actual produced Flow6 or retained tappedStaff6, exact UID6/7 and RNG0, empty Stack/four queues/combat chains and original turn2ACTION match limited outcomes. All533 checks are native assertion/state checks recorded persistently."
+    ],
+    "limits": [
+      "Semantic/spec review only pending native recording and each targeted replay; no native pass or coverage credit claimed.",
+      "Only each primary base effect with false prior Starfall. No positive conditional arcane targeting/damage, siblings, hero/support or whole-card credit; initial tapped staff provenance and Flow ability are untested. Later Volzar activation is an untap witness, without Amp damage or Staff identity credit.",
+      "Stale nonexistent OMNRuntime.php source references were corrected by author before this hash binding; no controls or expectations changed.",
+      "Only W review receipt written. No native/test execution, T/source/repository edits, authentication, network, Git or original-checkout access."
+    ],
+    "source_sha256": {
+      "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+      "FaBSim/GeneratedCode/GeneratedMacroCode.php": "fe6a7982611df8f4de98ce2671b317b671b580146aa4b8c28e8f4b86d8461056",
+      "FaBSim/Custom/OMNCards.php": "f679d81ac69c6d5d23fa3b0d4cd5ee3e44a0a180f7d0a896f31d2e9817090284",
+      "FaBSim/Custom/HVYCards.php": "1387ecf0971fae9aa4bfb7bc99baec47a46e9c8770030884b722915eb87a31f1",
+      "FaBSim/Custom/WTRCards.php": "77d4452b30e45254a7199bc965396ded53e325717ecdd84a09b971f723f99f6a",
+      "FaBSim/Custom/GameLogic.php": "c60fa151561f959e4e3e341b814de0e2b47c9e9f153bbc8793a04c43b5075061",
+      "DevTools/FaB/CardRegression/record_card_regressions.php": "e53055b29e9ea641949b77019c4455607f41ca233325d716a9500637e19efd28"
+    }
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1255-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "d205e9ea55eda8badce5422f33331d4b705362747cca6ea6376ee758ad5aa32f"
+  },
+  "full_suite_run": false
+}

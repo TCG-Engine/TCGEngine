@@ -1,0 +1,271 @@
+{
+  "status": "APPROVED_ACTUAL_SAVED_B791_TIGER",
+  "phase": "SAVED",
+  "approved": true,
+  "saved_approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "/root/sand_saved_recovery",
+  "created_utc": "2026-11-14T20:26:39.817163+00:00",
+  "source_spec": "card-regression-batch791-tiger_stripe_shuko.json",
+  "input_sha256": "2edf742102049d9af4994f4f443eb9346f97f01bc3ba61935c303a6d725c75cc",
+  "manifest_sha256": "439f6185060d93b202a980a1d9e642c3204dc838cee092b1dce5e10623102f93",
+  "runtime_sha256": "6695d68163d313f4f61cb20ad9122c7038e621a60c847909598150fe8da09d11",
+  "recorded_runtime_sha256": "6695d68163d313f4f61cb20ad9122c7038e621a60c847909598150fe8da09d11",
+  "recorder_sha256": "ab33a3250462d0453f71d38dd4138cb9fbc3d595d2586742e989a52251c9c4a9",
+  "manifest": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov14-batch791-tiger-shuko-real-second-head-jab-unpreventable-ward-author\\manifest.json",
+    "sha256": "439f6185060d93b202a980a1d9e642c3204dc838cee092b1dce5e10623102f93"
+  },
+  "prior_independent_source_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov14-batch791-tiger-independent-correct-positive-source-review.json",
+    "sha256": "6bfec88bab14d2c0f125857fd8c072a3d59715a25f2d59dcb56cb7cc30fd341b"
+  },
+  "root_wrapper_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov14-b791-tiger-native-correct-unpreventable\\receipt.json",
+    "sha256": "ea2d8abaac04b4fb26c8de5d814196b5d00119478494639afcff6b0fda220991"
+  },
+  "recording_receipt": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch791-tiger_stripe_shuko-20261114T202303Z-6af8c3279da89.json",
+    "sha256": "88f863e3f816d9a320d29d32c60e9bada9c7e854b9fc054b1d5dd5e3a65827d2"
+  },
+  "specific_results": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch791-tiger_stripe_shuko.recording-results.json",
+    "sha256": "4c54930627443852765e8ec5148ee96296b4e75ec7a89eaee8e8e8ae353cb5c9"
+  },
+  "fixtures": [
+    {
+      "slug": "card-tiger-shuko-real-second-head-jab-unpreventable-ward",
+      "card_id": "tiger_stripe_shuko",
+      "group_id": "identity:tiger_stripe_shuko",
+      "source_spec": "card-regression-batch791-tiger_stripe_shuko.json",
+      "input_sha256": "2edf742102049d9af4994f4f443eb9346f97f01bc3ba61935c303a6d725c75cc",
+      "runtime_sha256": "6695d68163d313f4f61cb20ad9122c7038e621a60c847909598150fe8da09d11",
+      "recorded_runtime_sha256": "6695d68163d313f4f61cb20ad9122c7038e621a60c847909598150fe8da09d11",
+      "approved": true,
+      "semantically_approved": true,
+      "reviewer_independent": true,
+      "fixture_path": "Tests/Integration/FaBSim/card-tiger-shuko-real-second-head-jab-unpreventable-ward",
+      "fixture_sha256": "982df821d89749cb3404b0adaa3f1918dda4228debd9e7986a48e8f1f15567aa",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "815dfd605c03bf2d073878ffdcae79d9da082c4b201a97a561164672dcce1645",
+        "actions.json": "31485d7b971bcf3b23e73b128eddf90640b8b0ec445ec9ef2481f0b3a4f7019e",
+        "assertions.json": "4e04c8d3ff3323af17a3da2a3df8c0f000631e75307c9bc96b9a0c40d77095e5",
+        "expected_final_gamestate.txt": "bd3da691d45c5fff2900ef26f9bd09cb4160bcc35e205de231813d1bd849c352",
+        "meta.json": "36d8b3194b519ab1e28b14c7ad692196354300602a37e66e8e600c777c25fc10"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "815dfd605c03bf2d073878ffdcae79d9da082c4b201a97a561164672dcce1645",
+        "actions.json": "31485d7b971bcf3b23e73b128eddf90640b8b0ec445ec9ef2481f0b3a4f7019e",
+        "assertions.json": "4e04c8d3ff3323af17a3da2a3df8c0f000631e75307c9bc96b9a0c40d77095e5",
+        "expected_final_gamestate.txt": "bd3da691d45c5fff2900ef26f9bd09cb4160bcc35e205de231813d1bd849c352",
+        "meta.json": "36d8b3194b519ab1e28b14c7ad692196354300602a37e66e8e600c777c25fc10"
+      },
+      "raw4_sha256": {
+        "initial_gamestate.txt": "815dfd605c03bf2d073878ffdcae79d9da082c4b201a97a561164672dcce1645",
+        "actions.json": "31485d7b971bcf3b23e73b128eddf90640b8b0ec445ec9ef2481f0b3a4f7019e",
+        "assertions.json": "4e04c8d3ff3323af17a3da2a3df8c0f000631e75307c9bc96b9a0c40d77095e5",
+        "expected_final_gamestate.txt": "bd3da691d45c5fff2900ef26f9bd09cb4160bcc35e205de231813d1bd849c352"
+      },
+      "actions": 55,
+      "native_assertions": 4033,
+      "manual_passes": 50,
+      "actual_manual_passes": 50,
+      "actual_priority_response_passes": 48,
+      "actual_defender_declaration_finish_inputs": 2,
+      "actual_manual_actor_counts": {
+        "1": 12,
+        "2": 13,
+        "3": 12,
+        "4": 13
+      },
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        2,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4
+      ],
+      "schema_property_assertions": 1521,
+      "checkpoint_count": 57,
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "endpoint_assertions_evaluated": {
+        "0": 135,
+        "55": 188
+      },
+      "all_actions_and_assertions_exact": true,
+      "all_terminal_assertions_evaluated_against_parsed_final_snapshot": true,
+      "initial_assertions_also_evaluated_against_parsed_initial_snapshot": true,
+      "initial_physical_uid_locations": {
+        "1": {
+          "card_id": "zen",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "head_jab_blue",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "head_jab_blue",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "tiger_stripe_shuko",
+          "zone": "p1Equipment",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "betsy",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2
+        },
+        "3": {
+          "card_id": "betsy",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3
+        },
+        "4": {
+          "card_id": "betsy",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4
+        },
+        "8": {
+          "card_id": "spectral_shield",
+          "zone": "p4Arena",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_physical_uid_locations": {
+        "1": {
+          "card_id": "zen",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "tiger_stripe_shuko",
+          "zone": "p1Equipment",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "head_jab_blue",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "head_jab_blue",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "betsy",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2
+        },
+        "3": {
+          "card_id": "betsy",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3
+        },
+        "4": {
+          "card_id": "betsy",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "native_action_mapping_sha256": "fc73a06becac5b3efa0bfa7f38dc7d4e6c2f36480262eb940cd5b3c66493abd8",
+      "native_assertion_mapping_sha256": "2cd9786f9d7991321a81911fd18d22dafe6b23cb3d195614c32cb32a7aadb8d1",
+      "checkpoint_assertion_mapping_sha256": "ee08cdb3dfaaf24b9c5face9f5150cbeb2de009bab322c20ee88007b4d69d165",
+      "full_card_certification": false
+    }
+  ],
+  "source_guard_count": 82,
+  "selected_support_guard_count": 12,
+  "all_current_guards_matched": true,
+  "total_actions": 55,
+  "total_native_assertions": 4033,
+  "total_manual_passes": 50,
+  "total_schema_property_assertions": 1521,
+  "total_checkpoints": 57,
+  "total_endpoint_assertions_evaluated": 323,
+  "material_findings": [
+    "Actual firstHead6 power1 hits adjacentHero2 for1/HP19, earns printedGA and fully closes. Second distinctHead7 qualifies as actual second low-base play and computes2/no seeded history; mandatory real Ward chooser selects own Shield8. Shield is destroyed/vanishes but prevents0, full2 damage yieldsHP4_18. SameShuko5 equipped,6/7GY1, finalAP1 from printedGA.",
+    "Every actual native envelope/manual actor and ordered successful query matches frozen Source. Actual raw endpoints independently verify48 manual booleans EACH, no initial outcome/effect/count/prevention seed, all original physical identities/ownership and terminal Stack/chain/queues/targets/payment/manager/await cleanup.",
+    "Shared prevention transport is an existing native damage choice, not a newly earned layer or seeded Forcefield producer. Intermediate facts are direct successful query evidence; raw5 contains initial/final snapshots only."
+  ],
+  "limits": [
+    "One exact bounded equipment positive only; no BladeBreak defense, token creator/producer, Hero ability, suppression/elimination/copy/stale/decline/nonShadow/other-damage/full-card certificate.",
+    "Root targeted replays/registration remain separate. Reviewer executed no PHP/native/game/replay/full-suite or R/source/Git/remote mutations/further agents. B787 denied operation remains frozen."
+  ],
+  "qualification_credit_before_registration": false,
+  "replays_executed_by_reviewer": false,
+  "B787_denied_operation_untouched": true,
+  "blockers": [],
+  "comparison_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov14_batch791_equipment_saved.py",
+    "sha256": "e090c00e7fed6e7486e9d0d7476b807312ed64c1d981223c4abf5ae2a4dc9421"
+  }
+}

@@ -1,0 +1,7 @@
+{
+    "name": "Enigma New Moon / ordinary Blue pitch cannot pay Chi despite a real facedown Equipment target",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-25T09:57:51+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "LegalEnigmaNewMoon20/manual4, realGenericIronrot5FaceDown1validtarget/Cloakedsetup. RealGenericBlueSigil6pitch3notChi, noInnerChi. CorrectACTION1/AP1 HeroabilityChi3mustrefusecurrencycost despiteordinarypitchfundingandtarget, preservingHero1/Equipment5facedown/Hand6/APR/UID/noStackDQ/payment/flip/Shield. ActualSigil6Instant0/allfourresponsesHP21/AP1/source6GY, sameEquipment5facedownandHero1. Onlyunpayablecurrencybranch; positiveChi/targettiming/flip/Ward/Cloakedfullrulesuncredited. Noenginechange. Sources: FaBSim/GeneratedCode/cardArrayCache.json#enigma_new_moon FaBSim/Custom/MSTCards.php#FaBMSTChiCost FaBSim/Custom/MSTCards.php#FaBMSTAvailableChi FaBSim/Custom/MSTRuntime.php#FaBMSTAbilityRows FaBSim/Custom/ARCAbilities.php#FaBARCCanActivate"
+}

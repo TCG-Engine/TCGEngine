@@ -1,0 +1,7 @@
+{
+    "name": "Not So Tuff / printed defending trigger genuinely unearned",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-25T07:27:01+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Four genuine manual legal young natural20 Heroes. Actual Reviled Block legally belongs to Killjoy20. Attacker Dori20 is not Revered; a real Toughness owned/controller1 remains present, so no destruction/Might is earned. Current TurnPlayer1 owns Toughness; its start-of-opposing-turn trigger is not entered. Real4attack gets actual2defense, deals2damage, and full physical combat closes. No positive ability or token creation history credit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#not_so_tuff_blue FaBSim/Custom/GameLogic.php#FaBDeclareBlock FaBSim/Custom/SUPCards.php#FaBSUPDefended"
+}

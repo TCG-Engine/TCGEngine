@@ -1,0 +1,7 @@
+{
+    "name": "Vengeance Never Rests / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T19:14:10+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "**Combo** - If Edge of Autumn was the last attack this combat chain, this gets **go again** and \"When this hits a hero, banish it. You may play it this turn.\" Representative only: first_attack_without_edge_of_autumn_combo_go_again_or_banish. Other pitch siblings, alternate targets and unexercised branches receive no credit. All four live/manual; only native entry-point actions. Sources: FaBSim/GeneratedCode/cardArrayCache.json#vengeance_never_rests_blue"
+}

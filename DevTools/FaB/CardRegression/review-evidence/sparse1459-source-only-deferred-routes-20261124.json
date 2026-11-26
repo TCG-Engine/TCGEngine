@@ -1,0 +1,63 @@
+{
+  "batch": 1459,
+  "status": "SOURCE_ONLY_DEFERRED_NO_GAMEPLAY",
+  "reviewer": "/root/breadth_review1457",
+  "basis": "Independent read-only source review and primary source inspection; not native failure evidence.",
+  "routes": [
+    {
+      "card_ids": [
+        "zyggy",
+        "zyggy_starlight"
+      ],
+      "classification": "KNOWN_ASSET_EFFECT_COST_ORDER_DEPENDENCY",
+      "reason": "ARCAbilities.php calls generated Prepare during pending PITCH. Flow destruction and aura banishment precede FinishPreparedCard/resource subtraction and OMNPaid Hero tap. Floating resources does not resolve ordering.",
+      "source_sha256": {
+        "FaBSim/Custom/ARCAbilities.php": "e49ce4685f148ef423ea38aac544266b3298527ea8ca9eef11b12fb974e7c9f0",
+        "FaBSim/Custom/GameLogic.php": "c60fa151561f959e4e3e341b814de0e2b47c9e9f153bbc8793a04c43b5075061",
+        "FaBSim/Custom/OMNCards.php": "f679d81ac69c6d5d23fa3b0d4cd5ee3e44a0a180f7d0a896f31d2e9817090284"
+      }
+    },
+    {
+      "card_ids": [
+        "stasis_cell_blue"
+      ],
+      "classification": "INLINE_LEAVE_TRIGGER_AND_LATE_FORMAL_TARGET",
+      "reason": "EVORuntime immediately invokes ResolveCard on leave-Arena; equipment target selected inline without a fresh earned trigger layer.",
+      "source_sha256": {
+        "FaBSim/Custom/EVORuntime.php": "d57f99b22981b970a55facbee812dc398b8dd104bb2fb386e6e3014eb79512b5"
+      }
+    },
+    {
+      "card_ids": [
+        "corrosive_space_dust_red"
+      ],
+      "classification": "RESOLUTION_ONLY_FORMAL_TRIGGER_TARGET",
+      "reason": "OMNAfterMove queues omnLeave, but generated ResolveAbility selects mandatory target Hero only during resolution; announcement target not captured before responses.",
+      "source_sha256": {
+        "FaBSim/Custom/OMNCards.php": "f679d81ac69c6d5d23fa3b0d4cd5ee3e44a0a180f7d0a896f31d2e9817090284"
+      }
+    },
+    {
+      "card_ids": [
+        "beneath_the_surface_yellow"
+      ],
+      "classification": "INLINE_DEFENDING_LEAVE_TRIGGER",
+      "reason": "PENCards directly sets FaceDown on defending CombatChain-to-Graveyard movement instead of a separate earned WHEN layer.",
+      "source_sha256": {
+        "FaBSim/Custom/PENCards.php": "9d4f443c833ec535bdae15c1973910925c1b7a1223fbfab7fcb89a5b204a7ed8",
+        "FaBSim/Custom/SEACards.php": "5400728b0cfe26f7f9e60f7e135e0ee9b28ac85d39420f64aaade0fa9826f00f"
+      }
+    }
+  ],
+  "compiled_runtime_macro_sha256": "fe6a7982611df8f4de98ce2671b317b671b580146aa4b8c28e8f4b86d8461056",
+  "native_attempted": false,
+  "fixture_saved": false,
+  "coverage_credit": false,
+  "confirmed_gameplay_bug": false,
+  "new_distinct_gameplay_root_credit": 0,
+  "source_changed": false,
+  "limits": [
+    "Specific selected positive routes only, not proof every branch of these cards is impossible.",
+    "No engine repair, native probe, authenticated request or replay. Existing shared timing/cost families are not rediscovered as new confirmed defects."
+  ]
+}

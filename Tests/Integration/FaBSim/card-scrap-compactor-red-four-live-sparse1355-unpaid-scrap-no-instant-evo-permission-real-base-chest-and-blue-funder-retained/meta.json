@@ -1,0 +1,7 @@
+{
+    "name": "Scrap Compactor / unpaid Scrap does not make a viable Evo Action an instant",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-24T10:49:12+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "FOUR_REAL_MANUAL_UPF_NATURAL_YOUNGDASH20_THREEDORI20. EmptyGY/noeligibleScrap/noobjectcostperformed/no099seam, primary5cost0/AP0. InterveningScrappedIFfalse/noINSTANT_EVOgrant. ATTACKownpriority1afterfourresponses: realHandEvoEngineRoom6ACTIONcost3withmatchingownreadyBaseChest8STEAM1andrealBlue7pitch3potential; printedEquippedInstantabilitydoesNOTmakeActionplayanInstant. ActualnativeEvo6clickduringATTACKmustrejectbeforecost/chooser/transform; sameHand6+7/Base8CounterSteam1/Arsenal9/UID9/AP0R0/StackDQquiet. CorrectasInstantwouldnotneedAPandcouldfund3, soactualHand/Equipment/resourcepreconditionsnonvacuous; no positiveEvoTransformexecuted/credited. Actualprimary3damageHP17/fullclose5GY1/base8same/Hand6+7unplayed/Arsenal9same/allArena0/noPitch/Banish/RNG. Actual0ArsenalWounding9alsoaffordablebutrejectsAP0/noRefund. OnlyunpaidScrap/noInstantpermission/nativeviableActionconsumer/baseattack/fates; positiveScrap/099/WHENtiming/permission/EvoTransform/equipmententry/activation/Hero/support/siblings/fullcarduncredited. Sources: FaBSim/GeneratedCode/cardArrayCache.json#scrap_compactor_red FaBSim/GeneratedCode/GeneratedMacroCode.php FaBSim/Custom/GameLogic.php FaBSim/Custom/EVOCards.php FaBSim/Custom/EVORuntime.php FaBSim/Custom/ARCCards.php FaBSim/Custom/WTRCards.php"
+}

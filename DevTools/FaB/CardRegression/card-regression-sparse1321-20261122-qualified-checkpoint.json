@@ -1,0 +1,126 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-24T05:53:55.769976+00:00",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1321-20261122.json",
+  "source_spec_sha256": "a1b05d9a93363a91ea6d534be472a430705a18d80abacf0dccddcb98740cc534",
+  "new_scenarios": 3,
+  "new_groups": 3,
+  "new_primary_ids": 3,
+  "actions": 13,
+  "native_assertions": 632,
+  "manual_passes": 6,
+  "totals": {
+    "saved_registered_scenarios": 5272,
+    "duels": 3100,
+    "four_live": 2172,
+    "recorded_primary_ids": 2420,
+    "identity_denominator": 5196,
+    "recorded_groups": 2294,
+    "group_denominator": 3324,
+    "four_live_groups": 2161,
+    "phase_qualified_scenarios_at_actual_contexts": 1909,
+    "phase_qualified_unique_groups": 1899,
+    "creation_replay_passes": 2651,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 1070,
+  "scenarios": [
+    {
+      "card_id": "gravy_bones_shipwrecked_looter",
+      "group_id": "identity:gravy_bones_shipwrecked_looter",
+      "scenario_id": "card-gravy-bones-shipwrecked-looter-two-live-sparse1321-actual-gold-cost-tap-then-draw-and-red-discard-with-live-source",
+      "effect_branches": [
+        "adult_duel_actual_gold_cost_tap_then_draw_and_red_discard_with_live_source"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-gravy-bones-shipwrecked-looter-two-live-sparse1321-actual-gold-cost-tap-then-draw-and-red-discard-with-live-source",
+      "source_spec": "card-regression-sparse1321-20261122.json",
+      "source_spec_sha256": "a1b05d9a93363a91ea6d534be472a430705a18d80abacf0dccddcb98740cc534",
+      "review_evidence": "review-evidence/sparse1321-20261122-qualified-saved.json",
+      "review_evidence_sha256": "0d1c4b638f3950113bba227e774bfc21a5021e765914bf79e38b5a9a3525c627",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1321-20261122-replay.json",
+          "sha256": "711922aa5ef64d31c41daf80aa97472f39673f260a3a61908cafd7019017bca6",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "two_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "tuffnut_bumbling_hulkster",
+      "group_id": "identity:tuffnut_bumbling_hulkster",
+      "scenario_id": "card-tuffnut-bumbling-hulkster-two-live-sparse1321-actual-under-six-top-card-pitch-and-three-resources-without-cheer",
+      "effect_branches": [
+        "adult_duel_actual_under_six_top_card_pitch_and_three_resources_without_cheer"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-tuffnut-bumbling-hulkster-two-live-sparse1321-actual-under-six-top-card-pitch-and-three-resources-without-cheer",
+      "source_spec": "card-regression-sparse1321-20261122.json",
+      "source_spec_sha256": "a1b05d9a93363a91ea6d534be472a430705a18d80abacf0dccddcb98740cc534",
+      "review_evidence": "review-evidence/sparse1321-20261122-qualified-saved.json",
+      "review_evidence_sha256": "0d1c4b638f3950113bba227e774bfc21a5021e765914bf79e38b5a9a3525c627",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1321-20261122-replay.json",
+          "sha256": "711922aa5ef64d31c41daf80aa97472f39673f260a3a61908cafd7019017bca6",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "two_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "pleiades_superstar",
+      "group_id": "identity:pleiades_superstar",
+      "scenario_id": "card-pleiades-superstar-two-live-sparse1321-actual-two-to-one-suspense-cost-and-other-aura-two-to-three",
+      "effect_branches": [
+        "adult_duel_actual_two_to_one_suspense_cost_and_other_aura_two_to_three"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-pleiades-superstar-two-live-sparse1321-actual-two-to-one-suspense-cost-and-other-aura-two-to-three",
+      "source_spec": "card-regression-sparse1321-20261122.json",
+      "source_spec_sha256": "a1b05d9a93363a91ea6d534be472a430705a18d80abacf0dccddcb98740cc534",
+      "review_evidence": "review-evidence/sparse1321-20261122-qualified-saved.json",
+      "review_evidence_sha256": "0d1c4b638f3950113bba227e774bfc21a5021e765914bf79e38b5a9a3525c627",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1321-20261122-replay.json",
+          "sha256": "711922aa5ef64d31c41daf80aa97472f39673f260a3a61908cafd7019017bca6",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "two_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

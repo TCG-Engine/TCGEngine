@@ -1,0 +1,7 @@
+{
+    "name": "Photon Rush / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T19:14:07+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "**Lightning Flow** - If you've played a Lightning card this turn, this gets **go again**. Representative only: actual_three_without_preceding_lightning_card_go_again Sources: FaBSim/GeneratedCode/cardArrayCache.json#photon_rush_red"
+}

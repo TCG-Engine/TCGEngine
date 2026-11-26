@@ -1,0 +1,7 @@
+{
+    "name": "Bramble Spark / real unfused play followed by weapon, not attack Action",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-24T15:40:32+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "FOUR_REAL_MANUAL_UPF_BRIAR20_THREEDORI20. ActualBrambleSparkBlue5Action0, noeligibleEarthHandcardsoUNFUSED(noartificialfusionflag), spendsAP/all4responses\u21925GY/printedGAAP1. OnlyoneNAAplayed/noAA, soBriarsecondNAAandRosettaAA+NAApredicatesfalse. UseactualRosetta6WeaponAction1choosesadjacent4, realCriticalBlue7pitch3pays1/R2/AP0/newattackcopy8. PrintedBrambleappliesNEXTATTACKACTIONCARD, notWeaponability/attackcopy; currentweapongetsnoELE_ARCANE1andnounfusedpowerbonus. All4manualresponses/base2/noGA/P4HP20beforephysicalDamage/nochooser/layer, thenactual2physicaldamageHP18/fullclose. WeaponattacknotAAsoBriarEarthhitunearned/noAura. Final5GY/7Pitch/original6WeaponsStatus1/copy8gone/UID8RNG0/AP0R2/StackDQquiet. OnlyAA-vs-Weaponfilter/nativeNAA/GA/payment/weaponDamage; positiveAAarcane/targettiming/fusion/retentionforlaterAA/Heroability/support/fullcard/pitchesuncredited. Noenginechange. Sources: FaBSim/GeneratedCode/cardArrayCache.json#bramble_spark_blue FaBSim/GeneratedCode/GeneratedMacroCode.php FaBSim/Custom/GameLogic.php FaBSim/Custom/ELECards.php FaBSim/Custom/CRUCards.php FaBSim/Custom/WTRCards.php"
+}

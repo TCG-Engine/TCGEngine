@@ -1,0 +1,7 @@
+{
+    "name": "Leech Memory / four-live actual AA buff, full block",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-23T02:46:18+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "The next attack action card you play this turn gets +3{p} and \"Whenever this deals damage to a hero, you may put an attack action card from your graveyard on the bottom of your deck.\"\n\n**Go again** Legalnatural20chane; actualsource5cost1paidactualBlue7R2/GA1, thenrealGenericWounding6AA0 getsprinted4+grant3=7. ActualthreeHanddefenders8/9/10DEF9=>0damage/noHit/HP20. All4manual, physicalowned5/6GGYafterinitialrealeligibleGY11, Deck12retained, noLeechdamagechoice/noPuppetlook/noCorruptedCorpse. AttackAP0atResolutionfromnoattackGA. No unearnedHero/event/positivehit/alternateconsumer/siblings/support/fullcardcredit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#leech_memory_red"
+}

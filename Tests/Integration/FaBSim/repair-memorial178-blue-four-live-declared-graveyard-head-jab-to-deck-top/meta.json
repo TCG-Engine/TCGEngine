@@ -1,0 +1,7 @@
+{
+    "name": "Memorial Ground Blue / declare earned graveyard target before responses, then topdeck",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-20T17:54:36+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "SAVE-capable existing FAB-REG-178 repair completion pending independent review and native qualification. Preserve the exact original28-action/2274-query diagnostic prefix and setup; the original file remains diagnostic-only and unchanged. Declare actual earned Head Jab UID5 at currentp1Graveyard-1 before assets/response priority. Fresh four manual responses leave same5 inGraveyard andDeck10 unchanged until fourth, then reveal/topdeck same5 before10 and move physical Memorial7 to ownGraveyard beside6. Hand8/9, AP1/R0 andHP20/20/20/19 unchanged, allStack/decision/await/payment frames clear. This successor explicitly continues beyond the old declaration barrier; no draw/Tome, target-loss Native, pitch-sibling or full-card credit. Sources: https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/MON305.webp https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/ https://rules.fabtcg.com/en/trp/09-special-formats/"
+}

@@ -1,0 +1,113 @@
+{
+  "status": "SOURCE_ONLY_UNATTEMPTED_CRANE_FIXED_SOULBEAD_HIT_TRIGGER_PLANNING_LIMIT",
+  "card_id": "crane_dance_blue",
+  "group_id": "pitch-cycle:crane_dance",
+  "planning_review_approved": true,
+  "approved": false,
+  "reviewer": "/root/b750_saved_recovery",
+  "reviewer_independent": true,
+  "created_utc": "2026-11-09T01:12:54.066329+00:00",
+  "runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+  "recorder_sha256": "ab33a3250462d0453f71d38dd4138cb9fbc3d595d2586742e989a52251c9c4a9",
+  "planning_hold": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov9-batch763-herald-real-hand-discard-and-crane-source-only-author\\batch763-crane-fixed-soulbead-hit-trigger-source-only-plan.json",
+    "sha256": "a0d24428166b4e709f0814daed5ece59aae425cd68ab647af4a9cf063f66c21f"
+  },
+  "manifest": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov9-batch763-herald-real-hand-discard-and-crane-source-only-author\\manifest.json",
+    "sha256": "21611ad9e00ad1f102fec53279ecca21e83d15736e80fc91f7da08d9686e6cb3"
+  },
+  "input": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov9-batch763-herald-real-hand-discard-and-crane-source-only-author\\batch763-crane-fixed-soulbead-hit-trigger-source-only-plan.json",
+  "input_sha256": "a0d24428166b4e709f0814daed5ece59aae425cd68ab647af4a9cf063f66c21f",
+  "author_QA": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov9-batch763-herald-real-hand-discard-and-crane-source-only-author\\frozen-author-QA.json",
+    "sha256": "130404457e688eaa0f5152b6d4adf047aa4bd03a0f680ab8dbe3c8565f518a67"
+  },
+  "rule_notes": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov9-batch763-herald-real-hand-discard-and-crane-source-only-author\\SOURCE_RULES_NOTES.json",
+    "sha256": "7d0c6d18bfd88e0c57492ebbc28998dc631aaf76ba16318b6d879adbe0b6e681"
+  },
+  "source_guard_count": 70,
+  "source_guards_verified": true,
+  "source_guards_sha256": "aa27ca19be94d5313c8838e3821bf3e7fbe78ff99220a446b44c046cd03d99af",
+  "source_guards_binding": "Every current path of exact70-map in pinned manifest independently matches.",
+  "executable_cases": 0,
+  "native_actions": 0,
+  "native_assertions": 0,
+  "passing_fixtures": 0,
+  "source_body_present": true,
+  "independent_findings": [
+    "Viewed Crane Dance blue and necessary Soulbead yellow publisher faces. Crane true-combo helper adds+1/GO_AGAIN/CRU_CRANE from actual prior Soulbead, and base5>chainlink2 restriction exists. No primary implementation/body absence is claimed.",
+    "The selected Soulbead yellow Hit body directly tags original attack GO_AGAIN. Live damage2024 invokes OnHit1242 and that compiled body synchronously before damage-step priority. The bounded queued-hit whitelist has no Soulbead entry; generic dispatch does not turn that direct effect into a layer.",
+    "CR6.6.1/5/6 requires a hit-triggered layer before next priority, with its effect on resolution. Current printed When and historical publisher If-hit wording both denote this triggered event (CR1.8.4/6.6 notes). Later combat go-again AP refund itself occurs at Resolution and is healthy; it does not supply the missing hit-trigger response window.",
+    "Only this fixed necessary producer route limits the reserved positive Crane witness. Real Soulbead hit, responsive trigger, AP refund, same-chain combo/block rejection and damage remain unattempted/unqualified. No native failure or confirmed engine bug is claimed."
+  ],
+  "source_evidence": {
+    "paths": [
+      "FaBSim/Custom/GameLogic.php:1225-1243,1996-2043",
+      "FaBSim/GeneratedCode/GeneratedMacroCode.php:30766-30770",
+      "FaBSim/Custom/WTRAbilities.php:94-110",
+      "FaBSim/Custom/CRUCards.php:124-128,168-173"
+    ],
+    "canonical_material_row_sha256": "b98f1a49f51efba7275336e501dcfe41db627f59b569e797f25877582371ac13"
+  },
+  "official_rules": [
+    {
+      "url": "https://rules.fabtcg.com/en/cr/06-effects/",
+      "actually_retrieved": true,
+      "sections": [
+        "6.6.1",
+        "6.6.5",
+        "6.6.6"
+      ]
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/01-game-concepts/",
+      "actually_retrieved": true,
+      "sections": [
+        "1.8.4"
+      ]
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/08-keywords/",
+      "actually_retrieved": true,
+      "sections": [
+        "8.3.5",
+        "8.4.1"
+      ]
+    }
+  ],
+  "limits": [
+    "Only selected Crane blue positive fixed Soulbead yellow route; no red/yellow primary sibling, Hero/support/producer, native/fixture/replay/coverage/full-card credit.",
+    "No alternative producer/primary, private history/GA seed, false-condition/blank-play workaround, resource prefloat, RNG fitting, code repair or denied-repair retry.",
+    "Exact positive Herald admission is separate; this planning proof permits no executable Crane case or native bug qualification."
+  ],
+  "actual_review_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov9_batch763_source_readonly.py",
+    "sha256": "cd03c23b9b19cd1721f2bb72146650cd49449eddad863ea1aac49f6023190972"
+  },
+  "source_approved": false,
+  "source_spec_approved": false,
+  "gameplay_approved": false,
+  "semantically_approved": false,
+  "semantic_gameplay_approved": false,
+  "runnable": false,
+  "runnable_approved": false,
+  "installable": false,
+  "native_attempted": false,
+  "native_executed": false,
+  "native_bug": false,
+  "replay_executed": false,
+  "fixture_saved": false,
+  "coverage_credit": false,
+  "qualification_permitted": false,
+  "executable_admission": false,
+  "confirmed_engine_bug": false,
+  "confirmed_gameplay_bug": false,
+  "confirmed_bug": false,
+  "bug_reproduced": false,
+  "source_fix": false,
+  "repair_attempted": false,
+  "repository_writes": false,
+  "full_suite_run": false
+}

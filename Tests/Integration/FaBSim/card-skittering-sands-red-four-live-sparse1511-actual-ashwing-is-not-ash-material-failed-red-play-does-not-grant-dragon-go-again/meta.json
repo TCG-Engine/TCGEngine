@@ -1,0 +1,7 @@
+{
+    "name": "Skittering Sands / actual Ashwing is not Ash and failed Red does not earn Dragon go again",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-25T08:14:03+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Four genuine manual legal young natural20 Heroes. Dromai20 controls a real prior Ashwing7 with canonical native UPR_ASH1/DYN_ASHash material representation, and actualStorm8 grants Dragon attack ability. This Ally is not an Ash permanent target despite its Ash material history. RealBlueSigil6 resolves after allfour responses\u2192HP21/AP1. PrimaryRed5cost0 click must refuse noAsh, preserving physicalcards/AP/playhistory. ActualStorm-granted Dragon7 then attacks adjacentHero4 for printed1, noGA because onlyBlueSigil was played and refusedRed was not. Fullmanualcombat deals1HP19, AP0, sameAlly7used/Ashmaterialcountersintact/Storm8ready, proxy9removed rather thanownedGY. PositiveSkittering targettiming/transform and priorcreation remain held/uncredited. Sources: FaBSim/GeneratedCode/cardArrayCache.json#skittering_sands_red FaBSim/Custom/UPRCards.php#FaBUPRCanPlay FaBSim/Custom/UPRCards.php#FaBUPRAsh FaBSim/Custom/UPRCards.php#FaBUPRTransform FaBSim/Custom/MONAbilities.php#FaBMONArenaAttackSpec"
+}

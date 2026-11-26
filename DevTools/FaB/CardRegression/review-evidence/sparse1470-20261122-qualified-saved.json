@@ -1,0 +1,100 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "/root/breadth_review independent cached-text/source-spec batch semantic review; Root exact saved mapping and native clean replay",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1470-20261122.json",
+  "source_spec_sha256": "30cf9eb8cf79cd6d8bf71508f2ec39b1512f2d52ca0fd3907722d87d17a78ead",
+  "input_sha256": "30cf9eb8cf79cd6d8bf71508f2ec39b1512f2d52ca0fd3907722d87d17a78ead",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-arakni-trap-door-four-live-sparse1470-native-initial-trigger-search-face-down-banish-non-trap-cannot-play",
+      "card_id": "arakni_trap_door",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "c2ed6cbabf80cd932376de9c074b0b97eaeee0e6d7a4ea06e6b89938711fd1ce",
+        "actions.json": "0a8b760b4bb3810b7b625c731e1b56b083d2a55cdb516808727974400f1d6ed1",
+        "assertions.json": "ff99cdf9064982df50ebff68170df6b748ba46b5f250555775a82fae3ca697b9",
+        "expected_final_gamestate.txt": "c1b8d725711f7ceb6a0a1e4e73e06a11de6d1aaa78890fb3feef80006e57c261",
+        "meta.json": "5a4af421331bbcb0dad76de6638656bdd651e8597207e22eef4e2d9d7a4f3e2c"
+      },
+      "fixture_sha256": "aa907d339005f251d4096d0b72daa2c890a35cfe7ea6bda81598cbc584a69403",
+      "actions": 6,
+      "native_assertions": 394,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 4,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1470-20261122.json",
+      "input_sha256": "30cf9eb8cf79cd6d8bf71508f2ec39b1512f2d52ca0fd3907722d87d17a78ead",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1470-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-arakni-trap-door-four-live-sparse1470-native-initial-trigger-search-face-down-banish-non-trap-cannot-play",
+        "fixture_slug": "card-arakni-trap-door-four-live-sparse1470-native-initial-trigger-search-face-down-banish-non-trap-cannot-play",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "schema_version": 1,
+    "batch": 1470,
+    "result": "approved_named_branches_only_pending_native_execution",
+    "reviewed_utc": "2026-11-25T03:06:23.708532+00:00",
+    "spec_sha256": "30cf9eb8cf79cd6d8bf71508f2ec39b1512f2d52ca0fd3907722d87d17a78ead",
+    "source_note_sha256": "bca61a859240a919772f6caa624355bfae58b59c4a4566e771973272e5ef930f",
+    "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+    "source_hashes": {
+      "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+      "FaBSim/GeneratedCode/GeneratedMacroCode.php": "fe6a7982611df8f4de98ce2671b317b671b580146aa4b8c28e8f4b86d8461056",
+      "FaBSim/Custom/GameLogic.php": "c60fa151561f959e4e3e341b814de0e2b47c9e9f153bbc8793a04c43b5075061",
+      "FaBSim/Custom/HNTCards.php": "8c58ea4998016d2883b8b44f840000e94bff848ec4c07b65f8f976b283422ccc",
+      "FaBSim/Custom/ROSCards.php": "c79f80e918be279dde3c7fe5323ea3031228c131e3e2d0b2b254619e0944b59a",
+      "FaBSim/Custom/CardChoices.php": "c68ae2b8e984bcc64b00289cc2d71bc0c980b2fbbeaeadbca8ae3a9f9579c515"
+    },
+    "authoring_files_sha256": {
+      "record_card_regressions.php": "a7d3adaba16697806664e6f7476b9a875511dc664ba1de73b140fab61b9e59de",
+      "initial_agent_setup.php": "59c1b7d83b8b4ef070cb9ca6f0fe1f1c4481069dc729ddced2fd02f073851aea",
+      "test_initial_agent_setup.php": "5c6f0177bc4ac849aad1f4dc5a3866f6fc35c769f3df5d770b515e0d645e810f"
+    },
+    "default_compat_receipt_sha256": "73afb6e8a6a948b08d5a129d93bde3bb428b460a5d10b2583e011057b8b4870b",
+    "default_initial_snapshot_sha256": "3d5a18a3406ca17911c9f04f90cccbe1cd936c6c5b7ed2416f903e4533f217bc",
+    "cases": 1,
+    "planned_actions": 6,
+    "persistable_checks": 394,
+    "named_primary_ids": [
+      "arakni_trap_door"
+    ],
+    "findings": [
+      "Unrepresented/unheld current Agent retains legal young Arakni20 base identity and native HNT_BASE_HERO. Explicit entry opt-in adds exactly one native queued Trap Door ABI6 with Controller1/SourceUID1/rosTrigger=true after objects exist, before recorded snapshot. No invented manual layer or gameplay capture credit.",
+      "V2 helper diff independently reviewed: boolean opt-in plus exactly one mapped Trap Door and no other mapped forms; default/false still rejects Trap Door. Existing recorder unchanged. Tests report31 component checks/2 lints; reviewer read source and independently compared current default initial snapshot bytes to original, same hash, zero-action/no-save controls. Gameplay runtime unchanged.",
+      "Initial PRIORITY/Stack1/real DeckWounding5 remains before first three passes. Fourth response starts actual generated search, moves same physical UID5 to owned Temp and waits on legitimate optional MZMULTICHOOSE0|1|p1Temp-0 while ABI6 remains through continuation. No formal target declaration is deferred.",
+      "Actual chosen Generic card moves to Banish face-down. FaBHNTTrap(nextStart=true) gives PlayableFromBanish1 only for Trap; this non-Trap remains0. Source resolves/clears, Deck/Temp empty, AP1/R0 and all Hero health20; actual owned zero-cost Banish click rejects with no new play or layer."
+    ],
+    "limits": [
+      "Source/spec review only; reviewer ran no game, replay or component test and grants no passing coverage before native execution.",
+      "Positive search/face-down banish triggered-ability RESOLUTION plus non-Trap permission control only. Becoming occurred before snapshot: no normal-game trigger capture, timing or prior transformation credit.",
+      "No positive Trap permission or next-turn boundary, optional decline/multiple choices, nonempty shuffle/randomness/order, end-phase return, other forms, support identity or whole-card credit."
+    ]
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1470-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "a6e7f38a0e92a99ee910f9949231f3e596992b6ed87893467aaa94d3ba9091b8"
+  },
+  "full_suite_run": false
+}

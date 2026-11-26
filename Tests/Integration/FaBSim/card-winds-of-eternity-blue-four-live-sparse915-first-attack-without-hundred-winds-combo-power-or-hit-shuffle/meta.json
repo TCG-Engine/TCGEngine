@@ -1,0 +1,7 @@
+{
+    "name": "Winds of Eternity / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T19:14:12+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "**Combo** - If Hundred Winds was the last attack this combat chain, this gets +2{p} and \"When this hits, shuffle all cards you own named Hundred Winds on the combat chain into your deck.\" Representative only: first_attack_without_hundred_winds_combo_power_or_hit_shuffle Sources: FaBSim/GeneratedCode/cardArrayCache.json#winds_of_eternity_blue"
+}

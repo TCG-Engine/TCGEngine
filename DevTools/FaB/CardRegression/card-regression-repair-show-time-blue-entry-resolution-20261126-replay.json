@@ -1,0 +1,57 @@
+{
+  "runtime": "18b5dfaebbb9a0ccf98d50ae1de6fb6fc4b592059d7f7c37add3c2fad8b5e574",
+  "fixtures": [
+    {
+      "slug": "repair-show-time-blue-four-live-20261126-earned-entry-search-response-window",
+      "passed": true,
+      "runtime": "18b5dfaebbb9a0ccf98d50ae1de6fb6fc4b592059d7f7c37add3c2fad8b5e574",
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=repair-show-time-blue-four-live-20261126-earned-entry-search-response-window",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\entry206-207-library220\\show_time_blue\\strict1.log"
+      ],
+      "returncode": 0,
+      "complete_log_sha256": "5402bd272d7cfa13099de4f501478b4a5d11592e327dfde4c5668d41d5d65dec",
+      "raw5_unchanged": true
+    },
+    {
+      "slug": "card-time-skippers-four-live-sparse-actual-blue-pitch-three-destroy-gain-two-ap",
+      "passed": true,
+      "runtime": "18b5dfaebbb9a0ccf98d50ae1de6fb6fc4b592059d7f7c37add3c2fad8b5e574",
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-time-skippers-four-live-sparse-actual-blue-pitch-three-destroy-gain-two-ap",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\entry206-207-library220\\show_time_blue\\strict2.log"
+      ],
+      "returncode": 0,
+      "complete_log_sha256": "a0dc336b001347b06fe1c8bde0ee6049a62f7470ee228da494a763770dbd50db",
+      "raw5_unchanged": true
+    },
+    {
+      "slug": "card-overload-script-red-four-live-sparse1022-actual-steam-entry-accept-crank",
+      "passed": true,
+      "runtime": "18b5dfaebbb9a0ccf98d50ae1de6fb6fc4b592059d7f7c37add3c2fad8b5e574",
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-overload-script-red-four-live-sparse1022-actual-steam-entry-accept-crank",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\entry206-207-library220\\show_time_blue\\strict3.log"
+      ],
+      "returncode": 0,
+      "complete_log_sha256": "ef1235ae8111edc891b3b34031164488956399e7990e11ca31564cb9d3eae4af",
+      "raw5_unchanged": true
+    }
+  ],
+  "full_suite_run": false
+}

@@ -1,0 +1,280 @@
+{
+  "status": "APPROVED_ACTUAL_SAVED_GIVE_NO_QUARTER_V2_TWO_REAL_ALLY_DISCOUNTS",
+  "approved": true,
+  "source_approved": true,
+  "semantically_approved": true,
+  "reviewer": "/root/nov2_next_author",
+  "created_utc": "2026-11-03T15:40:02.421827+00:00",
+  "source_spec": "card-regression-batch344-v2.json",
+  "input_sha256": "a9aed96ddef6c0e4b2cd0c9e460d20a36ed09ff78ed1c96be32a8e556248fe00",
+  "manifest_sha256": "aa47605cd100c98bb31de3942504c50b9416d4f704d3614d3d7e347f6b0e038e",
+  "runtime_sha256": "1f5122763a098fc452b0d810b2131d979a18b39e8a26633f59541507ea78de80",
+  "recorded_runtime_sha256": "1f5122763a098fc452b0d810b2131d979a18b39e8a26633f59541507ea78de80",
+  "source_guards_verified": 19,
+  "prior_independent_semantic_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch344-independent-source-review.json",
+    "sha256": "0e93fe6b6a352f72c811fda9561cb3a1de704516656b92855d5f79d22b9d5ecb",
+    "reused": true
+  },
+  "independent_counter_delta_runtime_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch344-v2-1f51-root-source-review.json",
+    "sha256": "76ac4c662ca2f1673e02b2ca492331b1e81cb3e6a34157c6aa64d491089caadb"
+  },
+  "recording_receipt": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch344-v2-20261103T153400Z-6ae9fee816fec.json",
+    "sha256": "1ab7df05a9e4ed72d392067e90dba8d82784deb6b00f5d9b65451ccfd7cb343c"
+  },
+  "root_wrapper_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch344-v2-native-r1\\receipt.json",
+    "sha256": "2a696268af4bac6f0b9223eaf78cfea224f5d44a29e7c6fd20e553517156c9c7"
+  },
+  "actual_comparison_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov3_batch344_v2_saved_readonly.py",
+    "sha256": "84efb3e9870cec73561836029b78504de8e3bb295b5ee25c0de70db17b3efe92"
+  },
+  "reviewer_independence": "Original authorSparse; counter-correction authorMeta; source/delta reviewerRoot. Saved reviewer only prepared mechanical guard binding, not scenario or nine-check correction.",
+  "fixtures": [
+    {
+      "index": 0,
+      "card_id": "give_no_quarter_blue",
+      "slug": "card-give-no-quarter-blue-four-live-sparse-real-two-watery-grave-ally-cost-reductions",
+      "source_spec": "card-regression-batch344-v2.json",
+      "input_sha256": "a9aed96ddef6c0e4b2cd0c9e460d20a36ed09ff78ed1c96be32a8e556248fe00",
+      "reviewer": "/root/nov2_next_author",
+      "runtime_sha256": "1f5122763a098fc452b0d810b2131d979a18b39e8a26633f59541507ea78de80",
+      "recorded_runtime_sha256": "1f5122763a098fc452b0d810b2131d979a18b39e8a26633f59541507ea78de80",
+      "approved": true,
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_NEW_FOUR_LIVE_REPRESENTATIVE",
+      "fixture_path": "Tests\\Integration\\FaBSim\\card-give-no-quarter-blue-four-live-sparse-real-two-watery-grave-ally-cost-reductions",
+      "fixture_sha256": "50a99e5749e3dabd157f3b9219baff6a12a9a96a8dba101efd085a41ed7a0051",
+      "raw4_sha256": {
+        "initial_gamestate.txt": "14005eae3a04afb27ab67ad6758c6befe2b1005ba1a69d268c545e00ac75741b",
+        "actions.json": "bf96be538e0d933e5b949434a54a3c7b59845cfe20dcd518536ca52083a797ac",
+        "assertions.json": "700bf6167be3bcad6c3286b81a49a3d318e51fcf49ad5c42d4a066d281549e67",
+        "expected_final_gamestate.txt": "e7069d7b172cfa88e1fcafe3b1afda1517b297f3a594e4e62b5494fb4e5b4406"
+      },
+      "raw5_sha256": {
+        "initial_gamestate.txt": "14005eae3a04afb27ab67ad6758c6befe2b1005ba1a69d268c545e00ac75741b",
+        "actions.json": "bf96be538e0d933e5b949434a54a3c7b59845cfe20dcd518536ca52083a797ac",
+        "assertions.json": "700bf6167be3bcad6c3286b81a49a3d318e51fcf49ad5c42d4a066d281549e67",
+        "expected_final_gamestate.txt": "e7069d7b172cfa88e1fcafe3b1afda1517b297f3a594e4e62b5494fb4e5b4406",
+        "meta.json": "2f84e6b686ea91be34ebadedd7ddf0c101dc8f7a87efebd7f3f0073d869ff804"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "14005eae3a04afb27ab67ad6758c6befe2b1005ba1a69d268c545e00ac75741b",
+        "actions.json": "bf96be538e0d933e5b949434a54a3c7b59845cfe20dcd518536ca52083a797ac",
+        "assertions.json": "700bf6167be3bcad6c3286b81a49a3d318e51fcf49ad5c42d4a066d281549e67",
+        "expected_final_gamestate.txt": "e7069d7b172cfa88e1fcafe3b1afda1517b297f3a594e4e62b5494fb4e5b4406",
+        "meta.json": "2f84e6b686ea91be34ebadedd7ddf0c101dc8f7a87efebd7f3f0073d869ff804"
+      },
+      "actions": 20,
+      "native_assertions": 1709,
+      "actual_manual_passes": 16,
+      "actual_priority_response_passes": 16,
+      "actual_defender_declaration_finish_inputs": 0,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4
+      ],
+      "actual_manual_actor_counts": {
+        "1": 4,
+        "2": 4,
+        "3": 4,
+        "4": 4
+      },
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "all_actions_and_assertions_exact": true,
+      "all_endpoint_physical_uid_card_zones_ownership_verified": true,
+      "all_terminal_assertions_evaluated_against_parsed_final_snapshot": true,
+      "initial_physical_uid_locations": {
+        "1": {
+          "card_id": "gravy_bones",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "5": {
+          "card_id": "give_no_quarter_blue",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "swabbie_yellow",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "8": {
+          "card_id": "swabbie_yellow",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "timesnap_potion_blue",
+          "zone": "p1Arena",
+          "owner": 1,
+          "controller": 1,
+          "status": 2,
+          "damage": 0
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2
+        }
+      },
+      "final_physical_uid_locations": {
+        "1": {
+          "card_id": "gravy_bones",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "7": {
+          "card_id": "swabbie_yellow",
+          "zone": "p1Arena",
+          "owner": 1,
+          "controller": 1,
+          "status": 2,
+          "damage": 0,
+          "observed_private_counters": {
+            "FAB_PLAY_ORDER": 1
+          }
+        },
+        "8": {
+          "card_id": "swabbie_yellow",
+          "zone": "p1Arena",
+          "owner": 1,
+          "controller": 1,
+          "status": 2,
+          "damage": 0,
+          "observed_private_counters": {
+            "FAB_PLAY_ORDER": 1
+          }
+        },
+        "6": {
+          "card_id": "timesnap_potion_blue",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "give_no_quarter_blue",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2
+        }
+      },
+      "final_Arena_private_Counters": {
+        "7": {
+          "FAB_PLAY_ORDER": 1
+        },
+        "8": {
+          "FAB_PLAY_ORDER": 1
+        }
+      },
+      "final_health": [
+        20,
+        20,
+        20,
+        20
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_Hero_Status": [
+        2,
+        2,
+        2,
+        2
+      ],
+      "checkpoint_count": 22,
+      "checkpoint_assertion_mapping_sha256": "c3426c5f34ed0d437b7b774fd1ea683af03819fb8f96ba7dfc6f0f840a5de0f8",
+      "native_action_mapping_sha256": "59481e566855b30c25db6baeede1bb2bc0bc2c6171ea81bae311060cf20b027a",
+      "native_assertion_mapping_sha256": "ccb06f08afdddd2e53d714251242cfec031672fa6b9f1c987b1025e07231f477"
+    }
+  ],
+  "blocked_attempts": [],
+  "total_actions": 20,
+  "total_native_assertions": 1709,
+  "total_manual_passes": 16,
+  "total_priority_response_passes": 16,
+  "total_defender_declaration_finish_inputs": 0,
+  "material_findings": [
+    "ActualTimesnap6 Action0 destroys into ownGY/spendsAP1 before four1,2,3,4 responses; only fourth earns2AP and virtual9 ceases. No resource/bonus/history seed.",
+    "Actualprimary5 zero-cost spendsAP2->1, fourresponses resolve both cost reductions/ownGA ->AP2. First originalSwabbie7 printed3 actually plays atR0/spendsAP2->1, then four responses persist SAME7Arena. Second originalSwabbie8 also printed3 actually plays atR0/AP1->0 and fourresponses persist SAME8Arena. No pitch, resource creation, token substitute or proxy ally.",
+    "Fully parsed final Arena7/8 are readyStatus2/Damage0/OwnerController1 with actual private FAB_PLAY_ORDER1 retained on each. Empty Counters was not a printed card rule. Exactly nine incidental assertions removed in Root-reviewed V2; every material/cost/identity/economy action/check remains unchanged. No counter-freshness claim.",
+    "Full final ownedGYset5,6, all original1..8 conserved, virtual9 absent/Counter9/RNG0. RawturnEffects have no positive SEA_QUARTER residue. All four remain20HP/ready/live/manual48preferences perendpoint, R/AP0 and Stack/chains/DQs/payment/manager/awaitframes clear."
+  ],
+  "limits": [
+    "Only two real qualifying Ally cost reductions/primaryownGA/persistent physical entries. No allyattack/death/WateryGrave trigger, third cast, stacking/expiry, Gravy ability/graveyard-play, sibling/fullcard/supportprimary/control/fullsuite credit.",
+    "Exact private Counters are recorded as raw saved facts, not added gameplay assertions or a new empty-counter rule. Both observed FAB_PLAY_ORDER1 values do not establish unique event order.",
+    "No PHP/native/R/source/generator/service/replay by reviewer. Root two focused replays and registration remain separate gates."
+  ]
+}

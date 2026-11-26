@@ -1,0 +1,119 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "independent breadth_review",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse917-20261122.json",
+  "source_spec_sha256": "b13eca79ee0f012eb22fd2194b2696f9bd4f48ddd6759821a8d2185ec40703d1",
+  "input_sha256": "b13eca79ee0f012eb22fd2194b2696f9bd4f48ddd6759821a8d2185ec40703d1",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-clash-of-agility-red-four-live-sparse917-actual-six-attack-not-defending-clash-agility",
+      "card_id": "clash_of_agility_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "60f0c9256a10ab62248af0fd2e48107d7bf524a8c97b7176e7babd84b85e06bd",
+        "actions.json": "25920dc16af50701b0be20453cc3345d5c14a09166881d7481930bfb87552093",
+        "assertions.json": "0bc7a057103b18d4004371ba7012d548b6e0df1b7c1a07c85d766c587e5259c5",
+        "expected_final_gamestate.txt": "9bd5f3da4944d4b895375d47eb513b88f51984dcfcd5db255672552361f3e7c8",
+        "meta.json": "5427ec6733a4d73c037b846e0d98c1e6781b9d9a2817a205998a94e80ac5018a"
+      },
+      "fixture_sha256": "3d74ef6fe4da65a94ed4bb4aeb61bf16cce9e4f1c8ca968222be986c51afec8b",
+      "actions": 28,
+      "native_assertions": 142,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse917-20261122.json",
+      "input_sha256": "b13eca79ee0f012eb22fd2194b2696f9bd4f48ddd6759821a8d2185ec40703d1",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse917-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-clash-of-agility-red-four-live-sparse917-actual-six-attack-not-defending-clash-agility",
+        "fixture_slug": "card-clash-of-agility-red-four-live-sparse917-actual-six-attack-not-defending-clash-agility",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-clash-of-might-red-four-live-sparse917-actual-six-attack-not-defending-clash-might",
+      "card_id": "clash_of_might_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "11dd596704e7872d37cf85b8c2063f55058eb353ad3be4c39a38633d8f042c5c",
+        "actions.json": "25920dc16af50701b0be20453cc3345d5c14a09166881d7481930bfb87552093",
+        "assertions.json": "e5f67c038a654d9bb16959d7f0a70b10edab66f4c2af0c2432e9fd20af638cb7",
+        "expected_final_gamestate.txt": "295d45325d7393536e56e0d260089032bed25bf1b91dcf355413f5126d374476",
+        "meta.json": "aff0802fc8ccfb49fb73c9644e8dcc7fe7a2a6914cc6c188ee6fbb49bc25f4bf"
+      },
+      "fixture_sha256": "7488fe803323dcf22debf075fad223d3d5b5b3c71983a8ffb4c1c6bc4ac4b18f",
+      "actions": 28,
+      "native_assertions": 142,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse917-20261122.json",
+      "input_sha256": "b13eca79ee0f012eb22fd2194b2696f9bd4f48ddd6759821a8d2185ec40703d1",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse917-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-clash-of-might-red-four-live-sparse917-actual-six-attack-not-defending-clash-might",
+        "fixture_slug": "card-clash-of-might-red-four-live-sparse917-actual-six-attack-not-defending-clash-might",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-clash-of-vigor-red-four-live-sparse917-actual-six-attack-not-defending-clash-vigor",
+      "card_id": "clash_of_vigor_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "38e6f3c03e2807b16366c6b19b3e41b1dd8fb6a1ec6e2f8c940b5736ee5549f8",
+        "actions.json": "25920dc16af50701b0be20453cc3345d5c14a09166881d7481930bfb87552093",
+        "assertions.json": "1f9993e2e727f23113df95cf85531097e69c41409edc19c8fd94377838256236",
+        "expected_final_gamestate.txt": "a47a7a1a3b00b6bcaec30991fb219e059f1179f406406f76d808f2096136772f",
+        "meta.json": "8272ac9292fd639b07b2f999f25cef34f0c8ed1e51be935d239de6386995ca7e"
+      },
+      "fixture_sha256": "ab429104704900a118abb5fa78abd5f28cf9d7947be01fee78d2e60bbf541ddf",
+      "actions": 28,
+      "native_assertions": 142,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse917-20261122.json",
+      "input_sha256": "b13eca79ee0f012eb22fd2194b2696f9bd4f48ddd6759821a8d2185ec40703d1",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse917-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-clash-of-vigor-red-four-live-sparse917-actual-six-attack-not-defending-clash-vigor",
+        "fixture_slug": "card-clash-of-vigor-red-four-live-sparse917-actual-six-attack-not-defending-clash-vigor",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "reviewer": "independent breadth_review",
+    "result": "approved_named_branches_only_pending_native_execution",
+    "spec_sha256": "b13eca79ee0f012eb22fd2194b2696f9bd4f48ddd6759821a8d2185ec40703d1",
+    "basis": [
+      "Final3 Clash mainattack branches only. Cached printed cost2/base6 for each, real Blue6 pays3 leavingR1/AP0, physical owned5 Hand/Stack/ATTACK/ownGY and actual6 Hero4damage match the oracle; four natural living manual seats/full combat.",
+      "Hybrid Brute/Warrior Agility and Guardian/Warrior Vigor are legal for Boltyn20; Brute/Guardian Might legal for Oldhim20. No charge/AAdefender or manual hero ability applies. Cards are attacking, never defending, so their WHEN-defends Clash events do not occur and no earned layer/token is omitted.",
+      "Visit the Blacksmith removed before native execution: original draft duplicated its response round and no verified local sword-buff producer was found in bounded canonical/generated/Custom/fallback trace. Source-only hold, not a confirmed native defect or coverage credit."
+    ],
+    "limits": [
+      "Static source/spec review only; native execution and clean replay pending.",
+      "No positive Clash, defense/token creation, supporting/pitch sibling group or dormant hero credit.",
+      "No native PHP/games, T edits, network or Git mutation by reviewer."
+    ]
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse917-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "3fa2349565ad91e7df5e59dc197dbfe989fd3779e2f760b3580de99c6944ba29"
+  },
+  "full_suite_run": false
+}

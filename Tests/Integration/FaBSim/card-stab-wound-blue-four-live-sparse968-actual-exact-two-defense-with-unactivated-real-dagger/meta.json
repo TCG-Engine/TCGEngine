@@ -1,0 +1,7 @@
+{
+    "name": "Stab Wound / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T22:41:45+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "When this hits a hero, they lose X{h}, where X is the number of times a dagger has hit this combat chain. Representative only: actual Hand5 play, printed0or2 cost/realBlue6 ifpositive/R0or1/AP0, full four-live manual combat with real Hand Action defenses, zero damage/nohit/Stack0, source and defenders in owned graveyards. Physical eligible markers/counters retained; no positive hit/banish/heal/Mark/dagger-hit or ownership credit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#stab_wound_blue"
+}

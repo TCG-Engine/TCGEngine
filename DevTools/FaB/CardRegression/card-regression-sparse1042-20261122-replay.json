@@ -1,0 +1,102 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "barkbone-strapping-four-live-sparse1042-real-defense-battleworn-close",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=barkbone-strapping-four-live-sparse1042-real-defense-battleworn-close",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1042-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1042-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "8f7426ff6f7be5d24f196937ac6527ad63b85f910c54a490cf889b82073d8609",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "c8c8ff06e57eba42ab2924ea8e7a2fa83ba688ada591009d61c0851c6b8df496",
+        "actions.json": "511bf2f3686ee96e12e3d9cdbe580febcac902b797e5ec827a96d5ccd74ac457",
+        "assertions.json": "07b565fb5e24c9b73f452e5d05497289ead0a79a62d7e338d69fb2d2231c638a",
+        "expected_final_gamestate.txt": "67c0404b498342c1eef713b6bc5bd3ab19202ddda61912b1f1e391addad39527",
+        "meta.json": "5ee9d031d02f18902bb845e71ffd58ff5ffe1f177a3b00e148d2711c7e5c8324"
+      }
+    },
+    {
+      "slug": "blacktek-whisperers-four-live-sparse1042-real-defense-battleworn-close",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=blacktek-whisperers-four-live-sparse1042-real-defense-battleworn-close",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1042-local-20261122\\clean-replays\\01.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1042-local-20261122\\clean-replays\\01.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "383e2556d82e758e767f84f42e7ec79620fd1e25134cb7781db65fe44d09e37d",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "4e6b0c1525db18b3b1dc7ab3768e0b78040d65831d310e6cb5bb837d150cf2b6",
+        "actions.json": "511bf2f3686ee96e12e3d9cdbe580febcac902b797e5ec827a96d5ccd74ac457",
+        "assertions.json": "f8e90ac6abf2817c94e843b624a617d7567cc74e5ffa059e200a4f6f47ee8ffd",
+        "expected_final_gamestate.txt": "a334fa90f56988e4dd7603e97120d8cc2226db5a937f96ab5e16412d156ec7d3",
+        "meta.json": "db0e2356df203dd831b8d9a1156046d3fc93dff52e5b450c48dbdb7e204d3ea0"
+      }
+    },
+    {
+      "slug": "boltn-boots-four-live-sparse1042-real-defense-battleworn-close",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=boltn-boots-four-live-sparse1042-real-defense-battleworn-close",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1042-local-20261122\\clean-replays\\02.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1042-local-20261122\\clean-replays\\02.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "0939a5c9dd2795cf338f8826d44df29f1f1f2c497408ab7321331b04be9521d9",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "b240ed3c734bbebf371b559421d841885832df49f9b8c6635e5cbda740114a2e",
+        "actions.json": "511bf2f3686ee96e12e3d9cdbe580febcac902b797e5ec827a96d5ccd74ac457",
+        "assertions.json": "a10bc631eacabfa3f1b1ba7bfdc51e93285912f7d57a93cf20aa4100c348e0aa",
+        "expected_final_gamestate.txt": "7526e7805d9fd9bdc7d60c1a388626535ee653607a0de2c7a632ce9ca9f5500b",
+        "meta.json": "b65de388841dc7783f198b8de665c85a683961c09a4188435e3b3b51a3a2ab33"
+      }
+    },
+    {
+      "slug": "duelist-gauntlets-four-live-sparse1042-real-defense-battleworn-close",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=duelist-gauntlets-four-live-sparse1042-real-defense-battleworn-close",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1042-local-20261122\\clean-replays\\03.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1042-local-20261122\\clean-replays\\03.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "c94be14dcba0edc13b8165f0d0d6644d3e8f97f42d44913f4ed2c992330ab4cb",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "fd5b2e60034721b1f45453fc08e8b17ebf338572a4b95560f80e13c09105a972",
+        "actions.json": "511bf2f3686ee96e12e3d9cdbe580febcac902b797e5ec827a96d5ccd74ac457",
+        "assertions.json": "523b66a7dd1cf7bd7ea6de14416bf9e71173a901bd77cf975a80fce0b8cd05a7",
+        "expected_final_gamestate.txt": "bbc0df933019de25d933cd93bef7492ebe4c71a5ff2a9938b18c421b9d92cfb6",
+        "meta.json": "a00a352ae1087ac0a4bff3eb04a36f97f78f6b02e0cb88bf3e22c8585fcc3e26"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

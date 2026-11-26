@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-flicker-wisp-yellow-two-live-sparse1426-unfused-real-one-arcane-and-earned-action-plays-actual-item",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-flicker-wisp-yellow-two-live-sparse1426-unfused-real-one-arcane-and-earned-action-plays-actual-item",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1426-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1426-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "25ab8e1401d4264fe08d161abb43778e1b5d9195741799fd57744dcc06a1f6cb",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "e5cfcebd3931a18220d87c9dc63be35361c6c7c0bd7c2bcf406c1b43d2d19e38",
+        "actions.json": "fde7d2e35c67b7e8ddf096a43686b851d4689a910aabf38486f81548eb828c50",
+        "assertions.json": "f62263f8cd862ae050815ea2a27559678af5cb700f38a97c05732c07545b8cf6",
+        "expected_final_gamestate.txt": "d8a17a373da1ec9d331087b2f7c0d7006c5cce755303c769ab7fff00af4566b1",
+        "meta.json": "273a5c0dab7e028d9bdf095af70718803bf50e08047d693b4f6ad99b00e39b01"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

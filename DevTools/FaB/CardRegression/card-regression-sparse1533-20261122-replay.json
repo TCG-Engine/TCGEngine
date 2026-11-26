@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-kyloria-four-live-sparse1533-real-ally-hit-preserves-opposing-item-and-own-nonempty-deck",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-kyloria-four-live-sparse1533-real-ally-hit-preserves-opposing-item-and-own-nonempty-deck",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1533-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1533-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "2880a593f876c0a1e3aa6956f88992bb234afcda7496ea02b843ec576ba301a0",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "8094eb2d8498ee287d0d64bb513d86bfb4f78f6b49e1f9d18657ce03032dac4c",
+        "actions.json": "513c2814fc74bc2f0b4552b21cd858bfe880b173cc7f005465420c16657173e7",
+        "assertions.json": "c200e660c99e8bcd6d85023e66fe236251ce316f7598342dc4e49fd9b9c57829",
+        "expected_final_gamestate.txt": "fde5d4ca08b930b198e5d98a632b6d1d41d34501764fede7331da5fa1a0d80c0",
+        "meta.json": "aa26d6d49f0220fb575fdcedfad64ddf921e9a04626fcef4b98dbac6c0c688e0"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

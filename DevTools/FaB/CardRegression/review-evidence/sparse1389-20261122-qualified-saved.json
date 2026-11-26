@@ -1,0 +1,125 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "independent breadth_review1252",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1389-20261122.json",
+  "source_spec_sha256": "6cec7f2ba34acdf2e2d5a0841fd0dda2e62d254252c006375f331b7fe8e4adad",
+  "input_sha256": "6cec7f2ba34acdf2e2d5a0841fd0dda2e62d254252c006375f331b7fe8e4adad",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-channel-stormgarden-yellow-four-live-sparse1389-real-non-flow-destroy-no-amp-three-arcane-not-four",
+      "card_id": "channel_stormgarden_yellow",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "e89789558e81e29453570dc0b8701a26a172a07be9766d5b9b94516cd9b20c16",
+        "actions.json": "5ad18f5515ad76df2349f559f91fb687ee1c8b17a121b3ae3c31a8434c030b31",
+        "assertions.json": "a062df57d8dcf38ec563917a6b5fe669ec1dea56f0115178dbc15cdbc1e2f2a9",
+        "expected_final_gamestate.txt": "20cabf6a1cb3a239a2b69ba89f482ff137e9ffc19d193a7e1a04cd654f76fa8a",
+        "meta.json": "0768c5a3d2f4f9a3ad2ce4a8e20d15b7eb74c0eb8303518e520334ee831c32e3"
+      },
+      "fixture_sha256": "987bdd0d14a6c58c49b945607a72483b50ebe6cd8e977147f158449aca8424c1",
+      "actions": 11,
+      "native_assertions": 284,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 8,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1389-20261122.json",
+      "input_sha256": "6cec7f2ba34acdf2e2d5a0841fd0dda2e62d254252c006375f331b7fe8e4adad",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1389-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-channel-stormgarden-yellow-four-live-sparse1389-real-non-flow-destroy-no-amp-three-arcane-not-four",
+        "fixture_slug": "card-channel-stormgarden-yellow-four-live-sparse1389-real-non-flow-destroy-no-amp-three-arcane-not-four",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "reviewer": "independent breadth_review1252",
+    "spec_sha256": "6cec7f2ba34acdf2e2d5a0841fd0dda2e62d254252c006375f331b7fe8e4adad",
+    "source_note_sha256": "672865a682841a0ddcc5da25a321d4a95c68efbf2280aa1f34c52ce11131ba2a",
+    "case_count": 1,
+    "active_seats": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "players": "four_live_manual",
+    "native_controls": 11,
+    "query_checks": 284,
+    "persistable_assertions": 284,
+    "author_only_checks_omitted": 0,
+    "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+    "coverage_category": "DESTROYED_SOURCE_TYPE_FILTER_WITH_REAL_ARCANE_AMP_CONSUMER_DAMAGE",
+    "per_case": [
+      {
+        "card_id": "channel_stormgarden_yellow",
+        "group_id": "identity:channel_stormgarden_yellow",
+        "native_controls": 11,
+        "persistable_assertions": 284
+      }
+    ],
+    "basis": [
+      "Unrepresented/unheld Lightning InstantAura Channel Stormgarden legal under naturalYoungOscilio18 Wizard/EssenceLightning versus threeYoungDori20/manual4UPF. Prior maintainedAura7FLOW1 with noFlow token is reachable after earlier entry/Flow destruction and maintenance, no currententry/endphase or positive prior-event provenance asserted. InitialemptyturnEffects prevents prior amp carryover.",
+      "Actual HealingPotion5 nonTokenGenericItem Action0 Destroy paysAP1to0, explicitEVRAbilities13/ARCAbilities174/MONCards306 callsOMNDestroyed. OMNCards54 requires exactlightning_flow before amp, actualPotion5 notmatching so noamp earned. NativevirtualABI8 SourceArena5 throughfourresponses then printedheal2 changes18to20 andGAearnsAP1. Aura index1 to0 compaction afterPotion leaves, FLOW1compactJSON/status/effects unchanged guarded.",
+      "ZapRed6 realWizardAction0 targethero: actualclick/formalMZCHOOSE adjacentHero4 before payment/AP1to0, StackKindACTION/HP4still20 beforefourresponses. GeneratedZap8893 normalmanagedawait path uses declaredtarget and packet3; noBarrier/prevention assets or AMP applies. Correctobservable3arcaneHP4=17not16 distinguishes unearnedbonus with realconsumer.",
+      "Final ownHP20/others20excepttarget17/AP0/R0/Potion5GY0+Zap6GY1/Aura7sameFLOW1/Handempty/allotherArena0/UID8/RNG0/StackDQsquiet coherent. No secondary trigger is owed for destroying nonFlow or for normalGenericPotionheal; no newentryFlow created in selectedroute."
+    ],
+    "limits": [
+      "Only destroyed-source-type guard with actualPotiondestroy/heal/GA and realunampedZapdamage/fates. Positive Channel entryFlow, firstLightningFlowdestroy/amp amount or timing, endphaseupkeep/maintenance, Barrier/replacementchoices, priorassetprovenance/support identities/wholecard untested.",
+      "Approval pending native execution. No game/test/replay, engine/repository edit, original checkout access, auth/network, full suite or Git operation."
+    ],
+    "source_sha256": {
+      "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+      "FaBSim/GeneratedCode/GeneratedMacroCode.php": "fe6a7982611df8f4de98ce2671b317b671b580146aa4b8c28e8f4b86d8461056",
+      "FaBSim/Custom/GameLogic.php": "c60fa151561f959e4e3e341b814de0e2b47c9e9f153bbc8793a04c43b5075061",
+      "FaBSim/Custom/OMNCards.php": "f679d81ac69c6d5d23fa3b0d4cd5ee3e44a0a180f7d0a896f31d2e9817090284",
+      "FaBSim/Custom/MSTCards.php": "cd98a9b734b984bfc19af7d0e4a3eebd5496f298d08c7c79d7f6d43c363513c7",
+      "FaBSim/Custom/MONCards.php": "2eb22bda6f1dba583df2879046f9f4dec94f47f2e9b28f369758f3af72c9c3ac",
+      "FaBSim/Custom/EVRAbilities.php": "135344a07ca10a5a7bd86672209d27eebadb408817908075c2596194ec574334",
+      "FaBSim/Custom/ARCAbilities.php": "e49ce4685f148ef423ea38aac544266b3298527ea8ca9eef11b12fb974e7c9f0",
+      "FaBSim/Custom/WTRCards.php": "77d4452b30e45254a7199bc965396ded53e325717ecdd84a09b971f723f99f6a",
+      "FaBSim/Custom/WTRAbilities.php": "8c7b73f87e5151823dc8aab1546d7e0452e6a948e36fdf9b157d4aa5da0e2209",
+      "FaBSim/ZoneAccessors.php": "9967567a9a10df81a6f22df820d4d77258828657e95c4ad145b8b13ce17866a7",
+      "Schemas/FaBSim/GameSchema.txt": "7783800bd47bc85885cc915066aadca58cdf99f0c1180602ac312d9af5ebf643",
+      "Core/EngineActionRunner.php": "add14b53dc571d2a6e64407bfa4038a98d6554d6410de7a9233810d99c46ea2a",
+      "Core/ShortcutPreferences.php": "25f300ea0b6fbc409f5b92e8bc3587a74b2ab0eaf31ccef38e18c455598eaba6",
+      "DevTools/FaB/CardRegression/record_card_regressions.php": "e53055b29e9ea641949b77019c4455607f41ca233325d716a9500637e19efd28"
+    },
+    "workspace_source_sha256": {
+      "author_breadth1389.py": "752da9f513e3ef7eaa47ae06b772d4f061d7e54fef208825aab4b223077010ad",
+      "breadth1068_helpers.py": "997f949ec26c7e494ad26a818f9f2078f6f4f2a0c49ca7f61aa8c71f3b091b0a"
+    },
+    "secondary_identity_credit": false,
+    "whole_card_credit": false,
+    "positive_condition_credit": false,
+    "positive_trigger_timing_credit": false,
+    "positive_hero_trigger_credit": false,
+    "positive_flow_destroy_amp_credit": false,
+    "initial_position_provenance_credit": false
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1389-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "45b2d44087cbaf09ed09e56d230a92d470d3876a0584728d7a19ae0c8be15097"
+  },
+  "full_suite_run": false
+}

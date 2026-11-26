@@ -1,0 +1,7 @@
+{
+    "name": "Constella Flowslide / actual printed effect without prior Starfall",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-24T00:32:24+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "NO_PRIOR_STARFALL_BASE_EFFECT_ONLY. NaturalOscilio18/3Dori20fourmanual; zeroresources/AP1/noHandothers/noDeckGY/initialeffects. ActualphysicalInstant5pays0/noAP, heldStackuntilfourfreshresponses. WhileownresolveSource5stillStackandnoearlierInstantGYsoStarfallfalse, noarcane/declarationchoiceearned. NoAuraexistsbeforefourresponses; actualresolvecreatesexactoneownedLightningFlow6Arena1andSource5onlythenownedGY1. Nootherrecipient/Aura/newUID, nofakedtoken. Flowproducerprimaryiscredited, Flowidentityabilitynotcredited. AllHP18/20/20/20unchanged, AP1retained/R0/RNG0/noStackDQCC/turn2ACTION. NoStarfallpositive/arcanetargetorbonusdamage, otherpitch, hero/support/fullcardcredit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#constella_flowslide_yellow FaBSim/GeneratedCode/GeneratedMacroCode.php FaBSim/Custom/OMNCards.php FaBSim/Custom/GameLogic.php"
+}

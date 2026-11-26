@@ -1,0 +1,126 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-24T14:06:41.274982+00:00",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1396-20261122.json",
+  "source_spec_sha256": "a584994fc595210051626dfc14ba7acb40e4cd55fb9eddeec48c8bd6eae268a1",
+  "new_scenarios": 3,
+  "new_groups": 3,
+  "new_primary_ids": 3,
+  "actions": 96,
+  "native_assertions": 1085,
+  "manual_passes": 87,
+  "totals": {
+    "saved_registered_scenarios": 5399,
+    "duels": 3113,
+    "four_live": 2286,
+    "recorded_primary_ids": 2547,
+    "identity_denominator": 5196,
+    "recorded_groups": 2421,
+    "group_denominator": 3324,
+    "four_live_groups": 2275,
+    "phase_qualified_scenarios_at_actual_contexts": 2036,
+    "phase_qualified_unique_groups": 2026,
+    "creation_replay_passes": 2778,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 1197,
+  "scenarios": [
+    {
+      "card_id": "haze_bending_blue",
+      "group_id": "identity:haze_bending_blue",
+      "scenario_id": "card-haze-bending-blue-four-live-sparse1396-real-item-not-illusionist-non-token-aura-no-spectral-shield",
+      "effect_branches": [
+        "real_item_not_illusionist_non_token_aura_no_spectral_shield_with_real_healing_go_again_and_attack_damage"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-haze-bending-blue-four-live-sparse1396-real-item-not-illusionist-non-token-aura-no-spectral-shield",
+      "source_spec": "card-regression-sparse1396-20261122.json",
+      "source_spec_sha256": "a584994fc595210051626dfc14ba7acb40e4cd55fb9eddeec48c8bd6eae268a1",
+      "review_evidence": "review-evidence/sparse1396-20261122-qualified-saved.json",
+      "review_evidence_sha256": "25c32205e4bd8fb58f57dd24140b76e03e5f2000a743debc8407890a03b912c1",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1396-20261122-replay.json",
+          "sha256": "1411e342a03a806c4e46a9aea90387e61ab41b3259d2dad0e99c60f37643dd50",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "phantasmal_footsteps",
+      "group_id": "identity:phantasmal_footsteps",
+      "scenario_id": "card-phantasmal-footsteps-four-live-sparse1396-real-item-not-illusionist-attack-action-no-payment-or-extra-action",
+      "effect_branches": [
+        "real_item_not_illusionist_attack_action_no_payment_or_extra_action_with_real_healing_go_again_and_attack_damage"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-phantasmal-footsteps-four-live-sparse1396-real-item-not-illusionist-attack-action-no-payment-or-extra-action",
+      "source_spec": "card-regression-sparse1396-20261122.json",
+      "source_spec_sha256": "a584994fc595210051626dfc14ba7acb40e4cd55fb9eddeec48c8bd6eae268a1",
+      "review_evidence": "review-evidence/sparse1396-20261122-qualified-saved.json",
+      "review_evidence_sha256": "25c32205e4bd8fb58f57dd24140b76e03e5f2000a743debc8407890a03b912c1",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1396-20261122-replay.json",
+          "sha256": "1411e342a03a806c4e46a9aea90387e61ab41b3259d2dad0e99c60f37643dd50",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "wave_of_reality",
+      "group_id": "identity:wave_of_reality",
+      "scenario_id": "card-wave-of-reality-four-live-sparse1396-real-other-item-destroyed-not-this-equipment-no-spectral-shield",
+      "effect_branches": [
+        "real_other_item_destroyed_not_this_equipment_no_spectral_shield_with_real_healing_go_again_and_attack_damage"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-wave-of-reality-four-live-sparse1396-real-other-item-destroyed-not-this-equipment-no-spectral-shield",
+      "source_spec": "card-regression-sparse1396-20261122.json",
+      "source_spec_sha256": "a584994fc595210051626dfc14ba7acb40e4cd55fb9eddeec48c8bd6eae268a1",
+      "review_evidence": "review-evidence/sparse1396-20261122-qualified-saved.json",
+      "review_evidence_sha256": "25c32205e4bd8fb58f57dd24140b76e03e5f2000a743debc8407890a03b912c1",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1396-20261122-replay.json",
+          "sha256": "1411e342a03a806c4e46a9aea90387e61ab41b3259d2dad0e99c60f37643dd50",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

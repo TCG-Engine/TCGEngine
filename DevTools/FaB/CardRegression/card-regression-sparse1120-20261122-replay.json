@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-everbloom-life-blue-four-live-sparse1120-announced-life-half-gains-one-real-life",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-everbloom-life-blue-four-live-sparse1120-announced-life-half-gains-one-real-life",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1120-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1120-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "ff273de77ab54e04d9167304db513c099dfc9983b281408923bcc36aa16afafd",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "22e2a502f862745c6b38bf6e2f9e251cf32d11d2c2e9a901d7dbe9db0b1fd02e",
+        "actions.json": "fd15da497b29b8a7e94f8eeb5055c47b72e20ffeda1a6b71472f18de8df9f225",
+        "assertions.json": "9f6984a154f137ca33019cb02b7d0fba2004592cb8da8bc636e31da9a6797d7f",
+        "expected_final_gamestate.txt": "377e16862777db2d53990616c2122cd9b528b2fb914225c1f9c50fbbe0cf9b97",
+        "meta.json": "7264344481c03287bb34ab207cdfe15260f91e056e4072d70ed271a3359f69c5"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

@@ -1,0 +1,106 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "breadth_review independent two-card printed-rule/current-route/spec review",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1159-20261122.json",
+  "source_spec_sha256": "04a62acceddbca033dab7b8573152f31f344045925bf6aa17e986ce488fffc44",
+  "input_sha256": "04a62acceddbca033dab7b8573152f31f344045925bf6aa17e986ce488fffc44",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-grasp-of-darkness-four-live-sparse1159-real-optional-banish-prevents-incoming-arcane",
+      "card_id": "grasp_of_darkness",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "b4f942e5af55719682ee6f13cfcbda3f26c1de4789715b626c97785f79d94799",
+        "actions.json": "63fcdec970afb6bec58eb589afcdcd7b550391da47a593b4cb3ee062b81befd8",
+        "assertions.json": "536f5dec3e0d868bf30da001c5ca52ffa7cdfe65e7b311350cb57b0e1cb3c8fb",
+        "expected_final_gamestate.txt": "3689ec8227af3f12b29541a209a7d51e2e6e6c138cdd0c2bbc0554a2915ed15f",
+        "meta.json": "9bed3ac457b0b04bf0620e0bcc5e6e68ac6d9f470e8dc4c5765ca5e99dcf3345"
+      },
+      "fixture_sha256": "739e66c3a2869c3f57ef494df0ed0e82e17b8cd11e0950eb8a0e1d058c041efc",
+      "actions": 7,
+      "native_assertions": 273,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 4,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1159-20261122.json",
+      "input_sha256": "04a62acceddbca033dab7b8573152f31f344045925bf6aa17e986ce488fffc44",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1159-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-grasp-of-darkness-four-live-sparse1159-real-optional-banish-prevents-incoming-arcane",
+        "fixture_slug": "card-grasp-of-darkness-four-live-sparse1159-real-optional-banish-prevents-incoming-arcane",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-shroud-of-darkness-four-live-sparse1159-real-optional-banish-prevents-incoming-arcane",
+      "card_id": "shroud_of_darkness",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "ebeb4d4e5aff19d7b5888539faa441c6af83f872658f043195416d75b5691601",
+        "actions.json": "63fcdec970afb6bec58eb589afcdcd7b550391da47a593b4cb3ee062b81befd8",
+        "assertions.json": "47c49ca84acce44d35157e2cb65809254c85702831192b8638d38b8806b829ba",
+        "expected_final_gamestate.txt": "0166d19142c01ed19b19112cc91778feb15a62fc8d6d90e3bf7ed3db582e2285",
+        "meta.json": "3304d93f415b0990e211152dc13b4d3f1f37adf108c15962756c902f8f307d7d"
+      },
+      "fixture_sha256": "58b385f34e669efb6fddd8a0f6d1fc7333ceefcd38eeb406243b15755a935b5f",
+      "actions": 7,
+      "native_assertions": 273,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 4,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1159-20261122.json",
+      "input_sha256": "04a62acceddbca033dab7b8573152f31f344045925bf6aa17e986ce488fffc44",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1159-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-shroud-of-darkness-four-live-sparse1159-real-optional-banish-prevents-incoming-arcane",
+        "fixture_slug": "card-shroud-of-darkness-four-live-sparse1159-real-optional-banish-prevents-incoming-arcane",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "spec_sha256": "04a62acceddbca033dab7b8573152f31f344045925bf6aa17e986ce488fffc44",
+    "reviewer": "breadth_review independent two-card printed-rule/current-route/spec review",
+    "basis": [
+      "Both are distinct uncovered standalone Shadow equipment identities with the same printed optional banish/prevent2 replacement and Blood Debt. Young Chane20 is legal; his optional hero ability is unused, and no end phase is reached.",
+      "Actual Verdance20 Painful Premonition Blue6 declares Hero4 in its existing Prepare before cost/priority, spends the actual action, and remains owned Stack through all four manual responses and the foreign victim prevention decision. DTD full prevention is used, not legacy Spellvoid.",
+      "DTDCards213 enumerates these actual Equipment5 objects; 218-227 validates the choice, moves that same owned UID to face-up Banish4 and returns2. Generated7acc... cases6/4 reduce the actual one-arcane packet and store source-bound prevention before its real deal. Correct damage0/HP20 and source6-ownedGY1 follow; dealt0 does not earn the Sigil of Fate body.",
+      "Each native MZMULTICHOOSE is exactly 0|1|p4Equipment-0, answered with advertised p4Equipment-0. Initial/held/final ownership, same UID5 Banish FaceDown0, HP20/AP0/R0, empty stack/queues and maxUID6 are persisted. No token creation, chooser bypass, seeded prevention or unsupported target route is assumed."
+    ],
+    "case_checks": [
+      {
+        "card": "grasp_of_darkness",
+        "controls": 7,
+        "persistable_checks": 273,
+        "author_only_omissions": 0
+      },
+      {
+        "card": "shroud_of_darkness",
+        "controls": 7,
+        "persistable_checks": 273,
+        "author_only_omissions": 0
+      }
+    ],
+    "limits": [
+      "One optional positive banish replacement against one arcane only; not a capacity-of-two discrimination. No physical damage, decline, Blood Debt/endphase, duration, hero/support/sibling or full-card credit.",
+      "Reviewer did not execute native/PHP or mutate T/source/engine/fixtures/Git/network/original."
+    ]
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1159-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "96edc56f15784058b3445698cfe6012cf886454563e25a274a3a959ac5e88145"
+  },
+  "full_suite_run": false
+}

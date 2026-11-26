@@ -1,0 +1,77 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "breadth_review independent exact frozen packet/current named static source review",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1183-20261122.json",
+  "source_spec_sha256": "64a97eb8f707f52ea4fb4936ede4faa1ac5d1bf2c62b1a508cce70ce3c98ee7c",
+  "input_sha256": "64a97eb8f707f52ea4fb4936ede4faa1ac5d1bf2c62b1a508cce70ce3c98ee7c",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-lyath-goldmane-four-live-sparse1183-real-odd-base-defense-halved-rounded-up-in-actual-damage",
+      "card_id": "lyath_goldmane",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "589c3dbe8c73f8e991cc5f970745f12ded18c9519f266eb5e3dbca7930f17954",
+        "actions.json": "5af67ec73dd5988db1a058227e5dcccf44c896ddc4b34170fb8eb2fb4f3ccefb",
+        "assertions.json": "63f1b4fbde9310e532ce0466d3600ae17076a29388f7f0fcdc0c5941405955d4",
+        "expected_final_gamestate.txt": "ff03ce75630efa0b11cefcfac4cecc4d219c749041ea61023d89c40288a49faf",
+        "meta.json": "ededd38d7913add599cbccb55d5b2855cfa327381cda2f49a38ccd516e4782c7"
+      },
+      "fixture_sha256": "f0dbdae465f1d76194e78a8b586babe68b518804361d3e2bbceb1f85fa95cef8",
+      "actions": 28,
+      "native_assertions": 261,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1183-20261122.json",
+      "input_sha256": "64a97eb8f707f52ea4fb4936ede4faa1ac5d1bf2c62b1a508cce70ce3c98ee7c",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1183-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-lyath-goldmane-four-live-sparse1183-real-odd-base-defense-halved-rounded-up-in-actual-damage",
+        "fixture_slug": "card-lyath-goldmane-four-live-sparse1183-real-odd-base-defense-halved-rounded-up-in-actual-damage",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "reviewer": "breadth_review independent exact frozen packet/current named static source review",
+    "spec_sha256": "64a97eb8f707f52ea4fb4936ede4faa1ac5d1bf2c62b1a508cce70ce3c98ee7c",
+    "case_count": 1,
+    "native_controls": 28,
+    "persistable_assertions": 261,
+    "author_only_checks_omitted": 0,
+    "card_id": "lyath_goldmane",
+    "group_id": "identity:lyath_goldmane",
+    "basis": [
+      "Exact young Lyath Goldmane standalone identity is uncovered/no exact current named hold. Cache gives Reviled Guardian Young20; three actual Dorinthea20 opponents and Generic Wounding cards are legal. Primary actor/physicalHero4 and controlled actual defender6 are pinned.",
+      "Printed Lyath static halves base power and defense of cards controlled by that hero, rounded up. Current SUPCards60-63 applies ceil(base/2) to actual player4, and GameLogic386 calls it with power=false before later defense bonuses. With printed WoundingBlueDEF3 and no other modifier this gives2. Opposing player1 attack4 is unaffected by foreign hero4.",
+      "Actual first target4/payment of zero-cost WoundingRed5 spends p1AP1 to0, four source responses, actual unhalved computed4/noGA, full four-seat attack/defense/reaction flow and real p4Hand6 declaration are correct. Defender remains same owned/controller4 UID6 with RoleDEFENSE, not an invented defense value or author-only diagnostic.",
+      "Actual state power4/damage2/HP4=18 distinguishes unhalved defense3/HP19 and floor1/HP17. No Boo activation, defending-card bonus, Boo observer/Might creation, reaction, Ward/prevention or additional event is earned by these two plain cards. Lyath remains untapped.",
+      "Full close leaves own source5 in p1GY and defender6 in p4GY with correct controller/owner, HP18/others20/AP0/R0/UID6/Random0 and no Stack/CC/Arena/token/DQ/pending states. All declared checks persist and no contradictory checkpoint oracles were found."
+    ],
+    "source_sha256": {
+      "FaBSim/Custom/SUPCards.php": "d0cf162a89b60b29590121e4c97e1e5fe0e2dc790130bf181949ca068092c1fa",
+      "FaBSim/Custom/GameLogic.php": "c60fa151561f959e4e3e341b814de0e2b47c9e9f153bbc8793a04c43b5075061",
+      "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3"
+    },
+    "limits": [
+      "Pending Root native recording, saved-assertion review and targeted clean replay; no reviewer native/T/source change.",
+      "Only static odd baseDEF3 halved rounded-up2. No basepower halving, other values/rounding, activated Boo/defense bonus, earned Boo/Might, other Hero/support/sibling/full-card or general timing correctness credit."
+    ]
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1183-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "291db709bf1d6a35457406eaa7cf5a652c77d0e03afa8fd7878709f70e0c2c7f"
+  },
+  "full_suite_run": false
+}

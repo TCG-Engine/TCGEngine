@@ -1,0 +1,7 @@
+{
+    "name": "Become the Shadow Lord / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T15:19:35+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Banish a card from your hand. If it's Runeblade, create a Runechant token. If it's Shadow, create a Gate to i'Arathael token.\n\n**Go again** Representative only: banishes_real_shadow_runeblade_and_creates_both_reward_tokens. Other pitch siblings, alternate targets and unexercised branches receive no credit. All four live/manual; only native entry-point actions. Sources: FaBSim/GeneratedCode/cardArrayCache.json#become_the_shadow_lord_blue"
+}

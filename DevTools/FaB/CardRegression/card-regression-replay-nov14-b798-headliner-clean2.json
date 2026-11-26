@@ -1,0 +1,27 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch798-headliner_helm.json",
+  "runtime_sha256": "6695d68163d313f4f61cb20ad9122c7038e621a60c847909598150fe8da09d11",
+  "returncode": 0,
+  "completed_utc": "2026-11-14T22:32:23.729204+00:00",
+  "fixtures": [
+    {
+      "slug": "card-headliner-natural-kano-three-opponents-defense-three",
+      "fixture_sha256": "5a2b507c0f24f93a0fb1663f8edecd375e3bf4968eca02fe93257d4c4cf50ce6",
+      "passed": true,
+      "result": "[PASS] Headliner Helm / all three higher-life opponents and actual three defense"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-headliner-natural-kano-three-opponents-defense-three",
+      "returncode": 0,
+      "stdout": "[PASS] Headliner Helm / all three higher-life opponents and actual three defense\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

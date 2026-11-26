@@ -1,0 +1,56 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-rhinar-reckless-rampage-two-live-sparse1364-actual-six-power-pitch-not-discard-no-intimidate",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-rhinar-reckless-rampage-two-live-sparse1364-actual-six-power-pitch-not-discard-no-intimidate",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1364-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1364-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "2b1688f16632755c3f7dc8110a0140aac8aefe54cca54aa655d737277ea7dc57",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "47b186e4f306cda695b71bb5718b2f2fce73923cfb30c688211ae1a25f0fb380",
+        "actions.json": "e7aa6f0b198a7d34a2d7a37b5c6e470da8005cd6f9beb7de6bb7f006ad00c26e",
+        "assertions.json": "0f820b83ba1807260c61fcb5eede5fec1a7766bf55184e71e8f51de37ede60b4",
+        "expected_final_gamestate.txt": "186f495f6596d33fb0ce378486c6a87ecced5ae8e83a6ef5635876c840993130",
+        "meta.json": "d65a47a798adf24814450cd8abae0ff23c249f7d17cb375185fec6dce3be5f7f"
+      }
+    },
+    {
+      "slug": "card-prism-awakener-of-sol-two-live-sparse1364-actual-herald-pitch-not-soul-no-figment-search",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-prism-awakener-of-sol-two-live-sparse1364-actual-herald-pitch-not-soul-no-figment-search",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1364-local-20261122\\clean-replays\\01.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1364-local-20261122\\clean-replays\\01.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "d789d62990e70166b89aeb8ab6a7165c81bd42236dc9b68b39aa31d6b71f48fc",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "6e7d356dae9fab3301fb9434ecc1887801f13149d0338f307fc6b2d69917c1b8",
+        "actions.json": "e7aa6f0b198a7d34a2d7a37b5c6e470da8005cd6f9beb7de6bb7f006ad00c26e",
+        "assertions.json": "8161b3eacc703531e98e28b2fd45eceaf980565ada28565aadb8747b1421df24",
+        "expected_final_gamestate.txt": "cdd494e067829b7d4eba08ba12b13a04067c16e35d5188dde11b7394dbbd65bf",
+        "meta.json": "a0f2973775975f0055107452be337deffe680fb249667e45bf66498e995ba67a"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

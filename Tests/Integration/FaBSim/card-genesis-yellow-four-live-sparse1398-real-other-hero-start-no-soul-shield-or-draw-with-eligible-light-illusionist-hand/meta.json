@@ -1,0 +1,7 @@
+{
+    "name": "Genesis / another live hero start is not your start",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-24T15:18:18+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "FOUR_REAL_MANUAL_UPF_PRISM20_THREEDORI20. InitialactualTurn3ID2/AP3=1, priorGenesis5AuraArena1/LightIllusionistHerald6Hand1/topWoundingBlue8Deck1andactualWoundingRed7Hand4. All4Actionpasses\u2192End3/all4Endpasses\u2192nativeStart4ID3/AP4=1. ThisisNOTcontroller1YOURstart, soGenesisWHENunearned/noSoulchoice/reward. ActualeligibleLightIllusionistHandandnonemptyDeckmakefalse-startguardnonvacuous: same6Hand/8Deck/noSoul/noSpectralShield/noUID9. Realnextseat4spendsAPonWounding7AA0choosesadjacentHero1(alltargetoptionsnotcreditedbecauseSpectraAuraalsopresent), all4manualcombat/base4/noGA/real4physicaldamagePrismHP16/fullclose7GY4, Genesis5sameArena/noShield/6Hand/8Deck/UID8RNG0/AP0R0/StackDQquiet. Positiveownstartchoice/Soul/Shield/draw/timing/Spectra/provenance/support/fullcard/pitchesuncredited. Nativepowerreviewmustusep4CombatChain0atnativeinput14, notdefaultp1. Noenginechange. Sources: FaBSim/GeneratedCode/cardArrayCache.json#genesis_yellow FaBSim/GeneratedCode/GeneratedMacroCode.php FaBSim/Custom/GameLogic.php FaBSim/Custom/MONCards.php FaBSim/Custom/WTRCards.php"
+}

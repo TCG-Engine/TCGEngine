@@ -1,0 +1,68 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-24T10:05:09.411916+00:00",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1357-20261122.json",
+  "source_spec_sha256": "e012e0ae51ebc8c9a8388cebdfdc818f9fdbbaee3213f8446d3fb939df5a3003",
+  "new_scenarios": 1,
+  "new_groups": 1,
+  "new_primary_ids": 1,
+  "actions": 28,
+  "native_assertions": 338,
+  "manual_passes": 25,
+  "totals": {
+    "saved_registered_scenarios": 5332,
+    "duels": 3103,
+    "four_live": 2229,
+    "recorded_primary_ids": 2480,
+    "identity_denominator": 5196,
+    "recorded_groups": 2354,
+    "group_denominator": 3324,
+    "four_live_groups": 2218,
+    "phase_qualified_scenarios_at_actual_contexts": 1969,
+    "phase_qualified_unique_groups": 1959,
+    "creation_replay_passes": 2711,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 1130,
+  "scenarios": [
+    {
+      "card_id": "scurv_stowaway",
+      "group_id": "identity:scurv_stowaway",
+      "scenario_id": "card-scurv-stowaway-four-live-sparse1357-opponent-gold-cannot-pay-hero-cost-no-tap-or-action-loss-real-followup",
+      "effect_branches": [
+        "own_gold_missing_despite_real_opponent_gold_hero_action_rejects_before_tap_or_spending_then_real_attack_uses_retained_action"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-scurv-stowaway-four-live-sparse1357-opponent-gold-cannot-pay-hero-cost-no-tap-or-action-loss-real-followup",
+      "source_spec": "card-regression-sparse1357-20261122.json",
+      "source_spec_sha256": "e012e0ae51ebc8c9a8388cebdfdc818f9fdbbaee3213f8446d3fb939df5a3003",
+      "review_evidence": "review-evidence/sparse1357-20261122-qualified-saved.json",
+      "review_evidence_sha256": "afb5d4f0d69cc7562b2ab3f67a70a344b8e57ddafc39fe729f14f766c198b01f",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1357-20261122-replay.json",
+          "sha256": "ec8663619fc71b66a48d73d3a46dd0ff956e6c1d258e6b5c62ecfda1c040d438",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

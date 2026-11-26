@@ -1,0 +1,102 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-dustup-red-four-live-sparse982-actual-full-block-no-hit-no-ash-or-transform",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-dustup-red-four-live-sparse982-actual-full-block-no-hit-no-ash-or-transform",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse982-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse982-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "b3de76b6f023140ae5d2d3eaf4516c82289350551512b2adb765eaaf523712cb",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "4f10a530df058ae53ab1a113a22bd358672bc4001445302ccabffb616624270f",
+        "actions.json": "9f2158a76a224facb898cc12561b10d89380d0d90e15b49131c1d4359e991d29",
+        "assertions.json": "6d48a650b090f0349f3d8cbffbf36af5aae2ca98444f80764bb0935498437629",
+        "expected_final_gamestate.txt": "dc0bfb1ed4d7fa45f4e63420848ae7e81de1d4d38ccbfb30cc16df718f03e6aa",
+        "meta.json": "8a1f700c9e11a446c5d12a6675d278f87ba54ec6b69fb7c468a7670aa1e3a9e0"
+      }
+    },
+    {
+      "slug": "card-lord-of-wind-blue-four-live-sparse982-first-link-exact-full-block-no-mugenshi-additional-cost",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-lord-of-wind-blue-four-live-sparse982-first-link-exact-full-block-no-mugenshi-additional-cost",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse982-local-20261122\\clean-replays\\01.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse982-local-20261122\\clean-replays\\01.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "bfd1873b1f2424a44083e6ec08c328629963a5429e130a3c29457c0ae1355434",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "a678eeac837165f09f787c3866dc023ef073bf3438806552a82a896d961f52f2",
+        "actions.json": "5af67ec73dd5988db1a058227e5dcccf44c896ddc4b34170fb8eb2fb4f3ccefb",
+        "assertions.json": "299e37f7d8dd00cda71b4c369d3bd2ed75aa487ec112d75e9aec70a6607c9930",
+        "expected_final_gamestate.txt": "95dd17a0068014300dacb7cb8b04d06ed20e9914ef810510319d5ae91f8ec10a",
+        "meta.json": "7b892a7f2c38feaaffc0a626f8cc1974d5a92550b100ae68076b37f6d226bf5e"
+      }
+    },
+    {
+      "slug": "card-scuttle-the-canal-red-four-live-sparse982-actual-unmarked-hero-attack-has-no-earned-go-again",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-scuttle-the-canal-red-four-live-sparse982-actual-unmarked-hero-attack-has-no-earned-go-again",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse982-local-20261122\\clean-replays\\02.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse982-local-20261122\\clean-replays\\02.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "8b2afdee405b34d75654b11403665ff883509a5476087ce6f5e4c7b0d879f513",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "bf8ce6dfb203cdfe5f8005ebacfd4c3ea0cb6fbd3bd4eb80b8165b70cb5afd34",
+        "actions.json": "71f0d0f07cf85244a3ec27fdb1f824cd62aa3126d639c98c13ca23327907bd8b",
+        "assertions.json": "4a532a6f2a54aba78de6417b4685e3591bac64db6d2a8e5d8c16f88458a7c4d5",
+        "expected_final_gamestate.txt": "aa96d1c14e1c4af14233c1f8ed47445e882033f80c8f716d7dc92f89a3fc686a",
+        "meta.json": "6f2832ff1060e4940f3893e94385e16777241da4066c415443e0233d20ce7277"
+      }
+    },
+    {
+      "slug": "card-whittle-from-bone-red-four-live-sparse982-actual-unmarked-hero-attack-equips-no-chelicera",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-whittle-from-bone-red-four-live-sparse982-actual-unmarked-hero-attack-equips-no-chelicera",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse982-local-20261122\\clean-replays\\03.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse982-local-20261122\\clean-replays\\03.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "b7e41b70a734f8c7cdf74eabf13495c8f0e1781919ec356476cbc98dd0dbdc9e",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "af4d9306d0f0af8328c5aaf79add09d6f5f4d8211f35ff3f0a39cfe83de02050",
+        "actions.json": "71f0d0f07cf85244a3ec27fdb1f824cd62aa3126d639c98c13ca23327907bd8b",
+        "assertions.json": "154ec5e1ea55daf36ac222cbb8f78a87671ef564b5892cab32f27c4c0509b2e3",
+        "expected_final_gamestate.txt": "386b98b50f05521eac8ead2b0187d85e73c63303e3384fec64d6445174e23bfd",
+        "meta.json": "40e0784e3f81779fcc0bef470fa20019f7c502883a5f845b3de9c3070e788850"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

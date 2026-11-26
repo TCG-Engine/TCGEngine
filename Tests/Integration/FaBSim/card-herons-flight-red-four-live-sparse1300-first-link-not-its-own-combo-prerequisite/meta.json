@@ -1,0 +1,7 @@
+{
+    "name": "Heron's Flight / first link cannot use itself or a pitched card as prior Combo attack",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-24T04:29:42+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "FOUR_REAL_YOUNGfai20_MANUAL_UPF_FIRST_LINK_UNMET_COMBO_ONLY. Actualprimary5Hand/noPreviousAttackCardID/lastAttackName/chainLink0andnohistoryseed. Printedcost0/noPitch. NativeHero4declaration/AP1to0/R0/fourmanualresponses. CurrentprimaryitselforitscolorcannotcountasLASTPREVIOUSattack: allComboWHENinterveningIFconditionsfalse\u2192noearnedlayer/choice/Heron+2orchoice/restriction. Actualprinted3power/noGA/unblocked3damageHP4=17. NoTiger/Hand/Banish/newUID. Full5ownedGY1/funderPitchifany/Deckcontrolsifany/APR0/UID5RNG0/StackDQsCCclean. No trueCombo/chainfollowup/positiveproducers/Herondefensechoices/nextTigerbonus/reveal-log/support/otherpitch/fullcardcredit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#herons_flight_red FaBSim/GeneratedCode/GeneratedMacroCode.php FaBSim/Custom/MSTCards.php FaBSim/Custom/CRUCards.php FaBSim/Custom/WTRCards.php FaBSim/Custom/GameLogic.php"
+}

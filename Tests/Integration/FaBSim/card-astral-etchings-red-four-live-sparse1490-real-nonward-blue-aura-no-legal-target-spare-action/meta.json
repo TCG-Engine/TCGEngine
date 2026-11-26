@@ -1,0 +1,7 @@
+{
+    "name": "Astral Etchings / real Blue non-Ward Aura is not a legal target",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-25T06:07:42+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "LegalPrism20/manual4. PriorphysicalTimesnap5 actualActionactivation spendsAP1to0/destroys5GY/ABI9; allfourresponses thenAP2. ActualHazeBlue6Actioncost0spendsAP2to1, allfourresponses thenArena6ready. NoHazeGAorprivateAPseed, noAuraDestroyWHENearned. Primary7 clickedatACTIONpriority1/AP1, realBlue8Handpitch3 availableforprintedcost1. ActualonlyAura isHazeBlue/nonWard so nolegalownedWard target; sameprimary7/Blue8Hand andAura6/GY5/AP1/R0/UID9/HP20/StackDQ remainunchanged. Rejection-onlyspecificeligibilityconstraint, no positive effect/Instantpermission/targettiming/siblings/supportabilitycredit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#astral_etchings_red FaBSim/Custom/MSTCards.php#FaBMSTCanPlay FaBSim/Custom/DTDCards.php#FaBDTDCanPlay FaBSim/Custom/WTRAbilities.php#timesnap_potion_blue"
+}

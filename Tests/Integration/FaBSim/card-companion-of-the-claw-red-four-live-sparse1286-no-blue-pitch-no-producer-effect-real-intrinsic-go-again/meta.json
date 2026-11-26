@@ -1,0 +1,7 @@
+{
+    "name": "Companion of the Claw / false prerequisite and actual intrinsic go again only",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-24T03:03:02+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "PARTIAL_NEGATIVE_PREREQUISITE_PLUS_ACTUAL_PRINTED_GO_AGAIN_ONLY; notpositiveproducercoverage. FourrealYoungzen20/threeDori20/manualUPF. Actualprimary5Handcost2andnormaladjacentHero4declaration. ActualnonBluecritical_strike_yellow6pitch2paysexactcost/R0; noBluecardpitched. NoBluepitchmeansintervening-ifTigercreationconditionfalse, soNOearnedtrigger/choice/newTiger. Allfourfreshresponsesmovereal5toCCwithprintedpower4/intrinsicGAtrue, realunblocked4damageHP4=16/AP0untillastDamagepass, thenAP1. Fullcleanactual5ownedGY/funderPitchifany, noTiger/Hand/Temp/Banish/Stack/DQs/newUID/RNG. NOtrueBlue/earlierRed producer/search/recovery/triggerresponse/tokens/support/fullcard/pitchsiblingcredit. Noenginefix, do notrelaxanyfalse-prerequisite orgoagainexpectation. Sources: FaBSim/GeneratedCode/cardArrayCache.json#companion_of_the_claw_red FaBSim/Custom/GameLogic.php FaBSim/Custom/MSTCards.php FaBSim/Custom/UPRCards.php"
+}

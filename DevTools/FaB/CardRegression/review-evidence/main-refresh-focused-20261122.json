@@ -1,0 +1,539 @@
+{
+  "status": "MAIN_REFRESH_FOCUSED_VERIFIED",
+  "base_main": "a7a86adc5c8f560265e6e6eefb44896b0084c5e7",
+  "original_commit": "9daf4fb79163a47d8118ba1dc144d11d3ef208d8",
+  "cherry_pick_commit": "27c01491529fae73e2b64478604c9c888c89bffe",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "cherry_pick_conflicts": [],
+  "gameplay_source_or_assertion_changes_during_refresh": false,
+  "portability_change": ".gitattributes exact-path LF rule for FaBSim/Custom/CodeGeneration.php; actual checkout, native guarded emission and21replays pass.",
+  "full_suite_run": false,
+  "native_emitter_offline": true,
+  "credentialed_requests": 0,
+  "focused_results": {
+    "total": 21,
+    "passed": 21,
+    "failed": 0,
+    "fixture_raw5_unchanged": true,
+    "wtr_smoke_upf_continuation_timing": "PASS",
+    "synthetic_auth_component_checks": 7,
+    "syntax_checks": 7
+  },
+  "fixtures": [
+    {
+      "slug": "repair-highroller093-four-live-late-roll-distinct-targets-and-real-damage",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=repair-highroller093-four-live-late-roll-distinct-targets-and-real-damage",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\fabsim-main-refresh-20261122\\focused-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\fabsim-main-refresh-20261122\\focused-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "log_sha256": "d438f8473c712fcb080483377ce0fc05709016fb263a4f2fc8a02843ad7637a0",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "447407a7cac99ef9528239e58a6a88dd3ad0ee4dd0727211ff8d1774585aa0df",
+        "actions.json": "c5718426d1c3c7f2e75c4ce4785bfea3c69c42629c69098b6e855be09722d1c3",
+        "assertions.json": "9b81d67e5b72a564cb29189fd8f937832ad94c67a1be87a090465de59a4b954c",
+        "expected_final_gamestate.txt": "e07f5fb66ed40d3f17bd39c8b8456935ef701e9a3889f8b4658e4425da8abc56",
+        "meta.json": "611b10148fc81348cc496a82390cf334d01406b4a5428d404093a826915f0321"
+      }
+    },
+    {
+      "slug": "repair-highroller093-four-live-no-roll-second-target-ignored-and-real-damage",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=repair-highroller093-four-live-no-roll-second-target-ignored-and-real-damage",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\fabsim-main-refresh-20261122\\focused-replays\\01.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\fabsim-main-refresh-20261122\\focused-replays\\01.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "log_sha256": "19b464875dce2888b9cd69e1373813e5304a5f8fbba91f6051e9f94408c3e1e8",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "7c9c7e602b99eb6adec02850e4c7a0e8e5f13aa163e271902e881111150cfe21",
+        "actions.json": "c731e5932a01def2ef43fbe4cab062d8582c70b8964d7a3e12f4682f3552bd87",
+        "assertions.json": "e23cfedcdf7f38c17e0d95f1a327cfcfcec708f5ed9a10b7de4b0a2747386852",
+        "expected_final_gamestate.txt": "4a99cbf99c81eddcaeb7f9ecbb3ac6164df5113bb399a5d87654ebdad1d6df5e",
+        "meta.json": "ddec4a825fd71a6f50050c6ae2e3c8e86cc12e0fc92e38981cf9cefdfc2a5234"
+      }
+    },
+    {
+      "slug": "repair-highroller093-two-live-one-adjacent-opponent-same-target-twice",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=repair-highroller093-two-live-one-adjacent-opponent-same-target-twice",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\fabsim-main-refresh-20261122\\focused-replays\\02.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\fabsim-main-refresh-20261122\\focused-replays\\02.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "log_sha256": "652ab7ebfbc342a2bdecd1e8249bc8ecf2b99bf59ef967e20974ad1b620ecc63",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "fc04339acff60ca067d58e5b8eb49e322d18312c23f48e24a89a713546555bb6",
+        "actions.json": "92c496fffb60ffece2dc8e632cd2d231670b1f2c1fc06d73dfb43b47aab89009",
+        "assertions.json": "86c63dc3cde7129b942662b1788e6035aab7b1a3c6199797b6cd72d3b821eb0d",
+        "expected_final_gamestate.txt": "df839f5fdc9d55142fd0d47e261090e12efeeb9f2defcd992cf40a67600bde58",
+        "meta.json": "01bbb584b0cf900cf953e3f9e7343ca911576f8edad218e546386f0d93b13575"
+      }
+    },
+    {
+      "slug": "card-illuminate-red-four-live-current-when-hit-correct-probe-retains-source-before-own-soul",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-illuminate-red-four-live-current-when-hit-correct-probe-retains-source-before-own-soul",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\fabsim-main-refresh-20261122\\focused-replays\\03.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\fabsim-main-refresh-20261122\\focused-replays\\03.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "log_sha256": "be2fce544e61ad0ed622e073b3d2e103c6f2e9918d2df9dfe3bdf565bf3e0cc2",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "92b6671f77c93fc029aa9c87eaa0743bf01d2aafb568f9e5ad3c547b2ee30cd8",
+        "actions.json": "59f6ec8f58b5db7e3ba459dcd6522428bfb3fa81214520752dbf6af86f25f7af",
+        "assertions.json": "c149c4efd90d20ae5b102485405b40665574a52e1a49bc65980200df06731df8",
+        "expected_final_gamestate.txt": "030df8aa62a7783807464e2c5b73ebae523059986e1cf5db7dca1e9846d58219",
+        "meta.json": "2a7bae242fbe45fe4c54f973cd483e042f91d7f4d2582739ba53a988112d8a62"
+      }
+    },
+    {
+      "slug": "card-flicker-trick-red-four-live-original-correct-probe-responseable-mirage-before-defender-destruction",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-flicker-trick-red-four-live-original-correct-probe-responseable-mirage-before-defender-destruction",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\fabsim-main-refresh-20261122\\focused-replays\\04.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\fabsim-main-refresh-20261122\\focused-replays\\04.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "log_sha256": "363c798ee1f2c4d1baf7df567bd39f2b294e1f8b0163ad0338f539f4d46a1037",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "193b6be38514ba0e58df253e304cf89da8683996d82ac369dd34eef4cea11e94",
+        "actions.json": "52e6c92052d2eba3b0e971d26295f9fd8cbdf30bd4950ac7d23612fc02da6093",
+        "assertions.json": "7718df0f83627ae587134484ebf3e2e16c51c84de705095e3e2b2e66c0d746b1",
+        "expected_final_gamestate.txt": "911d08b75e9503f5c29e7f3f6dd208174fbc958b5fae47505a86f2a01c4c7a37",
+        "meta.json": "6fd4abfc6f456ba36fea74bcf3751573c41fb9e4e75834162579eba167b26a15"
+      }
+    },
+    {
+      "slug": "card-tear-asunder-blue-four-live-correct-probe-real-guardian-five-hit-earns-responseable-discard-two",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-tear-asunder-blue-four-live-correct-probe-real-guardian-five-hit-earns-responseable-discard-two",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\fabsim-main-refresh-20261122\\focused-replays\\05.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\fabsim-main-refresh-20261122\\focused-replays\\05.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "log_sha256": "7345dd1cb2c397eb4bb7cf036f7da2df65833690758ad676aa950c5e0150de48",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "b3b51d227bfdfee4b2af9b5115b1a91600bc8b853ed464369ac994742b6e8272",
+        "actions.json": "2a80f3b3b98166279d82a7e33f80b7414ebd56ef3e3cf5560a60ce27e2fa01b1",
+        "assertions.json": "3c3d8802a0f3a2043e4069b3a545e93f796c93e2bfea018a9ead71802e3e0947",
+        "expected_final_gamestate.txt": "ab9a983290ad51d5e101ff44e1db6a38862072044622000a694284d0a909f5a6",
+        "meta.json": "22ccdd039a54e53ccc1833d91d431d1ccb9fb09da49ae8542254dde6944e1bee"
+      }
+    },
+    {
+      "slug": "card-quantum-processor-yellow-four-live-strict-mechanologist-only-item-choice",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-quantum-processor-yellow-four-live-strict-mechanologist-only-item-choice",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\fabsim-main-refresh-20261122\\focused-replays\\06.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\fabsim-main-refresh-20261122\\focused-replays\\06.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "log_sha256": "9e329decc2a4eb3913e8f55ade5eceb6b04ec55285a2df322584f93898cbd131",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "059109369bdad5a7b3636a1218d675b060bcc112ff5fa83815754845b00810ce",
+        "actions.json": "43bb21aa4a06bed44e8900cf4315d9ff07291ee99d8a58d408cd81e92f2048f1",
+        "assertions.json": "cc90942ef9deca85dae383a68d55e855a4fa39428cc415d1c73399c9d7c70ce6",
+        "expected_final_gamestate.txt": "a99e44c2bb527821a8cedb2a8e0c89578de5d154b0797421a10cb6f133bba394",
+        "meta.json": "b38cb2674ae6544b21258511aaf14401991a6ce8bc3057f841db1bd38271ae39"
+      }
+    },
+    {
+      "slug": "card-hellbound-assault-blue-four-live-earned-hit-self-banish-and-real-end-phase-blood-debt",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-hellbound-assault-blue-four-live-earned-hit-self-banish-and-real-end-phase-blood-debt",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\fabsim-main-refresh-20261122\\focused-replays\\07.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\fabsim-main-refresh-20261122\\focused-replays\\07.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "log_sha256": "b550bdcf2fcbc59e804db043b9bf74274b34659022cc682004407e058e83cefb",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "2d037da73779b78a0a401d0c2b17b3f3566c7a3048f0e15ac14a635cf5d8d283",
+        "actions.json": "2fd1b2948b5a0896b5172c0d836e5bec94a8d9579af269c44cfd370e647283fa",
+        "assertions.json": "ec38578c7fa01894bbe4afd3da4c2f217060830b0fe8eec1976383ad74dbadb2",
+        "expected_final_gamestate.txt": "5190e641e8dbf45cbe309f46887fc47fc522ba0395b297712ddfe05f6c5b70ac",
+        "meta.json": "5d1f246bcc584e98ab65698f1fe1329e1c1d56c7869938fa24095b870b8c38bb"
+      }
+    },
+    {
+      "slug": "card-vexing-malice-blue-four-live-early-attack-trigger-target-two-arcane-then-one-physical",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-vexing-malice-blue-four-live-early-attack-trigger-target-two-arcane-then-one-physical",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\fabsim-main-refresh-20261122\\focused-replays\\08.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\fabsim-main-refresh-20261122\\focused-replays\\08.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "log_sha256": "a569edee937e199aff8f3af9047f3ed4dd31d9701d635658f5973ec0451526cc",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "69f93ba9ea9c9d32b612dcbd040f3bb2497fed8fb7a0010080fc035b7fde2bdf",
+        "actions.json": "29e648b6a52737e01838ff3923c767b822694e4a5fae2ed0a2531ff671eee345",
+        "assertions.json": "7212e94b68927a81dfd7da428648dd86bd077a63ed66dd7486ad99ce6346a9dc",
+        "expected_final_gamestate.txt": "d22f0b1c6cce26b4a2bfa77def7991c4fa85f3429212305ba820a063ab937b67",
+        "meta.json": "c57485ecf427548a1e003e56d279a0720a1689ad7111399f748f56562d0ba5b5"
+      }
+    },
+    {
+      "slug": "card-elliptical-conflux-yellow-four-live-repair-ward-two-responseable-leave-token",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-elliptical-conflux-yellow-four-live-repair-ward-two-responseable-leave-token",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\fabsim-main-refresh-20261122\\focused-replays\\09.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\fabsim-main-refresh-20261122\\focused-replays\\09.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "log_sha256": "e5a09d50577446b57b6f0115cabc80663c7d0baed082acbe1d390b3ce538f09b",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "66a3da46c5b6d297702aafdc992beec16567cd02a066e1e2fea4f71709fceeb2",
+        "actions.json": "a4d13468430a38959f14d7ece44f753c91bdae7155e6771f923a8bd9d7ad9aa6",
+        "assertions.json": "98822a9c1201af51fa2737851111aa907d0fb164634f601a4aaec177f515b64f",
+        "expected_final_gamestate.txt": "7ff7dd4b4b20218b49d374d496592113d4c008aca1ca4c1cfced37bb7d425e95",
+        "meta.json": "44bee719a3c5dceaabf904a325cfeb212c8fcaf6a6e99e2f7f4f76e454fc9213"
+      }
+    },
+    {
+      "slug": "card-fluttersteps-four-live-repair-ward-earned-offturn-aura-permission",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-fluttersteps-four-live-repair-ward-earned-offturn-aura-permission",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\fabsim-main-refresh-20261122\\focused-replays\\10.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\fabsim-main-refresh-20261122\\focused-replays\\10.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "log_sha256": "331ac380e66b8768fc0fe18130aab9b608c4a5c3671840e36b358e557794dc3f",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "4b40c52d361e587b469cb11a47ab2a3af52094265547f4271b83296e012a1425",
+        "actions.json": "70f12ff69e43d80ac7ac51294dc553e891760fe6fb8b6083ccb64bbe53754fd8",
+        "assertions.json": "f2c35000db5f3caae3b5eff145d37307d4cdb9bb47f7196e5d85bcfb4f7d6c69",
+        "expected_final_gamestate.txt": "2f7b2e3b97e10795ec5e78a67681e8f6155f17997a21b1d1c49a1ec4490fa27e",
+        "meta.json": "e0e59a43f41d9d7fc3b399e462f04bbbe56f10acda2e48ed829220bb1d7cad31"
+      }
+    },
+    {
+      "slug": "card-read-the-ripples-blue-four-live-repair-automatic-end-opt-draw-before-arsenal",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-read-the-ripples-blue-four-live-repair-automatic-end-opt-draw-before-arsenal",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\fabsim-main-refresh-20261122\\focused-replays\\11.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\fabsim-main-refresh-20261122\\focused-replays\\11.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "log_sha256": "02927617172611b8622b53dddc09e57c0fe28aeac10c2866d4de111ba9ea6db0",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "17bc92fd9f345c1240c810c5905099abfc545d2ff6dd94f15fc5b4201dbc1801",
+        "actions.json": "1de68db7d781a19d3f6044faf6b05e520e5961b548ec9d9a4b993653434c7d08",
+        "assertions.json": "0e816ef1e0be1be62c58b99adf6494cd91407f2330438a17ba8c126f27ca50fa",
+        "expected_final_gamestate.txt": "5b04bd50ea58d3b4f87720896cb165e22fc0311c5fb78db8534de1147eb2b891",
+        "meta.json": "97577b62369096805654bdf0cb64b305ed02501db15266202d1f9f3b7dd05a8d"
+      }
+    },
+    {
+      "slug": "repair-pox147-four-live-captured-source-prevention-and-real-pay-three-complete-end",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=repair-pox147-four-live-captured-source-prevention-and-real-pay-three-complete-end",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\fabsim-main-refresh-20261122\\focused-replays\\12.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\fabsim-main-refresh-20261122\\focused-replays\\12.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "log_sha256": "6e53c8b51b33b01288a23bf72490402c739aafa7f1b676b41864afee9266817e",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "d8b082af05ac5674d66a397bd8d6fcac84145ac4b8b0fbc3710b4d3562c91f2c",
+        "actions.json": "32df22a21bbbf4554886a925b6c4ba2a97d2365adbaba22c592af7b19b641958",
+        "assertions.json": "3185555a5716d178680830969d2571bf2e56d89048b576bcdaee4edc69ad70ee",
+        "expected_final_gamestate.txt": "9e425550c2c95caa9a5230a6255aaabef31f8d53d6fa71f8dedf89c8467e3cff",
+        "meta.json": "da625c673c2aee24de55b748524b31037f4c89c64df9307108fd53dd6fc78f42"
+      }
+    },
+    {
+      "slug": "repair-burn125-four-live-real-shock-departed-dragon-earned-arcane",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=repair-burn125-four-live-real-shock-departed-dragon-earned-arcane",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\fabsim-main-refresh-20261122\\focused-replays\\13.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\fabsim-main-refresh-20261122\\focused-replays\\13.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "log_sha256": "6ab03329a2b84744437775ce4dcb89a5511e48652df5b98c94623227178f5e0c",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "e8172aaab06b73e46d1dc0fa4d521596d7437a4ccf39d0449793855e59afaf8a",
+        "actions.json": "e9e7d9e578768fc4a8972e98de24a073f7e57f3ebd67a718e4c9b4b94c563793",
+        "assertions.json": "fca4dc189c0afe450712cc2b05de938a9d7f7167dcdef15711489eb6f9526b7f",
+        "expected_final_gamestate.txt": "4b1681b7b36c2684286044cf8bc4a81107a572e49ea52ed27309a410887a0a38",
+        "meta.json": "11abb169615b4becf61b51e7e03db9f8a115c61ac7bbd697e67c0b89ec79436a"
+      }
+    },
+    {
+      "slug": "card-blood-splattered-vest-four-live-correct-probe-real-dagger-hit-trigger-retained-through-gain-choice",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-blood-splattered-vest-four-live-correct-probe-real-dagger-hit-trigger-retained-through-gain-choice",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\fabsim-main-refresh-20261122\\focused-replays\\14.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\fabsim-main-refresh-20261122\\focused-replays\\14.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "log_sha256": "b3fe9f8153f91f50c121c7c7284d91102090654d3069b3e9b90d36eb8f17ed2f",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "ef5ee7708b0dd3b0c091acfd1ae8ad35fe19a908debe902f42ee2535df2a4bd2",
+        "actions.json": "12aa50f0330460b24cd68f65afd04a8af9d3bad444299e4c48e9de48bc34fcf5",
+        "assertions.json": "ce1eca58bcfcb38bbe1578ec3cc9114350136c380786678d19c120084689ab86",
+        "expected_final_gamestate.txt": "39eb187dfcdb24668068235ace431d01c396991cd28bf445c02723b00d3b0489",
+        "meta.json": "321490e8c5228b1604fc8deffde0abec4395beed10e92453164119490c339b83"
+      }
+    },
+    {
+      "slug": "card-glisten-yellow-four-live-original-correct-resolving-source-retained-through-two-weapon-counter-choices",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-glisten-yellow-four-live-original-correct-resolving-source-retained-through-two-weapon-counter-choices",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\fabsim-main-refresh-20261122\\focused-replays\\15.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\fabsim-main-refresh-20261122\\focused-replays\\15.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "log_sha256": "8f639630e24126da277824e1f33f3f03004458fe3cd236f109a69d26c8f4cd32",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "fe9eadfc212b03a9d1ebcb41ad142d6ab258bd2fa5f2c649688c97c273aa61ce",
+        "actions.json": "6b4513714ac0f9de5dd2b4b1b587762637f0ee46e938773166c35b3e7c5c90e5",
+        "assertions.json": "d633536e3df543ec4d9be68a8b7d64dce0fd141d80fa9d17ccc09f4ff78a1832",
+        "expected_final_gamestate.txt": "767ea62dffd017312323f1825fafb6a194a1ccac7f6fc64986721c27e6f15a10",
+        "meta.json": "baf28200264534984e951adf84cd874f63600e033cc7435d673aa886b52afa88"
+      }
+    },
+    {
+      "slug": "card-reincarnate-blue-four-live-real-additional-random-discard-earned-bottom-deck",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-reincarnate-blue-four-live-real-additional-random-discard-earned-bottom-deck",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\fabsim-main-refresh-20261122\\focused-replays\\16.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\fabsim-main-refresh-20261122\\focused-replays\\16.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "log_sha256": "d0476c74dfe2b6962bdb425e4950b8d87b952ab712adb8899e4d3fcae98f107e",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "50d93aa9a45840aad9d32085bd1307f7fe44093e8a7c6b90a5d7c88b1597fab3",
+        "actions.json": "bb35c1d88d2903e358ed4c0557af04c32602b25a504d9ffe2512571468f96014",
+        "assertions.json": "203947a2d5e274236e7bef3ca87c51e1ec9b04bde0eb5095dcad22ee587174be",
+        "expected_final_gamestate.txt": "2d5c8f70413d90b2e5aad2d4189c9859cecac5608b060511e65e22eefbb73b41",
+        "meta.json": "840f10b9faddbd938eb0e5221ba810806a5b666711e85ee01026b0604d86d2dd"
+      }
+    },
+    {
+      "slug": "card-smash-instinct-red-four-live-repair-declared-other-hero-intimidate-after-responses-end-turn-return",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-smash-instinct-red-four-live-repair-declared-other-hero-intimidate-after-responses-end-turn-return",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\fabsim-main-refresh-20261122\\focused-replays\\17.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\fabsim-main-refresh-20261122\\focused-replays\\17.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "log_sha256": "3a8929373b343cf76dc5d74289d112ce5f03dcf26463d55a0a5c34c6d761dbb7",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "8f2a205239685aeb0ef1ea477cb9e386da0033af410ce55c0c2eab8d4082b5ab",
+        "actions.json": "14e3221c8bbb133e854106d8532010bceeecceb87464489d1a2e7dfc07652335",
+        "assertions.json": "1235894c6dbae40659c1c795acb9c0c32b3333c574153c28e3324bba01aa9b78",
+        "expected_final_gamestate.txt": "0c4a60e7850d2d9baf43f8c3855afb7dd3b5b0886838fa3b5749cc8b7797c96a",
+        "meta.json": "5314a23241a6cc00f90493a463b8d51bdefb88bc5682c22cd3925554a41b179a"
+      }
+    },
+    {
+      "slug": "card-pack-hunt-red-four-live-sparse-real-captured-intimidate-trigger-banishes-single-hand-card-then-six-damage",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-pack-hunt-red-four-live-sparse-real-captured-intimidate-trigger-banishes-single-hand-card-then-six-damage",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\fabsim-main-refresh-20261122\\focused-replays\\18.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\fabsim-main-refresh-20261122\\focused-replays\\18.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "log_sha256": "cc1033ac3b6a8c4986b015a5d311b29976fc7ad21f3e5497100d2dbd35bba42c",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "9a25d9493d32d76a52877cf54d27306f74235caa20c6cf50fa40c9c919f835a6",
+        "actions.json": "a8de0d3a788928fbc9972eafc6921af8125b3bd30f5768cba61585655d7e82a9",
+        "assertions.json": "e69f0142bbb7ae7915f043bd56564999ddc1e5770b77d91da1623de7a0d0a495",
+        "expected_final_gamestate.txt": "45338e01240159b8903883716bcc8c1db896100644adbebd1166123eaadf60e5",
+        "meta.json": "30560d39040593dc46c4df55ca9ecd1c6105e42727b5b4125a5cee0cf51616ea"
+      }
+    },
+    {
+      "slug": "card-razor-reflex-red-two-reactions-two-triggers-one-go-again-ap",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-razor-reflex-red-two-reactions-two-triggers-one-go-again-ap",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\fabsim-main-refresh-20261122\\focused-replays\\19.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\fabsim-main-refresh-20261122\\focused-replays\\19.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "log_sha256": "2b75f32e340b8aa0067653f88a233064c063ae1a91fad1a0cea695a8c6516054",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "fb4c089a86636536d4a548dd04d2e027b97bb37def16ccf9a94aebaa7bf964ec",
+        "actions.json": "b53c31cbae2b0d171378c4d4ab3991289981ade166de1d14ac1981311bc5d39e",
+        "assertions.json": "0c945366d9e21df0564668bcee41d36fe6416cf2b053e4fa4414858eb915e5ca",
+        "expected_final_gamestate.txt": "bbcae2e0b80a92ca193a9b9bb1a396f9087134784f1feac55351973192d2edb6",
+        "meta.json": "1cc642c8fe618fc6bc1990785b4f8178dc1f2cf14ba12610f9ac3d905bbb3764"
+      }
+    },
+    {
+      "slug": "card-razor-reflex-red-arsenal-dagger-weapon-no-granted-go-again",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-razor-reflex-red-arsenal-dagger-weapon-no-granted-go-again",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\fabsim-main-refresh-20261122\\focused-replays\\20.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\fabsim-main-refresh-20261122\\focused-replays\\20.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "log_sha256": "bd851d1d282cdb3cb77677ff5970cc3cce95033a3c6a3850f4b963464844e0e9",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "23fab066c1f665d3ba82cdbbecb7fba774d9bb48b8d3a8360bacb5b156cad3c8",
+        "actions.json": "58091a1ded6235bff8bc4a2f320bff94bf37dd7d95e1dc2ca382e9270e96f465",
+        "assertions.json": "7624826f9d4794c60d7ca26ef81a26b5e33431dfa8088411e4b02d025112ec0a",
+        "expected_final_gamestate.txt": "7dfee9e0494ad6606722d004a65a4f72855718eb4751a49ae38f07511f44017e",
+        "meta.json": "8a4c83a06f7a605573e4b81c70fe91a55b23f7d1f99277c7e436cdcc0278c3aa"
+      }
+    }
+  ],
+  "component_receipts": [
+    {
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\fabsim-main-refresh-20261122\\emitter-receipt.json",
+      "sha256": "9a3e62ff9086f3ed5b42fb244be295237c82ee7e8fdbaa4ef5aa813608ecb46e"
+    },
+    {
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\fabsim-main-refresh-20261122\\LF-portability-check.json",
+      "sha256": "bda4bdecc6b1b2496b3ae95569737bb1f67da5bfff0ce81e2235dfb7bc85c16d"
+    },
+    {
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\fabsim-main-refresh-20261122\\wtr-component-receipt.json",
+      "sha256": "238d913a5667b3c7ee45489530e3d8c497295bfbe57c2c475a5e67c626aeb5d1"
+    },
+    {
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\fabsim-main-refresh-20261122\\main-focused-syntax.json",
+      "sha256": "15ed4b8cd025bee05ee5387dc6e3a9e1469c09353157901cac3a0facf6535328"
+    },
+    {
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\fabsim-main-refresh-20261122\\auth-component.stdout.log",
+      "sha256": "af19221e8237ad847d65c451b3ff5d91422f97536ad9ae1c57aabff678d7ba51"
+    },
+    {
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\fabsim-main-refresh-20261122\\original-checkout-preservation.json",
+      "sha256": "0851e700e53fff34b50a602624dcd10d727155d4b9b3dd8deb733fa49d7e4768"
+    }
+  ],
+  "limitations": [
+    "Current-main21cases only, not full4202scenario replay or all prior branches.",
+    "Generated public dictionary/schema-parser inputs copied with hashes from the prior runtime because schema/these emitter regions did not change; macros regenerated using current-main emitter and trusted immutable cached public authoring data.",
+    "No live Card Code/auth configuration/browser transport/deployment integration tested; no credentialed request made.",
+    "Historic qualifications retain original runtimes and hashes; this focused current-main receipt supplements them without rebinding unchanged cases."
+  ]
+}

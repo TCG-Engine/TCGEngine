@@ -1,0 +1,7 @@
+{
+    "name": "Foreboding Bolt / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T06:04:55+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Deal 3 arcane damage to target hero.\n\n**Opt 1** Representative only: three_arcane_then_actual_opt_one_bottom. Other pitch siblings, alternate targets and unexercised branches receive no credit. All four live/manual; only native entry-point actions. Sources: FaBSim/GeneratedCode/cardArrayCache.json#foreboding_bolt_red"
+}

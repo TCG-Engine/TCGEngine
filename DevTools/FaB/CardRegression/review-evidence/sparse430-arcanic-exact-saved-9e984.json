@@ -1,0 +1,294 @@
+{
+  "status": "APPROVED_ACTUAL_SAVED_ARCANIC_CUNNING_ON_STACK_STATIC_PREVENTION_AND_REAL_ATTACK",
+  "approved": true,
+  "source_approved": true,
+  "semantically_approved": true,
+  "reviewer": "/root/nov2_sparse_author",
+  "reviewer_independent": true,
+  "created_utc": "2026-11-05T08:22:56.746290+00:00",
+  "source_spec": "card-regression-batch430.json",
+  "input_sha256": "87a912d0b209cac732044fe8f59383722d463fe3281959c72dbfa77de8baedd8",
+  "manifest_sha256": "35ca5b884a88b5232a7b677c2c40e7f4e831b71e4cc4eeff4dc80a7b2dae5f50",
+  "runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+  "recorded_runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+  "source_guards_verified": 66,
+  "prior_independent_source_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch430-independent-source-review.json",
+    "sha256": "f1bb87c805498908e41ad1acf8c10bed5d47f2ed9ff731d6a500e7032e7fe58f",
+    "reused_not_expanded": true
+  },
+  "recording_receipt": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch430-20261105T075821Z-6aec371ddbf61.json",
+    "sha256": "a3b5eae6a131ed2375dfac90e8f15ee03723b8932a539c52521ae2d5101ebac7"
+  },
+  "recording_results": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch430.recording-results.json",
+    "sha256": "6a023e5961a9b40f63c9a1ce78d772f7319dde9c7f1eba9810c772b321b53589"
+  },
+  "root_wrapper_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch430-native-r1-9e984\\receipt.json",
+    "sha256": "c7810f338eb0f904436335b216d00dc3d4606f4871cd00ef71946058ce22fd05"
+  },
+  "actual_comparison_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov5_batch430_arcanic_saved_readonly.py",
+    "sha256": "f61f668950fba0772ef4ee347c4ad52760119e51328adb1da13a57241c5292c4"
+  },
+  "fixtures": [
+    {
+      "index": 0,
+      "card_id": "arcanic_cunning_red",
+      "slug": "card-arcanic-cunning-red-four-live-sparse-real-on-stack-prevents-one-of-earned-opposing-instant-zap",
+      "source_spec": "card-regression-batch430.json",
+      "input_sha256": "87a912d0b209cac732044fe8f59383722d463fe3281959c72dbfa77de8baedd8",
+      "reviewer": "/root/nov2_sparse_author",
+      "runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+      "recorded_runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+      "approved": true,
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_NEW_FOUR_LIVE_REPRESENTATIVE",
+      "fixture_path": "Tests\\Integration\\FaBSim\\card-arcanic-cunning-red-four-live-sparse-real-on-stack-prevents-one-of-earned-opposing-instant-zap",
+      "fixture_sha256": "96895efb2aca90c0e0687b5fff3f2e406741e5e553601a08c40e293dff13a846",
+      "raw4_sha256": {
+        "initial_gamestate.txt": "f3477cd456a14bc4793ba4afc5afc3fbc5e21da59a24b075ba2af9cfc7885d87",
+        "actions.json": "587387256703a187ae23a7ecbdaf0e7945dd1d3f94b050ac6652e3eb80058a72",
+        "assertions.json": "6b5e1d5e9c44c138184bc309b0c58027056d38f9c3dbf9049cfc672a33d7a8d0",
+        "expected_final_gamestate.txt": "cd759cc1481291984bace8a30b066182327436a9604703a4491b732550140bc5"
+      },
+      "raw5_sha256": {
+        "initial_gamestate.txt": "f3477cd456a14bc4793ba4afc5afc3fbc5e21da59a24b075ba2af9cfc7885d87",
+        "actions.json": "587387256703a187ae23a7ecbdaf0e7945dd1d3f94b050ac6652e3eb80058a72",
+        "assertions.json": "6b5e1d5e9c44c138184bc309b0c58027056d38f9c3dbf9049cfc672a33d7a8d0",
+        "expected_final_gamestate.txt": "cd759cc1481291984bace8a30b066182327436a9604703a4491b732550140bc5",
+        "meta.json": "d112566c2036074bf12300fdc0b08a62a0488a25468396698c9e17a8e553e8a9"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "f3477cd456a14bc4793ba4afc5afc3fbc5e21da59a24b075ba2af9cfc7885d87",
+        "actions.json": "587387256703a187ae23a7ecbdaf0e7945dd1d3f94b050ac6652e3eb80058a72",
+        "assertions.json": "6b5e1d5e9c44c138184bc309b0c58027056d38f9c3dbf9049cfc672a33d7a8d0",
+        "expected_final_gamestate.txt": "cd759cc1481291984bace8a30b066182327436a9604703a4491b732550140bc5",
+        "meta.json": "d112566c2036074bf12300fdc0b08a62a0488a25468396698c9e17a8e553e8a9"
+      },
+      "actions": 45,
+      "native_assertions": 3695,
+      "actual_manual_passes": 39,
+      "actual_priority_response_passes": 38,
+      "actual_defender_declaration_finish_inputs": 1,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4
+      ],
+      "actual_manual_actor_counts": {
+        "1": 10,
+        "2": 10,
+        "3": 10,
+        "4": 9
+      },
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "all_actions_and_assertions_exact": true,
+      "all_endpoint_physical_uid_card_zones_ownership_verified": true,
+      "all_terminal_assertions_evaluated_against_parsed_final_snapshot": true,
+      "initial_assertions_evaluated_against_parsed_initial_snapshot": true,
+      "endpoint_assertion_counts": {
+        "0": 128,
+        "45": 198
+      },
+      "initial_physical_uid_locations": {
+        "1": {
+          "card_id": "chane",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "5": {
+          "card_id": "arcanic_cunning_red",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "verdance",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2
+        },
+        "7": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p4Hand",
+          "owner": 4,
+          "controller": 4
+        },
+        "8": {
+          "card_id": "zap_red",
+          "zone": "p4Hand",
+          "owner": 4,
+          "controller": 4
+        },
+        "6": {
+          "card_id": "storm_striders",
+          "zone": "p4Equipment",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_physical_uid_locations": {
+        "1": {
+          "card_id": "chane",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "5": {
+          "card_id": "arcanic_cunning_red",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "verdance",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2
+        },
+        "6": {
+          "card_id": "storm_striders",
+          "zone": "p4Graveyard",
+          "owner": 4,
+          "controller": 4
+        },
+        "8": {
+          "card_id": "zap_red",
+          "zone": "p4Graveyard",
+          "owner": 4,
+          "controller": 4
+        },
+        "7": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p4Pitch",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_health": [
+        18,
+        20,
+        20,
+        16
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        2
+      ],
+      "final_AP": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_Hero_Status": [
+        2,
+        2,
+        2,
+        2
+      ],
+      "positive_Storm_permission_residue": false,
+      "original_primary_target_preserved": true,
+      "actual_arcane_dealt": {
+        "4": {
+          "1": 2
+        }
+      },
+      "checkpoint_assertion_mapping_sha256": "2d4815d16e468aad49899b19d50aba98c4f3c78147fc22bef0f98a104dd2d0d4",
+      "native_action_mapping_sha256": "cb1455b7dda510e012bbf571a28b4a055a625c346afa0dde6a46180bb71896b3",
+      "native_assertion_mapping_sha256": "ba79ccefb0dfbfc2e3e1164bf04f00eb33f6f1d95e9f6444ccd761464767c3b3"
+    }
+  ],
+  "blocked_attempts": [],
+  "total_actions": 45,
+  "total_native_assertions": 3695,
+  "total_manual_passes": 39,
+  "total_priority_response_passes": 38,
+  "total_defender_declaration_finish_inputs": 1,
+  "material_findings": [
+    "ActualnormalAA5targetsP4/paysAP1thenSTAYSphysicalStackthroughnestedStorm/Zap. RealP4Storm6Instant1paysBlue7pitch3/destroys6asCOST/R2/AP0beforefresh4,1,2,3; virtualABI9Controller4/SourceEquipment6holdsabove5throughthree, onlyfourthceasesABI9andearnspermission. FreshordinaryprioritythenactualZap8KindINSTANTatAP0/offturnprovesrealpermissionconsumer; finalnoARC_NEXT_WIZARD_INSTANTpositivegrant.",
+    "ActualZap8targetP1/fresh4,1,2,3with5stilllowerStack. Onlyfourth3arcaneisreducedbyliveprimary5static1to2/P1HP18. NoArcaneShelter/Barriercost/seededprevention/extraWHENlayer. ActualfinalarcaneDealt4to1two/rawtarget8onecorroborates; originalprimarytargetP4separateandpreserved.",
+    "Onlyfresh1,2,3,4thenoriginalsame5Chain/base4/noGA; real4physicalP4HP16/fullfourDamageandResolution/APall0. All45nativeactions3695orderedchecks39manualactors, raw48prefsperendpoint, everyoriginalphysicalUID1..8conserved/GY1{5}/GY4{6,8}/Pitch4{7}/R4two/virtualABI9ceased/fullcombat/payment/activeframecleanup verified."
+  ],
+  "limits": [
+    "OnepositiveONSTACKprevent1of3arcaneandactualAA4/fullclose. Attacking/defendingpreventionbranches/multipleCunning/multiplepackets/suppression/controlchange/unpreventable/Barrier/fullcard/siblings/supportprimarycredituntested.",
+    "ZapselectednonawaitsupportpathhasnoP1Barrier/Spellvoid/forcedchoice; noordinaryPlainSpellawaitprobe/workaroundorinternalcompletionorderingcertification. Actualcompletedpostlayerendpoints andnativechecksused; noextra per-action raw snapshots claimed.",
+    "ABI9ceasesasStackobject; finalarcCards9andDecisionQueueVariableslastsource9/6cacheintentionallyremain. ThoseLKI/cachevaluesarenotactiveawaitframesorapresentABI; noclaimallbookkeepingpurged.",
+    "Rootfocusedreplays/registrationareseparate. ReviewerexecutednoPHP/native/R/source/gen/service/remote/fullsuite/deniedoperationretry."
+  ]
+}

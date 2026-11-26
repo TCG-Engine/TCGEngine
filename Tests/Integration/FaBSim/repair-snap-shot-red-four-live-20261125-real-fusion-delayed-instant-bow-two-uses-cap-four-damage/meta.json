@@ -1,0 +1,7 @@
+{
+    "name": "Repair Snap Shot / real Fusion delays Bow permission until WHEN resolves and allows exactly two uses",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-25T21:06:43+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "CR8.1.1d/8.3.5:asInstantActionBowpaysnoAPbutstillgainsitsprintedGoAgainAP. RealFusionrevealsFlash; readyfundableBowrejectsbeforeArrowattacksandwhileearnedlayerpending. Four-seatlayerresolvesbeforeInstantBowpermission. ActualBowresourcepitch/load/draw; secondfundedactivationwithfullArsenallegallydeclinesoptionalputandstillgoagain; thirdsamefundedabilityrejects2usecap. RealSnap4damageandClose. Nooutcomehistoryseeding. Sources: FaBSim/GeneratedCode/cardArrayCache.json#snap_shot_red FaBSim/GeneratedCode/GeneratedMacroCode.php#snap_shot_red FaBSim/Custom/ELECards.php#FaBELEFinishFusion FaBSim/Custom/ARCAbilities.php#FaBARCAbilityLegal FaBSim/Custom/GameLogic.php https://rules.fabtcg.com/en/cr/08-keywords/ https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/"
+}

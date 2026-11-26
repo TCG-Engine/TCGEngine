@@ -1,0 +1,56 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-moon-wish-red-four-live-sparse1289-real-hand-to-top-alternative-fully-blocked-no-search",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-moon-wish-red-four-live-sparse1289-real-hand-to-top-alternative-fully-blocked-no-search",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1289-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1289-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "990a2175ce5c93673446d8d02ea1ca3c09602bd50243139f8d9155073e24b9b2",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "e4686f38f794d9e374078b2d73e5f354416357db1dcfa8fcc03f72df65f1a2a0",
+        "actions.json": "ecd75f99edfa6dd3b80c9da7853194aac6029d84dfd3072889d80a60d0dcb05c",
+        "assertions.json": "edac527289059ced4a6c9fbd08ba50accc0474ce937fd94423f55b69d8f5c985",
+        "expected_final_gamestate.txt": "b84ef10c584e145681600e9e56b2da2598e8c2377c7f8e5d72afe6435c4751bc",
+        "meta.json": "62d7c881a230f2a33dffc49af0f4f8e688ce14d151a4b65c3e5458a150c5a802"
+      }
+    },
+    {
+      "slug": "card-life-of-the-party-red-four-live-sparse1289-real-brew-discard-alternative-all-modes-fully-blocked",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-life-of-the-party-red-four-live-sparse1289-real-brew-discard-alternative-all-modes-fully-blocked",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1289-local-20261122\\clean-replays\\01.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1289-local-20261122\\clean-replays\\01.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "d20f290d15fd82b10061b93d02ef0ce4349fb6ae927cc8a13c5e4a2e68fd5d65",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "304ce4ea1a55ee326e53d5fa471d604142204482c19a6a3732497c0f1246f782",
+        "actions.json": "ecd75f99edfa6dd3b80c9da7853194aac6029d84dfd3072889d80a60d0dcb05c",
+        "assertions.json": "b21ad71e3911081bf873471caa558e9a523ec9f16ea545c50d4e585bed8eb7b8",
+        "expected_final_gamestate.txt": "c3394d9be14f265eabf6c1efc1df5da25d24b9829d70e0f87d86a3de03d5bcb4",
+        "meta.json": "3ef30af6079a83421c7fb6c0e3c2e7182257b2e7a70ce250326f0552b188ab36"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

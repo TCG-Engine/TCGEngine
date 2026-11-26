@@ -1,0 +1,7 @@
+{
+    "name": "Bonds of Ancestry / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T21:32:32+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "**Combo** - If a card with Gustwave in its name was the last attack this combat chain, this costs {r}{r} less to play, and gets **go again** and \"When this attacks, you may banish a card with **combo** from your graveyard. If you do, search your deck for a card with the same name, banish it, then shuffle. You may play it this combat chain.\" Firstactualchainlink only, noprerequisiteGustwave/priorDraconicchainlink: conditional grant absent, no earned attacks/hits-granted event. Actualprintedcost/payment/baseHPdamage/AP0/source5ownGY. Arena/Banish/Deckstayempty. Onlynegativegrant/mainbranch, notpositiveFealty/mark/discount/Combo/search/sibling. Sources: FaBSim/GeneratedCode/cardArrayCache.json#bonds_of_ancestry_red"
+}

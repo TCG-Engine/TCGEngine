@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-adaptive-plating-four-live-sparse1528-real-action-moves-head-to-empty-chest-after-response-and-choice",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-adaptive-plating-four-live-sparse1528-real-action-moves-head-to-empty-chest-after-response-and-choice",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1528-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1528-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "46ed8999b0c25c8e8ea4ff741d83be63e39c682ffa52d9d00db3286ccba331f1",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "e9b01639e188612b0e2425ccd5c4db3cf7ed6639b6e34c7a5aa9c8bc8d831809",
+        "actions.json": "244d33c9dfe88f04c91ea2cc93a73af17abac11381f3f982df2c75554d2cc384",
+        "assertions.json": "22ebd58f6f03d9127c9f2364c29de0d4d7d859595eacba42d59f5eb2166f88c3",
+        "expected_final_gamestate.txt": "3cdc89b47e28818be6c5853207a8a76e6d2001242bdd2770a2d40b4a40430696",
+        "meta.json": "371b35920d4e470d228f4bef9f1f620d32697a5eb7e5c178c1967077d4ca8508"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

@@ -1,0 +1,136 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "/root/breadth_review independent cached-text/source-spec batch semantic review; Root exact saved mapping and native clean replay",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1464-20261122.json",
+  "source_spec_sha256": "53d4fd131ae12a816aa19fa0bceae04255b3aa3e1421919bdde10fc56e182a43",
+  "input_sha256": "f197edd93e6135dc770097c628eca0150b44b59f9ccffcdc701e1803285fdbfe",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-dam-the-shadowake-red-four-live-sparse1464-real-defense-without-qualifying-shadow-attacking-hero",
+      "card_id": "dam_the_shadowake_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "9abc0b7f8317ce09bced60b57600320dea96888e6af86abba43aa926bdefbf50",
+        "actions.json": "7f1369969f97aed5d86f58799e04f153711f5b54ba2a8e29ed493fe9985a8a01",
+        "assertions.json": "d1732ff568336da9fcc46e50d0f7a213bf515c0c2d2069131436bb6532089ee6",
+        "expected_final_gamestate.txt": "f01cf3cab559f258f9b9527145b6671d35cc728f387f320942c6251c5a4c7836",
+        "meta.json": "66878da0b897d7cb23a2ef5ff464bc78f5332fd92b8f6735050fda92f1d7fc61"
+      },
+      "fixture_sha256": "6f81b6f1f1ad91e63ce22f5bd1184264c9f8968e45ac2e4151dee565bd4a7699",
+      "actions": 29,
+      "native_assertions": 423,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1464-20261122.json",
+      "input_sha256": "f197edd93e6135dc770097c628eca0150b44b59f9ccffcdc701e1803285fdbfe",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1464-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-dam-the-shadowake-red-four-live-sparse1464-real-defense-without-qualifying-shadow-attacking-hero",
+        "fixture_slug": "card-dam-the-shadowake-red-four-live-sparse1464-real-defense-without-qualifying-shadow-attacking-hero",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-stand-tall-yellow-four-live-sparse1464-real-defense-without-qualifying-actual-attacking-hero-reaction-play-or-activation",
+      "card_id": "stand_tall_yellow",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "8ac383698239c7dc2ef3b1c3242c17be5f0c54c900aa6637e7a88ba38fa33ceb",
+        "actions.json": "7f1369969f97aed5d86f58799e04f153711f5b54ba2a8e29ed493fe9985a8a01",
+        "assertions.json": "bc69abbbebff707fe9bdb01b09eaf21ef13de853e752767d5714cbbfc2b530ab",
+        "expected_final_gamestate.txt": "965114cb9aa697d32ccdc5624413befb641ed7f01fdef49caaa5436f85930713",
+        "meta.json": "c04b4e7a8e55d2fe2e88b910559f95344dc4cdd3bf2e2300c0e39dd1689f0ffd"
+      },
+      "fixture_sha256": "3611ea177057b17838ef588458982a8b37e9f794d98a5c1869f2992613ec0400",
+      "actions": 29,
+      "native_assertions": 479,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1464-20261122.json",
+      "input_sha256": "f197edd93e6135dc770097c628eca0150b44b59f9ccffcdc701e1803285fdbfe",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1464-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-stand-tall-yellow-four-live-sparse1464-real-defense-without-qualifying-actual-attacking-hero-reaction-play-or-activation",
+        "fixture_slug": "card-stand-tall-yellow-four-live-sparse1464-real-defense-without-qualifying-actual-attacking-hero-reaction-play-or-activation",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "schema_version": 1,
+    "batch": 1464,
+    "result": "approved_named_branches_only_pending_native_execution",
+    "reviewed_utc": "2026-11-25T02:14:48.857120+00:00",
+    "spec_sha256": "f197edd93e6135dc770097c628eca0150b44b59f9ccffcdc701e1803285fdbfe",
+    "source_note_sha256": "1a76a775cb4ce19d349d77522df86a2e3639898de1cd143bbd97e880a29be208",
+    "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+    "source_hashes": {
+      "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+      "FaBSim/GeneratedCode/GeneratedMacroCode.php": "fe6a7982611df8f4de98ce2671b317b671b580146aa4b8c28e8f4b86d8461056",
+      "FaBSim/Custom/GameLogic.php": "c60fa151561f959e4e3e341b814de0e2b47c9e9f153bbc8793a04c43b5075061",
+      "FaBSim/Custom/IARCards.php": "0abc78c4d25203b2a0ae489bc183e5687e3375a2a7a29dc9401bbbd7df670783"
+    },
+    "cases": 3,
+    "planned_actions": 74,
+    "persistable_checks": 1278,
+    "named_primary_ids": [
+      "dam_the_shadowake_red",
+      "stand_tall_yellow",
+      "unforgetting_unforgiving_red"
+    ],
+    "findings": [
+      "Three distinct unrepresented/unheld groups: legal four-live young Shadow Chane/Warrior Dorinthea defenders and legal two-live natural40 adult CC Jarl specialization versus Dorinthea Ironsong. Generic Deck witness and support assets are class compatible.",
+      "Dam exact compiled guard FaBIARShadowAttacker tests attacking Hero, and attacking Dorinthea is non-Shadow. No Gate is expected; defender being Shadow does not satisfy that condition.",
+      "Stand Tall sees no actual attacking-Hero reaction played/activated while defending. Attacker retains suitable real Razor Reflex plus Blue payment asset through genuine REACTION1; no +2 defense expected. No exact positive Stand Tall callback was found or certified.",
+      "Unforgetting has actual opposing Ironrot Plate with Counters[] and an eligible real Mangle in its Jarl controller Deck. No negative-defense counter exists, so printed search condition is false. No exact positive Unforgetting callback was found or certified.",
+      "Owned primary physically Hand-defends actual Generic Wounding4. Printed defenses4/3/4 yield actual damage0/1/0; complete live-seat flow and source/Hand/Deck/equipment fates remain strict. Actual retained Item play at AP0 rejects."
+    ],
+    "limits": [
+      "Source/spec review only; no reviewer games/replays or passing coverage granted.",
+      "Basic defense and limited false qualifying conditions only. No positive Gate, reaction-trigger defense boost, search/shuffle/play permission, exact positive support for absent callbacks, event timing, sibling, support identity or whole-card credit."
+    ]
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1464-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "aa9f53fbeca3ec602c375db2b3a3f7e5fd344f2e6b9a8f5c4d8e61fb4c733458"
+  },
+  "full_suite_run": false,
+  "historical_recorded_source_spec_sha256": "f197edd93e6135dc770097c628eca0150b44b59f9ccffcdc701e1803285fdbfe",
+  "qualification_withdrawal_evidence": "review-evidence/conditional-trigger-qualification-withdrawals-20261125.json",
+  "qualification_withdrawal_evidence_sha256": "649b64bf7ff93dad8b0a0fc54e75eb176bc02012e1d11769fd7938177e4a464d",
+  "removed_scenario_ids": [
+    "card-unforgetting-unforgiving-red-two-live-sparse1464-real-defense-without-qualifying-attacker-equipment-has-minus-one-defense-counter"
+  ],
+  "source_revision_scope": "Metadata-only subset extraction. Every retained scenario field and raw5 file equals its historical reviewed and replayed input. No retained game/replay rerun or new whole-batch semantic review claimed."
+}

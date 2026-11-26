@@ -1,0 +1,7 @@
+{
+    "name": "Timekeeper's Whim / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T18:02:45+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Deal 5 arcane damage to target hero.\n\nIf this was played during an opponent's turn, put it on the bottom of its owner's deck. Representative only: real_blue_cost_three_and_five_arcane_during_own_turn_without_bottom_replacement. Other pitch siblings, alternate targets and unexercised branches receive no credit. All four live/manual; only native entry-point actions. Sources: FaBSim/GeneratedCode/cardArrayCache.json#timekeepers_whim_red"
+}

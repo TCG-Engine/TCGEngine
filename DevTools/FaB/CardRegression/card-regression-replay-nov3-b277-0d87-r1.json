@@ -1,0 +1,39 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch277.json",
+  "runtime_sha256": "0d877de49c131f29c152706e14bba3368630df61c59ef475c87a84f20b6e1a66",
+  "returncode": 0,
+  "completed_utc": "2026-11-03T02:55:25.655406+00:00",
+  "fixtures": [
+    {
+      "slug": "card-quelling-slippers-four-live-sparse-real-effect-pitch-paid-quell-prevents-one-of-seven",
+      "fixture_sha256": "fb64dddf7241e43715a2ed34d902c14088e78177f3928767f8483fd60635bdba",
+      "passed": true,
+      "result": "[PASS] quelling_slippers / four live distinctive effect"
+    },
+    {
+      "slug": "card-sigil-of-solitude-red-four-live-sparse-real-mandatory-ward-four-destroys-aura-prevents-four-of-seven",
+      "fixture_sha256": "924af2d08616a331d179f4d02ef45f72b473c4ab1048a326d6bca825e3051952",
+      "passed": true,
+      "result": "[PASS] sigil_of_solitude_red / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-quelling-slippers-four-live-sparse-real-effect-pitch-paid-quell-prevents-one-of-seven",
+      "returncode": 0,
+      "stdout": "[PASS] quelling_slippers / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-sigil-of-solitude-red-four-live-sparse-real-mandatory-ward-four-destroys-aura-prevents-four-of-seven",
+      "returncode": 0,
+      "stdout": "[PASS] sigil_of_solitude_red / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 2,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

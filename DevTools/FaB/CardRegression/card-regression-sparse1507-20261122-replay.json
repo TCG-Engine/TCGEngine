@@ -1,0 +1,56 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-path-well-traveled-blue-four-live-sparse1507-real-blue-instant-is-not-attack-target-no-illegal-play-or-transcend",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-path-well-traveled-blue-four-live-sparse1507-real-blue-instant-is-not-attack-target-no-illegal-play-or-transcend",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1507-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1507-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "65ea797e82d9fc0a93dd794f5b56ceada8d1db9b86adc192cbc9315b2f606f2c",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "5f9d4509838c9ac9f5caee3e157553b08c8d05f6265f512b5a78a8803f8d2e87",
+        "actions.json": "33530d3529211ca7088c56d3fc7365b8222d1e1ceb857006552a32aaa9a4c21b",
+        "assertions.json": "be35d5e28976afd949d0a5e50e0486812cc023dd34f98c743c2cc2a6ec90020f",
+        "expected_final_gamestate.txt": "2f02315ba205ec0dd75285410c4a1d2fa94eb77de40a745456680652bdbb2d09",
+        "meta.json": "3ac67dfae2d53c947979d7b165df0914a51305e4a4486260d5bbabfcb86672ce"
+      }
+    },
+    {
+      "slug": "card-the-grain-that-tips-the-scale-blue-four-live-sparse1507-real-blue-instant-is-not-attack-target-no-illegal-play-or-transcend",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-the-grain-that-tips-the-scale-blue-four-live-sparse1507-real-blue-instant-is-not-attack-target-no-illegal-play-or-transcend",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1507-local-20261122\\clean-replays\\01.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1507-local-20261122\\clean-replays\\01.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "40f9858636baad37e529bb480a0d238ae73a61e59258c88731fb2cfbb81b59c6",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "fd5b0b878e3cd9bdc4ddd296eccfb3efeec6c7de6d752272eab78ba293f7f36d",
+        "actions.json": "33530d3529211ca7088c56d3fc7365b8222d1e1ceb857006552a32aaa9a4c21b",
+        "assertions.json": "6bf35a85da6e9864723a4090dd6d2a93b8a94796ed6273a735007bb4b07337b6",
+        "expected_final_gamestate.txt": "c0baecd1dd3f4d07b655b0a9d12098b4356a2fa8c13480b116bc55d21bd892e7",
+        "meta.json": "54bc28b3da3030116cfde69e834bab1284d442077d5d49acba214bf7c4930e8c"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

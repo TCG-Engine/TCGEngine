@@ -1,0 +1,85 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "/root/breadth_review1457",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1521-20261122.json",
+  "source_spec_sha256": "dbab02b4ea5813c278d90230b074fd952c99d0287744741bfce89643eda37fdf",
+  "input_sha256": "dbab02b4ea5813c278d90230b074fd952c99d0287744741bfce89643eda37fdf",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-enigma-new-moon-four-live-sparse1521-ordinary-blue-pitch-is-not-chi-despite-real-cloaked-equipment",
+      "card_id": "enigma_new_moon",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "9486d4120555fc144216dcaced2a9769868218d33b7702d6b74cc15ae61f04f8",
+        "actions.json": "814e7718d72ddc7f7e93fdea11d66d9b31b6d4a9925eff4af8583a9daaef7559",
+        "assertions.json": "1ad43962bda0c65bdaf613259f5b239a1b3962a0adae0787f89fa7b04b6f9302",
+        "expected_final_gamestate.txt": "471e03bd540562b439775b7841af1c9b4fb28e26e26e709751cdc3b9759735c4",
+        "meta.json": "f7d3eff1ad5448e7920cd7d3988af99a0f43cf536f0f537903fc1e64538f2a4e"
+      },
+      "fixture_sha256": "2a2527e7a0bc73cea44d0c05132714d0df00b772a78f5e27bf8215f3e9608b15",
+      "actions": 6,
+      "native_assertions": 295,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 4,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1521-20261122.json",
+      "input_sha256": "dbab02b4ea5813c278d90230b074fd952c99d0287744741bfce89643eda37fdf",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1521-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-enigma-new-moon-four-live-sparse1521-ordinary-blue-pitch-is-not-chi-despite-real-cloaked-equipment",
+        "fixture_slug": "card-enigma-new-moon-four-live-sparse1521-ordinary-blue-pitch-is-not-chi-despite-real-cloaked-equipment",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "schema_version": 1,
+    "batch": 1521,
+    "reviewer": "/root/breadth_review1457",
+    "result": "approved_named_branches_only_pending_native_execution",
+    "reviewed_utc": "2026-11-25T08:57:47.513696+00:00",
+    "spec_sha256": "dbab02b4ea5813c278d90230b074fd952c99d0287744741bfce89643eda37fdf",
+    "source_note_sha256": "25d888499dcf09b3be261306a9932143453a4572643d91a52f35dcfadd91e02d",
+    "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+    "source_sha256": {
+      "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+      "FaBSim/Custom/MSTCards.php": "cd98a9b734b984bfc19af7d0e4a3eebd5496f298d08c7c79d7f6d43c363513c7",
+      "FaBSim/Custom/MSTRuntime.php": "b96f21727c089c90c21bf3aadaf913301b1ef7c922f2a17ac055258682ed45ce",
+      "FaBSim/Custom/ARCAbilities.php": "e49ce4685f148ef423ea38aac544266b3298527ea8ca9eef11b12fb974e7c9f0",
+      "FaBSim/Custom/GameLogic.php": "c60fa151561f959e4e3e341b814de0e2b47c9e9f153bbc8793a04c43b5075061"
+    },
+    "cases": 1,
+    "findings": [
+      "LegalyoungEnigma20grantsCloaked; ownGenericIronrot5FaceDown1 isvalidtarget, notmissing-targetsubset.",
+      "MSTChiCost3/AvailableChifloating+ChiHand only; actualGenericBlueSigil6pitch3notChi. ARC89rejectsAvailableChi0beforeactivation despiteordinaryBlue3funding/validtiming/AP1.",
+      "NoInnerChi orseededChi/privateeffects. ExactHero1/Equipment5faceDown/Counters/Hand6/Unique6unchanged, actualSigilfourresponsesHP21/GY6/AP1 correct."
+    ],
+    "limits": [
+      "Onlycurrencyfailurebranch, not flip/Ward/Shield/targetdeclaration/fullCloakedrules, no219closure. Reviewer source/spec review only, no native games or writes."
+    ]
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1521-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "9eb79369464859a6380d008e993a9220a07fbe859a6857c4625e5a4c82b377c8"
+  },
+  "full_suite_run": false
+}

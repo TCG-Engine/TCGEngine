@@ -1,0 +1,249 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "/root/breadth_review1457",
+  "reviewer_scope": "Independent exact original/proposed migration and final Close extension review. Root native recording, exact saved control/assertion alignment, original assertion payload preservation and one clean user-runner replay each. No independent native game claim.",
+  "runtime_sha256": "39ea7198588aa12a77f1b2f47c9b523e54789383be9e5ee5bc96ff8ac6a9a2e5",
+  "source_spec": "card-regression-repair-hatchet-adjacent-four-20261125.json",
+  "input_sha256": "9e8b2be2dd65f7eaaf1e342f157f5234afd3a10de3642ab636da4fccd52d19e0",
+  "fixtures": [
+    {
+      "slug": "card-cut-deep-blue-nonmatching-hatchet-of-body-preserves-buff",
+      "card_id": "cut_deep_blue",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "9f9f52027c10eb4550a24c771a7c7f0502834746c2be71f7d1f507b91fc323e6",
+        "actions.json": "5040348401f956fcd81f9f98975fca80439bec3d08c676a56f6bcd7855a93bb5",
+        "assertions.json": "21442e654901c8c38174399242fce8455addb0987f5e66ddaf96af39c145e7ee",
+        "expected_final_gamestate.txt": "87e3628e8bd00b2e42d4db76377b473e2b70aedd474b4802a8c763ae1efa0684",
+        "meta.json": "82fdc44ac33b7b81d82d01e3b91f98e284d67ffdecbf76e7abe951bbb98c0f0a"
+      },
+      "fixture_sha256": "2546bc62196e4f4be8c6d658997896abc4edcb63d7019c4d0f066ed30ab2049b",
+      "actions": 31,
+      "native_assertions": 138,
+      "author_only_checks_not_persisted": [
+        {
+          "step": 0,
+          "check": {
+            "kind": "can_play",
+            "player": 1,
+            "mzID": "p1Hand-0",
+            "value": true
+          }
+        }
+      ],
+      "actual_manual_pass_inputs": 28,
+      "recorded_runtime_sha256": "39ea7198588aa12a77f1b2f47c9b523e54789383be9e5ee5bc96ff8ac6a9a2e5",
+      "runtime_sha256": "39ea7198588aa12a77f1b2f47c9b523e54789383be9e5ee5bc96ff8ac6a9a2e5",
+      "source_spec": "card-regression-repair-hatchet-adjacent-four-20261125.json",
+      "input_sha256": "9e8b2be2dd65f7eaaf1e342f157f5234afd3a10de3642ab636da4fccd52d19e0",
+      "active_seats": [
+        1,
+        2
+      ],
+      "players": "two_live_manual",
+      "pass_counts_by_control": {
+        "1": 2,
+        "3": 4,
+        "4": 9,
+        "6": 2,
+        "7": 9,
+        "8": 2
+      },
+      "attack_refs_by_step": {
+        "8": "p1CombatChain-0",
+        "20": "p1CombatChain-1"
+      },
+      "all_original_assertion_payloads_preserved": true,
+      "reviewed_virtual_uid_counter_assertions_revised": 0
+    },
+    {
+      "slug": "card-felling-swing-blue-hand-floating",
+      "card_id": "felling_swing_blue",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "842a32815f957de9b495f4a7b39ec7b56e17f13a8ac4d1bdd5b1d7f179846d8d",
+        "actions.json": "7dad8250a6d48f575370a08f842eeaa34dd819da254b23e66dfd51187a5c0823",
+        "assertions.json": "b786a653780330bd7811f5a6996408b8b9ed7059a7a45dd9c3f305d3c0f95222",
+        "expected_final_gamestate.txt": "982eb2c36c91de3990ab7ce5c14ade0e6b90d659970293e98983b7817e46c71c",
+        "meta.json": "f2c45dfadb5403d67b5dd6fe66ca7495bc0d79bbf4d7f0f5712b5bf5ebfb6174"
+      },
+      "fixture_sha256": "7f3799f34ffe8682228e02d28434c07be56cc38547c07cb46dbaa751144b317f",
+      "actions": 19,
+      "native_assertions": 99,
+      "author_only_checks_not_persisted": [
+        {
+          "step": 0,
+          "check": {
+            "kind": "can_play",
+            "player": 1,
+            "mzID": "p1Hand-0",
+            "value": true
+          }
+        }
+      ],
+      "actual_manual_pass_inputs": 17,
+      "recorded_runtime_sha256": "39ea7198588aa12a77f1b2f47c9b523e54789383be9e5ee5bc96ff8ac6a9a2e5",
+      "runtime_sha256": "39ea7198588aa12a77f1b2f47c9b523e54789383be9e5ee5bc96ff8ac6a9a2e5",
+      "source_spec": "card-regression-repair-hatchet-adjacent-four-20261125.json",
+      "input_sha256": "9e8b2be2dd65f7eaaf1e342f157f5234afd3a10de3642ab636da4fccd52d19e0",
+      "active_seats": [
+        1,
+        2
+      ],
+      "players": "two_live_manual",
+      "pass_counts_by_control": {
+        "1": 2,
+        "3": 4,
+        "4": 9,
+        "5": 2
+      },
+      "attack_refs_by_step": {
+        "8": "p1CombatChain-0"
+      },
+      "all_original_assertion_payloads_preserved": true,
+      "reviewed_virtual_uid_counter_assertions_revised": 0
+    },
+    {
+      "slug": "card-cleave-red-four-live-sparse-real-paid-next-axe-plus-four-full-block-no-hit",
+      "card_id": "cleave_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "d4ceaa3c7915b285c5eb53240e774c586babd721ca0b37425fa714a42a3bfd88",
+        "actions.json": "d513de142d027a65546326c1f9e9d49390ae1a4a589492f9345999ae18dcc443",
+        "assertions.json": "bead77add60699ee6bab6d2e13c66651ae7eb55857268a5a2d560a6d96f01be5",
+        "expected_final_gamestate.txt": "c1f510157151c0420a703242d9fafbeddbd9860ca48ea92d3ee2833b9b156aeb",
+        "meta.json": "ae1a57e599a8d09abd955534955d00caad888f55b66453219d80487a6d96e815"
+      },
+      "fixture_sha256": "72a0ef428d08177cbc9fd611e5ca79529ab7fa4002f5fc84ea9f8462f0ff9ef4",
+      "actions": 39,
+      "native_assertions": 3330,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 33,
+      "recorded_runtime_sha256": "39ea7198588aa12a77f1b2f47c9b523e54789383be9e5ee5bc96ff8ac6a9a2e5",
+      "runtime_sha256": "39ea7198588aa12a77f1b2f47c9b523e54789383be9e5ee5bc96ff8ac6a9a2e5",
+      "source_spec": "card-regression-repair-hatchet-adjacent-four-20261125.json",
+      "input_sha256": "9e8b2be2dd65f7eaaf1e342f157f5234afd3a10de3642ab636da4fccd52d19e0",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "pass_counts_by_control": {},
+      "attack_refs_by_step": {
+        "12": "p1CombatChain-0",
+        "13": "p1CombatChain-0",
+        "14": "p1CombatChain-0",
+        "15": "p1CombatChain-0",
+        "16": "p1CombatChain-0",
+        "17": "p1CombatChain-0",
+        "18": "p1CombatChain-0",
+        "19": "p1CombatChain-0",
+        "20": "p1CombatChain-0",
+        "21": "p1CombatChain-0",
+        "22": "p1CombatChain-0",
+        "23": "p1CombatChain-0",
+        "24": "p1CombatChain-0",
+        "25": "p1CombatChain-0",
+        "26": "p1CombatChain-0",
+        "27": "p1CombatChain-0",
+        "28": "p1CombatChain-0",
+        "29": "p1CombatChain-0",
+        "30": "p1CombatChain-0",
+        "31": "p1CombatChain-0",
+        "32": "p1CombatChain-0",
+        "33": "p1CombatChain-0",
+        "34": "p1CombatChain-0",
+        "35": "p1CombatChain-0",
+        "36": "p1CombatChain-0",
+        "37": "p1CombatChain-0",
+        "38": "p1CombatChain-0"
+      },
+      "all_original_assertion_payloads_preserved": true,
+      "reviewed_virtual_uid_counter_assertions_revised": 25
+    },
+    {
+      "slug": "card-en-garde-red-axe-also-qualifies",
+      "card_id": "en_garde_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "1c75244482bcd38873a4c7b903f1a79995f10e6b729fdf0941bfefb149da1159",
+        "actions.json": "7dad8250a6d48f575370a08f842eeaa34dd819da254b23e66dfd51187a5c0823",
+        "assertions.json": "45fa8d9e77c37993cf954286d803425fa6a3583724a5dc5320d0a0c72c00b762",
+        "expected_final_gamestate.txt": "af03374b2aba84a4f7e205996b2d7ef3b553140f1b4e61eef7032cac9bc4ca16",
+        "meta.json": "33b7068e5c9cb9c25659d1cbb2654e412802994c901ee45d9ecfbd30012eb5c0"
+      },
+      "fixture_sha256": "44745e21ffc00ddb13b44e11cf0215463199685f6839ad74a2c8632d86ad5069",
+      "actions": 19,
+      "native_assertions": 99,
+      "author_only_checks_not_persisted": [
+        {
+          "step": 0,
+          "check": {
+            "kind": "can_play",
+            "player": 1,
+            "mzID": "p1Hand-0",
+            "value": true
+          }
+        }
+      ],
+      "actual_manual_pass_inputs": 17,
+      "recorded_runtime_sha256": "39ea7198588aa12a77f1b2f47c9b523e54789383be9e5ee5bc96ff8ac6a9a2e5",
+      "runtime_sha256": "39ea7198588aa12a77f1b2f47c9b523e54789383be9e5ee5bc96ff8ac6a9a2e5",
+      "source_spec": "card-regression-repair-hatchet-adjacent-four-20261125.json",
+      "input_sha256": "9e8b2be2dd65f7eaaf1e342f157f5234afd3a10de3642ab636da4fccd52d19e0",
+      "active_seats": [
+        1,
+        2
+      ],
+      "players": "two_live_manual",
+      "pass_counts_by_control": {
+        "1": 2,
+        "3": 4,
+        "4": 9,
+        "5": 2
+      },
+      "attack_refs_by_step": {
+        "8": "p1CombatChain-0"
+      },
+      "all_original_assertion_payloads_preserved": true,
+      "reviewed_virtual_uid_counter_assertions_revised": 0
+    }
+  ],
+  "repair_only": true,
+  "new_group_credit": false,
+  "full_suite_run": false,
+  "before_raw5": {
+    "card-cut-deep-blue-nonmatching-hatchet-of-body-preserves-buff": {
+      "initial_gamestate.txt": "9f9f52027c10eb4550a24c771a7c7f0502834746c2be71f7d1f507b91fc323e6",
+      "actions.json": "2754edb3be0f6a54b784b27779735897a518e33ff09e9eb05eedb7983aca6d1f",
+      "assertions.json": "efd9a02c7482b01c4486e575da547ae9e944d0d9b095d87886461df083a61f38",
+      "expected_final_gamestate.txt": "9ad25da49ee63693258c4f1873a61a92b1345f6e0078636e14700d5b104551eb",
+      "meta.json": "0876b25f2e60b3bd031b60b7323487d08efd13c5daddbf3aa6e3cc63fb3d1339"
+    },
+    "card-felling-swing-blue-hand-floating": {
+      "initial_gamestate.txt": "842a32815f957de9b495f4a7b39ec7b56e17f13a8ac4d1bdd5b1d7f179846d8d",
+      "actions.json": "fbeb8abce8eb8cc16afbd2cf43b429b25e91676124d354da24b8f0154daff8bf",
+      "assertions.json": "227d18567ffe52fe1fa498d927248c0c9e4db0fd9d6002a114f51abcac3821ad",
+      "expected_final_gamestate.txt": "bf203425495251efae147874fbb1cbb553c88f2c85e381ab85c8bda5764ba0c3",
+      "meta.json": "06d721d2aa1685dbde528e8feeae9e8c786c00183d6ad80db37f00d2c74e1428"
+    },
+    "card-cleave-red-four-live-sparse-real-paid-next-axe-plus-four-full-block-no-hit": {
+      "initial_gamestate.txt": "d4ceaa3c7915b285c5eb53240e774c586babd721ca0b37425fa714a42a3bfd88",
+      "actions.json": "61fb93699972b6a8043fb3e32dcd2e28aa924acd00042d81d53b137bc08db94b",
+      "assertions.json": "1b9896e89d7b656cded9372f4818aa36ee01a4c109bed835bfeba09d76ac3d82",
+      "expected_final_gamestate.txt": "3df4177c363795365fb4530fa832f0cc13267df7dcc2fc7d4942a0e7b4dd4b6b",
+      "meta.json": "bd0516555160e260cfcb2fccba3e3dcf9af795ac374d23bc45e976030cb2eeae"
+    },
+    "card-en-garde-red-axe-also-qualifies": {
+      "initial_gamestate.txt": "1c75244482bcd38873a4c7b903f1a79995f10e6b729fdf0941bfefb149da1159",
+      "actions.json": "fbeb8abce8eb8cc16afbd2cf43b429b25e91676124d354da24b8f0154daff8bf",
+      "assertions.json": "bda381d3e90ccb5526a1e5ba37b0622d450a6040c1414d66ce24cc411f3e9a56",
+      "expected_final_gamestate.txt": "5e8007501effbb85b46057a90367364c012cbc6d426c9bdebdff767ee95e48c7",
+      "meta.json": "fb1324d6799ab5abea33e5c3a45be32ff8342396d0a1918615ba27947d8e467c"
+    }
+  }
+}

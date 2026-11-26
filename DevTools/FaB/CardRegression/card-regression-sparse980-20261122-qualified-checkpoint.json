@@ -1,0 +1,97 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-22T22:28:08.374937+00:00",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse980-20261122.json",
+  "source_spec_sha256": "3545af6cbf2c9c9cdd8c05a06af48941311d0e1698e22fa08ae7d807955442be",
+  "new_scenarios": 2,
+  "new_groups": 2,
+  "new_primary_ids": 2,
+  "actions": 64,
+  "native_assertions": 406,
+  "manual_passes": 50,
+  "totals": {
+    "saved_registered_scenarios": 4664,
+    "duels": 3075,
+    "four_live": 1589,
+    "recorded_primary_ids": 1812,
+    "identity_denominator": 5196,
+    "recorded_groups": 1686,
+    "group_denominator": 3324,
+    "four_live_groups": 1578,
+    "phase_qualified_scenarios_at_actual_contexts": 1301,
+    "phase_qualified_unique_groups": 1291,
+    "creation_replay_passes": 2043,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 462,
+  "scenarios": [
+    {
+      "card_id": "buckling_blow_red",
+      "group_id": "pitch-cycle:buckling_blow",
+      "scenario_id": "card-buckling-blow-red-four-live-sparse980-actual-full-block-keeps-eligible-equipment-without-crush-counter",
+      "effect_branches": [
+        "actual_full_block_keeps_eligible_equipment_without_crush_counter"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-buckling-blow-red-four-live-sparse980-actual-full-block-keeps-eligible-equipment-without-crush-counter",
+      "source_spec": "card-regression-sparse980-20261122.json",
+      "source_spec_sha256": "3545af6cbf2c9c9cdd8c05a06af48941311d0e1698e22fa08ae7d807955442be",
+      "review_evidence": "review-evidence/sparse980-20261122-qualified-saved.json",
+      "review_evidence_sha256": "2ee08b5752d055843bb8d6c73c4e35abdf9af1d77fd29854118e0344a7cdf641",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse980-20261122-replay.json",
+          "sha256": "6db8172d69e691f7410a4b7ac39ad6df5cf7a3ff08dbf804d56d03f3a5b979ed",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "flatten_the_field_red",
+      "group_id": "pitch-cycle:flatten_the_field",
+      "scenario_id": "card-flatten-the-field-red-four-live-sparse980-actual-full-block-keeps-eligible-seismic-surge-without-crush",
+      "effect_branches": [
+        "actual_full_block_keeps_eligible_seismic_surge_without_crush"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-flatten-the-field-red-four-live-sparse980-actual-full-block-keeps-eligible-seismic-surge-without-crush",
+      "source_spec": "card-regression-sparse980-20261122.json",
+      "source_spec_sha256": "3545af6cbf2c9c9cdd8c05a06af48941311d0e1698e22fa08ae7d807955442be",
+      "review_evidence": "review-evidence/sparse980-20261122-qualified-saved.json",
+      "review_evidence_sha256": "2ee08b5752d055843bb8d6c73c4e35abdf9af1d77fd29854118e0344a7cdf641",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse980-20261122-replay.json",
+          "sha256": "6db8172d69e691f7410a4b7ac39ad6df5cf7a3ff08dbf804d56d03f3a5b979ed",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

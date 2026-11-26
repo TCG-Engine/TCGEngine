@@ -1,0 +1,7 @@
+{
+    "name": "Chain Reaction / sparse four-live defense-reaction representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-23T01:10:59+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "When this defends an attack with **go again**, you may turn a non-attack action card in your arsenal face-up. If you do, you may play it this turn as though it were an instant. Named partial branch: hand_reaction_no_go_again_retains_eligible_facedown_arsenal. Actual natural20 legal lexi defender4 plays real owned Hand5 in Reaction. Printedcost0 uses actualBlue6 if positive (R2) or retains unusedBlue6 if0; noAPcost. Actual Raging7/Blue8paid3/noGA/no normal blocks, allfour manual DR responses4,1,2,3 then fresh1,2,3,4. Persisted defenseValue3/damage4/HP16 and source5/RoleDEFENSE_REACTION/ownedGGY4, attack7ownedGGY1/attackerNAA9retained pin outcomes. No author-only diagnostics or seeded modifiers. NoGA attack means typed defend event absent. Genuine eligible NAA10 facedownArsenal remains unchanged, no flip/permission choice. Trap has no printed only-Arsenal restriction, so Hand source is legal. Positive event/instant-play permission untested. Sources: FaBSim/GeneratedCode/cardArrayCache.json#chain_reaction_yellow"
+}

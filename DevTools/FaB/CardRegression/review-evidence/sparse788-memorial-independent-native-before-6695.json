@@ -1,0 +1,218 @@
+{
+  "status": "NATIVE_CONFIRMED_MEMORIAL_FORMAL_TARGET_DECLARATION_MISSING_BEFORE_PRIORITY_UNSAVED",
+  "phase": "ACTUAL_BEFORE",
+  "reviewer_independent": true,
+  "reviewer": "/root/sand_saved_recovery",
+  "created_utc": "2026-11-14T19:36:25.408243+00:00",
+  "runtime_sha256": "6695d68163d313f4f61cb20ad9122c7038e621a60c847909598150fe8da09d11",
+  "source_spec": "card-regression-batch788-memorial-strict-probe.json",
+  "input_sha256": "15a3bc0a504ab6f86fb3aea6668e5701ea09a7028d34ac77df9ce61c0fe0672e",
+  "independent_Source": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov14-batch788-memorial-independent-strict-diagnostic-source-review.json",
+    "sha256": "35ed50b6a058b39c8490f3ff65789398da42f15dda860ed6062adbc3cfa77454"
+  },
+  "root_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov14-b788-memorial-original-correct-native-before\\receipt.json",
+    "sha256": "917663f2a4ada41ad930cbdc6fa24bc0f0b9167824757d11504ac2f371702d3f"
+  },
+  "native_result": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch788-memorial-strict-probe.recording-results.json",
+    "sha256": "fbbc66f700e824bcde66976a30b9b4921854c52e0b731014c40e34dd2d749e1b"
+  },
+  "immutable_archive": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch788-memorial-strict-probe-20261114T193407Z-6af8b7af2b91d.json",
+    "sha256": "4cf73a97794517825e618ad3298d60cb139dad3cfbbe256d8fe07b584b9ebf72"
+  },
+  "actual_native_inputs": 28,
+  "actual_actions_exact": true,
+  "actual_manual_pass_actors": [
+    1,
+    2,
+    3,
+    4,
+    1,
+    2,
+    3,
+    4,
+    4,
+    1,
+    2,
+    3,
+    4,
+    1,
+    2,
+    3,
+    4,
+    1,
+    2,
+    3,
+    4,
+    1,
+    2,
+    3,
+    4
+  ],
+  "actual_manual_passes": 25,
+  "persisted_prior_successful_queries": 2134,
+  "persisted_prefix_exact": true,
+  "failed_ordered_query_ordinal": 2135,
+  "failed_query": {
+    "step": 28,
+    "type": "card_property_equals",
+    "mzId": "p1DecisionQueue-0",
+    "property": "Type",
+    "value": "MZCHOOSE",
+    "viewerPlayerID": 1
+  },
+  "first_failed_observation": "Expected p1DecisionQueue-0.Type to equal 'MZCHOOSE', got ''.",
+  "direct_observed_decision_Type": "",
+  "all_final_checkpoint_queries_unexecuted_after_failure": true,
+  "unexecuted_queries_after_first_failure": 139,
+  "actual_initial_raw_sha256": "9ef26192f08efadbef06e2f382da680a76803490ad7af63a2fbf67fb2cb5e5ba",
+  "actual_initial_manual_booleans_checked": 48,
+  "actual_initial_queries_evaluated": 141,
+  "actual_initial_physical_uid_locations": {
+    "1": {
+      "card_id": "ira_crimson_haze",
+      "zone": "p1Hero",
+      "owner": 1,
+      "controller": 1
+    },
+    "5": {
+      "card_id": "head_jab_blue",
+      "zone": "p1Hand",
+      "owner": 1,
+      "controller": 1
+    },
+    "7": {
+      "card_id": "memorial_ground_blue",
+      "zone": "p1Hand",
+      "owner": 1,
+      "controller": 1
+    },
+    "8": {
+      "card_id": "tome_of_fyendal_yellow",
+      "zone": "p1Hand",
+      "owner": 1,
+      "controller": 1
+    },
+    "9": {
+      "card_id": "wounding_blow_blue",
+      "zone": "p1Hand",
+      "owner": 1,
+      "controller": 1
+    },
+    "10": {
+      "card_id": "wounding_blow_yellow",
+      "zone": "p1Deck",
+      "owner": 1,
+      "controller": 1
+    },
+    "6": {
+      "card_id": "wounding_blow_red",
+      "zone": "p1Graveyard",
+      "owner": 1,
+      "controller": 1
+    },
+    "2": {
+      "card_id": "betsy",
+      "zone": "p2Hero",
+      "owner": 2,
+      "controller": 2
+    },
+    "3": {
+      "card_id": "betsy",
+      "zone": "p3Hero",
+      "owner": 3,
+      "controller": 3
+    },
+    "4": {
+      "card_id": "betsy",
+      "zone": "p4Hero",
+      "owner": 4,
+      "controller": 4
+    }
+  },
+  "direct_successful_prefix_facts": {
+    "real_first_Head_UID": 5,
+    "physical_power": 1,
+    "printed_go_again": true,
+    "hit_damage": 1,
+    "Hero4_HP": 19,
+    "AP_before_resolution": 0,
+    "AP_after_resolution": 1,
+    "pre_Memorial_true_chain_closed": true,
+    "pre_Memorial_own_public_GY_UIDs": [
+      6,
+      5
+    ],
+    "pre_Memorial_Deck_UIDs": [
+      10
+    ],
+    "pre_Memorial_Hand_UIDs": [
+      7,
+      8,
+      9
+    ],
+    "pre_Memorial_Stack_count": 0
+  },
+  "separate_direct_normalized_state_observations": {
+    "window": "PRIORITY",
+    "combatOpen": false,
+    "combatStep": "NONE",
+    "chainLink": 0,
+    "pendingPayment": null,
+    "attackTarget": null,
+    "pendingAttackTarget": null,
+    "hitsThisTurn": {
+      "1": [
+        5
+      ]
+    },
+    "attackActionHits": {
+      "1": 1
+    },
+    "cardsPlayedThisTurn": {
+      "1": [
+        "head_jab_blue",
+        "memorial_ground_blue"
+      ]
+    }
+  },
+  "separate_direct_queue_diagnostic": {
+    "1": [],
+    "2": [],
+    "3": [],
+    "4": []
+  },
+  "post_announcement_physical_Stack_GY_Deck_HP_queries_passed": false,
+  "raw_post_announcement_snapshot_available": false,
+  "native_confirmed_correct_expectation_failure": true,
+  "diagnostic_only": true,
+  "fixture_count_before": 4053,
+  "fixture_count_after": 4053,
+  "fixture_inventory_unchanged": true,
+  "fixture_saved": false,
+  "qualification": false,
+  "coverage_credit": false,
+  "repair_proposal": false,
+  "source_application_approved": false,
+  "B787_denied_operation_untouched": true,
+  "source_cause_context": "Unchanged canonical/emitted Memorial ResolveCard selects its graveyard target inside resolving await; current bounded dispatch has no located earlier selected override. This contextualizes the missing announcement choice; no instrumentedcalltrace or laterawait/topDeck/Tome failure is claimed.",
+  "limits": [
+    "All2134 persisted successfulqueries are exact and include genuineHead1hit/GA/fullclose toownpublicGY. First failure is actualquery2135 missing MZCHOOSE before anyMemorialresponse. Separate observedPRIORITY/allDQsEmpty corroborate earlytargettiming failure.",
+    "Exactly139 remaining finalcheckpointqueries areUNRUN, including physicalMemorialStack/GY/Deck/HP assertions. PreannouncementStack0/ownGY5and6 are passedprefixfacts; no physicalpostannouncementStack/GY/Deck inference from diagnostics.",
+    "No Memorialtargetanswer/responses/effectresolution/topDeck/awaitlifetime/Tomepayment/draw/Arsenallife/cleanup/RGB/fullcard or coverage credit. Futureoutcomes all unrun.",
+    "All48initialmanualbooleanvalues and141initialqueries independentlychecked from actualrawinitial. No finalrawpreference claim.",
+    "Root alone ran mandatoryno-save probe. Reviewer ran no PHP/native/game/replay/fullsuite and changed no R/source/Git/remote state or B787 artifact. Coat remainsunattempted exactknown107dependency; no repairproposal."
+  ],
+  "comparison_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov14_batch788_memorial_actual_before.py",
+    "sha256": "33775881a889c055d07a874150521231074fccdcc7c051c09ad680bca6161f41"
+  },
+  "retained_readers": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\saved_fixture_review_tools.py",
+    "sha256": "57cb7672feb98a00216f1e194fd1df0395826af02e0d76f7042af920851c39e8"
+  },
+  "blockers": []
+}

@@ -1,0 +1,84 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "independent breadth_review1240",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1244-20261122.json",
+  "source_spec_sha256": "22e46c282d97e91635efd1a3184d4956d8b92fe853c4ebbff259f95dd9b09038",
+  "input_sha256": "22e46c282d97e91635efd1a3184d4956d8b92fe853c4ebbff259f95dd9b09038",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-speed-demon-red-four-live-sparse1244-real-hyper-driver-controlled-no-scrap-raises-three-to-four-damage",
+      "card_id": "speed_demon_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "f9dd93ada4d89cafc545fd8216d40693911501e62c50058f8e75b6e23de3a7cc",
+        "actions.json": "71f0d0f07cf85244a3ec27fdb1f824cd62aa3126d639c98c13ca23327907bd8b",
+        "assertions.json": "8016301f922fdec2f25e50c1172ddcb1b5ee9c4dfb7bba68180f06eeb07ccf91",
+        "expected_final_gamestate.txt": "23f0ea6411e8f167e02f1dca2d7363d8738653a3d3f3e822d430792c8b2a69e8",
+        "meta.json": "10ccf444520634a90606db993c8af8750803d8a6bcf68afa210c95d6c88b3499"
+      },
+      "fixture_sha256": "2bf1f631043406e033c7b2d1b93d19579a5197d9976a8ad0eeca932ae3606864",
+      "actions": 27,
+      "native_assertions": 220,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1244-20261122.json",
+      "input_sha256": "22e46c282d97e91635efd1a3184d4956d8b92fe853c4ebbff259f95dd9b09038",
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1244-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-speed-demon-red-four-live-sparse1244-real-hyper-driver-controlled-no-scrap-raises-three-to-four-damage",
+        "fixture_slug": "card-speed-demon-red-four-live-sparse1244-real-hyper-driver-controlled-no-scrap-raises-three-to-four-damage",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "reviewer": "independent breadth_review1240",
+    "spec_sha256": "22e46c282d97e91635efd1a3184d4956d8b92fe853c4ebbff259f95dd9b09038",
+    "source_note_sha256": "2205b66cc6a2ed2c4782d8138a9818b7d6631662aec780951aca036cd104d5f1",
+    "case_count": 1,
+    "native_controls": 27,
+    "query_checks": 220,
+    "persistable_assertions": 220,
+    "author_only_checks_omitted": 0,
+    "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+    "coverage_category": "REAL_HYPER_DRIVER_CONTINUOUS_POWER_MODIFIER_AND_DAMAGE",
+    "basis": [
+      "Unrepresented Speed Demon Red primary identity, no source-only hold. Four natural Young Dash20/Dori20 seats admit Mechanologist AA6 and prior owned Hyper Driver token5Arena with legitimate persistent STEAM2. Prior token production uncredited; no current-turn attack, boost, cost history or permission seeded.",
+      "Printed base3/cost0 plus controlled Hyper Driver continuous+1 is a real positive effect. Generated attackPowerModifier returns1 iff subject has abilities and controller really has a Hyper Driver. Persisted active-power4 and unblocked HP4 loss20 to16 test the effect beyond play/persistence.",
+      "Graveyard empty gives generated optional Scrap maximum0. It skips choice and HyperScrap receives none, sets evoDrivers0/evoScrap0, then completes payment. No card was banished as cost, so the known positive effect-cost timing branch is not exercised. Intervening-if attack trigger requires scrappedHyperDriver>0 and is not earned.",
+      "No Boost keyword or boost action occurs, so existing Driver does not lose Steam or grant a resource and the AA has no Go again. Real AP1 pays to0, source6 declares adjacentHero4 before four responses; full manual ATTACK/DEFEND/REACTION/DAMAGE/RESOLUTION completes actual4 damage with no defenses or other observers.",
+      "Endpoint physical6GY1, original5Arena1 stillSTEAM2, no new Driver/UID6/RNG0, all resources0/AP0, HP4=16/others20 and empty Stack/DQ/CC matches intended limited branch."
+    ],
+    "limits": [
+      "Semantic/source-spec approval only pending native save and targeted replay; no native pass or coverage credit claimed.",
+      "Only continuous controlled-Driver +1 and actual4 damage. Scrap payment/cost order/newDriver trigger, Boost, absent-Driver control, pitch siblings, Dash/support or whole-card behavior untested.",
+      "Only this W receipt written, no native/test/T/source/auth/network/Git/original action."
+    ],
+    "source_sha256": {
+      "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+      "FaBSim/Custom/EVOCards.php": "7e946cadb04817da7a0c0b17d94cf5a6bd03655adba07b714d39654329b54dbe",
+      "FaBSim/Custom/ARCAbilities.php": "e49ce4685f148ef423ea38aac544266b3298527ea8ca9eef11b12fb974e7c9f0",
+      "FaBSim/Custom/GameLogic.php": "c60fa151561f959e4e3e341b814de0e2b47c9e9f153bbc8793a04c43b5075061",
+      "FaBSim/GeneratedCode/GeneratedMacroCode.php": "fe6a7982611df8f4de98ce2671b317b671b580146aa4b8c28e8f4b86d8461056",
+      "DevTools/FaB/CardRegression/record_card_regressions.php": "e53055b29e9ea641949b77019c4455607f41ca233325d716a9500637e19efd28"
+    }
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1244-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "383beab183cd6fd119b1529ba3a87f1588d3f64aa5ff87b437f2abf25f6e7a3c"
+  },
+  "full_suite_run": false
+}

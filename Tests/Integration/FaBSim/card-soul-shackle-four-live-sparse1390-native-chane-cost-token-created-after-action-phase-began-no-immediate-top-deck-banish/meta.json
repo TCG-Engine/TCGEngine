@@ -1,0 +1,7 @@
+{
+    "name": "Soul Shackle / native chane cost token created after action phase began no immediate top deck banish",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-24T13:55:57+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "FOUR_REAL_MANUAL_UPF_CHANE20_THREEDORI20. InitialReadRunes5Hand+realWoundingBlue6Deck; NOinitialToken/effects. NativeChaneHeroAction0/AP1to0createsactualSoulShackle8ascostBEFOREfirstpriority; ABI7SourceHeroUID1(all4responses)earnsprintedGAAP1andnextRuneblade/ShadowActionGA. CreationoccursAFTERcurrentActionphasebegan, notnewphase: primary8mustnotimmediatelybanishrealDeck6. ActualReadRunes5RunebladeNAA0spendsAP1to0/all4responses\u2192creates3realRunechants9/10/11andactualChanegrantedGAAP1. NAAdoesnottriggerRunechants; primary8sameArena/Deck6same/Banish0/Read5GY0/Hand0/UID11RNG0/allHP20/R0/StackDQquiet. Positiveprimarytokenproduction/costownershipproven, butfuturebeginActionphaseBanish/timing/stacking/support/fullcarduncredited. Noenginechange. Sources: FaBSim/GeneratedCode/cardArrayCache.json#soul_shackle FaBSim/GeneratedCode/GeneratedMacroCode.php FaBSim/Custom/GameLogic.php FaBSim/Custom/CardChoices.php FaBSim/Custom/ARCAbilities.php FaBSim/Custom/EVRAbilities.php FaBSim/Custom/MONAbilities.php FaBSim/Custom/MONCards.php FaBSim/Custom/WTRCards.php"
+}

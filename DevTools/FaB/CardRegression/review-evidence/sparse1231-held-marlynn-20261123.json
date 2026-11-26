@@ -1,0 +1,209 @@
+{
+  "status": "HELD_CONFIRMED_NATIVE_FAILURE_NO_PASSING_FIXTURE",
+  "issue": "FAB-REG-214",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "card_id": "marlynn",
+  "group_id": "identity:marlynn",
+  "slug": "card-marlynn-four-live-sparse1231-real-double-draw-triggers-load-owned-arrow-face-up-and-second-sees-full-arsenal",
+  "native_inputs_executed": 10,
+  "setup": {
+    "heroes": [
+      "marlynn",
+      "dorinthea",
+      "dorinthea",
+      "dorinthea"
+    ],
+    "health": [
+      20,
+      20,
+      20,
+      20
+    ],
+    "resources": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "actionPoints": [
+      1,
+      0,
+      0,
+      0
+    ],
+    "state": {
+      "gameMode": "UPF",
+      "passiveSeats": []
+    },
+    "zones": [
+      {
+        "cardID": "tome_of_fyendal_yellow",
+        "zone": "Hand",
+        "player": 1,
+        "properties": {}
+      },
+      {
+        "cardID": "sigil_of_solace_blue",
+        "zone": "Hand",
+        "player": 1,
+        "properties": {}
+      },
+      {
+        "cardID": "immobilizing_shot_red",
+        "zone": "Deck",
+        "player": 1,
+        "properties": {}
+      },
+      {
+        "cardID": "wounding_blow_red",
+        "zone": "Deck",
+        "player": 1,
+        "properties": {}
+      }
+    ],
+    "activeSeats": [
+      1,
+      2,
+      3,
+      4
+    ]
+  },
+  "native_prefix": [
+    {
+      "playerID": 1,
+      "mode": 10002,
+      "buttonInput": "",
+      "cardID": "p1Hand-0!FSM",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 1,
+      "mode": 10002,
+      "buttonInput": "",
+      "cardID": "p1Hand-0!FSM",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 1,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 2,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 3,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 4,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 1,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 2,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 3,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 4,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    }
+  ],
+  "expected": "Two earned draw-trigger layers9/10 must both remain on Stack while top10 offers the valid arrow-loading choice. Resolving a triggered ability includes completing its choices.",
+  "observed": "After ten native inputs, the actual offered MZMULTICHOOSE is 0|1|p1Hand-0, but Stack has one layer instead of two, windowPRIORITY and no resolvingReaction continuation. No answer was submitted; loading and later trigger outcomes remain unrun.",
+  "first_error": "Expected Stack count 2, got 1.",
+  "observed_window": "PRIORITY",
+  "observed_decisions": {
+    "1": [
+      {
+        "Type": "MZMULTICHOOSE",
+        "Param": "0|1|p1Hand-0",
+        "Block": 1,
+        "Tooltip": "Put_arrow_face_up_into_arsenal",
+        "DontSkipOnPass": 0,
+        "removed": null,
+        "Location": "DecisionQueue",
+        "PlayerID": 1,
+        "mzIndex": 0,
+        "_sourceZone": null
+      },
+      {
+        "Type": "CUSTOM",
+        "Param": "marlynn:0:ResolveAbility-await|marlynn:0:ResolveAbility#1|1|chosen",
+        "Block": 1,
+        "Tooltip": "",
+        "DontSkipOnPass": 0,
+        "removed": null,
+        "Location": "DecisionQueue",
+        "PlayerID": 1,
+        "mzIndex": 1,
+        "_sourceZone": null
+      }
+    ],
+    "2": [],
+    "3": [],
+    "4": []
+  },
+  "observed_resolvingReaction": null,
+  "initial_gamestate_sha256": "ef95ea036b9fc6676fe3315c0dbbb0c832e0059b731df737ac4c1dcc4a130210",
+  "source_explanation": [
+    "GameLogic.php:1843-1854 classifies managed generic ROS triggers only for empty or ability rosEvent; named seaMarlynn is excluded.",
+    "DoResolveCard at GameLogic.php:1952 retires that unmanaged layer before dispatch into its generated arrow-choice await. The source explanation identifies top10; the receipt directly establishes count1 with the valid choice still pending."
+  ],
+  "related_records": [
+    "FAB-REG-094"
+  ],
+  "root_count_limit": "Additional native manifestation of the existing094 continuation-lifetime family; no new distinct root-group count.",
+  "full_correct_spec_local": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1231-local-20261122\\held-marlynn\\correct-proposal.json",
+  "full_native_receipt_local": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1231-local-20261122\\save\\receipt.json",
+  "full_native_receipt_sha256": "5e11920c6f7ed4368340485c0b7a35beae519461d9adf0bcaee3c002b3d8aa6d",
+  "independent_review_local": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1231-local-20261122\\independent-review.json",
+  "independent_review_sha256": "34441ec3c44187031e4df47e8fefc5523b3d3d900ee1a8fe0046de8eafcc4e6f",
+  "fixture_saved": false,
+  "qualified": false,
+  "coverage_credit": false,
+  "engine_changed": false,
+  "full_suite_run": false,
+  "later_branches": "Unrun; no credit. Original correct expectations retained."
+}

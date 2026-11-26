@@ -1,0 +1,141 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "/root/breadth_review1457",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1538-20261122.json",
+  "source_spec_sha256": "edd00160e081541c41dc14d9a2e301906e81b1b8e8ab581a87969a419b22d480",
+  "input_sha256": "edd00160e081541c41dc14d9a2e301906e81b1b8e8ab581a87969a419b22d480",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-herald-of-erudition-yellow-four-live-sparse1538-dominate-rejects-second-hand-but-equipment-fully-blocks",
+      "card_id": "herald_of_erudition_yellow",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "6df0be267a99a88d4b1a2f0c9ea1aed0a54c0468b9a719e8271569f30621c8a5",
+        "actions.json": "dbc807196929497bebebfe73794633848952c22f6a1d476ab107f5bd9d511d4b",
+        "assertions.json": "068705a2251d93f099485241baa81b957024b97f6a227554fbeca89e19a5c4b4",
+        "expected_final_gamestate.txt": "92b2827d64111b5397dc32b5b0d0c3b3773bf626c0e7e0b7b44b030bbf77fd54",
+        "meta.json": "6acf48120d474a41d159e2d9ef312eeb22376399aec2570ca2b8313407312db5"
+      },
+      "fixture_sha256": "10c67735f1a4526615bf0cbd28f56e6362e49162d597b09ec0fbb44f3837ed87",
+      "actions": 34,
+      "native_assertions": 943,
+      "author_only_checks_not_persisted": [
+        {
+          "step": 12,
+          "check": {
+            "kind": "defense",
+            "value": 3
+          }
+        },
+        {
+          "step": 13,
+          "check": {
+            "kind": "defense",
+            "value": 3
+          }
+        },
+        {
+          "step": 14,
+          "check": {
+            "kind": "defense",
+            "value": 4
+          }
+        },
+        {
+          "step": 15,
+          "check": {
+            "kind": "defense",
+            "value": 5
+          }
+        },
+        {
+          "step": 16,
+          "check": {
+            "kind": "defense",
+            "value": 6
+          }
+        },
+        {
+          "step": 17,
+          "check": {
+            "kind": "defense",
+            "value": 7
+          }
+        },
+        {
+          "step": 18,
+          "check": {
+            "kind": "defense",
+            "value": 7
+          }
+        },
+        {
+          "step": 26,
+          "check": {
+            "kind": "defense",
+            "value": 7
+          }
+        }
+      ],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1538-20261122.json",
+      "input_sha256": "edd00160e081541c41dc14d9a2e301906e81b1b8e8ab581a87969a419b22d480",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1538-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-herald-of-erudition-yellow-four-live-sparse1538-dominate-rejects-second-hand-but-equipment-fully-blocks",
+        "fixture_slug": "card-herald-of-erudition-yellow-four-live-sparse1538-dominate-rejects-second-hand-but-equipment-fully-blocks",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "schema_version": 1,
+    "batch": 1538,
+    "reviewer": "/root/breadth_review1457",
+    "result": "approved_named_branches_only_pending_native_execution",
+    "reviewed_utc": "2026-11-25T11:18:15.480219+00:00",
+    "spec_sha256": "edd00160e081541c41dc14d9a2e301906e81b1b8e8ab581a87969a419b22d480",
+    "source_note_sha256": "ad5f6a921bf7779d0ab15c6862bd771eada4c24b36303d3be2048885320c3ef2",
+    "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+    "source_sha256": {
+      "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+      "FaBSim/Custom/GameLogic.php": "c60fa151561f959e4e3e341b814de0e2b47c9e9f153bbc8793a04c43b5075061",
+      "FaBSim/Custom/MONCards.php": "2eb22bda6f1dba583df2879046f9f4dec94f47f2e9b28f369758f3af72c9c3ac",
+      "FaBSim/Custom/WTRCards.php": "77d4452b30e45254a7199bc965396ded53e325717ecdd84a09b971f723f99f6a"
+    },
+    "cases": 1,
+    "findings": [
+      "Cache primaryPOWER5/cost2. RealfirstHand9DEF3 succeeds, secondHand10 refuses Dominate atsameproperdeclaration4; fourEquipment11..14DEF1 allowed byGL2104 Hand-only restriction.",
+      "ActualDEF7 vsPOWER5 zero damage; only AAdefenderpower4below6 soPhantasmunearned/noHit/Soul/draw. Fullphysicalfatesprimary5GY1/defender9,11..14GY4; Deck7/8 andHand10/Pitch6 retained.",
+      "OfficialCR7.7.1/3/4 noClosepriority/automaticclose-triggerprocessing supports finalBladeBreakfates; no internalBladeBreaklayer or order certification. UID14 bookkeeping only."
+    ],
+    "limits": [
+      "PositiveDominate restriction/Equipmentexception/fullblock only. PositiveHit/Soul/draw/Phantasm remainunverified; nowholecard/supportcredit. Reviewerread-only source/spec, nogames/tests/writes."
+    ]
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1538-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "9a101aad98a41c18ea411d7884b94b857f15a921c08742c2e7511d29fca77bcd"
+  },
+  "full_suite_run": false
+}

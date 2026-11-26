@@ -1,0 +1,152 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "independent breadth_review",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1214-20261122.json",
+  "source_spec_sha256": "ba63ea925dc00422deb75d4e3223b91e7e79e8b8cc5e504c032c2c24266b9a04",
+  "input_sha256": "ba63ea925dc00422deb75d4e3223b91e7e79e8b8cc5e504c032c2c24266b9a04",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-chum-friendly-first-mate-yellow-four-live-sparse1214-actual-offturn-tap-and-watery-discard-forces-real-attack-to-surviving-ally-not-hero",
+      "card_id": "chum_friendly_first_mate_yellow",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "981ed45f23651c6153f4335c23018819955d8a62d530c24df09d1d54308ec259",
+        "actions.json": "bdea3392ec5413c1a4247b0ea3e8efc13cc2f48b89c1d28cbd9c7b00836332da",
+        "assertions.json": "5e1d006fa60ad1015ed50543e10238160428358f54e41c0ef27f7f89e8a0dbb1",
+        "expected_final_gamestate.txt": "33b72371c0f1a18e2869ca433cc870beba08f9012ac75c5d3d264162c4bb7145",
+        "meta.json": "b9707695873e94c0b46572da577e1ca3d5ea525df40bd7d7d1cd664ad2953eec"
+      },
+      "fixture_sha256": "a15990d30f1a20edaca4907e6460fdca46c1c5e8d1e02ec0e6b2e1dead7099d3",
+      "actions": 35,
+      "native_assertions": 604,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 32,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1214-20261122.json",
+      "input_sha256": "ba63ea925dc00422deb75d4e3223b91e7e79e8b8cc5e504c032c2c24266b9a04",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1214-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-chum-friendly-first-mate-yellow-four-live-sparse1214-actual-offturn-tap-and-watery-discard-forces-real-attack-to-surviving-ally-not-hero",
+        "fixture_slug": "card-chum-friendly-first-mate-yellow-four-live-sparse1214-actual-offturn-tap-and-watery-discard-forces-real-attack-to-surviving-ally-not-hero",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-gallow-end-of-the-line-yellow-four-live-sparse1214-actual-offturn-tap-and-watery-discard-suppresses-real-opposing-hit-draw-without-preventing-damage",
+      "card_id": "gallow_end_of_the_line_yellow",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "1b8a6c57dd47409d9d3b387bc0669321ed8da00e2ce2de8229efe0ed975be272",
+        "actions.json": "175b4fc42ae313e1ca095d4c1d88e850bc551f6a5ed14560e9a032340ad084b5",
+        "assertions.json": "1e6d6f95576a3e513220a4b1282b1a9023d89eec852c61c0d4896a98cbb678e5",
+        "expected_final_gamestate.txt": "ca430c23ad3ecd735eed7e4bdb99dd24b8a9062043888202b1cbfc7e258480b2",
+        "meta.json": "b56fef24d856d4c2344645ab8625396c7ef9f2ecce4865c32ae33eafdd4c0580"
+      },
+      "fixture_sha256": "82ba09eee66f23d699588bf8a669fbabbb07b06a87e12471e1de274a6967f08e",
+      "actions": 36,
+      "native_assertions": 649,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 32,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1214-20261122.json",
+      "input_sha256": "ba63ea925dc00422deb75d4e3223b91e7e79e8b8cc5e504c032c2c24266b9a04",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1214-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-gallow-end-of-the-line-yellow-four-live-sparse1214-actual-offturn-tap-and-watery-discard-suppresses-real-opposing-hit-draw-without-preventing-damage",
+        "fixture_slug": "card-gallow-end-of-the-line-yellow-four-live-sparse1214-actual-offturn-tap-and-watery-discard-suppresses-real-opposing-hit-draw-without-preventing-damage",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "reviewer": "independent breadth_review",
+    "spec_sha256": "ba63ea925dc00422deb75d4e3223b91e7e79e8b8cc5e504c032c2c24266b9a04",
+    "case_count": 2,
+    "native_controls": 71,
+    "persistable_assertions": 1253,
+    "author_only_checks_omitted": 0,
+    "cases": [
+      {
+        "card_id": "chum_friendly_first_mate_yellow",
+        "group_id": "identity:chum_friendly_first_mate_yellow",
+        "native_controls": 35,
+        "persistable_assertions": 604,
+        "basis": [
+          "Exact legal youngGravyBones20 owner4 and threeDorinthea20 setup: lawful prior living readyChum5Arena4, realYellowBeneathSurface6Hand4, actualGenericWoundingRed7Hand1. Actual emptyACTION passes1/2/3 reach owner4 before phase advance; on this off-turn only Chum Instant is legal, not its Action attack.",
+          "SEARuntime17/30/45/117 and exact Prepare9650/runnerd411292c23c77df1648d require the actual ready source and real WG Hand card. Native choice discards physical6, then successful zero-resource/zero-AP-asset activation pays the tap before fresh source responses4/1/2/3. ABI8 Controller4/Source5 remains; physical ownership is explicit. No099 unpaid-asset ordering/refund branch or virtual-await094 body dependency is used.",
+          "GeneratedResolveAbility14139 receives live physical source5, then adds SEA_CHUM for UID5. SEARuntime168 filters the real legal attack targets to that forced living enemy Ally. GL763-785 auto-selects the sole target without a popup, so actual Wounding7 click immediately announces/pays Action0/AP1->0. Frozen typed attackTarget PERMANENT/player4/UID5 in ATTACK and DAMAGE pins the actual chosen object, rather than answering an unadvertised target or substituting Hero4.",
+          "Current CR7.2.3b makes target-controller4 the defending hero for the chain;7.3.2a allows no ordinary card declaration for this Ally target, while7.3.3 still grants normal Defend priority. This empty-Hand/no-block four-seat workflow and ensuing reactions are valid. GL2525/UPRCards64 routes real4physical damage to Ally5; printed6life yields Damage4/remaining2, and all heroHP20 remain unchanged. Ally survives, so no WateryGrave departure trigger is earned.",
+          "Full cleanup keeps same tappedChum5Arena4/Damage4, actual publicWG6GY4/FaceDown0 and Wounding7GY1, with AP/R0/maxUID8/emptyStack/queues/chains. Effect is witnessed by the real sole forced target and damage to Chum rather than a hero."
+        ],
+        "limits": [
+          "One successful own Instant forcing one eligible opposing vanilla attack only; no primary Ally attack, illegal-target rejection, second opponent, other forced target, death/WG/expiry/unlock/producer/Hero/support or full-card credit."
+        ]
+      },
+      {
+        "card_id": "gallow_end_of_the_line_yellow",
+        "group_id": "identity:gallow_end_of_the_line_yellow",
+        "native_controls": 36,
+        "persistable_assertions": 649,
+        "basis": [
+          "Same lawful off-turn youngGravyBones20 owner4 with readyGallow5, actualYellowWG6Hand4, realSnatch7Hand1 and realBlue8Deck1. SUPCards168/171/205, exact Prepare10639/runner17aa9ff05d0722b5e8ba and actual single-Hand MZCHOOSE pay tap+discard before ABI9 fresh responses4/1/2/3; all action/resource assets stay unchanged.",
+          "Exact GeneratedResolveAbility15381 is direct FaBSUPAdd(actor4,GALLOW), no deferred choice. SUP258 finds opposing active effectowner4 and GameLogic1326-1327 returns before opponent1 OnHit dispatch. Therefore Snatch printed When-hits draw never triggers while this effect applies; no owed layer is silently skipped.",
+          "Actual Snatch7 Hero4 formal declaration occurs while physical7 is stillHand and Stack0, followed by native cost0/AP1->0/four responses and full combat. Real4damage/HP4=16 proves a hit occurred. ActualDeck8 retained/Hand0/Stack0/no newdraw ABI through DAMAGE and complete cleanup proves suppression is nonvacuous, rather than an empty deck or no-hit fallback. Snatch004 is fixed bounded scope, not a selected unresolved branch or an inherited replay qualification.",
+          "ActualGallow5 remains living/tappedArena4/Damage0; publicWG6 ownedGY4FaceDown0, Snatch7 ownedGY1, realDeck8 unchanged, AP/R0/maxUID9 and emptyStack/queues/chains are correctly pinned. No generic suppression of other controllers triggers or later turns is inferred."
+        ],
+        "limits": [
+          "Only one opponent-controlled vanilla hit-draw trigger suppressed after actual successful Instant; no primary Ally attack, other trigger classes/controllers, second packet, death/WG/expiry/producer/Hero/support or full-card credit."
+        ]
+      }
+    ],
+    "shared_basis": [
+      "Both primary groups are unrepresented and exact/sibling ledger checks were clear before selection. Both actual PirateNecromancer cards and YellowBeneathSurface are legal under youngGravyBones20; Generic attacks/deck marker are legal under Dorinthea20.",
+      "Hand discard is not an Arena departure. Current CR8.3.41 and SEACards38 do not earn seaWatery here; BeneathSurface also limits its leave behavior to while defending. Real6 remains publicGY4/FaceDown0 without a second triggered layer. Yellow discard does not satisfy GravyBones blue-GY play-permission condition. No Hero activation is used.",
+      "Exact source/stack ownership, every four-seat source/attack/combat response, priority boundaries, costs and actual final fates were checked. Both bodies are synchronous on retained physical source or captured controller, so known094 deferred lifetime/203 foreign callback is not used. All1253 checks normalize to persisted assertion forms; no author-only diagnostic or same-checkpoint literal conflict was found.",
+      "Nested type/player/uid checks use existing game_state_field rootFaBSim and valid JSON scalar values through current Core path traversal. No framework or assertion primitive was added."
+    ],
+    "rules": {
+      "combat_url": "https://rules.fabtcg.com/en/cr/07-combat/",
+      "combat_sections": [
+        "7.2.3b",
+        "7.3.2a",
+        "7.3.3",
+        "7.5.2a"
+      ],
+      "keyword_url": "https://rules.fabtcg.com/en/cr/08-keywords/",
+      "keyword_section": "8.3.41",
+      "verification": "Current official primary public read; no authenticated request."
+    },
+    "limits": [
+      "Root native save, stored evidence validation and one clean replay per case remain pending. No T/native/PHP/source/framework/engine/Git/original-checkout action by reviewer. Existing holds and prior qualified support scopes remain unchanged."
+    ],
+    "source_note_sha256": "cd7828e0f3d604d6bc56c183093bca5f9f5847df2d75f8a09586659230ee7eec",
+    "source_sha256": {
+      "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+      "FaBSim/GeneratedCode/GeneratedMacroCode.php": "fe6a7982611df8f4de98ce2671b317b671b580146aa4b8c28e8f4b86d8461056",
+      "FaBSim/Custom/SEACards.php": "5400728b0cfe26f7f9e60f7e135e0ee9b28ac85d39420f64aaade0fa9826f00f",
+      "FaBSim/Custom/SEARuntime.php": "6d998ea92dd3817d3329695a08db8c2fff78228967ee3bc35923f79eccdd3587",
+      "FaBSim/Custom/SUPCards.php": "d0cf162a89b60b29590121e4c97e1e5fe0e2dc790130bf181949ca068092c1fa",
+      "FaBSim/Custom/ARCAbilities.php": "e49ce4685f148ef423ea38aac544266b3298527ea8ca9eef11b12fb974e7c9f0",
+      "FaBSim/Custom/GameLogic.php": "c60fa151561f959e4e3e341b814de0e2b47c9e9f153bbc8793a04c43b5075061",
+      "FaBSim/Custom/UPRCards.php": "62798bd281afc17805c396e92deab22497b9c80d881f99e943833cb82d449321",
+      "Core/RegressionTestFramework.php": "670028e69e1a59c22aef5e6512edd2cd0dee5fdcaed4cf8c31374b8eb2b7ca6a"
+    }
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1214-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "08011222f9fd95709b01fa1bb16a1d472b89aed92a7002e74723f8d5030efd05"
+  },
+  "full_suite_run": false
+}

@@ -1,0 +1,7 @@
+{
+    "name": "Professor Teklovossen / all-three-opponent cost reduction and intrinsic Evo Banish permission",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-23T10:14:40+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Evos cost {r} less to play for each opponent.\n\nYou may play Evos from your banished zone. NamedgenuinefourliveallthreeopponentsdiscountandBanishpermissionpositive. NaturalProfessor20Hero1, nohandorresourceassets, realprintedcost3EvoCommandCenter5faceupBanishwithgenericPlayableFromBanish0, matchingBaseHead6equipped. Allthreeotherliveheroescountasopponents evennonadjacent3, independentprinted3-3=0. NativeactualBanish5clickadmittedandcostpaid0/AP1to0 withR0/noPitch; doesnotpauseforimpossiblefunding. FourmanualresponsesbeforeactualunchangedsupportingCommandCentertransform. FinalrealEvo5equippedowned1/subcardBaseHead/Base6removedfromequippedwithoutGYorunderexport, sameHero1ready, allHP20/R0/AP0/maxUID6/noHand/Pitch. Nootherdiscount/combat/supportgroup/drawactivation/underexport/equipmentability/wholeherocredit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#professor_teklovossen"
+}

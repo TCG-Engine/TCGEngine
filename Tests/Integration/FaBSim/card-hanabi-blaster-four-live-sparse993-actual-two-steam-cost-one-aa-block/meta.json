@@ -1,0 +1,7 @@
+{
+    "name": "Hanabi Blaster / four-live alternate-cost weapon",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-23T01:02:06+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "**Once per Turn Action** - Remove 2 steam counters from this: **Attack**\n\n**Overpower**\n\nThe third time you play a card with **boost** each turn, put a steam counter on this. Named branch actual_two_steam_cost_one_aa_block. Legal natural20 dash, actual Weapon5/no ownHand/resources/pitch. Adjacent Hero4 declared before alternate cost. InitialSTEAM2 is a cost asset, not creation credit. Remove2to0 before priority. Power5 versus exactlyoneactualAAWounding6def3 gives2damage/HP4=18/AP0; oneAA is legalunderOverpower. NoBoost played or thirdBoost trigger. All4manual. Physical5 used andretained/sourceproxy WEAPON_UID5; actualblock6 ownedGGY4. No opaqueproxyUID, author-onlydiagnostics, positivehittrigger, hero/support/sibling/fullcardcredit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#hanabi_blaster"
+}

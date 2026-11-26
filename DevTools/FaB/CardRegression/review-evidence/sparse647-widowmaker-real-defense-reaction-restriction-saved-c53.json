@@ -1,0 +1,298 @@
+{
+  "status": "APPROVED_ACTUAL_SAVED_B647",
+  "approved": true,
+  "source_approved": true,
+  "semantically_approved": true,
+  "reviewer": "/root/b106_semantic_review",
+  "reviewer_independent": true,
+  "created_utc": "2026-11-06T21:21:51.037352+00:00",
+  "source_spec": "card-regression-batch647.json",
+  "input_sha256": "9a9851d4c5461c516a3d65f145e56edaaaf6d0392af1979f48422967d6517abd",
+  "manifest_sha256": "552852673eae062bd16c16aaa640a62065b56a4fa51e57d86889ee5ced3f38c4",
+  "runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+  "recorded_runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+  "recorder_sha256": "ab33a3250462d0453f71d38dd4138cb9fbc3d595d2586742e989a52251c9c4a9",
+  "source_guards_verified": 70,
+  "prior_independent_semantic_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch647-independent-source-review.json",
+    "sha256": "e00845d21680abc4d3e4a0cde2bdbe466289ab0910e13a7552d05da06c7df9e2",
+    "unchanged_semantics_reused": true
+  },
+  "recording_receipt": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch647-20261106T211926Z-6aee445e24a34.json",
+    "sha256": "2a2bd9649a6c1d57d2e8af5c4cff5008dd077b649beb42dc9693f2615b1b6857"
+  },
+  "specific_results": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch647.recording-results.json",
+    "sha256": "43ed0f75542c6aaace650f8d86a200de11b5b6f06c822ab54d40b07904009ea1"
+  },
+  "root_wrapper_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch647-native\\receipt.json",
+    "sha256": "dc75889a5be156d43227105cb626f6352a1087bfafbaeff12c5e9136114036a8"
+  },
+  "fixtures": [
+    {
+      "index": 0,
+      "card_id": "widowmaker_blue",
+      "group_id": "pitch-cycle:widowmaker",
+      "slug": "card-widowmaker-blue-four-live-real-one-equipment-defender-dr-rejection-and-four-damage",
+      "source_spec": "card-regression-batch647.json",
+      "input_sha256": "9a9851d4c5461c516a3d65f145e56edaaaf6d0392af1979f48422967d6517abd",
+      "reviewer": "/root/b106_semantic_review",
+      "approved": true,
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_ONE_DEFENDER_DR_CARD_REJECTION_AND_FOUR_DAMAGE",
+      "runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+      "recorded_runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+      "fixture_path": "Tests\\Integration\\FaBSim\\card-widowmaker-blue-four-live-real-one-equipment-defender-dr-rejection-and-four-damage",
+      "fixture_sha256": "edbaf754091325f16032ed156b5777dc93ebca327931367a370d3b0ab785d13a",
+      "raw4_sha256": {
+        "initial_gamestate.txt": "0e3bdad332d9f1d1fa6f0cf95d1d259b58505d81ae8427c0b0d2be7ed3c00931",
+        "actions.json": "034f14cf33e9217388384f2b8a8adb1ac2e9b00a85fac8a0663f536e83229fdb",
+        "assertions.json": "e76ffe7d2651dbf1fd3ae4f8cdd08875629a8ab49c917d6ee3e114987f24e433",
+        "expected_final_gamestate.txt": "eac06a3be1b8b06691b29304d311373e9c0fbefa9ecd331974be3f1d96cddf60"
+      },
+      "raw5_sha256": {
+        "initial_gamestate.txt": "0e3bdad332d9f1d1fa6f0cf95d1d259b58505d81ae8427c0b0d2be7ed3c00931",
+        "actions.json": "034f14cf33e9217388384f2b8a8adb1ac2e9b00a85fac8a0663f536e83229fdb",
+        "assertions.json": "e76ffe7d2651dbf1fd3ae4f8cdd08875629a8ab49c917d6ee3e114987f24e433",
+        "expected_final_gamestate.txt": "eac06a3be1b8b06691b29304d311373e9c0fbefa9ecd331974be3f1d96cddf60",
+        "meta.json": "e6be5eef1f29e80f12125a482d8a96d03732574f7ddd081149c09f4bd29eec13"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "0e3bdad332d9f1d1fa6f0cf95d1d259b58505d81ae8427c0b0d2be7ed3c00931",
+        "actions.json": "034f14cf33e9217388384f2b8a8adb1ac2e9b00a85fac8a0663f536e83229fdb",
+        "assertions.json": "e76ffe7d2651dbf1fd3ae4f8cdd08875629a8ab49c917d6ee3e114987f24e433",
+        "expected_final_gamestate.txt": "eac06a3be1b8b06691b29304d311373e9c0fbefa9ecd331974be3f1d96cddf60",
+        "meta.json": "e6be5eef1f29e80f12125a482d8a96d03732574f7ddd081149c09f4bd29eec13"
+      },
+      "actions": 30,
+      "native_assertions": 2659,
+      "actual_manual_passes": 25,
+      "actual_priority_response_passes": 24,
+      "actual_defender_declaration_finish_inputs": 1,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4
+      ],
+      "actual_manual_actor_counts": {
+        "1": 6,
+        "2": 6,
+        "3": 6,
+        "4": 7
+      },
+      "schema_property_assertions": 848,
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "all_actions_and_assertions_exact": true,
+      "no_recorder_only_assertions": true,
+      "all_endpoint_physical_uid_card_zones_ownership_verified": true,
+      "all_terminal_assertions_evaluated_against_parsed_final_snapshot": true,
+      "initial_assertions_also_evaluated_against_parsed_initial_snapshot": true,
+      "initial_physical_uid_locations": {
+        "1": {
+          "card_id": "azalea",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "widowmaker_blue",
+          "zone": "p1Arsenal",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "death_dealer",
+          "zone": "p1Weapons",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4
+        },
+        "9": {
+          "card_id": "sink_below_red",
+          "zone": "p4Hand",
+          "owner": 4,
+          "controller": 4
+        },
+        "8": {
+          "card_id": "ironrot_helm",
+          "zone": "p4Equipment",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_physical_uid_locations": {
+        "1": {
+          "card_id": "azalea",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "death_dealer",
+          "zone": "p1Weapons",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "widowmaker_blue",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Pitch",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4
+        },
+        "9": {
+          "card_id": "sink_below_red",
+          "zone": "p4Hand",
+          "owner": 4,
+          "controller": 4
+        },
+        "8": {
+          "card_id": "ironrot_helm",
+          "zone": "p4Graveyard",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_GY1_exact_UIDs": [
+        5
+      ],
+      "final_GY4_exact_UIDs": [
+        8
+      ],
+      "final_Pitch1_exact_UIDs": [
+        6
+      ],
+      "final_Hand4_exact_UIDs": [
+        9
+      ],
+      "final_Weapons1_exact_UIDs": [
+        7
+      ],
+      "final_physical_uidset": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "final_UniqueIDCounter": 9,
+      "RandomCounter": 0,
+      "final_health": [
+        20,
+        20,
+        20,
+        16
+      ],
+      "final_resources": [
+        2,
+        0,
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "full_card_certification": false,
+      "native_action_mapping_sha256": "6fac6afbc2617b1f3b461486bc4ec8bb2c9772c6f9d5554d1f3c28904a5e572a",
+      "native_assertion_mapping_sha256": "617917a46dfadbc53ccf1e316a9434a27353140493bf744a4a31d7536e6881f3"
+    }
+  ],
+  "blocked_attempts": [],
+  "total_actions": 30,
+  "total_native_assertions": 2659,
+  "total_manual_passes": 25,
+  "total_schema_property_assertions": 848,
+  "material_findings": [
+    "Exactraw5/30actualenvelopes2659orderedqueries25manual6,6,6,7/raw48preferencesperendpoint/current70c53guards+ab33 match independent sourcee008. Fullphysicalendpoints/terminalassertionsparsed; unchangedsource/rules/scaffoldnotreaudited.",
+    "SamephysicalArrow5frompriorFDArsenal/controlledunactivatedBow7 isactuallytargetedandpaid1withBlue6pitch3/R2AP0beforefreshfour. ActualoneIronrot8Equipmentdefenderstillfewerthan2, so primarybase2+3=5. P4realSink9DR0attemptatReactionpriority4/passcount3 isactualmaterialNOOP: all83pre/postqueriesidentical/noStack/DQ/payment/assets/quorumchange. OnlythefourthReactionresponsecauses5minusDEF1=4damageHP16.",
+    "FullClosephysicalArrow5ownGY1/BladeBreakIronrot8ownGY4/Blue6Pitch/Bow7readyunchanged/Sink9Handunchanged/allUID1..9/counter9/RNG0/R2AP0/quiet. No virtualattackproxy/newUIDallocation. ActualcardsPlayedcontainsWidowmakeronly; Sinkoptionalresolutionnotowedbecauseitwasrejected."
+  ],
+  "limits": [
+    "OnepositiveBluefewerthan2defenders/DR-cardrestrictionbranch. No2+defender/negativecondition/DRability/otherDRsource/otherpitch/sibling/blanking/fullmenu/Hero/Bow/Sink/support/fullcardcredit. PriorArsenalplacementrules-only/unexecuted.",
+    "NoreviewerPHP/native/replay/R/source/fullsuite/deniedrepair. Rootfocusedreplays/registration/qualificationremainseparate. No cachedpre-damageDefenseValuecertification. UndoVersionshash-bound/excludedfromphysicalinventory."
+  ],
+  "qualification_credit_before_registration": false,
+  "blockers": [],
+  "actual_comparison_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov6_batch647_saved_readonly.py",
+    "sha256": "62b702a8c89c6fca66e7a4360cf40285c64b45b8b7be658974bf0f5fbd4cc2b5"
+  }
+}

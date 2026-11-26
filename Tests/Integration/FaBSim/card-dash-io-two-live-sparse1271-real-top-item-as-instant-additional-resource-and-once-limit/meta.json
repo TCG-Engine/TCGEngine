@@ -1,0 +1,7 @@
+{
+    "name": "Dash I/O / actual top-deck Item at zero actions pays additional resource then fresh second top Item rejected",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-24T01:44:23+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "ADULT_DASH_IO36_NATIVE_DUEL_ONLY. ActualtopFuelInjector4Deck cost0MechanologistItem is playedfromDeckatAP0 asInstant, requiresprintedadditionalR1andactualBlue3Handpitch3paysleavesR2/AP0. Original4StackINSTANTbeforebothmanualresponses, notearlyArena. Bothresponsesresolveactual4Arena, untouchednexttop5Deck. Actualnexttop5clickmustrejectoncepermissionuseddespiteR2enoughtopay1andeligiblecost0; noStack/payment/UID/resource/APchange. No lookattopUIvisibility, Itemactivation, reset/otherturn, alternativecost<=1/itemclass/ineligiblecard controls, DashDatabase/Young/four-live/support/fullcardcredit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#dash_io FaBSim/Custom/EVOCards.php FaBSim/Custom/EVORuntime.php FaBSim/Custom/GameLogic.php"
+}

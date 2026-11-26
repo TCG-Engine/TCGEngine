@@ -1,0 +1,39 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch598.json",
+  "runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+  "returncode": 0,
+  "completed_utc": "2026-11-06T11:01:45.721021+00:00",
+  "fixtures": [
+    {
+      "slug": "card-vow-of-vengeance-four-live-real-head-defense-and-blade-break-destruction",
+      "fixture_sha256": "d6f8dadf770e78d1397a69e775ec7184a312a3b9e266241561686108e48d4dba",
+      "passed": true,
+      "result": "[PASS] Vow of Vengeance / physical DEF1 and Blade Break close outcome"
+    },
+    {
+      "slug": "card-prey-spotters-four-live-real-head-defense-and-battleworn-counter-survival",
+      "fixture_sha256": "202aa7a9abf8e8f1537eed3df2925b3290dc22d8b91e6c8f86cfdf2a106b4ffa",
+      "passed": true,
+      "result": "[PASS] Prey Spotters / physical DEF1 and Battleworn close outcome"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-vow-of-vengeance-four-live-real-head-defense-and-blade-break-destruction",
+      "returncode": 0,
+      "stdout": "[PASS] Vow of Vengeance / physical DEF1 and Blade Break close outcome\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-prey-spotters-four-live-real-head-defense-and-battleworn-counter-survival",
+      "returncode": 0,
+      "stdout": "[PASS] Prey Spotters / physical DEF1 and Battleworn close outcome\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 2,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

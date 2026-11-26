@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-quiver-of-abyssal-depths-four-live-sparse1517-real-three-resource-cost-returns-one-arrow-to-empty-deck",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-quiver-of-abyssal-depths-four-live-sparse1517-real-three-resource-cost-returns-one-arrow-to-empty-deck",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1517-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1517-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "40961a0db0bbc957880ccda346f9f77ce83d0f5109e1602b17c250775d6cf9f2",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "0c19fbfcb51f85a28f45d41a98f59f1d176ce9b49ec12aed7f2bc5017053ddc1",
+        "actions.json": "56ea4c0e9bc3dd488d53e3c60350f9f27937606bbf36d702ce41f3b54f0ab14f",
+        "assertions.json": "1b170746a3eec4ae9ba6b022d665034a79eccc0b71f65a918aa6a6f5aea904f6",
+        "expected_final_gamestate.txt": "f8de8c1df0bc98ae7285d50d9c3658a7a4730898df4c791409c03fce1fa3ef1c",
+        "meta.json": "032424203c31e20faf461fc673dd7f01241f839e4ab485c8fb760fc65c6ffd1c"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

@@ -1,0 +1,40 @@
+{
+  "runtime_sha256": "226b6bb82ab6fd9cf9d70254bf59762f846464765b221b06d53c3b662bc0db66",
+  "full_suite_run": false,
+  "rows": [
+    {
+      "slug": "card-assault-and-battery-red-four-live-original-correct-beat-chest-cost-order-and-earned-agility-trigger-probe",
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-assault-and-battery-red-four-live-original-correct-beat-chest-cost-order-and-earned-agility-trigger-probe",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov17-dread164-directly-affected-dispatcher-cost-compatibility\\card-assault-and-battery-red-four-live-original-correct-beat-chest-cost-order-and-earned-agility-trigger-probe.log"
+      ],
+      "returncode": 0,
+      "stdout": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov17-dread164-directly-affected-dispatcher-cost-compatibility\\card-assault-and-battery-red-four-live-original-correct-beat-chest-cost-order-and-earned-agility-trigger ... [full diagnostic in log]\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": "",
+      "log_sha256": "a800354c39273728173309edf0bcd58f5cf53dd34b3350f2fd8a7d459dfad01c",
+      "fixture_raw5_unchanged": true
+    },
+    {
+      "slug": "card-sift-red-four-live-correct-probe-real-two-card-bottom-draw-retains-source-before-go-again-followthrough",
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-sift-red-four-live-correct-probe-real-two-card-bottom-draw-retains-source-before-go-again-followthrough",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov17-dread164-directly-affected-dispatcher-cost-compatibility\\card-sift-red-four-live-correct-probe-real-two-card-bottom-draw-retains-source-before-go-again-followthrough.log"
+      ],
+      "returncode": 0,
+      "stdout": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov17-dread164-directly-affected-dispatcher-cost-compatibility\\card-sift-red-four-live-correct-probe-real-two-card-bottom-draw-retains-source-before-go-again-followthr ... [full diagnostic in log]\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": "",
+      "log_sha256": "546e7611863f6ea4e5bd6a6cc906912d25d9d1f86750570c918526287984b33f",
+      "fixture_raw5_unchanged": true
+    }
+  ]
+}

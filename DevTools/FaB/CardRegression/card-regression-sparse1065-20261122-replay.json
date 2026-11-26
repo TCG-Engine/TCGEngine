@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "pay-day-blue-four-live-sparse1065-no-current-contract-old-banish-marker",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=pay-day-blue-four-live-sparse1065-no-current-contract-old-banish-marker",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1065-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1065-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "e1061a603528108f62b8b27681b186a7d52c91f2c876a493433b3a5120955d97",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "05a18a582acbff992e3ff9c35d6e18bb4b6d73252c7ef17c703ae623b49c81c2",
+        "actions.json": "ecfc3b356d170d3adcd369c59f64176c3b17ffe7af3900115b2de1a20afbaf7c",
+        "assertions.json": "02d819bbda4cd40e22e1049f7b71880e30c4ad3b1de1026d1e5578a87bad645c",
+        "expected_final_gamestate.txt": "f59a2d298003cca5b1b07b0aae94587c0f97e89f054760fa2bb6c4dcc089d7d2",
+        "meta.json": "c921614566fbac293b3f8dfe3c8d581fdbc6d7e4c522cc29407b8f0d2ebc0a5f"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

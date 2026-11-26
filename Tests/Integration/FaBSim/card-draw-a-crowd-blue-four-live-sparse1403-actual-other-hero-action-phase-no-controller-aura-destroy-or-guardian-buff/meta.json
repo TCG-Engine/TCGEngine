@@ -1,0 +1,7 @@
+{
+    "name": "Draw a Crowd / another hero start is not your phase",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-24T15:41:59+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "FOUR_REAL_MANUAL_UPF_BRAVO20_THREEDORI20. ValidpriorownedAura5Arena1, actualGenericWoundingRed6Hand1/Blue8Deck1andrealWoundingRed7Hand4. InitialTurn3ID2/AP3=1\u2192all4ActionpassesEnd3\u2192all4EndpassesnativeStart4/Action4ID3/AP4=1. PrintedYOURcontroller1start/actionphasepredicateisFALSEduringOTHERhero4start/actionphase: noearnedcontrollerAuraWHEN/destroy/buff. Samephysical5ArenaUID/Counters[]/Status2/Hand6/Deck8andnoUID9; creation/entry/earliermaintenanceprovenanceuncredited, notanentered-eventtest. Actualnextseat4spendsnativeAPonWounding7AA0targetHero1/all4manualcombat/base4/noGA/4damageHP1=16/fullclose7GY4/sameAura5Hand6Deck8/UID8RNG0/AP0R0/quietStackDQ. Activeownerroutesexist: HNTStartFlurry, MPGBeginDrawCrowd, PENStartRites. These useownpAuras; positiveownphasewoulddestroyandgrantprintedbenefitbutnotexecutedhere. Onlywrong-ownerphasefilter/nativephaseandattack; noentry/positiveownWHEN/timing/daggerextraattack/Guardianbuff/Seismic/actualplay/support/fullcard/pitchsiblingcredit. Noenginechange. Sources: FaBSim/GeneratedCode/cardArrayCache.json#draw_a_crowd_blue FaBSim/GeneratedCode/GeneratedMacroCode.php FaBSim/Custom/GameLogic.php FaBSim/Custom/HNTRuntime.php FaBSim/Custom/MPGCards.php FaBSim/Custom/PENCards.php FaBSim/Custom/WTRCards.php"
+}

@@ -1,0 +1,7 @@
+{
+    "name": "Farflight Longbow / actual arrow attacks opposite live hero",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-23T11:18:41+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "In four-liveUPF positions1and3 are opposite/notadjacent. Existing readyFarflightBow5 has explicit continuous permission for ownArrow attacks to target any opposinghero/ally. Actual face-downArsenalSicEmShot6 is legalArrowcost1/power4/printedGA with no entry/attack/hittrigger. Native declaration acceptsHero3 beforecost, actualR1/AP1 spend thenfourmanualresponses andcombat, power4/target3/hit4/HP3=16, allothers20. Actualsource6ownedGY1 andGAAP1/R0; Bow5staysready2, neveractivated. No Bowload/tap/instantability, otheropponents/allies, Arrowproducer/support/wholecard credit. InitialfloatingR1 is admitted/unrecorded. Sources: FaBSim/GeneratedCode/cardArrayCache.json#farflight_longbow"
+}

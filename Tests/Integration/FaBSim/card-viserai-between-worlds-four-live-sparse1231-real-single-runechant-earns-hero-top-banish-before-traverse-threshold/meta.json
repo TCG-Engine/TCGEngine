@@ -1,0 +1,7 @@
+{
+    "name": "Viserai, Between Worlds / real queued hero trigger",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-23T21:31:15+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "YoungViseraiBetweenWorlds20/3Dori20; actualReadRunesBlue5Hand1createsoneRunechant7onlyafter4source responses/AP0. EarnedHero8SourceUID1getsfresh4responseswhileactualtopWounding6Deckstillowned/unbanished. Heroresolutionbanishesreal6faceup, Runechant7remains, producer5ownGY/noAPrefund/nootherUIDRNG. RuneCreated1below3soprimaryHero1unchanged/notTraverse. NoProduceridentity/runeAAtrigger/multiplebatch/threeRuneTraverse/otherHeroform/support/fullHeroabilitycredit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#viserai_between_worlds FaBSim/Custom/GameLogic.php FaBSim/Custom/ROSCards.php FaBSim/GeneratedCode/GeneratedMacroCode.php FaBSim/Custom/IARRuntime.php FaBSim/Custom/IARCards.php FaBSim/Custom/ARCCards.php"
+}

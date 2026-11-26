@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-restless-outlaw-red-four-live-sparse1580-real-nonlethal-primary-damage-is-not-self-death",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-restless-outlaw-red-four-live-sparse1580-real-nonlethal-primary-damage-is-not-self-death",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1580-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1580-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "65f0e8066754bdc852c3e0e89117df900089dea38bc7716c9583910e59f610f2",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "8397683c588822833810ea62816fc6a9394db8905b76f145203fc94cf2f84f16",
+        "actions.json": "3ece9eb1058d5f26861429fe816c8baa3394f92d0fa31621dafcb031c7c89cdd",
+        "assertions.json": "bdb11bb2930d59b556f0c02468df9f27780e8951eeec91ba148cfa6ebd356e52",
+        "expected_final_gamestate.txt": "7a2a4570d36eec56fd29f8e0f474492fc5d62b77c4cfa4d0e52dd1dbcbe27e11",
+        "meta.json": "496b9a0b55192e238bed4d16fd87e2629ec949e13ef2e4d88495137e9c3188fa"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

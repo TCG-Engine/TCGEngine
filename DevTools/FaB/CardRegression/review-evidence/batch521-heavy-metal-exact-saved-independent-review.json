@@ -1,0 +1,306 @@
+{
+  "status": "APPROVED_ACTUAL_SAVED_B521_REAL_EVO_BOOST_PLUS_ONE_POWER_AND_FOUR_DAMAGE",
+  "approved": true,
+  "source_approved": true,
+  "semantically_approved": true,
+  "reviewer": "/root/nov2_next_author",
+  "reviewer_independent": true,
+  "created_utc": "2026-11-05T21:04:38.000341+00:00",
+  "source_spec": "card-regression-batch521.json",
+  "input_sha256": "5502535a0a2f85d96f92bbce62d9ef03b9c587a6b24c353abc61eafe5ae8198e",
+  "manifest_sha256": "0c0cd7833819879a516af5ca35200031c27e0896876a637d343a71370e11c169",
+  "runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+  "recorded_runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+  "source_guards_verified": 69,
+  "prior_independent_semantic_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch521-independent-source-review.json",
+    "sha256": "ef3af7f7bec7f72db5aa2a4ce1f2d79beb4c8e24dabb67808b0413109d2046f5",
+    "unchanged_rules_model_reused": true
+  },
+  "recording_receipt": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch521-20261105T205958Z-6aecee4ec3255.json",
+    "sha256": "b9275ed3ce993ba208ba9f2d762a1a7ee5b70aa53228bcb1fa8eec3b5a29c61d"
+  },
+  "root_wrapper_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch521-native-r1-9e984\\receipt.json",
+    "sha256": "2beb9175fccd41fc9fd069231072c5e6ee604f23daff87f9573181648f5a40a6"
+  },
+  "native_results": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch521.recording-results.json",
+    "sha256": "9bfea8bc6a5f2c36ec6149fe22fde75279882e16c3a3a2971247a0128db24eb5"
+  },
+  "actual_comparison_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov5_batch521_saved_readonly.py",
+    "sha256": "72d669b19fd90432a8b27a56a01ee30514c6e2a1140ea586f25d11533cbc8991"
+  },
+  "read_only_helper": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\saved_fixture_review_tools.py",
+    "sha256": "57cb7672feb98a00216f1e194fd1df0395826af02e0d76f7042af920851c39e8"
+  },
+  "reviewer_independence": "Independent approved source/model reviewer, neither author nor recorder. Reused ef3af exact semantics; no legacy source/fixture re-review/game/replay.",
+  "fixtures": [
+    {
+      "index": 0,
+      "card_id": "heavy_metal_hardcore_red",
+      "group_id": "pitch-cycle:heavy_metal_hardcore",
+      "slug": "card-heavy-metal-hardcore-red-four-live-real-evo-boost-earns-one-power-four-damage",
+      "source_spec": "card-regression-batch521.json",
+      "input_sha256": "5502535a0a2f85d96f92bbce62d9ef03b9c587a6b24c353abc61eafe5ae8198e",
+      "reviewer": "/root/nov2_next_author",
+      "reviewer_independent": true,
+      "approved": true,
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_NEW_FOUR_LIVE_REPRESENTATIVE",
+      "runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+      "recorded_runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+      "fixture_path": "Tests\\Integration\\FaBSim\\card-heavy-metal-hardcore-red-four-live-real-evo-boost-earns-one-power-four-damage",
+      "fixture_sha256": "8f7abfb2901905e43022c15ced0a59e370301773b03427ee397f1a294606d2d8",
+      "raw4_sha256": {
+        "initial_gamestate.txt": "70047de32d04bc67e5bd2a8733cdd8ef1b3bd36dabefc1ffcfd07d05cf229daa",
+        "actions.json": "34470d8d57461cadf3c95c1d36d71bc37cea2a84649dcc0780ef8ae8ce0ac0f8",
+        "assertions.json": "1fc5c8d57ff4814861b40f767b1f4502c8a51098489356b7881245782c894a25",
+        "expected_final_gamestate.txt": "b2a96c00a5556c5761b07455ccc7f6148963d29d30fe811758973dc9623ea7cd"
+      },
+      "raw5_sha256": {
+        "initial_gamestate.txt": "70047de32d04bc67e5bd2a8733cdd8ef1b3bd36dabefc1ffcfd07d05cf229daa",
+        "actions.json": "34470d8d57461cadf3c95c1d36d71bc37cea2a84649dcc0780ef8ae8ce0ac0f8",
+        "assertions.json": "1fc5c8d57ff4814861b40f767b1f4502c8a51098489356b7881245782c894a25",
+        "expected_final_gamestate.txt": "b2a96c00a5556c5761b07455ccc7f6148963d29d30fe811758973dc9623ea7cd",
+        "meta.json": "ccd31723cffd3424f87665318cdb4ab70fec019f238445590648575c6e7d1d24"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "70047de32d04bc67e5bd2a8733cdd8ef1b3bd36dabefc1ffcfd07d05cf229daa",
+        "actions.json": "34470d8d57461cadf3c95c1d36d71bc37cea2a84649dcc0780ef8ae8ce0ac0f8",
+        "assertions.json": "1fc5c8d57ff4814861b40f767b1f4502c8a51098489356b7881245782c894a25",
+        "expected_final_gamestate.txt": "b2a96c00a5556c5761b07455ccc7f6148963d29d30fe811758973dc9623ea7cd",
+        "meta.json": "ccd31723cffd3424f87665318cdb4ab70fec019f238445590648575c6e7d1d24"
+      },
+      "actions": 28,
+      "native_assertions": 2296,
+      "actual_manual_passes": 25,
+      "actual_priority_response_passes": 24,
+      "actual_defender_declaration_finish_inputs": 1,
+      "actual_administrative_END_PHASE_passes": 0,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4
+      ],
+      "actual_manual_actor_counts": {
+        "1": 6,
+        "2": 6,
+        "3": 6,
+        "4": 7
+      },
+      "schema_property_assertions": 555,
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "all_actions_and_assertions_exact": true,
+      "no_recorder_only_assertions": true,
+      "all_endpoint_physical_uid_card_zones_ownership_verified": true,
+      "all_terminal_assertions_evaluated_against_parsed_final_snapshot": true,
+      "initial_assertions_also_evaluated_against_parsed_initial_snapshot": true,
+      "initial_physical_uid_locations": {
+        "1": {
+          "card_id": "dash",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "5": {
+          "card_id": "heavy_metal_hardcore_red",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "evo_beta_base_arms_blue",
+          "zone": "p1Deck",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2
+        }
+      },
+      "final_physical_uid_locations": {
+        "1": {
+          "card_id": "dash",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "5": {
+          "card_id": "heavy_metal_hardcore_red",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "evo_beta_base_arms_blue",
+          "zone": "p1Banish",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2
+        }
+      },
+      "final_health": [
+        20,
+        20,
+        20,
+        16
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_AP": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "final_Hero_Status": [
+        2,
+        2,
+        2,
+        2
+      ],
+      "final_physical_uidset": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "initial_UniqueIDCounter": 6,
+      "final_UniqueIDCounter": 6,
+      "RandomCounter": 0,
+      "actual_Boost_effects_by_type": {
+        "PEN_BOOST_EVO": [
+          {
+            "type": "PEN_BOOST_EVO",
+            "amount": 1,
+            "uses": 1
+          }
+        ],
+        "ARC_BOOSTED": [
+          {
+            "type": "ARC_BOOSTED",
+            "amount": 1,
+            "uses": 1
+          }
+        ],
+        "DYN_BOOST_PLAYED": [
+          {
+            "type": "DYN_BOOST_PLAYED",
+            "amount": 1,
+            "uses": 1
+          }
+        ],
+        "MON_BANISHED": [
+          {
+            "type": "MON_BANISHED",
+            "amount": 1,
+            "uses": 1
+          }
+        ]
+      },
+      "actual_support_penBoostTurn": 2,
+      "no_effect_array_index_contract": true,
+      "checkpoint_assertion_mapping_sha256": "6d16ae72a406f3d56617f6a7c8c7ed8205c8be3737bdf71515dcf6e3df78a70e",
+      "native_action_mapping_sha256": "02023a0c0a97d9c61e4903a58241a54e7d14be1d936d70c6b1ee939e396ad64b",
+      "native_assertion_mapping_sha256": "cb4d3ca398e3a8cbb148415cf40213c3968217a7f33f5c767c7540e06e9ecd70"
+    }
+  ],
+  "blocked_attempts": [],
+  "total_actions": 28,
+  "total_native_assertions": 2296,
+  "total_manual_passes": 25,
+  "total_priority_response_passes": 24,
+  "total_schema_property_assertions": 555,
+  "total_defender_declaration_finish_inputs": 1,
+  "total_administrative_END_PHASE_passes": 0,
+  "material_findings": [
+    "All28 actual ordered native inputs and2296 persisted assertions match approved recipe. Actual Hand primary PLAY\u2192Hero4 target\u2192supported Boost index0; normal AP1 cost precedes sameEvo6 Deck->publicBanish additional cost.",
+    "Actual owned legal ActionEquipmentEvo6 remains public nonplayable Banish throughout; no Equipment play/transform/Arena entry/defend event. Primary same5 retains GO_AGAIN across four source responses and physical live Chain power4=base3+earnedEvo1.",
+    "Actual empty defense/fresh phase rounds deal4physicaldamageHP16; only one BoostGA refund restores AP1 atResolution. Fullclose source5ownGY and sameEvo6publicBanish, originalUID1..6 conserved/counter6/RNG0/noextraallocation/all48prefs atbothends.",
+    "Final actual PEN_BOOST_EVO1 plus ARC_BOOSTED1/DYN_BOOST_PLAYED1/MON_BANISHED1 inspected BY TYPE, legitimately persist same-turn. Mainboosted/evoBoostEquipment flags actualtrue; supportpenBoostTurn2 and no permission. No effect-index/expiry/reset contract."
+  ],
+  "limits": [
+    "ONE own current-turn EvoBoost positive conditional+1/fresh4power/real4damage/oneGA refund representative. NoNoBoost/nonEvo/otherplayer/multipleBoosts/earlierBoost matrix/expiry certification.",
+    "No Evo play/equip/transform/slot/cost-reducer/Battleworn/DataDoll/HyperDriver/support primary/sibling/fullcard credit. Actual support is only lawful Deckcard Boost cost.",
+    "Raw actual Boost residue persists legitimately and was read byTYPE; no arrayposition/expiry/reset claim.",
+    "Exact native Saved artifacts only. Root two focused clean replays and registration remain separate gates, not executed here.",
+    "No PHP/native/replay/R/source/gen/service/fullsuite/git/remote/135dependentwork or denied retry; original input/expectations unchanged."
+  ],
+  "native_executed_by_reviewer": false,
+  "replay_executed_by_reviewer": false,
+  "repository_writes": false,
+  "source_changes": false
+}

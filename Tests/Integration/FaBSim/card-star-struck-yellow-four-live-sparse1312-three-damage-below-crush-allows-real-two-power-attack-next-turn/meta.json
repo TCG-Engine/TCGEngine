@@ -1,0 +1,7 @@
+{
+    "name": "Star Struck / below-Crush damage leaves next-turn low-power attack legal",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-24T05:44:43+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "FOUR_LIVE_MANUAL_UPF_NATURAL_YOUNG_BRAVO20_ACTOR4_ADJACENT_DORI20_TARGET1_TWO_TURN_FALSE_CRUSH_FUNCTIONAL_WITNESS. Nohistory/effect/resource/APseed: startsTurn2Actor4AP1only. ActualStar5Hand4normal7paidBlue6+Blue7+Red8(3+3+1)/R0/AP0/allfour4,1,2,3responses. Native10power vsactualIronrot9def1+twoHandAA10/11def3each=7; real3HeroDamageHP1=17<Crush4threshold/noearnedStarrestriction. NormalcloseStar5ownGY4/BladeBreakIronrot9+AA10/11ownGY1/realWoundingBlue12Hand1kept. ActualallfourActionandEndphasepasses; trueMZREARRANGEPitch6/7/8bottomorder answered; actualrefill3returnsoriginalfundersHand4/nextTurn3Actor1AP1. NativeWoundingBlue12cost0/base2(<=prior3damage)reallyplays/declaresHero4/allfourfreshresponses/deals2HeroDamageHP4=18/fullclose. ThisobservablepermissionwitnessexcludesunearnedStarrestrictionratherthaninternalflags. Allfates/UID12RNG0/StackDQsCC/APR0pinned. PositiveCrushrestriction/Unity/otherpitch/Hero/support/fullcarduntested. Sources: FaBSim/GeneratedCode/cardArrayCache.json#star_struck_yellow FaBSim/GeneratedCode/GeneratedMacroCode.php FaBSim/Custom/GameLogic.php FaBSim/Custom/DTDCards.php FaBSim/Custom/WTRCards.php"
+}

@@ -1,0 +1,341 @@
+{
+  "status": "APPROVED_ACTUAL_SAVED_TERRITORIAL_DOMAIN_REAL_TIGER_CREATION_EARNS_PLUS_THREE_DEFENSE",
+  "approved": true,
+  "source_approved": true,
+  "semantically_approved": true,
+  "reviewer": "/root/nov2_sparse_author",
+  "reviewer_independent": true,
+  "created_utc": "2026-11-05T12:16:47.919040+00:00",
+  "source_spec": "card-regression-batch459.json",
+  "input_sha256": "80987fae043f02cc9359cc64fd2bf0ccf6aec287be473a2c25d878e8a2984fb7",
+  "manifest_sha256": "136150e4daabe253f3ca73bd0a757d057ef3653e2737bd632a83b7b3044830db",
+  "runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+  "recorded_runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+  "source_guards_verified": 70,
+  "prior_independent_source_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch459-independent-source-review.json",
+    "sha256": "a4aa81f36ec87caff911ade4c7e32984d2304e64993a2d63d1f6c5569b39c0ea",
+    "reused_not_expanded": true
+  },
+  "creator_reuse_provenance": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch459-territorial-domain-real-created-card-author\\creator-transport-reuse-proof.json",
+    "sha256": "f087737874519aedf003de2727971bf0101536832135bbf7fe632c334bd0875c",
+    "own_B459_native_receipt_required_and_verified": true,
+    "B457_passes_inherited": false
+  },
+  "recording_receipt": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch459-20261105T121221Z-6aec72a5233b4.json",
+    "sha256": "c335db528044908b7290f8bd3e0e307cb18f42ba0441113ba83f864d8fbc0735"
+  },
+  "recording_results": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch459.recording-results.json",
+    "sha256": "b7a2108af87535f6baa063711a2c8921ca239b775711bc138bd72351b889e4aa"
+  },
+  "root_wrapper_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch459-native-r1-9e984\\receipt.json",
+    "sha256": "356da9188a68e2c9f8d9d85ed5f06d95f7a9b872441847a9594dd32371c6e574"
+  },
+  "actual_comparison_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov5_batch459_domain_saved_readonly.py",
+    "sha256": "13712db9c11907c895d060b8e4d0a254ddd236bdca6c4d1074e8cfa5221a0d4c"
+  },
+  "fixtures": [
+    {
+      "index": 0,
+      "card_id": "territorial_domain_blue",
+      "slug": "card-territorial-domain-blue-four-live-sparse-real-chi-paid-tiger-creation-earns-five-defense-and-two-damage",
+      "source_spec": "card-regression-batch459.json",
+      "input_sha256": "80987fae043f02cc9359cc64fd2bf0ccf6aec287be473a2c25d878e8a2984fb7",
+      "reviewer": "/root/nov2_sparse_author",
+      "runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+      "recorded_runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+      "approved": true,
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_NEW_FOUR_LIVE_REPRESENTATIVE",
+      "fixture_path": "Tests\\Integration\\FaBSim\\card-territorial-domain-blue-four-live-sparse-real-chi-paid-tiger-creation-earns-five-defense-and-two-damage",
+      "fixture_sha256": "c186549901a2eb1b339ba0bbc063cfc08dc321f1f503d93612d9521fd4206a2a",
+      "raw4_sha256": {
+        "initial_gamestate.txt": "836071fb3db1dd0ea6144383f7608d62132b7e8ebd40f9cd9b5bb2f3bb1c66bc",
+        "actions.json": "5afd4b74eea9c9fd9131b53f015b6986ac398739c4971ede3f3ffdea96b562d6",
+        "assertions.json": "97617ed6483a07b8ba40e50b8203d389349ef18ecfdb960aca235aa9e626ad8a",
+        "expected_final_gamestate.txt": "48a911e8de14793da8c37f5af6ef5b0184fbb35346d0ea52237c76408cde3c09"
+      },
+      "raw5_sha256": {
+        "initial_gamestate.txt": "836071fb3db1dd0ea6144383f7608d62132b7e8ebd40f9cd9b5bb2f3bb1c66bc",
+        "actions.json": "5afd4b74eea9c9fd9131b53f015b6986ac398739c4971ede3f3ffdea96b562d6",
+        "assertions.json": "97617ed6483a07b8ba40e50b8203d389349ef18ecfdb960aca235aa9e626ad8a",
+        "expected_final_gamestate.txt": "48a911e8de14793da8c37f5af6ef5b0184fbb35346d0ea52237c76408cde3c09",
+        "meta.json": "3a2f150e15f03964d54cc6b49420de58148ef82fb6539427d0575a6c7afa7c60"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "836071fb3db1dd0ea6144383f7608d62132b7e8ebd40f9cd9b5bb2f3bb1c66bc",
+        "actions.json": "5afd4b74eea9c9fd9131b53f015b6986ac398739c4971ede3f3ffdea96b562d6",
+        "assertions.json": "97617ed6483a07b8ba40e50b8203d389349ef18ecfdb960aca235aa9e626ad8a",
+        "expected_final_gamestate.txt": "48a911e8de14793da8c37f5af6ef5b0184fbb35346d0ea52237c76408cde3c09",
+        "meta.json": "3a2f150e15f03964d54cc6b49420de58148ef82fb6539427d0575a6c7afa7c60"
+      },
+      "actions": 45,
+      "native_assertions": 4165,
+      "actual_manual_passes": 39,
+      "actual_priority_response_passes": 38,
+      "actual_defender_declaration_finish_inputs": 1,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4
+      ],
+      "actual_manual_actor_counts": {
+        "1": 10,
+        "2": 10,
+        "3": 10,
+        "4": 9
+      },
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "all_actions_and_assertions_exact": true,
+      "all_endpoint_physical_uid_card_zones_ownership_verified": true,
+      "all_terminal_assertions_evaluated_against_parsed_final_snapshot": true,
+      "initial_assertions_evaluated_against_parsed_initial_snapshot": true,
+      "endpoint_assertion_counts": {
+        "0": 127,
+        "45": 213
+      },
+      "initial_physical_uid_locations": {
+        "1": {
+          "card_id": "dorinthea",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2,
+          "counters": {}
+        },
+        "7": {
+          "card_id": "raging_onslaught_red",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "8": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2,
+          "counters": {}
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2,
+          "counters": {}
+        },
+        "4": {
+          "card_id": "zen",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2,
+          "counters": {}
+        },
+        "5": {
+          "card_id": "territorial_domain_blue",
+          "zone": "p4Hand",
+          "owner": 4,
+          "controller": 4
+        },
+        "6": {
+          "card_id": "inner_chi_blue",
+          "zone": "p4Hand",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_physical_uid_locations": {
+        "1": {
+          "card_id": "dorinthea",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2,
+          "counters": {}
+        },
+        "7": {
+          "card_id": "raging_onslaught_red",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "8": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Pitch",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2,
+          "counters": {}
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2,
+          "counters": {}
+        },
+        "4": {
+          "card_id": "zen",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2,
+          "counters": {
+            "ARC_USED_0": 2
+          }
+        },
+        "10": {
+          "card_id": "crouching_tiger",
+          "zone": "p4Hand",
+          "owner": 4,
+          "controller": 4
+        },
+        "5": {
+          "card_id": "territorial_domain_blue",
+          "zone": "p4Graveyard",
+          "owner": 4,
+          "controller": 4
+        },
+        "6": {
+          "card_id": "inner_chi_blue",
+          "zone": "p4Pitch",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_health": [
+        20,
+        20,
+        20,
+        18
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_Chi": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_Hero_Status": [
+        2,
+        2,
+        2,
+        2
+      ],
+      "final_GY1_UIDs": [
+        7
+      ],
+      "final_GY4_UIDs": [
+        5
+      ],
+      "final_Pitch1_UIDs": [
+        8
+      ],
+      "final_Pitch4_UIDs": [
+        6
+      ],
+      "final_Hand4_UIDs": [
+        10
+      ],
+      "new_Tiger10_owner": 4,
+      "new_Tiger10_controller": 4,
+      "virtual9_physical_absent": true,
+      "Zen4_raw_Counters": {
+        "ARC_USED_0": 2
+      },
+      "actual_total_defense": 5,
+      "actual_damage": 2,
+      "checkpoint_assertion_mapping_sha256": "ca69bd0270955a0cfb7e0c315bfc8df6ca05ec09cddb42f571d53fbffd269a0d",
+      "native_action_mapping_sha256": "6857ce50b49ea88173126da1d311d91cb83490721bfb8b752f30f889d8cdbabf",
+      "native_assertion_mapping_sha256": "7694972da1e5f98bb58c9ee9b0dd90619abae58de0dc60b7578e9ac1506d18f0"
+    }
+  ],
+  "blocked_attempts": [],
+  "total_actions": 45,
+  "total_native_assertions": 4165,
+  "total_manual_passes": 39,
+  "total_priority_response_passes": 38,
+  "total_defender_declaration_finish_inputs": 1,
+  "material_findings": [
+    "OwnB459rawfive/45actualinputs/4165orderedchecks/39manualactors/48rawmanualprefsperendpoint/current70guards exact; noB457tests/qualificationinherited. ActualBlue8paysRaging3/AP1, unbuffed7power/noGA andoriginalP4targetpreserved.",
+    "ActualP4Zen4Instant3Chi/physicalInnerChi6pitchpays3/RChiAP0/paidonceflagturn2/HeroReady; virtual9SourceHero4controller4heldthroughfresh4,1,2,3. OnlyfourthactualTiger10nonTokenNinjaAAOwner4Controller4inHand. MandatoryemptyDeckCombo-searchrouteisconsistentwithsourceFinishSearch/emptyshuffleandactualcompleteABI/nochoices/TempDeckBanish0/RNG0; no internalcallbacktraceorpositive-searchcreditclaimed.",
+    "Actualprimary5DR0atP4Reactionpriority/fresh4,1,2,3\u2192physicalsame5DEFENSE_REACTION/link1; specificrawMST_TIGER_CREATED1/uses1andrealTiger10proveprintedcondition. NativeDEF5/2damage/HP18 reflects+THREE,notMistborn+1/anycardcreation/otherdefender/prevention.",
+    "FullDamage/Resolution/RChiAP0/primary5GY4/Raging7GY1/Blue8Pitch1/Chi6Pitch4/Tiger10Hand4/virtual9absent/Counter10/RNG0/UID1..8conservedplusonly10/noawait/payment/combat/queueleft. Hero4remainsreadywithARC_USED_0=2; itisbookkeepingnotprintedtapcost."
+  ],
+  "bookkeeping_precision": "RawDecisionQueueVariablesfabAbilityStackUID9/arcAbilityUID9andGameStatearcCards9remainhistoricalcache. Physical9isabsent/allStackChainsDQs/awaitframes/paymentclear; noclaimthathistoricalreferencefieldsaredeleted. Owner0atnativeABI9isenginevirtualproxydefault, notphysicalHeroownership rule.",
+  "limits": [
+    "OnepositivecreatedCrouchingTigerthisturn\u2192TerritorialDomain+3/physical2damage. Noothercardcreation/negative/multipleTiger/suppression/foreigncontrol/otherpitches/fullcard/sibling/supportprimarycredit.",
+    "MandatoryemptyCombo-searchcompletiononly; no nonemptychooser/banish/playpermission/094asyncbranch or futureherousecertification.",
+    "NoTigerplay/printedGA/Ephemeral/endturn/ChiPitchreturn/Transcend/priorcreatedhistoryqualification; combatcloseisnotturnend.",
+    "Completednativeassertledgerandparsedendpoints only; reviewerexecutednoPHP/native/replay. Roottwofocusedreplays/registrationseparate.",
+    "NoR/source/gen/service/remote/fullsuite/denied089090094096retry/integration."
+  ]
+}

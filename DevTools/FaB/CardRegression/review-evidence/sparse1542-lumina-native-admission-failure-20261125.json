@@ -1,0 +1,79 @@
+{
+  "status": "CONFIRMED_NATIVE_NAMED_LEGAL_AR_REJECTION_NO_PASSING_FIXTURE",
+  "batch": 1542,
+  "issue": "FAB-REG-235",
+  "card_id": "lumina_lance_yellow",
+  "scenario_id": "card-lumina-lance-yellow-four-live-sparse1542-zero-soul-zero-modes-real-light-attack-response",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "original_spec_sha256": "be4d6afc8b93bcdb62add0b5dfc2f14e958497b011a60862a06ce7a1c13e3630",
+  "guarded_source": "card-regression-sparse1542-20261122.json",
+  "guarded_source_sha256": "b759a9280f3eb1ad9e427d31753fc879c457cc122d54ba9249eeb7d9eb2914aa",
+  "original_receipt_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1542-local-20261122\\save\\receipt.json",
+  "original_receipt_sha256": "78f4e752c67a9a6a74e1e2bb22c562c2c26528a2d44dc7358fb45b7f5b83dd86",
+  "initial_gamestate_sha256": "6d17bf652f7f32bdb7dbe89d9aeefbc7241ff3c2389a79eb9a858f81b23e0a6f",
+  "native_runs": 1,
+  "submitted_native_inputs": 18,
+  "error": "Expected Stack-0.CardID to equal 'lumina_lance_yellow', got ''.",
+  "observed_state": {
+    "window": "REACTION",
+    "combatOpen": true,
+    "combatStep": "REACTION",
+    "attackUID": 5,
+    "attackTarget": {
+      "type": "HERO",
+      "player": 4,
+      "uid": 4,
+      "zone": "Hero"
+    },
+    "pendingPayment": null,
+    "cardsPlayedThisTurn": {
+      "1": [
+        "illuminate_red"
+      ]
+    }
+  },
+  "observed_decisions": {
+    "1": [],
+    "2": [],
+    "3": [],
+    "4": []
+  },
+  "observed_hand_refs": {
+    "1": [
+      "p1Hand-0"
+    ],
+    "2": [],
+    "3": [],
+    "4": []
+  },
+  "expected": "Printed UPTO3 permitszeroSoulbanish; countzero meansnochosenmodes/targets. LegalLumina AR0 shouldannounce asphysical6atproperREACTION1 whileactualownLightIlluminate5 attacks. Laterpreparedpayload/fates areunrun.",
+  "source_cause": "GL1000 callsFaBWTRCanPlay before other guards. WTR467-496 hasnoLumina namedexception/profile andfallsbackFaBWTRIsWeapon(activeattack). LightAAIlluminate isnotWeapon, so rejects. Sufficient source cause, no mutation fault-control or broader root audit claimed.",
+  "source_sha256": {
+    "FaBSim/Custom/GameLogic.php": "c60fa151561f959e4e3e341b814de0e2b47c9e9f153bbc8793a04c43b5075061",
+    "FaBSim/Custom/WTRCards.php": "77d4452b30e45254a7199bc965396ded53e325717ecdd84a09b971f723f99f6a",
+    "FaBSim/Custom/CardChoices.php": "c68ae2b8e984bcc64b00289cc2d71bc0c980b2fbbeaeadbca8ae3a9f9579c515",
+    "FaBSim/GeneratedCode/GeneratedMacroCode.php": "fe6a7982611df8f4de98ce2671b317b671b580146aa4b8c28e8f4b86d8461056",
+    "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3"
+  },
+  "independent_review": {
+    "reviewer": "/root/breadth_review1457",
+    "result": "Confirmednamedadmissionfailure; originalexpectationcorrect, noqualification",
+    "review_scope": "Read-only source/receipt/rules review, no second native execution",
+    "general_rules_inference_only": true,
+    "official_sources": [
+      "https://rules.fabtcg.com/en/cr/01-game-concepts/",
+      "https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/"
+    ],
+    "card_specific_ruling_claimed": false
+  },
+  "fixture_saved": false,
+  "replay_run": false,
+  "coverage_credit": false,
+  "engine_repaired": false,
+  "new_distinct_shared_root_credit": 0,
+  "limits": [
+    "No later Soul/mode/target/effect/lifetime/close assertion executed or certified.",
+    "No broad AR family diagnosis or engine repair.",
+    "Saving Grace1543 has a separate unrun source-spec hold, not a second native failure."
+  ]
+}

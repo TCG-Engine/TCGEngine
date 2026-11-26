@@ -1,0 +1,7 @@
+{
+    "name": "Enshrine Sin / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T15:19:36+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "You may play this from your banished zone. If you do, it costs an additional {r} to play.\n\n**Opt 1**, then create a Runechant token. **Go again**\n\n**Blood Debt** Representative only: from_hand_opts_real_card_to_bottom_then_creates_runechant. Other pitch siblings, alternate targets and unexercised branches receive no credit. All four live/manual; only native entry-point actions. Sources: FaBSim/GeneratedCode/cardArrayCache.json#enshrine_sin_red"
+}

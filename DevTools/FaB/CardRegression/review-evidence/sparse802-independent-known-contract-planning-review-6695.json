@@ -1,0 +1,332 @@
+{
+  "status": "APPROVED_PLANNING_LIMIT_ONLY_NOT_GAMEPLAY",
+  "phase": "PLANNING",
+  "batch": 802,
+  "approved": true,
+  "planning_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "/root/sand_saved_recovery",
+  "created_utc": "2026-11-14T23:45:49.226608+00:00",
+  "firm": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov14-batch802-firm-reservation.json",
+    "sha256": "c4b829f0040c85998d3c94f9db50d311964c873bbfe1aa48a06b548136ef0459"
+  },
+  "support_dependency_evidence": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov14-batch802-selected-helper-preflight.json",
+    "sha256": "c49448fe8d6e416c0f40c39909392bcfcaa9e272f6c23fc6d2aa4acba9db1dea"
+  },
+  "runtime_sha256": "6695d68163d313f4f61cb20ad9122c7038e621a60c847909598150fe8da09d11",
+  "source_guard_witness": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov14-batch801-throw-actual-owned-blue-reveal-prevention-three-physical-consumer-author\\manifest.json",
+    "sha256": "1e60b5ef9d1321378bec04a40aa5e2a3eb0f5813431ea991ef7df4bc342cfd20"
+  },
+  "source_guard_count": 82,
+  "source_guard_map_sha256": "c1b296b05874e1f45757c427f517793877ef80b3bbd844f77bf7dc889de944cf",
+  "selected_preimage_count": 14,
+  "selected_preimage_map_sha256": "35ee25b0cafd74ba9449d5f3dae7208e3c2bf23e60c6b759e0ab9a296d88ccc3",
+  "all_current_guards_independently_matched": true,
+  "known_required_contract_rows": [
+    {
+      "file": "sparse-source-only-holds.json",
+      "json_path": ".holds[33]",
+      "card_id": "sutcliffes_suede_hides",
+      "row_sha256": "3fc3519a3b82c6a4081dc88daded6cb17d4f8555e73d96b38b3b2a403fb768aa"
+    },
+    {
+      "file": "sparse-source-only-holds.json",
+      "json_path": ".holds[89]",
+      "card_id": "incision_blue",
+      "row_sha256": "3c8aa739e3b922937acea4fb297c7ab511621c55011fb1b97e00913d0c79ba95"
+    },
+    {
+      "file": "sparse-source-only-holds.json",
+      "json_path": ".holds[133]",
+      "card_id": "puncture_blue",
+      "row_sha256": "cc7c6926bb58d59da08a7d10dd3688dfbc8069a07c16c94f27a1c3b14160554a"
+    },
+    {
+      "file": "sparse-source-only-holds.json",
+      "json_path": ".holds[134]",
+      "card_id": "blade_flurry_red",
+      "row_sha256": "26ab8c5eca5d6f65ba7a784c57b6a3be4a88d404911b5eeb8bdb078c32379ae7"
+    },
+    {
+      "file": "sparse-source-only-holds.json",
+      "json_path": ".holds[172]",
+      "card_id": "sutcliffes_research_notes_blue",
+      "row_sha256": "aaa5f177e85d2f59b432f452eb3b9c726b437f8694d407a3a173a37910808d6a"
+    },
+    {
+      "file": "sparse-source-only-holds.json",
+      "json_path": ".holds[238]",
+      "card_id": "shadowrealm_solace_blue",
+      "row_sha256": "e059954432f260b50983871d6566a483dc2ea606044b91aee46a522e3e7c074c"
+    },
+    {
+      "file": "sparse-source-only-holds.json",
+      "json_path": ".holds[245]",
+      "card_id": "tentacular_toll_blue",
+      "row_sha256": "3fd5e879f2ce2980486bd39f51e899c665ee6dc591bb06bb2367c044f0ba5dd1"
+    }
+  ],
+  "actually_viewed_faces": [
+    {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\WebpImages\\twinning_blade_yellow.webp",
+      "sha256": "7bccc1cfe05d1204dabd7150e9fcb033963b80ba8f73fc66db8b31e4315026c2"
+    },
+    {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\WebpImages\\roiling_fissure_blue.webp",
+      "sha256": "07e9cd0310fd8bbd152049868a0674020d08262694c093be298ce7fd3a7ea440"
+    }
+  ],
+  "official_rules_basis": [
+    {
+      "url": "https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/",
+      "rules": [
+        "5.1.3a",
+        "5.1.4",
+        "5.3.4",
+        "5.3.5",
+        "5.3.6",
+        "5.3.7"
+      ],
+      "finding": "Declare X/targets before costs and responses; non-target effect choices during resolution; effects before GA and source clearing."
+    },
+    {
+      "url": "https://judge.fabtcg.com/cards/detail/3657/",
+      "finding": "Current official BlueRoiling costX1, Aura cost restriction, optional ownSurge repeat and GA confirmed."
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/02-object-properties/",
+      "rules": [
+        "2.2.2",
+        "2.2.2a"
+      ],
+      "finding": "Real printed numeric Aura cost required; no zero cost inferred for no-cost tokens."
+    }
+  ],
+  "official_retrieval_limit": "Current CR and officialRoiling Judge page read; Twinning local actual card face viewed. Direct official legacy Crucible release page returned502; no full release fetch or unverified quote claimed.",
+  "reviews": [
+    {
+      "card_id": "twinning_blade_yellow",
+      "group_id": "identity:twinning_blade_yellow",
+      "author_note": {
+        "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov14-batch802-twinning-known-required-contract-unattempted-planning-hold.json",
+        "sha256": "390bec739de904d2861f88112cc72feb90c222a568be912964907945eae0cbf2"
+      },
+      "planning_classification_approved": true,
+      "classification": "KNOWN_LATE_FORMAL_SWORD_TARGET_DECLARATION_UNATTEMPTED",
+      "implemented_body_sha256": "c9a62135c2cf51b017617ee8f9b8d427e08a29d91abe47486d655b792da39e70",
+      "known_family_rows": [
+        {
+          "file": "sparse-source-only-holds.json",
+          "json_path": ".holds[33]",
+          "card_id": "sutcliffes_suede_hides",
+          "row_sha256": "3fc3519a3b82c6a4081dc88daded6cb17d4f8555e73d96b38b3b2a403fb768aa"
+        },
+        {
+          "file": "sparse-source-only-holds.json",
+          "json_path": ".holds[89]",
+          "card_id": "incision_blue",
+          "row_sha256": "3c8aa739e3b922937acea4fb297c7ab511621c55011fb1b97e00913d0c79ba95"
+        },
+        {
+          "file": "sparse-source-only-holds.json",
+          "json_path": ".holds[133]",
+          "card_id": "puncture_blue",
+          "row_sha256": "cc7c6926bb58d59da08a7d10dd3688dfbc8069a07c16c94f27a1c3b14160554a"
+        },
+        {
+          "file": "sparse-source-only-holds.json",
+          "json_path": ".holds[134]",
+          "card_id": "blade_flurry_red",
+          "row_sha256": "26ab8c5eca5d6f65ba7a784c57b6a3be4a88d404911b5eeb8bdb078c32379ae7"
+        }
+      ],
+      "actual_bounded_path": "WTRCanPlay482 only checks ownSword availability. GL923-961 binds only exact LungingBlue/current attack target; CardChoices4-5 early declared reaction registry covers Nip/Shred, not Twinning. Actual canonical/compiled8351-8355 invokes awaited ownWeapons Sword choice during Resolve, then CRU_EXTRA_ATTACK.",
+      "correct_rules": "Printed target Sword is declared before costs/priority under CR5.1.4. An actual early singleton binding would be legal; this selected path has no such binding. Twinning gives additional attack permission, not go-again/AP.",
+      "existing_supported_paths": "Normal managed physical AttackReaction source retention exists. CRUCards320-325 implements extra-attack readiness and actual permission consumption. TimeSkippers AP2 and full fixed route remain planned, not natively verified.",
+      "native_attempted": false,
+      "executable_cases": 0,
+      "selected_source_paths_and_functions": [
+        {
+          "path": "FaBSim/Custom/GameLogic.php",
+          "functions": [
+            "DoPlayCard",
+            "FaBRunSourceMacro"
+          ],
+          "lines": "923-961;1269-1326",
+          "finding": "Exact earlier path captures LungingBlue/current attack only; no actual Twinning target binding."
+        },
+        {
+          "path": "FaBSim/Custom/CardChoices.php",
+          "functions": [
+            "FaBUsesDeclaredReactionTarget",
+            "FaBPrepareDeclaredReaction"
+          ],
+          "lines": "4-5;38-57",
+          "finding": "Declared-target registry is NipBlue/ShredRGB; Twinning excluded."
+        },
+        {
+          "path": "FaBSim/Custom/WTRCards.php",
+          "functions": [
+            "FaBWTRCanPlay"
+          ],
+          "lines": "482",
+          "finding": "Only checks Sword availability, does not bind a target."
+        },
+        {
+          "path": "DevTools/FaB/cru_abilities.json",
+          "functions": [
+            "twinning_blade_yellow.ResolveCard"
+          ],
+          "finding": "Actual ownWeaponsSword MZChoose awaited in resolution, thenCRU_EXTRA_ATTACK."
+        },
+        {
+          "path": "FaBSim/GeneratedCode/GeneratedMacroCode.php",
+          "functions": [
+            "twinning_blade_yellow:0.ResolveCard",
+            "__RunAwait_2da298d5b7b95f66ce40"
+          ],
+          "lines": "8351-8355",
+          "finding": "Emitted selected body invokes the resolving await frame."
+        },
+        {
+          "path": "FaBSim/Custom/CRUCards.php",
+          "functions": [
+            "FaBCRUWeaponReady",
+            "FaBCRUUseWeapon"
+          ],
+          "lines": "320-325",
+          "finding": "Additional attack readiness/permission consumption exists; no framework absence claimed."
+        }
+      ]
+    },
+    {
+      "card_id": "roiling_fissure_blue",
+      "group_id": "identity:roiling_fissure_blue",
+      "author_note": {
+        "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov14-batch802-roiling-known-required-contract-unattempted-planning-hold.json",
+        "sha256": "240842c0d71e2f479bc1bd6568c203900ce29682413ede5c6a140e3ee2daf254"
+      },
+      "planning_classification_approved": true,
+      "classification": "KNOWN_REQUIRED_AWAITED_SPELL_SOURCE_LIFETIME_UNATTEMPTED",
+      "implemented_body_sha256": "1005d5dd951f2bfc10d9de0ee93145c435507ae305b2dd7c812efc5f11b93148",
+      "known_family_rows": [
+        {
+          "file": "sparse-source-only-holds.json",
+          "json_path": ".holds[238]",
+          "card_id": "shadowrealm_solace_blue",
+          "row_sha256": "e059954432f260b50983871d6566a483dc2ea606044b91aee46a522e3e7c074c"
+        },
+        {
+          "file": "sparse-source-only-holds.json",
+          "json_path": ".holds[245]",
+          "card_id": "tentacular_toll_blue",
+          "row_sha256": "3fd5e879f2ce2980486bd39f51e899c665ee6dc591bb06bb2367c044f0ba5dd1"
+        }
+      ],
+      "actual_bounded_path": "HNT PrepareNumberChoose/SetX exists; actual Resolve invokes awaited Aura choice and optional ownSurge MZMultiChoose in repeat loop. Both GL1571/1637 managed plain-spell predicates exclude Roiling; GL1823 clears physical source toGY before resolving await and1827 refundsGA while choices remain pending.",
+      "correct_rules": "Official3657 prints costX+1 and no formal target. X2 is declared early; eligible cost2 Aura choices and optional Surge sacrifice/repeat are resolution effects. Same owned Stonewall cost2 is the intended legal choice; no missing token cost is assumed zero. Go-again follows effects.",
+      "existing_supported_paths": "X declaration and actual Aura/destroy/repeat bodies exist. No X interface, body, normal selection or framework absence claimed. Held required positive resolving choice cannot be bypassed by empty targets/decline or nonrepeat baseline.",
+      "known_row_index_note": "Toll is exact zero-based .holds[245]; author descriptive Toll246 refers to human serial/context, not a claim of .holds[246].",
+      "native_attempted": false,
+      "executable_cases": 0,
+      "selected_source_paths_and_functions": [
+        {
+          "path": "DevTools/FaB/hnt_abilities.json",
+          "functions": [
+            "roiling_fissure_blue.PrepareCard",
+            "roiling_fissure_blue.ResolveCard"
+          ],
+          "finding": "Prepare NumberChoose/SetX and awaited resolving Aura/ownSurge repeat bodies exist. Printed choices are not targets."
+        },
+        {
+          "path": "FaBSim/GeneratedCode/GeneratedMacroCode.php",
+          "functions": [
+            "roiling_fissure_blue:0.PrepareCard",
+            "roiling_fissure_blue:0.ResolveCard",
+            "__RunAwait_6a9b3d8b5d88ffd2ace4"
+          ],
+          "lines": "12062-12066;6297-6301",
+          "finding": "Emitted Prepare and resolving await frames exist."
+        },
+        {
+          "path": "FaBSim/Custom/GameLogic.php",
+          "functions": [
+            "FaBKnownPlainSpellLifecycleCard",
+            "FaBPlainSpellResolutionIsManaged",
+            "DoResolveCard"
+          ],
+          "lines": "1571-1572;1637-1679;1823-1827",
+          "finding": "Both selected ordinary-spell management predicates exclude Roiling; actual nonpersistent fallback clears before awaited resolution and refundsGA before completion."
+        },
+        {
+          "path": "FaBSim/Custom/ROSCards.php",
+          "functions": [
+            "FaBROSAllAuras"
+          ],
+          "lines": "16",
+          "finding": "Selected printedcost2 Stonewall choices exist; no whole Aura universe or no-cost token eligibility certificate."
+        },
+        {
+          "path": "FaBSim/Custom/HVYCards.php",
+          "functions": [
+            "FaBHVYMaxX",
+            "FaBHVYSetX",
+            "FaBHVYDestroyChoices"
+          ],
+          "finding": "Required X/destroy helpers are preimage-bound; no actual payment or destruction outcome is claimed."
+        }
+      ]
+    }
+  ],
+  "planning_only": true,
+  "executable_cases": 0,
+  "native_attempted": false,
+  "diagnostic_attempted": false,
+  "fixture_saved": false,
+  "coverage_credit": false,
+  "confirmed_gameplay_bug": false,
+  "new_issue_claimed": false,
+  "new_distinct_root_cause_groups": 0,
+  "repair_proposal": false,
+  "source_fix": false,
+  "qualification_permitted": false,
+  "future_outcomes_observed": false,
+  "current_context_snapshot": {
+    "qualified": 4066,
+    "issues": 181,
+    "holds": 246,
+    "runtime": "6695d68163d313f4f61cb20ad9122c7038e621a60c847909598150fe8da09d11"
+  },
+  "B787_denied_operation_untouched": true,
+  "limits": [
+    "No actual TimeSkippers payment/destruction/AP2, earlySword binding/permission, firsthitHP17, secondweapon activation/block, Dawnblade counter or Fang marked/Fealty outcome has executed.",
+    "No actual X2 payment, AuraUID/ownerGY moves, Surge removal/repeat, GA/Redconsumer/HP16 or full-card outcome has executed.",
+    "No primary/support substitution, late singleton bypass, empty choice/baseplay fallback, native reproduction, new issue/root/fixture/coverage or repair.",
+    "Only bounded actual selected paths and existing preflight reused; no renewed whole-engine/legacy absence audit.",
+    "Reviewer performed only reads and W proof write; no PHP/native/replay/R/source/Git/remote/B787 denied action."
+  ],
+  "selected_source_preimages_sha256": {
+    "FaBSim/Custom/GameLogic.php": "a72657da1bbb2520e4ee5f8d71488f268914d539ce235b0a18ea4a03f6793ffd",
+    "FaBSim/Custom/CardChoices.php": "6d1122598624a9ac61d99bfc41574d01e80de211e714eadaafb7b6b817a4f975",
+    "FaBSim/Custom/WTRCards.php": "5ead5cc6303b5e6760715b1a038e38d01014d8d42f16aa32bb24aa9df17e9515",
+    "FaBSim/Custom/CRUCards.php": "b747479f996a5207246c171efce73f899471b9b9608c116241b10086c2c7c292",
+    "FaBSim/Custom/ARCAbilities.php": "5330205cf8b98a1ba93cb15aa42f67c76d01dac3cb53b206669e7d00b0e9daca",
+    "FaBSim/Custom/HVYCards.php": "aeee5080ba3096b2413fd1fbf33aa8d8f24685d219e13c8b942dda45f0c66c7d",
+    "FaBSim/Custom/ROSCards.php": "643fa4e4e57b1156ada42ff45bf7612c0027bbb84910bdd64d580da3877c84dd",
+    "FaBSim/Custom/EVOCards.php": "dff20a12d7dd29417b34c9609dbc3fd27325e1c8d3be2b15da481fef7e277462",
+    "FaBSim/Custom/EVORuntime.php": "e38af5f56cd9ecc3c87e5ef6eb81fc03850151833fde02af8a4ae1a29600962b",
+    "DevTools/FaB/cru_abilities.json": "b4cd3462acf0484979b1d3321ed5357b65a7ed103cd84953dc921cf172bbf429",
+    "DevTools/FaB/hnt_abilities.json": "4252b725640c5014d9264c987067b71a036ff1f7fa6e98f5fc1da5e542e080d8",
+    "DevTools/FaB/mon_abilities.json": "41ff76fda49bb17ddcce19fe71ace6302ccd8199ab155c88a5fff7285f4a4386",
+    "DevTools/FaB/mpg_abilities.json": "ffab225740b0957cfe245c1994fdf3be11fb8b5e03c420fbb411eb39df4a4f1a",
+    "FaBSim/GeneratedCode/GeneratedMacroCode.php": "46204cec1b6bb44e3086f56ebe64bee747724f5ac0684ef8c9bdc27047688086"
+  },
+  "supersedes": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov14-batch802-independent-known-contract-planning-review.json",
+    "sha256": "81f7cbc22e5be3733078c74330992f28d7c12d11720af8ad829e9ce47cdf414e",
+    "reason": "Final one-proof durable form adds actual14 selected preimages and per-card concrete source paths/functions. Same frozen notes, code and classifications; original W proof preserved. Root should retain only this final combined proof in N."
+  }
+}

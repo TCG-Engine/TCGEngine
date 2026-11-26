@@ -1,0 +1,7 @@
+{
+    "name": "Colossal Bearing / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T21:58:01+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "**Tower** - If this has 13 or more {p}, it gets \"When this hits a hero, destroy an equipment they control with 1 or less {d}.\" Actualunbuffed8power/8HPdamagebelowTower13, nohitabilitygranted soeligible1defenemyIronrot8retained. ActualtwoBluepay4/R2/AP0, all4manual/source5ownGY. No positiveTower orpowerboostcredit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#colossal_bearing_red"
+}

@@ -1,0 +1,130 @@
+{
+  "status": "ACTUAL_NO_SAVE_CONFIRMED_RADIANT_EMPTY_SOUL_EARLY_DESTRUCTION_TIMING_FAILURE",
+  "phase": "ACTUAL_NO_SAVE",
+  "batch": 845,
+  "reviewer": "/root/ebbing_recovery_review",
+  "reviewer_independent": true,
+  "actual_failure_review_complete": true,
+  "confirmed_gameplay_bug": true,
+  "oracle_correction_required": false,
+  "diagnostic_review_complete": true,
+  "actual_no_save_route_approved": false,
+  "positive_promotion_recommended": false,
+  "normal_save_approved": false,
+  "qualification": false,
+  "coverage_credit": false,
+  "fixture_saved": false,
+  "source_fix_applied": false,
+  "new_distinct_gameplay_root_group": false,
+  "new_core_root": false,
+  "root_attribution_status": "Fresh card producer timing finding; relationship to Mirage090/general state-trigger defects is not a distinct-root allocation. Root reserves any issue ID. No denied operation or repair retried.",
+  "source_spec": "card-regression-batch845-radiant-one-soul-correct-state-trigger-probe.json",
+  "input_sha256": "954a03e344be564f7d8d5c461470dbca7144139c9e6151fd255195d6c52997f2",
+  "source": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch845-radiant-one-soul-correct-state-trigger-probe-author\\radiant-one-soul-correct-state-trigger-full-probe.json",
+    "sha256": "954a03e344be564f7d8d5c461470dbca7144139c9e6151fd255195d6c52997f2"
+  },
+  "manifest": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch845-radiant-one-soul-correct-state-trigger-probe-author\\manifest.json",
+    "sha256": "f26b9f51eb732f9733f1bcda0241fb78b40ea196f24e4973cabce7f74daac756"
+  },
+  "runtime_sha256": "cdc081ff4c87ff2f9338b1d69040d0dc98d7600ba33976384336534ea3f92d22",
+  "recorded_runtime_sha256": "cdc081ff4c87ff2f9338b1d69040d0dc98d7600ba33976384336534ea3f92d22",
+  "independent_original_correct_Source": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch845-radiant-independent-original-correct-diagnostic-source-review.json",
+    "sha256": "0ce371ce88a61c27f929ca244e7ba176a5841c6a442b343a48bba2731a595c83"
+  },
+  "root_native_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-b845-radiant-one-soul-strict-nosave-cdc\\receipt.json",
+    "sha256": "7ec456323380581bda0d287f20c1e3e1533ada3003fd81f446c15158ab0baa48"
+  },
+  "actual_result": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-b845-radiant-one-soul-strict-nosave-cdc\\actual-result.json",
+    "sha256": "db24327865221999802b2335c76e6ae31039ef78cfd7f1365ec8ce3a30533d3f"
+  },
+  "actual_immutable_archive": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch845-radiant-one-soul-correct-state-trigger-probe-20261116T043609Z-6afa8839c8439.json",
+    "sha256": "10c1618173171cd877ef82a4f2788ac32b8f37fcc05a39b8d3ab30933e1b01c0"
+  },
+  "planned_controls": 40,
+  "planned_queries": 4594,
+  "actual_native_inputs": 28,
+  "actual_manual_inputs": 24,
+  "actual_manual_actor_counts": {
+    "1": 6,
+    "2": 6,
+    "3": 6,
+    "4": 6
+  },
+  "persisted_successful_queries": 3116,
+  "persisted_prefix_matches_original_ordered_Source": true,
+  "persisted_prefix_sha256": "c9680575b1123b13c8f5c48081e39a6fa58ba38bbba7fdb64366f6a442595c5d",
+  "first_failed_query": {
+    "source_step_index": 56,
+    "source_check_index": 94,
+    "native_after_input": 28,
+    "checkpoint": "first_legal_postATOMIC_prevent1_actual3damage_HP17_Soul0_Banish7faceup_Aura6STILLpresent_earnedZeroSoulLayer",
+    "global_query_ordinal": 3117,
+    "query_ordinal_in_checkpoint": 95,
+    "query": {
+      "step": 28,
+      "type": "zone_count",
+      "zone": "p4Graveyard",
+      "value": 0,
+      "viewerPlayerID": 1
+    },
+    "expected": 0,
+    "actual": 1,
+    "error": "Expected p4Graveyard count 0, got 1."
+  },
+  "queries_unrun_after_failed_query": 1477,
+  "not_passed_including_failed_query": 1478,
+  "native_controls_unrun": 12,
+  "manual_inputs_unrun": 12,
+  "passed_current_cluster_queries": 94,
+  "initial_raw_sha256": "c82744eba684dbbceaa2337f6963442b205ac1940e499b16cb7a5ae902b50511",
+  "initial_raw_48_manual_controls": true,
+  "genuine_four_live_manual_seats_initial": true,
+  "final_raw_48_manual_controls": false,
+  "final_physical_raw_snapshot_available": false,
+  "actual_passed_facts": [
+    "All28 actual inputs/3116 persisted queries exactly equal the original correct ordered prefix. Last input is realP4 mandatoryMZChoose p4Soul-0;24manual responses6each, no automated/passive seat.",
+    "Before payment(control27), passed physicalAura6Arena4/ownercontroller4 and Soul7 identity plus mandatory chooser. Atinput28 the FIRST94 checks pass: actualHP4=17, Soul0, BanishCount1/sameRagingBlue7/Owner4/Controller4/FaceDown0; allresource/AP0/current live-seat guards up to failure.",
+    "Firstactualfailedquery is p4GraveyardCount0 vs1, before ArenaCount1/physicalAura6identity and StackCount1/source6/controller4 checks. Those later queries didNOTexecute.",
+    "CapturedGameState is Damage/open/attack5/chain1 with pendingPaymentnull and empty capturedDQ lists. Cached damageDealt3 only corroborates passedHP17; no Stackcount/object-zone observation is inferred from those fields."
+  ],
+  "causal_source_findings": [
+    "DTDCards151 records oneusedForcefield and pays1 by moving actualSoul7 toBanish. CurrentDTDRuntime13 synchronously callsMONDestroy onForcefield while lastSoul movement completes. CR6.4.5 correct once-per-original-damage replacement already reflected in oneSoul/oneprevent oracle.",
+    "Printed emptySoul wording is state-based triggered effect under CR6.6.1c/6.6.5c; destruction occurs on its eventual layer resolution after the damage event and normal response priority, not inline during Soul banish. UnexpectedGY1 at firstpost-atomic boundary directly violates the correct required untouchedGY0.",
+    "Aura6\u2192GY is supported by exact current direct-destruction source and closed initial physical roster(only6owned4 could enterGY after7confirmedBanish). It is a SOURCE/ROSTER INFERENCE, not a passed postfailure UID query or a finalraw physical observation. No generalizedmissingStack or fullcleanup outcome is certified."
+  ],
+  "postfailure_raw_recovery_attempt": {
+    "unique_game_name": "regression_fab_author_6afa880b49158",
+    "read_only_paths_checked": [
+      "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\Games\\regression_fab_author_6afa880b49158\\Gamestate.txt",
+      "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\Games\\regression_fab_author_6afa880b49158\\RegressionRecording\\recording.json",
+      "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\Games\\regression_fab_author_6afa880b49158\\RegressionRecording\\initial_gamestate.txt"
+    ],
+    "outcome": "ABSENT_AFTER_RECORDER_FINALLY_CLEANUP",
+    "source_reason": "record_card_regressions.php309-312 clears memory/deletes only unique regression game in finally. No terminalraw recovered; no duplicate game/Native/capture mutation performed."
+  },
+  "primary_rules": [
+    {
+      "url": "https://rules.fabtcg.com/en/cr/06-effects/",
+      "sections": [
+        "6.4.1a",
+        "6.4.5",
+        "6.6.1c",
+        "6.6.5c",
+        "6.6.6"
+      ],
+      "reuses_independently_verified_Source_normative_review": true
+    }
+  ],
+  "limits": [
+    "No fixture/coverage/promotion; fullAura/earnedStack/source identity checks afterfirstfail,12latercontrols/1477laterqueries, fourearnedresponses/destructionresolution/Damage/Resolution/cleanup remainunrun.",
+    "No finalraw5/final48 certificate. Bothinitialphysicalsetup/raw48 are verified; only listed passedfacts and capturedGameState establish actual evidence.",
+    "No currentgame rerun/recorderframeworkchange/sourcefix or held188184B787/relatedMirage090 denied repair retry byreviewer."
+  ],
+  "created_utc": "2026-11-16T04:40:32.925133+00:00"
+}

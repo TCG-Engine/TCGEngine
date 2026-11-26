@@ -1,0 +1,68 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-24T16:01:47.198721+00:00",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1417-20261122.json",
+  "source_spec_sha256": "54f63639b46618b7fd968a8a8a321f3171928db7e590ed783230abbd641aa8ac",
+  "new_scenarios": 1,
+  "new_groups": 1,
+  "new_primary_ids": 1,
+  "actions": 7,
+  "native_assertions": 215,
+  "manual_passes": 4,
+  "totals": {
+    "saved_registered_scenarios": 5427,
+    "duels": 3124,
+    "four_live": 2303,
+    "recorded_primary_ids": 2575,
+    "identity_denominator": 5196,
+    "recorded_groups": 2449,
+    "group_denominator": 3324,
+    "four_live_groups": 2292,
+    "phase_qualified_scenarios_at_actual_contexts": 2064,
+    "phase_qualified_unique_groups": 2054,
+    "creation_replay_passes": 2806,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 1225,
+  "scenarios": [
+    {
+      "card_id": "glyph_destruction_nodes_yellow",
+      "group_id": "identity:glyph_destruction_nodes_yellow",
+      "scenario_id": "card-glyph-destruction-nodes-yellow-two-live-sparse1417-actual-sigil-play-one-aura-one-default-opponent-three-arcane",
+      "effect_branches": [
+        "actual_sigil_instant_enters_arena_one_aura_enables_one_default_opponent_target_real_three_arcane"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-glyph-destruction-nodes-yellow-two-live-sparse1417-actual-sigil-play-one-aura-one-default-opponent-three-arcane",
+      "source_spec": "card-regression-sparse1417-20261122.json",
+      "source_spec_sha256": "54f63639b46618b7fd968a8a8a321f3171928db7e590ed783230abbd641aa8ac",
+      "review_evidence": "review-evidence/sparse1417-20261122-qualified-saved.json",
+      "review_evidence_sha256": "df963e2d959a66e9c076fa2a8221b1e0b15e520f58abc960420f8eb9df7c4343",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1417-20261122-replay.json",
+          "sha256": "a74b9cc26c8fe2b0ea83f29d5cbd34b6d022b3127e84042ea734c4f32080d005",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "two_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

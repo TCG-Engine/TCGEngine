@@ -1,0 +1,56 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-blunten-yellow-four-live-sparse1397-actual-attack-action-not-weapon-two-defense-attacker-real-hand-not-discarded",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-blunten-yellow-four-live-sparse1397-actual-attack-action-not-weapon-two-defense-attacker-real-hand-not-discarded",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1397-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1397-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "bceaa96b8a2920466c4d326a20605d7d7b357de57e384874537b617e3fd32789",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "b1ec2ae9e5f3a04c4662cce95b91e451efb79d83ea013576a3135b126a427366",
+        "actions.json": "5af67ec73dd5988db1a058227e5dcccf44c896ddc4b34170fb8eb2fb4f3ccefb",
+        "assertions.json": "c256d500f0f60367d0221c05adbbfc943e48afd669c3ae4ed8872ce3b4919064",
+        "expected_final_gamestate.txt": "920d3e14667d4a35d9b29bd6e4b311098b7a3ca80f2fdd7a214272c0cc01674b",
+        "meta.json": "d9ab8911cc8db93795ce1d6520a6a0d0d4d56d45db028031c02ebf9acd8fe2ed"
+      }
+    },
+    {
+      "slug": "card-clash-of-heads-yellow-four-live-sparse1397-actual-generic-attack-not-guardian-four-defense-no-clash-or-head-counter",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-clash-of-heads-yellow-four-live-sparse1397-actual-generic-attack-not-guardian-four-defense-no-clash-or-head-counter",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1397-local-20261122\\clean-replays\\01.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1397-local-20261122\\clean-replays\\01.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "a67b01c96fae91cc6b0b441ed59047f9ee478a06311d2a19b776bfda83fd2ef4",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "7fb55f48a3f558850259ac2018d32f6462b67d331873ce12cee657c67de7347f",
+        "actions.json": "5af67ec73dd5988db1a058227e5dcccf44c896ddc4b34170fb8eb2fb4f3ccefb",
+        "assertions.json": "8f527f27f07b6aa04530569ea410e6990b42ee6845260104b79b0605724a3f75",
+        "expected_final_gamestate.txt": "551da99ff296931b4dd03a7db1986b334e5d92208b2a725ef5ab3daf6e9a3e16",
+        "meta.json": "81d9645fb7096914dc89b48ea9a45e80785857d2ffdc850d9c9340d62bcf3b63"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

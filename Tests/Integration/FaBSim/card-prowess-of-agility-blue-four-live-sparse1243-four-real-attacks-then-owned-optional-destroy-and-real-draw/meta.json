@@ -1,0 +1,7 @@
+{
+    "name": "Prowess of Agility / fourth actual attack earns optional destroy and draw",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-23T23:14:27+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "EXISTING_AURA_FOURTH_ACTUAL_ATTACK_ONLY. FourmanualnaturalYoungFai20/threeDori20. RealownedProwess5Arena, fourdifferentphysicalNinjaAAs6..9Hand, realDeck10. Onefloatingresourceisexplicitinitialasset(priorproductionuncredited), actuallypaidforLegTap1; allothercost0. Noattackcount/historyflagseed: freshturnEffects[]. FourgenuineattackswithGA,responses,emptydefense,fullcombatdamage4+3+2+1=10toHero4; realGAallowsnextattack. First3attacksleaveAura5/Deck10unchanged. FourthactualattackqueuesseparateownedProwess11Source5aboveAA9CC; freshfourresponsesprecedeoptionalMZMODAL. Accept1reallydestroys5GYindex3anddraws10HandbeforefourthATTACKcontinues, noearlydraw/seededhand. Fourthfinishes1damage; finalGY6,7,8,5,9/Hand10/Deck0/Aura0/AP1/R0/HP4=10/UID11/noRNG. NinjaNondraconicAAs/Faiactivationnotused,nootherWHENobservers. NoAuraentry/endphase/decline/repeat/supportorwholecardcredit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#prowess_of_agility_blue FaBSim/Custom/HNTRuntime.php FaBSim/Custom/HNTCards.php FaBSim/Custom/PENCards.php FaBSim/Custom/ROSCards.php FaBSim/Custom/GameLogic.php FaBSim/GeneratedCode/GeneratedMacroCode.php"
+}

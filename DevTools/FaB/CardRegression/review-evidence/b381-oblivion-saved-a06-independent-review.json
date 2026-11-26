@@ -1,0 +1,386 @@
+{
+  "status": "APPROVED_ACTUAL_SAVED_B381_OBLIVION_ONLY_FRENZY_NATIVE_CHOOSER_STALENESS_HELD",
+  "approved": true,
+  "source_approved": true,
+  "semantically_approved": true,
+  "reviewer": "/root/b106_semantic_review",
+  "created_utc": "2026-11-04T19:29:06.922069+00:00",
+  "source_spec": "card-regression-batch381.json",
+  "input_sha256": "e01f5e99c997d6860d56be6142e945a4fea10e923f000f6adfb73f141e95c00c",
+  "manifest": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov4-batch381-two-shadow-effects-author\\manifest.json",
+  "manifest_sha256": "2b2ebb3a9465ef5e2e515fc39d7a4222b97b06848a7a6b481c8c02d067155ff8",
+  "runtime_sha256": "a06b73d86676fe07a17afc400f983d03f85d55356c2347621ccd8196ad6645d3",
+  "recorded_runtime_sha256": "a06b73d86676fe07a17afc400f983d03f85d55356c2347621ccd8196ad6645d3",
+  "source_guards_verified": 23,
+  "selected_indices": [
+    0
+  ],
+  "prior_independent_semantic_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov4-batch381-independent-source-review.json",
+    "sha256": "b1f772c9794ef0f384821618a85cf93b12d06fe3aadf59015d61454964b7176b",
+    "reused_not_rereviewed": true
+  },
+  "recording_receipt": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch381-20261104T191859Z-6aeb8523e847c.json",
+    "sha256": "3432565656a3551d9c66a80cf85ad437e6aea623de18ed4537cbe24ef3ae9cd1"
+  },
+  "root_wrapper_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov4-b381-native-a06-r1\\receipt.json",
+    "sha256": "9751c49737d8ee6d41fa87da228c60a880acc65eac662ecb134c3e05201289de"
+  },
+  "actual_comparison_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov4_batch381_saved_readonly.py",
+    "sha256": "b8e563198da60dc199cfb188965d8fa0a59c76e2ea0aa5baae9ca732de7fccfd"
+  },
+  "fixtures": [
+    {
+      "index": 0,
+      "card_id": "oblivion_blue",
+      "group_id": "identity:oblivion_blue",
+      "slug": "card-oblivion-blue-four-live-sparse-real-exact-six-owned-runechants-instant-creates-nasreth",
+      "source_spec": "card-regression-batch381.json",
+      "input_sha256": "e01f5e99c997d6860d56be6142e945a4fea10e923f000f6adfb73f141e95c00c",
+      "reviewer": "/root/b106_semantic_review",
+      "approved": true,
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_FOUR_LIVE_EXACT_SIX_RUNES_CREATE_NASRETH",
+      "runtime_sha256": "a06b73d86676fe07a17afc400f983d03f85d55356c2347621ccd8196ad6645d3",
+      "recorded_runtime_sha256": "a06b73d86676fe07a17afc400f983d03f85d55356c2347621ccd8196ad6645d3",
+      "fixture_path": "Tests\\Integration\\FaBSim\\card-oblivion-blue-four-live-sparse-real-exact-six-owned-runechants-instant-creates-nasreth",
+      "fixture_sha256": "fed1a8810d36a7f81d55f7b721c31f72f4e52f2633f574836a7af0141fdc839e",
+      "raw4_sha256": {
+        "initial_gamestate.txt": "50cd4ebc05c132d1f0e7d920186edae59596bce78a7ebfaf9187ad2c7e143cde",
+        "actions.json": "ecfc3b356d170d3adcd369c59f64176c3b17ffe7af3900115b2de1a20afbaf7c",
+        "assertions.json": "96001abdc412c8610bddac9d8d66ddd6ee24ba3c4c4af4b7b34d647dc80dbd75",
+        "expected_final_gamestate.txt": "9a3893053c8312be22f46fbfc24ede09525b2e243bad0205c6853baa19885dd3"
+      },
+      "raw5_sha256": {
+        "initial_gamestate.txt": "50cd4ebc05c132d1f0e7d920186edae59596bce78a7ebfaf9187ad2c7e143cde",
+        "actions.json": "ecfc3b356d170d3adcd369c59f64176c3b17ffe7af3900115b2de1a20afbaf7c",
+        "assertions.json": "96001abdc412c8610bddac9d8d66ddd6ee24ba3c4c4af4b7b34d647dc80dbd75",
+        "expected_final_gamestate.txt": "9a3893053c8312be22f46fbfc24ede09525b2e243bad0205c6853baa19885dd3",
+        "meta.json": "a25a16a7cc98a260847728157088d90d7fa7f349738ea0b4f864c97efc594927"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "50cd4ebc05c132d1f0e7d920186edae59596bce78a7ebfaf9187ad2c7e143cde",
+        "actions.json": "ecfc3b356d170d3adcd369c59f64176c3b17ffe7af3900115b2de1a20afbaf7c",
+        "assertions.json": "96001abdc412c8610bddac9d8d66ddd6ee24ba3c4c4af4b7b34d647dc80dbd75",
+        "expected_final_gamestate.txt": "9a3893053c8312be22f46fbfc24ede09525b2e243bad0205c6853baa19885dd3",
+        "meta.json": "a25a16a7cc98a260847728157088d90d7fa7f349738ea0b4f864c97efc594927"
+      },
+      "actions": 5,
+      "native_assertions": 793,
+      "actual_manual_passes": 4,
+      "actual_priority_response_passes": 4,
+      "actual_defender_declaration_finish_inputs": 0,
+      "actual_administrative_end_phase_inputs": 0,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "actual_manual_actor_counts": {
+        "1": 1,
+        "2": 1,
+        "3": 1,
+        "4": 1
+      },
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "all_actions_and_assertions_exact": true,
+      "all_endpoint_physical_uid_card_zones_ownership_verified": true,
+      "all_terminal_assertions_evaluated_against_parsed_final_snapshot": true,
+      "initial_assertions_also_evaluated_against_parsed_initial_snapshot": true,
+      "initial_physical_uid_locations": {
+        "1": {
+          "card_id": "vynnset",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "5": {
+          "card_id": "oblivion_blue",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "runechant",
+          "zone": "p1Arena",
+          "owner": 1,
+          "controller": 1,
+          "status": 2,
+          "damage": 0
+        },
+        "7": {
+          "card_id": "runechant",
+          "zone": "p1Arena",
+          "owner": 1,
+          "controller": 1,
+          "status": 2,
+          "damage": 0
+        },
+        "8": {
+          "card_id": "runechant",
+          "zone": "p1Arena",
+          "owner": 1,
+          "controller": 1,
+          "status": 2,
+          "damage": 0
+        },
+        "9": {
+          "card_id": "runechant",
+          "zone": "p1Arena",
+          "owner": 1,
+          "controller": 1,
+          "status": 2,
+          "damage": 0
+        },
+        "10": {
+          "card_id": "runechant",
+          "zone": "p1Arena",
+          "owner": 1,
+          "controller": 1,
+          "status": 2,
+          "damage": 0
+        },
+        "11": {
+          "card_id": "runechant",
+          "zone": "p1Arena",
+          "owner": 1,
+          "controller": 1,
+          "status": 2,
+          "damage": 0
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2
+        }
+      },
+      "final_physical_uid_locations": {
+        "1": {
+          "card_id": "vynnset",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "6": {
+          "card_id": "runechant",
+          "zone": "p1Arena",
+          "owner": 1,
+          "controller": 1,
+          "status": 2,
+          "damage": 0
+        },
+        "7": {
+          "card_id": "runechant",
+          "zone": "p1Arena",
+          "owner": 1,
+          "controller": 1,
+          "status": 2,
+          "damage": 0
+        },
+        "8": {
+          "card_id": "runechant",
+          "zone": "p1Arena",
+          "owner": 1,
+          "controller": 1,
+          "status": 2,
+          "damage": 0
+        },
+        "9": {
+          "card_id": "runechant",
+          "zone": "p1Arena",
+          "owner": 1,
+          "controller": 1,
+          "status": 2,
+          "damage": 0
+        },
+        "10": {
+          "card_id": "runechant",
+          "zone": "p1Arena",
+          "owner": 1,
+          "controller": 1,
+          "status": 2,
+          "damage": 0
+        },
+        "11": {
+          "card_id": "runechant",
+          "zone": "p1Arena",
+          "owner": 1,
+          "controller": 1,
+          "status": 2,
+          "damage": 0
+        },
+        "12": {
+          "card_id": "nasreth_the_soul_harrower",
+          "zone": "p1Arena",
+          "owner": 1,
+          "controller": 1,
+          "status": 2,
+          "damage": 0
+        },
+        "5": {
+          "card_id": "oblivion_blue",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2
+        }
+      },
+      "final_health": [
+        20,
+        20,
+        20,
+        20
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_AP": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "final_physical_uidset": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "final_UniqueIDCounter": 12,
+      "RandomCounter": 0,
+      "original_six_Runechants_retained": true,
+      "created_Nasreth12_owned_ready_Damage0": true,
+      "checkpoint_assertion_mapping_sha256": "0ed13616f2d3f78be16638349cf091030743a8e82e3d378fe2e48c96fa0c9570",
+      "native_action_mapping_sha256": "52fbc583581b32eaac17dbb9fc6c1bd74d94678ce8830a245cf0cfad3ff726ec",
+      "native_assertion_mapping_sha256": "46e68d90594e6fe25079496d88259972b78a71e349f7ac307b8be34ddb04671b"
+    }
+  ],
+  "blocked_attempts": [
+    {
+      "index": 1,
+      "card_id": "blood_dripping_frenzy_blue",
+      "group_id": "identity:blood_dripping_frenzy_blue",
+      "slug": "card-blood-dripping-frenzy-blue-four-live-sparse-real-pitch-whole-hand-banish-draw-and-eight-power-consumer",
+      "source_spec": "card-regression-batch381.json",
+      "input_sha256": "e01f5e99c997d6860d56be6142e945a4fea10e923f000f6adfb73f141e95c00c",
+      "semantically_approved": false,
+      "fixture_saved": false,
+      "verdict": "NATIVE_CONFIRMED_STALE_PREPARED_CHOOSER_POSITIONAL_REFERENCES_NOT_ORACLE_CORRECTION",
+      "native_accepted_inputs": 1,
+      "first_failure": {
+        "native_accepted_inputs": 1,
+        "source_step_index": 2,
+        "native_action_step": 1,
+        "checkpoint_check_index_zero_based": 62,
+        "original_case_assertion_index_zero_based": 198,
+        "type": "card_property_equals",
+        "mzId": "p1DecisionQueue-0",
+        "property": "Param",
+        "expected": "p1Hand-0&p1Hand-1",
+        "actual": "p1Hand-1&p1Hand-2",
+        "error": "Expected p1DecisionQueue-0.Param to equal 'p1Hand-0&p1Hand-1', got 'p1Hand-1&p1Hand-2'."
+      },
+      "independent_before_classification": {
+        "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov4-batch381-frenzy-independent-native-before-classification.json",
+        "sha256": "b440a9d57925fb6c1e4115302eb078ea6b8de0236290fe1c523ae3a30693da51"
+      },
+      "limits": [
+        "No pitch answer, physical banish, asset debit, captured dtdDraw/dtdPower, primary resolution, draw, consumer attack, finaldamage or replay was executed for Frenzy.",
+        "Frenzy source-only asset/effect-cost ordering and synchronous lifetime concerns in source gate remain separate and unchanged.",
+        "No runtime source edits/native/PHP/replay/service/generation/fullsuite by reviewer."
+      ]
+    }
+  ],
+  "total_actions": 5,
+  "total_native_assertions": 793,
+  "total_manual_passes": 4,
+  "total_priority_response_passes": 4,
+  "total_defender_declaration_finish_inputs": 0,
+  "total_administrative_end_phase_inputs": 0,
+  "material_findings": [
+    "RealOblivion5Instant0 keptAP1/R0 throughfourfreshmanual1/2/3/4responses; firstthree same5Stack and sixoriginalRune6..11only. Fourth newNasreth12ownedreadyDamage0, originalRune6..11unchanged/source5ownpublicGY. Raw initial/finalallfourHP20/R0/P1AP1/48preferences/UIDconservation/counter12/noRNG/fullqueues/payment/framecleanup verified.",
+    "Exact rawfive +5nativeenvelopes793persistedchecks unchanged from approved source; no placeholder HP property or Allyattack/startphase/hero credit.",
+    "Frenzy nofixture/false approval retained separately: firstfailedParam boundary198 afterone real click, currentliveHand0Blue6/1Dread7 butqueue1&2. Correct0&1/Blue6intendedchoice and allfuturecost/draw/X/combat expectations remain unchanged. No laternative suffix claim."
+  ],
+  "source_only_concerns": [
+    {
+      "card_id": "blood_dripping_frenzy_blue",
+      "classification": "SOURCE_ONLY_PREPARE_EFFECT_COST_ORDER_OUTSIDE_ATOMIC_ENDPOINT_SCOPE",
+      "native_confirmed": false,
+      "blocks_exact_endpoint_recipe": false,
+      "source": "dtd canonical PrepareCard/compiled119149-119150 invokes FaBDTDFrenzy before FaBFinishPreparedCard; actual debit occurs later in FaBTryCompletePayment",
+      "finding": "Resources are generated by pitch, then Hand7 is physically banished before ordinary resource2/AP1 debit. CR5.1.7/5.1.9 require asset payment first. The recipe asserts only the completed callback endpoint, so it does not demonstrate or approve this internal ordering. No new source/native defect count, fix, rollback or ordering coverage awarded."
+    },
+    {
+      "card_ids": [
+        "oblivion_blue",
+        "blood_dripping_frenzy_blue"
+      ],
+      "classification": "SOURCE_ONLY_SYNCHRONOUS_PLAIN_SOURCE_LIFETIME_EXCLUSION",
+      "native_confirmed": false,
+      "blocks_exact_endpoint_recipe": false,
+      "source": "GameLogic FaBKnownPlainSpellLifecycleCard/FaBPlainSpellResolutionIsManaged and DoResolveCard ordinary fallback",
+      "finding": "Neither primary is in the managed-plain cohort; the ordinary synchronous fallback moves source to Graveyard before its body. These recipes assert four-response endpoints with no intra-resolution/await oracle; source lifetime while creating/drawing is not certified. Existing timing concern remains separate from bounded correct effect endpoints."
+    }
+  ],
+  "limits": [
+    "Only Oblivion exact-six positive creation primary is approved; no Frenzy coverage or native later effects.",
+    "No Runechantcreation, wrong-count rejection, Nasrethattack/hit/end-turn, heroactivation/fullcard/supportprimary/nativecontrol credit.",
+    "Synchronoussource-lifetime and Frenzyadditionalcostorder exclusions remain source-only and are not certified by endpoints.",
+    "Root targeted replays and registration are separate pending gates; no reviewerPHP/native/R/source/service/generator/fullsuite or optionalmodel execution."
+  ]
+}

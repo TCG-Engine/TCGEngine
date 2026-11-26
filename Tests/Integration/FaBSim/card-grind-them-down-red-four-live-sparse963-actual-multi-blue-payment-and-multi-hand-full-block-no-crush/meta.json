@@ -1,0 +1,7 @@
+{
+    "name": "Grind Them Down / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T22:09:22+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "**Crush** - When this deals 4 or more damage to a hero, destroy the top card of their deck. ActualBravo20/Blue6pays3/R0/AP0, actual2or3HandAAdef6or9fullyblockbase6or7, HP20/damage0/nohit/Stack0/sourceandblockersownedGY. RealHand/Deck/FaceDownArsenalretainedwheredeclared. NoCrush4+orHiteventearned; futureabilitysuppression/playrestriction/positivepowerconditionuntested. Sources: FaBSim/GeneratedCode/cardArrayCache.json#grind_them_down_red"
+}

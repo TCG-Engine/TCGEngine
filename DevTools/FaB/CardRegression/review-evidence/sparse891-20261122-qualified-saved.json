@@ -1,0 +1,139 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "/root/breadth_review independent cached-text/source-spec batch semantic review; Root exact saved mapping and native clean replay",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse891-20261122.json",
+  "source_spec_sha256": "5468bf84ec8320cf7cef33106eb6a65304d8846ba8d10a7ef7d110de6d5e2f44",
+  "input_sha256": "251611021a1b97fe0fd4484596e181a13b7e15da416a0912673aaa32a8fa02ec",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-unworldly-bellow-red-four-live-sparse891-native-primary-then-real-eligible-attack-proves-10-damage",
+      "card_id": "unworldly_bellow_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "8ab56e2e67aa7ae98a254faeaa54f507cb4734ac4373c87cf4b74658dcb4a115",
+        "actions.json": "ae7667bc1200ab8c6fcc0e738c39d71d92f2f685b3f383a9307ac5842a70ee2f",
+        "assertions.json": "73979543f1af23f5876cfa6b2a1a6c6965c2117867137a3ecd78cd4799b0430e",
+        "expected_final_gamestate.txt": "2b6d48cf35cff5ac6060182d2c73ce8f1213830c408fa107bd0f96bdd1c317aa",
+        "meta.json": "cf5f8eaba0a4c3d4d95d4ce5b30b26f75809300337845f85d5e5c6099f6d3a45"
+      },
+      "fixture_sha256": "6e1ab2f5548964a86a3665f22c13ffcede0a6bc1631c97c559c33790b97c949d",
+      "actions": 34,
+      "native_assertions": 157,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 29,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse891-20261122.json",
+      "input_sha256": "251611021a1b97fe0fd4484596e181a13b7e15da416a0912673aaa32a8fa02ec",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse891-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-unworldly-bellow-red-four-live-sparse891-native-primary-then-real-eligible-attack-proves-10-damage",
+        "fixture_slug": "card-unworldly-bellow-red-four-live-sparse891-native-primary-then-real-eligible-attack-proves-10-damage",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-spellbane-trap-red-four-live-sparse891-native-primary-then-real-eligible-attack-proves-7-damage",
+      "card_id": "spellbane_trap_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "77eb1cda9f244181a044e91cf4f7791b98c7a0c75040dd43f426dd4bdfaf1ef0",
+        "actions.json": "46f51134685cb98f0142fd6c6c574c2131e1e5047254b7e015c86141097297ab",
+        "assertions.json": "64885224ed23926bfea1cec0c064a9509ca4b4f0a8b39c66527a66825acf68d9",
+        "expected_final_gamestate.txt": "33ca5c90519a2fe1b7a9b8e8c0c0f7058670b89e76fd2dff8a04138792e21325",
+        "meta.json": "9fefa0bef3e64ced45e89eaab6e79925ad351946c4b9a7e7f540112ce19ab562"
+      },
+      "fixture_sha256": "afa28cab6a5c7612e87270afee22a50abf29f9c0db3d7312f3a29a0f8b476850",
+      "actions": 33,
+      "native_assertions": 151,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 29,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse891-20261122.json",
+      "input_sha256": "619985c86ce943996ee612047ed8d82880daae0bfb30a35c799463b8efca3c20",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse891-local-20261122\\bow-setup-retry\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-spellbane-trap-red-four-live-sparse891-native-primary-then-real-eligible-attack-proves-7-damage",
+        "fixture_slug": "card-spellbane-trap-red-four-live-sparse891-native-primary-then-real-eligible-attack-proves-7-damage",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "review_type": "independent_static_semantic_review",
+    "result": "approved_named_branches_only_pending_native_execution",
+    "spec_sha256": "251611021a1b97fe0fd4484596e181a13b7e15da416a0912673aaa32a8fa02ec",
+    "reviewed": [
+      {
+        "card": "unworldly_bellow_red",
+        "branch": "native_primary_then_real_eligible_attack_proves_10_damage"
+      },
+      {
+        "card": "spellbane_trap_red",
+        "branch": "native_primary_then_real_eligible_attack_proves_7_damage"
+      }
+    ],
+    "evidence": [
+      "Current canonical proposed bytes contain exactly two cases; Sizzle excluded and invalid wreck_romp_red replaced by cached savage_swing_red. Every current zone CardID verified in cache; original author/script/source-note draft is historical, not approval scope.",
+      "Unworldly Bellow Shadow Brute cost1/printed+4 and legal Levia20 checked. Native PrepareCard banishes actual three graveyard cards before finishing payment; source cost uses real BlueUID6/residue2, then distinct BlueUID8 pays real Beast WithinUID7 cost3 fromR2 leavingR2. Final pitchUID6/8 and Banish3 actual identities required.",
+      "Beast Within actual base6+primary4=10 unblocked physical damage to live adjacent P4; no go-again/AP0. Its graveyard trigger excludes CombatChain departure, so final health20/source graveyard proof correctly expects no unrelated self-mill.",
+      "Spellbane Trap is Ranger Action Trap cost0/go-again, legal ordinary Hand Action on Azalea. Native FaBCRUTrapRequiresArsenal restricts only explicit printed arsenal-only clauses; this card has none. Its defense-trigger branch is not invoked or credited.",
+      "Head Shot starts facedown in Arsenal: no faceup-arsenal entry event occurred, so base4+Spellbane3=7 rather than9. Actual blueUID7 pays arrow cost1/residue2 and final pitch identity asserted; supportUID6 role ATTACK, target physical health20\u219213, no go-again/AP0.",
+      "Both current cases retain actual primary and attack manual response rounds, declared adjacent P4 target before attack costs, empty initial effects, actual Role ATTACK/UID guards, damageDealt/health checks and physical final graveyard/ownership outcomes."
+    ],
+    "oracle_or_flow_errors": [],
+    "corrected_during_review": [
+      "Unverified Sizzle omitted without native probe or implementation claim.",
+      "Absent wreck_romp_red fixed to actual savage_swing_red in canonical proposed bytes."
+    ],
+    "limitations": [
+      "Static review only; no PHP/native games, tests, recordings, T writes or network.",
+      "Only current two named positive buff-consumer cases approved. No Sizzle producer, other siblings, false/declined cost, random distribution, defended attack, second consumer, Head Shot faceup-entry bonus or Trap defense-trigger claim.",
+      "Historical author_breadth891.py/source-note case list may still mention removed Sizzle; canonical approved artifact is only this bound proposed.json."
+    ],
+    "mutation_scope": "Only this independent-review.json written.",
+    "previous_spec_sha256": "99851cce4437ef3487d98c27a8ca65b6bbf4ca584b1d85dd5174c58f905f0983",
+    "slug_transport_delta": "Parent-reported draft-only underscore-to-hyphen slug normalization checked complete; prior two-case semantic approval basis retained. Native recorder uses the same established RegressionSanitizeSlug transport rule. No tests or games performed by reviewer.",
+    "final_delta_review": {
+      "review_type": "independent_static_bow_setup_delta_review",
+      "result": "approved_named_branches_only_pending_native_execution",
+      "spec_sha256": "5468bf84ec8320cf7cef33106eb6a65304d8846ba8d10a7ef7d110de6d5e2f44",
+      "reviewed": [
+        {
+          "card": "spellbane_trap_red",
+          "scope": "Only real Death Dealer Bow setup/guards added; prior positive Trap-to-Head-Shot branch basis retained."
+        }
+      ],
+      "evidence": [
+        "Initial review missed controlled Bow prerequisite for Arrow play. Native FaBARCCanPlay explicitly requires both Arsenal origin and controlled equipped Bow (CR8.2.6a); original six-input failure is a fixture setup error, not an engine defect.",
+        "Final bytes leave Unworldly unchanged and add only actual Ranger Bow Death DealerUID8 to own Weapons plus initial/final Bow guards. Azalea can legally control this ordinary Ranger Bow; existing source5/arrow6/pitch7 identities remain unchanged.",
+        "Bow is present as an equipped prerequisite; no Bow activation occurs, so no extra resource cost, draw, faceup-Arsenal entry bonus or go-again is earned. Head Shot still begins facedown and actual base4+Trap3=7/cost1/blue residue2/AP0 remains correct."
+      ],
+      "prior_review_correction": "Controlled Bow was omitted from the first review; this receipt corrects that setup assessment while retaining verified Trap Hand-play legality and positive buff math.",
+      "native_status": {
+        "unworldly": "Native pass reported by Root (34 actions/157 assertions); not rerun by reviewer.",
+        "spellbane": "Only failed setup case awaits targeted retry; no game executed by reviewer."
+      },
+      "limitations": [
+        "No PHP/native game, test, recording, T mutation or network by reviewer.",
+        "Only Bow-presence setup delta approved; no Bow activation/support-group credit and all earlier two-case branch exclusions remain."
+      ],
+      "mutation_scope": "Only independent-final-review.json written."
+    }
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse891-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "a047fac707a9cbd1053c1be0bc5208ac64f4da4f8198df42dcbbdc4fd5e3d7c2"
+  },
+  "full_suite_run": false
+}

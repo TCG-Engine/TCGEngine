@@ -1,0 +1,57 @@
+{
+  "runtime": "e45429a9f2fa490df6ad1b32b0626498302ebaef058dbd4e94c24d7aeb3994d2",
+  "fixtures": [
+    {
+      "slug": "repair-viserai-usurper-four-live-20261126-first-blood-debt-history-survives-chain-close",
+      "passed": true,
+      "runtime": "e45429a9f2fa490df6ad1b32b0626498302ebaef058dbd4e94c24d7aeb3994d2",
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=repair-viserai-usurper-four-live-20261126-first-blood-debt-history-survives-chain-close",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\viserai225\\final-narrow-strict1.log"
+      ],
+      "returncode": 0,
+      "complete_log_sha256": "2db3d8c6ee2359e15c216062ff117e396b0bdf0fed9422fedd6144c4164a86ea",
+      "raw5_unchanged": true
+    },
+    {
+      "slug": "repair-enigma-ledger-two-live-20261126-first-shield-paid-once-next-unaffordable-rejected",
+      "passed": true,
+      "runtime": "e45429a9f2fa490df6ad1b32b0626498302ebaef058dbd4e94c24d7aeb3994d2",
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=repair-enigma-ledger-two-live-20261126-first-shield-paid-once-next-unaffordable-rejected",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\viserai225\\final-narrow-strict2.log"
+      ],
+      "returncode": 0,
+      "complete_log_sha256": "2681ebfc07f1e40f144fa6dc9dea17ffbd4c5f9990e67ae178d1736f4385e65c",
+      "raw5_unchanged": true
+    },
+    {
+      "slug": "card-blasmophet-levia-consumed-two-live-sparse1443-native-bound-transformed-hero-blood-debt-banish-play-once-per-turn",
+      "passed": true,
+      "runtime": "e45429a9f2fa490df6ad1b32b0626498302ebaef058dbd4e94c24d7aeb3994d2",
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-blasmophet-levia-consumed-two-live-sparse1443-native-bound-transformed-hero-blood-debt-banish-play-once-per-turn",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\viserai225\\final-narrow-strict3.log"
+      ],
+      "returncode": 0,
+      "complete_log_sha256": "7604c388bc4942be114c7536ce82b74cedc059b6074fa656c5dfa24abc1237ed",
+      "raw5_unchanged": true
+    }
+  ],
+  "full_suite_run": false
+}

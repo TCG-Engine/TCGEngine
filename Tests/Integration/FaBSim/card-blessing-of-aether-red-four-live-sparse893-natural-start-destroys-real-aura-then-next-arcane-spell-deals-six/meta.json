@@ -1,0 +1,7 @@
+{
+    "name": "Blessing of Aether / sparse natural start effect representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T17:37:52+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "At the start of your turn, destroy this then if the next card you play this turn has an arcane damage effect, instead it deals that much arcane damage plus 3. Representative only: natural_start_destroys_real_aura_then_next_arcane_spell_deals_six. Actual owned existing Arena source and natural turn transition; no source entry/cost, supporting-card or whole-card credit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#blessing_of_aether_red"
+}

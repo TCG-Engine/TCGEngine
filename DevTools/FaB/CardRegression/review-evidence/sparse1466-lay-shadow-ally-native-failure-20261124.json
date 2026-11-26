@@ -1,0 +1,261 @@
+{
+  "issue_id": "FAB-REG-230",
+  "status": "OPEN_CONFIRMED_NATIVE_DIAGNOSTIC_NO_PASSING_FIXTURE",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "correct_probe_source": "card-regression-sparse1466-held-lay-shadow-ally-20261124.json",
+  "correct_probe_source_sha256": "7b466e19d843c7b96ed842a547aebc157629859435fda5e40221b32e6e5c8543",
+  "native_input_actions": 20,
+  "assertions_before_failure": 371,
+  "expected": "Lay to Rest red targets a Shadow Ally controlled by Levia, not a Shadow Hero. Printed base5 damage must leave six-health Blasmophet UID9 present with Damage5.",
+  "observed": {
+    "window": "DAMAGE",
+    "combatOpen": true,
+    "attackUID": 5,
+    "attackTarget": {
+      "type": "PERMANENT",
+      "player": 4,
+      "uid": 9,
+      "zone": "Arena"
+    },
+    "attackPower": 6,
+    "defenseValue": 0,
+    "damageDealt": 6,
+    "attackHit": true
+  },
+  "error": "Expected p4Arena-0.UniqueID to equal '9', got '10'.",
+  "initial_gamestate_sha256": "51b5fd00fce57e61d234aee0a1e6e4b7d4d91d88e712d3c96b7c120d7a3ad767",
+  "observable_fate_basis": "At actual DAMAGE after6 damage, native physical first-Arena UID check expected Blasmophet9 and got Might10 (original next object). Combined with original cached6health and unchanged native lethal-Ally path this establishes incorrect lethal outcome; no complete final Arena dump was captured or claimed.",
+  "source_basis": {
+    "path": "FaBSim/Custom/DTDRuntime.php",
+    "sha256": "4393481861f97f02c611e9c2cc3c65ff53a7ea5c39db05d97d5b1dc93d0de4f0",
+    "line": 68,
+    "behavior": "Lay power modifier checks defending player Hero Shadow type and increments power without requiring actual attack target type HERO."
+  },
+  "independent_native_failure_review": {
+    "schema_version": 1,
+    "batch": 1466,
+    "result": "confirmed_new_gameplay_defect_at_exact_branch_not_oracle_error",
+    "reviewed_utc": "2026-11-25T02:26:11.483874+00:00",
+    "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+    "diagnostic_spec_sha256": "7b466e19d843c7b96ed842a547aebc157629859435fda5e40221b32e6e5c8543",
+    "pre_execution_review_sha256": "298b90b62577bbf3cdffe8fc12783870ecf4568c36c215aa6b1442369586aca9",
+    "native_receipt_sha256": "13c27e4be1db759ae9bea303621ed44972f64a7d8857a40f676ee9af5c881ddf",
+    "initial_gamestate_sha256": "51b5fd00fce57e61d234aee0a1e6e4b7d4d91d88e712d3c96b7c120d7a3ad767",
+    "source_hashes": {
+      "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+      "FaBSim/GeneratedCode/GeneratedMacroCode.php": "fe6a7982611df8f4de98ce2671b317b671b580146aa4b8c28e8f4b86d8461056",
+      "FaBSim/Custom/DTDRuntime.php": "4393481861f97f02c611e9c2cc3c65ff53a7ea5c39db05d97d5b1dc93d0de4f0",
+      "FaBSim/Custom/UPRCards.php": "62798bd281afc17805c396e92deab22497b9c80d881f99e943833cb82d449321",
+      "FaBSim/Custom/FaiCards.php": "222e95c7670e2df62aaec1185f75e63b6cc563bbd8fcfd52b4dd8f1f14110786"
+    },
+    "executions_reviewed": 1,
+    "attempted_actions": 20,
+    "persisted_assertions": 371,
+    "fixture_saved": false,
+    "coverage_credit": false,
+    "correct_expected_outcome": "Lay to Rest base5 targets actual Blasmophet Ally6HP, not a Shadow Hero. Its +1 condition is false;5physical must leave UID9 alive with Damage5.",
+    "observed": {
+      "window": "DAMAGE",
+      "attackTarget": {
+        "type": "PERMANENT",
+        "player": 4,
+        "uid": 9,
+        "zone": "Arena"
+      },
+      "attackPower": 6,
+      "defenseValue": 0,
+      "damageDealt": 6,
+      "attackHit": true,
+      "first_failure": "Expected p4Arena-0.UniqueID to equal '9', got '10'."
+    },
+    "review_points": [
+      "Initial immutable game binds Levia Hero4 and real prior Blasmophet6HP UID9, MightUID10; no ongoing material/copy requirement or earned unrelated defensive trigger. Actual20 inputs and native state reach DAMAGE before the outcome assertion.",
+      "Printed predicate says attacking a Shadow HERO. Correct formal target remains PERMANENT/player4/UID9/Arena throughout observed state. Levia being Shadow does not make her Ally a Hero, so the5-survival oracle is correct.",
+      "DTDRuntime Lay power helper directly adds1 based on defending Hero Shadow type, without checking target.type. The recorded modifier-free Lay source and state show attackPower6/damage6 rather than5.",
+      "Native FaBUPRDeal adds damage to Ally and destroys it at damage>=health. The failed physical UID assertion finds10 instead of expected9 in Arena slot0, consistent with lethal6 removing Blasmophet and leaving initial Might10. Raw receipt does not include a separate final Arena dump; recorded physical failure plus6-damage state and destruction path are the evidence.",
+      "This confirms an exact gameplay defect rather than an intended expectation change. Both existing ledgers were checked before this execution and had no Lay-to-Rest duplicate; no new distinct shared-root count is claimed without family audit.",
+      "Qualified non-Shadow-controller passing branch remains a separate bounded result. Keep only Shadow-controller Ally branch held/uncredited; no engine repair was applied or run by reviewer."
+    ],
+    "limits": [
+      "Read-only review of one existing execution; reviewer ran no game, replay, repair or rerun.",
+      "No passing fixture, Save, coverage increment or full-card claim for this diagnostic."
+    ]
+  },
+  "independent_native_failure_review_sha256": "89d87ef303024bd9e4a19fb58e812acdbfcf884a1477e5f0955ab239ac6e63f5",
+  "local_receipt": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1466-local-20261122\\shadow-ally-probe\\receipt.json",
+  "local_receipt_sha256": "13c27e4be1db759ae9bea303621ed44972f64a7d8857a40f676ee9af5c881ddf",
+  "native_actions": [
+    {
+      "playerID": 1,
+      "mode": 10002,
+      "buttonInput": "",
+      "cardID": "p1Hand-0!FSM",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 1,
+      "mode": 100,
+      "buttonInput": "",
+      "cardID": "p4Arena-0",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 1,
+      "mode": 10002,
+      "buttonInput": "",
+      "cardID": "p1Hand-0!FSM",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 1,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 2,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 3,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 4,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 1,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 2,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 3,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 4,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 4,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 1,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 2,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 3,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 4,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 1,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 2,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 3,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 4,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    }
+  ],
+  "fixture_saved": false,
+  "qualified": false,
+  "coverage_credit": false,
+  "new_distinct_gameplay_root_credit": 0,
+  "source_changed": false,
+  "full_suite_run": false,
+  "later_unrun": [
+    "full_combat_close",
+    "save",
+    "replay"
+  ],
+  "scope": "Only Ally-under-Shadow-Hero branch failed; separately saved non-Shadow-controller Ally branch remains valid. No sibling, positive Hero trigger or whole-card credit. Engine repair deferred per breadth-only instructions."
+}

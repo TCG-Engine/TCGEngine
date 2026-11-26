@@ -1,0 +1,154 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "Root independent whole-case approval retained; breadth_review binds Root-authored exact two-query correction",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1001-20261122.json",
+  "source_spec_sha256": "e30cdc9eebebc2e1c5ffeb26b9d3adf76cd2926c53421b51289ae190c6955c54",
+  "input_sha256": "253496af5b448104e5ddf0bc0fa85b2ad824ac7c67660213513faaad697c6d1f",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-for-the-emperor-red-four-live-sparse1001-unmarked-hero-main-attack-no-fealty",
+      "card_id": "for_the_emperor_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "3a7cbb2ed09cc74f3fbb6129f3854a577c48af7008e63e020cb6cd41caa2926e",
+        "actions.json": "25920dc16af50701b0be20453cc3345d5c14a09166881d7481930bfb87552093",
+        "assertions.json": "464139c3658865ac2f7f74f4a63323d050bababbc7c77dddfdada80cbf2be9e9",
+        "expected_final_gamestate.txt": "982238c03a55596a2973e6a7847a6d50916923d296f07cf612e0275139103044",
+        "meta.json": "f4efcf96aa11c0f2bbb4faff69f65e15c17d6f4779bee94ea4d07eaea2a31c55"
+      },
+      "fixture_sha256": "9308afdbc3e465b0fcbe306ac993dbe5a4f16a943ad3f95e829414cd3dab1c43",
+      "actions": 28,
+      "native_assertions": 167,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1001-20261122.json",
+      "input_sha256": "253496af5b448104e5ddf0bc0fa85b2ad824ac7c67660213513faaad697c6d1f",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1001-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-for-the-emperor-red-four-live-sparse1001-unmarked-hero-main-attack-no-fealty",
+        "fixture_slug": "card-for-the-emperor-red-four-live-sparse1001-unmarked-hero-main-attack-no-fealty",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-for-the-realm-red-four-live-sparse1001-unmarked-hero-main-attack-no-fealty",
+      "card_id": "for_the_realm_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "64befe00c6e280e5051a08bafa4ab8e42fa377a0477ef57ee6122929ef5d2871",
+        "actions.json": "25920dc16af50701b0be20453cc3345d5c14a09166881d7481930bfb87552093",
+        "assertions.json": "59b82e328ca951d9f90fe1c83b8ab90104287657b0d4c3432f6eaa65d36c33aa",
+        "expected_final_gamestate.txt": "c83da4e0a515e28e8d525aea66a29c404083cdc9899906927a6728aaf4af1d65",
+        "meta.json": "4802671d891ac1f81a4a0f3a3467acae9cf62a363ab025a7d70308fce9225842"
+      },
+      "fixture_sha256": "9635de3bcfc048cf4c7020d6368b1c11bd1f8d1e625063d9847f6eeccdd41957",
+      "actions": 28,
+      "native_assertions": 167,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1001-20261122.json",
+      "input_sha256": "253496af5b448104e5ddf0bc0fa85b2ad824ac7c67660213513faaad697c6d1f",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1001-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-for-the-realm-red-four-live-sparse1001-unmarked-hero-main-attack-no-fealty",
+        "fixture_slug": "card-for-the-realm-red-four-live-sparse1001-unmarked-hero-main-attack-no-fealty",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-bravery-of-the-blade-red-four-live-sparse1001-no-other-hand-card-uncharged-three-without-go-again-or-courage",
+      "card_id": "bravery_of_the_blade_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "b952405f490fa227705c9572f7a74e5e987b0e38e0306d5b813d1b9407f16d27",
+        "actions.json": "71f0d0f07cf85244a3ec27fdb1f824cd62aa3126d639c98c13ca23327907bd8b",
+        "assertions.json": "bc76fb2f45997dc0c73b2fadc06d3fa433b3ed2d8869ba075dc31c42f5e52dfd",
+        "expected_final_gamestate.txt": "1654be6e9d7a79f40c8c82b41e382b1cdfcf1acc5e5e63527d72b4594b81cc93",
+        "meta.json": "82c6923ead4ae1f480065d0beb1b6135c53556095145d75e2c20f1337e991277"
+      },
+      "fixture_sha256": "e0ec92150c44e98061f4610baa52ce3c503669e843c5ecb122a3fdf2a5f15410",
+      "actions": 27,
+      "native_assertions": 194,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1001-20261122.json",
+      "input_sha256": "735fd9396996ff2307056dc87c0e1119752a771154a3f3c17b45f46157079f10",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1001-local-20261122\\corrected-power-recording\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-bravery-of-the-blade-red-four-live-sparse1001-no-other-hand-card-uncharged-three-without-go-again-or-courage",
+        "fixture_slug": "card-bravery-of-the-blade-red-four-live-sparse1001-no-other-hand-card-uncharged-three-without-go-again-or-courage",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-beckoning-light-red-four-live-sparse1001-no-other-hand-card-uncharged-hit-keeps-eligible-graveyard-and-deck-order",
+      "card_id": "beckoning_light_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "1f3dc3727d3c80819576da1fdea245dae959e1c55842b97f8cdb13cbdc26a573",
+        "actions.json": "71f0d0f07cf85244a3ec27fdb1f824cd62aa3126d639c98c13ca23327907bd8b",
+        "assertions.json": "4836bee87e31bb70f26087423b91fa8f78b02839abffd79168e40a335955e7e6",
+        "expected_final_gamestate.txt": "f575234d0f2b781c4a43012b1fe521ededd7cdf2a86b8319e8ee8afdcdd11ad8",
+        "meta.json": "2dcccc46213b00c042c24006845fe3035820ba201f14c5a0449607f706503f63"
+      },
+      "fixture_sha256": "1be1d8c6091549a8b6c2760d2cb5dbda504375421209d71708b45b2d2468f044",
+      "actions": 27,
+      "native_assertions": 208,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1001-20261122.json",
+      "input_sha256": "735fd9396996ff2307056dc87c0e1119752a771154a3f3c17b45f46157079f10",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1001-local-20261122\\corrected-power-recording\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-beckoning-light-red-four-live-sparse1001-no-other-hand-card-uncharged-hit-keeps-eligible-graveyard-and-deck-order",
+        "fixture_slug": "card-beckoning-light-red-four-live-sparse1001-no-other-hand-card-uncharged-hit-keeps-eligible-graveyard-and-deck-order",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "spec_sha256": "e30cdc9eebebc2e1c5ffeb26b9d3adf76cd2926c53421b51289ae190c6955c54",
+    "reviewer": "Root independent whole-case approval retained; breadth_review binds Root-authored exact two-query correction",
+    "review_provenance": {
+      "original_independent_reviewer": "Root independent of breadth_review author",
+      "original_spec_sha256": "253496af5b448104e5ddf0bc0fa85b2ad824ac7c67660213513faaad697c6d1f",
+      "original_review_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1001-local-20261122\\initial-power4-independent-review.json",
+      "original_review_sha256": "ec2118c89053bc3efccc0ec8e66d13d360f010e385cd9323e0b8ffc59b3ee85c",
+      "delta_review_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1001-local-20261122\\preexecution-oracle-correction-review.json",
+      "delta_review_sha256": "790152d0ee18517a3e1e01594655236e65bf4c0f2e7e6ba742afecdeae3ec82d"
+    },
+    "basis": [
+      "Verifiedcachecost1/2power5/6 fordistinctstandaloneForEmperor/Realmgroups (notpitchsiblings). LegalFai20/actualtargetDoriCounters[]: typedmarkedheroattackeventabsent, noFealtyqueue/token. ActualBlue6pays1/2 andR2/1/AP0, actual5/6damage/HP15/14/ownedphysicalsourcefates andall4manual.",
+      "Bravery/Beckoning LightWarrior Boltyn20, cost0/base3. SoleHand5 movesStackbeforeoptionalCharge; noeligibleotherHandcard, so nochargepossibleandpositivegrantconditionsfalse. AbilitygrantstaticIf isnotanearnedWHENattacksIFtrigger; noCourage/GA/recursion. Unblocked3/HP17/AP0/Soul0 mustpersist.",
+      "BeckoninginitialeligibleGYAA6+distinctDeck7retainedafteractualhit; primary5appendsGY1. Noemptyassetmasknorcreditforpositivecharge/hitability/hero/support/siblings/wholecard. Canonicalcosts/roles/fates/HP/AP/emptyqueuespersist, noauthor-onlydiagnostics. Native+onecleanreplayeachpending.",
+      "Exact canonical diff independently checked: only Bravery and Beckoning source-entry persisted kind=power expectations4\u21923. Cached printedpower3 and uncharged/no-block setup require3 independently of native output, matching unchanged damage3/HP17. No inputs, assets, costs, fates, phases, other oracle values or healthy two cases changed. Original independent Root approval remains whole-case semantic basis; this is not new author self-approval."
+    ],
+    "limits": [
+      "Only the two unsaved corrected cases need native recording/replay. Emperor/Realm original recordings retained; per-case original/corrected input provenance remains Root-owned. Original failed receipts and power4 draft preserved.",
+      "No engine defect or partial closure claimed. All prior positive-effect/hero/sibling/support/full-card limits retained. Reviewer did not execute native/PHP/tests or change T/source/original/Git/network/engine."
+    ]
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1001-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "9e0f1ae8cb6a493b8d66617486ad8da2684963675f8981de3bd1ba0fe54fdc1f"
+  },
+  "full_suite_run": false
+}

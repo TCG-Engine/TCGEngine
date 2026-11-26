@@ -1,0 +1,79 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-clash-of-agility-red-four-live-sparse917-actual-six-attack-not-defending-clash-agility",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-clash-of-agility-red-four-live-sparse917-actual-six-attack-not-defending-clash-agility",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse917-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse917-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "162766180edb65e5334e76e6ce419b3c949a834caf55268668b73b52d958977c",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "60f0c9256a10ab62248af0fd2e48107d7bf524a8c97b7176e7babd84b85e06bd",
+        "actions.json": "25920dc16af50701b0be20453cc3345d5c14a09166881d7481930bfb87552093",
+        "assertions.json": "0bc7a057103b18d4004371ba7012d548b6e0df1b7c1a07c85d766c587e5259c5",
+        "expected_final_gamestate.txt": "9bd5f3da4944d4b895375d47eb513b88f51984dcfcd5db255672552361f3e7c8",
+        "meta.json": "5427ec6733a4d73c037b846e0d98c1e6781b9d9a2817a205998a94e80ac5018a"
+      }
+    },
+    {
+      "slug": "card-clash-of-might-red-four-live-sparse917-actual-six-attack-not-defending-clash-might",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-clash-of-might-red-four-live-sparse917-actual-six-attack-not-defending-clash-might",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse917-local-20261122\\clean-replays\\01.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse917-local-20261122\\clean-replays\\01.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "048019685b151fbf93b85f943a6119341c0d2d8e69d25dc7848aca4b5fc19335",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "11dd596704e7872d37cf85b8c2063f55058eb353ad3be4c39a38633d8f042c5c",
+        "actions.json": "25920dc16af50701b0be20453cc3345d5c14a09166881d7481930bfb87552093",
+        "assertions.json": "e5f67c038a654d9bb16959d7f0a70b10edab66f4c2af0c2432e9fd20af638cb7",
+        "expected_final_gamestate.txt": "295d45325d7393536e56e0d260089032bed25bf1b91dcf355413f5126d374476",
+        "meta.json": "aff0802fc8ccfb49fb73c9644e8dcc7fe7a2a6914cc6c188ee6fbb49bc25f4bf"
+      }
+    },
+    {
+      "slug": "card-clash-of-vigor-red-four-live-sparse917-actual-six-attack-not-defending-clash-vigor",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-clash-of-vigor-red-four-live-sparse917-actual-six-attack-not-defending-clash-vigor",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse917-local-20261122\\clean-replays\\02.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse917-local-20261122\\clean-replays\\02.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "b63153e9c4094c47d8fd6b8420fdcf527cff3127027c6eecce9c40e526e5d4ea",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "38e6f3c03e2807b16366c6b19b3e41b1dd8fb6a1ec6e2f8c940b5736ee5549f8",
+        "actions.json": "25920dc16af50701b0be20453cc3345d5c14a09166881d7481930bfb87552093",
+        "assertions.json": "1f9993e2e727f23113df95cf85531097e69c41409edc19c8fd94377838256236",
+        "expected_final_gamestate.txt": "a47a7a1a3b00b6bcaec30991fb219e059f1179f406406f76d808f2096136772f",
+        "meta.json": "8272ac9292fd639b07b2f999f25cef34f0c8ed1e51be935d239de6386995ca7e"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

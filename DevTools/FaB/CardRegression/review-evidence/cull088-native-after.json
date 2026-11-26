@@ -1,0 +1,27 @@
+{
+  "status": "COMPLETE",
+  "runtime_before": "16008fc2ea54254561814b31f0c66123ef5e0c474aa0db1f6ddfd47ef63cca7e",
+  "spec": "card-regression-batch382.json",
+  "spec_sha256": "539a982c2d6de6687fac660917d15f1be0492c87dc44e803d5dbc42e1c01c304",
+  "command": [
+    "C:\\xampp\\php\\php.exe",
+    "DevTools/FaB/CardRegression/record_card_regressions.php",
+    "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch382.json",
+    "card-cull-red-four-live-original-correct-probe-real-banish-play-four-owned-hand-choices-retains-source"
+  ],
+  "started_utc": "2026-11-04T19:36:58.360625+00:00",
+  "expected_new_slugs": [
+    "card-cull-red-four-live-original-correct-probe-real-banish-play-four-owned-hand-choices-retains-source"
+  ],
+  "existing_scenario_count": 3686,
+  "full_suite_run": false,
+  "pid": 36904,
+  "exit_code": 0,
+  "runtime_after": "16008fc2ea54254561814b31f0c66123ef5e0c474aa0db1f6ddfd47ef63cca7e",
+  "new_fixture_slugs": [
+    "card-cull-red-four-live-original-correct-probe-real-banish-play-four-owned-hand-choices-retains-source"
+  ],
+  "new_fixture_count": 1,
+  "stderr_bytes": 0,
+  "completed_utc": "2026-11-04T19:37:12.576220+00:00"
+}

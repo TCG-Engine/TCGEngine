@@ -1,0 +1,7 @@
+{
+    "name": "Inflame / false prerequisite and actual intrinsic go again only",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-24T03:03:13+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "PARTIAL_NEGATIVE_PREREQUISITE_PLUS_ACTUAL_PRINTED_GO_AGAIN_ONLY; notpositiveproducercoverage. FourrealYoungfai20/threeDori20/manualUPF. Actualprimary5Handcost0andnormaladjacentHero4declaration. Actual0costusesAP1to0/noPitch. NootherREDwasplayed; primaryitselfonlyredplay, Redfund(ifpresent)ispitchednotplayed. Another-redintervening-ifconditionfalse, noPhoenixsearch/return. ActualpriorPhoenix6GYmuststayGY/notHand. Allfourfreshresponsesmovereal5toCCwithprintedpower1/intrinsicGAtrue, realunblocked1damageHP4=19/AP0untillastDamagepass, thenAP1. Fullcleanactual5ownedGY/funderPitchifany, noTiger/Hand/Temp/Banish/Stack/DQs/newUID/RNG. NOtrueBlue/earlierRed producer/search/recovery/triggerresponse/tokens/support/fullcard/pitchsiblingcredit. Noenginefix, do notrelaxanyfalse-prerequisite orgoagainexpectation. Sources: FaBSim/GeneratedCode/cardArrayCache.json#inflame_red FaBSim/Custom/GameLogic.php FaBSim/Custom/MSTCards.php FaBSim/Custom/UPRCards.php"
+}

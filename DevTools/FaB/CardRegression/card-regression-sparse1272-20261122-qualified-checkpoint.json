@@ -1,0 +1,68 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-24T00:46:07.534058+00:00",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1272-20261122.json",
+  "source_spec_sha256": "2ff34babe80d0ba8c56c37f0aca198fa0604957d59b2e7d748ba8d743904a96a",
+  "new_scenarios": 1,
+  "new_groups": 1,
+  "new_primary_ids": 1,
+  "actions": 7,
+  "native_assertions": 199,
+  "manual_passes": 4,
+  "totals": {
+    "saved_registered_scenarios": 5175,
+    "duels": 3085,
+    "four_live": 2090,
+    "recorded_primary_ids": 2323,
+    "identity_denominator": 5196,
+    "recorded_groups": 2197,
+    "group_denominator": 3324,
+    "four_live_groups": 2079,
+    "phase_qualified_scenarios_at_actual_contexts": 1812,
+    "phase_qualified_unique_groups": 1802,
+    "creation_replay_passes": 2554,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 973,
+  "scenarios": [
+    {
+      "card_id": "aurora_shooting_star",
+      "group_id": "identity:aurora_shooting_star",
+      "scenario_id": "card-aurora-shooting-star-two-live-sparse1272-real-lightning-play-and-two-resource-instant-create-owned-embodiment",
+      "effect_branches": [
+        "adult_duel_actual_blink_lightning_play_earns_hero_instant_legality_real_blue_pays_two_then_owned_embodiment_created_after_responses"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-aurora-shooting-star-two-live-sparse1272-real-lightning-play-and-two-resource-instant-create-owned-embodiment",
+      "source_spec": "card-regression-sparse1272-20261122.json",
+      "source_spec_sha256": "2ff34babe80d0ba8c56c37f0aca198fa0604957d59b2e7d748ba8d743904a96a",
+      "review_evidence": "review-evidence/sparse1272-20261122-qualified-saved.json",
+      "review_evidence_sha256": "49e978dbcc58caf80ef09aea57c83bb7f8e2c8eeef5b1585ac6cca08422e3901",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1272-20261122-replay.json",
+          "sha256": "1f4542bf4fcf3054ce4b2170aec04b23d4b2eaac1ad60fcf12fced4a110d1445",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "two_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

@@ -1,0 +1,7 @@
+{
+    "name": "Evo Tekloscope / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-23T01:55:27+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "If you have a base head equipped, **transform** it into this, then equip this.\n\nYour Teklo Blaster attacks can target any opponent.\n\n**Battleworn** Named actual transformation branch only. NaturalDash20, sourceHand5/realBlue6/proto_base_head7 actually equippedready. Printed3 paid by realBlue6/R0/AP0 before four manual responses; source5 remains on Stack until resolution. Final same owned physical5 is equippedready, exactly one Equipment, Counters SUBCARDS stores actual oldbase name, no Graveyard/Banish/Hand/Arena residue. No equipment defended or weapon attacked, so Magneto defend event absent and Tekloscope any-opponent targeting/Battleworn/Temper/activated abilities untested. Allfour live/manual, no outcome seeding or full-card/support/sibling credit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#evo_tekloscope_blue"
+}

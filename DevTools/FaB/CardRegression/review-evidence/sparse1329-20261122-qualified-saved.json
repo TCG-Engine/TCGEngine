@@ -1,0 +1,147 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "independent breadth_review1252",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1329-20261122.json",
+  "source_spec_sha256": "b0e95b9d57477aa6a35ea48e433eefc1b2e4669c150ebbf158606426bbc55e27",
+  "input_sha256": "b0e95b9d57477aa6a35ea48e433eefc1b2e4669c150ebbf158606426bbc55e27",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-vengeful-apparition-red-four-live-sparse1329-sole-ward-prevents-one-and-retained-illusionist-aura-rejects-instant-consumer",
+      "card_id": "vengeful_apparition_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "23d44abe872f8a78329ac9beb39f8e6287ef296ca1d568aac0a91bd67694e123",
+        "actions.json": "bc0d64b9a9f6f319ad32aefad88fed299b25b927fea9db45506666e4c7f382ec",
+        "assertions.json": "1b9c213f2436baf2ba991a4ea29c2217763f895fa98013ee6a8708d6f590a196",
+        "expected_final_gamestate.txt": "121cd83d0be4261e05b26fb3001b6853e6a13a5f7f40d90bdb586dbaaeb8fb76",
+        "meta.json": "29ed34e187bd3df0e2c091ebf11efd94db6c76af41e314a778f0645bc23ea733"
+      },
+      "fixture_sha256": "846b4176ed2bad627b62d52066babf05abe4d1faa242d5d2739eeda9d55465d6",
+      "actions": 30,
+      "native_assertions": 498,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1329-20261122.json",
+      "input_sha256": "b0e95b9d57477aa6a35ea48e433eefc1b2e4669c150ebbf158606426bbc55e27",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1329-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-vengeful-apparition-red-four-live-sparse1329-sole-ward-prevents-one-and-retained-illusionist-aura-rejects-instant-consumer",
+        "fixture_slug": "card-vengeful-apparition-red-four-live-sparse1329-sole-ward-prevents-one-and-retained-illusionist-aura-rejects-instant-consumer",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "reviewer": "independent breadth_review1252",
+    "spec_sha256": "b0e95b9d57477aa6a35ea48e433eefc1b2e4669c150ebbf158606426bbc55e27",
+    "source_note_sha256": "73b5f635e5f27ca89bbd2982fdac01baee4d8836c293ece8f552da4089dd8577",
+    "case_count": 1,
+    "active_seats": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "players": "four_live_manual",
+    "native_controls": 30,
+    "query_checks": 498,
+    "persistable_assertions": 498,
+    "author_only_checks_omitted": 0,
+    "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+    "coverage_category": "POSITIVE_SOLE_WARD_PREVENTION_AND_FALSE_LEAVE_PERMISSION_WITH_NATIVE_CONSUMER_REJECTION",
+    "per_case": [
+      {
+        "card_id": "vengeful_apparition_red",
+        "group_id": "pitch-cycle:vengeful_apparition",
+        "native_controls": 30,
+        "persistable_assertions": 498
+      }
+    ],
+    "basis": [
+      "Fresh unrepresented Red cycle/no group hold. Four natural Young20/manual UPF, actual primary owned Illusionist Aura is lawful prior Arena under Prism4. HeroUID1..4 then Wounding5Hand1, non-Ward PassingMirageBlue6Arena4 index0, primary Vengeful7Arena4 index1, real CriticalBlue8Hand4/defense3 and distinct PassingMirageBlue9Hand4/cost0ActionAura. No entry/play/producer/history/permission seeds or primary play credit.",
+      "Actual attack5 cost0/AP1to0/formal adjacent Hero4/all four source responses/printed4 followed by actual defense8Hand\u2192CC DEFENSE3 leaves1 to prevent. Only primary7 has active Ward1. ACTIVE GameLogic2504 first calls DTDCombatPrevention235-241 before its DYN fallback, generating mandatory Radiant MZCHOOSE with sole Param p4Arena-1; no direct automatic destruction is expected before answer. Correct prechoice state stays REACTION/priority4 after last actual reaction pass4, original7Arena1/otherAura6Arena0/defender8CC/Hand9/HP20/Stack0. Exact source Type/Param/Tooltip and physical prechecks are appropriate.",
+      "MSTAfterMove120\u2013124 computes no Illusionist Auras after primary departure; MST57 sees real PassingMirage6 still controlled4, so false intervening leave condition earns no permission trigger or effect. PassingMirage6 remains first Arena index0; removed second primary7 enters own Graveyard index0, so no false first-source/index shift assumption. No Prism activation or Spectra event is earned.",
+      "Native consumer is meaningful: PassingMirageBlue9 is actual ActionAura0 with no Instant/Hand activated ability. At fresh DAMAGEpriority4 offTurn/AP0/R0/emptyStack/queues its ordinary native click must reject. If erroneous VENGEFUL were present, actual MSTRuntime55 and ARCCards251 permit Aura cost<=2 asInstant and cost0 is payable despite AP0; therefore unchanged Hand9/Arena6/GY7/Stack/HP20 is an observable false-permission witness. True permission/counter branch and timing are not tested.",
+      "Actual answer4 p4Arena-1 resumes generated Radiant await f685\u2026176980+: Pay at177031 invokes DTDPreventionPay221 to destroy selected7 and returns1; left becomes0,177003 stores source5 packet prevention1 and177004 automatically reenters BeginDamageStep. DTDCombatPrevention skips already marked dtdPrevention4; DoDamage consumes stored1 via DTD230 and actual0/hitfalse/DAMAGEpriority1 results, with no extra pass required before preserved original Damage checks. Correct fates source7GY4 before defender8GY4index1, attack5GY1/retained6Aura9Hand/allHero20/APR0/UID9/RNG0/cleanStackDQsCC remain strict. All original469 semantic assertions unchanged plus29 prechoice checks, total498 across30 controls.",
+      "Exact reverse-step comparison independently reconstructs original steps: one pass-until goal DAMAGE1 changed to decision4/MZCHOOSE, one29-query prechoice checkpoint and supported answer4 added. All other actions and original assertions byte-equivalent as parsed; only other spec fields changed are source list, planned action count and explanatory oracle prose. Prior review overlooked this existing interactive caller; broad claim that current Ward cannot choose sources is withdrawn. Multiple-Ward ordering remains untested, not unsupported by this fallback-only evidence."
+    ],
+    "limits": [
+      "Only new sole-Ward and false leave/consumer branch semantic review pending native save/replay; no native pass or coverage credit claimed.",
+      "No arbitrary multi-Ward source choice, primary entry/play, true leave permission/trigger timing/+1counter, start/Hero/support/sibling/full-card credit. Existing holds unchanged.",
+      "Only W receipt written; no native tests/games/replays, T/engine/original-checkout edit or access, auth/network or Git."
+    ],
+    "source_sha256": {
+      "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+      "FaBSim/GeneratedCode/GeneratedMacroCode.php": "fe6a7982611df8f4de98ce2671b317b671b580146aa4b8c28e8f4b86d8461056",
+      "FaBSim/Custom/GameLogic.php": "c60fa151561f959e4e3e341b814de0e2b47c9e9f153bbc8793a04c43b5075061",
+      "FaBSim/Custom/DYNRuntime.php": "b8cec432428757988b02fa831b6311cc32ef5671b2fcc2dd9eecbf82d0c5e231",
+      "FaBSim/Custom/MSTCards.php": "cd98a9b734b984bfc19af7d0e4a3eebd5496f298d08c7c79d7f6d43c363513c7",
+      "FaBSim/Custom/MSTRuntime.php": "b96f21727c089c90c21bf3aadaf913301b1ef7c922f2a17ac055258682ed45ce",
+      "FaBSim/Custom/ARCCards.php": "f6b6a21d214e71fdcfd6a084f0671ce610f08a40c51a1266041877a5a12c0d52",
+      "FaBSim/Custom/MONCards.php": "2eb22bda6f1dba583df2879046f9f4dec94f47f2e9b28f369758f3af72c9c3ac",
+      "Core/EngineActionRunner.php": "add14b53dc571d2a6e64407bfa4038a98d6554d6410de7a9233810d99c46ea2a",
+      "Schemas/FaBSim/GameSchema.txt": "7783800bd47bc85885cc915066aadca58cdf99f0c1180602ac312d9af5ebf643",
+      "DevTools/FaB/CardRegression/record_card_regressions.php": "e53055b29e9ea641949b77019c4455607f41ca233325d716a9500637e19efd28",
+      "FaBSim/Custom/DTDCards.php": "3b31d7627858a24d9e6444285de1671c448e5a79d3a71f4d7dfcb2824a5273d4",
+      "FaBSim/Custom/CodeGeneration.php": "951c17c1ecf263339fa860d4842911bca7122535ab9047cf65ab533ef49e4b86"
+    },
+    "workspace_source_sha256": {
+      "author_breadth1329.py": "dd801ed07b78d367cda270511a6edc9fc255fb9980122e3aaa4df4314c55ba25",
+      "breadth1068_helpers.py": "997f949ec26c7e494ad26a818f9f2078f6f4f2a0c49ca7f61aa8c71f3b091b0a"
+    },
+    "secondary_identity_credit": false,
+    "positive_leave_permission_credit": false,
+    "multiple_ward_source_choice_credit": false,
+    "primary_play_credit": false,
+    "hero_ability_credit": false,
+    "control_flow_correction_review": {
+      "classification": "AUTHOR_CONTROL_FLOW_OMITTED_EXISTING_INTERACTIVE_PREVENTION_CHOICE",
+      "original_spec_sha256": "5c651a3c62f1224402c9ca617c94880f704a45d5d5bd711cca05f947cf2045da",
+      "original_review_sha256": "f26324bcd3082db51e9be8e57c4845ee746ef3b7d6bd1395131aeb7175a7b371",
+      "original_native_receipt_sha256": "a0917dee5a59d0a289bc8b620ba345a6f6c1c8d1ef68176a3b0644fa9ea22774",
+      "original_recorded_input_sha256": "5c651a3c62f1224402c9ca617c94880f704a45d5d5bd711cca05f947cf2045da",
+      "original_game_inputs": 20,
+      "original_first_failure": "Unexpected decision Player4 MZCHOOSE p4Arena-1 Choose_damage_prevention",
+      "old_goal": "DAMAGE priority1",
+      "new_goal": "Player4 MZCHOOSE",
+      "added_checks": 29,
+      "added_native_answer": "Player4 MZCHOOSE p4Arena-1",
+      "all_original_semantic_assertions_unchanged": true,
+      "all_other_actions_unchanged": true,
+      "post_answer_damage_resume": "automatic DAMAGE priority1",
+      "post_damage_outcomes_from_prior_attempt": "UNRUN",
+      "fixture_saved": false,
+      "clean_replay_run": false,
+      "engine_defect_claim": false,
+      "broad_multi_ward_unsupported_claim_withdrawn": true,
+      "native_execution_by_reviewer": false,
+      "prior_bound_source_hashes_unchanged": true
+    }
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1329-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "e3bdcd1ccd95899c8a38effd2c6887a88f369a58fe74601d6e069e65e9fac4ad"
+  },
+  "full_suite_run": false
+}

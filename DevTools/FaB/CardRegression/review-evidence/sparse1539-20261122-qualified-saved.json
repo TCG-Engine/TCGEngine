@@ -1,0 +1,155 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "/root/breadth_review1457",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1539-20261122.json",
+  "source_spec_sha256": "230b17af8859422456c88a6ef22c6790b4003bc308e735ef4a73747b661e1a7d",
+  "input_sha256": "230b17af8859422456c88a6ef22c6790b4003bc308e735ef4a73747b661e1a7d",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-glaring-impact-red-four-live-sparse1539-real-potion-funding-zero-charge-no-unearned-bonus",
+      "card_id": "glaring_impact_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "f079fa0484b5b09531e892926492f342ea25eb94b034e94a028207e849213714",
+        "actions.json": "a958c574a5728cced459062d3ff97d2b93f77219192409f1925f599d156c71e4",
+        "assertions.json": "28131427b92cc0ede3e8e9e7079f9c1774b076033dd37ff70c0dc212c9fa71c2",
+        "expected_final_gamestate.txt": "47cd9a822549c773e942d7457ecd7e53be2d1536216dc11ae0978d7f899e3269",
+        "meta.json": "5d1f82bc7dd67c7c3551d884a738963b9d5df489600a0674a9fa10aae7678dc3"
+      },
+      "fixture_sha256": "b27eee2c627324162ddc7a0cc1c1467b59553b08d2355bbc1306e1501876db95",
+      "actions": 34,
+      "native_assertions": 492,
+      "author_only_checks_not_persisted": [
+        {
+          "step": 16,
+          "check": {
+            "kind": "defense",
+            "value": 3
+          }
+        },
+        {
+          "step": 17,
+          "check": {
+            "kind": "defense",
+            "value": 6
+          }
+        },
+        {
+          "step": 26,
+          "check": {
+            "kind": "defense",
+            "value": 6
+          }
+        }
+      ],
+      "actual_manual_pass_inputs": 29,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1539-20261122.json",
+      "input_sha256": "230b17af8859422456c88a6ef22c6790b4003bc308e735ef4a73747b661e1a7d",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1539-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-glaring-impact-red-four-live-sparse1539-real-potion-funding-zero-charge-no-unearned-bonus",
+        "fixture_slug": "card-glaring-impact-red-four-live-sparse1539-real-potion-funding-zero-charge-no-unearned-bonus",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-v-of-the-vanguard-yellow-four-live-sparse1539-real-potion-funding-zero-charge-no-unearned-bonus",
+      "card_id": "v_of_the_vanguard_yellow",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "04a18eebcdddf166b97e203cd8744869b7587072d83e02e8f9494ad790df242a",
+        "actions.json": "6fe9468c40cb1e401d54d890b029e90e347c3ad222e50a9d9a1df61d0b0514d8",
+        "assertions.json": "a2c7fb7244ae276b6125f139d91d956e255688dc07f14bd8d797336ac60f5676",
+        "expected_final_gamestate.txt": "80eed06779c8d0296244514cd5c25fbd87db54f6b538e5495deb92061c6e434d",
+        "meta.json": "4c3fa58d6ded26911219c9f942a9e00d753034f2a6d73f8e657173a937296931"
+      },
+      "fixture_sha256": "21bad0bdd626eb42c6a873abc80e16ac1ef33d576cdde4d27d54d743a977d8fd",
+      "actions": 32,
+      "native_assertions": 405,
+      "author_only_checks_not_persisted": [
+        {
+          "step": 24,
+          "check": {
+            "kind": "defense",
+            "value": 0
+          }
+        }
+      ],
+      "actual_manual_pass_inputs": 29,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1539-20261122.json",
+      "input_sha256": "230b17af8859422456c88a6ef22c6790b4003bc308e735ef4a73747b661e1a7d",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1539-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-v-of-the-vanguard-yellow-four-live-sparse1539-real-potion-funding-zero-charge-no-unearned-bonus",
+        "fixture_slug": "card-v-of-the-vanguard-yellow-four-live-sparse1539-real-potion-funding-zero-charge-no-unearned-bonus",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "schema_version": 1,
+    "batch": 1539,
+    "reviewer": "/root/breadth_review1457",
+    "result": "approved_named_branches_only_pending_native_execution",
+    "reviewed_utc": "2026-11-25T11:30:09.341684+00:00",
+    "spec_sha256": "230b17af8859422456c88a6ef22c6790b4003bc308e735ef4a73747b661e1a7d",
+    "source_note_sha256": "a927ea69d3d26c2bc10da1060d09138a709d9ad7dc7e38333ad5a701dc5516d6",
+    "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+    "source_sha256": {
+      "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+      "FaBSim/GeneratedCode/GeneratedMacroCode.php": "fe6a7982611df8f4de98ce2671b317b671b580146aa4b8c28e8f4b86d8461056",
+      "FaBSim/Custom/GameLogic.php": "c60fa151561f959e4e3e341b814de0e2b47c9e9f153bbc8793a04c43b5075061",
+      "FaBSim/Custom/MONCards.php": "2eb22bda6f1dba583df2879046f9f4dec94f47f2e9b28f369758f3af72c9c3ac",
+      "FaBSim/Custom/BoltynCards.php": "8bdd6a245ac50bae2bf5ddf47c6029f97239adeba09133170a1355d3287b8907",
+      "FaBSim/Custom/WTRAbilities.php": "8c7b73f87e5151823dc8aab1546d7e0452e6a948e36fdf9b157d4aa5da0e2209",
+      "Core/DecisionQueueController.php": "65bfcf5b4f595d62d6dfb8bde0b884de42cd1a726618b5431fccf8939eed9a9d",
+      "FaBSim/ZoneAccessors.php": "9967567a9a10df81a6f22df820d4d77258828657e95c4ad145b8b13ce17866a7"
+    },
+    "cases": 2,
+    "findings": [
+      "Current Vanguard text perLightbonus hasNOWhenattacks trigger; zerocharge is not a skipped earned trigger. Boltyn legal specialization.",
+      "RealPotion5 Instant ABI9source5/fourresponses R2/AP1. SoleHandprimary6 leavesemptyHand; Glaring skipPASS, Vanguardempty0|0|CoreDQ172-179feedsminus. MONCharge actualvalidHandrefs only, noSoul orCHARGED fromPASS/minus.",
+      "Actualcost1/R1/AP0/powers4/3/noGA. Glaring twoHanddefenders legal/noOverpower/zerodamage; Vanguard base3actualHP17. Fullfourclose correctfates, no primaryHitability orBoltynchargedbonus.",
+      "Follow-up exactdiff approval: two ability-only Owner1->0 values, source-derived legacyAddStack defaults. All gameplay/source ownership/controller/UID checks unchanged; originalfailures preserved."
+    ],
+    "limits": [
+      "Only zero-charge subsets, not positive039/099cost/reference/timing orwholecard/support/sibling credit. Reviewsource/spec only, no reviewer games/tests/writes."
+    ]
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1539-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "e577d432af755b32fb46e55bfd870bbb9fa576fc38a649f3f30ed70dc4e4a3f1"
+  },
+  "full_suite_run": false
+}

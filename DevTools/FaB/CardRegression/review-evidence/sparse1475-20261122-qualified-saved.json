@@ -1,0 +1,94 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "/root/breadth_review1457",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1475-20261122.json",
+  "source_spec_sha256": "6c60e43be8ea3abaabfa639cd57368d365a165fa7d8cf68a0114d7d805b7d1e2",
+  "input_sha256": "6c60e43be8ea3abaabfa639cd57368d365a165fa7d8cf68a0114d7d805b7d1e2",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-stir-the-pot-blue-four-live-sparse1475-real-other-blue-play-transcends-same-physical-spell-into-chi",
+      "card_id": "stir_the_pot_blue",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "13d73fc0366c529c6705587d0cc425f99d1e80de1a0ecf8ddbf1cbb8956544f7",
+        "actions.json": "4e77e2368de6a39a387b48f8143fbb03a5c1857caed1dda4fe6546a2a3a944e4",
+        "assertions.json": "f5bdf4e29782e345818098cdb72efbed48d10b03880f38fc8c097ea2d112c527",
+        "expected_final_gamestate.txt": "c62e8b5cde3d6c6f32938862b1d62ff4376aef4cac8db24e8f1ef49c4f9d2abc",
+        "meta.json": "25456aa07107339585e1dc910d4377427f0719caabd1a63ef27200b7ed1045d4"
+      },
+      "fixture_sha256": "12a13f2b304c5e3089d05749992e12c6bf22ca91a55cc54599a138673292adb3",
+      "actions": 10,
+      "native_assertions": 386,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 8,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1475-20261122.json",
+      "input_sha256": "6c60e43be8ea3abaabfa639cd57368d365a165fa7d8cf68a0114d7d805b7d1e2",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1475-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-stir-the-pot-blue-four-live-sparse1475-real-other-blue-play-transcends-same-physical-spell-into-chi",
+        "fixture_slug": "card-stir-the-pot-blue-four-live-sparse1475-real-other-blue-play-transcends-same-physical-spell-into-chi",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "schema_version": 1,
+    "batch": 1475,
+    "reviewer": "/root/breadth_review1457",
+    "result": "approved_named_branches_only_pending_native_execution",
+    "reviewed_utc": "2026-11-25T03:43:40.573187+00:00",
+    "spec_sha256": "6c60e43be8ea3abaabfa639cd57368d365a165fa7d8cf68a0114d7d805b7d1e2",
+    "source_note_sha256": "b8ad21c3d51b231acd385c07c0d88ad495c51364a8fcc746b9faea29680027f0",
+    "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+    "source_sha256": {
+      "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+      "FaBSim/GeneratedCode/GeneratedMacroCode.php": "fe6a7982611df8f4de98ce2671b317b671b580146aa4b8c28e8f4b86d8461056",
+      "FaBSim/Custom/GameLogic.php": "c60fa151561f959e4e3e341b814de0e2b47c9e9f153bbc8793a04c43b5075061",
+      "FaBSim/Custom/MSTCards.php": "cd98a9b734b984bfc19af7d0e4a3eebd5496f298d08c7c79d7f6d43c363513c7",
+      "FaBSim/Custom/MSTRuntime.php": "b96f21727c089c90c21bf3aadaf913301b1ef7c922f2a17ac055258682ed45ce",
+      "FaBSim/Custom/CardChoices.php": "c68ae2b8e984bcc64b00289cc2d71bc0c980b2fbbeaeadbca8ae3a9f9579c515"
+    },
+    "cases": 1,
+    "planned_actions": 10,
+    "persistable_checks": 386,
+    "named_primary_ids": [
+      "stir_the_pot_blue"
+    ],
+    "findings": [
+      "The exact old source-only lifetime concern at9e984 is superseded by existing current structural owned spell admission; same spell source remains available until native Transcend. No denied operation or engine repair is retried.",
+      "Actual prior SigilBlue play earns OtherBlue independently of source ownincrement; no BluePlayed/Transcend/Chi history seeded.",
+      "Same physical primaryUID6 becomes InnerChi and moves to owned Hand, preserving UID/owner/controller rather than creating a new card. Finalizer does not move a source already outsideStack.",
+      "Singlecard EngineShuffle has zero iterations so RNG0 preserved; no randomness/permutation certification."
+    ],
+    "limits": [
+      "Source/spec review only; no reviewer games/replays/output reads. Passing coverage requires saved first targeted replay.",
+      "Only named positive actualTranscend branch; no actualChi payment, falsecondition/bluepitch-only/shufflerandomness/foreignowner/siblings/fullcard credit.",
+      "Current structural source finding does not clear unrelated historical holds."
+    ]
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1475-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "43f290698ce81bd579711132eac89a39cf186c992bda9efdf33a685fc8bcde9c"
+  },
+  "full_suite_run": false
+}

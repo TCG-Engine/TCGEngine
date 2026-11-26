@@ -1,0 +1,92 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "breadth_review independent printed-text/source/transport review",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1012-20261122.json",
+  "source_spec_sha256": "244cd9ec8572c1616611c876046dd19e7287db38984faf1187e5049e73d58339",
+  "input_sha256": "244cd9ec8572c1616611c876046dd19e7287db38984faf1187e5049e73d58339",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-dusk-path-pilgrimage-red-four-live-sparse1012-real-plus-three-consumer-full-block",
+      "card_id": "dusk_path_pilgrimage_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "c1e417e52c4c2ba48e52fc2477325349f745a4badb9cd9496fc90ede624d13c2",
+        "actions.json": "61fb93699972b6a8043fb3e32dcd2e28aa924acd00042d81d53b137bc08db94b",
+        "assertions.json": "758f863b78caaa2ef3c96e41d0793ea08da549795650944fcc3b926e8c1b38c7",
+        "expected_final_gamestate.txt": "fee10fbd80ca9e68af6ebb3356c89912a10fca2a42af41901b80bbaa70226b72",
+        "meta.json": "40ff01a90ff2054c3be1f311532f7395b30160b178a3f8f929d46cdbed4b3a26"
+      },
+      "fixture_sha256": "7fbe99989e8321e630cd987c0fb962a21d79d466c3148758c14408e46f89c2c2",
+      "actions": 35,
+      "native_assertions": 249,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 29,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1012-20261122.json",
+      "input_sha256": "244cd9ec8572c1616611c876046dd19e7287db38984faf1187e5049e73d58339",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1012-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-dusk-path-pilgrimage-red-four-live-sparse1012-real-plus-three-consumer-full-block",
+        "fixture_slug": "card-dusk-path-pilgrimage-red-four-live-sparse1012-real-plus-three-consumer-full-block",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-drop-the-anchor-red-four-live-sparse1012-real-plus-three-consumer-full-block",
+      "card_id": "drop_the_anchor_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "d07f7b748d5ecd683bb28c6e9d6faab389a41acd683f94237584b20e277f8ae3",
+        "actions.json": "828d672398994d027e562c6c429848c2ace07d5fb839a44e5c0d656e4d8a1edb",
+        "assertions.json": "4dccfc1c61e3ca2ae26c63d8cc161e102f11221cf0a4e69408d6f2e58e48e096",
+        "expected_final_gamestate.txt": "2ad8d57bfc9fb4744620d505c46f210bd1ee9e7baa765fa8bddb84f4ae42dc40",
+        "meta.json": "f422e9753ca71bbd37d3651e92a95785ffeabfee1ae62e480cb2e974b1b61e03"
+      },
+      "fixture_sha256": "70286ffbaa5f41e554236584125774960c9d2e55720a4e400cda996775a742c0",
+      "actions": 35,
+      "native_assertions": 255,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 29,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1012-20261122.json",
+      "input_sha256": "244cd9ec8572c1616611c876046dd19e7287db38984faf1187e5049e73d58339",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1012-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-drop-the-anchor-red-four-live-sparse1012-real-plus-three-consumer-full-block",
+        "fixture_slug": "card-drop-the-anchor-red-four-live-sparse1012-real-plus-three-consumer-full-block",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "spec_sha256": "244cd9ec8572c1616611c876046dd19e7287db38984faf1187e5049e73d58339",
+    "reviewer": "breadth_review independent printed-text/source/transport review",
+    "basis": [
+      "DuskPath1 WarriorAction and DropAnchor0 RangerAction are untargeted positive buffs with printedgoagain; explicit GeneratedResolve producers NEXT_WEAPON3/monDusk and SEA_Next arrow3/SEA_ANCHOR verified. NaturalDorinthea20/Lexi20 class legal; actual physicalsource5 onStack throughfourresponses thenownedGY/AP1. No mandatory target/mode/earnedattack layer omitted.",
+      "Dusk actualBlue6funds1/R2, then nativephysicalDawnblade7printedcost1 spendsresidueR1/AP0; base3+3 becomes6. WTR NEXT_WEAPON consumes actualweapon proxy and carriesMON_DUSK_HIT without givingGA. RealHandAA8/9def3+3 fullyblock/0HP/noHit/Stack0; persistedpower6 andattackPower6 demonstrateactualbuffconsumption despitezeroDamage. No hit means no additionalattack/Dorinthea/Dawnblade event. Weapon7physicalusedstatus1/turn2attacks1 andWEAPON_UID7 proxy link/correctownerfates are consistent; no inventedproxyOwner/opaqueUID assertion.",
+      "Drop actualpreexistingfaceUPArsenalBoltNShot6 andreadyownedDeathDealer7 satisfy Arroworigin/Bow. NoBowload/entrycredit. Primary0/GA then actualArrow0/base4+3=7 vs threeHandAAdef9 gives0damage/noHit; persistedpower7 andattackPower7 pinbuffconsumption. BoltNShot printedstaticpower>base grantsGA whileattacking evenblocked (ELECards111), AP0throughDamage/AP1atResolution/final correct. GrantedReload/Anchorhit event notearned, actualHero4Status2retained; allytap notexercised. Source5thenArrow6orderedownedGY, unusedBow7ready anddefenders8/9/10ownedGGY4 consistent.",
+      "Both fourlive/manual andrealprintedcosts/AP/HP/roles/materialfates/quietqueues, distinctnewgroups andno forbidden author-onlydiagnostics. Rule expectations derivefromcache andsupportedproducers/consumers, not native output."
+    ],
+    "limits": [
+      "Only each specified positivebuff andoneactualconsumer/fullblock branch. PositiveHit/additionalattack/Reload/Hero-or-Allytap, alternateconsumers/targeting, EOTexpiry, hero abilities/supportidentity/pitchsiblings/fullcards untested. No sharedtiming/ownershiprepair or heldbranch closure claimed.",
+      "Root owns native input retention, saved assertion review andonecleanreplay. Reviewer ran no native/PHP/game/test and changed no T/source/original/Git/network/auth/engine; only this W receipt."
+    ]
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1012-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "1798cf75c0cc8a2a5c5d05397c3d329cb1bed21e216c295c1ecc6036bd4a3bdd"
+  },
+  "full_suite_run": false
+}

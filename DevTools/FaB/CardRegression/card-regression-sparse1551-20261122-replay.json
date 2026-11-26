@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-forsaken-strike-yellow-four-live-sparse1551-decline-both-real-optional-zombie-cost-pools-zero-modes",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-forsaken-strike-yellow-four-live-sparse1551-decline-both-real-optional-zombie-cost-pools-zero-modes",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1551-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1551-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "c1dd49c533dfa86bb7f6c1ba037b0b5ba5a4c7121379946507b3bcc8fccc205d",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "65be3e5f0b094d9230f514a0b0343148ff414c58f7ed543973cd2fca9033a022",
+        "actions.json": "6bf2d81defedd3b6c6a423c6c2588cae70594984261166640f25778a2550d8fb",
+        "assertions.json": "5a8b1f1812175763b57ed42578318b149701724b52e6c8a9f207e5fc256bac15",
+        "expected_final_gamestate.txt": "1c61a4ffc74536801164865255d2d7efe91815a2227612a0bde9f22aa3f6ce3d",
+        "meta.json": "16024b948b5488293724b3381b478f604f373ced3f29b341b72053236b6e5f1d"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

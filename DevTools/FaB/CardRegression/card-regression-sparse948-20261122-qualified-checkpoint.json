@@ -1,0 +1,184 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-22T20:32:38.716559+00:00",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse948-20261122.json",
+  "source_spec_sha256": "e79a5368c977fabb3e1caedd24c3fbfe92499384034bf3ad9cf886f8a36c501b",
+  "new_scenarios": 5,
+  "new_groups": 5,
+  "new_primary_ids": 5,
+  "actions": 138,
+  "native_assertions": 745,
+  "manual_passes": 125,
+  "totals": {
+    "saved_registered_scenarios": 4523,
+    "duels": 3075,
+    "four_live": 1448,
+    "recorded_primary_ids": 1671,
+    "identity_denominator": 5196,
+    "recorded_groups": 1545,
+    "group_denominator": 3324,
+    "four_live_groups": 1437,
+    "phase_qualified_scenarios_at_actual_contexts": 1160,
+    "phase_qualified_unique_groups": 1150,
+    "creation_replay_passes": 1902,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 321,
+  "scenarios": [
+    {
+      "card_id": "demonstrate_devotion_red",
+      "group_id": "identity:demonstrate_devotion_red",
+      "scenario_id": "card-demonstrate-devotion-red-four-live-sparse948-actual-first-chain-base-damage-without-unearned-chain-grants",
+      "effect_branches": [
+        "actual_first_chain_base_damage_without_unearned_chain_grants"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-demonstrate-devotion-red-four-live-sparse948-actual-first-chain-base-damage-without-unearned-chain-grants",
+      "source_spec": "card-regression-sparse948-20261122.json",
+      "source_spec_sha256": "e79a5368c977fabb3e1caedd24c3fbfe92499384034bf3ad9cf886f8a36c501b",
+      "review_evidence": "review-evidence/sparse948-20261122-qualified-saved.json",
+      "review_evidence_sha256": "86f7edb7ab23b1a3f8e49576817f3781a924028a22444b753841fb02f667ff07",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse948-20261122-replay.json",
+          "sha256": "5c89e79f77d7726f83d6b362bb9d0b6c0c7bf0d48d4e6f8adb16d54f573287d0",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "display_loyalty_red",
+      "group_id": "identity:display_loyalty_red",
+      "scenario_id": "card-display-loyalty-red-four-live-sparse948-actual-first-chain-base-damage-without-unearned-chain-grants",
+      "effect_branches": [
+        "actual_first_chain_base_damage_without_unearned_chain_grants"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-display-loyalty-red-four-live-sparse948-actual-first-chain-base-damage-without-unearned-chain-grants",
+      "source_spec": "card-regression-sparse948-20261122.json",
+      "source_spec_sha256": "e79a5368c977fabb3e1caedd24c3fbfe92499384034bf3ad9cf886f8a36c501b",
+      "review_evidence": "review-evidence/sparse948-20261122-qualified-saved.json",
+      "review_evidence_sha256": "86f7edb7ab23b1a3f8e49576817f3781a924028a22444b753841fb02f667ff07",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse948-20261122-replay.json",
+          "sha256": "5c89e79f77d7726f83d6b362bb9d0b6c0c7bf0d48d4e6f8adb16d54f573287d0",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "hot_on_their_heels_red",
+      "group_id": "identity:hot_on_their_heels_red",
+      "scenario_id": "card-hot-on-their-heels-red-four-live-sparse948-actual-first-chain-base-damage-without-unearned-chain-grants",
+      "effect_branches": [
+        "actual_first_chain_base_damage_without_unearned_chain_grants"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-hot-on-their-heels-red-four-live-sparse948-actual-first-chain-base-damage-without-unearned-chain-grants",
+      "source_spec": "card-regression-sparse948-20261122.json",
+      "source_spec_sha256": "e79a5368c977fabb3e1caedd24c3fbfe92499384034bf3ad9cf886f8a36c501b",
+      "review_evidence": "review-evidence/sparse948-20261122-qualified-saved.json",
+      "review_evidence_sha256": "86f7edb7ab23b1a3f8e49576817f3781a924028a22444b753841fb02f667ff07",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse948-20261122-replay.json",
+          "sha256": "5c89e79f77d7726f83d6b362bb9d0b6c0c7bf0d48d4e6f8adb16d54f573287d0",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "mark_with_magma_red",
+      "group_id": "identity:mark_with_magma_red",
+      "scenario_id": "card-mark-with-magma-red-four-live-sparse948-actual-first-chain-base-damage-without-unearned-chain-grants",
+      "effect_branches": [
+        "actual_first_chain_base_damage_without_unearned_chain_grants"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-mark-with-magma-red-four-live-sparse948-actual-first-chain-base-damage-without-unearned-chain-grants",
+      "source_spec": "card-regression-sparse948-20261122.json",
+      "source_spec_sha256": "e79a5368c977fabb3e1caedd24c3fbfe92499384034bf3ad9cf886f8a36c501b",
+      "review_evidence": "review-evidence/sparse948-20261122-qualified-saved.json",
+      "review_evidence_sha256": "86f7edb7ab23b1a3f8e49576817f3781a924028a22444b753841fb02f667ff07",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse948-20261122-replay.json",
+          "sha256": "5c89e79f77d7726f83d6b362bb9d0b6c0c7bf0d48d4e6f8adb16d54f573287d0",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "bonds_of_ancestry_red",
+      "group_id": "pitch-cycle:bonds_of_ancestry",
+      "scenario_id": "card-bonds-of-ancestry-red-four-live-sparse948-actual-first-chain-base-damage-without-unearned-chain-grants",
+      "effect_branches": [
+        "actual_first_chain_base_damage_without_unearned_chain_grants"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-bonds-of-ancestry-red-four-live-sparse948-actual-first-chain-base-damage-without-unearned-chain-grants",
+      "source_spec": "card-regression-sparse948-20261122.json",
+      "source_spec_sha256": "e79a5368c977fabb3e1caedd24c3fbfe92499384034bf3ad9cf886f8a36c501b",
+      "review_evidence": "review-evidence/sparse948-20261122-qualified-saved.json",
+      "review_evidence_sha256": "86f7edb7ab23b1a3f8e49576817f3781a924028a22444b753841fb02f667ff07",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse948-20261122-replay.json",
+          "sha256": "5c89e79f77d7726f83d6b362bb9d0b6c0c7bf0d48d4e6f8adb16d54f573287d0",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

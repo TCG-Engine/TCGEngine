@@ -1,0 +1,191 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "/root/breadth_review1449 independent read-only source-spec semantic review",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1452-20261122.json",
+  "source_spec_sha256": "381f0180ad75db4f0c72fb42d051c11d9fa9d3b21a454410208ea1f643d130a6",
+  "input_sha256": "381f0180ad75db4f0c72fb42d051c11d9fa9d3b21a454410208ea1f643d130a6",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-evo-zoom-call-yellow-four-live-sparse1452-nonbase-matching-slot-and-wrong-slot-base-do-not-transform-real-other-slot-control",
+      "card_id": "evo_zoom_call_yellow",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "16f499d82b374a904253883bee2cd6598600ee7c16f972af1bc828342d396bf6",
+        "actions.json": "b8e1fa9ea909640dd935ddd95b91bba00f24423a7c8a2e13d00a8a5dfa6b5a7e",
+        "assertions.json": "77837e63150fd2a98da03f6c12b88b6eaeee24919cedf2f302b5c619bced6dfb",
+        "expected_final_gamestate.txt": "80f2e149e042606af2c301f74a066194f586b56512813d675f45fc65ef6ea37f",
+        "meta.json": "2ef8b03485482a5a4f2ff5a3caff45cd37e794a0fe95b3b4a3ad92dbf81a697a"
+      },
+      "fixture_sha256": "1fe5b1cc3dc6fbfcd24376d730e751236414908793dc9e45a7f7135dcbb8f109",
+      "actions": 11,
+      "native_assertions": 399,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 8,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1452-20261122.json",
+      "input_sha256": "381f0180ad75db4f0c72fb42d051c11d9fa9d3b21a454410208ea1f643d130a6",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1452-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-evo-zoom-call-yellow-four-live-sparse1452-nonbase-matching-slot-and-wrong-slot-base-do-not-transform-real-other-slot-control",
+        "fixture_slug": "card-evo-zoom-call-yellow-four-live-sparse1452-nonbase-matching-slot-and-wrong-slot-base-do-not-transform-real-other-slot-control",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-evo-buzz-hive-yellow-four-live-sparse1452-nonbase-matching-slot-and-wrong-slot-base-do-not-transform-real-other-slot-control",
+      "card_id": "evo_buzz_hive_yellow",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "9a73767d85ea962ace45ef366cf8482c488f8d1153ddd6b93525341bdd45de29",
+        "actions.json": "b8e1fa9ea909640dd935ddd95b91bba00f24423a7c8a2e13d00a8a5dfa6b5a7e",
+        "assertions.json": "50be3776417e99c1d5a2f391608d1cd6c6c919216e06d2e1fb30e1206b10d26c",
+        "expected_final_gamestate.txt": "5fcf2c3e8d5f039b017da2f4612a35738f19f8868c3c4b4991a3fa00972ea1e7",
+        "meta.json": "6924328dec188286ea9a6081929bc4c4058153a4949f3ae8c62af200957a1585"
+      },
+      "fixture_sha256": "25600cc0dd0cf7c355fd060a929636d02c610f3dbd07f7ee982b7bcc8329c2b6",
+      "actions": 11,
+      "native_assertions": 399,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 8,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1452-20261122.json",
+      "input_sha256": "381f0180ad75db4f0c72fb42d051c11d9fa9d3b21a454410208ea1f643d130a6",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1452-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-evo-buzz-hive-yellow-four-live-sparse1452-nonbase-matching-slot-and-wrong-slot-base-do-not-transform-real-other-slot-control",
+        "fixture_slug": "card-evo-buzz-hive-yellow-four-live-sparse1452-nonbase-matching-slot-and-wrong-slot-base-do-not-transform-real-other-slot-control",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-evo-whizz-bang-yellow-four-live-sparse1452-nonbase-matching-slot-and-wrong-slot-base-do-not-transform-real-other-slot-control",
+      "card_id": "evo_whizz_bang_yellow",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "d9b4a97cc84627687a9ffca2a872d6b5cb6112f83d682d9538d2103c79f778a7",
+        "actions.json": "b8e1fa9ea909640dd935ddd95b91bba00f24423a7c8a2e13d00a8a5dfa6b5a7e",
+        "assertions.json": "37c750c4909febbde06643d38405ce14e8741a6883c9b5edf0888b5f32b0f58a",
+        "expected_final_gamestate.txt": "6279009446156ebebe94bfb9929dc6709df81311a999cb8925e2b3a8a6744d54",
+        "meta.json": "9f36f6f2faa248d622a94feac21926a045c9e2ca66b7bb59be839b6f7ba2695d"
+      },
+      "fixture_sha256": "b75959d8052ba300ae22ffe1b23ef79bd054bf3dc3979efc89f22cdadb8d4dcb",
+      "actions": 11,
+      "native_assertions": 399,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 8,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1452-20261122.json",
+      "input_sha256": "381f0180ad75db4f0c72fb42d051c11d9fa9d3b21a454410208ea1f643d130a6",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1452-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-evo-whizz-bang-yellow-four-live-sparse1452-nonbase-matching-slot-and-wrong-slot-base-do-not-transform-real-other-slot-control",
+        "fixture_slug": "card-evo-whizz-bang-yellow-four-live-sparse1452-nonbase-matching-slot-and-wrong-slot-base-do-not-transform-real-other-slot-control",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-evo-zip-line-yellow-four-live-sparse1452-nonbase-matching-slot-and-wrong-slot-base-do-not-transform-real-other-slot-control",
+      "card_id": "evo_zip_line_yellow",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "004075ac9389d260baa98485016f848f805efb20a5cf213f7cd0a407a33afed9",
+        "actions.json": "b8e1fa9ea909640dd935ddd95b91bba00f24423a7c8a2e13d00a8a5dfa6b5a7e",
+        "assertions.json": "28c1fbe68d7f8eaacba8445cedb664e302581769ae138426f1bcec5ae6f0c258",
+        "expected_final_gamestate.txt": "25838b24da731c6b35990dfad809216d3b714521ca87f6fd744294dd22fe4648",
+        "meta.json": "d84b0e511819433940721190dc30d1aa0cfafeb920c54d7048a43e61a552aa92"
+      },
+      "fixture_sha256": "8b2eacc3e88a2d447793a1b1383dacacefe0cb9c4efc6c4c267f6e1517fda899",
+      "actions": 11,
+      "native_assertions": 399,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 8,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1452-20261122.json",
+      "input_sha256": "381f0180ad75db4f0c72fb42d051c11d9fa9d3b21a454410208ea1f643d130a6",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1452-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-evo-zip-line-yellow-four-live-sparse1452-nonbase-matching-slot-and-wrong-slot-base-do-not-transform-real-other-slot-control",
+        "fixture_slug": "card-evo-zip-line-yellow-four-live-sparse1452-nonbase-matching-slot-and-wrong-slot-base-do-not-transform-real-other-slot-control",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "spec_sha256": "381f0180ad75db4f0c72fb42d051c11d9fa9d3b21a454410208ea1f643d130a6",
+    "reviewer": "/root/breadth_review1449 independent read-only source-spec semantic review",
+    "review_scope": "Four separate primary InstantEvos, each limited false matchingBase condition. Real own same-slot nonBase and wrong-slot Base; actual0costInstant play/fourmanualresponses/ordinarygraveyardcleanup; real3cost other-slotActionEvo control funded by actualBlue3 transforms only its matchingBase. No successful primaryequiporWHENcredit.",
+    "basis": [
+      "Each printed primary resolution says ifmatchingBaseequipped then transform/equip, nottargetoradditionalprerequisite. Thus legalInstant play is allowed evenwithfalsecondition, consumesnoaction, failsnoformalmandatorytarget and earnsnoequipWHEN. Wrong-slotBase6andright-slotIronrot5distinguishmatchingtype/slot ratherthanwrongowner/nopriority.",
+      "ProfessorCardsFaBEvoBase requires owned equippedBase+sameHead/Chest/Arms/Legs; EVOCardsFaBEVOTransform returnsfalsebeforeremovinganymaterialifnone. GameLogic2044persistent list excludesEquipment, andmanagedordinaryInstantresolves/clearsGYwhennoexplicitmovementhappened.",
+      "Each controlActionEvo8 hasprinted3cost/nogoagain/noentryWHEN, matchingactualBase6inotherslot. NativeTransformencodesBasecardinSUBCARDSunder8andremovesonly6; Ironrot5/primary7GY/HandPotion10/Deck11unchanged. ThreeactualBlue9resourcespaycostandAP1to0, rulingoutablankettransformdisabledresult.",
+      "YoungTeklovossen20/Dori20x3andGenericIronrot/auxiliarycardslegalUPF percache. NoHeroInstantpermission/Banishplay orSteelSoulold/newidentity, so no extraearned Hero/SteelSoultrigger is bypassed. ZoomDraw/Buzzresource/Whizzpower/Zipgoagain are notearnedwhentheirprimaryneverentersEquipment."
+    ],
+    "limits": [
+      "primary_successful_transform",
+      "primary_WHEN_equipped_effect_and_trigger_timing",
+      "primary_defense_or_equipment_abilities",
+      "banished_play_and_Hero_activated_instant_permission",
+      "pitch_siblings"
+    ],
+    "positive_primary_ability_credit": false,
+    "whole_card_credit": false,
+    "secondary_identity_credit": false,
+    "native_execution": "PENDING",
+    "independent_saved_file_review": false
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1452-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "f9b0c82ef12500f17f6fecb15742d827e06387a7dfce077ae3d89595f483a40f"
+  },
+  "full_suite_run": false
+}

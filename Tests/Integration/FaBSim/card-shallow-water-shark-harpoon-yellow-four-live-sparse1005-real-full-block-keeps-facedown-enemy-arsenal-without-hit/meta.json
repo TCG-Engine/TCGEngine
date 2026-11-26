@@ -1,0 +1,7 @@
+{
+    "name": "Shallow Water Shark Harpoon / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-23T01:55:26+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "If you've activated a cannon this turn, this gets \"When this hits a hero, destroy a card in their arsenal. If you do, create a Gold token.\" Named partial main/full-block branch only: actual naturalMarlynn20 PirateRanger and ownedDeathDealerBow9, realFaceDownArsenal5 source. Blue6 pays2/R1/AP0. Two actual enemy Hand AA7/8 eachdef3 fully block printed5, persisted0damage/HP20/noHit/Stack0/attackPower/defense6. Real eligible enemy Arsenal10 retained; source5 ownGY and defenders7/8 enemyGY. Allfour manual/live, no cannon activated, no earned hit. Cannon-history condition is not isolated by this no-hit branch. No positive banish/permission/arsenal destruction/Gold/creator/hero/support/pitch-sibling/full-card credit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#shallow_water_shark_harpoon_yellow"
+}

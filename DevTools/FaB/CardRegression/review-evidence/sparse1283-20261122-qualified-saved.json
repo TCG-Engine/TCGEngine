@@ -1,0 +1,151 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "independent breadth_review1252",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1283-20261122.json",
+  "source_spec_sha256": "5c9d4c0eb175cdfbb43c76fcb11a41202b4c59220c23dc10fab608f2b8b350bc",
+  "input_sha256": "5c9d4c0eb175cdfbb43c76fcb11a41202b4c59220c23dc10fab608f2b8b350bc",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-levia-shadowborn-abomination-two-live-sparse1283-real-six-banish-suppresses-blood-debt-through-full-turn",
+      "card_id": "levia_shadowborn_abomination",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "ed7e5f6e7256b14876578f3f9ff0ce9865a34d8780b112e3a28da84258212adb",
+        "actions.json": "1ed1526a12ee250753ede1468ecaa77c744586fa624c62582f7a516aeadc3d42",
+        "assertions.json": "697fb185221d9fb79512fc65388b086c990bc5eed7a79c7c47278a4f8054618a",
+        "expected_final_gamestate.txt": "b112275824bdb49274f248ea6aacf59d35488bd6434fecdf442cc593a0e0d042",
+        "meta.json": "728a1f2b45030e6565d1d02d510f3af28aecaa18bd2012f7e0ccd71092e78922"
+      },
+      "fixture_sha256": "88ab4789a102531776fbfde9626f91ec344c9d3bfb3876c527e471acd99f3206",
+      "actions": 9,
+      "native_assertions": 239,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 6,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1283-20261122.json",
+      "input_sha256": "5c9d4c0eb175cdfbb43c76fcb11a41202b4c59220c23dc10fab608f2b8b350bc",
+      "active_seats": [
+        1,
+        2
+      ],
+      "players": "two_live_manual",
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1283-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-levia-shadowborn-abomination-two-live-sparse1283-real-six-banish-suppresses-blood-debt-through-full-turn",
+        "fixture_slug": "card-levia-shadowborn-abomination-two-live-sparse1283-real-six-banish-suppresses-blood-debt-through-full-turn",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-uzuri-switchblade-two-live-sparse1283-real-hidden-cost-stealth-swap-and-replacement-damage",
+      "card_id": "uzuri_switchblade",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "f7f5f07ae7efaa4c4379e3d27db51d34da7aac0325222dbc667b81f89a159905",
+        "actions.json": "76904273f3754d9e3e3f174b760cfdbd6819204a16a4771b3f407e2e6cfb4ddc",
+        "assertions.json": "5d631e7554c7f69b143b05342bf857b3321ea4a5eda3b875f21f7ef5a9048c3a",
+        "expected_final_gamestate.txt": "f46e179394a96e20cc9462e020ea27a1d809ab38da7777116afa1a1d6f2c29bf",
+        "meta.json": "7c7d3a8b15f9d5fb9c322b471aa9db75bb97e31277897861568084c36d14350e"
+      },
+      "fixture_sha256": "1eab2029a78620bf5800263ef05ebab4e98a05fe6aca1d5e9f29e0cf6e1713ec",
+      "actions": 18,
+      "native_assertions": 242,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 15,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1283-20261122.json",
+      "input_sha256": "5c9d4c0eb175cdfbb43c76fcb11a41202b4c59220c23dc10fab608f2b8b350bc",
+      "active_seats": [
+        1,
+        2
+      ],
+      "players": "two_live_manual",
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1283-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-uzuri-switchblade-two-live-sparse1283-real-hidden-cost-stealth-swap-and-replacement-damage",
+        "fixture_slug": "card-uzuri-switchblade-two-live-sparse1283-real-hidden-cost-stealth-swap-and-replacement-damage",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "reviewer": "independent breadth_review1252",
+    "spec_sha256": "5c9d4c0eb175cdfbb43c76fcb11a41202b4c59220c23dc10fab608f2b8b350bc",
+    "source_note_sha256": "fb275760b2ae48db34ab9debbd0aee9add5db2913d3b058d23e0760ce8e7f2af",
+    "case_count": 2,
+    "active_seats": [
+      1,
+      2
+    ],
+    "players": "two_live_manual",
+    "native_controls": 27,
+    "query_checks": 481,
+    "persistable_assertions": 481,
+    "author_only_checks_omitted": 0,
+    "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+    "coverage_category": "ACTUAL_ADULT_LEVIA_DEBT_WAIVER_AND_UZURI_SINGLETON_STEALTH_SWAP_NATIVE_DUELS",
+    "per_case": [
+      {
+        "card_id": "levia_shadowborn_abomination",
+        "native_controls": 9,
+        "persistable_assertions": 239
+      },
+      {
+        "card_id": "uzuri_switchblade",
+        "native_controls": 18,
+        "persistable_assertions": 242
+      }
+    ],
+    "basis": [
+      "Two distinct unrepresented adult40 identities versus adultDorintheaIronsong40. Both specs omit activeSeats, use exact native12/default empty gameMode/no passives/manual participants, regenerate duel initial assertions and allocate assets3/4/5 with ABI6. No p3/p4 queries remain. Cached adult text matches selected corresponding young branches; Levia prefix recognition and explicit UzuriSwitchblade row/prepare/generated resolver admit actual adults.",
+      "Levia actualEbon3Instant1 requires realRed5pitch1/R0 without AP cost; destroyEquipment3 is printed cost, actualDread4Hand remains until both fresh manual responses. Managed ABI6 held through non-target Hand choice; actualfaceup power6 BloodDebt4 banish earns waiver. Existing MON/DTD end path checks earned BANISHED_SIX before debt loss and before turn-effect reset. Empty Deck draw attempt earns no positive Ebon draw credit.",
+      "Levia mapped payment startsPriority2, response2 passes to1, actor1 resolves actual choice. Both ACTION passes reach END_PHASE1, both END_PHASE passes complete full nextTurn2/number3/APonlyP2=1 with HP40 unchanged. Sole realRed5Pitch returnsDeck then native oldactor refill draws same5Hand; Ebon3GY/realDebt4Banish/UID6 clean. Nine single controls/239 persisted checks.",
+      "Uzuri realWither3Stealth0 declares singleton opposingHero2 automatically, paysAP0 and waits both attack/combat responses into empty-defender Reaction1. Actual ABI6 hidden Hand cost moves originalWounding4 faceDownBanish. OUTBanishCost binds unique unchanged activeStealthUID3 to this ABI before opponent priority. This narrow implicit-singleton binding inference is carried forward, with no broader formal-target ordering, alternate target or reassignment certification.",
+      "Uzuri payment returnsReactionPriority2; first cost response passes actor2to1 while ABI6 remains. Next goal Reaction1+stackEmptytrue is supported by native FCRReady and is false while ABI remains, so it forces actual actor1 response although priority1 is same before and after resolution. Generated resolver retrieves ABI6 binding; same4 replaces attacker, old3 goes bottomDeck after untouched5. Fresh both-player reactions then power4/noGA/actual4damage/HP2=36, no oldWitherFrailty, full4GY/Deck5then3. Eighteen single controls/242 persisted checks.",
+      "Transformation review found correct UID/source/attackUID offsets, health40/36 mapping, removed four-seat target chooser only where native singleton attack declaration supplies same opponent, default-duel priority mapping, and no omitted native state checks. All481 query/state/power/go_again assertions persist; donors1280/1282 are design-only, no historical replays or duplicate young credit."
+    ],
+    "limits": [
+      "Semantic/source review only pending new native saves and targeted replays for both adults; no native pass, replay or coverage credit claimed.",
+      "Only named positive adult duel branches. No young/four-live, Ebon positive draw, Levia false/expiry/repeat condition, Uzuri alternate/cost2boundary/nonAAC/retarget/defenders/once-repeat/reveal-log, support or whole-card credit.",
+      "Only W receipt written; no native/test/replay execution, T/source/engine/registry edits, authentication/network, Git or original checkout access."
+    ],
+    "source_sha256": {
+      "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+      "FaBSim/GeneratedCode/GeneratedMacroCode.php": "fe6a7982611df8f4de98ce2671b317b671b580146aa4b8c28e8f4b86d8461056",
+      "FaBSim/Custom/MONCards.php": "2eb22bda6f1dba583df2879046f9f4dec94f47f2e9b28f369758f3af72c9c3ac",
+      "FaBSim/Custom/MONAbilities.php": "7e5a6ba9e0523c03c7ece084793564d87ecd9d6fbba55b9252cb83f3d952b4fa",
+      "FaBSim/Custom/DTDRuntime.php": "4393481861f97f02c611e9c2cc3c65ff53a7ea5c39db05d97d5b1dc93d0de4f0",
+      "FaBSim/Custom/OUTCards.php": "93f83523894205662afb911abd42b5c82b618020597b2ffecf6612fccc362d91",
+      "FaBSim/Custom/OUTRuntime.php": "c0230fc9eb9948e3e2a93e2b33b6d1ebb588604957196b114991e23a19c22961",
+      "FaBSim/Custom/ARCAbilities.php": "e49ce4685f148ef423ea38aac544266b3298527ea8ca9eef11b12fb974e7c9f0",
+      "FaBSim/Custom/ARCCards.php": "f6b6a21d214e71fdcfd6a084f0671ce610f08a40c51a1266041877a5a12c0d52",
+      "FaBSim/Custom/GameLogic.php": "c60fa151561f959e4e3e341b814de0e2b47c9e9f153bbc8793a04c43b5075061",
+      "Schemas/FaBSim/GameSchema.txt": "7783800bd47bc85885cc915066aadca58cdf99f0c1180602ac312d9af5ebf643",
+      "Core/ShortcutPreferences.php": "25f300ea0b6fbc409f5b92e8bc3587a74b2ab0eaf31ccef38e18c455598eaba6",
+      "DevTools/FaB/CardRegression/record_card_regressions.php": "e53055b29e9ea641949b77019c4455607f41ca233325d716a9500637e19efd28"
+    },
+    "workspace_source_sha256": {
+      "author_breadth1283.py": "e90bbd536ee5cb310e67b468cc5e0998b2f84e91793eb29ca361f67a3205eb62",
+      "duel_breadth1261_helpers.py": "786de4cb45fa4cb12016e55b204ba1aa5f823bb576c7778732623fae7ed05dbd"
+    }
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1283-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "a2e3a8f6bbef488e9b25776332fb59e49c5d22d7ae6319527ecbc5acba938c41"
+  },
+  "full_suite_run": false
+}

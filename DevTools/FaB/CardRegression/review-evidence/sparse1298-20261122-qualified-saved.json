@@ -1,0 +1,199 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "independent breadth_review1252",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1298-20261122.json",
+  "source_spec_sha256": "6156866acca160311bc9bc8215465ed956e10a68ffbc98911c1a45bea318a6a1",
+  "input_sha256": "6156866acca160311bc9bc8215465ed956e10a68ffbc98911c1a45bea318a6a1",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-blossoming-spellblade-red-four-live-sparse1298-real-unfused-attack-no-fused-only-arcane-or-go-again",
+      "card_id": "blossoming_spellblade_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "89e7719288e5f7e7b37139c5e4c798dae61aad0062117fb1b5ead5c25c5874b1",
+        "actions.json": "1ef1359f0cb6a63079e6f6cd368d56bb483cc14d047b770aadf86c15dfedfbeb",
+        "assertions.json": "f68bbd6d33d614ccf690fc58577ea03bd18de08e4e5b0b8b879f7d3616f4822b",
+        "expected_final_gamestate.txt": "58be0c2f8f5e02c1d59d5b158da6373ba5404be2bef70c53d73f053aa2e60261",
+        "meta.json": "4e046d8c28f70eaa74804b595351368914e92927a3430f1df2da4c9f4d9fb4a6"
+      },
+      "fixture_sha256": "bd88b3188456802959c3840b6a687aaa1fe8bd16b8b78bf42a55bfe5fba8c49e",
+      "actions": 28,
+      "native_assertions": 403,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1298-20261122.json",
+      "input_sha256": "6156866acca160311bc9bc8215465ed956e10a68ffbc98911c1a45bea318a6a1",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1298-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-blossoming-spellblade-red-four-live-sparse1298-real-unfused-attack-no-fused-only-arcane-or-go-again",
+        "fixture_slug": "card-blossoming-spellblade-red-four-live-sparse1298-real-unfused-attack-no-fused-only-arcane-or-go-again",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-rites-of-lightning-red-four-live-sparse1298-real-unfused-attack-no-fused-only-arcane-or-go-again",
+      "card_id": "rites_of_lightning_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "e2bbfbfd9d61e16b14b8dc358f5d6ec83c0b3eb9d36caa6b18d1c53a9e202baa",
+        "actions.json": "1ef1359f0cb6a63079e6f6cd368d56bb483cc14d047b770aadf86c15dfedfbeb",
+        "assertions.json": "8eedeae70e6b4dc0183dd5891bfab541e4eaeb2ee549267221362b4231b13dcf",
+        "expected_final_gamestate.txt": "9bb28e45b996b6b6b337370b86c4a128f7f0a6082dd34212b1dbab26a0d2f800",
+        "meta.json": "db4fb5b1daabafa0220ea203f00ac17fbe97a252944fcd2caf8f31fc07629b1e"
+      },
+      "fixture_sha256": "4930e5537607ada372c2f0456f38f37c52afd51565632b6b09226900d4f0d1b7",
+      "actions": 28,
+      "native_assertions": 403,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1298-20261122.json",
+      "input_sha256": "6156866acca160311bc9bc8215465ed956e10a68ffbc98911c1a45bea318a6a1",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1298-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-rites-of-lightning-red-four-live-sparse1298-real-unfused-attack-no-fused-only-arcane-or-go-again",
+        "fixture_slug": "card-rites-of-lightning-red-four-live-sparse1298-real-unfused-attack-no-fused-only-arcane-or-go-again",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-chilling-icevein-red-four-live-sparse1298-real-unfused-attack-no-fused-only-discard-tax",
+      "card_id": "chilling_icevein_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "cc3d7fe75936e6ab987f2b91077dc1e944f457a8f7937e41ab170266714d52cc",
+        "actions.json": "b96e8c04efb76e5837c8044bbe521bb58679cd607490b707f44b4b59901b066f",
+        "assertions.json": "b5035bcac1cd45bf4709e1f11ad03ff47b3281838b6626e7710cc910eca6cc09",
+        "expected_final_gamestate.txt": "2a64e424cfe4c98da0f03225815e120522072cbd25bab10b065044e77b28758b",
+        "meta.json": "0951f8e475179c4fcfe6b2ed016a6277978c7730843ed06eeadff4a725c1c7dc"
+      },
+      "fixture_sha256": "cdee97581c38f3a1e5d9b778eb64da8be391b0117295c4d269f417669dc81030",
+      "actions": 28,
+      "native_assertions": 395,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1298-20261122.json",
+      "input_sha256": "6156866acca160311bc9bc8215465ed956e10a68ffbc98911c1a45bea318a6a1",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1298-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-chilling-icevein-red-four-live-sparse1298-real-unfused-attack-no-fused-only-discard-tax",
+        "fixture_slug": "card-chilling-icevein-red-four-live-sparse1298-real-unfused-attack-no-fused-only-discard-tax",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "reviewer": "independent breadth_review1252",
+    "spec_sha256": "6156866acca160311bc9bc8215465ed956e10a68ffbc98911c1a45bea318a6a1",
+    "source_note_sha256": "0006ca8b476b964a93d344335347c77cf9b9a0a5869430f32802be749dfd92aa",
+    "case_count": 3,
+    "active_seats": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "players": "four_live_manual",
+    "native_controls": 84,
+    "query_checks": 1201,
+    "persistable_assertions": 1201,
+    "author_only_checks_omitted": 0,
+    "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+    "coverage_category": "UNFUSED_NORMAL_PAYMENT_AND_FUSED_ONLY_EFFECT_GUARD",
+    "positive_fusion_credit": false,
+    "positive_hero_ability_credit": false,
+    "per_case": [
+      {
+        "card_id": "blossoming_spellblade_red",
+        "group_id": "identity:blossoming_spellblade_red",
+        "native_controls": 28,
+        "persistable_assertions": 403
+      },
+      {
+        "card_id": "rites_of_lightning_red",
+        "group_id": "pitch-cycle:rites_of_lightning",
+        "native_controls": 28,
+        "persistable_assertions": 403
+      },
+      {
+        "card_id": "chilling_icevein_red",
+        "group_id": "pitch-cycle:chilling_icevein",
+        "native_controls": 28,
+        "persistable_assertions": 395
+      }
+    ],
+    "basis": [
+      "Three distinct uncovered ElementalRed pitch-cycle groups use naturalYoungBriar20/EssenceEarthLightning for legal ElementalRuneblade cards or naturalYoungLexi20/EssenceIceLightning for legal ElementalRangerArrow, fourmanualUPF/exact1234/no passives/natural20. Actualphysicalprimary5 andGenericfunder6 plusopposingcontrols allocate correctly. No fused/arcane/history/modifier seed or Heroactivation.",
+      "Fusion is optional additional Handreveal cost per parent-supplied CR8.3.17 check. OnlyremainingHandfunder is GenericCriticalStrike with none of Earth/Ice/Lightning, so unable/unfused/noFusionchoice is correct. ActualYellow6pitch2 paysBlossoming2; actualRed6pitch1 paysRites/Icevein1. AP1to0/R0 beforefourresponses; announcedprimarycannotrevealitselffromStack.",
+      "Blossoming and Rites targetactualAshwingAlly7 owned adjacentDromai4, with realenemyHand8/faceDownArsenal9 controls. Printed6/4power/noGA andactual6/4physicaldamagekill1lifeTokenAlly withoutGY4export/HeroHPspill. Briar firstHero-damage producer is not earned onAllydamage; noNAAcardplayed for its otherproducer. BothattackarcaneWHENs requirefused, falseintervening-if, so no layer/target. Blossoming gained damagepermission also requiresfused/HeroDamage; RitesGA requiresactualarcane history, alsoabsent.",
+      "CorrectedIcevein startspriorfaceupArsenal5 andinactiveactualDeathDealer8Weapons1/OwnerController1/Status2 throughout. ARCCanPlay305\u2013306/CR8.2.6a requires equippedBow. ReviewcaughtmissingBow beforeexecution; correctedinitial/payment/critical/final physicalguards nowretainBow8/UIDmax8 without changingoriginaldefenderBlue7. NoBowactivation/Lexiflip. Source-only nonexistentELERuntime reference was also corrected toactualELEAbilities beforethisreceipt.",
+      "ActualunfusedIcevein5 paysRed6normalcost1 and deals5toHero4/HP15. PrintedattackWHENiffused isfalse, so no turnlong damage-discard/paytax wascreated: actualdefenderBlue7Hand/R0 remains, noqueue/extraUID/RNG. Fullsource5GY1/funder6Pitch/Bow8readyWeapons/control7Hand/APR0/cleanStackDQsCC; othercasesfinalUID9/control8Hand9Arsenal/noBow correct. All1201 query/state/power/go_again assertions persist across84 single controls:28/403,28/403,28/395."
+    ],
+    "limits": [
+      "Semantic/source review only pending native saves and targeted replays; no native pass, replay or coverage credit claimed. OfficialFusion evidence is parent-supplied; reviewer made no network request.",
+      "Only unfusednormalpayment/actualphysicaldamage and selected falsefused/arcane guards. No successfulFusion, truearcane/go-again/permission/tax, Hero/Bowactivation, support/sibling or whole-card credit. HeldLexi ability remains untouched.",
+      "Only W receipt written; no native/test/replay execution, T/source/engine/registry edits, authentication/network, Git or original checkout access."
+    ],
+    "source_sha256": {
+      "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+      "FaBSim/GeneratedCode/GeneratedMacroCode.php": "fe6a7982611df8f4de98ce2671b317b671b580146aa4b8c28e8f4b86d8461056",
+      "FaBSim/Custom/ELECards.php": "5319104c32fb648c9ef90ee5e7e3a6a22e29c35a26c2cca31b338aada0e6110f",
+      "FaBSim/Custom/ELEAbilities.php": "d0da7637932733ee6c0e77f4786c4950fbaa4e41eb74c5d1f5d536961fa27ab8",
+      "FaBSim/Custom/ARCCards.php": "f6b6a21d214e71fdcfd6a084f0671ce610f08a40c51a1266041877a5a12c0d52",
+      "FaBSim/Custom/FaiCards.php": "222e95c7670e2df62aaec1185f75e63b6cc563bbd8fcfd52b4dd8f1f14110786",
+      "FaBSim/Custom/UPRCards.php": "62798bd281afc17805c396e92deab22497b9c80d881f99e943833cb82d449321",
+      "FaBSim/Custom/GameLogic.php": "c60fa151561f959e4e3e341b814de0e2b47c9e9f153bbc8793a04c43b5075061",
+      "Schemas/FaBSim/GameSchema.txt": "7783800bd47bc85885cc915066aadca58cdf99f0c1180602ac312d9af5ebf643",
+      "Core/ShortcutPreferences.php": "25f300ea0b6fbc409f5b92e8bc3587a74b2ab0eaf31ccef38e18c455598eaba6",
+      "DevTools/FaB/CardRegression/record_card_regressions.php": "e53055b29e9ea641949b77019c4455607f41ca233325d716a9500637e19efd28"
+    },
+    "workspace_source_sha256": {
+      "author_breadth1298.py": "2b11d942ce7a4646cbb8f6c77998e26f1341a0d8b2b7ed429da05b62571d0578",
+      "breadth1068_helpers.py": "997f949ec26c7e494ad26a818f9f2078f6f4f2a0c49ca7f61aa8c71f3b091b0a"
+    }
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1298-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "f24e7b451215a41c3a3ae4a3badf5fadeb1e1ad9c9d61d1ce33bf773e1783c48"
+  },
+  "full_suite_run": false
+}

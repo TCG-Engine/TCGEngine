@@ -1,0 +1,56 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-nekria-four-live-sparse1556-real-zero-damage-no-damage-event-health-loss-or-ash",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-nekria-four-live-sparse1556-real-zero-damage-no-damage-event-health-loss-or-ash",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1556-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1556-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "02b7ff2b6dc02f1092ca7829699e5eee168f5bcaa4596711d74f7ea79c032f1f",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "25a902430631bdbb92a137129ef8239019586f8f0912a6f1f715776bf84b5c63",
+        "actions.json": "34fec76f7920fbf82f1acf413dda168554722dd5385fb5bf768c87a84ae31ec2",
+        "assertions.json": "95a0c008f015da84596272a31aea0b7d1edf11aa0bb0cf3206dd431cdf99f836",
+        "expected_final_gamestate.txt": "90dbe6145b18b01febd22b01c87e120df0006d67c73cb04bc50f287d0700a55c",
+        "meta.json": "d4cec910ec1b9d1a15169c1fbe38ee15abb14ea52e23147dcef2458e12d6a001"
+      }
+    },
+    {
+      "slug": "card-sticky-fingers-four-live-sparse1556-real-ally-target-not-hero-gold-retained-and-polly-dies",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-sticky-fingers-four-live-sparse1556-real-ally-target-not-hero-gold-retained-and-polly-dies",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1556-local-20261122\\clean-replays\\01.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1556-local-20261122\\clean-replays\\01.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "543e3faed966a475ab168c45f9a03ece7b3f2687dbfdac46de2d0ac5aacb712a",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "ae59d5bcceca8e5bb8e65ea99030c472c62524c7efe711ab88413e2a3851927e",
+        "actions.json": "3be89c7247225f8e7fefd90d5c53c15d38e5326cdaf0e08887bca7a1549ea7cf",
+        "assertions.json": "ba80250fa003244b294c4951fb13117d70844a59f533a9b0554026a39f7e8d78",
+        "expected_final_gamestate.txt": "36c53c416b7daceddd96291f34dd14c4598a30e4d7ff1ec4d6c5d431e7dfa251",
+        "meta.json": "1425f8069d00dd9413355fb645321fc86d56c949669d8e066df1544f0bf534da"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

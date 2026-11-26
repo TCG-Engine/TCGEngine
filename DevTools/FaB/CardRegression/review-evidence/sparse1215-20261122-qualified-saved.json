@@ -1,0 +1,144 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "independent breadth_review",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1215-20261122.json",
+  "source_spec_sha256": "4a953be9d2b1dc4edb3909aa227a866ea455308db64e19ea09721e83b3c444ff",
+  "input_sha256": "4a953be9d2b1dc4edb3909aa227a866ea455308db64e19ea09721e83b3c444ff",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-anka-drag-under-yellow-four-live-sparse1215-printed-main-action-attack-resource-1-power-5-taps-actual-ally-and-preserves-it-after-real-damage-only",
+      "card_id": "anka_drag_under_yellow",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "222a13acfcbe1f2972ba1690eb9fc741118d34b509d67c930952c93b9ebb596f",
+        "actions.json": "633f7250e47f75034b699ad38092ac45af050fd88cc9320a561aa10b07dd4fd2",
+        "assertions.json": "efd2791f23173c02831ba7228f541b090546db54e8139de6d2b95bb3e54ba476",
+        "expected_final_gamestate.txt": "4fdd766ee5206b49520d556c9585d569f7434afb65c3934424dfd90762849ccc",
+        "meta.json": "103f0bf174e2d5f8a61a78bbbe1922b60bb5d4c6a2b9423d3ad30ca3e16188e0"
+      },
+      "fixture_sha256": "e756d6f3fbe12dc10ec0496ded36c03e9b8013e4a247481244a781f9f0d1f8ee",
+      "actions": 28,
+      "native_assertions": 352,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1215-20261122.json",
+      "input_sha256": "4a953be9d2b1dc4edb3909aa227a866ea455308db64e19ea09721e83b3c444ff",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1215-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-anka-drag-under-yellow-four-live-sparse1215-printed-main-action-attack-resource-1-power-5-taps-actual-ally-and-preserves-it-after-real-damage-only",
+        "fixture_slug": "card-anka-drag-under-yellow-four-live-sparse1215-printed-main-action-attack-resource-1-power-5-taps-actual-ally-and-preserves-it-after-real-damage-only",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-kelpie-tangled-mess-yellow-four-live-sparse1215-printed-main-action-attack-resource-0-power-1-taps-actual-ally-and-preserves-it-after-real-damage-only",
+      "card_id": "kelpie_tangled_mess_yellow",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "94dbebff1e7cefdb6adf595df50bd1d6efbb4665b0925e843ad1ba50e531b0d7",
+        "actions.json": "a768bf0dcca7fe78ad4748b146f2162f29630c2be755b170d0430eecb855d1d5",
+        "assertions.json": "c8662372e0cc3d2566f6477c4041bdbc4dac5c160d375ba89d2416d53fd6e7bc",
+        "expected_final_gamestate.txt": "da94e89b028a8f7b24af12ff560359444e8e87deb8dc4730465d1e75a2776411",
+        "meta.json": "093382038460ca305bd64efefcff2bf10d25c6bfceafc3eda57031b189d3dd9a"
+      },
+      "fixture_sha256": "f041f88dcc421e68219277aa36f445c0f5a45ab3b8e8eaad4bf835772815a6df",
+      "actions": 27,
+      "native_assertions": 311,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1215-20261122.json",
+      "input_sha256": "4a953be9d2b1dc4edb3909aa227a866ea455308db64e19ea09721e83b3c444ff",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1215-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-kelpie-tangled-mess-yellow-four-live-sparse1215-printed-main-action-attack-resource-0-power-1-taps-actual-ally-and-preserves-it-after-real-damage-only",
+        "fixture_slug": "card-kelpie-tangled-mess-yellow-four-live-sparse1215-printed-main-action-attack-resource-0-power-1-taps-actual-ally-and-preserves-it-after-real-damage-only",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "reviewer": "independent breadth_review",
+    "spec_sha256": "4a953be9d2b1dc4edb3909aa227a866ea455308db64e19ea09721e83b3c444ff",
+    "case_count": 2,
+    "native_controls": 55,
+    "persistable_assertions": 663,
+    "author_only_checks_omitted": 0,
+    "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+    "runtime_verification_scope": "Root fresh isolation/runtime/HEAD verification reused; baseline runtime checked and selected current source/cache bindings read independently. No aggregate runtime execution or Git operation by reviewer.",
+    "coverage_category": "ORDINARY_PRINTED_MAIN_ALLY_ATTACK_ONLY",
+    "cases": [
+      {
+        "card_id": "anka_drag_under_yellow",
+        "group_id": "identity:anka_drag_under_yellow",
+        "native_controls": 28,
+        "persistable_assertions": 352,
+        "ability_resource_cost": 1,
+        "printed_power": 5,
+        "actual_damage": 5,
+        "final_target_health": 15,
+        "final_resources": 2,
+        "proxy_uid": 7
+      },
+      {
+        "card_id": "kelpie_tangled_mess_yellow",
+        "group_id": "identity:kelpie_tangled_mess_yellow",
+        "native_controls": 27,
+        "persistable_assertions": 311,
+        "ability_resource_cost": 0,
+        "printed_power": 1,
+        "actual_damage": 1,
+        "final_target_health": 19,
+        "final_resources": 0,
+        "proxy_uid": 6
+      }
+    ],
+    "basis": [
+      "Exact frozen spec/source-note and both full native/check flows reviewed against preflight. Legal young GravyBones20/threeDorinthea20, actual prior owned ready PirateNecromancerAlly5Arena1/Damage0. Anka has actual GenericBlue6Hand1; Kelpie has noHand/R0. Initial card/owner/controller/health/zone assertions fit the current cache and legal admission. These two standalone groups are unrepresented; Moray zero-power route was excluded.",
+      "MONAbilities42-77 provides the real supported Arena attack. SEARuntime141 parses the first printed Action...Attack resource component: Anka1 and Kelpie0, not their ordinary Hand-play costs or alternative activated costs. Real adjacent Hero4 target is declared before proxy creation/payment, while physical5 remains readyArena and Stack0; no premature Stack source or assumed single-target auto selection.",
+      "Anka alternative Instant requires a WateryGrave Hand card (SEA45); actual GenericBlue6 has none. Kelpie alternative Action1 cannot be funded at Hand0/R0 (ARC ability budget90). Thus ARC alternatives are absent; GL2819-2824 executes the single main ACTIVATE action without an extra mode choice. The main MON Arena attack never enters their alternative Prepare/ResolveAbility bodies.",
+      "Anka actual target answer creates proxy7 then PITCH/R0/AP1, while physical5 is still ready2. ActualBlue6pitch3 pays1 toR2/AP0, then printed tap source5 becomesStatus1 before four fresh1/2/3/4 source responses. Kelpie target answer creates proxy6 and immediately pays ActionAP1->0/tap1 with R0, also before four responses. GL1223/CRUCards408 marks the real source used/tapped; proxy guards use real Controller1/SourceUID5 and do not invent raw proxyOwner1.",
+      "Both attacks have computed printed power5/1 and no go again. Kelpie cache has WateryGrave but no ownGoAgain metadata; GL346/454-476 trims activated ability sections, so the other Action1 tap-target ability GoAgain is not the main attack keyword. No other grant source is present. The strict falseGA and AP0 at Resolution/final guards are appropriate, rather than silently inheriting the other ability reward.",
+      "All real attack/defense/reaction/damage/resolution priority rounds include all four live seats. Empty defenders yield actual5/1 damage and enemyHero4HP15/19; every otherHero remains20. No selected main attack has a WHENattack or WHENhit body, so no missing mandatory trigger is ignored. Physical source5 retains Damage0 and survives; synthetic proxies retire, no source card moves toGY and no WateryGrave trigger is earned.",
+      "Final original source5Arena1/tapped1, AnkaBlue6Pitch1 only, final R2/0 and AP0, maxUID7/6, empty Hand/Deck/GY/Stack/decision queues/chains and correct physical ownership are coherent. Pitch is not a blue card enteringGY, so GravyBones permission condition is not earned. No private post-use whole-Counters comparison drops weapon-use bookkeeping.",
+      "All663 checks normalize to persisted assertion forms with zero author-only diagnostics and no conflicting same-checkpoint literals. No PHP/native/tool-driver or source mutation was used for this review."
+    ],
+    "known_hold_scope": {
+      "anka_841": "Retained source_only_unattempted_selected_planning_limit for the OTHER Instant installing ANKA watcher, subsequent real opponent draw and seaDiscard deferred-choice layer under094. Its own limits explicitly leave primary attack untested. This packet does not activate that Instant, install a watcher, draw/discard or enter that lifetime path; it is not a shortened or empty consumer for that held recipe.",
+      "release_claim": false
+    },
+    "limits": [
+      "Only each printed main Action tap attack from a lawful prior living Ally, one unblocked opposing hero, actual printed resource/AP/tap costs and complete cleanup. Baseline-only qualification; not comprehensive card support.",
+      "No other Instant/Action body, target-tap/GoAgain reward, delayed draw/discard, WateryGrave departure/face-down behavior, repeated activation, producer/entry/expiry, Hero/support/sibling or full-card credit. All old holds remain unchanged.",
+      "Root native save, stored evidence mapping and one clean targeted replay each remain pending. No native/PHP/T/source/framework/engine/Git/network/original-checkout actions by reviewer."
+    ],
+    "baseline_sha256": "2ad133b6777d06ac5fa5f5595ab3dcded21658e8b9c81412e29b4af7d71dc034",
+    "source_note_sha256": "90b669f5bd99856684b91bef8822684daaed8312aaeb4039c54eae5d1e478b14",
+    "source_sha256": {
+      "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+      "FaBSim/Custom/MONAbilities.php": "7e5a6ba9e0523c03c7ece084793564d87ecd9d6fbba55b9252cb83f3d952b4fa",
+      "FaBSim/Custom/SEARuntime.php": "6d998ea92dd3817d3329695a08db8c2fff78228967ee3bc35923f79eccdd3587",
+      "FaBSim/Custom/ARCAbilities.php": "e49ce4685f148ef423ea38aac544266b3298527ea8ca9eef11b12fb974e7c9f0",
+      "FaBSim/Custom/CRUCards.php": "5f0ff2122f9e033b8ad9ced75e9ee2210f459c868633f3f1741f419bc437c12d",
+      "FaBSim/Custom/GameLogic.php": "c60fa151561f959e4e3e341b814de0e2b47c9e9f153bbc8793a04c43b5075061"
+    }
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1215-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "7b6e1f9479c65be571b88dba2c6a3280c577219d5dc06951c8853f837334a672"
+  },
+  "full_suite_run": false
+}

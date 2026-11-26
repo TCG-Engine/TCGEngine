@@ -1,0 +1,56 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-rattle-bones-red-four-live-sparse1509-real-generic-graveyard-attack-is-not-runeblade-target",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-rattle-bones-red-four-live-sparse1509-real-generic-graveyard-attack-is-not-runeblade-target",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1509-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1509-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "54f28199ed5d03a9881b22fb814b16cb62042339daf0690f16a6410a35d76735",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "169878e1576477197147e84db9a850d14465544119f01fa1586334fecb77a9bb",
+        "actions.json": "33a09cf9c983c0500ea7af7a916466b1b436968329011005efe02f6aa494166b",
+        "assertions.json": "bfa2f49c5ac531eeb9df515a2caf0e76de5cdadc5abf939c67b3acd50ff0df45",
+        "expected_final_gamestate.txt": "9bb6c29f9228e5a087fb75ebfa5a7abf451987cce6a58855db6835b26b8e5ed3",
+        "meta.json": "5ceae97a827a2237bba6a7bcc3a3894a822245e18bd851751f7ee18fbf35e27e"
+      }
+    },
+    {
+      "slug": "card-withstand-red-four-live-sparse1509-real-generic-offhand-is-not-guardian-target",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-withstand-red-four-live-sparse1509-real-generic-offhand-is-not-guardian-target",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1509-local-20261122\\clean-replays\\01.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1509-local-20261122\\clean-replays\\01.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "d29776d84b8950c5b69e69aa6b49fc43eb7c96af5ac1660b4151af7e2f7cb579",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "ad3bede7d32b38fc5667f57362ab1891b67535d78d23099c5c404fcf62d54f31",
+        "actions.json": "33a09cf9c983c0500ea7af7a916466b1b436968329011005efe02f6aa494166b",
+        "assertions.json": "f62d56ced624845ddadca9d85162991020dd2cf39d7ff73f071a81795002ca44",
+        "expected_final_gamestate.txt": "eaae6ec95bb86bfedbc8a0c5370ad10bf10c90283ee8b4acb62489236a541913",
+        "meta.json": "a2ce7c5c8c3e1613c6c01b7bb6a4b74123b9ce0fc90182181bdd9aa5540e010b"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

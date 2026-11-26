@@ -1,0 +1,141 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "Root independent printed/source/spec delta review of breadth_review authored cases",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1056-20261122.json",
+  "source_spec_sha256": "ed93402d72e30f19d952dfcd61c7a61fb4001081054569ea2b05167f98c011b0",
+  "input_sha256": "ed93402d72e30f19d952dfcd61c7a61fb4001081054569ea2b05167f98c011b0",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-iris-of-the-blossom-four-live-sparse1056-actual-printed-two-defense-and-blade-break-close",
+      "card_id": "iris_of_the_blossom",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "a2cd6eb09d04a732382d7eaa61cd40c9dcf216cb6f675c51c2bcaba8b47dbc1d",
+        "actions.json": "511bf2f3686ee96e12e3d9cdbe580febcac902b797e5ec827a96d5ccd74ac457",
+        "assertions.json": "02a5ee2801e65a3f4cb252f066bb5e14877d96471736666fba97f11afd72b949",
+        "expected_final_gamestate.txt": "cf737cb02c1392c28a7707f30d98f444bb3af501a4434235942f4c9f16f73eac",
+        "meta.json": "087e33496c2d40a5b5502db54bf9c0d860486cd08fcf176b70e1b3a6f87a33c4"
+      },
+      "fixture_sha256": "c81a3459640e06712ae13f65f877b4dba0835b4a16250794ff28850461de7f28",
+      "actions": 30,
+      "native_assertions": 269,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1056-20261122.json",
+      "input_sha256": "ed93402d72e30f19d952dfcd61c7a61fb4001081054569ea2b05167f98c011b0",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1056-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-iris-of-the-blossom-four-live-sparse1056-actual-printed-two-defense-and-blade-break-close",
+        "fixture_slug": "card-iris-of-the-blossom-four-live-sparse1056-actual-printed-two-defense-and-blade-break-close",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-mask-of-momentum-four-live-sparse1056-actual-printed-two-defense-and-blade-break-close",
+      "card_id": "mask_of_momentum",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "eef700501c9ee22c20edf34f0fb322b9170346c523aee277c2698bf19e6be01b",
+        "actions.json": "511bf2f3686ee96e12e3d9cdbe580febcac902b797e5ec827a96d5ccd74ac457",
+        "assertions.json": "8e3be1dbb5d46be04c1804d3e0a70c8afd2c668c0e2ca1efefbf4cce89c66cb1",
+        "expected_final_gamestate.txt": "6406d949a7e924ea5e32e5723c5f907d6c6e98d9ac0ce56e05f34fc71e0053e9",
+        "meta.json": "f65bf46a594fc40d9eafeb8bd1d0defac13284df76b55a27d84b424a536698e8"
+      },
+      "fixture_sha256": "10077180b51f203d5fa1e1157d29d88222b031e8594f65888cce5bc958548c53",
+      "actions": 30,
+      "native_assertions": 269,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1056-20261122.json",
+      "input_sha256": "ed93402d72e30f19d952dfcd61c7a61fb4001081054569ea2b05167f98c011b0",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1056-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-mask-of-momentum-four-live-sparse1056-actual-printed-two-defense-and-blade-break-close",
+        "fixture_slug": "card-mask-of-momentum-four-live-sparse1056-actual-printed-two-defense-and-blade-break-close",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-okana-scar-wraps-four-live-sparse1056-actual-printed-two-defense-and-blade-break-close",
+      "card_id": "okana_scar_wraps",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "911b30d19722f8b6fee5149714cb35a3e2830e22959c72603f2fdc6bc561abd9",
+        "actions.json": "511bf2f3686ee96e12e3d9cdbe580febcac902b797e5ec827a96d5ccd74ac457",
+        "assertions.json": "e43ef933e90a8b4e8691f4a579cf63ece8fc312de946986182876ecc3211a38b",
+        "expected_final_gamestate.txt": "e0d333e9614936ca83fe4f0e91a79ec08cd5ebf5211ff874d74c01d707549f60",
+        "meta.json": "4ddf4f102f46b3d29ef7aa17f13a94426c525c3ce7ad475e56e68ffaad1629ea"
+      },
+      "fixture_sha256": "ab284368d3f33409becb90a557d0459fc10a17cb9181a219bc111b4e9c25bedc",
+      "actions": 30,
+      "native_assertions": 269,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1056-20261122.json",
+      "input_sha256": "ed93402d72e30f19d952dfcd61c7a61fb4001081054569ea2b05167f98c011b0",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1056-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-okana-scar-wraps-four-live-sparse1056-actual-printed-two-defense-and-blade-break-close",
+        "fixture_slug": "card-okana-scar-wraps-four-live-sparse1056-actual-printed-two-defense-and-blade-break-close",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-mask-of-the-pouncing-lynx-four-live-sparse1056-actual-printed-two-defense-and-blade-break-close",
+      "card_id": "mask_of_the_pouncing_lynx",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "ee9fdeb808e0b1792292e2243c1893bf54fea8abcec8e4bede85fe89c3b4d82d",
+        "actions.json": "511bf2f3686ee96e12e3d9cdbe580febcac902b797e5ec827a96d5ccd74ac457",
+        "assertions.json": "ff5ec1d246148a57aa8c9581464867b26ccf9e57a14fb96bf678677e5cdd388a",
+        "expected_final_gamestate.txt": "7bdf9350bcdb3f98e2d1a920e0e1616222e3746e97d46fa43d409f04f653c636",
+        "meta.json": "c5d7b7130d1cc4777e4e0018578e9c032e6f2bcbe2a98960f680c5d49dc6717f"
+      },
+      "fixture_sha256": "392caa4a9ae402fc076ce44bf4361df877f36665881a0fe177839e880023909d",
+      "actions": 30,
+      "native_assertions": 269,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1056-20261122.json",
+      "input_sha256": "ed93402d72e30f19d952dfcd61c7a61fb4001081054569ea2b05167f98c011b0",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1056-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-mask-of-the-pouncing-lynx-four-live-sparse1056-actual-printed-two-defense-and-blade-break-close",
+        "fixture_slug": "card-mask-of-the-pouncing-lynx-four-live-sparse1056-actual-printed-two-defense-and-blade-break-close",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "spec_sha256": "ed93402d72e30f19d952dfcd61c7a61fb4001081054569ea2b05167f98c011b0",
+    "reviewer": "Root independent printed/source/spec delta review of breadth_review authored cases",
+    "basis": [
+      "AllfourcachedDEF2/Ninja/BladeBreak andlegalnatural20Faiowner confirmed. Irisabilityunactivated; Momentum/PouncingLynxrequireowner4AAhits, OkanaownVengeancehit/activation, noneoccurs. SourceRhinarClubisopposingweaponandfullyblocked; noearnedbody/WhenDestroyed/WhenDefends.",
+      "Exactqualified1040Anticipating controls: Eq5DEF2+realGenericNAA6DEF2vsactualClub7power4/Blue8pay2/R1/AP0, fourmanualsource/combat/actual0damage/noHit/HP20 andphysicaldefenseRole/owner4.",
+      "BladeBreakprimary5ownedGYbeforeHand6/Eq0/GY[5,6] guards persist. Noauthor-onlydiagnostics; unchangedhelperproof reused. Activatedbodies/futureevents/hero/support/fullcarduncredited. Nativepending."
+    ]
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1056-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "2a35c035b34cf8c917b10bbdd7e872f9c1fbd01f8b2a7ec68f6128a9b72c0b1e"
+  },
+  "full_suite_run": false
+}

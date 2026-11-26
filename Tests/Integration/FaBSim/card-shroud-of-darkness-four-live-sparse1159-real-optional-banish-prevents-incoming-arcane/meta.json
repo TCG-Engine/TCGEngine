@@ -1,0 +1,7 @@
+{
+    "name": "Shroud of Darkness / actual optional banish prevents incoming arcane damage",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-23T12:08:54+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "LegalShadowRunebladeChane20 ownsphysicalShadowEquipment5, nofakeprevention/history. ActualopposingWizardSpell6cost0declaresHero4beforeAP1to0andallfourmanualresponses. Real1arcanewoulddeal1; optionalReplacementMayBanish5offeredasMZMULTICHOOSE0|1duringactualdamagewithsourceheld. Choose5: printedprevent2reducesincoming1to0, actualHP4stays20, same5ownedfaceupBanish4/notGY. Spell6ownedGY1, noextraUID/SigilFate because0damage, allResources/AP0. BloodDebtlateendphase4notentered; nootherSourcePacket/physicaldamage/decline/remainingcapacity/producer/lifetime/wholecard/Hero/supportcredit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#shroud_of_darkness"
+}

@@ -1,0 +1,27 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-repair-featherfoot098-known-plus-one-trigger.json",
+  "runtime_sha256": "59514a44fc3a9d500c98d91897374f7c5672f04e623ee650c921fbc37f52c193",
+  "returncode": 0,
+  "completed_utc": "2026-11-17T03:23:45.227970+00:00",
+  "fixtures": [
+    {
+      "slug": "card-talisman-of-featherfoot-yellow-four-live-correct-probe-real-plus-one-reaction-earns-destroy-and-go-again-layer",
+      "fixture_sha256": "b69f9edf4a5ac3e9e509e54c660a059d7b103e651b32d5a997d739b14425b3d6",
+      "passed": true,
+      "result": "[PASS] talisman_of_featherfoot_yellow / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-talisman-of-featherfoot-yellow-four-live-correct-probe-real-plus-one-reaction-earns-destroy-and-go-again-layer",
+      "returncode": 0,
+      "stdout": "[PASS] talisman_of_featherfoot_yellow / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

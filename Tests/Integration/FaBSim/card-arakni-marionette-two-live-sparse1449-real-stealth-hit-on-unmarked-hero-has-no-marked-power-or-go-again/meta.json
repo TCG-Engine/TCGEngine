@@ -1,0 +1,7 @@
+{
+    "name": "Arakni Marionette / real stealth attack on unmarked Hero has no marked-only bonuses",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-25T00:12:37+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Two manual natural adultArakniMarionette40/Bravo40, bothHeroCounters{} and no earnedhistory/effects. ActualIsolateRed3Hand0cost0auto soleHero2, bothresponses\u2192currentStealthAA3power/noGA becauseHero2unmarked. Allcombatwindows manual, noDefenders\u2192actual3physical HP2=37 not36, nohittrigger/Stack/GA. Fullclose3GY/AP0; actualzero-costWoundingRed4stillHand isclicked andmustremainHand/AP0/Stack0. No endphase entered, noAgent/RNG; no positive markedtarget power/hitGA/transformation or fullHero/support/pitch credit. This limitednegative constrains a real applicable attack type/owner/target/hit; it is not wrongowner or noattack filler. Sources: FaBSim/GeneratedCode/cardArrayCache.json#arakni_marionette FaBSim/Custom/HNTCards.php FaBSim/Custom/HNTRuntime.php FaBSim/Custom/GameLogic.php"
+}

@@ -1,0 +1,7 @@
+{
+    "name": "Back Alley Breakline / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T18:50:59+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "When an activated ability or action card effect puts this face-up into a zone from your deck, gain 1 action point. Representative only: actual_hand_origin_deals_five_without_deck_movement_action_point_trigger. Other pitch siblings, alternate targets and unexercised branches receive no credit. All four live/manual; only native entry-point actions. Sources: FaBSim/GeneratedCode/cardArrayCache.json#back_alley_breakline_red"
+}

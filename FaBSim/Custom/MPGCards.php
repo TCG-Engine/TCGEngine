@@ -8,7 +8,10 @@ function FaBMPGDuration(int $p,string $kind,string $when='next',array $data=[]):
 function FaBMPGEffects(int $p,string $kind): array {return array_values(array_filter(FaBGetState()['mpgDurations']??[],fn($e)=>intval($e['player'])===$p&&$e['kind']===$kind&&!empty($e['active'])));}
 function FaBMPGSuppressed(object $o): bool {if(!str_contains((string)GetGameState(),'BLIND'))return false;$p=intval($o->Owner??$o->Controller??0);return $p>0&&count(FaBMPGEffects($p,'BLIND'))>0;}
 function FaBMPGTokenCount(int $p,string $id,int $n): int {
- if(FaBHasType($id,'Aura')){if(FaBMPGEffects($p,'NO_AURA'))return 0;foreach(FaBMPGEffects($p,'NO_NAMED_AURA') as $e)if($e['card']===$id)return 0;}
+ if(FaBHasType($id,'Aura')){
+  // Heroes are players: a live Sanctuary prohibits even card-effect creation.
+  if(FaBHasType($id,'Token'))foreach(FaBLiveSeats() as $seat)if(FaBMPGAuras($seat,'peaceful_sanctuary'))return 0;
+  if(FaBMPGEffects($p,'NO_AURA'))return 0;foreach(FaBMPGEffects($p,'NO_NAMED_AURA') as $e)if($e['card']===$id)return 0;}
  if($id==='seismic_surge')$n+=count(FaBMPGAuras($p,'promising_terrain'));return $n;
 }
 function FaBMPGAfterMove(int $p,object $o,string $from,string $to): void {
@@ -86,7 +89,7 @@ function FaBMPGBaseDefend(int $p,string $refs): void {foreach(FaBUPRUIDs($refs) 
 function FaBMPGHeaveValue(string $id): int {foreach(FaBKeywords($id) as $k)if(preg_match('/^Heave (\d+)/i',$k,$m))return intval($m[1]);return 0;}
 function FaBMPGHeaveChoices(int $p): string {if(!FaBELEArsenalSpace($p))return '';return implode('&',array_filter(FaBChoiceRefs($p,'Hand'),function($r)use($p){$o=FaBIdentityFromMZ($r)['object'];$n=FaBMPGHeaveValue($o->CardID);return !HasNoAbilities($o)&&$n>0&&FaBAvailablePitch($p,intval($o->UniqueID))>=$n;}));}
 function FaBMPGJarlOptions(int $p): string {$out=[];foreach(FaBOpponents($p) as $v)foreach(['Head','Chest','Arms','Legs'] as $slot)if(FaBMPGExposed($v,$slot))$out[]='Player_'.$v.'_'.$slot;return implode('&',$out);}
-function FaBMPGJarl(int $source,string $choice): void {if(FaBSEAHeroCreationBlocked($source))return;if(!preg_match('/^Player_(\d+)_(Head|Chest|Arms|Legs)$/',$choice,$m))return;$p=intval($m[1]);if(!FaBSeatIsLive($p)||!FaBMPGExposed($p,$m[2]))return;$o=FaBHVYToken($p,'frostbite');if($o){$c=FaBObjectCounters($o);$c['MPG_SLOT']=$m[2];$o->Counters=$c;}}
+function FaBMPGJarl(int $source,string $choice): void {if(FaBSEAHeroCreationBlocked($source))return;if(!preg_match('/^Player_(\d+)_(Head|Chest|Arms|Legs)$/',$choice,$m))return;$p=intval($m[1]);if(!FaBSeatIsLive($p)||!FaBMPGExposed($p,$m[2]))return;$o=FaBHVYToken($p,'frostbite',1,$source,null,false,$source);if($o){$c=FaBObjectCounters($o);$c['MPG_SLOT']=$m[2];$o->Counters=$c;}}
 function FaBMPGAbilityRows(): array {return ['craterhoof'=>[['ACTION',3,true,true,false,0,'Next arsenal attack gains dominate']],'gauntlet_of_boulderhold'=>[['ACTION',3,true,true,false,0,'Next Guardian attack action gains +2 power']],'richter_scale'=>[['ACTION',0,true,false,false,0,'Create two Seismic Surges']],'fearless_confrontation_blue'=>[['INSTANT',0,false,false,false,0,'Discard to weaken an attack']]];}
 
 function FaBMPGTokenAuras(int $p): string {return implode('&',array_filter(FaBChoiceRefs($p,'Arena',['type'=>'Aura']),fn($r)=>FaBHasType(FaBIdentityFromMZ($r)['object'],'Token')));}

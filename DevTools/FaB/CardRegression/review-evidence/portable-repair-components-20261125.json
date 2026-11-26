@@ -1,0 +1,36 @@
+{
+  "tests": [
+    {
+      "path": "DevTools/FaB/CardRegression/tests/hatchet_trigger_test.php",
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "C:\\Users\\maxim\\AppData\\Local\\Temp\\fm1122\\DevTools\\FaB\\CardRegression\\tests\\hatchet_trigger_test.php"
+      ],
+      "returncode": 0,
+      "summary": {
+        "status": "PASS",
+        "checks": 17,
+        "native_games": 0,
+        "scope": "Actual repository functions with isolated component storage; not a card-action replay."
+      },
+      "sha256": "f5a65bfc5ef7d628d1ca9008694e3a66088b720cca86dbaa4f01f8a67d184a33",
+      "scope": "Portable repository component path verification, no native scenario rerun and no new distinct fault-control count."
+    },
+    {
+      "path": "DevTools/FaB/CardRegression/tests/final_snapshot_compatibility_test.php",
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "C:\\Users\\maxim\\AppData\\Local\\Temp\\fm1122\\DevTools\\FaB\\CardRegression\\tests\\final_snapshot_compatibility_test.php"
+      ],
+      "returncode": 0,
+      "summary": {
+        "status": "PASS",
+        "checks": 42,
+        "native_games": 0,
+        "scope": "Synthetic full-shape accounting/context contract and fail-closed corruption controls; native cases are tested separately through the runner."
+      },
+      "sha256": "bb99484949914746e32b96692a01fae250b0597f3a56de7943ad8a2f26c3afa6",
+      "scope": "Portable repository component path verification, no native scenario rerun and no new distinct fault-control count."
+    }
+  ]
+}

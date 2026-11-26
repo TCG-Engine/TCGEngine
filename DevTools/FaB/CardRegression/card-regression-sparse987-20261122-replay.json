@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-banksy-four-live-sparse987-real-item-crank-enables-paid-weapon-exact-full-block",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-banksy-four-live-sparse987-real-item-crank-enables-paid-weapon-exact-full-block",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse987-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse987-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "5c6f995e602da2e7e427f491df9f070c628fb3a7ff34182a60ac75c9e9cf7f80",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "dbbcc72c2a9b7b107386024ffb092db5a6a0beaaa74f2cf65c57834e0f7c1259",
+        "actions.json": "7c5b0bd0a8e8f584c1387888516301dcb80438f81fba3cfe2fe43f759cbbf9e2",
+        "assertions.json": "8755f5872800eca09af9c3b6e7496ad61604e67d3d731871c54d116b16a36fb0",
+        "expected_final_gamestate.txt": "70435cf9dec1848417921662074994c756f2b8bbc37f228d8279bc28f806961a",
+        "meta.json": "bdc4f6e685fb3ad95cea9c11ab006843ef41bf362b51a05ff971ef86175400b5"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

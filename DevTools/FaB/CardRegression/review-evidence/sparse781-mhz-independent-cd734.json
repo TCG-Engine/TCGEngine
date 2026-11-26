@@ -1,0 +1,541 @@
+{
+  "status": "APPROVED_ACTUAL_SAVED_B781_MHZ_FULL_POSITIVE_ROUTE",
+  "reviewer_independent": true,
+  "reviewer": "/root/breadth775_author_crossreview",
+  "created_utc": "2026-11-14T03:33:23.221797+00:00",
+  "source_spec": "card-regression-batch781-mhz.json",
+  "input_sha256": "9a7860e9b10a0e0646f114d3dcc15f886dbe12a40b11d18722ffd4ed4bab51c2",
+  "manifest_sha256": "20efbb4ae2ff1ff5c5456c476ec084289009b4081cd078edcb0aa74684361d36",
+  "runtime_sha256": "cd7348b373b8adc0d4e5108b74b44fff9fd6e1b9a2e855e8cd14661bc2b66edf",
+  "recorded_runtime_sha256": "cd7348b373b8adc0d4e5108b74b44fff9fd6e1b9a2e855e8cd14661bc2b66edf",
+  "source_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov14-batch781-mhz-independent-source-review.json",
+    "sha256": "0352005c8c8c619c2debc257629dec8e40eee4070327a4ed85566d1b70caec68"
+  },
+  "native_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov14-b781-mhz-native-recording-recovered\\receipt.json",
+    "sha256": "ba6516f6994c220938440081120e54f6ae3f066447b06f8028e554ad3c5e3ebd"
+  },
+  "native_archive": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch781-mhz-20261114T033159Z-6af7d62f9742f.json",
+    "sha256": "2db9bbcb031ad948f6385641b8932fe5a03ccd8ed3f7e23f523590bf795d19d2"
+  },
+  "native_result": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch781-mhz.recording-results.json",
+    "sha256": "7e7fe0fa61b1ddf1ddee02acab4925a434476aa869dec43020cc3e9d4b995940"
+  },
+  "source_guards": {
+    "AGENTS.md": "98e92f639d0768613c07759d84393fe2a58ff145e239bbd5bb0c3f8fdcf1f09d",
+    ".github/copilot-instructions.md": "27d6d8211b219cc826a4f2bf63d6d59765ed805feea6fb6571bfd225eb824543",
+    "FaBSim/Custom/GameLogic.php": "5b5a4d80b22ec2add1d94f6544322bc1cde18a142489ff6cca05218dcd91e229",
+    "FaBSim/Custom/WTRCards.php": "5ead5cc6303b5e6760715b1a038e38d01014d8d42f16aa32bb24aa9df17e9515",
+    "FaBSim/Custom/WTRAbilities.php": "08b6d572e83e797848eaee02f9288bbe2bdc7de1dbe1ce522de0cd95a6c94d5c",
+    "FaBSim/Custom/ARCAbilities.php": "5330205cf8b98a1ba93cb15aa42f67c76d01dac3cb53b206669e7d00b0e9daca",
+    "FaBSim/Custom/ARCCards.php": "f6b6a21d214e71fdcfd6a084f0671ce610f08a40c51a1266041877a5a12c0d52",
+    "FaBSim/Custom/HVYCards.php": "aeee5080ba3096b2413fd1fbf33aa8d8f24685d219e13c8b942dda45f0c66c7d",
+    "FaBSim/Custom/HVYRuntime.php": "e133c543240f428e8d7f8488971dcfd929720b066342d0d72b4f8cdbb64faa73",
+    "FaBSim/Custom/MONCards.php": "50ccaa44bdd2c94db708dbf2b358aa066d71ceb2c56b8dad14bc2fd1d242953f",
+    "FaBSim/Custom/ROSCards.php": "59eae6b5b486dda26950438accefa78a54db16c98be901f1ca9ee926aaaf00dd",
+    "FaBSim/GeneratedCode/GeneratedMacroCode.php": "306678f46c2fff96a66fe293ec4675903ae446850f8cd3a7cfa59953e986ebe3",
+    "FaBSim/GeneratedCode/GeneratedCardDictionaries.php": "1be127d10c8f7fe3fa10b8aa098678fa43b2790910c95666226b18eb79ea7c60",
+    "FaBSim/ZoneClasses.php": "874bb2ae00a80a8ba3dfe1789b4c932fd0b7cf1286504a62828e0055ca1cb355",
+    "FaBSim/ZoneAccessors.php": "9967567a9a10df81a6f22df820d4d77258828657e95c4ad145b8b13ce17866a7",
+    "Schemas/FaBSim/GameSchema.txt": "7783800bd47bc85885cc915066aadca58cdf99f0c1180602ac312d9af5ebf643",
+    "Core/DecisionQueueController.php": "65bfcf5b4f595d62d6dfb8bde0b884de42cd1a726618b5431fccf8939eed9a9d",
+    "Core/RegressionTestFramework.php": "670028e69e1a59c22aef5e6512edd2cd0dee5fdcaed4cf8c31374b8eb2b7ca6a",
+    "DevTools/FaB/hvy_abilities.json": "8efacf3b7fc39648144096451ba5b181b7d04f90896a8203eacbcd9ac98a146a",
+    "DevTools/FaB/arc_abilities.json": "ba33c47315cb5dd2a8116497b5525ec6d1b0fa917a0a3ee9424af5ccee16dce6",
+    "FaBSim/Custom/HNTCards.php": "2815741c96cd842e419d7216733efe1be1497e199ba13d65ad8e3d2331118270",
+    "FaBSim/Custom/HNTRuntime.php": "10907fc83993394946e489e3395fd2c1278a4784ce0a98391495231872b546d5",
+    "FaBSim/Custom/MSTCards.php": "52e9e34fbc2734c4b1b7b6040ebb4d784a27f32f748b53b961dd46c9f843e1ef",
+    "FaBSim/Custom/MSTRuntime.php": "b96f21727c089c90c21bf3aadaf913301b1ef7c922f2a17ac055258682ed45ce",
+    "FaBSim/Custom/DYNRuntime.php": "f521482b11084e2befb4a712cd47cf481b9139cc63d4ddb2027aa45047f3d89e",
+    "FaBSim/Custom/DYNCards.php": "769ba9ca4fc0e527144ee5b6e7bf90e612063a2974c78000845b0697862f340b",
+    "FaBSim/Custom/CardChoices.php": "6d1122598624a9ac61d99bfc41574d01e80de211e714eadaafb7b6b817a4f975",
+    "DevTools/FaB/hnt_abilities.json": "4252b725640c5014d9264c987067b71a036ff1f7fa6e98f5fc1da5e542e080d8",
+    "DevTools/FaB/mst_abilities.json": "c2bb091212e461c3a5f20be54b81c90fc81df1554d563d7c59289a17465bae35",
+    "FaBSim/Custom/SUPCards.php": "24c0fd00537f40209632e8386c8571db993d6d452b38061f93bae9c2d7acaf74",
+    "FaBSim/Custom/SEACards.php": "83e666cff3fb39ced8c52e5438ae0aa977b72be9bf2ccadcda562a89f7091ad8",
+    "FaBSim/Custom/SEARuntime.php": "61912a3f1e31e6d6e10c64fa92514c6ecf937fcbb1ca63af0ace0dfd3a9dc001",
+    "DevTools/FaB/sup_abilities.json": "92ca6f5909da4af9dcb9350b3d1f9e793611cae5326dce97e25a1a1d7c8fb85e",
+    "FaBSim/Custom/PENCards.php": "3e7a54b0fe8426e65e7d2baadec53bbda7caff5c0a8e48f79b2832e0b2376a94",
+    "FaBSim/Custom/EVRCards.php": "ad988b0e0e3d3f80bb0f9de0eb66bb826e32c8edbddbb15d5034926baa31e6af",
+    "DevTools/FaB/pen_abilities.json": "e50d82b686864b733032deae373b9825264b63a23ca8e6248c0c5f046c415054",
+    "DevTools/FaB/dyn_abilities.json": "0357acaa6e9b2ca3dfb895106270c4dc8f71515e7ff4b26801400bf5637247fe",
+    "FaBSim/Custom/ROSRuntime.php": "3b8c1f2c03339b46500221a61c83a2aef06eb2845331c6bcf18c6f72287c61e1",
+    "DevTools/FaB/evr_abilities.json": "3cfdd494730e34946cbfaa1c4bd75ee892901c157c43ebcaa3c486c99052fc2e",
+    "DevTools/FaB/mon_abilities.json": "a06c06aa49853536c865fabcbe72f36cba1eab95f010aad2b4a17be3a4e3f77b",
+    "DevTools/FaB/cru_abilities.json": "b4cd3462acf0484979b1d3321ed5357b65a7ed103cd84953dc921cf172bbf429",
+    "FaBSim/Custom/EVOCards.php": "dff20a12d7dd29417b34c9609dbc3fd27325e1c8d3be2b15da481fef7e277462",
+    "FaBSim/Custom/EVORuntime.php": "e38af5f56cd9ecc3c87e5ef6eb81fc03850151833fde02af8a4ae1a29600962b",
+    "DevTools/FaB/evo_abilities.json": "681df04ce6b2430623dbd34d7266c09131bff3eb7c7e1f946820e33549cb9552",
+    "FaBSim/Custom/OUTCards.php": "a52a5803ba36b488094a5284cd3ccd1fadd44e68acdd25cd9ea148b9ace0104a",
+    "FaBSim/Custom/OUTRuntime.php": "3c404a0b1b35aa8f69565e8d034f4b157f611282b99647a59c7873801f618b7f",
+    "DevTools/FaB/out_abilities.json": "6ba251fb5ef0d534096935d995d363be413ed82aa1388891228f1198121f47cf",
+    "FaBSim/Custom/MONAbilities.php": "0e50c426738ec083bf3357d9f0326b30d78d8278586178a6a465d11ece280cc6",
+    "DevTools/FaB/sea_abilities.json": "6e6916ff797cb956d9cce2018dc151644d26644d9b803482f04fd91094258c78",
+    "DevTools/FaB/ros_abilities.json": "2851433ce5bc948fec9532a33ffc709d4a595f74078fcb9d956c922a8ff18ff8",
+    "DevTools/FaB/build_ros_abilities.py": "48b89a4b9f3fb19956dc9bfa526dd984c60e07c27180f7f4938cb6947848da9f",
+    "DevTools/FaB/wtr_abilities.json": "1a1f6021e29d88fddc5ab6d8e656e55929e0fd8e708dd0ee5ad459b8b0b7a49b",
+    "Core/DeterministicRNG.php": "1dab74f1628bf52a89a1aca6941dfe5e4513fef660ef7b8b58fe057c70fa517a",
+    "FaBSim/Custom/CRUCards.php": "b747479f996a5207246c171efce73f899471b9b9608c116241b10086c2c7c292",
+    "FaBSim/Custom/CodeGeneration.php": "48a14a2f86f0d49b7bdf58af0c2a64868e9f7f94a13c2de61a5cce483e41150f",
+    "FaBSim/Custom/DTDCards.php": "059938626cc5e4e1675d231f9bb0f689a22ef70c7be5748224b2f13eedb7bddd",
+    "FaBSim/Custom/UPRCards.php": "144c369209e0a53f5f0ad540f2e549f4c4c0f0234b9a2c9bf703c2e22cd4e8af",
+    "DevTools/FaB/upr_abilities.json": "c83daf0e6e0a9894808e3eb5ed632db532256b5cd6621066d2429efcd4bca18f",
+    "FaBSim/Custom/FaiCards.php": "89678a2dd28ba283f21563fce488d286bea8153e88b123698e258bbc0994ba93",
+    "FaBSim/Custom/ProfessorCards.php": "6e5cc57b008552dc444d06831bd9dbec45db47214087de049da99b68deb96988",
+    "FaBSim/Custom/IARCards.php": "d7462a79d8deea9b6270c5c878972878177c44726e389d1918022b6368d7e82a",
+    "FaBSim/Custom/IARRuntime.php": "8aae2efda118e15daa34381505cba3c5060059819960884caeaeede0f578a7d9",
+    "FaBSim/Custom/AMXCards.php": "8b2f46e250e3622b06e417b10c9dc11dd769dc48744fbbdfe276cc132ecb6a32",
+    "DevTools/FaB/iar_abilities.json": "6b5db45b3a1cfd542bb2730f47347198055b7630486f6f32d51b11a781aa0fae",
+    "FaBSim/Custom/OMNCards.php": "b0966cfb6239665e1194b03ccee2cd7cd168a6d15f82a34e421af8e1845a8510",
+    "DevTools/FaB/omn_abilities.json": "eaaceedb02d99ba22d911d5c00ce63eea7dd491909e3278761c5278c8063209b",
+    "FaBSim/Custom/CustomInput.php": "91a368821f71a4f60bed8812c7cda2edeb91f481a0d6341557586e5e6ab5c2e6",
+    "Core/EngineActionRunner.php": "f64e3d31c9524103bc14aa6ace7611c90be6ae0a0d09a421b81d87593aefebec",
+    "FaBSim/Custom/ArakniCards.php": "0e0ccc29ba870212f63cc4dce8b50468c31408372aeb488b9112a7afeb595d7f",
+    "FaBSim/Custom/BoltynCards.php": "c69ec227eed13f4f21c6a8a5d0b7537f807f3c06b293a6d57fbcc66c2d02570d",
+    "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+    "FaBSim/Custom/DTDRuntime.php": "b5dcaff474c60a21cb71a7b4923bdf2192c3f9d63de24e60e54fa0067e9f19f2"
+  },
+  "additional_guards": {
+    "Core/ShortcutPreferences.php": "25f300ea0b6fbc409f5b92e8bc3587a74b2ab0eaf31ccef38e18c455598eaba6",
+    "DevTools/FaB/CardRegression/initial_snapshot_guard.php": "5839a952b70c8c20f12c17aa044061cb492f4bf830789dc1c113e6d927fea36f",
+    "DevTools/FaB/build_omn_abilities.py": "cfd519c3e4039e618e52e1e5e3e743b7b21498ba22c88d6f811ce470b38efd8a",
+    "FaBSim/GeneratedCode/GeneratedMacroCount.js": "40b9cc593a53aba5bdd6df2c382cb73c1faa3931b11b74008f9317d6cf311858",
+    "FaBSim/Custom/ELEAbilities.php": "2290c420234518940b00af7e7a79c872c72dcdaf2eb440819f0813296d1bd28b",
+    "FaBSim/Custom/ELECards.php": "3e8c31c53540355b9618678a62ca24b04fcd98a5b13c1c45251ca9b00671bc82"
+  },
+  "fixtures": [
+    {
+      "slug": "card-mhz-script-yellow-four-live-real-crank-mech-go-again-spent-on-generic-four-damage",
+      "source_spec": "card-regression-batch781-mhz.json",
+      "input_sha256": "9a7860e9b10a0e0646f114d3dcc15f886dbe12a40b11d18722ffd4ed4bab51c2",
+      "runtime_sha256": "cd7348b373b8adc0d4e5108b74b44fff9fd6e1b9a2e855e8cd14661bc2b66edf",
+      "recorded_runtime_sha256": "cd7348b373b8adc0d4e5108b74b44fff9fd6e1b9a2e855e8cd14661bc2b66edf",
+      "reviewer": "/root/breadth775_author_crossreview",
+      "approved": true,
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_MHZ_CRANK_MECH_GO_AGAIN_REAL_GENERIC_CONSUMER",
+      "fixture_path": "Tests\\Integration\\FaBSim\\card-mhz-script-yellow-four-live-real-crank-mech-go-again-spent-on-generic-four-damage",
+      "fixture_sha256": "d3be258c13a86119870cb24aa42f500b5067645fe409fe786d446223b7a73238",
+      "raw4_sha256": {
+        "initial_gamestate.txt": "cdd186a88df1a95d8205d9d7a09ddd8b2d9d37c772b12fec92d1f4ff4c7ec81c",
+        "actions.json": "3b8bf4b8beedfa1742a86dcc8282156b4239aa9493097b21b94c0bd3139cba60",
+        "assertions.json": "7d04afa9ce53a104c64c25b3fe50ace104673ef615a7d31f07fd7a97fff159f8",
+        "expected_final_gamestate.txt": "36b2f3abe6ce48f7af7b3044f3380d044f2b82357327b9ed73be68627803d00b"
+      },
+      "raw5_sha256": {
+        "initial_gamestate.txt": "cdd186a88df1a95d8205d9d7a09ddd8b2d9d37c772b12fec92d1f4ff4c7ec81c",
+        "actions.json": "3b8bf4b8beedfa1742a86dcc8282156b4239aa9493097b21b94c0bd3139cba60",
+        "assertions.json": "7d04afa9ce53a104c64c25b3fe50ace104673ef615a7d31f07fd7a97fff159f8",
+        "expected_final_gamestate.txt": "36b2f3abe6ce48f7af7b3044f3380d044f2b82357327b9ed73be68627803d00b",
+        "meta.json": "e41bfbeb9f79fde405445f45cb09f844d04063a292b36e10d880b34039860116"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "cdd186a88df1a95d8205d9d7a09ddd8b2d9d37c772b12fec92d1f4ff4c7ec81c",
+        "actions.json": "3b8bf4b8beedfa1742a86dcc8282156b4239aa9493097b21b94c0bd3139cba60",
+        "assertions.json": "7d04afa9ce53a104c64c25b3fe50ace104673ef615a7d31f07fd7a97fff159f8",
+        "expected_final_gamestate.txt": "36b2f3abe6ce48f7af7b3044f3380d044f2b82357327b9ed73be68627803d00b",
+        "meta.json": "e41bfbeb9f79fde405445f45cb09f844d04063a292b36e10d880b34039860116"
+      },
+      "actions": 62,
+      "native_assertions": 9598,
+      "actual_manual_passes": 54,
+      "actual_priority_response_passes": 52,
+      "actual_defender_declaration_finish_inputs": 2,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4
+      ],
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "all_actions_and_assertions_exact": true,
+      "no_recorder_only_assertions": true,
+      "raw_endpoint_queries_checked": 293,
+      "initial_physical_uid_locations": {
+        "1": {
+          "zone": "p1Hero",
+          "index": 0,
+          "card_id": "dash",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "zone": "p2Hero",
+          "index": 0,
+          "card_id": "betsy",
+          "owner": 2,
+          "controller": 2
+        },
+        "3": {
+          "zone": "p3Hero",
+          "index": 0,
+          "card_id": "betsy",
+          "owner": 3,
+          "controller": 3
+        },
+        "4": {
+          "zone": "p4Hero",
+          "index": 0,
+          "card_id": "betsy",
+          "owner": 4,
+          "controller": 4
+        },
+        "9": {
+          "zone": "p4Equipment",
+          "index": 0,
+          "card_id": "ironrot_gauntlet",
+          "owner": 4,
+          "controller": 4
+        },
+        "5": {
+          "zone": "p1Hand",
+          "index": 0,
+          "card_id": "mhz_script_yellow",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "zone": "p1Hand",
+          "index": 1,
+          "card_id": "wounding_blow_blue",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "zone": "p1Hand",
+          "index": 2,
+          "card_id": "palantir_aeronought_red",
+          "owner": 1,
+          "controller": 1
+        },
+        "8": {
+          "zone": "p1Hand",
+          "index": 3,
+          "card_id": "wounding_blow_red",
+          "owner": 1,
+          "controller": 1
+        }
+      },
+      "final_physical_uid_locations": {
+        "1": {
+          "zone": "p1Hero",
+          "index": 0,
+          "card_id": "dash",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "zone": "p2Hero",
+          "index": 0,
+          "card_id": "betsy",
+          "owner": 2,
+          "controller": 2
+        },
+        "3": {
+          "zone": "p3Hero",
+          "index": 0,
+          "card_id": "betsy",
+          "owner": 3,
+          "controller": 3
+        },
+        "4": {
+          "zone": "p4Hero",
+          "index": 0,
+          "card_id": "betsy",
+          "owner": 4,
+          "controller": 4
+        },
+        "5": {
+          "zone": "p1Arena",
+          "index": 0,
+          "card_id": "mhz_script_yellow",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "zone": "p1Graveyard",
+          "index": 0,
+          "card_id": "palantir_aeronought_red",
+          "owner": 1,
+          "controller": 1
+        },
+        "8": {
+          "zone": "p1Graveyard",
+          "index": 1,
+          "card_id": "wounding_blow_red",
+          "owner": 1,
+          "controller": 1
+        },
+        "9": {
+          "zone": "p4Graveyard",
+          "index": 0,
+          "card_id": "ironrot_gauntlet",
+          "owner": 4,
+          "controller": 4
+        },
+        "6": {
+          "zone": "p1Pitch",
+          "index": 0,
+          "card_id": "wounding_blow_blue",
+          "owner": 1,
+          "controller": 1
+        }
+      },
+      "final_health": [
+        20,
+        20,
+        20,
+        11
+      ],
+      "final_resources": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_Chi": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_UniqueIDCounter": 9,
+      "RandomCounter": 0,
+      "physical1through9_conserved": true,
+      "full_cleanup": true,
+      "full_card_certification": false,
+      "native_action_mapping_sha256": "266e83a54ed0c17977a2521327a1480fdd0fa416781ebbf3810125ad045e1892",
+      "native_assertion_mapping_sha256": "1cda1d334f5d6181e75c2f063baf9f8621df40662bc5af58fd06128a7e88027e"
+    }
+  ],
+  "actions": 62,
+  "assertions": 9598,
+  "manual_passes": 54,
+  "actual_raw_endpoint_queries_checked": 293,
+  "approved": true,
+  "saved_approved": true,
+  "semantically_approved": true,
+  "source_approved": true,
+  "actual_saved_review": true,
+  "raw_manual_preferences": {
+    "initial": {
+      "1": {
+        "version": 1,
+        "holdPriority": true,
+        "windows": {
+          "BLOCK": false,
+          "ATTACK_REACTION": false,
+          "DEFENSE_REACTION": false,
+          "ACTION_PRIORITY": false,
+          "INSTANT_PRIORITY": false,
+          "ATTACK_PRIORITY": false,
+          "DEFEND_PRIORITY": false,
+          "OTHER_REACTION": false,
+          "DAMAGE_PRIORITY": false,
+          "RESOLUTION_PRIORITY": false,
+          "END_PHASE": false
+        }
+      },
+      "2": {
+        "version": 1,
+        "holdPriority": true,
+        "windows": {
+          "BLOCK": false,
+          "ATTACK_REACTION": false,
+          "DEFENSE_REACTION": false,
+          "ACTION_PRIORITY": false,
+          "INSTANT_PRIORITY": false,
+          "ATTACK_PRIORITY": false,
+          "DEFEND_PRIORITY": false,
+          "OTHER_REACTION": false,
+          "DAMAGE_PRIORITY": false,
+          "RESOLUTION_PRIORITY": false,
+          "END_PHASE": false
+        }
+      },
+      "3": {
+        "version": 1,
+        "holdPriority": true,
+        "windows": {
+          "BLOCK": false,
+          "ATTACK_REACTION": false,
+          "DEFENSE_REACTION": false,
+          "ACTION_PRIORITY": false,
+          "INSTANT_PRIORITY": false,
+          "ATTACK_PRIORITY": false,
+          "DEFEND_PRIORITY": false,
+          "OTHER_REACTION": false,
+          "DAMAGE_PRIORITY": false,
+          "RESOLUTION_PRIORITY": false,
+          "END_PHASE": false
+        }
+      },
+      "4": {
+        "version": 1,
+        "holdPriority": true,
+        "windows": {
+          "BLOCK": false,
+          "ATTACK_REACTION": false,
+          "DEFENSE_REACTION": false,
+          "ACTION_PRIORITY": false,
+          "INSTANT_PRIORITY": false,
+          "ATTACK_PRIORITY": false,
+          "DEFEND_PRIORITY": false,
+          "OTHER_REACTION": false,
+          "DAMAGE_PRIORITY": false,
+          "RESOLUTION_PRIORITY": false,
+          "END_PHASE": false
+        }
+      }
+    },
+    "final": {
+      "1": {
+        "version": 1,
+        "holdPriority": true,
+        "windows": {
+          "BLOCK": false,
+          "ATTACK_REACTION": false,
+          "DEFENSE_REACTION": false,
+          "ACTION_PRIORITY": false,
+          "INSTANT_PRIORITY": false,
+          "ATTACK_PRIORITY": false,
+          "DEFEND_PRIORITY": false,
+          "OTHER_REACTION": false,
+          "DAMAGE_PRIORITY": false,
+          "RESOLUTION_PRIORITY": false,
+          "END_PHASE": false
+        }
+      },
+      "2": {
+        "version": 1,
+        "holdPriority": true,
+        "windows": {
+          "BLOCK": false,
+          "ATTACK_REACTION": false,
+          "DEFENSE_REACTION": false,
+          "ACTION_PRIORITY": false,
+          "INSTANT_PRIORITY": false,
+          "ATTACK_PRIORITY": false,
+          "DEFEND_PRIORITY": false,
+          "OTHER_REACTION": false,
+          "DAMAGE_PRIORITY": false,
+          "RESOLUTION_PRIORITY": false,
+          "END_PHASE": false
+        }
+      },
+      "3": {
+        "version": 1,
+        "holdPriority": true,
+        "windows": {
+          "BLOCK": false,
+          "ATTACK_REACTION": false,
+          "DEFENSE_REACTION": false,
+          "ACTION_PRIORITY": false,
+          "INSTANT_PRIORITY": false,
+          "ATTACK_PRIORITY": false,
+          "DEFEND_PRIORITY": false,
+          "OTHER_REACTION": false,
+          "DAMAGE_PRIORITY": false,
+          "RESOLUTION_PRIORITY": false,
+          "END_PHASE": false
+        }
+      },
+      "4": {
+        "version": 1,
+        "holdPriority": true,
+        "windows": {
+          "BLOCK": false,
+          "ATTACK_REACTION": false,
+          "DEFENSE_REACTION": false,
+          "ACTION_PRIORITY": false,
+          "INSTANT_PRIORITY": false,
+          "ATTACK_PRIORITY": false,
+          "DEFEND_PRIORITY": false,
+          "OTHER_REACTION": false,
+          "DAMAGE_PRIORITY": false,
+          "RESOLUTION_PRIORITY": false,
+          "END_PHASE": false
+        }
+      }
+    }
+  },
+  "checks": 526,
+  "review_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov14_mhz_saved_readonly.py",
+    "sha256": "e24756f912ee29289728c052edb16f4b312a3c41de71243d0f518695d2bd7b6e"
+  },
+  "raw_parser": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\saved_fixture_review_tools.py",
+    "sha256": "57cb7672feb98a00216f1e194fd1df0395826af02e0d76f7042af920851c39e8"
+  },
+  "qualification_credit_before_registration": false,
+  "interrupted_partial_run_not_passing_evidence": true,
+  "root_replays_and_registration_separate": true,
+  "corpus_replay_or_requalification": false,
+  "PHP_native_R_Git_writes_by_reviewer": false,
+  "limits": [
+    "One bounded positive static Crank/MechGA/realGenericconsumer representative; Blade Break9 properly destroyed at genuine first full chain close. No upkeep, Boost, Cog ability, Hero activation, fullcard or old held repair credit.",
+    "Only raw initial/final snapshots exported; intermediate Item5retention/cost/Crank/GA/BladeBreakclose/consumer/damage facts are actual9598 persisted queries, not invented raw intermediate snapshots.",
+    "Two new-only clean replays and registration/index remain Root-only/separate."
+  ]
+}

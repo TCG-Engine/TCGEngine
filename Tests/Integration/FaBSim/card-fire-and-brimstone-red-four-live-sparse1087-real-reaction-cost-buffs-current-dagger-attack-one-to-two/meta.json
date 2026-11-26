@@ -1,0 +1,7 @@
+{
+    "name": "Fire and Brimstone / four-live actual current dagger boost",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-23T07:13:39+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "**Legendary**\n\nThis costs {r} less to play for each Draconic chain link you control.\n\nDaggers you control get +1{p} and you may attack with each of them an additional time this turn. Namedpositivecurrentdaggerpoweronly. LegalnaturalRoyalDraconicWarriorFang20 ownsPrimary5Hand/GenericCriticalBlue6Hand/WarriorQuicksilverDagger7. Unmarkedtarget4/noFealty/noearlierweaponsorGAhistory. NativeDaggerbase1attackcost1reallyBlue6pitch3/R2/AP0/allfourmanual. FirstnonDraconicweaponlinkmeansAR5cost2notdiscounted; actualREACTION1playpaysbankR2\u21920/AP0, fourfreshmanualresponses withsource5heldStack/currentpower1beforeeffect. Resolves5thenimmediatelyclearsitintoowner1Graveyard(CR8.1.2b/3.0.12)andbuffsowncurrentDagger1\u21922, actualunblocked2damage/HP4=18. QuicksilverhasnoGAwithoutanotherearlierweapongainingGA; AP0atResolution/final, source5ownedGY1/sameweapon7retainedused/Pitch6/R0/Arenas0. Noextraattackconsumer/positivecostdiscount/otherdaggers/markedhit/Fealty/hero/support/sibling/fullcard oroldholdcredit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#fire_and_brimstone_red"
+}

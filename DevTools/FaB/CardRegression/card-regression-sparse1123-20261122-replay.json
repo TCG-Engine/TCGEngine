@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-reel-in-blue-four-live-sparse1123-announced-zero-selects-real-top-trap-and-reloads-other-card",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-reel-in-blue-four-live-sparse1123-announced-zero-selects-real-top-trap-and-reloads-other-card",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1123-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1123-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "219fac94ca0b4dbf65cdb2062e20feeb7510d6b5b1d52f66936409895bcb4488",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "515d1572f1af03811c62726366390685b9cebf198d052731f861194864e9e5e1",
+        "actions.json": "a68d8ad59c263ca7955a97b869381628eb64021d49782f68ff6efaaa2eda6afc",
+        "assertions.json": "08a97e2051e5c8ec9c6070f3c6cbfc815692413739a286f068db450734b1a13b",
+        "expected_final_gamestate.txt": "6c8c984c66693a548513d04fe23c37d0516ee9a8461791db0345679017eecb76",
+        "meta.json": "a4f4449762cf38290882ffe69aa43ef5329cc3fa5ec9d634e8096c3d3a3d2e4a"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

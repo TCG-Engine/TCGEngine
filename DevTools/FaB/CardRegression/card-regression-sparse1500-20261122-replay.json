@@ -1,0 +1,56 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-edict-of-steel-red-four-live-sparse1500-actual-owned-axe-is-not-sword-target",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-edict-of-steel-red-four-live-sparse1500-actual-owned-axe-is-not-sword-target",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1500-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1500-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "7b57f585d0662f2664606a6f4f308173f41677cb3c6b48216bb0b1d10c2e1e6c",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "2caa6d9fa41bd68443aa22f26d33ed9fce97b06ed207cb192426d98a384e0666",
+        "actions.json": "33a09cf9c983c0500ea7af7a916466b1b436968329011005efe02f6aa494166b",
+        "assertions.json": "8aa198b1ff2401bd7a1533007c7a43d6dd382bc7d17dcba4bd46bf43c965b6c2",
+        "expected_final_gamestate.txt": "ff1e26679ed4f7f1324dff7dbf12ffb3df1f3e61557f18cfc30c501e578ea36d",
+        "meta.json": "4b9c0eb3f9465b48a778b5240443e9a8e1104e4e5f3aa0eafa9335053d18b1b5"
+      }
+    },
+    {
+      "slug": "card-point-the-tip-red-four-live-sparse1500-actual-arsenal-arrow-is-face-down-not-face-up-target",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-point-the-tip-red-four-live-sparse1500-actual-arsenal-arrow-is-face-down-not-face-up-target",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1500-local-20261122\\clean-replays\\01.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1500-local-20261122\\clean-replays\\01.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "8210d4aa49bb38230e2ffe58ac664c75be8ea1e6cf9002585cc47c79b9d8be52",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "9b1a619e41c9d7ef5141103d6b8707190a7777ff7f72d5c31ba278acdb7c4da5",
+        "actions.json": "33a09cf9c983c0500ea7af7a916466b1b436968329011005efe02f6aa494166b",
+        "assertions.json": "1d7d7837997f6714a5d9ed94cab0b1c653e9289320aca4b0bff0d4fd89d842a5",
+        "expected_final_gamestate.txt": "38c12605aca2659b4ff18a4a7ac1058af34edff4b8e57f2d26cb7999969f9a43",
+        "meta.json": "fb2585d1e67147414cd97e3f427c9d183a2fac0d7407b372a1a489d98ee06aa6"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

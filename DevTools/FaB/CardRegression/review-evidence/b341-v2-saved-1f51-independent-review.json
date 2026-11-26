@@ -1,0 +1,144 @@
+{
+  "status": "APPROVED_EXACT_SAVED_B341_V2_REAL_CHI_PLUS_RED_EXACT_DRAW_THREE_RETAINED_TAILS_REPLAYS_SEPARATE",
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer": "/root/nov2_metadata_review",
+  "reviewed_utc": "2026-11-03T15:52:11.652039+00:00",
+  "runtime_sha256": "1f5122763a098fc452b0d810b2131d979a18b39e8a26633f59541507ea78de80",
+  "input_file": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch341-v2.json",
+  "input_sha256": "b3851acc12ba9a18ebfd51c37ac6c3d2b09993706932130c59ac5169d213700a",
+  "fixtures": [
+    {
+      "slug": "card-orihon-of-mystic-tenets-blue-four-live-sparse-real-chi-and-red-pay-four-replaces-two-draw-with-three-physical-cards",
+      "card_id": "orihon_of_mystic_tenets_blue",
+      "group_id": "identity:orihon_of_mystic_tenets_blue",
+      "fixture_sha256": "7ae3d144966282786cd7743a0b333919bf508caf5202a1e177758a84f63b367d",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "e64b9abfeed6190ef6c2801ce8be6297515507b70b3a2ecf8bebfa08ec0428d0",
+        "actions.json": "a907406d774bb8334491a9a2f4fc1202e9fe451a7f49dab65e2cf96fdb62fb75",
+        "assertions.json": "7e2c77bb176a990cf19cc8eeba009319eb6d4feb19636100e43a72df854204f2",
+        "expected_final_gamestate.txt": "f58bda1122b8dcbf1fba00945edbb6dc6743c6b60d16660a9fcd88574299806c",
+        "meta.json": "5ad89d31514808a74ac135f09a284aec642b96740834673915b5bbdde098a653"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "e64b9abfeed6190ef6c2801ce8be6297515507b70b3a2ecf8bebfa08ec0428d0",
+        "actions.json": "a907406d774bb8334491a9a2f4fc1202e9fe451a7f49dab65e2cf96fdb62fb75",
+        "assertions.json": "7e2c77bb176a990cf19cc8eeba009319eb6d4feb19636100e43a72df854204f2",
+        "expected_final_gamestate.txt": "f58bda1122b8dcbf1fba00945edbb6dc6743c6b60d16660a9fcd88574299806c",
+        "meta.json": "5ad89d31514808a74ac135f09a284aec642b96740834673915b5bbdde098a653"
+      },
+      "actions": 7,
+      "native_assertions": 909,
+      "actual_manual_passes": 4,
+      "manual_passes": 4,
+      "priority_response_passes": 4,
+      "defender_declaration_finish_inputs": 0,
+      "manual_pass_actor_counts": {
+        "1": 1,
+        "2": 1,
+        "3": 1,
+        "4": 1
+      },
+      "semantically_approved": true,
+      "every_native_action_and_assertion_exactly_maps_to_approved_source": true,
+      "initial_and_final_snapshots_fully_parsed": true,
+      "original_uid_ownership_conserved": true,
+      "original_physical_uidset": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "final_graveyard_uidset": [
+        5
+      ],
+      "final_pitch_uid_order": [
+        6,
+        7
+      ],
+      "exact_drawn_original_hand_uids": [
+        8,
+        9,
+        10
+      ],
+      "exact_retained_deck_tail_uids": [
+        11,
+        12
+      ],
+      "tail_rows_exactly_unchanged": true,
+      "final_health": [
+        20,
+        20,
+        20,
+        20
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_Chi": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_action_points": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "UniqueIDCounter": 12,
+      "RandomCounter": 0,
+      "physical_findings": "ActualyoungNuu20/threeDori20/manualfour/oneLegendary5 and priorownedChi6. InitialphysicalUIDs1-12/allRChi0/APonlyP1=1/emptyhistory+effects/per-sourceflags. ActualnormalInstant4 source5Stack whileChi6+Red7Hand; pitch6 genuinelysuppliescombinedResources3/Chi3subset andcost4remainsunpaid/AP1. ActualRed7pitch1 paysfourassets, leavesR0Chi0/AP1/Pitch6,7/Hand0. Freshmanualactors1,2,3 retainoriginal5Stack/Deck5/noearlydraw; onlyfourthP4 completes same5ownpublicGY andEXACToriginal8,9,10Hand. EXACTuntouchedtails11,12stayDeck withidenticalparsedrows, catchingwrongdraw2/additive5. FinalUID1-12ownershipconserved/noobjectscreated/counter12/RNG0/allHP20/AP1/RChi0, StackChainsqueuespaymentresolvingawaitclear, all11autopasswindowsfalse. No runtimeoutputusedasindependentexpectedrule.",
+      "qualification": "OnlyactualChi-pitchedordinaryInstant4conditionalreplacementdraw3+retainedtails branch. No defaultdraw2/nonChi/extraChi/leftoverasset/currentTranscend/Nuuability/Stealth/sibling/Legendarynegative/supportprimary/fullcard/controlcredit."
+    }
+  ],
+  "source_expectation_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch341-v2-independent-semantic-delta-review.json",
+    "sha256": "59676b8e771c2860bfa80db7b89fb3bc0353c1866157339996a30bc966d7b134",
+    "historical_runtime_sha256": "0d877de49c131f29c152706e14bba3368630df61c59ef475c87a84f20b6e1a66"
+  },
+  "current_runtime_binding": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch341-v2-1f51-root-runtime-bind-approval.json",
+    "sha256": "590df69b029d0da06f498340c87c5ac97a37ac3969ce3888e3b172d8d502e4bc",
+    "manifest_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch341-v2-runtime-1f51\\manifest.json",
+    "manifest_sha256": "c077078c8d8621734ef7013fc4a2db70d4616a7c02df4ff45bee4560e7a3e873",
+    "current_source_guards_verified": 19,
+    "no_input_change": true
+  },
+  "immutable_native_archive": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch341-v2-20261103T154640Z-6aea01e02b1b4.json",
+    "sha256": "fa1cb23918ebf755fb63721cdef6102cbd055c3c9210285d26173f4c5ac6aff0"
+  },
+  "recording_results": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch341-v2.recording-results.json",
+    "sha256": "5b9b6657def5592b30e6096c8813be26f1955456136f04b11bbed559cd31bb82"
+  },
+  "native_wrapper": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch341-v2-native-r1\\receipt.json",
+    "sha256": "3ddbbaccd604eddcd1d43ac552fe5815dbb1b9ae1fa2bb40011af3c8afdda356",
+    "stdout_sha256": "d4d33b4046389a643c46573a553822be0895597037e405a46f7a1024b249d478",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "exit_code": 0,
+    "stderr_bytes": 0,
+    "runtime_before": "1f5122763a098fc452b0d810b2131d979a18b39e8a26633f59541507ea78de80",
+    "runtime_after": "1f5122763a098fc452b0d810b2131d979a18b39e8a26633f59541507ea78de80"
+  },
+  "method": "Independentexactraw5savedreview: sevenactor/mode/payloads andall909orderedassertions exactlyequalindependentlyapprovedfrozenV2 input; completeparsedinitial/finalUID/ownership/decktailrowequality/resourcesChiAP/history/manualprofiles/queuecleanup. Historicalsemanticreview5967andRootactualruntimebind590d bothbound, no oldtestsretagged. Reusedpureparsers/normalizer/actionmatcher only, noauthorbuilder/PHP/native/replay/R/sourcewrites.",
+  "limits": [
+    "Savedcreationreviewonly. Roottwofreshfocusedreplaysareseparateevidence, notrunorclaimedbyreviewer.",
+    "OnlyactualChi-pitchedordinaryInstant4conditionalreplacementdraw3+retainedtails branch. No defaultdraw2/nonChi/extraChi/leftoverasset/currentTranscend/Nuuability/Stealth/sibling/Legendarynegative/supportprimary/fullcard/controlcredit.",
+    "Actualcurrent1f51contextbind onlythisnewcreation. Original0dsemanticproof andfailed/heldV1headroomcontexts preserved."
+  ]
+}

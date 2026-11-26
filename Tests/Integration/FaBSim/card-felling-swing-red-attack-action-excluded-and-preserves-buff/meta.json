@@ -1,7 +1,7 @@
 {
     "name": "Felling Swing / attack-action-excluded-and-preserves-buff",
     "rootName": "FaBSim",
-    "createdAt": "2026-10-20T03:46:29+02:00",
+    "createdAt": "2026-11-25T22:05:37+01:00",
     "createdBy": "FaBSim card regression authoring",
-    "notes": "Printed cost3, exactly1AP to play, then source's own go again returns exactly1AP on resolution. The next axe attack this turn gets +6 power. It does not grant that attack go again. Wounding Blow red is an attack action, not a weapon/dagger/axe: remains printed4 and leaves the whole buff for the later matching weapon. Two initialAP fund both attacks. Sources: FaBSim/GeneratedCode/cardArrayCache.json#felling_swing_red https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/ https://rules.fabtcg.com/en/cr/06-effects/"
+    "notes": "Printed cost3, exactly1AP to play, then source's own go again returns exactly1AP on resolution. The next axe attack this turn gets +6 power. It does not grant that attack go again. Wounding Blow red is an attack action, not a weapon/dagger/axe: remains printed4 and leaves the whole buff for the later matching weapon. Two initialAP fund both attacks. Repair-only20261125: existing pass_until controls must record actual earned Hatchet response layers before advancing. All source steps and gameplay expectations remain unchanged; no new branch or coverage credit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#felling_swing_red https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/ https://rules.fabtcg.com/en/cr/06-effects/"
 }

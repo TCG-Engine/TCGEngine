@@ -1,0 +1,336 @@
+{
+  "status": "APPROVED_ACTUAL_SAVED_B489_POINT_SUBSET_OVERBEAR_FAILED_UNSAVED",
+  "approved": true,
+  "source_approved": true,
+  "semantically_approved": true,
+  "reviewer": "/root/nov2_sparse_author",
+  "reviewer_independent": true,
+  "created_utc": "2026-11-05T16:57:07.832574+00:00",
+  "source_spec": "card-regression-batch489.json",
+  "input_sha256": "6a7069c191c04fc0b64e388e4f13d1abb97b25a3d0369eb20c3d82c400fa4065",
+  "manifest_sha256": "0355e12c6012aa163f9ac6873c6e50f1d109939921a1ecb09b1decf5ca2d2497",
+  "runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+  "recorded_runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+  "source_guards_verified": 69,
+  "reviewed_subset": true,
+  "prior_independent_source_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch489-independent-source-review.json",
+    "sha256": "4b41989d5ef693180ce6d1038be69537738e6f80c47af4fc1a20501f5aa652d9",
+    "reused_not_expanded": true
+  },
+  "recording_receipt": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch489-20261105T165119Z-6aecb4078224d.json",
+    "sha256": "cd04616045ac3e4b9d77d4fe71c40e7576373e2f735e1d0c3bf798c1122da174"
+  },
+  "specific_results": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch489.recording-results.json",
+    "sha256": "56d0540ffb30a524c3a9f79e07540548861e8335c1fd178dedc5ae8ca53ed651"
+  },
+  "root_wrapper_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch489-native-r1-9e984\\receipt.json",
+    "sha256": "042e995f62a833b43186cdfcec340b7352d0f56208007470abaca4760ef2aa77"
+  },
+  "actual_comparison_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov5_batch489_point_saved_readonly.py",
+    "sha256": "cf13d59b2e7c49fca2a8be9e64b0a9ebdba79d45ae97157faed2a824c031d29a"
+  },
+  "fixtures": [
+    {
+      "index": 1,
+      "card_id": "point_of_engagement_red",
+      "slug": "card-point-of-engagement-red-four-live-real-marked-hero-and-dagger-grants-five-damage-mark-clears-live-power-four",
+      "source_spec": "card-regression-batch489.json",
+      "input_sha256": "6a7069c191c04fc0b64e388e4f13d1abb97b25a3d0369eb20c3d82c400fa4065",
+      "reviewer": "/root/nov2_sparse_author",
+      "runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+      "recorded_runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+      "approved": true,
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_POINT_SUBSET_ONLY",
+      "fixture_path": "Tests\\Integration\\FaBSim\\card-point-of-engagement-red-four-live-real-marked-hero-and-dagger-grants-five-damage-mark-clears-live-power-four",
+      "fixture_sha256": "d860569f77318b4b75369b19cd51e1312fca42b52f52ff5b50b3e36a52f6a126",
+      "raw4_sha256": {
+        "initial_gamestate.txt": "95632f91bb76c559e96022ee9b3888cd0877244fd8d9e1c0493eb5e3cfd2cfb4",
+        "actions.json": "a786f431b08707da68e98390ac63edbb9ca4f4aa66c7dafd794770ce04b3aa60",
+        "assertions.json": "a81a231253d69df9fa05042755a01ea2d05d11dce52af4efbd609c136355b041",
+        "expected_final_gamestate.txt": "aeb7836538af4b13e13e20ecfbc8c16c19bb2ab21961646729c1a6ae6cbd45b4"
+      },
+      "raw5_sha256": {
+        "initial_gamestate.txt": "95632f91bb76c559e96022ee9b3888cd0877244fd8d9e1c0493eb5e3cfd2cfb4",
+        "actions.json": "a786f431b08707da68e98390ac63edbb9ca4f4aa66c7dafd794770ce04b3aa60",
+        "assertions.json": "a81a231253d69df9fa05042755a01ea2d05d11dce52af4efbd609c136355b041",
+        "expected_final_gamestate.txt": "aeb7836538af4b13e13e20ecfbc8c16c19bb2ab21961646729c1a6ae6cbd45b4",
+        "meta.json": "9f46dd93fbf74c15df7ff1231bb008821108b7623247324540c22659c3bc5143"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "95632f91bb76c559e96022ee9b3888cd0877244fd8d9e1c0493eb5e3cfd2cfb4",
+        "actions.json": "a786f431b08707da68e98390ac63edbb9ca4f4aa66c7dafd794770ce04b3aa60",
+        "assertions.json": "a81a231253d69df9fa05042755a01ea2d05d11dce52af4efbd609c136355b041",
+        "expected_final_gamestate.txt": "aeb7836538af4b13e13e20ecfbc8c16c19bb2ab21961646729c1a6ae6cbd45b4",
+        "meta.json": "9f46dd93fbf74c15df7ff1231bb008821108b7623247324540c22659c3bc5143"
+      },
+      "actions": 39,
+      "native_assertions": 3510,
+      "actual_manual_passes": 33,
+      "actual_priority_response_passes": 32,
+      "actual_defender_declaration_finish_inputs": 1,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4
+      ],
+      "actual_manual_actor_counts": {
+        "1": 8,
+        "2": 8,
+        "3": 8,
+        "4": 9
+      },
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "all_actions_and_assertions_exact": true,
+      "all_endpoint_physical_uid_card_zones_ownership_verified": true,
+      "all_terminal_assertions_evaluated_against_parsed_final_snapshot": true,
+      "initial_assertions_evaluated_against_parsed_initial_snapshot": true,
+      "endpoint_assertion_counts": {
+        "0": 131,
+        "39": 205
+      },
+      "initial_physical_uid_locations": {
+        "1": {
+          "card_id": "olympia",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "5": {
+          "card_id": "point_of_engagement_red",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "relentless_pursuit_blue",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "8": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "quicksilver_dagger",
+          "zone": "p1Weapons",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2
+        }
+      },
+      "final_physical_uid_locations": {
+        "1": {
+          "card_id": "olympia",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "7": {
+          "card_id": "quicksilver_dagger",
+          "zone": "p1Weapons",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "relentless_pursuit_blue",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "point_of_engagement_red",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "8": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Pitch",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2
+        }
+      },
+      "actual_Mark_producer_UID": 6,
+      "actual_primary_UID": 5,
+      "actual_weapon_UID": 7,
+      "actual_attack_proxy_UID": 9,
+      "actual_marked_hero": 4,
+      "actual_power_before_hit": 5,
+      "actual_physical_damage": 5,
+      "actual_mark_cleared_after_hit": true,
+      "actual_live_power_after_hit": 4,
+      "actual_GA": false,
+      "final_health": [
+        20,
+        20,
+        20,
+        15
+      ],
+      "final_resources": [
+        2,
+        0,
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_Chi": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_Hero_Status": [
+        2,
+        2,
+        2,
+        2
+      ],
+      "final_UniqueIDCounter": 9,
+      "final_RandomCounter": 0,
+      "final_GY1_UIDset": [
+        5,
+        6
+      ],
+      "final_Pitch1_UIDs": [
+        8
+      ],
+      "final_Weapons1_UIDs": [
+        7
+      ],
+      "virtual9_physical_absent": true,
+      "checkpoint_assertion_mapping_sha256": "a73739008eaccf4fc299dc23734b84c0c3fad0d0d861ee1c8989e233f9d43103",
+      "native_action_mapping_sha256": "8ddedbb765e7447c5043548115a72108092b93fda30e60066107152e750fec21",
+      "native_assertion_mapping_sha256": "53992293843f067940d87cfd28a61cb754d2edc4cbde8c9adc09821435340554"
+    }
+  ],
+  "blocked_attempts": [
+    {
+      "index": 0,
+      "card_id": "overbear_red",
+      "group_id": "identity:overbear_red",
+      "slug": "card-overbear-red-four-live-real-weapon-dominate-first-hand-defender-allowed-second-rejected-one-damage-correct-probe",
+      "semantically_approved": false,
+      "approved": false,
+      "fixture_saved": false,
+      "fixture_exists": false,
+      "coverage_credit": false,
+      "classification": {
+        "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-overbear130-independent-native-before-classification.json",
+        "sha256": "48ef2a71065c9836a0b4f554096744cdf4967f29f64201204a9fa501b809ca6b"
+      },
+      "first_failure": "Nativeinput18/secondP4Handdefenderattempt: Expectedp4Handcount1got0/assertion1659. Laterfreshdefenderqueries/damage/cleanupunrun.",
+      "source_expectations_unchanged": true
+    }
+  ],
+  "total_actions": 39,
+  "total_native_assertions": 3510,
+  "total_manual_passes": 33,
+  "total_priority_response_passes": 32,
+  "total_defender_declaration_finish_inputs": 1,
+  "total_schema_property_assertions": 1174,
+  "material_findings": [
+    "Ownactualraw5/39nativeinputs3510orderedchecks33manual(8,8,8,9)/all48rawmanualprefsatbothendpoints/current69guards exact.",
+    "ActualRelentless6zero/declaredP4/four\u2192MarkHNT1; initialHero4unmarked/nohistoryseed. ActualPoint5zero/four\u2192nextDagger3+ENGAGEMENT1/ownGA. RealQuicksilver7printed1fundedBlue8/R2AP0/proxy9\u2014notPistol/fictionalweapon.",
+    "Freshactiveproxy9power1+3+marked1=5/noGA untilactualunblocked5hitHP15. MarkclearsperCR9.3.2b; repeatednativecomputedpower4afterhitwhiledealt5held. RawhntHitMarked4truecorroboratesmarked-at-hit; finalHero4Countersempty/ENGAGEMENT1durationrowremainslegitimate/nextDaggerconsumed.",
+    "FullfinalownedGYUIDset5,6/Pitch8/usedphysicalweapon7Damage0/actualWEAPON_ATTACK_TURN2+WEAPON_ATTACKS1/allphysical1..8retained/proxy9ceased/counter9/R2AP0/HP20,20,20,15. NoArena/Gold/extraweapon/Stack/Chain/DQ/payment/awaitpending. HistoricalDQV/macrovarsarecaches, notpendingwork.",
+    "Overbearoriginalcorrect35/3460casefailednative18/secondHandblock; nofixture/nocredit. Mixednativeexit1doesnotinvalidateindependentlysuccessfulPointSavedbutcannotbeconvertedtoOverbearPASS."
+  ],
+  "primary_sources_reused_from_source_gate": true,
+  "limits": [
+    "OnlyRedPointpositiveactualmarkedHero+Daggerbranch/Markclear/dynamicpowerconsumer. Nounmarked/nonadjacenttarget/otherHero/Dagger/multipleattack/expiry/negative/control/fullcard/sibling/supportprimarycredit.",
+    "Relentlessconditionalbottom-ifalready-attackedunearned; actualRelentlessisfirstcard/noattackhistory. QuicksilverotherweapongainedGAcondition/Olympiawager/Goldunearned. Weaponusedstatusisbookkeepingnotaddedprintedtapcost.",
+    "OverbearfreshDEF/currentpowerafterfailedHandcount/damage/cleanupnotclaimed; nativeclassificationseparate. NoPHP/native/replay/R/source/gen/service/fullsuite/deniedretrybyreviewer; RoottwoPointtargetedreplays/registrationseparate."
+  ],
+  "blockers": [],
+  "native_executed_by_reviewer": false,
+  "repository_writes": false,
+  "source_changes": false
+}

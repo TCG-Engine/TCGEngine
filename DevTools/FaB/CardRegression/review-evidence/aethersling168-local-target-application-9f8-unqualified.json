@@ -1,0 +1,106 @@
+{
+  "status": "ACTUAL_LOCAL_APPLICATION_NOT_NATIVE_QUALIFICATION",
+  "utc": "2026-11-14T01:03:11.442236+00:00",
+  "issue": "FAB-REG-168",
+  "runtime_before": "eca72e03725eb315a8ce3aee29fab90d2f6bb11b8382c094df100118c347fca5",
+  "runtime_after": "9f8d28005cca0eb200f3cf27498d2297686174da4f96b4d61e77e8b3ea0329b6",
+  "proposal_sha256": "361c8935e7751bb5c1b9e8cfa0811e389c5b3275dfe05c2f675a5d738b61c3f3",
+  "independent_source_review_sha256": "f1946b73bb208114f5db35d24fc5f9986fbd6679da98f7a6d44c1d8778997836",
+  "actual_components": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov14-aethersling-r3-root-components-final.json",
+    "sha256": "8d3e8f052e71b65d83f6b7e39b7f74824b422325248af81bdb0166ddc4a3ef63",
+    "syntax_checks": 3,
+    "isolated_helper_assertions": 57,
+    "isolated_transform_assertions": 6,
+    "native_game": false
+  },
+  "source_files": [
+    {
+      "path": "FaBSim/Custom/OMNCards.php",
+      "before_sha256": "3b827d9c98875c042daee925a5fe227fdce2195f303c08192fb76b9c806883c8",
+      "after_sha256": "b0966cfb6239665e1194b03ccee2cd7cd168a6d15f82a34e421af8e1845a8510"
+    },
+    {
+      "path": "DevTools/FaB/omn_abilities.json",
+      "before_sha256": "6f3d1021628a3b676c1c60b3c6b7b3db486caea31057cdba3dcdbbc1c6ffef38",
+      "after_sha256": "eaaceedb02d99ba22d911d5c00ce63eea7dd491909e3278761c5278c8063209b"
+    },
+    {
+      "path": "DevTools/FaB/build_omn_abilities.py",
+      "before_sha256": "b96c38210ee8004fe97e1ff8ab096fcd2c3637e5b68aa084631151631d4f10c8",
+      "after_sha256": "cfd519c3e4039e618e52e1e5e3e743b7b21498ba22c88d6f811ce470b38efd8a"
+    },
+    {
+      "path": "FaBSim/Custom/GameLogic.php",
+      "before_sha256": "691f866f79ac173fa0b028281bc7a348a9dfacc2dd6a0936c5ca3ae019fd275d",
+      "after_sha256": "5eedfe6f5b850049223210ee7298fab4802b5c04b1d7e009285f7026f18e1164"
+    },
+    {
+      "path": "FaBSim/Custom/CodeGeneration.php",
+      "before_sha256": "50b64d437d5c41ff475d20bacbc1d6ce3b720c8af49990c95f46d024b6bdea69",
+      "after_sha256": "48a14a2f86f0d49b7bdf58af0c2a64868e9f7f94a13c2de61a5cce483e41150f"
+    }
+  ],
+  "actual_generated_outputs": [
+    {
+      "path": "FaBSim/GeneratedCode/GeneratedMacroCode.php",
+      "sha256": "306678f46c2fff96a66fe293ec4675903ae446850f8cd3a7cfa59953e986ebe3",
+      "captured": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov14-aethersling-r3-application-emission-root\\emitted\\FaBSim\\GeneratedCode\\GeneratedMacroCode.php"
+    },
+    {
+      "path": "FaBSim/GeneratedCode/GeneratedMacroCount.js",
+      "sha256": "40b9cc593a53aba5bdd6df2c382cb73c1faa3931b11b74008f9317d6cf311858",
+      "captured": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov14-aethersling-r3-application-emission-root\\emitted\\FaBSim\\GeneratedCode\\GeneratedMacroCount.js"
+    }
+  ],
+  "generated_scope_sha256": "0e0150ff541f146c43037cf4b9973b619682dc5db65542a72e185f5a7fef0363",
+  "actual_R_syntax_checks": [
+    {
+      "path": "FaBSim/Custom/OMNCards.php",
+      "returncode": 0,
+      "stdout": "No syntax errors detected in C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\Custom\\OMNCards.php\n",
+      "stderr": ""
+    },
+    {
+      "path": "FaBSim/Custom/GameLogic.php",
+      "returncode": 0,
+      "stdout": "No syntax errors detected in C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\Custom\\GameLogic.php\n",
+      "stderr": ""
+    },
+    {
+      "path": "FaBSim/Custom/CodeGeneration.php",
+      "returncode": 0,
+      "stdout": "No syntax errors detected in C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\Custom\\CodeGeneration.php\n",
+      "stderr": ""
+    },
+    {
+      "path": "FaBSim/GeneratedCode/GeneratedMacroCode.php",
+      "returncode": 0,
+      "stdout": "No syntax errors detected in C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\GeneratedCode\\GeneratedMacroCode.php\n",
+      "stderr": ""
+    }
+  ],
+  "all_other_watched_bytes_preserved": true,
+  "fixture_inventory_unchanged": true,
+  "emitter_invocations": 1,
+  "recoverable_external_evidence": {
+    "receipt": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov14-aethersling-r3-application-emission-root\\receipt.json",
+    "receipt_sha256": "e866e0a796b2a4d5c9f53ba90b113c577d6127367433e38b6a17dcdf353bb9e1",
+    "before_root": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov14-aethersling-r3-application-emission-root\\before",
+    "restore_policy": "Only restore exact verified owned preimages after inspecting current bytes; preserve captured outputs and intervening user changes."
+  },
+  "qualification": false,
+  "fixture_saved": false,
+  "coverage_credit": false,
+  "pending": [
+    "Independent actual emitted-body approval",
+    "Full correct-expectation four-live native follow-through",
+    "Independent Saved review",
+    "Two new-only clean replays and registration"
+  ],
+  "limits": [
+    "Only the target-declaration repair is applied. The separate downstream source-lifetime concern remains unconfirmed and untouched.",
+    "All4036 registered fixtures retain their stated prior qualification contexts; no old replay or full suite was run.",
+    "No Core, schema or root generator source changed; no remote authoring, staging, commit, push or deployment."
+  ]
+}

@@ -1,0 +1,216 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "Per-card independent reviewers: breadth_review for Root-authored Diabolic; Root for breadth_review-authored Biting Gale",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse983-20261122.json",
+  "source_spec_sha256": "ad419b71b1bb52dc80ca5b42cc8da06402e2a39d3a0afcdea052da174414cf39",
+  "input_sha256": "ad419b71b1bb52dc80ca5b42cc8da06402e2a39d3a0afcdea052da174414cf39",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-diabolic-ultimatum-red-four-live-sparse983-actual-four-seat-aura-choices-after-naa-pitch",
+      "card_id": "diabolic_ultimatum_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "1f85ffd0e8dfcae4152cd87509bfd9e3148e6c869866af46f88ed3641756c363",
+        "actions.json": "673971eb74fc7eec50a8ad92577bf145a73234950d65d12968444fe95f5f6a26",
+        "assertions.json": "943504785240d2d88c37035983854cd23f4d216e75d08fe962b5df8cb56d85b0",
+        "expected_final_gamestate.txt": "fa61f7ded2e5b3d87c77129bfca08415813a89965dad90a6ecd6bd7db6a423f9",
+        "meta.json": "93a1bb653c8811cc610cb4318f814324cbb1d80848dc546b6b7376161f98b532"
+      },
+      "fixture_sha256": "f6490c36d853213946c6a870bb1fd2f8dc8c0912f56ff5630fade862ac761e46",
+      "actions": 10,
+      "native_assertions": 247,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 4,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse983-20261122.json",
+      "input_sha256": "ad419b71b1bb52dc80ca5b42cc8da06402e2a39d3a0afcdea052da174414cf39",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse983-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-diabolic-ultimatum-red-four-live-sparse983-actual-four-seat-aura-choices-after-naa-pitch",
+        "fixture_slug": "card-diabolic-ultimatum-red-four-live-sparse983-actual-four-seat-aura-choices-after-naa-pitch",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-biting-gale-red-four-live-sparse983-unfused-defender-real-blue-four-defense-three-damage",
+      "card_id": "biting_gale_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "95acbd2a626a7d98854b859e2f68cad7657104fb5e069ffc168e8a6218fb36ab",
+        "actions.json": "ebc372d17953d501be58ca3614769b44127b225021b6de8d5af1a3045ce3a44a",
+        "assertions.json": "2ce69c9f325ab3c8b06f46806171df2a1522a544e0407855b8bf70387c4192d6",
+        "expected_final_gamestate.txt": "01ce826bca4b8d7afe1526402940a3458321bcc2539c453c474381426ddcf608",
+        "meta.json": "2bf18c7d676bd3268014bc1bc762fed12c883083037775e6625f8f922b2c5f49"
+      },
+      "fixture_sha256": "bdf222843d9a6029ce0470be2d29dc6b9c5c7ce6b844713b82ee67058a2ac880",
+      "actions": 37,
+      "native_assertions": 295,
+      "author_only_checks_not_persisted": [
+        {
+          "step": 19,
+          "check": {
+            "kind": "defense",
+            "value": 0
+          }
+        },
+        {
+          "step": 20,
+          "check": {
+            "kind": "defense",
+            "value": 0
+          }
+        },
+        {
+          "step": 21,
+          "check": {
+            "kind": "defense",
+            "value": 0
+          }
+        },
+        {
+          "step": 25,
+          "check": {
+            "kind": "defense",
+            "value": 4
+          }
+        }
+      ],
+      "actual_manual_pass_inputs": 32,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse983-20261122.json",
+      "input_sha256": "ad419b71b1bb52dc80ca5b42cc8da06402e2a39d3a0afcdea052da174414cf39",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse983-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-biting-gale-red-four-live-sparse983-unfused-defender-real-blue-four-defense-three-damage",
+        "fixture_slug": "card-biting-gale-red-four-live-sparse983-unfused-defender-real-blue-four-defense-three-damage",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "reviewer": "Per-card independent reviewers: breadth_review for Root-authored Diabolic; Root for breadth_review-authored Biting Gale",
+    "result": "approved_named_branches_only_pending_native_execution",
+    "spec_sha256": "ad419b71b1bb52dc80ca5b42cc8da06402e2a39d3a0afcdea052da174414cf39",
+    "per_case_reviews": [
+      {
+        "card_ids": [
+          "diabolic_ultimatum_red"
+        ],
+        "original_packet_sha256": "4a356098dc5ce069a670699ecfaaabf1cc2da2a286947bb95e2372d2d487043d",
+        "review": {
+          "result": "approved_named_branches_only_pending_native_execution",
+          "spec_sha256": "4a356098dc5ce069a670699ecfaaabf1cc2da2a286947bb95e2372d2d487043d",
+          "reviewer": "breadth_review independent printed-text/source/oracle review",
+          "basis": [
+            "Printed Diabolic Ultimatum Red is Runeblade Action cost3. Its NAA-pitched clause instructs each hero to choose/destroy an owned aura. Legal young Chane20 has no passive play trigger; no hero action is activated. Actual Generic NimblismBlue6 is non-attack Action/pitch3, paid through native Hand pitch, with exactR0/AP0/ownedPitch proof. Its printed GoAgain is not played/resolved.",
+            "Each live hero has two real owned Aura alternatives: Quicken7/9/11/13 and Ponder8/10/12/14. Source is a non-attack Action so Quicken attack-action/weapon-activation trigger is not earned. Endphase is not reached, so Ponder remains inert. All four seat-specific MZCHOOSE answers choose their own Quicken; surviving alternative Ponders are independently pinned by exact UID/Owner/Controller, allfour HP20, otherseatGGY0 and source5 alone owner1GGY.",
+            "Choices here are non-target effect-resolution choices, not modes or formal targets requiring announcement before payment. Four explicit manual source response controls precede the first choice; decision wait has no priority1 requirement. No advance passes are inserted into the resolution choice sequence.",
+            "GeneratedMacroCode.php:1988 Resolve wrapper uses await28e3; :54083 branches on actual NAA pitch; :54073-54076 creates each victim own-Aura refs; :54065-54067 submits MZCHOOSE/CUSTOM to that victim; :54061 destroys chosen permanent, iterates live seats, then :54049-54051 restores caster. DYNCards.php:24-25 records pitched Action/nonAttack kind; :10 destroys selected UID. These source paths agree with the independently read text but are not native verification.",
+            "Physical setup UIDs5..14 and per-seat choices/retained counts match. Source5 is asserted real Stack/Owner1 and ownGGY0 through each of the four pending choices, then finalStack0/owner1GGY5 exactly once. Destroyed token Quicken ceases rather than adding an owned graveyard card. Subsequent raw-query compaction of removed Arena entries is a transport detail, not a gameplay credit."
+          ],
+          "limits": [
+            "Approved only actual NAA-pitch/Aura branch with each seat choosing Quicken while Ponder survives. AA/Ally or mixed-pitch branches, alternate choices, aura creation/creator ownership, destruction observers, future Ponder draw, hero activation, siblings/support/full-card behavior remain untested.",
+            "Native recording, exact live UID/query transport, saved fixture and one clean replay are pending Root; reviewer ran no PHP/native games/tests and made no T/source/original/Git/network/engine change. Only this W receipt was written."
+          ]
+        },
+        "author_source_note": {
+          "author": "Root",
+          "spec_sha256": "4a356098dc5ce069a670699ecfaaabf1cc2da2a286947bb95e2372d2d487043d",
+          "card": "diabolic_ultimatum_red",
+          "text": "If an attack action card was pitched to play this, each hero chooses and destroys an ally they control.\n\nIf a non-attack action card was pitched to play this, each hero chooses and destroys an aura they control.",
+          "basis": [
+            "Chane20 plainRuneblade legal, noHero activation/Viserai passive. PhysicalGenericBlueNAA3 pays3, not AA. Existing879NAA payment and fourpriority transport reused; choose not target or mode so resolution-time choices are correct.",
+            "Current generated __RunAwait_28e3ddfc8b5905710a19 explicitly loops FaBLiveSeats for NAA-pitched Aura choices, victimMZCHOOSE/casterrestore; no behaviour inferred passing. Source ownership/lifetime and allfour actualresponses plus surviving realPonder alternative are asserted. Native failure must be held, no engine repair.",
+            "Preexisting Arena assets only, no synthetic outcomes. Quicken not consumed by non-attack play; Ponder endphase never reached. Destroyed tokens cease on leaving arena; no positive Aura/creator ownership branch credit."
+          ],
+          "limits": [
+            "One NAA-pitched/Aura branch, no AA/Ally/bothpitch/alternate choice/Ponderdraw/wholecard/supportidentity credit. Independent reviewer/native capture/replay pending."
+          ]
+        }
+      },
+      {
+        "card_ids": [
+          "biting_gale_red"
+        ],
+        "original_packet_sha256": "3c0e0856c3448955f0e7aa3a607c6ab6a4266f73aab952874c43253c3b0b8afd",
+        "review": {
+          "reviewer": "Root independent of breadth_review BitingGale author",
+          "result": "approved_named_branches_only_pending_native_execution",
+          "spec_sha256": "3c0e0856c3448955f0e7aa3a607c6ab6a4266f73aab952874c43253c3b0b8afd",
+          "basis": [
+            "Cached primary printedcost2/DEF4 independently verified againstGenericRaging7/7power. NaturalOldhim20 owner4 legalElementalGuardian. ActualBlue6/Generic3pays2/R1, noIceHandcandidate soFusionfalse; noHeroDefenseReaction activation or inventedprevention. Attacker1GenericBlue8pays3/R0/AP0 and realNAA9Handretained.",
+            "Read exact37-input source packet/source callbacks and registeredFlurry112 flow reference. Primary5owner4 remains physicalStackthroughrealpayment/reactionresponses4\u21921\u21922\u21923 thenentersownCCRoleDEFENSE_REACTION. Freshreact1\u21922\u21923\u21924 follows; actual7minus4damage3/P4HP17, not internaldefensecache as soleoracle.",
+            "Unfused false tax is nonvacuous: actualattackerHand9retained/noMZdiscard/pay2 response, nofusedsource. Exactsource5ownedGY4/support7ownedGY1/pitches6and8/endAP0/realallfourmanual live seats asserted. No positivefusion/futureHero/prevention/sibling/wholecard credit."
+          ],
+          "limits": [
+            "One unfusedhanddefense cost/physical4defense/lifecycle/retentionbranch. Nativecapture/schema/onecleanreplay pending, no claim nativeexecuted here."
+          ]
+        },
+        "author_source_note": {
+          "author": "breadth_review author; Root independent review pending",
+          "batch": "983B",
+          "spec_sha256": "3c0e0856c3448955f0e7aa3a607c6ab6a4266f73aab952874c43253c3b0b8afd",
+          "card": {
+            "id": "biting_gale_red",
+            "group_id": "pitch-cycle:biting_gale",
+            "hero4": "oldhim",
+            "printed_cost": 2,
+            "printed_defense": 4,
+            "printed_text": "**Ice Fusion**\n\nIf this was **fused**, the attacking hero discards a card unless they pay {r}{r}."
+          },
+          "basis": [
+            "Cached primary is defense4, NOT6. Printed7 attack minus4 actual reaction defense gives3 physical damage/HP17; no invented Oldhim prevention or extra defender.",
+            "Established four-live defense-reaction flow read from registered Flurry112 source only (no historical/native execution): after player4 plays/pays DR, priority remains4; actual responses4\u21921\u21922\u21923 resolve it, then turn-player1 regains priority. Fresh reaction round1\u21922\u21923\u21924 advances to damage. Source/card owner is4; no assumption primary owner1.",
+            "GeneratedMacroCode.php:9301 and await118203-118241 Prepare Biting Gale: no Ice Hand target means optional reveal skipped, FaBELEFinishFusion(false), then normal asset payment. Generic Blue6 real pitch3 pays2/R1; DR consumes no AP, owner4 stays0. Resolve:42133-42135 gates attacking-hero discard/unless pay2 on fused; false side produces no prompt.",
+            "GameLogic.php:1648-1690 completes real DEFENSE_REACTION from live Stack5 to same defending CombatChain5/RoleDEFENSE_REACTION after owned continuation; :1735-1744 restores reaction window/turn-player priority. These are lifecycle/source references, not native verification.",
+            "Attacker1 Generic Raging7 cost3 paid by real GenericBlue8, actual AP0/R0; legal Oldhim20 defender4 and other natural20 heroes. Extra real attacker LeadCharge9 Hand1 retained makes erroneous discard observable; all actual choices/actions and live responses use explicit actor IDs.",
+            "Only W983B source packet written. No games/PHP/test/native/T/engine/original/Git/network/auth action; no self-approval. Independent Root review and one clean replay required before credit."
+          ],
+          "established_template": {
+            "path": "DevTools/FaB/CardRegression/card-regression-repair-flurry112-after-native-helper.json",
+            "sha256": "ff629c71f4a36aaeaddf4e7cb9aac272977827182792e4fac044a8939e9478c7"
+          },
+          "source_sha256": {
+            "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+            "FaBSim/GeneratedCode/GeneratedMacroCode.php": "fe6a7982611df8f4de98ce2671b317b671b580146aa4b8c28e8f4b86d8461056",
+            "FaBSim/Custom/GameLogic.php": "c60fa151561f959e4e3e341b814de0e2b47c9e9f153bbc8793a04c43b5075061",
+            "FaBSim/Custom/ELECards.php": "5319104c32fb648c9ef90ee5e7e3a6a22e29c35a26c2cca31b338aada0e6110f"
+          },
+          "limits": [
+            "Unfused real payment/printed-defense/physical lifecycle and no discard tax only. No positive fusion/reveal ordering, positive pay2/discard, Ice/Earth Oldhim activation, prevention, admission outside Reaction, siblings or whole-card credit. Native schema/transport and replay remain pending Root."
+          ]
+        }
+      }
+    ],
+    "metadata_normalization": [
+      {
+        "recorded_old_slug": "card-diabolic-ultimatum-red-four-live-sparse983-actual-four-seat-aura-choices-after-nAA-pitch",
+        "canonical_slug": "card-diabolic-ultimatum-red-four-live-sparse983-actual-four-seat-aura-choices-after-naa-pitch",
+        "only_change": "existing Core RegressionSanitizeSlug metadata normalization, no gameplay/input/assertion change"
+      }
+    ],
+    "basis": [
+      "Each card has one reviewer independent of that card author; no author selfapproval. Combined packet preserves all reviewed game setup/actions/assertions; only existing Core slug normalization canonicalizes uppercase metadata.",
+      "One named branch per group; no support/sibling/wholecard credit, no native execution yet."
+    ],
+    "limits": [
+      "Two individual reviewed sources, no claim that either author independently approved their own case. Native/schema/storedassertions and onecleanreplay still required."
+    ]
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse983-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "6ec553dfe09b6f3648741ce9899b9f238813f6cb55ca51aee9e95567a7fa842b"
+  },
+  "full_suite_run": false
+}

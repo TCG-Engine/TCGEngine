@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-korshem-crossroad-of-elements-four-live-sparse1386-actual-pitching-under-live-landmark-is-not-revealing-no-reward",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-korshem-crossroad-of-elements-four-live-sparse1386-actual-pitching-under-live-landmark-is-not-revealing-no-reward",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1386-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1386-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "eee93e3aaab1194a0cbd71f7e788a6220c4abd31df4a1c5e53d1926710c4182d",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "adb819c3e2c16ada747932df1872cbf260c04b66d6077786a13551264ad658f1",
+        "actions.json": "0fbbb2b338fa59e55682962b22915931bee573c2d0cbb1a693ac23206f3a6331",
+        "assertions.json": "9bf179a5fb12e4f1e6a41a8469889de2dd02069775d83e4dd4e630dca70ec610",
+        "expected_final_gamestate.txt": "80cbb2e790f5894ee657d022092cb8d244e2aebd6664df9436bfc1cd958597ab",
+        "meta.json": "0957419f2086e9eb2930b2224d5dc1ff7657ce6bd0676f1380f97cb2ded09526"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

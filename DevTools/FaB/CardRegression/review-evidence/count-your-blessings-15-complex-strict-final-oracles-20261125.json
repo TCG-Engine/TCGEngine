@@ -1,0 +1,1860 @@
+{
+  "status": "EXACT_SOURCE_DERIVED_FINAL_ORACLE_CORRECTIONS",
+  "runtime_sha256": "39ea7198588aa12a77f1b2f47c9b523e54789383be9e5ee5bc96ff8ac6a9a2e5",
+  "fixtures": [
+    {
+      "slug": "card-count-your-blessings-blue-conditional-heal-blue-pitch-overfunding",
+      "number": 5,
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "39ea7198588aa12a77f1b2f47c9b523e54789383be9e5ee5bc96ff8ac6a9a2e5",
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-count-your-blessings-blue-conditional-heal-blue-pitch-overfunding",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\cyb-finals\\x05.log"
+      ],
+      "complete_log_sha256": "2d03f6543eeb2c889a3f652b7690b608be9048e895ceb032c68ef74ee708662a",
+      "before_expected_sha256": "cc932401c88b5ef409c724215b52507f684cd9755377e1e79d329cbc065075be",
+      "expected_sha256": "4629d10fc329833bb542ad1830a35679894ea16829d89655403bdb8816f3faeb",
+      "edits": [
+        {
+          "location": "line86",
+          "kind": "life_during_Instant_before_source_grave",
+          "seat": "1",
+          "before_rows": [
+            {
+              "type": "EVR_GRAVEYARD",
+              "amount": 1,
+              "uses": 1
+            },
+            {
+              "type": "SEA_BLUE_GRAVE",
+              "amount": 1,
+              "uses": 1
+            },
+            {
+              "type": "ROS_LIFE",
+              "amount": 1,
+              "uses": 1
+            }
+          ],
+          "after_rows": [
+            {
+              "type": "ROS_LIFE",
+              "amount": 1,
+              "uses": 1
+            },
+            {
+              "type": "EVR_GRAVEYARD",
+              "amount": 1,
+              "uses": 1
+            },
+            {
+              "type": "SEA_BLUE_GRAVE",
+              "amount": 1,
+              "uses": 1
+            }
+          ]
+        },
+        {
+          "location": "line104",
+          "kind": "last_resolving_source_reference_only",
+          "before": "p1Graveyard-0",
+          "after": "Stack-0",
+          "remaining_stack_objects": 0,
+          "other_context_fields_preserved": true
+        }
+      ],
+      "other_four_files_unchanged": true
+    },
+    {
+      "slug": "card-count-your-blessings-blue-conditional-heal-nonturn-instant-zero-ap",
+      "number": 6,
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "39ea7198588aa12a77f1b2f47c9b523e54789383be9e5ee5bc96ff8ac6a9a2e5",
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-count-your-blessings-blue-conditional-heal-nonturn-instant-zero-ap",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\cyb-finals\\x06.log"
+      ],
+      "complete_log_sha256": "d81914aadbeeb850b3c80e9f90ebb7648a0b48d66bd98af8beb4a5eda86b902d",
+      "before_expected_sha256": "f3d776cc3d10ea024047afc273873b85fa77b6152d80d330a6fd66518abc0d5a",
+      "expected_sha256": "843a8fc5b3b86f6fd9a14ff4b82ceeec0b7d61e5d985e334f1a9a5aa4843fa5d",
+      "edits": [
+        {
+          "location": "line86",
+          "kind": "life_during_Instant_before_source_grave",
+          "seat": "2",
+          "before_rows": [
+            {
+              "type": "EVR_GRAVEYARD",
+              "amount": 1,
+              "uses": 1
+            },
+            {
+              "type": "SEA_BLUE_GRAVE",
+              "amount": 1,
+              "uses": 1
+            },
+            {
+              "type": "ROS_LIFE",
+              "amount": 1,
+              "uses": 1
+            }
+          ],
+          "after_rows": [
+            {
+              "type": "ROS_LIFE",
+              "amount": 1,
+              "uses": 1
+            },
+            {
+              "type": "EVR_GRAVEYARD",
+              "amount": 1,
+              "uses": 1
+            },
+            {
+              "type": "SEA_BLUE_GRAVE",
+              "amount": 1,
+              "uses": 1
+            }
+          ]
+        },
+        {
+          "location": "line95/Versions/v0/90",
+          "kind": "life_during_Instant_before_source_grave",
+          "seat": "2",
+          "before_rows": [
+            {
+              "type": "EVR_GRAVEYARD",
+              "amount": 1,
+              "uses": 1
+            },
+            {
+              "type": "SEA_BLUE_GRAVE",
+              "amount": 1,
+              "uses": 1
+            },
+            {
+              "type": "ROS_LIFE",
+              "amount": 1,
+              "uses": 1
+            }
+          ],
+          "after_rows": [
+            {
+              "type": "ROS_LIFE",
+              "amount": 1,
+              "uses": 1
+            },
+            {
+              "type": "EVR_GRAVEYARD",
+              "amount": 1,
+              "uses": 1
+            },
+            {
+              "type": "SEA_BLUE_GRAVE",
+              "amount": 1,
+              "uses": 1
+            }
+          ]
+        },
+        {
+          "location": "line97/Versions/v0/90",
+          "kind": "life_during_Instant_before_source_grave",
+          "seat": "2",
+          "before_rows": [
+            {
+              "type": "EVR_GRAVEYARD",
+              "amount": 1,
+              "uses": 1
+            },
+            {
+              "type": "SEA_BLUE_GRAVE",
+              "amount": 1,
+              "uses": 1
+            },
+            {
+              "type": "ROS_LIFE",
+              "amount": 1,
+              "uses": 1
+            }
+          ],
+          "after_rows": [
+            {
+              "type": "ROS_LIFE",
+              "amount": 1,
+              "uses": 1
+            },
+            {
+              "type": "EVR_GRAVEYARD",
+              "amount": 1,
+              "uses": 1
+            },
+            {
+              "type": "SEA_BLUE_GRAVE",
+              "amount": 1,
+              "uses": 1
+            }
+          ]
+        }
+      ],
+      "other_four_files_unchanged": true
+    },
+    {
+      "slug": "card-count-your-blessings-blue-conditional-heal-opponent-response-no-early-heal",
+      "number": 10,
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "39ea7198588aa12a77f1b2f47c9b523e54789383be9e5ee5bc96ff8ac6a9a2e5",
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-count-your-blessings-blue-conditional-heal-opponent-response-no-early-heal",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\cyb-finals\\x10.log"
+      ],
+      "complete_log_sha256": "db481a3db5bbc14df437366fb85d04c47636b72884c4d5f9d7a9486ff3878a90",
+      "before_expected_sha256": "fde4d1bdbd8c9125ba144e3b2667f05c06132e39e7d3488a301395ed077a419e",
+      "expected_sha256": "6dab4dbb8cac3cf3937abce94b0eadc7f471643fec5fdf12e58f6ce792080bfc",
+      "edits": [
+        {
+          "location": "line86",
+          "kind": "life_during_Instant_before_source_grave",
+          "seat": "1",
+          "before_rows": [
+            {
+              "type": "EVR_GRAVEYARD",
+              "amount": 1,
+              "uses": 1
+            },
+            {
+              "type": "SEA_BLUE_GRAVE",
+              "amount": 1,
+              "uses": 1
+            },
+            {
+              "type": "ROS_LIFE",
+              "amount": 1,
+              "uses": 1
+            }
+          ],
+          "after_rows": [
+            {
+              "type": "ROS_LIFE",
+              "amount": 1,
+              "uses": 1
+            },
+            {
+              "type": "EVR_GRAVEYARD",
+              "amount": 1,
+              "uses": 1
+            },
+            {
+              "type": "SEA_BLUE_GRAVE",
+              "amount": 1,
+              "uses": 1
+            }
+          ]
+        },
+        {
+          "location": "line86",
+          "kind": "life_during_Instant_before_source_grave",
+          "seat": "2",
+          "before_rows": [
+            {
+              "type": "EVR_GRAVEYARD",
+              "amount": 1,
+              "uses": 1
+            },
+            {
+              "type": "SEA_BLUE_GRAVE",
+              "amount": 1,
+              "uses": 1
+            },
+            {
+              "type": "ROS_LIFE",
+              "amount": 1,
+              "uses": 1
+            }
+          ],
+          "after_rows": [
+            {
+              "type": "ROS_LIFE",
+              "amount": 1,
+              "uses": 1
+            },
+            {
+              "type": "EVR_GRAVEYARD",
+              "amount": 1,
+              "uses": 1
+            },
+            {
+              "type": "SEA_BLUE_GRAVE",
+              "amount": 1,
+              "uses": 1
+            }
+          ]
+        },
+        {
+          "location": "line95/Versions/v0/86",
+          "kind": "last_resolving_source_reference_only",
+          "before": "p2Graveyard-0",
+          "after": "Stack-1",
+          "remaining_stack_objects": 1,
+          "other_context_fields_preserved": true
+        },
+        {
+          "location": "line95/Versions/v0/90",
+          "kind": "life_during_Instant_before_source_grave",
+          "seat": "2",
+          "before_rows": [
+            {
+              "type": "EVR_GRAVEYARD",
+              "amount": 1,
+              "uses": 1
+            },
+            {
+              "type": "SEA_BLUE_GRAVE",
+              "amount": 1,
+              "uses": 1
+            },
+            {
+              "type": "ROS_LIFE",
+              "amount": 1,
+              "uses": 1
+            }
+          ],
+          "after_rows": [
+            {
+              "type": "ROS_LIFE",
+              "amount": 1,
+              "uses": 1
+            },
+            {
+              "type": "EVR_GRAVEYARD",
+              "amount": 1,
+              "uses": 1
+            },
+            {
+              "type": "SEA_BLUE_GRAVE",
+              "amount": 1,
+              "uses": 1
+            }
+          ]
+        },
+        {
+          "location": "line97/Versions/v0/86",
+          "kind": "last_resolving_source_reference_only",
+          "before": "p2Graveyard-0",
+          "after": "Stack-1",
+          "remaining_stack_objects": 1,
+          "other_context_fields_preserved": true
+        },
+        {
+          "location": "line97/Versions/v0/90",
+          "kind": "life_during_Instant_before_source_grave",
+          "seat": "2",
+          "before_rows": [
+            {
+              "type": "EVR_GRAVEYARD",
+              "amount": 1,
+              "uses": 1
+            },
+            {
+              "type": "SEA_BLUE_GRAVE",
+              "amount": 1,
+              "uses": 1
+            },
+            {
+              "type": "ROS_LIFE",
+              "amount": 1,
+              "uses": 1
+            }
+          ],
+          "after_rows": [
+            {
+              "type": "ROS_LIFE",
+              "amount": 1,
+              "uses": 1
+            },
+            {
+              "type": "EVR_GRAVEYARD",
+              "amount": 1,
+              "uses": 1
+            },
+            {
+              "type": "SEA_BLUE_GRAVE",
+              "amount": 1,
+              "uses": 1
+            }
+          ]
+        },
+        {
+          "location": "line104",
+          "kind": "last_resolving_source_reference_only",
+          "before": "p1Graveyard-0",
+          "after": "Stack-0",
+          "remaining_stack_objects": 0,
+          "other_context_fields_preserved": true
+        }
+      ],
+      "other_four_files_unchanged": true
+    },
+    {
+      "slug": "card-count-your-blessings-blue-conditional-heal-red-then-red-two-stage-payment",
+      "number": 13,
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "39ea7198588aa12a77f1b2f47c9b523e54789383be9e5ee5bc96ff8ac6a9a2e5",
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-count-your-blessings-blue-conditional-heal-red-then-red-two-stage-payment",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\cyb-finals\\x13.log"
+      ],
+      "complete_log_sha256": "b8cdad630e7ae1944a14261a5b9c08c715e281605a89b7f5e0437579b1e5545b",
+      "before_expected_sha256": "fbdb0bef63a0d0ee642eff581dcadd15db1740682a8162258dfdc0120cde3eb6",
+      "expected_sha256": "b36e1ac47e115ff6e325c221eeaf4e47df13190cc912d55943af9366cce32c02",
+      "edits": [
+        {
+          "location": "line87",
+          "kind": "life_during_Instant_before_source_grave",
+          "seat": "1",
+          "before_rows": [
+            {
+              "type": "EVR_GRAVEYARD",
+              "amount": 1,
+              "uses": 1
+            },
+            {
+              "type": "SEA_BLUE_GRAVE",
+              "amount": 1,
+              "uses": 1
+            },
+            {
+              "type": "ROS_LIFE",
+              "amount": 1,
+              "uses": 1
+            }
+          ],
+          "after_rows": [
+            {
+              "type": "ROS_LIFE",
+              "amount": 1,
+              "uses": 1
+            },
+            {
+              "type": "EVR_GRAVEYARD",
+              "amount": 1,
+              "uses": 1
+            },
+            {
+              "type": "SEA_BLUE_GRAVE",
+              "amount": 1,
+              "uses": 1
+            }
+          ]
+        },
+        {
+          "location": "line105",
+          "kind": "last_resolving_source_reference_only",
+          "before": "p1Graveyard-0",
+          "after": "Stack-0",
+          "remaining_stack_objects": 0,
+          "other_context_fields_preserved": true
+        }
+      ],
+      "other_four_files_unchanged": true
+    },
+    {
+      "slug": "card-count-your-blessings-blue-conditional-heal-two-stacked-copies-resolve-one-then-other",
+      "number": 15,
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "39ea7198588aa12a77f1b2f47c9b523e54789383be9e5ee5bc96ff8ac6a9a2e5",
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-count-your-blessings-blue-conditional-heal-two-stacked-copies-resolve-one-then-other",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\cyb-finals\\x15.log"
+      ],
+      "complete_log_sha256": "180a9b6f7bd8202ecb19f1237ac0d5e8647e057b2ff22a814f4407f4d4a828b5",
+      "before_expected_sha256": "705f9f1b6d51809f8e83ae8e7d96a20ec5495f863ba37e214741c17352ba5f53",
+      "expected_sha256": "82ddceb34a3102ac0de13950be40db7d6e4ec20fde581731ef6f2fc2761e4370",
+      "edits": [
+        {
+          "location": "line86",
+          "kind": "life_during_Instant_before_source_grave",
+          "seat": "1",
+          "before_rows": [
+            {
+              "type": "EVR_GRAVEYARD",
+              "amount": 1,
+              "uses": 1
+            },
+            {
+              "type": "SEA_BLUE_GRAVE",
+              "amount": 1,
+              "uses": 1
+            },
+            {
+              "type": "ROS_LIFE",
+              "amount": 1,
+              "uses": 1
+            }
+          ],
+          "after_rows": [
+            {
+              "type": "ROS_LIFE",
+              "amount": 1,
+              "uses": 1
+            },
+            {
+              "type": "EVR_GRAVEYARD",
+              "amount": 1,
+              "uses": 1
+            },
+            {
+              "type": "SEA_BLUE_GRAVE",
+              "amount": 1,
+              "uses": 1
+            }
+          ]
+        },
+        {
+          "location": "line86",
+          "kind": "life_during_Instant_before_source_grave",
+          "seat": "1",
+          "before_rows": [
+            {
+              "type": "EVR_GRAVEYARD",
+              "amount": 1,
+              "uses": 1
+            },
+            {
+              "type": "SEA_BLUE_GRAVE",
+              "amount": 1,
+              "uses": 1
+            },
+            {
+              "type": "ROS_LIFE",
+              "amount": 2,
+              "uses": 1
+            }
+          ],
+          "after_rows": [
+            {
+              "type": "ROS_LIFE",
+              "amount": 2,
+              "uses": 1
+            },
+            {
+              "type": "EVR_GRAVEYARD",
+              "amount": 1,
+              "uses": 1
+            },
+            {
+              "type": "SEA_BLUE_GRAVE",
+              "amount": 1,
+              "uses": 1
+            }
+          ]
+        },
+        {
+          "location": "line95/Versions/v0/86",
+          "kind": "last_resolving_source_reference_only",
+          "before": "p1Graveyard-0",
+          "after": "Stack-1",
+          "remaining_stack_objects": 1,
+          "other_context_fields_preserved": true
+        },
+        {
+          "location": "line95/Versions/v0/90",
+          "kind": "life_during_Instant_before_source_grave",
+          "seat": "1",
+          "before_rows": [
+            {
+              "type": "EVR_GRAVEYARD",
+              "amount": 1,
+              "uses": 1
+            },
+            {
+              "type": "SEA_BLUE_GRAVE",
+              "amount": 1,
+              "uses": 1
+            },
+            {
+              "type": "ROS_LIFE",
+              "amount": 1,
+              "uses": 1
+            }
+          ],
+          "after_rows": [
+            {
+              "type": "ROS_LIFE",
+              "amount": 1,
+              "uses": 1
+            },
+            {
+              "type": "EVR_GRAVEYARD",
+              "amount": 1,
+              "uses": 1
+            },
+            {
+              "type": "SEA_BLUE_GRAVE",
+              "amount": 1,
+              "uses": 1
+            }
+          ]
+        },
+        {
+          "location": "line97/Versions/v0/86",
+          "kind": "last_resolving_source_reference_only",
+          "before": "p1Graveyard-0",
+          "after": "Stack-1",
+          "remaining_stack_objects": 1,
+          "other_context_fields_preserved": true
+        },
+        {
+          "location": "line97/Versions/v0/90",
+          "kind": "life_during_Instant_before_source_grave",
+          "seat": "1",
+          "before_rows": [
+            {
+              "type": "EVR_GRAVEYARD",
+              "amount": 1,
+              "uses": 1
+            },
+            {
+              "type": "SEA_BLUE_GRAVE",
+              "amount": 1,
+              "uses": 1
+            },
+            {
+              "type": "ROS_LIFE",
+              "amount": 1,
+              "uses": 1
+            }
+          ],
+          "after_rows": [
+            {
+              "type": "ROS_LIFE",
+              "amount": 1,
+              "uses": 1
+            },
+            {
+              "type": "EVR_GRAVEYARD",
+              "amount": 1,
+              "uses": 1
+            },
+            {
+              "type": "SEA_BLUE_GRAVE",
+              "amount": 1,
+              "uses": 1
+            }
+          ]
+        },
+        {
+          "location": "line104",
+          "kind": "last_resolving_source_reference_only",
+          "before": "p1Graveyard-1",
+          "after": "Stack-0",
+          "remaining_stack_objects": 0,
+          "other_context_fields_preserved": true
+        }
+      ],
+      "other_four_files_unchanged": true
+    },
+    {
+      "slug": "card-count-your-blessings-red-conditional-heal-empty-graveyard-blue-pays-two",
+      "number": 19,
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "39ea7198588aa12a77f1b2f47c9b523e54789383be9e5ee5bc96ff8ac6a9a2e5",
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-count-your-blessings-red-conditional-heal-empty-graveyard-blue-pays-two",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\cyb-finals\\x19.log"
+      ],
+      "complete_log_sha256": "0bfd465eb694684d1cc84931e469b72e426ea22b4347e3416c3452e644529f26",
+      "before_expected_sha256": "b76f969989db03a105a0376da491f491af922c48852639018a7757b83dc5cd60",
+      "expected_sha256": "3b562101677e4e97ffa5363950772f8b9e3ddd00d9456d01015810a86e3ef592",
+      "edits": [
+        {
+          "location": "line86",
+          "kind": "life_during_Instant_before_source_grave",
+          "seat": "1",
+          "before_rows": [
+            {
+              "type": "EVR_GRAVEYARD",
+              "amount": 1,
+              "uses": 1
+            },
+            {
+              "type": "ROS_LIFE",
+              "amount": 3,
+              "uses": 1
+            }
+          ],
+          "after_rows": [
+            {
+              "type": "ROS_LIFE",
+              "amount": 3,
+              "uses": 1
+            },
+            {
+              "type": "EVR_GRAVEYARD",
+              "amount": 1,
+              "uses": 1
+            }
+          ]
+        },
+        {
+          "location": "line104",
+          "kind": "last_resolving_source_reference_only",
+          "before": "p1Graveyard-0",
+          "after": "Stack-0",
+          "remaining_stack_objects": 0,
+          "other_context_fields_preserved": true
+        }
+      ],
+      "other_four_files_unchanged": true
+    },
+    {
+      "slug": "card-count-your-blessings-red-conditional-heal-nonturn-instant-zero-ap",
+      "number": 20,
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "39ea7198588aa12a77f1b2f47c9b523e54789383be9e5ee5bc96ff8ac6a9a2e5",
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-count-your-blessings-red-conditional-heal-nonturn-instant-zero-ap",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\cyb-finals\\x20.log"
+      ],
+      "complete_log_sha256": "8b6cac120ee8abbc29e5c4844175c540f72f586f81498ce3a355144769cd8b73",
+      "before_expected_sha256": "85c385496328822546dd748f0f9b7dc689d84d15999934c26db3c5d947d53cf0",
+      "expected_sha256": "2a188a3325bcfaea2d349b5aefe29c9df29b1492357c89dc8323ad105eeeba22",
+      "edits": [
+        {
+          "location": "line86",
+          "kind": "life_during_Instant_before_source_grave",
+          "seat": "2",
+          "before_rows": [
+            {
+              "type": "EVR_GRAVEYARD",
+              "amount": 1,
+              "uses": 1
+            },
+            {
+              "type": "ROS_LIFE",
+              "amount": 3,
+              "uses": 1
+            }
+          ],
+          "after_rows": [
+            {
+              "type": "ROS_LIFE",
+              "amount": 3,
+              "uses": 1
+            },
+            {
+              "type": "EVR_GRAVEYARD",
+              "amount": 1,
+              "uses": 1
+            }
+          ]
+        },
+        {
+          "location": "line95/Versions/v0/90",
+          "kind": "life_during_Instant_before_source_grave",
+          "seat": "2",
+          "before_rows": [
+            {
+              "type": "EVR_GRAVEYARD",
+              "amount": 1,
+              "uses": 1
+            },
+            {
+              "type": "ROS_LIFE",
+              "amount": 3,
+              "uses": 1
+            }
+          ],
+          "after_rows": [
+            {
+              "type": "ROS_LIFE",
+              "amount": 3,
+              "uses": 1
+            },
+            {
+              "type": "EVR_GRAVEYARD",
+              "amount": 1,
+              "uses": 1
+            }
+          ]
+        },
+        {
+          "location": "line97/Versions/v0/90",
+          "kind": "life_during_Instant_before_source_grave",
+          "seat": "2",
+          "before_rows": [
+            {
+              "type": "EVR_GRAVEYARD",
+              "amount": 1,
+              "uses": 1
+            },
+            {
+              "type": "ROS_LIFE",
+              "amount": 3,
+              "uses": 1
+            }
+          ],
+          "after_rows": [
+            {
+              "type": "ROS_LIFE",
+              "amount": 3,
+              "uses": 1
+            },
+            {
+              "type": "EVR_GRAVEYARD",
+              "amount": 1,
+              "uses": 1
+            }
+          ]
+        }
+      ],
+      "other_four_files_unchanged": true
+    },
+    {
+      "slug": "card-count-your-blessings-red-conditional-heal-opponent-response-no-early-heal",
+      "number": 24,
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "39ea7198588aa12a77f1b2f47c9b523e54789383be9e5ee5bc96ff8ac6a9a2e5",
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-count-your-blessings-red-conditional-heal-opponent-response-no-early-heal",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\cyb-finals\\x24.log"
+      ],
+      "complete_log_sha256": "11b4cbbed97d40db2bde71d2495acd0fbd2c4004a9a9cbf0ab92801d1bb0e35f",
+      "before_expected_sha256": "f41768e96f2a5a0b4f12eb2e45eada2d5e561f571439b8bc082f552770a76d0f",
+      "expected_sha256": "fedf0ca6cf342ce93195be54525db6bc8594d5bc663a6925300035c540eb7edd",
+      "edits": [
+        {
+          "location": "line86",
+          "kind": "life_during_Instant_before_source_grave",
+          "seat": "1",
+          "before_rows": [
+            {
+              "type": "EVR_GRAVEYARD",
+              "amount": 1,
+              "uses": 1
+            },
+            {
+              "type": "ROS_LIFE",
+              "amount": 3,
+              "uses": 1
+            }
+          ],
+          "after_rows": [
+            {
+              "type": "ROS_LIFE",
+              "amount": 3,
+              "uses": 1
+            },
+            {
+              "type": "EVR_GRAVEYARD",
+              "amount": 1,
+              "uses": 1
+            }
+          ]
+        },
+        {
+          "location": "line86",
+          "kind": "life_during_Instant_before_source_grave",
+          "seat": "2",
+          "before_rows": [
+            {
+              "type": "EVR_GRAVEYARD",
+              "amount": 1,
+              "uses": 1
+            },
+            {
+              "type": "SEA_BLUE_GRAVE",
+              "amount": 1,
+              "uses": 1
+            },
+            {
+              "type": "ROS_LIFE",
+              "amount": 1,
+              "uses": 1
+            }
+          ],
+          "after_rows": [
+            {
+              "type": "ROS_LIFE",
+              "amount": 1,
+              "uses": 1
+            },
+            {
+              "type": "EVR_GRAVEYARD",
+              "amount": 1,
+              "uses": 1
+            },
+            {
+              "type": "SEA_BLUE_GRAVE",
+              "amount": 1,
+              "uses": 1
+            }
+          ]
+        },
+        {
+          "location": "line95/Versions/v0/86",
+          "kind": "last_resolving_source_reference_only",
+          "before": "p2Graveyard-0",
+          "after": "Stack-1",
+          "remaining_stack_objects": 1,
+          "other_context_fields_preserved": true
+        },
+        {
+          "location": "line95/Versions/v0/90",
+          "kind": "life_during_Instant_before_source_grave",
+          "seat": "2",
+          "before_rows": [
+            {
+              "type": "EVR_GRAVEYARD",
+              "amount": 1,
+              "uses": 1
+            },
+            {
+              "type": "SEA_BLUE_GRAVE",
+              "amount": 1,
+              "uses": 1
+            },
+            {
+              "type": "ROS_LIFE",
+              "amount": 1,
+              "uses": 1
+            }
+          ],
+          "after_rows": [
+            {
+              "type": "ROS_LIFE",
+              "amount": 1,
+              "uses": 1
+            },
+            {
+              "type": "EVR_GRAVEYARD",
+              "amount": 1,
+              "uses": 1
+            },
+            {
+              "type": "SEA_BLUE_GRAVE",
+              "amount": 1,
+              "uses": 1
+            }
+          ]
+        },
+        {
+          "location": "line97/Versions/v0/86",
+          "kind": "last_resolving_source_reference_only",
+          "before": "p2Graveyard-0",
+          "after": "Stack-1",
+          "remaining_stack_objects": 1,
+          "other_context_fields_preserved": true
+        },
+        {
+          "location": "line97/Versions/v0/90",
+          "kind": "life_during_Instant_before_source_grave",
+          "seat": "2",
+          "before_rows": [
+            {
+              "type": "EVR_GRAVEYARD",
+              "amount": 1,
+              "uses": 1
+            },
+            {
+              "type": "SEA_BLUE_GRAVE",
+              "amount": 1,
+              "uses": 1
+            },
+            {
+              "type": "ROS_LIFE",
+              "amount": 1,
+              "uses": 1
+            }
+          ],
+          "after_rows": [
+            {
+              "type": "ROS_LIFE",
+              "amount": 1,
+              "uses": 1
+            },
+            {
+              "type": "EVR_GRAVEYARD",
+              "amount": 1,
+              "uses": 1
+            },
+            {
+              "type": "SEA_BLUE_GRAVE",
+              "amount": 1,
+              "uses": 1
+            }
+          ]
+        },
+        {
+          "location": "line104",
+          "kind": "last_resolving_source_reference_only",
+          "before": "p1Graveyard-0",
+          "after": "Stack-0",
+          "remaining_stack_objects": 0,
+          "other_context_fields_preserved": true
+        }
+      ],
+      "other_four_files_unchanged": true
+    },
+    {
+      "slug": "card-count-your-blessings-red-conditional-heal-red-then-red-two-stage-payment",
+      "number": 27,
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "39ea7198588aa12a77f1b2f47c9b523e54789383be9e5ee5bc96ff8ac6a9a2e5",
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-count-your-blessings-red-conditional-heal-red-then-red-two-stage-payment",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\cyb-finals\\x27.log"
+      ],
+      "complete_log_sha256": "2457848e15dfdbc04adb660e1a29f60d1b014c8d03c1df81f61cb5cd0d54eb7e",
+      "before_expected_sha256": "584e40996d6911145556d9d1964bc08a9953e693ffb191439b27859d6e08f70b",
+      "expected_sha256": "435d33abe8e29ec04fb8011dfbcaa3ef42c7423158ddb4e67ca221347aef4f20",
+      "edits": [
+        {
+          "location": "line87",
+          "kind": "life_during_Instant_before_source_grave",
+          "seat": "1",
+          "before_rows": [
+            {
+              "type": "EVR_GRAVEYARD",
+              "amount": 1,
+              "uses": 1
+            },
+            {
+              "type": "ROS_LIFE",
+              "amount": 3,
+              "uses": 1
+            }
+          ],
+          "after_rows": [
+            {
+              "type": "ROS_LIFE",
+              "amount": 3,
+              "uses": 1
+            },
+            {
+              "type": "EVR_GRAVEYARD",
+              "amount": 1,
+              "uses": 1
+            }
+          ]
+        },
+        {
+          "location": "line105",
+          "kind": "last_resolving_source_reference_only",
+          "before": "p1Graveyard-0",
+          "after": "Stack-0",
+          "remaining_stack_objects": 0,
+          "other_context_fields_preserved": true
+        }
+      ],
+      "other_four_files_unchanged": true
+    },
+    {
+      "slug": "card-count-your-blessings-red-conditional-heal-two-stacked-copies-resolve-one-then-other",
+      "number": 29,
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "39ea7198588aa12a77f1b2f47c9b523e54789383be9e5ee5bc96ff8ac6a9a2e5",
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-count-your-blessings-red-conditional-heal-two-stacked-copies-resolve-one-then-other",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\cyb-finals\\x29.log"
+      ],
+      "complete_log_sha256": "1af29463f470e44fc1a825f726b3d43381a0544c648cc1a4cf86710275dce9fa",
+      "before_expected_sha256": "8d8fdab58ae00667108948d69e6a8d3c980b788c23d254b732d2bc2e2c67a51f",
+      "expected_sha256": "c8d2bbcc63590783c66917bb1c908f43814410f990b97ff1dbaecd013bfab32d",
+      "edits": [
+        {
+          "location": "line86",
+          "kind": "life_during_Instant_before_source_grave",
+          "seat": "1",
+          "before_rows": [
+            {
+              "type": "EVR_GRAVEYARD",
+              "amount": 1,
+              "uses": 1
+            },
+            {
+              "type": "ROS_LIFE",
+              "amount": 3,
+              "uses": 1
+            }
+          ],
+          "after_rows": [
+            {
+              "type": "ROS_LIFE",
+              "amount": 3,
+              "uses": 1
+            },
+            {
+              "type": "EVR_GRAVEYARD",
+              "amount": 1,
+              "uses": 1
+            }
+          ]
+        },
+        {
+          "location": "line86",
+          "kind": "life_during_Instant_before_source_grave",
+          "seat": "1",
+          "before_rows": [
+            {
+              "type": "EVR_GRAVEYARD",
+              "amount": 1,
+              "uses": 1
+            },
+            {
+              "type": "ROS_LIFE",
+              "amount": 4,
+              "uses": 1
+            }
+          ],
+          "after_rows": [
+            {
+              "type": "ROS_LIFE",
+              "amount": 4,
+              "uses": 1
+            },
+            {
+              "type": "EVR_GRAVEYARD",
+              "amount": 1,
+              "uses": 1
+            }
+          ]
+        },
+        {
+          "location": "line95/Versions/v0/86",
+          "kind": "last_resolving_source_reference_only",
+          "before": "p1Graveyard-0",
+          "after": "Stack-1",
+          "remaining_stack_objects": 1,
+          "other_context_fields_preserved": true
+        },
+        {
+          "location": "line95/Versions/v0/90",
+          "kind": "life_during_Instant_before_source_grave",
+          "seat": "1",
+          "before_rows": [
+            {
+              "type": "EVR_GRAVEYARD",
+              "amount": 1,
+              "uses": 1
+            },
+            {
+              "type": "ROS_LIFE",
+              "amount": 3,
+              "uses": 1
+            }
+          ],
+          "after_rows": [
+            {
+              "type": "ROS_LIFE",
+              "amount": 3,
+              "uses": 1
+            },
+            {
+              "type": "EVR_GRAVEYARD",
+              "amount": 1,
+              "uses": 1
+            }
+          ]
+        },
+        {
+          "location": "line97/Versions/v0/86",
+          "kind": "last_resolving_source_reference_only",
+          "before": "p1Graveyard-0",
+          "after": "Stack-1",
+          "remaining_stack_objects": 1,
+          "other_context_fields_preserved": true
+        },
+        {
+          "location": "line97/Versions/v0/90",
+          "kind": "life_during_Instant_before_source_grave",
+          "seat": "1",
+          "before_rows": [
+            {
+              "type": "EVR_GRAVEYARD",
+              "amount": 1,
+              "uses": 1
+            },
+            {
+              "type": "ROS_LIFE",
+              "amount": 3,
+              "uses": 1
+            }
+          ],
+          "after_rows": [
+            {
+              "type": "ROS_LIFE",
+              "amount": 3,
+              "uses": 1
+            },
+            {
+              "type": "EVR_GRAVEYARD",
+              "amount": 1,
+              "uses": 1
+            }
+          ]
+        },
+        {
+          "location": "line104",
+          "kind": "last_resolving_source_reference_only",
+          "before": "p1Graveyard-1",
+          "after": "Stack-0",
+          "remaining_stack_objects": 0,
+          "other_context_fields_preserved": true
+        }
+      ],
+      "other_four_files_unchanged": true
+    },
+    {
+      "slug": "card-count-your-blessings-yellow-conditional-heal-blue-pitch-overfunding",
+      "number": 33,
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "39ea7198588aa12a77f1b2f47c9b523e54789383be9e5ee5bc96ff8ac6a9a2e5",
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-count-your-blessings-yellow-conditional-heal-blue-pitch-overfunding",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\cyb-finals\\x33.log"
+      ],
+      "complete_log_sha256": "e320c32023d79bfab053c11057e0076b68eff11afd74ac289619a6fb65e60a76",
+      "before_expected_sha256": "285b6c5da3c2a73a4a67cb97768b94d3b18bf3aed1a3c0b3e152bf3c66c7b620",
+      "expected_sha256": "301d2c7c7c0b6795141427e486245af9f4efe80311f614a27a3e0d8a17a4a9d6",
+      "edits": [
+        {
+          "location": "line86",
+          "kind": "life_during_Instant_before_source_grave",
+          "seat": "1",
+          "before_rows": [
+            {
+              "type": "EVR_GRAVEYARD",
+              "amount": 1,
+              "uses": 1
+            },
+            {
+              "type": "ROS_LIFE",
+              "amount": 2,
+              "uses": 1
+            }
+          ],
+          "after_rows": [
+            {
+              "type": "ROS_LIFE",
+              "amount": 2,
+              "uses": 1
+            },
+            {
+              "type": "EVR_GRAVEYARD",
+              "amount": 1,
+              "uses": 1
+            }
+          ]
+        },
+        {
+          "location": "line104",
+          "kind": "last_resolving_source_reference_only",
+          "before": "p1Graveyard-0",
+          "after": "Stack-0",
+          "remaining_stack_objects": 0,
+          "other_context_fields_preserved": true
+        }
+      ],
+      "other_four_files_unchanged": true
+    },
+    {
+      "slug": "card-count-your-blessings-yellow-conditional-heal-nonturn-instant-zero-ap",
+      "number": 34,
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "39ea7198588aa12a77f1b2f47c9b523e54789383be9e5ee5bc96ff8ac6a9a2e5",
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-count-your-blessings-yellow-conditional-heal-nonturn-instant-zero-ap",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\cyb-finals\\x34.log"
+      ],
+      "complete_log_sha256": "9b1b9eb7dd6e1e341d6785d07d6aad45633d53ddf93e30fd32f15c1eac42d236",
+      "before_expected_sha256": "4ebad1d7040d8601b0c7ac553e59487b49b74acf42b4e6bd0609a8992862d926",
+      "expected_sha256": "7a1ca02767ea66a86b61d6559462f31ccf229b05be7bf0d9723e76732a2d0b37",
+      "edits": [
+        {
+          "location": "line86",
+          "kind": "life_during_Instant_before_source_grave",
+          "seat": "2",
+          "before_rows": [
+            {
+              "type": "EVR_GRAVEYARD",
+              "amount": 1,
+              "uses": 1
+            },
+            {
+              "type": "ROS_LIFE",
+              "amount": 2,
+              "uses": 1
+            }
+          ],
+          "after_rows": [
+            {
+              "type": "ROS_LIFE",
+              "amount": 2,
+              "uses": 1
+            },
+            {
+              "type": "EVR_GRAVEYARD",
+              "amount": 1,
+              "uses": 1
+            }
+          ]
+        },
+        {
+          "location": "line95/Versions/v0/90",
+          "kind": "life_during_Instant_before_source_grave",
+          "seat": "2",
+          "before_rows": [
+            {
+              "type": "EVR_GRAVEYARD",
+              "amount": 1,
+              "uses": 1
+            },
+            {
+              "type": "ROS_LIFE",
+              "amount": 2,
+              "uses": 1
+            }
+          ],
+          "after_rows": [
+            {
+              "type": "ROS_LIFE",
+              "amount": 2,
+              "uses": 1
+            },
+            {
+              "type": "EVR_GRAVEYARD",
+              "amount": 1,
+              "uses": 1
+            }
+          ]
+        },
+        {
+          "location": "line97/Versions/v0/90",
+          "kind": "life_during_Instant_before_source_grave",
+          "seat": "2",
+          "before_rows": [
+            {
+              "type": "EVR_GRAVEYARD",
+              "amount": 1,
+              "uses": 1
+            },
+            {
+              "type": "ROS_LIFE",
+              "amount": 2,
+              "uses": 1
+            }
+          ],
+          "after_rows": [
+            {
+              "type": "ROS_LIFE",
+              "amount": 2,
+              "uses": 1
+            },
+            {
+              "type": "EVR_GRAVEYARD",
+              "amount": 1,
+              "uses": 1
+            }
+          ]
+        }
+      ],
+      "other_four_files_unchanged": true
+    },
+    {
+      "slug": "card-count-your-blessings-yellow-conditional-heal-opponent-response-no-early-heal",
+      "number": 38,
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "39ea7198588aa12a77f1b2f47c9b523e54789383be9e5ee5bc96ff8ac6a9a2e5",
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-count-your-blessings-yellow-conditional-heal-opponent-response-no-early-heal",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\cyb-finals\\x38.log"
+      ],
+      "complete_log_sha256": "0fb9bac9cbad48c90feb4ca68c3ddf3ea9f23b43853031d211ef3b29a35d956e",
+      "before_expected_sha256": "7e2672e480eed58a4bfa19e75a90b8026203d342b357d50b1bc72393adcf110a",
+      "expected_sha256": "d706186447bf7b6bb2ab605ba360b66c636373c079aedd0b6b668b2dd330515d",
+      "edits": [
+        {
+          "location": "line86",
+          "kind": "life_during_Instant_before_source_grave",
+          "seat": "1",
+          "before_rows": [
+            {
+              "type": "EVR_GRAVEYARD",
+              "amount": 1,
+              "uses": 1
+            },
+            {
+              "type": "ROS_LIFE",
+              "amount": 2,
+              "uses": 1
+            }
+          ],
+          "after_rows": [
+            {
+              "type": "ROS_LIFE",
+              "amount": 2,
+              "uses": 1
+            },
+            {
+              "type": "EVR_GRAVEYARD",
+              "amount": 1,
+              "uses": 1
+            }
+          ]
+        },
+        {
+          "location": "line86",
+          "kind": "life_during_Instant_before_source_grave",
+          "seat": "2",
+          "before_rows": [
+            {
+              "type": "EVR_GRAVEYARD",
+              "amount": 1,
+              "uses": 1
+            },
+            {
+              "type": "SEA_BLUE_GRAVE",
+              "amount": 1,
+              "uses": 1
+            },
+            {
+              "type": "ROS_LIFE",
+              "amount": 1,
+              "uses": 1
+            }
+          ],
+          "after_rows": [
+            {
+              "type": "ROS_LIFE",
+              "amount": 1,
+              "uses": 1
+            },
+            {
+              "type": "EVR_GRAVEYARD",
+              "amount": 1,
+              "uses": 1
+            },
+            {
+              "type": "SEA_BLUE_GRAVE",
+              "amount": 1,
+              "uses": 1
+            }
+          ]
+        },
+        {
+          "location": "line95/Versions/v0/86",
+          "kind": "last_resolving_source_reference_only",
+          "before": "p2Graveyard-0",
+          "after": "Stack-1",
+          "remaining_stack_objects": 1,
+          "other_context_fields_preserved": true
+        },
+        {
+          "location": "line95/Versions/v0/90",
+          "kind": "life_during_Instant_before_source_grave",
+          "seat": "2",
+          "before_rows": [
+            {
+              "type": "EVR_GRAVEYARD",
+              "amount": 1,
+              "uses": 1
+            },
+            {
+              "type": "SEA_BLUE_GRAVE",
+              "amount": 1,
+              "uses": 1
+            },
+            {
+              "type": "ROS_LIFE",
+              "amount": 1,
+              "uses": 1
+            }
+          ],
+          "after_rows": [
+            {
+              "type": "ROS_LIFE",
+              "amount": 1,
+              "uses": 1
+            },
+            {
+              "type": "EVR_GRAVEYARD",
+              "amount": 1,
+              "uses": 1
+            },
+            {
+              "type": "SEA_BLUE_GRAVE",
+              "amount": 1,
+              "uses": 1
+            }
+          ]
+        },
+        {
+          "location": "line97/Versions/v0/86",
+          "kind": "last_resolving_source_reference_only",
+          "before": "p2Graveyard-0",
+          "after": "Stack-1",
+          "remaining_stack_objects": 1,
+          "other_context_fields_preserved": true
+        },
+        {
+          "location": "line97/Versions/v0/90",
+          "kind": "life_during_Instant_before_source_grave",
+          "seat": "2",
+          "before_rows": [
+            {
+              "type": "EVR_GRAVEYARD",
+              "amount": 1,
+              "uses": 1
+            },
+            {
+              "type": "SEA_BLUE_GRAVE",
+              "amount": 1,
+              "uses": 1
+            },
+            {
+              "type": "ROS_LIFE",
+              "amount": 1,
+              "uses": 1
+            }
+          ],
+          "after_rows": [
+            {
+              "type": "ROS_LIFE",
+              "amount": 1,
+              "uses": 1
+            },
+            {
+              "type": "EVR_GRAVEYARD",
+              "amount": 1,
+              "uses": 1
+            },
+            {
+              "type": "SEA_BLUE_GRAVE",
+              "amount": 1,
+              "uses": 1
+            }
+          ]
+        },
+        {
+          "location": "line104",
+          "kind": "last_resolving_source_reference_only",
+          "before": "p1Graveyard-0",
+          "after": "Stack-0",
+          "remaining_stack_objects": 0,
+          "other_context_fields_preserved": true
+        }
+      ],
+      "other_four_files_unchanged": true
+    },
+    {
+      "slug": "card-count-your-blessings-yellow-conditional-heal-red-then-red-two-stage-payment",
+      "number": 41,
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "39ea7198588aa12a77f1b2f47c9b523e54789383be9e5ee5bc96ff8ac6a9a2e5",
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-count-your-blessings-yellow-conditional-heal-red-then-red-two-stage-payment",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\cyb-finals\\x41.log"
+      ],
+      "complete_log_sha256": "fc3a86b84d1fb6f404e9a7a8eeb18902889d88873986f45d12298aa45b05f791",
+      "before_expected_sha256": "ab5f72ba945069ade7f78d86f7b3daf93c55fb79f8f2486efd8589c53da4e799",
+      "expected_sha256": "34de2df63cab748d3483a48202be037ea2aeee688452e9bbe502f11e831320f0",
+      "edits": [
+        {
+          "location": "line87",
+          "kind": "life_during_Instant_before_source_grave",
+          "seat": "1",
+          "before_rows": [
+            {
+              "type": "EVR_GRAVEYARD",
+              "amount": 1,
+              "uses": 1
+            },
+            {
+              "type": "ROS_LIFE",
+              "amount": 2,
+              "uses": 1
+            }
+          ],
+          "after_rows": [
+            {
+              "type": "ROS_LIFE",
+              "amount": 2,
+              "uses": 1
+            },
+            {
+              "type": "EVR_GRAVEYARD",
+              "amount": 1,
+              "uses": 1
+            }
+          ]
+        },
+        {
+          "location": "line105",
+          "kind": "last_resolving_source_reference_only",
+          "before": "p1Graveyard-0",
+          "after": "Stack-0",
+          "remaining_stack_objects": 0,
+          "other_context_fields_preserved": true
+        }
+      ],
+      "other_four_files_unchanged": true
+    },
+    {
+      "slug": "card-count-your-blessings-yellow-conditional-heal-two-stacked-copies-resolve-one-then-other",
+      "number": 43,
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "39ea7198588aa12a77f1b2f47c9b523e54789383be9e5ee5bc96ff8ac6a9a2e5",
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-count-your-blessings-yellow-conditional-heal-two-stacked-copies-resolve-one-then-other",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\cyb-finals\\x43.log"
+      ],
+      "complete_log_sha256": "8ac5279cc995e6386feac6b33f6cc10abc789cfcc483656b3427a3983fdcca7a",
+      "before_expected_sha256": "d728555fdbdda04dac6733d350d86831efbcbb4b698a43b80670de3f79fa986a",
+      "expected_sha256": "7d5679c088fc1e2fb4f932545216881ed1be6ab9fb6b4f6435e41fc0e84b071f",
+      "edits": [
+        {
+          "location": "line86",
+          "kind": "life_during_Instant_before_source_grave",
+          "seat": "1",
+          "before_rows": [
+            {
+              "type": "EVR_GRAVEYARD",
+              "amount": 1,
+              "uses": 1
+            },
+            {
+              "type": "ROS_LIFE",
+              "amount": 2,
+              "uses": 1
+            }
+          ],
+          "after_rows": [
+            {
+              "type": "ROS_LIFE",
+              "amount": 2,
+              "uses": 1
+            },
+            {
+              "type": "EVR_GRAVEYARD",
+              "amount": 1,
+              "uses": 1
+            }
+          ]
+        },
+        {
+          "location": "line86",
+          "kind": "life_during_Instant_before_source_grave",
+          "seat": "1",
+          "before_rows": [
+            {
+              "type": "EVR_GRAVEYARD",
+              "amount": 1,
+              "uses": 1
+            },
+            {
+              "type": "ROS_LIFE",
+              "amount": 3,
+              "uses": 1
+            }
+          ],
+          "after_rows": [
+            {
+              "type": "ROS_LIFE",
+              "amount": 3,
+              "uses": 1
+            },
+            {
+              "type": "EVR_GRAVEYARD",
+              "amount": 1,
+              "uses": 1
+            }
+          ]
+        },
+        {
+          "location": "line95/Versions/v0/86",
+          "kind": "last_resolving_source_reference_only",
+          "before": "p1Graveyard-0",
+          "after": "Stack-1",
+          "remaining_stack_objects": 1,
+          "other_context_fields_preserved": true
+        },
+        {
+          "location": "line95/Versions/v0/90",
+          "kind": "life_during_Instant_before_source_grave",
+          "seat": "1",
+          "before_rows": [
+            {
+              "type": "EVR_GRAVEYARD",
+              "amount": 1,
+              "uses": 1
+            },
+            {
+              "type": "ROS_LIFE",
+              "amount": 2,
+              "uses": 1
+            }
+          ],
+          "after_rows": [
+            {
+              "type": "ROS_LIFE",
+              "amount": 2,
+              "uses": 1
+            },
+            {
+              "type": "EVR_GRAVEYARD",
+              "amount": 1,
+              "uses": 1
+            }
+          ]
+        },
+        {
+          "location": "line97/Versions/v0/86",
+          "kind": "last_resolving_source_reference_only",
+          "before": "p1Graveyard-0",
+          "after": "Stack-1",
+          "remaining_stack_objects": 1,
+          "other_context_fields_preserved": true
+        },
+        {
+          "location": "line97/Versions/v0/90",
+          "kind": "life_during_Instant_before_source_grave",
+          "seat": "1",
+          "before_rows": [
+            {
+              "type": "EVR_GRAVEYARD",
+              "amount": 1,
+              "uses": 1
+            },
+            {
+              "type": "ROS_LIFE",
+              "amount": 2,
+              "uses": 1
+            }
+          ],
+          "after_rows": [
+            {
+              "type": "ROS_LIFE",
+              "amount": 2,
+              "uses": 1
+            },
+            {
+              "type": "EVR_GRAVEYARD",
+              "amount": 1,
+              "uses": 1
+            }
+          ]
+        },
+        {
+          "location": "line104",
+          "kind": "last_resolving_source_reference_only",
+          "before": "p1Graveyard-1",
+          "after": "Stack-0",
+          "remaining_stack_objects": 0,
+          "other_context_fields_preserved": true
+        }
+      ],
+      "other_four_files_unchanged": true
+    }
+  ],
+  "review": {
+    "reviewer": "/root/breadth_review1457",
+    "status": "APPROVED_EXACT_15_ONLY",
+    "proposal_sha256": "dd111c5b9de0e5312bbdf50ad7aa7b90d45f850575bfba29681d99926f6f1bed",
+    "script_sha256": "e8de63cc14c12e3ae92d47b56cee2848fe71822afbbe6520fe85956b4fbf1ad6",
+    "scope": "Independently checked75raw5guards; exact39life-row moves/24mzID-onlychanges, VersionsDQV86Stack87GameState90 and actual one-lower-spellundo binding, mixedmetadata/nonturnCombatChaincapsules preserved. Source rulebase thenbase+1 remains numericexact. No gameplay/comparatorchanges or independent native games."
+  },
+  "engine_or_comparison_changes": false,
+  "preserved": "All original gameplay checks, actions, setup/meta and all final numeric values. Only exact predicted life-before-source-grave and retained resolution reference, including the two-copy undo snapshots.",
+  "new_scenarios_or_groups": 0,
+  "full_suite_run": false
+}

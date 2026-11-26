@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-herald-of-erudition-yellow-four-live-sparse1538-dominate-rejects-second-hand-but-equipment-fully-blocks",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-herald-of-erudition-yellow-four-live-sparse1538-dominate-rejects-second-hand-but-equipment-fully-blocks",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1538-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1538-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "ebe36cd3f19a5cced7de1bc629da6440444872869340b333ed7a8467d1e9bcfb",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "6df0be267a99a88d4b1a2f0c9ea1aed0a54c0468b9a719e8271569f30621c8a5",
+        "actions.json": "dbc807196929497bebebfe73794633848952c22f6a1d476ab107f5bd9d511d4b",
+        "assertions.json": "068705a2251d93f099485241baa81b957024b97f6a227554fbeca89e19a5c4b4",
+        "expected_final_gamestate.txt": "92b2827d64111b5397dc32b5b0d0c3b3773bf626c0e7e0b7b44b030bbf77fd54",
+        "meta.json": "6acf48120d474a41d159e2d9ef312eeb22376399aec2570ca2b8313407312db5"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

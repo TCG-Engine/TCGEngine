@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-towering-titan-red-four-live-sparse1384-paid-nine-cost-aura-after-action-phase-began-no-premature-ten-power",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-towering-titan-red-four-live-sparse1384-paid-nine-cost-aura-after-action-phase-began-no-premature-ten-power",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1384-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1384-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "fedb2a462d4d178737dc2641c8a800f28d05d5d435c0473117acf73dccafad84",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "7d55cdace08cb899b27120eadfb98162e762ba1cbf462fd62bb2a91f0bf48a27",
+        "actions.json": "fc01981528ba0c0484c18ac9c56f2bdccdbb6f8fddb0b3fb7fdf4d6be814e8d7",
+        "assertions.json": "12b7219769edd8a1dade79e9e1bf7061fd7dba8320ff70ecaa204869d485116d",
+        "expected_final_gamestate.txt": "36854cc82e64aec605bd5de193baae76361fb7ef0865dec0814c58ff8085dc49",
+        "meta.json": "7a46bb41f99f8ecabebe08869a1d9b3ab34100b1bc96f3c9c367383258f77b4e"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

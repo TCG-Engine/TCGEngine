@@ -1,0 +1,7 @@
+{
+    "name": "Blink of an Eye / zero-defense block does not fragment",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-24T18:27:26+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "FOUR_REAL_MANUAL_YOUNG_ZYGGY20_THREEDORI20/cachedUPF. PriorownednonholoHoloShield5Arena1(noETB/leaveWHEN), primary6Hand1/actualBlue7Hand1/NullRuneHood8Eq4base0/onlystaticAB1. NativeprimarytargetHero4beforecost2, realBlue3pays2R1AP0/allfourresponses/base7/noGA. ActualHood8defendsfromEquipmentforZERO, strictFragmentthreshold2notmet(officialCR8.3.43), so noFragmentlayer/power-2/noBlinkoptionalbanish-return/holoearned. Actual7physical-minus0=7HP4=13 andsameoriginalAura5Counter[]/UID5staysArena(noHolo)pinnegativecondition. Noarcanepacket/prevention, noHeroclick/Flowcost/225/226path. Fullcloseprimary6GY1/Blue7Pitch1/Hood8readyEq4(noBladeBreak/wear)/Aura5sameArena/noextraUID/RNG/R1AP0. Onlyrealcost/attackdamage/Fragmentzero-defenseconditionfalse; no2+positiveFragment/powerreduction/followupability/wholecard/supportcredit. Noenginechange. Sources: FaBSim/GeneratedCode/cardArrayCache.json#blink_of_an_eye_red FaBSim/GeneratedCode/GeneratedMacroCode.php FaBSim/Custom/GameLogic.php FaBSim/Custom/OMNCards.php FaBSim/Custom/WTRCards.php https://rules.fabtcg.com/en/cr/08-keywords/"
+}

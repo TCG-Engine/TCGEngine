@@ -1,0 +1,27 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch322.json",
+  "runtime_sha256": "0d877de49c131f29c152706e14bba3368630df61c59ef475c87a84f20b6e1a66",
+  "returncode": 0,
+  "completed_utc": "2026-11-03T10:47:49.361504+00:00",
+  "fixtures": [
+    {
+      "slug": "card-helm-of-sharp-eye-four-live-sparse-earned-five-power-sword-real-paid-banish-and-same-chain-card-use",
+      "fixture_sha256": "ac21b8715a902d306538dba0ddfa2137235262610a7649433d10b3090e951326",
+      "passed": true,
+      "result": "[PASS] helm_of_sharp_eye / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-helm-of-sharp-eye-four-live-sparse-earned-five-power-sword-real-paid-banish-and-same-chain-card-use",
+      "returncode": 0,
+      "stdout": "[PASS] helm_of_sharp_eye / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

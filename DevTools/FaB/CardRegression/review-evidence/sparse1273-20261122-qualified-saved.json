@@ -1,0 +1,97 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "independent breadth_review1252",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1273-20261122.json",
+  "source_spec_sha256": "65d7a5acc6fd92fde478628665baaa66a64201a7b31ec5f9399a3e0d89a14152",
+  "input_sha256": "65d7a5acc6fd92fde478628665baaa66a64201a7b31ec5f9399a3e0d89a14152",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-iyslander-stormbind-two-live-sparse1273-real-blue-arsenal-action-as-instant-on-opponents-turn-before-physical-attack",
+      "card_id": "iyslander_stormbind",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "caf1643c3857cd8efe12fa8a17784c5a59618756cce80ce87803177747ba8bb8",
+        "actions.json": "d28421f71d8f210a961b2b376f8cf1d33be1240fb76606d108f479f94382ce99",
+        "assertions.json": "4e82e0630ed24a3b3ecc509fc37708dafa1691fa12535269442723136650e651",
+        "expected_final_gamestate.txt": "9f0f6c4fbdee25a661761e30c3f56ccc6fa8545ef7789f484d41418f01f04227",
+        "meta.json": "0118e82df0a138579f9fd6cb3cc38dfd56a4f7c6ec204e92a2e994b56a96d99c"
+      },
+      "fixture_sha256": "56ebdeff4e2ba632d94cd05e73e6c280d04317a6628ea0a3c6d065f2152a1077",
+      "actions": 18,
+      "native_assertions": 213,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 15,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1273-20261122.json",
+      "input_sha256": "65d7a5acc6fd92fde478628665baaa66a64201a7b31ec5f9399a3e0d89a14152",
+      "active_seats": [
+        1,
+        2
+      ],
+      "players": "two_live_manual",
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1273-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-iyslander-stormbind-two-live-sparse1273-real-blue-arsenal-action-as-instant-on-opponents-turn-before-physical-attack",
+        "fixture_slug": "card-iyslander-stormbind-two-live-sparse1273-real-blue-arsenal-action-as-instant-on-opponents-turn-before-physical-attack",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "reviewer": "independent breadth_review1252",
+    "spec_sha256": "65d7a5acc6fd92fde478628665baaa66a64201a7b31ec5f9399a3e0d89a14152",
+    "source_note_sha256": "3dd7c67bac249ebabbd6fe8a3a64678db45e224b60505416362d7307a7007c0c",
+    "case_count": 1,
+    "active_seats": [
+      1,
+      2
+    ],
+    "players": "two_live_manual",
+    "native_controls": 18,
+    "query_checks": 213,
+    "persistable_assertions": 213,
+    "author_only_checks_omitted": 0,
+    "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+    "coverage_category": "ACTUAL_ADULT_IYSLANDER_DUEL_OFFTURN_BLUE_ARSENAL_INSTANT_ABOVE_PENDING_ATTACK",
+    "basis": [
+      "Natural adult DorintheaIronsong40 turnplayer1 versus adult IyslanderStormbind36 ElementalWizard at AP0/R0, unchanged native legacy duel/omittedactiveSeats/exact12/defaultgameModeempty/noPassives/both manual players. Actual Wounding3Hand1 and face-downZapBlue4Arsenal2 are lawful physical assets. No offturn permission or played history is seeded.",
+      "Printed Iyslander offturn blue nonattack-action Arsenal permission is continuous, distinct from Ice-play triggered token creation. CachedZapBlue is WizardActionnonAttack, pitch3/blue, cost0, printed1arcane to targetHero and notIce. Current EVRAsInstant verifies notTurnPlayer, activeIyslander prefix, actualUID zoneArsenal, blueActionnotAA; ARCAsInstant delegates to it. GameLogic determines Instant kind while4 stillArsenal before moving it to Stack, so AP0play is legitimately permitted.",
+      "Actual Wounding3 singleton-targetsHero2, pays0/AP1to0 and remains lowerStack0 with Priority2. ActualHero2 Arsenal4 click creates realupperStack1KindINSTANT/SourceZoneArsenal while3 remainsStack0 and formal targetHero1 is declared before priority/payment resolution. No unsupported StackFaceDown query or virtual card is used.",
+      "Defender2 zero-costInstant payment gives nextPriority1. Realactor1 pass reaches2, then actor2 pass resolves upperZap4: real1arcane toHero1HP40to39, owned4GY2 and originalattack3 stilllowerStack0/HP2=36. Current managed plain-spell completion reads remainingStack and restoresPRIORITY with TurnPlayer1 and freshpasses0, so originalattack cannot resolve without another real pass from each seat.",
+      "Freshlowerresponses1and2 resolve original3 into actualpower4/noGA attack; no card defends and no reaction/prevention source exists. Native remaining phases must produce4physicaldamage/HP2=32 with HP1=39, then owned3GY1/4GY2/APR0/UID4/RNG0 and empty Stack/two queues/combat chains. This observes actual offturn play plus nested resolution, not just a permission flag.",
+      "Zap is notIce, so no Iyslander Frostbite trigger, ownership route or shared Frostbite hold is entered. Wounding is ordinary GenericAA, not a weapon, so Dorinthea first-weapon-hit trigger is unearned. All213 assertion/state/power/go_again checks persist."
+    ],
+    "limits": [
+      "Semantic/spec review only pending actual native save and targeted replay. No native result, replay or coverage credit claimed.",
+      "Only adult offturn positive blueArsenal permission and actual nested arcane/physical outcomes. No Ice/Frostbite, ownturn/redyellow/Hand/ineligible filters, Essence construction, repeated play, young/four-live, support or whole-card credit.",
+      "Only W review receipt written. No native/test/replay execution, T/source/engine/registry edits, authentication/network, Git or original-checkout access."
+    ],
+    "source_sha256": {
+      "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+      "FaBSim/GeneratedCode/GeneratedMacroCode.php": "fe6a7982611df8f4de98ce2671b317b671b580146aa4b8c28e8f4b86d8461056",
+      "FaBSim/Custom/EVRCards.php": "ae4e1ea2da09ac679821be116bc55f898ed8de2e5ceadf16f548e13d0495c275",
+      "FaBSim/Custom/ARCCards.php": "f6b6a21d214e71fdcfd6a084f0671ce610f08a40c51a1266041877a5a12c0d52",
+      "FaBSim/Custom/MONCards.php": "2eb22bda6f1dba583df2879046f9f4dec94f47f2e9b28f369758f3af72c9c3ac",
+      "FaBSim/Custom/GameLogic.php": "c60fa151561f959e4e3e341b814de0e2b47c9e9f153bbc8793a04c43b5075061",
+      "Core/ShortcutPreferences.php": "25f300ea0b6fbc409f5b92e8bc3587a74b2ab0eaf31ccef38e18c455598eaba6",
+      "DevTools/FaB/CardRegression/record_card_regressions.php": "e53055b29e9ea641949b77019c4455607f41ca233325d716a9500637e19efd28"
+    }
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1273-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "159bac07cce3c5dca39a94af52882e47ef841140b896ddb639cf587cf4faa60d"
+  },
+  "full_suite_run": false
+}

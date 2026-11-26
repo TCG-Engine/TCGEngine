@@ -1,0 +1,7 @@
+{
+    "name": "Dishonor / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T22:14:32+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "**Combo** - If Bonds of Ancestry was the last attack this combat chain, this gets +2{p}.\n\nWhen this hits a hero, if you control Surging Strike, Descendent Gustwave, and Bonds of Ancestry, that hero loses all abilities for the rest of the game. Actualfreshfirstchain/previousempty, printedcost0or1/realBlue6if1/R0or2/AP0. RealNAA2defor2+2defexactlyblocksbase2/4/2 forDishonor/Mugenshi/Whirling, AA3+3block5others. Actual0damage/HP20/nohit/Stack0/sourceblockersownGY/all4manual. WhirlingprintedGAAP1atRESOLUTION, Irafirstattacknotsecond; KatsuheroWHENhitnotearned. ActualDeckmarkerretainedwheredeclared. Positivecombo/hit/multiplayer/draw/searchuntested. Sources: FaBSim/GeneratedCode/cardArrayCache.json#dishonor_blue"
+}

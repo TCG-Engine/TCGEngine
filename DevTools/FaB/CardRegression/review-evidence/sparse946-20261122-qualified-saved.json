@@ -1,0 +1,119 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "breadth_review independent source/semantic review",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse946-20261122.json",
+  "source_spec_sha256": "9d370a65cbfb5039824cd4acff6d00ffa85d5beadccd6f3412b16790641913a3",
+  "input_sha256": "9d370a65cbfb5039824cd4acff6d00ffa85d5beadccd6f3412b16790641913a3",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-smash-up-red-four-live-sparse946-actual-two-hand-blocks-keep-real-arsenal-and-hero-unchanged",
+      "card_id": "smash_up_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "fa69e16d3fe6b6de5cc3d7b1632e4c5cf0e8bf5f703fe017a81d4a778e017052",
+        "actions.json": "a44e24b9f9b348ce659c847e7dbea1e0cd33c5233e8ac4933f9391118d55ee4b",
+        "assertions.json": "f078ef615c1ecdf0389e312c046413e8f92101b66900e8b78429cbc14aae0830",
+        "expected_final_gamestate.txt": "d7b0b0741609e4890a8db9b063610f8e64141e03dc61b4ba6bf6073c220cfbfd",
+        "meta.json": "62e29f379343fec8719b0205b5422ee247bee94f469807236d6f7f3bb971026b"
+      },
+      "fixture_sha256": "ffdb01cb9d48cdafe92fdb4355e3df8930598cdce1b8744706f8f1f7ba2d0803",
+      "actions": 30,
+      "native_assertions": 185,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse946-20261122.json",
+      "input_sha256": "9d370a65cbfb5039824cd4acff6d00ffa85d5beadccd6f3412b16790641913a3",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse946-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-smash-up-red-four-live-sparse946-actual-two-hand-blocks-keep-real-arsenal-and-hero-unchanged",
+        "fixture_slug": "card-smash-up-red-four-live-sparse946-actual-two-hand-blocks-keep-real-arsenal-and-hero-unchanged",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-fact-finding-mission-red-four-live-sparse946-actual-two-hand-blocks-keep-real-arsenal-and-hero-unchanged",
+      "card_id": "fact_finding_mission_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "7cbcd4549dd01069fce6d563d87c98fb9fc1a5288836c9304238b6c1a84c0e12",
+        "actions.json": "a44e24b9f9b348ce659c847e7dbea1e0cd33c5233e8ac4933f9391118d55ee4b",
+        "assertions.json": "50af9b779aa580eadc637094f02a251294ec0a37884d8c791fbe3746acc46028",
+        "expected_final_gamestate.txt": "64a1dc3c4bcfbfc664d4dfda4e0027624d3f714692ade8d678e059603c672931",
+        "meta.json": "791139784f23bea7d2911c1990b6304296c8f8dfdfc2b77a2c127076bb13dcb8"
+      },
+      "fixture_sha256": "b702c7d14d6dcad951f095056d80cd922d63aef443a3ef511235d17d7949dd16",
+      "actions": 30,
+      "native_assertions": 185,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse946-20261122.json",
+      "input_sha256": "9d370a65cbfb5039824cd4acff6d00ffa85d5beadccd6f3412b16790641913a3",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse946-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-fact-finding-mission-red-four-live-sparse946-actual-two-hand-blocks-keep-real-arsenal-and-hero-unchanged",
+        "fixture_slug": "card-fact-finding-mission-red-four-live-sparse946-actual-two-hand-blocks-keep-real-arsenal-and-hero-unchanged",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-pursue-to-the-pits-of-despair-red-four-live-sparse946-actual-two-hand-blocks-keep-real-arsenal-and-hero-unchanged",
+      "card_id": "pursue_to_the_pits_of_despair_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "6d5689266a0827a980cf0a091f6d4cc937f3e6ce3b20b2cee5acc8e58751c09d",
+        "actions.json": "a44e24b9f9b348ce659c847e7dbea1e0cd33c5233e8ac4933f9391118d55ee4b",
+        "assertions.json": "4d9479e40004661b1b31150334ba0b2b0987500834b47903febc22ec1d7acc44",
+        "expected_final_gamestate.txt": "375438e9109a00a1d84dfd27eb6ffc20331cc913772eb170a4d45366ed7192b5",
+        "meta.json": "d8431c954d0ad4696c24de39cf20d79f9d98f5db0425bb673061f5be911b2d5b"
+      },
+      "fixture_sha256": "0e1c401e1743303780c824aa3e48fbedd139aaf942ac46237f54aeaa12beff41",
+      "actions": 30,
+      "native_assertions": 185,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse946-20261122.json",
+      "input_sha256": "9d370a65cbfb5039824cd4acff6d00ffa85d5beadccd6f3412b16790641913a3",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse946-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-pursue-to-the-pits-of-despair-red-four-live-sparse946-actual-two-hand-blocks-keep-real-arsenal-and-hero-unchanged",
+        "fixture_slug": "card-pursue-to-the-pits-of-despair-red-four-live-sparse946-actual-two-hand-blocks-keep-real-arsenal-and-hero-unchanged",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "spec_sha256": "9d370a65cbfb5039824cd4acff6d00ffa85d5beadccd6f3412b16790641913a3",
+    "reviewer": "breadth_review independent source/semantic review",
+    "basis": [
+      "Three Generic AA legalon natural20 Dorinthea have printedcost1/2/1 andpower5/6/5. No additional cost or initial choice beyond actualadjacentHero4 attack target; actualBlue6 pays printedcost/R2/1/2/AP0 before fourmanual response rounds. Hero weapon-hit ability does not apply.",
+      "Two actualGeneric HandAA7/8 defense3 each are nativelydeclared, fullyblock6 againstallthree and reachowner4GY; source5 reachesowner1GY. Actual0damage/HP20/attackHitfalse/Stack0 excludes WHENhitsHero event, so no earned arsenal turnup/banish/look/mark chooser or hit layer.",
+      "Realowner4facedownArsenal9 remains with CardID/UID/FaceDown checks. Smash marker iseligible AA CriticalStrikeRed; FactFinding/Pursue marker isNAA LeadCharge. This pins absence of movement/turnup for applicable effects; no positive view log, Mark or effectiveclass behavior is claimed.",
+      "All4live/manual/nativeblock/payment/sourcefate transport retained. Initial count assertions match actual configured zones and per-checkpoint counts do not conflict; no outcomes/history or empty whole-effect-map oracle seeded."
+    ],
+    "limits": [
+      "Source/spec review only; native recording and targetedcleanreplay pending Root. No PHP/native execution, T edits, network or Git mutation.",
+      "Only fullblock/payment/nohit/sourcefate/marker retention; exactunblockedpower, positivehit timing/Mark/effectiveclass/view logs/arsenal choice, siblings/support identities or whole-card behavior untested; positive shared concerns unresolved."
+    ]
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse946-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "bdfea21ff8e5a9a46b9420614ef78987cd235d98d4715ffef2f3030b91e79eb2"
+  },
+  "full_suite_run": false
+}

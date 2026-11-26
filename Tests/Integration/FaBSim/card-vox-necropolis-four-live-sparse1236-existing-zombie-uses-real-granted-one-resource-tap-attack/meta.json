@@ -1,0 +1,7 @@
+{
+    "name": "Vox Necropolis / existing Zombie uses granted attack ability",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-23T22:22:01+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "EXISTING_ZOMBIE_MANUAL_GRANTED_ATTACK_ONLY. FourmanualYoungMalice20/3Dori20. LawfulpriorStaffVox5Weapons1readyandexistingRestlessOutlaw6Arena1ready, Blue7Hand1. ActualZombie6clickannouncesHero4beforecost; virtualattack8Source6Arenaawaitsresource1whilephysical6stillready. RealBlue7pitches3pays1/R2/AP0, physicallytaps6beforeall4freshsource/combatresponses; Vox5staysready. Actualattackproxy8power3/nogoagain/deals3HP17, noZombieDeath/Malice/Outlawtrigger. Finalreal6Arena1alive/tapped/0damage, Vox5Weapons1ready, Pitch7/noStackDQsCC/noGY/Banish/AP0/R2/RNG0/UID8. Virtual8doesnotbecomeaphysicalGravecard. No newlyplayedZombie/fromBanishGrave/enterstapped/automaticattack/production/death/weaponremoved/controlchange/support/fullcardcredit. NohelperdirectcallorfakeplayedFromhistory. Sources: FaBSim/GeneratedCode/cardArrayCache.json#vox_necropolis FaBSim/Custom/MONAbilities.php FaBSim/Custom/GameLogic.php FaBSim/Custom/IARRuntime.php"
+}

@@ -1,0 +1,415 @@
+{
+  "status": "APPROVED_ACTUAL_SAVED_B509_RISE_FOURTH_LINK_ONE_FLAME_DOMINATE",
+  "approved": true,
+  "source_approved": true,
+  "semantically_approved": true,
+  "reviewer": "/root/nov2_sparse_author",
+  "reviewer_independent": true,
+  "created_utc": "2026-11-05T19:36:50.414262+00:00",
+  "source_spec": "card-regression-batch509.json",
+  "input_sha256": "b2dee1b353045bfd548b34613d2b8c91c7d9329bfc69fc7a33bd095a57035d4c",
+  "manifest_sha256": "936108aac60c6483b7f7cbfb89d54376f97e99743069d199d7df03ed6ccaecd6",
+  "runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+  "recorded_runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+  "source_guards_verified": 69,
+  "prior_independent_source_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch509-independent-source-review.json",
+    "sha256": "28ed51074b8fb59131696e96a311e4743d82d7beae3ebd44b491163b2d18afc0",
+    "reused_not_reaudited": true
+  },
+  "recording_receipt": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch509-20261105T193427Z-6aecda43e0f9c.json",
+    "sha256": "4cb7e3994355a05d83831107d70a8bf9104513b115fc54bd692bf3a09903c28a"
+  },
+  "recording_results": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch509.recording-results.json",
+    "sha256": "f1b14de60ef2de49c9353b8c85906341cbcc28aede9c7b162f22d91a92bf9a8a"
+  },
+  "root_wrapper_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch509-native-r1-9e984\\receipt.json",
+    "sha256": "56204be78a53cddc2fd3c42033facf48638f749c8010e8e3721276a936301e59"
+  },
+  "actual_comparison_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov5_batch509_saved_readonly.py",
+    "sha256": "dd8ed3c8d9f7b7dd41203ec55c4903e7dad5ebe06a3afd2b49b49f975a8c748e"
+  },
+  "fixtures": [
+    {
+      "index": 0,
+      "card_id": "rise_up_red",
+      "group_id": "identity:rise_up_red",
+      "slug": "card-rise-up-red-four-live-real-fourth-draconic-link-and-phoenix-flame-earns-five-dominate-two-damage",
+      "source_spec": "card-regression-batch509.json",
+      "input_sha256": "b2dee1b353045bfd548b34613d2b8c91c7d9329bfc69fc7a33bd095a57035d4c",
+      "reviewer": "/root/nov2_sparse_author",
+      "approved": true,
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_RISE_FOURTH_LINK_ONE_FLAME_DOMINATE_CONSUMER",
+      "runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+      "recorded_runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+      "fixture_path": "Tests\\Integration\\FaBSim\\card-rise-up-red-four-live-real-fourth-draconic-link-and-phoenix-flame-earns-five-dominate-two-damage",
+      "fixture_sha256": "9cf3f590f4626cd24a28f12797191e634dad596b93c60f012d28d8b5306ece2f",
+      "raw4_sha256": {
+        "initial_gamestate.txt": "576cd1fc52d0d295bc440cb60ae208d0fd75a859fbc0a13aa1ce2665210da644",
+        "actions.json": "102b470e5d2e28790f915a2a592d5fd36fa2ca408c7c153cd82a30fcbf302316",
+        "assertions.json": "212674b54071f53810cd8a63ec06cf7fdb5677f814dd5dbb51c3b74a51500509",
+        "expected_final_gamestate.txt": "954945a0847cccc8416522688204be69cad7fdf5d66786f28e81bc5932fc275f"
+      },
+      "raw5_sha256": {
+        "initial_gamestate.txt": "576cd1fc52d0d295bc440cb60ae208d0fd75a859fbc0a13aa1ce2665210da644",
+        "actions.json": "102b470e5d2e28790f915a2a592d5fd36fa2ca408c7c153cd82a30fcbf302316",
+        "assertions.json": "212674b54071f53810cd8a63ec06cf7fdb5677f814dd5dbb51c3b74a51500509",
+        "expected_final_gamestate.txt": "954945a0847cccc8416522688204be69cad7fdf5d66786f28e81bc5932fc275f",
+        "meta.json": "44fee8492872219064ae347095a9d20db0dda8a6bf1221bef9c19d580db407b8"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "576cd1fc52d0d295bc440cb60ae208d0fd75a859fbc0a13aa1ce2665210da644",
+        "actions.json": "102b470e5d2e28790f915a2a592d5fd36fa2ca408c7c153cd82a30fcbf302316",
+        "assertions.json": "212674b54071f53810cd8a63ec06cf7fdb5677f814dd5dbb51c3b74a51500509",
+        "expected_final_gamestate.txt": "954945a0847cccc8416522688204be69cad7fdf5d66786f28e81bc5932fc275f",
+        "meta.json": "44fee8492872219064ae347095a9d20db0dda8a6bf1221bef9c19d580db407b8"
+      },
+      "actions": 96,
+      "native_assertions": 9554,
+      "actual_manual_passes": 88,
+      "actual_priority_response_passes": 84,
+      "actual_defender_declaration_finish_inputs": 4,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4
+      ],
+      "actual_manual_actor_counts": {
+        "1": 21,
+        "2": 21,
+        "3": 21,
+        "4": 25
+      },
+      "schema_property_assertions": 3950,
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "all_actions_and_assertions_exact": true,
+      "no_recorder_only_assertions": true,
+      "all_endpoint_physical_uid_card_zones_ownership_verified": true,
+      "all_terminal_assertions_evaluated_against_parsed_final_snapshot": true,
+      "initial_assertions_evaluated_against_parsed_initial_snapshot": true,
+      "endpoint_assertion_counts": {
+        "0": 139,
+        "96": 222
+      },
+      "initial_physical_uid_locations": {
+        "1": {
+          "card_id": "fai",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "5": {
+          "card_id": "rise_up_red",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "ronin_renegade_red",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "ronin_renegade_yellow",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "8": {
+          "card_id": "phoenix_flame_red",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "9": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2
+        },
+        "10": {
+          "card_id": "driving_blade_blue",
+          "zone": "p4Hand",
+          "owner": 4,
+          "controller": 4
+        },
+        "11": {
+          "card_id": "raging_onslaught_blue",
+          "zone": "p4Hand",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_physical_uid_locations": {
+        "1": {
+          "card_id": "fai",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "6": {
+          "card_id": "ronin_renegade_red",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "ronin_renegade_yellow",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "8": {
+          "card_id": "phoenix_flame_red",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "rise_up_red",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "9": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Pitch",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2
+        },
+        "11": {
+          "card_id": "raging_onslaught_blue",
+          "zone": "p4Hand",
+          "owner": 4,
+          "controller": 4
+        },
+        "10": {
+          "card_id": "driving_blade_blue",
+          "zone": "p4Graveyard",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_health": [
+        20,
+        20,
+        20,
+        12
+      ],
+      "final_resources": [
+        2,
+        0,
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_Chi": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_UniqueIDCounter": 11,
+      "final_RandomCounter": 0,
+      "actual_prior_chain_attack_UIDs": [
+        6,
+        7,
+        8
+      ],
+      "actual_prior_damage": [
+        3,
+        2,
+        1
+      ],
+      "actual_primary_chain_link": 4,
+      "actual_primary_power": 5,
+      "actual_primary_GA": false,
+      "actual_primary_damage": 2,
+      "actual_defense_value": 3,
+      "actual_Dominate_second_Hand_click_exact_NOOP": true,
+      "actual_PhoenixFlame_UID": 8,
+      "final_GY1_UIDs": [
+        6,
+        7,
+        8,
+        5
+      ],
+      "final_GY4_UIDs": [
+        10
+      ],
+      "final_Hand4_UIDs": [
+        11
+      ],
+      "final_Pitch1_UIDs": [
+        9
+      ],
+      "checkpoint_assertion_mapping_sha256": "eaf4c94cee71a33dab368e1f66bcb0b07872bbaed5600aa290c81d8525692a79",
+      "native_action_mapping_sha256": "03e3e6fc6a4d3ebd4a7663b93b67ab8d61b903c4a904b7ba9ffd3b047b4e8fd2",
+      "native_assertion_mapping_sha256": "6a2ab4ae5ce6b79c106e877e675bdcfc5f0e3ad8f2ddf54a1c37abdba5152f7e"
+    }
+  ],
+  "blocked_attempts": [],
+  "total_actions": 96,
+  "total_native_assertions": 9554,
+  "total_manual_passes": 88,
+  "total_priority_response_passes": 84,
+  "total_defender_declaration_finish_inputs": 4,
+  "total_schema_property_assertions": 3950,
+  "material_findings": [
+    "Actualraw5/all96nativeenvelopes/9554orderedchecks/3950props exactunchangedreviewedsource;88manual21,21,21,25 andall48manualpreferencesatbothendpoints verified/current69guards.",
+    "ActualRoninRed6first3damageHP17/earnedGAAP1; sameopenchainYellow7second2damageHP15/earnedGAAP1; realownedPhoenixFlame8third+1power/1damageHP14/earnedGAAP1. AllthreepriorphysicalattackUIDs6,7,8retainedaslinks1,2,3beforeprimary5play; no syntheticchain/history/AP.",
+    "ActualRise5fourthplayprinted1 pending/AP1/R0; actualBlue9pitch3pays1\u2192R2AP0. Freshprimary5chainindex3/link4/currentpower5/noGA withsamecontrolledPhoenixFlame8retained. P4firstlegalHand10defenderaccepted; ordinarysecondp4Hand0click targets11 andallpersistedchecks areexactNOOP. ActualcurrentDEF3/primary2physicalHP14\u219212, noGArefund/AP0.",
+    "FullcloseactualGY1ordered6,7,8,5/GY4{10}/rejected11Hand4/Pitch9/R2AP0/allChi0/alloriginalUID1..11conserved/counter11/RNG0/wholeHeroesunchanged/StackChainsDQs/payment/resolving/awaitclear. Rawplayed/hit/damagehistoriescorroboratefourrealattacks3,2,1,2."
+  ],
+  "evidence_precision": "Intermediatefacts are completed persistednativeassertions, not invented full per-inputsnapshots or enginecallbackexecution byreviewer. Freshpower/goAgain usecurrentchainindices0/1/2/3. Dominate selectedeffect is materially witnessedbyactualsecondHandNOOP withfirstHandaccepted; no separate intermediate rawDOMINATEtag assertion is invented. DamageStep defenseValue is the cacheonlyatdamage withphysicalHP/freshpower. Rawopaqueundo/history/cache fields hashboundbutnotcurrentphysicalinventory/pendingframes.",
+  "limits": [
+    "Onefourth-link/oneunchangedcontrolledPhoenixFlamepositiveRupture/Dominateconsumeronly. No otherlinkcount/multipleFlames/Flamecontrolordepartroutes/otherbuffs/suppression/negative/alternativehistories/sibling/fullcard certification.",
+    "No FaiHeroactivation/startGY/roninorFlamesupport-primary/otherattack or supportbranchcredit. No sourcefix/enginebug/extra case credit.",
+    "NoPHP/native/replay/R/source/gen/service/fullsuite/git/remote/deniedretrybyreviewer; Roottwofocusedreplays/registrationseparate."
+  ],
+  "blockers": [],
+  "native_executed_by_reviewer": false,
+  "repository_writes": false,
+  "source_changes": false
+}

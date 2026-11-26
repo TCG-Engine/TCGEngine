@@ -1,0 +1,126 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-25T02:18:37.340958+00:00",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1465-20261122.json",
+  "source_spec_sha256": "083afe0bbec2038462cd70b9e807cf19d0f3ab50df1440a7d90686ebd123fd8c",
+  "new_scenarios": 3,
+  "new_groups": 3,
+  "new_primary_ids": 3,
+  "actions": 87,
+  "native_assertions": 1512,
+  "manual_passes": 75,
+  "totals": {
+    "saved_registered_scenarios": 5506,
+    "duels": 3136,
+    "four_live": 2370,
+    "recorded_primary_ids": 2654,
+    "identity_denominator": 5196,
+    "recorded_groups": 2528,
+    "group_denominator": 3324,
+    "four_live_groups": 2359,
+    "phase_qualified_scenarios_at_actual_contexts": 2143,
+    "phase_qualified_unique_groups": 2133,
+    "creation_replay_passes": 2885,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 1304,
+  "scenarios": [
+    {
+      "card_id": "courageous_crossing_blue",
+      "group_id": "identity:courageous_crossing_blue",
+      "scenario_id": "card-courageous-crossing-blue-four-live-sparse1465-generic-non-overpower-attack-does-not-earn-printed-defense-condition",
+      "effect_branches": [
+        "printed_greater_than_base_power_condition_false_against_real_Generic_non_Overpower_attack_actual_3_defense_and_1_physical_damage"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-courageous-crossing-blue-four-live-sparse1465-generic-non-overpower-attack-does-not-earn-printed-defense-condition",
+      "source_spec": "card-regression-sparse1465-20261122.json",
+      "source_spec_sha256": "083afe0bbec2038462cd70b9e807cf19d0f3ab50df1440a7d90686ebd123fd8c",
+      "review_evidence": "review-evidence/sparse1465-20261122-qualified-saved.json",
+      "review_evidence_sha256": "13a6657b6ec117241ff54b09dc54baffc9f635537ca20e06e2fbd4e939ceca7b",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1465-20261122-replay.json",
+          "sha256": "799a4d6b253bf4272ca7b175ef240445d116fe2eb83e10ce21275913faa881d2",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "frail_swingline_blue",
+      "group_id": "identity:frail_swingline_blue",
+      "scenario_id": "card-frail-swingline-blue-four-live-sparse1465-generic-non-overpower-attack-does-not-earn-printed-defense-condition",
+      "effect_branches": [
+        "printed_less_than_base_power_condition_false_against_real_Generic_non_Overpower_attack_actual_3_defense_and_1_physical_damage"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-frail-swingline-blue-four-live-sparse1465-generic-non-overpower-attack-does-not-earn-printed-defense-condition",
+      "source_spec": "card-regression-sparse1465-20261122.json",
+      "source_spec_sha256": "083afe0bbec2038462cd70b9e807cf19d0f3ab50df1440a7d90686ebd123fd8c",
+      "review_evidence": "review-evidence/sparse1465-20261122-qualified-saved.json",
+      "review_evidence_sha256": "13a6657b6ec117241ff54b09dc54baffc9f635537ca20e06e2fbd4e939ceca7b",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1465-20261122-replay.json",
+          "sha256": "799a4d6b253bf4272ca7b175ef240445d116fe2eb83e10ce21275913faa881d2",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "quickening_sand_blue",
+      "group_id": "identity:quickening_sand_blue",
+      "scenario_id": "card-quickening-sand-blue-four-live-sparse1465-generic-non-overpower-attack-does-not-earn-printed-defense-condition",
+      "effect_branches": [
+        "printed_go_again_attack_condition_false_against_real_Generic_non_Overpower_attack_actual_3_defense_and_1_physical_damage"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-quickening-sand-blue-four-live-sparse1465-generic-non-overpower-attack-does-not-earn-printed-defense-condition",
+      "source_spec": "card-regression-sparse1465-20261122.json",
+      "source_spec_sha256": "083afe0bbec2038462cd70b9e807cf19d0f3ab50df1440a7d90686ebd123fd8c",
+      "review_evidence": "review-evidence/sparse1465-20261122-qualified-saved.json",
+      "review_evidence_sha256": "13a6657b6ec117241ff54b09dc54baffc9f635537ca20e06e2fbd4e939ceca7b",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1465-20261122-replay.json",
+          "sha256": "799a4d6b253bf4272ca7b175ef240445d116fe2eb83e10ce21275913faa881d2",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

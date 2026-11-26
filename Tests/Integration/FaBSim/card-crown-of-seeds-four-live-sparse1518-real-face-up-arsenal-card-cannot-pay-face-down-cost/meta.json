@@ -1,0 +1,7 @@
+{
+    "name": "Crown of Seeds / face-up Arsenal card cannot pay facedown additional cost",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-25T09:34:52+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "LegalOldhim_with_Earth_and_Ice_Essence20/fourmanual. RealCrown5ready/emptyCounters, faceupownedArsenalGenericAttack6notfacedown, actualBlueSigil7pitch3canfundresource1. CorrectownACTION1/AP1Crownactivationmustrefusemandatoryfacedowncost, retainingallassets/AP/R/UID/noStackDQ/payment/onceuse/draw. ActualSigil7Instant0/allfourresponsesgains1HP21/AP1, exactsource7GY andsameCrown5ready/GenericAttack6FaceDown0unchanged. PositiveCrowndraw/prevention/costorder/once/lifetimeandpriorArrowload/attackuncredited. Noenginechange. Sources: FaBSim/GeneratedCode/cardArrayCache.json#crown_of_seeds FaBSim/Custom/ELEAbilities.php#FaBELEFaceDown FaBSim/Custom/ELEAbilities.php#FaBELEAbilityCanActivate FaBSim/Custom/WTRCards.php#FaBWTRResolveCard"
+}

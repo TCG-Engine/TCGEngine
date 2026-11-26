@@ -1,0 +1,7 @@
+{
+    "name": "Rake the Embers / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T15:35:13+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Create an Ash token, then **transform** up to 3 ash you control into Aether Ashwings.\n\n**Go again** Representative only: creates_actual_ash_then_transforms_it_into_owned_aether_ashwing. Other pitch siblings, alternate targets and unexercised branches receive no credit. All four live/manual; only native entry-point actions. Sources: FaBSim/GeneratedCode/cardArrayCache.json#rake_the_embers_red"
+}

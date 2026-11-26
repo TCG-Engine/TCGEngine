@@ -1,0 +1,29 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch354.json",
+  "runtime_sha256": "c90ad7d34900eb8cbcfccd8c5e0c3a45f7f9ba7a6cbaabf97328e00033dc51d3",
+  "returncode": 0,
+  "completed_utc": "2026-11-03T17:42:43.892664+00:00",
+  "fixtures": [
+    {
+      "slug": "card-rowdy-locals-blue-four-live-sparse-real-action-defenders-grant-two-power-once-full-block",
+      "fixture_sha256": "494ffb42c254efc0fb9a3bddc6ef5d71860aca705549f72ed3636cacdd50c270",
+      "passed": true,
+      "result": "[PASS] rowdy_locals_blue / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-rowdy-locals-blue-four-live-sparse-real-action-defenders-grant-two-power-once-full-block",
+      "returncode": 0,
+      "stdout": "[PASS] rowdy_locals_blue / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [
+    "card-haze-shelter-red-four-live-sparse-real-blue-paid-aura-ward-four-prevents-four-of-seven"
+  ],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

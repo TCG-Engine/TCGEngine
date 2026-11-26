@@ -1,0 +1,176 @@
+{
+  "status": "SOURCE_ONLY_UNATTEMPTED_COVERAGE_CANDIDATES_NO_NEW_NATIVE_BUG_OR_COVERAGE",
+  "runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+  "integrity_guards_verified": {
+    "FaBSim/Custom/GameLogic.php": "1cdad1555c8d2e3bd3fa98d69bf52791b84d21bf2269363ddea7249f4ee35a43",
+    "FaBSim/Custom/CardChoices.php": "6d1122598624a9ac61d99bfc41574d01e80de211e714eadaafb7b6b817a4f975",
+    "FaBSim/Custom/PENCards.php": "3e7a54b0fe8426e65e7d2baadec53bbda7caff5c0a8e48f79b2832e0b2376a94",
+    "FaBSim/Custom/ROSCards.php": "881b788c96ac6fe7382461b82c23c0fc28a40c393f92784401bf5d8955ae8dfa",
+    "DevTools/FaB/pen_abilities.json": "e50d82b686864b733032deae373b9825264b63a23ca8e6248c0c5f046c415054",
+    "DevTools/FaB/ros_abilities.json": "2851433ce5bc948fec9532a33ffc709d4a595f74078fcb9d956c922a8ff18ff8",
+    "FaBSim/GeneratedCode/GeneratedMacroCode.php": "63113a3d140cfd13409e1ad7ee737f8ecfbbc1f78c4eb8c540658a3bacc73c54",
+    "Core/DecisionQueueController.php": "65bfcf5b4f595d62d6dfb8bde0b884de42cd1a726618b5431fccf8939eed9a9d",
+    "FaBSim/Custom/ProfessorCards.php": "6e5cc57b008552dc444d06831bd9dbec45db47214087de049da99b68deb96988",
+    "FaBSim/Custom/EVOCards.php": "dff20a12d7dd29417b34c9609dbc3fd27325e1c8d3be2b15da481fef7e277462",
+    "DevTools/FaB/evo_abilities.json": "681df04ce6b2430623dbd34d7266c09131bff3eb7c7e1f946820e33549cb9552"
+  },
+  "author_notes": [
+    {
+      "author_note_sha256": "bdce1d26d08d3d5d63948a987c5e6588d7a726fda054bac6d66f4cc22698a835",
+      "note": {
+        "status": "SOURCE_ONLY_UNATTEMPTED_KNOWN_COHORT_BLOCK_NO_NEW_NATIVE_ISSUE_OR_COVERAGE",
+        "author": "/root/nov2_metadata_review",
+        "created_utc": "2026-11-05T07:09:30.524859+00:00",
+        "runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+        "rows": [
+          {
+            "card_id": "restvine_elixir_red",
+            "group_id": "identity:restvine_elixir_red",
+            "printed_text": "Your next attack this turn gets +3{p}.\nYou may destroy an Inertia token you control. If you do, gain 1{h}.\nGo again",
+            "actual_owned_ACTION_admission": false,
+            "selected_actual_await": "MZMultiChoose0..1 optionalownInertia",
+            "canonical_resolve_body_utf8_sha256": "d99c2c14c9e4e16a3520af8bd8d3c58daccd33d0d86ee0081d0a756d2666dff4",
+            "blocked_reason": "Known unmanaged physical Action clear-before-resolving-await route; no fresh native reproduction warranted before held shared lifecycle repair authorization.",
+            "full_case_authored": false,
+            "native_attempted": false,
+            "native_bug_confirmed": false,
+            "fixture_saved": false,
+            "coverage_credit": false
+          },
+          {
+            "card_id": "call_to_the_grave_blue",
+            "group_id": "identity:call_to_the_grave_blue",
+            "printed_text": "Search your deck for a card, put it into your graveyard, then shuffle.\nGo again",
+            "actual_owned_ACTION_admission": false,
+            "selected_actual_await": "FaBStageSearch\u2192MZMultiChoose0..1\u2192TempselectiontoGY/FinishSearch",
+            "canonical_resolve_body_utf8_sha256": "843fe8a21ebba56244e0f50777b4823899ac59c08db69ef09a84691340dc6303",
+            "blocked_reason": "Known unmanaged physical Action clear-before-resolving-await route; no fresh native reproduction warranted before held shared lifecycle repair authorization.",
+            "full_case_authored": false,
+            "native_attempted": false,
+            "native_bug_confirmed": false,
+            "fixture_saved": false,
+            "coverage_credit": false
+          }
+        ],
+        "common_route": "Current ownedKindACTION is not admitted by FaBKnownPlainSpellLifecycleCard/FaBPlainSpellResolutionIsManaged; unmanaged DoResolveCard clears physical source before selected ResolveCard await. Already-known096/104 family, not a newly confirmed engine root.",
+        "actual_admission_function_LF_slice_utf8_sha256": "65745ba87339cecc5b9550f4d1a23ed03977350727e844a8f60b6afd8559dbaf",
+        "source_guards": {
+          "FaBSim/Custom/GameLogic.php": "1cdad1555c8d2e3bd3fa98d69bf52791b84d21bf2269363ddea7249f4ee35a43",
+          "FaBSim/Custom/CardChoices.php": "6d1122598624a9ac61d99bfc41574d01e80de211e714eadaafb7b6b817a4f975",
+          "FaBSim/Custom/PENCards.php": "3e7a54b0fe8426e65e7d2baadec53bbda7caff5c0a8e48f79b2832e0b2376a94",
+          "FaBSim/Custom/ROSCards.php": "881b788c96ac6fe7382461b82c23c0fc28a40c393f92784401bf5d8955ae8dfa",
+          "DevTools/FaB/pen_abilities.json": "e50d82b686864b733032deae373b9825264b63a23ca8e6248c0c5f046c415054",
+          "DevTools/FaB/ros_abilities.json": "2851433ce5bc948fec9532a33ffc709d4a595f74078fcb9d956c922a8ff18ff8",
+          "FaBSim/GeneratedCode/GeneratedMacroCode.php": "63113a3d140cfd13409e1ad7ee737f8ecfbbc1f78c4eb8c540658a3bacc73c54",
+          "Core/DecisionQueueController.php": "65bfcf5b4f595d62d6dfb8bde0b884de42cd1a726618b5431fccf8939eed9a9d"
+        },
+        "limits": [
+          "Bounded source-only caller note, not independently reviewed gameplay or native proof.",
+          "No fullcase/noPHP/native/R/source/generator/remote/service execution.",
+          "Denied089090094096 source operations untouched/unexecuted; no workaround or cohort changes."
+        ]
+      }
+    },
+    {
+      "author_note_sha256": "3f9ff2defe535709ff0d75ad42cf139e5b6640cbdb303694950ebb01aefc323d",
+      "note": {
+        "status": "SOURCE_ONLY_UNATTEMPTED_KNOWN_EQUIPMENT_LIFETIME_COHORT_NOT_A_NATIVE_BUG_OR_COVERAGE",
+        "card_id": "evo_energy_matrix_blue",
+        "group_id": "identity:evo_energy_matrix_blue",
+        "runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+        "catalog_text": "If you have a base chest equipped, transform it into this, then equip this.\nYour Teklo Blaster costs {r} less to activate for each opponent.\nBattleworn",
+        "canonical": "evo_abilities sole ResolveCard calls FaBEvoEquip(player,mzID)",
+        "observed_source_route": [
+          "GameLogic1763 persistent list omits Equipment; ordinary managed known cohort excludes EnergyMatrix",
+          "GameLogic1781 premoves source to Graveyard before FaBResolveRules1782",
+          "ProfessorCards28 FaBEvoEquip calls FaBEVOTransform; EVOCards45-52 can later transform from that resolved reference"
+        ],
+        "reason": "Same already held unmanaged Equipment departure contract as selected Teklovossen EvoSentry route; no native repeat, no acceptance of premature GY as correct just because final transform can match.",
+        "actions_authored": 0,
+        "native_attempted": false,
+        "bug_confirmed": false,
+        "coverage_credit": false,
+        "source_guards": {
+          "FaBSim/Custom/GameLogic.php": "1cdad1555c8d2e3bd3fa98d69bf52791b84d21bf2269363ddea7249f4ee35a43",
+          "FaBSim/Custom/ProfessorCards.php": "6e5cc57b008552dc444d06831bd9dbec45db47214087de049da99b68deb96988",
+          "FaBSim/Custom/EVOCards.php": "dff20a12d7dd29417b34c9609dbc3fd27325e1c8d3be2b15da481fef7e277462",
+          "DevTools/FaB/evo_abilities.json": "681df04ce6b2430623dbd34d7266c09131bff3eb7c7e1f946820e33549cb9552"
+        }
+      }
+    },
+    {
+      "author_note_sha256": "0bc183c5d00d9718dc4f435b5f37fb50a65b5b85b26813e404899cfd9789befb",
+      "note": {
+        "status": "SOURCE_ONLY_UNATTEMPTED_SELECTED_SUPPORT_ROUTE_CONCERN_NOT_HERO_BUG",
+        "hero_id": "teklovossen",
+        "selected_support_id": "evo_sentry_base_head_red",
+        "runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+        "anchors": [
+          {
+            "path": "FaBSim/Custom/EVOCards.php",
+            "sha256": "dff20a12d7dd29417b34c9609dbc3fd27325e1c8d3be2b15da481fef7e277462",
+            "lines": [
+              64
+            ],
+            "needle": "function FaBEVOBanishPlayable"
+          },
+          {
+            "path": "FaBSim/Custom/EVOCards.php",
+            "sha256": "dff20a12d7dd29417b34c9609dbc3fd27325e1c8d3be2b15da481fef7e277462",
+            "lines": [
+              45
+            ],
+            "needle": "function FaBEVOTransform"
+          },
+          {
+            "path": "FaBSim/Custom/GameLogic.php",
+            "sha256": "1cdad1555c8d2e3bd3fa98d69bf52791b84d21bf2269363ddea7249f4ee35a43",
+            "lines": [
+              1763
+            ],
+            "needle": "$persistent = FaBHasType"
+          },
+          {
+            "path": "FaBSim/Custom/GameLogic.php",
+            "sha256": "1cdad1555c8d2e3bd3fa98d69bf52791b84d21bf2269363ddea7249f4ee35a43",
+            "lines": [
+              1781
+            ],
+            "needle": "$resolved = FaBMoveStackUID($uid, $persistent ? 'Arena' : 'Graveyard'"
+          }
+        ],
+        "canonical": {
+          "path": "DevTools/FaB/evo_abilities.json",
+          "sha256": "681df04ce6b2430623dbd34d7266c09131bff3eb7c7e1f946820e33549cb9552",
+          "selected_row": {
+            "cardId": "evo_sentry_base_head_red",
+            "abilities": [
+              {
+                "macroName": "ResolveCard",
+                "abilityCode": "$uid = intval(FaBIdentityFromMZ($mzID)['object']->UniqueID);\nFaBEVOTransform($player, $mzID);\n",
+                "isImplemented": true
+              }
+            ]
+          }
+        },
+        "normative_lifecycle": "https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/",
+        "detail": "IntrinsicHeroBanishplaygateexistsandmatchesprintedpermission. SelectedordinaryEvoEquipmentrouteisnotpersistentinGL1763; ifunmanageditmovesStack5toGYat1781beforeFaBEVOTransformbodymoves5GYtoEquipmentandencodesProtoBaseasSUBCARDS. Thisisalready-knownordinarysource-lifecycleseam, notanewdistinctHerofailure. NoadditionalduplicateprematureStackprobeauthored; parentdirectedsource-onlynoteandDromai-alonefirstready. Directnonawaitsupportbody/internalsnotblessedasnormativelycorrect; absenceinthisselectedrouteisnotproofallEvosbehaveidentically.",
+        "native_attempted": false,
+        "confirmed_gameplay_bug": false,
+        "coverage_credit": false,
+        "repair_proposed_or_applied": false,
+        "no_executable_Teklovossen_case": true,
+        "no_blanket_Evo_or_Hero_claim": true
+      }
+    }
+  ],
+  "independent_native_review": false,
+  "native_executed": false,
+  "native_bug_confirmed": false,
+  "passing_fixture_saved": false,
+  "coverage_credit": false,
+  "source_fix_applied": false,
+  "execution_status": "DEFERRED_BY_PLANNING_FOR_KNOWN_SOURCE_RISK_NOT_A_DENIED_OR_PENDING_TEST_ACTION",
+  "scope": "Two ordinary Action-await candidates, one Equipment primary candidate and one selected Hero/Evo support route. Equipment immediate-transform concerns are source-only and have not been equated with an executed await failure. No blanket Evo/Hero defect claim.",
+  "authorization_note": "Existing breadth-test authorization remains active. These duplicate-risk probes were not attempted for efficiency; none was denied. Existing denied source applications089090094096 remain unchanged and unexecuted."
+}

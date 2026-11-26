@@ -1,0 +1,88 @@
+{
+  "status": "QUALIFIED_FOCUSED_SHOCK_DELAYED_HIT_DAMAGE_FOUR_LIVE_REPRESENTATIVE",
+  "runtime_sha256": "cd7348b373b8adc0d4e5108b74b44fff9fd6e1b9a2e855e8cd14661bc2b66edf",
+  "issue": "FAB-REG-170",
+  "gameplay_files": [
+    "FaBSim/Custom/ELEAbilities.php",
+    "FaBSim/Custom/ROSCards.php"
+  ],
+  "change": "Shared ELE_ELECTRIFY next-AA-hit grants are consumed at the hit and resolve damage in existing ROS triggered layers, with actual source UID, target and amount captured.",
+  "native_original_failure": {
+    "path": "review-evidence/shock170-delayed-hit-native-before-50bd.json",
+    "sha256": "b0cef35b81e3962bf3c4f843417ee4b699a347dde87da09f2ede9a63893cccb9"
+  },
+  "before_native_runtime_sha256": "50bd28fa11b34fdf78c3759086009f7ffb036fc04158c3588f5a538babc48ce0",
+  "application": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov14-shock-queue-guarded-application.json",
+    "sha256": "b91d292433a420bb1ab244b710f2701f39a23fcf764281f76e8baa066c2d47a4",
+    "role": "External preparation or receipt; not a runnable test input"
+  },
+  "component": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov14-shock-electrify-delayed-hit-queue-proposal\\root-only-component-result.json",
+    "sha256": "12ec4323cdef84ab95a3bb290cb3f2ea7bbd07340bfcb966e36538febb629f82",
+    "role": "External preparation or receipt; not a runnable test input"
+  },
+  "component_checks": 42,
+  "syntax": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov14-shock-queue-root-component-and-syntax.json",
+    "sha256": "c13520b4557150a9e9a8be14a148bc4c23bccb4af08fd308774baf07b75ee59a",
+    "role": "External preparation or receipt; not a runnable test input"
+  },
+  "source_patch_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov14-shock-electrify-queue-independent-source-review.json",
+    "sha256": "1cd5202e5bd8284061ddbb8f8ab2e049d95acf55cba9c3af543610add404959b",
+    "role": "External preparation or receipt; not a runnable test input"
+  },
+  "full_case_source_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov14-batch779-shock-full-independent-correct-draft-source-review.json",
+    "sha256": "efa664242e329fc6735ee47c3db4312e9e789141e23ceba6730f4a26df8f35fb",
+    "role": "External preparation or receipt; not a runnable test input"
+  },
+  "observed_runtime_delta_source_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov14-batch779-shock-full-bound-cd734-independent-delta-source-review.json",
+    "sha256": "f749a2b55764faf7ce4919c58402e20f88c83b6154e348f552156058e71e38c5",
+    "role": "External preparation or receipt; not a runnable test input"
+  },
+  "existing_electrify_branch_impact": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov14-shock-queue-existing-electrify-fixture-source-impact.json",
+    "sha256": "a712862b0373a9d0267107e61dc1a884d36004b4ea23185e8d5fc911180343c8",
+    "role": "External preparation or receipt; not a runnable test input"
+  },
+  "native_after": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov14-b779-shock-full-native-after-cd734\\receipt.json",
+    "sha256": "eda21b6c37598733ea75416b3b5666cac9be51f45e93656aa0b8898d98982f52",
+    "role": "External preparation or receipt; not a runnable test input"
+  },
+  "source_spec": {
+    "path": "card-regression-batch779-shock-charmers-full-delayed.json",
+    "sha256": "bd44ac39427bb0d36161bb056606108324482a90425b3e6b9ca82fab0ac9215e"
+  },
+  "saved_review": {
+    "path": "review-evidence/sparse779-shock-delayed-hit-independent-cd734.json",
+    "sha256": "599b9737f343ea562ef3ae7c02c88668b89fbb8f9e8f35caaed2e3cb5bddd87f"
+  },
+  "clean_replays": [
+    {
+      "path": "card-regression-replay-nov14-b779-shock-clean1.json",
+      "sha256": "574bbbe69f9b7c2c32bc1385da047a61d8e315a26f7960c4665977fe75b1eec7"
+    },
+    {
+      "path": "card-regression-replay-nov14-b779-shock-clean2.json",
+      "sha256": "0570db2b7ef35c28ac20bc6599438d4bc78bfd31e8a3d957d8c9f68273ed328e"
+    }
+  ],
+  "native_actions": 37,
+  "native_assertions": 5304,
+  "isolated_native_fault_credit": 0,
+  "assertions_weakened": false,
+  "full_suite_run": false,
+  "historical_rows_retagged": false,
+  "global_root_attribution": "UNALLOCATED_NAMED_LOCAL_REPAIR",
+  "limits": [
+    "Only this actual paid Shock instant plus real AA hit/independent trigger responses/cleanup branch is qualified. Spellvoid, alternative ownership, elimination, prevention, multiple-trigger order and missing-source LKI are untested.",
+    "Electrify pitch siblings share the corrected source contract but gain no new individual/native coverage credit. Existing indexed Electrify Red scenario ends at Arsenal play/draw/go-again and never reaches an attack hit; source inspection found no affected assertion. It was not rerun or requalified.",
+    "BUZZ, FLASH_LIGHTNING and ELE_HIT_DAMAGE tag timing paths are unchanged, not certified by this repair.",
+    "Earlier raw virtual Stack.Owner probe failed before the timing boundary; the independently reviewed incidental owner-field omission preserved physical ownership/controller and all correct timing assertions.",
+    "Historical scenarios retain their exact runtime labels. No full suite or historical-corpus replay. Pure function/stub checks are not native gameplay coverage."
+  ]
+}

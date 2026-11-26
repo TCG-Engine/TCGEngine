@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-mask-of-the-swarming-claw-four-live-sparse1090-real-paid-arcane-barrier-one-with-zero-chain-spellvoid-option-declined",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-mask-of-the-swarming-claw-four-live-sparse1090-real-paid-arcane-barrier-one-with-zero-chain-spellvoid-option-declined",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1090-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1090-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "9e19868296ea37a2dbdef68317e18d95b0fd734848b46945e5a8b5b428de86ae",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "9e848cbb0285acafbbe8c08cadc8334538553c546892a3df0216cd1356f40167",
+        "actions.json": "9cb03b650766799345ddee4396788330627427e226adb103241ae3a096a839bd",
+        "assertions.json": "23bd4cf7e72f6f3407c7f49c8534e153a1989f092c8c1d82944dcd5808102397",
+        "expected_final_gamestate.txt": "47e789792e1c3be38bbe87933a7f8c5a73adc73a11c253bb03595f2f03b06b7c",
+        "meta.json": "aec4cee070354cdedde4ceb597b984a6bb78f55896614a4bd63d16a56490d464"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

@@ -1,0 +1,7 @@
+{
+    "name": "Amulet of Lightning / four-live fusion restriction with actual action target",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-23T01:32:10+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "**Go again**\n\n**Instant** - Destroy this: Target action card gets **go again**. Activate this only if you've **Lightning fused** this turn. Named prerequisite rejection only: legalnatural20Aurora, actualArena5ready/0destroyInstant with realownedWounding6 alreadyATTACKrole/currentCC atATTACKpriority1/AP0. Thus actual action target and cost/timing gates are satisfied; noLightningFusion occurred. Itemclick mustrejectwithoutdestroy/Stack/chooser/GA. Then actualfour-livecombatdeals4/HP4=16/AP0/GGY6 whileitem5retained. PrintedcardplayGA is not activation credit. No positivefusion/targettiming/hero/support/sibling/fullcardcredit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#amulet_of_lightning_blue"
+}

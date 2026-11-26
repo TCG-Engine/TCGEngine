@@ -1,0 +1,7 @@
+{
+    "name": "Heave Ho / actual Ally Overpower rejection and legal paid defense reaction",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-25T05:16:20+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Real Heave Ho5 spends AP, resolves after four manual responses into graveyard and refunds AP1. Actual Pirate Barnacle6 then declares adjacent Hero4 before tapping and spending that action; bound attack proxy10 is power4 with no go again. First Action defender Red7 is accepted. Real second Action Blue8 click is rejected by granted Overpower, leaving the same Hand and chain. A legal UnmovableBlue9 defense reaction then requires actual cost3, paid by that same rejected Blue8 pitch3. Four responses resolve the reaction; total defense3+5=8 against4 gives actual zero damage and all HeroHP20. Thus granted Gold-on-Hero-hit is genuinely unearned, without ending early. Full close keeps physical Barnacle6 tapped, removes virtual proxy10, leaves primary5GY1/defenders7+9GY4/Blue8Pitch4/R0/AP0 and no Gold. Prior Ally entry, positive Gold trigger/timing, nonadjacent permission and siblings remain untested. No engine change. Sources: FaBSim/GeneratedCode/cardArrayCache.json#heave_ho_blue FaBSim/GeneratedCode/GeneratedMacroCode.php#heave_ho_blue FaBSim/Custom/GameLogic.php#FaBPlainSpellResolutionIsManaged FaBSim/Custom/SEARuntime.php#FaBSEAPlayed FaBSim/Custom/DYNRuntime.php#FaBDYNBlockLegal card-regression-batch391.json#Overpower"
+}

@@ -1,0 +1,46 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch193.json",
+  "runtime_sha256": "0942e0186aa135054d7b4920e84a11316647624c6e73cfb99a21949e6e19a263",
+  "returncode": 0,
+  "completed_utc": "2026-11-06T04:31:07.421634+00:00",
+  "fixtures": [
+    {
+      "slug": "card-icy-encounter-red-four-live-repair-hit-trigger-creates-creator-owned-opposing-frostbite",
+      "fixture_sha256": "776a93bbf051bb2709582f00f3389a9bfd7157d904722aa86e4add39ad0a38ac",
+      "passed": true,
+      "result": "[PASS] Icy Encounter / four live hero-hit trigger creates opposing Frostbite owned by creator"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-icy-encounter-red-four-live-repair-hit-trigger-creates-creator-owned-opposing-frostbite",
+      "returncode": 0,
+      "stdout": "[PASS] Icy Encounter / four live hero-hit trigger creates opposing Frostbite owned by creator\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [
+    "card-abyssal-bite-blue-four-live-sparse-actual-paid-shadow-action-buffs-real-paid-shadow-attack",
+    "card-battle-prep-red-four-live-repair-opt-two-source-stack-until-answer-before-go-again",
+    "card-blasmophets-boon-blue-four-live-repair-controlled-blasmophet-base-six-real-damage",
+    "card-chorus-of-rotwood-red-four-live-repair-empty-graveyard-source-stays-stack-three-runechants",
+    "card-flying-high-blue-four-live-bugfix-actual-blue-next-attack-receives-matching-color-plus-one-and-go-again",
+    "card-gorganian-tome-four-live-three-other-graveyards-correct-x4-held-probe",
+    "card-head-shot-red-four-live-sparse-actual-face-up-load-queues-four-live-trigger-then-real-arrow-power-six",
+    "card-nip-at-the-heels-blue-four-live-sparse-actual-small-base-weapon-target-plus-one",
+    "card-regain-composure-blue-four-live-repair-granted-hit-trigger-delays-hero-untap",
+    "card-runechant-four-live-repair-delayed-destruction-actual-rune-flash-discount-and-live-barrier-continuation",
+    "card-shred-red-four-live-sparse-actual-selected-defender-minus-four",
+    "card-talisman-of-warfare-yellow-four-live-repair-trigger-priority-and-public-arsenals",
+    "fab-reg-039-rouse-the-ancients-four-live-declared-reveal-uids-assets-before-thirteen-power-cost",
+    "fab-reg-039-tome-of-harvests-four-live-declared-arsenal-uid-assets-before-bottom-and-draw-three",
+    "repair-bloodtorn-bodice-four-live-real-aura-declaration-action-asset-before-both-destructions",
+    "repair-laden-with-lightning-four-live-real-bond-next-attack-and-responseable-embodiment-trigger",
+    "repair-opal-amulet-blue-four-live-watery-trigger-then-pending-opt-two-physical-order",
+    "repair-potion-of-deja-vu-blue-four-live-actual-own-pitch-staging-top-order-and-pending-layer"
+  ],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

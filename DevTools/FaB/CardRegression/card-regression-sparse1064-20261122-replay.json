@@ -1,0 +1,102 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "graven-cowl-four-live-sparse1064-prior-equipping-wear-real-defense-close",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=graven-cowl-four-live-sparse1064-prior-equipping-wear-real-defense-close",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1064-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1064-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "eb0393c2e5297c0d8e17bc05c12682408bb2968d2455e621d24b880ffeb22947",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "0ab026673fb43db721994a6c9c92a2a0e48e4acce5873941dfae52866b47dd32",
+        "actions.json": "511bf2f3686ee96e12e3d9cdbe580febcac902b797e5ec827a96d5ccd74ac457",
+        "assertions.json": "cb7257f62c12c6a0f4402dae1ef51191f5640a83bc83f67fc2057f42774755bf",
+        "expected_final_gamestate.txt": "7607cd860340a18e43b11f7f9c4fa42dd195d6c064d4c5eb047c2b31b882f8b9",
+        "meta.json": "8ff55d2fd70764b77597aa6b5107007af0022dcff06d9a06a18cb7ecd693062c"
+      }
+    },
+    {
+      "slug": "graven-gloves-four-live-sparse1064-prior-equipping-wear-real-defense-close",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=graven-gloves-four-live-sparse1064-prior-equipping-wear-real-defense-close",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1064-local-20261122\\clean-replays\\01.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1064-local-20261122\\clean-replays\\01.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "f3b61ffaeeb44baa4d0aa876c314818a67e6989b72d5ebb41158fb932f77b198",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "51c647121ec1a2a34ca85da1e8c02dd4076acecf23ebcf600dec82fe7f2e172a",
+        "actions.json": "511bf2f3686ee96e12e3d9cdbe580febcac902b797e5ec827a96d5ccd74ac457",
+        "assertions.json": "9279e194cbf86ba995577d7c0bc7d9c7a53ea685191b6003aaa3d9e50e901a07",
+        "expected_final_gamestate.txt": "b4f8f4b292f6e2c095ff8fef675858d208b2cf90001a2009ffef3525a6e689a7",
+        "meta.json": "c40f8630556cd0fed460c86216d959cc277ac4987151cffcc2109cfa8f03fe02"
+      }
+    },
+    {
+      "slug": "graven-vestment-four-live-sparse1064-prior-equipping-wear-real-defense-close",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=graven-vestment-four-live-sparse1064-prior-equipping-wear-real-defense-close",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1064-local-20261122\\clean-replays\\02.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1064-local-20261122\\clean-replays\\02.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "3dcc5b20064a49149d4f885e5e164b8cd8ac4dedce97e8188851eba6b685562c",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "5bc9897db64f57d7047b208d9b462a13524e51fb4da3248e006d80c444c6c503",
+        "actions.json": "511bf2f3686ee96e12e3d9cdbe580febcac902b797e5ec827a96d5ccd74ac457",
+        "assertions.json": "f0f43a223cd848ae49810d2abc8f3859ea78af20840b37df8965ae3372e80d5f",
+        "expected_final_gamestate.txt": "e49ac3a243468123dc7907bc698aada0ca8e994d8271e8f4a3e7fbff063c09b3",
+        "meta.json": "8a06969f9046eb67a87e9e01482966e6a313344c5017b65391074f8438658d0d"
+      }
+    },
+    {
+      "slug": "graven-walkers-four-live-sparse1064-prior-equipping-wear-real-defense-close",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=graven-walkers-four-live-sparse1064-prior-equipping-wear-real-defense-close",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1064-local-20261122\\clean-replays\\03.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1064-local-20261122\\clean-replays\\03.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "b8fa9a85b9036ce9a7df49b2f061fb963ad7f0f1ae6d3f8b4b7cc17a32e52ccd",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "aef7634342c3db99175282b3066818ec6384d21d89b020aa03ab278d2dbe5451",
+        "actions.json": "511bf2f3686ee96e12e3d9cdbe580febcac902b797e5ec827a96d5ccd74ac457",
+        "assertions.json": "59e243ec8827f3d6e83501459356f82d5bc001e1a7d0e222f7d18f8da18b10cb",
+        "expected_final_gamestate.txt": "ba841bc9675a281d06db6872c04b11c4e7e259df093ecbac47b17084628f0638",
+        "meta.json": "71099fb6e01f1f82297354264d0666837158e444cf1a076a9eb06279a669916a"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

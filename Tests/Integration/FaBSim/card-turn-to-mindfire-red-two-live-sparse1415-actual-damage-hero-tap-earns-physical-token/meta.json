@@ -1,0 +1,7 @@
+{
+    "name": "Turn to Mindfire / actual damage and hero tap token",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-24T16:57:32+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "TWO_REAL_MANUAL_ADULTCC_OSCILIOCONSTELLA36_DORI40. SoleopposingHero2damage-targetdefaultTRP5.14precommittedbeforepayment; laterUIrepeatssame2/noinfo/retarget, noearlybinding/UPFcredit. NoInstantGY/Starfallseed; actualprimary3Card. Actualprimary3NAAprintedcost2paidrealBlue4pitch3/R1/AP1to0/bothresponsesheld/noearlydamageorToken/actualtarget2. Real5arcaneHP2=35THENoptionalTap, 3stillStack/Hero1ready/noreward; choose1actuallytapsHeroStatus1andcreatesownedponderUID6. FinalsourceGY/Hand0/Decksame5/UID6RNG0/AP0/R1/StackDQframesquiet. ActualconditionalTokenponderowned1only. OnlynamedpositiveStarfallamount/rewardorpaidHeroTaprewardandactualdamage; decline/unearnedcondition/hiddenhistory/futuretokenuse/targetbinding/otherpitches/secondary/fullcarduncredited. Noenginechange. Sources: FaBSim/GeneratedCode/cardArrayCache.json#turn_to_mindfire_red FaBSim/GeneratedCode/GeneratedMacroCode.php FaBSim/Custom/GameLogic.php FaBSim/Custom/OMNCards.php FaBSim/Custom/ROSRuntime.php https://rules.fabtcg.com/en/trp/05-gameplay-logistics/"
+}

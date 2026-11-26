@@ -1,0 +1,27 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-repair-fluxor157-blue-pitch-amount.json",
+  "runtime_sha256": "6d4e73c844ac1b7a01981e6725770b2bc9489ce39e2a993958d4656ead431991",
+  "returncode": 0,
+  "completed_utc": "2026-11-20T15:45:32.470522+00:00",
+  "fixtures": [
+    {
+      "slug": "card-volatile-fluxor-blue-four-live-instant-link-plus-one-fully-blocked-and-followthrough",
+      "fixture_sha256": "b00c2bb97542e96fa151dd4314ea7b89d520301bc1e3a5af2755d660a81d4928",
+      "passed": true,
+      "result": "[PASS] Volatile Fluxor Blue / actual same-link Instant, fully blocked, go-again followthrough"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-volatile-fluxor-blue-four-live-instant-link-plus-one-fully-blocked-and-followthrough",
+      "returncode": 0,
+      "stdout": "[PASS] Volatile Fluxor Blue / actual same-link Instant, fully blocked, go-again followthrough\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

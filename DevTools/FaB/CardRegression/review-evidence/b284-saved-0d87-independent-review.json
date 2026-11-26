@@ -1,0 +1,120 @@
+{
+  "status": "APPROVED_EXACT_SAVED_ONE_EARNED_INTIMIDATE_CASE_REPLAYS_SEPARATE",
+  "reviewer": "/root/nov2_metadata_review",
+  "reviewed_utc": "2026-11-03T04:22:16.995402+00:00",
+  "runtime_sha256": "0d877de49c131f29c152706e14bba3368630df61c59ef475c87a84f20b6e1a66",
+  "input_file": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch284.json",
+  "input_sha256": "f716f49cc29e17a695aee05ccd6848a6b8bfda46cf97db2f20b7b7cff37fe762",
+  "fixtures": [
+    {
+      "slug": "card-beast-mode-red-four-live-sparse-real-potion-ap-pack-intimidate-earns-eight-power",
+      "card_id": "beast_mode_red",
+      "group_id": "pitch-cycle:beast_mode",
+      "fixture_sha256": "3f7b7eb07c08a2e1523de7a154115506ea64462a4e002b9f6f97aaba7f0c1073",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "adb6f4f157dffd21f14249be0e8ef65fcaf182440d13842c0acaf370fa8623c6",
+        "actions.json": "9b9a992026066e0eac15f700347bc2bda3422437b72f58e112c6c9a22f6e6ec8",
+        "assertions.json": "340eedb8abee5c7a9a338f1e240f269a9f05ef7ec779b20d73da06912906d614",
+        "expected_final_gamestate.txt": "d24dc34c238d3d079d70faada4d8f2d55ab315e65a3e7443a0d4d16178ceed7c",
+        "meta.json": "36eecc1ff1fc6342949e7318ec4c637cda2bb73bd26e2975b230874ae1962a86"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "adb6f4f157dffd21f14249be0e8ef65fcaf182440d13842c0acaf370fa8623c6",
+        "actions.json": "9b9a992026066e0eac15f700347bc2bda3422437b72f58e112c6c9a22f6e6ec8",
+        "assertions.json": "340eedb8abee5c7a9a338f1e240f269a9f05ef7ec779b20d73da06912906d614",
+        "expected_final_gamestate.txt": "d24dc34c238d3d079d70faada4d8f2d55ab315e65a3e7443a0d4d16178ceed7c",
+        "meta.json": "36eecc1ff1fc6342949e7318ec4c637cda2bb73bd26e2975b230874ae1962a86"
+      },
+      "actions": 66,
+      "native_assertions": 5770,
+      "actual_manual_passes": 58,
+      "manual_passes": 58,
+      "manual_pass_actor_counts": {
+        "1": 14,
+        "2": 14,
+        "3": 14,
+        "4": 16
+      },
+      "semantically_approved": true,
+      "every_native_action_and_assertion_exactly_maps_to_approved_source": true,
+      "initial_and_final_snapshots_fully_parsed": true,
+      "physical_uid_conservation_without_duplicates": true,
+      "final_graveyard_uid_sets": {
+        "1": [
+          5,
+          6,
+          7
+        ],
+        "2": [],
+        "3": [],
+        "4": []
+      },
+      "final_pitch_uid_order": {
+        "1": [
+          8,
+          9
+        ],
+        "2": [],
+        "3": [],
+        "4": []
+      },
+      "final_banish_uid_sets": {
+        "1": [],
+        "2": [],
+        "3": [],
+        "4": [
+          10
+        ]
+      },
+      "final_health": [
+        20,
+        20,
+        20,
+        6
+      ],
+      "final_resources": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "final_action_points": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "physical_findings": "Actual Timesnap5 Action destroy cost spends originalAP1/owned5publicGY before four1/2/3/4responses; only fourth grants2AP and virtual11ceases. Actual Pack6 freshP4target before movement/assets, realBlue8pitch3 pays2/AP1 leavingR1/AP1; four source responses resolve physical6toChain and actual capturedIntimidate target choice. ABI12 Source6/controller1/target4/amount1 earns four fresh1/2/3/4responses with Hand10 retained through firstthree; fourth native single-candidate randombanish moves same10facedown/returnmarked, noRNGoverride/historyseed. Real Pack6damage6/P4HP14 and fullclose leaves earnedAP1/R1. Only then real Beast7 P4target and Blue9+floating1 pay3/lastAP leavingR1/AP0. Actual primary6+earnedIntimidate2=8, noGA, real8damage/P4HP6/allothers20. Exact final ownedGY{5,6,7}/Pitch8,9/P4Banish10facedownReturnAtEndTurn1, all originalphysicalUIDs/owners conserved, virtual11/12ceased, queues/Stack/Chains empty, noendphase crossed.",
+      "qualification": "One positive actual-intimidate BeastModeRed representative; no zero-history/emptyHand/otherRNGdistribution/target/sibling/hero/support-primary/full-card/control credit. Physical retained banish/return marker selected; actual endphase delayed return untested."
+    }
+  ],
+  "source_expectation_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch284-independent-source-review.json",
+    "sha256": "a39f1148a261ff2b4c4e4a8f35fb14a3ff6ec1835cd08867b4efc87818a3e37f",
+    "manifest_sha256": "ed0c392347bc0c37affe351a279376531beb7df5fb42f9aeacd7667a7f93ba22"
+  },
+  "immutable_native_archive": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch284-20261103T041955Z-6ae960eb1c70b.json",
+    "sha256": "37fc807f0468e7ccc0e4970d1d83d7202c5ee3e967bab4a52fad4b1fdde89052"
+  },
+  "recording_results": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch284.recording-results.json",
+    "sha256": "c798ce44a842039f79b62a8b29b12736d9baba8edcf265ce68ddbf4b1e200038"
+  },
+  "native_wrapper": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch284-native-r1\\receipt.json",
+    "sha256": "fcafce647d4c9434e20fd250eec13a4130d356985553689b3fc0a8a30ab84153",
+    "stdout_sha256": "e69d7ebecc6abb5316674fc82943e6ecc26e64995ef41f3cb9a772d1fb44b27e",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "exit_code": 0,
+    "stderr_bytes": 0,
+    "runtime_before": "0d877de49c131f29c152706e14bba3368630df61c59ef475c87a84f20b6e1a66",
+    "runtime_after": "0d877de49c131f29c152706e14bba3368630df61c59ef475c87a84f20b6e1a66"
+  },
+  "method": "Independent read-only exact saved raw5 review: all66 actual actors/modes/payloads and5770 ordered assertions match independently approved source. Full schema-backed initial/final UID/ownership/counters/economy/HP/GY/Pitch/Banish parsed; all58 manual actors verified. Reused pure AST parser/normalizer/action functions only, not author builder/native/PHP/replays/R/backend.",
+  "limits": [
+    "Saved creation review only; Root two focused replays are separate evidence. No replay/native executed by reviewer.",
+    "One positive actual-intimidate BeastModeRed representative; no zero-history/emptyHand/otherRNGdistribution/target/sibling/hero/support-primary/full-card/control credit. Physical retained banish/return marker selected; actual endphase delayed return untested.",
+    "Current0d source/input context retained; no repair source application or denied-action retry."
+  ]
+}

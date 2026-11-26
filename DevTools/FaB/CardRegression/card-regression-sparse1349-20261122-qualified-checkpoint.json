@@ -1,0 +1,68 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-24T09:08:01.779252+00:00",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1349-20261122.json",
+  "source_spec_sha256": "989a6fcfe32ac024bb1d69bd6d82fa02849e8283ecbec997fd0fd31e034fe894",
+  "new_scenarios": 1,
+  "new_groups": 1,
+  "new_primary_ids": 1,
+  "actions": 31,
+  "native_assertions": 375,
+  "manual_passes": 25,
+  "totals": {
+    "saved_registered_scenarios": 5321,
+    "duels": 3103,
+    "four_live": 2218,
+    "recorded_primary_ids": 2469,
+    "identity_denominator": 5196,
+    "recorded_groups": 2343,
+    "group_denominator": 3324,
+    "four_live_groups": 2207,
+    "phase_qualified_scenarios_at_actual_contexts": 1958,
+    "phase_qualified_unique_groups": 1948,
+    "creation_replay_passes": 2700,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 1119,
+  "scenarios": [
+    {
+      "card_id": "aftershock_red",
+      "group_id": "pitch-cycle:aftershock",
+      "scenario_id": "card-aftershock-red-four-live-sparse1349-no-seismic-history-real-four-resource-payment-two-hand-defenders-two-damage-no-surge",
+      "effect_branches": [
+        "no_seismic_control_history_full_four_cost_paid_by_two_real_pitches_base_eight_attack_two_real_three_defenders_actual_two_damage_no_surge_creation"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-aftershock-red-four-live-sparse1349-no-seismic-history-real-four-resource-payment-two-hand-defenders-two-damage-no-surge",
+      "source_spec": "card-regression-sparse1349-20261122.json",
+      "source_spec_sha256": "989a6fcfe32ac024bb1d69bd6d82fa02849e8283ecbec997fd0fd31e034fe894",
+      "review_evidence": "review-evidence/sparse1349-20261122-qualified-saved.json",
+      "review_evidence_sha256": "f02e46d2d73e75a99543a6e64b880c85de0a64134a9f438d771257cdd5c6e106",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1349-20261122-replay.json",
+          "sha256": "e188682df16022594b00cc6a51850d12c0e3d4cceb7b60970bcd4f9d04b8270b",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

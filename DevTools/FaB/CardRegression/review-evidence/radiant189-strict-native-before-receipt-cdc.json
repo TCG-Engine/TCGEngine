@@ -1,0 +1,30 @@
+{
+  "status": "COMPLETE_UNSAVED_DIAGNOSTIC",
+  "started_utc": "2026-11-16T04:35:22.746960+00:00",
+  "runtime_before": "cdc081ff4c87ff2f9338b1d69040d0dc98d7600ba33976384336534ea3f92d22",
+  "spec_sha256": "954a03e344be564f7d8d5c461470dbca7144139c9e6151fd255195d6c52997f2",
+  "source_review_sha256": "0ce371ce88a61c27f929ca244e7ba176a5841c6a442b343a48bba2731a595c83",
+  "recorder_sha256": "ab33a3250462d0453f71d38dd4138cb9fbc3d595d2586742e989a52251c9c4a9",
+  "actual_no_save_control_sha256": "3485fb84c5eec54cf4ff20a1c9a8c277f18cfa346973f61ade3700c28bee2805",
+  "command": [
+    "C:\\xampp\\php\\php.exe",
+    "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\record_card_regressions.php",
+    "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch845-radiant-one-soul-correct-state-trigger-probe.json",
+    "--probe-only"
+  ],
+  "fixture_count_before": 4098,
+  "fixture_saved": false,
+  "qualification": false,
+  "coverage_credit": false,
+  "full_suite": false,
+  "pid": 2840,
+  "exit_code": 1,
+  "result_status": "blocked_or_incorrect",
+  "error": "Expected p4Graveyard count 0, got 1.",
+  "result_sha256": "db24327865221999802b2335c76e6ae31039ef78cfd7f1365ec8ce3a30533d3f",
+  "runtime_after": "cdc081ff4c87ff2f9338b1d69040d0dc98d7600ba33976384336534ea3f92d22",
+  "fixture_count_after": 4098,
+  "fixture_inventory_unchanged": true,
+  "recorded_native_inputs": 28,
+  "completed_utc": "2026-11-16T04:36:10.791626+00:00"
+}

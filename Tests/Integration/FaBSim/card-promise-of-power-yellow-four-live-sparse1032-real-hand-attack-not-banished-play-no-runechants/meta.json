@@ -1,0 +1,7 @@
+{
+    "name": "Promise of Power / four-live actual Hand origin",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-23T03:49:34+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "The next time you play an attack action card from your banished zone this turn, create 2 Runechant tokens.\n\n**Go again** LegalChane20ShadowRuneblade, actualprimary5cost1paidBlue7/R2/AP0, fourmanualsourcepassesresolve5ownedGGYafterinitialmarker11, ownGA1. ActualGenericAA6playedfromHand0 notBanish: realunplayedownBanishmarker13doesnotfulfillplay-originhistory. ThereforetypednextAAFROMBANISHtriggernotearned, no2RunechantsorArcane; actualbase4vs3HandDEF9/0damage/noHit/HP20/AP0allfourmanual. 5/6ownedGGYafter11, Blue7Pitch, Deck12/Banish13retained/allArenas0/queuesempty. PositiveBanishplay/permission/Runechant/triggerresponse/hero/support/siblings/fullcardunrun. Sources: FaBSim/GeneratedCode/cardArrayCache.json#promise_of_power_yellow"
+}

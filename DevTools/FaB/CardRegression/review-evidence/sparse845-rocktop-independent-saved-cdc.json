@@ -1,0 +1,116 @@
+{
+  "status": "SAVED_APPROVED_INDEPENDENT_ROCKTOP_FULL_REVEAL_OVERPOWER_ACTUAL_DEFENSE_DAMAGE_REVIEW",
+  "phase": "SAVED",
+  "batch": 845,
+  "reviewer": "/root/ebbing_recovery_review",
+  "reviewer_independent": true,
+  "approved": true,
+  "semantically_approved": true,
+  "source_spec": "card-regression-batch845-rocktop-full-positive.json",
+  "source": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch845-rocktop-full-reveal-overpower-positive-author\\rocktop-full-reveal-overpower-real-defense-and-damage.json",
+    "sha256": "3575fa1776fb6db5af97772fb4d6654deb0aa6bb4e4da1a78356ef0c3b645d2e"
+  },
+  "input_sha256": "3575fa1776fb6db5af97772fb4d6654deb0aa6bb4e4da1a78356ef0c3b645d2e",
+  "manifest": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch845-rocktop-full-reveal-overpower-positive-author\\manifest.json",
+    "sha256": "4908919424c4794a835a2e3af468643e63904248173f029afaaf40a0f7c78348"
+  },
+  "manifest_sha256": "4908919424c4794a835a2e3af468643e63904248173f029afaaf40a0f7c78348",
+  "runtime_sha256": "cdc081ff4c87ff2f9338b1d69040d0dc98d7600ba33976384336534ea3f92d22",
+  "recorded_runtime_sha256": "cdc081ff4c87ff2f9338b1d69040d0dc98d7600ba33976384336534ea3f92d22",
+  "independent_positive_Source": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch845-rocktop-independent-normal-positive-source-review.json",
+    "sha256": "315c94166389d997efd2aa61bc024cdf8eb9ce448377209c1474420e111dafd8"
+  },
+  "root_native_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-b845-rocktop-positive-native-save-cdc\\receipt.json",
+    "sha256": "ea343ac24b44e2004726aa761a4c3e4320f0e0119962a185e40a13eedc48acf5"
+  },
+  "actual_result": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-b845-rocktop-positive-native-save-cdc\\actual-result.json",
+    "sha256": "a225e2a3d524102106ea10ea668037002f11e27fed16b86b3ebf03627a82bd6c"
+  },
+  "actual_immutable_archive": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch845-rocktop-full-positive-20261116T043317Z-6afa878d81da2.json",
+    "sha256": "2cd3824a3a6cdc6fb87281d6d04f788c7bbb25d988f890984e8b2837f2717ec1"
+  },
+  "fixtures": [
+    {
+      "card_id": "rocktop_bellow_blue",
+      "slug": "card-rocktop-bellow-blue-four-live-real-high-reveal-overpower-second-action-refusal-and-damage",
+      "actions": 36,
+      "native_assertions": 5007,
+      "manual_passes": 29,
+      "actual_manual_actor_counts": {
+        "1": 7,
+        "2": 7,
+        "3": 7,
+        "4": 8
+      },
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "c46daf56d3454a0eb8da631c666da22e37b3a1dd857e03b6437bce873858a0b7",
+        "actions.json": "f323b3f9c7f54d1e58871efbb7f74fa3aac4e9b66a617036a51197e17cc87f99",
+        "assertions.json": "99a833c7203ee43774297cde29e317e861e774b09004b4438074fa82ff3f1b07",
+        "expected_final_gamestate.txt": "1730d43fa14215d4665761484a63f54e45795ed82e4e56efcbe64fd4909b665a",
+        "meta.json": "bf8a72c5834cd795f9aee19d44c0ad7efb13b6a52c050bfba25c09f03f48d084"
+      },
+      "fixture_sha256": "b59ad624eaddb5b82a53d7e89da854e28ce2394435d9593194f1a4a81d74af07",
+      "behaviorfixture_sha256": "b59ad624eaddb5b82a53d7e89da854e28ce2394435d9593194f1a4a81d74af07",
+      "input_sha256": "3575fa1776fb6db5af97772fb4d6654deb0aa6bb4e4da1a78356ef0c3b645d2e",
+      "runtime_sha256": "cdc081ff4c87ff2f9338b1d69040d0dc98d7600ba33976384336534ea3f92d22",
+      "recorded_runtime_sha256": "cdc081ff4c87ff2f9338b1d69040d0dc98d7600ba33976384336534ea3f92d22",
+      "genuine_four_live_manual_seats": true,
+      "initial_raw_48_manual_controls": true,
+      "final_raw_48_manual_controls": true,
+      "initial_endpoint_queries_independently_evaluated": 148,
+      "terminal_endpoint_queries_independently_evaluated": 272,
+      "actual_reveal_scalar_delta": {
+        "initial": 0,
+        "final": 1,
+        "path": [
+          "RevealCard",
+          "1",
+          "smash_with_big_tree_red"
+        ]
+      },
+      "physical_revealed_deck_uids_initial_and_final": [
+        9,
+        10
+      ]
+    }
+  ],
+  "actions": 36,
+  "native_assertions": 5007,
+  "manual_passes": 29,
+  "actual_manual_actor_counts": {
+    "1": 7,
+    "2": 7,
+    "3": 7,
+    "4": 8
+  },
+  "actual_expected_envelope_mapping_sha256": "0f3a1ac95157d6accf191483a49da3b0f317ee498ae4f81c9f1f4979df0180e8",
+  "actual_ordered_query_mapping_sha256": "4f66e33b8390e14d86caad7c02e0ee1a5823c9ef849545e6ff99f3d46fb28039",
+  "all_saved_actions_and_queries_match_exact_approved_Source": true,
+  "initial_raw_48_manual_controls": true,
+  "final_raw_48_manual_controls": true,
+  "genuine_four_live_manual_seats": true,
+  "actual_semantics": [
+    "All36actualNative envelopes/5007persisted successful queries match approved fullSource mappings;29manual inputs7/7/7/8 include defendfinish. Both fresh48manualprofiles and genuineYoung/liveUPF/noBot/noPassive seats independently checked.",
+    "ActualBlue6pitch3 paysBellow2/R1/AP0, fourSource responses\u2192realhighbase7topreveal/Next2+OVERPOWER/printedGAAP1. Mandatoryrawrevealgate PASSED: initial MacroGameIndex empty vsfinal RevealCard1 forSmashRed; physicalDeck9then10 unchanged. WholeFaB finalsnapshot comparison retains that scalar per prior Source proof, not hash-only/ignoredmetadata.",
+    "ActualSmash7formalHero4/secondBlue8cost/R2/AP0 and actualNext+2/OVERPOWER consumption persist; physicalpower9/firstAction11DEF3 accepted. NativeordinarysecondAction12click has unchanged oneHand12 and oneDefender11/window/economy; no inventedexplicitserverrejection. Real6damage yieldsP4HP14; noattackGA/APrefund.",
+    "Freshrawterminal physical5+7GY1/11GY4/12Hand4/6+8Pitch1/9then10Deck1/allAP0/R1two/allotherHP20 plusStack/queues/await/payment/chaincleanup verified. Every initial148andterminal272 query evaluated against actualraw, fullschema consumed/raw5preserved. No earlier111conditionalgrant bug borrowed or newSourcefix claimed."
+  ],
+  "qualification": false,
+  "coverage_credit": false,
+  "passing_replay_certificate": false,
+  "required_remaining_gates": [
+    "Root independently binds its two new-only clean replays and performs guarded registration/index update."
+  ],
+  "limits": [
+    "Onlypositive6+reveal/Blue+2/Overpower Actiondefense/actualdamage representative; below6/bottom/otherdefenders/attacks/pitchsiblings/support/Hero/fullcard untested.",
+    "Savedreview doesnotitself certifyreplays/fullsuite. No PHP/native/Rwrites/sourcechanges or denied188184B787 action byreviewer."
+  ],
+  "created_utc": "2026-11-16T04:36:22.447868+00:00"
+}

@@ -1,0 +1,7 @@
+{
+    "name": "Talisman of Cremation / actual Hand-play does not earn Banish-zone trigger",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-24T06:07:34+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "FOUR_REAL_MANUAL_UPF_YOUNG_dorinthea20_AND_DORI20_HAND_NOT_BANISH_EVENT_GUARD_ONLY. LawfulpriorownedGenericItemTalisman5Arena1/noentryWHENorplayhistoryearned. NativeGenericWoundingRed6actuallyplaysfromHand, formalHero4target/AP1to0/R0/allfourresponses; SourceZoneHandispinned. PrintedBanishZoneplayeventnotmatched, so noTalismanconsume/NameCard/threeopponentsgraveyardbanish. RealWoundingBlue7/8/9GYunderallthreeopponentsstays, notemptyGYvacuity. Actual4physicaldamageHP4=16/other20, full6ownedGY1/5sameArena1/APR0/UID9RNG0/StackDQsCCclean/allBanish0. NoBanishpositive/name/arcane/destruction/entryGA/producer/Heroactivation/support/wholecardcredit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#talisman_of_cremation_blue FaBSim/GeneratedCode/GeneratedMacroCode.php FaBSim/Custom/GameLogic.php FaBSim/Custom/EVRCards.php FaBSim/Custom/MONCards.php"
+}

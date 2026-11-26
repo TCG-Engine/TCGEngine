@@ -1,0 +1,255 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "independent breadth_review",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse919-20261122.json",
+  "source_spec_sha256": "9599ab62134bc32e219adfc442eefa13c06a7753ab81de59baca3e6225bb3e26",
+  "input_sha256": "9599ab62134bc32e219adfc442eefa13c06a7753ab81de59baca3e6225bb3e26",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-bolting-blade-yellow-four-live-sparse919-actual-two-blue-cost-four-without-charge-discount",
+      "card_id": "bolting_blade_yellow",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "8253809abb01552a5b10e2305965937a4864a116303c708b5f9e044c24d4de2c",
+        "actions.json": "e22a6cb0fbc57b85cb4c085dff11ef900ce5afc681d1998045a7b38700519346",
+        "assertions.json": "cc2c26ad80e9e716659d637654ed341b19df3bb58181866e4a17043753a363e9",
+        "expected_final_gamestate.txt": "1c989a7166cae7362c7e73653a67ec70c32b01e11ba8fff09749b5e799894976",
+        "meta.json": "e09919549cec35bf8480ffedd071435ab95dbe6cef8c6c5825ac223c62244dd3"
+      },
+      "fixture_sha256": "7ffad83f821f38f8768c0f3011c8e6360cdb5535941ba3a74697739947240328",
+      "actions": 29,
+      "native_assertions": 161,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse919-20261122.json",
+      "input_sha256": "9599ab62134bc32e219adfc442eefa13c06a7753ab81de59baca3e6225bb3e26",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse919-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-bolting-blade-yellow-four-live-sparse919-actual-two-blue-cost-four-without-charge-discount",
+        "fixture_slug": "card-bolting-blade-yellow-four-live-sparse919-actual-two-blue-cost-four-without-charge-discount",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-clash-of-bravado-yellow-four-live-sparse919-actual-two-blue-attack-not-defending-clash-aura-destruction",
+      "card_id": "clash_of_bravado_yellow",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "236ad98bd43a69f111f97efabc86e3d015a6112a8acf339457a3214588b174ee",
+        "actions.json": "e22a6cb0fbc57b85cb4c085dff11ef900ce5afc681d1998045a7b38700519346",
+        "assertions.json": "2006f2b1488a3e0fe5702ca077035f43b6b3c8547a0f08418151cecc911da1cd",
+        "expected_final_gamestate.txt": "07b6caedbc841d4c2907b682b1e55503d5593f61bf4105d3af1ff5111817381e",
+        "meta.json": "4dba3bc7c23f7cc0d2b4dc989cba7e5648c4a5c97c1b7d1e8fbd46edf434d9d7"
+      },
+      "fixture_sha256": "d30698e9cff1552ed2ada320226309e102c44f30a54db0dce34635a72df3fb01",
+      "actions": 29,
+      "native_assertions": 161,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse919-20261122.json",
+      "input_sha256": "9599ab62134bc32e219adfc442eefa13c06a7753ab81de59baca3e6225bb3e26",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse919-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-clash-of-bravado-yellow-four-live-sparse919-actual-two-blue-attack-not-defending-clash-aura-destruction",
+        "fixture_slug": "card-clash-of-bravado-yellow-four-live-sparse919-actual-two-blue-attack-not-defending-clash-aura-destruction",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-clash-of-mountains-red-four-live-sparse919-actual-two-blue-attack-not-defending-guardian-clash",
+      "card_id": "clash_of_mountains_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "061ca50e899309f474fc17e1a5745d9a5d815818b263ff7f23997bb0f78b7f22",
+        "actions.json": "e22a6cb0fbc57b85cb4c085dff11ef900ce5afc681d1998045a7b38700519346",
+        "assertions.json": "2b1a643026710ddbdff6f23cbf98a22033c2729239f8d8926bbd3e3578cf6642",
+        "expected_final_gamestate.txt": "b3976b134630b323df59c583b94a68b58aa74a52eccc450f89d21fd58576c3c4",
+        "meta.json": "02152f3f488b47cc5844bb3d4a01ce0bc1f5f6d918feb197cc9c60ae49a54809"
+      },
+      "fixture_sha256": "06ff09ac9256f6057963a3074068454c98fe300f30c0a6eadeceeb8f84723a86",
+      "actions": 29,
+      "native_assertions": 161,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse919-20261122.json",
+      "input_sha256": "9599ab62134bc32e219adfc442eefa13c06a7753ab81de59baca3e6225bb3e26",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse919-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-clash-of-mountains-red-four-live-sparse919-actual-two-blue-attack-not-defending-guardian-clash",
+        "fixture_slug": "card-clash-of-mountains-red-four-live-sparse919-actual-two-blue-attack-not-defending-guardian-clash",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-glacial-footsteps-red-four-live-sparse919-actual-two-blue-cost-six-unfused-without-dominate",
+      "card_id": "glacial_footsteps_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "95f25abec67e209e011dad662f8642e7ef41afe281da9bf6677610bc8a54baab",
+        "actions.json": "e22a6cb0fbc57b85cb4c085dff11ef900ce5afc681d1998045a7b38700519346",
+        "assertions.json": "77638d72830703de55a6d3323bdfa401fd3c2a692dc0e7ccac90e1db135963cb",
+        "expected_final_gamestate.txt": "8bc40d14f8f74608a5dcc498446eeb542f0986dbeb2b9e8c044807514f7bcf57",
+        "meta.json": "d568228311760e3ce73cc0c12867c7bb3420675d9231916b3f48c0e2384aeeaf"
+      },
+      "fixture_sha256": "f129d38e213d5755d2d2d00fccc4e0e51c853c786627b16fe252a181f4082368",
+      "actions": 29,
+      "native_assertions": 161,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse919-20261122.json",
+      "input_sha256": "9599ab62134bc32e219adfc442eefa13c06a7753ab81de59baca3e6225bb3e26",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse919-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-glacial-footsteps-red-four-live-sparse919-actual-two-blue-cost-six-unfused-without-dominate",
+        "fixture_slug": "card-glacial-footsteps-red-four-live-sparse919-actual-two-blue-cost-six-unfused-without-dominate",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-golden-skywarden-yellow-four-live-sparse919-actual-two-blue-attack-not-defending-galvanize",
+      "card_id": "golden_skywarden_yellow",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "ba1431fcc5811b7ffc4f5fef2305dbfd08b9d3fa0362bf014108cd1ef2f9d82f",
+        "actions.json": "e22a6cb0fbc57b85cb4c085dff11ef900ce5afc681d1998045a7b38700519346",
+        "assertions.json": "2f53f41d9e30cef246fa0f36728a9ef525dc98cd672b496e6c26e00be7ad649c",
+        "expected_final_gamestate.txt": "19c9606413c0174fbfcf295276b26d296743b2610907a0d5a67afd512f3e7b14",
+        "meta.json": "fa2f4ea7c0a6232d31992ba55e12f7fec9ff344e163db237144ae23cc47564e1"
+      },
+      "fixture_sha256": "d99dac0132cd541e430f5155ac176fa159e6288922ec8b8da0856652e0676a5c",
+      "actions": 29,
+      "native_assertions": 161,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse919-20261122.json",
+      "input_sha256": "9599ab62134bc32e219adfc442eefa13c06a7753ab81de59baca3e6225bb3e26",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse919-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-golden-skywarden-yellow-four-live-sparse919-actual-two-blue-attack-not-defending-galvanize",
+        "fixture_slug": "card-golden-skywarden-yellow-four-live-sparse919-actual-two-blue-attack-not-defending-galvanize",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-pec-perfect-red-four-live-sparse919-actual-two-blue-nine-damage-without-any-defending-card-clash",
+      "card_id": "pec_perfect_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "fb151d89c034d8a109d06b02d2387821c466863ca781d48081523ef25232a007",
+        "actions.json": "e22a6cb0fbc57b85cb4c085dff11ef900ce5afc681d1998045a7b38700519346",
+        "assertions.json": "c5984ef40bcb47ebea93e53fd64a7e952c2e08538ba444251c253c3135002b05",
+        "expected_final_gamestate.txt": "aeffcc402339deb084af4520490685e624d05c873d21d4eb6f2c6995d9d17e10",
+        "meta.json": "e6dda733055610fe06fc4d232ab2ef1e73605c471b343cb1bf57fd0080e87200"
+      },
+      "fixture_sha256": "6c3e328ee5da12570d018a167c074f3d923b8934b38ac62eb2b1947b5c9c837b",
+      "actions": 29,
+      "native_assertions": 161,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse919-20261122.json",
+      "input_sha256": "9599ab62134bc32e219adfc442eefa13c06a7753ab81de59baca3e6225bb3e26",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse919-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-pec-perfect-red-four-live-sparse919-actual-two-blue-nine-damage-without-any-defending-card-clash",
+        "fixture_slug": "card-pec-perfect-red-four-live-sparse919-actual-two-blue-nine-damage-without-any-defending-card-clash",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-thunk-red-four-live-sparse919-actual-two-blue-eight-damage-without-clash-reveal-might",
+      "card_id": "thunk_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "1ef32a5799e8493c0812f0f16c847a798cab586715516987635adfaa96a8eeff",
+        "actions.json": "e22a6cb0fbc57b85cb4c085dff11ef900ce5afc681d1998045a7b38700519346",
+        "assertions.json": "80ce59c07333a666a25507b0bdefcbedfde338545ea5173556272de8ac088d05",
+        "expected_final_gamestate.txt": "48645b8be0bc620f6b30d712227ad2097b18b49a606bd69b8caae57bde48cdaa",
+        "meta.json": "b71d8710959ddc3084a1c58a7a19bd94c2adfedef39318e6e5a91d9ad22e79b3"
+      },
+      "fixture_sha256": "d1569491591c944db46a9da2cbda6799d4c9e68d592a13b0bbea307de9a66753",
+      "actions": 29,
+      "native_assertions": 161,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse919-20261122.json",
+      "input_sha256": "9599ab62134bc32e219adfc442eefa13c06a7753ab81de59baca3e6225bb3e26",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse919-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-thunk-red-four-live-sparse919-actual-two-blue-eight-damage-without-clash-reveal-might",
+        "fixture_slug": "card-thunk-red-four-live-sparse919-actual-two-blue-eight-damage-without-clash-reveal-might",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-wallop-red-four-live-sparse919-actual-two-blue-seven-damage-without-clash-reveal-vigor",
+      "card_id": "wallop_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "6b86428d2a08f44023dba150cf074963872e4a88fba1c1659030c08c0b6b5c5d",
+        "actions.json": "e22a6cb0fbc57b85cb4c085dff11ef900ce5afc681d1998045a7b38700519346",
+        "assertions.json": "066ab7100ad37e85e540c4505be8600622a4a57c170beff4a47514f48c0cf42a",
+        "expected_final_gamestate.txt": "36337be8eb78eb0fdc21c050071ef7416a4a981611e0a55164e904ffb88f4dfc",
+        "meta.json": "e697a29dbf4c9d7c85d1936e6a81f827f904483224df6f3130f6eef88b56f48c"
+      },
+      "fixture_sha256": "d1a461dc84d17a37486bdcd02df74ee35c2bbc7f13711759bcb9a41bb9937f3b",
+      "actions": 29,
+      "native_assertions": 161,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse919-20261122.json",
+      "input_sha256": "9599ab62134bc32e219adfc442eefa13c06a7753ab81de59baca3e6225bb3e26",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse919-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-wallop-red-four-live-sparse919-actual-two-blue-seven-damage-without-clash-reveal-vigor",
+        "fixture_slug": "card-wallop-red-four-live-sparse919-actual-two-blue-seven-damage-without-clash-reveal-vigor",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "reviewer": "independent breadth_review",
+    "result": "approved_named_branches_only_pending_native_execution",
+    "spec_sha256": "9599ab62134bc32e219adfc442eefa13c06a7753ab81de59baca3e6225bb3e26",
+    "basis": [
+      "Eight named physical Hand attack branches reuse qualified two-Blue fixed-cost frame. Printed costs4/4/4/6/4/5/5/4 and powers7/7/8/10/7/9/8/7 match actual resource6 payment, residual2/2/2/0/2/1/1/2, AP0 and Hero4damage. FirstBlue3 cannot complete assets, secondrealBlue pays, both6/7Pitch and original5ownedGY remain; four natural live/manual seats, full unblocked combat.",
+      "Bolting has no charge/Soul event and pays full4. Glacial explicit Prepare finds no eligible Ice among actual GenericBlues, skips reveal and remains unfused/base10; no effect-cost-ordering or Dominate admission claim.",
+      "ClashBravado/Mountains and Galvanize card are attackers, never defending. No card defends PecPerfect, so no printed defending-card event. Thunk/Wallop never win a Clash revealing themselves. No earned layer or token omitted in these main paths.",
+      "GoldenSkywarden hero corrected before native from Dash to natural20HP Puffin, matching both Pirate talent and Mechanologist class. Puffin hero manual activation/secondCrank trigger inactive; no positive Galvanize or other-token event. Other natural20HP Boltyn/Oldhim heroes legal and inactive abilities."
+    ],
+    "limits": [
+      "Static source/spec review only; native execution and clean replay pending.",
+      "Only named main packets. Positive charge/fusion/defense/Clash/aura-destruction/Galvanize/token/admission, siblings or supporting-group credit untested.",
+      "No native PHP/games, T edits, network or Git mutation by reviewer."
+    ]
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse919-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "7a151b74fdbaff2e123d0d7b8c26507d142a61e6c52cc32bd1d3a30d147f9632"
+  },
+  "full_suite_run": false
+}

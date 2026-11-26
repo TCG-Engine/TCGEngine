@@ -1,0 +1,7 @@
+{
+    "name": "Dread Scythe / real Ally attack and affordable once-per-turn repeat rejection",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-24T04:03:06+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "FOUR_REAL_YOUNG_VISERAI20_MANUAL_UPF_FIRST_ALLY_ATTACK_AND_AFFORDABLE_ONCE_PER_TURN_REJECTION. RealPotion5/Scythe6/Blue7and8Hand/Dromai4Ashwing9withpriorAshmaterial. ActualPotioncostspendsAP1to0/destroys5/proxy10/allfourresponsesearns2AP. ActualScythe6targetALLY9notHero4, realBlue7pitch3paysthree/AP2to1/R0/unusedBlue8stillHand/proxy11controller1SourceUID6(noOwnerclaimvirtualframe). WHENattacksHEROconditionfalse\u2192noearned1arcane/trigger; actualbase3/noGA/unblocked3damagekills1lifeTokenAlly/ceasesnoGY4/allHeroHP20. Positiveantihealnottested(noHeroDamage/nohealattempt). FullsameTurn2physical6Status1/5GY/7Pitch/8Hand/AP1R0, actualremainingBlue8providesavailable3costsoactivationwouldotherwisebeaffordable. Nativeclicksame6mustrejectonce-per-turnwithouttarget/PITCH/payment/Hand8loss/APchange/newUID/Stack/secondDamage. UID11RNG0/cleanqueuesCC. NoHeroarcane/antiheal/turnreset/Viseraipassive/support/fullcardcredit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#dread_scythe FaBSim/GeneratedCode/GeneratedMacroCode.php FaBSim/Custom/WTRCards.php FaBSim/Custom/WTRAbilities.php FaBSim/Custom/ARCCards.php FaBSim/Custom/UPRCards.php FaBSim/Custom/GameLogic.php"
+}

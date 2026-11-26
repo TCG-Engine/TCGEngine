@@ -1,0 +1,7 @@
+{
+    "name": "Destructive Aethertide / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T06:04:53+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Deal 1 arcane damage to any target.\n\n**Surge** - If this deals more than 1 damage to a hero, destroy a card in their arsenal. Representative only: one_arcane_without_surge_preserves_actual_arsenal. Other pitch siblings, alternate targets and unexercised branches receive no credit. All four live/manual; only native entry-point actions. Sources: FaBSim/GeneratedCode/cardArrayCache.json#destructive_aethertide_blue"
+}

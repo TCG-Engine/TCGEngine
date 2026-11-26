@@ -1,0 +1,7 @@
+{
+    "name": "Restvine Elixir / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T15:35:12+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Your next attack this turn gets +3{p}.\n\nYou may destroy an Inertia token you control. If you do, gain 1{h}.\n\n**Go again** Representative only: destroys_real_owned_inertia_and_gains_one_health. Other pitch siblings, alternate targets and unexercised branches receive no credit. All four live/manual; only native entry-point actions. Sources: FaBSim/GeneratedCode/cardArrayCache.json#restvine_elixir_red"
+}

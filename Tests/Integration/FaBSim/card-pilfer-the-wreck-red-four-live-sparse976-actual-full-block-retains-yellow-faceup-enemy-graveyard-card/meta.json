@@ -1,0 +1,7 @@
+{
+    "name": "Pilfer the Wreck / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T23:18:51+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "When this hits a hero, you may turn a card in their graveyard face-down. If it's yellow, create a Gold token. Representative only: actual_full_block_retains_yellow_faceup_enemy_graveyard_card. Actual Hand5 play with real printed payment, real Hand AA defenses, four live/manual seats, zero damage/nohit/Stack0/AP0/source and defenders in owned graveyards. Legitimate physical cards/counters retained; no positive hit/reaction/banish/steal/random/entry/ownership credit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#pilfer_the_wreck_red"
+}

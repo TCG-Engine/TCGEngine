@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-sharpened-senses-yellow-four-live-sparse1169-real-weapon-seven-exceeds-double-base-and-earns-go-again",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-sharpened-senses-yellow-four-live-sparse1169-real-weapon-seven-exceeds-double-base-and-earns-go-again",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1169-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1169-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "fbe5cb62653f091285dbd78d7bd8239c8fa35fa6eed32aa2da20c5c08897e51e",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "a46ba6e1e236830c3b21e33795bc5a8200ab84dc0256f7f34c6aa1f5bd4eeed7",
+        "actions.json": "b5fa8753a1583db3941956e36428e6f3d26d41023d964e319731e111e3e47c52",
+        "assertions.json": "e46c8fa727eabaa6fa8b80c59996eb53c751ba3f402f030b3a14ca1682c72db1",
+        "expected_final_gamestate.txt": "1107dbf0ecd0f150eba69ec335aad52973b1f51bfd4a69ab565c1e48c6ef8407",
+        "meta.json": "136288b8da1be00b7d79ccd5655e07626dee0e58268cbaf6dd0282caf22e69f2"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

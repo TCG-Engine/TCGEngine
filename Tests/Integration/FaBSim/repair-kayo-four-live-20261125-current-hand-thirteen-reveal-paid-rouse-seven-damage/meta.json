@@ -1,0 +1,7 @@
+{
+    "name": "Kayo / modified Hand6+7 pays Rouse additional cost then actual7damage",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-26T00:18:06+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Kayo gives owned Hand attack actions +1 outsideCombatChain. Actual Potion abilities produceR4. Rouse3cost reveals printed5+6 cards with current6+7=13, so accepted, R1/AP0 and +7/GA; base0 Rouse leaves Kayo outside-chain modifier on enteringCombatChain, actual7power7damage to adjacentHero4, goagainAP1 afterfullClose. All original183pre-declaration and originalsuccess expectations retained; officialCR2.9.3 powermeansmodifiedpower. No discard/Might/supportidentity/newgroupcredit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#kayo FaBSim/GeneratedCode/cardArrayCache.json#rouse_the_ancients_blue FaBSim/Custom/HVYCards.php FaBSim/Custom/MONCards.php FaBSim/Custom/CardChoices.php FaBSim/Custom/GameLogic.php FaBSim/Custom/WTRAbilities.php FaBSim/GeneratedCode/GeneratedMacroCode.php"
+}

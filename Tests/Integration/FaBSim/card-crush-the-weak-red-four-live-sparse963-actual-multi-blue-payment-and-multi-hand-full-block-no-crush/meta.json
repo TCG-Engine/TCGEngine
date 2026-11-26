@@ -1,0 +1,7 @@
+{
+    "name": "Crush the Weak / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T22:09:20+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "**Crush** - When this deals 4 or more damage to a hero, they can't play attack action cards with 3 or less base {p} during their next action phase. ActualBravo20/Blue6pays3/R0/AP0, actual2or3HandAAdef6or9fullyblockbase6or7, HP20/damage0/nohit/Stack0/sourceandblockersownedGY. RealHand/Deck/FaceDownArsenalretainedwheredeclared. NoCrush4+orHiteventearned; futureabilitysuppression/playrestriction/positivepowerconditionuntested. Sources: FaBSim/GeneratedCode/cardArrayCache.json#crush_the_weak_red"
+}

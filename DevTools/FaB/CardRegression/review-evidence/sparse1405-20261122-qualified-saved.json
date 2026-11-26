@@ -1,0 +1,120 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "independent breadth_review1252",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1405-20261122.json",
+  "source_spec_sha256": "72bc6c4b7eb086e20f617f1682a314f6ff1cfb22efcc853646884fae7c39f512",
+  "input_sha256": "72bc6c4b7eb086e20f617f1682a314f6ff1cfb22efcc853646884fae7c39f512",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-pulse-of-candlehold-yellow-four-live-sparse1405-zero-optional-return-targets-real-self-banish-go-again-and-blocked-attack",
+      "card_id": "pulse_of_candlehold_yellow",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "7b5047791012f5cab6e5db31ce36e4d7e518af3e9f54f1f813bb4c4e4c9e4036",
+        "actions.json": "f3120843fe7a07a828ec8b848fe93f513c0f446f41cb850c299eb576ae1cbf17",
+        "assertions.json": "39b3f8a1449ea2e83f7337a48f0a2738e1a5af1b907c94be700840c18d2acb95",
+        "expected_final_gamestate.txt": "beec5236919ba69e8d3fc93d8525bc03ffd5493f7b25318fcc545a201e9e0653",
+        "meta.json": "1be22d1fefa0a4849a8595835e1e2974179b62aa33babc485169ebe4a2e1d1f7"
+      },
+      "fixture_sha256": "79f553597d0dcc0eedf44ca4c17bfd3eca3cae74b61d202eda6a554b11a08140",
+      "actions": 33,
+      "native_assertions": 388,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 29,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1405-20261122.json",
+      "input_sha256": "72bc6c4b7eb086e20f617f1682a314f6ff1cfb22efcc853646884fae7c39f512",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1405-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-pulse-of-candlehold-yellow-four-live-sparse1405-zero-optional-return-targets-real-self-banish-go-again-and-blocked-attack",
+        "fixture_slug": "card-pulse-of-candlehold-yellow-four-live-sparse1405-zero-optional-return-targets-real-self-banish-go-again-and-blocked-attack",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "reviewer": "independent breadth_review1252",
+    "spec_sha256": "72bc6c4b7eb086e20f617f1682a314f6ff1cfb22efcc853646884fae7c39f512",
+    "source_note_sha256": "8f57de5925987fe17574799ad9837e21c65fbdef00001d3413b69db400a5b628",
+    "case_count": 1,
+    "active_seats": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "players": "four_live_manual",
+    "native_controls": 33,
+    "query_checks": 388,
+    "persistable_assertions": 388,
+    "author_only_checks_omitted": 0,
+    "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+    "coverage_category": "POSITIVE_SELF_BANISH_AND_GO_AGAIN_WITH_ZERO_OPTIONAL_RETURN_TARGETS_AND_REAL_BLOCKED_COMBAT",
+    "per_case": [
+      {
+        "card_id": "pulse_of_candlehold_yellow",
+        "group_id": "identity:pulse_of_candlehold_yellow",
+        "native_controls": 33,
+        "persistable_assertions": 388
+      }
+    ],
+    "basis": [
+      "Unrepresented/unheld PulseCandleholdYellow EarthLightningAction0/Legendary/GA under naturalYoungBriar20 EssenceEarthLightning and threeDori20/manual4UPF, cached allowed. One primarycopy, allGY initially empty and source5 heldStack until resolution; printed up to2 permits zero legal targets. No positive target-selection timing is certified.",
+      "Generated Pulse await86484-86536 selects ownGY elementalActions, emptyrefs skips optionalMZMultiChoose and all ordering, but unconditionally executes FaBMoveUID(uid,Banish,p). Actual0cost5 spendsAP and four responses must put sameowned5faceupBanish, notGY; originalDeck8 unchanged and no chooser expected.",
+      "GameLogic2045-2055 manages physical plainAction with completionSource LKI. At1709-1714 a self-moved source uses that preserved LKI, and1924-1933 finishes printedGA after effect rather than requiring source stillStack or moving it again. Strict expectedAP1 after self-banish is rules-correct and source-supported, still pending native verification.",
+      "Actually spend earnedAP1 on ownedWoundingBlue6AA0 targetadjacent4; four real source responses then full four-manual combat. RealHandWoundingRed7DEFENSEFromHand printed3 against actual2power yields0damage/allHP20/noBriarEarthobserver; only oneNAA means noBriarLightning. Final5Banish/6GY1/7GY4/8sameDeck/Hand0/AP0R0/UID8RNG0/quietStackDQs coherent."
+    ],
+    "limits": [
+      "Only positive self-banish/printedGA with zero optional return targets, plus actual fully blocked follow-up combat. Positive graveyard return/reorder/target timing, Hero effects, support identities/provenance/siblings/whole-card untested.",
+      "Approval pending native execution; no game/test/replay, engine/repository edit, original checkout access, auth/network, full suite or Git operation."
+    ],
+    "source_sha256": {
+      "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+      "FaBSim/GeneratedCode/GeneratedMacroCode.php": "fe6a7982611df8f4de98ce2671b317b671b580146aa4b8c28e8f4b86d8461056",
+      "FaBSim/Custom/GameLogic.php": "c60fa151561f959e4e3e341b814de0e2b47c9e9f153bbc8793a04c43b5075061",
+      "FaBSim/Custom/ELECards.php": "5319104c32fb648c9ef90ee5e7e3a6a22e29c35a26c2cca31b338aada0e6110f",
+      "FaBSim/Custom/WTRCards.php": "77d4452b30e45254a7199bc965396ded53e325717ecdd84a09b971f723f99f6a",
+      "FaBSim/ZoneAccessors.php": "9967567a9a10df81a6f22df820d4d77258828657e95c4ad145b8b13ce17866a7",
+      "Schemas/FaBSim/GameSchema.txt": "7783800bd47bc85885cc915066aadca58cdf99f0c1180602ac312d9af5ebf643",
+      "Core/EngineActionRunner.php": "add14b53dc571d2a6e64407bfa4038a98d6554d6410de7a9233810d99c46ea2a",
+      "Core/ShortcutPreferences.php": "25f300ea0b6fbc409f5b92e8bc3587a74b2ab0eaf31ccef38e18c455598eaba6",
+      "DevTools/FaB/CardRegression/record_card_regressions.php": "e53055b29e9ea641949b77019c4455607f41ca233325d716a9500637e19efd28"
+    },
+    "workspace_source_sha256": {
+      "author_breadth1405.py": "044f98c5f918ff2bd7faf47eee6c147d105b821135379036a1e08c78eff53105",
+      "breadth1068_helpers.py": "997f949ec26c7e494ad26a818f9f2078f6f4f2a0c49ca7f61aa8c71f3b091b0a",
+      "sparse1397-local-20261122/proposed.json": "f25d21084ce8e3822e7c74aa2bf1376be02f8417c23cb7fe26366695b40ed706"
+    },
+    "secondary_identity_credit": false,
+    "whole_card_credit": false,
+    "positive_graveyard_return_credit": false,
+    "positive_ordering_credit": false,
+    "positive_target_timing_credit": false,
+    "positive_self_banish_and_go_again_scope": true
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1405-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "eb82ad81ddae8b1d0d2a5d41925565df49132746230eb30ce4a1ec42aa5433ef"
+  },
+  "full_suite_run": false
+}

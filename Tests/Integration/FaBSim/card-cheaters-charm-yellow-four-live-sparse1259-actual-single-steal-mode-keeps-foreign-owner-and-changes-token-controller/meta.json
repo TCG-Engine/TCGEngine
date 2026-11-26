@@ -1,0 +1,7 @@
+{
+    "name": "Cheater's Charm / actual single printed steal mode",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-24T00:41:59+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "ONLY_FIRST_NON_TARGET_MODE_PRINTED_EFFECT. NaturalYoungkayo_strong_arm20/3Dori20manual4, lawfulRevered/ReviledBrute/GuardianHeroasappropriate. ActualInstant5cost0noAP/noresourceandrealpriortoughness6Arena4notmode/bonus/historyseed. Allfourfreshresponseswithsource5Stack/token6untouched; legitimateprintedChooseanynumberMZMODALduringresolve, selectonlymode0, thennonTargettokenchoicebecausefirstmodehasnoTargetphrase. PhysicalInstant5remainsStack/GY0throughbothchoices; onlyansweractual6applieseffect. ActualsameforeignToken6movesArena4\u2192Arena1withOwner4retained/Controller1/Status2, noUIDreplacement/newtoken/lifechange. Source5onlythenownedGY1, AP1/R0/HP20all/UID6RNG0/emptyStackDQsCC/turn2ACTION. NoBoo/Cheer/mood, othermodes, targetHero/damage/abilityloss/returnAura/pitchDeck/choicecombinations/otherToken/controlreturn/hero/support/fullcardcredit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#cheaters_charm_yellow FaBSim/GeneratedCode/GeneratedMacroCode.php FaBSim/Custom/SUPCards.php FaBSim/Custom/MPGCards.php FaBSim/Custom/DYNCards.php FaBSim/Custom/GameLogic.php"
+}

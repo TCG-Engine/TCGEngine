@@ -1,0 +1,56 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-chains-of-eminence-red-four-live-sparse1249-existing-global-name-lock-foreign-destruction-unlocks-real-attack",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-chains-of-eminence-red-four-live-sparse1249-existing-global-name-lock-foreign-destruction-unlocks-real-attack",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1249-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1249-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "a3dfdb7478f3a31765e32148ef9350247caa8b51f58eb07ab1575d7bb38cd596",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "658e4511a4568896a1e3c99cc88fb6f98643cab8d674b0a4caf585cca7f34cdf",
+        "actions.json": "fd26c7bdaf7c98bd1155fe65e105849941db4e2db471f0c1466638e1f0e153f5",
+        "assertions.json": "4d61cf84e7f4767f5af0c6b720b4815dcf351eee560344d69644fe7c01ce11a2",
+        "expected_final_gamestate.txt": "4e02a0614454fcff54957787aefea8d3d767f9faf026887f98f552e9630daf14",
+        "meta.json": "351172b053e93518eac523629797567a4a005fcf533ba441fe7c18a8f072f2e5"
+      }
+    },
+    {
+      "slug": "card-null-time-zone-blue-four-live-sparse1249-existing-hand-name-lock-allows-same-name-from-real-arsenal",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-null-time-zone-blue-four-live-sparse1249-existing-hand-name-lock-allows-same-name-from-real-arsenal",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1249-local-20261122\\clean-replays\\01.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1249-local-20261122\\clean-replays\\01.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "046e2b6a6cfdefde7283de1b8ac95b4f3f6d26eae9e1a605a15997e8fa8e0964",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "1c906f8e2378ae8b768a2ecf85622b99ebca467e52cf21ed28de3288ea5206dd",
+        "actions.json": "b18dba19c6e1a9a22f08df0db536f803ccbe3582e85a855466962018fb52da72",
+        "assertions.json": "65bc886080f086c662b1751a2539e76aba2ebf8fc858cfd6860e28fac938f6d7",
+        "expected_final_gamestate.txt": "6065508264b437aeae5440978767881a5739e9f7cea2d951fd39a9894dac3306",
+        "meta.json": "4d7e45a366a731609aba3312df16188e866e6ca1977ba07b75d12ba85b012303"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

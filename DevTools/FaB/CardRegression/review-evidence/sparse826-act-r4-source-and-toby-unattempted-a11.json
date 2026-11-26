@@ -1,0 +1,195 @@
+{
+  "status": "SOURCE_APPROVED_NORMAL_POSITIVE_ACT_R4_COMPLETE_SOURCE_DERIVED_PROTOCOL_CORRECTION",
+  "phase": "SOURCE",
+  "batch": 826,
+  "reviewer": "/root/ebbing_recovery_review",
+  "reviewer_independent": true,
+  "created_utc": "2026-11-15T19:55:10.752823+00:00",
+  "approved": true,
+  "source_approved": true,
+  "semantically_approved": true,
+  "normal_save_approved": true,
+  "native_fixture_recording_approved": true,
+  "passing_fixture_approved": false,
+  "source_spec": "card-regression-batch826-act-real-zero-leave-consumer-positive-r4.json",
+  "source": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-batch826-act-r4-complete-source-hook-history-correction-author\\act-real-zero-separate-leave-and-real-eight-damage-consumer-r4.json",
+    "sha256": "07e46a2bad961d4c2b2f223cd5e5a8731a202ad6c1ddae105420e742f676f61d"
+  },
+  "manifest": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-batch826-act-r4-complete-source-hook-history-correction-author\\manifest.json",
+    "sha256": "92fe6b677efae713978da12dbc7cb1c9ab8854f3313bf352a65041d133819b78"
+  },
+  "input_sha256": "07e46a2bad961d4c2b2f223cd5e5a8731a202ad6c1ddae105420e742f676f61d",
+  "manifest_sha256": "92fe6b677efae713978da12dbc7cb1c9ab8854f3313bf352a65041d133819b78",
+  "runtime_sha256": "a11fb2abaf062a707ad2c9372bf41321fcde25d5fe32a99bf55a1b4d2bae4223",
+  "recorder_sha256": "ab33a3250462d0453f71d38dd4138cb9fbc3d595d2586742e989a52251c9c4a9",
+  "firm_reservation": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-batch826-firm-reservation.json",
+    "sha256": "e4dcef9f6b0f3a19e3e4ce6da7a08aa33d2f8e0070d217dfbbf8128fe09387e5"
+  },
+  "support_preflight": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-batch826-act-zero-leave-consumer-and-toby-known-hold-preflight.json",
+    "sha256": "e249d5dc5fced280360e20fccad331081f87ffb63c55b9568ceb777a0215fd54"
+  },
+  "source_guard_count": 82,
+  "source_guard_map_sha256": "5af562a90c63aa568321dc16e15cbf0e6e8f29164524830996df2da13768ff4e",
+  "selected_support_guard_count": 21,
+  "selected_support_guard_map_sha256": "c0c59b46ff2b6807097c0cf9454596278a8d34bfea012755db6caf434cf52761",
+  "all_current_guards_independently_matched": true,
+  "actions": 41,
+  "declarative_controls": 41,
+  "native_assertions": 4609,
+  "assertions": 4609,
+  "recorded_persisted_assertions": 4609,
+  "manual_passes": 37,
+  "expected_priority_response_passes": 36,
+  "expected_formal_defense_finish_inputs": 1,
+  "expected_manual_pass_actors": [
+    1,
+    2,
+    3,
+    4,
+    1,
+    2,
+    3,
+    4,
+    1,
+    2,
+    3,
+    4,
+    1,
+    2,
+    3,
+    4,
+    1,
+    2,
+    3,
+    4,
+    4,
+    1,
+    2,
+    3,
+    4,
+    1,
+    2,
+    3,
+    4,
+    1,
+    2,
+    3,
+    4,
+    1,
+    2,
+    3,
+    4
+  ],
+  "expected_manual_actor_counts": {
+    "1": 9,
+    "2": 9,
+    "3": 9,
+    "4": 10
+  },
+  "checkpoints": 43,
+  "schema_property_checks": 814,
+  "control_mapping_sha256": "00dab4f4a68f72a435f83f61927cd04cbfe6388154249db0aedeb478cc007dfd",
+  "native_expected_envelope_mapping_sha256": "59c042c78c79186e177d4e5e82eb1acaf32861019be99bae4ff50a5d3a8b5f8e",
+  "expected_native_query_mapping_sha256": "839362afdec3f78282c2dec5121408bfad05fa2c620c4a2c00c4d26f451b2c28",
+  "checkpoint_mapping_sha256": "2da72a23f9e25cdfa8973257d2d1aa491ed7a5a0623ccc665ff835e815ad7fc8",
+  "exact_R2_to_R4_fourteen_field_delta": true,
+  "original_R2_preserved": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-batch826-act-r2-EVR-history-prefix-correction-author\\act-real-zero-separate-leave-and-real-eight-damage-consumer-r2.json",
+    "sha256": "7ba343b9baf77fd57e13935c0e08ec025d5ec339e26747e92fc1e9a2ce2dff53"
+  },
+  "source_protocol_correction": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-batch826-act-r4-complete-source-hook-history-correction-author\\four-zero-wire-ten-complete-history-correction-QA.json",
+    "sha256": "f768cfb001dfc96a8d0831f98944b67ddb147884e66cb85e869f53a64d02c88c"
+  },
+  "independent_actual_R2_failure_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-batch826-act-r2-independent-actual-failure-and-source-oracle-review.json",
+    "sha256": "59e932bd6a6ddb8a0e6c694d2070e0ef01a5b455805e7f700e2340220781c5bd"
+  },
+  "all_other_input_bytes_independently_unchanged": true,
+  "diagnostic_only": false,
+  "qualification": false,
+  "fixture_saved": false,
+  "coverage_credit": false,
+  "native_attempted": false,
+  "confirmed_gameplay_bug": false,
+  "source_fix": false,
+  "passing_registry_approval": false,
+  "independent_actual_Saved_review_required": true,
+  "two_new_only_clean_replays_required": true,
+  "PHP_native_network_executed_by_reviewer": false,
+  "R_writes_by_reviewer": false,
+  "B787_denied_operation_untouched": true,
+  "independent_semantic_findings": [
+    {
+      "rules": [
+        "https://judge.fabtcg.com/cards/detail/4116/",
+        "https://legacy.fabtcg.com/en/resources/rules-and-policy-center/release-notes/super-slam/",
+        "https://rules.fabtcg.com/en/cr/08-keywords/ CR8.3.42"
+      ],
+      "finding": "Previously independently read printed/rules sources reused unchanged: BlueAct leave grants nextattack+4; Pleiades tap/remove are costs. Action-phase zero trigger rechecks0 on resolution and earns a separate leave trigger. Each receives four actual manual responses. Act gone leaves no eligible Aura for original optional Hero effect. Own cast/entry/startphase remain untested."
+    },
+    {
+      "code": [
+        "GameLogic343-348",
+        "SUPCards27-34"
+      ],
+      "finding": "The zero-counter semantic state is encoded[] by actual setter removal. R4 changes only four exact property strings, preserving the physical-zero/source8/topology/no-early-destruction checks."
+    },
+    {
+      "code": [
+        "WTRAbilities78-82",
+        "ARCAbilities162-171",
+        "DTDCards96-97",
+        "WTRCards19-25",
+        "SUPCards209"
+      ],
+      "finding": "Payment records EVR_ACTIVATED then DTD_HERO_USED, each amount1/uses1. Tap cost paid before priority. Other paid-hook predicates do not match this fixed no-listener fixture; original Instant Hero resolution adds no activation rows."
+    },
+    {
+      "code": [
+        "MONCards234-244",
+        "GameLogic775-799",
+        "EVRCards103-106",
+        "SEARuntime75-78",
+        "SEACards33-34",
+        "OMNCards6-11,15-41",
+        "SUPCards43-45,81-86"
+      ],
+      "finding": "Actual Blue Act movement to Graveyard appends EVR_GRAVEYARD then SEA_BLUE_GRAVE. OMN bookkeeping lives separately in omn[2][1], never turnEffects. Relevant other move/destroy hook predicates/listeners are absent. Exact controls6-9 array is four source-derived history rows and NO SUP_NEXT; controls10-15 add SUP_NEXT4 last only after leave resolves. Control15 mandatory target request precedes payment/CardPlayed; control16 consumes once into real Red WTR_POWER:4. No separate OMN-counter certificate is claimed."
+    },
+    {
+      "finding": "R2 input and failed result remain immutable; actual2input result stops at query280, not a gameplay/zero/leave/damage outcome. R3 stayed unapproved/unexecuted. R4 corrects incidental protocol encodings only; every41controls/4609queries, separate response windows, real Act6/Red5 lifecycle, power8/noGA/actual HP4=12 and full cleanup assertions are preserved byte-for-byte outside14fields."
+    }
+  ],
+  "source_only_held_cases": [
+    {
+      "card_id": "toby_jugs",
+      "group_id": "identity:toby_jugs",
+      "status": "SOURCE_ONLY_UNATTEMPTED_KNOWN_DEFENDED_WHEN_OPTIONAL_PAY_CONTRACT",
+      "classification": "KNOWN_FORMAL_DEFENDED_WHEN_BEFORE_OPTIONAL_PAY_CONTRACT",
+      "reason": "Actual SUP Defended/emitted macro reaches optional pay-one Modal and real pitch loop directly through OnDefended/RunSourceMacro, without a separately captured responseable Toby WHEN layer before payment. Exact known Trench/Stride/Clash formal Defended-WHEN contract; implemented pay/+2DEF/BladeBreak bodies are not absent.",
+      "author_note": {
+        "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-batch826-toby-known-defended-when-unattempted-note.json",
+        "sha256": "babcdf2737a91d42b74ded70d3f9d8eb26693ec7be0844eabac526d1843bf008"
+      },
+      "native_attempted": false,
+      "fixture_saved": false,
+      "coverage_credit": false,
+      "confirmed_new_issue": false,
+      "source_fix": false,
+      "native_case_approved": false,
+      "limits": "Toby formal Defended-WHEN/pay seam remains unattempted; no fallback/block-only/BladeBreak/new-bug or coverage credit."
+    }
+  ],
+  "provenance_note": "The historical R1/R2 preflight paragraphs and incomplete R2 Source approval remain preserved; their incidental-history encoding is superseded by this exact source-derived R4 decision and the explicit failure-review correction. No historical successful Native claim is introduced.",
+  "limits": [
+    "One exact normal Native recording attempt only. Passing Source review is not passing behavior or qualification. Recorder must save only after all correct assertions pass.",
+    "Independent Saved/raw5/initialANDfinal48manual-controls/all41actual-envelopes4609queries and two new-only clean replays remain mandatory before registration.",
+    "Blue pre-existing one-counter/leave/real consumer branch only; no own cast/entry/startphase/replenishment/other listeners/suppression/control changes/general virtual-layer deletion ordering/hero Crowd/full-card/pitch-sibling certification.",
+    "Edge f18 remains unapproved/unexecuted and must receive the corrected encoding independently before a fresh Source gate. No new rules-web fetch or legacy re-review in this delta gate."
+  ]
+}

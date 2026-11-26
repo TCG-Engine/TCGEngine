@@ -1,0 +1,62 @@
+{
+  "status": "UNATTEMPTED_NOT_NATIVE_CONFIRMED_SOURCE_OBSERVATIONS_ONLY",
+  "created_utc": "2026-11-03T07:34:16.896271+00:00",
+  "author": "/root/nov2_metadata_review",
+  "runtime_sha256": "0d877de49c131f29c152706e14bba3368630df61c59ef475c87a84f20b6e1a66",
+  "catalog_sha256": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+  "group_map_sha256": "2cbc2b4f5309639a6dfc0175e51270d8033da2225db9c7587b8b386ee49a6d33",
+  "source_sha256": {
+    "FaBSim/Custom/WTRAbilities.php": "f33a915de3a95208a7d29b7acb5dbbc8c5b0f4f2d56ace281c3c9c7b8bbc5448",
+    "FaBSim/Custom/ARCAbilities.php": "5330205cf8b98a1ba93cb15aa42f67c76d01dac3cb53b206669e7d00b0e9daca",
+    "FaBSim/Custom/GameLogic.php": "ac90c758c64c079d3dde209920d1a01e4b937e03562a0f4f69fd5e88c1a92ff8",
+    "DevTools/FaB/wtr_abilities.json": "1a1f6021e29d88fddc5ab6d8e656e55929e0fd8e708dd0ee5ad459b8b0b7a49b",
+    "FaBSim/GeneratedCode/GeneratedMacroCode.php": "6a318ca63856aff98427ea1f9ecbdbcdf677e67f0f476895fac863926e9c52a6"
+  },
+  "candidates": [
+    {
+      "card_id": "hope_merchants_hood",
+      "group_id": "identity:hope_merchants_hood",
+      "status": "UNATTEMPTED_NOT_NATIVE_CONFIRMED",
+      "fixture_saved": false,
+      "native_inputs": 0,
+      "bug_count_credit": false,
+      "coverage_credit": false,
+      "source_paths": [
+        "FaBSim/Custom/WTRAbilities.php",
+        "FaBSim/Custom/ARCAbilities.php",
+        "FaBSim/Custom/GameLogic.php",
+        "DevTools/FaB/wtr_abilities.json",
+        "FaBSim/GeneratedCode/GeneratedMacroCode.php"
+      ],
+      "anchors": [
+        "WTRAbilitySpec Instant0/destroy row",
+        "WTRAnnounceAbility Params returnWindow/returnCombatStep/attackUID but no arcSpec",
+        "FaBARCAbilitySpecs does not include or merge the WTR legacy row",
+        "GameLogic FaBManagedVirtualResolutionClass ARC_ABILITY requires Params.arcSpec; DoResolveCard legacy ABILITY marks removed before FaBWTRResolveAbility",
+        "wtr_abilities Hope ResolveAbility awaits MZMultiChoose then moves selected Hand to Deck, shuffles and draws count"
+      ],
+      "observation": "Potential legacy non-ARC virtual-source lifetime gap while canonical hand choice awaits; source read only, not a demonstrated runtime failure. Correctfutureprobe must retain virtual source through choices and preserve actual ownedHand\u2192Deck/shuffle/draw semantics.",
+      "fixture_design_limitation": "A nontrivial shuffle has strong entropy and makes exact final draw/order fixture expectations difficult; no seeded history/RNG replacement or incorrect source-lifetime oracle was authored. Candidate deferred without a packet/native attempt; this is a test-design limitation, not an engine defect."
+    },
+    {
+      "card_id": "ironsong_determination_yellow",
+      "group_id": "identity:ironsong_determination_yellow",
+      "status": "UNATTEMPTED_NOT_NATIVE_CONFIRMED",
+      "fixture_saved": false,
+      "native_inputs": 0,
+      "bug_count_credit": false,
+      "coverage_credit": false,
+      "source_paths": [
+        "DevTools/FaB/wtr_abilities.json",
+        "FaBSim/GeneratedCode/GeneratedMacroCode.php",
+        "FaBSim/Custom/GameLogic.php"
+      ],
+      "anchors": [
+        "Printed Target weapon gains +1power and dominate until end of turn; Go again",
+        "Canonical ResolveCard constructs Weapons chooser and awaits MZChoose there, then tags selected weapon WTR_POWER1/DOMINATE"
+      ],
+      "observation": "Printed target must be declared before public priority under activation/play declaration rules; current canonical chooser occurs during ResolveCard instead. Related existing035 declared-target caller concern, not a new confirmed bug/family or coverage. No input/probe/native attempt or source change."
+    }
+  ],
+  "limits": "Only two previously inspected deferred candidates; no fresh audit/native/PHP/R/sourcefix/generation/service work. Root may merge these observations into existing source-only holds; no review/native certification implied."
+}

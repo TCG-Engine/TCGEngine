@@ -5,9 +5,19 @@ function FaBOUTAdd(int $p,string $key,int $n=1,array $data=[]): void {FaBWTRAddE
 function FaBOUTClear(int $p,string $key): void {FaBWTRSetEffects($p,array_values(array_filter(FaBWTREffects($p),fn($e)=>($e['type']??'')!=='OUT_'.$key)));}
 function FaBOUTSource(int $uid): string {return FaBFindUID($uid)['mzID']??'';}
 function FaBOUTHero(int $p,string $id): bool {return FaBMONHero($p,$id);}
+// Versioned name tags must be safe in space-delimited rows and ~-delimited TurnEffects.
+function FaBOUTNameTag(string $name): string {return 'OUT_NAME64:'.rtrim(strtr(base64_encode($name),'+/','-_'),'=');}
+function FaBOUTNameFromTag(string $tag): ?string {
+ if(str_starts_with($tag,'OUT_NAME:'))return substr($tag,9);
+ if(!str_starts_with($tag,'OUT_NAME64:'))return null;
+ $encoded=substr($tag,11);if($encoded===''||!preg_match('/^[A-Za-z0-9_-]+$/D',$encoded)||strlen($encoded)%4===1)return null;
+ $name=base64_decode(strtr($encoded,'-_','+/').str_repeat('=',(4-strlen($encoded)%4)%4),true);
+ if($name===false||preg_match('//u',$name)!==1||FaBOUTNameTag($name)!==$tag)return null;
+ return $name;
+}
 function FaBOUTNames(object $o): array {
  $owner=intval($o->Owner??0)?:intval(FaBFindUID(intval($o->UniqueID??0))['player']??$o->Controller??0);if($owner&&FaBOUTCount($owner,'AMNESIA'))return [];
- $names=(array)FaBARCCard(intval($o->UniqueID??0),'penNames',[(string)CardName($o->CardID)]);foreach((array)($o->TurnEffects??[]) as $t)if(str_starts_with($t,'OUT_NAME:'))$names[]=substr($t,9);return array_unique($names);
+ $names=(array)FaBARCCard(intval($o->UniqueID??0),'penNames',[(string)CardName($o->CardID)]);foreach((array)($o->TurnEffects??[]) as $t){$name=FaBOUTNameFromTag($t);if($name!==null)$names[]=$name;}return array_unique($names);
 }
 function FaBOUTNamed(object $o,string $name): bool {return in_array($name,FaBOUTNames($o),true);}
 function FaBOUTCombo(int $p,string $kind,?object $o=null): bool {
@@ -32,7 +42,7 @@ function FaBOUTPlayed(int $p,object $o,string $from): void {
  if(FaBHasType($o,'Attack Reaction')||FaBHasType($o,'Defense Reaction'))FaBOUTReactionPlayed($p,FaBHasType($o,'Attack Reaction'));
  if(FaBWTRIsAttackAction($o)||FaBWTRIsWeapon($o)){
   $a=FaBFindUID(intval($s['attackUID']));$names=$a&&intval($s['attacker'])===$p?FaBOUTNames($a['object']):($s['outPreviousNames'][$p]??[]);FaBARCSetCard($uid,'outPreviousNames',$names);
-  $left=[];foreach(FaBWTREffects($p) as $e){if(($e['type']??'')==='OUT_NEXT'&&FaBOUTNextMatches($o,$from,$e['kind'])){if($e['amount'])FaBWTRTag($o,'WTR_POWER:'.$e['amount']);if($e['tag']!=='')FaBWTRTag($o,$e['tag']);}elseif(($e['type']??'')==='OUT_NEXT_NAME'&&FaBWTRIsAttackAction($o))FaBWTRTag($o,'OUT_NAME:'.$e['name']);else $left[]=$e;}FaBWTRSetEffects($p,$left);
+  $left=[];foreach(FaBWTREffects($p) as $e){if(($e['type']??'')==='OUT_NEXT'&&FaBOUTNextMatches($o,$from,$e['kind'])){if($e['amount'])FaBWTRTag($o,'WTR_POWER:'.$e['amount']);if($e['tag']!=='')FaBWTRTag($o,$e['tag']);}elseif(($e['type']??'')==='OUT_NEXT_NAME'&&FaBWTRIsAttackAction($o))FaBWTRTag($o,FaBOUTNameTag((string)$e['name']));else $left[]=$e;}FaBWTRSetEffects($p,$left);
   if(FaBHasKeyword($o,'Stealth')){FaBOUTAdd($p,'STEALTH');if(FaBOUTCount($p,'STEALTH')===1&&FaBOUTHero($p,'arakni_solitary_confinement'))FaBWTRTag($o,'GO_AGAIN');}
   if($b==='bonds_of_ancestry'&&FaBOUTCombo($p,$b,$o))FaBWTRTag($o,'GO_AGAIN');
   if($b==='prowl')FaBOUTNext($p,'stealth',1,'',true);
@@ -89,8 +99,64 @@ function FaBOUTDefense(int $p,object $o): int {
 }
 function FaBOUTDaggerHit(int $p,object $o,int $victim,int $damage): void {
  if(!FaBHasType($o,'Dagger')||$damage<=0)return;$s=FaBGetState();$s['outDaggerDamage'][$p]=intval($s['outDaggerDamage'][$p]??0)+$damage;$s['outDaggerHits'][$p]=intval($s['outDaggerHits'][$p]??0)+1;FaBSetState($s);
- $key=['nerve_scalpel'=>'REACTION','orbitoclast'=>'NAA','scale_peeler'=>'EQUIPMENT'][$o->CardID]??'';if($key!=='')FaBOUTAdd($victim,'DAGGER_'.$key);
+ $key=['nerve_scalpel'=>'REACTION','orbitoclast'=>'NAA','scale_peeler'=>'EQUIPMENT'][$o->CardID]??'';
+ if($key==='EQUIPMENT')FaBOUTQueueScalePeelerHit($p,$o,$victim,$damage);elseif($key!=='')FaBOUTAdd($victim,'DAGGER_'.$key);
  for($i=0;$i<FaBOUTCount($p,'SHIFTING');++$i)FaBRunSourceMacro('Hit',$p,'mask_of_shifting_perspectives',['mzID'=>FaBOUTSource(intval($o->UniqueID))]);
+}
+/** Capture the functional Scale Peeler hit, not a modifier before responses. */
+function FaBOUTQueueScalePeelerHit(int $p,object $hit,int $victim,int $damage): void {
+ $uid=intval($hit->UniqueID??0);
+ if($damage<=0||!FaBSeatIsLive($p)||!FaBSeatIsLive($victim)||$victim===$p||$uid<1)return;
+ $s=FaBGetState();$source=FaBHNTWeaponUID($hit);$hero=FaBUPRHeroUID($victim);
+ $ordinal=intval($s['daggerHits']??0);$turn=intval(GetTurnNumber());
+ if(($hit->CardID??'')!=='scale_peeler'||!FaBHasType($hit,'Dagger')
+  ||intval($hit->Controller??0)!==$p||HasNoAbilities($hit)
+  ||$uid<1||$source<1||$hero<1||$ordinal<1||$turn<1)return;
+ $found=FaBFindUID($uid);if($found===null||$found['object']!==$hit)return;
+ $link=intval($hit->ChainLink??0);$target=$s['attackTarget']??null;
+ $proxySource=intval(FaBObjectCounters($hit)['WEAPON_UID']??FaBObjectCounters($hit)['MON_SOURCE_UID']??0);
+ $normal=$proxySource>0&&$source===$proxySource&&$source!==$uid
+  &&$found['zone']==='CombatChain'&&($hit->Role??'')==='ATTACK'&&$link>0&&!FaBCRUHitSuppressed($hit)
+  &&!empty($s['combatOpen'])&&intval($s['attacker']??0)===$p&&intval($s['attackUID']??0)===$uid
+  &&intval($s['chainLink']??0)===$link&&intval($s['defender']??0)===$victim
+  &&is_array($target)&&($target['type']??'')==='HERO'&&intval($target['player']??0)===$victim
+  &&intval($target['uid']??0)===$hero;
+ // Actual Throw/PseudoHit uses the physical controlled dagger, not a proxy or current target.
+ $physical=$uid===$source&&in_array($found['mzID'],explode('&',FaBArakniDaggers($p)),true);
+ if(!$normal&&!$physical)return;
+ $kind=$normal?'attack':'physical';$attackUID=$normal?$uid:0;$link=$normal?$link:0;
+ $old=$s['outScalePeelerHit']??null;
+ if(is_array($old)&&intval($old['sourceUID']??0)===$source&&intval($old['hitUID']??0)===$uid
+  &&intval($old['heroUID']??0)===$hero&&intval($old['ordinal']??0)===$ordinal
+  &&intval($old['turn']??0)===$turn)return;
+ FaBROSQueue($p,'scale_peeler',$source,['rosEvent'=>'outScalePeelerHit','outScaleVictim'=>$victim,
+  'outScaleHeroUID'=>$hero,'outScaleHitUID'=>$uid,'outScaleHitKind'=>$kind,
+  'outScaleAttackUID'=>$attackUID,'outScaleLink'=>$link,'outScaleHitOrdinal'=>$ordinal,'outScaleTurn'=>$turn]);
+ $layer=FaBStackTop();if(!$layer||($layer->Kind??'')!=='ABILITY'||($layer->CardID??'')!=='scale_peeler'
+  ||intval($layer->Controller??0)!==$p||intval($layer->SourceUniqueID??0)!==$source
+  ||intval($layer->UniqueID??0)<1||($layer->Params['rosEvent']??'')!=='outScalePeelerHit')return;
+ $s=FaBGetState();$s['outScalePeelerHit']=['sourceUID'=>$source,'hitUID'=>$uid,'heroUID'=>$hero,
+  'ordinal'=>$ordinal,'turn'=>$turn,'layer'=>intval($layer->UniqueID)];FaBSetState($s);
+}
+function FaBOUTResolveScalePeelerHit(int $p,object $layer): void {
+ $params=is_array($layer->Params??null)?$layer->Params:[];$victim=$params['outScaleVictim']??null;
+ if(($layer->Kind??'')!=='ABILITY'||($layer->CardID??'')!=='scale_peeler'
+  ||intval($layer->Controller??0)!==$p||!FaBSeatIsLive($p)||intval($layer->UniqueID??0)<1
+  ||intval($layer->SourceUniqueID??0)<1||($params['rosTrigger']??false)!==true
+  ||($params['rosEvent']??'')!=='outScalePeelerHit'||!is_int($victim)||$victim===$p||!FaBSeatIsLive($victim)
+  ||!is_int($params['outScaleHeroUID']??null)||$params['outScaleHeroUID']<1
+  ||!is_int($params['outScaleHitUID']??null)||$params['outScaleHitUID']<1
+  ||!in_array($params['outScaleHitKind']??'', ['attack','physical'],true)
+  ||!is_int($params['outScaleAttackUID']??null)||$params['outScaleAttackUID']<0
+  ||!is_int($params['outScaleLink']??null)||$params['outScaleLink']<0
+  ||($params['outScaleHitKind']==='attack'&&($params['outScaleAttackUID']!==$params['outScaleHitUID']||$params['outScaleLink']<1))
+  ||($params['outScaleHitKind']==='physical'&&($params['outScaleHitUID']!==intval($layer->SourceUniqueID)||$params['outScaleAttackUID']!==0||$params['outScaleLink']!==0))
+  ||!is_int($params['outScaleHitOrdinal']??null)||$params['outScaleHitOrdinal']<1
+  ||!is_int($params['outScaleTurn']??null)||$params['outScaleTurn']<1||!empty($params['outScaleResolved']))return;
+ $params['outScaleResolved']=true;$layer->Params=$params;
+ // Source, attack, target selection and current link can all change after this ability was earned.
+ $previous=$GLOBALS['fabEffectController']??0;$GLOBALS['fabEffectController']=$p;
+ try{FaBOUTAdd($victim,'DAGGER_EQUIPMENT');}finally{$GLOBALS['fabEffectController']=$previous;}
 }
 function FaBOUTDefendGroup(int $p,array $uids): void {
  foreach(['REACTION','NAA','EQUIPMENT'] as $kind){$n=FaBOUTCount($p,'DAGGER_'.$kind);if(!$n)continue;$used=false;foreach($uids as $uid){$f=FaBFindUID(intval($uid));if(!$f||$f['player']!==$p)continue;$o=$f['object'];$match=match($kind){'REACTION'=>FaBHasType($o,'Attack Reaction')||FaBHasType($o,'Defense Reaction'),'NAA'=>FaBHasType($o,'Action')&&!FaBWTRIsAttackAction($o),'EQUIPMENT'=>FaBHasType($o,'Equipment')};if($match){FaBWTRTag($o,'DYN_DEFENSE:'.(-$n));$used=true;}}if($used)FaBOUTClear($p,'DAGGER_'.$kind);}
@@ -116,7 +182,7 @@ function FaBOUTSpikePit(int $p): void {$victim=intval(FaBGetState()['attacker'])
 function FaBOUTCollapse(int $p): void {$victim=intval(FaBGetState()['attacker']);$refs=FaBChoiceRefs($victim,'Hand');foreach($refs as $r)FaBDiscardChoice($victim,$r);DoDrawCard($victim,max(0,count($refs)-1));}
 function FaBOUTPitch(int $p,string $id): void {if($id==='plague_hive_yellow')foreach(FaBOpponents($p) as $victim)FaBOUTDisease($victim,(string)EngineRandomInt(0,2));}
 function FaBOUTLongEffect(int $source,int $victim,string $key,int $n=1,bool $end=false): void {FaBOUTAdd($victim,$key,$n,[$end?'expiresAfterTurnOf':'expiresAtStartOf'=>$end?$victim:$source]);}
-function FaBOUTNameCard(int $uid,string $name): void {$f=FaBFindUID($uid);if($f&&FaBOUTNames($f['object']))FaBWTRTag($f['object'],'OUT_NAME:'.str_replace('_',' ',$name));}
+function FaBOUTNameCard(int $uid,string $name): void {$f=FaBFindUID($uid);if($f&&FaBOUTNames($f['object']))FaBWTRTag($f['object'],FaBOUTNameTag(str_replace('_',' ',$name)));}
 function FaBOUTStart(int $p): void {foreach(FaBChoiceRefs($p,'Graveyard',['base'=>'redback_shroud']) as $r)FaBRunSourceMacro('StartTurn',$p,'redback_shroud',['mzID'=>$r]);}
 function FaBOUTClose(): void {
  $s=FaBGetState();$s['outDaggerDamage']=[];$s['outDaggerHits']=[];$s['outPreviousNames']=[];$s['outReactions']=[];$s['outAnyReactions']=[];FaBSetState($s);

@@ -1,0 +1,7 @@
+{
+    "name": "Aftershock / no Seismic history, four resources paid, no Surge created",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-24T10:07:59+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "FOUR_REAL_MANUAL_UPF_NATURAL_YOUNGBRAVO20_THREEDORI20. NoSeismicSurgeArena/history/effectflags/earliercardplay; didNOTcontrolearlierSurgethisturn. InterveningattackIFfalse/noearnedSeismiccreationWHEN. Printedcost4actualBlueCritical6pitch3thenRedCritical7pitch1; firstBlue3insufficientremainsPITCH/R3/AP1, secondcompletes4/R0/AP0. Actualbase8(nofakeSeismicdiscount/powerbuff), realopponentHandSharpenSteelBlue8andBlue9NAAeach3defenseaccepted/nativeRoleDEFENSEFromZoneHand/total6, actual2HeroDamageHP18. NoSurge/otherTokens/allArena0/UID9RNG0; noBravoHeroactivation/Crush/wager/Clash. Fullcloseprimary5GY1/fund6+7Pitch2/realdefenders8+9GY4/noHand/AP0R0/StackDQCCquiet. Onlyno-historyconditional/basefourpayment/tworealblocks/damage/noSurgeguard; positivepriorSeismic/discount/creationWHENtiming/Hero/support/siblings/fullcarduncredited. Sources: FaBSim/GeneratedCode/cardArrayCache.json#aftershock_red FaBSim/GeneratedCode/GeneratedMacroCode.php FaBSim/Custom/GameLogic.php FaBSim/Custom/EVRCards.php FaBSim/Custom/ARCCards.php FaBSim/Custom/WTRCards.php FaBSim/Custom/MPGCards.php"
+}

@@ -1,0 +1,7 @@
+{
+    "name": "Luminaris Celestial Fury / generic attack is not a legal ability target",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-25T06:22:25+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "LegalPrism20/manual4, realWoundingRed5cost0attackHero4/AP0\u2192allfourresponsesCC5power4/noGA. ActualLuminaris7Weaponsready/counters[] andBlue6availablepitch3coverInstantability2 atvalidATTACKpriority1. AttackisneitherAngel norHerald, so nativeabilityclickrejects withsameweapon/counters/HandBlue/UID7/R0/AP0/noABI/targetDQ/GA. Fullmanualcombatactual4damageHP16 thenownattack5GY, Blue6Hand/Scepter7ready/AP0/R0/otherHP20/noawait/refund. Rejection-onlyabilitytargetguard; positiveGA/targettiming/onceuseaftervalidactivation/othercontrollersuncredited. Sources: FaBSim/GeneratedCode/cardArrayCache.json#luminaris_celestial_fury FaBSim/Custom/DTDCards.php#FaBDTDAbilityLegal FaBSim/Custom/ARCAbilities.php#FaBARCAbilityActions FaBSim/Custom/WTRCards.php#FaBWTRCanActivate"
+}

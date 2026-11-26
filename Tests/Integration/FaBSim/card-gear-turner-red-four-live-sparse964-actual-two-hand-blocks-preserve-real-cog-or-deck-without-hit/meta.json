@@ -1,0 +1,7 @@
+{
+    "name": "Gear Turner / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T22:12:56+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "When this hits, you may search your deck for a cog, put it into the arena, then shuffle. LegalDash20/actualBlue6paysprinted1/3/2/R2/0/1/AP0, twoHandAAdef6fullyblock5or6, 0HP/nohit/Stack0/ownedsourceandblockersGY/all4manual. RealeligibleDeckCog9retainedorArenaCog9sameStatus/STEAM2/owner/controller, nosearch/untap/steamaddition/newCog. Markerpreexistingfixture, notplayedentryorownershiptest. NooptionalInstantactivated. Sources: FaBSim/GeneratedCode/cardArrayCache.json#gear_turner_red"
+}

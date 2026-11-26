@@ -1,0 +1,7 @@
+{
+    "name": "Rest Before Battle / reject no weapon history then actual weapon hit enables play",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-26T00:30:57+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "RestBeforeBattleprinted0cost has weaponattackthisturn playrestriction. StartingAP1/R0 and noattack/effect/historyseed: actualHand7clickmustretainHand/ACTION/AP1. RealpriorplayedTimesnap5ActiondestructionABI9givesAP2, Energy6InstantdestructionABI10givesR2. LegalyoungBoltynusesGenericTalishar8weapon2cost: formaladjacentHero4target, realAPspent\u2192AP1/R0, sourceproxy11 has4power, actual4damage\u2192HP16 andfullClose; nocharge/noattackactiondefenders meansnoBoltynpower/GA. Onlythen Rest7zero-costActionspendsremainingAP\u21920 andnormallyresolvesArena. All4live/manual response cohorts, physicalGY5/6/Arena7/Weapon8/Handempty/quietStackandframes. No start-turn draw or supportidentitycredit. Sources:"
+}

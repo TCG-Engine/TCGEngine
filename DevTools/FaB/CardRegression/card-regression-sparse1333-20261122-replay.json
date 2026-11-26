@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-courageous-steelhand-red-four-live-sparse1333-real-uncharged-reaction-does-not-gain-three-power",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-courageous-steelhand-red-four-live-sparse1333-real-uncharged-reaction-does-not-gain-three-power",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1333-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1333-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "296646a363f36cce32837820d147695f8457cd1f5b2fef2897ca72c2cf2d42de",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "b87aa7fc5186ba61f201645167d51e026d3c01582666a54a56791dbded70f5e5",
+        "actions.json": "04ec7b0d1f667a55258d123e3e9302e3c2ae3142df18e909a451d2081749768d",
+        "assertions.json": "ea7dc739f765e6ac6aa71f12c07ca93ab91bf9a6a3143b9261e888db373f8739",
+        "expected_final_gamestate.txt": "7eb3146695576b7a37c256b8f7d8e48f622400da0f8c89e1eeb6622b969722db",
+        "meta.json": "069ee2427d6e5c91fcd361692f7e7788f7d7abfab389c72c428ddecbc4483d54"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

@@ -1,0 +1,155 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-23T00:11:35.066348+00:00",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse996-20261122.json",
+  "source_spec_sha256": "44fa64476464f21465fccb8028e062ec7969b4d2e48738ca76192b4322ef7178",
+  "new_scenarios": 4,
+  "new_groups": 4,
+  "new_primary_ids": 4,
+  "actions": 144,
+  "native_assertions": 1228,
+  "manual_passes": 128,
+  "totals": {
+    "saved_registered_scenarios": 4706,
+    "duels": 3075,
+    "four_live": 1631,
+    "recorded_primary_ids": 1854,
+    "identity_denominator": 5196,
+    "recorded_groups": 1728,
+    "group_denominator": 3324,
+    "four_live_groups": 1620,
+    "phase_qualified_scenarios_at_actual_contexts": 1343,
+    "phase_qualified_unique_groups": 1333,
+    "creation_replay_passes": 2085,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 504,
+  "scenarios": [
+    {
+      "card_id": "bloodrot_trap_red",
+      "group_id": "identity:bloodrot_trap_red",
+      "scenario_id": "card-bloodrot-trap-red-four-live-sparse996-no-attacker-reaction-history",
+      "effect_branches": [
+        "actual_defender_reaction_does_not_satisfy_attacker_reaction_history"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-bloodrot-trap-red-four-live-sparse996-no-attacker-reaction-history",
+      "source_spec": "card-regression-sparse996-20261122.json",
+      "source_spec_sha256": "44fa64476464f21465fccb8028e062ec7969b4d2e48738ca76192b4322ef7178",
+      "review_evidence": "review-evidence/sparse996-20261122-qualified-saved.json",
+      "review_evidence_sha256": "d51a3e522c8d399da617e19c8db7f8ebe87fde45e0b9ce7f49d37b7918d2a6c1",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse996-20261122-replay.json",
+          "sha256": "79eee752c86737b6587463bc3437af9bf4e131eb4fe581bec86be749a49f9d4d",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "hunted_or_hunter_red",
+      "group_id": "identity:hunted_or_hunter_red",
+      "scenario_id": "card-hunted-or-hunter-red-four-live-sparse996-no-attacker-reaction-history",
+      "effect_branches": [
+        "actual_defender_reaction_does_not_satisfy_attacker_reaction_history"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-hunted-or-hunter-red-four-live-sparse996-no-attacker-reaction-history",
+      "source_spec": "card-regression-sparse996-20261122.json",
+      "source_spec_sha256": "44fa64476464f21465fccb8028e062ec7969b4d2e48738ca76192b4322ef7178",
+      "review_evidence": "review-evidence/sparse996-20261122-qualified-saved.json",
+      "review_evidence_sha256": "d51a3e522c8d399da617e19c8db7f8ebe87fde45e0b9ce7f49d37b7918d2a6c1",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse996-20261122-replay.json",
+          "sha256": "79eee752c86737b6587463bc3437af9bf4e131eb4fe581bec86be749a49f9d4d",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "pendulum_trap_yellow",
+      "group_id": "identity:pendulum_trap_yellow",
+      "scenario_id": "card-pendulum-trap-yellow-four-live-sparse996-no-attacker-reaction-history",
+      "effect_branches": [
+        "actual_defender_reaction_does_not_satisfy_attacker_reaction_history"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-pendulum-trap-yellow-four-live-sparse996-no-attacker-reaction-history",
+      "source_spec": "card-regression-sparse996-20261122.json",
+      "source_spec_sha256": "44fa64476464f21465fccb8028e062ec7969b4d2e48738ca76192b4322ef7178",
+      "review_evidence": "review-evidence/sparse996-20261122-qualified-saved.json",
+      "review_evidence_sha256": "d51a3e522c8d399da617e19c8db7f8ebe87fde45e0b9ce7f49d37b7918d2a6c1",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse996-20261122-replay.json",
+          "sha256": "79eee752c86737b6587463bc3437af9bf4e131eb4fe581bec86be749a49f9d4d",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "spike_pit_trap_blue",
+      "group_id": "identity:spike_pit_trap_blue",
+      "scenario_id": "card-spike-pit-trap-blue-four-live-sparse996-no-attacker-reaction-history",
+      "effect_branches": [
+        "actual_defender_reaction_does_not_satisfy_attacker_reaction_history"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-spike-pit-trap-blue-four-live-sparse996-no-attacker-reaction-history",
+      "source_spec": "card-regression-sparse996-20261122.json",
+      "source_spec_sha256": "44fa64476464f21465fccb8028e062ec7969b4d2e48738ca76192b4322ef7178",
+      "review_evidence": "review-evidence/sparse996-20261122-qualified-saved.json",
+      "review_evidence_sha256": "d51a3e522c8d399da617e19c8db7f8ebe87fde45e0b9ce7f49d37b7918d2a6c1",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse996-20261122-replay.json",
+          "sha256": "79eee752c86737b6587463bc3437af9bf4e131eb4fe581bec86be749a49f9d4d",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

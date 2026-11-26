@@ -1,0 +1,7 @@
+{
+    "name": "burn_them_all_red / four live distinctive effect",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-20T19:34:21+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Source-specific native control; one prior legal UPR_PROTECT effect for physical Dragon6. P2 stays20; P3 falls19 and P4 ends18. Wrong Aura5 packet source would fail P2 health. Declared source/owners and unprevented attacks unchanged. Sources: https://judge.fabtcg.com/cards/detail/1494/ https://rules.fabtcg.com/en/cr/06-effects/ https://rules.fabtcg.com/en/cr/07-combat/ https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/UPR005.webp https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/DRO001-RF.webp https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/DRO003.webp https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/DRO004.webp"
+}

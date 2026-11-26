@@ -1,0 +1,7 @@
+{
+    "name": "Rites of Replenishment / both graveyard recovery prerequisites false",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-24T05:17:03+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "FOUR_MANUAL_NATURAL_YOUNG_BRIAR20_VS_DROMAI20_REAL_ASHWING7_FALSE_PREREQUISITE_ONLY. PrimaryRites5Hand/actualGenericYellow6pitch2paysnormal2/R0/AP0; noEarthHandreveal/noarcanehistoryseed. RealeligibleNAA NimblismBlue10andAAWoundingBlue11alreadyGY1frompriorlawfulplay, retainedineachphase. BothWHENprerequisitesfalse: noarcanedamagethisturnandunfused, sonoearnedrecoverytriggers. Actual6physicaldamagekillsAlly7/noHeroHPdamage/Briarproducer; eligibleGYcontrolsnotbottomed/Deck1empty. Finalprimary5appendsGYindex2behind10/11; actual6Pitch1/opponentBlue8Hand4/ArsenalRed9retained/noextraUIDRNG/APR0/StackDQsCCclean. Noarcane-positive/fused-positive/recoverychoice/secondary/Briarproducercredit. Nootherpitch/support/fullcardcredit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#rites_of_replenishment_red FaBSim/GeneratedCode/GeneratedMacroCode.php FaBSim/Custom/ELECards.php FaBSim/Custom/ELEAbilities.php FaBSim/Custom/FaiCards.php FaBSim/Custom/UPRCards.php FaBSim/Custom/GameLogic.php"
+}

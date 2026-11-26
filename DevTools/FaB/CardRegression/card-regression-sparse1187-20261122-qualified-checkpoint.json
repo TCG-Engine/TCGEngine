@@ -1,0 +1,155 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-23T14:08:50.116796+00:00",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1187-20261122.json",
+  "source_spec_sha256": "2b235bbb7faabed5c3f62bcbb874745425fe83108151190e659d47842b9437c0",
+  "new_scenarios": 4,
+  "new_groups": 4,
+  "new_primary_ids": 4,
+  "actions": 40,
+  "native_assertions": 1364,
+  "manual_passes": 28,
+  "totals": {
+    "saved_registered_scenarios": 5080,
+    "duels": 3075,
+    "four_live": 2005,
+    "recorded_primary_ids": 2228,
+    "identity_denominator": 5196,
+    "recorded_groups": 2102,
+    "group_denominator": 3324,
+    "four_live_groups": 1994,
+    "phase_qualified_scenarios_at_actual_contexts": 1717,
+    "phase_qualified_unique_groups": 1707,
+    "creation_replay_passes": 2459,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 878,
+  "scenarios": [
+    {
+      "card_id": "vaporize_shock_yellow",
+      "group_id": "identity:vaporize_shock_yellow",
+      "scenario_id": "card-vaporize-shock-yellow-four-live-sparse1187-real-vaporize-destroys-cost-zero-permanent-left-half-not-shock",
+      "effect_branches": [
+        "real_zero_arcane_vaporize_only_destroys_real_cost_zero_permanent_not_empty_effect_or_shock"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-vaporize-shock-yellow-four-live-sparse1187-real-vaporize-destroys-cost-zero-permanent-left-half-not-shock",
+      "source_spec": "card-regression-sparse1187-20261122.json",
+      "source_spec_sha256": "2b235bbb7faabed5c3f62bcbb874745425fe83108151190e659d47842b9437c0",
+      "review_evidence": "review-evidence/sparse1187-20261122-qualified-saved.json",
+      "review_evidence_sha256": "ed3d2c95f2d0e80e354e07654aa0af6f94f022c747d7949cb7a755c442a7cd48",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1187-20261122-replay.json",
+          "sha256": "6213f2f08ef22b125a566ee9db424976e833b1dfad5333441316b1c329904b9e",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "sigil_of_deadwood_blue",
+      "group_id": "identity:sigil_of_deadwood_blue",
+      "scenario_id": "card-sigil-of-deadwood-blue-four-live-sparse1187-real-vaporize-destroys-cost-zero-permanent-separate-leave-reward",
+      "effect_branches": [
+        "real_zero_arcane_vaporize_only_destroys_real_cost_zero_permanent_then_separate_owned_leave_reward"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-sigil-of-deadwood-blue-four-live-sparse1187-real-vaporize-destroys-cost-zero-permanent-separate-leave-reward",
+      "source_spec": "card-regression-sparse1187-20261122.json",
+      "source_spec_sha256": "2b235bbb7faabed5c3f62bcbb874745425fe83108151190e659d47842b9437c0",
+      "review_evidence": "review-evidence/sparse1187-20261122-qualified-saved.json",
+      "review_evidence_sha256": "ed3d2c95f2d0e80e354e07654aa0af6f94f022c747d7949cb7a755c442a7cd48",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1187-20261122-replay.json",
+          "sha256": "6213f2f08ef22b125a566ee9db424976e833b1dfad5333441316b1c329904b9e",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "sigil_of_earth_blue",
+      "group_id": "identity:sigil_of_earth_blue",
+      "scenario_id": "card-sigil-of-earth-blue-four-live-sparse1187-real-vaporize-destroys-cost-zero-permanent-separate-leave-reward",
+      "effect_branches": [
+        "real_zero_arcane_vaporize_only_destroys_real_cost_zero_permanent_then_separate_owned_leave_reward"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-sigil-of-earth-blue-four-live-sparse1187-real-vaporize-destroys-cost-zero-permanent-separate-leave-reward",
+      "source_spec": "card-regression-sparse1187-20261122.json",
+      "source_spec_sha256": "2b235bbb7faabed5c3f62bcbb874745425fe83108151190e659d47842b9437c0",
+      "review_evidence": "review-evidence/sparse1187-20261122-qualified-saved.json",
+      "review_evidence_sha256": "ed3d2c95f2d0e80e354e07654aa0af6f94f022c747d7949cb7a755c442a7cd48",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1187-20261122-replay.json",
+          "sha256": "6213f2f08ef22b125a566ee9db424976e833b1dfad5333441316b1c329904b9e",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "sigil_of_lightning_blue",
+      "group_id": "identity:sigil_of_lightning_blue",
+      "scenario_id": "card-sigil-of-lightning-blue-four-live-sparse1187-real-vaporize-destroys-cost-zero-permanent-separate-leave-reward",
+      "effect_branches": [
+        "real_zero_arcane_vaporize_only_destroys_real_cost_zero_permanent_then_separate_owned_leave_reward"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-sigil-of-lightning-blue-four-live-sparse1187-real-vaporize-destroys-cost-zero-permanent-separate-leave-reward",
+      "source_spec": "card-regression-sparse1187-20261122.json",
+      "source_spec_sha256": "2b235bbb7faabed5c3f62bcbb874745425fe83108151190e659d47842b9437c0",
+      "review_evidence": "review-evidence/sparse1187-20261122-qualified-saved.json",
+      "review_evidence_sha256": "ed3d2c95f2d0e80e354e07654aa0af6f94f022c747d7949cb7a755c442a7cd48",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1187-20261122-replay.json",
+          "sha256": "6213f2f08ef22b125a566ee9db424976e833b1dfad5333441316b1c329904b9e",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

@@ -1,0 +1,23 @@
+{
+  "runtime": "7d3ae36c63eb83c9e25afd21293da03797410bed3cbe81ff70dfbf362ca47cb5",
+  "fixtures": [
+    {
+      "slug": "repair-spirit-of-war-red-four-live-20261126-hand-cost-choice-and-attack-entry",
+      "passed": true,
+      "runtime": "7d3ae36c63eb83c9e25afd21293da03797410bed3cbe81ff70dfbf362ca47cb5",
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=repair-spirit-of-war-red-four-live-20261126-hand-cost-choice-and-attack-entry",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\prepared-hand-226-229-231\\spirit_of_war_red\\strict1.log"
+      ],
+      "returncode": 0,
+      "complete_log_sha256": "41fab54b393219b39b294f2d5c60d6b100b48da1ffe71d30b107b5b557e7f768",
+      "raw5_unchanged": true
+    }
+  ],
+  "full_suite_run": false
+}

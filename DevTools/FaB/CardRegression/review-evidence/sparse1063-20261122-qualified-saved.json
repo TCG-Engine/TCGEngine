@@ -1,0 +1,90 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "breadth_review independent printed/spec review plus exact oracle delta verification",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1063-20261122.json",
+  "source_spec_sha256": "fcfd02d8ab29bee691959ed0d1430640bf56f6485530b72533bd904274a8c1d7",
+  "input_sha256": "fcfd02d8ab29bee691959ed0d1430640bf56f6485530b72533bd904274a8c1d7",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "seasoned-saviour-four-live-sparse1063-current-one-defense-normal-close",
+      "card_id": "seasoned_saviour",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "8a1d60908661a9ac1f80f68c08b6291b6e4fbf2248c3d7d9950aa95e0056bf58",
+        "actions.json": "511bf2f3686ee96e12e3d9cdbe580febcac902b797e5ec827a96d5ccd74ac457",
+        "assertions.json": "fc4b90dd8f8f4dacc4b835e85083a9aa190c0db11056419b0d9a7d4206fbdc7c",
+        "expected_final_gamestate.txt": "a82d8065c1c8e47707b987766bc2ec0e914982a778635d3cc5878ad2b7a6c68b",
+        "meta.json": "dff325e2f9631dff66e470f3936828d7ca74039bcbe38d668f24683e281e3a34"
+      },
+      "fixture_sha256": "f13360c001740a3bb98b9ff648a3e994fa9c0807d95a8cf6bdf4df152d8ec0dc",
+      "actions": 30,
+      "native_assertions": 271,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1063-20261122.json",
+      "input_sha256": "fcfd02d8ab29bee691959ed0d1430640bf56f6485530b72533bd904274a8c1d7",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1063-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "seasoned-saviour-four-live-sparse1063-current-one-defense-normal-close",
+        "fixture_slug": "seasoned-saviour-four-live-sparse1063-current-one-defense-normal-close",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "testament-of-valahai-four-live-sparse1063-current-one-defense-normal-close",
+      "card_id": "testament_of_valahai",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "1c51622a7f89efca5a1af6bebf575bc395fbc0887fb5a21a47b6404a6e3e45e7",
+        "actions.json": "511bf2f3686ee96e12e3d9cdbe580febcac902b797e5ec827a96d5ccd74ac457",
+        "assertions.json": "cfb5ddd0f2fafdb6707f334390411037f7af723c49c1322c27fcf7359ace8653",
+        "expected_final_gamestate.txt": "cbe32241a3d381678ed3ead0a62e5e0e5eea27aa2fdf3fb86da9f1068ea4405d",
+        "meta.json": "7ed4d38781121b84988528d743927c65d134a3d248850a34b544c209467d1224"
+      },
+      "fixture_sha256": "200ae1415f9eb8071563f86eb0b14eaa6c863a297968a13c215362c3072d9604",
+      "actions": 30,
+      "native_assertions": 270,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1063-20261122.json",
+      "input_sha256": "fcfd02d8ab29bee691959ed0d1430640bf56f6485530b72533bd904274a8c1d7",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1063-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "testament-of-valahai-four-live-sparse1063-current-one-defense-normal-close",
+        "fixture_slug": "testament-of-valahai-four-live-sparse1063-current-one-defense-normal-close",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "spec_sha256": "fcfd02d8ab29bee691959ed0d1430640bf56f6485530b72533bd904274a8c1d7",
+    "reviewer": "breadth_review independent printed/spec review plus exact oracle delta verification",
+    "basis": [
+      "Seasoned Saviour printed base3/Battleworn WHEN equipped gives two -1defense counters. Legitimate preexisting post-equipping fixture Equipment5 DEFENSE2 is explicit, not native-equipping or earned-trigger credit; actual current1 plus real NAA6 DEF2 blocks Dori Sword3. Initial/CC counters2 and persisted defenseValue1/3 pin effective defense; after close Battleworn adds one to counter3 and retains Equipment at current0. No activation/body event.",
+      "Testament printed base1/Guardwell, own Arena0/noSeismicSurges means static +2/+4 absent; actual current1+NAA2 blocks Sword3, then Guardwell close counter1/current0 retained. Legal Guardian Oldhim20 owns each sole Off-Hand; actual Blue8 pays1/R2/AP0, all four seats manual, noHit/HP20 and physical owned fates persisted. No EOT/reset or positiveSurge branch credit.",
+      "Exact single-query final correction verified by reinserting initial emptyCounters[] query and reconstructing prior reviewed SHA9b50777c...; current fcfd02d8... removes only that contradictory inherited query. Setup DEFENSE2, all native controls/damage/costs/final Battleworn3 unchanged. Duplicate-oracle check now clear; no author-only diagnostics."
+    ],
+    "limits": [
+      "Two named existing-state ordinary defenses and first keyword close only. No Seasoned equipping/WHEN timing, repeated-block/destruction threshold, Guardwell EOT reset, positive Surge/body/hero/support/sibling/full-card or prior-hold credit. No native/PHP/T/source/Git/original/network actions by reviewer."
+    ]
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1063-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "831d65c9f13d38883c88241018d3bff097f34ad4390574ad2539361d4bb4ad7b"
+  },
+  "full_suite_run": false
+}

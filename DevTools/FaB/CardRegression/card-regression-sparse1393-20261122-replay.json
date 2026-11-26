@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-will-of-the-crowd-blue-four-live-sparse1393-real-eligible-action-defends-with-block-but-no-cheer-no-plus-three-defense",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-will-of-the-crowd-blue-four-live-sparse1393-real-eligible-action-defends-with-block-but-no-cheer-no-plus-three-defense",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1393-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1393-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "8ae4113c63be4614944e22727184566d631dab8b917ce8a453b5876287fb96d4",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "6660092ae46123c7c00a0b75fd08933f7d1f2a7e5529398e892ee2eb3f650ca3",
+        "actions.json": "a44e24b9f9b348ce659c847e7dbea1e0cd33c5233e8ac4933f9391118d55ee4b",
+        "assertions.json": "533c7bdd3ab9a4ac579c968cc7eb18c4e1695c7794f8c7c5002384cffb8e4ffe",
+        "expected_final_gamestate.txt": "5f3e7a8716cdbf6004fae9cba612c4d4e5a6bc552efccf5efce0aad1aa3db982",
+        "meta.json": "76561557aa9689a67ff52842e67b70a25bb7b34ad38c23d706e91788765d0a67"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

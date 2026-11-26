@@ -1,0 +1,74 @@
+{
+  "runtime": "59d1591f45b2d0acfbad37d7a925138e54364e4e090df8c18fc687fbc5a17cb9",
+  "fixtures": [
+    {
+      "slug": "repair-lessons-learned-blue-four-live-20261126-one-reaction-returned-to-deck",
+      "passed": true,
+      "runtime": "59d1591f45b2d0acfbad37d7a925138e54364e4e090df8c18fc687fbc5a17cb9",
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=repair-lessons-learned-blue-four-live-20261126-one-reaction-returned-to-deck",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\lessons236\\strict1.log"
+      ],
+      "returncode": 0,
+      "complete_log_sha256": "ad5d7c1ccd745ee459619d07fe24d9e179e1222405838c302a1db61171a54443",
+      "raw5_unchanged": true
+    },
+    {
+      "slug": "repair-lessons-learned-blue-four-live-20261126-zero-choice-keeps-reactions-and-resolves",
+      "passed": true,
+      "runtime": "59d1591f45b2d0acfbad37d7a925138e54364e4e090df8c18fc687fbc5a17cb9",
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=repair-lessons-learned-blue-four-live-20261126-zero-choice-keeps-reactions-and-resolves",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\lessons236\\strict2.log"
+      ],
+      "returncode": 0,
+      "complete_log_sha256": "12791eef003b326d8fe94d87f2ea6b967ca802e3f64e53d0f13c67758862cf1a",
+      "raw5_unchanged": true
+    },
+    {
+      "slug": "repair-unforgetting-unforgiving-red-two-live-20261125-false-counter-condition-still-earns-defend-layer",
+      "passed": true,
+      "runtime": "59d1591f45b2d0acfbad37d7a925138e54364e4e090df8c18fc687fbc5a17cb9",
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=repair-unforgetting-unforgiving-red-two-live-20261125-false-counter-condition-still-earns-defend-layer",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\lessons236\\strict3.log"
+      ],
+      "returncode": 0,
+      "complete_log_sha256": "a8fc2e132f181e4cbd067b98ae09ca678bdaaa2a583272b5a7ffd7eef921ac67",
+      "raw5_unchanged": true
+    },
+    {
+      "slug": "card-remembrance-yellow-four-live-original-correct-resolving-choice-recycles-owned-action-and-self-banishes",
+      "passed": true,
+      "runtime": "59d1591f45b2d0acfbad37d7a925138e54364e4e090df8c18fc687fbc5a17cb9",
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-remembrance-yellow-four-live-original-correct-resolving-choice-recycles-owned-action-and-self-banishes",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\lessons236\\strict4.log"
+      ],
+      "returncode": 0,
+      "complete_log_sha256": "e69b3d7063a37840efd98af4894a9f654157a180f7fdde781cfbfea8393e8cd9",
+      "raw5_unchanged": true
+    }
+  ],
+  "full_suite_run": false
+}

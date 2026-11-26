@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-speed-demon-red-four-live-sparse1244-real-hyper-driver-controlled-no-scrap-raises-three-to-four-damage",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-speed-demon-red-four-live-sparse1244-real-hyper-driver-controlled-no-scrap-raises-three-to-four-damage",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1244-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1244-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "5a10200e4326bfba3a57fd0fa8ad566a923207d8e7021f19eaf140272610c340",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "f9dd93ada4d89cafc545fd8216d40693911501e62c50058f8e75b6e23de3a7cc",
+        "actions.json": "71f0d0f07cf85244a3ec27fdb1f824cd62aa3126d639c98c13ca23327907bd8b",
+        "assertions.json": "8016301f922fdec2f25e50c1172ddcb1b5ee9c4dfb7bba68180f06eeb07ccf91",
+        "expected_final_gamestate.txt": "23f0ea6411e8f167e02f1dca2d7363d8738653a3d3f3e822d430792c8b2a69e8",
+        "meta.json": "10ccf444520634a90606db993c8af8750803d8a6bcf68afa210c95d6c88b3499"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

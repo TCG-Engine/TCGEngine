@@ -1,0 +1,7 @@
+{
+    "name": "Murmuring Gloomblade / actual paid Banish-play permission prefix",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-24T20:44:32+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "FOURMANUALYOUNGVYNNSET20_THREEDORI20. ActualSigilSolaceBlue5Instant0/freshall4rounds/heals1HP1=21/AP1unchanged; thisisnotprerequisiteforprimarypermission, onlyrealmanualfour-seatprelude. NoRunechantsanyseat, soUsurpunable/nonepaid(noeffectcostorderrouteearned). OrdinaryGenericRagingBlue8Banishisclasslegalandcost3affordablewithactualBlue7pitch3/AP1yetmustrejectfromBanishbeforetarget/cost/movement; nofakepermissions. Actualprimary6withprintedunconditionalBanishpermissionthenproperHero4target/cost2/realBlue7pitch3pays2R1/AP0/physicalStackSourceBanish. PAIDPLAYPREFIXONLY PRIO1/physicalmurmuring_gloomblade_red6ATTACKStack/noCC/noPendingPayment/DQframesquiet/UID8RNG0. Source5GY/negative8stillBanish/Blue7Pitch. Futureprimaryattackresolution/damage/AttackDeclaredWHEN/Search/Runecreation/Hit/Usurp/BloodDebtandotherpitchesUNRUN_UNCREDITED. Noenginechanges. Sources: FaBSim/GeneratedCode/cardArrayCache.json#murmuring_gloomblade_red FaBSim/Custom/GameLogic.php FaBSim/Custom/IARCards.php FaBSim/Custom/PENCards.php FaBSim/Custom/EVORuntime.php FaBSim/Custom/ARCAbilities.php FaBSim/GeneratedCode/GeneratedMacroCode.php"
+}

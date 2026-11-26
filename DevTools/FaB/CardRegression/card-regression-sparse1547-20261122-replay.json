@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-arakni-5lp3d-7hru-7h3-cr4x-two-live-sparse1547-first-real-stealth-attack-go-again-only",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-arakni-5lp3d-7hru-7h3-cr4x-two-live-sparse1547-first-real-stealth-attack-go-again-only",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1547-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1547-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "69aaf332c368fbed84099d592ac177140bd13489fc84206207cbb572df252595",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "abd3d29e99c49abb086f55167ea6afdbdda9e53e287b7ac7133ba9481a9cced3",
+        "actions.json": "726b63283cf8887c5ab2b3525198396e5c116274a7c47594def592b02c0f3065",
+        "assertions.json": "83c12142fb7a99012a321c4bd29dc346a6bb88c6f796a66ed40e4ae8bb2a8736",
+        "expected_final_gamestate.txt": "a01f9716bd91f042d69b23eff1740f9c0ccc3afc5d71c0048d22a104001fa5f1",
+        "meta.json": "d3e6660aba2cd876a502f6c69a7840bb1fbf7ce0091c57e201fe1aacdb0dc129"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

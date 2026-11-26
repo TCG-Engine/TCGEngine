@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-talk-a-big-game-blue-four-live-sparse1324-real-number-choice-and-go-again-funds-four-power-attack-dealing-two-below-three",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-talk-a-big-game-blue-four-live-sparse1324-real-number-choice-and-go-again-funds-four-power-attack-dealing-two-below-three",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1324-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1324-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "bcffb4c97b32eefd8f2ba25db3ee8f45193601608ed81bd1de1f91dfd81ac0c3",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "1f94ce4f89721daa7f2e4e2026f436f68967e1c7c4067e1362f28fe0a8d7fc67",
+        "actions.json": "c5d04a8fee18ef7ab1975fb4f79121a0d06ca302e87771700d85fdac9850a071",
+        "assertions.json": "cd8a152c62869703048501d265df59921587e95e35c3a838e50e97ffaa0268d7",
+        "expected_final_gamestate.txt": "2c62f7c0e2a73788704ed22693226252b0b2cc137973236cfe7e44865393c1b6",
+        "meta.json": "097db295c6df9f94fd46c097e7d47d15388e17cfab923c908f5477b1bb0adf0f"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

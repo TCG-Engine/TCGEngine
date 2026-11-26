@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-codex-of-frailty-yellow-four-live-sparse1172-caster-choice-real-arsenal-and-caster-owned-foreign-tokens",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-codex-of-frailty-yellow-four-live-sparse1172-caster-choice-real-arsenal-and-caster-owned-foreign-tokens",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1172-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1172-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "2681ffd0cbd941ce0e84cb537cbe7bd21ca0f958de2f11d43ed795938d93ca13",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "6f5cdaf22e1616b948f3c0c00d6d9d79ba06e08c2a49bc93f1233d2067db9356",
+        "actions.json": "2f771ea29be978833f5ba562ab7fa05c74ef1a52bea047125a5b6da144a88cce",
+        "assertions.json": "f39131026c4b0b1c1d43c07112b7f2344bbbbddf4a9c7f040d91b32ea567b421",
+        "expected_final_gamestate.txt": "d2a9af79ac6146d64645abd844c2024cfe20c8529d17d2d8a7b987438843a1e3",
+        "meta.json": "366bf8d0d2a7a3e85e066e74f1d8a287c1ef293d1000845fb9ddcf07d061a717"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

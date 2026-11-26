@@ -1,0 +1,39 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch623-weapon-abilities.json",
+  "runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+  "returncode": 0,
+  "completed_utc": "2026-11-06T17:02:50.977252+00:00",
+  "fixtures": [
+    {
+      "slug": "card-kunai-of-retribution-four-live-real-paid-go-again-consumer-and-close-destruction",
+      "fixture_sha256": "f5e4f7e6c435464442a0ba23466bf18c60ce2c332a316e09445629157d1b083f",
+      "passed": true,
+      "result": "[PASS] kunai_of_retribution / four live distinctive effect"
+    },
+    {
+      "slug": "card-volzar-meteor-storm-four-live-real-instant-graveyard-tap-and-amped-four-arcane",
+      "fixture_sha256": "183ff113a4d2a346cdc359ea021b47a3509fc4a77e66db607dd7d44998fe9adf",
+      "passed": true,
+      "result": "[PASS] volzar_meteor_storm / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-kunai-of-retribution-four-live-real-paid-go-again-consumer-and-close-destruction",
+      "returncode": 0,
+      "stdout": "[PASS] kunai_of_retribution / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-volzar-meteor-storm-four-live-real-instant-graveyard-tap-and-amped-four-arcane",
+      "returncode": 0,
+      "stdout": "[PASS] volzar_meteor_storm / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 2,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

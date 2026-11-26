@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-battered-beaten-and-broken-yellow-four-live-sparse1287-real-three-auras-plus-three-versus-ally-no-hero-intimidate",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-battered-beaten-and-broken-yellow-four-live-sparse1287-real-three-auras-plus-three-versus-ally-no-hero-intimidate",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1287-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1287-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "80d0efdbcbbb119c774b5e7d1ba91b48c3295e26cc163699d81d0cb652da3765",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "83356dbc314369427127a6fe5f6ef300e4e32b09661430186eb62b04f5361734",
+        "actions.json": "3ece9eb1058d5f26861429fe816c8baa3394f92d0fa31621dafcb031c7c89cdd",
+        "assertions.json": "d144dfbf19c2e3acac62f019969ea73d1075bd42309de88a764667f7cf150cb5",
+        "expected_final_gamestate.txt": "31f2c98e28cddae2fc9b056d3b0acb420a83f4be36a9a7c1a5a5e95425ac413c",
+        "meta.json": "f0eaf051603497bb23d4069494382220695ee7f0e9d00de0f9a86b8d950e86cd"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

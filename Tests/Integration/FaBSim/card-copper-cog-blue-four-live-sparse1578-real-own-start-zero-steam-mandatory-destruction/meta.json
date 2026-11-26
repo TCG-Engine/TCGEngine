@@ -1,0 +1,7 @@
+{
+    "name": "Copper Cog / zero steam forces destruction at the actual next own Start",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-25T16:45:31+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Four genuine manual young heroes at 20 health: Dori, Maxx, Dori, Dori. A real owned prior Copper Cog5 starts in P2 Arena with zero steam, a valid state after its last counter was removed at a previous upkeep; that past procedure is not claimed tested. Actual empty P1 turn ends and P2 turn3 begins. The printed own-Start upkeep cannot remove a steam counter, so it must destroy the physical non-token Item. Native own-Start dispatch moves UID5 to its owner2 Graveyard, with no optional payment waived, no other simultaneous Start/destruction observers, no new card or RNG use, and Action begins with P2 AP1. Normal Hand entry, Crank and Cog attacks remain held under207/211; no repair or closure is claimed. No seeded future effect or engine change. Sources: FaBSim/GeneratedCode/cardArrayCache.json#copper_cog_blue FaBSim/GeneratedCode/GeneratedMacroCode.php FaBSim/Custom/EVORuntime.php FaBSim/Custom/SEACards.php FaBSim/Custom/MONCards.php FaBSim/Custom/GameLogic.php FaBSim/ZoneClasses.php https://rules.fabtcg.com/en/cr/04-game-structure/"
+}

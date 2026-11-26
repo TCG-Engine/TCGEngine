@@ -1,0 +1,7 @@
+{
+    "name": "Looking for a Scrap / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T16:23:23+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "As an additional cost to play this, you may banish a card with 1{p} from your graveyard. If you do, this gets +1{p} and **go again**. Representative only: actual_one_power_graveyard_cost_earns_five_damage_and_go_again. Other pitch siblings, alternate targets and unexercised branches receive no credit. All four live/manual; only native entry-point actions. Sources: FaBSim/GeneratedCode/cardArrayCache.json#looking_for_a_scrap_red"
+}

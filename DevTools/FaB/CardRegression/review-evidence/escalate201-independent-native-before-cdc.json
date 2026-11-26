@@ -1,0 +1,225 @@
+{
+  "status": "ACTUAL_NO_SAVE_CONFIRMED_ESCALATE_PREMATURE_GLOBAL_OPPONENT_DRAW_LIFE_LOSS",
+  "phase": "ACTUAL_NO_SAVE",
+  "batch": 867,
+  "reviewer": "/root/ebbing_recovery_review",
+  "reviewer_independent": true,
+  "actual_failure_review_complete": true,
+  "confirmed_gameplay_bug": true,
+  "new_issue": false,
+  "retention_approved": true,
+  "scenario_primary_context_card_id": "escalate_bloodshed_red",
+  "confirmed_defective_producer_card_id": "escalate_bloodshed_red",
+  "confirmed_defective_producer_function": "FaBSEADrew",
+  "confirmed_branch_scope": "Only the pre-firmed global whenever-Hero-draws-during-ACTION branch, through a real opponent4 draw.",
+  "context_primary_effect_qualified": false,
+  "confirmed_premature_life_loss_before_earned_responses": true,
+  "confirmed_typed_Native_earned_layer_absence": false,
+  "oracle_correction_required": false,
+  "diagnostic_review_complete": true,
+  "actual_no_save_route_approved": false,
+  "positive_promotion_recommended": false,
+  "normal_save_approved": false,
+  "qualification": false,
+  "coverage_credit": false,
+  "fixture_saved": false,
+  "source_fix_applied": false,
+  "new_distinct_gameplay_root_group": false,
+  "new_core_root": false,
+  "root_attribution_status": "Fresh literal SEARuntime80..82 global Escalate observer causes premature drawer life loss in the preselected partial branch. Root may retain/allocate prospective201; no distinct shared/Core/root-group allocation or full-card/other-clause qualification is made.",
+  "source_spec": "card-regression-batch867-escalate-opponent-draw-life-loss-probe.json",
+  "input_sha256": "4ad51e5c692d858ff67097afb96f96a1931de4a4ba565f4ea81c60a4b28e729f",
+  "source": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch867-escalate-opponent-native-draw-earned-life-loss-strict-probe-author\\escalate-opponent-real-draw-earned-life-loss-full-probe.json",
+    "sha256": "4ad51e5c692d858ff67097afb96f96a1931de4a4ba565f4ea81c60a4b28e729f"
+  },
+  "manifest": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch867-escalate-opponent-native-draw-earned-life-loss-strict-probe-author\\manifest.json",
+    "sha256": "10529acc37f569db410e531d77af09afe33d240801099eabf4820ea57b3013ae"
+  },
+  "runtime_sha256": "cdc081ff4c87ff2f9338b1d69040d0dc98d7600ba33976384336534ea3f92d22",
+  "recorded_runtime_sha256": "cdc081ff4c87ff2f9338b1d69040d0dc98d7600ba33976384336534ea3f92d22",
+  "runtime_before_after_unchanged": true,
+  "independent_original_correct_Source": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch867-escalate-independent-opponent-draw-diagnostic-source-review.json",
+    "sha256": "08919d09204ed242dc906ee5b380d7b3b0dd8bbf8d8971c5fce50470fd0bdf79"
+  },
+  "root_native_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-b867-escalate-strict-native-cdc\\receipt.json",
+    "sha256": "0d006eb57febaed49752691fc317007d5e2bc7f605435207171650f8fe245030"
+  },
+  "actual_result": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-b867-escalate-strict-native-cdc\\actual-result.json",
+    "sha256": "99a1df1b6c79c062cb837d531da4708368c30cb55d1d26b31f8b4bd5e877db80"
+  },
+  "actual_immutable_archive": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch867-escalate-opponent-draw-life-loss-probe-20261116T131554Z-6afb020abfdd4.json",
+    "sha256": "eb48a72ce56113a43504f68f8a00ecb2292ae6447033a8c7c24dd86675bcd425"
+  },
+  "native_recording_results": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch867-escalate-opponent-draw-life-loss-probe.recording-results.json",
+    "sha256": "99a1df1b6c79c062cb837d531da4708368c30cb55d1d26b31f8b4bd5e877db80"
+  },
+  "planned_controls": 9,
+  "planned_queries": 1247,
+  "planned_pass_controls": 8,
+  "planned_legal_priority_response_controls": 8,
+  "planned_defense_finalizers": 0,
+  "planned_nonpriority_END_transports": 0,
+  "actual_native_inputs": 5,
+  "actual_native_actor_counts": {
+    "1": 1,
+    "2": 1,
+    "3": 1,
+    "4": 2
+  },
+  "actual_manual_inputs": 4,
+  "actual_manual_actor_counts": {
+    "1": 1,
+    "2": 1,
+    "3": 1,
+    "4": 1
+  },
+  "actual_legal_priority_response_controls": 4,
+  "actual_defense_finalizer_controls": 0,
+  "actual_nonpriority_END_transports": 0,
+  "actual_parent_Source_response_inputs": 4,
+  "actual_earned_Escalate_response_inputs": 0,
+  "actual_completed_four_seat_manual_response_cycles": 1,
+  "all_native_envelopes_independently_match_original_Source_prefix": true,
+  "persisted_successful_queries": 584,
+  "persisted_prefix_matches_original_ordered_Source": true,
+  "persisted_prefix_sha256": "adb862d2f73aeefd0accb907fe025a43dcc3e2b29e36672e706e0943d1105874",
+  "first_failed_query": {
+    "source_step_index": 10,
+    "source_check_index": 13,
+    "native_after_input": 5,
+    "checkpoint": "nativeManagedSkullhorn4SourceResponses_wholeDraw7_thenSOLEactualRandomDiscard_andPrintedGA_beforeEscalateEarnedEffects_fourthResponse",
+    "query_ordinal_in_checkpoint": 14,
+    "global_query_ordinal": 585,
+    "query": {
+      "step": 5,
+      "type": "scalar_zone_equals",
+      "zone": "p4Health",
+      "value": 20,
+      "viewerPlayerID": 1
+    },
+    "expected": 20,
+    "actual": 19,
+    "error": "Expected p4Health to equal 20, got 19."
+  },
+  "queries_unrun_after_failed_query": 662,
+  "not_passed_including_failed_query": 663,
+  "native_controls_unrun": 4,
+  "declarative_controls_unrun": 4,
+  "manual_inputs_unrun": 4,
+  "unrun_control_breakdown": "The four future Escalate earned-layer responses4/1/2/3 and associated checks/terminal cluster are unrun.",
+  "passed_current_cluster_queries": 13,
+  "initial_raw_sha256": "1f377c2485eaf298581ef23a345db6a05e5adf9395b069f15ef79aac54c4b214",
+  "initial_raw_48_manual_controls": true,
+  "initial_raw_queries_independently_evaluated": 131,
+  "genuine_four_live_manual_seats_initial": true,
+  "genuine_four_seat_manual_interactions_completed": true,
+  "final_raw_48_manual_controls": false,
+  "final_physical_raw_snapshot_available": false,
+  "actual_passed_facts": [
+    "Fresh actual initial131 queries independently evaluate against raw1f377c: four Young Dori/Betsy/Betsy/Rhinar20 live/manual UPF seats, holdPriority and11auto windows disabled each (48manual controls), no passive seats, exact AuraUID5owner/controller1, Skullhorn6Equipment4 and soleBlue7Deck4/emptyHand4.",
+    "All five exact input envelopes and584persisted ordered queries match approved Source. P4 real Skullhorn click destroys physical6 as cost/AP0 before four genuine parent responses4/1/2/3. Through pre-resolution checkpoints all Hero health20 and the parent ABI SourceUID6/controller4 are actually queried.",
+    "At the first post-parent cluster,13 public queries pass before the failure: p4GY count2; physical SkullhornUID6 owner/controller4; physical BlueWoundUID7 owner/controller4/FaceDown0; Hand4=0; Deck4=0; AP4=1. The parent whole draw/random-discard body and printed GoAgain are supported by those facts plus actual managed source/captured draw history. No intermediate Hand snapshot is invented.",
+    "The next supported Hero scalar query directly observes p4Health19 where original-correct timing requires20 before any Escalate earned response. No child response occurred. This confirms early loss, not a correctly timed eventual endpoint19."
+  ],
+  "causal_source_findings": [
+    "Printed global WHENdraw during ACTION earns a separate Aura/controller1 event affecting drawingHero4. Under correct timing the Skullhorn parent completes draw->randomDiscard->GA first, then all four players can respond before lose1. The source branch was fixed before bodies; current P4alreadyACTION avoids entering beginningAction and endphase clauses in this recording.",
+    "Actual Skullhorn ARC18 spec and managed ARC virtual ABI dispatch, ARC162..174 destroy cost, and CRU ResolveAbility Draw1 then FaBDiscardRandom1 are present. Sole GenericBlue2 avoids Rhinar>=6 and any alternative life cost/attack path. No known physical-spell218 lifecycle contract is waived; this is the actual managed equipment ability.",
+    "Guarded GL2437..2452 performs real Deck->Hand draw then calls SEADrew. SEARuntime80..82 immediately loops the live Escalate Aura(s) and FaBARCLoseLife(drawer,n,AuraOwner), before the parent discard/GoAgain and without a captured WHEN response boundary. ARC289..292 subtracts health and calls MONLifeLost rather than damage. This exact literal is the attributed producer.",
+    "Captured SEA_DRAWN1 and DTD_LOST1, followed by real grave/Blue-discard history, corroborate actual draw and life loss during the parent. Zero cached damageDealt/attackHit alone is not used as the proof. Later Stack/Aura-source/target/layer absence and correct after-four loss sequence were not queried and are not certified."
+  ],
+  "captured_corroboration": {
+    "observed_state_fields": {
+      "window": "ACTION",
+      "combatOpen": false,
+      "combatStep": "NONE",
+      "attackHit": false,
+      "attackPower": 0,
+      "damageDealt": 0,
+      "pendingPayment": null,
+      "passiveSeats": [],
+      "gameMode": "UPF"
+    },
+    "exact_ordered_path": "observed_state.turnEffects[\"4\"]",
+    "exact_ordered_value": [
+      {
+        "type": "EVR_ACTIVATED",
+        "amount": 1,
+        "uses": 1
+      },
+      {
+        "type": "EVR_GRAVEYARD",
+        "amount": 1,
+        "uses": 1
+      },
+      {
+        "type": "SEA_DRAWN",
+        "amount": 1,
+        "uses": 1
+      },
+      {
+        "type": "DTD_LOST",
+        "amount": 1,
+        "uses": 1
+      },
+      {
+        "type": "DTD_DRAWN",
+        "amount": 1,
+        "uses": 1
+      },
+      {
+        "type": "EVR_GRAVEYARD",
+        "amount": 1,
+        "uses": 1
+      },
+      {
+        "type": "SEA_BLUE_GRAVE",
+        "amount": 1,
+        "uses": 1
+      }
+    ],
+    "observed_decisions": {
+      "1": [],
+      "2": [],
+      "3": [],
+      "4": []
+    },
+    "observed_hand_refs": {
+      "1": [],
+      "2": [],
+      "3": [],
+      "4": []
+    },
+    "interpretation_limit": "State history supports draw/life-loss attribution but supplies no terminal physical roster or typed Stack/Aura controller/target snapshot."
+  },
+  "postfailure_raw_limit": "Only initial physical raw plus captured game-state fields/decisions/hand refs exists. No actual final physical raw48. Current-postloss other-Hero HP/Aura5 persistence/Stack/earned source/target/layer fields and full proper loss-after-four/cleanup suffix remain unrun after first585.",
+  "primary_rules": [
+    {
+      "url": "https://rules.fabtcg.com/en/cr/06-effects/",
+      "sections": [
+        "6.6.5",
+        "6.6.6"
+      ]
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/",
+      "sections": [
+        "5.3"
+      ]
+    }
+  ],
+  "limits": [
+    "662queries after failed585 and4future earned responses remain unrun;663not-passed includes failedquery. No full correct sequence, Save/promotion/coverage or final raw certificate.",
+    "Only the pre-firmed global opponent ACTION-draw branch is reproduced; beginningAction/endDestroy/priorcasting/multiple draw/otherdrawers/unusedHero abilities/ArcaneBarrier/support/fullcard remain unentered or uncredited.",
+    "No PHP/Native/Rwrites/replay/newagents/sourcefix/newRoot/Core allocation or deniedReincarnate199/older repair retry by reviewer."
+  ],
+  "repository_writes": false,
+  "reviewer_PHP_executed": false,
+  "reviewer_Native_executed": false
+}

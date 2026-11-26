@@ -1,0 +1,68 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-24T14:27:12.057509+00:00",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1400-20261122.json",
+  "source_spec_sha256": "37eb46553a09b1e190c25a7efd308260dd8d70399ac30e18697de8a200a2a900",
+  "new_scenarios": 1,
+  "new_groups": 1,
+  "new_primary_ids": 1,
+  "actions": 36,
+  "native_assertions": 457,
+  "manual_passes": 33,
+  "totals": {
+    "saved_registered_scenarios": 5404,
+    "duels": 3113,
+    "four_live": 2291,
+    "recorded_primary_ids": 2552,
+    "identity_denominator": 5196,
+    "recorded_groups": 2426,
+    "group_denominator": 3324,
+    "four_live_groups": 2280,
+    "phase_qualified_scenarios_at_actual_contexts": 2041,
+    "phase_qualified_unique_groups": 2031,
+    "creation_replay_passes": 2783,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 1202,
+  "scenarios": [
+    {
+      "card_id": "shining_courage_red",
+      "group_id": "identity:shining_courage_red",
+      "scenario_id": "card-shining-courage-red-four-live-sparse1400-zero-optional-defenders-real-cheer-separate-hero-confidence-and-attack",
+      "effect_branches": [
+        "native_zero_cost_instant_with_zero_optional_defenders_cheers_then_separate_hero_trigger_creates_owned_confidence_followed_by_actual_attack"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-shining-courage-red-four-live-sparse1400-zero-optional-defenders-real-cheer-separate-hero-confidence-and-attack",
+      "source_spec": "card-regression-sparse1400-20261122.json",
+      "source_spec_sha256": "37eb46553a09b1e190c25a7efd308260dd8d70399ac30e18697de8a200a2a900",
+      "review_evidence": "review-evidence/sparse1400-20261122-qualified-saved.json",
+      "review_evidence_sha256": "aa6dfde449c6878ee8d0d1295d99d78074ca5a3f44fc6bb41db4eb7274862612",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1400-20261122-replay.json",
+          "sha256": "81279ccff56ffc2922d77a24cb8b589f1ccef5ec63cd1c3dc90bed283eabc749",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

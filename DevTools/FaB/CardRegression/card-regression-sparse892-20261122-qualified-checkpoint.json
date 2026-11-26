@@ -1,0 +1,68 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-22T16:28:45.033969+00:00",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse892-20261122.json",
+  "source_spec_sha256": "11b11919c2f750242dada78da115000f6718faa3304c203ff8db6f52392bb7d0",
+  "new_scenarios": 1,
+  "new_groups": 1,
+  "new_primary_ids": 1,
+  "actions": 8,
+  "native_assertions": 84,
+  "manual_passes": 8,
+  "totals": {
+    "saved_registered_scenarios": 4299,
+    "duels": 3075,
+    "four_live": 1224,
+    "recorded_primary_ids": 1447,
+    "identity_denominator": 5196,
+    "recorded_groups": 1321,
+    "group_denominator": 3324,
+    "four_live_groups": 1213,
+    "phase_qualified_scenarios_at_actual_contexts": 936,
+    "phase_qualified_unique_groups": 926,
+    "creation_replay_passes": 1677,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 97,
+  "scenarios": [
+    {
+      "card_id": "golden_cog",
+      "group_id": "identity:golden_cog",
+      "scenario_id": "card-golden-cog-four-live-sparse892-natural-owner-turn-start-zero-steam-token-is-destroyed",
+      "effect_branches": [
+        "natural_owner_turn_start_zero_steam_token_is_destroyed"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-golden-cog-four-live-sparse892-natural-owner-turn-start-zero-steam-token-is-destroyed",
+      "source_spec": "card-regression-sparse892-20261122.json",
+      "source_spec_sha256": "11b11919c2f750242dada78da115000f6718faa3304c203ff8db6f52392bb7d0",
+      "review_evidence": "review-evidence/sparse892-20261122-qualified-saved.json",
+      "review_evidence_sha256": "2c3bf93739a00aae7572db0af3ff1665f9369601e33af4faec826c4c00ec0f5e",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse892-20261122-replay.json",
+          "sha256": "3299d043348061fe1d84ec40d8473811d7972c551679ce088e57d5cf1645567c",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

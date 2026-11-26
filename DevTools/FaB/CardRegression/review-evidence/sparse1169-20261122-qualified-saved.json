@@ -1,0 +1,70 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "breadth_review independent live-static-power/strict-GA-threshold review",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1169-20261122.json",
+  "source_spec_sha256": "0fc1ee07523658bc0cf015dc774bd6000ef92ab4cc25bb22786741dcf4e3e3d5",
+  "input_sha256": "0fc1ee07523658bc0cf015dc774bd6000ef92ab4cc25bb22786741dcf4e3e3d5",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-sharpened-senses-yellow-four-live-sparse1169-real-weapon-seven-exceeds-double-base-and-earns-go-again",
+      "card_id": "sharpened_senses_yellow",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "a46ba6e1e236830c3b21e33795bc5a8200ab84dc0256f7f34c6aa1f5bd4eeed7",
+        "actions.json": "b5fa8753a1583db3941956e36428e6f3d26d41023d964e319731e111e3e47c52",
+        "assertions.json": "e46c8fa727eabaa6fa8b80c59996eb53c751ba3f402f030b3a14ca1682c72db1",
+        "expected_final_gamestate.txt": "1107dbf0ecd0f150eba69ec335aad52973b1f51bfd4a69ab565c1e48c6ef8407",
+        "meta.json": "136288b8da1be00b7d79ccd5655e07626dee0e58268cbaf6dd0282caf22e69f2"
+      },
+      "fixture_sha256": "cd1df0e18e8048de29c3658a04dc84832c5e0601db898cca7b967247822c8e35",
+      "actions": 33,
+      "native_assertions": 306,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 29,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1169-20261122.json",
+      "input_sha256": "0fc1ee07523658bc0cf015dc774bd6000ef92ab4cc25bb22786741dcf4e3e3d5",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1169-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-sharpened-senses-yellow-four-live-sparse1169-real-weapon-seven-exceeds-double-base-and-earns-go-again",
+        "fixture_slug": "card-sharpened-senses-yellow-four-live-sparse1169-real-weapon-seven-exceeds-double-base-and-earns-go-again",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "spec_sha256": "0fc1ee07523658bc0cf015dc774bd6000ef92ab4cc25bb22786741dcf4e3e3d5",
+    "reviewer": "breadth_review independent live-static-power/strict-GA-threshold review",
+    "basis": [
+      "Sharpened Senses is a Warrior Aura with continuous weapon+1 and conditional GA when current power exceeds twice printed base. Young Kassai20 and Dawnblade are legal. Prior owned Aura5 is admitted without entry/producer or endphase credit; no power/GA flag is seeded.",
+      "Actual Plow7 Action1 is funded by real Blue8 pitch3/R2/AP0 and resolves after four manual responses, returning its own printed GA to AP1. Explicit GeneratedResolve5238-5241 produces NEXT_WEAPON3 with monPlow and goAgainfalse. Actual Dawnblade6 then pays1/R1/AP0, with no drawn card and no Kassai activation to alter the cost.",
+      "Current HNTRuntime63 supplies exactly one continuous power from actual Aura5 and72 evaluates live weapon power>2*CardPower. Actual base3+Plow3+Aura1=7>6; without primary+1 the real Plow consumer would be exactly6 and fail this GA condition. Actual computed7/GAtrue, damage7/HP4=13 and final AP1 therefore witness both named primary static effects.",
+      "No blockers means the Plow-granted defended-by-AA WHEN is unearned. This is the first Dawnblade hit, not its second-hit event. Kassai current printed hero has a drawn-card cost condition and optional activated Gold ability, neither used. All four response/combat seats, raw virtual attack9/source6 versus retained real weapon6, actual pitch8/source7GY, retained Aura5, R1/owners and full cleanup are consistent."
+    ],
+    "persisted_check_review": {
+      "controls": 33,
+      "normalized_assertions": 306,
+      "author_only_omissions": 0
+    },
+    "limits": [
+      "Above-threshold continuous power/GA branch only. No exact-threshold boundary, low branch, Aura entry/endphase destruction, draw discount, Hero activation, Plow defended trigger, second weapon hit, other weapon, sibling/support or full-card correctness.",
+      "Reviewer performed no native/PHP/T/source/engine/fixture/Git/network/original actions."
+    ]
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1169-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "79d1ded4a207395d0319c6f1c76d9dd6eb1b1de84f269b201ff0355d837f20a7"
+  },
+  "full_suite_run": false
+}

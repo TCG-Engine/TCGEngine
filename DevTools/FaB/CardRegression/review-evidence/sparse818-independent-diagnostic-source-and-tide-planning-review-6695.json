@@ -1,0 +1,215 @@
+{
+  "status": "SOURCE_APPROVED_DIAGNOSTIC_ONLY_MANDATORY_NO_SAVE_EVEN_PASS",
+  "phase": "SOURCE",
+  "batch": 818,
+  "approved": true,
+  "source_approved": true,
+  "diagnostic_source_approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "/root/b809_review_recover",
+  "created_utc": "2026-11-15T04:13:44.080919+00:00",
+  "source_spec": "card-regression-batch818-ebbing-original-correct-two-when-probe-r2.json",
+  "source": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-batch818-ebbing-blue-real-fragment-secondary-when-go-again-red-consumer-probe-r2-author\\ebbing-arcstride-blue-real-fragment-secondary-when-go-again-red-consumer-r2.json",
+    "sha256": "359a5f78e745924044c63b29daa777221725b191bd17118a764680585a177978"
+  },
+  "manifest": {
+    "path": "nov15-batch818-ebbing-blue-real-fragment-secondary-when-go-again-red-consumer-probe-r2-author\\manifest.json",
+    "sha256": "590341e00df59f547712b3ad30dd0e62f1643f2dc94a5b70ac1e5a2227532219"
+  },
+  "input_sha256": "359a5f78e745924044c63b29daa777221725b191bd17118a764680585a177978",
+  "manifest_sha256": "590341e00df59f547712b3ad30dd0e62f1643f2dc94a5b70ac1e5a2227532219",
+  "runtime_sha256": "6695d68163d313f4f61cb20ad9122c7038e621a60c847909598150fe8da09d11",
+  "recorder_sha256": "ab33a3250462d0453f71d38dd4138cb9fbc3d595d2586742e989a52251c9c4a9",
+  "source_guard_count": 82,
+  "source_guard_map_sha256": "c1b296b05874e1f45757c427f517793877ef80b3bbd844f77bf7dc889de944cf",
+  "selected_support_guard_count": 19,
+  "selected_support_guard_map_sha256": "1e73b3ea47c1c13e0d141a79593a378e75a5a8b334905936130571fc879db58e",
+  "all_current_guards_independently_matched": true,
+  "support_dependency_evidence": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-batch818-selected-helper-preflight.json",
+    "sha256": "f42939236a04e683304f6b3b46dcb3b366142b5407c95697cb49b0e756e11ff8"
+  },
+  "firm_reservation": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-batch818-firm-reservation.json",
+    "sha256": "21c45354f400cc3d8611aab958c32aea0a188ab6477bd7e24e290491e7b6b919"
+  },
+  "actions": 63,
+  "declarative_controls": 63,
+  "assertions": 4443,
+  "recorded_persisted_assertions": 4443,
+  "manual_passes": 58,
+  "expected_priority_response_passes": 56,
+  "expected_formal_defense_finish_passes": 2,
+  "expected_manual_pass_actors": [
+    1,
+    2,
+    3,
+    4,
+    1,
+    2,
+    3,
+    4,
+    4,
+    1,
+    2,
+    3,
+    4,
+    1,
+    2,
+    3,
+    4,
+    1,
+    2,
+    3,
+    4,
+    1,
+    2,
+    3,
+    4,
+    1,
+    2,
+    3,
+    4,
+    1,
+    2,
+    3,
+    4,
+    1,
+    2,
+    3,
+    4,
+    1,
+    2,
+    3,
+    4,
+    4,
+    1,
+    2,
+    3,
+    4,
+    1,
+    2,
+    3,
+    4,
+    1,
+    2,
+    3,
+    4,
+    1,
+    2,
+    3,
+    4
+  ],
+  "expected_manual_actor_counts": {
+    "1": 14,
+    "2": 14,
+    "3": 14,
+    "4": 16
+  },
+  "checkpoints": 65,
+  "schema_property_checks": 834,
+  "control_mapping_sha256": "c04e2c1624f58ec74135d4d999ce0ede889e86fd5795cffcdbbef29b1308c3e3",
+  "checkpoint_mapping_sha256": "fae110a3bd81c131b70dab8c1e819153029dae57abcca06041b88a73d5a26c3f",
+  "native_expected_envelope_mapping_sha256": "13d7a0b44c6d91822b35b6d0214f3c78bebeb46511dcb3c5cb91cbb4a84f9020",
+  "expected_native_query_mapping_sha256": "7f6766756d5d247f8a9df7efabc2201317b885893bb4b895f82872f023b9d4d5",
+  "source_only_held_cases": [
+    {
+      "card_id": "tide_chakra_blue",
+      "group_id": "pitch-cycle:tide_chakra",
+      "status": "KNOWN_REQUIRED_CONTRACT_UNATTEMPTED",
+      "author_note": {
+        "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-batch818-tide-chakra-known-admission-target-contract-unattempted-planning-hold.json",
+        "sha256": "8342bcb5b83d6565f71d9167c3c0cd1ea7ec34718ba62b3aef64ec9f4146de90"
+      },
+      "known_issue": "FAB-REG-148",
+      "known_hold_rows": [
+        239,
+        248
+      ],
+      "earliest_gate": "GL914 invokes whole WTRCanPlay464..487: no Tide exception, default487 requires Weapon; fixed Isolate is Action Attack. Later MSTCanPlay181 hybrid availability cannot override rejection. Only Sirens was natively reproduced for148, Tide unattempted.",
+      "later_gate": "All Tide RGB canonical ResolveCard perform late MZChoose of hybrid attack then buff; no early Prepare binding, same239/248. Actual helpers exist; not blanket missing functionality.",
+      "Nuu_scope": "MSTRuntime59 granted Stealth link-resolution callback acknowledged; zero-defender suffix is unattempted and gives no Nuu outcome certificate.",
+      "native_attempted": false,
+      "fixture_saved": false,
+      "coverage_credit": false,
+      "confirmed_new_issue": false
+    }
+  ],
+  "official_sources": [
+    {
+      "url": "https://judge.fabtcg.com/cards/detail/4887/",
+      "finding": "Printed Blue cost0/power3/DEF3; Whenever-fragments grants go again, plus Fragment."
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/08-keywords/",
+      "rules": [
+        "8.3.43",
+        "8.3.43a"
+      ],
+      "finding": "DEF>=2 earns primary Fragment triggered layer; fragments when that layer resolves."
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/",
+      "rules": [
+        "5.3.7",
+        "5.4.6"
+      ],
+      "finding": "Separate printed triggered-static ability; turn player receives priority after layer resolution."
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/06-effects/",
+      "rules": [
+        "6.6.5",
+        "6.6.6"
+      ],
+      "finding": "Fragment event creates secondary layer and adds it before next priority."
+    }
+  ],
+  "current_selected_source_findings": [
+    "Generic Fragment is genuinely queued: GL1897 OnDefended1222 -> OMNDefended44..56 -> ROSQueue24. Actual Blue defenderDEF3 satisfies requirement; formal finish resets DEFEND_PRIORITY1 after queueing.",
+    "OMNFragment57..61 applies -2/omnFragmented/FRAGMENT bookkeeping, with no secondary queue. Ebbing RGB canonical/compiled ResolveAbility immediately tags GO_AGAIN in that same resolution. Fresh selected secondary-trigger concern; no exact known secondary-contract hold found in full family/alias/printing scan. Not native-confirmed yet.",
+    "ROSResolveTrigger47 dispatches selected canonical with physical source and rosEvent; GL1713..14 clears primary virtual then resolves; queue presence determines return window, turn-player1 gets priority. Correct diagnostic demands physical[-2], power1, computedGA0, separate Stack layer; only subsequent four responses may grantGA.",
+    "No virtual UID/kind/Owner/allocation prediction. Source controller1 derives from actual attacker/source and ROSQueue controller, with physical strict UID/ownership assertions; no observed secondary outcome yet.",
+    "Actual source-cost0/earlyHero4/AP0; first1 versus DEF3 means0damage. Only correct secondaryGA yields AP1 at link resolution; complete realRed4 consumer/new chain/trueclose and owner cleanup retained. No histories/effects/AP/outcomes seeded.",
+    "Fresh computed_power/go_again queries call actual framework display logic; cached attackPower/defenseValue only postdamage corroboration, except current real declaration defense3 corroboration. Red FAB_PLAY_ORDER1 derived from current state copy/reset sequence, not arbitrary output fitting."
+  ],
+  "operator_correction": {
+    "original_manifest": {
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-batch818-ebbing-blue-real-fragment-secondary-when-go-again-red-consumer-probe-author\\manifest.json",
+      "sha256": "367ddd93aba938a004e4d8bf1719f4147727b3984ac26dfe55a22c3c232dcb46"
+    },
+    "original_input": {
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-batch818-ebbing-blue-real-fragment-secondary-when-go-again-red-consumer-probe-author\\ebbing-arcstride-blue-real-fragment-secondary-when-go-again-red-consumer.json",
+      "sha256": "f80be64bd3bf4f157704e425fadb967e00d0cdc859b8da4e91b556fee9bafd17"
+    },
+    "original_native_attempted": false,
+    "reason": "Control16 window-qualified pass_until could overshoot broken primary return DEFEND_PRIORITY1 before semantic assertion; corrected priority1-only stops exactly after primary resolution, all4443queries/other controls unchanged."
+  },
+  "clerical_source_link_disclosure": "Frozen case includes unused /06-gameplay/ URL. Independent proof uses actual official /06-effects/ for6.6 rules; link label has no action/assertion effect, frozen provenance retained.",
+  "diagnostic_only": true,
+  "mandatory_probe_only": true,
+  "no_save_even_if_pass": true,
+  "no_automatic_promotion": true,
+  "required_native_flags": [
+    "--probe-only"
+  ],
+  "native_fixture_recording_approved": false,
+  "native_attempted": false,
+  "fixture_saved": false,
+  "passing_fixture_approved": false,
+  "coverage_credit": false,
+  "confirmed_gameplay_bug": false,
+  "source_fix": false,
+  "independent_actual_probe_review_required": true,
+  "limits": [
+    "One actual Blue Fragment / separately earned go-again layer / real Red AP consumer route only. Suffix remains expectation until actual result; no generalized Fragment, Zyggy ability, Aura/HOLO/Flow, siblings or whole-card certificate.",
+    "Mandatory unsaved diagnostic even PASS; no repair or positive promotion inferred. Exact actual prefix/result/initial raw manual preferences review required. No passing fixture/raw5/final preference claim before separate normal Save.",
+    "Reviewer W-only/read-only R; no PHP/native/replay/R/source/Git/newagent/deniedrepair."
+  ],
+  "review_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov15_batch818_ebbing_diagnostic_source.py",
+    "sha256": "ac0061d35d2487f2ede1ac8144655e1bd80c6eeacea3a5e358b8ce6d5a90b943"
+  }
+}

@@ -1,0 +1,7 @@
+{
+    "name": "Rend Flesh / actual Sword hit then responseable counter removal and life loss",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-23T21:16:25+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "POSITIVE_REND_TRIGGER_AND_COUNTER_REMOVAL_ONLY. FourmanualYoungBoltyn20/3Dori20. ActualRend5cost0/AP0/fourresponses\u2192GY5/GArefund1; lawfulpriorSword6POWER1counter(nohistoryseed)base2+1=3. ActualSwordHero4formalattack/Blue7pitch3pays1/R2/AP0/freshfourresponsesandcombat/noDefender(noSaberWHENAAdefends/nochargedBoltyn). Actual3damageHP17earnsRend9SourceUIDattackProxy8, windowPRIORITYwhilecombatStepDAMAGE; physicalcounterstays1before4freshtriggerresponses. TriggerthenasksnormalresolutioneffectModalDecline/RemoveCounter, choose1, actualphysicalSword6POWERkeyremovedwhileWEAPON_ATTACK_TURN2/WEAPON_ATTACKS1persist, Hero4loses2lifeHP15; storedalreadydealt3unchangedwhilecomputedcurrentpower2showsremovedcounter. NoRetroactiveDamage. Sword6retained/primary5GY1/Blue7Pitch1/proxies8and9retired/nootherCardGY/AP0/R2/UID9/RNG0/noStackDQCC/sameTurn2ACTION. NoDecline/zeroCounter/multipleRend/repeathit/lethal/producer/Hero/support/fullcardcredit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#rend_flesh_blue FaBSim/Custom/PENCards.php FaBSim/Custom/ROSCards.php FaBSim/Custom/GameLogic.php FaBSim/GeneratedCode/GeneratedMacroCode.php FaBSim/Custom/CRUCards.php"
+}

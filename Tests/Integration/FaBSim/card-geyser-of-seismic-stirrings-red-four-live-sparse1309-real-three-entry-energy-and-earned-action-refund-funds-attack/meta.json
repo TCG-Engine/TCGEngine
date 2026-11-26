@@ -1,0 +1,7 @@
+{
+    "name": "Geyser of Seismic Stirrings / real entry counters and go-again funding",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-24T05:39:28+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "FOUR_REAL_MANUAL_UPF_NATURAL_YOUNG_BRAVO20_AND_DORI20. GeyserRed5Hand cost2 paidbyactualGenericYellow6pitch2/R0/AP1to0; noenergy/history/resource/APseed. Actualallfourresponsesbeforephysicalsame5entersArena1OwnerController1withprinted3ENERGY/doesnotgoGY andGoAgainrefundsAP1. RealWoundingBlow7Handcost0nowlegallyplays/targetHero4andconsumesearnedAP1to0withallfourfreshresponses. Actual4physicaldamageHP4=16, notAuraattackbonus, noextraUID/RNG. SameownedAura5retainsENERGY3throughactualattack/fullclose/sameTurn2ACTION; noEndphaseearnedsonoSeismicSurge/token/energydepletion/destruction. Final5Arena1/6Pitch1/7ownedGY1/allAPR0/StackDQsCCclean. PositiveentrycounterandGAfundingonly; noEndphase/surge/zeroenergy/Hero/support/otherpitch/fullcardcredit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#geyser_of_seismic_stirrings_red FaBSim/GeneratedCode/GeneratedMacroCode.php FaBSim/Custom/GameLogic.php FaBSim/Custom/MPGCards.php"
+}

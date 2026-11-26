@@ -1,0 +1,68 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "independent breadth_review",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse894-20261122.json",
+  "source_spec_sha256": "1a4c486170c81cbbf94419cbb33ab42c4283a7a47a68aec0618233c3c4e592bc",
+  "input_sha256": "1a4c486170c81cbbf94419cbb33ab42c4283a7a47a68aec0618233c3c4e592bc",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-rising-sun-setting-moon-blue-four-live-sparse894-first-blue-instant-draws-then-puts-real-drawn-card-on-bottom-without-transcend",
+      "card_id": "rising_sun_setting_moon_blue",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "a239171ae32f567a298d60143075bf9b6b46a0711342c6f654a6440dfb04073c",
+        "actions.json": "fd41a737eb3a336e908a0167e41f583c2015a2192736fb6658abdb26f3dc7e30",
+        "assertions.json": "c74f0a1a3a65389394d06c8d6bbc8b3c38d653b4edb40be93273e4368d60a14a",
+        "expected_final_gamestate.txt": "ef649e480d7d23a8fc8c2e3c40146c6980ac75e6d0dd3c18a9e87e2a6a884ef9",
+        "meta.json": "9e86f8f40fc6ca01676ad4b83367bc60939aa4f1ecb1098e99746f014a0c5beb"
+      },
+      "fixture_sha256": "edef4b4314c4f8927690dcdb0a713a4d236580f419cb84e1faf41b7f21777842",
+      "actions": 6,
+      "native_assertions": 91,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 4,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse894-20261122.json",
+      "input_sha256": "1a4c486170c81cbbf94419cbb33ab42c4283a7a47a68aec0618233c3c4e592bc",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse894-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-rising-sun-setting-moon-blue-four-live-sparse894-first-blue-instant-draws-then-puts-real-drawn-card-on-bottom-without-transcend",
+        "fixture_slug": "card-rising-sun-setting-moon-blue-four-live-sparse894-first-blue-instant-draws-then-puts-real-drawn-card-on-bottom-without-transcend",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "reviewer": "independent breadth_review",
+    "result": "approved_named_branches_only_pending_native_execution",
+    "spec_sha256": "1a4c486170c81cbbf94419cbb33ab42c4283a7a47a68aec0618233c3c4e592bc",
+    "reviewed": [
+      {
+        "card": "rising_sun_setting_moon_blue",
+        "branch": "first_blue_instant_draws_then_puts_real_drawn_card_on_bottom_without_transcend",
+        "basis": "Printed0 Mystic Instant legal for natural20HP Nuu. Actual Deck6 drawn then mandatory Hand6 bottomed behind remaining7; primary5 stays Stack through choice, then own GY. No other blue played, so no Transcend; AP1/R0 and all4 fresh manual responses retained."
+      }
+    ],
+    "limits": [
+      "Static source/spec review only; native execution and clean replay pending.",
+      "No positive Transcend or support-card credit.",
+      "Tome and both Constella drafts excluded before execution: printed modes/conditional hero targets lack timely play declaration in verified local producer. Source-only known-family concern, not a new confirmed native issue."
+    ],
+    "no_native_execution": true
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse894-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "354a8f6645304d9991834cb2c979aa699092d949efdbb2976267093309784088"
+  },
+  "full_suite_run": false
+}

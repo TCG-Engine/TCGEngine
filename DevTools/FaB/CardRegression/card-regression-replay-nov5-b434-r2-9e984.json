@@ -1,0 +1,39 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch434.json",
+  "runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+  "returncode": 0,
+  "completed_utc": "2026-11-05T09:06:39.122698+00:00",
+  "fixtures": [
+    {
+      "slug": "card-out-pace-red-four-live-sparse-real-boost-rejects-equipment-defender-allows-hand-block",
+      "fixture_sha256": "fd58ffc5e1eabe33b71a4dfcfec3705e67769809b7350ed136b42e8cdcf025ca",
+      "passed": true,
+      "result": "[PASS] out_pace_red / four live distinctive effect"
+    },
+    {
+      "slug": "card-outed-red-four-live-sparse-real-proclaim-mark-earns-plus-one-damage-then-hit-clears-mark",
+      "fixture_sha256": "03fd7d1d305e52dd9d8cf4153c80289ebff2f442c5df86ce6fe6db5d3519d661",
+      "passed": true,
+      "result": "[PASS] outed_red / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-out-pace-red-four-live-sparse-real-boost-rejects-equipment-defender-allows-hand-block",
+      "returncode": 0,
+      "stdout": "[PASS] out_pace_red / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-outed-red-four-live-sparse-real-proclaim-mark-earns-plus-one-damage-then-hit-clears-mark",
+      "returncode": 0,
+      "stdout": "[PASS] outed_red / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 2,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

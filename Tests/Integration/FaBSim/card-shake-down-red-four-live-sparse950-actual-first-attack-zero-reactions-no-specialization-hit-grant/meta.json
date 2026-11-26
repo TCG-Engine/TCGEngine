@@ -1,0 +1,7 @@
+{
+    "name": "Shake Down / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T21:35:48+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "**Uzuri Specialization**\n\nIf you've played or activated an attack reaction this chain link, this gets \"When this hits a hero, choose red, yellow, or blue. They reveal their hand. Banish a card of the chosen color.\" Actualfreshturn firstattack, noarcaneDamage/playedCreatedAura/attackReactions, staticgrantfalse so no earnedhitability. RealenemyHandmarkerretained/noBanish/noGY, printedbaseHPdamage, actualpayment/native4manualcombat/source5ownGY. Positivehistorycondition/banish/discard/handlook/search branches untested. Sources: FaBSim/GeneratedCode/cardArrayCache.json#shake_down_red"
+}

@@ -1,0 +1,118 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "independent breadth_review1252",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1325-20261122.json",
+  "source_spec_sha256": "7d3e5443bdf32750b473154eef989409c7baf7a831de26c5320ad46b6face228",
+  "input_sha256": "7d3e5443bdf32750b473154eef989409c7baf7a831de26c5320ad46b6face228",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-maxx-the-hype-nitro-two-live-sparse1325-earned-boost-funds-paid-two-steam-token-and-real-crank",
+      "card_id": "maxx_the_hype_nitro",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "f35ca9a5fb7a491c351b83d97b664a9c8a9de99f6e4c6ff02d481dc130f29b5c",
+        "actions.json": "9429d2b43927a85060839873a1905fb962365e6fd948258a75ab1491ff2e1e7a",
+        "assertions.json": "f5f038a9102d61cdb852e949a14c6a69483a518468a14837df954aca161a2903",
+        "expected_final_gamestate.txt": "21c2d72edeee4830822530b496455ddc3c17f4f02b56412999459546ab938951",
+        "meta.json": "856590d151fb99c51e6d218720780ea3484ca6c6d840ce48d74dd4be8997d446"
+      },
+      "fixture_sha256": "1b3ea547accdf9e23c53f01247dad6ab29fc08dd180ce9502e7eeb3898b2f921",
+      "actions": 20,
+      "native_assertions": 342,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 15,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1325-20261122.json",
+      "input_sha256": "7d3e5443bdf32750b473154eef989409c7baf7a831de26c5320ad46b6face228",
+      "active_seats": [
+        1,
+        2
+      ],
+      "players": "two_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1325-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-maxx-the-hype-nitro-two-live-sparse1325-earned-boost-funds-paid-two-steam-token-and-real-crank",
+        "fixture_slug": "card-maxx-the-hype-nitro-two-live-sparse1325-earned-boost-funds-paid-two-steam-token-and-real-crank",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "reviewer": "independent breadth_review1252",
+    "spec_sha256": "7d3e5443bdf32750b473154eef989409c7baf7a831de26c5320ad46b6face228",
+    "source_note_sha256": "0bb4d12861d04ec2f5a5d14c1681c627d5e2e3c3c36d82acadd886e699b5eae5",
+    "case_count": 1,
+    "active_seats": [
+      1,
+      2
+    ],
+    "players": "two_live_manual",
+    "native_controls": 20,
+    "query_checks": 342,
+    "persistable_assertions": 342,
+    "author_only_checks_omitted": 0,
+    "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+    "coverage_category": "POSITIVE_NATIVE_EARNED_BOOST_PAID_ADULT_HERO_TWO_STEAM_TOKEN_AND_CRANK",
+    "per_case": [
+      {
+        "card_id": "maxx_the_hype_nitro",
+        "group_id": "identity:maxx_the_hype_nitro",
+        "native_controls": 20,
+        "persistable_assertions": 342
+      }
+    ],
+    "basis": [
+      "Fresh standalone adult Maxx40 group unrepresented/no exact hold. Actual opponent adult Dorinthea Ironsong40, activeSeats omitted/default empty gameMode/no passives/manual duel12. HeroUID1/2 followed by Zero to Sixty Red3 Hand, real Generic Blue Wounding4 Hand, real Mechanologist Mechanical Strength Blue5 Deck. No initial Boost/Driver/history/AP or result seed. Sole legal opposing Hero is auto-declared by existing native duel targeting.",
+      "Actual printed Boost is implemented: Zero Prepare13173\u2192await b54c276c38a69fbe6157 chooses Boost0 before costs while AP1, but choice is declaration only. ARCAbilities287+ defers accepted banish under pending source; GameLogic1197+ pays AP1to0 first then PayDeferredBoostCosts311+ moves actual top Mech5 face-up Banish and records Boost/GO_AGAIN. No MST-granted Boost or pre-existing Hyper Driver listener is used. Both manual responses2then1 precede printed4 HeroDamage/HP36; last Damage response refunds exactly oneAP, full close preserves actual Banish5/funder4Hand/source3GY.",
+      "EVORuntime actual adult Maxx ACTION2 is enabled by earned ARC_BOOSTED; no artificial eligibility flag. Actual Hero1 click creates ABI6 and requires real Blue4pitch3 paying2/R1/AP0 before creation. Both fresh responses2then1 hold ABI6/Arena0. Printed Hero action has no go again or tap cost; source HeroStatus2 stays and earned AP remains0 before Crank.",
+      "Generated adult Resolve16230 invokes FaBSEAHeroCreate(FaBEVOCreateDriver); EVOCards106 explicitly creates actual Token7 and calls Enter22\u201329. Token-specific initialization27 adds2Steam, not printed Hyper Driver card3; actual Maxx predicate6 and Crank predicate9 grant Crank to this token. This direct initializer route avoids207 missing ordinary item-entry dispatch. Correct pending modal1|1|Crank&Keep_steam has same owned token7 STEAM2/Status2 and resolving ABI6 Stack, AP0/R1 before chosen0. Crank33 removes oneSteam and own-turn MAIN AP helper21 adds oneAP; no Hero GA refund.",
+      "Final exact token7 CountersSTEAM1/Status2/AP1/R1/ABI6cleanup, source3GY/funder4Pitch/Mech5faceupBanish/Deck0/Hand0/UID7/RNG0/Health40vs36/Stack decisions combat clean are coherent. New Driver did not exist during earlier Boost and earns no retrospective resource trigger, so R1 remains strict. All342 assertions across20 controls persist."
+    ],
+    "limits": [
+      "Only new adult binding and authored real Boost\u2192paid Hero\u2192Crank route semantic review pending native save/replay; no native pass or coverage credit claimed.",
+      "No Young/four-live/KeepSteam/extraactivation/repeat/future Driver Boost/upkeep/secondary/full-card credit. Known207 ordinary item-entry gap and other held additional costs unchanged.",
+      "Only W receipt written; no native tests/games/replays, T/engine/original-checkout edit or access, auth/network or Git."
+    ],
+    "source_sha256": {
+      "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+      "FaBSim/GeneratedCode/GeneratedMacroCode.php": "fe6a7982611df8f4de98ce2671b317b671b580146aa4b8c28e8f4b86d8461056",
+      "FaBSim/Custom/GameLogic.php": "c60fa151561f959e4e3e341b814de0e2b47c9e9f153bbc8793a04c43b5075061",
+      "FaBSim/Custom/ARCAbilities.php": "e49ce4685f148ef423ea38aac544266b3298527ea8ca9eef11b12fb974e7c9f0",
+      "FaBSim/Custom/EVOCards.php": "7e946cadb04817da7a0c0b17d94cf5a6bd03655adba07b714d39654329b54dbe",
+      "FaBSim/Custom/EVORuntime.php": "d57f99b22981b970a55facbee812dc398b8dd104bb2fb386e6e3014eb79512b5",
+      "FaBSim/Custom/SEACards.php": "5400728b0cfe26f7f9e60f7e135e0ee9b28ac85d39420f64aaade0fa9826f00f",
+      "FaBSim/Custom/SEARuntime.php": "6d998ea92dd3817d3329695a08db8c2fff78228967ee3bc35923f79eccdd3587",
+      "FaBSim/Custom/ARCCards.php": "f6b6a21d214e71fdcfd6a084f0671ce610f08a40c51a1266041877a5a12c0d52",
+      "FaBSim/ZoneClasses.php": "874bb2ae00a80a8ba3dfe1789b4c932fd0b7cf1286504a62828e0055ca1cb355",
+      "Schemas/FaBSim/GameSchema.txt": "7783800bd47bc85885cc915066aadca58cdf99f0c1180602ac312d9af5ebf643",
+      "Core/ShortcutPreferences.php": "25f300ea0b6fbc409f5b92e8bc3587a74b2ab0eaf31ccef38e18c455598eaba6",
+      "DevTools/FaB/CardRegression/record_card_regressions.php": "e53055b29e9ea641949b77019c4455607f41ca233325d716a9500637e19efd28"
+    },
+    "workspace_source_sha256": {
+      "author_breadth1325.py": "3ed341904bb472213fa950f8339ea9373e456588ef286da213f9c2f7c058d350",
+      "duel_breadth1261_helpers.py": "786de4cb45fa4cb12016e55b204ba1aa5f823bb576c7778732623fae7ed05dbd",
+      "breadth1068_helpers.py": "997f949ec26c7e494ad26a818f9f2078f6f4f2a0c49ca7f61aa8c71f3b091b0a"
+    },
+    "secondary_identity_credit": false,
+    "young_credit": false,
+    "four_live_credit": false
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1325-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "eb185795a533c93021a0bc3e2cde14caf4214a753d50623dbb63b636d6ea1450"
+  },
+  "full_suite_run": false
+}

@@ -1,0 +1,63 @@
+{
+  "status": "HELD_CONFIRMED_NATIVE_UNSAVED",
+  "issue": "FAB-REG-229",
+  "related_root_family": [
+    "FAB-REG-025",
+    "FAB-REG-087"
+  ],
+  "new_distinct_root_credit": false,
+  "card_id": "submerge_red",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1450-held-submerge-hand-choice-20261124.json",
+  "source_spec_sha256": "445609180a07752a7006d7d3a9e2792a6f49b3304f7ab9b00776f775da659484",
+  "recorded_input_sha256": "762e9da3690617b27c19723b4d8cc0b0c51346888d9094400b04e81e01fe769a",
+  "receipt_sha256": "a8d8ffaf602ea77ae6a1a3d7c08f020d953542584f08c60858f4e2df5b284620",
+  "native_inputs": 2,
+  "error": "Expected p1DecisionQueue-0.Param to equal 'p1Hand-0&p1Hand-1', got 'p1Hand-1&p1Hand-2'.",
+  "live_hand_refs": [
+    "p1Hand-0",
+    "p1Hand-1"
+  ],
+  "pending_choice": {
+    "Type": "MZCHOOSE",
+    "Param": "p1Hand-1&p1Hand-2",
+    "Block": 1,
+    "Tooltip": "Put_card_fifth_from_top",
+    "DontSkipOnPass": 0,
+    "removed": null,
+    "Location": "DecisionQueue",
+    "PlayerID": 1,
+    "mzIndex": 0,
+    "_sourceZone": null
+  },
+  "pending_payment": {
+    "player": 1,
+    "uid": 5,
+    "cost": 0,
+    "fromZone": "Hand",
+    "kind": "ATTACK",
+    "returnWindow": "ACTION",
+    "returnCombatStep": "NONE"
+  },
+  "fixture_saved": false,
+  "qualified": false,
+  "coverage_credit": false,
+  "unrun": [
+    "additional_cost_answer",
+    "fifth_deck_placement",
+    "attack_damage",
+    "save",
+    "replay"
+  ],
+  "independent_review": "Reviewer independently confirmed generated Prepare captures pre-save Handrefs; save omits removed source tombstone and narrow existing save remapper excludes Submerge cost0/Fifth tooltip. No generic live-splice claim.",
+  "scope": "Hand-source branch only. A separate Arsenal-source scenario may independently exercise the printed cost without removing a Hand source; this does not fix or validate this held branch.",
+  "engine_changes": false,
+  "full_suite_run": false,
+  "separate_qualified_branch": {
+    "batch": 1451,
+    "slug": "card-submerge-red-four-live-sparse1451-arsenal-source-real-additional-hand-card-fifth-deck-cost-before-priority-six-damage",
+    "source_spec": "card-regression-sparse1451-20261122.json",
+    "replay": "card-regression-sparse1451-20261122-replay.json",
+    "scope": "Arsenal source only, real Hand additional cost/fifth placement/6damage. Hand-source stale choices remain unfixed."
+  }
+}

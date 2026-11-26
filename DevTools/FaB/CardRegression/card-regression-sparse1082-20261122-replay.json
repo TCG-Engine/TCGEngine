@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-third-eye-of-the-sphinx-four-live-sparse1082-actual-optional-spellvoid-one-destruction-prevents-one-arcane-without-resource-payment",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-third-eye-of-the-sphinx-four-live-sparse1082-actual-optional-spellvoid-one-destruction-prevents-one-arcane-without-resource-payment",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1082-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1082-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "5b4dcfa636feb733fdf587628e372d95ea750c0851746156be130a715bd087b7",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "d518e00c4652b18d7135bd03b17b3090675f35c6e8cca9dd7c62905a08e3c7c9",
+        "actions.json": "63fcdec970afb6bec58eb589afcdcd7b550391da47a593b4cb3ee062b81befd8",
+        "assertions.json": "7f0a1644e19d939086f4ec5a071227dd89a17a9e7c0ba2c2428b95dce1b3d396",
+        "expected_final_gamestate.txt": "10d3e8351ac4fca58cc3cb21d06b897f07a5f9e9c3ed0148adeda5e81e60a5ae",
+        "meta.json": "37e597f6c204997596334ea61c334e565ff066bd94e42bef3e540c5083fa1433"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

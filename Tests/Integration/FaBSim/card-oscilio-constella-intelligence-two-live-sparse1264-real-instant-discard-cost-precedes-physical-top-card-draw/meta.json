@@ -1,0 +1,7 @@
+{
+    "name": "Oscilio, Constella Intelligence / actual printed paid Hero ability in native duel",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-24T01:10:45+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "ADULT_TWO_LIVE_NATIVE_DUEL_ONLY. Naturaloscilio_constella_intelligence36/DoriIronsong40/seats12/defaultemptygameMode/noPassives/bothmanual. ActualSigilSolaceBlue3HandisInstantdiscardcost; actualBlue4Deckisthedraw. HeroInstant0ABI5selectsanddiscards3asactualcostbeforebothresponses/GY3/AP1/R0/nohealing/noearlydraw. Onlyresolutionafterbothresponsesmovesactualtop4DecktoHand; source3staysGY/noheal/HP36. Essence deckconstructionnotexercised. Allotherphysicalzonesempty, HPunchanged/RNG0/noStackDQCC. NoYoung/four-live/onceRepeat/cancel/tax/otherchoices/Heroother/support/fullcardcredit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#oscilio_constella_intelligence FaBSim/GeneratedCode/GeneratedMacroCode.php FaBSim/Custom/ARCAbilities.php FaBSim/Custom/GameLogic.php"
+}

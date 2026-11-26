@@ -1,0 +1,7 @@
+{
+    "name": "Art of the Dragon: Fire / non draconic card does not earn draconic attack damage",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-24T06:16:22+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "FOUR_REAL_MANUAL_UPF_NATURAL_YOUNG_fai20_DORI20_DORI20_DROMAI20_NAMED_CONDITION_GUARD_ONLY. Primary5Handactualnormalcost1paidGenericAttackActionRed6pitch1/R0/AP1to0, formaladjacentrealAshwingAlly7withlawfulpriorAshmaterial/allfourfreshresponses. PrimaryprintedNinjaActionAttackisNOTDraconicandnocardtypegrants/historyexist. DraconicYoungFai20doesnotconferhisHerotalenttoanotherwiseNinja-onlycard. Thereforeconditional2damagetriggernotearned; FaihasnoautomaticHero-hitproducer; hisoptionalstartupPhoenixFlameandactivatedretrievalarenotused. Actualprinted5physicaloverkillkills1lifeAlly7/ceasesnoGY4/noHeroHPdamage(noBriarHeroHitproducerorFaiabilityused); allHero20, realHandBlue8andArsenalRed9underopponentretained, realownedDeckBlue10retained. Final5ownGY1/6Pitch1/10Deck1/nootherUIDRNG/APR0/StackDQsCCclean. No positivecondition/arcane/damage/modes/typegrant/Flowproducer/Fusion/Hero/support/otherpitch/fullcardcredit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#art_of_the_dragon_fire_red FaBSim/GeneratedCode/GeneratedMacroCode.php FaBSim/Custom/GameLogic.php FaBSim/Custom/OMNCards.php FaBSim/Custom/PENCards.php FaBSim/Custom/FaiCards.php FaBSim/Custom/ELECards.php FaBSim/Custom/UPRCards.php"
+}

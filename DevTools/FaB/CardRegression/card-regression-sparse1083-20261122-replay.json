@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-electromagnetic-somersault-red-four-live-sparse1083-actual-two-owner-chain-cards-return-after-real-damage-and-link-resolution",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-electromagnetic-somersault-red-four-live-sparse1083-actual-two-owner-chain-cards-return-after-real-damage-and-link-resolution",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1083-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1083-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "25e36d60e4617809d7b5d0a12d9d995c9f21bb3b2e10aaae690ba0c4498923a9",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "884b0c0f4d8821ee7732af002ad455589996a45b783a2433355a2158f2f345a7",
+        "actions.json": "81813b3130a5684a9f18a159b27898fd314dc0a138ea854c2ddeed1803b70e09",
+        "assertions.json": "72b15b30e896bf7cbfa5186ff46ab724a6fcdcdbb062fa3b6067d3ae0ef52e69",
+        "expected_final_gamestate.txt": "5562d2139ed82e4ddd31cbe806fe596bbc6bbb9b101e50f99ed185ba4e8b3f83",
+        "meta.json": "3e82152cee77def4f17d8c610da1b4ed0a1d3bbe3ec2c215e1dd6a44ef88ad1d"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

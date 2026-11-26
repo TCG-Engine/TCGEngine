@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-restless-shieldmaiden-red-four-live-sparse1445-real-shadow-controlled-generic-damage-prevention-destruction-and-malice-followthrough",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-restless-shieldmaiden-red-four-live-sparse1445-real-shadow-controlled-generic-damage-prevention-destruction-and-malice-followthrough",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1445-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1445-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "0e91ac1b9483af406f7259cc5caefdbbe011bb0fba6a927e1d90846ee9135175",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "6077715f83a395edad41c82006da984b798d6b3cbb07dd4a18b134e4db185475",
+        "actions.json": "9f25e65f825937a2eda9643d116981a99957d00bce9450b53b4cd007f90d636c",
+        "assertions.json": "5cc519881f9aefcda6eba86020f744240b0603f956858017861db21a0c535ccd",
+        "expected_final_gamestate.txt": "50f7e5bf84c697ac8eb80c67277a15d4a23e2113176adcf1ede5589250df4de2",
+        "meta.json": "61d1297022008ed37cecef0e760f906bcedbbb773b76e2966219e7eefa64e0da"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

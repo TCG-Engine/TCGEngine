@@ -1,0 +1,217 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-evo-sentry-base-arms-red-four-live-sparse879-real-base-arms-transforms-into-owned-equipped-evo",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-evo-sentry-base-arms-red-four-live-sparse879-real-base-arms-transforms-into-owned-equipped-evo",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse879-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse879-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "083f56360c34c2ca6de68b1ea855ed1dc12b02554d4fbdfe7312dea38b6af407",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "b31e5c4281702c50d2afec45d17b542a780e5f1663ff38c6b830a7d1746697ed",
+        "actions.json": "c9e30c252fa7ee7dec5f8a364eea8e728c688845dd8df7f54427b2bc62c71d2d",
+        "assertions.json": "ee8bfcca3093a5b2453932c7e877440a0f7f1a8328432514c64554c275148ebf",
+        "expected_final_gamestate.txt": "85830e00ba5cff445444ae83e6e18c13c69bd0c8a36c83a1bb424e5bb076426a",
+        "meta.json": "64e5c2223f5f1be3e7f63f549d966c47463f045d262fc4739fa1661110df4bbb"
+      }
+    },
+    {
+      "slug": "card-evo-sentry-base-legs-red-four-live-sparse879-real-base-legs-transforms-into-owned-equipped-evo",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-evo-sentry-base-legs-red-four-live-sparse879-real-base-legs-transforms-into-owned-equipped-evo",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse879-local-20261122\\clean-replays\\01.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse879-local-20261122\\clean-replays\\01.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "a1474cd2265d6c2d9afe1c1b4809ae6e534344a2c3dca0f79c4973eda2b14fd0",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "589d2ca7eeb13d6bb3fc7e659a14d265ff38597b422faffff49a66d6ee696c74",
+        "actions.json": "c9e30c252fa7ee7dec5f8a364eea8e728c688845dd8df7f54427b2bc62c71d2d",
+        "assertions.json": "28264a201913a4b3d608cd97c29a8a238ecc8ffdf9cebc319b7739b78406405f",
+        "expected_final_gamestate.txt": "ddcdc917c82f9db5c7fb8c18b057c741cb170842d1d8dd82806456d68b1f4323",
+        "meta.json": "6bff30a12e58fba23cd803efbfcd2de7dda31593a7804a1b78045b1a4f9c541a"
+      }
+    },
+    {
+      "slug": "card-evo-charging-rods-yellow-four-live-sparse879-real-base-legs-transforms-into-owned-equipped-evo",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-evo-charging-rods-yellow-four-live-sparse879-real-base-legs-transforms-into-owned-equipped-evo",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse879-local-20261122\\clean-replays\\02.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse879-local-20261122\\clean-replays\\02.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "cb2041a6c30b988d2582e09919c8aa131cbb14339dbb5e38db49c25915556311",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "e2c996bea839238741493f9accf08db7f163a2f702d7b8a712888884b4fb3e5f",
+        "actions.json": "ecfc3b356d170d3adcd369c59f64176c3b17ffe7af3900115b2de1a20afbaf7c",
+        "assertions.json": "2413dc27f1e410a87e98c6974429a4dd315b846ab65ff6af453b90bf9b60b6a9",
+        "expected_final_gamestate.txt": "adde32d6e7a958354021df687c4e6dfd729716d823b595a12c39d70c392a9d19",
+        "meta.json": "979e8bffc28386d29dc8116735eb7f7aeac60a28044c3b83022030781416fd74"
+      }
+    },
+    {
+      "slug": "card-evo-energy-matrix-blue-four-live-sparse879-real-base-chest-transforms-into-owned-equipped-evo",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-evo-energy-matrix-blue-four-live-sparse879-real-base-chest-transforms-into-owned-equipped-evo",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse879-local-20261122\\clean-replays\\03.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse879-local-20261122\\clean-replays\\03.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "821a043ce7c870816c3d47062774f538fa966be5f6dd69dbae5200647385722d",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "97a4f057ee69ebdbee338f37fd80e1ad78941bf41ddfbc7d708975d96cda37aa",
+        "actions.json": "c9e30c252fa7ee7dec5f8a364eea8e728c688845dd8df7f54427b2bc62c71d2d",
+        "assertions.json": "bc2d87a41ce55976c449fcbdae59e45eccf4f30b776ab99331e58e6b7c6fe50e",
+        "expected_final_gamestate.txt": "e622fb1e269d265733cf75620884235400337079eb945b4c9260f77ec5a6f8e4",
+        "meta.json": "5e84d3b7b257ec7ff5e04212b4829109ebbc109e44589eaff1de8ad0afffd01f"
+      }
+    },
+    {
+      "slug": "card-evo-rapid-fire-blue-four-live-sparse879-real-base-legs-transforms-into-owned-equipped-evo",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-evo-rapid-fire-blue-four-live-sparse879-real-base-legs-transforms-into-owned-equipped-evo",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse879-local-20261122\\clean-replays\\04.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse879-local-20261122\\clean-replays\\04.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "56766add69c0a5c92fa7be6ccc3e208904c9ffc3eb6345f946bca2dff3b967ad",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "48db2c533923f57cc32c7c8e6932f7c4e33c1bc067be1f5dc42629be93520ccd",
+        "actions.json": "c9e30c252fa7ee7dec5f8a364eea8e728c688845dd8df7f54427b2bc62c71d2d",
+        "assertions.json": "e8d5afca456952fd9bab0c033a2cd0f2725b4ad3fb835e3e0324a18f6a5b1ee3",
+        "expected_final_gamestate.txt": "6c4dabc8272300dd62782ebe59d90fde9362c5aa9af1cbcd2cd3f39af9cb99b4",
+        "meta.json": "4b7f6c869df6fe2f16453f2c1142ad2ea7fa1687b4cebe8994b100c10f45c55c"
+      }
+    },
+    {
+      "slug": "card-evo-scatter-shot-blue-four-live-sparse879-real-base-arms-transforms-into-owned-equipped-evo",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-evo-scatter-shot-blue-four-live-sparse879-real-base-arms-transforms-into-owned-equipped-evo",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse879-local-20261122\\clean-replays\\05.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse879-local-20261122\\clean-replays\\05.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "dfd5ed85e39b9f1e02639aa264245d686878798268975586a21ab6fcb6c43e1f",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "bf53b74cc0fa7c7e8f2d6c678bde10868a4b9a26e3cebcbce1433721d927ca67",
+        "actions.json": "c9e30c252fa7ee7dec5f8a364eea8e728c688845dd8df7f54427b2bc62c71d2d",
+        "assertions.json": "d08b3b32e09a9264da85240889d9ca263977d6caebc57d29652414052554a584",
+        "expected_final_gamestate.txt": "4e59c4cede75c2217d675c37ea66d08889f93f8103a57f0ae151d0d401147a80",
+        "meta.json": "263cbd01c31203768bc183416f0e915a48bb78ef66adf91932ab49e1d079bb6c"
+      }
+    },
+    {
+      "slug": "card-construct-bank-breaker-yellow-four-live-sparse879-real-wrench-and-three-hyper-drivers-transform-into-equipped-bank-breaker",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-construct-bank-breaker-yellow-four-live-sparse879-real-wrench-and-three-hyper-drivers-transform-into-equipped-bank-breaker",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse879-local-20261122\\clean-replays\\06.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse879-local-20261122\\clean-replays\\06.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "f33ca83736c8b41751822faec4d26cec15182bf5e1cb948ac22041d3dd1a45a8",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "c28a36485f4816d059f685dcb877ef5517f803faade6aecaddc7b8c6863a7495",
+        "actions.json": "ff73c9bc56d4dbe8c7ddee5eb4a5fd6b25fca5fc970f25c976eaa30f94abfeb6",
+        "assertions.json": "3073b5ed0c997ed41813d8ac8cdb2b902b6e75580c8aa0bf30a184bf2c3cfc86",
+        "expected_final_gamestate.txt": "c790e1165d610690b4c134dfc768fe55038d012bdd0dd270c3cee920c5978d7c",
+        "meta.json": "026f2d5ead661d646c268be0e93f873c868f2818bcd0840c86a75e978f981f40"
+      }
+    },
+    {
+      "slug": "card-renounce-violence-blue-four-live-sparse879-destroys-three-real-tokens-across-seats-and-creates-three-owned-replacements",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-renounce-violence-blue-four-live-sparse879-destroys-three-real-tokens-across-seats-and-creates-three-owned-replacements",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse879-local-20261122\\clean-replays\\07.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse879-local-20261122\\clean-replays\\07.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "4123faf4398a188bbeba5ca373af1c9d70ce4a74cf59d661a917a6e15786c560",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "49e867ac31a178d840b9f558dd59df4f6ca6b552b1566cdca0504b4cad856caa",
+        "actions.json": "0cad22f6f3ba2f18f5732c5dc1f1f7809d4bcdcf95bffa37a576f614d2d2a4a7",
+        "assertions.json": "0a9277b44f1d1a019d5d45d883d8a3c85da082710bba8ec02df4e0adfb13a41d",
+        "expected_final_gamestate.txt": "f0a2f899895a8b2d08ac5e3a5a139b7f6233574d4d28f129f9283ed6ea1a1e21",
+        "meta.json": "2e15881a3dc6763a238e7a8e0143c0716b33d8cb7515e22fb05db71e65c4bcb0"
+      }
+    },
+    {
+      "slug": "card-rip-up-their-virtues-blue-four-live-sparse879-destroys-three-real-tokens-across-seats-and-creates-three-owned-replacements",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-rip-up-their-virtues-blue-four-live-sparse879-destroys-three-real-tokens-across-seats-and-creates-three-owned-replacements",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse879-local-20261122\\clean-replays\\08.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse879-local-20261122\\clean-replays\\08.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "6caaf734706cff2267006781a4f870e409876c24bfe8a1940fd7365fe90f508f",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "40b8af61e567df508dab62ebcc70a8783eeb1b27f11086b3274214ef46082d78",
+        "actions.json": "0cad22f6f3ba2f18f5732c5dc1f1f7809d4bcdcf95bffa37a576f614d2d2a4a7",
+        "assertions.json": "ac6ce459e01fe54dd4d7478335160d01d65bfd640c4eaf3c4a8122d81a55e093",
+        "expected_final_gamestate.txt": "e23d750c04630ba3b09cd6fd233532e67af659df06269f0f0f9b61556b7d0e5a",
+        "meta.json": "2484b26d575c2485c7ac2747965dc83c8dad0ab3cab3a04c8728e7c85f9ee146"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

@@ -1,0 +1,7 @@
+{
+    "name": "Re-Charge! / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T15:35:14+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Put a steam counter on a Hyper Driver you control.\n\nThe next attack you **boost** this turn gets +4{p}.\n\n**Go again** Representative only: adds_one_steam_counter_to_real_owned_hyper_driver. Other pitch siblings, alternate targets and unexercised branches receive no credit. All four live/manual; only native entry-point actions. Sources: FaBSim/GeneratedCode/cardArrayCache.json#re_charge_red"
+}

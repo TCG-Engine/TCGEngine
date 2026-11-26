@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-tiara-of-suspense-four-live-sparse994-real-suspense-target-without-cheer",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-tiara-of-suspense-four-live-sparse994-real-suspense-target-without-cheer",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse994-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse994-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "9edb85211d1a6aed739912545fe25718e6064c7fd2bd1c9de363ae989a4d254a",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "a5656f344bb5827f7afcbdbedfd26382fdeffc7bb0bc408347c4c6287e2ac795",
+        "actions.json": "1da07b47d68c485b562420997d531d2c0092071d782f19db3fb87cd1f1159c1a",
+        "assertions.json": "7a5913579aafec5516b374141a9c007191e9db4e63ea138a086e7a3f81098b45",
+        "expected_final_gamestate.txt": "669b582eeaa6cb76270cf70400afae6c8052a308325d45e15f291f61473d7214",
+        "meta.json": "85ded8227839cead5bf4b9b137709f46be3301e27924aba447c2c2b4b61d912e"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

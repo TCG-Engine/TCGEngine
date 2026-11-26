@@ -1,0 +1,7 @@
+{
+    "name": "Endless Maw / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T16:23:28+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "As an additional cost to play this, banish 3 random cards from your graveyard.\n\nIf a card with 6 or more {p} is banished this way, this gets +3{p}.\n\n**Blood Debt** Representative only: actual_three_random_graveyard_cost_cards_earn_nine_unblocked_damage. Other pitch siblings, alternate targets and unexercised branches receive no credit. All four live/manual; only native entry-point actions. Sources: FaBSim/GeneratedCode/cardArrayCache.json#endless_maw_red"
+}

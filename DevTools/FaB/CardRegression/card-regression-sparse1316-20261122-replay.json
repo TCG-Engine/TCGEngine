@@ -1,0 +1,79 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-aether-slash-red-four-live-sparse1316-actual-attack-action-pitch-does-not-earn-non-attack-pitch-arcane",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-aether-slash-red-four-live-sparse1316-actual-attack-action-pitch-does-not-earn-non-attack-pitch-arcane",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1316-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1316-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "bfe3f8a72eac07654eabbca53f1485fc7895699d439eb93accb7277dae075f3f",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "d92d6553e35663430658fdce073d2bd5b946e26bdb3d72e0b283500ea409b523",
+        "actions.json": "1ef1359f0cb6a63079e6f6cd368d56bb483cc14d047b770aadf86c15dfedfbeb",
+        "assertions.json": "30156448fe3be3c578c29279fd83638bac651d12df52526ce1352cb48156c6f3",
+        "expected_final_gamestate.txt": "a1ccb34b1c91a51abea0c9593b284cedd13691b0dd95ab8f75ace8251b94ba29",
+        "meta.json": "0979a3e83a25e0eee9f8ddc1910d5a9fba92fd02664755a76c62f703e83280d9"
+      }
+    },
+    {
+      "slug": "card-art-of-the-dragon-fire-red-four-live-sparse1316-non-draconic-card-does-not-earn-draconic-attack-damage",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-art-of-the-dragon-fire-red-four-live-sparse1316-non-draconic-card-does-not-earn-draconic-attack-damage",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1316-local-20261122\\clean-replays\\01.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1316-local-20261122\\clean-replays\\01.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "6997fbb961ab31bc7084f9a040456127cd785c305af0bd35bdaa65000e6775ff",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "190b2fe8721efa320382bed14ae41c63f38e0f42492f06451311beb9dc012d58",
+        "actions.json": "1ef1359f0cb6a63079e6f6cd368d56bb483cc14d047b770aadf86c15dfedfbeb",
+        "assertions.json": "06a5d2fc89a4a4c7248e4b579625e66a3bc773a2b3fe77bda3dc124fc19fa157",
+        "expected_final_gamestate.txt": "2be8913ede74b1c7e2eca979875a89307c4ece90e00667b05c3f1fabbdf9319f",
+        "meta.json": "3f0fd52c152106e517720b3705626dbd145df486743bc6e3f7a4eb2fc0ffd04f"
+      }
+    },
+    {
+      "slug": "card-astral-strike-red-four-live-sparse1316-no-lightning-flow-destroy-does-not-earn-draw-power-or-go-again-choice",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-astral-strike-red-four-live-sparse1316-no-lightning-flow-destroy-does-not-earn-draw-power-or-go-again-choice",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1316-local-20261122\\clean-replays\\02.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1316-local-20261122\\clean-replays\\02.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "e87e431b6033250f9cd127e23a9f2c44ac35c4066edb74385779307113c70cf1",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "3f6ad471c80016758fc875aa0027f1ed38d68d83f4f5843ecc65a2aa892b14c4",
+        "actions.json": "1ef1359f0cb6a63079e6f6cd368d56bb483cc14d047b770aadf86c15dfedfbeb",
+        "assertions.json": "91f99da136fa326297872cf4bc180c8812f8fb725d0c6702759428ea94d6e928",
+        "expected_final_gamestate.txt": "1534bfc94178cf0c77440bf099f91e59554e025f7f3ac62c7f6f4574b5eff69d",
+        "meta.json": "89f80158ac718441f46f47f437a2c6351411a98aea8a4ea77fbc50ba6e2190a1"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

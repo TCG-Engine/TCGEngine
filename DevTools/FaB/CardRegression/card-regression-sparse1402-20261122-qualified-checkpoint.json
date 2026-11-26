@@ -1,0 +1,68 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-24T14:40:34.181765+00:00",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1402-20261122.json",
+  "source_spec_sha256": "a7affdc5c230e9845a9b1ac3f4ad93268acd4a4b40b48f2d68e4810edf307b99",
+  "new_scenarios": 1,
+  "new_groups": 1,
+  "new_primary_ids": 1,
+  "actions": 33,
+  "native_assertions": 350,
+  "manual_passes": 29,
+  "totals": {
+    "saved_registered_scenarios": 5406,
+    "duels": 3113,
+    "four_live": 2293,
+    "recorded_primary_ids": 2554,
+    "identity_denominator": 5196,
+    "recorded_groups": 2428,
+    "group_denominator": 3324,
+    "four_live_groups": 2282,
+    "phase_qualified_scenarios_at_actual_contexts": 2043,
+    "phase_qualified_unique_groups": 2033,
+    "creation_replay_passes": 2785,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 1204,
+  "scenarios": [
+    {
+      "card_id": "bramble_spark_blue",
+      "group_id": "pitch-cycle:bramble_spark",
+      "scenario_id": "card-bramble-spark-blue-four-live-sparse1402-real-unfused-play-then-weapon-is-not-attack-action-no-arcane",
+      "effect_branches": [
+        "native_unfused_bramble_go_again_then_real_paid_weapon_attack_does_not_gain_attack_action_arcane_ability"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-bramble-spark-blue-four-live-sparse1402-real-unfused-play-then-weapon-is-not-attack-action-no-arcane",
+      "source_spec": "card-regression-sparse1402-20261122.json",
+      "source_spec_sha256": "a7affdc5c230e9845a9b1ac3f4ad93268acd4a4b40b48f2d68e4810edf307b99",
+      "review_evidence": "review-evidence/sparse1402-20261122-qualified-saved.json",
+      "review_evidence_sha256": "871dc92b238278de49ea817b1f36a246deab1414c6b1b093bd700467674281bd",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1402-20261122-replay.json",
+          "sha256": "266de5ef65fc1bc4771eff32f60db316fb2d933a76eafca10c3790bd5764e371",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

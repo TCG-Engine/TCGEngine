@@ -1,0 +1,27 @@
+{
+  "status": "COMPLETE",
+  "runtime_before": "527c3e3bf7e18d626fbaf23ae221d77fc65bf1ec080080758a7009069800afa2",
+  "spec": "card-regression-batch381.json",
+  "spec_sha256": "e01f5e99c997d6860d56be6142e945a4fea10e923f000f6adfb73f141e95c00c",
+  "command": [
+    "C:\\xampp\\php\\php.exe",
+    "DevTools/FaB/CardRegression/record_card_regressions.php",
+    "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch381.json",
+    "card-blood-dripping-frenzy-blue-four-live-sparse-real-pitch-whole-hand-banish-draw-and-eight-power-consumer"
+  ],
+  "started_utc": "2026-11-04T19:53:53.864728+00:00",
+  "expected_new_slugs": [
+    "card-blood-dripping-frenzy-blue-four-live-sparse-real-pitch-whole-hand-banish-draw-and-eight-power-consumer"
+  ],
+  "existing_scenario_count": 3689,
+  "full_suite_run": false,
+  "pid": 26212,
+  "exit_code": 0,
+  "runtime_after": "527c3e3bf7e18d626fbaf23ae221d77fc65bf1ec080080758a7009069800afa2",
+  "new_fixture_slugs": [
+    "card-blood-dripping-frenzy-blue-four-live-sparse-real-pitch-whole-hand-banish-draw-and-eight-power-consumer"
+  ],
+  "new_fixture_count": 1,
+  "stderr_bytes": 0,
+  "completed_utc": "2026-11-04T19:54:31.956559+00:00"
+}

@@ -1,0 +1,97 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-25T06:04:38.670219+00:00",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1499-20261122.json",
+  "source_spec_sha256": "834ae89c06db46276db8aedff73835cc01c93992fda8a36c2b4d355c16ffc17c",
+  "new_scenarios": 2,
+  "new_groups": 2,
+  "new_primary_ids": 2,
+  "actions": 56,
+  "native_assertions": 688,
+  "manual_passes": 50,
+  "totals": {
+    "saved_registered_scenarios": 5547,
+    "duels": 3136,
+    "four_live": 2411,
+    "recorded_primary_ids": 2695,
+    "identity_denominator": 5196,
+    "recorded_groups": 2569,
+    "group_denominator": 3324,
+    "four_live_groups": 2400,
+    "phase_qualified_scenarios_at_actual_contexts": 2184,
+    "phase_qualified_unique_groups": 2174,
+    "creation_replay_passes": 2926,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 1345,
+  "scenarios": [
+    {
+      "card_id": "take_up_the_mantle_yellow",
+      "group_id": "identity:take_up_the_mantle_yellow",
+      "scenario_id": "card-take-up-the-mantle-yellow-four-live-sparse1499-actual-generic-attack-fails-specific-reaction-target-guard",
+      "effect_branches": [
+        "rejection_only_Stealth_attack_action_not_satisfied_in_correct_native_REACTION_window"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-take-up-the-mantle-yellow-four-live-sparse1499-actual-generic-attack-fails-specific-reaction-target-guard",
+      "source_spec": "card-regression-sparse1499-20261122.json",
+      "source_spec_sha256": "834ae89c06db46276db8aedff73835cc01c93992fda8a36c2b4d355c16ffc17c",
+      "review_evidence": "review-evidence/sparse1499-20261122-qualified-saved.json",
+      "review_evidence_sha256": "22a367d6d77dd284647966cb2b3b0d37b5f2efa5ff274fefab906cd23a0fb8a5",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1499-20261122-replay.json",
+          "sha256": "616b6e42931edc3c739e53fde48f9515e901c0de18dffba6772b6e06624217ff",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "two_sides_to_the_blade_red",
+      "group_id": "identity:two_sides_to_the_blade_red",
+      "scenario_id": "card-two-sides-to-the-blade-red-four-live-sparse1499-actual-generic-attack-fails-specific-reaction-target-guard",
+      "effect_branches": [
+        "rejection_only_either_Dagger_attack_or_Stealth_attack_action_not_satisfied_in_correct_native_REACTION_window"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-two-sides-to-the-blade-red-four-live-sparse1499-actual-generic-attack-fails-specific-reaction-target-guard",
+      "source_spec": "card-regression-sparse1499-20261122.json",
+      "source_spec_sha256": "834ae89c06db46276db8aedff73835cc01c93992fda8a36c2b4d355c16ffc17c",
+      "review_evidence": "review-evidence/sparse1499-20261122-qualified-saved.json",
+      "review_evidence_sha256": "22a367d6d77dd284647966cb2b3b0d37b5f2efa5ff274fefab906cd23a0fb8a5",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1499-20261122-replay.json",
+          "sha256": "616b6e42931edc3c739e53fde48f9515e901c0de18dffba6772b6e06624217ff",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

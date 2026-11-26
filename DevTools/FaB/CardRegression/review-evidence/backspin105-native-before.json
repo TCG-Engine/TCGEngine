@@ -1,0 +1,131 @@
+{
+  "status": "CONFIRMED_NATIVE_BEFORE_WRONG_CARD_VS_ABILITY_PREPARE_SCOPE",
+  "reviewer": "/root/b105_semantic_review",
+  "reviewer_independent": true,
+  "runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+  "input_sha256": "6175520b70c980237bf8b213fdb785d3fb13b78bc4eed4fd8ee6eef3aa421813",
+  "source_application": false,
+  "native_execution_by_reviewer": false,
+  "repository_writes": false,
+  "source_spec": "card-regression-batch426.json",
+  "independent_full_peer_sha256": "6b4206b8388a2389f7b89b32c74ef5bbe732e983bbd84c831949e20f64cc02ca",
+  "source_guards": {
+    "FaBSim/Custom/GameLogic.php": "1cdad1555c8d2e3bd3fa98d69bf52791b84d21bf2269363ddea7249f4ee35a43",
+    "FaBSim/Custom/ARCAbilities.php": "5330205cf8b98a1ba93cb15aa42f67c76d01dac3cb53b206669e7d00b0e9daca",
+    "DevTools/FaB/sup_abilities.json": "92ca6f5909da4af9dcb9350b3d1f9e793611cae5326dce97e25a1a1d7c8fb85e"
+  },
+  "immutable_native_archive": {
+    "path": "recording-runs/card-regression-batch426-20261105T065627Z-6aec289b42ac1.json",
+    "sha256": "6c05488d5bc1c73884f8b75671e8eba5d59b46b731cb6edd15f731ca249e1fcd"
+  },
+  "recording_results": {
+    "path": "card-regression-batch426.recording-results.json",
+    "sha256": "60617ef11796ffb6c7e8f85ef9fc043e2233b2c7852e4612d09ea3525b4f4e73"
+  },
+  "blocked_attempt": {
+    "slug": "card-backspin-thrust-red-four-live-sparse-real-gun-tap-earns-cog-untap-cost-and-resolving-power-choice",
+    "card_id": "backspin_thrust_red",
+    "group_id": "identity:backspin_thrust_red",
+    "semantically_approved": false,
+    "fixture_saved": false,
+    "source_expectations_retained": true,
+    "classification": "MATERIAL_CARD_PLAY_VS_ABILITY_COST_SCOPE_DEFECT; NOT_GUN_UI_PROTOCOL",
+    "accepted_inputs": 8,
+    "actual_manual_passes": 4,
+    "manual_pass_actor_counts": {
+      "1": 1,
+      "2": 1,
+      "3": 1,
+      "4": 1
+    },
+    "first_failure": {
+      "source_step_index": 16,
+      "native_input_count": 8,
+      "check_ordinal_in_checkpoint": 3,
+      "ordered_assertion_ordinal": 627,
+      "preceding_successful_check_count_from_source_and_failfast_order": 626,
+      "expected": "PRIORITY",
+      "observed": "PITCH",
+      "error": "state window expected \"PRIORITY\" got \"PITCH\""
+    },
+    "actual_boundary": "Gun click, actualCog tap answer, and allfourGun responses succeeded. Then normalBackspinHandclick andP4targetanswer were accepted. Observedpaymentuid5/fromHand/kindATTACK/cost0 and compiledBackspinPrepareCard await requestUntapCog. This is primaryattackannouncement, before its asset-completion/play/source-response round; not an unaffordableGunattack or missing explicitGunability selection.",
+    "source_cause": "GameLogic.php990 calls the selected card PrepareCard during ordinaryDoPlayCard. Current sup_abilities BackspinPrepareCard unconditionally asksTappedCogs/actuallyuntaps thenFinishPreparedCard, with no ability-vs-normalcard context guard. ARCAbilities.php153 separately uses the same PrepareCard for the realactivatedability, where the untap cost belongs. Current primary Backspin has printedcardcost0 and an independent OnceInstant untap cost, not an attackadditionalcost.",
+    "normative_basis": "https://judge.fabtcg.com/cards/detail/4123/ ; CR5.2.1c places untap between activatedabilitydash/colon. Ordinarycardplay does not acquire that independentactivatedabilitycost. Source3d569 and official indexedSUPruling remain the expected laterresolutionchoice basis.",
+    "observed_decisions": {
+      "1": [
+        {
+          "Type": "MZCHOOSE",
+          "Param": "p1Arena-0",
+          "Block": 1,
+          "Tooltip": "Untap_cog_as_cost",
+          "DontSkipOnPass": 0,
+          "removed": null,
+          "Location": "DecisionQueue",
+          "PlayerID": 1,
+          "mzIndex": 0,
+          "_sourceZone": null
+        },
+        {
+          "Type": "CUSTOM",
+          "Param": "backspin_thrust_red:0:PrepareCard-await|backspin_thrust_red:0:PrepareCard#1|1|chosen",
+          "Block": 1,
+          "Tooltip": "",
+          "DontSkipOnPass": 0,
+          "removed": null,
+          "Location": "DecisionQueue",
+          "PlayerID": 1,
+          "mzIndex": 1,
+          "_sourceZone": null
+        },
+        {
+          "Type": "PASSPARAMETER",
+          "Param": "1",
+          "Block": 99,
+          "Tooltip": "",
+          "DontSkipOnPass": 0,
+          "removed": null,
+          "Location": "DecisionQueue",
+          "PlayerID": 1,
+          "mzIndex": 2,
+          "_sourceZone": null
+        },
+        {
+          "Type": "SYSTEM",
+          "Param": "PlayCard_AfterAction",
+          "Block": 99,
+          "Tooltip": "",
+          "DontSkipOnPass": 0,
+          "removed": null,
+          "Location": "DecisionQueue",
+          "PlayerID": 1,
+          "mzIndex": 3,
+          "_sourceZone": null
+        }
+      ],
+      "2": [],
+      "3": [],
+      "4": []
+    },
+    "unreached_and_limits": [
+      "FailedcheckpointStackcount/propertychecks25+ were not reached; no fullpostfailureStackrawzone, AP/HPsnapshot or physicalCogpostfailure state was captured. Do not claim observedStackcount, actualAPdebit or currentcoguntap fromsourcealone.",
+      "No actualprimaryplay, attackchain, ownInstantactivation, powerchoice, damage5, GAresult or finalcleanup was reached. These remain originalcorrect unexecuted expectations; no fixture/coverage.",
+      "Do not change expectedwindow toPITCH or answer an inventedearlyuntap to obtain a pass. No GunprotocolV2 is indicated. Root alone allocatesissue/repair; reviewer makes no sourcefix or newID."
+    ],
+    "observed_state": {
+      "window": "PITCH",
+      "combatOpen": false,
+      "combatStep": "NONE",
+      "pendingPayment": {
+        "player": 1,
+        "uid": 5,
+        "cost": 0,
+        "fromZone": "Hand",
+        "kind": "ATTACK",
+        "returnWindow": "ACTION",
+        "returnCombatStep": "NONE"
+      },
+      "cardsPlayedThisTurn": []
+    }
+  },
+  "retention": "Compact failed-cost-scope witness; all raw diagnostics and initial state remain in the immutable native archive. Support Gun succeeded; no protocol rewrite, incorrect passing fixture or source repair."
+}

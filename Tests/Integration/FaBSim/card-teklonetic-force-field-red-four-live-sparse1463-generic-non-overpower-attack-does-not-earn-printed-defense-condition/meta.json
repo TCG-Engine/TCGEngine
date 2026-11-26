@@ -1,0 +1,7 @@
+{
+    "name": "Teklonetic Force Field / plain Generic attack excludes conditional defense effect",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-25T03:12:03+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Class-legal youngdash4 actually defends withteklonetic_force_field_red6 fromHand against ownedDori1 GenericWoundingBlow5 power4/noOverpower, formallyHero4. PrintedOverpower_attackpredicatefalse so noearnedconditionalWHEN/buff/Clash/layer. ActualbaseDefense3 physicalDamage1 Hero4=19; no cacheddefense-only oracle. Deck4RagingOnslaught8printed7vsDeck1Blue7printed2 givesnonvacuouswould-beClashwinner; actor1noequipmentHP20 excludeswrongClashloserpenalty. Allfourmanualpriorityflows/fullclose5GY1/6GY4, unchangedDecks/Potion9Hand1, AP0thenactualItemclickreject,RNG0/UID9. Basicdefense+negativeconditiononly, notpositiveability/timing/sibling/supportidentityorwholecardcredit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#teklonetic_force_field_red FaBSim/GeneratedCode/GeneratedMacroCode.php#teklonetic_force_field_red FaBSim/Custom/SUPCards.php#FaBSUPAttackType FaBSim/Custom/DYNCards.php#FaBDYNOverpower FaBSim/Custom/GameLogic.php#OnDefended"
+}

@@ -1,0 +1,7 @@
+{
+    "name": "Amulet of Assertiveness / four-live three-card hand restriction",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-23T01:32:12+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "**Go again**\n\n**Attack Reaction** - Destroy this: Target attack gets \"When this hits, banish the top card of your deck. If it's an attack action card, you may play it this turn.\" Activate this only if you have 4 or more cards in hand. Named restriction only. Legalnatural20Dori andreadyownedArena5. AfterrealWounding6cast, threeactualHandcards7/8/9remain andactualDeck10/11exists. AtownREACTIONpriority1 actualownAA6iseligibleattacktarget,0destroycost/AP0 is legalforAttackReaction. ThreeHandcards<4 meansrejectbeforedestroy/target/Stack/effect. Source6thenactuallydeals4/HP4=16/AP0/GGY6 throughall4manual whileitem5/Hand3/orderedDeck2 retained. Positive4+Hand/banish/playpermission/hittrigger/hero/support/sibling/fullcardbranchesunrun. Sources: FaBSim/GeneratedCode/cardArrayCache.json#amulet_of_assertiveness_yellow"
+}

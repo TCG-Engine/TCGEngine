@@ -1,0 +1,7 @@
+{
+    "name": "Levia / actual six-power banish suppresses Blood Debt through a native end turn",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-24T02:28:38+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "FOUR_REAL_YOUNG_MANUAL_UPF_LEVIA20. FourHeroUIDs1..4, actual EbonFold head5Equipment, DreadScreamer6Hand(power6BloodDebt), GenericRed7Hand(pitch1); ABI8 allocatedonactivation. NoBanish/sixhistory/resourceflagsseed. ActualheadInstant1requiresrealRedpitch1/R0/destroyheadascostwhileactualsixmustremainHandthroughfourresponses. OnlyresolutionnonTargetHandchoicewhileABI8heldbanishesSAMEsixfaceupandearnsHeroBloodDebtwaiver. ShadowdrawattemptfromemptyDeckislegalbutnotpositiveDrawcredit/noHand. ActualallseatendpassesreachrealEND_PHASEthencompletefullturntoTurnPlayer2/TurnNumber3/priority2/APonlyP2=1. LeviaHPmustremain20throughentireEndphase/endturnwithactualfaceupdebt/noheals. Head5GY/six6Banish/realRed7PitchreturnsDeckthenrefillsHand7;UID8/RNG0/StackDQsCCclean. NoBloodDebtfalsecondition, Ebonprimary/Drawpositive/deckproducer, Dreadplay/GA, other6/otherdebt/Heroadult/support/fullcardcredit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#levia FaBSim/Custom/MONCards.php FaBSim/Custom/MONAbilities.php FaBSim/Custom/ARCAbilities.php FaBSim/Custom/GameLogic.php"
+}

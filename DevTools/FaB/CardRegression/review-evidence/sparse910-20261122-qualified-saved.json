@@ -1,0 +1,117 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "Root independent of /root/breadth_review author",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse910-20261122.json",
+  "source_spec_sha256": "5b7ddad5d6269383490fa673c5ecfa21fac6756dbc62a144a997c79c8f629d3b",
+  "input_sha256": "5b7ddad5d6269383490fa673c5ecfa21fac6756dbc62a144a997c79c8f629d3b",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-rubble-raiser-red-four-live-sparse910-actual-normal-hand-attack-two-blue-cost-four-deals-eight-without-heave",
+      "card_id": "rubble_raiser_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "3eeb51bd2260cddff7ded352f0057346ecd335cd8043f006e1d98c690c747d17",
+        "actions.json": "e22a6cb0fbc57b85cb4c085dff11ef900ce5afc681d1998045a7b38700519346",
+        "assertions.json": "e09593b5bcf87784e8e5cd2d18e6d80b63e6ffcf507807c2a911d22346330b81",
+        "expected_final_gamestate.txt": "f28af129106d3d9fef0e277e2f5f04efc5f4575e37d73029f77143f2cedf72e4",
+        "meta.json": "1f6e7ea61b62b0812deab0f2d20e3aa7332145533d77e22b0c1b146dc3296f6b"
+      },
+      "fixture_sha256": "69d6ede02d604ee4b7944932b6fff8e730409e5978165133d06857aac41414e4",
+      "actions": 29,
+      "native_assertions": 158,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse910-20261122.json",
+      "input_sha256": "5b7ddad5d6269383490fa673c5ecfa21fac6756dbc62a144a997c79c8f629d3b",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse910-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-rubble-raiser-red-four-live-sparse910-actual-normal-hand-attack-two-blue-cost-four-deals-eight-without-heave",
+        "fixture_slug": "card-rubble-raiser-red-four-live-sparse910-actual-normal-hand-attack-two-blue-cost-four-deals-eight-without-heave",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-t-bone-red-four-live-sparse910-actual-empty-deck-unboosted-hand-attack-deals-three",
+      "card_id": "t_bone_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "287ea557867e2a68fd169bf131dfbc0c67a0af8a47e33139beb30cddc2459d47",
+        "actions.json": "71f0d0f07cf85244a3ec27fdb1f824cd62aa3126d639c98c13ca23327907bd8b",
+        "assertions.json": "b56d174134ecc0c5202e6f0bc58445e05e85974696b27859a7352cf40daf164c",
+        "expected_final_gamestate.txt": "c766518ceef457957d6d5752c771ea28e72fa603926b6e6783512b5af99555b0",
+        "meta.json": "31d0fbafa9d257062fb7fa0bcaf963ab2b6d8bdad5134c15c63f3633924a0c33"
+      },
+      "fixture_sha256": "17d21b0849a3a54dac94596b08406e6c423bd137847ea700afbd173481aa5581",
+      "actions": 27,
+      "native_assertions": 113,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse910-20261122.json",
+      "input_sha256": "5b7ddad5d6269383490fa673c5ecfa21fac6756dbc62a144a997c79c8f629d3b",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse910-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-t-bone-red-four-live-sparse910-actual-empty-deck-unboosted-hand-attack-deals-three",
+        "fixture_slug": "card-t-bone-red-four-live-sparse910-actual-empty-deck-unboosted-hand-attack-deals-three",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-ice-storm-red-four-live-sparse910-unfused-real-next-arrow-buff-and-go-again-then-actual-arrow-deals-seven",
+      "card_id": "ice_storm_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "b3a94e4482f2c19505b671dd3922ac445d638c6c1b24184ba7826f7a1f97c15e",
+        "actions.json": "46f51134685cb98f0142fd6c6c574c2131e1e5047254b7e015c86141097297ab",
+        "assertions.json": "343b44966a26468f369236746488784c19655a49bbfcb32596b6f24ec6ad3165",
+        "expected_final_gamestate.txt": "18ae52414e7128f7ed37700689fa9a395c4ae00ffc935b03efc1f1a063439b56",
+        "meta.json": "1125716b3ae4f1ad441dba414fe895ab0e7dfc4412fbebd6faa42bcca4a5ae10"
+      },
+      "fixture_sha256": "9c4f8dd6754de6ab00d88da8f4a0834c399b38579c9095a235e6d877d1ef1c5c",
+      "actions": 33,
+      "native_assertions": 182,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 29,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse910-20261122.json",
+      "input_sha256": "5b7ddad5d6269383490fa673c5ecfa21fac6756dbc62a144a997c79c8f629d3b",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse910-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-ice-storm-red-four-live-sparse910-unfused-real-next-arrow-buff-and-go-again-then-actual-arrow-deals-seven",
+        "fixture_slug": "card-ice-storm-red-four-live-sparse910-unfused-real-next-arrow-buff-and-go-again-then-actual-arrow-deals-seven",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "spec_sha256": "5b7ddad5d6269383490fa673c5ecfa21fac6756dbc62a144a997c79c8f629d3b",
+    "reviewer": "Root independent of /root/breadth_review author",
+    "basis": [
+      "Cached printed card text and producer preparation/resolution routes checked. Actual printed Rubble4 paid by twoBlues and8damage; not Heave. T-Bone noDeck/noBoost/pastBoost,3damage; not forced-equipment positive.",
+      "IceStorm unfused still grants printed+3Arrow/GA. OnlyGenericBlue remainsHand, no Ice/Lightning fusion. Actual Bow/facedownHeadShot4 later receives+3, observed7HP loss. No faceup entry+2, Frostbite, fusion-positive or supportinggroup credit.",
+      "Allfour natural20/manual seats, actual sourceUID5/Arrow6/Bow7/Blue8 ortwoBlues, targetsbeforeassets, no seeded history, sameTurn/quietcompletion. Source assertions pin real costs/AP/GY/health, complete manual combat; no missing earnedWHEN layer in named branches."
+    ],
+    "limits": [
+      "Named branches only. Semantic approval not native pass; save and clean targeted replays still required."
+    ]
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse910-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "47ff651085b1e401095f310f9eaf16dfbe6829dbaff57f770593597cf7e92c4f"
+  },
+  "full_suite_run": false
+}

@@ -1,7 +1,13 @@
 {
-    "name": "Count Your Blessings / conditional heal / own-hand-floating-exact",
-    "rootName": "FaBSim",
-    "createdAt": "2026-10-20T05:44:36+02:00",
-    "createdBy": "FaBSim card regression authoring",
-    "notes": "Printed count_your_blessings_blue cost2, pitch3, no defense property, no action-point cost or gain as an Instant. Branch own-hand-floating-exact. Independent printed-rule model requires terminal health[11, 20], resources[0, 0], AP[1, 0].  Sources: https://judge.fabtcg.com/cards/detail/3333/ https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/ https://rules.fabtcg.com/en/cr/07-combat/ https://rules.fabtcg.com/en/cr/08-keywords/"
+  "name": "Count Your Blessings / conditional heal / own-hand-floating-exact",
+  "rootName": "FaBSim",
+  "createdAt": "2026-10-20T05:44:36+02:00",
+  "createdBy": "FaBSim card regression authoring",
+  "notes": "Printed count_your_blessings_blue cost2, pitch3, no defense property, no action-point cost or gain as an Instant. Branch own-hand-floating-exact. Independent printed-rule model requires terminal health[11, 20], resources[0, 0], AP[1, 0].  Sources: https://judge.fabtcg.com/cards/detail/3333/ https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/ https://rules.fabtcg.com/en/cr/07-combat/ https://rules.fabtcg.com/en/cr/08-keywords/",
+  "reviewedFinalCompatibility": {
+    "version": "resolved-source-accounting-v1",
+    "expected_raw_sha256": "f99a83ee7cc5d00bf1838450001be4dc5af6c8056bb4d540958f609c6074f6d6",
+    "card_id": "count_your_blessings_blue",
+    "review_evidence": "review-evidence/reviewed-final-compatibility-pilot-20261125.json"
+  }
 }

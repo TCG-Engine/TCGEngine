@@ -1,0 +1,7 @@
+{
+    "name": "Boulder Trap / sparse four-live trap representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-23T00:07:43+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "When this defends an attack with {p} greater than its base, put a -1{d} counter on an equipment the attacking hero controls. Named negative-trigger representative: actual unmodified Raging Onslaught7 has printed/current power7, so WHEN defends an attack with power greater than base event is absent. Defender4 lexi natural20 plays owned facedown Arsenal5 in real Reaction at cost0/no AP, retains real HandBlue6 unplayed. Actual printedDEF3 blocks7 to4damage/HP16; all other heroes remain20. Every live seat manually responds, including DR4,1,2,3 then fresh1,2,3,4. Primary5 and support7 finish in respective owned graveyards; Blue8 really paid attack3, NAA9 remains attacker Hand. No positive trap trigger, power increase, activation or ownership-creation credit. Actual attacker Ironrot Gauntlet10 remains equipped/Owner1/Controller1/Counters[], not a vacuous empty target. Sources: FaBSim/GeneratedCode/cardArrayCache.json#boulder_trap_yellow"
+}

@@ -1,0 +1,68 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-24T07:25:32.215829+00:00",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1333-20261122.json",
+  "source_spec_sha256": "abe474084087947c3f438123f597dfcc81fcbce365f7502e3c477faeb81d0de7",
+  "new_scenarios": 1,
+  "new_groups": 1,
+  "new_primary_ids": 1,
+  "actions": 32,
+  "native_assertions": 362,
+  "manual_passes": 29,
+  "totals": {
+    "saved_registered_scenarios": 5287,
+    "duels": 3102,
+    "four_live": 2185,
+    "recorded_primary_ids": 2435,
+    "identity_denominator": 5196,
+    "recorded_groups": 2309,
+    "group_denominator": 3324,
+    "four_live_groups": 2174,
+    "phase_qualified_scenarios_at_actual_contexts": 1924,
+    "phase_qualified_unique_groups": 1914,
+    "creation_replay_passes": 2666,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 1085,
+  "scenarios": [
+    {
+      "card_id": "courageous_steelhand_red",
+      "group_id": "pitch-cycle:courageous_steelhand",
+      "scenario_id": "card-courageous-steelhand-red-four-live-sparse1333-real-uncharged-reaction-does-not-gain-three-power",
+      "effect_branches": [
+        "uncharged_condition_false_real_zero_cost_reaction_resolves_without_power_gain_and_actual_damage_remains_four"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-courageous-steelhand-red-four-live-sparse1333-real-uncharged-reaction-does-not-gain-three-power",
+      "source_spec": "card-regression-sparse1333-20261122.json",
+      "source_spec_sha256": "abe474084087947c3f438123f597dfcc81fcbce365f7502e3c477faeb81d0de7",
+      "review_evidence": "review-evidence/sparse1333-20261122-qualified-saved.json",
+      "review_evidence_sha256": "e9d57e9b01051938fc474b2d376435924dad32d3469392447e4e55865bb45a95",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1333-20261122-replay.json",
+          "sha256": "eec4d7c19a7e230034dbdc699fa8e17b0ea56a8f4cd0974289dd05bc6c5ca2d2",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

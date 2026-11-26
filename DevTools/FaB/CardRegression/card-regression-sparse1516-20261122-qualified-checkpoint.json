@@ -1,0 +1,97 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-25T08:15:25.403916+00:00",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1516-20261122.json",
+  "source_spec_sha256": "384ff05eb9968245fd06107791fce3b2dede11611717963c9eccb2412cb82d19",
+  "new_scenarios": 2,
+  "new_groups": 2,
+  "new_primary_ids": 2,
+  "actions": 56,
+  "native_assertions": 768,
+  "manual_passes": 50,
+  "totals": {
+    "saved_registered_scenarios": 5599,
+    "duels": 3135,
+    "four_live": 2464,
+    "recorded_primary_ids": 2747,
+    "identity_denominator": 5196,
+    "recorded_groups": 2621,
+    "group_denominator": 3324,
+    "four_live_groups": 2453,
+    "phase_qualified_scenarios_at_actual_contexts": 2236,
+    "phase_qualified_unique_groups": 2226,
+    "creation_replay_passes": 2978,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 1397,
+  "scenarios": [
+    {
+      "card_id": "agile_engagement_red",
+      "group_id": "pitch-cycle:agile_engagement",
+      "scenario_id": "card-agile-engagement-red-four-live-sparse1516-actual-generic-attack-fails-specific-reaction-target-guard",
+      "effect_branches": [
+        "rejection_only_Warrior_attack_not_satisfied_in_correct_native_REACTION_window"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-agile-engagement-red-four-live-sparse1516-actual-generic-attack-fails-specific-reaction-target-guard",
+      "source_spec": "card-regression-sparse1516-20261122.json",
+      "source_spec_sha256": "384ff05eb9968245fd06107791fce3b2dede11611717963c9eccb2412cb82d19",
+      "review_evidence": "review-evidence/sparse1516-20261122-qualified-saved.json",
+      "review_evidence_sha256": "a5148e9bfb5beff4ff9881edd93388ae1e6dcb901c3ac2a0ee6fbf16c6197fd8",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1516-20261122-replay.json",
+          "sha256": "f58fe2fe8fef009a5edfa5cf911119acd1cbdf76e927178297060aa5e808d546",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "vigorous_engagement_red",
+      "group_id": "pitch-cycle:vigorous_engagement",
+      "scenario_id": "card-vigorous-engagement-red-four-live-sparse1516-actual-generic-attack-fails-specific-reaction-target-guard",
+      "effect_branches": [
+        "rejection_only_Warrior_attack_not_satisfied_in_correct_native_REACTION_window"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-vigorous-engagement-red-four-live-sparse1516-actual-generic-attack-fails-specific-reaction-target-guard",
+      "source_spec": "card-regression-sparse1516-20261122.json",
+      "source_spec_sha256": "384ff05eb9968245fd06107791fce3b2dede11611717963c9eccb2412cb82d19",
+      "review_evidence": "review-evidence/sparse1516-20261122-qualified-saved.json",
+      "review_evidence_sha256": "a5148e9bfb5beff4ff9881edd93388ae1e6dcb901c3ac2a0ee6fbf16c6197fd8",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1516-20261122-replay.json",
+          "sha256": "f58fe2fe8fef009a5edfa5cf911119acd1cbdf76e927178297060aa5e808d546",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

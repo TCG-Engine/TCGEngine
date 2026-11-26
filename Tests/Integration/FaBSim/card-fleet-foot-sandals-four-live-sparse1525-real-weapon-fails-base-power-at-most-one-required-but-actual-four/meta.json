@@ -1,0 +1,7 @@
+{
+    "name": "Fleet Foot Sandals / mandatory target exclusion with actual funded four-power Weapon",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-25T10:50:56+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "CorrectownREACTION1 onactualunbuffedWarriorWeapon9base4/current4 fromsource8. PrimaryGenericEquipment5ready andrealBlue7Hand3available afterAxe3paidBlue6/AP0/R0. Mandatory base_power_at_most_one_required_but_actual_four fails, so primarymustrefuse beforeequipmentdestroy/assetpayment/layer. Actual4damageHP16/noGA/fullfourmanualclose and allphysicalassets preserved. Positiveprimarytarget/effect/lifetime and siblingsuntested; noenginechange. Sources: FaBSim/GeneratedCode/cardArrayCache.json#fleet_foot_sandals FaBSim/Custom/OUTCards.php#FaBOUTAbilityLegal FaBSim/Custom/OUTRuntime.php#FaBOUTTargets FaBSim/Custom/ARCAbilities.php#FaBARCCanActivate FaBSim/Custom/GameLogic.php#FaBTryCompletePayment"
+}

@@ -1,0 +1,7 @@
+{
+    "name": "Ice Storm / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T19:04:10+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "**Ice and Lightning Fusion**\n\nYour next arrow attack this turn gets +3{p}.\n\nIf this was **fused**, your next arrow attack this turn gets \"When this hits a hero, deal 1 damage to them\" and \"Whenever this attack deals damage to a hero, create that many Frostbite tokens under their control.\"\n\n**Go again** Representative only: unfused_real_next_arrow_buff_and_go_again_then_actual_arrow_deals_seven. Other pitch siblings, alternate targets and unexercised branches receive no credit. All four live/manual; only native entry-point actions. Sources: FaBSim/GeneratedCode/cardArrayCache.json#ice_storm_red"
+}

@@ -1,0 +1,7 @@
+{
+    "name": "Channel Stormgarden / destroyed Healing Potion is not Lightning Flow",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-24T13:46:26+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "FOUR_REAL_MANUAL_UPF_OSCILIO18_THREEDORI20. PriorChannel7AuraFLOW1validmaintainedposition/noentryupkeephistorycredit; HealingPotion5ArenaandZap6Handrealassets. ActualPotionAction0DESTROYcost5GY/AP1to0\u2192ABI8SourceArena5allfourresponses\u2192realheal2Oscilio18to20andprintedGAAP1. DestroyedownItem5isnotLightningFlow, so ChanneldoesnotearnAmp1. Noinitialeffects/historyfaked. ActualZap6Action0declaresadjacentP4HeroBEFOREcost/AP1to0, all4responsewindows, actual3arcaneP4HP20to17(not16iffalseAmp), noBarrierassetsorchoices. Source5GY0/Zap6GY1/Channel7sameArenaFLOW1/noFlowcreated/UID8RNG0/allotherHP20/AP0/R0/HandDeckempty/StackDQquiet. ExplicitlivearcaneconsumerpinsmissingAmpbyobservableHP, notonlyinternalcounter/cache. OnlynonFlowdestroyfilter, actualheal/GA/nativeZapdamage. PositiveFlowdestroy/firstperturnAmp/entryFlow/maintenance/ArcaneBarrier/otherchoices/initialprovenance/support/fullcarduncredited. Noenginechange. Sources: FaBSim/GeneratedCode/cardArrayCache.json#channel_stormgarden_yellow FaBSim/GeneratedCode/GeneratedMacroCode.php FaBSim/Custom/GameLogic.php FaBSim/Custom/OMNCards.php FaBSim/Custom/MSTCards.php FaBSim/Custom/MONCards.php FaBSim/Custom/EVRAbilities.php FaBSim/Custom/ARCAbilities.php FaBSim/Custom/WTRCards.php FaBSim/Custom/WTRAbilities.php"
+}

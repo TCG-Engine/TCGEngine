@@ -1,0 +1,145 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "breadth_review independent source/semantic review",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse959-20261122.json",
+  "source_spec_sha256": "46ffc38de1be032d7b4bdd2e75a738223a57e8ddb6b2ea74b739bddc4dc69645",
+  "input_sha256": "46ffc38de1be032d7b4bdd2e75a738223a57e8ddb6b2ea74b739bddc4dc69645",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-stone-rain-red-four-live-sparse959-actual-no-aim-arrow-base-damage-keeps-real-enemy-object",
+      "card_id": "stone_rain_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "a42d862b91398b4ab34359b2c2143bc47fc25ed56226cd8acf8bbfb2e06d9f82",
+        "actions.json": "cc67f7d65a77546709030e1fe3686bb05d1ab8f278cc34ab0e82a711635d5012",
+        "assertions.json": "67658d261562cf0a64c925bb2187ec911aa366f3cdca7d9d18851fbbb2abe1f3",
+        "expected_final_gamestate.txt": "3e37c0e6ef9b789509bfdc6a5370c24bbeb2214306b18d992899bb168b01d61c",
+        "meta.json": "12d160ccb37a87f92f32d4d40894c8635f63f0afa140472e6b6726e93abb886e"
+      },
+      "fixture_sha256": "9a60e281d720c54f236208459a8163d952bda0db9ca013089a54cd58ea46ea9d",
+      "actions": 27,
+      "native_assertions": 138,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse959-20261122.json",
+      "input_sha256": "46ffc38de1be032d7b4bdd2e75a738223a57e8ddb6b2ea74b739bddc4dc69645",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse959-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-stone-rain-red-four-live-sparse959-actual-no-aim-arrow-base-damage-keeps-real-enemy-object",
+        "fixture_slug": "card-stone-rain-red-four-live-sparse959-actual-no-aim-arrow-base-damage-keeps-real-enemy-object",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-hemorrhage-bore-red-four-live-sparse959-actual-no-aim-arrow-base-damage-keeps-real-enemy-object",
+      "card_id": "hemorrhage_bore_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "6077fda55c49684a0e5f7d0840017ba5567c01d5100ddc0fecde6e5f8377b0a8",
+        "actions.json": "b96e8c04efb76e5837c8044bbe521bb58679cd607490b707f44b4b59901b066f",
+        "assertions.json": "d6a00fe3b3f0dec86728850978f1b093c825175a0cf3747fe1b96ce250b286d7",
+        "expected_final_gamestate.txt": "e58d9cf3dc03cbb32f579d9d72710c9f77a810130dc284ba3ea194ced46b9d31",
+        "meta.json": "f3a0894526edcca1a38b64c206b7c6b174f83554e86865d2e02214098d90dfa3"
+      },
+      "fixture_sha256": "20787e674aab9dc5985198c7858828fffea166852c91b8b6a8e8cc7f42985066",
+      "actions": 28,
+      "native_assertions": 168,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse959-20261122.json",
+      "input_sha256": "46ffc38de1be032d7b4bdd2e75a738223a57e8ddb6b2ea74b739bddc4dc69645",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse959-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-hemorrhage-bore-red-four-live-sparse959-actual-no-aim-arrow-base-damage-keeps-real-enemy-object",
+        "fixture_slug": "card-hemorrhage-bore-red-four-live-sparse959-actual-no-aim-arrow-base-damage-keeps-real-enemy-object",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-endless-arrow-red-four-live-sparse959-actual-full-block-keeps-source-in-graveyard-and-real-hand-unloaded",
+      "card_id": "endless_arrow_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "f3f804f621e4d33bacf613baed2b3382e6c754ac91945a7b114331c24e4151d7",
+        "actions.json": "a79583f83358a5f29c609023e511e05439c19adf87bc4c43adfa44c9cc5c0a2f",
+        "assertions.json": "e2b8344f608e33fabc1f4c9821a9d427b09bb936ae236569f6abac032ad2f6c4",
+        "expected_final_gamestate.txt": "270541ca6d974d378a65df633535c0f47fb26ad31349c4b7cb9826847a12d0ee",
+        "meta.json": "30f55511317681b5fa29cccd43e606f95303df5c24243c052c07b2897e98b808"
+      },
+      "fixture_sha256": "f9f4c20a5dda9aeae67cfb126dd2a4c15a087f8915756e94f582e56d8ac76a68",
+      "actions": 29,
+      "native_assertions": 164,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse959-20261122.json",
+      "input_sha256": "46ffc38de1be032d7b4bdd2e75a738223a57e8ddb6b2ea74b739bddc4dc69645",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse959-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-endless-arrow-red-four-live-sparse959-actual-full-block-keeps-source-in-graveyard-and-real-hand-unloaded",
+        "fixture_slug": "card-endless-arrow-red-four-live-sparse959-actual-full-block-keeps-source-in-graveyard-and-real-hand-unloaded",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-pathing-helix-red-four-live-sparse959-actual-full-block-keeps-source-in-graveyard-and-real-hand-unloaded",
+      "card_id": "pathing_helix_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "980eb43bcaeec038cf487d337833e3272d1adc8bef1d8873c9f78798d4f16234",
+        "actions.json": "a79583f83358a5f29c609023e511e05439c19adf87bc4c43adfa44c9cc5c0a2f",
+        "assertions.json": "047952267db04409ef0519d9db7e440e60fea44843140aa9b6d21d58791f19fb",
+        "expected_final_gamestate.txt": "5ae4db111316423b52cd70e7841645e46a2020ca26c520aa82faaf16eec77192",
+        "meta.json": "9683ef04585b1b2c489275c620f70ab8f51c7e1793a30e10775325914acc5cc4"
+      },
+      "fixture_sha256": "aba3f9c0b0c50a5f6efb872ffd39a335a6a399d90327ef538811594457b1b894",
+      "actions": 29,
+      "native_assertions": 172,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse959-20261122.json",
+      "input_sha256": "46ffc38de1be032d7b4bdd2e75a738223a57e8ddb6b2ea74b739bddc4dc69645",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse959-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-pathing-helix-red-four-live-sparse959-actual-full-block-keeps-source-in-graveyard-and-real-hand-unloaded",
+        "fixture_slug": "card-pathing-helix-red-four-live-sparse959-actual-full-block-keeps-source-in-graveyard-and-real-hand-unloaded",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "spec_sha256": "46ffc38de1be032d7b4bdd2e75a738223a57e8ddb6b2ea74b739bddc4dc69645",
+    "reviewer": "breadth_review independent source/semantic review",
+    "basis": [
+      "Printed Ranger Arrow types and costs/powers0/4,1/5,0/4,0/4 match cache; Lexi20 is legal for all four and Elemental Shiver first two, plain Death Dealer last two. ARCCards301 requires actual Arsenal origin and equipped Bow, both physically present; no Bow or Hero activation. Actual Hero4 target before payment; Blue6 pays Hemorrhage1/R2, others0/R0, AP0.",
+      "Stone Rain and Hemorrhage grant quoted hit abilities only if aimed. No aim counter exists, so no earned hit ability is omitted despite actual4/5 damage. Real enemy Hand7 and facedown Arsenal8 respectively retain CardID/UID/Owner; no banish/destroy. Generated Hemorrhage continuation explicitly gates FaBDYNAimed. Stone Rain no-aim main branch follows printed base attack/default flow.",
+      "Endless and Pathing are fully blocked by two real Hand AA defense3 each; zero damage/HP20/attackHit=false/Stack0 prevents actual hit event. Endless physicalsource5 ends owner1 graveyard with Hand0; Pathing source5 ends graveyard while actual eligible card Hand9 retains CardID/UID/Owner and Arsenal0. ARCCards133 Hit return helper moves physical Endless to owner Hand only if called.",
+      "Natural HP20 all seats, source UID5 ownership, actual shifted defender UIDs, final Bow retention and all four manual priority windows are consistent; configured initial zone counts match assertions. Judge Jury Executioner excluded unrun because its separate WHEN attack timing is known held."
+    ],
+    "limits": [
+      "Only no-aim main/payment/retention and full-block/no-hit/fate branches. Stone Rain no-dominate admission is not independently exercised by no blocks; positive aim production/banish/return timing unverified (no generated Stone Rain Hit entry found in bounded source read). No positive Hemorrhage destroy, Endless return or Pathing reload/entry, other pitches or full-card credit. Native execution/replay pending."
+    ]
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse959-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "214848325a491c85001ace111d4ffe0b039d2876a83b79a57bfd8e9430db452d"
+  },
+  "full_suite_run": false
+}

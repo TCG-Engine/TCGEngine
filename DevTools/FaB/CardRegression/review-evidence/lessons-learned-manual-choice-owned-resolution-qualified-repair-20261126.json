@@ -1,0 +1,205 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer": "/root",
+  "reviewer_independent": false,
+  "runtime_sha256": "59d1591f45b2d0acfbad37d7a925138e54364e4e090df8c18fc687fbc5a17cb9",
+  "source_spec": "card-regression-repair-lessons-20261126.json",
+  "input_sha256": "985c2358664c732d69c60b5560ccb467d4997bc89f89dba1613afd03f48db922",
+  "fixtures": [
+    {
+      "slug": "repair-lessons-learned-blue-four-live-20261126-one-reaction-returned-to-deck",
+      "card_id": "lessons_learned_blue",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "2221bb3e22419190430fc49c42507a67224084886b0ce477970a61fede6fc380",
+        "actions.json": "79546c6b52b161f21e6196d31822f611f7c548529405f005bfc6953ee644cb4f",
+        "assertions.json": "985e3ab167497956fe1d199f94a4bfa388093ca5b2c8353b816e8005b43863b7",
+        "expected_final_gamestate.txt": "6d721c802b93c54f541850d35e3c221e89b1baa31d9a72c1a81479b4feeb08eb",
+        "meta.json": "3ee4d06f0a81051e6d60ddaa91f697f0f7a3378b90946df1966d75a60bab72d1"
+      },
+      "fixture_sha256": "7c2597d54c5133b207360100f90161674a7154871285cdfadef75b194f1f277b",
+      "actions": 6,
+      "native_assertions": 241,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 4,
+      "recorded_runtime_sha256": "59d1591f45b2d0acfbad37d7a925138e54364e4e090df8c18fc687fbc5a17cb9",
+      "runtime_sha256": "59d1591f45b2d0acfbad37d7a925138e54364e4e090df8c18fc687fbc5a17cb9",
+      "source_spec": "card-regression-repair-lessons-20261126.json",
+      "input_sha256": "985c2358664c732d69c60b5560ccb467d4997bc89f89dba1613afd03f48db922",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual"
+    },
+    {
+      "slug": "repair-lessons-learned-blue-four-live-20261126-zero-choice-keeps-reactions-and-resolves",
+      "card_id": "lessons_learned_blue",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "27550207e5ba8f96d5fbb1ea388fcf4d5e3219019380fbc016bfbbfecc2c4703",
+        "actions.json": "ffb1d2d70295932606d734259448735da682f2db618a2261168f6c0c046587fc",
+        "assertions.json": "2c18b364df4e8873379fd36535a32ab79904005d0b2bf989052fe1a3fff92bcb",
+        "expected_final_gamestate.txt": "642db48d2a94fd29220708630abceea4856efad6375070d365ca33694ce63108",
+        "meta.json": "8af0ca71659439f5f218d931427999e5b4b19d6f283b1bf147b38ab6ef12d27a"
+      },
+      "fixture_sha256": "cbedd616941c8a62a3f29d4034ae914751abf8334dfd9ece45a91ec2d9c89cdb",
+      "actions": 6,
+      "native_assertions": 259,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 4,
+      "recorded_runtime_sha256": "59d1591f45b2d0acfbad37d7a925138e54364e4e090df8c18fc687fbc5a17cb9",
+      "runtime_sha256": "59d1591f45b2d0acfbad37d7a925138e54364e4e090df8c18fc687fbc5a17cb9",
+      "source_spec": "card-regression-repair-lessons-20261126.json",
+      "input_sha256": "985c2358664c732d69c60b5560ccb467d4997bc89f89dba1613afd03f48db922",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual"
+    }
+  ],
+  "repair_only": true,
+  "new_breadth_groups": 0,
+  "newly_represented_repair_group": 1,
+  "whole_card_complete": false,
+  "full_suite_run": false,
+  "source_proposal": {
+    "status": "APPLIED_PENDING_NATIVE_QUALIFICATION",
+    "before_runtime": "7b5b41b0b7ec05e64c5566c69df398e3eb847253da9220211c5066b02be464b0",
+    "runtime": "59d1591f45b2d0acfbad37d7a925138e54364e4e090df8c18fc687fbc5a17cb9",
+    "files": [
+      {
+        "path": "FaBSim/Custom/WTRCards.php",
+        "before_sha256": "51f6b76071b181f385816ffdbb24710ca1c05f43cd3cd2a7097cb96cce32fcdc",
+        "candidate_sha256": "34e00bac47d38444c032807f47429ac257c2a94bd1c07336464bca186b6defe3",
+        "candidate": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\lessons236\\candidate\\FaBSim\\Custom\\WTRCards.php"
+      },
+      {
+        "path": "DevTools/FaB/mpw_repair_abilities.json",
+        "before_sha256": null,
+        "candidate_sha256": "d5ab2810fd8d7e19a721840da59e8e9bbafb3b8ebbfe835fb5f9cc12a1d1c5ba",
+        "candidate": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\lessons236\\candidate\\DevTools\\FaB\\mpw_repair_abilities.json"
+      },
+      {
+        "path": "FaBSim/Custom/CodeGeneration.php",
+        "before_sha256": "f3e496fdb1b2f900a9e80219036ea87a6b8fcf0c36804349e2013a1298c925d7",
+        "candidate_sha256": "2c2674145d4c6c3791e8a1e815dcc97fb433bccf4c8b1496ac65961a5fcdb4ea",
+        "candidate": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\lessons236\\candidate\\FaBSim\\Custom\\CodeGeneration.php"
+      },
+      {
+        "path": "FaBSim/GeneratedCode/GeneratedMacroCode.php",
+        "before_sha256": "fde654105582a7db74ec727597b75f58d04c3b0a6e405882a62fd2eb6e8de926",
+        "candidate_sha256": "b63a4ba571e1df0a1d4f1103e40fa2e896a8d01628c550cdb5ab7cad0f0d496b",
+        "candidate": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\lessons236\\candidate\\FaBSim\\GeneratedCode\\GeneratedMacroCode.php"
+      },
+      {
+        "path": "FaBSim/GeneratedCode/GeneratedMacroCount.js",
+        "before_sha256": "c10a85123b5267dd38f52251b46131fc52fe21097c70102290fafa9252903166",
+        "candidate_sha256": "3f9370291cbf8f75d0ce56208373f48fc5b6e21577e8f4e9d5b41fbc6b628814",
+        "candidate": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\lessons236\\candidate\\FaBSim\\GeneratedCode\\GeneratedMacroCount.js"
+      }
+    ],
+    "scope": "Exact Lessons implementation via named helpers and canonical MPW JSON + guarded missing-definition provider; normal generated output only. No Core/lifecycle framework edit."
+  },
+  "targeted_replays": {
+    "runtime": "59d1591f45b2d0acfbad37d7a925138e54364e4e090df8c18fc687fbc5a17cb9",
+    "fixtures": [
+      {
+        "slug": "repair-lessons-learned-blue-four-live-20261126-one-reaction-returned-to-deck",
+        "passed": true,
+        "runtime": "59d1591f45b2d0acfbad37d7a925138e54364e4e090df8c18fc687fbc5a17cb9",
+        "command": [
+          "C:\\xampp\\php\\php.exe",
+          "DevTools/RunIntegrationTests.php",
+          "--root=FaBSim",
+          "--test=repair-lessons-learned-blue-four-live-20261126-one-reaction-returned-to-deck",
+          "--max-failures=1",
+          "--compact",
+          "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\lessons236\\strict1.log"
+        ],
+        "returncode": 0,
+        "complete_log_sha256": "ad5d7c1ccd745ee459619d07fe24d9e179e1222405838c302a1db61171a54443",
+        "raw5_unchanged": true
+      },
+      {
+        "slug": "repair-lessons-learned-blue-four-live-20261126-zero-choice-keeps-reactions-and-resolves",
+        "passed": true,
+        "runtime": "59d1591f45b2d0acfbad37d7a925138e54364e4e090df8c18fc687fbc5a17cb9",
+        "command": [
+          "C:\\xampp\\php\\php.exe",
+          "DevTools/RunIntegrationTests.php",
+          "--root=FaBSim",
+          "--test=repair-lessons-learned-blue-four-live-20261126-zero-choice-keeps-reactions-and-resolves",
+          "--max-failures=1",
+          "--compact",
+          "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\lessons236\\strict2.log"
+        ],
+        "returncode": 0,
+        "complete_log_sha256": "12791eef003b326d8fe94d87f2ea6b967ca802e3f64e53d0f13c67758862cf1a",
+        "raw5_unchanged": true
+      },
+      {
+        "slug": "repair-unforgetting-unforgiving-red-two-live-20261125-false-counter-condition-still-earns-defend-layer",
+        "passed": true,
+        "runtime": "59d1591f45b2d0acfbad37d7a925138e54364e4e090df8c18fc687fbc5a17cb9",
+        "command": [
+          "C:\\xampp\\php\\php.exe",
+          "DevTools/RunIntegrationTests.php",
+          "--root=FaBSim",
+          "--test=repair-unforgetting-unforgiving-red-two-live-20261125-false-counter-condition-still-earns-defend-layer",
+          "--max-failures=1",
+          "--compact",
+          "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\lessons236\\strict3.log"
+        ],
+        "returncode": 0,
+        "complete_log_sha256": "a8fc2e132f181e4cbd067b98ae09ca678bdaaa2a583272b5a7ffd7eef921ac67",
+        "raw5_unchanged": true
+      },
+      {
+        "slug": "card-remembrance-yellow-four-live-original-correct-resolving-choice-recycles-owned-action-and-self-banishes",
+        "passed": true,
+        "runtime": "59d1591f45b2d0acfbad37d7a925138e54364e4e090df8c18fc687fbc5a17cb9",
+        "command": [
+          "C:\\xampp\\php\\php.exe",
+          "DevTools/RunIntegrationTests.php",
+          "--root=FaBSim",
+          "--test=card-remembrance-yellow-four-live-original-correct-resolving-choice-recycles-owned-action-and-self-banishes",
+          "--max-failures=1",
+          "--compact",
+          "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\lessons236\\strict4.log"
+        ],
+        "returncode": 0,
+        "complete_log_sha256": "e69b3d7063a37840efd98af4894a9f654157a180f7fdde781cfbfea8393e8cd9",
+        "raw5_unchanged": true
+      }
+    ],
+    "full_suite_run": false
+  },
+  "limits": [
+    "Two strict fixtures prove one selected reaction and zero choice with stable one-card deck endpoints. They do not prove full random multi-card snapshot replay.",
+    "Existing FaBShuffleDeck uses EngineShuffle(strong=true)/fresh random_int; production entropy and strict comparator unchanged. Multi-card order replay remains unqualified.",
+    "17 separate native-entry integration checks verify three distinct reactions shuffled into real existing two-card Deck, same-name pitch-sibling invalid selection retries atomically, and zero choice; no extra saved coverage or exact shuffled-order claim.",
+    "13 actual helper component checks use isolated zone/type/effective-name I/O, distinct from actual games. Amnesia native/elimination/intervening-source cases unqualified.",
+    "Primary-agent source/saved review in this continuation, no new separate-agent approval.",
+    "Four focused strict passes at actual source epoch; no full suite."
+  ],
+  "scope": "Canonical exact local MPW ResolveCard definition plus guarded missing-macro provider generates real optional MZMultiChoose/while. Named native helpers validate ownGY/type/capturedUID/distinct effective names atomically before moving chosen cards and shuffling even zero. Existing managed ordinary Instant lifecycle retains physical source through await. No Core/default comparator/RNG change. Generated delta only exact callback/awaiter/handler and matching PHP/JS count entries. Original diagnostic prefix passes unsaved with actual choice-ready protocol; new full witnesses use legally smaller decks to retain strict stable order.",
+  "additional_validation": {
+    "actual_selection_function_checks": 13,
+    "component_path": "tests/lessons_selection_test.php",
+    "component_sha256": "0d851f78e30879620c306ef9ac8f64e36e9a4f67a907fd8186220e91afea0612",
+    "native_entry_integration_checks": 17,
+    "native_entry_path": "tests/lessons_native_shuffle_test.php",
+    "native_entry_sha256": "f26586777ce757ed9b755fb398b07bd0318e3adc82c4204ad3298bb83fd7ea26",
+    "native_test_output": "PASS THREE_WITH_DUPLICATE_RETRY; PASS ZERO; PASS17checks; no fixture credit.",
+    "generated_scope_receipt_sha256": "2e1f7f53244d4e004fcfed96374140c53e8539f96f69ef886309151fcc13303d",
+    "printed_rule": "https://judge.fabtcg.com/cards/detail/5065/",
+    "shuffle_rule": "https://rules.fabtcg.com/en/cr/08-keywords/#8520-shuffle"
+  }
+}

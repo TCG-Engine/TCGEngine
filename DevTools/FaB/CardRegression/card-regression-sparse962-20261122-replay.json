@@ -1,0 +1,102 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-minds-desire-red-four-live-sparse962-actual-full-block-retains-real-eligible-non-attack-action-deck",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-minds-desire-red-four-live-sparse962-actual-full-block-retains-real-eligible-non-attack-action-deck",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse962-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse962-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "63a198326decc8e2650f3d50df74adb9432e228664a06c7522373ac594d3dfd7",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "1b51452691c7366cabe38d374ff6101a6b758655e0a6bd2d054f27b9e192a5e1",
+        "actions.json": "9f2158a76a224facb898cc12561b10d89380d0d90e15b49131c1d4359e991d29",
+        "assertions.json": "06c89ac843011c408f52ac45debeb978f73a0fb3f9ff7a229c9a86067de6873d",
+        "expected_final_gamestate.txt": "c9171435be9bdafc0d623d0d6e9d39734d6b3604e83213587e8c456260e5c0fb",
+        "meta.json": "d22adb0b970adfec42bd98036117eabdbd2f558b8ea16013b5be3ebf7a450c6a"
+      }
+    },
+    {
+      "slug": "card-desires-of-flesh-red-four-live-sparse962-actual-full-block-retains-real-eligible-attack-action-deck",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-desires-of-flesh-red-four-live-sparse962-actual-full-block-retains-real-eligible-attack-action-deck",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse962-local-20261122\\clean-replays\\01.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse962-local-20261122\\clean-replays\\01.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "0cec12f69309fffda8f3ac0692be4400f07148a7d6ed1de986665bf425634759",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "b1dbc4ecd5e771b09eba10150a65237e4ad8c7d03eb487a1a4c9ef1511297641",
+        "actions.json": "9f2158a76a224facb898cc12561b10d89380d0d90e15b49131c1d4359e991d29",
+        "assertions.json": "777b5e7a1ea1c3378bd71a5863234ed47541c32b0ef2107c4713f16c8b259274",
+        "expected_final_gamestate.txt": "2f33569b5bd19f6382d931a1e42de555eff90e71a22cbb54562d87fe3b9e1be8",
+        "meta.json": "8c45489ad4cb14462063de7e169d8c58783e7824e41498d54378f332a0852963"
+      }
+    },
+    {
+      "slug": "card-bonds-of-attraction-red-four-live-sparse962-actual-full-block-retains-real-same-color-distinct-name-deck-and-graveyard",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-bonds-of-attraction-red-four-live-sparse962-actual-full-block-retains-real-same-color-distinct-name-deck-and-graveyard",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse962-local-20261122\\clean-replays\\02.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse962-local-20261122\\clean-replays\\02.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "3c0994fc63b58a6f47bf096a5a06da84ef6f796496e10fb5d2f525ff26a6b93d",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "4407f6dafbd71df32224b515c6979b41fb4366584930301e016dc7f1d6807120",
+        "actions.json": "9f2158a76a224facb898cc12561b10d89380d0d90e15b49131c1d4359e991d29",
+        "assertions.json": "2cf160ef60c94e53e1e86624d5ed4fa348aaf348fb908996d06747aa1ca6b530",
+        "expected_final_gamestate.txt": "50a5b5673d5a68d3c029e65b1cf01e6f17ba5a12140b633f621dc82dd6b28134",
+        "meta.json": "fc4685ee0e335e5f12b616bb73ad477d3bcff4cf18f61920b944ea0db80c32d5"
+      }
+    },
+    {
+      "slug": "card-bonds-of-memory-red-four-live-sparse962-actual-full-block-retains-real-same-name-deck-and-graveyard",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-bonds-of-memory-red-four-live-sparse962-actual-full-block-retains-real-same-name-deck-and-graveyard",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse962-local-20261122\\clean-replays\\03.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse962-local-20261122\\clean-replays\\03.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "1f9f8dd9cbbc5c6ae7253bd386be1eff58d1c743663e0471f5520d052a774854",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "848aa3e40920020c789699221c7b312276d872cfcaaa383bacafc70bf8c21cb7",
+        "actions.json": "9f2158a76a224facb898cc12561b10d89380d0d90e15b49131c1d4359e991d29",
+        "assertions.json": "785ee2fa4f47f73ab682c6b63262159ec48ca7f307e15f8113aaebff0f27dba4",
+        "expected_final_gamestate.txt": "a3a610eafa47fd885f3ae264d55dd440157b9f0283c0ce2da2158b8309977ec7",
+        "meta.json": "0c53c32e76384acaef18e1c082f72202c0a872e76c104c7a40a21091ef675d33"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

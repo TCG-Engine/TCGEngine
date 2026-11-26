@@ -1,0 +1,68 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-24T15:34:13.013355+00:00",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1411-20261122.json",
+  "source_spec_sha256": "b045e5f27b82bd4756483047d71ef3f253d54f4720427b0d1eef5876a7a30456",
+  "new_scenarios": 1,
+  "new_groups": 1,
+  "new_primary_ids": 1,
+  "actions": 18,
+  "native_assertions": 307,
+  "manual_passes": 15,
+  "totals": {
+    "saved_registered_scenarios": 5417,
+    "duels": 3114,
+    "four_live": 2303,
+    "recorded_primary_ids": 2565,
+    "identity_denominator": 5196,
+    "recorded_groups": 2439,
+    "group_denominator": 3324,
+    "four_live_groups": 2292,
+    "phase_qualified_scenarios_at_actual_contexts": 2054,
+    "phase_qualified_unique_groups": 2044,
+    "creation_replay_passes": 2796,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 1215,
+  "scenarios": [
+    {
+      "card_id": "astral_bridge_red",
+      "group_id": "identity:astral_bridge_red",
+      "scenario_id": "card-astral-bridge-red-two-live-sparse1411-official-single-opponent-default-real-noninstant-mill-no-permission-or-self-starfall",
+      "effect_branches": [
+        "two_live_default_target_native_noninstant_mill_no_graveyard_permission_no_self_starfall_and_preserved_action_followthrough"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-astral-bridge-red-two-live-sparse1411-official-single-opponent-default-real-noninstant-mill-no-permission-or-self-starfall",
+      "source_spec": "card-regression-sparse1411-20261122.json",
+      "source_spec_sha256": "b045e5f27b82bd4756483047d71ef3f253d54f4720427b0d1eef5876a7a30456",
+      "review_evidence": "review-evidence/sparse1411-20261122-qualified-saved.json",
+      "review_evidence_sha256": "bed054226138b650d760c5593e7ac21edadb662a11653fae43cb1bda5f974e71",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1411-20261122-replay.json",
+          "sha256": "69ff8072fcf6eff6654f4bd273f37f64eef8ef30de7493c104eefb07306c8a92",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "two_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

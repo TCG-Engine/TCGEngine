@@ -1,0 +1,7 @@
+{
+    "name": "Strong Wood / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T18:43:12+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "**Earth Bond** - If an Earth card was pitched to play this, this gets +1{p}. Representative only: actual_generic_blue_cost_three_and_six_damage_without_earth_bond_bonus. Other pitch siblings, alternate targets and unexercised branches receive no credit. All four live/manual; only native entry-point actions. Sources: FaBSim/GeneratedCode/cardArrayCache.json#strong_wood_red"
+}

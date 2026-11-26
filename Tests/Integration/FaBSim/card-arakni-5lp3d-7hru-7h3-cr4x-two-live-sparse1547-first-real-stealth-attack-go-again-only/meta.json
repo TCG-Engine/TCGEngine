@@ -1,0 +1,7 @@
+{
+    "name": "Arakni, 5L!p3d 7hRu 7h3 cR4X / first actual stealth attack gets go again, second does not",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-25T13:22:05+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Two genuinely manual adult CC heroes at natural38/40. Hero primary starts in native Hero zone; two physical Infect3/4 Hand cost0/base3, opponent two physical Wounding5/6 Hand DEF3. No seeded first-attack counters or tags. Each actual AA default-targets sole opposingHero before AP cost. HNTPlayed implements continuous first-Stealth bonus; first real attack gets GA, fullyblocked3 with real Hand5 so no hit/producer/Pox is earned, complete resolution returns AP1. Full manual Close, second same-turn Infect4 consumes real AP1 and is fullyblocked3 by Hand6; no GA/no AP refund. Neither attack is a weapon, so Dori has no weaponhit trigger. No engine change or young/UPF/support/sibling/whole-card credit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#arakni_5lp3d_7hru_7h3_cr4x FaBSim/Custom/HNTRuntime.php#FaBHNTPlayed FaBSim/Custom/HNTCards.php FaBSim/Custom/OUTRuntime.php FaBSim/Custom/GameLogic.php#FaBBeginResolutionStep FaBSim/Custom/WTRCards.php FaBSim/GeneratedCode/GeneratedMacroCode.php"
+}

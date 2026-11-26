@@ -1,0 +1,44 @@
+{
+  "status": "PASS_19_COMPONENT_ASSERTIONS_AND_CAUSAL_NEGATIVE_CONTROL",
+  "utc": "2026-11-06T04:10:53.688672+00:00",
+  "candidate_manifest_sha256": "7b2921007c11427929a2dfe6469def09016aaaadb4ec6fcd926a2af6c237d78d",
+  "harness_sha256": "649b6dae8bcdf610f40c9f70c56b13f8d7345cde40ef20698d4f0252185ccd2c",
+  "component_contracts": 17,
+  "component_assertions": 19,
+  "fault_controls": 1,
+  "results": [
+    {
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "-l",
+        "silverstride141_components.php"
+      ],
+      "exit_code": 0,
+      "stdout": "No syntax errors detected in silverstride141_components.php\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "silverstride141_components.php"
+      ],
+      "exit_code": 0,
+      "stdout": "{\"status\":\"PASS\",\"checks\":19,\"contracts\":17,\"scope\":\"Exact extracted candidate\\/live functions with explicit dependency stubs; no native gameplay\\/replay or full-engine import. NonToken\\/hidden\\/foreign-storage cases are data-boundary contracts, not native reachability claims.\"}\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "silverstride141_components.php",
+        "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-silverstride141-static-defense-proposed",
+        "--fault-no-bonus"
+      ],
+      "exit_code": 255,
+      "stdout": "\nFatal error: Uncaught RuntimeException: controlled visible Flurry expected 2 got 1 in C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\silverstride141_components.php:54\nStack trace:\n#0 C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\silverstride141_components.php(58): eq(1, 2, 'controlled visi...')\n#1 C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\silverstride141_components.php(59): defense(Object(stdClass), 2, 'controlled visi...')\n#2 {main}\n  thrown in C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\silverstride141_components.php on line 54\n",
+      "stderr": "PHP Fatal error:  Uncaught RuntimeException: controlled visible Flurry expected 2 got 1 in C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\silverstride141_components.php:54\nStack trace:\n#0 C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\silverstride141_components.php(58): eq(1, 2, 'controlled visi...')\n#1 C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\silverstride141_components.php(59): defense(Object(stdClass), 2, 'controlled visi...')\n#2 {main}\n  thrown in C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\silverstride141_components.php on line 54\n"
+    }
+  ],
+  "source_applied": false,
+  "native_or_full_engine_import": false,
+  "scope": "Exact function extraction with explicit dependency stubs; isolated no-bonus mutation only. No production, game, fixture or coverage changes."
+}

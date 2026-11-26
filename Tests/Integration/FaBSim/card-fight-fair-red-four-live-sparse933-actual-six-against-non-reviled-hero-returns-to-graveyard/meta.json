@@ -1,0 +1,7 @@
+{
+    "name": "Fight Fair / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T20:40:55+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "If this is defended by a Reviled card, this gets +1{p}.\n\nWhen this hits a Reviled hero, put this on the bottom of its owner's deck. Representative only: actual_six_against_non_reviled_hero_returns_to_graveyard. Actual printed payment, four manual live seats/full unblocked combat, real health loss and physical owned source in graveyard. No positive typed-hit/Combo/Draconic threshold or pitch sibling credit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#fight_fair_red"
+}

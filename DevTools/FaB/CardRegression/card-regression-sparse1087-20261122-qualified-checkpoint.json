@@ -1,0 +1,68 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-23T06:15:01.852010+00:00",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1087-20261122.json",
+  "source_spec_sha256": "a195dfd62b4f8f5cb964ecf373b5167e81d1ccbf5917a8f7c7512dff11c5b610",
+  "new_scenarios": 1,
+  "new_groups": 1,
+  "new_primary_ids": 1,
+  "actions": 33,
+  "native_assertions": 274,
+  "manual_passes": 29,
+  "totals": {
+    "saved_registered_scenarios": 4950,
+    "duels": 3075,
+    "four_live": 1875,
+    "recorded_primary_ids": 2098,
+    "identity_denominator": 5196,
+    "recorded_groups": 1972,
+    "group_denominator": 3324,
+    "four_live_groups": 1864,
+    "phase_qualified_scenarios_at_actual_contexts": 1587,
+    "phase_qualified_unique_groups": 1577,
+    "creation_replay_passes": 2329,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 748,
+  "scenarios": [
+    {
+      "card_id": "fire_and_brimstone_red",
+      "group_id": "identity:fire_and_brimstone_red",
+      "scenario_id": "card-fire-and-brimstone-red-four-live-sparse1087-real-reaction-cost-buffs-current-dagger-attack-one-to-two",
+      "effect_branches": [
+        "real_reaction_cost_buffs_current_dagger_attack_one_to_two"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-fire-and-brimstone-red-four-live-sparse1087-real-reaction-cost-buffs-current-dagger-attack-one-to-two",
+      "source_spec": "card-regression-sparse1087-20261122.json",
+      "source_spec_sha256": "a195dfd62b4f8f5cb964ecf373b5167e81d1ccbf5917a8f7c7512dff11c5b610",
+      "review_evidence": "review-evidence/sparse1087-20261122-qualified-saved.json",
+      "review_evidence_sha256": "1f24e1901dd81adb6e3208952ec56570ac47a624c3b6cf369121ed1df516edb8",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1087-20261122-replay.json",
+          "sha256": "04a79d439bfc528ebd479d928889fb30dde2e6466b3e6a0c669747743d62242a",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-hungry-for-more-red-four-live-sparse1174-paid-last-counter-separate-destroy-and-heal-triggers",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-hungry-for-more-red-four-live-sparse1174-paid-last-counter-separate-destroy-and-heal-triggers",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1174-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1174-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "904002c492c76385e7227dac0195795a1a20719390deb506e2fd164c5fc36aa0",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "b3581aa9b8d245bd847c1f6f797d287001da1ca84e0e6933bf4991586d870a19",
+        "actions.json": "2bdab538d238a2f2154cc07f34dce6f45c811e8a6fec209064f33227048fecf0",
+        "assertions.json": "7210d8accac9715dcbb3c51a8cc3a4f11b4f4df91d4741d24891a767ed7359da",
+        "expected_final_gamestate.txt": "297d7d6354a00c0f6f6b9f0f6d21b63f2506a0782deb6bd9ab80ee155a35a72d",
+        "meta.json": "b8d61ce4f03b945cf1e3bc5296b38ae6ad8a5822a3ac71f2f46c3c10efee7e4e"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

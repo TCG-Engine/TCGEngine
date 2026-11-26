@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-tear-through-the-portal-red-four-live-sparse1075-real-red-banished-attack-selection-and-consumed-go-again",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-tear-through-the-portal-red-four-live-sparse1075-real-red-banished-attack-selection-and-consumed-go-again",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1075-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1075-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "9c6769c5f343a32dba5620167043cea1688a8d516f18a598486914e513cfdfca",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "0bbe4f4a98d00060a33940e3bf81907668052b8bdddcc4df90232045981e0c88",
+        "actions.json": "0adb7daa58e467b2eb7f6003c782ec2b96ccd89500b406680e0d733b641da616",
+        "assertions.json": "c0d37f0a2e0754c39ccd261cf34cd82832f509d2bfc4ba52935060193db6eba1",
+        "expected_final_gamestate.txt": "17b12df757c5c13d221c5ccc7bc03dc1279327b1ab3f928cca900e97c8bab07d",
+        "meta.json": "a5bd376899bf0afe85d2af5c830826a73d2e69fc4a77c3b7bb75df3365b028dd"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

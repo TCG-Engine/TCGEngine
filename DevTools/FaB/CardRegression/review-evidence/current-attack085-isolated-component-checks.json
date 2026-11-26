@@ -1,0 +1,103 @@
+{
+  "status": "PASS_ISOLATED_EXTRACTED_CHECKS_NOT_NATIVE",
+  "native_credit": false,
+  "runtime_before": "800b8b4f79d79d280ecff89ad13dca62b959559d66c300067b66f5a501bb7a56",
+  "candidate_manifest_sha256": "85e69d9dc60dc979ca989529e287babbd4046a42930f11e2b5d0a134464a7d30",
+  "validation_plan_sha256": "19263464060cb32b4dc3b5f9cdbcc1b630c1c80e7b894431ec07d2d12ab86a1e",
+  "checks": [
+    {
+      "argv": [
+        "C:\\xampp\\php\\php.exe",
+        "-l",
+        "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-shared-attack085-live-source-proposed\\candidates\\FaBSim\\Custom\\GameLogic.php"
+      ],
+      "returncode": 0,
+      "stdout": "No syntax errors detected in C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-shared-attack085-live-source-proposed\\candidates\\FaBSim\\Custom\\GameLogic.php\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "C:\\xampp\\php\\php.exe",
+        "-l",
+        "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-shared-attack085-live-source-proposed\\candidates\\FaBSim\\Custom\\DTDRuntime.php"
+      ],
+      "returncode": 0,
+      "stdout": "No syntax errors detected in C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-shared-attack085-live-source-proposed\\candidates\\FaBSim\\Custom\\DTDRuntime.php\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "C:\\xampp\\php\\php.exe",
+        "-l",
+        "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-shared-attack085-validation-preparation\\before-actual-bodies.php"
+      ],
+      "returncode": 0,
+      "stdout": "No syntax errors detected in C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-shared-attack085-validation-preparation\\before-actual-bodies.php\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "C:\\xampp\\php\\php.exe",
+        "-l",
+        "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-shared-attack085-validation-preparation\\after-actual-bodies.php"
+      ],
+      "returncode": 0,
+      "stdout": "No syntax errors detected in C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-shared-attack085-validation-preparation\\after-actual-bodies.php\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "C:\\xampp\\php\\php.exe",
+        "-l",
+        "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-shared-attack085-validation-preparation\\actual-zone-classes.php"
+      ],
+      "returncode": 0,
+      "stdout": "No syntax errors detected in C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-shared-attack085-validation-preparation\\actual-zone-classes.php\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "C:\\xampp\\php\\php.exe",
+        "-l",
+        "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-shared-attack085-validation-preparation\\contracts.php"
+      ],
+      "returncode": 0,
+      "stdout": "No syntax errors detected in C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-shared-attack085-validation-preparation\\contracts.php\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "C:\\xampp\\php\\php.exe",
+        "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-shared-attack085-validation-preparation\\contracts.php",
+        "before"
+      ],
+      "returncode": 0,
+      "stdout": "{\"status\":\"PASS_ISOLATED_TYPED_DECK_FAULT_CHARACTERIZATION_NOT_RULE_APPROVAL\",\"phase\":\"before\",\"contracts\":2,\"assertions\":15,\"contract_names\":[\"actual typed Deck serialization contains no combat-only properties\",\"actual old power keyword and Mirage paths fault on reconstructed Deck\"],\"native_credit\":false,\"limits\":\"Actual classes/serializer/getters/Mirage/current+UID lookup. Engine ParseGamestate bootstrap, modifier cohorts, native proxy creation/destruction and caller order are not executed; explicit controlled stubs listed in preparation plan.\"}\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "C:\\xampp\\php\\php.exe",
+        "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-shared-attack085-validation-preparation\\contracts.php",
+        "after"
+      ],
+      "returncode": 0,
+      "stdout": "{\"status\":\"PASS_ISOLATED_EXTRACTED_AFTER_CONTRACTS_NOT_NATIVE\",\"phase\":\"after\",\"contracts\":13,\"assertions\":87,\"contract_names\":[\"actual typed Deck serialization contains no combat-only properties\",\"reconstructed Deck is not current attack and getters short circuit safely\",\"null missing removed and nonpositive identities have no live attack\",\"closed combat invalid currentlink wrong role and stale link are rejected\",\"nonchain persistent Weapons Arena and Stack objects are not active proxies\",\"actual current attack-action power modifiers and keyword tags still evaluate\",\"current sword and nonsword weapon proxies do not require persistent weapon movement\",\"current aura and ally attack proxies retain Arena source with distinct UID\",\"same physical persistent source UID cannot substitute for current attack proxy\",\"current Mirage threshold6 still destroys only current-link Mirage defenders\",\"Mirage threshold is power6 not5 and modifier arithmetic remains active\",\"Illusionist current attack and DEFEND_DECLARE skip Mirage destruction\",\"current blanking and cannot-dominate gates remain before keyword result\"],\"native_credit\":false,\"limits\":\"Actual classes/serializer/getters/Mirage/current+UID lookup. Engine ParseGamestate bootstrap, modifier cohorts, native proxy creation/destruction and caller order are not executed; explicit controlled stubs listed in preparation plan.\"}\n",
+      "stderr": ""
+    }
+  ],
+  "repository_write": false,
+  "full_suite_run": false,
+  "limits": [
+    "No PHP/native/R/source/service/generator execution or writes by preparer; results remain pending Root execution.",
+    "Exact classes Deck/CombatChain/Weapons/Arena constructors and serializers are extracted. Full ParseGamestate bootstrap is deliberately excluded; no source property padding or replacement Deck schema.",
+    "Actual FaBFindUID and identity-zone enumeration are extracted; zone/state access and MZ reference access are explicit isolated stubs.",
+    "Actual changed power/keyword arithmetic and Mirage loop run under catalog-backed metadata adapters and neutral modifier-cohort stubs with selected controlled evaluator deltas. This is not requalification of every modifier cohort.",
+    "Weapon/Aura/Ally proxy layouts follow existing named native source producers; activation, Stack-to-Chain transition, native cost/response sequencing and primitive Mirage destruction remain native integration gates.",
+    "The diagnostic confirms 25 recorded inputs and subsequent unrecorded action26 exception; isolated synthetic typed Deck reconstruction does not invent a captured raw Deck snapshot or claim action26 succeeded.",
+    "No LKI power/keyword reconstruction, no change to cached power/defense/damage/go-again, no incarnation framework/Core/schema/canonical/generated changes or unrelated issue qualification."
+  ],
+  "runtime_after": "800b8b4f79d79d280ecff89ad13dca62b959559d66c300067b66f5a501bb7a56",
+  "repository_runtime_unchanged": true,
+  "completed_utc": "2026-11-03T23:08:26.446789+00:00"
+}

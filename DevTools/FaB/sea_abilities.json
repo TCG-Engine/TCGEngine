@@ -2414,7 +2414,7 @@
     "abilities": [
       {
         "macroName": "ResolveCard",
-        "abilityCode": "$seaPlayer = $player;\nFaBHVYToken($seaPlayer, 'seismic_surge', 3, $seaPlayer);\n",
+        "abilityCode": "$seaPlayer = $player;\n/* Entry Seismic Surges are queued by FaBROSAfterMove. */\n",
         "isImplemented": true
       },
       {

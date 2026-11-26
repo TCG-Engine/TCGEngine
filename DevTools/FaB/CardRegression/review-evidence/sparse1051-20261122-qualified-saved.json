@@ -1,0 +1,116 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "breadth_review independent cachedtext/spec delta review",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1051-20261122.json",
+  "source_spec_sha256": "3adb756e5ae96312a2b7e3d814e46166cae981846846a6a1c523574253ea5217",
+  "input_sha256": "3adb756e5ae96312a2b7e3d814e46166cae981846846a6a1c523574253ea5217",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "hyper-x3-four-live-sparse1051-real-defense-battleworn-close",
+      "card_id": "hyper_x3",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "14be84dd5e72132583f353b933570df383676a19f43442b9c13dd6093c2f47bc",
+        "actions.json": "511bf2f3686ee96e12e3d9cdbe580febcac902b797e5ec827a96d5ccd74ac457",
+        "assertions.json": "91e2d2c893b478fd2f6d38fcaa064519945ee6c0827044f74a43e4ac2435451c",
+        "expected_final_gamestate.txt": "944bf3c8d0096bcf0c94a171d06dcbf6195425cc28ff559feda642f12caa913a",
+        "meta.json": "9258414f995f07e67be187d9a43840f46a5191b5c1629d0847f708d53eff33ab"
+      },
+      "fixture_sha256": "772b7dda70d11ed3aa2d047ccdcbd41a66fdf7301dfeab1ef6911cf2b4cc0d41",
+      "actions": 30,
+      "native_assertions": 270,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1051-20261122.json",
+      "input_sha256": "3adb756e5ae96312a2b7e3d814e46166cae981846846a6a1c523574253ea5217",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1051-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "hyper-x3-four-live-sparse1051-real-defense-battleworn-close",
+        "fixture_slug": "hyper-x3-four-live-sparse1051-real-defense-battleworn-close",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "hood-of-red-sand-four-live-sparse1051-real-defense-battleworn-close",
+      "card_id": "hood_of_red_sand",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "cb9d6168727916f5854e2f3779fde4c3b6d3b40f7740c3352a465d4ffc39ba97",
+        "actions.json": "511bf2f3686ee96e12e3d9cdbe580febcac902b797e5ec827a96d5ccd74ac457",
+        "assertions.json": "4a68669ef87b6e2299fd8c00ab0c337b9e51400410c29ec68333c8bea7cd9efb",
+        "expected_final_gamestate.txt": "05b123b8d9e394ac8f700ed626d04de432f6db460cb62b44ac6a25f014336fbb",
+        "meta.json": "77b4c155ce97182c8a0fb70387e1b5370a675944f2e0fb281137ad4aa733f515"
+      },
+      "fixture_sha256": "f8fa1e7563c65fb0b2bfab5562eca6d3b18ad79fe090cebaccaa2f2540b15b9c",
+      "actions": 30,
+      "native_assertions": 270,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1051-20261122.json",
+      "input_sha256": "3adb756e5ae96312a2b7e3d814e46166cae981846846a6a1c523574253ea5217",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1051-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "hood-of-red-sand-four-live-sparse1051-real-defense-battleworn-close",
+        "fixture_slug": "hood-of-red-sand-four-live-sparse1051-real-defense-battleworn-close",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "valiant-dynamo-four-live-sparse1051-real-defense-battleworn-close",
+      "card_id": "valiant_dynamo",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "da6c170260968bc97706fe2e77a46f8267f0cac6b310099ed5ef12c6975d8225",
+        "actions.json": "511bf2f3686ee96e12e3d9cdbe580febcac902b797e5ec827a96d5ccd74ac457",
+        "assertions.json": "24ffc0490c7d15fee28278466fe8027e0ede525f2338bb8f73ad3c46fcfb9bd8",
+        "expected_final_gamestate.txt": "2632eb73a1ff333f65d9af92b9d5d5a36caa7d4c53b1e85a25890d6083918edf",
+        "meta.json": "3859a090aa1c120ca1142bc53968c20c005c2dc26aedb40ab8d1ae7baa1529c3"
+      },
+      "fixture_sha256": "bed12a710d7af6e2e4a37f3ed3c0bf3ab038a4881cfea94c49a7cc4eb0f1e601",
+      "actions": 30,
+      "native_assertions": 270,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1051-20261122.json",
+      "input_sha256": "3adb756e5ae96312a2b7e3d814e46166cae981846846a6a1c523574253ea5217",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1051-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "valiant-dynamo-four-live-sparse1051-real-defense-battleworn-close",
+        "fixture_slug": "valiant-dynamo-four-live-sparse1051-real-defense-battleworn-close",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "spec_sha256": "3adb756e5ae96312a2b7e3d814e46166cae981846846a6a1c523574253ea5217",
+    "reviewer": "breadth_review independent cachedtext/spec delta review",
+    "basis": [
+      "CachedHyperX3/HoodRedSand/ValiantDynamo DEF1/Battleworn and correctyoung20Dash/KassaiSpecialization/Dorinthea. NoWHENdefends. NoHyperDriverboostbanish/put-under event (so neither HyperX3 trigger earns a layer), noHoodactivation/red-yellowGYbanish/ownedSwordhit, noowner4endphase; DynamoEOTabilitynotreached.",
+      "Allnativecontrols exactlymatch qualified1042ordinaryequipment donor. ActualDoriSword7/Blue8cost1/R2/AP0, owner4Eq5thenrealNAA6DEF2 exactDEF3/0damage/noHit/HP20/fourmanual; normalBattleworncounter1retainsEq5at0/owned4, actualHand6ownedGY4/Blue8Pitch/weapon7used andallcost/role/fates/queuespersist. Noauthor-onlydiagnostics."
+    ],
+    "limits": [
+      "Ordinarydefense/singleBattlewornclose only. NoHyperDrivercollection/draw, specializationactivatedeffect, DynamoEOTreset, priorholds repaired, hero/support/siblings/fullcardcredit. No native/PHP/T/source/Git/original/network actions byreviewer."
+    ]
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1051-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "a7321fb21772b7412ef8db8302d62c846ac07d3f20385badcc37f3e749b2194a"
+  },
+  "full_suite_run": false
+}

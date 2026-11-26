@@ -1,0 +1,7 @@
+{
+    "name": "Tomeltai / actual Ally attack excludes Hero-attack reward with real Red deck and opposing assets",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-25T11:57:32+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "LegalDromai20/Storm5/priorInvokedtomeltai6canonicalfront/Ashrepresentation. ActualDragonAction0formallytargetsAshwing10Ally/AP0/tap6/proxy13power5/noGA. Hero-attackeventnotearned, so no separateHero-attacklayer/reward; actualDeckRed7/8/9, victimHandBlue11/readyHelmet12retained. Actual5physicalkillsTokenAllyonly/allHero20; no Phantasmdefense/RedDromaitriggers. Fourmanualfullcloseprimary6Arenaused/Storm5ready/Deck3/Hand4one/Equipment4one/UID13/APR0/StackDQclean. OnlyHero-attackconditionexclusion, notpositivepayload/reveal/producer/siblingcoverage. Noenginechange. Sources: FaBSim/GeneratedCode/cardArrayCache.json#tomeltai FaBSim/Custom/UPRCards.php#FaBUPRInvoke FaBSim/Custom/MONAbilities.php#FaBMONArenaAttackSpec FaBSim/GeneratedCode/GeneratedMacroCode.php#tomeltai:0:AttackDeclared FaBSim/Custom/GameLogic.php#FaBFaiHeroAttack"
+}

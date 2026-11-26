@@ -1,0 +1,171 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-banneret-of-courage-yellow-four-live-sparse921-actual-four-attack-without-soul-charge-courage",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-banneret-of-courage-yellow-four-live-sparse921-actual-four-attack-without-soul-charge-courage",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse921-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse921-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "9584b16e0e89bff3ab0bc074bde0ae9f587a769d897a0e8ecb3565322622df0d",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "e6fa64edb10cadb8c2f9e01389686444ff3d622ea084dc4012363ba1a6057bd0",
+        "actions.json": "25920dc16af50701b0be20453cc3345d5c14a09166881d7481930bfb87552093",
+        "assertions.json": "1d88bc9f4ac0720d4307840350b2521699c83d933ad671664ea5c95006331a45",
+        "expected_final_gamestate.txt": "acd10fa6eef197f661b4891778d579ebe4a2b0b2c24c2d7f4855042eab776a21",
+        "meta.json": "cb658e8b50a321cd6847489ea89449781816ed2b43de96cc3bae94ae72177956"
+      }
+    },
+    {
+      "slug": "card-banneret-of-gallantry-yellow-four-live-sparse921-actual-four-attack-without-soul-charge-token",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-banneret-of-gallantry-yellow-four-live-sparse921-actual-four-attack-without-soul-charge-token",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse921-local-20261122\\clean-replays\\01.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse921-local-20261122\\clean-replays\\01.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "363f0a333d2e53107435580c4f4ac086fa297ed333f638286857266ef9c4d9be",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "e56c5f5103bc72d4565058b7aaa2d3e1f4d5b52e00eaa0d774deccd09d9cfafb",
+        "actions.json": "25920dc16af50701b0be20453cc3345d5c14a09166881d7481930bfb87552093",
+        "assertions.json": "27f0765c4b8641ba41cb25f87a60a92aa31e346aad7a692ca6df86cc70bde05a",
+        "expected_final_gamestate.txt": "793aecb625a40756260a36219c68d9019959764fe3f2e27a5aea057073996bd1",
+        "meta.json": "8338b2d2c117f5e2f4d7c142ddabd732b1312dde66674df1ad166fb5339c6283"
+      }
+    },
+    {
+      "slug": "card-banneret-of-protection-yellow-four-live-sparse921-actual-four-attack-without-soul-charge-token",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-banneret-of-protection-yellow-four-live-sparse921-actual-four-attack-without-soul-charge-token",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse921-local-20261122\\clean-replays\\02.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse921-local-20261122\\clean-replays\\02.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "320963dc07209b345cef22ac5e91d795a87000e24f190e4f2064d494777f922a",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "9f470739fd2d9484af9eb4f037883c3a21dabd8b30f4899071585763862ff640",
+        "actions.json": "25920dc16af50701b0be20453cc3345d5c14a09166881d7481930bfb87552093",
+        "assertions.json": "89db3a498110435e99cb9ab68b1fa9a346d1280606018d11cea4bf76d2ad3455",
+        "expected_final_gamestate.txt": "6f7a4f4085d36f5882d69c265d7e0fb10b32780822ee76167528dbc339e304a0",
+        "meta.json": "244c5f695c05d22741132ac340fd82d41eaba2a3c9a1fdf7402c06be6d68c009"
+      }
+    },
+    {
+      "slug": "card-banneret-of-resilience-yellow-four-live-sparse921-actual-three-attack-without-soul-charge-defense-bonus",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-banneret-of-resilience-yellow-four-live-sparse921-actual-three-attack-without-soul-charge-defense-bonus",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse921-local-20261122\\clean-replays\\03.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse921-local-20261122\\clean-replays\\03.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "f48d719cc6f0df564a79900be4aa8a24866ce29c6bc6236f07bcf044098b74a5",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "54c7c617487f93d2450a5d076a753ed4ce3c7968e9b48370f5c6351c010dec08",
+        "actions.json": "71f0d0f07cf85244a3ec27fdb1f824cd62aa3126d639c98c13ca23327907bd8b",
+        "assertions.json": "e101901658c16456b87ee0ec95cc0b4608ceb18b29c53454b3d3141ee0e24d01",
+        "expected_final_gamestate.txt": "f2a0394ce30674ca41d805a8441a63016e9082433e3a4c517e82906ebe54f56a",
+        "meta.json": "6a22129609df30416b3b354343fb2b0bcb5566d6e509c75d239172beafe78586"
+      }
+    },
+    {
+      "slug": "card-banneret-of-salvation-yellow-four-live-sparse921-actual-three-attack-without-soul-charge-hit-life-gain",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-banneret-of-salvation-yellow-four-live-sparse921-actual-three-attack-without-soul-charge-hit-life-gain",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse921-local-20261122\\clean-replays\\04.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse921-local-20261122\\clean-replays\\04.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "d0f026a6efbd105e1734288042e6f2d61d250e8b33b0573681dc313aad6e4e23",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "263ab37174f961726d8f26d2e2eac2b2e564ec3277e1686160b120892be915ba",
+        "actions.json": "71f0d0f07cf85244a3ec27fdb1f824cd62aa3126d639c98c13ca23327907bd8b",
+        "assertions.json": "2f4701e6c62c168778db484a774d22b1703360c024e67106aa180a0b5e1cc826",
+        "expected_final_gamestate.txt": "a5c302974707bb46e15fdf9a16cd7665961cedbc32228a0f902a1d10e79f7e36",
+        "meta.json": "32277595b88093e809db307afbe9f34763cb5cd3c57ddea02e854d015c613bd4"
+      }
+    },
+    {
+      "slug": "card-banneret-of-swordsmanship-yellow-four-live-sparse921-actual-four-attack-without-soul-charge-flurry",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-banneret-of-swordsmanship-yellow-four-live-sparse921-actual-four-attack-without-soul-charge-flurry",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse921-local-20261122\\clean-replays\\05.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse921-local-20261122\\clean-replays\\05.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "bcc5e58a4932286ba72e7d3daae833a9243024da669f9ca733e8a0f29f305186",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "71dd01a2748629d0d5a3370a59af0631a79505fea2128f9b298f2cf6cb3dca8a",
+        "actions.json": "25920dc16af50701b0be20453cc3345d5c14a09166881d7481930bfb87552093",
+        "assertions.json": "38559c5ee86a97f2e827e99c824bb0f9a4183ce96ccc0fc230862b00cf160c20",
+        "expected_final_gamestate.txt": "09e66cb2f805f6a579faa5d10ed0acc3517f88cfe0c6f510012b6b3e7f6c887b",
+        "meta.json": "714972b3ac441ebdc7031f6a4a5d26186686217af19853797b14bb803f6021f0"
+      }
+    },
+    {
+      "slug": "card-banneret-of-vigor-yellow-four-live-sparse921-actual-three-attack-without-soul-charge-hit-resource",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-banneret-of-vigor-yellow-four-live-sparse921-actual-three-attack-without-soul-charge-hit-resource",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse921-local-20261122\\clean-replays\\06.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse921-local-20261122\\clean-replays\\06.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "d45ab31e3784da96f1940cbeec404f644d9948066f6a2fc337d8c12b58537896",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "a3ea4b00115b3e15833fe8f05e4b9797d1be392da757c42c6b8bf76ecbd3f982",
+        "actions.json": "71f0d0f07cf85244a3ec27fdb1f824cd62aa3126d639c98c13ca23327907bd8b",
+        "assertions.json": "6035dec7207fb9992a53bf23d282a7d3554dbd1f8a41ea10ba1fc3c6e88caaa0",
+        "expected_final_gamestate.txt": "7982219514a457d38f65244502c2a7d633289d1512e9970b1346811fd52d2a3d",
+        "meta.json": "b75b5c1142f46954d58ae72cc4b28c50e64fd1b0de90eb5e6f30688cb1340ef4"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

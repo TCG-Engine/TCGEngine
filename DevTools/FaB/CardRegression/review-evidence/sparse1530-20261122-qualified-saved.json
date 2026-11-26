@@ -1,0 +1,88 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "/root/breadth_review1457",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1530-20261122.json",
+  "source_spec_sha256": "3cfc0112584bc440181649a25c66d3cb158600c8b5b32cdd5ff2d2175a2022f0",
+  "input_sha256": "3cfc0112584bc440181649a25c66d3cb158600c8b5b32cdd5ff2d2175a2022f0",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-fai-four-live-sparse1530-real-draconic-link-reduces-cost-and-spent-use-rejects-later-eligible-flame",
+      "card_id": "fai",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "596183da9406984d8c0b393f049a63ba4f83a685c0dda69e33ba055c1e71d837",
+        "actions.json": "08ab7376bcaec501a0e072d3bc0fceda4e60371d70edd2eaecbe0c59a4381e2d",
+        "assertions.json": "6a0080d4749758fb30653179246c53dd887b12632e1edcb1f5e7adb9654172bc",
+        "expected_final_gamestate.txt": "7dbe7789e56f4269491f7f8bcf79fe05ac94c37b0b5191d4e12de2f9973c1005",
+        "meta.json": "dadee020937f2f9679859c1ba0a705e38977c2c2e8808137a674583c7f577202"
+      },
+      "fixture_sha256": "eefa2f60ebf3197a3e9cb451f878ee026c5e5421cd1fac45f797f25652af96c9",
+      "actions": 34,
+      "native_assertions": 642,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 29,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1530-20261122.json",
+      "input_sha256": "3cfc0112584bc440181649a25c66d3cb158600c8b5b32cdd5ff2d2175a2022f0",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1530-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-fai-four-live-sparse1530-real-draconic-link-reduces-cost-and-spent-use-rejects-later-eligible-flame",
+        "fixture_slug": "card-fai-four-live-sparse1530-real-draconic-link-reduces-cost-and-spent-use-rejects-later-eligible-flame",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "schema_version": 1,
+    "batch": 1530,
+    "reviewer": "/root/breadth_review1457",
+    "result": "approved_named_branches_only_pending_native_execution",
+    "reviewed_utc": "2026-11-25T10:23:55.024781+00:00",
+    "spec_sha256": "3cfc0112584bc440181649a25c66d3cb158600c8b5b32cdd5ff2d2175a2022f0",
+    "source_note_sha256": "6c8af04116f4beeffce0f97a6062c99d136dd8d7a8572bfa1ca6262b0c38159b",
+    "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+    "source_sha256": {
+      "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+      "FaBSim/GeneratedCode/GeneratedMacroCode.php": "fe6a7982611df8f4de98ce2671b317b671b580146aa4b8c28e8f4b86d8461056",
+      "FaBSim/Custom/FaiCards.php": "222e95c7670e2df62aaec1185f75e63b6cc563bbd8fcfd52b4dd8f1f14110786",
+      "FaBSim/Custom/WTRAbilities.php": "8c7b73f87e5151823dc8aab1546d7e0452e6a948e36fdf9b157d4aa5da0e2209",
+      "FaBSim/Custom/UPRCards.php": "62798bd281afc17805c396e92deab22497b9c80d881f99e943833cb82d449321",
+      "FaBSim/Custom/GameLogic.php": "c60fa151561f959e4e3e341b814de0e2b47c9e9f153bbc8793a04c43b5075061"
+    },
+    "cases": 1,
+    "findings": [
+      "LegalFai20/Phoenix actualonecontrolledATTACKlink reducesInstant3to2; realBlue3pays\u2192R1/AP0/onceCounter2 beforepriority.",
+      "Returnnontargeted/noextraactivationcondition: emptyGYmayactivate, generatedemptyrefsgoes4to3to0 synchronous/noCCmovement/noheldpendingchoice.",
+      "Fourfreshabilityresponses, Phoenix0power/GA nohit layer, fullclosemoves5GY/AP1. Secondactivation fullyfundedR1+Blue7Hand3andeligibleFlame5butonceguardrejects.",
+      "Independent exact structural review verified ONLY four privatewindow changes PRIORITY\u2192ATTACK at one paidcheck+three responseconditions. GL1234..1240 explicitly restoresreturnWindowATTACK. Allgameplaychecks/cost2/R1/AP0/once/fullcombat unchanged. Original8-inputno-fixturefailure archived."
+    ],
+    "limits": [
+      "Onlypositivecostreduction andonce-use; no actualGYreturn/choice-lifetime/startoption/reset/siblings certification. Reviewer source/spec only; no games/tests/writes."
+    ],
+    "protocol_correction_evidence": "oracle-window-correction.json"
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1530-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "88357fcb795e02a9a0081215fdcba93ab0f6990aa21934527c4e5751f27834af"
+  },
+  "full_suite_run": false
+}

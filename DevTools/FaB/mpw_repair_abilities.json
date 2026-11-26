@@ -1,0 +1,12 @@
+[
+  {
+    "cardId": "lessons_learned_blue",
+    "abilities": [
+      {
+        "macroName": "ResolveCard",
+        "abilityCode": "$valid = false;\nwhile (!$valid) {\n    $refs = FaBWTRLessonsRefs($player);\n    $eligible = FaBUPRUIDs($refs);\n    $chosen = \"-\";\n    if ($refs !== \"\") {\n        $chosen = await $player.MZMultiChoose($refs, 0, 3, \"Choose_up_to_3_different_attack_reactions\");\n    }\n    $valid = FaBWTRFinishLessons($player, $chosen, $eligible);\n}\n",
+        "isImplemented": true
+      }
+    ]
+  }
+]

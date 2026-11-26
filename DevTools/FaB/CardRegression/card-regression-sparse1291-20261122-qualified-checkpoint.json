@@ -1,0 +1,97 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-24T02:35:35.216976+00:00",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1291-20261122.json",
+  "source_spec_sha256": "9749e9e29a755591ada720d0455f90c64f6942e621dd9b5721cffc90b7b7faed",
+  "new_scenarios": 2,
+  "new_groups": 2,
+  "new_primary_ids": 2,
+  "actions": 66,
+  "native_assertions": 1110,
+  "manual_passes": 58,
+  "totals": {
+    "saved_registered_scenarios": 5199,
+    "duels": 3097,
+    "four_live": 2102,
+    "recorded_primary_ids": 2347,
+    "identity_denominator": 5196,
+    "recorded_groups": 2221,
+    "group_denominator": 3324,
+    "four_live_groups": 2091,
+    "phase_qualified_scenarios_at_actual_contexts": 1836,
+    "phase_qualified_unique_groups": 1826,
+    "creation_replay_passes": 2578,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 997,
+  "scenarios": [
+    {
+      "card_id": "edge_ahead_red",
+      "group_id": "pitch-cycle:edge_ahead",
+      "scenario_id": "card-edge-ahead-red-four-live-sparse1291-real-paid-next-warrior-attack-bonus-versus-ally-no-wager",
+      "effect_branches": [
+        "actual_one_resource_action_grants_go_again_then_real_warrior_sword_gets_plus_three_vs_ally_no_hero_wager_trigger"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-edge-ahead-red-four-live-sparse1291-real-paid-next-warrior-attack-bonus-versus-ally-no-wager",
+      "source_spec": "card-regression-sparse1291-20261122.json",
+      "source_spec_sha256": "9749e9e29a755591ada720d0455f90c64f6942e621dd9b5721cffc90b7b7faed",
+      "review_evidence": "review-evidence/sparse1291-20261122-qualified-saved.json",
+      "review_evidence_sha256": "3b9ce6a471a5dc90b3cd31a5fd6286f5ad7ff81f8c5d2a0763eca8fe91288769",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1291-20261122-replay.json",
+          "sha256": "8420e807dcdaca8b07b5e8f74ce09fb8afb57c68b79c4f03c58f0dabb2814c1a",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "hold_em_red",
+      "group_id": "pitch-cycle:hold_em",
+      "scenario_id": "card-hold-em-red-four-live-sparse1291-real-paid-next-warrior-attack-bonus-versus-ally-no-wager",
+      "effect_branches": [
+        "actual_one_resource_action_grants_go_again_then_real_warrior_sword_gets_plus_three_vs_ally_no_hero_wager_trigger"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-hold-em-red-four-live-sparse1291-real-paid-next-warrior-attack-bonus-versus-ally-no-wager",
+      "source_spec": "card-regression-sparse1291-20261122.json",
+      "source_spec_sha256": "9749e9e29a755591ada720d0455f90c64f6942e621dd9b5721cffc90b7b7faed",
+      "review_evidence": "review-evidence/sparse1291-20261122-qualified-saved.json",
+      "review_evidence_sha256": "3b9ce6a471a5dc90b3cd31a5fd6286f5ad7ff81f8c5d2a0763eca8fe91288769",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1291-20261122-replay.json",
+          "sha256": "8420e807dcdaca8b07b5e8f74ce09fb8afb57c68b79c4f03c58f0dabb2814c1a",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

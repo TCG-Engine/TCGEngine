@@ -1,0 +1,7 @@
+{
+    "name": "Blasmophet, Levia Consumed / native-bound once-turn banish permission",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-24T22:19:16+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Valid two-manual adultCC-origin transformedposition. NativeFaBDTDTransform yields actualDemiHero1life13/originalLeviaSoul3, noHeroCounters, priorConsuming4/Fasting5faceupBanish before transformation. NativeAPIchecks permissionabsentbefore/presentaftertransform, nointrinsicpermissiononbothcards, unusedheroCount0. Exact full nativeinitialhash before any caseinput/Save. ActualConsumingBlue4 cost1playedfromBanish/realBlue7pitch3=>R2/AP0/bothresponses/body+ownGA=>4GY/AP1. SecondFasting5bloodDebtNAA0 stillfaceup andaffordableAP1R2, butonceHeroPermissionalreadyspent: actualclickrejects/5sameBanish/notStack/noAPdebit/noNEXT_RED_GO. ActualHandWounding6thenlegal0cost/singleopposingHero2autotarget/bothresponses/4power/noGA/actual4damageHP2=36/fullclose/AP0R2. HeroHP13unchanged/noBanish-entry/EndPhase/BloodDebt damage/transform-trigger tested. OriginalSoul3 and rejected5sameFaceUp0;4and6GY1/7Pitch1/noArena/noInventory/noStackDQCCframes/UID7RNG0. No class/target/order/history override, sourceHeroabilities notseeded, no new support/sibling/fullcard credit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#blasmophet_levia_consumed FaBSim/Custom/DTDCards.php FaBSim/Custom/DTDRuntime.php FaBSim/Custom/GameLogic.php FaBSim/GeneratedCode/GeneratedMacroCode.php DevTools/FaB/CardRegression/initial_snapshot_guard.php"
+}

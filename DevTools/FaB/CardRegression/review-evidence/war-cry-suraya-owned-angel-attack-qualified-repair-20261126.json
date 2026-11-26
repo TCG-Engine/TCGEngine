@@ -1,0 +1,359 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer": "/root",
+  "reviewer_independent": false,
+  "prior_independent_source_reviewer": "/root/breadth_review1457",
+  "prior_independent_source_scope": "Exact5 maintained proposal be91c7e804ed5f807980e03d75511fd6883819b966241433ee8ee74766cdd53a approved before context rollover. Emitted scope and saved evidence reviewed by primary agent after rollover.",
+  "runtime_sha256": "a8c26a317373c6eea6408db573adb6b481fb21ac24d570adbbeb4a7e2e827155",
+  "source_spec": "card-regression-repair-war-cry-suraya-20261126.json",
+  "input_sha256": "9ed068f63bc2b71cd57762d86455a9b909137b9e74252d6f7dd8d0c4d12af0a5",
+  "fixtures": [
+    {
+      "slug": "repair-war-cry-themis-yellow-four-live-20261126-empty-soul-owned-attack-layer-eight-damage",
+      "card_id": "war_cry_of_themis_yellow",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "03353fe7a15f6dfa7ef7300fa74a4a5111d121f75b7215c02783578e92843e1a",
+        "actions.json": "a35e2f591f0ee1bf66933c9f870ef43425f0d79fe16bc9516eef04e5ef79065f",
+        "assertions.json": "3c86160044be84280e003f500d155a8ca030e2b746b047e2111897c6f6750488",
+        "expected_final_gamestate.txt": "b0bb7a63e5b4b4aa36b7f9d1120c6bf312a6245a8dff913bd19d38380d4cedfe",
+        "meta.json": "bf597c4d7e6c81de80993a7878732be386d9530c0882cd9a7e770b3c1bd9f0ac"
+      },
+      "fixture_sha256": "b358c8a3ff7657b7888983fda87bfe08b225644638fe1a37adf524ac40a568bb",
+      "actions": 38,
+      "native_assertions": 299,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 33,
+      "recorded_runtime_sha256": "a8c26a317373c6eea6408db573adb6b481fb21ac24d570adbbeb4a7e2e827155",
+      "runtime_sha256": "a8c26a317373c6eea6408db573adb6b481fb21ac24d570adbbeb4a7e2e827155",
+      "source_spec": "card-regression-repair-war-cry-suraya-20261126.json",
+      "input_sha256": "9ed068f63bc2b71cd57762d86455a9b909137b9e74252d6f7dd8d0c4d12af0a5",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual"
+    },
+    {
+      "slug": "repair-war-cry-themis-yellow-four-live-20261126-suraya-soul-choice-draw-two-eight-damage",
+      "card_id": "war_cry_of_themis_yellow",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "476a37fed5d0c07f58904e2f1858c5cc0d40cfed12c8f1819540b35505226d0b",
+        "actions.json": "6113898f570ce614a9618c24f762fcbe10cb127d4cbb2b7f21aff7939c1ad801",
+        "assertions.json": "ffa4259035e2029af2d8448d26ec3abcd0cf9722c37879cfbf71034680a16f2a",
+        "expected_final_gamestate.txt": "cd22d5e2dbd80bac63c0ccbdc3d711ec3d642edb7aec553b366ed8e8daf5b394",
+        "meta.json": "300e7513cb8a0162f187cbf4f63925489ab1b487085d7ccc1e0ae75250770e7f"
+      },
+      "fixture_sha256": "6d3738869251df30ba36ff661d825f5705d93740e9bec1fde3a9b538d834600f",
+      "actions": 39,
+      "native_assertions": 328,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 33,
+      "recorded_runtime_sha256": "a8c26a317373c6eea6408db573adb6b481fb21ac24d570adbbeb4a7e2e827155",
+      "runtime_sha256": "a8c26a317373c6eea6408db573adb6b481fb21ac24d570adbbeb4a7e2e827155",
+      "source_spec": "card-regression-repair-war-cry-suraya-20261126.json",
+      "input_sha256": "9ed068f63bc2b71cd57762d86455a9b909137b9e74252d6f7dd8d0c4d12af0a5",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual"
+    }
+  ],
+  "repair_only": true,
+  "new_breadth_groups": 0,
+  "newly_represented_repair_group": 1,
+  "whole_card_complete": false,
+  "full_suite_run": false,
+  "source_proposal": {
+    "status": "COMBINED_FIVE_MAINTAINED_SOURCE_FILES_WITH_EXACT_LOCAL_PROVIDER_PROPOSED",
+    "files": [
+      {
+        "path": "FaBSim/Custom/HNTRuntime.php",
+        "before_sha256": "d5554642848c3f271112e542c20d3744662c0007ebd7bb741d5d4d2dd1b210a1",
+        "candidate_sha256": "2fa802542799a2b4a17c1ce80e36623bc0ff505a674eba03ace9421ca60a5d73",
+        "candidate": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\war-cry-themis218\\candidate\\FaBSim\\Custom\\HNTRuntime.php"
+      },
+      {
+        "path": "FaBSim/Custom/GameLogic.php",
+        "before_sha256": "2e04e3d0cc9b7b99cb0459fda8f72c46512431d08a8353fd7ad3fca0700748a5",
+        "candidate_sha256": "b32422199952fb9d80fe1c616858875dfa7e2f9706c6d1bc642b475f21404e59",
+        "candidate": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\war-cry-themis218\\candidate\\FaBSim\\Custom\\GameLogic.php"
+      },
+      {
+        "path": "DevTools/FaB/build_dtd_abilities.py",
+        "before_sha256": "c42695a4ea590b2ff16b6fe9e740a8a625025e753024f4e8620e30c20116b55f",
+        "candidate_sha256": "2853647ae3a7b6cb9e84822e081e52eeb68e6646672b0b486cedcb3d02a5ccc6",
+        "candidate": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\war-cry-themis218\\candidate\\DevTools\\FaB\\build_dtd_abilities.py"
+      },
+      {
+        "path": "DevTools/FaB/dtd_abilities.json",
+        "before_sha256": "b02ee1ef3b61f742e94e7296a63a0b6d7879702290861a4fa19414770ed475a2",
+        "candidate_sha256": "7eaa4345247c1f29cac80b260d9edf9b16ec895074703b459c32076871ee9567",
+        "candidate": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\war-cry-themis218\\candidate\\DevTools\\FaB\\dtd_abilities.json"
+      },
+      {
+        "path": "FaBSim/Custom/CodeGeneration.php",
+        "before_sha256": "4866f573910b6b28ba454ef210e95f51e409d4bb03b3cea033fe1fc191f8441c",
+        "candidate_sha256": "f3e496fdb1b2f900a9e80219036ea87a6b8fcf0c36804349e2013a1298c925d7",
+        "candidate": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\war-cry-themis218\\candidate\\FaBSim\\Custom\\CodeGeneration.php"
+      }
+    ],
+    "scope": "Original attack-only HNT extraction plus exact Suraya Erudition owned event admission. Retain real generated optional Soul await/draw2; canonical builder removes only unused unsafe UID dereference, real focused builder output merged into one guarded authoring row. Other Angels/rows untouched; no replacement choice framework. Existing CodeGeneration local hook now admits only exact known legacy/new Erudition bodies and exact local canonical target hash; no emitter/root/config changes.",
+    "issue": "FAB-REG-218",
+    "runtime_before": "4541eaa85c46f366134a5568f54e56d47760eccd2414e6dc15d88e6464c66de0",
+    "generation_required": true
+  },
+  "generated_scope": {
+    "status": "EXACT_CAPTURE_VALIDATED_ACTIVE_RUNTIME_RESTORED_PENDING_REVIEW",
+    "runtime_before": "4541eaa85c46f366134a5568f54e56d47760eccd2414e6dc15d88e6464c66de0",
+    "source_proposal_sha256": "be91c7e804ed5f807980e03d75511fd6883819b966241433ee8ee74766cdd53a",
+    "command": [
+      "C:\\xampp\\php\\php.exe",
+      "-d",
+      "allow_url_fopen=0",
+      "-d",
+      "disable_functions=curl_exec,stream_socket_client,fsockopen,pfsockopen",
+      "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\emerging-avalanche\\offline_macro.php",
+      "5b1c6a11fd6787dc9adc45669d51483fe10572d4bd22086219c1d1b850f1261a",
+      "91649483de7a3ff3c6673bdfb05becb7fd8360e8032ca34344c481af96bca1d5",
+      "3c76f4859218fc0a9615184cd5f291a7532b84ff11fa385fcc8b354e825965db"
+    ],
+    "returncode": 0,
+    "remote_requests": 0,
+    "immutable_cached_input_sha256": "e78c540bf7ff1ab6d62a268c0f50c8a2c4a18d139a4018a129932d7b5fa4afa8",
+    "generated_files": [
+      {
+        "path": "FaBSim/GeneratedCode/GeneratedMacroCode.php",
+        "before_sha256": "91649483de7a3ff3c6673bdfb05becb7fd8360e8032ca34344c481af96bca1d5",
+        "candidate_sha256": "fde654105582a7db74ec727597b75f58d04c3b0a6e405882a62fd2eb6e8de926",
+        "candidate": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\war-cry-themis218\\candidate\\FaBSim\\GeneratedCode\\GeneratedMacroCode.php"
+      },
+      {
+        "path": "FaBSim/GeneratedCode/GeneratedMacroCount.js",
+        "before_sha256": "3c76f4859218fc0a9615184cd5f291a7532b84ff11fa385fcc8b354e825965db",
+        "candidate_sha256": "c10a85123b5267dd38f52251b46131fc52fe21097c70102290fafa9252903166",
+        "candidate": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\war-cry-themis218\\candidate\\FaBSim\\GeneratedCode\\GeneratedMacroCount.js"
+      }
+    ],
+    "exact_scope": [
+      {
+        "label": "old",
+        "body_sha256": "475b6daf8f63855450286e9ac624b9cdd1c296e1ac778a9d1b93420382c67feb",
+        "await_name": "__RunAwait_481384aff18b52cad86d",
+        "await_sha256": "430241d4b71d405f1c9ce1c9ccf14207ad70d406e3bf6b6d5a5607b1ab527836",
+        "handler_sha256": "61b4efb3e42d311f24ad58edd010ee67302479ab02d6e134700e90a9e3e7f088"
+      },
+      {
+        "label": "new",
+        "body_sha256": "475b6daf8f63855450286e9ac624b9cdd1c296e1ac778a9d1b93420382c67feb",
+        "await_name": "__RunAwait_481384aff18b52cad86d",
+        "await_sha256": "50ad56a1f5a03c253543842d5dba7ce252a79894d6756a7c180762f5c4b81998",
+        "handler_sha256": "61b4efb3e42d311f24ad58edd010ee67302479ab02d6e134700e90a9e3e7f088"
+      }
+    ],
+    "all_other_normalized_macro_bytes_unchanged": true,
+    "generated_counts_unchanged_except_timestamp": true,
+    "generated_syntax_pass": true,
+    "restored": true
+  },
+  "targeted_replays": {
+    "runtime": "a8c26a317373c6eea6408db573adb6b481fb21ac24d570adbbeb4a7e2e827155",
+    "fixtures": [
+      {
+        "slug": "repair-war-cry-themis-yellow-four-live-20261126-empty-soul-owned-attack-layer-eight-damage",
+        "passed": true,
+        "runtime": "a8c26a317373c6eea6408db573adb6b481fb21ac24d570adbbeb4a7e2e827155",
+        "command": [
+          "C:\\xampp\\php\\php.exe",
+          "DevTools/RunIntegrationTests.php",
+          "--root=FaBSim",
+          "--test=repair-war-cry-themis-yellow-four-live-20261126-empty-soul-owned-attack-layer-eight-damage",
+          "--max-failures=1",
+          "--compact",
+          "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\war-cry-themis218\\strict1.log"
+        ],
+        "returncode": 0,
+        "complete_log_sha256": "bc06877013bd7fcfba12a16e9f1c05f928c182fc56866f35e9e91d0c3657324e",
+        "raw5_unchanged": true
+      },
+      {
+        "slug": "repair-war-cry-themis-yellow-four-live-20261126-suraya-soul-choice-draw-two-eight-damage",
+        "passed": true,
+        "runtime": "a8c26a317373c6eea6408db573adb6b481fb21ac24d570adbbeb4a7e2e827155",
+        "command": [
+          "C:\\xampp\\php\\php.exe",
+          "DevTools/RunIntegrationTests.php",
+          "--root=FaBSim",
+          "--test=repair-war-cry-themis-yellow-four-live-20261126-suraya-soul-choice-draw-two-eight-damage",
+          "--max-failures=1",
+          "--compact",
+          "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\war-cry-themis218\\strict2.log"
+        ],
+        "returncode": 0,
+        "complete_log_sha256": "18951cc39d97274aabe31855c27a2f6338dc74e13d7c245ea8b52dce7b87df00",
+        "raw5_unchanged": true
+      },
+      {
+        "slug": "card-dual-threat-yellow-four-live-sparse-real-weapon-attack-earns-next-attack-action-three-power",
+        "passed": true,
+        "runtime": "a8c26a317373c6eea6408db573adb6b481fb21ac24d570adbbeb4a7e2e827155",
+        "command": [
+          "C:\\xampp\\php\\php.exe",
+          "DevTools/RunIntegrationTests.php",
+          "--root=FaBSim",
+          "--test=card-dual-threat-yellow-four-live-sparse-real-weapon-attack-earns-next-attack-action-three-power",
+          "--max-failures=1",
+          "--compact",
+          "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\war-cry-themis218\\strict3.log"
+        ],
+        "returncode": 0,
+        "complete_log_sha256": "dc9c7b821c5e14c58cf585c22dadd07a408a8e2622d0f47a6619b2641605c6cd",
+        "raw5_unchanged": true
+      },
+      {
+        "slug": "card-trot-along-blue-four-live-sparse-real-zero-cost-action-grants-go-again-to-next-real-base-two-attack",
+        "passed": true,
+        "runtime": "a8c26a317373c6eea6408db573adb6b481fb21ac24d570adbbeb4a7e2e827155",
+        "command": [
+          "C:\\xampp\\php\\php.exe",
+          "DevTools/RunIntegrationTests.php",
+          "--root=FaBSim",
+          "--test=card-trot-along-blue-four-live-sparse-real-zero-cost-action-grants-go-again-to-next-real-base-two-attack",
+          "--max-failures=1",
+          "--compact",
+          "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\war-cry-themis218\\strict4.log"
+        ],
+        "returncode": 0,
+        "complete_log_sha256": "a4a27803a257a3cb24cf3603b43e1e6d8086edd59daa1c5b79ddb0c94359bc9d",
+        "raw5_unchanged": true
+      },
+      {
+        "slug": "repair-flood-of-force-yellow-four-live-20261125-first-link-false-owned-layer-no-early-reveal-one-damage",
+        "passed": true,
+        "runtime": "a8c26a317373c6eea6408db573adb6b481fb21ac24d570adbbeb4a7e2e827155",
+        "command": [
+          "C:\\xampp\\php\\php.exe",
+          "DevTools/RunIntegrationTests.php",
+          "--root=FaBSim",
+          "--test=repair-flood-of-force-yellow-four-live-20261125-first-link-false-owned-layer-no-early-reveal-one-damage",
+          "--max-failures=1",
+          "--compact",
+          "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\war-cry-themis218\\strict5.log"
+        ],
+        "returncode": 0,
+        "complete_log_sha256": "47b82a01bc9491d92bc23ba76abc33ebf077275e2048c32c32f5562629b99a45",
+        "raw5_unchanged": true
+      }
+    ],
+    "full_suite_run": false
+  },
+  "saved_review": {
+    "runtime": "a8c26a317373c6eea6408db573adb6b481fb21ac24d570adbbeb4a7e2e827155",
+    "fixtures": [
+      {
+        "slug": "repair-war-cry-themis-yellow-four-live-20261126-empty-soul-owned-attack-layer-eight-damage",
+        "card_id": "war_cry_of_themis_yellow",
+        "semantically_approved": true,
+        "raw5_sha256": {
+          "initial_gamestate.txt": "03353fe7a15f6dfa7ef7300fa74a4a5111d121f75b7215c02783578e92843e1a",
+          "actions.json": "a35e2f591f0ee1bf66933c9f870ef43425f0d79fe16bc9516eef04e5ef79065f",
+          "assertions.json": "3c86160044be84280e003f500d155a8ca030e2b746b047e2111897c6f6750488",
+          "expected_final_gamestate.txt": "b0bb7a63e5b4b4aa36b7f9d1120c6bf312a6245a8dff913bd19d38380d4cedfe",
+          "meta.json": "bf597c4d7e6c81de80993a7878732be386d9530c0882cd9a7e770b3c1bd9f0ac"
+        },
+        "fixture_sha256": "b358c8a3ff7657b7888983fda87bfe08b225644638fe1a37adf524ac40a568bb",
+        "actions": 38,
+        "native_assertions": 299,
+        "author_only_checks_not_persisted": [],
+        "actual_manual_pass_inputs": 33,
+        "recorded_runtime_sha256": "a8c26a317373c6eea6408db573adb6b481fb21ac24d570adbbeb4a7e2e827155",
+        "runtime_sha256": "a8c26a317373c6eea6408db573adb6b481fb21ac24d570adbbeb4a7e2e827155",
+        "source_spec": "card-regression-repair-war-cry-suraya-20261126.json",
+        "input_sha256": "9ed068f63bc2b71cd57762d86455a9b909137b9e74252d6f7dd8d0c4d12af0a5",
+        "active_seats": [
+          1,
+          2,
+          3,
+          4
+        ],
+        "players": "four_live_manual"
+      },
+      {
+        "slug": "repair-war-cry-themis-yellow-four-live-20261126-suraya-soul-choice-draw-two-eight-damage",
+        "card_id": "war_cry_of_themis_yellow",
+        "semantically_approved": true,
+        "raw5_sha256": {
+          "initial_gamestate.txt": "476a37fed5d0c07f58904e2f1858c5cc0d40cfed12c8f1819540b35505226d0b",
+          "actions.json": "6113898f570ce614a9618c24f762fcbe10cb127d4cbb2b7f21aff7939c1ad801",
+          "assertions.json": "ffa4259035e2029af2d8448d26ec3abcd0cf9722c37879cfbf71034680a16f2a",
+          "expected_final_gamestate.txt": "cd22d5e2dbd80bac63c0ccbdc3d711ec3d642edb7aec553b366ed8e8daf5b394",
+          "meta.json": "300e7513cb8a0162f187cbf4f63925489ab1b487085d7ccc1e0ae75250770e7f"
+        },
+        "fixture_sha256": "6d3738869251df30ba36ff661d825f5705d93740e9bec1fde3a9b538d834600f",
+        "actions": 39,
+        "native_assertions": 328,
+        "author_only_checks_not_persisted": [],
+        "actual_manual_pass_inputs": 33,
+        "recorded_runtime_sha256": "a8c26a317373c6eea6408db573adb6b481fb21ac24d570adbbeb4a7e2e827155",
+        "runtime_sha256": "a8c26a317373c6eea6408db573adb6b481fb21ac24d570adbbeb4a7e2e827155",
+        "source_spec": "card-regression-repair-war-cry-suraya-20261126.json",
+        "input_sha256": "9ed068f63bc2b71cd57762d86455a9b909137b9e74252d6f7dd8d0c4d12af0a5",
+        "active_seats": [
+          1,
+          2,
+          3,
+          4
+        ],
+        "players": "four_live_manual"
+      }
+    ],
+    "all627_checks_persisted": true,
+    "reviewer": "/root",
+    "separate_saved_reviewer": false,
+    "primary_rules": [
+      "https://judge.fabtcg.com/cards/detail/3729/",
+      "https://legacy.fabtcg.com/en/resources/rules-and-policy-center/release-notes/dusk-till-dawn/"
+    ],
+    "source_review_prior_independent": true,
+    "limits": [
+      "No separate-agent saved review in this continuation; independently derived rules and exact source-to-saved equality checked by primary agent.",
+      "Erudition is DTD draw2 Angel, not Dynasty Knowledge lifegain Angel.",
+      "Source-departure native gameplay not qualified."
+    ]
+  },
+  "component": {
+    "hnt_isolated": 10,
+    "local_provider": 4,
+    "seeded_generated_callback_native_entry": 30,
+    "actual_callback_cases": [
+      "EMPTY",
+      "ACCEPT",
+      "PASS"
+    ],
+    "source_proxy_absent": true,
+    "source_destruction_native_game_not_qualified": true
+  },
+  "rules": [
+    "https://judge.fabtcg.com/cards/detail/3729/",
+    "https://legacy.fabtcg.com/en/resources/rules-and-policy-center/release-notes/dusk-till-dawn/"
+  ],
+  "oracle_correction": {
+    "reason": "ObjectCurrentPower deliberately defined only for active attack proxy; inactive physical Arena returns null by source contract. New final check corrected to initial/final exact physical TurnEffects[]; original 279 gameplay checks and eight damage expectation unchanged. Both no-save probes reached final checkpoint.",
+    "saved_fixtures": 0
+  },
+  "limits": [
+    "Yellow WarCry mainAction only; Instant mode, pitch siblings and other Angels unqualified.",
+    "Suraya here is DTD Erudition (optionalSoul cost/draw2), not Dynasty Knowledge (arcane/heal). Native outcomes retain Prism20 and victim12.",
+    "30 actual-generated/native-entry controls seed an earned layer with absent attack proxy: no native destruction/gameplay route or extra coverage credit claimed.",
+    "Separate agent source review was inherited before this continuation; exact saved verification and official-rule oracle crosscheck performed by primary agent here, not a new separate-agent saved approval.",
+    "10 isolated HNT modifier and4 local-provider checks are distinct from native77inputs/627persistedassertions.",
+    "Five targeted strict passes at current source epoch, no full suite."
+  ]
+}

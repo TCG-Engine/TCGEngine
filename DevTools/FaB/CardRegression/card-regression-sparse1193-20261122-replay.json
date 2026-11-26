@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-blasmophet-the-insatiable-hunger-four-live-sparse1193-real-permission-plays-blood-debt-from-banish-without-inherent-permission",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-blasmophet-the-insatiable-hunger-four-live-sparse1193-real-permission-plays-blood-debt-from-banish-without-inherent-permission",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1193-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1193-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "baec13254412d48b6682bd24e2fec80820d9a4e2f6c8bfee8fb606b18a2e289c",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "2fd05825007e7e10ba57972fa85687be3f114b4f381e0d7d28db1db41057d148",
+        "actions.json": "f6c526c59e94c5f3da46b77540f45e0f819b8864324140b76c60e4883572bad4",
+        "assertions.json": "d585ea3af034be659dc1e9a0454af159384d1e6ffd3f43a2688097b7b00d65eb",
+        "expected_final_gamestate.txt": "7a79fc8c8bc7f5eca03a3dc56dcbae02281d122725d6796592bd50f341846405",
+        "meta.json": "1b6c94d4044d2c59bb666225a90f7b10d3125b764b30a8d66e488456a2fcbbf3"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

@@ -1,0 +1,39 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch404.json",
+  "runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+  "returncode": 0,
+  "completed_utc": "2026-11-05T00:54:35.379736+00:00",
+  "fixtures": [
+    {
+      "slug": "card-stamp-authority-blue-four-live-sparse-real-command-conquer-hit-does-not-trigger-arsenal-destruction",
+      "fixture_sha256": "fd781779c221ce782c69d3c1fb9eb78725c88d23a0a8a38ef4c4f36813f7a7ae",
+      "passed": true,
+      "result": "[PASS] stamp_authority_blue / four live distinctive effect"
+    },
+    {
+      "slug": "card-flittering-charge-red-four-live-sparse-real-instant-played-this-chain-link-earns-go-again",
+      "fixture_sha256": "9a8e5c5d0aac4223c6362e4cf376da2768de0e3e67207b0f5061ca4231c48d9f",
+      "passed": true,
+      "result": "[PASS] flittering_charge_red / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-stamp-authority-blue-four-live-sparse-real-command-conquer-hit-does-not-trigger-arsenal-destruction",
+      "returncode": 0,
+      "stdout": "[PASS] stamp_authority_blue / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-flittering-charge-red-four-live-sparse-real-instant-played-this-chain-link-earns-go-again",
+      "returncode": 0,
+      "stdout": "[PASS] flittering_charge_red / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 2,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

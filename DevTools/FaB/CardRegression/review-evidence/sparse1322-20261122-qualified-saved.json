@@ -1,0 +1,154 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "independent breadth_review1252",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1322-20261122.json",
+  "source_spec_sha256": "f91eafbd4c54fc8b6f926a738dc5a0b65c653efe5cd057ea9a3414c895f7cd40",
+  "input_sha256": "f91eafbd4c54fc8b6f926a738dc5a0b65c653efe5cd057ea9a3414c895f7cd40",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-darling-of-the-crowd-yellow-four-live-sparse1322-real-three-defense-and-one-hero-damage-without-cheer",
+      "card_id": "darling_of_the_crowd_yellow",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "0b240ac1f2082861053f7425e9770c614c8868f5840b010188c6e93ffe90a3c6",
+        "actions.json": "5af67ec73dd5988db1a058227e5dcccf44c896ddc4b34170fb8eb2fb4f3ccefb",
+        "assertions.json": "f0e8f429e0e17dc41a018e3eb4257868dac8498fa59be61568a957cc88f7df95",
+        "expected_final_gamestate.txt": "80a0bcdbaf7ea3b74247dc5aa9df507e61df0c790785bc90e8924a3a8b65b4f1",
+        "meta.json": "c9e3dee76931ea4a151e3f595d37f88cb145dce395064058a4e7163e9043519e"
+      },
+      "fixture_sha256": "149537a6df246448fe56ac6b4e7bab0235a83d9a650bbb7c8a682407a42a36cc",
+      "actions": 28,
+      "native_assertions": 297,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1322-20261122.json",
+      "input_sha256": "f91eafbd4c54fc8b6f926a738dc5a0b65c653efe5cd057ea9a3414c895f7cd40",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1322-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-darling-of-the-crowd-yellow-four-live-sparse1322-real-three-defense-and-one-hero-damage-without-cheer",
+        "fixture_slug": "card-darling-of-the-crowd-yellow-four-live-sparse1322-real-three-defense-and-one-hero-damage-without-cheer",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-disdainful-delight-yellow-four-live-sparse1322-real-three-defense-and-one-hero-damage-without-boo",
+      "card_id": "disdainful_delight_yellow",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "a0421b1d9116fc8841b15ff11050ac305a05aff7d64da550662e50cf1af8cdcc",
+        "actions.json": "5af67ec73dd5988db1a058227e5dcccf44c896ddc4b34170fb8eb2fb4f3ccefb",
+        "assertions.json": "7d61f02e2e9a4c599e3ec1aa188aa69e6bf32ea8e3971fd82e3ff643266402f4",
+        "expected_final_gamestate.txt": "da36a87b8a9bbd6e87ea6a2556b535eb0a8820871d999975b1324b2b6c8c4eb9",
+        "meta.json": "0095731e94205a98a67f3d5d8bec948cd311b362cf8fd0d98c85edb197da6ad3"
+      },
+      "fixture_sha256": "322dac59acdc8332c01ec26a6b339b9ff39378164df2d2f4c4a55cfd0aaa04c0",
+      "actions": 28,
+      "native_assertions": 297,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1322-20261122.json",
+      "input_sha256": "f91eafbd4c54fc8b6f926a738dc5a0b65c653efe5cd057ea9a3414c895f7cd40",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1322-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-disdainful-delight-yellow-four-live-sparse1322-real-three-defense-and-one-hero-damage-without-boo",
+        "fixture_slug": "card-disdainful-delight-yellow-four-live-sparse1322-real-three-defense-and-one-hero-damage-without-boo",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "reviewer": "independent breadth_review1252",
+    "spec_sha256": "f91eafbd4c54fc8b6f926a738dc5a0b65c653efe5cd057ea9a3414c895f7cd40",
+    "source_note_sha256": "2aaf238a8bf7803bdd024d76fec0afa859612ebdcf12bf62e002521e22314df7",
+    "case_count": 2,
+    "active_seats": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "players": "four_live_manual",
+    "native_controls": 56,
+    "query_checks": 594,
+    "persistable_assertions": 594,
+    "author_only_checks_omitted": 0,
+    "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+    "coverage_category": "ACTUAL_BASIC_DEFENSE_WITH_UNEARNED_CROWD_BONUS_GUARD_ONLY",
+    "per_case": [
+      {
+        "card_id": "darling_of_the_crowd_yellow",
+        "group_id": "identity:darling_of_the_crowd_yellow",
+        "native_controls": 28,
+        "persistable_assertions": 297
+      },
+      {
+        "card_id": "disdainful_delight_yellow",
+        "group_id": "identity:disdainful_delight_yellow",
+        "native_controls": 28,
+        "persistable_assertions": 297
+      }
+    ],
+    "basis": [
+      "Two fresh standalone Block groups unrepresented/no exact holds. Natural Young Pleiades20 Revered is legal for Darling; natural Young Kayo Strong Arm20 Reviled is legal for Disdain. Other three real seats Young Dorinthea20/manual UPF. Four Heroes UID1..4, actual zero-cost Generic Wounding Red5 Hand1, own primary Block6 Hand4. Initial no effects/crowd/cards history/Arena cards or Hero activation seeds.",
+      "Printed while-defending static bonuses require controller cheered/booed this turn. SUPDefense111-113 implements each actual base predicate with CHEER/BOO count; both absent, and the selected block has no event that earns either. Actual damage/life change does not independently cheer/boo. Therefore no +1 defense and no Pleiades Confidence/Kayo Vigor producer event is owed. This tests false prerequisites of a static modifier, not positive trigger timing.",
+      "Actual Wounding5 formal adjacent Hero4 target spends AP1to0, all four source response rounds, printed4/noGA then real primary6 Hand click declares owned DEFENSE/FromZone Hand with no resource/AP cost. Ordinary Block type/printeddef3 is valid native defense. Four defense-priority and reaction rounds lead to strict attackPower4/defenseValue3/damage1/HP19, excluding unearned defense4/zeroDamage. Retained physical primary6 on CC and exact owned graveyard4 after close witness actual declaration and damage; source5 own graveyard1.",
+      "All four HeroesStatus2/other health20/noArena/token/newUID6/RNG0/APR0/empty Stack decisions combat/full final zone counts match narrow scope. Each297 checks across28 controls persists, total594/56."
+    ],
+    "limits": [
+      "Semantic review only new bindings/basic defense and false static guards pending native save/replay; no native pass or coverage credit claimed.",
+      "Basic defense and unearned crowd bonus guard only. Positive Cheer/Boo modifier, producers, Hero abilities/support/sibling/full-card behavior untested. Existing holds unchanged.",
+      "Only W receipt written; no native tests/games/replays, T/engine/original-checkout edit or access, auth/network or Git."
+    ],
+    "source_sha256": {
+      "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+      "FaBSim/Custom/SUPCards.php": "d0cf162a89b60b29590121e4c97e1e5fe0e2dc790130bf181949ca068092c1fa",
+      "FaBSim/Custom/GameLogic.php": "c60fa151561f959e4e3e341b814de0e2b47c9e9f153bbc8793a04c43b5075061",
+      "Schemas/FaBSim/GameSchema.txt": "7783800bd47bc85885cc915066aadca58cdf99f0c1180602ac312d9af5ebf643",
+      "DevTools/FaB/CardRegression/record_card_regressions.php": "e53055b29e9ea641949b77019c4455607f41ca233325d716a9500637e19efd28"
+    },
+    "workspace_source_sha256": {
+      "author_breadth1322.py": "13bb83aecd36ccfb4fd69b1f18d15b2448cb80bcf573e1adf18cb3feb887bf0e",
+      "breadth1068_helpers.py": "997f949ec26c7e494ad26a818f9f2078f6f4f2a0c49ca7f61aa8c71f3b091b0a"
+    },
+    "secondary_identity_credit": false,
+    "positive_crowd_bonus_credit": false,
+    "hero_ability_credit": false
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1322-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "095a3eff277d7881fd659fabf378abf11c82885edd00b55edc8d0f10b1a4006b"
+  },
+  "full_suite_run": false
+}

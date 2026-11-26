@@ -1,0 +1,7 @@
+{
+    "name": "Cogwerx Base Legs / actual boost enables paid steam-counter ability",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-23T13:56:44+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "LegalYoungDash20/3Dori20manual, equipment5legallyequippedpriorwithoneSTEAMcounter(entrytriggerproduceruncredited); noBoostflagseed. ActualAA6cost0targetsHero4thenrealBoost0banishesrealMechAA7fromsingletonDeck, paysAP1->0, sourcefourresponses, printedpower4/GAtrue. Actualequipment5Instantnowenabled, realGenericBlue8pitch3paysresource1/R2andsteam1beforefourfreshATTACKresponses; equipmentretained/untapped/counterempty, ABI9 source5. AfterresponsesactualabilitygainsAP1whileattackstillheldwithGA; fullattackdeals4/HP16thenGAaddsseparateAP1, finalAP2. NoextraAPawardedatactivationcost. FinalsourceAA6ownGY1/Blue8Pitch/R2/equipment5readySteam0/HP20,20,20,16/UID9/RNG0/noStack/DQs/frame. NoHeaddecline/multi-cardshuffle, noLegsnegativegate/onceperturnrejection/entryWHEN/equipmentdefense/otherboostevents/cogattack/HyperDriver/Hero/support/sibling/fullcardcredit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#cogwerx_base_legs FaBSim/Custom/EVORuntime.php FaBSim/Custom/ARCCards.php FaBSim/GeneratedCode/GeneratedMacroCode.php"
+}

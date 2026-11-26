@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-lay-to-rest-red-four-live-sparse1466-real-ally-target-excludes-hero-only-trigger",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-lay-to-rest-red-four-live-sparse1466-real-ally-target-excludes-hero-only-trigger",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1466-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1466-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "3118b2076c912bad6f89c06abe1f9d9143094594f67cde9e8f1b874b8a3029d9",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "9c8143caa28e6bbec93fdbd4ce765bdf3454b09f21265e7000e1ef493fe6e7b8",
+        "actions.json": "386a58cf11a83fb06512f7989a3b0e293204789ecf439c6cac47297cd7eecbaa",
+        "assertions.json": "116836c6c8a99b20e9703277d42c8f45b3897ded0397060892cacb6e37da68b5",
+        "expected_final_gamestate.txt": "de87b458d5a050bfdd414a2d69612d96ca5f78183170beb10c1619038bc9c831",
+        "meta.json": "1864f236ee61844d64aaba7d35116bf351d17ce339e25acc38ee53593d31a56f"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

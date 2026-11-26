@@ -1,0 +1,7 @@
+{
+    "name": "Cracked Bauble / actual two-resource pitch pays one and leaves one",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-23T11:18:35+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "CrackedBauble printedyellow pitch2 is a GenericResource with only deck-format reminder text, no pitched trigger. Native unpaidcost1/AP1 requires realpitch: Bauble6 actualHand toPitch produces2, pays1 and leavesR1/AP0. Fourmanual live responses resolve genericComeToFight5, finalAP1 from supportGoAgain and source5GY1 whileBauble6 remainsownedPitch1/R1. No token/extraUID/RNG/HPchange. No pitch-end-return/resourceexpiration/deckconstruction-format or support-nextattack/whole-support credit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#cracked_bauble_yellow"
+}

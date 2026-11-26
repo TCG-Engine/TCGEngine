@@ -1,0 +1,110 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "/root/breadth_review1457",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1552-20261122.json",
+  "source_spec_sha256": "7b9e7bc3d7f644c26405cd3d289adb639b00ce15c6c4ce4baa087c8ab478c7d3",
+  "input_sha256": "7b9e7bc3d7f644c26405cd3d289adb639b00ce15c6c4ce4baa087c8ab478c7d3",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-glory-plate-four-live-sparse1552-actual-forged-defense-one-then-guardwell-counter-at-close",
+      "card_id": "glory_plate",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "8e4838cb61b4e87b2b4a9c843117781dad90561b8977f1ef3e00b735b11887ea",
+        "actions.json": "56db5e145a81cad87830efcaec50df8ff10c2925190f8a39d2e942936c8438ce",
+        "assertions.json": "db55adfb64286051fb941aaadb4e8be19db3cfb6b16c67610b7f363fd55282de",
+        "expected_final_gamestate.txt": "0c539f5e95f7005d127bd93825273ac0a70c6c1f06723ebfac233a70934220a6",
+        "meta.json": "866a0d2e74bf5817e8287e6b53fe92e9932aa71b65bcfd17f133b1efa51e8c10"
+      },
+      "fixture_sha256": "4355a530b8a3575a17a9b3200ecfec683b208e2588eec8d8dcfc2008d56c1126",
+      "actions": 46,
+      "native_assertions": 644,
+      "author_only_checks_not_persisted": [
+        {
+          "step": 29,
+          "check": {
+            "kind": "defense",
+            "value": 1
+          }
+        },
+        {
+          "step": 38,
+          "check": {
+            "kind": "defense",
+            "value": 1
+          }
+        }
+      ],
+      "actual_manual_pass_inputs": 41,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1552-20261122.json",
+      "input_sha256": "7b9e7bc3d7f644c26405cd3d289adb639b00ce15c6c4ce4baa087c8ab478c7d3",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "computed_attack_refs_by_step": {
+        "24": "p2CombatChain-0"
+      },
+      "non_unit_pass_control_counts": {
+        "14": 4
+      },
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1552-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-glory-plate-four-live-sparse1552-actual-forged-defense-one-then-guardwell-counter-at-close",
+        "fixture_slug": "card-glory-plate-four-live-sparse1552-actual-forged-defense-one-then-guardwell-counter-at-close",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "schema_version": 1,
+    "batch": 1552,
+    "reviewer": "/root/breadth_review1457",
+    "result": "approved_named_branches_only_pending_native_execution",
+    "reviewed_utc": "2026-11-25T12:58:17.930989+00:00",
+    "spec_sha256": "7b9e7bc3d7f644c26405cd3d289adb639b00ce15c6c4ce4baa087c8ab478c7d3",
+    "source_note_sha256": "512f45c04fd0e59c1c023bb75d9dc9beee755e9f912efa7cb1841b7b394911e3",
+    "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+    "source_sha256": {
+      "FaBSim/Custom/GameLogic.php": "c60fa151561f959e4e3e341b814de0e2b47c9e9f153bbc8793a04c43b5075061",
+      "FaBSim/Custom/HVYCards.php": "1387ecf0971fae9aa4bfb7bc99baec47a46e9c8770030884b722915eb87a31f1",
+      "FaBSim/Custom/SUPCards.php": "d0cf162a89b60b29590121e4c97e1e5fe0e2dc790130bf181949ca068092c1fa",
+      "FaBSim/Custom/WTRAbilities.php": "8c7b73f87e5151823dc8aab1546d7e0452e6a948e36fdf9b157d4aa5da0e2209",
+      "FaBSim/Custom/WTRCards.php": "77d4452b30e45254a7199bc965396ded53e325717ecdd84a09b971f723f99f6a",
+      "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3"
+    },
+    "workspace_source_sha256": {
+      "sparse1552-local-20261122/expected-pass-counts.json": "fd5f83270b0f210f86673283bddc1b2fb0f5e0be734e952bf708315e616ffbfe",
+      "sparse1552-local-20261122/expected-attack-refs.json": "0e1ace9f4ef2b65aa5e3ec0d26b9068b191b91e77cc4e1c865f369cc4649d4b4"
+    },
+    "cases": 1,
+    "findings": [
+      "PleiadesReveredGuardian20 legalGlory/Forged; actualPotion6ABI9Owner0 funds2, Forge7cost2/ownGA andpersistentAura+1 survivesactualP1End\u2192P2Turn3(GL3098). No fakeeffect/history orToughness event. EmptyP1Hand/Deck/Pitch yieldsnoendchoice.",
+      "P2Wound8targetHero1beforecost, actual4vsGlory5DEF1 causes3HP17. Counter0throughResolutionthenGuardwellClose addsDEFENSE1 beforereturnsameEquipment5; finalForge7Arena/Potion6GY1/Wound8GY2/UID9/APR0 quietACTION2.",
+      "Existingproofbindings required: control14END_PHASEtoP2ACTION=4actualpasses, actualinputstep24power/goagain p2CombatChain0. Both boundtoexactspec beforegames; no engine/recorder/reviewframeworkchange.",
+      "Independentreview verifiedexactoneUIParamordercorrection: GL173nextthenprevious\u2192P2targetlist3then1. Reversalreproducesoriginalspecexact. Original19-inputunsavedattempt retainedoutsidecorpus; allactualtargetHero1/gameexpectationsunchanged. Reboundmetadata exactapproved."
+    ],
+    "limits": [
+      "PositiveGuardwellfinalautomaticCloseoutcome/fatesonly, notfulltriggerordercontract. Original224Toughnessbonus remainsentirelyunentered/unfixed/uncredited. No supportHeroevents/nextownForgeStart/wholecard/siblingcredit. Source/specreviewonly; nativepending; reviewer no games/tests/writes."
+    ]
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1552-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "8adb71132de0c55818b5ebe1ed836231b6133423e7bf50d2ab55f54b3c6bd966"
+  },
+  "full_suite_run": false
+}

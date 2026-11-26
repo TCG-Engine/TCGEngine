@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-singe-red-two-live-sparse1454-single-opponent-default-real-one-arcane-with-no-ally-targets",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-singe-red-two-live-sparse1454-single-opponent-default-real-one-arcane-with-no-ally-targets",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1454-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1454-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "e626527395f26d59647e58c5a3e277972f503b4dce2c32dd33782e4269cf59eb",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "d6bc6a63705d3fae8806e56a54302b8c872b3c5172377ce1aff7ee3a14c542dc",
+        "actions.json": "446c47c7857c9d1372b605159b36778523ad625db57db0ba7c5a5cc7c8933423",
+        "assertions.json": "5964385d2c307da8622a36e2d2f5fe9d349a2459d9be39313df550b031f42a32",
+        "expected_final_gamestate.txt": "c95c2f05661e36478b2f4c16f89505fc28b8a3cb7ce1cae62939b2431e9b1ea6",
+        "meta.json": "b631fdb76c6635330327b116385ac09c535cd386fb9c23eced3e7a07e6a9e9f5"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

@@ -1,0 +1,102 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-evo-atom-breaker-red-four-live-sparse1199-real-one-driver-transform-in-response-prevents-two-of-four",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-evo-atom-breaker-red-four-live-sparse1199-real-one-driver-transform-in-response-prevents-two-of-four",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1199-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1199-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "1a49911a8a27526657e1dc471100c3b625ea32703ec1e25560bebc4ac2b118ab",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "adcbfd7dd8d64a723dd680b1fbece1e0c72c6b8657d34e601548963c14582178",
+        "actions.json": "dedfdde28e53aac709e65d033becc6fc53dcde80067dc9cbf6d11475dea4eb8e",
+        "assertions.json": "c7fbb90f6413eafe0e82e117dbee3c46b324d0e6d9d08e9ade60b584bd308ebe",
+        "expected_final_gamestate.txt": "c6a0f6b5f415459f5e8b206ed6869544155522c1cbe8289860078ae396d34c1b",
+        "meta.json": "f5b4e47b5a004736f3a1736db1d8336890ce0c63933156cc1d3f3c39cc01e91e"
+      }
+    },
+    {
+      "slug": "card-evo-circuit-breaker-red-four-live-sparse1199-real-one-driver-transform-in-response-prevents-two-of-four",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-evo-circuit-breaker-red-four-live-sparse1199-real-one-driver-transform-in-response-prevents-two-of-four",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1199-local-20261122\\clean-replays\\01.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1199-local-20261122\\clean-replays\\01.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "dd19e32726e2039ce1d31d2c0ecd375643b2d630b01429bed20fa8313ddb0754",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "5101691a9bbb00088dc02c9675ee6b1b174450fe5fcae43c39c6aaf1760d59b4",
+        "actions.json": "dedfdde28e53aac709e65d033becc6fc53dcde80067dc9cbf6d11475dea4eb8e",
+        "assertions.json": "88ab4aad6f3d3bcc3fcaeae77d0a12b7465ec373ed19b7d7f1321e1182ddab0e",
+        "expected_final_gamestate.txt": "52684201191e0cd3855d060c0938d2ea974c8b840ee646e4ba499fc619ac5c5c",
+        "meta.json": "220fac5da58f2493550e7f9b9217acc129a0a581390257eed1b656adf292471a"
+      }
+    },
+    {
+      "slug": "card-evo-face-breaker-red-four-live-sparse1199-real-one-driver-transform-in-response-prevents-two-of-four",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-evo-face-breaker-red-four-live-sparse1199-real-one-driver-transform-in-response-prevents-two-of-four",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1199-local-20261122\\clean-replays\\02.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1199-local-20261122\\clean-replays\\02.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "c344b169bbfc94a0ca516457754c5f002a1020a95b80d753f4ddb652ef8eec1a",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "b603781e8fe1a982cd19d6699d8ba5062119f651b31bfe0f08b1665164f505ac",
+        "actions.json": "dedfdde28e53aac709e65d033becc6fc53dcde80067dc9cbf6d11475dea4eb8e",
+        "assertions.json": "7bf812a94e1d661fbdfd309b8d6872459835b384de1bcb596be2a7dba6b0595f",
+        "expected_final_gamestate.txt": "30c69825255fda1904853d7b2a78c19497d0e616b107b660e440d8c0bf20ebb8",
+        "meta.json": "a8c9a195a3261adc7f7e01797b3956b6df52671c9604ad5563e77625dce785e3"
+      }
+    },
+    {
+      "slug": "card-evo-mach-breaker-red-four-live-sparse1199-real-one-driver-transform-in-response-prevents-two-of-four",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-evo-mach-breaker-red-four-live-sparse1199-real-one-driver-transform-in-response-prevents-two-of-four",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1199-local-20261122\\clean-replays\\03.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1199-local-20261122\\clean-replays\\03.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "fe9c8b63c7797e6ac02802451c0a39a6f1b1c886ead5d7accff0e0f32ef14205",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "89053cfd23349c1b4b4451919b8769726744e9f2fd406becafcedb6438523959",
+        "actions.json": "dedfdde28e53aac709e65d033becc6fc53dcde80067dc9cbf6d11475dea4eb8e",
+        "assertions.json": "af73cc5566dd9e111d2be13634e8ddb2f765f4668f5d633659deb06b01c98786",
+        "expected_final_gamestate.txt": "e8553bceda539d669b099712570a1922801fa9657aba439f90e8abc24edcbf39",
+        "meta.json": "1b332055d1eb4fdee02b6d38de568a8200b40576ccf28162277186d8c0d3f826"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

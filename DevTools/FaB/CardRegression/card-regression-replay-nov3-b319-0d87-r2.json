@@ -1,0 +1,27 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch319.json",
+  "runtime_sha256": "0d877de49c131f29c152706e14bba3368630df61c59ef475c87a84f20b6e1a66",
+  "returncode": 0,
+  "completed_utc": "2026-11-03T10:14:45.847492+00:00",
+  "fixtures": [
+    {
+      "slug": "card-lava-burst-red-four-live-sparse-real-three-prior-links-earn-fourth-link-rupture-plus-three",
+      "fixture_sha256": "b0e6c7472ddf8bf6875db9a6128a15c90d5aefa8df045c0ac57e900e47a475c3",
+      "passed": true,
+      "result": "[PASS] lava_burst_red / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-lava-burst-red-four-live-sparse-real-three-prior-links-earn-fourth-link-rupture-plus-three",
+      "returncode": 0,
+      "stdout": "[PASS] lava_burst_red / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

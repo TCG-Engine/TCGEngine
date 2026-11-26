@@ -1,0 +1,68 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-24T01:15:38.637812+00:00",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1279-20261122.json",
+  "source_spec_sha256": "77355ae97b2bf0ebd7344968a8505c53b2ff768511b44a4b5a54d7632141e573",
+  "new_scenarios": 1,
+  "new_groups": 1,
+  "new_primary_ids": 1,
+  "actions": 21,
+  "native_assertions": 260,
+  "manual_passes": 15,
+  "totals": {
+    "saved_registered_scenarios": 5183,
+    "duels": 3093,
+    "four_live": 2090,
+    "recorded_primary_ids": 2331,
+    "identity_denominator": 5196,
+    "recorded_groups": 2205,
+    "group_denominator": 3324,
+    "four_live_groups": 2079,
+    "phase_qualified_scenarios_at_actual_contexts": 1820,
+    "phase_qualified_unique_groups": 1810,
+    "creation_replay_passes": 2562,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 981,
+  "scenarios": [
+    {
+      "card_id": "nuu_alluring_desire",
+      "group_id": "identity:nuu_alluring_desire",
+      "scenario_id": "card-nuu-alluring-desire-two-live-sparse1279-real-chi-cost-earns-foreign-blue-three-cost-attack-for-zero",
+      "effect_branches": [
+        "adult_duel_actual_inner_chi_pays_three_then_real_opponent_blue_deck_card_banished_and_played_without_resource_cost_with_foreign_owner_preserved"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-nuu-alluring-desire-two-live-sparse1279-real-chi-cost-earns-foreign-blue-three-cost-attack-for-zero",
+      "source_spec": "card-regression-sparse1279-20261122.json",
+      "source_spec_sha256": "77355ae97b2bf0ebd7344968a8505c53b2ff768511b44a4b5a54d7632141e573",
+      "review_evidence": "review-evidence/sparse1279-20261122-qualified-saved.json",
+      "review_evidence_sha256": "3b7bc8ae0514bddb39c8f1178c61fc0072c6688de0cc7bbf7ad51573a7a5383f",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1279-20261122-replay.json",
+          "sha256": "5df43e473d250a8b4c8ff70a291dc340ec2df36f5ef688c474ac79c112295e40",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "two_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

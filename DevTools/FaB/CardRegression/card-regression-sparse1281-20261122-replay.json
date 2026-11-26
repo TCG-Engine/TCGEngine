@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-zen-tamer-of-purpose-two-live-sparse1281-real-chi-paid-tiger-and-combo-search-earns-actual-banish-play",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-zen-tamer-of-purpose-two-live-sparse1281-real-chi-paid-tiger-and-combo-search-earns-actual-banish-play",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1281-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1281-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "ddad83c38738deb02c22e98e8c98ec688ee45773a4d779a582968afb63f41c02",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "7003eec163b3bcfa41a21f5fbedd5b211b1a8db7ec1bb66b6b3b0cd8e8c4de83",
+        "actions.json": "c38a76db40690df114e5143cf181042f53ad2a9da11ed2abc4b2203b66f755ee",
+        "assertions.json": "629e30f6c19756fd5cc86dce31a726a0cb888964aa21f38622b00b8fdb40ac19",
+        "expected_final_gamestate.txt": "9208d9aaff3753d962ddc6218b30b075d59d5c3c56a55d1d0ab92e11e9de1c58",
+        "meta.json": "9b2284041da7f58186da9942eb4ed4d18e1792e93f7297a78ab7cb08e661b785"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

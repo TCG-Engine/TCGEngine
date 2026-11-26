@@ -1,0 +1,7 @@
+{
+    "name": "Ghostly Touch / actual haunt cost and physical ally morph",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-23T10:22:36+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Whenever an Illusionist attack you control is destroyed by **phantasm**, put a haunt counter on this.\n\n**Once per Turn Action** - Remove a haunt counter from this: Until end of turn, this becomes an Illusionist ally with **phantasm**, base {p} and {h} equal to the number of haunt counters on it, and \"**Once per Turn Action** - {r}{r}{r}: Attack\". **Go again** Namedcost/morph/GApositive only. NaturalIllusionistPrism20 withrealownedGhostlyTouch5EquipmentandadmittedvalidHAUNT2fromearlierPhantasmdestructions(unrecorded/uncredited). NativeAction0 spendsAP1to0 andpaysHAUNT2to1/onceARC_USED_0Turn2 beforefourmanualresponses, actualEquipment5remainsuntilresolution. Generatedeffect movesSAMEphysical5toowned/controller1Arena, tagsUPR_GHOST/MON_PHANTASM andstoresUPR_GHOST_HP1fromremaininghaunt1, virtualability6removed. PrintedGArestoresAP1; noGY/Equipment/otherobjects/Random/allHP20/R0. CurrentEffectiveCardType mapsUPR_GHOST toIllusionistAlly. No actualallyattack/derivedlivepower/lifequery/Phantasmcombat/expiry/hauntproducer/secondactivation/hero/fullcardcredit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#ghostly_touch"
+}

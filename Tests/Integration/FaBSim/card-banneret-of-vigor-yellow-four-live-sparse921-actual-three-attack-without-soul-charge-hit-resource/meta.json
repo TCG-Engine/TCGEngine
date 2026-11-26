@@ -1,0 +1,7 @@
+{
+    "name": "Banneret of Vigor / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T19:47:10+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "**Solflare** - When this is **charged** to your soul, the next time you hit this turn, gain {r}. Representative only: actual_three_attack_without_soul_charge_hit_resource Sources: FaBSim/GeneratedCode/cardArrayCache.json#banneret_of_vigor_yellow"
+}

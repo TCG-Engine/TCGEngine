@@ -1,0 +1,39 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch268.json",
+  "runtime_sha256": "f40e5a26ad74eab8ea9d2e3bd779a26c917d8102e67ad41fa9bad5ca7f22e6e7",
+  "returncode": 0,
+  "completed_utc": "2026-11-03T00:25:28.009665+00:00",
+  "fixtures": [
+    {
+      "slug": "card-thunder-quake-red-four-live-sparse-real-two-blue-six-cost-hand-attack-deals-ten-no-heave",
+      "fixture_sha256": "8914d9ada9fe38b76198d47c3dddaf11c56c665b1c48448b608484313872b1ad",
+      "passed": true,
+      "result": "[PASS] thunder_quake_red / four live distinctive effect"
+    },
+    {
+      "slug": "card-feign-death-yellow-four-live-sparse-real-first-damage-earns-paid-instant-then-prevents-next-seven-packet",
+      "fixture_sha256": "2640d656ac6824d1ec101b433b0b1fb5b97fc06bf0c63c8e59adb88135adae17",
+      "passed": true,
+      "result": "[PASS] feign_death_yellow / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-thunder-quake-red-four-live-sparse-real-two-blue-six-cost-hand-attack-deals-ten-no-heave",
+      "returncode": 0,
+      "stdout": "[PASS] thunder_quake_red / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-feign-death-yellow-four-live-sparse-real-first-damage-earns-paid-instant-then-prevents-next-seven-packet",
+      "returncode": 0,
+      "stdout": "[PASS] feign_death_yellow / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 2,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

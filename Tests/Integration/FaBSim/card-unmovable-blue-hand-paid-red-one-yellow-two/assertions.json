@@ -1,6 +1,13 @@
 [
     {
         "step": 11,
+        "type": "computed_power_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1CombatChain-0",
+        "value": 9
+    },
+    {
+        "step": 11,
         "type": "scalar_zone_equals",
         "viewerPlayerID": 1,
         "zone": "p1Resources",
@@ -19,6 +26,28 @@
         "viewerPlayerID": 1,
         "zone": "p2ActionPoints",
         "value": 0
+    },
+    {
+        "step": 12,
+        "type": "game_state_field",
+        "viewerPlayerID": 1,
+        "rootName": "FaBSim",
+        "path": [
+            "window"
+        ],
+        "comparison": "equals",
+        "valueJson": "\"PITCH\""
+    },
+    {
+        "step": 13,
+        "type": "game_state_field",
+        "viewerPlayerID": 1,
+        "rootName": "FaBSim",
+        "path": [
+            "window"
+        ],
+        "comparison": "equals",
+        "valueJson": "\"PITCH\""
     },
     {
         "step": 13,
@@ -84,28 +113,28 @@
         "value": 20
     },
     {
-        "step": 20,
+        "step": 22,
         "type": "scalar_zone_equals",
         "viewerPlayerID": 1,
         "zone": "p2Health",
         "value": 16
     },
     {
-        "step": 20,
+        "step": 22,
         "type": "scalar_zone_equals",
         "viewerPlayerID": 1,
         "zone": "p2ActionPoints",
         "value": 0
     },
     {
-        "step": 20,
+        "step": 22,
         "type": "scalar_zone_equals",
         "viewerPlayerID": 1,
         "zone": "p1ActionPoints",
         "value": 0
     },
     {
-        "step": 20,
+        "step": 22,
         "type": "zone_count",
         "viewerPlayerID": 1,
         "zone": "p2Arsenal",

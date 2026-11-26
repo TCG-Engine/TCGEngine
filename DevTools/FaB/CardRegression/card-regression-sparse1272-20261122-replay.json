@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-aurora-shooting-star-two-live-sparse1272-real-lightning-play-and-two-resource-instant-create-owned-embodiment",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-aurora-shooting-star-two-live-sparse1272-real-lightning-play-and-two-resource-instant-create-owned-embodiment",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1272-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1272-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "f911acb4b279690d52c3a50dd0c78ddcd4f05d0e99c003e7d3ac2f5049ab5257",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "38990bf045732eb7322fc8bb5fae5746039a876509b802602a1b24fdb802d024",
+        "actions.json": "eea29b31160bbdc25dd3c323a5271171e98fcb59b0074af76058e2456ec512db",
+        "assertions.json": "511186b316c32394f9b91fa1e98d4fc2dfde9ab70da3a05da7981f08e6358a82",
+        "expected_final_gamestate.txt": "051c5c8a76070ae123a47e86d9bc5eaa63ba0ec2f134a3287970835cb4500a09",
+        "meta.json": "3b44ff6016653688e169ccbcfafe12fe1e4a378fcde92233ee6388dd7257fda6"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

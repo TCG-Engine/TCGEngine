@@ -1,0 +1,88 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "independent breadth_review",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1193-20261122.json",
+  "source_spec_sha256": "3b051a217edbd0562d01e4e6030c40a0246ee99a46a86f4d8f605a92c7264293",
+  "input_sha256": "3b051a217edbd0562d01e4e6030c40a0246ee99a46a86f4d8f605a92c7264293",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-blasmophet-the-insatiable-hunger-four-live-sparse1193-real-permission-plays-blood-debt-from-banish-without-inherent-permission",
+      "card_id": "blasmophet_the_insatiable_hunger",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "2fd05825007e7e10ba57972fa85687be3f114b4f381e0d7d28db1db41057d148",
+        "actions.json": "f6c526c59e94c5f3da46b77540f45e0f819b8864324140b76c60e4883572bad4",
+        "assertions.json": "d585ea3af034be659dc1e9a0454af159384d1e6ffd3f43a2688097b7b00d65eb",
+        "expected_final_gamestate.txt": "7a79fc8c8bc7f5eca03a3dc56dcbae02281d122725d6796592bd50f341846405",
+        "meta.json": "1b6c94d4044d2c59bb666225a90f7b10d3125b764b30a8d66e488456a2fcbbf3"
+      },
+      "fixture_sha256": "836a11b8bed574bdc47313de47ae521e95b8cbcbadb4e4768152c7bed0b71c3c",
+      "actions": 29,
+      "native_assertions": 336,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1193-20261122.json",
+      "input_sha256": "3b051a217edbd0562d01e4e6030c40a0246ee99a46a86f4d8f605a92c7264293",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1193-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-blasmophet-the-insatiable-hunger-four-live-sparse1193-real-permission-plays-blood-debt-from-banish-without-inherent-permission",
+        "fixture_slug": "card-blasmophet-the-insatiable-hunger-four-live-sparse1193-real-permission-plays-blood-debt-from-banish-without-inherent-permission",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "reviewer": "independent breadth_review",
+    "spec_sha256": "3b051a217edbd0562d01e4e6030c40a0246ee99a46a86f4d8f605a92c7264293",
+    "case_count": 1,
+    "native_controls": 29,
+    "persistable_assertions": 336,
+    "author_only_checks_omitted": 0,
+    "card_id": "blasmophet_the_insatiable_hunger",
+    "group_id": "identity:blasmophet_the_insatiable_hunger",
+    "normal_pitch_correction_review": {
+      "archived_spec_sha256": "6d9dd86e18712586833f25026eb39253d86110587ce9289cc273a19713a85765",
+      "changes": "Only normal resource-payment snapshot/control changed to PITCH plus native liveHand0 click. Redundant ownership/Pitch0 guards at that snapshot were removed; initial/paid/final physical identities and actual payment outcomes remain pinned. Permission-source MZCHOOSE and formal Hero target remain real decision answers. No native1193 attempt preceded this correction."
+    },
+    "basis": [
+      "Exact final frozen spec reviewed. Legal young Levia20/threeDorinthea20, admitted owned Blasmophet5Arena1, real owned face-up BloodDebt Action Boon6Banish1 and real Blue7Hand1. Demon can legitimately exist from prior legal Shadow/Brute producers; this setup earns no producer or earlier-turn event credit. Primary group is unrepresented, and no exact ledger hold was found for this selected route.",
+      "Boon has no inherent Banish permission, and no flag/history is seeded. IARCards252-260 permits this face-up BloodDebt Action only through current Blasmophet availability. IARRuntime366-369/382-389 validates that actual owned Banish card and unused controlled Demon5, then GameLogic1013 invokes permission selection before formal attack target1023-1025. The exact mandatory MZCHOOSE p1Arena-0 pins no other available permission.",
+      "Generated ResolveAbility13790/runnerbc4c1b3fbc4f44a553aa permission event14\u21927\u21926\u21925 offers that source. Its same-player callback hydrates card UID6/chosen source5, records declared permission, finds the live card and re-enters DoPlayCard. No virtual layer or new physical UID is allocated by this static permission selection; source6 stays in Banish until actual target/cost processing.",
+      "Formal adjacent Hero4 is chosen before normal cost1. Source then enters PITCH; native Hand0 Blue7 click actually pitches3, pays1/AP1\u21920 and leavesR2. GameLogic1143-1170/2815/2839 establishes normal PITCH/no-DQ card-click transport. Existing source/target decision answers are distinct and correctly retained. All four live source responders precede attack resolution.",
+      "Actual accepted Banish6 play is the meaningful permission consumer. Controlled Demon5 also gives Boon its printed static power6 via MONCards12; computed6/noGA and real unblocked6damage/HP4=14 agree. This is a Shadow Brute Action under Levia, not a Demon Ally attack, and Boon has no on-hit body. No relevant Hero, discard or end-phase trigger is earned.",
+      "Full four-live combat cleanup leaves physical Boon6 owned face-upGY1, Blue7Pitch1 and unchanged ready owned Demon5Arena1; Banish/Hand/Stack/DQs empty, maxUID7/AP0/R2. Graveyard FaceDown is supported by ZoneClasses527-558. All336 checks normalize to portable saved assertions, with no author-only diagnostics or contradictory repeated checkpoint values."
+    ],
+    "source_sha256": {
+      "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+      "FaBSim/GeneratedCode/GeneratedMacroCode.php": "fe6a7982611df8f4de98ce2671b317b671b580146aa4b8c28e8f4b86d8461056",
+      "FaBSim/Custom/IARRuntime.php": "a867233dd027ea6466d776cb9c3bfdbbeedc5e4e535f67f09b1c6e7d9cb3924e",
+      "FaBSim/Custom/IARCards.php": "0abc78c4d25203b2a0ae489bc183e5687e3375a2a7a29dc9401bbbd7df670783",
+      "FaBSim/Custom/MONCards.php": "2eb22bda6f1dba583df2879046f9f4dec94f47f2e9b28f369758f3af72c9c3ac",
+      "FaBSim/Custom/GameLogic.php": "c60fa151561f959e4e3e341b814de0e2b47c9e9f153bbc8793a04c43b5075061",
+      "FaBSim/ZoneClasses.php": "874bb2ae00a80a8ba3dfe1789b4c932fd0b7cf1286504a62828e0055ca1cb355"
+    },
+    "source_note_sha256": "e964b02a63715e705d2d92b35e34621f947226b24fc56d2923bf96e18dcbcf45",
+    "limits": [
+      "Pending Root native recording, stored-assertion mapping and targeted replay; no execution success claimed here.",
+      "Only the first actual Demon-granted BloodDebt Action play from Banish, normal paid cost and observable combat. No second-play rejection/once-cap, alternate permission, Unique handling, Demon Ally attack, end-phase upkeep, BloodDebt loss, Levia Hero, token producer, support-group or whole-card credit.",
+      "No engine/source/framework changes or known-hold repair/reprobe. The resource transport correction does not change expected costs, power, damage, health or physical fates."
+    ]
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1193-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "d25c8fc7fe784a9632e4cdeb2d2b4d3f5bb6ec31f2ebd3dce03dd2faeb33225a"
+  },
+  "full_suite_run": false
+}

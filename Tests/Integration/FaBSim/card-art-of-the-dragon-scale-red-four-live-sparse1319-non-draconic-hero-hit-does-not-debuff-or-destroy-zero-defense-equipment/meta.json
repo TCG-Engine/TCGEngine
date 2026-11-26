@@ -1,0 +1,7 @@
+{
+    "name": "Art of the Dragon: Scale / non draconic hero hit does not debuff or destroy zero defense equipment",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-24T06:37:06+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "FOUR_REAL_MANUAL_UPF_YOUNG_FAI20_DORI20_DORI20_DORI20. PrintedNinjaAAisNOTDraconic; DraconicHeroFaihasnoruletogranttalenttohisNinjacards; notypegrants/historyseed. Primary5actualcost1paidGenericRed6pitch1/AP1to0/allfourresponses/formaladjacentHero4target; real5physicalHeroDamageHP15. NoDraconiccondition/conditionalattacktriggerandthereforenoClawarsenaldestroygrant/Scaleequipmentdebuffdestroygrant/DragonPower+3. ActualeligibleopponentArsenalRed9FaceDown1retained; realzeroDefenseTalismanicLens7staysuntappedCounters[]andownedEquipment4; realHandBlue8/ownDeckBlue10retained. HeroFaihasnoautomaticHeroHitproducer; noPhoenixFlame/activationused. Finalprimary5GY1/funder6Pitch1/noUIDRNG/APR0/StackDQsCCclean. Namednegativecardtypeguardonly; positiveDraconictype/conditionalgrants/zeroDefenseDestroy/Herotalent/support/otherpitch/fullcarduntested. Sources: FaBSim/GeneratedCode/cardArrayCache.json#art_of_the_dragon_scale_red FaBSim/GeneratedCode/GeneratedMacroCode.php FaBSim/Custom/GameLogic.php FaBSim/Custom/OMNCards.php FaBSim/Custom/PENCards.php FaBSim/Custom/FaiCards.php FaBSim/Custom/UPRCards.php"
+}

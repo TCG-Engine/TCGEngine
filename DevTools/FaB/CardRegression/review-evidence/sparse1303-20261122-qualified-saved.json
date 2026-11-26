@@ -1,0 +1,110 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "independent breadth_review1252",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1303-20261122.json",
+  "source_spec_sha256": "ffd18a0abdb1e52a837cf7f7e298afbbd7287d4140187dc1f2ea9b362d6f9af8",
+  "input_sha256": "ffd18a0abdb1e52a837cf7f7e298afbbd7287d4140187dc1f2ea9b362d6f9af8",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-righteous-cleansing-yellow-four-live-sparse1303-real-seven-cost-three-damage-does-not-earn-four-damage-crush",
+      "card_id": "righteous_cleansing_yellow",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "5be6d8f6d905e06ebeeae48c58108808498c4c9b573629664a3c773b54c39cfd",
+        "actions.json": "4635900666d5a4627c844f8004a8ec3742fc93aa1d86e3be83ec9643ef11c442",
+        "assertions.json": "51f8de7a0451f04cbd3a2bc1df9e95d5a8b7b04bb085f13b49336832b9aaf721",
+        "expected_final_gamestate.txt": "c70732aa1d5d5d377a9ad8c6e7fb35585421ebe219591b75daa211e2755e6671",
+        "meta.json": "20e19c1bd7ce166a49c77a98b90c87682d7a3de4e283d5c9718eaa671fb08deb"
+      },
+      "fixture_sha256": "952208874576aff892358d250e460afe749679b59ae15f7b0ed81441e198fdd3",
+      "actions": 33,
+      "native_assertions": 535,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1303-20261122.json",
+      "input_sha256": "ffd18a0abdb1e52a837cf7f7e298afbbd7287d4140187dc1f2ea9b362d6f9af8",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1303-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-righteous-cleansing-yellow-four-live-sparse1303-real-seven-cost-three-damage-does-not-earn-four-damage-crush",
+        "fixture_slug": "card-righteous-cleansing-yellow-four-live-sparse1303-real-seven-cost-three-damage-does-not-earn-four-damage-crush",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "reviewer": "independent breadth_review1252",
+    "spec_sha256": "ffd18a0abdb1e52a837cf7f7e298afbbd7287d4140187dc1f2ea9b362d6f9af8",
+    "source_note_sha256": "356c81cc855a0ee09ea292faf307083120e6a70ed42678f4f40258c79cbee14a",
+    "case_count": 1,
+    "active_seats": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "players": "four_live_manual",
+    "native_controls": 33,
+    "query_checks": 535,
+    "persistable_assertions": 535,
+    "author_only_checks_omitted": 0,
+    "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+    "coverage_category": "BELOW_FOUR_DAMAGE_CRUSH_GUARD_ONLY",
+    "positive_crush_credit": false,
+    "basis": [
+      "Exact pre-native filter removes only BloodiedShield; remainingRighteous case equals original byte-parsed scenario in allfields/steps/assertions/order. LegalnaturalYoungBravo20/threeYoungDori20/exact1234/manualUPF/no passives. ActualGuardianRighteous5cost7 and power10, realGenericBlue6/Blue7/Red8 supply3+3+1 withoutcostflags/APseed. AP remains1 whileunderfunded0/3/6R, onlycompletedpayment spendsAP1to0/R0 beforeallfourresponses.",
+      "ActualDori4IronrotHelm9defense1 plusphysicalGenericHandAA10/11defense3 each are realdefendersCC RoleDEFENSE/FromEquipment-or-Hand, totaling7. Correct10power-7defense=3unpreventeddamage/HP17 and typedattackHittrue arebelowCrush4. GeneratedRighteous awaitcase32 requiresamount>=4 andHeroHit, so noearnedCrushlayer/look/banish/order choice onthishit.",
+      "FiveeligibleoriginalGenericDeck12..16 remainexactCardID/UID/OwnerController4/order andBanish0, making negativeCrushobservable. RuntimeIronrotBladeBreak is present in generatedkeywords unlikeheldShield. CleanupResolvedLink setsDESTROY_ON_CHAIN_CLOSE; fullclose iteratesCC originalorder, so realIronrot9GY4index0 thenHandblockers10/11GY4indices1/2, sameowner. Actorphysical5GY1/funders6/7/8Pitch1/APR0/UID16/RNG0/cleanStackDQsCC matchscope. All535 assertions persist across33controls."
+    ],
+    "limits": [
+      "Semantic/source review only pending native save/replay; no nativepass/replay/coveragecredit claimed.",
+      "Only below-thresholdCrush guard, normal7cost andactualdefense/damage; no positiveCrushlook/banish/order/Hero/support/fullcardcredit. BloodiedShield removedpre-native as source-onlymissingBladeBreakmetadata, unrun/nofixture/credit; correctdestroyexpectationnotrelaxed.",
+      "Only W receipt written; no games/tests/replays/T orengine edits/auth/network/originalcheckout/Git."
+    ],
+    "source_sha256": {
+      "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+      "FaBSim/GeneratedCode/GeneratedCardDictionaries.php": "1be127d10c8f7fe3fa10b8aa098678fa43b2790910c95666226b18eb79ea7c60",
+      "FaBSim/GeneratedCode/GeneratedMacroCode.php": "fe6a7982611df8f4de98ce2671b317b671b580146aa4b8c28e8f4b86d8461056",
+      "FaBSim/Custom/GameLogic.php": "c60fa151561f959e4e3e341b814de0e2b47c9e9f153bbc8793a04c43b5075061",
+      "FaBSim/Custom/WTRCards.php": "77d4452b30e45254a7199bc965396ded53e325717ecdd84a09b971f723f99f6a",
+      "FaBSim/Custom/PENCards.php": "9d4f443c833ec535bdae15c1973910925c1b7a1223fbfab7fcb89a5b204a7ed8",
+      "Schemas/FaBSim/GameSchema.txt": "7783800bd47bc85885cc915066aadca58cdf99f0c1180602ac312d9af5ebf643",
+      "Core/ShortcutPreferences.php": "25f300ea0b6fbc409f5b92e8bc3587a74b2ab0eaf31ccef38e18c455598eaba6",
+      "DevTools/FaB/CardRegression/record_card_regressions.php": "e53055b29e9ea641949b77019c4455607f41ca233325d716a9500637e19efd28"
+    },
+    "workspace_source_sha256": {
+      "author_breadth1303.py": "6c9a70d188916cd4e8195ce19d121f2aac72f51814dc0376345025c06710994e",
+      "breadth1068_helpers.py": "997f949ec26c7e494ad26a818f9f2078f6f4f2a0c49ca7f61aa8c71f3b091b0a"
+    },
+    "filter_provenance": {
+      "original_two_spec_sha256": "625c7b07c523cd92f6c7b318722022256f01cae68bdbe2cf73c471c4274589fe",
+      "removed_card": "bloodied_shield",
+      "retained_exact": "righteous_cleansing_yellow",
+      "native_execution_by_reviewer": false
+    }
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1303-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "bce63d57a2fbedadcf80f61ad62518d629b0983bdf7db1cfd75de52cc4f30fb5"
+  },
+  "full_suite_run": false
+}

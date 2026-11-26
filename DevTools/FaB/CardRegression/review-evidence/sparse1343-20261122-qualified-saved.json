@@ -1,0 +1,288 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "independent breadth_review1252",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1343-20261122.json",
+  "source_spec_sha256": "ceec48e28096dd529a694437323d3a60e4fa8c265db019a1ac6577fba4319452",
+  "input_sha256": "ceec48e28096dd529a694437323d3a60e4fa8c265db019a1ac6577fba4319452",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-disarm-yellow-four-live-sparse1343-no-prior-cheer-no-toughness-native-base-attack",
+      "card_id": "disarm_yellow",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "34b27de98cd5806384ba47c21db051034cb4034cb8e869ac5759062088fdec04",
+        "actions.json": "0c005a52a51dc48a24f481bec6cbd5cfe2cb93ecd847ec1063490764f1d7d9ea",
+        "assertions.json": "3bf4ccfa4fc2227a7982be562e412a52d5a1583ed3cc821dc564366347296f1f",
+        "expected_final_gamestate.txt": "337a86c90a51e551f57ef3eb92ad76f087b07a570623784cfe76961b114e99ba",
+        "meta.json": "a18d14e383b86f042c353f4ab26c094e91b9baa4af8c7c6909dbb65fcbad9c8e"
+      },
+      "fixture_sha256": "4003f8e76f2a772687deecfba9ab2893882b84a87a6fd21ab32d17543ef08ab2",
+      "actions": 29,
+      "native_assertions": 413,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1343-20261122.json",
+      "input_sha256": "ceec48e28096dd529a694437323d3a60e4fa8c265db019a1ac6577fba4319452",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1343-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-disarm-yellow-four-live-sparse1343-no-prior-cheer-no-toughness-native-base-attack",
+        "fixture_slug": "card-disarm-yellow-four-live-sparse1343-no-prior-cheer-no-toughness-native-base-attack",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-disembody-red-four-live-sparse1343-no-prior-cheer-no-toughness-native-base-attack",
+      "card_id": "disembody_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "6d8ca4044ec38bb56298d5b259c2a82820417ddcf73e874ee36e2d12f5b14893",
+        "actions.json": "0c005a52a51dc48a24f481bec6cbd5cfe2cb93ecd847ec1063490764f1d7d9ea",
+        "assertions.json": "eb35d0379715a416a35163523dbd0977cb1364885438b1d96d14a96ad61f4f7a",
+        "expected_final_gamestate.txt": "c3cf22d3433402c3ba895592d0283969b164f55100edf7d85a46478bdde2dc58",
+        "meta.json": "f01dc149afab181fcdbdb692975cfdc46a06edd7a3ce3db3e86d2a60e59187ad"
+      },
+      "fixture_sha256": "2fe3b0a7329a2ce4d492f32418dc273e59b7dc43dcabffe00dbf47181db6f0c4",
+      "actions": 29,
+      "native_assertions": 413,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1343-20261122.json",
+      "input_sha256": "ceec48e28096dd529a694437323d3a60e4fa8c265db019a1ac6577fba4319452",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1343-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-disembody-red-four-live-sparse1343-no-prior-cheer-no-toughness-native-base-attack",
+        "fixture_slug": "card-disembody-red-four-live-sparse1343-no-prior-cheer-no-toughness-native-base-attack",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-disperse-blue-four-live-sparse1343-no-prior-cheer-no-toughness-native-base-attack",
+      "card_id": "disperse_blue",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "391532278e2945f409120ec589377e4200f5798c6fba7ebf206eb5b735f4f959",
+        "actions.json": "0c005a52a51dc48a24f481bec6cbd5cfe2cb93ecd847ec1063490764f1d7d9ea",
+        "assertions.json": "e814f79ceb3b24251ae77b03e01f1d5bd52c218305846bea4cd52a26789d187b",
+        "expected_final_gamestate.txt": "8ccd16dd56824fd743cb6260ec9a693dd512db35657ff3b8639f7b52706a665d",
+        "meta.json": "b57fa7fb778445ec54b5924a21f34fa8f5e652cdd82a7e309e59e73ee747a958"
+      },
+      "fixture_sha256": "9eac93b86b894a0e9594fcf51f123d6b9bc8271db387353bcfe8caf62f4b5029",
+      "actions": 29,
+      "native_assertions": 413,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1343-20261122.json",
+      "input_sha256": "ceec48e28096dd529a694437323d3a60e4fa8c265db019a1ac6577fba4319452",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1343-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-disperse-blue-four-live-sparse1343-no-prior-cheer-no-toughness-native-base-attack",
+        "fixture_slug": "card-disperse-blue-four-live-sparse1343-no-prior-cheer-no-toughness-native-base-attack",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-fight-from-behind-red-four-live-sparse1343-equal-natural-health-not-less-than-each-other-hero-no-cheer",
+      "card_id": "fight_from_behind_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "ac0a650176093c183b73b30e711b30819f83c0c248e5bbabe2d3ef9ae7a550ba",
+        "actions.json": "0c005a52a51dc48a24f481bec6cbd5cfe2cb93ecd847ec1063490764f1d7d9ea",
+        "assertions.json": "47b7f813617fee80efdffd932fbcac6056b1b8f0dbbf3d6fff0371f3c8ca49b8",
+        "expected_final_gamestate.txt": "a88a9ce9fc63dff8312b2825662d4d89b3cefcbd22e0b3889b765b6a8814f34d",
+        "meta.json": "638a5877b4a5f13a4606612051659ce5b34758ac5a61883383c50aae21e41bf1"
+      },
+      "fixture_sha256": "f3244e89cd32a22b7bd9f806b64dfbfd3cbcb57bbdc0fd2935401c4fa7913c78",
+      "actions": 29,
+      "native_assertions": 413,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1343-20261122.json",
+      "input_sha256": "ceec48e28096dd529a694437323d3a60e4fa8c265db019a1ac6577fba4319452",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1343-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-fight-from-behind-red-four-live-sparse1343-equal-natural-health-not-less-than-each-other-hero-no-cheer",
+        "fixture_slug": "card-fight-from-behind-red-four-live-sparse1343-equal-natural-health-not-less-than-each-other-hero-no-cheer",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-full-of-bravado-red-four-live-sparse1343-no-aura-of-suspense-no-confidence-native-base-attack",
+      "card_id": "full_of_bravado_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "8098274609043ccadfd69b205ab3e53f4a92915b9aa6419d283213e1216d5b87",
+        "actions.json": "0c005a52a51dc48a24f481bec6cbd5cfe2cb93ecd847ec1063490764f1d7d9ea",
+        "assertions.json": "eada3c3dd68f65510657dec9879c485cd8edf0ebd66e48023ffe3733625d51e1",
+        "expected_final_gamestate.txt": "e878d5c7db1c17a9d51653e5753b60491bf32ded50b4c780ac704c4a8a41554c",
+        "meta.json": "8f5c1c80e65537d0d1b737ff798d82080236e92a225690a3ea74bd992d1bbdee"
+      },
+      "fixture_sha256": "fa4647b58635e7a789664777187ebea86fe80be1d7032771aa23cec0e01365ee",
+      "actions": 29,
+      "native_assertions": 413,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1343-20261122.json",
+      "input_sha256": "ceec48e28096dd529a694437323d3a60e4fa8c265db019a1ac6577fba4319452",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1343-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-full-of-bravado-red-four-live-sparse1343-no-aura-of-suspense-no-confidence-native-base-attack",
+        "fixture_slug": "card-full-of-bravado-red-four-live-sparse1343-no-aura-of-suspense-no-confidence-native-base-attack",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "reviewer": "independent breadth_review1252",
+    "spec_sha256": "ceec48e28096dd529a694437323d3a60e4fa8c265db019a1ac6577fba4319452",
+    "source_note_sha256": "747d3d556e4becf3ac49dc809caea7cbab889c282815b8b9915f2668a55662fa",
+    "case_count": 5,
+    "active_seats": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "players": "four_live_manual",
+    "native_controls": 145,
+    "query_checks": 2065,
+    "persistable_assertions": 2065,
+    "author_only_checks_omitted": 0,
+    "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+    "coverage_category": "CONDITION_FALSE_ATTACK_GRANT_WITH_REAL_BASE_DAMAGE_AND_NATIVE_ACTION_CONSUMER_REJECTION",
+    "per_case": [
+      {
+        "card_id": "disarm_yellow",
+        "group_id": "identity:disarm_yellow",
+        "native_controls": 29,
+        "persistable_assertions": 413
+      },
+      {
+        "card_id": "disembody_red",
+        "group_id": "identity:disembody_red",
+        "native_controls": 29,
+        "persistable_assertions": 413
+      },
+      {
+        "card_id": "disperse_blue",
+        "group_id": "identity:disperse_blue",
+        "native_controls": 29,
+        "persistable_assertions": 413
+      },
+      {
+        "card_id": "fight_from_behind_red",
+        "group_id": "pitch-cycle:fight_from_behind",
+        "native_controls": 29,
+        "persistable_assertions": 413
+      },
+      {
+        "card_id": "full_of_bravado_red",
+        "group_id": "pitch-cycle:full_of_bravado",
+        "native_controls": 29,
+        "persistable_assertions": 413
+      }
+    ],
+    "basis": [
+      "Five independently cached distinct groups unrepresented/unheld, all four natural Young20/manual UPF. DisarmYellow/DisembodyRed/DisperseBlue and FightFromBehindRed have Revered type and legal YoungReveredTuffnut20; FullBravadoRed Guardian is legal under YoungBravo20. Physical HeroUID1..4, primary5, actualCriticalBlue6Hand and faceDownArsenalWounding7, UID7. Printed costs3/3/3/2/3 and powers6/7/5/6/7 match new spec bindings. No fakeCheer/health/Suspense/history/Arenas or Hero activation.",
+      "Generated Disarm/Disembody/Disperse AttackDeclared21210-21239 checks SUP CHEER before creatingToughness; SUPCards2-4 reads actual turn effects, initial empty and no Cheer producer used. Thus false intervening IF and no earned token trigger. These actual cards attack, never defend; their separate >=6 defense-trigger branches are not exercised or claimed. Tuffnut only earns Toughness when cheered (cached text/SUPCards6-22), no automatic attack/hit production.",
+      "FightFromBehind AttackDeclared21590 checks SUPAllLife(player,true). Actual actor20 and all three other live20 at event are equal, not strictly lower; SUPCards24 strict comparisons fail. No Cheer/no follow-on Tuffnut token. No positive comparison direction or Cheer timing certified. FullBravado AttackDeclared21797 checks SUPSuspense nonempty; SUPCards26 filters actual controlled Suspense Auras and allArena0, so no earned Confidence trigger. Both attacking branches only; defending/positiveHero conditions untested.",
+      "Each actualBlue6pitch3 pays printed3 or2 leavingR0 or1 and AP0. Reused proven four-seat source/combat progression retains physical original5Stack/CC, exact basepower/noGA then actual6/7/5/6/7unblocked damage to Hero4 HP14/13/15/14/13, allArena0/no newUID/RNG0. No post-damage automatic ability grantsGA. Fullclose owns original5GY and6Pitch, retained legalFDArsenal7; actual zero-cost resource-affordable Action click rejects becauseAP0 before target/movement. Same physical UID/FaceDown/health/resources/Stack/queues/pendingPayment before/after observe no action refund. Each29 controls/413 assertions, total145/2065 persists."
+    ],
+    "limits": [
+      "Approved only no-Cheer/equal-life/no-Suspense attacking conditions, actual printed cost/base damage, no tokens/refund and native affordable consumer rejection, pending native save/replay. No native pass/qualified coverage credit claimed.",
+      "All positive Cheer/Toughness/Confidence grants, attack-trigger timing, defending >=6 defense effects/other defending branches, positive life comparisons, go again, Hero activation, support/siblings/whole-card behavior remain untested/uncredited. Existing holds untouched; no repair.",
+      "Only W review receipt written; no native game/test/replay, T/source/engine edit, original checkout access, auth/network, full suite or Git operation."
+    ],
+    "source_sha256": {
+      "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+      "FaBSim/GeneratedCode/GeneratedMacroCode.php": "fe6a7982611df8f4de98ce2671b317b671b580146aa4b8c28e8f4b86d8461056",
+      "FaBSim/Custom/GameLogic.php": "c60fa151561f959e4e3e341b814de0e2b47c9e9f153bbc8793a04c43b5075061",
+      "FaBSim/Custom/SUPCards.php": "d0cf162a89b60b29590121e4c97e1e5fe0e2dc790130bf181949ca068092c1fa",
+      "FaBSim/Custom/PENCards.php": "9d4f443c833ec535bdae15c1973910925c1b7a1223fbfab7fcb89a5b204a7ed8",
+      "FaBSim/Custom/HVYCards.php": "1387ecf0971fae9aa4bfb7bc99baec47a46e9c8770030884b722915eb87a31f1",
+      "FaBSim/Custom/ARCCards.php": "f6b6a21d214e71fdcfd6a084f0671ce610f08a40c51a1266041877a5a12c0d52",
+      "FaBSim/Custom/WTRCards.php": "77d4452b30e45254a7199bc965396ded53e325717ecdd84a09b971f723f99f6a",
+      "Core/EngineActionRunner.php": "add14b53dc571d2a6e64407bfa4038a98d6554d6410de7a9233810d99c46ea2a",
+      "Schemas/FaBSim/GameSchema.txt": "7783800bd47bc85885cc915066aadca58cdf99f0c1180602ac312d9af5ebf643",
+      "Core/ShortcutPreferences.php": "25f300ea0b6fbc409f5b92e8bc3587a74b2ab0eaf31ccef38e18c455598eaba6",
+      "DevTools/FaB/CardRegression/record_card_regressions.php": "e53055b29e9ea641949b77019c4455607f41ca233325d716a9500637e19efd28"
+    },
+    "workspace_source_sha256": {
+      "author_breadth1343.py": "74f87f714a8b6c2488a1fd1a1abfbbe266f2fd8f964d5f45c0285cdd696dc550",
+      "breadth1068_helpers.py": "997f949ec26c7e494ad26a818f9f2078f6f4f2a0c49ca7f61aa8c71f3b091b0a"
+    },
+    "secondary_identity_credit": false,
+    "whole_card_credit": false,
+    "positive_condition_credit": false,
+    "positive_trigger_timing_credit": false
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1343-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "5926d2086b14f89615f6927de4e36b4c88db8e987efc9481a9f64134219c8a9d"
+  },
+  "full_suite_run": false
+}

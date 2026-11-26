@@ -1,0 +1,102 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-bloodrot-trap-red-four-live-sparse996-no-attacker-reaction-history",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-bloodrot-trap-red-four-live-sparse996-no-attacker-reaction-history",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse996-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse996-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "5e2900428bee4caca3f469243d2572f34a0cba5b9486e3e50f2ad0a661e3453e",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "94542a08ca50252f309b0ed2950da819eba70efb2ceeb4b63268530eae6553e0",
+        "actions.json": "83add76d0e874fd8ae016e14517db6ea206c3b9e206dbce873083282bf38c1a3",
+        "assertions.json": "c392c12eed3d0bf29f3f03d97c71bcc5fcbe6234793dcb1e35083dd801e7cc0e",
+        "expected_final_gamestate.txt": "e4af386aca7f360ce576736abac8472e5e78065827927e46ac037d6b2905c174",
+        "meta.json": "77f74239e4dcb7bb59a379e72ac32a733aac12a6f0ea8be2484ea5d8acebb632"
+      }
+    },
+    {
+      "slug": "card-hunted-or-hunter-red-four-live-sparse996-no-attacker-reaction-history",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-hunted-or-hunter-red-four-live-sparse996-no-attacker-reaction-history",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse996-local-20261122\\clean-replays\\01.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse996-local-20261122\\clean-replays\\01.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "7385e51fd61bb5539cacf878705d702201b8befc6d0afb31b1da7bd1bbb9ad6e",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "d3e4dd1c2988d0a8e08c356ca11e4f58fcaf09310ed9610cba1d505a2eb0ed61",
+        "actions.json": "83add76d0e874fd8ae016e14517db6ea206c3b9e206dbce873083282bf38c1a3",
+        "assertions.json": "75daf112949154ca68a67843c3a27421cbd7f7681161c3173cfd806ed608431b",
+        "expected_final_gamestate.txt": "f5eee22b8aaddddac939f8d4b21ac843c510b482c0c7520ad35c00454188035e",
+        "meta.json": "b3416448efcc9585befc340077a6395e8c8435142be393f8e9689ff697d174e8"
+      }
+    },
+    {
+      "slug": "card-pendulum-trap-yellow-four-live-sparse996-no-attacker-reaction-history",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-pendulum-trap-yellow-four-live-sparse996-no-attacker-reaction-history",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse996-local-20261122\\clean-replays\\02.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse996-local-20261122\\clean-replays\\02.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "add64363e3c63b795ff6da69efded717330853aa6e4647b7be50a6afc65fd2d9",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "23daeb66f8b647306a74b4edc58c051cc52dd0986d66b8434758523fc3ffe4db",
+        "actions.json": "83add76d0e874fd8ae016e14517db6ea206c3b9e206dbce873083282bf38c1a3",
+        "assertions.json": "bbe1156ffadeb809907cf0b2a8d320ddc0da8731af9d0105b92726f11bd0b26b",
+        "expected_final_gamestate.txt": "47e2805c893163abdc0ed9ef8e25024508e37487081bc8a744b925bfffded131",
+        "meta.json": "75db7e903f3ad908dd7941fce743ef369f45afc1221d6e49882f8733e67db773"
+      }
+    },
+    {
+      "slug": "card-spike-pit-trap-blue-four-live-sparse996-no-attacker-reaction-history",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-spike-pit-trap-blue-four-live-sparse996-no-attacker-reaction-history",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse996-local-20261122\\clean-replays\\03.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse996-local-20261122\\clean-replays\\03.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "a2288860729d0017dd86afa7da734d43e3ac81d4456839806850fada53b8132a",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "46b969fcdcdf681c5721b524d8329360e59da1031b05c28214fb38f1ab172114",
+        "actions.json": "83add76d0e874fd8ae016e14517db6ea206c3b9e206dbce873083282bf38c1a3",
+        "assertions.json": "b591fd1836ab37d52a2bb0549c79002f25eea7b452906d1b3bde40541112d9ab",
+        "expected_final_gamestate.txt": "e0741c6283f5c714885e817aff43db0fac030f8aeaa27ee3a0ef67c3f7875fa6",
+        "meta.json": "d28d34404ca31d81fb62ccdcd65c5308088d083f90e88584ca4ce8795668062c"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

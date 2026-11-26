@@ -1,0 +1,70 @@
+{
+  "runtime": "39ea7198588aa12a77f1b2f47c9b523e54789383be9e5ee5bc96ff8ac6a9a2e5",
+  "full_suite_run": false,
+  "fixtures": [
+    {
+      "slug": "card-cut-deep-blue-nonmatching-hatchet-of-body-preserves-buff",
+      "status": "PASS",
+      "returncode": 0,
+      "runtime": "39ea7198588aa12a77f1b2f47c9b523e54789383be9e5ee5bc96ff8ac6a9a2e5",
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-cut-deep-blue-nonmatching-hatchet-of-body-preserves-buff",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\hatchet-events\\adjacent-migration\\replay-0.complete.log"
+      ],
+      "log_sha256": "6447cc54fd7ac9a1d5132660024b20040f5b75eb49615ca97ecf986ba142e566"
+    },
+    {
+      "slug": "card-felling-swing-blue-hand-floating",
+      "status": "PASS",
+      "returncode": 0,
+      "runtime": "39ea7198588aa12a77f1b2f47c9b523e54789383be9e5ee5bc96ff8ac6a9a2e5",
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-felling-swing-blue-hand-floating",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\hatchet-events\\adjacent-migration\\replay-1.complete.log"
+      ],
+      "log_sha256": "e3197463563cdb65f526bdfe2933580caf7576243ac1b7bfb34e2ab1ac55378e"
+    },
+    {
+      "slug": "card-cleave-red-four-live-sparse-real-paid-next-axe-plus-four-full-block-no-hit",
+      "status": "PASS",
+      "returncode": 0,
+      "runtime": "39ea7198588aa12a77f1b2f47c9b523e54789383be9e5ee5bc96ff8ac6a9a2e5",
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-cleave-red-four-live-sparse-real-paid-next-axe-plus-four-full-block-no-hit",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\hatchet-events\\adjacent-migration\\replay-2.complete.log"
+      ],
+      "log_sha256": "d750b53569a86b8b9c87e23b517415c4d3bbd25d0fd111bc0d912545695cb074"
+    },
+    {
+      "slug": "card-en-garde-red-axe-also-qualifies",
+      "status": "PASS",
+      "returncode": 0,
+      "runtime": "39ea7198588aa12a77f1b2f47c9b523e54789383be9e5ee5bc96ff8ac6a9a2e5",
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-en-garde-red-axe-also-qualifies",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\hatchet-events\\adjacent-migration\\replay-3.complete.log"
+      ],
+      "log_sha256": "3b67b5eef0bb78125bd89dbd9178faa785cff4eaa78ef6ee7d07da6c330653d1"
+    }
+  ]
+}

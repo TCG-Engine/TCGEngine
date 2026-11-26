@@ -1,0 +1,95 @@
+{
+  "status": "SAVED_APPROVED_INDEPENDENT_EXACT_FOUR_LIVE_EBBING_NAMED_PARTIAL_BRANCH",
+  "phase": "SAVED",
+  "batch": 818,
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer": "/root/ebbing_recovery_review",
+  "reviewer_independent": true,
+  "created_utc": "2026-11-15T16:54:58.150737+00:00",
+  "runtime_sha256": "429a5183b9e7db50822c8f5fc966113cc842af7066d5d0a4e235e780fe09ee73",
+  "source_spec": "card-regression-batch818-ebbing-full-positive-429a.json",
+  "input_sha256": "fc1701c344903f8a5f728a3b8edbb82f7778c16e9984a4ef70e95b7fa6ec6975",
+  "manifest_sha256": "ef71a3c131757185d4215f85eaa42b9efa7cb7006d043fc53df48930db418a90",
+  "independent_positive_Source": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-batch818-ebbing-independent-normal-positive-source-review.json",
+    "sha256": "c913f379ac8fa6b01f9ccfff56ce64d90f09097349b572e8e65fb239e7923ebe"
+  },
+  "root_native_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-b818-ebbing-positive-native-save-429a\\receipt.json",
+    "sha256": "0969e4a0387e352e799f1f58043f8c1e210fe058689a1ded342ec5c40fa03bf6"
+  },
+  "actual_result": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch818-ebbing-full-positive-429a.recording-results.json",
+    "sha256": "56878a868a67707c9851988a9fc8cc021b6ca7bc216504572ca767fcc67875a8"
+  },
+  "actual_immutable_archive": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch818-ebbing-full-positive-429a-20261115T165046Z-6af9e2e6bd3cc.json",
+    "sha256": "fb4cfdc58805ac74c2ac631d51b245a6c6a1133622d5f27709bf44aac0dbac03"
+  },
+  "fixtures": [
+    {
+      "card_id": "ebbing_arcstride_blue",
+      "slug": "card-ebbing-arcstride-blue-real-fragment-secondary-when-go-again-red-consumer",
+      "actions": 63,
+      "native_assertions": 4443,
+      "manual_passes": 58,
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "f47b9458c32854cb971fc877df6d5a55ff4e7316c085650c280b6a756d26dee4",
+        "actions.json": "0c72a4d59c469ea0b98b05ba1f885bf38101b5bac88a8e93ea6d85119fd53c98",
+        "assertions.json": "b366bf5544794a3f5612402980ec60e30459a9fe5a5d6b5254722b5d066c38c1",
+        "expected_final_gamestate.txt": "c109fdfdf85b1fbe827a88fb5d436b71586f875cc3cc15afbc566ba7f0acaa1b",
+        "meta.json": "315e627ac8d6f6722a78268417fcf6528c25fc2b60c586213b3ae6bf43edbe83"
+      },
+      "fixture_sha256": "dc46ffbadb8da8209d0ae697134e119161daa2f9147eb21eba7dfcda1cc70c40",
+      "input_sha256": "fc1701c344903f8a5f728a3b8edbb82f7778c16e9984a4ef70e95b7fa6ec6975",
+      "runtime_sha256": "429a5183b9e7db50822c8f5fc966113cc842af7066d5d0a4e235e780fe09ee73",
+      "recorded_runtime_sha256": "429a5183b9e7db50822c8f5fc966113cc842af7066d5d0a4e235e780fe09ee73",
+      "actual_manual_actor_counts": {
+        "1": 14,
+        "2": 14,
+        "3": 14,
+        "4": 16
+      },
+      "initial_raw_48_manual_controls": true,
+      "final_raw_48_manual_controls": true,
+      "genuine_four_live_manual_seats": true,
+      "terminal_queries_independently_evaluated": 217,
+      "expected_original_63_controls_4443_queries_unchanged": true,
+      "native_fault_credit": 0,
+      "scope": "Exact Blue Fragment minus2/separate earnedGA response layer and actual WoundingBlowRed AP consumer. No sibling or alternate-branch credit."
+    }
+  ],
+  "full_saved_action_and_query_order_matched": true,
+  "all_4443_native_queries_semantically_reviewed_against_unchanged_source": true,
+  "all_63_saved_native_envelopes_and_manual_actors_matched": true,
+  "checkpoint_count": 65,
+  "source_guard_count": 82,
+  "selected_support_guard_count": 19,
+  "actual_initial_and_final_raw_schema_fully_consumed": true,
+  "initial_and_final_raw_manual_shortcut_checks": 96,
+  "sibling_native_coverage": false,
+  "saved_review_only_not_replay_certificate": true,
+  "two_new_only_clean_replays_required": true,
+  "full_suite_run": false,
+  "historical_corpus_replay": false,
+  "PHP_native_network_executed_by_reviewer": false,
+  "R_writes_by_reviewer": false,
+  "B787_denied_operation_untouched": true,
+  "review_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov15_batch818_actual_saved.py",
+    "sha256": "a2c80da547f023d316961ab19288745a5d6a0e92f83d54928b4c12e3366e7999"
+  },
+  "semantic_witnesses": [
+    "Saved inputs16..19 retain physical UID5 minus2/computedpower1/noGA/one queued secondary; input20 is actual fourth secondary response and only then grantsGA, without another minus2.",
+    "First1vsactualDEF3 deals0, earnedGA later refundsAP1. Actual WoundingBlowRed UID6 then consumes thatAP in native play/target and deals4 onlytoHero4; finalHP20/20/20/16, allAP/resources0.",
+    "Actual finalraw has Blue5+Red6 in owner1Graveyard, actual defenderBlue7 in owner4Graveyard, no other physicalcards, no residualStack/queues/awaitframes, ACTION/fullchaincleanup and all4seats live/manual."
+  ],
+  "limitations": [
+    "Approves exact saved five-file named partial branch. Qualification/registration must wait for two clean new-only replay receipts at this unchanged runtime.",
+    "RGB source/component/emission parity gives no native sibling credit. No blanking/control-change/leave-return/otherFragment/heroability/alternatechoice/elimination/full-card certificate.",
+    "No isolated native fault control credit or broad regression/full-suite pass is implied. Prior failed diagnostic remains preserved separately.",
+    "Fixture metadata retains the known unused historical /06-gameplay/ URL; correct independent rule basis remains the pinned Source proof official /06-effects/ citations. No action/assertion effect or newly fetched-source claim."
+  ]
+}

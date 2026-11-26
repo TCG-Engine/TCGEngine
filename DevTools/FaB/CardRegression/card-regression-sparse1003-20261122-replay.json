@@ -1,0 +1,102 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-frost-fang-red-four-live-sparse1003-no-hit-keeps-real-hand-without-discard-or-resource-tax",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-frost-fang-red-four-live-sparse1003-no-hit-keeps-real-hand-without-discard-or-resource-tax",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1003-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1003-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "f5592f8ded133d1f3c83fdb01b777bc3d65074c4e76a4a4b09b3157f3ad95d08",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "4b946d94fc6381e124ead3e521493567ae41e3f4b69808b48f61786593395611",
+        "actions.json": "a44e24b9f9b348ce659c847e7dbea1e0cd33c5233e8ac4933f9391118d55ee4b",
+        "assertions.json": "2fbf124943ac09fabecdfcb3ea3d79ff6ed624f29574b1bf3cf753725ebef4a2",
+        "expected_final_gamestate.txt": "b2622678a878b76c9d3c26fb66a5f4b4d653b2c8edefff6116356a43f7b83514",
+        "meta.json": "2b610f687492c714ac45719056e2fdbc0f02b5fc9de5343b7afe9b9f0f8b3a54"
+      }
+    },
+    {
+      "slug": "card-rift-breaker-red-four-live-sparse1003-no-hit-keeps-real-opponent-lightning-flow",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-rift-breaker-red-four-live-sparse1003-no-hit-keeps-real-opponent-lightning-flow",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1003-local-20261122\\clean-replays\\01.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1003-local-20261122\\clean-replays\\01.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "940a0470ca4b293ab1bdd9f7afff347799cdf5bcefe501354436ce1b82f83307",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "04fcd5f540b41589e76e08d8d996ef7f4b6eec8b61a5b27dd3eeac134da921be",
+        "actions.json": "a44e24b9f9b348ce659c847e7dbea1e0cd33c5233e8ac4933f9391118d55ee4b",
+        "assertions.json": "7b7d681593768f9d0339f3859c84b4fe75b06fdf12049b604151cedff68d1694",
+        "expected_final_gamestate.txt": "5c25b6f4a6921c0a3db9375976657a4bb48b978625b8ec26269e0134eb84d531",
+        "meta.json": "fc667fe6f43c27c377ea3ae7dae3e40238c4a2b9ee32d7955f630ff19ed00c14"
+      }
+    },
+    {
+      "slug": "card-lunartide-plunderer-red-four-live-sparse1003-no-hit-keeps-real-opponent-soul-and-source-in-graveyard",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-lunartide-plunderer-red-four-live-sparse1003-no-hit-keeps-real-opponent-soul-and-source-in-graveyard",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1003-local-20261122\\clean-replays\\02.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1003-local-20261122\\clean-replays\\02.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "190fd46a9bcaf1c12cb465e384e964c552141f7627afcda7af099dfec2753497",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "34f9fc9c101b474aa62c1ce0bb89dd8fca5e5e1c3379668d3ec639e00092d088",
+        "actions.json": "b9996f47ad8378619b85a79eb0a8a53a9e095b4296bec37843ce3c891f30ed90",
+        "assertions.json": "15aa4fe09de2f3fe4f71be9ea7cb8a849d6a78bd019c9cd486ca82ef5c43b006",
+        "expected_final_gamestate.txt": "f71af7c2dedbeb28d902aa7a737c41fa44b4be2b1e389186fa6dc1acc754d861",
+        "meta.json": "44a2ab537c8c7a217b4520f373af3680a2fcb86c291e5d265e3d401d35acb70d"
+      }
+    },
+    {
+      "slug": "card-herald-of-judgment-yellow-four-live-sparse1003-two-low-power-hand-blocks-no-phantasm-or-soul-transfer",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-herald-of-judgment-yellow-four-live-sparse1003-two-low-power-hand-blocks-no-phantasm-or-soul-transfer",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1003-local-20261122\\clean-replays\\03.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1003-local-20261122\\clean-replays\\03.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "318431a442d01130701b76ea43f7fdef24a926f4ed834abc834ec10934fbf3d0",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "de10e1c5e483ea82276b9a6954007d361f1e788fbad2587d7f8b372f3c473ab0",
+        "actions.json": "a44e24b9f9b348ce659c847e7dbea1e0cd33c5233e8ac4933f9391118d55ee4b",
+        "assertions.json": "262093b2116c84ec3552153fe2f1404f234d726b278cf353e3dd2d5e41d592ea",
+        "expected_final_gamestate.txt": "54f2874e422c6c264b22ffeadf85aa49b884a70fb0fbf33caf83540054bf308e",
+        "meta.json": "3bad4fe75d4142395973c17feda2ea8683b1c88a05aab383ebabe233914fa222"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

@@ -1,0 +1,79 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-arakni-black-widow-four-live-sparse1536-owned-weapon-is-not-assassin-attack",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-arakni-black-widow-four-live-sparse1536-owned-weapon-is-not-assassin-attack",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1536-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1536-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "365794d82bdfd251ba7d974a2a78acb22a80ba755d60843ea97144984766b14c",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "318f269a0e718873c87c6e871941c43cabd0142df105efe1a887f82ce04186cc",
+        "actions.json": "a185de60396b3148b0a4d502de4640eafe578d93b2fdfa704cdd7e0d49eb3d37",
+        "assertions.json": "392071b814ee038ccbe48a6f9519ec28d0bd1036d756a9b5afef3e6771909fda",
+        "expected_final_gamestate.txt": "0bf23ed45511e83c858e63ec82425304d9faab792cdb51634221f154b330e74b",
+        "meta.json": "a9e844cae2d9a0cacc08639dc43c2309624c5095c2a31eead84f48d40143f499"
+      }
+    },
+    {
+      "slug": "card-arakni-funnel-web-four-live-sparse1536-owned-weapon-is-not-assassin-attack",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-arakni-funnel-web-four-live-sparse1536-owned-weapon-is-not-assassin-attack",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1536-local-20261122\\clean-replays\\01.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1536-local-20261122\\clean-replays\\01.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "34df8519aaeb9c8eb7688dd5b876a2e180153b755eebb97189f344975a407ffc",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "94cd17e777a7545e5287a8050b4c2934445fb5c381e30b418f3b2f1d58aeeabf",
+        "actions.json": "a185de60396b3148b0a4d502de4640eafe578d93b2fdfa704cdd7e0d49eb3d37",
+        "assertions.json": "75ac5ee4a0c9f80999d7cbd5d890ff812ed397cc50b3208c6f5153d48ac7c999",
+        "expected_final_gamestate.txt": "0238ba0c4143147823cd73052e613d1bdd1aa007fbb7dba5d50deb6c8a2989d4",
+        "meta.json": "f659b000bdcfe63109cf850f1b31cbff354e08b9db18bb1804b6f59695675d5d"
+      }
+    },
+    {
+      "slug": "card-arakni-redback-four-live-sparse1536-owned-weapon-is-not-assassin-attack",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-arakni-redback-four-live-sparse1536-owned-weapon-is-not-assassin-attack",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1536-local-20261122\\clean-replays\\02.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1536-local-20261122\\clean-replays\\02.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "a8406a0cb0227856e13737c21da0c7967fb0aaf93df7a8974a35b6a6f21c7efb",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "07ec6a69abf59d4a9f82bfc805404b83425da71ca9abb49b74dbd3f7405a792a",
+        "actions.json": "a185de60396b3148b0a4d502de4640eafe578d93b2fdfa704cdd7e0d49eb3d37",
+        "assertions.json": "31d7f909ff6fd27b3fb4a6bf8106c1add53fea7de865a5bf9bea21d11cfe86df",
+        "expected_final_gamestate.txt": "20a7a0aed7c1067b92deecb3c1d2499ff15d88e54091d8a2c5c9867d47ed6442",
+        "meta.json": "2ca150e4b647d9a7da970dfd2e223e8aa49e785ef7123359aea392ed91ce7b43"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

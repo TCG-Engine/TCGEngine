@@ -1,0 +1,7 @@
+{
+    "name": "Crown of Reflection / sparse four-live restriction representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-23T02:52:03+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "**Instant** - Destroy this: Destroy target Illusionist aura you control. If you do, you may put an Illusionist aura with cost less than or equal to the aura destroyed this way from your hand into the arena. Activate this only during your action phase.\n\n**Arcane Barrier 1** Named own-action-phase negative only. NaturallegalPrism20 defender4 owns actualreadyEquipment5 andrealIllusionistAuraPassingMirage6 (nonWard/Spectra, targetisHero4notAura). ActualRaging7/Blue8paid3; atactualREACTIONpriority4 duringplayer1turn, Instant0/destroycostandownedAuraTargetavailable, but printedonlyduringYOURactionphase gatefalse. Rejectwithoutdestroy5/target6/choice/payment/Stack, thenallfourmanualrealunblocked7damageHP4=13; same5Equipment/6Aura retainedowner/controller4, noP4Hand, support7GGY1/Pitch8andNAA9Hand. PassingMiragehasno damageprevention or ownIllusionistattackevent here. No positiveexchangetarget/replacement/Spellvoid-or-Barrier/prevention/hero/creator/support/sibling/full-card claim. Sources: FaBSim/GeneratedCode/cardArrayCache.json#crown_of_reflection"
+}

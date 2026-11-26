@@ -1,0 +1,7 @@
+{
+    "name": "Tribute to the Legions of Doom / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T16:28:17+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "As an additional cost to play this, banish a random card from your hand.\n\nIf a card with 6 or more {p} is banished this way, this gets +2{p}.\n\n**Blood Debt** Representative only: real_blue_pitch_before_single_random_six_power_banish_earns_nine_damage. Other pitch siblings, alternate targets and unexercised branches receive no credit. All four live/manual; only native entry-point actions. Sources: FaBSim/GeneratedCode/cardArrayCache.json#tribute_to_the_legions_of_doom_red"
+}

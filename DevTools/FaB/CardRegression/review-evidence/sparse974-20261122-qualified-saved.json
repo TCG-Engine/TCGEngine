@@ -1,0 +1,173 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "Root independent of breadth_review author",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse974-20261122.json",
+  "source_spec_sha256": "66539ea06e3c80736c9b40c190b0aef1cddb5d35b231328eda5ea02338f0d13c",
+  "input_sha256": "66539ea06e3c80736c9b40c190b0aef1cddb5d35b231328eda5ea02338f0d13c",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-breaking-point-red-four-live-sparse974-actual-first-link-damage-retains-arsenal-without-rupture",
+      "card_id": "breaking_point_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "191d5ad850cc2b84bcf1f786863eeb5264f2749712604fa487437ea0bb8cf8b6",
+        "actions.json": "25920dc16af50701b0be20453cc3345d5c14a09166881d7481930bfb87552093",
+        "assertions.json": "9b2a244afd377848d5732b025bacd8d4aacd2fd2bf7f24cc0e9fac81d43c4cb2",
+        "expected_final_gamestate.txt": "3e91ac366190887ff5b4ab5d4fdb0b95a639779e615ab3960ce43d30cce5c4c8",
+        "meta.json": "afe2e58de48a573cf873bbe84825398ac4f25eb1e45b913ecc178c3f6a69f6e6"
+      },
+      "fixture_sha256": "fbf35761a806ab27bfcb7c815d0419a22aacc92830ae1fc87830c273810d7875",
+      "actions": 28,
+      "native_assertions": 148,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse974-20261122.json",
+      "input_sha256": "66539ea06e3c80736c9b40c190b0aef1cddb5d35b231328eda5ea02338f0d13c",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse974-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-breaking-point-red-four-live-sparse974-actual-first-link-damage-retains-arsenal-without-rupture",
+        "fixture_slug": "card-breaking-point-red-four-live-sparse974-actual-first-link-damage-retains-arsenal-without-rupture",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-shadowrealm-harrower-blue-four-live-sparse974-actual-hand-origin-base-damage-without-banish-bonus-or-heal",
+      "card_id": "shadowrealm_harrower_blue",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "140d6fde8235d0ed2693050c978569874941b36a4c8efd43628a7aea0d5274da",
+        "actions.json": "25920dc16af50701b0be20453cc3345d5c14a09166881d7481930bfb87552093",
+        "assertions.json": "4dbf61c8c1c2108999916846ba68459b4615e7d2cffbea86c88ecc5e03be6914",
+        "expected_final_gamestate.txt": "ada950fbcf2695fd64676f15fa5bf6463d2b89a42513b6195e8a24c141378c54",
+        "meta.json": "f897982aa50e79e458e2c5cd41a9d56b63bc703124d8fb289ebfae195b8301e8"
+      },
+      "fixture_sha256": "f52e31be24191b49c2c46111962f159dae677d6b11f499657f4212a1871287ec",
+      "actions": 28,
+      "native_assertions": 138,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse974-20261122.json",
+      "input_sha256": "66539ea06e3c80736c9b40c190b0aef1cddb5d35b231328eda5ea02338f0d13c",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse974-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-shadowrealm-harrower-blue-four-live-sparse974-actual-hand-origin-base-damage-without-banish-bonus-or-heal",
+        "fixture_slug": "card-shadowrealm-harrower-blue-four-live-sparse974-actual-hand-origin-base-damage-without-banish-bonus-or-heal",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-united-we-stand-yellow-four-live-sparse974-actual-attack-role-not-unity-defense-event",
+      "card_id": "united_we_stand_yellow",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "8e0bd06d214787c935b73be6a42b78812d4177025903b70cff6e99d5d7173ebe",
+        "actions.json": "25920dc16af50701b0be20453cc3345d5c14a09166881d7481930bfb87552093",
+        "assertions.json": "4543f6cc81c0d44d5587c521b4571aaa7883df98b4f6375ffbba2ab70eec3993",
+        "expected_final_gamestate.txt": "e103e4570218c0fe8e185ba3f3bbf21b5926b6a6f632b41bd3b4c13ae1c17d7b",
+        "meta.json": "8b24861255dd903b99f609f099d19145a5515316b24b32b2ec322ab0162d3b8c"
+      },
+      "fixture_sha256": "3639b8342eb229fd7343f50069d7dd46c2fad1be89224b7d2e09cb2d623cfc1e",
+      "actions": 28,
+      "native_assertions": 138,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse974-20261122.json",
+      "input_sha256": "66539ea06e3c80736c9b40c190b0aef1cddb5d35b231328eda5ea02338f0d13c",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse974-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-united-we-stand-yellow-four-live-sparse974-actual-attack-role-not-unity-defense-event",
+        "fixture_slug": "card-united-we-stand-yellow-four-live-sparse974-actual-attack-role-not-unity-defense-event",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-rapturous-applause-red-four-live-sparse974-actual-hand-attack-not-clash-win-reveal",
+      "card_id": "rapturous_applause_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "7834df0e771eccbad8e26ef2db7428e375fa232708c16908d2b431009385192a",
+        "actions.json": "25920dc16af50701b0be20453cc3345d5c14a09166881d7481930bfb87552093",
+        "assertions.json": "93956ab991362d0e26580a397efdef185ed5856b7b57c828bc6edbb9bbb23c5f",
+        "expected_final_gamestate.txt": "eb63fa2f11e6c73579fd23d85574643de3b9cf8b8a3f7c0b90106a57827c3c0a",
+        "meta.json": "8a4b458ed7e484724f7eb1e07b70626c56861f1aa11552250a6e3f43fdcaf5c1"
+      },
+      "fixture_sha256": "7ba84d5f0945dea54f315e3d09ac2101faf9250927c133e9b64598e6d3b0db85",
+      "actions": 28,
+      "native_assertions": 138,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse974-20261122.json",
+      "input_sha256": "66539ea06e3c80736c9b40c190b0aef1cddb5d35b231328eda5ea02338f0d13c",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse974-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-rapturous-applause-red-four-live-sparse974-actual-hand-attack-not-clash-win-reveal",
+        "fixture_slug": "card-rapturous-applause-red-four-live-sparse974-actual-hand-attack-not-clash-win-reveal",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-visionary-of-orbits-red-four-live-sparse974-actual-full-block-retains-real-graveyard-instant",
+      "card_id": "visionary_of_orbits_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "450c1ea68c384502224a458e06764cc5235d6093e94d4afd5205f05201151e73",
+        "actions.json": "b9996f47ad8378619b85a79eb0a8a53a9e095b4296bec37843ce3c891f30ed90",
+        "assertions.json": "b6a6bda4d218de48b8c1dedb2030f6926aea5e2e53cb19953c1f444b731ccf46",
+        "expected_final_gamestate.txt": "d755cf0a7af00832c0751bfd3615216689ccc7cecda4ed5170d7dda47ebb76c2",
+        "meta.json": "952d484fbbb55bf1a4512017a783ebdf055fa71eb72c34b68c1ccd9873929d0e"
+      },
+      "fixture_sha256": "079b83dce87902b07ad6ec97c04062bc3f03cee5067d948ab7f4aa9bd60b469e",
+      "actions": 31,
+      "native_assertions": 184,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse974-20261122.json",
+      "input_sha256": "66539ea06e3c80736c9b40c190b0aef1cddb5d35b231328eda5ea02338f0d13c",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse974-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-visionary-of-orbits-red-four-live-sparse974-actual-full-block-retains-real-graveyard-instant",
+        "fixture_slug": "card-visionary-of-orbits-red-four-live-sparse974-actual-full-block-retains-real-graveyard-instant",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "reviewer": "Root independent of breadth_review author",
+    "result": "approved_named_branches_only_pending_native_execution",
+    "spec_sha256": "66539ea06e3c80736c9b40c190b0aef1cddb5d35b231328eda5ea02338f0d13c",
+    "basis": [
+      "Read exact974packet/authornotes and cached printed text independently; hashes/current membership/legal hero natural health agree. Fai Draconic, Chane Shadow, Boltyn Light, Pleiades Revered, Aurora Lightning through Essence. All actualBlue6 pay1/2/3, AP0 and retained physical original5.",
+      "Breaking firstlink0/previousnone: Rupture static grant not present, actual5 leavesenemy15 with facedown eligibleArsenal7 retained. Shadowrealm ordinaryHand origin gets base4 only, enemy16/own20 and noBanishheal grant; BloodDebt/endphase unrun.",
+      "United isRoleATTACK, so WHENdefends together event absent; Boltyn exists but Unity not earned. Actual6damage/noPartyToken. Rapturous ordinaryHand play is not winClashrevealing it; actual7/noCheer. No positive event coverage or printed WHEN attacks/play event ignored.",
+      "Visionary_OF_orbits_red is actual correct ID; actual3AAdef9 fullyblock7, noHit or formal Hit target owed. Own actualInstantSigil10GY0 retained, source5GY1/Deck0; no positive return choice exercised.",
+      "Allfourmanual seats, correct4liveguards and source/defender identity/ownedgraveyard assertions. No engine/codegen/auth/network/Git/original access. Native/save and clean replay still pending."
+    ],
+    "limits": [
+      "Partial named branches only, no positiveRupture/banishheal/Unity/clash/Hitchoice/future/abilities/siblings/fullcards; no exact unblockedVisionarypower. No known timing/cog/ownership reprobe."
+    ]
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse974-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "d6d26becfbf2c46fb1f1fc19294eb82614ded1bd0f92d9a3d1890af9bdb7fd30"
+  },
+  "full_suite_run": false
+}

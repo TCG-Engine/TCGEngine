@@ -1,0 +1,92 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "/root/breadth_review1457",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1534-20261122.json",
+  "source_spec_sha256": "d4f41f804f7d1f285c5a1b1fab34d37ac370c1a775a115a96190891c36fb0757",
+  "input_sha256": "d4f41f804f7d1f285c5a1b1fab34d37ac370c1a775a115a96190891c36fb0757",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-nasreth-the-soul-harrower-four-live-sparse1534-real-ally-hit-preserves-light-soul-and-no-life-gain",
+      "card_id": "nasreth_the_soul_harrower",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "ffa3f525490f16227b67692aecbb340ce888d6bc0add2d11deec4d4dbb6450e5",
+        "actions.json": "513c2814fc74bc2f0b4552b21cd858bfe880b173cc7f005465420c16657173e7",
+        "assertions.json": "a2a112598461fb1a0eb688a3f6ad8f2decb333b7c49c6e1ce05ec58dad8a5a68",
+        "expected_final_gamestate.txt": "8669c3a9a993674b0de6a65311eb52aa2924a85266e2962b80d4a2d919c9c24c",
+        "meta.json": "96f1e9ded30882139c1ae12e31c5e85aa40606876aa337b1992cfb957e4d9d58"
+      },
+      "fixture_sha256": "a4fdbbe16d122f72f8f2de050a6f926858d915acdc5af5f8fa05f317df090f22",
+      "actions": 27,
+      "native_assertions": 357,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1534-20261122.json",
+      "input_sha256": "d4f41f804f7d1f285c5a1b1fab34d37ac370c1a775a115a96190891c36fb0757",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1534-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-nasreth-the-soul-harrower-four-live-sparse1534-real-ally-hit-preserves-light-soul-and-no-life-gain",
+        "fixture_slug": "card-nasreth-the-soul-harrower-four-live-sparse1534-real-ally-hit-preserves-light-soul-and-no-life-gain",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "schema_version": 1,
+    "batch": 1534,
+    "reviewer": "/root/breadth_review1457",
+    "result": "approved_named_branches_only_pending_native_execution",
+    "reviewed_utc": "2026-11-25T11:00:12.126895+00:00",
+    "spec_sha256": "d4f41f804f7d1f285c5a1b1fab34d37ac370c1a775a115a96190891c36fb0757",
+    "source_note_sha256": "e6ff21fa6b2286b4d72fd78eb3797c1ee1c5f4cd2caf445f40cfacdace0146b6",
+    "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+    "source_sha256": {
+      "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+      "FaBSim/GeneratedCode/GeneratedMacroCode.php": "fe6a7982611df8f4de98ce2671b317b671b580146aa4b8c28e8f4b86d8461056",
+      "FaBSim/Custom/DTDCards.php": "3b31d7627858a24d9e6444285de1671c448e5a79d3a71f4d7dfcb2824a5273d4",
+      "FaBSim/Custom/DTDRuntime.php": "4393481861f97f02c611e9c2cc3c65ff53a7ea5c39db05d97d5b1dc93d0de4f0",
+      "FaBSim/Custom/UPRCards.php": "62798bd281afc17805c396e92deab22497b9c80d881f99e943833cb82d449321",
+      "FaBSim/Custom/MONAbilities.php": "7e5a6ba9e0523c03c7ece084793564d87ecd9d6fbba55b9252cb83f3d952b4fa",
+      "FaBSim/Custom/GameLogic.php": "c60fa151561f959e4e3e341b814de0e2b47c9e9f153bbc8793a04c43b5075061",
+      "FaBSim/ZoneClasses.php": "874bb2ae00a80a8ba3dfe1789b4c932fd0b7cf1286504a62828e0055ca1cb355",
+      "FaBSim/GamestateParser.php": "e737f95f81ce4656b165ac6a9acd3fc5afaf847136ce321d375a9807d5daa988",
+      "Core/RegressionTestFramework.php": "670028e69e1a59c22aef5e6512edd2cd0dee5fdcaed4cf8c31374b8eb2b7ca6a"
+    },
+    "cases": 1,
+    "findings": [
+      "Vynnset20legalOblivionNasrethowner; Prism20mayownAwakenedAegisviaAngelicAttendant andLightHeraldSoul. Priorproducersnotcredited.",
+      "AllydamageonAegisitselfdoesnotinvokeHeroWard; actual6kills4HPthenDTDdeparturemapsphysical6tofrontFigmentProtectionGY4.",
+      "NasrethgeneratedHitbodycase5gateswholeSoulbanish/lifeonFaBFaiHeroHit. ActualAllyhitdoesnotearnevent orchoice; realLightSoul7kept/allHero20.",
+      "NoAegisattack/entry/VynnsetShadowNAAevent. Canonicalproxy8source5/allfourmanualfullclose consistent.",
+      "Follow-up exact-diff source review approved twelve schema-only property substitutions: Owner4->PlayerID4 and Controller4->LocationSoul at six checkpoints. All34steps, controls and gameplay expectations unchanged. Original zero-input/no-fixture attempt archived."
+    ],
+    "limits": [
+      "OnlyAlly-vsHeroeventcondition; nopositiveSoulbanish/life/Hitcontinuation or priorproducer/secondarycredit. Reviewer source/spec only; no games/tests/writes."
+    ]
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1534-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "3d9bf7318d632767c7c664dedb2b63e93d08bc96bfc189b7a646a1dccc8880e1"
+  },
+  "full_suite_run": false
+}

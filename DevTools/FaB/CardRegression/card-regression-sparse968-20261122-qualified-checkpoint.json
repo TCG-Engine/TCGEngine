@@ -1,0 +1,155 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-22T21:41:50.726909+00:00",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse968-20261122.json",
+  "source_spec_sha256": "d73c89849177b03b5769418dba4b4ce1c0819707e3dbf62e15fb78618671a700",
+  "new_scenarios": 4,
+  "new_groups": 4,
+  "new_primary_ids": 4,
+  "actions": 116,
+  "native_assertions": 772,
+  "manual_passes": 100,
+  "totals": {
+    "saved_registered_scenarios": 4609,
+    "duels": 3075,
+    "four_live": 1534,
+    "recorded_primary_ids": 1757,
+    "identity_denominator": 5196,
+    "recorded_groups": 1631,
+    "group_denominator": 3324,
+    "four_live_groups": 1523,
+    "phase_qualified_scenarios_at_actual_contexts": 1246,
+    "phase_qualified_unique_groups": 1236,
+    "creation_replay_passes": 1988,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 407,
+  "scenarios": [
+    {
+      "card_id": "persuasive_prognosis_blue",
+      "group_id": "identity:persuasive_prognosis_blue",
+      "scenario_id": "card-persuasive-prognosis-blue-four-live-sparse968-actual-full-block-retains-matching-color-deck-and-hand",
+      "effect_branches": [
+        "actual_full_block_retains_matching_color_deck_and_hand"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-persuasive-prognosis-blue-four-live-sparse968-actual-full-block-retains-matching-color-deck-and-hand",
+      "source_spec": "card-regression-sparse968-20261122.json",
+      "source_spec_sha256": "d73c89849177b03b5769418dba4b4ce1c0819707e3dbf62e15fb78618671a700",
+      "review_evidence": "review-evidence/sparse968-20261122-qualified-saved.json",
+      "review_evidence_sha256": "75cf983ddea946bd18fdf82af2812f7ce5b91e605da02dcb7c1725cb3e145281",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse968-20261122-replay.json",
+          "sha256": "68121a02964674f5e18364790288a4420a778dc91a2fe024a9244ea764da25e4",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "remember_the_mists_blue",
+      "group_id": "identity:remember_the_mists_blue",
+      "scenario_id": "card-remember-the-mists-blue-four-live-sparse968-actual-hand-origin-exact-four-defense-retains-enemy-hand",
+      "effect_branches": [
+        "actual_hand_origin_exact_four_defense_retains_enemy_hand"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-remember-the-mists-blue-four-live-sparse968-actual-hand-origin-exact-four-defense-retains-enemy-hand",
+      "source_spec": "card-regression-sparse968-20261122.json",
+      "source_spec_sha256": "d73c89849177b03b5769418dba4b4ce1c0819707e3dbf62e15fb78618671a700",
+      "review_evidence": "review-evidence/sparse968-20261122-qualified-saved.json",
+      "review_evidence_sha256": "75cf983ddea946bd18fdf82af2812f7ce5b91e605da02dcb7c1725cb3e145281",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse968-20261122-replay.json",
+          "sha256": "68121a02964674f5e18364790288a4420a778dc91a2fe024a9244ea764da25e4",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "mark_the_prey_red",
+      "group_id": "pitch-cycle:mark_the_prey",
+      "scenario_id": "card-mark-the-prey-red-four-live-sparse968-actual-full-block-leaves-real-defender-unmarked",
+      "effect_branches": [
+        "actual_full_block_leaves_real_defender_unmarked"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-mark-the-prey-red-four-live-sparse968-actual-full-block-leaves-real-defender-unmarked",
+      "source_spec": "card-regression-sparse968-20261122.json",
+      "source_spec_sha256": "d73c89849177b03b5769418dba4b4ce1c0819707e3dbf62e15fb78618671a700",
+      "review_evidence": "review-evidence/sparse968-20261122-qualified-saved.json",
+      "review_evidence_sha256": "75cf983ddea946bd18fdf82af2812f7ce5b91e605da02dcb7c1725cb3e145281",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse968-20261122-replay.json",
+          "sha256": "68121a02964674f5e18364790288a4420a778dc91a2fe024a9244ea764da25e4",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "stab_wound_blue",
+      "group_id": "identity:stab_wound_blue",
+      "scenario_id": "card-stab-wound-blue-four-live-sparse968-actual-exact-two-defense-with-unactivated-real-dagger",
+      "effect_branches": [
+        "actual_exact_two_defense_with_unactivated_real_dagger"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-stab-wound-blue-four-live-sparse968-actual-exact-two-defense-with-unactivated-real-dagger",
+      "source_spec": "card-regression-sparse968-20261122.json",
+      "source_spec_sha256": "d73c89849177b03b5769418dba4b4ce1c0819707e3dbf62e15fb78618671a700",
+      "review_evidence": "review-evidence/sparse968-20261122-qualified-saved.json",
+      "review_evidence_sha256": "75cf983ddea946bd18fdf82af2812f7ce5b91e605da02dcb7c1725cb3e145281",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse968-20261122-replay.json",
+          "sha256": "68121a02964674f5e18364790288a4420a778dc91a2fe024a9244ea764da25e4",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

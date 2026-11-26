@@ -1,0 +1,121 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "independent breadth_review1252",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1353-20261122.json",
+  "source_spec_sha256": "595a30df76074edce95b3e99d377d540e7b8ed27640db1bb033b35dc68ac6f9e",
+  "input_sha256": "595a30df76074edce95b3e99d377d540e7b8ed27640db1bb033b35dc68ac6f9e",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-valda-brightaxe-four-live-sparse1353-own-actual-two-card-draw-is-not-opponent-draw-no-seismic-surge",
+      "card_id": "valda_brightaxe",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "0ecbb12e3153c79380dcb20c37ef5a60cdabbe02d6693c354e7d969191fe32ea",
+        "actions.json": "fc41e745e0ead7eb7e10181842235d84b5eb3991bb81565669d5dd7e76577296",
+        "assertions.json": "568e975a0295f659b21fdc7d4ce702a52a9bcf4ffb944721fe8f5b7366eaacc8",
+        "expected_final_gamestate.txt": "75c98106d7840f36ef525a5cc39a37c1b557a3be5ae5ff15c9bfb2b8b2aeaf2c",
+        "meta.json": "0185f1ff7952b3aad992c64292138a25af1a12319ccb470909e747688b8ab681"
+      },
+      "fixture_sha256": "ec513ffc3561075b2df8a504ae24de8a911c7163046042bf6c54c5436a8a5da6",
+      "actions": 7,
+      "native_assertions": 351,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 4,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1353-20261122.json",
+      "input_sha256": "595a30df76074edce95b3e99d377d540e7b8ed27640db1bb033b35dc68ac6f9e",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1353-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-valda-brightaxe-four-live-sparse1353-own-actual-two-card-draw-is-not-opponent-draw-no-seismic-surge",
+        "fixture_slug": "card-valda-brightaxe-four-live-sparse1353-own-actual-two-card-draw-is-not-opponent-draw-no-seismic-surge",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "reviewer": "independent breadth_review1252",
+    "spec_sha256": "595a30df76074edce95b3e99d377d540e7b8ed27640db1bb033b35dc68ac6f9e",
+    "source_note_sha256": "23d7b0b7daa66eb461964528d51610dee4c6634f093abc656984c8a6dceaca81",
+    "case_count": 1,
+    "active_seats": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "players": "four_live_manual",
+    "native_controls": 7,
+    "query_checks": 351,
+    "persistable_assertions": 351,
+    "author_only_checks_omitted": 0,
+    "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+    "coverage_category": "HERO_OPPONENT_FILTER_GUARD_WITH_REAL_NATIVE_DRAW",
+    "per_case": [
+      {
+        "card_id": "valda_brightaxe",
+        "group_id": "identity:valda_brightaxe",
+        "native_controls": 7,
+        "persistable_assertions": 351
+      }
+    ],
+    "basis": [
+      "Cached ValdaBrightaxe is YoungGuardian with natural21health, not20; threeYoungDori20/manual4UPF validlocalsetup, distinctHeroidentityunrepresented/unheld. Cached TomeFyendalYellow GenericNAA cost1/upf_bannedfalse and allGenericfunders/consumer/deckcards compatiblewithGuardian. This is a localruntime metadata claim only, not a verifiedcurrentpublishedformatlegalityclaim. Physical HeroUID1..4/Tome5/Blue6/Potion7Hand, actualComeFightBlue8thenWoundingRed9Deck correct. No earlierdraw/Seismic/historyseed orHeroactivation.",
+      "ActualTome5Handplay requiresPITCH; Blue6pitch3 paysprinted1/R2/AP1to0, KindACTION source5Stack beforeallfourmanualresponses. WTRCards651 invokes actualDoDrawCard(player,2) and gainshealthonlyifSourceZoneArsenal, falsehere. GameLogic2952-2967 movesrealDeck0cards toownHand andcallsEVRDrew withactualdrawn2. Afterresolution expectPotion7Hand0 thenoriginalComeFight8Hand1/Wounding9Hand2, Deck0/source5GY1/fund6Pitch1/UID9RNG0. ActorHP21/otherHeroes20 unchanged,noArsenalheal.",
+      "GameLogic169-170 FaBOpponents excludes drawer1; EVRCards336-338 loopsonlythoseopponents duringMAIN forValdaHeroes. Valda1herselfnotinlist andotherseats2/3/4areDori, so no earnedValdaopponentDrawWHEN, no Seismic/layer/target/extraUID. AllArena0/StackDQsquiet/UID9 observe selectedfalsefilter; no positiveopponentdraw/timing/tokencreation pathblessed. Startturn3SurgeDominate branch notentered.",
+      "ActualGenericPotionLuck7ActionItem0Handconsumer is resource-affordableR2 butAP0, printedInstant onlyArenaability. NativeHand0click mustreject beforepayment/movement/newspell; exactsameownedHand7/8/9 order/fates, GY5/Pitch6/resources/health21,20,20,20/UID9/RNG0/emptyStackDQs remain. All7controls/351assertionspersist."
+    ],
+    "limits": [
+      "Onlyself-drawopponentfilter, actualprintedpayment/orderedDraw2/noSurge/noRefundconsumer approvedpendingnative save/replay. No nativepass/qualifiedcoverage creditclaimed.",
+      "Positiveopponentdraw/Seismiccreation/WHENtiming/startturn3SurgeDominate, adultalias/TomeArsenalheal/Potionactivation/otherdraw modifiers/supportidentity/sibling/fullcardcoverage untested/uncredited. No currentexternalformatpolicyvalidation; metadata-onlylegalitybasis. Existingholdsuntouched/noenginerepair.",
+      "Only W reviewreceipt written; no nativegame/test/replay, T/source/engineedit, originalcheckoutaccess, auth/network, fullsuite orGitoperation."
+    ],
+    "source_sha256": {
+      "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+      "FaBSim/GeneratedCode/GeneratedMacroCode.php": "fe6a7982611df8f4de98ce2671b317b671b580146aa4b8c28e8f4b86d8461056",
+      "FaBSim/Custom/GameLogic.php": "c60fa151561f959e4e3e341b814de0e2b47c9e9f153bbc8793a04c43b5075061",
+      "FaBSim/Custom/EVRCards.php": "ae4e1ea2da09ac679821be116bc55f898ed8de2e5ceadf16f548e13d0495c275",
+      "FaBSim/Custom/CRUCards.php": "5f0ff2122f9e033b8ad9ced75e9ee2210f459c868633f3f1741f419bc437c12d",
+      "FaBSim/Custom/WTRCards.php": "77d4452b30e45254a7199bc965396ded53e325717ecdd84a09b971f723f99f6a",
+      "FaBSim/Custom/ARCCards.php": "f6b6a21d214e71fdcfd6a084f0671ce610f08a40c51a1266041877a5a12c0d52",
+      "Core/EngineActionRunner.php": "add14b53dc571d2a6e64407bfa4038a98d6554d6410de7a9233810d99c46ea2a",
+      "Schemas/FaBSim/GameSchema.txt": "7783800bd47bc85885cc915066aadca58cdf99f0c1180602ac312d9af5ebf643",
+      "Core/ShortcutPreferences.php": "25f300ea0b6fbc409f5b92e8bc3587a74b2ab0eaf31ccef38e18c455598eaba6",
+      "DevTools/FaB/CardRegression/record_card_regressions.php": "e53055b29e9ea641949b77019c4455607f41ca233325d716a9500637e19efd28"
+    },
+    "workspace_source_sha256": {
+      "author_breadth1353.py": "f8a16b11ba6c92079f17b8efff18cef84d51d7854d023eaf25e53d891c0dad65",
+      "breadth1068_helpers.py": "997f949ec26c7e494ad26a818f9f2078f6f4f2a0c49ca7f61aa8c71f3b091b0a"
+    },
+    "secondary_identity_credit": false,
+    "whole_card_credit": false,
+    "positive_condition_credit": false,
+    "positive_trigger_timing_credit": false,
+    "positive_hero_trigger_credit": false,
+    "adult_credit": false
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1353-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "3de1e9406a1e380e990512703a280d48dab69860ec1d62f7de4d57b002b115f6"
+  },
+  "full_suite_run": false
+}

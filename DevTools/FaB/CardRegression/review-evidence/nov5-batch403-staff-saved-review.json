@@ -1,0 +1,304 @@
+{
+  "status": "APPROVED_EXACT_SAVED_STAFF_ONLY_MIXED_PACKET_REPLAYS_SEPARATE",
+  "approved": true,
+  "reviewer": "/root/nov2_sparse_author",
+  "reviewer_independent": true,
+  "reviewed_utc": "2026-11-05T00:49:13.389809+00:00",
+  "runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+  "input_file": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch403.json",
+  "input_sha256": "54a0dd4bebbf39ad170233ce17262008312bae68859c956cfb103cec5e296b2f",
+  "fixtures": [
+    {
+      "slug": "card-staff-of-verdant-shoots-four-live-sparse-real-paid-action-amp-one-and-zap-four-arcane",
+      "card_id": "staff_of_verdant_shoots",
+      "group_id": "identity:staff_of_verdant_shoots",
+      "fixture_sha256": "d5c21bb669376173c6e5a78a061bbec9242c21f6b36d49f1ef5df9e636ad6f31",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "a61901be4d9a03a76f68d1d22b830877cc6828d543ea7d712003744db3c32098",
+        "actions.json": "a5d5f28f49bae47062976e082a78e61e20d57d303d4b1b2ed1d1a35434b1b9c2",
+        "assertions.json": "0c5581cc239173df4e7428b03b4f69ba84f1a5d46dea1d8809ba9409b14022d6",
+        "expected_final_gamestate.txt": "a44d7a8b6d7925c838cb9938a8311e2f83fbeaab7f01c438a167bb6e6e5bd963",
+        "meta.json": "5c534e8eff0bd12d11064ac91ad0bf0f392153357f62f1f03e504f6e79f95e43"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "a61901be4d9a03a76f68d1d22b830877cc6828d543ea7d712003744db3c32098",
+        "actions.json": "a5d5f28f49bae47062976e082a78e61e20d57d303d4b1b2ed1d1a35434b1b9c2",
+        "assertions.json": "0c5581cc239173df4e7428b03b4f69ba84f1a5d46dea1d8809ba9409b14022d6",
+        "expected_final_gamestate.txt": "a44d7a8b6d7925c838cb9938a8311e2f83fbeaab7f01c438a167bb6e6e5bd963",
+        "meta.json": "5c534e8eff0bd12d11064ac91ad0bf0f392153357f62f1f03e504f6e79f95e43"
+      },
+      "actions": 12,
+      "native_assertions": 1096,
+      "actual_manual_passes": 8,
+      "manual_passes": 8,
+      "manual_pass_actor_counts": {
+        "1": 2,
+        "2": 2,
+        "3": 2,
+        "4": 2
+      },
+      "semantically_approved": true,
+      "every_native_action_and_assertion_exactly_maps_to_approved_source": true,
+      "initial_and_final_snapshots_fully_parsed": true,
+      "all48_manual_settings_raw_initial_and_final_verified": true,
+      "manual_profiles": {
+        "1": {
+          "version": 1,
+          "holdPriority": true,
+          "windows": {
+            "BLOCK": false,
+            "ATTACK_REACTION": false,
+            "DEFENSE_REACTION": false,
+            "ACTION_PRIORITY": false,
+            "INSTANT_PRIORITY": false,
+            "ATTACK_PRIORITY": false,
+            "DEFEND_PRIORITY": false,
+            "OTHER_REACTION": false,
+            "DAMAGE_PRIORITY": false,
+            "RESOLUTION_PRIORITY": false,
+            "END_PHASE": false
+          }
+        },
+        "2": {
+          "version": 1,
+          "holdPriority": true,
+          "windows": {
+            "BLOCK": false,
+            "ATTACK_REACTION": false,
+            "DEFENSE_REACTION": false,
+            "ACTION_PRIORITY": false,
+            "INSTANT_PRIORITY": false,
+            "ATTACK_PRIORITY": false,
+            "DEFEND_PRIORITY": false,
+            "OTHER_REACTION": false,
+            "DAMAGE_PRIORITY": false,
+            "RESOLUTION_PRIORITY": false,
+            "END_PHASE": false
+          }
+        },
+        "3": {
+          "version": 1,
+          "holdPriority": true,
+          "windows": {
+            "BLOCK": false,
+            "ATTACK_REACTION": false,
+            "DEFENSE_REACTION": false,
+            "ACTION_PRIORITY": false,
+            "INSTANT_PRIORITY": false,
+            "ATTACK_PRIORITY": false,
+            "DEFEND_PRIORITY": false,
+            "OTHER_REACTION": false,
+            "DAMAGE_PRIORITY": false,
+            "RESOLUTION_PRIORITY": false,
+            "END_PHASE": false
+          }
+        },
+        "4": {
+          "version": 1,
+          "holdPriority": true,
+          "windows": {
+            "BLOCK": false,
+            "ATTACK_REACTION": false,
+            "DEFENSE_REACTION": false,
+            "ACTION_PRIORITY": false,
+            "INSTANT_PRIORITY": false,
+            "ATTACK_PRIORITY": false,
+            "DEFEND_PRIORITY": false,
+            "OTHER_REACTION": false,
+            "DAMAGE_PRIORITY": false,
+            "RESOLUTION_PRIORITY": false,
+            "END_PHASE": false
+          }
+        }
+      },
+      "physical_uid_conservation_without_duplicates": true,
+      "final_standalone_UIDs": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "final_health": [
+        20,
+        20,
+        20,
+        16
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_action_points": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_graveyard_uid_sets": {
+        "1": [
+          7
+        ],
+        "2": [],
+        "3": [],
+        "4": []
+      },
+      "final_pitch_uid_order": {
+        "1": [
+          6
+        ],
+        "2": [],
+        "3": [],
+        "4": []
+      },
+      "final_staff": {
+        "CardID": "staff_of_verdant_shoots",
+        "Status": 2,
+        "Owner": 1,
+        "Controller": 1,
+        "Damage": 0,
+        "UniqueID": 5,
+        "TurnEffects": [],
+        "Counters": {
+          "ARC_USED_0": 2
+        }
+      },
+      "positive_amp_or_staff_earth_residue": [],
+      "physical_findings": "Actual StaffAction3 uses GenericBlue6 pitch3 and AP1, no Earth pitch or life-gain trigger. Four source responses retain the captured ABI/source5, then Amp1 and ownGA return AP1. Actual Zap7 declares Hero4 target before its zero-cost AP payment; four fresh responses retain HP20 until fourth deals3+1=4 arcane to HP16. Final same5 owned ready/once counter turn2,6Pitch,7publicGY, virtual8 absent, R/AP0 and all original UIDs conserved.",
+      "qualification": "Staff paidAction/Amp1/ownGA and real arcane consumer only. No Earth-pitch WHEN/Embodiment creation, weapon attack, hero activation, expiry, sibling/support-primary/full-card credit."
+    }
+  ],
+  "blocked_attempts": [
+    {
+      "slug": "card-high-roller-red-four-live-correct-probe-intimidate-target-declared-before-payment-and-real-sole-hand-banish",
+      "card_id": "high_roller_red",
+      "group_id": "pitch-cycle:high_roller",
+      "semantically_approved": false,
+      "fixture_saved": false,
+      "fixture_directory_verified_absent": true,
+      "status": "BLOCKED_OR_INCORRECT_NO_FIXTURE_UNQUALIFIED",
+      "attempted_native_inputs": 1,
+      "error": "Expected p1ActionPoints to equal 1, got 0.",
+      "native_archive_sha256": "7b578ad24686b6af2af8c255144e0a1c1a5d3479adec1cfff16d60ed11c111a8",
+      "qualified_or_coverage_credit": false,
+      "scope": "Only retained first-input failure/no saved fixture verified here. No independent failure classification, target answer, effect resolution, damage or suffix approval."
+    }
+  ],
+  "registration_mode": "--reviewed-subset",
+  "source_expectation_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch403-independent-source-review.json",
+    "sha256": "08a92e947af0ca82b3dcd22be6cc923ed10dcde36c12ed73d9baf4d4631aa91e",
+    "manifest_sha256": "b0406fd14273344266805ce5d369b681571ce8ea352c24ce26fd45d9aad89ad0"
+  },
+  "immutable_native_archive": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch403-20261105T004507Z-6aebd1939d10c.json",
+    "sha256": "7b578ad24686b6af2af8c255144e0a1c1a5d3479adec1cfff16d60ed11c111a8"
+  },
+  "recording_results": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch403.recording-results.json",
+    "sha256": "348352b40da3e121747477a01d9fcec8a7a7f3d1a167e8cc0a826a4bd5e14ed4"
+  },
+  "native_wrapper": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-b403-native-9e984-r1\\receipt.json",
+    "sha256": "9674770b6fd77244413ff8dcb3e3881b51bb7c6642a54d3a4dd753a72c96e99a",
+    "stdout_sha256": "09b0ea8186f20fe6622f8307ab4365ae4993f8b37ee23977ee167a0d771419a9",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "exit_code": 1,
+    "mixed_packet_staff_pass_high_roller_failed": true,
+    "stderr_bytes": 0,
+    "runtime_before": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+    "runtime_after": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04"
+  },
+  "source_guards_verified": 53,
+  "total_actions": 12,
+  "total_native_assertions": 1096,
+  "total_manual_pass_inputs": 8,
+  "native_checkpoints": [
+    {
+      "step": 0,
+      "checkpoint": "full_four_live_youngEarthWizardVerdance20_real2HStaff5_GenericBlue6_Zap7_noAmp_Earthpitch_history_or_assets",
+      "assertions": 124
+    },
+    {
+      "step": 1,
+      "checkpoint": "actual_primaryStaff5_OnceActionTHREE_virtual8Source5_waits_realGenericBlue6_R0AP1_noAmp_Earthtrigger_or_tap",
+      "assertions": 78
+    },
+    {
+      "step": 2,
+      "checkpoint": "actual_GenericBlue6pitchTHREE_paysStaffTHREE_andAP1_R0AP0_beforefour_NoEarthPitched_NoEmbodiment_Staff5stillReady",
+      "assertions": 72
+    },
+    {
+      "step": 3,
+      "checkpoint": "four_actual_StaffABILITY_responses_only_fourth_AmpONE_and_ownGA_AP1_virtual8cleared_Staff5ready_HP20_noEarthtrigger_actual_response_1_of_four",
+      "assertions": 72
+    },
+    {
+      "step": 4,
+      "checkpoint": "four_actual_StaffABILITY_responses_only_fourth_AmpONE_and_ownGA_AP1_virtual8cleared_Staff5ready_HP20_noEarthtrigger_actual_response_2_of_four",
+      "assertions": 72
+    },
+    {
+      "step": 5,
+      "checkpoint": "four_actual_StaffABILITY_responses_only_fourth_AmpONE_and_ownGA_AP1_virtual8cleared_Staff5ready_HP20_noEarthtrigger_actual_response_3_of_four",
+      "assertions": 72
+    },
+    {
+      "step": 6,
+      "checkpoint": "four_actual_StaffABILITY_responses_only_fourth_AmpONE_and_ownGA_AP1_virtual8cleared_Staff5ready_HP20_noEarthtrigger_fourth_actual_response",
+      "assertions": 67
+    },
+    {
+      "step": 7,
+      "checkpoint": "actual_Zap7_PRINTED_target_announcement_adjacentP4_before_ActionAPpayment_amp_earnedbut_no_damage",
+      "assertions": 66
+    },
+    {
+      "step": 8,
+      "checkpoint": "actual_Zap7targetP4_printedZERO_paysStaff_earnedAP1to0_R0_before_freshsourcefour_no_prematureArcane",
+      "assertions": 70
+    },
+    {
+      "step": 9,
+      "checkpoint": "four_actual_Zap7_source_responses_only_fourth_baseTHREE_plus_primaryAmpONE_actualFOURarcane_P4HP16_not17_noEarthtoken_actual_response_1_of_four",
+      "assertions": 70
+    },
+    {
+      "step": 10,
+      "checkpoint": "four_actual_Zap7_source_responses_only_fourth_baseTHREE_plus_primaryAmpONE_actualFOURarcane_P4HP16_not17_noEarthtoken_actual_response_2_of_four",
+      "assertions": 70
+    },
+    {
+      "step": 11,
+      "checkpoint": "four_actual_Zap7_source_responses_only_fourth_baseTHREE_plus_primaryAmpONE_actualFOURarcane_P4HP16_not17_noEarthtoken_actual_response_3_of_four",
+      "assertions": 70
+    },
+    {
+      "step": 12,
+      "checkpoint": "four_actual_Zap7_source_responses_only_fourth_baseTHREE_plus_primaryAmpONE_actualFOURarcane_P4HP16_not17_noEarthtoken_fourth_actual_response",
+      "assertions": 68
+    },
+    {
+      "step": 12,
+      "checkpoint": "full_final_four_living_physical_ownership_economy_queues_and_cleanup",
+      "assertions": 125
+    }
+  ],
+  "all_terminal_assertions_checked_against_raw_final": 193,
+  "reused_readonly_helpers": {
+    "review_nov3_batch269_saved_readonly.py": "e339d37f4f4da91e01b26ae282f6302b1b1c4c6ec4a13715e4f7726016fb0641",
+    "review_nov3_batch271_saved_readonly.py": "e3b66ee7901ab0c0b5ebbec9176e4b29c02b97b67a93254d6dee572237058813",
+    "review_nov3_batch364_saved_readonly.py": "1b973180271e4a817d1db729d9fb41454faa13205a492d76b0259d5243338f56"
+  },
+  "method": "Independent exact rawfive/action/assertion review of the saved Staff subset only, schema-backed endpoint parsing, raw48 manual settings at both endpoints, native response/cost/target evidence plus actual UID/economy/arcane/once-counter/no-positive-Amp residue. Failed High Roller absence is verified and explicitly excluded; full45 planned actions/3858 assertions are not credited.",
+  "limits": [
+    "Root Staff-only focused replays and registration are separate evidence, not reviewer execution.",
+    "No native/PHP/R/source/service/generation/ACTIVE/fullsuite or old-fixture crawl. Mirage090 and Illuminate089 denied applications remain held; no retry/reroute or operational rewrite.",
+    "High Roller remains unsaved/unqualified with one attempted input; no failure-root classification or unexecuted suffix claim in this proof."
+  ]
+}

@@ -1,0 +1,7 @@
+{
+    "name": "Oath of Loyalty / nonfirst action rejected without imposing Draconic lock",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-24T08:40:49+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "FOUR_REAL_MANUAL_UPF_NATURAL_YOUNG_FAI20_THREE_DORI20. Initialnohistory/AP1R0, actualGenericNimblism5firstAction/allfourresponse/printedGArefundAP1. Oath6DraconicAAcost0wouldbeaffordableandclasslegalbutprintedfirstActionrestrictionnowfalse. Nativeclickprimary6rejectswithsameHandUID6/StackDQempty/AP1R0/UID7/noTarget/pendingPayment/physicalmovement. ActualGenericNONDraconicWounding7HandclickthenproperHero4target/actualpayment/allfourresponses/successful7power(4+3Nimblism)and7HeroDamageHP4=13/noGA/AP0prove nounEarnedONLY_DRACONIClockandnoBuffconsumedbyrejectedOath. Source6neverlegallyplayedsoitsWhenPlayedabilitynotearned; noincorrectpositiveWHENtimingclaim. Final5then7GY1/6Hand1/Heroesready/UID7RNG0/otherzonesempty/StackDQCCquiet. Rejection-onlynonfirstgateandphysical/nativefollowupONLY; positiveOathplay/lock/printedGA/primaryAttack/damage/sibling/Hero/support/fullcarduncredited. Sources: FaBSim/GeneratedCode/cardArrayCache.json#oath_of_loyalty_red FaBSim/GeneratedCode/GeneratedMacroCode.php FaBSim/Custom/GameLogic.php FaBSim/Custom/HNTRuntime.php FaBSim/Custom/ARCCards.php FaBSim/Custom/WTRCards.php"
+}

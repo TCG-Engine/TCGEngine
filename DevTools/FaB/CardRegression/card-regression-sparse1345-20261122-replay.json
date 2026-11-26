@@ -1,0 +1,79 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-silver-talons-red-four-live-sparse1345-non-draconic-primary-and-hero-no-dagger-damage-or-destruction-despite-real-owned-dagger",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-silver-talons-red-four-live-sparse1345-non-draconic-primary-and-hero-no-dagger-damage-or-destruction-despite-real-owned-dagger",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1345-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1345-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "a9413ed759aaa6eae0ecb813c4ca74103dab3cc22e48d07e095b2280566610d7",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "401c63b350bf05e02e581e39854dbe7808ac047afbcbef8055e667bea8fb9f62",
+        "actions.json": "fe03a00a1cfa6df31d2c375f01660530ab48b13cd35b8a3f9bf2d28f29a73c5b",
+        "assertions.json": "b6b72ad6684fbe854d4183b3db765c0c832f02ed8fbcdc650a06a6ea97ba641e",
+        "expected_final_gamestate.txt": "05bf9fa2c6441641add79286fbf5d6c54d47a9966834fb04fc7f86eb79eb29ad",
+        "meta.json": "4d60d8239ded2d634ac7114e722d502055e1416d834f2efcf40962c57a821a51"
+      }
+    },
+    {
+      "slug": "card-infectious-host-red-four-live-sparse1345-wrong-seat-frailty-not-controlled-by-actor-no-copy-or-new-token",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-infectious-host-red-four-live-sparse1345-wrong-seat-frailty-not-controlled-by-actor-no-copy-or-new-token",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1345-local-20261122\\clean-replays\\01.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1345-local-20261122\\clean-replays\\01.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "c8844eebfe3243db7b0411f26f3b6b76ceac7cd2f2979697e616e44dbadd3690",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "23ad1bdbb72b5de135e56b85e943793bad8f353716ead6643d7f7674c50e5a5f",
+        "actions.json": "fe03a00a1cfa6df31d2c375f01660530ab48b13cd35b8a3f9bf2d28f29a73c5b",
+        "assertions.json": "bb06235e29b26efdae7135b2987dc3124f9fa532f444ce321f9a7031fda43a6c",
+        "expected_final_gamestate.txt": "58493b373bb3af6ff468f722a7f70672d97df9c3f389bc1087a03093ef3e92f3",
+        "meta.json": "f26b5a1c9710f3c730608607c45b2adf5ec3eefb1a243c531efe420f632b7be5"
+      }
+    },
+    {
+      "slug": "card-escalate-order-red-four-live-sparse1345-wrong-seat-toughness-not-controlled-by-actor-no-three-new-toughness",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-escalate-order-red-four-live-sparse1345-wrong-seat-toughness-not-controlled-by-actor-no-three-new-toughness",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1345-local-20261122\\clean-replays\\02.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1345-local-20261122\\clean-replays\\02.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "4fb399d23ed6e69095c65bcc0926cf64d5c6532660557321c2f8665b4ee628be",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "fb648ff5d0a62483edf7c1a57a0d95d5722b427f9f3fc9a3752e272323e97f52",
+        "actions.json": "0c005a52a51dc48a24f481bec6cbd5cfe2cb93ecd847ec1063490764f1d7d9ea",
+        "assertions.json": "a07d93477a440267f7d0074cd20af0571e0039fc5f3b688941b6a51df5153bc9",
+        "expected_final_gamestate.txt": "007e0f699f8f87b5c36a1cd4622d1b081cc47fdba9398ff1b44f883f6a0953ee",
+        "meta.json": "47f107ff290dd63cb92f92b7d8856807247b1ae108ac82e61cbb9e5fcbdbaa5d"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

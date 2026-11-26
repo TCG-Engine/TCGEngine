@@ -1,0 +1,30 @@
+{
+  "status": "COMPLETE_UNSAVED_DIAGNOSTIC",
+  "started_utc": "2026-11-16T12:36:51.478792+00:00",
+  "runtime_before": "cdc081ff4c87ff2f9338b1d69040d0dc98d7600ba33976384336534ea3f92d22",
+  "spec_sha256": "49edceb62959005b2a1406bab1d9c520d9579469998596c160cb0d7225d48595",
+  "source_review_sha256": "f87d5638478540994582ad28d0bd7abce633ff9977856c04769374a5ce58e365",
+  "recorder_sha256": "ab33a3250462d0453f71d38dd4138cb9fbc3d595d2586742e989a52251c9c4a9",
+  "actual_no_save_control_sha256": "3485fb84c5eec54cf4ff20a1c9a8c277f18cfa346973f61ade3700c28bee2805",
+  "command": [
+    "C:\\xampp\\php\\php.exe",
+    "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\record_card_regressions.php",
+    "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch865-mark-neverest-malice-two-layer-full-probe-r2.json",
+    "--probe-only"
+  ],
+  "fixture_count_before": 4102,
+  "fixture_saved": false,
+  "qualification": false,
+  "coverage_credit": false,
+  "full_suite": false,
+  "pid": 31536,
+  "exit_code": 1,
+  "result_status": "blocked_or_incorrect",
+  "error": "Expected card restless_magister_red to exist in p1Graveyard.",
+  "result_sha256": "5c51390bca00419239493b3f18c6f718b752a248777cbe186a2f7ddeb8db5b5f",
+  "runtime_after": "cdc081ff4c87ff2f9338b1d69040d0dc98d7600ba33976384336534ea3f92d22",
+  "fixture_count_after": 4102,
+  "fixture_inventory_unchanged": true,
+  "recorded_native_inputs": 20,
+  "completed_utc": "2026-11-16T12:37:27.670489+00:00"
+}

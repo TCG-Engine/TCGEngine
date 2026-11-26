@@ -1,0 +1,184 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-22T20:27:05.351627+00:00",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse945-20261122.json",
+  "source_spec_sha256": "ec81db62ab069fbbb9185d941f9d9fda81b68e98acabc182a16b71178873e85e",
+  "new_scenarios": 5,
+  "new_groups": 5,
+  "new_primary_ids": 5,
+  "actions": 161,
+  "native_assertions": 928,
+  "manual_passes": 125,
+  "totals": {
+    "saved_registered_scenarios": 4512,
+    "duels": 3075,
+    "four_live": 1437,
+    "recorded_primary_ids": 1660,
+    "identity_denominator": 5196,
+    "recorded_groups": 1534,
+    "group_denominator": 3324,
+    "four_live_groups": 1426,
+    "phase_qualified_scenarios_at_actual_contexts": 1149,
+    "phase_qualified_unique_groups": 1139,
+    "creation_replay_passes": 1891,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 310,
+  "scenarios": [
+    {
+      "card_id": "annexation_of_grandeur_yellow",
+      "group_id": "identity:annexation_of_grandeur_yellow",
+      "scenario_id": "card-annexation-of-grandeur-yellow-four-live-sparse945-actual-multi-blue-payment-and-multi-hand-full-block-no-crush",
+      "effect_branches": [
+        "actual_multi_blue_payment_and_multi_hand_full_block_no_crush"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-annexation-of-grandeur-yellow-four-live-sparse945-actual-multi-blue-payment-and-multi-hand-full-block-no-crush",
+      "source_spec": "card-regression-sparse945-20261122.json",
+      "source_spec_sha256": "ec81db62ab069fbbb9185d941f9d9fda81b68e98acabc182a16b71178873e85e",
+      "review_evidence": "review-evidence/sparse945-20261122-qualified-saved.json",
+      "review_evidence_sha256": "76f5173e373c02a090056c1e58354ecb0e98214c6cbe217224911f4665103afe",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse945-20261122-replay.json",
+          "sha256": "ac8ff7c6e68c04301ae4849f6b49f9bad8075e8f836e53c769648d4fd1883f1f",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "annexation_of_the_forge_yellow",
+      "group_id": "identity:annexation_of_the_forge_yellow",
+      "scenario_id": "card-annexation-of-the-forge-yellow-four-live-sparse945-actual-multi-blue-payment-and-multi-hand-full-block-no-crush",
+      "effect_branches": [
+        "actual_multi_blue_payment_and_multi_hand_full_block_no_crush"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-annexation-of-the-forge-yellow-four-live-sparse945-actual-multi-blue-payment-and-multi-hand-full-block-no-crush",
+      "source_spec": "card-regression-sparse945-20261122.json",
+      "source_spec_sha256": "ec81db62ab069fbbb9185d941f9d9fda81b68e98acabc182a16b71178873e85e",
+      "review_evidence": "review-evidence/sparse945-20261122-qualified-saved.json",
+      "review_evidence_sha256": "76f5173e373c02a090056c1e58354ecb0e98214c6cbe217224911f4665103afe",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse945-20261122-replay.json",
+          "sha256": "ac8ff7c6e68c04301ae4849f6b49f9bad8075e8f836e53c769648d4fd1883f1f",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "break_stature_yellow",
+      "group_id": "identity:break_stature_yellow",
+      "scenario_id": "card-break-stature-yellow-four-live-sparse945-actual-multi-blue-payment-and-multi-hand-full-block-no-crush",
+      "effect_branches": [
+        "actual_multi_blue_payment_and_multi_hand_full_block_no_crush"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-break-stature-yellow-four-live-sparse945-actual-multi-blue-payment-and-multi-hand-full-block-no-crush",
+      "source_spec": "card-regression-sparse945-20261122.json",
+      "source_spec_sha256": "ec81db62ab069fbbb9185d941f9d9fda81b68e98acabc182a16b71178873e85e",
+      "review_evidence": "review-evidence/sparse945-20261122-qualified-saved.json",
+      "review_evidence_sha256": "76f5173e373c02a090056c1e58354ecb0e98214c6cbe217224911f4665103afe",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse945-20261122-replay.json",
+          "sha256": "ac8ff7c6e68c04301ae4849f6b49f9bad8075e8f836e53c769648d4fd1883f1f",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "knock_em_off_their_feet_red",
+      "group_id": "identity:knock_em_off_their_feet_red",
+      "scenario_id": "card-knock-em-off-their-feet-red-four-live-sparse945-actual-multi-blue-payment-and-multi-hand-full-block-no-crush",
+      "effect_branches": [
+        "actual_multi_blue_payment_and_multi_hand_full_block_no_crush"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-knock-em-off-their-feet-red-four-live-sparse945-actual-multi-blue-payment-and-multi-hand-full-block-no-crush",
+      "source_spec": "card-regression-sparse945-20261122.json",
+      "source_spec_sha256": "ec81db62ab069fbbb9185d941f9d9fda81b68e98acabc182a16b71178873e85e",
+      "review_evidence": "review-evidence/sparse945-20261122-qualified-saved.json",
+      "review_evidence_sha256": "76f5173e373c02a090056c1e58354ecb0e98214c6cbe217224911f4665103afe",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse945-20261122-replay.json",
+          "sha256": "ac8ff7c6e68c04301ae4849f6b49f9bad8075e8f836e53c769648d4fd1883f1f",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "crushing_headache_red",
+      "group_id": "identity:crushing_headache_red",
+      "scenario_id": "card-crushing-headache-red-four-live-sparse945-actual-multi-blue-payment-and-multi-hand-full-block-no-crush",
+      "effect_branches": [
+        "actual_multi_blue_payment_and_multi_hand_full_block_no_crush"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-crushing-headache-red-four-live-sparse945-actual-multi-blue-payment-and-multi-hand-full-block-no-crush",
+      "source_spec": "card-regression-sparse945-20261122.json",
+      "source_spec_sha256": "ec81db62ab069fbbb9185d941f9d9fda81b68e98acabc182a16b71178873e85e",
+      "review_evidence": "review-evidence/sparse945-20261122-qualified-saved.json",
+      "review_evidence_sha256": "76f5173e373c02a090056c1e58354ecb0e98214c6cbe217224911f4665103afe",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse945-20261122-replay.json",
+          "sha256": "ac8ff7c6e68c04301ae4849f6b49f9bad8075e8f836e53c769648d4fd1883f1f",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

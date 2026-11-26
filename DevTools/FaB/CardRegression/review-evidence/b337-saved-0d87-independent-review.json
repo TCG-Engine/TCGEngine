@@ -1,0 +1,114 @@
+{
+  "status": "APPROVED_EXACT_SAVED_OLD_KASSAI_SECOND_OTHER_SWORD_ONE_TO_ZERO_COST_ACTIVE_LINK2_REPLAYS_SEPARATE",
+  "reviewer": "/root/nov2_metadata_review",
+  "reviewed_utc": "2026-11-03T13:03:24.107826+00:00",
+  "runtime_sha256": "0d877de49c131f29c152706e14bba3368630df61c59ef475c87a84f20b6e1a66",
+  "input_file": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch337.json",
+  "input_sha256": "3db2e2e7b5de43c469dfb80be23bab36230e7a5c37eed6d4a1010ad97955ed3c",
+  "fixtures": [
+    {
+      "slug": "card-kassai-cintari-sellsword-four-live-sparse-real-first-sword-earns-second-sword-one-to-zero-cost-discount",
+      "card_id": "kassai_cintari_sellsword",
+      "group_id": "identity:kassai_cintari_sellsword",
+      "fixture_sha256": "9f65a28a4075f5a7de57ca882c0226311ead813bfc2751be57255c5c8dbbdd21",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "8db2087bf9a75675265d19325fe33c69edef666827d9968215a9c0e289223d37",
+        "actions.json": "ecb97813d7c4f0cbaf951dfc5765b5329aca9b54635cfbd5beea6fa83b355acb",
+        "assertions.json": "44b9b43d33bbbacfa2966f4dcf75c80c99fc37feb8b90a28c6ee82e02aeaffc9",
+        "expected_final_gamestate.txt": "1c84b77661808c29582828c400a2fde634176519626e9ac688b5857196110bfe",
+        "meta.json": "33d9a129481a0940ddd62cfdff5795f255f0a3694f189ff99c8f5cb38584eeba"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "8db2087bf9a75675265d19325fe33c69edef666827d9968215a9c0e289223d37",
+        "actions.json": "ecb97813d7c4f0cbaf951dfc5765b5329aca9b54635cfbd5beea6fa83b355acb",
+        "assertions.json": "44b9b43d33bbbacfa2966f4dcf75c80c99fc37feb8b90a28c6ee82e02aeaffc9",
+        "expected_final_gamestate.txt": "1c84b77661808c29582828c400a2fde634176519626e9ac688b5857196110bfe",
+        "meta.json": "33d9a129481a0940ddd62cfdff5795f255f0a3694f189ff99c8f5cb38584eeba"
+      },
+      "actions": 55,
+      "native_assertions": 4924,
+      "actual_manual_passes": 50,
+      "manual_passes": 50,
+      "priority_response_passes": 48,
+      "defender_declaration_finish_inputs": 2,
+      "manual_pass_actor_counts": {
+        "1": 12,
+        "2": 12,
+        "3": 12,
+        "4": 14
+      },
+      "semantically_approved": true,
+      "every_native_action_and_assertion_exactly_maps_to_approved_source": true,
+      "initial_and_final_snapshots_fully_parsed": true,
+      "physical_uid_conservation_without_duplicates": true,
+      "original_uid_ownership_conserved": true,
+      "physical_weapon_uids": [
+        5,
+        6
+      ],
+      "physical_weapon_Status": [
+        1,
+        1
+      ],
+      "final_graveyard_uidset": [
+        7
+      ],
+      "final_pitch_uidset": [
+        8
+      ],
+      "ceased_proxy_uids": [
+        9,
+        10
+      ],
+      "final_health": [
+        20,
+        20,
+        20,
+        13
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_action_points": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "physical_findings": "ActualoldyoungKassaiHero1 ready/live/manualfour with two distinctownedready1HSabers5/6, Driving7/Blue8Hand/noSword or resource or buffseed. RealBlue3 paysDriving2/AP1\u2192R1AP0; sourcefour retains7 thenownsGY7/ownGAAP1. FirstSword5actualtargetanswer pays1fromR1\u2192R0/AP0/used5, proxy9Source5earnedPOWER3+GA. ActualfirstChainproxy9/5powerGA/fivecombatdamageHP15; onlyfourthDAMAGEearnsAP1atR0/Handempty/sameChainopen. NormalOTHERphysicalSword6click30 actuallyacceptedatR0/noHand/onlyearnedAP1, marks6used/proxy10Source6emptyTurnEffects/AP0/noresourcegain orsecondtargetanswer. Fouractualsource responses thenproxy10CURRENTChain-1/link2/activeUID10/computed2/noGA; old9retainedChain-0. Actual2morecombatdamageHP13/noGA; fullcloseproxies9/10ceased whileoriginalphysical5/6remainWeaponsStatus1/eachrealoncecounterTurn2/Attacks1, sameHero1ready/Driving7GY/Blue8Pitch/allRAP0/counter10/Random0/UID1-8ownershipconserved/noCopper/StackChainsqueuespaymentawaitclear. Every55nativeactor-mode-payload and4924orderedassertion exactlymatchesapprovedfrozenexpectedinput;50manualactors12,12,12,14/all11windowsfalse verified.",
+      "qualification": "OnlyoldHero firstactualSword1\u2192othersecondSword0 atR0/passivepositivecondition/fullcombatcleanup. No firstnonsword/thirdSword/EndPhaseCopper/heroactivation/SaberAAdefender/newKassai/alternateage/supportprimary/fullcard/control credit."
+    }
+  ],
+  "source_expectation_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch337-independent-source-review.json",
+    "sha256": "730021399da22ce6f6931d1e993ecaa628cbb8956b10ebc8b5506fe682a09e4b",
+    "manifest_sha256": "805ff9ef53907a2230aad8cdbddfc40780e375dc0911686aa297dd3ee2c7a51e"
+  },
+  "immutable_native_archive": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch337-20261103T125915Z-6ae9daa3bd327.json",
+    "sha256": "5144b957d2f9a7a07a969fffa55090eb4f0b0d3a9bca07e46d055f93a83b436c"
+  },
+  "recording_results": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch337.recording-results.json",
+    "sha256": "8f2c2b94c0ed428ab48c4f1e11292399107c9078c3f7e3bb1baec537ce5a5f94"
+  },
+  "native_wrapper": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch337-native-r1\\receipt.json",
+    "sha256": "2dae7a82062b56b6e5987d40704ed00f0b1f774ce9e5f06155fca1ca13c0575a",
+    "stdout_sha256": "b109f44a2c282e2cb91da103da938fc8aad1626688ad30f819e23f5c3b9a7f36",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "exit_code": 0,
+    "stderr_bytes": 0,
+    "runtime_before": "0d877de49c131f29c152706e14bba3368630df61c59ef475c87a84f20b6e1a66",
+    "runtime_after": "0d877de49c131f29c152706e14bba3368630df61c59ef475c87a84f20b6e1a66"
+  },
+  "method": "Independent actual saved rawfive review: exactall55nativeinputs/4924orderedassertions vsapprovedexpectations, completeparsedendpoints/profiles/physicalweaponUIDs/usedCounters/economy/actualacceptedsecondSwordatR0/secondactiveChain-1power2noGA/HP13/cleanup checked. No authorbuilder/PHP/native/replay/R/sourcewrites.",
+  "limits": [
+    "Savedcreationreviewonly; Root twofocusedreplays are separateevidence, notexecutedbyreviewer.",
+    "OnlyoldHero firstactualSword1\u2192othersecondSword0 atR0/passivepositivecondition/fullcombatcleanup. No firstnonsword/thirdSword/EndPhaseCopper/heroactivation/SaberAAdefender/newKassai/alternateage/supportprimary/fullcard/control credit.",
+    "Current0d retained; no sourcefix/application/proposal/runtime migration/deniedauthorizationretry."
+  ]
+}

@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-frostbite-four-live-sparse1248-real-cost-tax-rejects-unaffordable-zero-attack-foreign-removal-allows-paid-play",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-frostbite-four-live-sparse1248-real-cost-tax-rejects-unaffordable-zero-attack-foreign-removal-allows-paid-play",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1248-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1248-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "19795113c0033eddd29ebb6231199f012d9a0c2c4336446fd696e3d4ca254c65",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "49bc692c353ed186aff8c5cc756fe8eaab1ba2e345dc338915dc2a7f3cdd0f22",
+        "actions.json": "22eaf604510eee5940e8593124602df29a19d61c69d196da199ded1ade292afa",
+        "assertions.json": "003f3ea69f8daa75af3c42ecfa9dfd1d185823545d3a9f149c9c54c5cb231db4",
+        "expected_final_gamestate.txt": "21f6bc1778db67daaf6a7de52ec63216c4e3172942a45494ff31a3a289674b45",
+        "meta.json": "af652dbaa751f20e1797acd3342cc1ad17e9c5c6cacd50ae2ed780391039adf5"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

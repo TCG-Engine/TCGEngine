@@ -1,0 +1,274 @@
+{
+  "status": "APPROVED_ACTUAL_SAVED_SNEAK_R2_SINGLETON_CORRECTION",
+  "approved": true,
+  "source_approved": true,
+  "semantically_approved": true,
+  "reviewer": "/root/b106_semantic_review",
+  "reviewer_independent": true,
+  "created_utc": "2026-11-06T19:45:15.311465+00:00",
+  "source_spec": "card-regression-batch636-sneak-r2.json",
+  "input_sha256": "d97c070daf84d9dc6096c883cdf23a4d5f2f7e5a6e9d745d08da4212b810640a",
+  "manifest_sha256": "9cc2104dcb448ffddbea158cc3058283680c5203ede361a1b45e15c3061cfb61",
+  "runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+  "recorded_runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+  "recorder_sha256": "ab33a3250462d0453f71d38dd4138cb9fbc3d595d2586742e989a52251c9c4a9",
+  "source_guards_verified": 70,
+  "prior_independent_semantic_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch636-sneak-r2-independent-source-review.json",
+    "sha256": "cca41d8209e5383e496067d53d83c08f980a51ccbb7d37d4236a543dc5053540",
+    "unchanged_semantics_reused": true
+  },
+  "original_failed_native_classification": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch636-sneak-first-native-singleton-target-classification.json",
+    "sha256": "c83f45ce991f7964d0369a5fc7a66ec50221e0caad3a4d05e57b310493870e37",
+    "historical_original_immutable": true
+  },
+  "recording_receipt": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch636-sneak-r2-20261106T194250Z-6aee2dba09c70.json",
+    "sha256": "9e567f099002561f6789887d20cda980d3c489156e20910144208c722189ce1f"
+  },
+  "specific_results": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch636-sneak-r2.recording-results.json",
+    "sha256": "dd47d09641f44848da2fdcfa06b6f6c0b87d9cd92fa71b678c6d60fce49df9d2"
+  },
+  "root_wrapper_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch636-sneak-r2-native\\receipt.json",
+    "sha256": "bde843268bd2d2099e55fe35e824c2bf79695b85db3b8ae572e82f988429ea1e"
+  },
+  "fixtures": [
+    {
+      "index": 0,
+      "card_id": "sneak_attack_blue",
+      "group_id": "pitch-cycle:sneak_attack",
+      "slug": "card-sneak-attack-blue-four-live-real-played-attack-reaction-conditional-four-and-six-damage",
+      "source_spec": "card-regression-batch636-sneak-r2.json",
+      "input_sha256": "d97c070daf84d9dc6096c883cdf23a4d5f2f7e5a6e9d745d08da4212b810640a",
+      "reviewer": "/root/b106_semantic_review",
+      "approved": true,
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_REAL_SAME_LINK_AR_CONDITIONAL_AND_SIX_DAMAGE",
+      "runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+      "recorded_runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+      "fixture_path": "Tests\\Integration\\FaBSim\\card-sneak-attack-blue-four-live-real-played-attack-reaction-conditional-four-and-six-damage",
+      "fixture_sha256": "e44b168040bfbeb8a556e2b9effc875aa25506bdbf2e1eeb502c04931bbce582",
+      "raw4_sha256": {
+        "initial_gamestate.txt": "8bf31e10d684db97a522205aef67239ca5c44619e2a1e960128773ab85869c7b",
+        "actions.json": "ff5909b7ae60c9880484fec946985bdfab4d4bbcd5eda827156592f1703b16a8",
+        "assertions.json": "0f7f95193bb33ec5dc686f91691d9d6f1065868d139393c81529907a98ea9c78",
+        "expected_final_gamestate.txt": "84fe8020d2b55d2793cd75d3cd9f53f0652087731d6e02cb9062ad71db7af028"
+      },
+      "raw5_sha256": {
+        "initial_gamestate.txt": "8bf31e10d684db97a522205aef67239ca5c44619e2a1e960128773ab85869c7b",
+        "actions.json": "ff5909b7ae60c9880484fec946985bdfab4d4bbcd5eda827156592f1703b16a8",
+        "assertions.json": "0f7f95193bb33ec5dc686f91691d9d6f1065868d139393c81529907a98ea9c78",
+        "expected_final_gamestate.txt": "84fe8020d2b55d2793cd75d3cd9f53f0652087731d6e02cb9062ad71db7af028",
+        "meta.json": "fcc31509701aae911fec3509f0c16f6531b5c19008e76dcbc03470c829361813"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "8bf31e10d684db97a522205aef67239ca5c44619e2a1e960128773ab85869c7b",
+        "actions.json": "ff5909b7ae60c9880484fec946985bdfab4d4bbcd5eda827156592f1703b16a8",
+        "assertions.json": "0f7f95193bb33ec5dc686f91691d9d6f1065868d139393c81529907a98ea9c78",
+        "expected_final_gamestate.txt": "84fe8020d2b55d2793cd75d3cd9f53f0652087731d6e02cb9062ad71db7af028",
+        "meta.json": "fcc31509701aae911fec3509f0c16f6531b5c19008e76dcbc03470c829361813"
+      },
+      "actions": 33,
+      "native_assertions": 2530,
+      "actual_manual_passes": 29,
+      "actual_priority_response_passes": 28,
+      "actual_defender_declaration_finish_inputs": 1,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4
+      ],
+      "actual_manual_actor_counts": {
+        "1": 7,
+        "2": 7,
+        "3": 7,
+        "4": 8
+      },
+      "schema_property_assertions": 550,
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "all_actions_and_assertions_exact": true,
+      "no_recorder_only_assertions": true,
+      "all_endpoint_physical_uid_card_zones_ownership_verified": true,
+      "all_terminal_assertions_evaluated_against_parsed_final_snapshot": true,
+      "initial_assertions_also_evaluated_against_parsed_initial_snapshot": true,
+      "initial_physical_uid_locations": {
+        "1": {
+          "card_id": "uzuri",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "sneak_attack_blue",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "lunging_press_blue",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_physical_uid_locations": {
+        "1": {
+          "card_id": "uzuri",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "lunging_press_blue",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "sneak_attack_blue",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Pitch",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_GY1_exact_UIDs": [
+        5,
+        7
+      ],
+      "final_Pitch1_exact_UIDs": [
+        6
+      ],
+      "final_physical_uidset": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "final_UniqueIDCounter": 7,
+      "RandomCounter": 0,
+      "final_health": [
+        20,
+        20,
+        20,
+        14
+      ],
+      "final_resources": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "full_card_certification": false,
+      "native_action_mapping_sha256": "b360c4587c46ba0c46d2025ac709563386a325682cfbf10e15ef900fde28080e",
+      "native_assertion_mapping_sha256": "49bffbd03dfdcf1b533d8168c6df0475edb8fdc0f3b6bbb2e56bbfa3cc96e660"
+    }
+  ],
+  "blocked_attempts": [],
+  "total_actions": 33,
+  "total_native_assertions": 2530,
+  "total_manual_passes": 29,
+  "total_schema_property_assertions": 550,
+  "material_findings": [
+    "Exactraw5/33actualenvelopes2530orderedchecks29manual7,7,7,8/raw48preferencesperendpoint/all70c53guards+ab33 match correctedsourcecca41/immutablearchive. Fullinitial/finalUIDinventoryandterminalassertionsindependentlyparsed; unchangedrules/scaffoldnotreaudited.",
+    "RealBlue6pitch3paysprimary2/R1AP0, physicalSneak5currentlinkpower1/noGA beforeAR. ActualLunging7clickauto-declaressingleton5/currentlinkbeforeplay andphysical7Stack/SourceHand7 is now directlyqueried; realARplayearnscontinuous+4/currentpower5. FreshfourREACTIONholds7untilfourththenbound+1tag/primary6power and7GY; separatefreshfourdeals6/HP14. FullCloseGY{7,5}/Pitch6/UID1..7/R1AP0/RNG0/quiet.",
+    "R2onlycorrectednonexistentmanualsingletonstage/answerandmatchingprose/actioncount. Originala3faandfailedc83fevidencepreserved; no enginebug, sourcefix, assertionvaluefit or Slooprerun claim. Correctpostadmission/fourresponses/laterGY7/sixdamageexpectationsretainedandnowexecuted."
+  ],
+  "limits": [
+    "Onepositiveactualsame-linkplayedAR/+4+support1branch. No activatedARalternative/foreignactor/priorlink/multipleAR/blanking/negativecondition/otherpitch/Hero/support/sibling/fullcardcredit.",
+    "OnlynewSneakR2Savedapproved; SloopseparatepriorSavedsubset/registrationunchanged. No nativegameplaybug/fix/globalrootclaim. Originalfailedprefixdoesnotretroactivelycertifyitspreviouslyunrunsuffix; thisnewnativeprovidesevidence.",
+    "ReviewerperformednoPHP/native/replay/R/source/fullsuite/deniedrepair. Roottargetedreplays/registration/qualificationremainseparate. Opaqueundo hash-bound/excludedfromphysicalinventory."
+  ],
+  "qualification_credit_before_registration": false,
+  "blockers": [],
+  "actual_comparison_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov6_batch636_sneak_r2_saved_readonly.py",
+    "sha256": "29784b9c0107f24913a6fd6f0f49cb7bde4510dfc43641c1a017a5bf56a3585a"
+  }
+}

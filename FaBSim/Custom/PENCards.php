@@ -287,11 +287,7 @@ function FaBPENAfterMove(int $player, object $o, string $from, string $to, ?obje
         foreach(FaBMONArena($player,'sigil_of_gravespawning') as $r)FaBROSQueue($player,'sigil_of_gravespawning_blue',FaBPENUID($r));
     }
     if ($to === 'Arena' && $from !== 'Arena' && in_array($b,['sigil_of_voltaris','sigil_of_silphidae'],true) && !HasNoAbilities($o)) FaBROSQueue($player, $o->CardID, $uid);
-    if (!$source || !in_array($from, ['Arena', 'Equipment', 'Weapons', 'CombatChain'], true) || in_array($to, ['Arena', 'Equipment', 'Weapons', 'CombatChain'], true) || HasNoAbilities($source)) return;
-    $controller = intval($source->Controller ?? $player) ?: $player;
-    if ($b === 'toughness') FaBWTRAddEffect($controller, 'PEN_TOUGHNESS_LEFT', 1);
-    if (in_array($b, ['sigil_of_fate', 'sigil_of_voltaris', 'sigil_of_silphidae', 'robe_of_resourcefulness', 'shroud_of_the_fate_watcher', 'tempest_dancers', 'gloves_of_erasure'], true)) FaBROSQueue($controller, $o->CardID, $uid);
-    if ($b === 'shimmering_specter' && $from === 'CombatChain') FaBHVYToken($controller, 'spectral_shield', 1, $controller);
+    if ($source) FaBPENObserveArenaExit($player, $source, $from, $to, $o);
 }
 
 function FaBPENDestroyed(int $player, object $o): void {
@@ -400,6 +396,13 @@ function FaBPENRecordPitch(int $player, object $pitched): void {
 
 function FaBPENBond(int $uid, string $element): bool {
     return in_array($element,(array)FaBARCCard($uid,'penPitchTypes',[]),true);
+}
+
+function FaBPENConditionalOverpower(int $player, object $o): bool {
+    $uid = intval($o->UniqueID ?? 0);
+    if ($uid < 1 || HasNoAbilities($o)) return false;
+    if ($o->CardID === 'log_fall_red') return FaBPENBond($uid,'Earth');
+    return FaBWTRBase($o->CardID) === 'vantage_point' && FaBROSCount($player,'AURA') > 0;
 }
 
 function FaBPENElementalStrike(int $player, int $uid, string $ref): void {
@@ -813,8 +816,8 @@ function FaBPENAbilityPaid(object $o): void {
 }
 
 function FaBPENArcDamage(string $sourceMZ, int $amount): int {
-    $f=FaBIdentityFromMZ($sourceMZ);
-    if(!$f||$f['zone']!=='CombatChain'||($f['object']->Role??'')!=='ATTACK'||(!FaBHasType($f['object'],'Lightning')&&!FaBHasType($f['object'],'Elemental')))return $amount;
+    $f=FaBDamageSourceView($sourceMZ);
+    if(!$f||($f['lastKnownZone']??$f['zone'])!=='CombatChain'||($f['object']->Role??'')!=='ATTACK'||(!FaBDamageSourceHasType($f['object'],'Lightning')&&!FaBDamageSourceHasType($f['object'],'Elemental')))return $amount;
     foreach(FaBLiveSeats() as $seat)$amount+=FaBARCEffect($seat,'PEN_ARC_BENDING');return $amount;
 }
 
@@ -1159,4 +1162,19 @@ function FaBPENPrintedKeywords(object $o): array {
 function FaBPENCombatPower(int $player, object $o): int {
     if(!FaBWTRIsAttackAction($o))return 0;$n=0;
     foreach(FaBLiveSeats() as $p){$n-=count(FaBMONArena($p,'haboob'));if($p!==$player)$n-=FaBARCEffect($p,'PEN_VICTORIA');}return $n;
+}
+
+/** LKI-only departure observers also run when a token ceases without a destination object. */
+function FaBPENObserveArenaExit(int $player, object $source, string $from, string $to, ?object $moved = null): void {
+    if (!in_array($from, ['Arena','Equipment','Weapons','CombatChain'], true)
+        || in_array($to, ['Arena','Equipment','Weapons','CombatChain'], true)) return;
+    $object = $moved ?? $source;
+    $base = FaBWTRBase($object->CardID);
+    $controller = intval($source->Controller ?? $player) ?: $player;
+    // Glory Plate observes departure even if Toughness itself has lost abilities.
+    if ($base === 'toughness') FaBWTRAddEffect($controller, 'PEN_TOUGHNESS_LEFT', 1);
+    if (HasNoAbilities($source)) return;
+    if (in_array($base, ['sigil_of_fate','sigil_of_voltaris','sigil_of_silphidae','robe_of_resourcefulness','shroud_of_the_fate_watcher','tempest_dancers','gloves_of_erasure'], true))
+        FaBROSQueue($controller, $object->CardID, intval($object->UniqueID));
+    if ($base === 'shimmering_specter' && $from === 'CombatChain') FaBHVYToken($controller, 'spectral_shield', 1, $controller);
 }

@@ -1,0 +1,102 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-autosave-script-blue-four-live-sparse1022-actual-steam-entry-decline-crank",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-autosave-script-blue-four-live-sparse1022-actual-steam-entry-decline-crank",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1022-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1022-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "5e4147ab1885eca826d1fc8ed92f6acadd18e164ebebe02e424c463f56c546ee",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "3b3e1ada71a9d5563a345566dc265753ec9f7e258105e729073dfbbab916191f",
+        "actions.json": "28c1d262ce37f99b248fadefb719a7204777f945445684c91d210c0b2729f92b",
+        "assertions.json": "e5d624f3b201fbb152831ad52a2874cb7c4abcb02efa72c3b862d0ad7e57888a",
+        "expected_final_gamestate.txt": "af5befb7000874c20ef09559f5e57591533d148b09573c9bce8fc9c6c4c39802",
+        "meta.json": "8876757976e7cd30b34fb8c21ca2f908b7b9c39881e0f689e4c33d87dd3f3e98"
+      }
+    },
+    {
+      "slug": "card-overload-script-red-four-live-sparse1022-actual-steam-entry-accept-crank",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-overload-script-red-four-live-sparse1022-actual-steam-entry-accept-crank",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1022-local-20261122\\clean-replays\\01.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1022-local-20261122\\clean-replays\\01.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "357f3054cad8c46980d844bcd01316679a370505e9e3d756fe6d9d4307d55a38",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "ca0f909ef84d0bbe6ce1a5b9cab6fe3557f92f079c24bd52d4bee754f8f4fb25",
+        "actions.json": "8c1449b40551750b98891bdeccfb0273620f2a6b7ecba97a99cdd27897a666f5",
+        "assertions.json": "7840e2a4abec6705474a990213da40d36a313bee4fe8e74b098df601c23f4834",
+        "expected_final_gamestate.txt": "a58d2a5f51051c151b227f2be03235cb8efe1fa84f46ffca9040005cf1341280",
+        "meta.json": "24088c6c03a04e38838c5e24115dd5a219db645de0bc181714a704bb5f4ff170"
+      }
+    },
+    {
+      "slug": "card-grinding-gears-blue-four-live-sparse1022-actual-steam-entry-decline-crank",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-grinding-gears-blue-four-live-sparse1022-actual-steam-entry-decline-crank",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1022-local-20261122\\clean-replays\\02.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1022-local-20261122\\clean-replays\\02.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "dbf2b59260a4450356d7b0003c95bd7cf01e1ead0ff5ec9ae3ab8835a4160cde",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "e6c39fe3eb17e2e1421c6a7b2272966da9a8c802fcf7c602fd8884e1c02d2635",
+        "actions.json": "28c1d262ce37f99b248fadefb719a7204777f945445684c91d210c0b2729f92b",
+        "assertions.json": "580d2625b2a66f7bacd8a9bebf38bf92b4ddd92c46efa9ea17827970e6c5b561",
+        "expected_final_gamestate.txt": "0ae1195e6a980fa415012d35c451c2f6cbf87584a3c1654a4a7723a01023ec0f",
+        "meta.json": "efc8f4972383f34bf9c6e683e74fce70e271203fb0e0e83a5039b2c3ed5e6e41"
+      }
+    },
+    {
+      "slug": "card-boom-grenade-red-four-live-sparse1022-actual-steam-entry-decline-crank",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-boom-grenade-red-four-live-sparse1022-actual-steam-entry-decline-crank",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1022-local-20261122\\clean-replays\\03.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1022-local-20261122\\clean-replays\\03.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "e177ac305be97eca555d4cdadad24c65d3fcbd6566710a65c3a0009d83b73144",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "d4abbee6318a93e30a1bb5ee6f759b2653c6045718435411109cb6aa4a030cb4",
+        "actions.json": "28c1d262ce37f99b248fadefb719a7204777f945445684c91d210c0b2729f92b",
+        "assertions.json": "a66cd1ecf4496408b138649e3a9cc1443c0f27c7019635138db5a8d92e134689",
+        "expected_final_gamestate.txt": "e0eadcf0e47378177200fb674fc08fb5f2ad91206da4cc9b77b8f21e90e89f93",
+        "meta.json": "6d5caefe9e3571ccd047745811be0fabfce1ffb38c39e7f9945ea45347e65ae1"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

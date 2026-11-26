@@ -1,0 +1,7 @@
+{
+    "name": "Breed Anger / real base attack and false conditional action-refund guard",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-24T09:26:20+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "FOUR_REAL_MANUAL_UPF_NATURAL_IRA20_THREEDORI20. FirstrealattackthiscombatChain/nohistory. Breed5cost1actualBlue6pitch3\u2192R2/AP0/base4/noGA; realCrouchingTiger8existsOWNHandbuthasNOTattacked, soCombopreviousTigerconditionFALSE/nonvacuouspresencecontrol. NoearnedWHEN/genericTigercreation; real4damageHP16/noBanish/UID8RNG0/retainedTiger8. IrafirstattacknotsecondsoHero+1notearned. Afterfullcloseactual0costGenericWounding7FACEDOWNArsenalcanbeplayedfromthatlegalzoneandisresourceaffordable(R2),butAP0soactualnativeclickrejectswithsameownedUID/FaceDown/emptyStackDQ/noTarget/pendingPayment/resources/HP/uniqueIDsunchanged. ThispinsnounEarnedgoAgainthroughnativeconsumerfailure. Primary5GY1/fund6Pitch1/Tiger8Hand1/Wounding7Arsenal1/otherzonesempty/AP0/StackDQCCquiet. OnlyactualbaseattackandfalseCombo/Scrap/noRefund/tokenGuard; positiveCombo/Scrap/GA/grantedtoken/trigger/secondary/Hero/siblings/fullcardUNTESTED_UNCREDITED. Sources: FaBSim/GeneratedCode/cardArrayCache.json#breed_anger_red FaBSim/GeneratedCode/GeneratedMacroCode.php FaBSim/Custom/GameLogic.php FaBSim/Custom/MSTCards.php FaBSim/Custom/SEACards.php FaBSim/Custom/EVOCards.php FaBSim/Custom/EVORuntime.php FaBSim/Custom/ARCCards.php FaBSim/Custom/WTRCards.php"
+}

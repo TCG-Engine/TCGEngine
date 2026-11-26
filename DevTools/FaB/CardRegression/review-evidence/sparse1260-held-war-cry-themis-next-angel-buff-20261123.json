@@ -1,0 +1,333 @@
+{
+  "issue": "FAB-REG-218",
+  "status": "CONFIRMED_NATIVE_NEXT_ANGEL_POWER_FAILURE_NO_PASSING_FIXTURE",
+  "card_id": "war_cry_of_themis_yellow",
+  "support_card_id": "suraya_archangel_of_erudition",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "classification": "EARNED_HNT_NEXT_ANGEL_BONUS_NOT_CONSUMED_BY_NATIVE_ARENA_ALLY_ATTACK",
+  "expected": "After real War Cry of Themis main Action and its go again, next actual Angel attack must get +4: Suraya base4 becomes8.",
+  "first_failure": "power  expected 8 got 4",
+  "native_inputs": 13,
+  "passed_prechecks": 175,
+  "initial_gamestate_sha256": "03353fe7a15f6dfa7ef7300fa74a4a5111d121f75b7215c02783578e92843e1a",
+  "attempted_native_actions": [
+    {
+      "playerID": 1,
+      "mode": 10002,
+      "buttonInput": "",
+      "cardID": "p1Hand-0!FSM",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 1,
+      "mode": 100,
+      "buttonInput": "",
+      "cardID": "0",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 1,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 2,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 3,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 4,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 1,
+      "mode": 10002,
+      "buttonInput": "",
+      "cardID": "p1Arena-0!FSM",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 1,
+      "mode": 100,
+      "buttonInput": "",
+      "cardID": "p4Hero-0",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 1,
+      "mode": 10002,
+      "buttonInput": "",
+      "cardID": "p1Hand-0!FSM",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 1,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 2,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 3,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 4,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    }
+  ],
+  "direct_passed_prechecks": [
+    "Natural Young Prism20 and three Young Dorinthea20, four live manual seats, initial empty history/Soul, lawful owned primary5/Blue6/readySuraya7 were established.",
+    "Actual context menu offered mainPLAY and alternate ARC0; selected0 used mainAction. Physical5 spentAP1to0/R0; four actual manual passes then put5ownedGY and returnedAP1. No alternate Instant/Soul ability was used.",
+    "Realhost7 attack declared adjacentHero4, required actual cost2, Blue6 really pitched3 and leftR1/AP0 with host7 tappedStatus1 and attackproxy8 Stack. EmptySoul/fourdecisionqueues were checked before four subsequent manual passes.",
+    "Execution reached first computed-power check after all preceding175 query checks passed. Correct printed expected8 failed with nativecomputed4."
+  ],
+  "direct_failure_observation": {
+    "window": "ATTACK",
+    "combatStep": "ATTACK",
+    "attacker": 1,
+    "defender": 4,
+    "attackUID": 8,
+    "pendingPayment": null,
+    "resolvingReaction": null,
+    "unconsumed_HNT_NEXT": [
+      {
+        "type": "HNT_NEXT",
+        "amount": 4,
+        "uses": 1,
+        "kind": "ANGEL",
+        "tags": [],
+        "chain": false
+      }
+    ],
+    "decision_queues_empty": true,
+    "note": "Native error supplies computed power4. Snapshot cached attackPower0 is not a completed Damage computation and must not be reported as final damage or substituted for computed power."
+  },
+  "source_explanation": [
+    "Generated WarCry main resolution calls FaBHNTNext(player,ANGEL,4); the observed retained HNT_NEXT amount4/kindANGEL agrees with an earned but unconsumed bonus.",
+    "Actual GameLogic isArenaAttack payment branch calls IAR/DTD/EVO/SEA hooks but omits HNTPlayed. HNTRuntime HNTPlayed independently defines attack as fromWeapons or attack-action card and returns before HNT_NEXT consumption for a non-Action Angel Ally. This traced source contract explains this native pair failure; no repair is applied."
+  ],
+  "unrun_and_limits": [
+    "Remaining11 checks in the first failing checkpoint, all defense/reaction/Damage/Resolution continuation, planned actual8damage/HP12 and final physical fates/cleanup were not executed.",
+    "No actual finaldamage4, later hit result, host fate, bonus expiry/second-attack behavior, sibling outcome or affected-card family count is established."
+  ],
+  "reproducer_case": {
+    "slug": "probe-fab-reg-218-war-cry-themis-real-next-angel-power",
+    "cardIDs": [
+      "war_cry_of_themis_yellow"
+    ],
+    "activeSeats": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "heroes": [
+      "prism",
+      "dorinthea",
+      "dorinthea",
+      "dorinthea"
+    ],
+    "health": [
+      20,
+      20,
+      20,
+      20
+    ],
+    "resources": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "actionPoints": [
+      1,
+      0,
+      0,
+      0
+    ],
+    "state": {
+      "gameMode": "UPF",
+      "passiveSeats": []
+    },
+    "zones": [
+      {
+        "cardID": "war_cry_of_themis_yellow",
+        "zone": "Hand",
+        "player": 1,
+        "properties": {}
+      },
+      {
+        "cardID": "titanium_bauble_blue",
+        "zone": "Hand",
+        "player": 1,
+        "properties": {}
+      },
+      {
+        "cardID": "suraya_archangel_of_erudition",
+        "zone": "Arena",
+        "player": 1,
+        "properties": {}
+      }
+    ],
+    "diagnostic_only": true,
+    "qualification_permitted": false,
+    "steps": [
+      {
+        "kind": "click",
+        "player": 1,
+        "mzID": "p1Hand-0"
+      },
+      {
+        "kind": "answer",
+        "player": 1,
+        "type": "MZMODAL",
+        "value": "0"
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "PRIORITY",
+          "priority": 2
+        }
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "PRIORITY",
+          "priority": 3
+        }
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "PRIORITY",
+          "priority": 4
+        }
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "ACTION",
+          "priority": 1
+        }
+      },
+      {
+        "kind": "click",
+        "player": 1,
+        "mzID": "p1Arena-0"
+      },
+      {
+        "kind": "answer",
+        "player": 1,
+        "type": "MZCHOOSE",
+        "value": "p4Hero-0"
+      },
+      {
+        "kind": "click",
+        "player": 1,
+        "mzID": "p1Hand-0"
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "PRIORITY",
+          "priority": 2
+        }
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "PRIORITY",
+          "priority": 3
+        }
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "PRIORITY",
+          "priority": 4
+        }
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "ATTACK",
+          "priority": 1
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "kind": "power",
+            "value": 8
+          }
+        ]
+      }
+    ]
+  },
+  "reproducer_instructions": "Write [reproducer_case] as one-element JSON array to a fresh local workspace file, then use the existing record_card_regressions.php <file> --probe-only. This compact reproduction uses the exact13 source controls and correct expected8; full initial guards/279-check original source/receipt remain at the bound local paths. This extracted reproducer was NOT separately executed.",
+  "fixture_saved": false,
+  "qualified": false,
+  "coverage_credit": false,
+  "source_fix_applied": false,
+  "full_suite_run": false,
+  "correct_probe_source_local": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1260-local-20261122\\proposed.json",
+  "correct_probe_sha256": "208fb9830fca66f30a4639f8c0a96b9a808b1f166c8bc0e0644b545951d8f318",
+  "native_receipt_local": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1260-local-20261122\\save\\receipt.json",
+  "native_receipt_sha256": "76c125999e1d6460fbd42bf27f2aa1d31579475de9571cbe61452ea5dcf32198",
+  "independent_failure_review_local": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1260-local-20261122\\independent-failure-review.json",
+  "independent_failure_review_sha256": "6ecbc45f3a3670f3c33ea0cca1c172af18deea5da4883d9f865ae80b429de8c0",
+  "source_sha256": {
+    "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+    "FaBSim/GeneratedCode/GeneratedMacroCode.php": "fe6a7982611df8f4de98ce2671b317b671b580146aa4b8c28e8f4b86d8461056",
+    "FaBSim/Custom/HNTCards.php": "8c58ea4998016d2883b8b44f840000e94bff848ec4c07b65f8f976b283422ccc",
+    "FaBSim/Custom/HNTRuntime.php": "d5554642848c3f271112e542c20d3744662c0007ebd7bb741d5d4d2dd1b210a1",
+    "FaBSim/Custom/MONAbilities.php": "7e5a6ba9e0523c03c7ece084793564d87ecd9d6fbba55b9252cb83f3d952b4fa",
+    "FaBSim/Custom/ARCAbilities.php": "e49ce4685f148ef423ea38aac544266b3298527ea8ca9eef11b12fb974e7c9f0",
+    "FaBSim/Custom/GameLogic.php": "c60fa151561f959e4e3e341b814de0e2b47c9e9f153bbc8793a04c43b5075061",
+    "DevTools/FaB/CardRegression/record_card_regressions.php": "e53055b29e9ea641949b77019c4455607f41ca233325d716a9500637e19efd28"
+  },
+  "repair_status": "Held for separate repair pass. No engine change authorized in this breadth continuation; no actual finaldamage4 or family-wide finding is claimed."
+}

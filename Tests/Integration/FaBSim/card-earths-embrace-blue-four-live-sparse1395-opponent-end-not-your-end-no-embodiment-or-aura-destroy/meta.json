@@ -1,0 +1,7 @@
+{
+    "name": "Earth's Embrace / another hero's end is not its controller's end",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-24T14:49:43+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "FOUR_REAL_MANUAL_UPF_OLDHIM20_THREEDORI20/cachedUPFnoBlitzclaim. StartsactualTurn4ID2/AP4=1; primaryEarthAura5priorArena1, Wounding6Hand1, actualEarthloreSurge7faceupBanish1isPRIORasset(noCURRENT-turnEarth-banishcredit/historyseed). SuchAura canpersistfromearlierownerEndwhenEarthwasbanished; origin/maintenanceprovenanceuncredited. All4ACTIONpasses\u2192END4, all4ENDpasses\u2192nativeStart1ID3/AP1=1. This isOPPONENT4endnotYOURcontroller1end: noearnedEarthEmbraceWHEN/EmbodEarthcreation/Auradestroy. Primary5sameArena/old7Banishsame/noextraUID(7not8), eveniferroneousembodimentcouldlaterdestroyatStart1. ActualownerWounding6AA0/all4manualcombat/base4/noGA/4damageP4HP16/fullclose. Aura5Arena/6GY/7Banish/UID7RNG0/others20/AP0/R0/StackDQquiet. Onlyowner-end-eventnegativeguard/nativephase+attack, positiveownEndcreate/destroy/Earth-banishcondition/timing/entry/GA/provenance/support/fullcarduncredited; noenginechange. Sources: FaBSim/GeneratedCode/cardArrayCache.json#earths_embrace_blue FaBSim/GeneratedCode/GeneratedMacroCode.php FaBSim/Custom/GameLogic.php FaBSim/Custom/ROSRuntime.php FaBSim/Custom/ELECards.php FaBSim/Custom/WTRCards.php"
+}

@@ -1,0 +1,7 @@
+{
+    "name": "Tuffnut / actual top-card pitch and resources without a six-power cheer",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-23T10:10:44+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "**Instant** - {t}: Pitch the top card of your deck. If it has 6 or more {p}, **the crowd cheers** you.\n\nWhenever the crowd cheers you, create a Toughness token. Namedrealpitchbelow-six branch. NaturalTuffnut20/realHeroUID1, actualTopDeckBlueCriticalStrike5printedpower3<6/pitch3, nohistoryorotherassets. NativeInstant0 tapsHeroStatus2to1, noAPcost, actualTopcardstaysDeck/R0 untilallfourmanualresponses. Virtualability6Controller1Source1Owner0 thenremoved; actualphysical5movesDeck\u2192owner/controller1Pitch andresources0\u21923, AP1unchanged. No6powerpredicate=true, so nocrowdcheerevent/Toughnesstokenearned; allArena0/HP20/UIDmax6 verify noextraobjects. No6power/positivecheer/WHENtoken/distribution/pitchsupport/herootherbranch/fullcardcredit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#tuffnut"
+}

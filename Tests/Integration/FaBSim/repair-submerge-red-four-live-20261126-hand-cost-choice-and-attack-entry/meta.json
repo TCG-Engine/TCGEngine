@@ -1,0 +1,7 @@
+{
+    "name": "Submerge / real additional cost inserts physical Hand card fifth before responses",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-26T02:33:27+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Original correct first-choice header assertions preserved. Actual current Hand0 physicalUID6 is selected through ordinary input; source costs complete, then allfour source responses. Scope ends before combat damage, except Force mainAction completes; no unrun Hit/timing branch credit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#submerge_red FaBSim/GeneratedCode/GeneratedMacroCode.php#submerge_red:0:PrepareCard FaBSim/Custom/PENCards.php#FaBPENFifth FaBSim/Custom/CardChoices.php#FaBFinishPreparedCard FaBSim/Custom/GameLogic.php"
+}

@@ -1,0 +1,23 @@
+{
+  "runtime": "415b76003c8cc494af68c8a6075f91521e1c22b55597a460d4225bc2b91c3b81",
+  "fixtures": [
+    {
+      "slug": "repair-song-of-larinkmorth-white-blue-four-live-20261126-original-creator-and-recipient",
+      "passed": true,
+      "runtime": "415b76003c8cc494af68c8a6075f91521e1c22b55597a460d4225bc2b91c3b81",
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=repair-song-of-larinkmorth-white-blue-four-live-20261126-original-creator-and-recipient",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\creator203-205-208-209\\song_of_larinkmorth_white_blue\\strict1.log"
+      ],
+      "returncode": 0,
+      "complete_log_sha256": "ed1530dc33ae8bf8066cecc40bd9ba50b58f5b247692e338b2a16f07242b3837",
+      "raw5_unchanged": true
+    }
+  ],
+  "full_suite_run": false
+}

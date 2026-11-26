@@ -1,0 +1,7 @@
+{
+    "name": "Dorinthea / fully blocked Weapon grants no repeat use despite available action point and resource",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-25T15:24:34+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Four genuine manual youngDori20 seats. PriorDawnblade5ready/Potion6Arena/HitAndRun7Hand1/Wound8Hand4DEF3. ActualPotionABI9fourresponses fundsR2. ActualtargetlessHitAndRun7cost0beforeanyWeaponattack resolvesfourresponses/selfGAAP1, grantsnextWeaponGA notconditional+3. ActualSwordAction1/R2to1/AP0/proxy10targetsHero4, power3/GA. Wound8actualHandDEF3 fullyblocksactual3damage0; noHitsoDoriWHENunearned/HeroCounters[]andphysicalSword5Status1unchanged. RealgrantedGA refundsAP1atResolution/fullClose. ActualsameSwordclickwithAP1R1mustrejectratherthanearnfreeextraUse, preservingUID10/R1AP1/noStack/DQ/choice. Sword5retainedused, Potion6andNAA7GY1/blocker8GY4/allHP20/RNG0. No positiveHit/response/timing/DawnbladesecondHit/support/wholecardcredit orenginechange. Sources: FaBSim/GeneratedCode/cardArrayCache.json#dorinthea FaBSim/GeneratedCode/GeneratedMacroCode.php FaBSim/Custom/WTRCards.php FaBSim/Custom/WTRAbilities.php FaBSim/Custom/CRUCards.php FaBSim/Custom/GameLogic.php"
+}

@@ -1,0 +1,56 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-carrion-husk-four-live-sparse1391-actual-owner-start-at-twenty-health-no-banish-or-flip-then-attack",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-carrion-husk-four-live-sparse1391-actual-owner-start-at-twenty-health-no-banish-or-flip-then-attack",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1391-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1391-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "6fef2798851e72baac8711ed2c1a9276a87fcac06686a5ad8a8fd84e24c4909f",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "93f375f034c4ec3ab17c966ebbe9a124463208625e59e0b58928661d7f200a9b",
+        "actions.json": "d31e3f79c80d6f646b4c964adf5005df2d1e2ac37c6089310daa679ee0cde91d",
+        "assertions.json": "f1caedb43e371cb2e86cabc2324d300937f895bea8840ec8288a2b79bc27bd41",
+        "expected_final_gamestate.txt": "97f77be3a9b943d667d2e7635a5629318a385de79ec9bf746bec1c6cb88d51ce",
+        "meta.json": "ffa838375afddd083ca0513a56d32c82f108d00c6aef8587452684719b49ae01"
+      }
+    },
+    {
+      "slug": "card-koi-blessed-kimono-four-live-sparse1391-actual-owner-start-at-twenty-health-no-banish-or-flip-then-attack",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-koi-blessed-kimono-four-live-sparse1391-actual-owner-start-at-twenty-health-no-banish-or-flip-then-attack",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1391-local-20261122\\clean-replays\\01.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1391-local-20261122\\clean-replays\\01.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "5d369ac259fa44af1a795b3a3125156f91349bde2190c997890978559a305d92",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "ae150b7f2e66eabf733b3030183053ab89fd3358b51e101b6a4994e66534e157",
+        "actions.json": "d31e3f79c80d6f646b4c964adf5005df2d1e2ac37c6089310daa679ee0cde91d",
+        "assertions.json": "59df31594d193022320eda1c8935e0c236ad0061107f27e7dfc39d473cfd16d2",
+        "expected_final_gamestate.txt": "ff91647e654458e3609888bce5fe529d3ba08e9c95361101e1916273cdd8324b",
+        "meta.json": "7bb3a5a193998a572469775397787f57ea115b1893dbe76c07779a295520f21d"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

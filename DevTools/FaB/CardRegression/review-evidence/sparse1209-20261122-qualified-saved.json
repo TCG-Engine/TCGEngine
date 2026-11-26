@@ -1,0 +1,137 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "independent breadth_review",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1209-20261122.json",
+  "source_spec_sha256": "8d4f5b3c326e7abc81419354e39bd78482b7d440469abcf55359cb9812220d98",
+  "input_sha256": "8d4f5b3c326e7abc81419354e39bd78482b7d440469abcf55359cb9812220d98",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-miragai-four-live-sparse1209-first-ordinary-ash-dragon-attack-survives-real-power-six-blocker-without-phantasm",
+      "card_id": "miragai",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "164822e4c250bc1d0795f959b7e667f6b8aaf8c1edd1d00c9be7a1a6b2c01f7d",
+        "actions.json": "8906cb8fb36f2cf38a5be0460839ee037ad38c1d138428e50d0de6141a0c82dd",
+        "assertions.json": "b0ee0f6d2e9e91cbc9e0d14f14d9adfded20703af42e89f8855b8e9fc240529b",
+        "expected_final_gamestate.txt": "e8ba5cb4b10262be1834b2f51a2d35d9672ad9138b8ec2e3718e0ca47be23f11",
+        "meta.json": "fece04407b1968b891de32d29cd513d2ce24a0afa5145088267a11467694e277"
+      },
+      "fixture_sha256": "fe088b95d50680228903b0bdf2e720ae0149d1a8adeaedbe814af152516fa903",
+      "actions": 28,
+      "native_assertions": 349,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1209-20261122.json",
+      "input_sha256": "8d4f5b3c326e7abc81419354e39bd78482b7d440469abcf55359cb9812220d98",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1209-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-miragai-four-live-sparse1209-first-ordinary-ash-dragon-attack-survives-real-power-six-blocker-without-phantasm",
+        "fixture_slug": "card-miragai-four-live-sparse1209-first-ordinary-ash-dragon-attack-survives-real-power-six-blocker-without-phantasm",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-themai-four-live-sparse1209-own-turn-static-lock-stops-real-opposing-instant-response-then-attack-deals-four",
+      "card_id": "themai",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "fca94fc4c84cda3a87344757810ccea552be97f8b55bebd8908ecd306e006cdd",
+        "actions.json": "6a21ce89b792e79ed3b3265e1ab684a1caf1ed3e285ec832e0ddefaf182be714",
+        "assertions.json": "46cb10e25c12f9127bc67561331030e4eaeda9cff6fcf6fc1739fdfafe1ce5ae",
+        "expected_final_gamestate.txt": "26c92eebb2a91ed3fc96e11da47c0e26fd848d09db1ac33f3595cd4179224f08",
+        "meta.json": "80c5538713edbc53da32bd07830ade6e74a0ecb19fc9acae40c342d2a22ac7e4"
+      },
+      "fixture_sha256": "49d0b187eb4fe9165c4d011d1f9ad65fbf65501c90a11d74b5c00496f7c338d0",
+      "actions": 28,
+      "native_assertions": 344,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1209-20261122.json",
+      "input_sha256": "8d4f5b3c326e7abc81419354e39bd78482b7d440469abcf55359cb9812220d98",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1209-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-themai-four-live-sparse1209-own-turn-static-lock-stops-real-opposing-instant-response-then-attack-deals-four",
+        "fixture_slug": "card-themai-four-live-sparse1209-own-turn-static-lock-stops-real-opposing-instant-response-then-attack-deals-four",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "reviewer": "independent breadth_review",
+    "spec_sha256": "8d4f5b3c326e7abc81419354e39bd78482b7d440469abcf55359cb9812220d98",
+    "case_count": 2,
+    "native_controls": 56,
+    "persistable_assertions": 693,
+    "author_only_checks_omitted": 0,
+    "cases": [
+      {
+        "card_id": "miragai",
+        "group_id": "identity:miragai",
+        "native_controls": 28,
+        "persistable_assertions": 349,
+        "basis": [
+          "Legal young Dromai20/threeDorinthea20. Lawful admitted prior invoked Miragai5 has ordinary Ash UPR_ASH1/DYN_ASH ash and correct front provenance; this is not the Stillwater Miragai no-Phantasm material exemption. StormOfSandikai6 provides the printed once-per-turn Action0 Dragon attack. Actual Generic BrutalAssaultRed7 is non-Illusionist power6/DEF3 and legal for the Dorinthea defender.",
+          "MONAbilities42-77 validates the real owned Arena Dragon, requires actual Storm weapon, declares adjacent Hero4 before native payment and creates ATTACK proxy8 with actual physical sourceUID5. AP1->0/cost0/four source responders1/2/3/4 are correctly placed. Proxy guards use CardID/UID/Controller and later ATTACK Role, with physical ownership asserted on real5/6; no false raw proxy Owner1 requirement.",
+          "PaymentGL1220-1227/1248-1251 invokes CRUCards408-412 actual physical source usage, so ready2->runtime-used1 guards are source-correct. This is use/once-per-turn bookkeeping, not a literal tap-cost or general exhaustion-rule claim. No post-use whole-Counters equality ignores the appended weapon-use fields.",
+          "DYNCards89 ordinary Ash yields material Phantasm; UPRAttack106-109 applies MON_PHANTASM then the first-Dragon Miragai MON_NO_PHANTASM before defense. MONCards312-318 checks the latter before its defended-by-nonIllusionist-AA-power6 trigger. Thus no Phantasm layer is earned on this first protected attack, rather than an owed trigger being skipped.",
+          "Actual blocker7 enters DEFENSE role. Physical5 and live attackproxy8 survive the real power6 block; the attack reaches DAMAGE with actual power2/defense3/damage0/noHit/HP20. This and final source5 surviving is an external effect witness. All combat windows use genuine four-seat passes; no red played/pitched means GAfalse/AP0 and no Dromai Ash observer. Blocker7 ends ownedGY4, proxy8 clears, physical5/weapon6 remain, no material leaves or exports."
+        ],
+        "limits": [
+          "First self Dragon attack and one real power6 blocker only; no second Dragon, alternate material, gain-again attempt, invocation/producer, red/GA branch, material export, support identity, Hero or whole-card credit."
+        ]
+      },
+      {
+        "card_id": "themai",
+        "group_id": "identity:themai",
+        "native_controls": 28,
+        "persistable_assertions": 344,
+        "basis": [
+          "Legal young Dromai20/threeDorinthea20, lawful prior owned/controller1 Themai5 with ordinary Ash and correct invoked front. Actual Generic WoundingRed6 is a legal Action0 source; actual opposing SigilSolaceRed7 is a legal Generic Instant0 with no asset/target requirement and a nonvacuous potential heal3.",
+          "Actual owner1 Wounding declares Hero4 then pays AP1->0 and offers source priority1/2/3/4. At real PRIORITY4 with no pending cost/decision, opponent4 clicks the actual live Hand0 Sigil. UPRCards9 finds a live opponent-owned Themai whose controller is current TurnPlayer1; WTRCards888 rejects play via that static rule. Own source play and all seat passes remain legal.",
+          "This uses an ordinary mode10002 FSM card click, not a fabricated mode100 decision/rejection. The engine envelope need not return failure: frozen persisted post-click oracles require exact Hand7 retained, only Stack6, HP20, priority4/AP/resources/UID7 unchanged, no queues or phantom play. Thus the actual gameplay rejection is observed and recorded as unchanged card admission state.",
+          "After that rejected real response, fourth pass resolves ordinary Wounding attack; all attack/defense/reaction/damage/resolution seats pass. Actual unblocked4/HP16 and final Sigil7 stillHand4/no opposingGY prevent accidentally qualifying an illegal heal. Themai5 stays ready/ownedArena1, actual6 ownedGY1/AP0/R0, chains/Stack/queues empty. No Themai attack, material departure or earned observer is involved."
+        ],
+        "limits": [
+          "Only opposing seat4 card-play restriction during controller1 turn; no other opponent, activated ability, other turn/unlock, ally attack, material export, invocation producer, Hero/support or full-card credit."
+        ]
+      }
+    ],
+    "basis": [
+      "Both coverage groups were checked against the union and both source-only/unresolved issue ledgers including sibling group references before selection. These are explicit current Custom/static/native routes; no missing macro is treated as support.",
+      "All693 prospective checks normalize to real persisted assertions with zero author-only diagnostics; no contradictory same-checkpoint literals were found."
+    ],
+    "limits": [
+      "Pending Root native save, stored evidence validation and one clean targeted replay each. No native/PHP/T/source/framework/engine/Git/network/original-checkout action by reviewer."
+    ],
+    "source_note_sha256": "6e1a9b590365eaf5b66a09ad36f2f02b94017441b869965fd1a1a146757253d2",
+    "source_sha256": {
+      "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+      "FaBSim/Custom/UPRCards.php": "62798bd281afc17805c396e92deab22497b9c80d881f99e943833cb82d449321",
+      "FaBSim/Custom/MONAbilities.php": "7e5a6ba9e0523c03c7ece084793564d87ecd9d6fbba55b9252cb83f3d952b4fa",
+      "FaBSim/Custom/MONCards.php": "2eb22bda6f1dba583df2879046f9f4dec94f47f2e9b28f369758f3af72c9c3ac",
+      "FaBSim/Custom/DYNCards.php": "c3460cf12b68a92af4d9c4f836de4c2495d117e3a97e73fb23e8c026aa2f20f4",
+      "FaBSim/Custom/WTRCards.php": "77d4452b30e45254a7199bc965396ded53e325717ecdd84a09b971f723f99f6a",
+      "FaBSim/Custom/CRUCards.php": "5f0ff2122f9e033b8ad9ced75e9ee2210f459c868633f3f1741f419bc437c12d",
+      "FaBSim/Custom/GameLogic.php": "c60fa151561f959e4e3e341b814de0e2b47c9e9f153bbc8793a04c43b5075061"
+    }
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1209-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "148c63f1b9408f38bfad1dcee903a3c37053c7782b4a247f86ce42df49b29b5c"
+  },
+  "full_suite_run": false
+}

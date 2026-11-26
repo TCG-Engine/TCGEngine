@@ -1,0 +1,7 @@
+{
+    "name": "For the Dracai / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-23T00:52:23+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "When this attacks a **marked** hero, create a Fealty token. Named branch unmarked_hero_no_fealty. Legalnatural20 dromai, realownHand5/cost0/AP1then0; targetadjacentunmarkedDorinthea4declaredbeforeassets; fourmanualseats, no blocks, actual 4 damage/HP16 withnoGoAgain. UnmarkedHeroCounters[] means noearnedFealtyattackevent; no tokencreationcredit. No sibling/support/hero/otherbranch/fullcardcredit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#for_the_dracai_red"
+}

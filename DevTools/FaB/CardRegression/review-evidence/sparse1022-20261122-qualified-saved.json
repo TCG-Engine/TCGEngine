@@ -1,0 +1,153 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "breadth_review independent cached-text/current-source/transport review",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1022-20261122.json",
+  "source_spec_sha256": "6ab342deb53b1676c05cf8e6b11db88988fb08c824d52b763ca69fbafc48aec2",
+  "input_sha256": "6ab342deb53b1676c05cf8e6b11db88988fb08c824d52b763ca69fbafc48aec2",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-autosave-script-blue-four-live-sparse1022-actual-steam-entry-decline-crank",
+      "card_id": "autosave_script_blue",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "3b3e1ada71a9d5563a345566dc265753ec9f7e258105e729073dfbbab916191f",
+        "actions.json": "28c1d262ce37f99b248fadefb719a7204777f945445684c91d210c0b2729f92b",
+        "assertions.json": "e5d624f3b201fbb152831ad52a2874cb7c4abcb02efa72c3b862d0ad7e57888a",
+        "expected_final_gamestate.txt": "af5befb7000874c20ef09559f5e57591533d148b09573c9bce8fc9c6c4c39802",
+        "meta.json": "8876757976e7cd30b34fb8c21ca2f908b7b9c39881e0f689e4c33d87dd3f3e98"
+      },
+      "fixture_sha256": "72a7d8211f74c2e6409a4947e8f58e637821c1154ca866e16517f79f444a90bf",
+      "actions": 6,
+      "native_assertions": 170,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 4,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1022-20261122.json",
+      "input_sha256": "6ab342deb53b1676c05cf8e6b11db88988fb08c824d52b763ca69fbafc48aec2",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1022-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-autosave-script-blue-four-live-sparse1022-actual-steam-entry-decline-crank",
+        "fixture_slug": "card-autosave-script-blue-four-live-sparse1022-actual-steam-entry-decline-crank",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-overload-script-red-four-live-sparse1022-actual-steam-entry-accept-crank",
+      "card_id": "overload_script_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "ca0f909ef84d0bbe6ce1a5b9cab6fe3557f92f079c24bd52d4bee754f8f4fb25",
+        "actions.json": "8c1449b40551750b98891bdeccfb0273620f2a6b7ecba97a99cdd27897a666f5",
+        "assertions.json": "7840e2a4abec6705474a990213da40d36a313bee4fe8e74b098df601c23f4834",
+        "expected_final_gamestate.txt": "a58d2a5f51051c151b227f2be03235cb8efe1fa84f46ffca9040005cf1341280",
+        "meta.json": "24088c6c03a04e38838c5e24115dd5a219db645de0bc181714a704bb5f4ff170"
+      },
+      "fixture_sha256": "42bb769d746f5dd45c670edf570c42bd5bbfc48e3d2f7a9a091cbcde8e339f1d",
+      "actions": 6,
+      "native_assertions": 170,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 4,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1022-20261122.json",
+      "input_sha256": "6ab342deb53b1676c05cf8e6b11db88988fb08c824d52b763ca69fbafc48aec2",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1022-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-overload-script-red-four-live-sparse1022-actual-steam-entry-accept-crank",
+        "fixture_slug": "card-overload-script-red-four-live-sparse1022-actual-steam-entry-accept-crank",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-grinding-gears-blue-four-live-sparse1022-actual-steam-entry-decline-crank",
+      "card_id": "grinding_gears_blue",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "e6c39fe3eb17e2e1421c6a7b2272966da9a8c802fcf7c602fd8884e1c02d2635",
+        "actions.json": "28c1d262ce37f99b248fadefb719a7204777f945445684c91d210c0b2729f92b",
+        "assertions.json": "580d2625b2a66f7bacd8a9bebf38bf92b4ddd92c46efa9ea17827970e6c5b561",
+        "expected_final_gamestate.txt": "0ae1195e6a980fa415012d35c451c2f6cbf87584a3c1654a4a7723a01023ec0f",
+        "meta.json": "efc8f4972383f34bf9c6e683e74fce70e271203fb0e0e83a5039b2c3ed5e6e41"
+      },
+      "fixture_sha256": "e32db16af1f833bbb662422f4da6886867f63496dc57a02f6fe2cb094eb0461b",
+      "actions": 6,
+      "native_assertions": 170,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 4,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1022-20261122.json",
+      "input_sha256": "6ab342deb53b1676c05cf8e6b11db88988fb08c824d52b763ca69fbafc48aec2",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1022-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-grinding-gears-blue-four-live-sparse1022-actual-steam-entry-decline-crank",
+        "fixture_slug": "card-grinding-gears-blue-four-live-sparse1022-actual-steam-entry-decline-crank",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-boom-grenade-red-four-live-sparse1022-actual-steam-entry-decline-crank",
+      "card_id": "boom_grenade_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "d4abbee6318a93e30a1bb5ee6f759b2653c6045718435411109cb6aa4a030cb4",
+        "actions.json": "28c1d262ce37f99b248fadefb719a7204777f945445684c91d210c0b2729f92b",
+        "assertions.json": "a66cd1ecf4496408b138649e3a9cc1443c0f27c7019635138db5a8d92e134689",
+        "expected_final_gamestate.txt": "e0eadcf0e47378177200fb674fc08fb5f2ad91206da4cc9b77b8f21e90e89f93",
+        "meta.json": "6d5caefe9e3571ccd047745811be0fabfce1ffb38c39e7f9945ea45347e65ae1"
+      },
+      "fixture_sha256": "23cae81cb0fb93394ede09dcc5fb33b99885817c30fce542acf6ab0cca6cb628",
+      "actions": 6,
+      "native_assertions": 170,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 4,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1022-20261122.json",
+      "input_sha256": "6ab342deb53b1676c05cf8e6b11db88988fb08c824d52b763ca69fbafc48aec2",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1022-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-boom-grenade-red-four-live-sparse1022-actual-steam-entry-decline-crank",
+        "fixture_slug": "card-boom-grenade-red-four-live-sparse1022-actual-steam-entry-decline-crank",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "spec_sha256": "6ab342deb53b1676c05cf8e6b11db88988fb08c824d52b763ca69fbafc48aec2",
+    "reviewer": "breadth_review independent cached-text/current-source/transport review",
+    "basis": [
+      "Allfour printedcost0MechanologistItems legalDash20, actualownedHand5/AP1/R0, explicitGeneratedResolve FaBARCEnterItem establishesrealentrypath. ARCEnterItem\u2192EVOEnter grantsprintedSTEAM1 for Crank+upkeepItem; these areenters-WITH-counter replacement/static effects, not ignoredWHENenters triggers. Crank isstatic as-enterschoice, correctlyafterfourmanualsource responses whilephysical5Arena/ownedSTEAM1/FAB_PLAY_ORDER1/AP0 andMZMODALpending. No sourceinput/benefit isseeded.",
+      "AutoSave/Grinding/Boom chooseMZMODAL1decline: realSTEAM1/AP0 retained, original5Arena/noHand/GGY/Temp/Stackresidue, all20HP/economy/queues unchanged. Bodyattack/autobottom/target/upkeep/grenade events notearned oractivated. Overload ownbody isstaticOverpower, so acceptingCrank doesnotcreate an omittedWHENcranked layer.",
+      "Overload chooseMZMODAL0 removeslaststeam andgains1AP; staysArena untilfutureupkeep. Exactpath master_cog\u2192FaBEVODoCrank\u2192FaBARCSteam(-1)\u2192FaBSetObjectCounter unsetsSTEAM atzero. Overload notinzero-steam immediate-destruction list. CorrectfinalCounters onlyFAB_PLAY_ORDER1/AP1 andsameowned5Arena pinprintedcrankbenefit. Counter0semanticunchanged; serializedSTEAM0wasinvalidrepresentation.",
+      "Exactone-query correction byte-proven: restoring onlyOverloadfinalCounters STEAM0 produces originalSHA8c125a143638053ff7d3d7532574ed8371a5461359b05d86775d519235722cf4. No otherqueries/nativeinputs/asset/cost/HP/AP/fate changes. Sixnativeactions each includeallfourmanualsourcepasses andactualCrankchoice; noauthor-onlydiagnostics."
+    ],
+    "correction_proof": {
+      "original_spec_sha256": "8c125a143638053ff7d3d7532574ed8371a5461359b05d86775d519235722cf4",
+      "exact_changed_query_count": 1,
+      "query": "Overload final p1Arena-0.Counters",
+      "old_value": "{\"FAB_PLAY_ORDER\":1,\"STEAM\":0}",
+      "new_value": "{\"FAB_PLAY_ORDER\":1}"
+    },
+    "limits": [
+      "OnlyactualphysicalSteam1entry andoneaccept/declineCrankbranch each. No nextturnupkeep, attack/Overpoweradmission/autobottom/activatedtarget/grenadehit-damage, othercreatorownership/hero/support/pitchsiblings/fullcards. ExistingCopper207 andotherentry/timing/targetfamilies untouched; no repair/closure inferred.",
+      "Root owns nativeinput retention/savedassertionaudit/onecleanreplay. Reviewer ran no native/PHP/game/test and changed no T/source/original/Git/network/auth/engine; only this W receipt."
+    ]
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1022-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "ca8d324d1ca3044515002a0e117e889d1d2357f59035f3018dad5cf9e0fa4441"
+  },
+  "full_suite_run": false
+}

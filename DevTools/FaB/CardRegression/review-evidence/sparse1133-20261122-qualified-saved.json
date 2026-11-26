@@ -1,0 +1,65 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "breadth_review independent explicit-decline basic-attack review",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1133-20261122.json",
+  "source_spec_sha256": "68e7c4dccab3213b342c5af49a5b50a767268dbb09638e314de438c9fe73bedc",
+  "input_sha256": "68e7c4dccab3213b342c5af49a5b50a767268dbb09638e314de438c9fe73bedc",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-express-lightning-red-four-live-sparse1133-basic-attack-only-explicitly-declines-optional-charge-no-positive-charge-ability-credit",
+      "card_id": "express_lightning_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "a586a373e670d1833dee033006d14bb6e58a9ed7685dc9c29e8439f0dec8b7e3",
+        "actions.json": "3239c02fbeb8758c51c7ca682d3bbf04dcd42145db0c71b45ae9003e822b56ae",
+        "assertions.json": "e8554ea9d90597b1a86a0bcde0ada03dffc8f17b9d820d313a383254676db9bc",
+        "expected_final_gamestate.txt": "ad790f05ee8e3f9ac938f23b6423cc834d8487384eb9725bebf9f75e3e7dadab",
+        "meta.json": "81a6764ccc756f436cc4e907afc9e1e3edee579e33287eb46856282300141378"
+      },
+      "fixture_sha256": "3fdb2036cb2a4ff3a05aa5b02cd93ae2d26440caef92f645cea2daf5a4734e96",
+      "actions": 28,
+      "native_assertions": 243,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1133-20261122.json",
+      "input_sha256": "68e7c4dccab3213b342c5af49a5b50a767268dbb09638e314de438c9fe73bedc",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1133-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-express-lightning-red-four-live-sparse1133-basic-attack-only-explicitly-declines-optional-charge-no-positive-charge-ability-credit",
+        "fixture_slug": "card-express-lightning-red-four-live-sparse1133-basic-attack-only-explicitly-declines-optional-charge-no-positive-charge-ability-credit",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "spec_sha256": "68e7c4dccab3213b342c5af49a5b50a767268dbb09638e314de438c9fe73bedc",
+    "reviewer": "breadth_review independent explicit-decline basic-attack review",
+    "basis": [
+      "Cached Express Lightning Red is Light Warrior Action Attack cost0/power4; its sole printed text is optional additional Charge. Natural young Boltyn20 is legal and fresh history/Soul0 excludes charge-dependent Hero bonuses; no defender card or mandatory attack/hit effect is earned.",
+      "Generated Prepare awaits ab4ccfe28a3bb2527c7f (Cross) and b6a466ea776d9f236cd9 (Express) hydrate locals, offer MZMAYCHOOSE, then call FaBMONCharge(chosen) followed by FinishPreparedCard. Explicit PASS is not a Hand identity: MONCards16-20 performs no Soul movement, CHARGED bookkeeping or charged-card callback. Selecting the optional cost before assets is not actual payment, so this branch does not enter held099 early effect-cost payment.",
+      "Real Blue6 plus separate Wounding7 makes the optional election nonvacuous; MONAffordableHand523-527 can offer the marker for Cross while Blue still covers cost1. Both cards are preserved by explicit PASS. Early attack-target declaration leaves source5 in Hand; prepared source5 is physically Stack-held until four manual priority responses.",
+      "Actual native cost0 leaves R0/AP0; computed power4/noGA and unblocked damage4/victimHP16 are persisted. All four manual seats participate in source and combat windows. Final source5 owned GY, Soul0/Arena0, AP0 and surviving physical Hand/Pitch markers pin declined-cost basic play and ordinary fate. No author-only diagnostic kinds used."
+    ],
+    "limits": [
+      "BASIC_ATTACK_ONLY_DECLINED_OPTIONAL_COST only: no positive Charge payment, Charge ability, additional-cost ordering correctness, charged-card/Hero bonus, sibling or full-card credit. Held099 positive-cost branch is preserved unrun and unrepaired.",
+      "Native execution and one clean targeted replay pending. No T/source/framework/native changes by reviewer."
+    ]
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1133-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "a3a2a92e87c0ab4bcbbcd37ebf68124123ad08c9ef97fb9e9eebfbbcd7b12616"
+  },
+  "full_suite_run": false
+}

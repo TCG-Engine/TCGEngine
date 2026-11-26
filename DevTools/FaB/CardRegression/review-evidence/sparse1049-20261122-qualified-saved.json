@@ -1,0 +1,143 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "breadth_review independent cachedtext/spec delta review",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1049-20261122.json",
+  "source_spec_sha256": "1f8b820425318514422bf68a19eeb8136d4a10094cf5b080dbaaef9e50c8fdc6",
+  "input_sha256": "1f8b820425318514422bf68a19eeb8136d4a10094cf5b080dbaaef9e50c8fdc6",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "carrion-crown-four-live-sparse1049-actual-printed-two-defense-and-blade-break-close",
+      "card_id": "carrion_crown",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "6a3c5709a33ae51e28407f7c848b5b2ddd6c72651f8138dc28a072b9991d9721",
+        "actions.json": "511bf2f3686ee96e12e3d9cdbe580febcac902b797e5ec827a96d5ccd74ac457",
+        "assertions.json": "0dd515ed2cb80bdcc9a6f1e21c53444e4bf809db5536a0e741f4c7e12eafbc77",
+        "expected_final_gamestate.txt": "c7abc590a250f5e2683b042109949634f18a43f64612220884d90ca684e67c98",
+        "meta.json": "3125de85a5eddf26009db2db0daa1c12f9f6b92d34077f1d26803d8878f494ab"
+      },
+      "fixture_sha256": "2e91c4ebdb169384e32a7b9a3fa140e23f08a2987d3d3dc9ae4bec1be75033f5",
+      "actions": 30,
+      "native_assertions": 269,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1049-20261122.json",
+      "input_sha256": "1f8b820425318514422bf68a19eeb8136d4a10094cf5b080dbaaef9e50c8fdc6",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1049-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "carrion-crown-four-live-sparse1049-actual-printed-two-defense-and-blade-break-close",
+        "fixture_slug": "carrion-crown-four-live-sparse1049-actual-printed-two-defense-and-blade-break-close",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "coronet-peak-four-live-sparse1049-actual-printed-two-defense-and-blade-break-close",
+      "card_id": "coronet_peak",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "eed48ebc09b05589d11375d1bfe872f130b294ce72d4e65790c2208fa88ce196",
+        "actions.json": "511bf2f3686ee96e12e3d9cdbe580febcac902b797e5ec827a96d5ccd74ac457",
+        "assertions.json": "68d19fe0a9befe7905259791ae9622959abc5c6b11dceca6d8cf2f80c9d1f8f2",
+        "expected_final_gamestate.txt": "04e73e417ac77e686222a737af9538f8fa80cd1281b5d9caac23b82f8d879593",
+        "meta.json": "ab529467b3105193fbb964993ea7706b1309319e50ed0171866a14f04c19f0af"
+      },
+      "fixture_sha256": "a23f2c33abee9d8f8e7fe6799e0f65381bd8df2bc448ee7e98811e8f4ea17a6d",
+      "actions": 30,
+      "native_assertions": 269,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1049-20261122.json",
+      "input_sha256": "1f8b820425318514422bf68a19eeb8136d4a10094cf5b080dbaaef9e50c8fdc6",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1049-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "coronet-peak-four-live-sparse1049-actual-printed-two-defense-and-blade-break-close",
+        "fixture_slug": "coronet-peak-four-live-sparse1049-actual-printed-two-defense-and-blade-break-close",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "embraforged-gauntlet-four-live-sparse1049-actual-printed-two-defense-and-temper-close",
+      "card_id": "embraforged_gauntlet",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "72c8dfc112485dffcc15f2e1231b7a29ed6ba50402fa03494ca2091a72ef30c5",
+        "actions.json": "511bf2f3686ee96e12e3d9cdbe580febcac902b797e5ec827a96d5ccd74ac457",
+        "assertions.json": "beabdc87e408e2eb869eae7b44e1efb452726334e59064535ffe48a1cc104543",
+        "expected_final_gamestate.txt": "896aa592a3f39ae35eaea11b62fb78a71abcf406d3c522b9ec96fe4878e7615e",
+        "meta.json": "e9065be919c1d91455559ee61407a5973b1a576f1f91574493a1badca968e0db"
+      },
+      "fixture_sha256": "f65988b428babaa3a4d85dc71fc383ae4fcb9e512d9c43a7825069208301f0d7",
+      "actions": 30,
+      "native_assertions": 270,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1049-20261122.json",
+      "input_sha256": "1f8b820425318514422bf68a19eeb8136d4a10094cf5b080dbaaef9e50c8fdc6",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1049-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "embraforged-gauntlet-four-live-sparse1049-actual-printed-two-defense-and-temper-close",
+        "fixture_slug": "embraforged-gauntlet-four-live-sparse1049-actual-printed-two-defense-and-temper-close",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "aurum-aegis-four-live-sparse1049-actual-printed-two-defense-and-temper-close",
+      "card_id": "aurum_aegis",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "6a8077e1c5a0eb931e08b549bcc629aeaf545129a4b91aee506476309bcda9ca",
+        "actions.json": "511bf2f3686ee96e12e3d9cdbe580febcac902b797e5ec827a96d5ccd74ac457",
+        "assertions.json": "c6d3b2f84b89e63c0876863119809c9d580754021c14072936f0f11b3fa41274",
+        "expected_final_gamestate.txt": "3e560abd6fd081678b19efdd5fd46e515d15b0c728aee1944c9ac3e3ba311f8f",
+        "meta.json": "b826f1c29febff6606b34027784404428fe03e3ff017b4f7d4b1b9d2f3dfee7f"
+      },
+      "fixture_sha256": "3ca565c9fa5930fc44d5ebcb156e5b10d581a448a809f216549cbf4dd2fc004c",
+      "actions": 30,
+      "native_assertions": 270,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1049-20261122.json",
+      "input_sha256": "1f8b820425318514422bf68a19eeb8136d4a10094cf5b080dbaaef9e50c8fdc6",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1049-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "aurum-aegis-four-live-sparse1049-actual-printed-two-defense-and-temper-close",
+        "fixture_slug": "aurum-aegis-four-live-sparse1049-actual-printed-two-defense-and-temper-close",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "spec_sha256": "1f8b820425318514422bf68a19eeb8136d4a10094cf5b080dbaaef9e50c8fdc6",
+    "reviewer": "breadth_review independent cachedtext/spec delta review",
+    "basis": [
+      "CachedCarrion/CoronetDEF2BladeBreak, Embraforged/AurumDEF2Temper; correctyoung20GravyNecromancer/OldhimEssenceIce/LeviaShadow/VictorSpecialization classes. NoWHENdefends text, activatedbody/Clash/wager/gainGold event. AurumcountingasGoldisnotcreation; VictorhasnoGold-creationtriggerhere. EmbraforgedretainsEquipmentsoGGY-to-Banishreplacement/BloodDebtnotreached.",
+      "Nativecontrolsexactlymatch reviewedqualifiedequipment donor. ActualRhinarClub4/Blue8cost2\u2192R1/AP0, Eq2+realNAA2exactDEF4/0damage/noHit/HP20/fourmanual. Carrion/CoronetBladeBreak\u2192ownedGY[5,6]/Eq0; Embraforged/AurumTempercounter1\u2192remainingDEF1retainsownedEq5/GYHand6. Physicalroles/UIDowners/fates/AP/resources/queuespersist."
+    ],
+    "limits": [
+      "Ordinaryprinteddefense/singlekeywordclose only. Noactivated/triggeredbodies, priorholds fixed, positivehit/creation/recursion/zeroTemperdestruction/hero/support/sibling/fullcardcredit. Stablehelpersreused; noauthor-onlydiagnostics. No native/PHP/T/source/Git/original/network actions byreviewer."
+    ]
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1049-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "246060c42764afb62b3d2a0c05fd94ae9c9405b0118fcb03f4645566433077c8"
+  },
+  "full_suite_run": false
+}

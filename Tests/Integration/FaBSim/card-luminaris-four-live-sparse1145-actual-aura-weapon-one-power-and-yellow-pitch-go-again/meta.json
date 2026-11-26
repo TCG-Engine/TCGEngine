@@ -1,0 +1,7 @@
+{
+    "name": "Luminaris / actual aura weapon attacks for one and gains yellow-pitch go again",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-23T11:20:50+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "During actualPrism1actionphase Luminaris6 makes existingownIllusionistAuraShield5 aweaponbase1 and Action0Attack. Actual yellowPitch7 enables IllusionistattackGoAgain. NativeArena5click/adjacent4target spendsAP1butR0; rawvirtualAttack8Owner0/Controller1/SourceArena5 waitsallfour responses, physicalShield5remainsArena. ActualCCproxy8owned1 computespower1/GAtrue, realdamage1HP4=19, closingremovesproxywithoutGY whileAP1earned. OriginalAura5retained/Luminaris6ready andyellow7Pitch retained, no tokencreation/ShieldWard event. No producers, secondactivation/onceperturnrejection, yellowremovalnegative, otherAura/weapon/class or fullcard/support credit. Native source Status is shared used-weapon bookkeeping; no rules tap/untap interaction or post-use Aura readiness is asserted or credited. Sources: FaBSim/GeneratedCode/cardArrayCache.json#luminaris"
+}

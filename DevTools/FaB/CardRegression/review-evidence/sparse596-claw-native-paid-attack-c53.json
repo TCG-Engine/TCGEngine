@@ -1,0 +1,297 @@
+{
+  "status": "APPROVED_ACTUAL_SAVED_B596_CLAW_PARTIAL_WEAPON_ATTACK",
+  "approved": true,
+  "source_approved": true,
+  "semantically_approved": true,
+  "reviewer": "/root/b106_semantic_review",
+  "reviewer_independent": true,
+  "created_utc": "2026-11-06T10:48:32.651179+00:00",
+  "source_spec": "card-regression-batch596-claw.json",
+  "input_sha256": "39b79045527fb5ac617b027eb76d93c1cb46fa4c09839619d3cf8dd5d37e5ea8",
+  "manifest_sha256": "91c7b85cd47419258c7031c83dfc962113bb54342c04f05dd7dedd5e695adc88",
+  "runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+  "recorded_runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+  "source_guards_verified": 70,
+  "prior_independent_semantic_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch596-independent-source-review.json",
+    "sha256": "b2f44c38f0961def242a04fde0164dc7aee37c96f561d715c25490bf861d6347",
+    "unchanged_semantics_reused": true
+  },
+  "recording_receipt": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch596-claw-20261106T104526Z-6aedafc66bfe0.json",
+    "sha256": "b78f49eb4a73e883599d0fdf7f6ac2ef3fbc62e7afee0df9a73990d4624719c1"
+  },
+  "specific_results": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch596-claw.recording-results.json",
+    "sha256": "164400a93e6de026f410b1fd64bde3ce2a9e681a96daa8ad320b116f699ad0be"
+  },
+  "root_wrapper_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch596-claw-native-r1-c53\\receipt.json",
+    "sha256": "77a2c0caa707c76196e290067025edb17ff29a35d4c712b8750b7b85190ef5cf"
+  },
+  "fixtures": [
+    {
+      "index": 0,
+      "card_id": "claw_of_vynserakai",
+      "group_id": "identity:claw_of_vynserakai",
+      "slug": "card-claw-of-vynserakai-four-live-real-paid-dagger-one-damage-and-physical-cleanup",
+      "source_spec": "card-regression-batch596-claw.json",
+      "input_sha256": "39b79045527fb5ac617b027eb76d93c1cb46fa4c09839619d3cf8dd5d37e5ea8",
+      "reviewer": "/root/b106_semantic_review",
+      "approved": true,
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_PARTIAL_PAID_WEAPON_ATTACK",
+      "runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+      "recorded_runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+      "fixture_path": "Tests\\Integration\\FaBSim\\card-claw-of-vynserakai-four-live-real-paid-dagger-one-damage-and-physical-cleanup",
+      "fixture_sha256": "6c19509091fe0926d0688e18a022b7919f7572e49726aa370949b4a4b0fd8fcf",
+      "raw4_sha256": {
+        "initial_gamestate.txt": "fc6ce2237111292c726002147657f7d86cffe54a79c2c2e7d46b01a889d9300d",
+        "actions.json": "68555e1adb5ee3e99f23ac84afbf2383b3f3d2f96b985ad1552a9d323967372b",
+        "assertions.json": "feb882eb14e6a465954af4ea22180ad77c46fbeb33015d04bec0814bf15590cf",
+        "expected_final_gamestate.txt": "ead2d19bbf84692c3dd5dfe2618787a362e8396297407df052e525ec382c7bd9"
+      },
+      "raw5_sha256": {
+        "initial_gamestate.txt": "fc6ce2237111292c726002147657f7d86cffe54a79c2c2e7d46b01a889d9300d",
+        "actions.json": "68555e1adb5ee3e99f23ac84afbf2383b3f3d2f96b985ad1552a9d323967372b",
+        "assertions.json": "feb882eb14e6a465954af4ea22180ad77c46fbeb33015d04bec0814bf15590cf",
+        "expected_final_gamestate.txt": "ead2d19bbf84692c3dd5dfe2618787a362e8396297407df052e525ec382c7bd9",
+        "meta.json": "1232a78c37fd4b9dbc9c683771cd620db71b2f9fa05bfff568592f4fccadff44"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "fc6ce2237111292c726002147657f7d86cffe54a79c2c2e7d46b01a889d9300d",
+        "actions.json": "68555e1adb5ee3e99f23ac84afbf2383b3f3d2f96b985ad1552a9d323967372b",
+        "assertions.json": "feb882eb14e6a465954af4ea22180ad77c46fbeb33015d04bec0814bf15590cf",
+        "expected_final_gamestate.txt": "ead2d19bbf84692c3dd5dfe2618787a362e8396297407df052e525ec382c7bd9",
+        "meta.json": "1232a78c37fd4b9dbc9c683771cd620db71b2f9fa05bfff568592f4fccadff44"
+      },
+      "actions": 28,
+      "native_assertions": 2357,
+      "actual_manual_passes": 25,
+      "actual_priority_response_passes": 24,
+      "actual_defender_declaration_finish_inputs": 1,
+      "actual_administrative_END_PHASE_passes": 0,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4
+      ],
+      "actual_manual_actor_counts": {
+        "1": 6,
+        "2": 6,
+        "3": 6,
+        "4": 7
+      },
+      "schema_property_assertions": 628,
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "all_actions_and_assertions_exact": true,
+      "no_recorder_only_assertions": true,
+      "all_endpoint_physical_uid_card_zones_ownership_verified": true,
+      "all_terminal_assertions_evaluated_against_parsed_final_snapshot": true,
+      "initial_assertions_also_evaluated_against_parsed_initial_snapshot": true,
+      "initial_physical_uid_locations": {
+        "1": {
+          "card_id": "fai",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "6": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "claw_of_vynserakai",
+          "zone": "p1Weapons",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2
+        }
+      },
+      "final_physical_uid_locations": {
+        "1": {
+          "card_id": "fai",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "5": {
+          "card_id": "claw_of_vynserakai",
+          "zone": "p1Weapons",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Pitch",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2
+        }
+      },
+      "final_health": [
+        20,
+        20,
+        20,
+        19
+      ],
+      "final_resources": [
+        2,
+        0,
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "physical_Weapon_UID": 5,
+      "actual_Weapon_Status": 1,
+      "printed_tap_cost": false,
+      "actual_weapon_use_counters": {
+        "WEAPON_ATTACK_TURN": 2,
+        "WEAPON_ATTACKS": 1
+      },
+      "actual_first_attack_power": 1,
+      "actual_damage": 1,
+      "actual_go_again": false,
+      "ceased_proxy_UID": 7,
+      "final_Pitch1_exact_UIDs": [
+        6
+      ],
+      "final_physical_uidset": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "final_UniqueIDCounter": 7,
+      "RandomCounter": 0,
+      "Spellvoid_earned": false,
+      "full_card_certification": false,
+      "checkpoint_assertion_mapping_sha256": "751eb61d7d6b826e1467162fb69d36137e3d9a1fd31b96b4b88ba34b13a2849a",
+      "native_action_mapping_sha256": "52641f0a316a73fa9d413e4c03a54ee4fba128d1048edf7f538eaddbf45102bc",
+      "native_assertion_mapping_sha256": "0d672b967d30a666602f4de1e3e08e1bb2d9e899f9ca3dba567fc7a874878635"
+    }
+  ],
+  "blocked_attempts": [],
+  "total_actions": 28,
+  "total_native_assertions": 2357,
+  "total_manual_passes": 25,
+  "total_priority_response_passes": 24,
+  "total_defender_declaration_finish_inputs": 1,
+  "total_schema_property_assertions": 628,
+  "material_findings": [
+    "ActualCOMPLETE0/stderr0/onefixture atunchangedc53. Raw5/all28envelopes2357orderedchecks25manual6/6/6/7/raw48preferences perendpoint/70actualguards verified against completeindependentsourcemodel.",
+    "ActualnormalWeapon5click/formaladjacentHero4targetbeforeproxy7/cost. RealBlue6pitch3paysprinted1andAP1\u2192R2AP0 beforefreshfour; samephysical5staysWeapons andengineusesStatus1/twouseCounters. No addedprintedTapcost or syntheticARCability/primarycardplay credit.",
+    "Actualsameproxy7Chain livepower1/noGA andunblockedphysical1damageHP19, noResolutionrefund. Fullcloseproxy7ceasesNOTGY, Weapon5retainedusedDamage0 andBlue6Pitch; alloriginalphysicalUID1..6/owners, emptyDecks/Hands/GY andallqueues/await/payment/Chains quiet/counter7/RNG0 verified.",
+    "Spellvoidunearned/noarcane/nofutureonce-reset/Enduntap/secondactivation/FaiPhoenix/Hero/support/sibling/fullcard credit. Hammer remains separate source-only unattempted planning limit. Roottwofocusedreplays areseparate/unclaimed."
+  ],
+  "primary_sources": [
+    {
+      "url": "https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/GEM034-CF.webp",
+      "local_path": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\WebpImages\\claw_of_vynserakai.webp",
+      "sha256": "8fab217d860626e90c2f9196ca847a1b66cb8b1f22d15abe8e5aa375d89de75d",
+      "actually_viewed": true,
+      "finding": "ClawOnceTurnAction1/base1/Spellvoid1, noGA/noTapcost."
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/",
+      "finding": "Formalattacktarget precedes actualcostpayment; realresource/APassetsbeforepriority."
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/08-keywords/",
+      "finding": "Spellvoidoptionalstaticprevention onlywhenarcanedamage threatens; notanactivatedability or earnedhere."
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/trp/09-special-formats/9.3",
+      "finding": "OrdinaryUPFattacktargetsadjacentopponents2/4, selectedHero4legal."
+    }
+  ],
+  "limits": [
+    "Onlyfirstrealpaid Clawattack1/actual1damage/noGA/use/fullcleanup representative. No Spellvoid/arcane/second-use rejection/next-turnreset/Enduntap/suppression/alternativedefense/Hero/support/sibling/fullcard certification.",
+    "Status1 isengineused/readiness bookkeeping, notprintedTapcost. cardsPlayedThisTurn record isframeworkweaponactivation bookkeeping, notproof anAAcardwasplayed. Source143grant notused.",
+    "Persistedorderedchecks+rawinitial/final only; no inventedper-inputsnapshots. OpaqueundoVersions hash-bound, excludedfromcurrentphysicalinventory. Reviewer no R/PHP/native/replay/source/fullsuite/remote/deniedoperation."
+  ],
+  "blockers": [],
+  "actual_comparison_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov6_batch596_saved_readonly.py",
+    "sha256": "2c57a3e51e20b6e2d980ce2aa3f4898f16cf31ffe12301ade13ad061ae36c746"
+  },
+  "retained_independent_static_checker": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov6_batch596_source_readonly.py",
+    "sha256": "3fb7af4a0cecfaa4389e8a72a1ff0ca5774f98996ce56e14223483f417855ca6",
+    "portion": "Own completeClaw schema/action/checkpointledger only; no rules/source orlegacyre-audit"
+  }
+}

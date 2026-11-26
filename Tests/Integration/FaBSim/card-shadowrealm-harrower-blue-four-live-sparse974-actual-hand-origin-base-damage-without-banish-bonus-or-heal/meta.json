@@ -1,0 +1,7 @@
+{
+    "name": "Shadowrealm Harrower / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T23:07:12+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "If this was played from your banished zone, it gets +1{p} and \"When this hits a hero, gain {h} equal to the damage dealt this way.\"\n\n**Blood Debt** Representative only: actual_hand_origin_base_damage_without_banish_bonus_or_heal. Physical Hand5 source/actual Blue6 pays printed1/2/3/R2/1/0/AP0, full four-live manual combat, owned source graveyard. Static grants/events not earned under these actual conditions; retained physical markers. No positive Hit/banished-source/Unity/clash/return or created ownership credit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#shadowrealm_harrower_blue"
+}

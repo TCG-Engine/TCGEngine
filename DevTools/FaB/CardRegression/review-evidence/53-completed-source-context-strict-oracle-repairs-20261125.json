@@ -1,0 +1,2740 @@
+{
+  "status": "EXACT_REVIEWED_STRICT_FINAL_ORACLES",
+  "review": {
+    "reviewer": "/root/breadth_review1457",
+    "approved": true,
+    "scope": "Exact53 Stack0-reference cases with EMPTY Stack at every edited reference,265 raw5 before guards and complete candidate/capture identity.96 accounting-only GameState and70 mzID-only segments; every additional context key/value/type/order unchanged. Legacy scalar/choice/ability fields preserved, not live await ownership; old/new queues,await,pending/resolving inactive; referenced completed layer absent from Stack. GL rebinds supplied source mzID before callbacks, ARC initializes ability params, choice resumes require live queue/frame ownership. Some quiet completed callbacks during Reaction/Damage/Resolution; no combat arguments changed. Not a claim arbitrary context values can be ignored;32Stack1+4activeStack0+20unexplained held. Reviewer ran no games/tests and wrote nothing."
+  },
+  "review_manifest_sha256": "fed69006455e7f58eb8683ba46b0b3400aa68aae3f82223268aa743d4a1d8276",
+  "runtime_sha256": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+  "fixtures": [
+    {
+      "number": 11,
+      "slug": "card-anaphylactic-shock-blue-four-live-sparse-real-opposing-hero-damage-earned-before-life-loss",
+      "passed": true,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "exit_code": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-anaphylactic-shock-blue-four-live-sparse-real-opposing-hero-damage-earned-before-life-loss",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\snapshot-cohort-445\\quietrefs53-011.log"
+      ],
+      "complete_log_sha256": "0a1071786dafcf51d6f2cd39090c8cf14b027320aa37856cf292a8c42d247938",
+      "before_expected_sha256": "f7bad06a90bc451e615b9d1befb23cd4ab3cc7803d2febeec10f7233fc8dc1ea",
+      "expected_sha256": "5290a4b9101d4834dbdce60e034b4cf26d67322163e8aa9ff212e11b2b7fe360",
+      "other_four_files_unchanged": true,
+      "failed_candidate_restored": false,
+      "edits": [
+        {
+          "location": "line88",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "1",
+          "accounting_bag_sha256": "ab0dd064cabbea75055979d6180a7ddb1bec489fa32c64c0fd864d7af8364fc6",
+          "ordered_nonaccounting_sha256": "c6d2f31b4aee10546f8f2c10306bee65f5f5611e7e7a8b93b397839d75e82da2",
+          "before_rows_sha256": "b6e2afee0deca3fd747e73cda5255a7dec7e3262c2b455749769a20f83a74d96",
+          "after_rows_sha256": "0cc6a29f53731c7e5621f5ca800e8530cfbd84d8edf2aa9576be453eeb38f20e"
+        },
+        {
+          "location": "line108",
+          "kind": "RETAINED_COMPLETED_SOURCE_REFERENCE",
+          "old": "p4Graveyard-0",
+          "new": "Stack-0",
+          "other_fields_unchanged": true,
+          "additional_source_and_inactive_context_proof_required": true
+        }
+      ]
+    },
+    {
+      "number": 17,
+      "slug": "card-arcane-polarity-blue-conditional-heal-fully-prevented-arcane-negative",
+      "passed": true,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "exit_code": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-arcane-polarity-blue-conditional-heal-fully-prevented-arcane-negative",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\snapshot-cohort-445\\quietrefs53-017.log"
+      ],
+      "complete_log_sha256": "69e174ad7ba2344479ab995b41affc0ccd042100b539a355936177e8a4829659",
+      "before_expected_sha256": "b5a0f195005db57f151d4f7b51de116bfd33fa9fad2a89f1842bfcccf225d32a",
+      "expected_sha256": "398df88f165d9362d9d8a4866c2f36519d1463980a408fbd7f20e6a66a4a583f",
+      "other_four_files_unchanged": true,
+      "failed_candidate_restored": false,
+      "edits": [
+        {
+          "location": "line86",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "2",
+          "accounting_bag_sha256": "c6027c2c47e3a4175cb381e2387e19e72069b1048f9a73e4896f3a3747a8c0fb",
+          "ordered_nonaccounting_sha256": "034252813daaf44caf4cf2496dc2fc0a0a67e24f6b2c238548f9920c763fca87",
+          "before_rows_sha256": "bb800e3357387d8037f04dd701a2d96de4dd95d57db9756eda42658aa10e55e1",
+          "after_rows_sha256": "1937715fb5ce2a602fdceab58c271a6bb9a64781abedeb0878bb198fff6c8322"
+        },
+        {
+          "location": "line104",
+          "kind": "RETAINED_COMPLETED_SOURCE_REFERENCE",
+          "old": "p2Graveyard-0",
+          "new": "Stack-0",
+          "other_fields_unchanged": true,
+          "additional_source_and_inactive_context_proof_required": true
+        }
+      ]
+    },
+    {
+      "number": 19,
+      "slug": "card-arcane-polarity-blue-conditional-heal-only-opponent-was-dealt-arcane-negative",
+      "passed": true,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "exit_code": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-arcane-polarity-blue-conditional-heal-only-opponent-was-dealt-arcane-negative",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\snapshot-cohort-445\\quietrefs53-019.log"
+      ],
+      "complete_log_sha256": "ab5708e2bf47950989fef7a280725b4f1de529b5dea70658af7a31968f64acba",
+      "before_expected_sha256": "ce715f47e378a9d26da9df5d554ae7806d282152d7a869171c182774f447d5cb",
+      "expected_sha256": "31cec0d22deb8fb3d8e7bc354425ea2076f2ee914ef0ee63b8fbea19ea759bda",
+      "other_four_files_unchanged": true,
+      "failed_candidate_restored": false,
+      "edits": [
+        {
+          "location": "line86",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "1",
+          "accounting_bag_sha256": "c6027c2c47e3a4175cb381e2387e19e72069b1048f9a73e4896f3a3747a8c0fb",
+          "ordered_nonaccounting_sha256": "1727bc52d7cba31db8f80c77e4cec031736c759658705d94f0bfae2213a38ae5",
+          "before_rows_sha256": "c54dfca676b7538d29860abedbe48d769abc5421def95f46b6e55a7842040393",
+          "after_rows_sha256": "4626efa556c2d04d71f236310595dfd7e820cf47f5cced019da4e6931449c73f"
+        },
+        {
+          "location": "line104",
+          "kind": "RETAINED_COMPLETED_SOURCE_REFERENCE",
+          "old": "p1Graveyard-1",
+          "new": "Stack-0",
+          "other_fields_unchanged": true,
+          "additional_source_and_inactive_context_proof_required": true
+        }
+      ]
+    },
+    {
+      "number": 24,
+      "slug": "card-arcane-polarity-blue-conditional-heal-physical-damage-only-negative",
+      "passed": true,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "exit_code": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-arcane-polarity-blue-conditional-heal-physical-damage-only-negative",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\snapshot-cohort-445\\quietrefs53-024.log"
+      ],
+      "complete_log_sha256": "7b91d74c96e5172e59602a6a129c3d2c8ecbdf61da651c09d40c93e535e8b04b",
+      "before_expected_sha256": "e06f2367529073b5e0317cb5ba516152db18bb1c9b19460de2a9d68ec03dfa34",
+      "expected_sha256": "6ba3157745d70f74279c3775a68966b1a238043d9fa146e60ce926c408f6f53b",
+      "other_four_files_unchanged": true,
+      "failed_candidate_restored": false,
+      "edits": [
+        {
+          "location": "line86",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "2",
+          "accounting_bag_sha256": "c6027c2c47e3a4175cb381e2387e19e72069b1048f9a73e4896f3a3747a8c0fb",
+          "ordered_nonaccounting_sha256": "737b9c33ca09441480f4b473199cf90a789635d1b55c8637f974ef7d8b96072e",
+          "before_rows_sha256": "0d8921e004a2d59fd36934cda559de947c2901ed31b179a95dd24f3d96b5a0a9",
+          "after_rows_sha256": "e5bf9b7d3333fee243c29f0f18400f644320cc80a59c76dfa351995f3c3f8c47"
+        },
+        {
+          "location": "line95/Versions/86",
+          "kind": "RETAINED_COMPLETED_SOURCE_REFERENCE",
+          "old": "p2Graveyard-0",
+          "new": "Stack-0",
+          "other_fields_unchanged": true,
+          "additional_source_and_inactive_context_proof_required": true
+        },
+        {
+          "location": "line95/Versions/90",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "2",
+          "accounting_bag_sha256": "1bac5483f760b687d52655f913eb3345bc15ec65fe8cdc2bb28f5fd7697130a3",
+          "ordered_nonaccounting_sha256": "c1b6beff48fb26d6aeb7217b36e7316856c403bb005a568f16b10e639559f06d",
+          "before_rows_sha256": "b9fdba6673950d9d9063653bf64f017546834d410c6d25dc3af0f153584e3fc1",
+          "after_rows_sha256": "5bceae02aab24642f78a05ac19c3b602f9febdcadbf9e48f7f1b5da224022176"
+        },
+        {
+          "location": "line97/Versions/86",
+          "kind": "RETAINED_COMPLETED_SOURCE_REFERENCE",
+          "old": "p2Graveyard-0",
+          "new": "Stack-0",
+          "other_fields_unchanged": true,
+          "additional_source_and_inactive_context_proof_required": true
+        },
+        {
+          "location": "line97/Versions/90",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "2",
+          "accounting_bag_sha256": "1bac5483f760b687d52655f913eb3345bc15ec65fe8cdc2bb28f5fd7697130a3",
+          "ordered_nonaccounting_sha256": "c1b6beff48fb26d6aeb7217b36e7316856c403bb005a568f16b10e639559f06d",
+          "before_rows_sha256": "b9fdba6673950d9d9063653bf64f017546834d410c6d25dc3af0f153584e3fc1",
+          "after_rows_sha256": "5bceae02aab24642f78a05ac19c3b602f9febdcadbf9e48f7f1b5da224022176"
+        },
+        {
+          "location": "line104",
+          "kind": "RETAINED_COMPLETED_SOURCE_REFERENCE",
+          "old": "p2Graveyard-0",
+          "new": "Stack-0",
+          "other_fields_unchanged": true,
+          "additional_source_and_inactive_context_proof_required": true
+        }
+      ]
+    },
+    {
+      "number": 25,
+      "slug": "card-arcane-polarity-blue-conditional-heal-positive-real-opponent-arcane-before-play",
+      "passed": true,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "exit_code": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-arcane-polarity-blue-conditional-heal-positive-real-opponent-arcane-before-play",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\snapshot-cohort-445\\quietrefs53-025.log"
+      ],
+      "complete_log_sha256": "b2acb629e73d754e876992adec08174531f2eaba208c4c75a5652dfcd99a16c4",
+      "before_expected_sha256": "98b3b0c38fb774972e16f3e711206b79009ff7fee9b81622e6c4aad7e9461102",
+      "expected_sha256": "074edd8c504fa4505b08660f30f9d44a33b7d4be429df7515d5cddb5aea8639d",
+      "other_four_files_unchanged": true,
+      "failed_candidate_restored": false,
+      "edits": [
+        {
+          "location": "line86",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "2",
+          "accounting_bag_sha256": "72eb0ee7dafc03050f3ba3e98ae1aec331c293d63edd84aa695cf34b39b89e0d",
+          "ordered_nonaccounting_sha256": "db6e523c74e3e1e9d1b22bab3140738e05bbe125c2c28dbad12daa822f91f643",
+          "before_rows_sha256": "c8bb5fea5d1403ee71b6d8e228743ae93b0c571595cf08316c8877eaf29b6cc8",
+          "after_rows_sha256": "5d443afc8bf9c66db1257d972265e7416925e6c98ba733ecdb30501421567fcc"
+        },
+        {
+          "location": "line104",
+          "kind": "RETAINED_COMPLETED_SOURCE_REFERENCE",
+          "old": "p2Graveyard-0",
+          "new": "Stack-0",
+          "other_fields_unchanged": true,
+          "additional_source_and_inactive_context_proof_required": true
+        }
+      ]
+    },
+    {
+      "number": 26,
+      "slug": "card-arcane-polarity-blue-conditional-heal-positive-real-self-arcane-before-play",
+      "passed": true,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "exit_code": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-arcane-polarity-blue-conditional-heal-positive-real-self-arcane-before-play",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\snapshot-cohort-445\\quietrefs53-026.log"
+      ],
+      "complete_log_sha256": "ed1eeb0a808b786e8318bfca3d6846887e7445a5e4ed8c5e88d4a4bfb46c7339",
+      "before_expected_sha256": "ecd78099c75fc72c3eda7227baa35c87d9a73849a2827516990376397cbb4290",
+      "expected_sha256": "6471568040a5d6dc2169c6f66bd79f5e1da841da5c0093e56af1f6668e983ea9",
+      "other_four_files_unchanged": true,
+      "failed_candidate_restored": false,
+      "edits": [
+        {
+          "location": "line86",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "1",
+          "accounting_bag_sha256": "72eb0ee7dafc03050f3ba3e98ae1aec331c293d63edd84aa695cf34b39b89e0d",
+          "ordered_nonaccounting_sha256": "46c1e5fe4088808323b50b7f8626d2d2011f6a18cceb0ee406a53317da560207",
+          "before_rows_sha256": "c03c6b62e6e06d6befb0f7d5819b74b299e4432508b0ec9401e23b10d67d744f",
+          "after_rows_sha256": "42161ba8c83fcc5ca8727b2ba65b1ef109c7ce4ca0d522452ce4c11af9f7806f"
+        },
+        {
+          "location": "line104",
+          "kind": "RETAINED_COMPLETED_SOURCE_REFERENCE",
+          "old": "p1Graveyard-1",
+          "new": "Stack-0",
+          "other_fields_unchanged": true,
+          "additional_source_and_inactive_context_proof_required": true
+        }
+      ]
+    },
+    {
+      "number": 27,
+      "slug": "card-arcane-polarity-blue-conditional-heal-prior-turn-arcane-history-expires",
+      "passed": true,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "exit_code": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-arcane-polarity-blue-conditional-heal-prior-turn-arcane-history-expires",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\snapshot-cohort-445\\quietrefs53-027.log"
+      ],
+      "complete_log_sha256": "24eec98fb4e1f574c46eb28f9d8a7f69c74d2a6cc68286249d5c8922e7a2ef7c",
+      "before_expected_sha256": "fa87361960d6e673820a4dc27e83eaa220ec116efc022c9ce90feb4f49a76fb3",
+      "expected_sha256": "c1d4721034ea1f4270c56c4bf653dbea9843366e2dea5f5c8daa14df40184bef",
+      "other_four_files_unchanged": true,
+      "failed_candidate_restored": false,
+      "edits": [
+        {
+          "location": "line86",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "1",
+          "accounting_bag_sha256": "1bac5483f760b687d52655f913eb3345bc15ec65fe8cdc2bb28f5fd7697130a3",
+          "ordered_nonaccounting_sha256": "034252813daaf44caf4cf2496dc2fc0a0a67e24f6b2c238548f9920c763fca87",
+          "before_rows_sha256": "196989ee21bcf1a9dcdc21873ad753dce988a3d6c18393169d4d2e057d5c74a6",
+          "after_rows_sha256": "f14551af5699d538ed8f53795573c4695b204371134789dd20b4ce52df6b4f62"
+        },
+        {
+          "location": "line104",
+          "kind": "RETAINED_COMPLETED_SOURCE_REFERENCE",
+          "old": "p1Graveyard-1",
+          "new": "Stack-0",
+          "other_fields_unchanged": true,
+          "additional_source_and_inactive_context_proof_required": true
+        }
+      ]
+    },
+    {
+      "number": 31,
+      "slug": "card-arcane-polarity-red-conditional-heal-fully-prevented-arcane-negative",
+      "passed": true,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "exit_code": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-arcane-polarity-red-conditional-heal-fully-prevented-arcane-negative",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\snapshot-cohort-445\\quietrefs53-031.log"
+      ],
+      "complete_log_sha256": "9c03c8a9d73260c7898d6f224d6a9b6e878584bb90a5c5c9da607bb6cb405099",
+      "before_expected_sha256": "a67296a8d3f3d02af741c4259c362d3f535b38a6306b8e400158fb072b41224e",
+      "expected_sha256": "fde58aba522dff708fde31c82e3c0fa426a28a2251f3b46cc3d2f1db433ab8a9",
+      "other_four_files_unchanged": true,
+      "failed_candidate_restored": false,
+      "edits": [
+        {
+          "location": "line86",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "2",
+          "accounting_bag_sha256": "3f8306769104646f273ccc6fbbf075f5b12e8963e466d1bc40a2dbf8a062053e",
+          "ordered_nonaccounting_sha256": "bc1a5a596b6c0aa97d85bb7beca5e78f8862eec78235e9f4a3ba90cbbfda7463",
+          "before_rows_sha256": "d680c471a40140d763316e8b262532ccbf96095283b29f4dd319d7521e98b0e3",
+          "after_rows_sha256": "eb73027881f0eed3a67c4e2fd8c4566ca2ee0bf1c44d357434e40d631802dee6"
+        },
+        {
+          "location": "line104",
+          "kind": "RETAINED_COMPLETED_SOURCE_REFERENCE",
+          "old": "p2Graveyard-0",
+          "new": "Stack-0",
+          "other_fields_unchanged": true,
+          "additional_source_and_inactive_context_proof_required": true
+        }
+      ]
+    },
+    {
+      "number": 33,
+      "slug": "card-arcane-polarity-red-conditional-heal-only-opponent-was-dealt-arcane-negative",
+      "passed": true,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "exit_code": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-arcane-polarity-red-conditional-heal-only-opponent-was-dealt-arcane-negative",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\snapshot-cohort-445\\quietrefs53-033.log"
+      ],
+      "complete_log_sha256": "efd21c2d5dce48bc83fced745b327e49444e36df5a520de60f5a34c9c8562074",
+      "before_expected_sha256": "1037c9099931b0705219cb4dcb5ae097674b13961727fed7e4c0ded871202a2c",
+      "expected_sha256": "e108299e3ad54e31e128d8455c533ad551cb47f5813fb4094d6bd262c769ebff",
+      "other_four_files_unchanged": true,
+      "failed_candidate_restored": false,
+      "edits": [
+        {
+          "location": "line86",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "1",
+          "accounting_bag_sha256": "3f8306769104646f273ccc6fbbf075f5b12e8963e466d1bc40a2dbf8a062053e",
+          "ordered_nonaccounting_sha256": "0d928db7dc925c8ca82b4f29b0d0d12f652393102f27f302d8f5c0ede295d7fa",
+          "before_rows_sha256": "237822536c5ca2689626ecca2abb7e554bd1d26ee7a4e3fd362d56215e16b5f4",
+          "after_rows_sha256": "4aea957f22e9de6be2b560a29a0b2491db6e540ed266f328ad42f8b8a952e8fd"
+        },
+        {
+          "location": "line104",
+          "kind": "RETAINED_COMPLETED_SOURCE_REFERENCE",
+          "old": "p1Graveyard-1",
+          "new": "Stack-0",
+          "other_fields_unchanged": true,
+          "additional_source_and_inactive_context_proof_required": true
+        }
+      ]
+    },
+    {
+      "number": 38,
+      "slug": "card-arcane-polarity-red-conditional-heal-physical-damage-only-negative",
+      "passed": true,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "exit_code": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-arcane-polarity-red-conditional-heal-physical-damage-only-negative",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\snapshot-cohort-445\\quietrefs53-038.log"
+      ],
+      "complete_log_sha256": "19d5eb1635a779b10fc960c8c1e3268e995ab24aee8de42ed3e493f52707f945",
+      "before_expected_sha256": "afb4af4312240a5064225af3e92aaa12a91e868624f9f6730d603557e620603e",
+      "expected_sha256": "234ac5535fde4ab19a736b909e3f03c41a21bf4273ae0b25d4d6e9473088b72e",
+      "other_four_files_unchanged": true,
+      "failed_candidate_restored": false,
+      "edits": [
+        {
+          "location": "line86",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "2",
+          "accounting_bag_sha256": "3f8306769104646f273ccc6fbbf075f5b12e8963e466d1bc40a2dbf8a062053e",
+          "ordered_nonaccounting_sha256": "632a6ba0c3c23a92af6f6baf5ec305e76cebe1d29a4242aad18c5a7cf7cd6e48",
+          "before_rows_sha256": "0522f61ec88b23568ed3dbab9f1784424161ec648c0c869b18daf8a83edcc382",
+          "after_rows_sha256": "814088b081cf18c94fe1dd8dc4c92f0b5cb08970d8c5f8733d6541f90f97bda8"
+        },
+        {
+          "location": "line95/Versions/86",
+          "kind": "RETAINED_COMPLETED_SOURCE_REFERENCE",
+          "old": "p2Graveyard-0",
+          "new": "Stack-0",
+          "other_fields_unchanged": true,
+          "additional_source_and_inactive_context_proof_required": true
+        },
+        {
+          "location": "line95/Versions/90",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "2",
+          "accounting_bag_sha256": "550396da3877d417e5f46ea4429382bd2a97e24f03509266870c2781496fbce9",
+          "ordered_nonaccounting_sha256": "404857e736ea85f65fba8ae98c18b22abf9c784441852e371aeb1a11c94c5a14",
+          "before_rows_sha256": "936f7e269c62f31530ac5f6b15ed4e2384882e8a41dccbaf56e9cd22564328ae",
+          "after_rows_sha256": "575c7be438544bf71ec54a997d99b4c96bd0fae48ebf89998c1531aa8024d286"
+        },
+        {
+          "location": "line97/Versions/86",
+          "kind": "RETAINED_COMPLETED_SOURCE_REFERENCE",
+          "old": "p2Graveyard-0",
+          "new": "Stack-0",
+          "other_fields_unchanged": true,
+          "additional_source_and_inactive_context_proof_required": true
+        },
+        {
+          "location": "line97/Versions/90",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "2",
+          "accounting_bag_sha256": "550396da3877d417e5f46ea4429382bd2a97e24f03509266870c2781496fbce9",
+          "ordered_nonaccounting_sha256": "404857e736ea85f65fba8ae98c18b22abf9c784441852e371aeb1a11c94c5a14",
+          "before_rows_sha256": "936f7e269c62f31530ac5f6b15ed4e2384882e8a41dccbaf56e9cd22564328ae",
+          "after_rows_sha256": "575c7be438544bf71ec54a997d99b4c96bd0fae48ebf89998c1531aa8024d286"
+        },
+        {
+          "location": "line104",
+          "kind": "RETAINED_COMPLETED_SOURCE_REFERENCE",
+          "old": "p2Graveyard-0",
+          "new": "Stack-0",
+          "other_fields_unchanged": true,
+          "additional_source_and_inactive_context_proof_required": true
+        }
+      ]
+    },
+    {
+      "number": 39,
+      "slug": "card-arcane-polarity-red-conditional-heal-positive-real-opponent-arcane-before-play",
+      "passed": true,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "exit_code": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-arcane-polarity-red-conditional-heal-positive-real-opponent-arcane-before-play",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\snapshot-cohort-445\\quietrefs53-039.log"
+      ],
+      "complete_log_sha256": "d2a08e250b5bb82b26e13bceb272072af9bc543d47c2bd9ff0a83a7ac1665bca",
+      "before_expected_sha256": "fe3717ffec54d0dfbe2f63b338d4d987360160903b6a45b601b5032d924c7f60",
+      "expected_sha256": "ea79027e2b803a37984b59c41bc03c33e8a677a2655f94ac6a0e33c90faec9f0",
+      "other_four_files_unchanged": true,
+      "failed_candidate_restored": false,
+      "edits": [
+        {
+          "location": "line86",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "2",
+          "accounting_bag_sha256": "76d35d8c49292e966ac10e47ca315860d9d3490f6cb36574a1f5e18d7edc1d45",
+          "ordered_nonaccounting_sha256": "1c55527750778891fc5ccfc6818437650e48e37d1273fe8c0e4b391114ba3151",
+          "before_rows_sha256": "dbf0971017d0ac3b4af4bce867803b2c63a0400ffe16e9224e38f2c3ae4b6084",
+          "after_rows_sha256": "cb4d641fef485448d43fa8fad009bcb55dd8434f7060f252a8f672f55995fe5b"
+        },
+        {
+          "location": "line104",
+          "kind": "RETAINED_COMPLETED_SOURCE_REFERENCE",
+          "old": "p2Graveyard-0",
+          "new": "Stack-0",
+          "other_fields_unchanged": true,
+          "additional_source_and_inactive_context_proof_required": true
+        }
+      ]
+    },
+    {
+      "number": 40,
+      "slug": "card-arcane-polarity-red-conditional-heal-prior-turn-arcane-history-expires",
+      "passed": true,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "exit_code": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-arcane-polarity-red-conditional-heal-prior-turn-arcane-history-expires",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\snapshot-cohort-445\\quietrefs53-040.log"
+      ],
+      "complete_log_sha256": "05f575678888e48d96de132f1828c0c2e453a384f88df187912c314ef6d125b0",
+      "before_expected_sha256": "e98de7b5f555bd212d2eca22f34cb7f6769d4e8ea062fe2e64972ae5fe7e6f3a",
+      "expected_sha256": "e784a83e6ca957522480471dce74b5388ae34de52a7847e8cf9758d52b9457b9",
+      "other_four_files_unchanged": true,
+      "failed_candidate_restored": false,
+      "edits": [
+        {
+          "location": "line86",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "1",
+          "accounting_bag_sha256": "550396da3877d417e5f46ea4429382bd2a97e24f03509266870c2781496fbce9",
+          "ordered_nonaccounting_sha256": "bc1a5a596b6c0aa97d85bb7beca5e78f8862eec78235e9f4a3ba90cbbfda7463",
+          "before_rows_sha256": "f16b1063baee917d4ec29080945be4d5c7826b9092d7d1972b1a407dc6f22af8",
+          "after_rows_sha256": "b865dc47ad7ccdeac3fc1250863d2208fdd79c611f92a776344422c5cf8892fb"
+        },
+        {
+          "location": "line104",
+          "kind": "RETAINED_COMPLETED_SOURCE_REFERENCE",
+          "old": "p1Graveyard-1",
+          "new": "Stack-0",
+          "other_fields_unchanged": true,
+          "additional_source_and_inactive_context_proof_required": true
+        }
+      ]
+    },
+    {
+      "number": 41,
+      "slug": "card-arcane-polarity-red-conditional-heal-real-self-dart-at-zero-ap",
+      "passed": true,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "exit_code": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-arcane-polarity-red-conditional-heal-real-self-dart-at-zero-ap",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\snapshot-cohort-445\\quietrefs53-041.log"
+      ],
+      "complete_log_sha256": "c3bf96d4b774fdddacd1707959a9a47f30286a4b9dd477c93613e14ce01cf338",
+      "before_expected_sha256": "8111cdba26e08cb4e1d7fb596a0e8d72e5f69937962c1f51d87e5412d2a2d389",
+      "expected_sha256": "5d05277ac76f557eb6b51c17281f624c42cc3467b06dbd76432e314790a405c0",
+      "other_four_files_unchanged": true,
+      "failed_candidate_restored": false,
+      "edits": [
+        {
+          "location": "line86",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "1",
+          "accounting_bag_sha256": "76d35d8c49292e966ac10e47ca315860d9d3490f6cb36574a1f5e18d7edc1d45",
+          "ordered_nonaccounting_sha256": "56352c5db9eb5509af2e77c64ccfab30a3f19ff9945c3bd0a300f1cd091db600",
+          "before_rows_sha256": "63988d088f91f7c4ab7ae107faa7a88ddef22179584717b3cad145142df621f0",
+          "after_rows_sha256": "80fe9a53c531a8126f461845400e955cc2386b8598abb3ef773a2daf503943f6"
+        },
+        {
+          "location": "line104",
+          "kind": "RETAINED_COMPLETED_SOURCE_REFERENCE",
+          "old": "p1Graveyard-1",
+          "new": "Stack-0",
+          "other_fields_unchanged": true,
+          "additional_source_and_inactive_context_proof_required": true
+        }
+      ]
+    },
+    {
+      "number": 45,
+      "slug": "card-arcane-polarity-yellow-conditional-heal-fully-prevented-arcane-negative",
+      "passed": true,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "exit_code": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-arcane-polarity-yellow-conditional-heal-fully-prevented-arcane-negative",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\snapshot-cohort-445\\quietrefs53-045.log"
+      ],
+      "complete_log_sha256": "c87d2857b6c0b9400f40481879d83a5317bf726819eb7e5939f82c35555430c3",
+      "before_expected_sha256": "1958c60dfe5d308a45c31c65a94bc3112c0ca9a8e5ab98224b8c1da7d4cde4ad",
+      "expected_sha256": "687cba70cbe3f178f61b2955188b90ef1f4a52bc8028ecc5e0e2bd652e959718",
+      "other_four_files_unchanged": true,
+      "failed_candidate_restored": false,
+      "edits": [
+        {
+          "location": "line86",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "2",
+          "accounting_bag_sha256": "3f8306769104646f273ccc6fbbf075f5b12e8963e466d1bc40a2dbf8a062053e",
+          "ordered_nonaccounting_sha256": "bc1a5a596b6c0aa97d85bb7beca5e78f8862eec78235e9f4a3ba90cbbfda7463",
+          "before_rows_sha256": "d680c471a40140d763316e8b262532ccbf96095283b29f4dd319d7521e98b0e3",
+          "after_rows_sha256": "eb73027881f0eed3a67c4e2fd8c4566ca2ee0bf1c44d357434e40d631802dee6"
+        },
+        {
+          "location": "line104",
+          "kind": "RETAINED_COMPLETED_SOURCE_REFERENCE",
+          "old": "p2Graveyard-0",
+          "new": "Stack-0",
+          "other_fields_unchanged": true,
+          "additional_source_and_inactive_context_proof_required": true
+        }
+      ]
+    },
+    {
+      "number": 47,
+      "slug": "card-arcane-polarity-yellow-conditional-heal-only-opponent-was-dealt-arcane-negative",
+      "passed": true,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "exit_code": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-arcane-polarity-yellow-conditional-heal-only-opponent-was-dealt-arcane-negative",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\snapshot-cohort-445\\quietrefs53-047.log"
+      ],
+      "complete_log_sha256": "7baea0a7aca62d305df405976cafe7aa40a55184e23f44b31074f4ab89bfe06b",
+      "before_expected_sha256": "68433fb85a923471adff1bd556a68c67e8882cef5a0ef49bffd10abbc482d89c",
+      "expected_sha256": "da65d5c65e55f8a46519e2d5af0cd0482801ae68f2dbdd080ae5b2c2b4a622ec",
+      "other_four_files_unchanged": true,
+      "failed_candidate_restored": false,
+      "edits": [
+        {
+          "location": "line86",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "1",
+          "accounting_bag_sha256": "3f8306769104646f273ccc6fbbf075f5b12e8963e466d1bc40a2dbf8a062053e",
+          "ordered_nonaccounting_sha256": "0d928db7dc925c8ca82b4f29b0d0d12f652393102f27f302d8f5c0ede295d7fa",
+          "before_rows_sha256": "237822536c5ca2689626ecca2abb7e554bd1d26ee7a4e3fd362d56215e16b5f4",
+          "after_rows_sha256": "4aea957f22e9de6be2b560a29a0b2491db6e540ed266f328ad42f8b8a952e8fd"
+        },
+        {
+          "location": "line104",
+          "kind": "RETAINED_COMPLETED_SOURCE_REFERENCE",
+          "old": "p1Graveyard-1",
+          "new": "Stack-0",
+          "other_fields_unchanged": true,
+          "additional_source_and_inactive_context_proof_required": true
+        }
+      ]
+    },
+    {
+      "number": 52,
+      "slug": "card-arcane-polarity-yellow-conditional-heal-physical-damage-only-negative",
+      "passed": true,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "exit_code": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-arcane-polarity-yellow-conditional-heal-physical-damage-only-negative",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\snapshot-cohort-445\\quietrefs53-052.log"
+      ],
+      "complete_log_sha256": "21eda50b25fb3290c7843b72b426bac61c7388c1c47628bf0ea3c8a3429b6167",
+      "before_expected_sha256": "37a818c35f68fc79606463883cee48b2cd2c9ad525277b33ec711c1886665c3b",
+      "expected_sha256": "3a6cf5ec48023e8171823a0ac5db13486fa854ccf244828e29453f41786eb92c",
+      "other_four_files_unchanged": true,
+      "failed_candidate_restored": false,
+      "edits": [
+        {
+          "location": "line86",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "2",
+          "accounting_bag_sha256": "3f8306769104646f273ccc6fbbf075f5b12e8963e466d1bc40a2dbf8a062053e",
+          "ordered_nonaccounting_sha256": "632a6ba0c3c23a92af6f6baf5ec305e76cebe1d29a4242aad18c5a7cf7cd6e48",
+          "before_rows_sha256": "0522f61ec88b23568ed3dbab9f1784424161ec648c0c869b18daf8a83edcc382",
+          "after_rows_sha256": "814088b081cf18c94fe1dd8dc4c92f0b5cb08970d8c5f8733d6541f90f97bda8"
+        },
+        {
+          "location": "line95/Versions/86",
+          "kind": "RETAINED_COMPLETED_SOURCE_REFERENCE",
+          "old": "p2Graveyard-0",
+          "new": "Stack-0",
+          "other_fields_unchanged": true,
+          "additional_source_and_inactive_context_proof_required": true
+        },
+        {
+          "location": "line95/Versions/90",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "2",
+          "accounting_bag_sha256": "550396da3877d417e5f46ea4429382bd2a97e24f03509266870c2781496fbce9",
+          "ordered_nonaccounting_sha256": "404857e736ea85f65fba8ae98c18b22abf9c784441852e371aeb1a11c94c5a14",
+          "before_rows_sha256": "936f7e269c62f31530ac5f6b15ed4e2384882e8a41dccbaf56e9cd22564328ae",
+          "after_rows_sha256": "575c7be438544bf71ec54a997d99b4c96bd0fae48ebf89998c1531aa8024d286"
+        },
+        {
+          "location": "line97/Versions/86",
+          "kind": "RETAINED_COMPLETED_SOURCE_REFERENCE",
+          "old": "p2Graveyard-0",
+          "new": "Stack-0",
+          "other_fields_unchanged": true,
+          "additional_source_and_inactive_context_proof_required": true
+        },
+        {
+          "location": "line97/Versions/90",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "2",
+          "accounting_bag_sha256": "550396da3877d417e5f46ea4429382bd2a97e24f03509266870c2781496fbce9",
+          "ordered_nonaccounting_sha256": "404857e736ea85f65fba8ae98c18b22abf9c784441852e371aeb1a11c94c5a14",
+          "before_rows_sha256": "936f7e269c62f31530ac5f6b15ed4e2384882e8a41dccbaf56e9cd22564328ae",
+          "after_rows_sha256": "575c7be438544bf71ec54a997d99b4c96bd0fae48ebf89998c1531aa8024d286"
+        },
+        {
+          "location": "line104",
+          "kind": "RETAINED_COMPLETED_SOURCE_REFERENCE",
+          "old": "p2Graveyard-0",
+          "new": "Stack-0",
+          "other_fields_unchanged": true,
+          "additional_source_and_inactive_context_proof_required": true
+        }
+      ]
+    },
+    {
+      "number": 53,
+      "slug": "card-arcane-polarity-yellow-conditional-heal-positive-real-opponent-arcane-before-play",
+      "passed": true,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "exit_code": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-arcane-polarity-yellow-conditional-heal-positive-real-opponent-arcane-before-play",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\snapshot-cohort-445\\quietrefs53-053.log"
+      ],
+      "complete_log_sha256": "36b1f89e811005dd573a635eb23a7644135f6fcdea7ffd18dcd8049c2ed769df",
+      "before_expected_sha256": "c34edbd29358b8a69a0f6f8fe4b7fbac26dcf8df1f23701fe7ca96341040f2c2",
+      "expected_sha256": "9b77c8ae0dd92aee0b90c45cf979b27964dde6e5f07b668aaa441905f296c319",
+      "other_four_files_unchanged": true,
+      "failed_candidate_restored": false,
+      "edits": [
+        {
+          "location": "line86",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "2",
+          "accounting_bag_sha256": "b6b4b9ec21be7211a507c2c43784bc209e3fe92e0a995e781c3681e9d9ecae63",
+          "ordered_nonaccounting_sha256": "1c55527750778891fc5ccfc6818437650e48e37d1273fe8c0e4b391114ba3151",
+          "before_rows_sha256": "43bf1f207b7cd80202503ea12744362930b85be44c7212f54d422f41b37407be",
+          "after_rows_sha256": "a71d04a8cdb4324c5664c5beb4d778c533f1ecd2791e5c18ff488f8c03d52fa4"
+        },
+        {
+          "location": "line104",
+          "kind": "RETAINED_COMPLETED_SOURCE_REFERENCE",
+          "old": "p2Graveyard-0",
+          "new": "Stack-0",
+          "other_fields_unchanged": true,
+          "additional_source_and_inactive_context_proof_required": true
+        }
+      ]
+    },
+    {
+      "number": 54,
+      "slug": "card-arcane-polarity-yellow-conditional-heal-positive-real-self-arcane-before-play",
+      "passed": true,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "exit_code": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-arcane-polarity-yellow-conditional-heal-positive-real-self-arcane-before-play",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\snapshot-cohort-445\\quietrefs53-054.log"
+      ],
+      "complete_log_sha256": "172399894719d61bfbb0811f89cabe7e46b5af957b8d131ad761fc3135b11fcc",
+      "before_expected_sha256": "b5a7552cfc8474fa9024b84deee0f25d9c73621c05bd7441a00321533bb87442",
+      "expected_sha256": "7e67c427640ec5c3c9671e7bd9eac92ca3175b65694d3372f020781ff7456dc3",
+      "other_four_files_unchanged": true,
+      "failed_candidate_restored": false,
+      "edits": [
+        {
+          "location": "line86",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "1",
+          "accounting_bag_sha256": "b6b4b9ec21be7211a507c2c43784bc209e3fe92e0a995e781c3681e9d9ecae63",
+          "ordered_nonaccounting_sha256": "56352c5db9eb5509af2e77c64ccfab30a3f19ff9945c3bd0a300f1cd091db600",
+          "before_rows_sha256": "2780771ba65e625174257882a5a1f4d7b43676dbe32b5278dd9c4f1dbdc98bee",
+          "after_rows_sha256": "b8afcdf08469f43189e76cabd741ad6c7f95eb7b7f1f0e5323dec0a50def46dd"
+        },
+        {
+          "location": "line104",
+          "kind": "RETAINED_COMPLETED_SOURCE_REFERENCE",
+          "old": "p1Graveyard-1",
+          "new": "Stack-0",
+          "other_fields_unchanged": true,
+          "additional_source_and_inactive_context_proof_required": true
+        }
+      ]
+    },
+    {
+      "number": 55,
+      "slug": "card-arcane-polarity-yellow-conditional-heal-prior-turn-arcane-history-expires",
+      "passed": true,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "exit_code": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-arcane-polarity-yellow-conditional-heal-prior-turn-arcane-history-expires",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\snapshot-cohort-445\\quietrefs53-055.log"
+      ],
+      "complete_log_sha256": "11cb30a343263a909e51f11d2f9cb1ebc426b2d41c70273305aa9b90dd39515a",
+      "before_expected_sha256": "eaa1515e5fa4660997516a1b64fe5dcddeb024f8161644704ee67c05d770ae81",
+      "expected_sha256": "45c4fb546fb9e8665b06750aee72cca64716205e88d308041a7f1ffbfaad7c9c",
+      "other_four_files_unchanged": true,
+      "failed_candidate_restored": false,
+      "edits": [
+        {
+          "location": "line86",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "1",
+          "accounting_bag_sha256": "550396da3877d417e5f46ea4429382bd2a97e24f03509266870c2781496fbce9",
+          "ordered_nonaccounting_sha256": "bc1a5a596b6c0aa97d85bb7beca5e78f8862eec78235e9f4a3ba90cbbfda7463",
+          "before_rows_sha256": "f16b1063baee917d4ec29080945be4d5c7826b9092d7d1972b1a407dc6f22af8",
+          "after_rows_sha256": "b865dc47ad7ccdeac3fc1250863d2208fdd79c611f92a776344422c5cf8892fb"
+        },
+        {
+          "location": "line104",
+          "kind": "RETAINED_COMPLETED_SOURCE_REFERENCE",
+          "old": "p1Graveyard-1",
+          "new": "Stack-0",
+          "other_fields_unchanged": true,
+          "additional_source_and_inactive_context_proof_required": true
+        }
+      ]
+    },
+    {
+      "number": 56,
+      "slug": "card-arcane-seeds-life-red-four-live-sparse-real-declared-meld-life-then-two-runechants-separate-responses",
+      "passed": true,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "exit_code": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-arcane-seeds-life-red-four-live-sparse-real-declared-meld-life-then-two-runechants-separate-responses",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\snapshot-cohort-445\\quietrefs53-056.log"
+      ],
+      "complete_log_sha256": "a57ee8b706188247892183e02cd41954e36ad99f20ae60fb9e911fe18f306044",
+      "before_expected_sha256": "95eca4b564138751370c47ef80c5b9cabb3434250e8a6214dcedbd29bb27f44d",
+      "expected_sha256": "0290e0f6a450d0e5ffd7462ac1c6c0bbf42cef2f865f70a4a0551264ebec6c2d",
+      "other_four_files_unchanged": true,
+      "failed_candidate_restored": false,
+      "edits": [
+        {
+          "location": "line89",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "1",
+          "accounting_bag_sha256": "550396da3877d417e5f46ea4429382bd2a97e24f03509266870c2781496fbce9",
+          "ordered_nonaccounting_sha256": "5306bd521b637ce4049c5acee274a35e3506f8acaf5546cd34fb14cd60aeb406",
+          "before_rows_sha256": "66a91d538ab5d8f485c370d8216300ad51451007180267d41cd2c0d173958877",
+          "after_rows_sha256": "a7a33e7747de588a9a2757765997865d33733fd57bec448b4899872b13864cb6"
+        },
+        {
+          "location": "line109",
+          "kind": "RETAINED_COMPLETED_SOURCE_REFERENCE",
+          "old": "p1Graveyard-0",
+          "new": "Stack-0",
+          "other_fields_unchanged": true,
+          "additional_source_and_inactive_context_proof_required": true
+        }
+      ]
+    },
+    {
+      "number": 57,
+      "slug": "card-arcane-twining-red-four-live-sparse-real-hand-discard-instant-amp-consumed-by-earned-snapback",
+      "passed": true,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "exit_code": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-arcane-twining-red-four-live-sparse-real-hand-discard-instant-amp-consumed-by-earned-snapback",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\snapshot-cohort-445\\quietrefs53-057.log"
+      ],
+      "complete_log_sha256": "2f5538a1016995963adfe798e69d2d3d0579a816528c4e155ecfaf4e4fe45aa5",
+      "before_expected_sha256": "1f498282b04a71433b5ee90b4a607fde9ea9dfe5e7d76b6b55d5e269aef05317",
+      "expected_sha256": "8ab679921074d95e1c72d6ab6e1be98b561fe9654c74092b29a7b17c1812b9c6",
+      "other_four_files_unchanged": true,
+      "failed_candidate_restored": false,
+      "edits": [
+        {
+          "location": "line90",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "1",
+          "accounting_bag_sha256": "261860864d84f6204ad2783b4af049b18b1cb373f6722628851aa95ecc3d5316",
+          "ordered_nonaccounting_sha256": "2cb7147de36348a1e65897edef296e7b504a89ea9b2aaad16bd1db8c994bcd6c",
+          "before_rows_sha256": "6505ac59414af7b27579eb9c75f89e44b5e95478fcf8d03793adbbfaef186b8a",
+          "after_rows_sha256": "a34bf3630beaad15e414695116dc08c3dd49091eae7fa56ef0ec955e2643b264"
+        },
+        {
+          "location": "line90",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "4",
+          "accounting_bag_sha256": "261860864d84f6204ad2783b4af049b18b1cb373f6722628851aa95ecc3d5316",
+          "ordered_nonaccounting_sha256": "45300a63f99430dbe27dd711d1ed00b429209ecfe5604f32f974bc1b9a085f54",
+          "before_rows_sha256": "7efa2558df716c8e2ce68d52a7a146f11fd74d5beddba9b9501501dd8df374a2",
+          "after_rows_sha256": "dfec95f6767d158034f2e3dec266c399aaf841f290682eeeee2ecba6ae475738"
+        },
+        {
+          "location": "line110",
+          "kind": "RETAINED_COMPLETED_SOURCE_REFERENCE",
+          "old": "p1Graveyard-2",
+          "new": "Stack-0",
+          "other_fields_unchanged": true,
+          "additional_source_and_inactive_context_proof_required": true
+        }
+      ]
+    },
+    {
+      "number": 64,
+      "slug": "card-beat-the-same-drum-blue-four-live-sparse-real-goblet-history-repeats-agility-and-vigor",
+      "passed": true,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "exit_code": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-beat-the-same-drum-blue-four-live-sparse-real-goblet-history-repeats-agility-and-vigor",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\snapshot-cohort-445\\quietrefs53-064.log"
+      ],
+      "complete_log_sha256": "713c3c7fae4754c4c146df953132d09ee3adcdc370eff1e689bcfabbdd2e70f5",
+      "before_expected_sha256": "1ec69bc646905269edbd4c495531bbc5bac51a10f900ea45390a306de203b18f",
+      "expected_sha256": "81ca4cbf059affd0f876654037dcd0300ac645ca7d94765f35958bf528cc5ae4",
+      "other_four_files_unchanged": true,
+      "failed_candidate_restored": false,
+      "edits": [
+        {
+          "location": "line92",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "1",
+          "accounting_bag_sha256": "53dcc63e9c8196b56bf6e9ebb9cf594df05075340b57624aa69ae103a31db51e",
+          "ordered_nonaccounting_sha256": "1f436263bbbf1a8e25f7c398d1aae25dca78ccb8ccd7c5e390be87176bdfd78d",
+          "before_rows_sha256": "861739f076ce5a1528be26bd60c3cc0fc164f588fb2f57da1d07056baf52755a",
+          "after_rows_sha256": "1e8af29ee297023c876abc2546320a6964f443595cac99e47a8d1eb219de7563"
+        },
+        {
+          "location": "line101/Versions/90",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "1",
+          "accounting_bag_sha256": "261dfde05729517e382a05c743f5a4c2144ada1f5086e41407e96d21c945f230",
+          "ordered_nonaccounting_sha256": "19b18eef6507e516b9500d2ca84b50df888da3c464e0652d4bac101e90b2d36b",
+          "before_rows_sha256": "6f161bcaf876e1068e81626289ca2783b558f711b7eaa18785c705dc26549df5",
+          "after_rows_sha256": "f01cd202e0f4cc8e17bcf027343f6b4ddf8d8d6f6df5b21c8344f00a5c24d446"
+        },
+        {
+          "location": "line103/Versions/90",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "1",
+          "accounting_bag_sha256": "261dfde05729517e382a05c743f5a4c2144ada1f5086e41407e96d21c945f230",
+          "ordered_nonaccounting_sha256": "19b18eef6507e516b9500d2ca84b50df888da3c464e0652d4bac101e90b2d36b",
+          "before_rows_sha256": "6f161bcaf876e1068e81626289ca2783b558f711b7eaa18785c705dc26549df5",
+          "after_rows_sha256": "f01cd202e0f4cc8e17bcf027343f6b4ddf8d8d6f6df5b21c8344f00a5c24d446"
+        },
+        {
+          "location": "line105/Versions/90",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "1",
+          "accounting_bag_sha256": "261dfde05729517e382a05c743f5a4c2144ada1f5086e41407e96d21c945f230",
+          "ordered_nonaccounting_sha256": "19b18eef6507e516b9500d2ca84b50df888da3c464e0652d4bac101e90b2d36b",
+          "before_rows_sha256": "6f161bcaf876e1068e81626289ca2783b558f711b7eaa18785c705dc26549df5",
+          "after_rows_sha256": "f01cd202e0f4cc8e17bcf027343f6b4ddf8d8d6f6df5b21c8344f00a5c24d446"
+        },
+        {
+          "location": "line107/Versions/90",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "1",
+          "accounting_bag_sha256": "261dfde05729517e382a05c743f5a4c2144ada1f5086e41407e96d21c945f230",
+          "ordered_nonaccounting_sha256": "19b18eef6507e516b9500d2ca84b50df888da3c464e0652d4bac101e90b2d36b",
+          "before_rows_sha256": "6f161bcaf876e1068e81626289ca2783b558f711b7eaa18785c705dc26549df5",
+          "after_rows_sha256": "f01cd202e0f4cc8e17bcf027343f6b4ddf8d8d6f6df5b21c8344f00a5c24d446"
+        },
+        {
+          "location": "line112",
+          "kind": "RETAINED_COMPLETED_SOURCE_REFERENCE",
+          "old": "p1Graveyard-1",
+          "new": "Stack-0",
+          "other_fields_unchanged": true,
+          "additional_source_and_inactive_context_proof_required": true
+        }
+      ]
+    },
+    {
+      "number": 67,
+      "slug": "card-blazing-aether-red-four-live-sparse-real-earlier-one-arcane-earned-x-one-on-same-hero",
+      "passed": true,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "exit_code": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-blazing-aether-red-four-live-sparse-real-earlier-one-arcane-earned-x-one-on-same-hero",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\snapshot-cohort-445\\quietrefs53-067.log"
+      ],
+      "complete_log_sha256": "b47ed8b82f7158b84b41c2f6c9aae0dc609d5b40dc5a47588776342e0ffab533",
+      "before_expected_sha256": "29f002dda3555088eaa249c42298fb963b5fd7e1eb982ad3ea0f568e737480fb",
+      "expected_sha256": "79c704a67b186c9bf02a3e3dd46a7755b24bed702ab1417726fd4734497fb5f0",
+      "other_four_files_unchanged": true,
+      "failed_candidate_restored": false,
+      "edits": [
+        {
+          "location": "line90",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "1",
+          "accounting_bag_sha256": "023979e90e511ea03c2e00d63cfc8801b9230e52fc636afa03bcf25a8c320ef0",
+          "ordered_nonaccounting_sha256": "12062741803159f3d048718a34f0cd4ff97687a07167b3805496a7073305f825",
+          "before_rows_sha256": "5528979e783e74e9a54a88447deaa4fc17b4ebf52b212ccb31edaa37b928daf9",
+          "after_rows_sha256": "2becf904d9981bd35ac8d6a7c60c58b37566f982290e43b74e41ac151fd454df"
+        },
+        {
+          "location": "line90",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "4",
+          "accounting_bag_sha256": "261860864d84f6204ad2783b4af049b18b1cb373f6722628851aa95ecc3d5316",
+          "ordered_nonaccounting_sha256": "583a9414416aab88fd536ec0988396b060d24d8c9a744fc2956e5a7de803f30f",
+          "before_rows_sha256": "b5f2828019f9bfaf796850ae6300d0a92ace440f80e1f0a36527106b5a6510e0",
+          "after_rows_sha256": "598170d0bbcdb153a2192ba9d8732fe3e9816e077e376356538cfd9b9fe17c1b"
+        },
+        {
+          "location": "line110",
+          "kind": "RETAINED_COMPLETED_SOURCE_REFERENCE",
+          "old": "p1Graveyard-2",
+          "new": "Stack-0",
+          "other_fields_unchanged": true,
+          "additional_source_and_inactive_context_proof_required": true
+        }
+      ]
+    },
+    {
+      "number": 70,
+      "slug": "card-blinding-beam-red-four-live-sparse-actual-declared-shadow-target-costs-zero-and-reduces-real-attack-by-three",
+      "passed": true,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "exit_code": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-blinding-beam-red-four-live-sparse-actual-declared-shadow-target-costs-zero-and-reduces-real-attack-by-three",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\snapshot-cohort-445\\quietrefs53-070.log"
+      ],
+      "complete_log_sha256": "22ae5a3e05dde8413de9002c2552fd230816383abffa75d5bfe6070e03a6a2d6",
+      "before_expected_sha256": "db774b95ebf48adb359bf75b4d7794fced26ade69b1750805877238c5c9d8390",
+      "expected_sha256": "a28146ac530296927c167199613302211420841bc71bfbb6d8b33ebbe57d9abf",
+      "other_four_files_unchanged": true,
+      "failed_candidate_restored": false,
+      "edits": [
+        {
+          "location": "line98/Versions/86",
+          "kind": "RETAINED_COMPLETED_SOURCE_REFERENCE",
+          "old": "p4Graveyard-0",
+          "new": "Stack-0",
+          "other_fields_unchanged": true,
+          "additional_source_and_inactive_context_proof_required": true
+        },
+        {
+          "location": "line100/Versions/86",
+          "kind": "RETAINED_COMPLETED_SOURCE_REFERENCE",
+          "old": "p4Graveyard-0",
+          "new": "Stack-0",
+          "other_fields_unchanged": true,
+          "additional_source_and_inactive_context_proof_required": true
+        },
+        {
+          "location": "line102/Versions/86",
+          "kind": "RETAINED_COMPLETED_SOURCE_REFERENCE",
+          "old": "p4Graveyard-0",
+          "new": "Stack-0",
+          "other_fields_unchanged": true,
+          "additional_source_and_inactive_context_proof_required": true
+        },
+        {
+          "location": "line104/Versions/86",
+          "kind": "RETAINED_COMPLETED_SOURCE_REFERENCE",
+          "old": "p4Graveyard-0",
+          "new": "Stack-0",
+          "other_fields_unchanged": true,
+          "additional_source_and_inactive_context_proof_required": true
+        }
+      ]
+    },
+    {
+      "number": 84,
+      "slug": "card-bloodsheath-skeleta-four-live-sparse-actual-instant-destroy-discounts-real-paid-nonattack-by-one-runechant",
+      "passed": true,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "exit_code": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-bloodsheath-skeleta-four-live-sparse-actual-instant-destroy-discounts-real-paid-nonattack-by-one-runechant",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\snapshot-cohort-445\\quietrefs53-084.log"
+      ],
+      "complete_log_sha256": "84f916d972b94758d97817cc7f203006bb3548ab6d2155e0f08d67d29655f06d",
+      "before_expected_sha256": "78a7862f18da478da44eb1a5b71520577e995c8a9f99e86f8914ece0fc06163a",
+      "expected_sha256": "64c058884b60c49ecb6d87fb923194196fabf949ae667629ed89448da5cce6a6",
+      "other_four_files_unchanged": true,
+      "failed_candidate_restored": false,
+      "edits": [
+        {
+          "location": "line90",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "1",
+          "accounting_bag_sha256": "7cb0aad04ef69e33e5697517911e260d9559f5ab5227900049e147b29c991f84",
+          "ordered_nonaccounting_sha256": "ce19ce3305d636da1ad14f5cebda15c9567f72dfbc212463d8775e7567f57bed",
+          "before_rows_sha256": "92916e045acec4d561da7f676f0b8a005d0b254a7fd7c84a4b29dbbee75fff03",
+          "after_rows_sha256": "5bb86e040eab6d85f9fff49a9685c84a4e188e37ab3412df5791038af51a0d8e"
+        },
+        {
+          "location": "line110",
+          "kind": "RETAINED_COMPLETED_SOURCE_REFERENCE",
+          "old": "p1Graveyard-1",
+          "new": "Stack-0",
+          "other_fields_unchanged": true,
+          "additional_source_and_inactive_context_proof_required": true
+        }
+      ]
+    },
+    {
+      "number": 94,
+      "slug": "card-cash-out-blue-four-live-sparse-real-two-permanent-additional-destroy-cost-creates-two-silver",
+      "passed": true,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "exit_code": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-cash-out-blue-four-live-sparse-real-two-permanent-additional-destroy-cost-creates-two-silver",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\snapshot-cohort-445\\quietrefs53-094.log"
+      ],
+      "complete_log_sha256": "5a5cad2773d7791089d4a2637d695f80affa8912e593c34669231a63381abb96",
+      "before_expected_sha256": "173027b66bd91c5c2d536eca5044941163b0cbdec3b70217dca746d4abde8916",
+      "expected_sha256": "94ae0eb1862251bb3f1f84ce5d9b220aeda6f2802e0bb9289533d043165abe7c",
+      "other_four_files_unchanged": true,
+      "failed_candidate_restored": false,
+      "edits": [
+        {
+          "location": "line91",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "1",
+          "accounting_bag_sha256": "2d3af8036e516d6f92e4e454bcf3693ccedf402d9ef3f4a7797c5319e44cc88b",
+          "ordered_nonaccounting_sha256": "84f94e694ee0453a40f5b1556f8392e7898a4d7f9cc50dbe37fc42761f04e242",
+          "before_rows_sha256": "97e4a83045d73036f6a04474c50f6b653b4b5c4714cf5cd4b1666a9af45c1a8a",
+          "after_rows_sha256": "da2a236ce5d3a52575b8d47eb3a47ad0bae9afbaf858898951fd25d7457405a5"
+        },
+        {
+          "location": "line111",
+          "kind": "RETAINED_COMPLETED_SOURCE_REFERENCE",
+          "old": "p1Graveyard-2",
+          "new": "Stack-0",
+          "other_fields_unchanged": true,
+          "additional_source_and_inactive_context_proof_required": true
+        }
+      ]
+    },
+    {
+      "number": 101,
+      "slug": "card-compass-of-sunken-depths-four-live-actual-private-owner-look-restored-order-real-paid-tome-draws-same-two",
+      "passed": true,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "exit_code": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-compass-of-sunken-depths-four-live-actual-private-owner-look-restored-order-real-paid-tome-draws-same-two",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\snapshot-cohort-445\\quietrefs53-101.log"
+      ],
+      "complete_log_sha256": "3fa298c233b3a436d4e2ec2dce67033b95b87ec1486aa085b03c26f16421d963",
+      "before_expected_sha256": "47351581af7090430af91a9cb789985f4efeb7f28fc7b2acdf68ddcdd1b396d6",
+      "expected_sha256": "d9bde06b5f6b9e28062ab74449048cacc15b202919e6caaba89cb9b8008a4584",
+      "other_four_files_unchanged": true,
+      "failed_candidate_restored": false,
+      "edits": [
+        {
+          "location": "line91",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "1",
+          "accounting_bag_sha256": "ab0dd064cabbea75055979d6180a7ddb1bec489fa32c64c0fd864d7af8364fc6",
+          "ordered_nonaccounting_sha256": "d50fef6c0d3c96a120aa29a31b83024f501a7a12724603e3ee88aede862b9995",
+          "before_rows_sha256": "3e8766c5a7786d17452aebf734f576da26296fa2c584bc62fd080a6bda22e2c6",
+          "after_rows_sha256": "b1ea488e29c0222bcdbae4b544ede8bb590b030dc50a6159d6b7dc7275dcb15a"
+        },
+        {
+          "location": "line111",
+          "kind": "RETAINED_COMPLETED_SOURCE_REFERENCE",
+          "old": "p1Graveyard-0",
+          "new": "Stack-0",
+          "other_fields_unchanged": true,
+          "additional_source_and_inactive_context_proof_required": true
+        }
+      ]
+    },
+    {
+      "number": 135,
+      "slug": "card-eclipse-blue-four-live-six-real-blood-debt-plays-create-owned-ursur",
+      "passed": true,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "exit_code": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-eclipse-blue-four-live-six-real-blood-debt-plays-create-owned-ursur",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\snapshot-cohort-445\\quietrefs53-135.log"
+      ],
+      "complete_log_sha256": "3958fc6fdc87fd94f195d6632975ea2a6538d54a2a83a4ea52f627f3b0abd5e6",
+      "before_expected_sha256": "3242db05b550ce722b46202b87fb955c8532ae3a299e3e28b47bd347fedb068d",
+      "expected_sha256": "d7eff5129bf5bbf0bafe03e38e71818fc79947c86dfa1667743fa518dff7165b",
+      "other_four_files_unchanged": true,
+      "failed_candidate_restored": false,
+      "edits": [
+        {
+          "location": "line94",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "1",
+          "accounting_bag_sha256": "1d2418ae1db7e7d5b3369ebde2fcbee5b883903319a2bf72420e84c22fe17570",
+          "ordered_nonaccounting_sha256": "25fd30da6066933b395d21e5148d0227b2e9dc2e8fdf410d001eea775fcc8b7d",
+          "before_rows_sha256": "43f37e3faf85fd37850985d818467475fe0e4d2d1234f5af12f46fab98b1fe22",
+          "after_rows_sha256": "80589350313cda68c7b4d948c7b220cd9a7bb4136d1ec713e2b540e24f44604d"
+        },
+        {
+          "location": "line103/Versions/90",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "1",
+          "accounting_bag_sha256": "673f75576da1497ae496d570db2ba3bb91020a1bcbf1687d7c1763c9522f78ad",
+          "ordered_nonaccounting_sha256": "c70c069d900b1450628f98155fdb9d10bf00a12e5c6707ba27ec70bfb6f62c9e",
+          "before_rows_sha256": "1f65c1015eee8848217cb7c6d73960b20c1e799e51570b0f5e102d7b871a9cca",
+          "after_rows_sha256": "acd99bf5829328e697e44c9e7776d68c9a1400b8fcd9aa421e35d6994622656e"
+        },
+        {
+          "location": "line105/Versions/90",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "1",
+          "accounting_bag_sha256": "673f75576da1497ae496d570db2ba3bb91020a1bcbf1687d7c1763c9522f78ad",
+          "ordered_nonaccounting_sha256": "c70c069d900b1450628f98155fdb9d10bf00a12e5c6707ba27ec70bfb6f62c9e",
+          "before_rows_sha256": "1f65c1015eee8848217cb7c6d73960b20c1e799e51570b0f5e102d7b871a9cca",
+          "after_rows_sha256": "acd99bf5829328e697e44c9e7776d68c9a1400b8fcd9aa421e35d6994622656e"
+        },
+        {
+          "location": "line107/Versions/90",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "1",
+          "accounting_bag_sha256": "673f75576da1497ae496d570db2ba3bb91020a1bcbf1687d7c1763c9522f78ad",
+          "ordered_nonaccounting_sha256": "c70c069d900b1450628f98155fdb9d10bf00a12e5c6707ba27ec70bfb6f62c9e",
+          "before_rows_sha256": "1f65c1015eee8848217cb7c6d73960b20c1e799e51570b0f5e102d7b871a9cca",
+          "after_rows_sha256": "acd99bf5829328e697e44c9e7776d68c9a1400b8fcd9aa421e35d6994622656e"
+        },
+        {
+          "location": "line109/Versions/90",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "1",
+          "accounting_bag_sha256": "673f75576da1497ae496d570db2ba3bb91020a1bcbf1687d7c1763c9522f78ad",
+          "ordered_nonaccounting_sha256": "c70c069d900b1450628f98155fdb9d10bf00a12e5c6707ba27ec70bfb6f62c9e",
+          "before_rows_sha256": "1f65c1015eee8848217cb7c6d73960b20c1e799e51570b0f5e102d7b871a9cca",
+          "after_rows_sha256": "acd99bf5829328e697e44c9e7776d68c9a1400b8fcd9aa421e35d6994622656e"
+        },
+        {
+          "location": "line114",
+          "kind": "RETAINED_COMPLETED_SOURCE_REFERENCE",
+          "old": "p1Graveyard-6",
+          "new": "Stack-0",
+          "other_fields_unchanged": true,
+          "additional_source_and_inactive_context_proof_required": true
+        }
+      ]
+    },
+    {
+      "number": 140,
+      "slug": "card-emeritus-scolding-blue-four-live-sparse-real-iyslander-arsenal-instant-deals-four-on-opponents-turn",
+      "passed": true,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "exit_code": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-emeritus-scolding-blue-four-live-sparse-real-iyslander-arsenal-instant-deals-four-on-opponents-turn",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\snapshot-cohort-445\\quietrefs53-140.log"
+      ],
+      "complete_log_sha256": "203e47e5c6b8b37d6d03b86a0b5564e05b4ad5cef3d47e1727d4593332321ee3",
+      "before_expected_sha256": "d0a60bbeccbc53f6fdc3e6bf58e23b7b072bf20ce8e7759382858f12622a99f9",
+      "expected_sha256": "dac4c79420372f907898474c496ff3c58009c0bdb00cc8d8c65e759be7a95b2e",
+      "other_four_files_unchanged": true,
+      "failed_candidate_restored": false,
+      "edits": [
+        {
+          "location": "line88",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "4",
+          "accounting_bag_sha256": "261dfde05729517e382a05c743f5a4c2144ada1f5086e41407e96d21c945f230",
+          "ordered_nonaccounting_sha256": "754889b72779174808b84a37288484feb1bcf02279c8e191c3a16d154927e543",
+          "before_rows_sha256": "000bdce458dcac14fa39c620aa539859eac5362eb4aed6fd2711870fb643f60e",
+          "after_rows_sha256": "6e45b936c918d45dafdbe38ed4615ac6a2b836f53883ca2c4c86958a49205129"
+        },
+        {
+          "location": "line88",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "1",
+          "accounting_bag_sha256": "ab0dd064cabbea75055979d6180a7ddb1bec489fa32c64c0fd864d7af8364fc6",
+          "ordered_nonaccounting_sha256": "e0effcd87a0327f5080f013b48fd1750d865da595a9811f76ecfbdfb7d9301bd",
+          "before_rows_sha256": "c9006e627dfbe653b029d9f1dc1e1ac1f300bf5d96dd2cab6692e2ba631d65a2",
+          "after_rows_sha256": "9b187457d1b05bfd3483157b104eed0d51240c79823637acd5abf905671b9574"
+        },
+        {
+          "location": "line108",
+          "kind": "RETAINED_COMPLETED_SOURCE_REFERENCE",
+          "old": "p4Graveyard-0",
+          "new": "Stack-0",
+          "other_fields_unchanged": true,
+          "additional_source_and_inactive_context_proof_required": true
+        }
+      ]
+    },
+    {
+      "number": 208,
+      "slug": "card-forked-lightning-red-four-live-sparse-actual-two-declared-hero-targets-and-two-arcane-each",
+      "passed": true,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "exit_code": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-forked-lightning-red-four-live-sparse-actual-two-declared-hero-targets-and-two-arcane-each",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\snapshot-cohort-445\\quietrefs53-208.log"
+      ],
+      "complete_log_sha256": "bb5d89d41be6632dbea7556f2cd905eceeb1beb6d97c53916160f0434c126940",
+      "before_expected_sha256": "252e3c6f766eca767ca637749341f90f5e56964231019e794a8621ee07b38b90",
+      "expected_sha256": "c688dfad592be51570cb8dd2eb4ff6e6b25ae42a21d3b06344141e937421d89b",
+      "other_four_files_unchanged": true,
+      "failed_candidate_restored": false,
+      "edits": [
+        {
+          "location": "line88",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "1",
+          "accounting_bag_sha256": "ab0dd064cabbea75055979d6180a7ddb1bec489fa32c64c0fd864d7af8364fc6",
+          "ordered_nonaccounting_sha256": "594a3dac3364d08671e15099c018ab889087fd92e4426b72afa5d4b3d3ef0b95",
+          "before_rows_sha256": "6c545267b04599ff938eb4a370ac73bdf55aadb87ebd6147ffdf4367d7c6922d",
+          "after_rows_sha256": "0e8eee965b607266f65178fa4fe4a53b4f9b574a5ca4f871513d9be933c3292b"
+        },
+        {
+          "location": "line88",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "2",
+          "accounting_bag_sha256": "ab0dd064cabbea75055979d6180a7ddb1bec489fa32c64c0fd864d7af8364fc6",
+          "ordered_nonaccounting_sha256": "a9920a7105bf783fa079d2ea635aa969a64ad0bf5bac5f42f73d656c95476518",
+          "before_rows_sha256": "7a97edf6246cbb9a76600492cc0227dc5ea8252613fdab324a0d920e2bc4d8db",
+          "after_rows_sha256": "37d7a442ff6d0da839698bc09cea87d4eb87ed6639656898285a441a12a39642"
+        },
+        {
+          "location": "line88",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "4",
+          "accounting_bag_sha256": "ab0dd064cabbea75055979d6180a7ddb1bec489fa32c64c0fd864d7af8364fc6",
+          "ordered_nonaccounting_sha256": "a9920a7105bf783fa079d2ea635aa969a64ad0bf5bac5f42f73d656c95476518",
+          "before_rows_sha256": "7a97edf6246cbb9a76600492cc0227dc5ea8252613fdab324a0d920e2bc4d8db",
+          "after_rows_sha256": "37d7a442ff6d0da839698bc09cea87d4eb87ed6639656898285a441a12a39642"
+        },
+        {
+          "location": "line108",
+          "kind": "RETAINED_COMPLETED_SOURCE_REFERENCE",
+          "old": "p1Graveyard-0",
+          "new": "Stack-0",
+          "other_fields_unchanged": true,
+          "additional_source_and_inactive_context_proof_required": true
+        }
+      ]
+    },
+    {
+      "number": 221,
+      "slug": "card-haven-veil-blue-four-live-entry-when-next-one-arcane-two-target-real-consumer",
+      "passed": true,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "exit_code": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-haven-veil-blue-four-live-entry-when-next-one-arcane-two-target-real-consumer",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\snapshot-cohort-445\\quietrefs53-221.log"
+      ],
+      "complete_log_sha256": "ffd44e811fbb60d665ef8649e3a419a4e5cfa3bfac83e5c7b8de31048d11a680",
+      "before_expected_sha256": "3b9710069e12a3ce7d939d6310de13fd98edd67ee8674079fddc25b9c7a53184",
+      "expected_sha256": "111b3d4a84c8eef016f516c1ed36b778966d3e0b8f45136284590765ffdeb9d2",
+      "other_four_files_unchanged": true,
+      "failed_candidate_restored": false,
+      "edits": [
+        {
+          "location": "line89",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "1",
+          "accounting_bag_sha256": "ab0dd064cabbea75055979d6180a7ddb1bec489fa32c64c0fd864d7af8364fc6",
+          "ordered_nonaccounting_sha256": "912aa588ef356a700f51578f55e47bd4fb1bfc52b6b18f28768292b3c7dd16aa",
+          "before_rows_sha256": "95b14b47c2fb4c452f3b322b868210db5ff5de63a3d6222737e785d901a5211f",
+          "after_rows_sha256": "54491c519a3241778736f3605ee56a8a93899412364d0fab7c9e51287d9f5d5a"
+        },
+        {
+          "location": "line89",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "4",
+          "accounting_bag_sha256": "ab0dd064cabbea75055979d6180a7ddb1bec489fa32c64c0fd864d7af8364fc6",
+          "ordered_nonaccounting_sha256": "1799a66b8ba16347fbee4605d461b2f43e35cef4f418aec69471de814a2f4293",
+          "before_rows_sha256": "c98ec7251597b877f66bbaec6e378f774e47846ca640f62577ed4edcb7846d05",
+          "after_rows_sha256": "5d311749457cf6fdb7ce4387c9c3fa87a61fc6e222be1365f06f39ebe5be12f7"
+        },
+        {
+          "location": "line89",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "2",
+          "accounting_bag_sha256": "ab0dd064cabbea75055979d6180a7ddb1bec489fa32c64c0fd864d7af8364fc6",
+          "ordered_nonaccounting_sha256": "a9920a7105bf783fa079d2ea635aa969a64ad0bf5bac5f42f73d656c95476518",
+          "before_rows_sha256": "7a97edf6246cbb9a76600492cc0227dc5ea8252613fdab324a0d920e2bc4d8db",
+          "after_rows_sha256": "37d7a442ff6d0da839698bc09cea87d4eb87ed6639656898285a441a12a39642"
+        },
+        {
+          "location": "line109",
+          "kind": "RETAINED_COMPLETED_SOURCE_REFERENCE",
+          "old": "p1Graveyard-0",
+          "new": "Stack-0",
+          "other_fields_unchanged": true,
+          "additional_source_and_inactive_context_proof_required": true
+        }
+      ]
+    },
+    {
+      "number": 224,
+      "slug": "card-healing-balm-blue-double-copies-two-paid-action-points",
+      "passed": true,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "exit_code": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-healing-balm-blue-double-copies-two-paid-action-points",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\snapshot-cohort-445\\quietrefs53-224.log"
+      ],
+      "complete_log_sha256": "cb7760dfdd16279435eaa126c558ff1773c0dda741905b95cb9e2c4b95f40e03",
+      "before_expected_sha256": "869de77f8eeeb857b06cfad3f8988819702b342212594b27c2777fcc67282d2d",
+      "expected_sha256": "f1c2267ab1e043d2de7c1369b7ffae02212d21d4b685def1a794ae4f39b11381",
+      "other_four_files_unchanged": true,
+      "failed_candidate_restored": false,
+      "edits": [
+        {
+          "location": "line86",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "1",
+          "accounting_bag_sha256": "7b30ff61c4f1ba4e3fdc1b3a2a3b95680296ee43e2a91c521209841386099e45",
+          "ordered_nonaccounting_sha256": "fbc6420e12bb827b0245e52b412aff8bc49481bffe1a306f24c186de18620904",
+          "before_rows_sha256": "60a25b6f0eb23e73392a0cf3374c048e0bad3e037c1ba94cdf3947aa0c93175d",
+          "after_rows_sha256": "5b78e8d952380a09f395e4e18c499f14c0377a1f3e5d5a2bbdb0b927e3ffde33"
+        },
+        {
+          "location": "line95/Versions/90",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "1",
+          "accounting_bag_sha256": "1bac5483f760b687d52655f913eb3345bc15ec65fe8cdc2bb28f5fd7697130a3",
+          "ordered_nonaccounting_sha256": "fbc6420e12bb827b0245e52b412aff8bc49481bffe1a306f24c186de18620904",
+          "before_rows_sha256": "b4ae3c688df2c960683e907bb2d4cdcac8447982f9338951f980dc21f9f61ad5",
+          "after_rows_sha256": "d53e3d7b3cdf960f8ee537ecf18c7a5e00cce08ea217cd612c461a5e8d587e6b"
+        },
+        {
+          "location": "line97/Versions/90",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "1",
+          "accounting_bag_sha256": "1bac5483f760b687d52655f913eb3345bc15ec65fe8cdc2bb28f5fd7697130a3",
+          "ordered_nonaccounting_sha256": "fbc6420e12bb827b0245e52b412aff8bc49481bffe1a306f24c186de18620904",
+          "before_rows_sha256": "b4ae3c688df2c960683e907bb2d4cdcac8447982f9338951f980dc21f9f61ad5",
+          "after_rows_sha256": "d53e3d7b3cdf960f8ee537ecf18c7a5e00cce08ea217cd612c461a5e8d587e6b"
+        },
+        {
+          "location": "line104",
+          "kind": "RETAINED_COMPLETED_SOURCE_REFERENCE",
+          "old": "p1Graveyard-1",
+          "new": "Stack-0",
+          "other_fields_unchanged": true,
+          "additional_source_and_inactive_context_proof_required": true
+        }
+      ]
+    },
+    {
+      "number": 233,
+      "slug": "card-healing-balm-red-double-copies-two-paid-action-points",
+      "passed": true,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "exit_code": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-healing-balm-red-double-copies-two-paid-action-points",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\snapshot-cohort-445\\quietrefs53-233.log"
+      ],
+      "complete_log_sha256": "7859be05127295aa6037e85465fbebd81224e4a289a01ace1e02f23b1ed3efee",
+      "before_expected_sha256": "4209e90d7513d317735ae6a9cbf4ba0f0d0e6511d40cf9a6a4e7b342f5c94ae6",
+      "expected_sha256": "5b3be48e96aedce64a0a838844466f6c0378591e8eda573bf691beed1b7f07e4",
+      "other_four_files_unchanged": true,
+      "failed_candidate_restored": false,
+      "edits": [
+        {
+          "location": "line86",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "1",
+          "accounting_bag_sha256": "68a24af2a341cdd31e090ca913ed40cc1827f6c751f5b4236bf109a94c77fcd3",
+          "ordered_nonaccounting_sha256": "e0e6007035fcd6e10ad031d7ab1aab4e10333b0d9e6218e2185b0d5107032dd9",
+          "before_rows_sha256": "14f8c51e5aa3f879cfd558b3919da1216b433b0619c63f5f3b9016cb63320544",
+          "after_rows_sha256": "ae2e7d0d2e9e989599fea003d8ddfb8566dc37614e7ab7646f8f893aa8d3285d"
+        },
+        {
+          "location": "line95/Versions/90",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "1",
+          "accounting_bag_sha256": "54dd8529fea7a41151990c734cf5a0abb856b1ccd5d6f305a2ad31bdc54069fc",
+          "ordered_nonaccounting_sha256": "e0e6007035fcd6e10ad031d7ab1aab4e10333b0d9e6218e2185b0d5107032dd9",
+          "before_rows_sha256": "e4f2805243523c8216251975f0b3134ab8b7554408d51a46050064ff3caa6ef3",
+          "after_rows_sha256": "e2505d359aad826093572a5fc3257b9fd85e6d2aefdf6af10c974e6469d2bc3a"
+        },
+        {
+          "location": "line97/Versions/90",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "1",
+          "accounting_bag_sha256": "54dd8529fea7a41151990c734cf5a0abb856b1ccd5d6f305a2ad31bdc54069fc",
+          "ordered_nonaccounting_sha256": "e0e6007035fcd6e10ad031d7ab1aab4e10333b0d9e6218e2185b0d5107032dd9",
+          "before_rows_sha256": "e4f2805243523c8216251975f0b3134ab8b7554408d51a46050064ff3caa6ef3",
+          "after_rows_sha256": "e2505d359aad826093572a5fc3257b9fd85e6d2aefdf6af10c974e6469d2bc3a"
+        },
+        {
+          "location": "line104",
+          "kind": "RETAINED_COMPLETED_SOURCE_REFERENCE",
+          "old": "p1Graveyard-1",
+          "new": "Stack-0",
+          "other_fields_unchanged": true,
+          "additional_source_and_inactive_context_proof_required": true
+        }
+      ]
+    },
+    {
+      "number": 242,
+      "slug": "card-healing-balm-yellow-double-copies-two-paid-action-points",
+      "passed": true,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "exit_code": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-healing-balm-yellow-double-copies-two-paid-action-points",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\snapshot-cohort-445\\quietrefs53-242.log"
+      ],
+      "complete_log_sha256": "309a3c743e31290a352e8c1994f07bfff2367904b07f3423a31eac8546ef20b7",
+      "before_expected_sha256": "a69474780c8fc1f4fed2e5f127f32cc9433c7df3aa79d8d611b161d375b006a2",
+      "expected_sha256": "1912fbf9ce049e52b0596ec77c0b313a48a83189a7ce17d8be379221ef7b1ed6",
+      "other_four_files_unchanged": true,
+      "failed_candidate_restored": false,
+      "edits": [
+        {
+          "location": "line86",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "1",
+          "accounting_bag_sha256": "38978fa8902acca2fa34c6c311465674c9f91c46e6142b1b75d7e09c98b73bfb",
+          "ordered_nonaccounting_sha256": "e0e6007035fcd6e10ad031d7ab1aab4e10333b0d9e6218e2185b0d5107032dd9",
+          "before_rows_sha256": "9cdbc9057121c93f42279b16519380954fd13335456806e1fdf4a372c464f86e",
+          "after_rows_sha256": "d2609e34b6d49a5f468bf2f82614a2d4e1bda2f59ce492889c3b3da54e8f44cb"
+        },
+        {
+          "location": "line95/Versions/90",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "1",
+          "accounting_bag_sha256": "3657bbc4873e07e54c5e74739677d0252a56d6cf1ddb9ce21ef925073a097ddb",
+          "ordered_nonaccounting_sha256": "e0e6007035fcd6e10ad031d7ab1aab4e10333b0d9e6218e2185b0d5107032dd9",
+          "before_rows_sha256": "140f01078d6aaef14df696583f5a9e11490511fd6187163b1419dad46fde288c",
+          "after_rows_sha256": "0f4fa9c256c382a1f2b80a28120c56823606a16f32253efa9d07cf1d6f19003f"
+        },
+        {
+          "location": "line97/Versions/90",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "1",
+          "accounting_bag_sha256": "3657bbc4873e07e54c5e74739677d0252a56d6cf1ddb9ce21ef925073a097ddb",
+          "ordered_nonaccounting_sha256": "e0e6007035fcd6e10ad031d7ab1aab4e10333b0d9e6218e2185b0d5107032dd9",
+          "before_rows_sha256": "140f01078d6aaef14df696583f5a9e11490511fd6187163b1419dad46fde288c",
+          "after_rows_sha256": "0f4fa9c256c382a1f2b80a28120c56823606a16f32253efa9d07cf1d6f19003f"
+        },
+        {
+          "location": "line104",
+          "kind": "RETAINED_COMPLETED_SOURCE_REFERENCE",
+          "old": "p1Graveyard-1",
+          "new": "Stack-0",
+          "other_fields_unchanged": true,
+          "additional_source_and_inactive_context_proof_required": true
+        }
+      ]
+    },
+    {
+      "number": 249,
+      "slug": "card-heart-of-ice-four-live-sparse-actual-ice-action-tax-charges-opposing-printed-zero-instant-with-real-blue-pitch",
+      "passed": true,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "exit_code": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-heart-of-ice-four-live-sparse-actual-ice-action-tax-charges-opposing-printed-zero-instant-with-real-blue-pitch",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\snapshot-cohort-445\\quietrefs53-249.log"
+      ],
+      "complete_log_sha256": "9e307fc2cd661fcedb5717ccc5ee720b71fb142c69a268b7e3e07885c958e20c",
+      "before_expected_sha256": "9afaa48954d065e54f824b586a131aba7bac12f1752592b65c91748f6770037b",
+      "expected_sha256": "59d0605ad3eb1a3e7d57cef1bc15cab2f3cb4bb09f0f223f13ba1c12b3e1c30d",
+      "other_four_files_unchanged": true,
+      "failed_candidate_restored": false,
+      "edits": [
+        {
+          "location": "line90",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "2",
+          "accounting_bag_sha256": "54dd8529fea7a41151990c734cf5a0abb856b1ccd5d6f305a2ad31bdc54069fc",
+          "ordered_nonaccounting_sha256": "a8f9ee2fbac8053648824048702a954eccab14a640a9e6e4ff24e65acf7c3eec",
+          "before_rows_sha256": "a108b75ed53cdac39b2c60d279a9e6f60815ff02c7f460afb2b416bcb999f78f",
+          "after_rows_sha256": "08c8d7d3e1cafdb64d8f923b206e6c72159ae538070d7f7b2c03aff7f6005623"
+        },
+        {
+          "location": "line110",
+          "kind": "RETAINED_COMPLETED_SOURCE_REFERENCE",
+          "old": "p2Graveyard-0",
+          "new": "Stack-0",
+          "other_fields_unchanged": true,
+          "additional_source_and_inactive_context_proof_required": true
+        }
+      ]
+    },
+    {
+      "number": 280,
+      "slug": "card-lightning-greaves-four-live-sparse-actual-paid-destroy-instant-grants-real-instant-card-go-again-and-extra-action-point",
+      "passed": true,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "exit_code": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-lightning-greaves-four-live-sparse-actual-paid-destroy-instant-grants-real-instant-card-go-again-and-extra-action-point",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\snapshot-cohort-445\\quietrefs53-280.log"
+      ],
+      "complete_log_sha256": "6ee8f2f875aae8e4c83e90257a6d5d024d89d5cfbf63a0a26426bb7fbd9683e5",
+      "before_expected_sha256": "0db1bc9dba980db4adcac0b9005a5c256cdd8d049ff6b91ac8852948aaae13c4",
+      "expected_sha256": "46af5d6c840181aa4b7631b39c45a491b6045416a587fa3de5c8348996ff6353",
+      "other_four_files_unchanged": true,
+      "failed_candidate_restored": false,
+      "edits": [
+        {
+          "location": "line89",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "1",
+          "accounting_bag_sha256": "b6b4b9ec21be7211a507c2c43784bc209e3fe92e0a995e781c3681e9d9ecae63",
+          "ordered_nonaccounting_sha256": "793596a1ee25891aa7c2dbbb8583b9586164484a406dca44d0630e3125d2c84b",
+          "before_rows_sha256": "5fdeeeb15aaf2b7c2c29704eefd15cf56c2a9a94dc1ce413dd64c9c828f47509",
+          "after_rows_sha256": "ce8cc35ea42a57a40b946059343ac0f2c758b2c2da9b175fcb6aeee381dfedfa"
+        },
+        {
+          "location": "line109",
+          "kind": "RETAINED_COMPLETED_SOURCE_REFERENCE",
+          "old": "p1Graveyard-1",
+          "new": "Stack-0",
+          "other_fields_unchanged": true,
+          "additional_source_and_inactive_context_proof_required": true
+        }
+      ]
+    },
+    {
+      "number": 281,
+      "slug": "card-mage-master-boots-four-live-sparse-real-paid-legs-destroy-and-next-nonattack-go-again",
+      "passed": true,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "exit_code": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-mage-master-boots-four-live-sparse-real-paid-legs-destroy-and-next-nonattack-go-again",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\snapshot-cohort-445\\quietrefs53-281.log"
+      ],
+      "complete_log_sha256": "3ecb920f0b23f0162e2fb2efc5b1346fe9e7873516b97098b49f39f440d65f48",
+      "before_expected_sha256": "108f8043b008a082ed0c23ad7d9ac61c6121ca1331af149fd03725813481edd4",
+      "expected_sha256": "b51d8848e345b8becb3c9bae35125968aec40c1b569bb46475fff6575f866856",
+      "other_four_files_unchanged": true,
+      "failed_candidate_restored": false,
+      "edits": [
+        {
+          "location": "line88",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "1",
+          "accounting_bag_sha256": "c6027c2c47e3a4175cb381e2387e19e72069b1048f9a73e4896f3a3747a8c0fb",
+          "ordered_nonaccounting_sha256": "359e3a4d096ca9e41300039ab0839e9c49c7b09523a35ec0630c85b446fe72c1",
+          "before_rows_sha256": "f357c4f32bf2ce400a625687212406c6e70c7f40f14aa192e9555d0f9e7d9b65",
+          "after_rows_sha256": "5c355a22c8ba555b031a152d8d39179578b268f361c99106be925d8da3c9fbe0"
+        },
+        {
+          "location": "line108",
+          "kind": "RETAINED_COMPLETED_SOURCE_REFERENCE",
+          "old": "p1Graveyard-1",
+          "new": "Stack-0",
+          "other_fields_unchanged": true,
+          "additional_source_and_inactive_context_proof_required": true
+        }
+      ]
+    },
+    {
+      "number": 286,
+      "slug": "card-mordred-tide-red-four-live-sparse-actual-read-three-replaced-by-four-owned-runechants",
+      "passed": true,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "exit_code": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-mordred-tide-red-four-live-sparse-actual-read-three-replaced-by-four-owned-runechants",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\snapshot-cohort-445\\quietrefs53-286.log"
+      ],
+      "complete_log_sha256": "c96321c84b5f7f69ed1a203e3937da79e9f5f19143132eee1d8be1ba1ac4e9de",
+      "before_expected_sha256": "e2bdc2162661bfe486882e9791ab7ce31432456c5db1dc724cfebb473acb664e",
+      "expected_sha256": "34a129c38a4123ef436018f7a58b7cf0e8a4a290a9ff2da429e280a6b0e5f696",
+      "other_four_files_unchanged": true,
+      "failed_candidate_restored": false,
+      "edits": [
+        {
+          "location": "line92",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "1",
+          "accounting_bag_sha256": "7cb0aad04ef69e33e5697517911e260d9559f5ab5227900049e147b29c991f84",
+          "ordered_nonaccounting_sha256": "8afcfd77921f466f76d4ee7ccc376ffaa9eb4a65bedbd563971e370c644bc89b",
+          "before_rows_sha256": "ac079f1816862e74e809a3ee81d6db27b7b93059f62574f3e38ce257188b34ea",
+          "after_rows_sha256": "dd88374bd03b8559eb471945d78f8f5fe7bb939bd813ce90c453aa00de7897ac"
+        },
+        {
+          "location": "line101/Versions/90",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "1",
+          "accounting_bag_sha256": "ab0dd064cabbea75055979d6180a7ddb1bec489fa32c64c0fd864d7af8364fc6",
+          "ordered_nonaccounting_sha256": "78cfcb7cf26e626688e2d1b1cc749f124e482df267b665a29b50c36266aa4d5e",
+          "before_rows_sha256": "0af64725df6663d0ed12e8258e1141079630c4c2e8ce5c06a244aec62e161c2c",
+          "after_rows_sha256": "62c8071c36f30dbe4378691e405c75e1532042b14988a7757fb68420492419a4"
+        },
+        {
+          "location": "line103/Versions/90",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "1",
+          "accounting_bag_sha256": "ab0dd064cabbea75055979d6180a7ddb1bec489fa32c64c0fd864d7af8364fc6",
+          "ordered_nonaccounting_sha256": "78cfcb7cf26e626688e2d1b1cc749f124e482df267b665a29b50c36266aa4d5e",
+          "before_rows_sha256": "0af64725df6663d0ed12e8258e1141079630c4c2e8ce5c06a244aec62e161c2c",
+          "after_rows_sha256": "62c8071c36f30dbe4378691e405c75e1532042b14988a7757fb68420492419a4"
+        },
+        {
+          "location": "line105/Versions/90",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "1",
+          "accounting_bag_sha256": "ab0dd064cabbea75055979d6180a7ddb1bec489fa32c64c0fd864d7af8364fc6",
+          "ordered_nonaccounting_sha256": "78cfcb7cf26e626688e2d1b1cc749f124e482df267b665a29b50c36266aa4d5e",
+          "before_rows_sha256": "0af64725df6663d0ed12e8258e1141079630c4c2e8ce5c06a244aec62e161c2c",
+          "after_rows_sha256": "62c8071c36f30dbe4378691e405c75e1532042b14988a7757fb68420492419a4"
+        },
+        {
+          "location": "line107/Versions/90",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "1",
+          "accounting_bag_sha256": "ab0dd064cabbea75055979d6180a7ddb1bec489fa32c64c0fd864d7af8364fc6",
+          "ordered_nonaccounting_sha256": "78cfcb7cf26e626688e2d1b1cc749f124e482df267b665a29b50c36266aa4d5e",
+          "before_rows_sha256": "0af64725df6663d0ed12e8258e1141079630c4c2e8ce5c06a244aec62e161c2c",
+          "after_rows_sha256": "62c8071c36f30dbe4378691e405c75e1532042b14988a7757fb68420492419a4"
+        },
+        {
+          "location": "line112",
+          "kind": "RETAINED_COMPLETED_SOURCE_REFERENCE",
+          "old": "p1Graveyard-1",
+          "new": "Stack-0",
+          "other_fields_unchanged": true,
+          "additional_source_and_inactive_context_proof_required": true
+        }
+      ]
+    },
+    {
+      "number": 299,
+      "slug": "card-ominous-respite-yellow-conditional-heal-only-opponent-aura-destroyed-negative",
+      "passed": true,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "exit_code": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-ominous-respite-yellow-conditional-heal-only-opponent-aura-destroyed-negative",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\snapshot-cohort-445\\quietrefs53-299.log"
+      ],
+      "complete_log_sha256": "264beb9a7242e35f49340d33016d122b01b83b4365bea1c8f5e161705391fc14",
+      "before_expected_sha256": "71aa483d2391212ba27f2803942263bdebac0db5d47a4a0f6483550cca771289",
+      "expected_sha256": "3a1460194fdd85fa5945773027756af8713e970fe670136ae2f12282b9f35c75",
+      "other_four_files_unchanged": true,
+      "failed_candidate_restored": false,
+      "edits": [
+        {
+          "location": "line86",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "1",
+          "accounting_bag_sha256": "d6996308c4b2864bebdc5077d2a54a1235d708696ee513859e38bfdc31bd6e72",
+          "ordered_nonaccounting_sha256": "44e12d773dbb538508865cd391f8ae37131061af16f50cc3ad3963bf782960f6",
+          "before_rows_sha256": "7924956d049bde9cb54dcd61b7d18ac0606e901f2101e904c2550084003f89b8",
+          "after_rows_sha256": "f03dd03b9b2cd9e36d8143b0a98b81db79022914caec93b1021be780b9ecf084"
+        },
+        {
+          "location": "line95/Versions/86",
+          "kind": "RETAINED_COMPLETED_SOURCE_REFERENCE",
+          "old": "p1Graveyard-0",
+          "new": "Stack-0",
+          "other_fields_unchanged": true,
+          "additional_source_and_inactive_context_proof_required": true
+        },
+        {
+          "location": "line95/Versions/90",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "1",
+          "accounting_bag_sha256": "3657bbc4873e07e54c5e74739677d0252a56d6cf1ddb9ce21ef925073a097ddb",
+          "ordered_nonaccounting_sha256": "6e9f2cc3155e8cfb01dce01036241a6dec22e6e938c0f2878349b2a7da702960",
+          "before_rows_sha256": "49c97d3e28418e2d77d5a99ed5eef39d3edf4e0b9accb5a00cc8ef1346e602ef",
+          "after_rows_sha256": "a6f38778139cf6a6c21f3c5332930b4995ad9ab6829ab206b875a3c515ba5c59"
+        },
+        {
+          "location": "line97/Versions/86",
+          "kind": "RETAINED_COMPLETED_SOURCE_REFERENCE",
+          "old": "p1Graveyard-0",
+          "new": "Stack-0",
+          "other_fields_unchanged": true,
+          "additional_source_and_inactive_context_proof_required": true
+        },
+        {
+          "location": "line97/Versions/90",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "1",
+          "accounting_bag_sha256": "3657bbc4873e07e54c5e74739677d0252a56d6cf1ddb9ce21ef925073a097ddb",
+          "ordered_nonaccounting_sha256": "6e9f2cc3155e8cfb01dce01036241a6dec22e6e938c0f2878349b2a7da702960",
+          "before_rows_sha256": "49c97d3e28418e2d77d5a99ed5eef39d3edf4e0b9accb5a00cc8ef1346e602ef",
+          "after_rows_sha256": "a6f38778139cf6a6c21f3c5332930b4995ad9ab6829ab206b875a3c515ba5c59"
+        },
+        {
+          "location": "line104",
+          "kind": "RETAINED_COMPLETED_SOURCE_REFERENCE",
+          "old": "p1Graveyard-0",
+          "new": "Stack-0",
+          "other_fields_unchanged": true,
+          "additional_source_and_inactive_context_proof_required": true
+        }
+      ]
+    },
+    {
+      "number": 307,
+      "slug": "card-ominous-respite-yellow-conditional-heal-own-shield-real-opponent-physical-destroyed",
+      "passed": true,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "exit_code": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-ominous-respite-yellow-conditional-heal-own-shield-real-opponent-physical-destroyed",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\snapshot-cohort-445\\quietrefs53-307.log"
+      ],
+      "complete_log_sha256": "127f960305e969560efff00d7d0f0182479fda311cfffc69a59cfc57dcf52820",
+      "before_expected_sha256": "15c18cf92f1bd35766e1a3d4e6d7c84054eaf09d151c7510ea9fc96aa1f4a2ee",
+      "expected_sha256": "b9a733296d2cada1972589e368c98dc27695830dd04ff198e49d70a4922eba4c",
+      "other_four_files_unchanged": true,
+      "failed_candidate_restored": false,
+      "edits": [
+        {
+          "location": "line86",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "2",
+          "accounting_bag_sha256": "b6b4b9ec21be7211a507c2c43784bc209e3fe92e0a995e781c3681e9d9ecae63",
+          "ordered_nonaccounting_sha256": "12e6df3b90460231e7c72184be88aebb1f16fadca7ab22f94478057bb4e86f0b",
+          "before_rows_sha256": "4c471a1141384a73cdd8151657bcb6619603d44ff32a8f9f5acbcbe0ef8e392c",
+          "after_rows_sha256": "878756bfa0d8915fc5042094d27f554d5d307c244a36308b9ef12cc12c0205de"
+        },
+        {
+          "location": "line95/Versions/86",
+          "kind": "RETAINED_COMPLETED_SOURCE_REFERENCE",
+          "old": "p2Graveyard-0",
+          "new": "Stack-0",
+          "other_fields_unchanged": true,
+          "additional_source_and_inactive_context_proof_required": true
+        },
+        {
+          "location": "line95/Versions/90",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "2",
+          "accounting_bag_sha256": "54dd8529fea7a41151990c734cf5a0abb856b1ccd5d6f305a2ad31bdc54069fc",
+          "ordered_nonaccounting_sha256": "57633a55d9f36f4c6b8e09fbc23ddd9f9a1aaf1a350588470c1a809ce13aebb5",
+          "before_rows_sha256": "fb21dcc27d99f427ed93d3ff29d9a78db10872a968483c1fa7c3ffec1ff24606",
+          "after_rows_sha256": "c9feb851bb61defac46fbd02dc0bf7554b6beff6f57dd3ac174b4f22505ecb04"
+        },
+        {
+          "location": "line97/Versions/86",
+          "kind": "RETAINED_COMPLETED_SOURCE_REFERENCE",
+          "old": "p2Graveyard-0",
+          "new": "Stack-0",
+          "other_fields_unchanged": true,
+          "additional_source_and_inactive_context_proof_required": true
+        },
+        {
+          "location": "line97/Versions/90",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "2",
+          "accounting_bag_sha256": "54dd8529fea7a41151990c734cf5a0abb856b1ccd5d6f305a2ad31bdc54069fc",
+          "ordered_nonaccounting_sha256": "57633a55d9f36f4c6b8e09fbc23ddd9f9a1aaf1a350588470c1a809ce13aebb5",
+          "before_rows_sha256": "fb21dcc27d99f427ed93d3ff29d9a78db10872a968483c1fa7c3ffec1ff24606",
+          "after_rows_sha256": "c9feb851bb61defac46fbd02dc0bf7554b6beff6f57dd3ac174b4f22505ecb04"
+        },
+        {
+          "location": "line104",
+          "kind": "RETAINED_COMPLETED_SOURCE_REFERENCE",
+          "old": "p2Graveyard-0",
+          "new": "Stack-0",
+          "other_fields_unchanged": true,
+          "additional_source_and_inactive_context_proof_required": true
+        }
+      ]
+    },
+    {
+      "number": 308,
+      "slug": "card-ominous-respite-yellow-conditional-heal-prior-turn-aura-destruction-expires",
+      "passed": true,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "exit_code": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-ominous-respite-yellow-conditional-heal-prior-turn-aura-destruction-expires",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\snapshot-cohort-445\\quietrefs53-308.log"
+      ],
+      "complete_log_sha256": "5aca4eba34e5300ad6c77e5f3fb32b8d8bef002aff0ff89b2f2de8fa188475dc",
+      "before_expected_sha256": "ad7a533803f44665a403006336e89312fc4920b39d55c19e1e95a12d62e6c4bc",
+      "expected_sha256": "2bd3cae5348713ad9d2288d1ded128a4523058ac56772c728554a65ec8c69ec2",
+      "other_four_files_unchanged": true,
+      "failed_candidate_restored": false,
+      "edits": [
+        {
+          "location": "line87",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "2",
+          "accounting_bag_sha256": "3657bbc4873e07e54c5e74739677d0252a56d6cf1ddb9ce21ef925073a097ddb",
+          "ordered_nonaccounting_sha256": "fb95b5811fd684c624807ffdb699ab808069e6352fea7721a605e2f1b166129b",
+          "before_rows_sha256": "d20bf5ddb8553b1a6826e21eeb6cee556c81284b1ba9da07e109ea3a2d97c394",
+          "after_rows_sha256": "0c96319ecaadf18eda5833e019521558d72cb8de816e52ac0ee7b95fc2c172c5"
+        },
+        {
+          "location": "line105",
+          "kind": "RETAINED_COMPLETED_SOURCE_REFERENCE",
+          "old": "p2Graveyard-0",
+          "new": "Stack-0",
+          "other_fields_unchanged": true,
+          "additional_source_and_inactive_context_proof_required": true
+        }
+      ]
+    },
+    {
+      "number": 322,
+      "slug": "card-poison-the-well-blue-four-live-sparse-real-instant-then-real-sun-kiss-gain-three-becomes-lose-three",
+      "passed": true,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "exit_code": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-poison-the-well-blue-four-live-sparse-real-instant-then-real-sun-kiss-gain-three-becomes-lose-three",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\snapshot-cohort-445\\quietrefs53-322.log"
+      ],
+      "complete_log_sha256": "fff97743d95ab558810b5bd82bd4ae3f58c90831a862eb381925dd5aea452b43",
+      "before_expected_sha256": "b4066afd69a91603c89ee2647451c092eb5070d380895c715b3c9ddfea13d813",
+      "expected_sha256": "e8cd0c766a235c83644f6f59d614917082deaec75b0886f246d57ef3026c7545",
+      "other_four_files_unchanged": true,
+      "failed_candidate_restored": false,
+      "edits": [
+        {
+          "location": "line88",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "1",
+          "accounting_bag_sha256": "33440b91bc961bf2cb5c4194294bde5480c17bd9e626c0af9ae0cff092db3818",
+          "ordered_nonaccounting_sha256": "40b59e5b187d4a50acda92385f5f4bb6d6ba5067d8b199d10ab2b4054881389e",
+          "before_rows_sha256": "893129f43c601ceddc1d737ffec809064ef7589c7fdf0ea5a7e1e1888241ac9c",
+          "after_rows_sha256": "4eee7953d9fd0a0a96277abedd7f02221c938475af8f553b2396a45cd5d1d3af"
+        },
+        {
+          "location": "line97/Versions/90",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "1",
+          "accounting_bag_sha256": "261dfde05729517e382a05c743f5a4c2144ada1f5086e41407e96d21c945f230",
+          "ordered_nonaccounting_sha256": "cffd74fa6aa8da9f7a7c51f233aab7d2884111618a3333a165dcc5376a15c3db",
+          "before_rows_sha256": "0e3198bc69fa7c1a6fa1a264a74cab304a4e210855fc791aae08c1a93707e97f",
+          "after_rows_sha256": "4df23467cb11cf9048b2705f8af6ed0c4570cb59b14add944f886f256a948ca1"
+        },
+        {
+          "location": "line99/Versions/90",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "1",
+          "accounting_bag_sha256": "261dfde05729517e382a05c743f5a4c2144ada1f5086e41407e96d21c945f230",
+          "ordered_nonaccounting_sha256": "cffd74fa6aa8da9f7a7c51f233aab7d2884111618a3333a165dcc5376a15c3db",
+          "before_rows_sha256": "0e3198bc69fa7c1a6fa1a264a74cab304a4e210855fc791aae08c1a93707e97f",
+          "after_rows_sha256": "4df23467cb11cf9048b2705f8af6ed0c4570cb59b14add944f886f256a948ca1"
+        },
+        {
+          "location": "line101/Versions/90",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "1",
+          "accounting_bag_sha256": "261dfde05729517e382a05c743f5a4c2144ada1f5086e41407e96d21c945f230",
+          "ordered_nonaccounting_sha256": "cffd74fa6aa8da9f7a7c51f233aab7d2884111618a3333a165dcc5376a15c3db",
+          "before_rows_sha256": "0e3198bc69fa7c1a6fa1a264a74cab304a4e210855fc791aae08c1a93707e97f",
+          "after_rows_sha256": "4df23467cb11cf9048b2705f8af6ed0c4570cb59b14add944f886f256a948ca1"
+        },
+        {
+          "location": "line103/Versions/90",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "1",
+          "accounting_bag_sha256": "261dfde05729517e382a05c743f5a4c2144ada1f5086e41407e96d21c945f230",
+          "ordered_nonaccounting_sha256": "cffd74fa6aa8da9f7a7c51f233aab7d2884111618a3333a165dcc5376a15c3db",
+          "before_rows_sha256": "0e3198bc69fa7c1a6fa1a264a74cab304a4e210855fc791aae08c1a93707e97f",
+          "after_rows_sha256": "4df23467cb11cf9048b2705f8af6ed0c4570cb59b14add944f886f256a948ca1"
+        },
+        {
+          "location": "line108",
+          "kind": "RETAINED_COMPLETED_SOURCE_REFERENCE",
+          "old": "p1Graveyard-1",
+          "new": "Stack-0",
+          "other_fields_unchanged": true,
+          "additional_source_and_inactive_context_proof_required": true
+        }
+      ]
+    },
+    {
+      "number": 334,
+      "slug": "card-quartermasters-boots-four-live-sparse-actual-paid-equipment-real-nonattack-go-again",
+      "passed": true,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "exit_code": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-quartermasters-boots-four-live-sparse-actual-paid-equipment-real-nonattack-go-again",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\snapshot-cohort-445\\quietrefs53-334.log"
+      ],
+      "complete_log_sha256": "2fb801abdbaf590d3d1ad17690f71eb531fefcb581b17356a82f635654da616e",
+      "before_expected_sha256": "aabcf8aab69699793b43c8d3fe4a9708fa4127b68784b405b5f60f7da7932156",
+      "expected_sha256": "b7445c128b1ae9fb29e9d6d25d6315d4c3d99d8eabbd089ee88f954fbc0fa2af",
+      "other_four_files_unchanged": true,
+      "failed_candidate_restored": false,
+      "edits": [
+        {
+          "location": "line90",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "1",
+          "accounting_bag_sha256": "7cb0aad04ef69e33e5697517911e260d9559f5ab5227900049e147b29c991f84",
+          "ordered_nonaccounting_sha256": "956c530264a5dc8fb53a79c5455707a8c0472fc509e170a367cd18e4a115d144",
+          "before_rows_sha256": "9f984707c464570e0bec72ac7ea8d4d0a64670ca6f8b21f520f91430c9bfd390",
+          "after_rows_sha256": "7241f35fc7d2d3cabffe37a1dda06907f8e94f55a8de66ce5e8af2fe80e573aa"
+        },
+        {
+          "location": "line110",
+          "kind": "RETAINED_COMPLETED_SOURCE_REFERENCE",
+          "old": "p1Graveyard-1",
+          "new": "Stack-0",
+          "other_fields_unchanged": true,
+          "additional_source_and_inactive_context_proof_required": true
+        }
+      ]
+    },
+    {
+      "number": 344,
+      "slug": "card-reaping-blade-four-live-sparse-actual-heal-earns-unique-life-lead-then-blade-prevents-second-heal",
+      "passed": true,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "exit_code": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-reaping-blade-four-live-sparse-actual-heal-earns-unique-life-lead-then-blade-prevents-second-heal",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\snapshot-cohort-445\\quietrefs53-344.log"
+      ],
+      "complete_log_sha256": "a15c1cc80fb4fe4f9b99171e5bcedde57eae13a99359aeb3f7c32fcc28664f35",
+      "before_expected_sha256": "da5279c9f4847d997d71b6713b4e62ce89cc1006b746b38981761a89b3e1248d",
+      "expected_sha256": "44045b44cd203056022fc8496dc640a6009377f329173147e488736338ec097c",
+      "other_four_files_unchanged": true,
+      "failed_candidate_restored": false,
+      "edits": [
+        {
+          "location": "line89",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "4",
+          "accounting_bag_sha256": "b6b4b9ec21be7211a507c2c43784bc209e3fe92e0a995e781c3681e9d9ecae63",
+          "ordered_nonaccounting_sha256": "52fa9183624fbe5daaabe6e7373e08ac1a8710a3afae32c8c919f37a64a4f7f2",
+          "before_rows_sha256": "8c71d470c8818a3ecca35c0112905491e86e5c21238034136d039baeaf063875",
+          "after_rows_sha256": "5a5de902bbe49444d4c4c030c13fd40fd3db6792dd3383ee56a72022e53c33e1"
+        },
+        {
+          "location": "line98/Versions/90",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "4",
+          "accounting_bag_sha256": "54dd8529fea7a41151990c734cf5a0abb856b1ccd5d6f305a2ad31bdc54069fc",
+          "ordered_nonaccounting_sha256": "52fa9183624fbe5daaabe6e7373e08ac1a8710a3afae32c8c919f37a64a4f7f2",
+          "before_rows_sha256": "6b2ed93ddc316e8814934a055a1bc5df5dd62cc76cc19fde41a2428940885a6a",
+          "after_rows_sha256": "297696d51fa6fbbf22b781bdde395213776a90df0d999192ed48634cb4da0cba"
+        },
+        {
+          "location": "line100/Versions/90",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "4",
+          "accounting_bag_sha256": "54dd8529fea7a41151990c734cf5a0abb856b1ccd5d6f305a2ad31bdc54069fc",
+          "ordered_nonaccounting_sha256": "52fa9183624fbe5daaabe6e7373e08ac1a8710a3afae32c8c919f37a64a4f7f2",
+          "before_rows_sha256": "6b2ed93ddc316e8814934a055a1bc5df5dd62cc76cc19fde41a2428940885a6a",
+          "after_rows_sha256": "297696d51fa6fbbf22b781bdde395213776a90df0d999192ed48634cb4da0cba"
+        },
+        {
+          "location": "line102/Versions/90",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "4",
+          "accounting_bag_sha256": "54dd8529fea7a41151990c734cf5a0abb856b1ccd5d6f305a2ad31bdc54069fc",
+          "ordered_nonaccounting_sha256": "52fa9183624fbe5daaabe6e7373e08ac1a8710a3afae32c8c919f37a64a4f7f2",
+          "before_rows_sha256": "6b2ed93ddc316e8814934a055a1bc5df5dd62cc76cc19fde41a2428940885a6a",
+          "after_rows_sha256": "297696d51fa6fbbf22b781bdde395213776a90df0d999192ed48634cb4da0cba"
+        },
+        {
+          "location": "line104/Versions/90",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "4",
+          "accounting_bag_sha256": "54dd8529fea7a41151990c734cf5a0abb856b1ccd5d6f305a2ad31bdc54069fc",
+          "ordered_nonaccounting_sha256": "52fa9183624fbe5daaabe6e7373e08ac1a8710a3afae32c8c919f37a64a4f7f2",
+          "before_rows_sha256": "6b2ed93ddc316e8814934a055a1bc5df5dd62cc76cc19fde41a2428940885a6a",
+          "after_rows_sha256": "297696d51fa6fbbf22b781bdde395213776a90df0d999192ed48634cb4da0cba"
+        },
+        {
+          "location": "line109",
+          "kind": "RETAINED_COMPLETED_SOURCE_REFERENCE",
+          "old": "p4Graveyard-1",
+          "new": "Stack-0",
+          "other_fields_unchanged": true,
+          "additional_source_and_inactive_context_proof_required": true
+        }
+      ]
+    },
+    {
+      "number": 347,
+      "slug": "card-revel-in-runeblood-red-four-live-sparse-real-other-nonattack-and-attack-earns-four-owned-runechants",
+      "passed": true,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "exit_code": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-revel-in-runeblood-red-four-live-sparse-real-other-nonattack-and-attack-earns-four-owned-runechants",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\snapshot-cohort-445\\quietrefs53-347.log"
+      ],
+      "complete_log_sha256": "2742a41e480949b7ecbfe8675d2e0b1dacc8dcad4e070b199002d6090ef4c000",
+      "before_expected_sha256": "2a6f180285a0a035d5105ec27609175c84347708a0c54a9ddee5f3b6dda9e573",
+      "expected_sha256": "7cfb0b710af2a52e4f63e5314517f19f59fd47b6978585c4a2bde8b0aa1342d1",
+      "other_four_files_unchanged": true,
+      "failed_candidate_restored": false,
+      "edits": [
+        {
+          "location": "line94",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "1",
+          "accounting_bag_sha256": "5a48c5011693174fb531eb6eb9c569b4a49b226bbaed55596c60205bdf740e1c",
+          "ordered_nonaccounting_sha256": "5424b3586133f2de471a71cbce0dbfb96af9d197a660032fa9d85c10b115a18a",
+          "before_rows_sha256": "78e43b7613623795114d1398f38743e6079cdd5b44da66abf29976bf62df2473",
+          "after_rows_sha256": "f00558e585febc01aa7fa9390c1329ff1e23d1e2d2dda470433b7debca212683"
+        },
+        {
+          "location": "line114",
+          "kind": "RETAINED_COMPLETED_SOURCE_REFERENCE",
+          "old": "p1Graveyard-3",
+          "new": "Stack-0",
+          "other_fields_unchanged": true,
+          "additional_source_and_inactive_context_proof_required": true
+        }
+      ]
+    },
+    {
+      "number": 350,
+      "slug": "card-ripple-away-blue-four-live-sparse-real-offturn-discard-reduces-opponent-three-runechant-batch-to-two",
+      "passed": true,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "exit_code": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-ripple-away-blue-four-live-sparse-real-offturn-discard-reduces-opponent-three-runechant-batch-to-two",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\snapshot-cohort-445\\quietrefs53-350.log"
+      ],
+      "complete_log_sha256": "2535246de2a59ef53aa6f12e0f77e146888ca50daa75dcd73e2e2bac3a3c2090",
+      "before_expected_sha256": "8d55735b3287fdfbe62bbb39ee30b1bbddc6de8cc9eb7e2e69efddd483bad73a",
+      "expected_sha256": "42c71eb9cef36f71a3ecb0a380e1dcf7d29cb11dff0f8f68786f0f5b7958bad8",
+      "other_four_files_unchanged": true,
+      "failed_candidate_restored": false,
+      "edits": [
+        {
+          "location": "line90",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "1",
+          "accounting_bag_sha256": "7cb0aad04ef69e33e5697517911e260d9559f5ab5227900049e147b29c991f84",
+          "ordered_nonaccounting_sha256": "e8913df2ca2a75d2c9126289a4f09b180229b110d3e2cac1b5f3d2fadb9fd580",
+          "before_rows_sha256": "97fbfe5eaee13bacfd3563c55fb14b84b3c610fec7c2bcc4f0c305b0e51bfb3c",
+          "after_rows_sha256": "11818ea42ec799c9c8e56bfeaed10de2bb98d85fea45797c8592622322eccad4"
+        },
+        {
+          "location": "line110",
+          "kind": "RETAINED_COMPLETED_SOURCE_REFERENCE",
+          "old": "p1Graveyard-0",
+          "new": "Stack-0",
+          "other_fields_unchanged": true,
+          "additional_source_and_inactive_context_proof_required": true
+        }
+      ]
+    },
+    {
+      "number": 391,
+      "slug": "card-snapback-red-four-live-sparse-real-earlier-wizard-action-earns-instant-at-zero-ap",
+      "passed": true,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "exit_code": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-snapback-red-four-live-sparse-real-earlier-wizard-action-earns-instant-at-zero-ap",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\snapshot-cohort-445\\quietrefs53-391.log"
+      ],
+      "complete_log_sha256": "644c1bb0e2f611f51146ef38137e3c00db184b46751b1faefd455a4200d3098a",
+      "before_expected_sha256": "c469f4e08b81b42cead2f65ae62641b2a65a5484c06dffe2830c416529471677",
+      "expected_sha256": "7d24b03c382cfa3c1bbb75196b25800c07b12cbc511e06cec5bff3f70de5f2c8",
+      "other_four_files_unchanged": true,
+      "failed_candidate_restored": false,
+      "edits": [
+        {
+          "location": "line89",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "1",
+          "accounting_bag_sha256": "7cb0aad04ef69e33e5697517911e260d9559f5ab5227900049e147b29c991f84",
+          "ordered_nonaccounting_sha256": "fe53eb9e360d4fd8f40b7b12a1a6077a4b793d3d4d7a85e435bbb60225a099dc",
+          "before_rows_sha256": "106a50afff4ccf41119537168984493d07476f04a19b2d2c144744f95525841e",
+          "after_rows_sha256": "065cb9eaf68c292a7cf294e2557d742f2bed3dafa57d46defe1530f9e6bd506c"
+        },
+        {
+          "location": "line89",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "4",
+          "accounting_bag_sha256": "7cb0aad04ef69e33e5697517911e260d9559f5ab5227900049e147b29c991f84",
+          "ordered_nonaccounting_sha256": "770200cdbb50ec28475db2bb14eed729c5822a7f52f8d4f0ff39196c01958e23",
+          "before_rows_sha256": "9ce1706de2e9aea071f3b41ff8f4bb5e869418de538e280047e610f09e51dbfa",
+          "after_rows_sha256": "6f8ca1b7b83d02f45b5152f8ebcbfe56e16cdbe98feffce906a945868be30f78"
+        },
+        {
+          "location": "line109",
+          "kind": "RETAINED_COMPLETED_SOURCE_REFERENCE",
+          "old": "p1Graveyard-1",
+          "new": "Stack-0",
+          "other_fields_unchanged": true,
+          "additional_source_and_inactive_context_proof_required": true
+        }
+      ]
+    },
+    {
+      "number": 393,
+      "slug": "card-sonata-fantasmia-blue-four-live-real-x-one-pays-two-creates-one-runechant",
+      "passed": true,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "exit_code": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-sonata-fantasmia-blue-four-live-real-x-one-pays-two-creates-one-runechant",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\snapshot-cohort-445\\quietrefs53-393.log"
+      ],
+      "complete_log_sha256": "1248b2ab7f8aaef50c64305158076626e215807f7222421028ecdb381f56d579",
+      "before_expected_sha256": "0ba03dac19b9163d223caee133974161e600de0af441feffa958b2ac44f968ed",
+      "expected_sha256": "4732b32295590cce61b6101f2b7079dd6f74a2d00579d7cf45607630e1bc0713",
+      "other_four_files_unchanged": true,
+      "failed_candidate_restored": false,
+      "edits": [
+        {
+          "location": "line89",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "1",
+          "accounting_bag_sha256": "261dfde05729517e382a05c743f5a4c2144ada1f5086e41407e96d21c945f230",
+          "ordered_nonaccounting_sha256": "5a27f7340801bda35cafaf417a440f188766ae00ca12b2b450f75179d3f2732b",
+          "before_rows_sha256": "8bae0c63545e3f981912e7ee5aba06af6a03987d35121bbaf1c7dcc54e76c27b",
+          "after_rows_sha256": "557d4d31e6fc990902a670c65e118dad867301f9bf1b7202929633800ca00523"
+        },
+        {
+          "location": "line109",
+          "kind": "RETAINED_COMPLETED_SOURCE_REFERENCE",
+          "old": "p1Graveyard-0",
+          "new": "Stack-0",
+          "other_fields_unchanged": true,
+          "additional_source_and_inactive_context_proof_required": true
+        }
+      ]
+    },
+    {
+      "number": 395,
+      "slug": "card-spellbound-creepers-four-live-sparse-earned-attack-real-bind-cost-and-action-played-as-instant-at-zero-ap",
+      "passed": true,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "exit_code": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-spellbound-creepers-four-live-sparse-earned-attack-real-bind-cost-and-action-played-as-instant-at-zero-ap",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\snapshot-cohort-445\\quietrefs53-395.log"
+      ],
+      "complete_log_sha256": "646351c28de1912a50d931a20382cd0d535cc82d90af493fb46408be0beac767",
+      "before_expected_sha256": "963068d42ab27e02f251981f97a32d69ff59aeac7bba4f104a4310a2e23adbb9",
+      "expected_sha256": "f9d4b56a81c943e4e5874477a53576797511d1092c15a7541c808aee5e41826a",
+      "other_four_files_unchanged": true,
+      "failed_candidate_restored": false,
+      "edits": [
+        {
+          "location": "line90",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "1",
+          "accounting_bag_sha256": "7cb0aad04ef69e33e5697517911e260d9559f5ab5227900049e147b29c991f84",
+          "ordered_nonaccounting_sha256": "293ecc7548ab07836779e4c4749a072a011e67434e6e427722c56a59e9418cc7",
+          "before_rows_sha256": "55a20d888dafb9ee1a9af00e8c965cbe08b6e2833ae90ce2cb623ef459ac5f95",
+          "after_rows_sha256": "25835b3c24dfbb99c93c9c2be700410a15439059772269409a0552800e401ad8"
+        },
+        {
+          "location": "line110",
+          "kind": "RETAINED_COMPLETED_SOURCE_REFERENCE",
+          "old": "p1Graveyard-1",
+          "new": "Stack-0",
+          "other_fields_unchanged": true,
+          "additional_source_and_inactive_context_proof_required": true
+        }
+      ]
+    },
+    {
+      "number": 404,
+      "slug": "card-strike-twice-red-four-live-real-prior-arcane-earns-instant-at-zero-action-and-three-more-damage",
+      "passed": true,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "exit_code": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-strike-twice-red-four-live-real-prior-arcane-earns-instant-at-zero-action-and-three-more-damage",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\snapshot-cohort-445\\quietrefs53-404.log"
+      ],
+      "complete_log_sha256": "799bae82a89031311f859233222c4a9504bf473cece8065a0305098e90a464e5",
+      "before_expected_sha256": "1512aed70912f379d1a06eb6dca1e9b39d0f287a387321654dbf51169a518f06",
+      "expected_sha256": "91ed62510ddc8608ce0e976d2a15be4bea7b25dcd6e0debbeaac7ea36c77f92a",
+      "other_four_files_unchanged": true,
+      "failed_candidate_restored": false,
+      "edits": [
+        {
+          "location": "line89",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "1",
+          "accounting_bag_sha256": "7cb0aad04ef69e33e5697517911e260d9559f5ab5227900049e147b29c991f84",
+          "ordered_nonaccounting_sha256": "9ba2b7dc1ec0566d4069797783983f712840f4f8c1609fd4472e55dbfdae5248",
+          "before_rows_sha256": "b560c45f9ebbf3049ee04bb323f87dacaf3d36f5a7086907fcd15a88f1efbb94",
+          "after_rows_sha256": "6c67ab97f3ab42b48e37c87c3e7bd23445c20ea1276e785b10ee8c8f5846e673"
+        },
+        {
+          "location": "line89",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "4",
+          "accounting_bag_sha256": "7cb0aad04ef69e33e5697517911e260d9559f5ab5227900049e147b29c991f84",
+          "ordered_nonaccounting_sha256": "02e595756ce3a277133584703466c52a79d3416ff2c4e5fdec7a7e911babd866",
+          "before_rows_sha256": "9e4059c8fb12a5389b64ac0f4738b984f386973ea72b7b27c988eea366c66f27",
+          "after_rows_sha256": "c1153470ce776ffe76d17a3a64a4bb3c5d2bed085d84fe811dab9592826c203e"
+        },
+        {
+          "location": "line109",
+          "kind": "RETAINED_COMPLETED_SOURCE_REFERENCE",
+          "old": "p1Graveyard-1",
+          "new": "Stack-0",
+          "other_fields_unchanged": true,
+          "additional_source_and_inactive_context_proof_required": true
+        }
+      ]
+    },
+    {
+      "number": 410,
+      "slug": "card-tectonic-rift-blue-four-live-sparse-real-x-two-declaration-and-payment-create-two-owned-seismic-surges",
+      "passed": true,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "exit_code": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-tectonic-rift-blue-four-live-sparse-real-x-two-declaration-and-payment-create-two-owned-seismic-surges",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\snapshot-cohort-445\\quietrefs53-410.log"
+      ],
+      "complete_log_sha256": "efe65eef621cf146e2c20fcfb6fbf63bc455dcdc997315fc70aa86745816ff89",
+      "before_expected_sha256": "0c56bf76dea35495d67023db56edd17b1135f8b7e9fb903bc3a2dc480c7c7bad",
+      "expected_sha256": "2ec1c658626604a3f5c62d16b0b0481b2d4eda0984fa6b33403392fa3425217c",
+      "other_four_files_unchanged": true,
+      "failed_candidate_restored": false,
+      "edits": [
+        {
+          "location": "line90",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "1",
+          "accounting_bag_sha256": "261dfde05729517e382a05c743f5a4c2144ada1f5086e41407e96d21c945f230",
+          "ordered_nonaccounting_sha256": "d5556a1ec8e4da3ed0a338870757a0c49c8e0cfa02a054a8f0b7df1a385ca404",
+          "before_rows_sha256": "ecda41ffcfc224c43dd445bf076264c192ab692cbe12bcea0fe6aa45daf9fe0b",
+          "after_rows_sha256": "071bc849b46a15dd453216d475c68d99b191caee8b4c63e033b122e16de8c3b2"
+        },
+        {
+          "location": "line110",
+          "kind": "RETAINED_COMPLETED_SOURCE_REFERENCE",
+          "old": "p1Graveyard-0",
+          "new": "Stack-0",
+          "other_fields_unchanged": true,
+          "additional_source_and_inactive_context_proof_required": true
+        }
+      ]
+    },
+    {
+      "number": 411,
+      "slug": "card-thistle-bloom-life-yellow-four-live-sparse-real-three-life-gain-earns-left-half-three-runechants",
+      "passed": true,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "exit_code": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-thistle-bloom-life-yellow-four-live-sparse-real-three-life-gain-earns-left-half-three-runechants",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\snapshot-cohort-445\\quietrefs53-411.log"
+      ],
+      "complete_log_sha256": "aa93eb9696aa49d0eba5c1a4217ddbbed2bfab5d82d000aaf396d02619879101",
+      "before_expected_sha256": "08d395fe7669eea32d35182093ecdb9f7de5f5397dcccfee4a14f3b1f3a5e4cc",
+      "expected_sha256": "31e9576444b49107be88cb21b6a4c2b931b25b3a8a4898981f7980a566b9a4ff",
+      "other_four_files_unchanged": true,
+      "failed_candidate_restored": false,
+      "edits": [
+        {
+          "location": "line91",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "1",
+          "accounting_bag_sha256": "b6b4b9ec21be7211a507c2c43784bc209e3fe92e0a995e781c3681e9d9ecae63",
+          "ordered_nonaccounting_sha256": "7e91827c975d42279460809891950a621aab04d9a8a2f8592ee33fa9a63148e4",
+          "before_rows_sha256": "a38c4c95421b931758c5cd595e318fe07dcecbaea9ace62bd0ed8b7cacd7bd9c",
+          "after_rows_sha256": "c89300482796888c19d384858e88c0151b67a36a7bbb03e24b2aba88efb8f0c5"
+        },
+        {
+          "location": "line100/Versions/90",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "1",
+          "accounting_bag_sha256": "54dd8529fea7a41151990c734cf5a0abb856b1ccd5d6f305a2ad31bdc54069fc",
+          "ordered_nonaccounting_sha256": "31e8dd614a0f98a8c38151023b4ef27676b729dd46d850a4f7af55830646795a",
+          "before_rows_sha256": "a8da3877864017f9f3990a082c3cd9ae756adc514b4f5cd7facd1dd2040bd1bb",
+          "after_rows_sha256": "92dcc903b1afb6ae5620073c0fccd14b37c962d07e21b9329e2fcd944671a000"
+        },
+        {
+          "location": "line102/Versions/90",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "1",
+          "accounting_bag_sha256": "54dd8529fea7a41151990c734cf5a0abb856b1ccd5d6f305a2ad31bdc54069fc",
+          "ordered_nonaccounting_sha256": "31e8dd614a0f98a8c38151023b4ef27676b729dd46d850a4f7af55830646795a",
+          "before_rows_sha256": "a8da3877864017f9f3990a082c3cd9ae756adc514b4f5cd7facd1dd2040bd1bb",
+          "after_rows_sha256": "92dcc903b1afb6ae5620073c0fccd14b37c962d07e21b9329e2fcd944671a000"
+        },
+        {
+          "location": "line104/Versions/90",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "1",
+          "accounting_bag_sha256": "54dd8529fea7a41151990c734cf5a0abb856b1ccd5d6f305a2ad31bdc54069fc",
+          "ordered_nonaccounting_sha256": "31e8dd614a0f98a8c38151023b4ef27676b729dd46d850a4f7af55830646795a",
+          "before_rows_sha256": "a8da3877864017f9f3990a082c3cd9ae756adc514b4f5cd7facd1dd2040bd1bb",
+          "after_rows_sha256": "92dcc903b1afb6ae5620073c0fccd14b37c962d07e21b9329e2fcd944671a000"
+        },
+        {
+          "location": "line106/Versions/90",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "1",
+          "accounting_bag_sha256": "54dd8529fea7a41151990c734cf5a0abb856b1ccd5d6f305a2ad31bdc54069fc",
+          "ordered_nonaccounting_sha256": "31e8dd614a0f98a8c38151023b4ef27676b729dd46d850a4f7af55830646795a",
+          "before_rows_sha256": "a8da3877864017f9f3990a082c3cd9ae756adc514b4f5cd7facd1dd2040bd1bb",
+          "after_rows_sha256": "92dcc903b1afb6ae5620073c0fccd14b37c962d07e21b9329e2fcd944671a000"
+        },
+        {
+          "location": "line111",
+          "kind": "RETAINED_COMPLETED_SOURCE_REFERENCE",
+          "old": "p1Graveyard-1",
+          "new": "Stack-0",
+          "other_fields_unchanged": true,
+          "additional_source_and_inactive_context_proof_required": true
+        }
+      ]
+    },
+    {
+      "number": 418,
+      "slug": "card-tome-of-firebrand-red-four-live-real-four-draconic-links-paid-instant-draw-two",
+      "passed": true,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "exit_code": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-tome-of-firebrand-red-four-live-real-four-draconic-links-paid-instant-draw-two",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\snapshot-cohort-445\\quietrefs53-418.log"
+      ],
+      "complete_log_sha256": "edcbd98dfa329e275c5c26c15220d9068061756fcb419e6a92950faaef2ddb41",
+      "before_expected_sha256": "ab82ec61456490ff14664f10781c29feedc9fb2488b9a5b066c1c1c8e1ae11ca",
+      "expected_sha256": "5802798149cf2b237dd3c5ff984320f00f2c3fc28256736f99934796f8f87ed7",
+      "other_four_files_unchanged": true,
+      "failed_candidate_restored": false,
+      "edits": [
+        {
+          "location": "line94",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "1",
+          "accounting_bag_sha256": "daa671fa88da2e78bb94222a83c0e5b8f0dbb0f58f624203c62f7d3ffb988573",
+          "ordered_nonaccounting_sha256": "5d51cd8b22eaf90a861844bf2210af845deefc6397cd9db2c3b713d6b66bd993",
+          "before_rows_sha256": "37c9288a4be916a21edd7d0820af5b6e58044f5e3d25eede06e29b6db8255975",
+          "after_rows_sha256": "e66cde4c539aec8d55dcdbba2905cb4d7992aceac9d7c77779cce9de71928e56"
+        },
+        {
+          "location": "line103/Versions/86",
+          "kind": "RETAINED_COMPLETED_SOURCE_REFERENCE",
+          "old": "p1Graveyard-0",
+          "new": "Stack-0",
+          "other_fields_unchanged": true,
+          "additional_source_and_inactive_context_proof_required": true
+        },
+        {
+          "location": "line103/Versions/90",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "1",
+          "accounting_bag_sha256": "ab0dd064cabbea75055979d6180a7ddb1bec489fa32c64c0fd864d7af8364fc6",
+          "ordered_nonaccounting_sha256": "e6edc48aaee8ffd80b5e62fedccc9cef66a8a312b88f7d9d8f42d6298d46b98a",
+          "before_rows_sha256": "3f2be9ed51ccc1a6e37b1f377353e9e4d6153ebd82d4ae07cb28e9a049b19789",
+          "after_rows_sha256": "595724dc86aa5b05e75f7d23f1cb4d2d8256e5510bafff5af0e84cb72d17e6a8"
+        },
+        {
+          "location": "line105/Versions/86",
+          "kind": "RETAINED_COMPLETED_SOURCE_REFERENCE",
+          "old": "p1Graveyard-0",
+          "new": "Stack-0",
+          "other_fields_unchanged": true,
+          "additional_source_and_inactive_context_proof_required": true
+        },
+        {
+          "location": "line105/Versions/90",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "1",
+          "accounting_bag_sha256": "ab0dd064cabbea75055979d6180a7ddb1bec489fa32c64c0fd864d7af8364fc6",
+          "ordered_nonaccounting_sha256": "e6edc48aaee8ffd80b5e62fedccc9cef66a8a312b88f7d9d8f42d6298d46b98a",
+          "before_rows_sha256": "3f2be9ed51ccc1a6e37b1f377353e9e4d6153ebd82d4ae07cb28e9a049b19789",
+          "after_rows_sha256": "595724dc86aa5b05e75f7d23f1cb4d2d8256e5510bafff5af0e84cb72d17e6a8"
+        },
+        {
+          "location": "line107/Versions/86",
+          "kind": "RETAINED_COMPLETED_SOURCE_REFERENCE",
+          "old": "p1Graveyard-0",
+          "new": "Stack-0",
+          "other_fields_unchanged": true,
+          "additional_source_and_inactive_context_proof_required": true
+        },
+        {
+          "location": "line107/Versions/90",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "1",
+          "accounting_bag_sha256": "ab0dd064cabbea75055979d6180a7ddb1bec489fa32c64c0fd864d7af8364fc6",
+          "ordered_nonaccounting_sha256": "e6edc48aaee8ffd80b5e62fedccc9cef66a8a312b88f7d9d8f42d6298d46b98a",
+          "before_rows_sha256": "3f2be9ed51ccc1a6e37b1f377353e9e4d6153ebd82d4ae07cb28e9a049b19789",
+          "after_rows_sha256": "595724dc86aa5b05e75f7d23f1cb4d2d8256e5510bafff5af0e84cb72d17e6a8"
+        },
+        {
+          "location": "line109/Versions/86",
+          "kind": "RETAINED_COMPLETED_SOURCE_REFERENCE",
+          "old": "p1Graveyard-0",
+          "new": "Stack-0",
+          "other_fields_unchanged": true,
+          "additional_source_and_inactive_context_proof_required": true
+        },
+        {
+          "location": "line109/Versions/90",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "1",
+          "accounting_bag_sha256": "ab0dd064cabbea75055979d6180a7ddb1bec489fa32c64c0fd864d7af8364fc6",
+          "ordered_nonaccounting_sha256": "e6edc48aaee8ffd80b5e62fedccc9cef66a8a312b88f7d9d8f42d6298d46b98a",
+          "before_rows_sha256": "3f2be9ed51ccc1a6e37b1f377353e9e4d6153ebd82d4ae07cb28e9a049b19789",
+          "after_rows_sha256": "595724dc86aa5b05e75f7d23f1cb4d2d8256e5510bafff5af0e84cb72d17e6a8"
+        },
+        {
+          "location": "line114",
+          "kind": "RETAINED_COMPLETED_SOURCE_REFERENCE",
+          "old": "p1Graveyard-0",
+          "new": "Stack-0",
+          "other_fields_unchanged": true,
+          "additional_source_and_inactive_context_proof_required": true
+        }
+      ]
+    }
+  ],
+  "full_suite_run": false,
+  "new_groups_or_scenarios": 0,
+  "comparison_or_gameplay_changes": false,
+  "preserved": "All original actions, assertions, initial snapshots, metadata and every final byte outside the exact reviewed edits."
+}

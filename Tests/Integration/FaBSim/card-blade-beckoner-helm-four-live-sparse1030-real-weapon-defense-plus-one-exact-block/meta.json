@@ -1,0 +1,7 @@
+{
+    "name": "Blade Beckoner Helm / four-live actual defense representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-23T03:35:59+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "This gets +1{d} while defending a weapon attack.\nGuardwell Positivecontinuousweapon-defenseonly. NaturalRhinar20actualRompingClub7printed4/cost2paidBlue8/R1/AP0; no6+discard. NaturalDori20ownsHelmet5Equipmentbase1, actualdefendsp4Equipment0\u00e2\u2020\u2019physicalCC5RoleDEFENSEwithcurrentweaponbonus+1=2, thenrealLeadCharge6NAAprintedDEF2Handdefends\u00e2\u2020\u2019total4. Exact4vs4/zeroDamage/noHit/HP20/AP0pinsbonusinactualgameoutcome, noRhinarhittrigger. Primary5returnssameownedEquipmentafterclose, NAA6ownedGY4, weapon7usedretained/Blue8Pitch. Guardwellnormalcloseprocessingoccurs; noendphase/guardwellcounterremoval/otherattacktype/whole-keyword orwhole-cardcredit. Root independent final review also pins Guardwell two minus-defense counters on the same returned Helmet5. Existing verified131/159 rule evidence (CR8.3.34/7.7.1/7.0.5a, no automaticGuardwell destruction) applies; current GL facesWeapon getter preserves departed-link types, so original585source-onlyold-runtime lifetime concern is not imported as current defect. EOT/fullkeyword/nonWeapon branches still unrun. Sources: FaBSim/GeneratedCode/cardArrayCache.json#blade_beckoner_helm"
+}

@@ -1,0 +1,110 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "independent breadth_review1252",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1268-20261122.json",
+  "source_spec_sha256": "f69d44698b7f6b67695d76dcc0874613cf60afaa1465cd2a7e1ebd4bdf533f0e",
+  "input_sha256": "f69d44698b7f6b67695d76dcc0874613cf60afaa1465cd2a7e1ebd4bdf533f0e",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-azalea-ace-in-the-hole-two-live-sparse1268-real-arsenal-bottom-top-arrow-face-up-grants-observed-dominate",
+      "card_id": "azalea_ace_in_the_hole",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "558225d8f43915d7a765b44bd546a4988938a4e781dcf74c6841872015e2f259",
+        "actions.json": "91e92bb50d4b665e42985bb7a739d9bac675ac57734da4b4f703cb5125b877cc",
+        "assertions.json": "91c8c3b6342ed51b7209d7e42d6a4adea544204393282fcaeef99d412572a1ce",
+        "expected_final_gamestate.txt": "a12789662f15f8ba0cd2882c47f65afd882c5ed9f20b3a7f150ad64b9226cc9e",
+        "meta.json": "2e7223f48fbfaa27b86a5a1ffc014c145789ba334d74c4520523843c1c7a7e76"
+      },
+      "fixture_sha256": "77200f34a9f2ae652d08952896cb1b7a90e486bca1572a903391ca95290d5a98",
+      "actions": 20,
+      "native_assertions": 276,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 15,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1268-20261122.json",
+      "input_sha256": "f69d44698b7f6b67695d76dcc0874613cf60afaa1465cd2a7e1ebd4bdf533f0e",
+      "active_seats": [
+        1,
+        2
+      ],
+      "players": "two_live_manual",
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1268-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-azalea-ace-in-the-hole-two-live-sparse1268-real-arsenal-bottom-top-arrow-face-up-grants-observed-dominate",
+        "fixture_slug": "card-azalea-ace-in-the-hole-two-live-sparse1268-real-arsenal-bottom-top-arrow-face-up-grants-observed-dominate",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "reviewer": "independent breadth_review1252",
+    "spec_sha256": "f69d44698b7f6b67695d76dcc0874613cf60afaa1465cd2a7e1ebd4bdf533f0e",
+    "source_note_sha256": "68d412150083cd8555d12b27221c3b51836e14dcdf3f1147dca1cc9525fe2f0a",
+    "case_count": 1,
+    "active_seats": [
+      1,
+      2
+    ],
+    "players": "two_live_manual",
+    "native_controls": 20,
+    "query_checks": 276,
+    "persistable_assertions": 276,
+    "author_only_checks_omitted": 0,
+    "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+    "coverage_category": "ACTUAL_ADULT_AZALEA_DUEL_RESOLUTION_SWAP_FACEUP_ARROW_DOMINATE_HAND_LIMIT",
+    "basis": [
+      "Natural adult AzaleaAce40 Ranger versus adult DorintheaIronsong40 uses unchanged native duel admission, omitted activeSeats/exact12/defaultgameModeempty/noPassives/both manual players. ActualTakeAim3face-downArsenal1/topSearingBlue4Deck1, realHand2defenders5/6 and added lawful ownedDeathDealer7Weapons1 are correct physical assets. No prior history/effect or TakeAim buff is seeded.",
+      "Printed Azalea Action0 places arsenal-bottom/top-faceup-loading in the resolution effect after colon, not cost. Current ARC row ACTION0/goAgain and generated ResolveAbility agree. Actual activation spendsAP1to0/virtualABI8 retained while original3and4 remain in place and nativePriority2; realopponent2 pass1 still leaves pending source/assets unchanged. Actor1 pass begins non-target Arsenal choice at resolution with source8 heldStack and no early AP refund.",
+      "Answer actualArsenal3 calls normal ARCAzalea: sameowned3 moves to Deckbottom, then originaltop4 loads faceupArsenal and Arrow getsDOMINATE. Managed ARC completion clears virtual8 and grants actualAP1 only after choice. Exact3/4 UID/ownership, singletonDeck3, faceupArsenal4, emptyStack/DQs and AP1 pin the actual effect rather than a cached tag.",
+      "CR8.2.6a and current ARCCanPlay explicitly require an Arrow Arsenal origin plus control of equipped Bow. The corrected actualDeathDealer7 is a RangerBow, ready and unused, satisfying that prerequisite without an activation, draw or ability effect. SamephysicalSearingBlue4 printedcost0/power2 actually plays fromArsenal/AP1to0, singletonHero2 target and realPriority2then1 responses; only earnedAzaleaDominate applies.",
+      "First actual Wounding5Hand2 has defense3 and is allowed. Second otherwise legal CriticalStrike6Hand2 click must reject and retain same6 in Hand, with only5 in chain/defense3. Source FaBCanBlock enforces currentAttackDominate Hand limit; overdefense is legal absent that restriction, so full initial defense does not itself explain refusal. This actual attempted second defense witnesses granted Dominate.",
+      "ActualDAMAGE power2/defense3/damage0/attackHitfalse/HP40both means SearingShot hit ability is unearned and does not need a response layer here. Final4ownedGY1/3ownedDeck1/5ownedGY2/6ownedHand2, Azalea40ready/APR0/UID8/RNG0 and empty Stack/two queues/combat chains match narrow results. All266 checks are recorded assertion/state/computed-power checks.",
+      "Initial and final exact DeathDealer7 physical identity/owner/controller/status2 and Weapons1 checks are added. Hero virtualUID is8 after the extra real Bow; original3/4/5/6 effect/block/fate expectations remain. The original no-Bow five-input rejection is an author setup omission, not a gameplay bug. Prior approval missed this prerequisite and is superseded by this corrected hash-bound review."
+    ],
+    "limits": [
+      "Semantic/spec review only pending actual native save and targeted replay. No native result, replay or coverage credit claimed.",
+      "Only positive real Arrow-top swap, faceup load, go again, actual Arsenal play and second-Hand Dominate restriction. No nonArrow/emptyDeck/additionalArsenal, once-repeat/expiry, arrow hit, TakeAim effect, young/four-live, support or whole-card credit.",
+      "Only W review receipt written. No native/test/replay execution, T/source/repository edits, authentication/network, Git or original-checkout access."
+    ],
+    "source_sha256": {
+      "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+      "FaBSim/GeneratedCode/GeneratedMacroCode.php": "fe6a7982611df8f4de98ce2671b317b671b580146aa4b8c28e8f4b86d8461056",
+      "FaBSim/Custom/ARCAbilities.php": "e49ce4685f148ef423ea38aac544266b3298527ea8ca9eef11b12fb974e7c9f0",
+      "FaBSim/Custom/ARCCards.php": "f6b6a21d214e71fdcfd6a084f0671ce610f08a40c51a1266041877a5a12c0d52",
+      "FaBSim/Custom/WTRCards.php": "77d4452b30e45254a7199bc965396ded53e325717ecdd84a09b971f723f99f6a",
+      "FaBSim/Custom/GameLogic.php": "c60fa151561f959e4e3e341b814de0e2b47c9e9f153bbc8793a04c43b5075061",
+      "Core/ShortcutPreferences.php": "25f300ea0b6fbc409f5b92e8bc3587a74b2ab0eaf31ccef38e18c455598eaba6",
+      "DevTools/FaB/CardRegression/record_card_regressions.php": "e53055b29e9ea641949b77019c4455607f41ca233325d716a9500637e19efd28"
+    },
+    "supersedes": "no-bow-input/independent-review.json",
+    "original_setup_failure": {
+      "classification": "author_setup_omission_not_gameplay_bug",
+      "native_receipt_sha256": "9ade1a49b68d6f541bdc34f09279f74488a8fe54bdf969be559a79bacef2fa74",
+      "attempted_inputs": 5,
+      "first_failure": "state window expected \"PRIORITY\" got \"ACTION\"",
+      "reason": "No controlled equipped Bow, so loaded Arrow was correctly illegal to play.",
+      "fixture_saved": false,
+      "coverage_credit": 0,
+      "archived_input": "no-bow-input/proposed.json",
+      "official_evidence": "Parent supplied official ARC release note confirming Arrow Bow requirement; independently confirmed current ARCCanPlay lines305-306."
+    }
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1268-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "f747f7ef8d5ba08f4b50d822e0f868b69461adaa939ed971affc47d779e98e7d"
+  },
+  "full_suite_run": false
+}

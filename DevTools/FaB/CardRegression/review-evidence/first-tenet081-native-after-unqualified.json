@@ -1,0 +1,26 @@
+{
+  "status": "COMPLETE",
+  "runtime_before": "98e3105fdd74db35601cd035de7f8ccb67589a88587d3d53727bf6103c4092a0",
+  "spec": "card-regression-batch359-correct-trigger-probe.json",
+  "spec_sha256": "e2b9f56abdc973063166684c519eaabdd77529aca249aa1d6dad6fd9410951cb",
+  "command": [
+    "C:\\xampp\\php\\php.exe",
+    "DevTools/FaB/CardRegression/record_card_regressions.php",
+    "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch359-correct-trigger-probe.json"
+  ],
+  "started_utc": "2026-11-03T18:31:13.320735+00:00",
+  "expected_new_slugs": [
+    "card-first-tenet-of-chi-moon-blue-four-live-original-correct-granted-when-attacks-draw-layer-paid-blue-attack"
+  ],
+  "existing_scenario_count": 3649,
+  "full_suite_run": false,
+  "pid": 28840,
+  "exit_code": 0,
+  "runtime_after": "98e3105fdd74db35601cd035de7f8ccb67589a88587d3d53727bf6103c4092a0",
+  "new_fixture_slugs": [
+    "card-first-tenet-of-chi-moon-blue-four-live-original-correct-granted-when-attacks-draw-layer-paid-blue-attack"
+  ],
+  "new_fixture_count": 1,
+  "stderr_bytes": 0,
+  "completed_utc": "2026-11-03T18:31:56.126016+00:00"
+}

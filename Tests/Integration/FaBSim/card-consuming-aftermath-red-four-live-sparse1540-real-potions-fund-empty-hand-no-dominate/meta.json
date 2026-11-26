@@ -1,0 +1,7 @@
+{
+    "name": "Consuming Aftermath / actual resource production and empty optional cost do not grant Dominate",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-25T12:30:34+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Four manual natural20 Levia/Dori/Dori/Dori, legalShadowBrute primary7 sole actorHand. Two real prior EnergyPotions5/6; initialR0/AP1. ActualseparateInstantabilities10/11destroyrespectivePotionasCOST, eachfourfreshresponses gives2R, total4/AP1. Actualprimary7formallyattacksHero4, nowemptyHand meansoptionalbanishcannotoccur, noShadowbanished/noDominate; primarycost3spendsAP1/R4to1, sixpower/noGA. ActualtwoHandAAs8/9bothaccepted, def3+3=6blocks6/0damage/allHero20. FullfourclosePotions5/6+primary7GY1/defenders8/9GY4/noBanish/Soul/UID11. Positive099costorder remainsheld, nofabricatedresources orenginechange. Zerooptionalbanishconditiononly; notpositivecostpayment/lifetime or wholecard. Sources: FaBSim/GeneratedCode/cardArrayCache.json#consuming_aftermath_red FaBSim/GeneratedCode/GeneratedMacroCode.php#consuming_aftermath_red:0:PrepareCard FaBSim/Custom/WTRAbilities.php#energy_potion_blue FaBSim/Custom/MONCards.php#FaBMONAffordableHand FaBSim/Custom/GameLogic.php#FaBTryCompletePayment FaBSim/Custom/GameLogic.php#FaBCanBlock"
+}

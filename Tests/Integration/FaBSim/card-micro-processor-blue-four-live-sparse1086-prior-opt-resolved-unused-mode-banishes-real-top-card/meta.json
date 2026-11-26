@@ -1,0 +1,7 @@
+{
+    "name": "Micro Processor / four-live existing prior-use state and actual banish mode",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-23T06:45:20+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "**Data Doll Specialization**\n\n**Once per Turn Action** - 0: **Opt 1**\n\n**Once per Turn Action** - 0: Draw a card then put a card from your hand on top of your deck.\n\n**One per Turn Action** - 0: Banish the top card of your deck.\n\nThe first time you activate this each turn, gain 1 action point. Named existing-state unused banish mode only. Natural Data Doll MKII20, prior Opt ability0 and first-use AP trigger have already fully resolved this same Turn2: physical Item5 EVR_TURN2/ARC_USED_0=2, arcActions1/AP1. No earlier activation/trigger production is tested. Native ActionMap has remaining ARC_1/ARC_2 options; modal index1 selects actual ability2. Action0 spends AP1\u21920, no second first-use refund; item retained ready, ARC_USED_2=2. Four manual live responses then actual top Generic AA Wounding6 moves Deck\u2192sameownedfaceup Banish/nonplayable, real marker Critical7 becomes Decktop. Generic non-Item means no Data Doll triggered Item entry. No resources/pitch/seeded permission or other body event. First-activation planning hold remains unrun; no Opt/refund/creation/endphase/hero/support/sibling/full-card/repair credit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#micro_processor_blue"
+}

@@ -1,0 +1,7 @@
+{
+    "name": "Reverberate / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T18:10:32+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Deal 3 arcane damage to target opposing hero.\n\nIf this deals damage, you may banish a Wizard non-attack action card from your hand with cost less than or equal to the damage dealt by this. If you do, you may play it this turn as though it were an instant. Representative only: real_three_arcane_banishes_eligible_hand_spell_then_same_spell_plays_as_instant_at_zero_ap. Other pitch siblings, alternate targets and unexercised branches receive no credit. All four live/manual; only native entry-point actions. Sources: FaBSim/GeneratedCode/cardArrayCache.json#reverberate_red"
+}

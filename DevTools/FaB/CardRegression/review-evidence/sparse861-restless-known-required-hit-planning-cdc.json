@@ -1,0 +1,91 @@
+{
+  "status": "INDEPENDENT_APPROVED_RESTLESS_MAGISTER_SOURCE_ONLY_REQUIRED_OWN_HIT_CONTRACT_NOTE",
+  "phase": "PLANNING",
+  "batch": 861,
+  "reviewer": "/root/ebbing_recovery_review",
+  "reviewer_independent": true,
+  "approved": true,
+  "planning_note_approved": true,
+  "source_approved": false,
+  "native_probe_approved": false,
+  "normal_save_approved": false,
+  "native_fixture_recording_approved": false,
+  "qualification": false,
+  "coverage_credit": false,
+  "native_attempted": false,
+  "fixture_saved": false,
+  "confirmed_gameplay_bug": false,
+  "new_issue": false,
+  "new_distinct_gameplay_root_group": false,
+  "source_fix_applied": false,
+  "manifest": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch861-restless-magister-required-hit-note-manifest.json",
+    "sha256": "0490fc5e0b2bd22c9f4a07321e3cfa49254051dcd107daa20838230e29a5f80d"
+  },
+  "manifest_sha256": "0490fc5e0b2bd22c9f4a07321e3cfa49254051dcd107daa20838230e29a5f80d",
+  "firm_reservation": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch861-firm-reservation.json",
+    "sha256": "d2915c426545e31e6b72480b554557a173acbf520af6e0b196d0a1617e027d46"
+  },
+  "supplemental_firm_reservation": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch861-firm-reservation-support-admission.json",
+    "sha256": "dc71f0fbbfb9b92c834c12fd569b9e4adb4adfaab3df03a4f1db59584e3c0345"
+  },
+  "runtime_sha256": "cdc081ff4c87ff2f9338b1d69040d0dc98d7600ba33976384336534ea3f92d22",
+  "source_guard_count": 15,
+  "all_current_source_guards_matched": true,
+  "holds": [
+    {
+      "card_id": "restless_magister_red",
+      "group_id": "identity:restless_magister_red",
+      "status": "APPROVED_AS_SOURCE_ONLY_UNATTEMPTED_REQUIRED_SELECTED_CONTRACT",
+      "classification": "KNOWN285_295_ORDINARY_HIT_RESPONSEABLE_LAYER_CONTRACT",
+      "note": {
+        "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch861-restless-magister-required-hit285-unattempted-note.json",
+        "sha256": "1a96feb0590625271af65e427a3a9fd7ccd38c42236971764286526cd47788e3"
+      },
+      "known_required_contracts": [
+        {
+          "human_row": 285,
+          "card_id": "pursuit_of_knowledge_blue",
+          "retained_independent_proof": {
+            "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\review-evidence\\sparse834-independent-known-defend-hit-planning-review-a11.json",
+            "sha256": "1d90617236e5292c8b309ea01e96edc6f88ca621d5f05ac796e6e0318901615e"
+          }
+        },
+        {
+          "human_row": 295,
+          "card_id": "stun_star_blue",
+          "retained_independent_proof": {
+            "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\review-evidence\\sparse842-two-known-required-contract-planning-cdc.json",
+            "sha256": "d80a2d13f29a8f151e1ba8cec8b92db54d3764bed792d489e66c40adc883d2b6"
+          }
+        }
+      ],
+      "native_attempted": false,
+      "fixture_saved": false,
+      "confirmed_gameplay_bug": false,
+      "coverage_credit": false
+    }
+  ],
+  "independent_findings": [
+    "Actual Young Malice20 has both Shadow talent and Necromancer class and legally admits Restless Magister and Vox Necropolis. No Gravy inclusion exception, invented talent, theft or reanimation flag. Initial untapped physical Ally3P/3life in Arena and equipped Vox are legitimate preconditions; prior casting is uncredited.",
+    "Vox printed text grants controlled Zombies Action1R+tap:Attack. MONAbilities55 requires actual equipped Vox and returns cost1/printed3power; GL1146/CRUUseWeapon provide actual physical tap/payment. Future real Blue3 pays1/R2/AP0 and actual3damageHP4=17 remain required. No fakeWeapon/source flags, AP2 seed or unprinted cost.",
+    "Implemented IAR canonical Hit directly selects defender Hand with victim4.MZChoose then FaBMoveChoice HandtoBanish under GL1264 ordinary ownHit. Positive Hero attack enters the branch; misnamed FaBFaiHeroHit tests hero target. Required earned responseable hit layer before mandatory opponent choice is exact retained Pursuit285/Stun295 contract. No missingAlly/opponent-chooser body or fresh Native defect is alleged.",
+    "Full future route requires captured Ally/source/controller1 ABI and freshfour BEFORE actual CHOOSER4 selects its own physical ordinary card, same owner/controller4 publicfaceupBanish4 with otherHandcard unchanged and ABI retained through choice. Correctchooser is an actual oracle, not inferred from endpoint. Real3damage, Allytapped/survives3life,Voxretained,BluePitch,R2/AP0/fullStackDQchaincleanup remain unrun.",
+    "Route ends before Decay/endphase: noZombie dies, so Malice death trigger is unentered; activatedHeroability/priorcasting/GYorBanishcastenter-tapped/otherchoice/siblings/support/fullcard uncredited. Both retained proof hashes, frozennote,15 current guards and selected metadata/canonical rows independently matched. Planning retention only; zero executable cases or Native/save/coverage/repair approval."
+  ],
+  "remaining_blockers": [
+    {
+      "card_id": "restless_magister_red",
+      "action": "Execute complete earned-hit mandatory defending-player Hand banishment route",
+      "reason": "Required ordinary ownHit earned-layer contract285/295",
+      "state": "UNATTEMPTED_SOURCE_ONLY_NOT_NEW_DENIAL"
+    }
+  ],
+  "limits": [
+    "Full positive Allyattack/opponentHandchoice/physicalbanish/damage/cleanup unrun; no primary/support/fullcard certification or newissue/rootallocation.",
+    "No PHP/Native/Rwrites/sourcefix/fullsuite/Git/remote/deferredRadiant or denied188/184/B787 retry. Parched has a separate normalSource gate; this note does not block it."
+  ],
+  "created_utc": "2026-11-16T10:35:38.701933+00:00"
+}

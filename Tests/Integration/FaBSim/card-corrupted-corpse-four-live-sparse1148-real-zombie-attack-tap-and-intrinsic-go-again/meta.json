@@ -1,0 +1,7 @@
+{
+    "name": "Corrupted Corpse / actual Zombie attack deals three with intrinsic go again",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-23T11:30:52+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "LegalShadowNecromancerMalice20 owns existingreadyCorruptedCorpse5Arena andVox6Weapons, admittedvalidfloatingR1/AP1. VoxgrantsZombieAction1,tapAttack; no initialZombieplay/entry/Incarnateproducer isrecorded. ActualnativeArenaattackdeclaresadjacentHero4 then consumesR1/AP1andCorpseStatus2to1 beforefourmanualresponses. VirtualAttack7SourceArena5ownedproxyCC1 computesprinted3 andintrinsicCorruptedCorpseGA, realdamage3HP4=17. ClosingclearsproxywithoutGY, restoresAP1, leavesactualCorpse5tappedArena/Vox6ready/nomovementBanish/GY. NoZombieDeath/Incarnate/BloodDebt/endphase, Voxentry-trigger orwholecard/Hero/support credit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#corrupted_corpse"
+}

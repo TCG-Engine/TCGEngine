@@ -1,0 +1,259 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "independent breadth_review1252",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1286-20261122.json",
+  "source_spec_sha256": "901ce2b23c5cff9cfd4acb656d0180dff21404ec055acc6479ec363535058f36",
+  "input_sha256": "2e854adb912686493d5e2d0112eab02427ead1c3514a736c0e15f30273b06450",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-companion-of-the-claw-red-four-live-sparse1286-no-blue-pitch-no-producer-effect-real-intrinsic-go-again",
+      "card_id": "companion_of_the_claw_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "295ec09791798680c59339797eca42dde6374a5de728ff3c99bba169fb437c4e",
+        "actions.json": "25920dc16af50701b0be20453cc3345d5c14a09166881d7481930bfb87552093",
+        "assertions.json": "6faeb8c266cdc9a98ca777ea6ba78b44c7b3e0f55ab6bfb97d62b6db8b193463",
+        "expected_final_gamestate.txt": "f45414896d7a3dc0ff9ab324d68ad87f393dcb3e7f82cbbd09b1a17c8ba6cb0d",
+        "meta.json": "eda8c52ad60a1b46c9c282d266099e805dfdd3a6ab7eb1d8c74b6bf2888a7c01"
+      },
+      "fixture_sha256": "5fe1af15e2f554a40d93b3a07404664855d4a398997b20b07ec31834bd7f89b6",
+      "actions": 28,
+      "native_assertions": 306,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1286-20261122.json",
+      "input_sha256": "2e854adb912686493d5e2d0112eab02427ead1c3514a736c0e15f30273b06450",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1286-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-companion-of-the-claw-red-four-live-sparse1286-no_blue_pitch-no-producer-effect-real-intrinsic-go-again",
+        "fixture_slug": "card-companion-of-the-claw-red-four-live-sparse1286-no-blue-pitch-no-producer-effect-real-intrinsic-go-again",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-harmony-of-the-hunt-red-four-live-sparse1286-no-blue-pitch-no-producer-effect-real-intrinsic-go-again",
+      "card_id": "harmony_of_the_hunt_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "16632d7f2056978d724ee806581ddadcb623a88b81a9b27c5fdea960735133d4",
+        "actions.json": "25920dc16af50701b0be20453cc3345d5c14a09166881d7481930bfb87552093",
+        "assertions.json": "3fbee5846e841c09554850af96fe8c0bc5d4c0cf3a186eed30dcf366727d8b72",
+        "expected_final_gamestate.txt": "663feb98f3c0c9a842be0a12b50808109f5b72079d132206cdef10b8ca95d8dc",
+        "meta.json": "4d148eb39c692479528efbd12d0f87526aa4bc38fccbab13f6273b3f35127b15"
+      },
+      "fixture_sha256": "78efe02d0f872ec7b6103aa7dce4637559183ea13e1dfed528219b0acbad319b",
+      "actions": 28,
+      "native_assertions": 306,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1286-20261122.json",
+      "input_sha256": "2e854adb912686493d5e2d0112eab02427ead1c3514a736c0e15f30273b06450",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1286-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-harmony-of-the-hunt-red-four-live-sparse1286-no_blue_pitch-no-producer-effect-real-intrinsic-go-again",
+        "fixture_slug": "card-harmony-of-the-hunt-red-four-live-sparse1286-no-blue-pitch-no-producer-effect-real-intrinsic-go-again",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-flamecall-awakening-red-four-live-sparse1286-no-other-red-play-no-producer-effect-real-intrinsic-go-again",
+      "card_id": "flamecall_awakening_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "13da28372115d6856c3bce211b041e47e268368e0cedb2ac962dd875c27bd218",
+        "actions.json": "25920dc16af50701b0be20453cc3345d5c14a09166881d7481930bfb87552093",
+        "assertions.json": "de5b98b66dd91de7d99e4522a8f5f06613e78507e2c7cb2a3bf1a799c12de2ea",
+        "expected_final_gamestate.txt": "9decce61f04367912a1720fdf804fcb34f6b88b1191cf1a8c9f99fbb1859932a",
+        "meta.json": "0e1a3d1691d549962f3d21d4c952d8832615d343b6c295910a1630d945c141fb"
+      },
+      "fixture_sha256": "92d1fe0ec1cf7a13fb5bace85b8290c220b1d5b476e278b535a42aaa92e3e295",
+      "actions": 28,
+      "native_assertions": 354,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1286-20261122.json",
+      "input_sha256": "2e854adb912686493d5e2d0112eab02427ead1c3514a736c0e15f30273b06450",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1286-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-flamecall-awakening-red-four-live-sparse1286-no_other_red_play-no-producer-effect-real-intrinsic-go-again",
+        "fixture_slug": "card-flamecall-awakening-red-four-live-sparse1286-no-other-red-play-no-producer-effect-real-intrinsic-go-again",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-inflame-red-four-live-sparse1286-no-other-red-play-no-producer-effect-real-intrinsic-go-again",
+      "card_id": "inflame_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "0fa3c7cdc89fe7bb6f49fb12b3f749bd58adc4791181343c230855eea8f44b7a",
+        "actions.json": "71f0d0f07cf85244a3ec27fdb1f824cd62aa3126d639c98c13ca23327907bd8b",
+        "assertions.json": "2b8c2fe4f903b3a8d208ea3c62ce2b27d93d3ade53cd56c18aa3c93f816bb4c0",
+        "expected_final_gamestate.txt": "4bd4484062b11aa9e510f3b954220eb471e7d5acbd2bf6753a58690d879612aa",
+        "meta.json": "b9f9d328df6ce05ded1f51bd825f938c267167157cbe77167ea3fafcbdaf0fef"
+      },
+      "fixture_sha256": "f4d1bc25f6689d99582e46630bfd6fca470a0fa4d61cbb5d8568ff263b4b4951",
+      "actions": 27,
+      "native_assertions": 295,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1286-20261122.json",
+      "input_sha256": "2e854adb912686493d5e2d0112eab02427ead1c3514a736c0e15f30273b06450",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1286-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-inflame-red-four-live-sparse1286-no_other_red_play-no-producer-effect-real-intrinsic-go-again",
+        "fixture_slug": "card-inflame-red-four-live-sparse1286-no-other-red-play-no-producer-effect-real-intrinsic-go-again",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "reviewer": "independent breadth_review1252",
+    "spec_sha256": "901ce2b23c5cff9cfd4acb656d0180dff21404ec055acc6479ec363535058f36",
+    "source_note_sha256": "c1dc76fb7ae2e7bcb5e76b6cb199e99d3af7bbf34237cca35e146e688d1e0bb2",
+    "case_count": 4,
+    "active_seats": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "players": "four_live_manual",
+    "native_controls": 111,
+    "query_checks": 1261,
+    "persistable_assertions": 1261,
+    "author_only_checks_omitted": 0,
+    "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+    "coverage_category": "NEGATIVE_PREREQUISITE_AND_INTRINSIC_GO_AGAIN_ONLY",
+    "positive_producer_branch_credit": false,
+    "per_case": [
+      {
+        "card_id": "companion_of_the_claw_red",
+        "group_id": "pitch-cycle:companion_of_the_claw",
+        "native_controls": 28,
+        "persistable_assertions": 306,
+        "positive_producer_branch_credit": false
+      },
+      {
+        "card_id": "harmony_of_the_hunt_red",
+        "group_id": "pitch-cycle:harmony_of_the_hunt",
+        "native_controls": 28,
+        "persistable_assertions": 306,
+        "positive_producer_branch_credit": false
+      },
+      {
+        "card_id": "flamecall_awakening_red",
+        "group_id": "identity:flamecall_awakening_red",
+        "native_controls": 28,
+        "persistable_assertions": 354,
+        "positive_producer_branch_credit": false
+      },
+      {
+        "card_id": "inflame_red",
+        "group_id": "identity:inflame_red",
+        "native_controls": 27,
+        "persistable_assertions": 295,
+        "positive_producer_branch_credit": false
+      }
+    ],
+    "basis": [
+      "Four distinct uncovered pitch-cycle groups, Red representative only. Natural YoungZen20 MysticNinja admits CompanionOfTheClaw and HarmonyOfTheHunt; natural YoungFai20 DraconicNinja admits FlamecallAwakening and Inflame, each versus three YoungDorinthea20/exact1234/manualUPF/no passives. Four-hero allocation gives primary5, legal non-blue funder6 where costed, additional real Phoenix/control assets7/8 for Flamecall and prior Phoenix6GY for Inflame.",
+      "Companion printedcost2 paid actualGenericYellow6pitch2/R0 and Harmony printedcost1 paid actualGenericRed6pitch1/R0. No blue is pitched, so printed When this attacks, if blue pitched prerequisite is false. Generated handlers gate Tiger creation on FaBMSTBlue, which reads earned BLUE_PITCHED; selected false route earns no responseable producer layer/choice/Tiger.",
+      "Flamecall printedcost1 paid actualGenericRed6pitch1; Inflame printedcost0 has no funder. Each primary is the only red card actually played this turn; pitching a red resource is not playing it. Generated UPR attack handlers require FaBUPRRed(player,2), which counts actual cardsPlayedThisTurn, so another-red prerequisite remains false. Real eligible Flamecall Phoenix7Deck plus distinct control8 must remain ordered/untouched; Inflame priorPhoenix6GY must stayGY, notHand.",
+      "All four printed prerequisites are intervening-if conditions: while false they do not earn a trigger layer or a recovery/search choice. Checks for no newHand/Temp/Banish/Arena/Stack/queues and unchanged UID plus real Phoenix assets exercise this negative route only. Correctness of true-condition trigger timing or positive production is deliberately not asserted.",
+      "Unconditional printed go-again is reached and must work: all four fresh source responses, real attacks with powers4/3/3/1, unblocked damage to actual adjacentHero4, AP0 through every earlier Damage response and AP1 only after last Damage pass. Full native link cleanup verifies original5GY and exact funderPitch/PhoenixDeck-or-GY physical fates, no new UID/RNG and unchanged other seats.",
+      "All1261 query/state/power/go_again assertions persist across111 single native controls: Companion28/306, Harmony28/306, Flamecall28/354, Inflame27/295. No primary positive Tiger/search/recovery branch, sibling pitch variant or support identity is credited."
+    ],
+    "limits": [
+      "Semantic/source review only pending native saves and targeted replays; no actual native pass, replay or coverage credit claimed.",
+      "Explicit partial coverage NEGATIVE_PREREQUISITE_AND_INTRINSIC_GO_AGAIN_ONLY. All true blue-pitch/Tiger, earlier-red/Phoenix search/recovery, producer response timing, repeat/alternate conditions and whole-card branches remain untested.",
+      "Only W review receipt written; no native/test/replay execution, T/source/engine/registry edits, authentication/network, Git or original checkout access."
+    ],
+    "source_sha256": {
+      "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+      "FaBSim/GeneratedCode/GeneratedMacroCode.php": "fe6a7982611df8f4de98ce2671b317b671b580146aa4b8c28e8f4b86d8461056",
+      "FaBSim/Custom/MSTCards.php": "cd98a9b734b984bfc19af7d0e4a3eebd5496f298d08c7c79d7f6d43c363513c7",
+      "FaBSim/Custom/UPRCards.php": "62798bd281afc17805c396e92deab22497b9c80d881f99e943833cb82d449321",
+      "FaBSim/Custom/ARCCards.php": "f6b6a21d214e71fdcfd6a084f0671ce610f08a40c51a1266041877a5a12c0d52",
+      "FaBSim/Custom/GameLogic.php": "c60fa151561f959e4e3e341b814de0e2b47c9e9f153bbc8793a04c43b5075061",
+      "Schemas/FaBSim/GameSchema.txt": "7783800bd47bc85885cc915066aadca58cdf99f0c1180602ac312d9af5ebf643",
+      "Core/ShortcutPreferences.php": "25f300ea0b6fbc409f5b92e8bc3587a74b2ab0eaf31ccef38e18c455598eaba6",
+      "DevTools/FaB/CardRegression/record_card_regressions.php": "e53055b29e9ea641949b77019c4455607f41ca233325d716a9500637e19efd28"
+    },
+    "workspace_source_sha256": {
+      "author_breadth1286.py": "efc9382f357ea43b83ece66f156b6661205e3bb1525c8e496cb3e1f5564da9c2",
+      "breadth1068_helpers.py": "997f949ec26c7e494ad26a818f9f2078f6f4f2a0c49ca7f61aa8c71f3b091b0a"
+    },
+    "metadata_rebind": {
+      "kind": "SLUG_ONLY_CANONICAL_METADATA_REBIND_NO_SEMANTIC_CHANGE",
+      "original_spec_sha256": "2e854adb912686493d5e2d0112eab02427ead1c3514a736c0e15f30273b06450",
+      "original_recorded_input_sha256": "2e854adb912686493d5e2d0112eab02427ead1c3514a736c0e15f30273b06450",
+      "original_semantic_review_sha256": "618ece97422ca48c1b9674357db3cc2fab5a5d044e2f7cb6501d86037994cfd7",
+      "slug_normalization_receipt_sha256": "480860c4084b34880c693eced8f1fdcefd0f2487cb46ff5c512e8f7282d349a6",
+      "native_save_receipt_sha256": "f7405f6982afdfc27acc9e9ce2b8ee4e66bec2e34fcde0e196ba298b2635ae66",
+      "raw_fixture_files_verified_unchanged": 20,
+      "scenario_fields_other_than_slug_identical": true,
+      "native_recordings_repeated": false,
+      "replays_performed_by_reviewer": false,
+      "canonicalizer_path": "Core/RegressionTestFramework.php",
+      "canonicalizer_sha256": "670028e69e1a59c22aef5e6512edd2cd0dee5fdcaed4cf8c31374b8eb2b7ca6a",
+      "qualification_driver_path": "breadth_batch.py",
+      "qualification_driver_sha256": "ef8664b2438e328674a69c6f739f749706dcc358be63c8df88547746c648564f",
+      "basis": "Current canonical slugs exactly match existing RegressionSanitizeSlug/native_slug. Existing qualifier compares canonical case against original recorded input with only slug normalization. Original semantic approval, named partial scope, controls and assertions unchanged. Read existing save receipt reports four successful recordings; this review performed no native actions or replays and does not award qualification."
+    }
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1286-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "69678f19b26e5e70e5b28529948840ce98311c1145126894f01131e1cf5e7611"
+  },
+  "full_suite_run": false
+}

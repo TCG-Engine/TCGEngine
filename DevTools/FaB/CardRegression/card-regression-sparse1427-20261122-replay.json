@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-echoing-trap-blue-four-live-sparse1427-native-arsenal-ambush-real-three-defense-first-attack-does-not-self-match-for-discard",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-echoing-trap-blue-four-live-sparse1427-native-arsenal-ambush-real-three-defense-first-attack-does-not-self-match-for-discard",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1427-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1427-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "e6880a548166bc1bc73ed30576cf3741fc58323aac4a633e1eaaf7e999e42da7",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "d5eaccd209ba83a75c062a87bf801ecafc02ba3469ae411bfe376b96a7201477",
+        "actions.json": "472844a4f2c55a13b66edfcc392d9f869bf8a90ccda2ea0be2b9f9f672e2e0d1",
+        "assertions.json": "374267d405eddba821f674fec03c6bbd46855fe6508b2e3e1d276cd49058a8a3",
+        "expected_final_gamestate.txt": "f402bd3e454a0b4652abe1c86b42cdb4bb050c97ee023ba71a1642c8cd504a38",
+        "meta.json": "1c8e5c0fa57e164b6498dcbca2095398121213279545b047c053ac2b51605712"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

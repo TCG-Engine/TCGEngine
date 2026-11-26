@@ -1,0 +1,7 @@
+{
+    "name": "Perk Up / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T16:55:37+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Your next Mechanologist attack this turn gets +4{p}.\n\nYou may {u} your hero.\n\n**Go again** Representative only: declines_hero_untap_then_real_unboosted_mechanologist_attack_earns_eight_damage. Other pitch siblings, alternate targets and unexercised branches receive no credit. All four live/manual; only native entry-point actions. Sources: FaBSim/GeneratedCode/cardArrayCache.json#perk_up_red"
+}

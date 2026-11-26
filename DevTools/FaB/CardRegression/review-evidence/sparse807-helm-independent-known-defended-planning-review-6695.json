@@ -1,0 +1,145 @@
+{
+  "status": "APPROVED_SOURCE_ONLY_UNATTEMPTED_PLANNING_CLASSIFICATION",
+  "batch": 807,
+  "approved": true,
+  "planning_approved": true,
+  "planning_only": true,
+  "reviewer_independent": true,
+  "reviewer": "/root/sand_saved_recovery",
+  "created_utc": "2026-11-15T01:12:36.457938+00:00",
+  "card_id": "helm_of_the_adored",
+  "group_id": "identity:helm_of_the_adored",
+  "members": [
+    "helm_of_the_adored"
+  ],
+  "firm": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov14-batch807-firm-reservation.json",
+    "sha256": "81e223ee2b23abfb85025c49765c67e555eb1ce2269b4fd2a3452f86b273b888"
+  },
+  "author_planning_note": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov14-batch807-helm-known-formal-defended-contract-unattempted-planning-hold.json",
+    "sha256": "9e89c220800e96466d3e3546b02fe30372e928578f31937d85988d77838be559"
+  },
+  "full_family_helper_preflight": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov14-batch807-selected-helper-preflight.json",
+    "sha256": "675714a24f5ede990eb01b75140d5f5ffb3a73253a8c6f33cb1dd5073f98bff2"
+  },
+  "independent_printed_selected_path_preparation": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-batch807-independent-printed-selected-path-preparation.json",
+    "sha256": "23a1e6578ad65c6058ef82d40b9ca64b61b46a2ebb989b3136c9295b50608c3e"
+  },
+  "runtime_sha256": "6695d68163d313f4f61cb20ad9122c7038e621a60c847909598150fe8da09d11",
+  "selected_guard_count": 21,
+  "all_selected_guards_current": true,
+  "unchanged_82_guard_witness": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov14-batch801-throw-actual-owned-blue-reveal-prevention-three-physical-consumer-author\\manifest.json",
+    "sha256": "1e60b5ef9d1321378bec04a40aa5e2a3eb0f5813431ea991ef7df4bc342cfd20"
+  },
+  "selected_relevant_preimages": {
+    "FaBSim/Custom/GameLogic.php": "a72657da1bbb2520e4ee5f8d71488f268914d539ce235b0a18ea4a03f6793ffd",
+    "FaBSim/Custom/SUPCards.php": "24c0fd00537f40209632e8386c8571db993d6d452b38061f93bae9c2d7acaf74",
+    "DevTools/FaB/sup_abilities.json": "92ca6f5909da4af9dcb9350b3d1f9e793611cae5326dce97e25a1a1d7c8fb85e",
+    "FaBSim/GeneratedCode/GeneratedMacroCode.php": "46204cec1b6bb44e3086f56ebe64bee747724f5ac0684ef8c9bdc27047688086"
+  },
+  "exact_route": "OriginalfirmBetsy20Red4vsPleiades20/ownReveredHelm1formaldefend. OwnprimaryWHENmustcapturebeforeCheer; thenPleiadesseparateWHENandConfidencecreation. LaterHP17/BladeBreak/cleanupUNRUN.",
+  "bounded_source_findings": [
+    {
+      "path": "FaBSim/Custom/GameLogic.php",
+      "functions": [
+        "FaBFinishDefendDeclaration",
+        "OnDefended"
+      ],
+      "lines": "1895-1897;1220-1226",
+      "fact": "Correctactualformaldefenderfinish event exists and directlydispatches sourceDefendedmacro."
+    },
+    {
+      "path": "DevTools/FaB/sup_abilities.json",
+      "card_id": "helm_of_the_adored",
+      "macro": "Defended",
+      "body": "FaBSUPCrowd($player,true);",
+      "fact": "Exactprimarybodyexists; selectedformalcaller directlygeneratesCheer withoutownearnedresponseableWHENlayer."
+    },
+    {
+      "path": "FaBSim/Custom/SUPCards.php",
+      "function": "FaBSUPCrowd",
+      "lines": "6-23",
+      "fact": "ActualPleiades092queuedHeroresponseexistsforCheer; separatecorrectHeroqueuecannotcertifyprimaryHelmWHENtiming. NocurrentNativeCheer/ConfidenceresultorblanketHeroabsenceclaim."
+    }
+  ],
+  "known_required_context_rows": [
+    {
+      "index": 161,
+      "card_id": "adaptive_plating",
+      "row_sha256": "e98b410cfdeff35dbfd42602d9512b711ceb3c10dd85fb5010d6058ad8db1c0f",
+      "status": "source_only_unattempted_selected_route",
+      "reason": "Adaptive Galvanize has an actual direct Defended await, but no selected separately captured responseable WHEN layer before the positive Item-destroy choice. Body/helper are present. Unattempted source concern only, no native defect or coverage."
+    },
+    {
+      "index": 200,
+      "card_id": "clash_of_might_blue",
+      "row_sha256": "dc37a82fea779068a7b88e5f9591e95d87678c152a4bdc71ee2ca78cb3aedc13",
+      "status": "source_only_unattempted_selected_route",
+      "reason": "The selected earned Defended-WHEN enters its own generated frame and reveals for clash inline without an established separate responseable triggered layer. Actual clash and prize bodies exist; generated await storage is distinct from trigger capture. No defense-only fallback, native bug, fixture or coverage claim."
+    },
+    {
+      "index": 210,
+      "card_id": "drag_down_blue",
+      "row_sha256": "fb04a31756961246597fd1b884a12f09d309f83398b72dae643e35062d40bf14",
+      "status": "source_only_unattempted_selected_route",
+      "reason": "The managed defense reaction attaches correctly with Role DEFENSE_REACTION, then the selected OnDefended path immediately applies WTR_POWER:-1 instead of establishing the card's own separately responseable WHEN layer. The body and managed DR route exist. No native six-damage outcome, cleanup, confirmed gameplay defect, fixture, coverage or repair is claimed; no inline-effect/basic-defense passing substitute."
+    },
+    {
+      "index": 242,
+      "card_id": "blood_in_the_water_red",
+      "row_sha256": "eca3a2ed5af9ffeb95bde45612d5b7cf96ecac221f4d67146fbcae964357cccb",
+      "status": "source_only_unattempted_selected_known_dependency",
+      "reason": "The ordinary defense reaction correctly attaches as a defending card before OnDefended, then invokes its generated Defended modal directly without a separate WHEN response layer. Same known Drag Down210/Adaptive161/Whispers176 family; not a chooser while physical DR remains on Stack."
+    },
+    {
+      "index": 250,
+      "card_id": "horns_of_the_despised",
+      "row_sha256": "1ba36c12255fe7ea932f2c4236597b17ae543ee08efd193672bcd3d564b872a4",
+      "status": "source_only_unattempted_selected_known_dependency",
+      "reason": "The fixed formal defense event reaches OnDefended and directly invokes the implemented SUP crowd-boo macro before a separately responseable Horns WHEN layer. Same known formal Defended-WHEN contract; selection preview is not the earned event. No executable or later crowd/Killjoy consumer outcome is attempted."
+    }
+  ],
+  "official_rule_context": [
+    {
+      "url": "https://rules.fabtcg.com/en/cr/08-keywords/",
+      "rules": [
+        "8.5.57"
+      ],
+      "finding": "Cheer is discreteevent, notintrinsicConfidencecreation."
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/06-effects/",
+      "rules": [
+        "6.6.5",
+        "6.6.6"
+      ],
+      "finding": "PrintedprimaryWHENcreateslayerbeforeeffectresolution/freshpriority."
+    }
+  ],
+  "disposition": "UNATTEMPTED_EXACT_KNOWN_REQUIRED_FORMAL_DEFENDED_WHEN_INLINE_CONTRACT",
+  "body_exists": true,
+  "executable_cases": 0,
+  "native_attempted": false,
+  "diagnostic_attempted": false,
+  "fixture_saved": false,
+  "confirmed_gameplay_bug": false,
+  "new_issue_claimed": false,
+  "new_root_cause_group": false,
+  "coverage_credit": false,
+  "support_qualification_credit": false,
+  "source_approved": false,
+  "input_approved": false,
+  "qualification_permitted": false,
+  "repair_proposal": false,
+  "source_fix": false,
+  "B787_denied_operation_untouched": true,
+  "limits": [
+    "Noexecutable/probe/basicHeadblock/Cheer-onlyfallback/alternateproducerorconsumer.",
+    "NoNativeCheer/PleiadesConfidence/HP17/BladeBreak/cleanup, futureConfidencestart/activatedHero/creator/globalCrowd/fullcard/siblingcredit. No newissue/root orsourcefix.",
+    "CrowncontinuousRoyalhealthyrouteindependent/notapprovedbythisplanningproof. ReviewerWonly/readR/noPHP/native/replay/R/source/Git/repair/B787action."
+  ]
+}

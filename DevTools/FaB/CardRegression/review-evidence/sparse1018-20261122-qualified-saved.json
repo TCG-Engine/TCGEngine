@@ -1,0 +1,119 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "breadth_review independent cached-text/current-source/transport review",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1018-20261122.json",
+  "source_spec_sha256": "f303d04368412e113a112813a3261d4de141a0909d78bd96d6391e61f773d445",
+  "input_sha256": "f303d04368412e113a112813a3261d4de141a0909d78bd96d6391e61f773d445",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-leech-memory-red-four-live-sparse1018-real-buff-full-block-unearned-rider",
+      "card_id": "leech_memory_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "e0ef99bc38b9b1d77b70658aaff3d2c116f56e72d925eb689dcfdf644b1f73b8",
+        "actions.json": "ff5b5e1b9430f781eafc7ed3e67336353d1cb8bc51b4b5a911b1c6c7493603e8",
+        "assertions.json": "7531b7b897c8b43aa9fd9cda59763f3889e591e39936a9d1a11a96d02ecc2b2a",
+        "expected_final_gamestate.txt": "6f28389445cc6bcf51c4529436818b5abfa171fca88cf6367f9ff3ba06095810",
+        "meta.json": "8d0e44b8ad6df8881d9ef6321eba81e7ad82d0e8d3d3b6ce729223f7adca76ff"
+      },
+      "fixture_sha256": "faaa7584e173aa5a4c34c2db60a0ef9dfea54ba563b35499c0ecaaeda16453a3",
+      "actions": 36,
+      "native_assertions": 259,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 29,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1018-20261122.json",
+      "input_sha256": "f303d04368412e113a112813a3261d4de141a0909d78bd96d6391e61f773d445",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1018-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-leech-memory-red-four-live-sparse1018-real-buff-full-block-unearned-rider",
+        "fixture_slug": "card-leech-memory-red-four-live-sparse1018-real-buff-full-block-unearned-rider",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-shadow-puppetry-red-four-live-sparse1018-real-buff-full-block-unearned-rider",
+      "card_id": "shadow_puppetry_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "8fc68be0f83f20f621d5b684b9b3f64299538d41120a7fb0faa1c667061cbdeb",
+        "actions.json": "db6de1e5d161a06aa6f777f51cf01fdf0b2c3f93f797b1ff872183ab152427b4",
+        "assertions.json": "1e4ef9b3bfe33e3cca84f67489121f4cfb8279627008625a668d4bcbfd703595",
+        "expected_final_gamestate.txt": "44f8203118d97c4593897e007210ef382ed737811370905a533fada4c1aaf50e",
+        "meta.json": "4b844674009af8a3ca37b6951ff39d8fef5fd30545110bcab89be904d9959eea"
+      },
+      "fixture_sha256": "e4a24c3e733a71d388bb837c147dca11f8a8425b67644632d3b89dd78c232ee9",
+      "actions": 35,
+      "native_assertions": 251,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 29,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1018-20261122.json",
+      "input_sha256": "f303d04368412e113a112813a3261d4de141a0909d78bd96d6391e61f773d445",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1018-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-shadow-puppetry-red-four-live-sparse1018-real-buff-full-block-unearned-rider",
+        "fixture_slug": "card-shadow-puppetry-red-four-live-sparse1018-real-buff-full-block-unearned-rider",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-commit-to-corruption-red-four-live-sparse1018-real-buff-full-block-unearned-rider",
+      "card_id": "commit_to_corruption_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "c3c8eeab1b9868a4637c901f053f3f71f18028d43cc1569c05bec951379b9463",
+        "actions.json": "db6de1e5d161a06aa6f777f51cf01fdf0b2c3f93f797b1ff872183ab152427b4",
+        "assertions.json": "921a21cfbc763d47cc9c844d2223fab5dc891fe9e4a1b564269617e9abac1867",
+        "expected_final_gamestate.txt": "1c9d64e8cb16057a7034214c4fbc19720b646922b57ef45967e3fa0028ee154e",
+        "meta.json": "7b0bf62223a7af971b152860e1ee6b51a60cdf852cfe0311c0028a23ec50c72f"
+      },
+      "fixture_sha256": "7924042361464064491ad04868dc236d95b01b27cec2805382e5a90e740255c8",
+      "actions": 35,
+      "native_assertions": 251,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 29,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1018-20261122.json",
+      "input_sha256": "f303d04368412e113a112813a3261d4de141a0909d78bd96d6391e61f773d445",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1018-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-commit-to-corruption-red-four-live-sparse1018-real-buff-full-block-unearned-rider",
+        "fixture_slug": "card-commit-to-corruption-red-four-live-sparse1018-real-buff-full-block-unearned-rider",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "spec_sha256": "f303d04368412e113a112813a3261d4de141a0909d78bd96d6391e61f773d445",
+    "reviewer": "breadth_review independent cached-text/current-source/transport review",
+    "basis": [
+      "LeechMemory RunebladeAction1 legalChane20, actualBlue7 pays1/R2/AP0 beforefourmanualresponses, thenprimary5ownedGY/GAAP1. ExplicitGenerated FaBOMNNext AA3/OMN_MEMORY applies torealGenericWounding6AA0, not requiringShadow/Runebladeconsumer. Correctpower4+3=7 andnoattackGA/AP0. Actualdef9 giveszeroDamage/noHit, so granted WHENdealsDamage event absent; realeligibleoldGGY11 staysindex0/Deck12retained.",
+      "ShadowPuppetry ShadowAction0 legalChane20, actual0cost/primaryGA thennextrealAA6 receivesprinted+1ANDgoagain. Persistedpower5 andDamageattackPower5def9/0damage, AP0throughDamage/AP1atResolution evenblocked correctlypinbothpositiveeffects. RealDeck12 andBanish0 retained; noearnedhit layer oroptionalbanish isowed. No independent claim aboutunobservablelook/reveal log.",
+      "CommitCorruption ShadowNecromancerAction0 legalMalice20, noZombieenter/dies event. ExplicitFaBIARNext3/ANY appliesrealGenericAA6\u21927, noattackGA/AP0. Fullblockdef9/noHit meansnoCorruptedCorpse creation; allArenas/Banish0 pinthatwithoutprobingcreatorownership. RetainedBlue7Handunplayed, oldGGY11 andDeck12 legitimateinitialassets, notseededbenefits.",
+      "Allthree producerbuffs actuallyconsumedbyrealpaid/nativeattacks, notsnapshotmodifierchecks. Natural20/legalclass+talent, allfourmanual/realcosts/source5Stack\u2192GYthen6/actualdefenders8/9/10respectiveownedGY, correctlyorderedoldGGY11, exactHP/AP/quietqueues andpersistedpower7/5/7/defense9/0damage. No mandatorymode/target/earnedattackevent orforbidden author-onlydiagnostics."
+    ],
+    "limits": [
+      "Only specifiedpositivebuffs andactualconsumer/fullblock/no-damage branches. Positivehit/damage-rider/look/banish/deck-placement/Corpse/creatorownership, alternatetarget/consumer/duration/hero/support/siblings/fullcards untested. Known timing/ownershipfamilies untouched, no repair/closure inferred.",
+      "Root owns nativeinputs/savedassertionreview/onecleanreplay. Reviewer ran no native/PHP/game/test and changed no T/source/original/Git/network/auth/engine; only this W receipt."
+    ]
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1018-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "235f7813eec07e651afb19ca234ff04e221b0a145b0459f2528090fbc8bf96cc"
+  },
+  "full_suite_run": false
+}

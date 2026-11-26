@@ -1,0 +1,68 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-25T09:47:04.686682+00:00",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1524-20261122.json",
+  "source_spec_sha256": "215f49cf0e770eac2c81b19de6eb4ddc74929e80dbe4225f3a947388c38070d7",
+  "new_scenarios": 1,
+  "new_groups": 1,
+  "new_primary_ids": 1,
+  "actions": 33,
+  "native_assertions": 422,
+  "manual_passes": 29,
+  "totals": {
+    "saved_registered_scenarios": 5607,
+    "duels": 3135,
+    "four_live": 2472,
+    "recorded_primary_ids": 2755,
+    "identity_denominator": 5196,
+    "recorded_groups": 2629,
+    "group_denominator": 3324,
+    "four_live_groups": 2461,
+    "phase_qualified_scenarios_at_actual_contexts": 2244,
+    "phase_qualified_unique_groups": 2234,
+    "creation_replay_passes": 2986,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 1405,
+  "scenarios": [
+    {
+      "card_id": "cheating_scoundrel_red",
+      "group_id": "identity:cheating_scoundrel_red",
+      "scenario_id": "card-cheating-scoundrel-red-four-live-sparse1524-real-spell-does-not-enhance-weapon-attack",
+      "effect_branches": [
+        "real_primary_Action_zero_cost_go_again_then_unmodified_weapon_damage_not_an_attack_action_card"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-cheating-scoundrel-red-four-live-sparse1524-real-spell-does-not-enhance-weapon-attack",
+      "source_spec": "card-regression-sparse1524-20261122.json",
+      "source_spec_sha256": "215f49cf0e770eac2c81b19de6eb4ddc74929e80dbe4225f3a947388c38070d7",
+      "review_evidence": "review-evidence/sparse1524-20261122-qualified-saved.json",
+      "review_evidence_sha256": "82f4abc7f92f9d96dbe7f9e6039e8f63d50cee9c1c45af75b6a4a5f054a64cc2",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1524-20261122-replay.json",
+          "sha256": "f455f7ed44f9c83b03f6cb63aeb76202fb7b0fd1d632bda5910f1dcc6ced0eb8",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

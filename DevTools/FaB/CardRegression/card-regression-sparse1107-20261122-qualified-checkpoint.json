@@ -1,0 +1,68 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-23T07:11:28.992476+00:00",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1107-20261122.json",
+  "source_spec_sha256": "e7d68872b96cc1a4b189f752306bcdd17c8ec6f41285a28920042cfffb1e11ed",
+  "new_scenarios": 1,
+  "new_groups": 1,
+  "new_primary_ids": 1,
+  "actions": 29,
+  "native_assertions": 239,
+  "manual_passes": 25,
+  "totals": {
+    "saved_registered_scenarios": 4981,
+    "duels": 3075,
+    "four_live": 1906,
+    "recorded_primary_ids": 2129,
+    "identity_denominator": 5196,
+    "recorded_groups": 2003,
+    "group_denominator": 3324,
+    "four_live_groups": 1895,
+    "phase_qualified_scenarios_at_actual_contexts": 1618,
+    "phase_qualified_unique_groups": 1608,
+    "creation_replay_passes": 2360,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 779,
+  "scenarios": [
+    {
+      "card_id": "hoarding_of_denial",
+      "group_id": "identity:hoarding_of_denial",
+      "scenario_id": "card-hoarding-of-denial-four-live-sparse1107-real-cost-seven-hand-defender-gives-offhand-one-defense-and-exact-block",
+      "effect_branches": [
+        "real_cost_seven_hand_defender_gives_offhand_one_defense_and_exact_block"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-hoarding-of-denial-four-live-sparse1107-real-cost-seven-hand-defender-gives-offhand-one-defense-and-exact-block",
+      "source_spec": "card-regression-sparse1107-20261122.json",
+      "source_spec_sha256": "e7d68872b96cc1a4b189f752306bcdd17c8ec6f41285a28920042cfffb1e11ed",
+      "review_evidence": "review-evidence/sparse1107-20261122-qualified-saved.json",
+      "review_evidence_sha256": "29ee11621b9458cc68dad0df8f589d59dbd4532d7428ac616e65cc6ddeede701",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1107-20261122-replay.json",
+          "sha256": "aa0c56b58b27014a6616a9731725409525cb27dea340253b78e4df535aa9df57",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

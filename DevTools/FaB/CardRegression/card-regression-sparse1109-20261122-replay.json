@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-bone-head-barrier-yellow-four-live-sparse1109-accepted-die-prevention-applies-to-real-four-damage-packet",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-bone-head-barrier-yellow-four-live-sparse1109-accepted-die-prevention-applies-to-real-four-damage-packet",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1109-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1109-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "705b4551460ce9cb71de310e62f0550428c6c4ae9f64e8d513ef5e46e31de84a",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "5f257618312a8957c537bbdfdb84a13cb64b96c1f88d1ab55ac78fd3d7fbbd07",
+        "actions.json": "fbe5174a1c76e2acd0cb65e1e2c84e15bca9af007a9f1e7577cee1f1bb0f8534",
+        "assertions.json": "ded43cf6d4e7d41d5cda01f1e8482a4ed8fd883c63c3cc03ebad0fad4ee49494",
+        "expected_final_gamestate.txt": "4a4c4e0a4421fa8a03e3e55c35f633238b5339deeacc36032ff0e114420ba17d",
+        "meta.json": "50682aa0bb8fcd30846c13d9655d2e7987a705c86c51e9885e3566dc544c7b87"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

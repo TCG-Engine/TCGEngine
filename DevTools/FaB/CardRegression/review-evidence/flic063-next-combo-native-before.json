@@ -1,0 +1,86 @@
+{
+  "status": "CONFIRMED_NAMED_FOUR_LIVE_GAMEPLAY_FAILURE_UNFIXED",
+  "utc": "2026-11-03T01:00:27.122005+00:00",
+  "issue_id": "FAB-REG-063",
+  "runtime_sha256": "f40e5a26ad74eab8ea9d2e3bd779a26c917d8102e67ad41fa9bad5ca7f22e6e7",
+  "source_spec": "card-regression-batch272.json",
+  "source_spec_sha256": "b1158a049556d4e66ce4f22ec21719d502d201ca11be7b7d21dcc26c4fe29e8d",
+  "immutable_native_archive": {
+    "path": "recording-runs/card-regression-batch272-20261103T005417Z-6ae930b93c296.json",
+    "sha256": "0afeac0e35ea25df9e10d8ed392a9cc22292aa3e2df1613446236fa58b41ead6"
+  },
+  "root_cause_group": "defense_reaction_self_consumes_new_next_defend_effect",
+  "new_distinct_gameplay_defect_group": true,
+  "related_prior_issue": null,
+  "expected": "The newly generated Flic effect must not be consumed by that originating physical reaction defending. The next distinct defend event consumes it whether or not that card has Combo; if Combo it gains2defense. Original realKnee6 defense5 blocksRaging7 for2/P4HP18.",
+  "observed": "NextCombo6 has no WTR_DEFENSE:2 after48inputs; separate original65-input native continuation deals4actualdamage, P4HP16 instead18.",
+  "witness": {
+    "failed_prefix": {
+      "workspace_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-flic272-failed-prefix\\receipt.json",
+      "sha256": "af1775f6b6a4adbfae91ac83bd1267811002d84c6e9ea8e79eeee6768c96d2be"
+    },
+    "diagnostic_continuation": {
+      "workspace_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-flic272-diagnostic-final-damage\\receipt.json",
+      "sha256": "30df05c248ff13aa8512f8733a372114ab2dd36588d0e656b259309546f0a7bc"
+    },
+    "continuation_method": "Existing prefix-only helper; first48 actual inputs unchanged, then onlythe17remainingapprovedsourcePass steps. No physical/state mutation keys, oracle edits or passing fixture.",
+    "observed_physical_defender": [
+      {
+        "CardID": "rising_knee_thrust_red",
+        "Status": "2",
+        "Owner": "4",
+        "Controller": "4",
+        "Damage": "0",
+        "UniqueID": "6",
+        "TurnEffects": "-",
+        "Counters": "-",
+        "Role": "DEFENSE",
+        "ChainLink": "1",
+        "FromZone": "Hand"
+      }
+    ],
+    "observed_final_hp": {
+      "1": "20",
+      "2": "20",
+      "3": "20",
+      "4": "16"
+    },
+    "observed_final_gy": {
+      "1": [
+        {
+          "CardID": "raging_onslaught_red",
+          "UniqueID": "8",
+          "Owner": "1",
+          "Controller": "1",
+          "FaceDown": "0"
+        }
+      ],
+      "4": [
+        {
+          "CardID": "flic_flak_red",
+          "UniqueID": "5",
+          "Owner": "4",
+          "Controller": "4",
+          "FaceDown": "0"
+        },
+        {
+          "CardID": "rising_knee_thrust_red",
+          "UniqueID": "6",
+          "Owner": "4",
+          "Controller": "4",
+          "FaceDown": "0"
+        }
+      ]
+    }
+  },
+  "active_runtime_unchanged": true,
+  "fixture_saved": false,
+  "coverage_credit": false,
+  "fix_applied": false,
+  "limits": "Exact named positive branch only. No variant/alternate branch/full-card credit, no full suite, no synthesized passing recording. Separate healthycases retained.",
+  "rule_sources": [
+    "https://rules.fabtcg.com/en/cr/07-combat/",
+    "https://legacy.fabtcg.com/en/articles/back-alley-oracle-1-comprehensive-rules-20-update/"
+  ],
+  "rejected_unapplied_proposal": "Blanket retaining NEXT_COMBO_DEFENSE across all non-Combo defenders is incorrect under official Flic wording/ruling. W candidateef4fd was never applied; future repair must preserve next-nonCombo consumption and stacked Flic behavior."
+}

@@ -1,0 +1,7 @@
+{
+    "name": "Stonewall Gauntlet / four-live ordinary defense and keyword",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-23T08:09:58+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "When this defends an attack with {p} greater than its base, opposing attacks get -1{p} this combat chain.\n\n**Blade Break** Named ordinary printedDEF1 and BladeBreak branch only. Legalnatural dorinthea20 owns real primaryEquipment5 and GenericHand6. Actual WoundingAA has printed/base/current power4, with no buffs; it does not have greater-than-base power, so qualifying defend event is absent. ActualopponentWoundingRed7AAcost0/base4/current4/AP0, HandCriticalBlue6DEF3 +Gear1 exactlyblock4. Allfourmanualsource/combat; real0damage/HP20/noHit, normalCloseBladeBreakdestroys5owner4GYafterHand6, AA7owner1GY. No bodyevent/positivebodyeffect/hero/equipproducer/support/sibling/fullcard credit; noheldrepairs altered. Sources: FaBSim/GeneratedCode/cardArrayCache.json#stonewall_gauntlet"
+}

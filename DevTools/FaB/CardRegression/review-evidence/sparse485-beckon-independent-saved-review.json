@@ -1,0 +1,338 @@
+{
+  "status": "APPROVED_EXACT_SAVED_BECKON_OPEN_DAMAGE_SUBSET_WITH_MOLD_BLOCKED",
+  "approved": true,
+  "source_approved": true,
+  "semantically_approved": true,
+  "reviewer": "/root/b106_semantic_review",
+  "reviewer_independent": true,
+  "created_utc": "2026-11-05T16:30:21.822057+00:00",
+  "source_spec": "card-regression-batch485.json",
+  "input_sha256": "2f8c2d82f0f174179199d96f5e8b22d2c6e88d803b7133e7530b90d271c00a66",
+  "manifest_sha256": "89530f6b466945fe1cc7468a669eb8ccee74e11059f1fda22a3e41ee0c95273a",
+  "runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+  "recorded_runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+  "source_guards_verified": 69,
+  "reviewed_subset": true,
+  "prior_independent_semantic_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch485-independent-source-review.json",
+    "sha256": "328f1003f6b5ee159cbc4f64e1c3e4e5b7a4291dcc932710a2ce6196c10c7971",
+    "unchangedBeckonsemantics_reused": true
+  },
+  "recording_receipt": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch485-20261105T161902Z-6aecac768e3f8.json",
+    "sha256": "9fac1692c8fbc4d1e350cb8b1a3b2527dbdd9139bfc2c50144d70bc4e4338b12"
+  },
+  "specific_results": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch485.recording-results.json",
+    "sha256": "b2beb255b5e139166878cd80e368bd68fe650d6b0b21359ad4798c61774367ef"
+  },
+  "root_wrapper_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch485-native-r1-9e984\\receipt.json",
+    "sha256": "faf5fa75f0d3c86bbba33b8b68d48cfb8f48d13ec541466596cbc473c44a8d0f",
+    "mixed_process_exit": 1,
+    "healthyBeckononly": true
+  },
+  "fixtures": [
+    {
+      "index": 0,
+      "card_id": "beckon_applause",
+      "group_id": "identity:beckon_applause",
+      "slug": "card-beckon-applause-four-live-two-real-owned-token-conditions-give-two-defense-and-five-damage-open-damage",
+      "source_spec": "card-regression-batch485.json",
+      "input_sha256": "2f8c2d82f0f174179199d96f5e8b22d2c6e88d803b7133e7530b90d271c00a66",
+      "reviewer": "/root/b106_semantic_review",
+      "approved": true,
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_TWO_TOKEN_STATIC_DEFENSE_OPEN_DAMAGE_PARTIAL_BRANCH",
+      "runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+      "recorded_runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+      "fixture_path": "Tests\\Integration\\FaBSim\\card-beckon-applause-four-live-two-real-owned-token-conditions-give-two-defense-and-five-damage-open-damage",
+      "fixture_sha256": "2b6adff4b31d6707be5c0e17222aeb11781fdbdd05625d17f8c2f32bdaac5147",
+      "raw4_sha256": {
+        "initial_gamestate.txt": "c491504e878c0e1ca4f3f97066bd14d34d2e20f854ce67db0447b12ed8723886",
+        "actions.json": "41f73ab4a297be91202b50f08e6c6d2991c7d6dfd10c34094666b8628cc7ac12",
+        "assertions.json": "2b6d664b8ca145b772afe7ee063faa7437e9dfe4317aa9e3c43ea4d74d9e0ec9",
+        "expected_final_gamestate.txt": "c3985dfaa0aeac26f48ef92fa74b91a081ab671c44097981cdc76cb6df7e2c14"
+      },
+      "raw5_sha256": {
+        "initial_gamestate.txt": "c491504e878c0e1ca4f3f97066bd14d34d2e20f854ce67db0447b12ed8723886",
+        "actions.json": "41f73ab4a297be91202b50f08e6c6d2991c7d6dfd10c34094666b8628cc7ac12",
+        "assertions.json": "2b6d664b8ca145b772afe7ee063faa7437e9dfe4317aa9e3c43ea4d74d9e0ec9",
+        "expected_final_gamestate.txt": "c3985dfaa0aeac26f48ef92fa74b91a081ab671c44097981cdc76cb6df7e2c14",
+        "meta.json": "7002bb71f163810bd864c62158322c727b50692dc156d859dc99f3a6939a68ee"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "c491504e878c0e1ca4f3f97066bd14d34d2e20f854ce67db0447b12ed8723886",
+        "actions.json": "41f73ab4a297be91202b50f08e6c6d2991c7d6dfd10c34094666b8628cc7ac12",
+        "assertions.json": "2b6d664b8ca145b772afe7ee063faa7437e9dfe4317aa9e3c43ea4d74d9e0ec9",
+        "expected_final_gamestate.txt": "c3985dfaa0aeac26f48ef92fa74b91a081ab671c44097981cdc76cb6df7e2c14",
+        "meta.json": "7002bb71f163810bd864c62158322c727b50692dc156d859dc99f3a6939a68ee"
+      },
+      "actions": 21,
+      "native_assertions": 2051,
+      "actual_manual_passes": 17,
+      "actual_priority_response_passes": 16,
+      "actual_defender_declaration_finish_inputs": 1,
+      "actual_administrative_END_PHASE_passes": 0,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4
+      ],
+      "actual_manual_actor_counts": {
+        "1": 4,
+        "2": 4,
+        "3": 4,
+        "4": 5
+      },
+      "schema_property_assertions": 740,
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "all_actions_and_assertions_exact": true,
+      "no_recorder_only_assertions": true,
+      "all_endpoint_physical_uid_card_zones_ownership_verified": true,
+      "all_snapshot_evaluable_terminal_assertions_evaluated": true,
+      "terminal_computed_queries_verified_as_completed_native_assertions": true,
+      "reviewer_reexecuted_computed_queries": false,
+      "initial_assertions_also_evaluated_against_parsed_initial_snapshot": true,
+      "initial_physical_uid_locations": {
+        "1": {
+          "card_id": "dorinthea",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1
+        },
+        "8": {
+          "card_id": "raging_onslaught_red",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "9": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4
+        },
+        "5": {
+          "card_id": "beckon_applause",
+          "zone": "p4Equipment",
+          "owner": 4,
+          "controller": 4
+        },
+        "6": {
+          "card_id": "agility",
+          "zone": "p4Arena",
+          "owner": 4,
+          "controller": 4
+        },
+        "7": {
+          "card_id": "vigor",
+          "zone": "p4Arena",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_physical_uid_locations": {
+        "1": {
+          "card_id": "dorinthea",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1
+        },
+        "9": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Pitch",
+          "owner": 1,
+          "controller": 1
+        },
+        "8": {
+          "card_id": "raging_onslaught_red",
+          "zone": "p1CombatChain",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4
+        },
+        "6": {
+          "card_id": "agility",
+          "zone": "p4Arena",
+          "owner": 4,
+          "controller": 4
+        },
+        "7": {
+          "card_id": "vigor",
+          "zone": "p4Arena",
+          "owner": 4,
+          "controller": 4
+        },
+        "5": {
+          "card_id": "beckon_applause",
+          "zone": "p4CombatChain",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_health": [
+        20,
+        20,
+        20,
+        15
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_physical_uidset": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "final_UniqueIDCounter": 9,
+      "RandomCounter": 0,
+      "endpoint_window": "DAMAGE",
+      "endpoint_combat_open": true,
+      "full_combat_cleanup_claimed": false,
+      "Temper_earned_or_tested": false,
+      "actual_attack_power": 7,
+      "actual_defense": 2,
+      "actual_physical_damage": 5,
+      "checkpoint_assertion_mapping_sha256": "e5115ae4336e5a3639bf964a3ba8ed14597c2207490f60e829e77506a1b32a3e",
+      "native_action_mapping_sha256": "4292703b4be8f1e9630484fee0246cc8f33ae8500d78049753d4fad2bc88aba4",
+      "native_assertion_mapping_sha256": "7e7a4f7b0e48794a5913bf0ca304ff4f2f925c0a4cc2cd11acb85829cc0fb034"
+    }
+  ],
+  "blocked_attempts": [
+    {
+      "index": 1,
+      "card_id": "adaptive_alpha_mold",
+      "group_id": "identity:adaptive_alpha_mold",
+      "slug": "card-adaptive-alpha-mold-four-live-correct-real-action-head-to-empty-chest-resolving-choice-and-owned-identity",
+      "semantically_approved": false,
+      "approved": false,
+      "fixture_saved": false,
+      "fixture_exists": false,
+      "coverage_credit": false,
+      "classification": {
+        "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch485-mold-independent-native-before-classification.json",
+        "sha256": "d7c3561b75e20bfb14e0b3f4fd479082c2da394d3aab41564047d40846962033"
+      },
+      "original_observation": "WrongHeadincludedrawmenu observed; originalpriority-onlypass wait aborted beforeauthoredmenuassertions. SeparateRoottransport-onlyV2 notincluded orretagged here.",
+      "correct_menu_and_effect_expectations_unchanged": true
+    }
+  ],
+  "total_actions": 21,
+  "total_native_assertions": 2051,
+  "total_manual_passes": 17,
+  "total_priority_response_passes": 16,
+  "total_defender_declaration_finish_inputs": 1,
+  "total_schema_property_assertions": 740,
+  "material_findings": [
+    "Exactraw5/all21actions/2051orderedassertions/740schemaproperties/17manual16responses+1finish/48rawsettingsatbothendpoints/69guards/current9 verified. OnlyBeckonsavedpartialbranchreviewed; Moldfailedoriginalprotocol/menuobservationremainsunsaved/semanticallyfalse.",
+    "ActualRaging8printed3targetP4thenBlue9pitch3paysR3/AP1->0/R0. Actualsourcefourfreshpower7/noGA, physicalownedP4Beckon5ordinaryblockonlink1 whileownAgility6andVigor7persist. ActualfreshDAMAGEdefense2andphysical5damageHP15 independentlywitnessprinted0+1+1, notmerelycacheddefense.",
+    "FinalraworiginalUID1..9allconserved: Raging8ATTACKChain1/Armor5DEFENSEChain1FromEquipmentOwnerCtl4, Blue9Pitchwholeunchanged, bothownedAuras6,7wholeunchanged/ready/unspent, fourquietHeroeswholeunchanged. AllRAPChi0/HP20exceptP4=15/counter9/RNG0, Stack/DQ/await/paymentclear.",
+    "EndpointintentionallystableOPEN_DAMAGE, notfullcombatcleanup: physicalattackanddefenderremainlink1, declaredBlockUID5, noTempercounter/destruction/returnEquipment occurred oriscredited. FutureDamagepasses/Resolution/chainclose/Temper/tokenownerstartwereNOTexecuted; no claimtheywork."
+  ],
+  "primary_sources": [
+    {
+      "url": "https://judge.fabtcg.com/cards/detail/2764/",
+      "finding": "Current independentAgility/Vigordefensebonuses/Temper/WarriorArmsDEF0."
+    },
+    {
+      "url": "https://judge.fabtcg.com/cards/detail/4117/",
+      "finding": "CurrentModular/Action0equipanotherzone/Battleworn/MechanologistBaseDEF1."
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/08-keywords/",
+      "rules": [
+        "8.3.30",
+        "8.5.41c",
+        "8.3.10"
+      ],
+      "finding": "Modularcurrentzone/subtype; equipemptydifferentzone; Temperonlywhenchaincloses."
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/03-zones/",
+      "rules": [
+        "3.0.9"
+      ],
+      "finding": "Arena-to-arenazonemoveretainssamephysicalobject."
+    }
+  ],
+  "limits": [
+    "Onlypositiveboth-tokenDEF2/7\u00c3\u0192\u00c2\u00a2\u00c3\u2039\u00e2\u20ac\u00a0\u00c3\u00a2\u00e2\u201a\u00ac\u00e2\u201e\u00a22=5damagebranch; noone-token/none/duplicate/foreign-control/suppression/tokencreation/expiry/futureGAorresource/Temper/armorwear/fullcombatcleanup/Hero/support/fullcardcredit.",
+    "Completeinitial/finalrawsnapshots; intermediatefacts actualnativeassertions. Rawhashesincludehistoricalundo bytes, excludedfromcurrentphysicalinventory; no reviewerundo/replayexecution.",
+    "MoldoriginalandRootfuturetransport-onlyV2 remainseparate; no sourcefix/currentruntimechange/globalRoot/Core allocation. Roottwofocusedreplayreceipts/registration separate andnotclaimedhere. No PHP/native/replay/R/source/service/gen/fullsuite/remote/deniedretry byreviewer."
+  ],
+  "blockers": [],
+  "actual_comparison_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov5_batch485_saved_readonly.py",
+    "sha256": "d8ef8a8446509356ca8c586a63a3ae28f1e4582058147f37a43bbb90ef50f724"
+  },
+  "read_only_helper": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\saved_fixture_review_tools.py",
+    "sha256": "57cb7672feb98a00216f1e194fd1df0395826af02e0d76f7042af920851c39e8"
+  }
+}

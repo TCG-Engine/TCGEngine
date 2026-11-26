@@ -1,0 +1,72 @@
+{
+  "status": "INDEPENDENT_RAPTUROUS_REQUIRED_KNOWN_CLASH_HOST_SOURCE_ONLY_NOTE_APPROVED",
+  "phase": "SOURCE_PLANNING",
+  "batch": 840,
+  "reviewer": "/root/ebbing_recovery_review",
+  "reviewer_independent": true,
+  "approved": true,
+  "planning_evidence_approved": true,
+  "source_notes_approved": true,
+  "manifest": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch840-rapturous-known-host-note-manifest.json",
+    "sha256": "431e252958eb0a2405abfb61f209ba5fc2aa72434a65ecb4956c38d07c729ba6"
+  },
+  "manifest_sha256": "431e252958eb0a2405abfb61f209ba5fc2aa72434a65ecb4956c38d07c729ba6",
+  "note": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch840-rapturous-required-known-clash-host-unattempted-note.json",
+    "sha256": "3d88d0eaa63dd454f3a651691f1fc49a9afab888c424529dd0f504ed2d192369"
+  },
+  "runtime_sha256": "cdc081ff4c87ff2f9338b1d69040d0dc98d7600ba33976384336534ea3f92d22",
+  "firm_reservation": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch840-firm-reservation.json",
+    "sha256": "a74091b3e27d275f2a3ecb4c3b561da946da9530ad7565ba05a57f41536e540b"
+  },
+  "all_current_source_preimage_guards_matched": true,
+  "guard_count": 15,
+  "card_id": "rapturous_applause_blue",
+  "group_id": "pitch-cycle:rapturous_applause",
+  "classification": "UNATTEMPTED_EARLIER_EXACT_KNOWN_REQUIRED_CLASH_OF_MIGHT_DEFENDED_WHEN_CONTRACT",
+  "findings": [
+    "Legal Young Tuffnut20 is Revered Brute; Rapturous Blue is Revered attack5 and Clash Blue is hybrid Brute/Guardian defense3. Betsy20 attacker Generic Wounding Red4 and Generic Blue2 Deck top establish a fixed actual5>2 without RNG, modifier or seeded win. Hero ability/retry/switch branches are not required.",
+    "OnDefended GL1237..1244 calls source macro immediately. Emitted clash_of_might_blue:0 invokes runner f4b703b3ad37309f4d27 atPC23, whose first operation221949..221950 directly calls HVYClash48..55 reveal/comparison; there is no preceding responseable earned host trigger. Canonical host Defended likewise calls the same helper before any optional Victor retry. This matches retained row201, not a blanket optional-await or trigger hold.",
+    "Rapturous canonical empty abilities does not mean unimplemented: HVYClashWon70 calls actual SUPClashWon161, which has Rapturous inline Crowd; SUPCrowd6..22 handles active Hero effects including Tuffnut Toughness. These are downstream source-only concerns behind the earlier mandatory host layer, not newly observed or separately allocated defects.",
+    "Full intended future route still requires host earned layer/all four responses before real reveal; actual fixed win, Might prize and physical Deck order; separate Rapturous earned layer/all four before cheer; applicable separate Tuffnut cheer layer/all four before Toughness; real remaining damage and complete physical/economy/queue cleanup. No direct helper, vanilla attack, primary cast fallback or support coverage."
+  ],
+  "retained_contract": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\review-evidence\\sparse716-clash-might-defended-when-unattempted-c53.json",
+    "sha256": "583cc98232ddf46f6648a2f417f995b784fe06ce13691c59c0a580fa86c697c2"
+  },
+  "primary_rules": [
+    {
+      "url": "https://rules.fabtcg.com/en/cr/08-keywords/",
+      "paragraphs": [
+        "8.5.45",
+        "8.5.57"
+      ],
+      "official_read_only_web_read": true
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/06-effects/",
+      "paragraphs": [
+        "6.6.5",
+        "6.6.6"
+      ],
+      "reused_existing_independent_normative_review": true
+    }
+  ],
+  "limits": [
+    "One exact fixed support route, source-only and unattempted; no alternate-initiator catalog audit or assertion that no alternative could exist.",
+    "No executable/Native/card-specific failure/new issue/root/fix/fixture/coverage. Primary and all later branches remain unqualified.",
+    "Whole emitted-file guard and relevant actual entry/runner checked; no fragment-hash or historical corpus audit. Touch preflight and future executable Source approval are separate.",
+    "No PHP/native/Rwrites/fullsuite/denied188/184/B787 repair action."
+  ],
+  "source_approved": false,
+  "native_execution_approved": false,
+  "normal_save_approved": false,
+  "qualification": false,
+  "coverage_credit": false,
+  "confirmed_gameplay_bug": false,
+  "new_issue": false,
+  "source_fix": false,
+  "created_utc": "2026-11-16T02:50:43.479277+00:00"
+}

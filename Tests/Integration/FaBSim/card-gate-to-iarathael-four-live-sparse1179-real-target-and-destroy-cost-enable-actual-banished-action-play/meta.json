@@ -1,0 +1,7 @@
+{
+    "name": "Gate to i Arathael / actual paid permission enables otherwise unavailable banished action",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-23T14:11:58+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "YoungChane20/3Dori20manual, priorownedGate5Arena and FastingCarcass6Banish (BloodDebtAction0 with no inherentBanishplay), Blue7Hand, Wounding8Hand. NoSoulShackle/seedpermission. ActualGate ABI9 formallychooses6beforecosts, actualBlue3pays1/R2 andGate5destroyedbeforefresh4responses; tokenleavesgame/notGY, independentABI9holdsSource5andtarget6. Resolutiongrantsbounded6permission. ActualnativeclickBanish6playsAction0/AP1->0 withsamephysical6Stack, allfourresponses then6ownedGY/ownGAAP1 andnextRedActionGAeffect. ActualRedWounding8targetHero4/cost0/AP0, fourfreshresponses plus fullcombat gives4actualdamage/HP16andgrantedGAAP1. FinalGY6,8/Pitch7/R2/AP1/noArena/Banish/Stack/DQs/RNG/newUIDbeyond9. Permission notfaked/inherent, actualsource-independentactivationandactualeffectconsumer. NoGatecreationproducer/prepermissionrejection/otherblooddebttarget/permissionexpiry/re-use/endphase/Hero/support/fullcardcredit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#gate_to_iarathael FaBSim/Custom/IARRuntime.php FaBSim/Custom/PENCards.php FaBSim/GeneratedCode/GeneratedMacroCode.php"
+}

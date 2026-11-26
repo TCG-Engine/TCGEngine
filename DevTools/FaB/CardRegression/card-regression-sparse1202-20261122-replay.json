@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-consign-to-cosmos-shock-yellow-four-live-sparse1202-real-three-arcane-banishes-three-opponents-grave-cards",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-consign-to-cosmos-shock-yellow-four-live-sparse1202-real-three-arcane-banishes-three-opponents-grave-cards",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1202-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1202-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "9a6e7fd71c242d7e42aef1b5ac537620ee3ab957e3b65fe54e91e5cc67472fe0",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "128f255836ac66ce18a882da437f72772a7235bdce3b9f49bc50043c5911fa20",
+        "actions.json": "960d936b4cabafd072f1001c0679b3636cab4cf236c78a36d36f40c5ac7a27ef",
+        "assertions.json": "4f680a2f8ade5a54bda4c3ea2b0d8c94fb85259f5e75016f8ea0097f9b5c3bb2",
+        "expected_final_gamestate.txt": "9e0436afd3cc89b19aecd71f85a45a9aa4feb029ce1ed394cdbc6cb828f7b2dc",
+        "meta.json": "8deb1cfc2b3a159dc133c53a8d6e5555cc6693b9c8907870b123dc60969451de"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

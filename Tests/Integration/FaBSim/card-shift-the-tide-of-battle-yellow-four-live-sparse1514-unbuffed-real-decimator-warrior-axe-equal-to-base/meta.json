@@ -1,0 +1,7 @@
+{
+    "name": "Shift the Tide of Battle / actual attack fails Warrior_attack_power_greater_than_base",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-25T09:00:07+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "ActuallegalBoltyn20/manual4, Decimator7AxeattackdeclaresadjacentHero4before3cost, Blue6pitch3pays3/AP0/R0/weaponused/proxy8WEAPON_UID7. NoDefender=>noDecimatordefendtrigger; noattacktrigger. CorrectownREACTION1 actualWarriorpower4=base4 means primaryShift5printed0mustrejecttargetrestriction, preservingHand5/weapon7/Pitch6/AP0/R0/UID8/noLayer/DQ/payment/effect. Actual4damageHP16/noGA/noprimaryAgility; fullallfourmanualclose, sourceweapon7staysWeapons. PositiveShift/abovebase/triggeredAgility/extraattack/siblingsuntested. OldHatchet233archiveunchanged. Sources: FaBSim/GeneratedCode/cardArrayCache.json#shift_the_tide_of_battle_yellow FaBSim/Custom/WTRCards.php#FaBWTRCanPlay FaBSim/Custom/HNTRuntime.php#FaBHNTCanPlay FaBSim/Custom/DTDCards.php#FaBDTDCanPlay FaBSim/Custom/MSTCards.php#FaBMSTCanPlay FaBSim/Custom/HVYRuntime.php#FaBHVYCanPlay"
+}

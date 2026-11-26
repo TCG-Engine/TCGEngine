@@ -1,0 +1,115 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "Root independent of packet author",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse900-20261122.json",
+  "source_spec_sha256": "9a73a1b18c1f051e15187723891fd5dd48784693a1724f42c51c6bd19995b8bb",
+  "input_sha256": "9a73a1b18c1f051e15187723891fd5dd48784693a1724f42c51c6bd19995b8bb",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-timekeepers-whim-red-four-live-sparse900-real-blue-cost-three-and-five-arcane-during-own-turn-without-bottom-replacement",
+      "card_id": "timekeepers_whim_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "555c9dd2bce690e5ca23f1c5b276f0fe4f6e8f485099dbb9823bdecf474e44e9",
+        "actions.json": "b4919fe92f72680ae8cf55e2f90d5378553b2017b964bb40fe0bd1410d074934",
+        "assertions.json": "8a77ff3fc52c90b591784eba35f063ea198077b212b8deac102af493221cd24c",
+        "expected_final_gamestate.txt": "ce64c8941e4d0353f0d70707e5ecd9302634b39fc96e7d6221a25643f4af39d5",
+        "meta.json": "7db9e34518f06606ac0285fece9662f8952c44dd529a8c3b7cd64c8daf3ddc33"
+      },
+      "fixture_sha256": "f4c5dca053a7fda9743bb9557bf14973bb4c87b08b5d23bfdf72877026e55cc0",
+      "actions": 7,
+      "native_assertions": 121,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 4,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse900-20261122.json",
+      "input_sha256": "9a73a1b18c1f051e15187723891fd5dd48784693a1724f42c51c6bd19995b8bb",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse900-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-timekeepers-whim-red-four-live-sparse900-real-blue-cost-three-and-five-arcane-during-own-turn-without-bottom-replacement",
+        "fixture_slug": "card-timekeepers-whim-red-four-live-sparse900-real-blue-cost-three-and-five-arcane-during-own-turn-without-bottom-replacement",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-open-the-flood-gates-red-four-live-sparse900-real-blue-cost-two-and-three-arcane-without-unearned-surge-draw",
+      "card_id": "open_the_flood_gates_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "d3ce76a65dae7a47a2e894ed4eeb33e2677205fe8499c22f071f0f38bcc6ff5a",
+        "actions.json": "b4919fe92f72680ae8cf55e2f90d5378553b2017b964bb40fe0bd1410d074934",
+        "assertions.json": "e21487ddea02297cc37cb40bb2a2db36218b4f55a6cf64ae86984d5bbb834adf",
+        "expected_final_gamestate.txt": "738e7902fb0a9686ed82d3a8cb3ddbaa92ba186f2a1fe5f46335ffee0e2f0da3",
+        "meta.json": "7605ed3ec32acbe0b4ddfba3bf3d1b54be7668efab7aa8655f4892cdfbf2ea34"
+      },
+      "fixture_sha256": "b1204160bc0588cf0bbbe7e858c24c5e2a6cb417a368d06a27be1a9e9ea59aa8",
+      "actions": 7,
+      "native_assertions": 126,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 4,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse900-20261122.json",
+      "input_sha256": "9a73a1b18c1f051e15187723891fd5dd48784693a1724f42c51c6bd19995b8bb",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse900-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-open-the-flood-gates-red-four-live-sparse900-real-blue-cost-two-and-three-arcane-without-unearned-surge-draw",
+        "fixture_slug": "card-open-the-flood-gates-red-four-live-sparse900-real-blue-cost-two-and-three-arcane-without-unearned-surge-draw",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-glyph-overlay-red-four-live-sparse900-real-blue-cost-one-and-no-sigils-means-three-arcane-without-surge-healing",
+      "card_id": "glyph_overlay_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "459b89ef334198b1e2d57f0aa4c147927e9576af14f8843043770bac41776992",
+        "actions.json": "b4919fe92f72680ae8cf55e2f90d5378553b2017b964bb40fe0bd1410d074934",
+        "assertions.json": "e1db102ba3b0c8a5347b2521007722fd4dd26f2e1f9f6258ee2eb58763f6c125",
+        "expected_final_gamestate.txt": "ef62e4bdc636cdcc6807be40dde41196a4e68c4b50f0faf96ac53ad78fc6b5a9",
+        "meta.json": "9560fdfcd31a07f6db42638a11bb6c7fb63185f54959d91c8250c3d2b6b529a4"
+      },
+      "fixture_sha256": "073c142b074da684ba296a2fd6bf886d09d611893e2beaeed1564fd9c2918233",
+      "actions": 7,
+      "native_assertions": 121,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 4,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse900-20261122.json",
+      "input_sha256": "9a73a1b18c1f051e15187723891fd5dd48784693a1724f42c51c6bd19995b8bb",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse900-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-glyph-overlay-red-four-live-sparse900-real-blue-cost-one-and-no-sigils-means-three-arcane-without-surge-healing",
+        "fixture_slug": "card-glyph-overlay-red-four-live-sparse900-real-blue-cost-one-and-no-sigils-means-three-arcane-without-surge-healing",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "reviewer": "Root independent of packet author",
+    "result": "approved_named_branches_only_pending_native_execution",
+    "spec_sha256": "9a73a1b18c1f051e15187723891fd5dd48784693a1724f42c51c6bd19995b8bb",
+    "evidence": [
+      "PrintedTimekeeperRed5arcane/cost3 ownturn conditionfalse, sourceGY notbottom. Blue6 pays3/R0, Deckrealretained; opponentturn replacement untested.",
+      "PrintedOpenFlood3arcane/cost2 thresholdstrictly>3 false, no2draws. Blue6 pays2/R1, existingDeck7/8 unchanged/Hand0, physicaltargetHealth17.",
+      "PrintedGlyphOverlay3+numberSigils, actualownArena0makesX0. Blue6 pays1/R2,3actualdamage andnoSurgeheal orSigilshuffle. Kano15nothealed; no positiveSigil/Surgecredit.",
+      "CanonicalexplicitPrepare handlers declarelegaladjacentHero4 targetbefore actualpayment/fourmanualresponses. Emptyinitialbuffs/resources/naturalHP/all4live. ExactsourceUID5/PitchUID6 andsentinelDeckUIDs, finalAP0/quietDQs. SourceonlyFlashBoltlate-target concern notexecuted."
+    ]
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse900-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "96e47958edc1891dc0ff94473c7a0f2ad810795340ef47ccaecd54b96598f83f"
+  },
+  "full_suite_run": false
+}

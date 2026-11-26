@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-singularity-red-four-live-sparse1208-real-six-paid-full-hero-weapon-four-evo-transform-and-soul",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-singularity-red-four-live-sparse1208-real-six-paid-full-hero-weapon-four-evo-transform-and-soul",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1208-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1208-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "44abc76da8ab68968ab412842e19b1d357f2a2f9e941ddc94852c4cf008827b2",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "07f45be77ce39fca83780c1a4f675cfc26c74a72006e043042f82f890b6221e3",
+        "actions.json": "a907406d774bb8334491a9a2f4fc1202e9fe451a7f49dab65e2cf96fdb62fb75",
+        "assertions.json": "b7a33f4a837d46b21bb77b1d27bb49da007290ea70de71361221ec65b774a51a",
+        "expected_final_gamestate.txt": "fe91f1321a4fbd6696f29f0c02b484fcb1caa8940a32f7a568c618c07b69ae18",
+        "meta.json": "2e4d3b9a5b2c37ebbd750985c7d69ec1984c317f6ce039c88500fd9d819f2fa9"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

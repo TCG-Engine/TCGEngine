@@ -1,0 +1,97 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-23T07:13:08.137729+00:00",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1108-20261122.json",
+  "source_spec_sha256": "63b78cfbb8bd4e5fd2a6177de73cb9c835ab9482c52fa74e6c8193fe4078617e",
+  "new_scenarios": 2,
+  "new_groups": 2,
+  "new_primary_ids": 2,
+  "actions": 11,
+  "native_assertions": 407,
+  "manual_passes": 8,
+  "totals": {
+    "saved_registered_scenarios": 4983,
+    "duels": 3075,
+    "four_live": 1908,
+    "recorded_primary_ids": 2131,
+    "identity_denominator": 5196,
+    "recorded_groups": 2005,
+    "group_denominator": 3324,
+    "four_live_groups": 1897,
+    "phase_qualified_scenarios_at_actual_contexts": 1620,
+    "phase_qualified_unique_groups": 1610,
+    "creation_replay_passes": 2362,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 781,
+  "scenarios": [
+    {
+      "card_id": "evo_battery_pack_yellow",
+      "group_id": "identity:evo_battery_pack_yellow",
+      "scenario_id": "card-evo-battery-pack-yellow-four-live-sparse1108-actual-matching-base-transform-retains-material-without-export-or-activation",
+      "effect_branches": [
+        "actual_matching_base_transform_retains_material_without_export_or_activation"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-evo-battery-pack-yellow-four-live-sparse1108-actual-matching-base-transform-retains-material-without-export-or-activation",
+      "source_spec": "card-regression-sparse1108-20261122.json",
+      "source_spec_sha256": "63b78cfbb8bd4e5fd2a6177de73cb9c835ab9482c52fa74e6c8193fe4078617e",
+      "review_evidence": "review-evidence/sparse1108-20261122-qualified-saved.json",
+      "review_evidence_sha256": "1756c41d4a596ab6c257d6955f666209a1beff0ab217a23d12c1d9def1a82a23",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1108-20261122-replay.json",
+          "sha256": "1e524ff681a629aeec2ec7559ac0e90cfb475485c97c3aa692ce35c3da48390a",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "evo_command_center_yellow",
+      "group_id": "identity:evo_command_center_yellow",
+      "scenario_id": "card-evo-command-center-yellow-four-live-sparse1108-actual-matching-base-transform-retains-material-without-export-or-activation",
+      "effect_branches": [
+        "actual_matching_base_transform_retains_material_without_export_or_activation"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-evo-command-center-yellow-four-live-sparse1108-actual-matching-base-transform-retains-material-without-export-or-activation",
+      "source_spec": "card-regression-sparse1108-20261122.json",
+      "source_spec_sha256": "63b78cfbb8bd4e5fd2a6177de73cb9c835ab9482c52fa74e6c8193fe4078617e",
+      "review_evidence": "review-evidence/sparse1108-20261122-qualified-saved.json",
+      "review_evidence_sha256": "1756c41d4a596ab6c257d6955f666209a1beff0ab217a23d12c1d9def1a82a23",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1108-20261122-replay.json",
+          "sha256": "1e524ff681a629aeec2ec7559ac0e90cfb475485c97c3aa692ce35c3da48390a",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

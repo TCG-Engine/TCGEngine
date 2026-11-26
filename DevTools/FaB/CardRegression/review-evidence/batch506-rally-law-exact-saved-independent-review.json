@@ -1,0 +1,572 @@
+{
+  "status": "APPROVED_ACTUAL_SAVED_B506_RALLY_DISCARD_DEFENSE_AND_LAW_TOWER",
+  "approved": true,
+  "source_approved": true,
+  "semantically_approved": true,
+  "reviewer": "/root/nov2_sparse_author",
+  "reviewer_independent": true,
+  "created_utc": "2026-11-05T19:22:22.782055+00:00",
+  "source_spec": "card-regression-batch506.json",
+  "input_sha256": "1a767fa5b6418238dce5aa2436a19972cafc3fdbcdf955277bc9b243d07f07e6",
+  "manifest_sha256": "6080b44029727ae87d7ff4be428b369d603564380d63b3b3b29e6b0ff5ff54f7",
+  "runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+  "recorded_runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+  "source_guards_verified": 69,
+  "prior_independent_source_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch506-independent-source-review.json",
+    "sha256": "ab153b533c09f1be20a17f846ee354525002de9c940870e77e7e134ee9c75b26",
+    "reused_not_reaudited": true
+  },
+  "recording_receipt": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch506-20261105T191845Z-6aecd6955625c.json",
+    "sha256": "9ee419fdfc488f4209046bfa39d383074683c02d3964efd3f3f5a062d199d2f2"
+  },
+  "recording_results": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch506.recording-results.json",
+    "sha256": "2260c96c4f133704a16e455ef5ec5099c8ddaa6dd58ac84f0f4cc8ec9fb7b68f"
+  },
+  "root_wrapper_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch506-native-r1-9e984\\receipt.json",
+    "sha256": "e6d5341e49c59f2dd28eeec5b6f0d21a686e66e37d9b74c3c0c76d138a5560b4"
+  },
+  "actual_comparison_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov5_batch506_saved_readonly.py",
+    "sha256": "1f2a74c94f6d73e2c92a3dc9b62b0c1418f6d6decff43b4e73d1118bc5acdf0e"
+  },
+  "fixtures": [
+    {
+      "index": 0,
+      "card_id": "rally_the_coast_guard_red",
+      "group_id": "pitch-cycle:rally_the_coast_guard",
+      "slug": "card-rally-the-coast-guard-red-four-live-real-defending-instant-discards-owned-card-and-prevents-three-of-seven-by-defense",
+      "source_spec": "card-regression-batch506.json",
+      "input_sha256": "1a767fa5b6418238dce5aa2436a19972cafc3fdbcdf955277bc9b243d07f07e6",
+      "reviewer": "/root/nov2_sparse_author",
+      "approved": true,
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_B506_SELECTED_FOUR_LIVE_REPRESENTATIVE",
+      "runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+      "recorded_runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+      "fixture_path": "Tests\\Integration\\FaBSim\\card-rally-the-coast-guard-red-four-live-real-defending-instant-discards-owned-card-and-prevents-three-of-seven-by-defense",
+      "fixture_sha256": "5dafdedd4d80e0e1b7d916c2ef641b4c63897637598ff0e5f1eaa003c57d9907",
+      "raw4_sha256": {
+        "initial_gamestate.txt": "6b11dc630f74de53a41c91fd38c4c1c3c2d2b2a660c06babfa8217fff81f3b7b",
+        "actions.json": "0563c3372e577b5ba5c01103a83b9a2791d05e10ce9c22c547fb83ca2f58629d",
+        "assertions.json": "0b23db023994d845ab1db873460248071af1d8fde64587c75b91d1ff2e789d79",
+        "expected_final_gamestate.txt": "60f257669d20c48cd6143e5855c99da82ba763d237e19033fe8751e798b5e8c5"
+      },
+      "raw5_sha256": {
+        "initial_gamestate.txt": "6b11dc630f74de53a41c91fd38c4c1c3c2d2b2a660c06babfa8217fff81f3b7b",
+        "actions.json": "0563c3372e577b5ba5c01103a83b9a2791d05e10ce9c22c547fb83ca2f58629d",
+        "assertions.json": "0b23db023994d845ab1db873460248071af1d8fde64587c75b91d1ff2e789d79",
+        "expected_final_gamestate.txt": "60f257669d20c48cd6143e5855c99da82ba763d237e19033fe8751e798b5e8c5",
+        "meta.json": "94c7bb81b447fb20a7773b1aee1c5792474a17eddaa55d2289517a966f10baa4"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "6b11dc630f74de53a41c91fd38c4c1c3c2d2b2a660c06babfa8217fff81f3b7b",
+        "actions.json": "0563c3372e577b5ba5c01103a83b9a2791d05e10ce9c22c547fb83ca2f58629d",
+        "assertions.json": "0b23db023994d845ab1db873460248071af1d8fde64587c75b91d1ff2e789d79",
+        "expected_final_gamestate.txt": "60f257669d20c48cd6143e5855c99da82ba763d237e19033fe8751e798b5e8c5",
+        "meta.json": "94c7bb81b447fb20a7773b1aee1c5792474a17eddaa55d2289517a966f10baa4"
+      },
+      "actions": 38,
+      "native_assertions": 3400,
+      "actual_manual_passes": 32,
+      "actual_priority_response_passes": 31,
+      "actual_defender_declaration_finish_inputs": 1,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4
+      ],
+      "actual_manual_actor_counts": {
+        "1": 8,
+        "2": 8,
+        "3": 8,
+        "4": 8
+      },
+      "schema_property_assertions": 1119,
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "all_actions_and_assertions_exact": true,
+      "no_recorder_only_assertions": true,
+      "all_endpoint_physical_uid_card_zones_ownership_verified": true,
+      "all_terminal_assertions_evaluated_against_parsed_final_snapshot": true,
+      "initial_assertions_evaluated_against_parsed_initial_snapshot": true,
+      "endpoint_assertion_counts": {
+        "0": 127,
+        "38": 206
+      },
+      "initial_physical_uid_locations": {
+        "1": {
+          "card_id": "dorinthea",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "6": {
+          "card_id": "raging_onslaught_red",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2
+        },
+        "5": {
+          "card_id": "rally_the_coast_guard_red",
+          "zone": "p4Hand",
+          "owner": 4,
+          "controller": 4
+        },
+        "8": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p4Hand",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_physical_uid_locations": {
+        "1": {
+          "card_id": "dorinthea",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "6": {
+          "card_id": "raging_onslaught_red",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Pitch",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2
+        },
+        "8": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p4Graveyard",
+          "owner": 4,
+          "controller": 4
+        },
+        "5": {
+          "card_id": "rally_the_coast_guard_red",
+          "zone": "p4Graveyard",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_health": [
+        20,
+        20,
+        20,
+        18
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_Chi": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_UniqueIDCounter": 9,
+      "final_RandomCounter": 0,
+      "actual_primary_damage": 2,
+      "actual_current_damage_step_defense": 5,
+      "checkpoint_assertion_mapping_sha256": "8d02d5bb2200a9a9a15b2558eefe352d2c42ea266984bb82a445d45fa7be7311",
+      "native_action_mapping_sha256": "5e773976cd24ecd8b12a9c56ead3f36bd584463e86e9d58d0cd285ff52a040db",
+      "native_assertion_mapping_sha256": "ecaa527e8137953e6fcf9ddbd1ae4e281a18e85dbeccb728dd5c4b46c1cde725",
+      "actual_discard_cost_UID": 8,
+      "actual_captured_physical_source_UID": 5,
+      "actual_captured_controller": 4,
+      "sole_allocated_ability_UID": 9,
+      "actual_resolving_turn_effect": "WTR_DEFENSE:3",
+      "actual_ability_response_actors": [
+        4,
+        1,
+        2,
+        3
+      ],
+      "first_three_ability_responses_no_defense_buff": true,
+      "final_ABI9_absent": true,
+      "final_GY1_UIDs": [
+        6
+      ],
+      "final_GY4_UIDs": [
+        8,
+        5
+      ],
+      "final_Pitch1_UIDs": [
+        7
+      ]
+    },
+    {
+      "index": 1,
+      "card_id": "lay_down_the_law_red",
+      "group_id": "identity:lay_down_the_law_red",
+      "slug": "card-lay-down-the-law-red-four-live-real-paid-sloggism-earns-thirteen-power-tower-and-reduces-non-equipment-defense",
+      "source_spec": "card-regression-batch506.json",
+      "input_sha256": "1a767fa5b6418238dce5aa2436a19972cafc3fdbcdf955277bc9b243d07f07e6",
+      "reviewer": "/root/nov2_sparse_author",
+      "approved": true,
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_B506_SELECTED_FOUR_LIVE_REPRESENTATIVE",
+      "runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+      "recorded_runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+      "fixture_path": "Tests\\Integration\\FaBSim\\card-lay-down-the-law-red-four-live-real-paid-sloggism-earns-thirteen-power-tower-and-reduces-non-equipment-defense",
+      "fixture_sha256": "855adcb1691dcd785e43a5a7781370c0bea49ea30a86d9092cf8e487ca7bcced",
+      "raw4_sha256": {
+        "initial_gamestate.txt": "4ebdfedb994d64ffb76eed75110a7294810e811ef1300ef6a0a236892df4dafb",
+        "actions.json": "7b6c87f81e77338f64e11fd71f9635bf4fe6632b034ceeff5e55516adbde2a4e",
+        "assertions.json": "1dc704d17146fc105d02b6c7f9643339f47dfaf052ee23f0c77825a007ba706e",
+        "expected_final_gamestate.txt": "c65f21515f3bdc3cf069c43d8f45eb8de47af542597da2fc1fc9ea94665df67a"
+      },
+      "raw5_sha256": {
+        "initial_gamestate.txt": "4ebdfedb994d64ffb76eed75110a7294810e811ef1300ef6a0a236892df4dafb",
+        "actions.json": "7b6c87f81e77338f64e11fd71f9635bf4fe6632b034ceeff5e55516adbde2a4e",
+        "assertions.json": "1dc704d17146fc105d02b6c7f9643339f47dfaf052ee23f0c77825a007ba706e",
+        "expected_final_gamestate.txt": "c65f21515f3bdc3cf069c43d8f45eb8de47af542597da2fc1fc9ea94665df67a",
+        "meta.json": "b622e9f2fb6fe5e7179449760acfa227080e18504f4bb36ecc3157235e212c4e"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "4ebdfedb994d64ffb76eed75110a7294810e811ef1300ef6a0a236892df4dafb",
+        "actions.json": "7b6c87f81e77338f64e11fd71f9635bf4fe6632b034ceeff5e55516adbde2a4e",
+        "assertions.json": "1dc704d17146fc105d02b6c7f9643339f47dfaf052ee23f0c77825a007ba706e",
+        "expected_final_gamestate.txt": "c65f21515f3bdc3cf069c43d8f45eb8de47af542597da2fc1fc9ea94665df67a",
+        "meta.json": "b622e9f2fb6fe5e7179449760acfa227080e18504f4bb36ecc3157235e212c4e"
+      },
+      "actions": 35,
+      "native_assertions": 3185,
+      "actual_manual_passes": 29,
+      "actual_priority_response_passes": 28,
+      "actual_defender_declaration_finish_inputs": 1,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4
+      ],
+      "actual_manual_actor_counts": {
+        "1": 7,
+        "2": 7,
+        "3": 7,
+        "4": 8
+      },
+      "schema_property_assertions": 1104,
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "all_actions_and_assertions_exact": true,
+      "no_recorder_only_assertions": true,
+      "all_endpoint_physical_uid_card_zones_ownership_verified": true,
+      "all_terminal_assertions_evaluated_against_parsed_final_snapshot": true,
+      "initial_assertions_evaluated_against_parsed_initial_snapshot": true,
+      "endpoint_assertion_counts": {
+        "0": 131,
+        "35": 214
+      },
+      "initial_physical_uid_locations": {
+        "1": {
+          "card_id": "bravo",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "5": {
+          "card_id": "lay_down_the_law_red",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "sloggism_red",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "8": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2
+        },
+        "9": {
+          "card_id": "driving_blade_blue",
+          "zone": "p4Hand",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_physical_uid_locations": {
+        "1": {
+          "card_id": "bravo",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "6": {
+          "card_id": "sloggism_red",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "lay_down_the_law_red",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Pitch",
+          "owner": 1,
+          "controller": 1
+        },
+        "8": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Pitch",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2
+        },
+        "9": {
+          "card_id": "driving_blade_blue",
+          "zone": "p4Graveyard",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_health": [
+        20,
+        20,
+        20,
+        9
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_Chi": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_UniqueIDCounter": 9,
+      "final_RandomCounter": 0,
+      "actual_primary_damage": 11,
+      "actual_current_damage_step_defense": 2,
+      "checkpoint_assertion_mapping_sha256": "2bf21de67c98c097a1b290de41f5f0b7a79d0bc5d3bd56114d462f1d9007f7a8",
+      "native_action_mapping_sha256": "d8cb6bf3028dee51153ec3c009c2f2435e75f11d551608dd75d99a00511ea997",
+      "native_assertion_mapping_sha256": "78f74a10c09be1bd71de2e0950161ff9b6ff38b8f9dd814ec31ba61c9b4cb96b",
+      "actual_Sloggism_UID": 6,
+      "actual_Sloggism_GA_earned_AP": 1,
+      "actual_primary_power": 13,
+      "actual_nonEquipment_defender_UID": 9,
+      "actual_Tower_defense_modifier": -1,
+      "final_GY1_UIDs": [
+        6,
+        5
+      ],
+      "final_GY4_UIDs": [
+        9
+      ],
+      "final_Pitch1_UIDs": [
+        7,
+        8
+      ]
+    }
+  ],
+  "blocked_attempts": [],
+  "total_actions": 73,
+  "total_native_assertions": 6585,
+  "total_manual_passes": 61,
+  "total_priority_response_passes": 59,
+  "total_defender_declaration_finish_inputs": 2,
+  "total_schema_property_assertions": 2223,
+  "material_findings": [
+    "Ownraw10/all73actions6585orderedchecks61manual/Rally8each-Law7,7,7,8/2223props/current69guards match exact reviewedsource. Initialandfinalraw48manualpreferences/percase andall originalphysicalUIDs/ownership/economy/quietreadyHeroes verified.",
+    "RallyactualRaging6Blue7cost3/RAP0/sourcefourbase7noGA, actualsameRally5Handdefends DEF2. LegalP4Instantclick exposesmandatoryownedBlue8MZCHOOSE; actualanswerdiscards8 toownGY andmarksARC_USED_0=2 beforefreshresponse4,1,2,3. CapturedCardID/source5/controller4 heldonStack/emptyTurnEffects throughfirst3; onlyfourthStack0 and WTR_DEFENSE3. ActualDamageDEF5/2physical/P4HP18. FullcloseGY1{6}/GY4ordered8,5/Pitch7/RAP0/counter9/virtualABIceased.",
+    "LawactualSloggism6printed3/Blue7cost3/AP0; freshfourresolvesownGAAP1, thenactualLaw5P4target/printed3/Blue8cost3/AP0. Sourcefourfresh13power/noGA. ActualDrivingBlue9nonEquipmentDEF3defends, continuousTowergivescurrentDamageDEF2; actual11physical/P4HP9. FullcloseGY1ordered6,5/GY4{9}/Pitch7,8/RAP0/counter9. No earnedHero weaponhit trigger in eithercase."
+  ],
+  "evidence_precision": "Intermediate facts are completed persistednativeoracles, not invented per-inputrawsnapshots. Rally Stack controller/source/CardID/Kind and soleallocationcounter9 are directlyqueried; actualfinalcallbackcache identifiesABI9. IntermediateStack.UniqueID itself is not separatelyqueried. DamageStep defenseValue is a cache evaluatedatdamage alongsidefreshpower/physicalHealth; notclaimed as a fresh preDamage defensegetter. Opaqueundo/history/cache fields are rawhash-bound, not counted as currentphysicalcards or pendingwork.",
+  "limits": [
+    "RallyonepositiveactivateddefendingInstant/discardcost/+3DEFonly; no ordinaryHandAAprinted3payment/secondactivation/rejection/expiry/foreigncontrol/suppression/othercost/defender scenarios.",
+    "Lawonepositive13power/one nonEquipmentdefender only; no12threshold/equipmentexemption/otherbuffs/defendercounts/Bravoactivation. No support-primary/heroes/siblings/fullcard/extra branch certification.",
+    "NoPHP/native/replay/R/sourcefix/gen/service/fullsuite/git/remote/deniedretry byreviewer. Roottwofocusedreplays/registrationseparate."
+  ],
+  "blockers": [],
+  "native_executed_by_reviewer": false,
+  "repository_writes": false,
+  "source_changes": false
+}

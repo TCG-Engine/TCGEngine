@@ -1,0 +1,73 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-03T18:17:13.303965+00:00",
+  "runtime_sha256": "c90ad7d34900eb8cbcfccd8c5e0c3a45f7f9ba7a6cbaabf97328e00033dc51d3",
+  "source_spec": "card-regression-batch360.json",
+  "source_spec_sha256": "786bb28601b980b61441808b6c580b6278ec3f724d056496016748a891687644",
+  "new_scenarios": 1,
+  "new_groups": 1,
+  "new_primary_ids": 1,
+  "actions": 32,
+  "native_assertions": 2724,
+  "manual_passes": 29,
+  "totals": {
+    "saved_registered_scenarios": 3649,
+    "duels": 3074,
+    "four_live": 575,
+    "recorded_primary_ids": 803,
+    "identity_denominator": 5196,
+    "recorded_groups": 677,
+    "group_denominator": 3324,
+    "four_live_groups": 568,
+    "phase_qualified_scenarios_at_actual_contexts": 286,
+    "phase_qualified_unique_groups": 281,
+    "creation_replay_passes": 572,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 9,
+  "scenarios": [
+    {
+      "card_id": "mutiny_on_the_swiftwater_blue",
+      "group_id": "identity:mutiny_on_the_swiftwater_blue",
+      "scenario_id": "card-mutiny-on-the-swiftwater-blue-four-live-sparse-real-gold-theft-earns-next-attack-go-again",
+      "effect_branches": [
+        "mutiny-on-the-swiftwater-blue-four-live-sparse-real-gold-theft-earns-next-attack-go-again"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-mutiny-on-the-swiftwater-blue-four-live-sparse-real-gold-theft-earns-next-attack-go-again",
+      "source_spec": "card-regression-batch360.json",
+      "source_spec_sha256": "786bb28601b980b61441808b6c580b6278ec3f724d056496016748a891687644",
+      "review_evidence": "review-evidence/b360-saved-c90a-independent-review.json",
+      "review_evidence_sha256": "d0389c7f1008f7d1ae1b88f180d4293a4e4a57672587d5d9edf342944065e992",
+      "recorded_runtime_sha256": "c90ad7d34900eb8cbcfccd8c5e0c3a45f7f9ba7a6cbaabf97328e00033dc51d3",
+      "qualification_runtime_sha256": "c90ad7d34900eb8cbcfccd8c5e0c3a45f7f9ba7a6cbaabf97328e00033dc51d3",
+      "matches_current_runtime": true,
+      "two_clean_replays": [
+        {
+          "path": "card-regression-replay-nov3-b360-c90a-r1.json",
+          "sha256": "1c54416417eca9009dbe607f130b976740ad86a8c00b834ddcf9e350b30422eb",
+          "runtime_sha256": "c90ad7d34900eb8cbcfccd8c5e0c3a45f7f9ba7a6cbaabf97328e00033dc51d3",
+          "passed": true
+        },
+        {
+          "path": "card-regression-replay-nov3-b360-c90a-r2.json",
+          "sha256": "b6655fa3fc58c79d348a51ee85fdc22879c60930a9a0c5777f3e921e93ed8298",
+          "runtime_sha256": "c90ad7d34900eb8cbcfccd8c5e0c3a45f7f9ba7a6cbaabf97328e00033dc51d3",
+          "passed": true
+        }
+      ],
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

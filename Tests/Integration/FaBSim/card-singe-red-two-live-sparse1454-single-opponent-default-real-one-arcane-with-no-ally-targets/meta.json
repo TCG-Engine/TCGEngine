@@ -1,0 +1,7 @@
+{
+    "name": "Singe / actual one arcane, sole-opponent default and no available ally targets",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-25T01:14:46+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Two manualadultOscilio36/Dori40 noAllyorprevention. RealSinge3Handcost1 paidactualBaubleBlue4pitch3\u2192R2/AP0; bothresponsesholdsource3Stack/noearlydamage. PublishedTRP5.14defaultsdamageHero2atannouncement; laternativeHeroUI repeats2withnonewinformation, noearlybinding/UPFclaim. OpposingArenaemptyso0legaloptionalAllytargets. Actual1arcaneHP2=39not40/38, source3GY/AP0/R2/Blue4Pitch/realWoundingRed5Hand; actualfollowupclickrejectsAP0. FullStackDQawaitquiet/noRNG/newUID/allsourcefates. NoAllymulti-target/prevention/targetlifecycle/pitchsiblings/supportcredit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#singe_red FaBSim/GeneratedCode/GeneratedMacroCode.php#singe_red FaBSim/Custom/ARCCards.php FaBSim/Custom/GameLogic.php https://rules.fabtcg.com/en/trp/05-gameplay-logistics/"
+}

@@ -1,0 +1,7 @@
+{
+    "name": "Golden Company / sparse four-live defense-reaction representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-23T00:43:12+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "You may destroy a Gold you control rather than pay this card's {r} cost. Named partial branch: normal_resource_payment_without_gold_six_defense_one_damage. Real defender4 dorinthea natural20, owned source5 plays in actual Reaction. Printed cost2 paid by actual Blue6 if positive (residue1/AP0); no seeded resources or defense. Actual Generic Raging7/Blue8 paid3, no normal blocks. Four actual DR responses4,1,2,3 resolve same source5 as DEFENSE_REACTION, fresh1,2,3,4 yields persisted defenseValue6/damage1/HP19; source5/attack7 finish respective owned graveyards, attackerNAA9 retained. No author-only defense/can_play/can_activate diagnostics; persisted state/HP/card/role/fate/cost checks only. No Gold exists; real normal resource2 cost is paid. Existing FAB-REG-115 positive Gold-instead-of-resource protocol remains open/unattempted and receives no repair or closure credit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#golden_company_red"
+}

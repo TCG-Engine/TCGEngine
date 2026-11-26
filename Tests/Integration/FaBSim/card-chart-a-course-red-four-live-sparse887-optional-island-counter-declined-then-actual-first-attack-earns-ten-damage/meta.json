@@ -1,0 +1,7 @@
+{
+    "name": "Chart a Course / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T16:55:35+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Your first attack this turn gets +3{p}.\n\nYou may put a gold counter on Treasure Island.\n\n**Go again** Representative only: optional_island_counter_declined_then_actual_first_attack_earns_ten_damage. Other pitch siblings, alternate targets and unexercised branches receive no credit. All four live/manual; only native entry-point actions. Sources: FaBSim/GeneratedCode/cardArrayCache.json#chart_a_course_red"
+}

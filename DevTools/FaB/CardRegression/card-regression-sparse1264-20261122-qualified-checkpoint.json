@@ -1,0 +1,97 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-24T00:10:48.163881+00:00",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1264-20261122.json",
+  "source_spec_sha256": "1cf17f26301ceb629fcc5eeb87ba056faeb54024f0a49360aad0613f4a553912",
+  "new_scenarios": 2,
+  "new_groups": 2,
+  "new_primary_ids": 2,
+  "actions": 9,
+  "native_assertions": 368,
+  "manual_passes": 4,
+  "totals": {
+    "saved_registered_scenarios": 5170,
+    "duels": 3080,
+    "four_live": 2090,
+    "recorded_primary_ids": 2318,
+    "identity_denominator": 5196,
+    "recorded_groups": 2192,
+    "group_denominator": 3324,
+    "four_live_groups": 2079,
+    "phase_qualified_scenarios_at_actual_contexts": 1807,
+    "phase_qualified_unique_groups": 1797,
+    "creation_replay_passes": 2549,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 968,
+  "scenarios": [
+    {
+      "card_id": "prism_sculptor_of_arc_light",
+      "group_id": "identity:prism_sculptor_of_arc_light",
+      "scenario_id": "card-prism-sculptor-of-arc-light-two-live-sparse1264-real-resource-payment-and-soul-banish-cost-precede-owned-shield",
+      "effect_branches": [
+        "adult_duel_actual_instant_two_resource_and_soul_banish_costs_before_both_responses_then_create_owned_shield"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-prism-sculptor-of-arc-light-two-live-sparse1264-real-resource-payment-and-soul-banish-cost-precede-owned-shield",
+      "source_spec": "card-regression-sparse1264-20261122.json",
+      "source_spec_sha256": "1cf17f26301ceb629fcc5eeb87ba056faeb54024f0a49360aad0613f4a553912",
+      "review_evidence": "review-evidence/sparse1264-20261122-qualified-saved.json",
+      "review_evidence_sha256": "636ad639fc99c8bfdd8de20a79c9d3bde2c119445be5f661551e11f3bed9f14d",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1264-20261122-replay.json",
+          "sha256": "d3462ca053b00c119f32ff96098b41dfb2d3c62f92b8e5a5c115906ed36f1786",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "two_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "oscilio_constella_intelligence",
+      "group_id": "identity:oscilio_constella_intelligence",
+      "scenario_id": "card-oscilio-constella-intelligence-two-live-sparse1264-real-instant-discard-cost-precedes-physical-top-card-draw",
+      "effect_branches": [
+        "adult_duel_actual_instant_discard_cost_before_both_responses_then_draw_actual_top_card_without_healing"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-oscilio-constella-intelligence-two-live-sparse1264-real-instant-discard-cost-precedes-physical-top-card-draw",
+      "source_spec": "card-regression-sparse1264-20261122.json",
+      "source_spec_sha256": "1cf17f26301ceb629fcc5eeb87ba056faeb54024f0a49360aad0613f4a553912",
+      "review_evidence": "review-evidence/sparse1264-20261122-qualified-saved.json",
+      "review_evidence_sha256": "636ad639fc99c8bfdd8de20a79c9d3bde2c119445be5f661551e11f3bed9f14d",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1264-20261122-replay.json",
+          "sha256": "d3462ca053b00c119f32ff96098b41dfb2d3c62f92b8e5a5c115906ed36f1786",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "two_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

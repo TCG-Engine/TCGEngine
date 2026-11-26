@@ -1,0 +1,7 @@
+{
+    "name": "Phantasmal Footsteps / actual nonmatching Item destruction",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-24T15:06:33+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "FOUR_REAL_MANUAL_UPF_PRISM20_THREEDORI20. Reuses1377actualHealingPotion5Action0DESTROYcost(AP1to0)\u2192ownGYbeforeABI8SourceArena5,all4responses\u2192realheal2HP22+printedGAAP1. Primary7Equipmentvalidpriorasset/ready/countersempty, floatingR1affordabilitycontrol(noresourceorigincredit). ActualdestroyedobjectisgenericnonTokenItem5, so no pay-one choice or extra action: Item is not an Illusionist attack action. NoearnedprimaryWHEN/layer/choice/reward/onceuse despiteallresourcesavailable. ActualWounding6HandAA0toadjacent4/all4manualcombat/base4/noGA/real4damageP4HP16/fullclose/AP0/R1; primary7sameownedready/countersempty,5GY0/6GY1/UID8RNG0/noShield/StackDQquiet. SourceAAisnotIllusionistandnormalchainclosemovementisnotdestroy, andnoincomingdamage/primaryEquipmentdefense. Onlynamedfalse-destructionfilter/nativePotioncost/heal/GA/attack. PositiveeligibleWHEN/timing/once/payment/Ward/defend/support/provenance/fullcard/pitchesuncredited. Noenginechange. Sources: FaBSim/GeneratedCode/cardArrayCache.json#phantasmal_footsteps FaBSim/GeneratedCode/GeneratedMacroCode.php FaBSim/Custom/GameLogic.php FaBSim/Custom/EVRCards.php FaBSim/Custom/DYNRuntime.php FaBSim/Custom/MONCards.php FaBSim/Custom/ARCAbilities.php FaBSim/Custom/EVRAbilities.php FaBSim/Custom/WTRCards.php"
+}

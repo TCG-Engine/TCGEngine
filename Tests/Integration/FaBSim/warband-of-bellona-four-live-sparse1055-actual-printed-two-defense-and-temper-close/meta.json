@@ -1,0 +1,7 @@
+{
+    "name": "Warband of Bellona / four-live actual defense and Temper",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-23T05:11:33+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "**Action** - {r}{r}, destroy this: The next time you attack this turn, you may **charge** your hero's soul. If a yellow card is **charged** this way, draw a card. **Go again**\n\n**Temper** NamedordinaryDEF2/TempernormalCloseonly. Legalnatural20boltyn ownspreexistingEquipment5andGenericLeadCharge6DEF2. NativeRhinar20usesClub7power4/realBlue8pay2/R1/AP0; allfourmanualsource+combat, actualEq5thenHand6RoleDEFENSE/DEF4/0damage/noHit/HP20. AtClose primary5retainedownedEquipmentwithDEFENSE1/current1>0, Hand6ownedGY4/weapon7used/Blue8Pitch. Noactivation/BeatChest/sharpen/charge/Boost/Goldcreation/Clash/Wager/die/otherbodyevent, nofullkeyword/futurephase/hero/support/fullcardcredit. Existingholdsnotrepairedorrequalified. Sources: FaBSim/GeneratedCode/cardArrayCache.json#warband_of_bellona"
+}

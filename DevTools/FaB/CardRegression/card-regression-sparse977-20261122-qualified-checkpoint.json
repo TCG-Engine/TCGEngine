@@ -1,0 +1,184 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-22T22:21:03.452002+00:00",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse977-20261122.json",
+  "source_spec_sha256": "486c8c64b800ebe76c6dfa4c249cae6f791ea7233b61735ff0b32bd8eb591252",
+  "new_scenarios": 5,
+  "new_groups": 5,
+  "new_primary_ids": 5,
+  "actions": 145,
+  "native_assertions": 842,
+  "manual_passes": 125,
+  "totals": {
+    "saved_registered_scenarios": 4651,
+    "duels": 3075,
+    "four_live": 1576,
+    "recorded_primary_ids": 1799,
+    "identity_denominator": 5196,
+    "recorded_groups": 1673,
+    "group_denominator": 3324,
+    "four_live_groups": 1565,
+    "phase_qualified_scenarios_at_actual_contexts": 1288,
+    "phase_qualified_unique_groups": 1278,
+    "creation_replay_passes": 2030,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 449,
+  "scenarios": [
+    {
+      "card_id": "entangle_red",
+      "group_id": "pitch-cycle:entangle",
+      "scenario_id": "card-entangle-red-four-live-sparse977-actual-unfused-seven-without-earth-reveal",
+      "effect_branches": [
+        "actual_unfused_seven_without_earth_reveal"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-entangle-red-four-live-sparse977-actual-unfused-seven-without-earth-reveal",
+      "source_spec": "card-regression-sparse977-20261122.json",
+      "source_spec_sha256": "486c8c64b800ebe76c6dfa4c249cae6f791ea7233b61735ff0b32bd8eb591252",
+      "review_evidence": "review-evidence/sparse977-20261122-qualified-saved.json",
+      "review_evidence_sha256": "38ca5c5117c82b8173f5b5cee8a8ba0d3112a107a807c333b55c6010b89b3ba7",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse977-20261122-replay.json",
+          "sha256": "2ba0f9321c9b73c9c6e9ac1b1449f1225eda65df44b85c48cc85a8b55b0a62a3",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "oaken_old_red",
+      "group_id": "identity:oaken_old_red",
+      "scenario_id": "card-oaken-old-red-four-live-sparse977-actual-unfused-base-seven-retains-real-hand-and-deck",
+      "effect_branches": [
+        "actual_unfused_base_seven_retains_real_hand_and_deck"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-oaken-old-red-four-live-sparse977-actual-unfused-base-seven-retains-real-hand-and-deck",
+      "source_spec": "card-regression-sparse977-20261122.json",
+      "source_spec_sha256": "486c8c64b800ebe76c6dfa4c249cae6f791ea7233b61735ff0b32bd8eb591252",
+      "review_evidence": "review-evidence/sparse977-20261122-qualified-saved.json",
+      "review_evidence_sha256": "38ca5c5117c82b8173f5b5cee8a8ba0d3112a107a807c333b55c6010b89b3ba7",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse977-20261122-replay.json",
+          "sha256": "2ba0f9321c9b73c9c6e9ac1b1449f1225eda65df44b85c48cc85a8b55b0a62a3",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "snow_under_red",
+      "group_id": "pitch-cycle:snow_under",
+      "scenario_id": "card-snow-under-red-four-live-sparse977-actual-unfused-seven-creates-no-frostbite",
+      "effect_branches": [
+        "actual_unfused_seven_creates_no_frostbite"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-snow-under-red-four-live-sparse977-actual-unfused-seven-creates-no-frostbite",
+      "source_spec": "card-regression-sparse977-20261122.json",
+      "source_spec_sha256": "486c8c64b800ebe76c6dfa4c249cae6f791ea7233b61735ff0b32bd8eb591252",
+      "review_evidence": "review-evidence/sparse977-20261122-qualified-saved.json",
+      "review_evidence_sha256": "38ca5c5117c82b8173f5b5cee8a8ba0d3112a107a807c333b55c6010b89b3ba7",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse977-20261122-replay.json",
+          "sha256": "2ba0f9321c9b73c9c6e9ac1b1449f1225eda65df44b85c48cc85a8b55b0a62a3",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "mulch_red",
+      "group_id": "pitch-cycle:mulch",
+      "scenario_id": "card-mulch-red-four-live-sparse977-actual-unfused-eight-retains-real-arsenal",
+      "effect_branches": [
+        "actual_unfused_eight_retains_real_arsenal"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-mulch-red-four-live-sparse977-actual-unfused-eight-retains-real-arsenal",
+      "source_spec": "card-regression-sparse977-20261122.json",
+      "source_spec_sha256": "486c8c64b800ebe76c6dfa4c249cae6f791ea7233b61735ff0b32bd8eb591252",
+      "review_evidence": "review-evidence/sparse977-20261122-qualified-saved.json",
+      "review_evidence_sha256": "38ca5c5117c82b8173f5b5cee8a8ba0d3112a107a807c333b55c6010b89b3ba7",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse977-20261122-replay.json",
+          "sha256": "2ba0f9321c9b73c9c6e9ac1b1449f1225eda65df44b85c48cc85a8b55b0a62a3",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "endless_winter_red",
+      "group_id": "identity:endless_winter_red",
+      "scenario_id": "card-endless-winter-red-four-live-sparse977-actual-unfused-hand-defenses-create-no-frostbite",
+      "effect_branches": [
+        "actual_unfused_hand_defenses_create_no_frostbite"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-endless-winter-red-four-live-sparse977-actual-unfused-hand-defenses-create-no-frostbite",
+      "source_spec": "card-regression-sparse977-20261122.json",
+      "source_spec_sha256": "486c8c64b800ebe76c6dfa4c249cae6f791ea7233b61735ff0b32bd8eb591252",
+      "review_evidence": "review-evidence/sparse977-20261122-qualified-saved.json",
+      "review_evidence_sha256": "38ca5c5117c82b8173f5b5cee8a8ba0d3112a107a807c333b55c6010b89b3ba7",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse977-20261122-replay.json",
+          "sha256": "2ba0f9321c9b73c9c6e9ac1b1449f1225eda65df44b85c48cc85a8b55b0a62a3",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

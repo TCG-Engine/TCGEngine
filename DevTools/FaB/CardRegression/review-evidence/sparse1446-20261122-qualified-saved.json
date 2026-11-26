@@ -1,0 +1,231 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "independent breadth_review1252",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1446-20261122.json",
+  "source_spec_sha256": "87e5559f209cce5c24e7a4a43656f55f8beac0a6776d05601f2e809110782ca1",
+  "input_sha256": "87e5559f209cce5c24e7a4a43656f55f8beac0a6776d05601f2e809110782ca1",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-blood-runs-deep-red-four-live-sparse1446-real-draconic-chain-link-reduces-actual-pitched-cost-paid-attack-prefix",
+      "card_id": "blood_runs_deep_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "4d3bd34aad21d6cd1ed741444258e28e514a7382da6502dce496e9b3efdda56a",
+        "actions.json": "4e92697d05e118f20c6d8afd9be7b1365107defb32dbc19fea5fdcc22ac48d26",
+        "assertions.json": "d22aede7ebc2960cb149ead56beb13ad9ccbb77f65d982f34722c338e7921b37",
+        "expected_final_gamestate.txt": "32189c5a7b3f783a0ee04a1951b52bb693ce92ba3073ed97462e191f5b21e8ed",
+        "meta.json": "9426c5b23e2d09482563d8221bf6fd5e3487bf0dafcdce1ca97fa68463744507"
+      },
+      "fixture_sha256": "7119216fabbad18d6296a1f72462a67ba039bab3d16b6a5d3f5980e707d011f6",
+      "actions": 25,
+      "native_assertions": 304,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 21,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1446-20261122.json",
+      "input_sha256": "87e5559f209cce5c24e7a4a43656f55f8beac0a6776d05601f2e809110782ca1",
+      "coverage_endpoint": "DRACONIC_LINK_DISCOUNT_PAID_PREFIX",
+      "covered_abilities": [
+        "Actual owned Draconic chain link reduces real paid cost"
+      ],
+      "prefix_limits": [
+        "No primary attack resolution, dagger WHEN effects, primary physical damage, primary go again or pitch-sibling credit"
+      ],
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1446-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-blood-runs-deep-red-four-live-sparse1446-real-draconic-chain-link-reduces-actual-pitched-cost-paid-attack-prefix",
+        "fixture_slug": "card-blood-runs-deep-red-four-live-sparse1446-real-draconic-chain-link-reduces-actual-pitched-cost-paid-attack-prefix",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-wrath-of-retribution-red-four-live-sparse1446-real-draconic-chain-link-reduces-actual-pitched-cost-paid-attack-prefix",
+      "card_id": "wrath_of_retribution_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "e60c721ab903882000e1d7bd1481f001ad7f3d114eec319cebe732a0dbff2a6c",
+        "actions.json": "4e92697d05e118f20c6d8afd9be7b1365107defb32dbc19fea5fdcc22ac48d26",
+        "assertions.json": "642c30e81305bd90958eec0c8d8649f385f724bb07b273099ed18e50adfb9bf9",
+        "expected_final_gamestate.txt": "e0128c0cd085ec6585f709737956a831f5485862e7bd858a38ab8f3898379ca1",
+        "meta.json": "495eeac4869c34886f16ad4fcde0ad5ffa38afaba41115e6aff954925c5ffc57"
+      },
+      "fixture_sha256": "47e8fd31dbe8215d5c0165d93b147d2e7f3d6e284d1bca67b9b7c5ca16179687",
+      "actions": 25,
+      "native_assertions": 304,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 21,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1446-20261122.json",
+      "input_sha256": "87e5559f209cce5c24e7a4a43656f55f8beac0a6776d05601f2e809110782ca1",
+      "coverage_endpoint": "DRACONIC_LINK_DISCOUNT_PAID_PREFIX",
+      "covered_abilities": [
+        "Actual owned Draconic chain link reduces real paid cost"
+      ],
+      "prefix_limits": [
+        "No primary attack resolution, dagger WHEN effects, primary physical damage, primary go again or pitch-sibling credit"
+      ],
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1446-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-wrath-of-retribution-red-four-live-sparse1446-real-draconic-chain-link-reduces-actual-pitched-cost-paid-attack-prefix",
+        "fixture_slug": "card-wrath-of-retribution-red-four-live-sparse1446-real-draconic-chain-link-reduces-actual-pitched-cost-paid-attack-prefix",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "reviewer": "independent breadth_review1252",
+    "spec_sha256": "87e5559f209cce5c24e7a4a43656f55f8beac0a6776d05601f2e809110782ca1",
+    "source_note_sha256": "e8c0318ad94f397d64f279f3ed11f6a4c24d3bb09b06e807289628387238dce9",
+    "case_count": 2,
+    "active_seats": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "players": "four_live_manual_young_natural20_UPF",
+    "native_controls": 50,
+    "query_checks": 608,
+    "persistable_assertions": 608,
+    "author_only_checks_omitted": 0,
+    "per_case": [
+      {
+        "card_id": "blood_runs_deep_red",
+        "group_id": "identity:blood_runs_deep_red",
+        "native_controls": 25,
+        "persistable_assertions": 304,
+        "printed_cost": 2,
+        "actual_cost": 1,
+        "remaining_resources": 2
+      },
+      {
+        "card_id": "wrath_of_retribution_red",
+        "group_id": "identity:wrath_of_retribution_red",
+        "native_controls": 25,
+        "persistable_assertions": 304,
+        "printed_cost": 3,
+        "actual_cost": 2,
+        "remaining_resources": 1
+      }
+    ],
+    "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+    "coverage_category": "POSITIVE_DRACONIC_CHAIN_LINK_ACTUAL_COST_REDUCTION_PAID_ATTACK_PREFIX_ONLY",
+    "approved_qualification_endpoint": "DRACONIC_LINK_DISCOUNT_PAID_PREFIX",
+    "whole_card_credit": false,
+    "secondary_identity_credit": false,
+    "basis": [
+      "Both selected Draconic Ninja Attack cards are legal under youngFai20 in UPF and cached unbanned; Wrath has one actual copy despiteLegendary. Both standalone groups were independently checked unrepresented/unheld. No primary talent/class is inferred from Hero alone.",
+      "Real RoninRenegade5 is DraconicNinjaAA0/power3/printedGO. Native formal Hero4 declaration and fresh four-seat attack/defend/reaction/damage windows yield actual3damageHP17, then Resolution grants actualAP1. Old physical Ronin5 remains ATTACK CCFromHand/ChainLink1 on open chain. No count/departed-history/extraAP seeded. Fai has no automatic Ronin-hit producer.",
+      "FaiCards3-11 derives unique Draconic links from actual retained ownedCC, plus any genuine departed types. This setup has exactly one real retained link, primary6stillHand/Stack does not count itself. HNTRuntime35 exact printed discount subtracts one from2/3.",
+      "GameLogic994-996 permits own AA at RESOLUTION withAP1. Published TRP9.3 focuses the open chain on actual prior defender4; GameLogic184-193 restricts attackable seats accordingly. No enemy4 allies exist, so GameLogic775 auto-binds soleHero4 before normalpayment. ActualBlue7pitch3 must pay1/2, AP1to0 leavesR2/1; pendingPayment1062-1063 exact player1/UID6/fromHand/ATTACK/returnRESOLUTION and cost1/2 are now asserted. All target4/effect/damage/cost/economy guards remain unchanged. After full payment, GameLogic1233-1235 correctly enters LAYER/PRIORITY for the new attack; its previous returnCombatStepRESOLUTION remains the payment origin, not the final current layer phase. Old resolved Ronin5 remains physically on chain while primary6 awaits resolution.",
+      "Endpoint intentionally stops primary6 physicalATTACK/SourceHand onStack, before its attack/WHEN. It retains real oldRonin5CC and realBlue7Pitch, Hero4HP17/nootherdamage and exact all-zone economy. Primary dagger effects, attacks, damage and GO are not certified; no absent-dagger excuse for owed primaryWHEN is used because primary has not attacked yet.",
+      "New workspace adapter preserves shared exact saved actions/assertion normalization/step accounting, all-live manual pass checks, initial assets/health/resources/AP, both snapshots manual shortcut preferences and raw5 hashes/empty awaitframes. Named whitelist binds exact cards/costs/initialshape; endpoint requires one owned primary6Stack targetHero4 via strictbase64JSON plus one ownedRonin5CCRoleATTACK/FromHand/ChainLink1, Pitch7, exactHP/AP/R/UID7RNG0, no other zones/DQs/payment/frame. No action-list variable collision exists.",
+      "breadth_batch b1446 alone selects this namedadapter/endpoint and checks spec, adapter and common-base hashes; other batch dispatches remain separate. No native recorder/runner/engine changes are introduced; current Python sources parse."
+    ],
+    "endpoint_binding_sha256": "10f14895c6a4437b07d71204e4617277a7fa2f3642b1605c97ef9760426b4b50",
+    "workspace_adapter_review": {
+      "adapter_sha256": "3921ac94b8e6592ef2b1a40ef8ea78f1d7e778171a1788fe29ec48ccbf32d49a",
+      "base_common_sha256": "9f6dee765a3433840bd6886579faf6b8ab24ec290120b5999581053e2276ba0c",
+      "pipeline_sha256": "c7d9d9a33187494b4353057eae63574475675cf494498fdd1ed964c16f4c37b1",
+      "scope": "Source/spec and strict endpoint approval only, pending first native save and targeted replay."
+    },
+    "limits": [
+      "primary_when_this_attacks_dagger_effect_and_timing",
+      "primary_attack_resolution_physical_damage_or_go_again",
+      "more_or_no_prior_Draconic_chain_links",
+      "pitch_siblings",
+      "No support identity, sibling or whole-card credit.",
+      "No native game, replay, tests, engine/source edits or broad suite by reviewer.",
+      "Credit only persisted passing52 controls/614 assertions and one fresh targeted replay pernewcase; stop on unexpected outcomes without relaxing expectations."
+    ],
+    "source_sha256": {
+      "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+      "FaBSim/Custom/FaiCards.php": "222e95c7670e2df62aaec1185f75e63b6cc563bbd8fcfd52b4dd8f1f14110786",
+      "FaBSim/Custom/HNTRuntime.php": "d5554642848c3f271112e542c20d3744662c0007ebd7bb741d5d4d2dd1b210a1",
+      "FaBSim/Custom/GameLogic.php": "c60fa151561f959e4e3e341b814de0e2b47c9e9f153bbc8793a04c43b5075061",
+      "FaBSim/Custom/UPRCards.php": "62798bd281afc17805c396e92deab22497b9c80d881f99e943833cb82d449321"
+    },
+    "workspace_source_sha256": {
+      "author_breadth1446.py": "ac43db6a17df3b9bb46d8064d21c5fb207ee20ddb0ac06767ecc2df63a904861",
+      "nov24_draconic_discount_prefix_review.py": "3921ac94b8e6592ef2b1a40ef8ea78f1d7e778171a1788fe29ec48ccbf32d49a",
+      "nov24_rune_discount_prefix_review.py": "d264e5fbf4032b2032e07ef14fb0c25a749d9bba76edf28b6645916df69220b6",
+      "nov16_saved_repair_review_common.py": "9f6dee765a3433840bd6886579faf6b8ab24ec290120b5999581053e2276ba0c",
+      "breadth1068_helpers.py": "997f949ec26c7e494ad26a818f9f2078f6f4f2a0c49ca7f61aa8c71f3b091b0a",
+      "saved_fixture_review_tools.py": "83b8841d614dd53e5222ddf25f45e44950053c1e393a7313098f4b6f1bd8aae5",
+      "breadth_batch.py": "c7d9d9a33187494b4353057eae63574475675cf494498fdd1ed964c16f4c37b1",
+      "correct_breadth1446_upf_focus.py": "ab6f977945d3add4c5374fe0fd10d5692f4b084d0b330e1cc1d368c0d8e9d315",
+      "correct_breadth1446_layer_label.py": "0367657462a3497ab18f88565447ff81efec7d2148dca0986a9581e676e4bf47"
+    },
+    "protocol_correction": {
+      "classification": "UPF_focused_chain_singleton_target_authoring_oracle_correction_no_engine_bug",
+      "original_spec_sha256": "f804d28bf9ccb96f37cd529933bdff210f99c75bf6719a88c193bc4b59bcfe25",
+      "original_review_sha256": "f0130e6a2b618c30dbb85e58fb4a3f5471f57efe4678f9348e0210beb219443e",
+      "native_failure_receipt_sha256": "8f2ad2b5d14f4d8ea22baf6c141f5558b340e07208fd9121dfc916974cad4248",
+      "original_native_inputs_per_unsaved_case": 24,
+      "scope": "Exact steps equality verified after deleting only second-target chooser checkpoint and answer, and appending full pendingPayment cost1/2 guard. Printed effects, final target4/strictadapter, AP/resources/damage/UID/fates unchanged. Metadata explains focused sole-target declaration.",
+      "correction_record_sha256": "2335fed5fbbb4a799d0217af98ccbf6169406db04d16f6fd3128c3beda266c4b",
+      "ordered_authoring": [
+        "author_breadth1446.py",
+        "correct_breadth1446_upf_focus.py"
+      ],
+      "no_fixture_or_replay_in_original_attempt": true
+    },
+    "official_rules": [
+      {
+        "url": "https://rules.fabtcg.com/en/trp/09-special-formats/",
+        "section": "9.3",
+        "scope": "Independently retrieved primary text: attacks on an open UPF chain remain focused on the attacked hero. With no focused-seat allies, Hero4 is the sole legal new attack target."
+      }
+    ],
+    "paid_layer_phase_correction": {
+      "classification": "native_paid_next_attack_Layer_step_authoring_oracle_correction_no_engine_bug",
+      "original_spec_sha256": "c098ec9c7807990a63d0e24b53563d91d8a579339fe76e2047c7e8d1b05222a4",
+      "original_review_sha256": "bd1387e175d6d00fa4b55b31cd31706cf96810de3d64fb048f24278aaa9637cb",
+      "native_failure_receipt_sha256": "166556ef3cbf133c13c584a14b826505b6340428352875346e7d17d9bcac2699",
+      "native_inputs_per_unsaved_case": 25,
+      "record_sha256": "db7c16ca1865e93048a29eb21a3579579d11367aa8acba79dec988c4314eab69",
+      "exact_diff": "Only final combatStep expectation and corresponding strict-adapter condition RESOLUTION\u2192LAYER; explanatory oracle prose. Every action and all payment/cost/target/HP/AP/resources/physical identities and fates unchanged.",
+      "ordered_authoring": [
+        "author_breadth1446.py",
+        "correct_breadth1446_upf_focus.py",
+        "correct_breadth1446_layer_label.py"
+      ],
+      "scope": "New primary remains paid on Stack and has not attacked or earned its future WHEN; no coverage or gameplay-defect claim from either prior unsaved oracle attempt."
+    }
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1446-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "f4d2615075eb06b41924b4a109e7d16207767e38cd7dc482cd8907e8f3383079"
+  },
+  "full_suite_run": false
+}

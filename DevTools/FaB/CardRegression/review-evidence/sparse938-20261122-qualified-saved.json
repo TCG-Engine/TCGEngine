@@ -1,0 +1,146 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "breadth_review independent source/semantic review",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse938-20261122.json",
+  "source_spec_sha256": "5dbc144fff075f174e756e08a8705b85742c36c14a02225d9e23658ba6dadf8d",
+  "input_sha256": "5dbc144fff075f174e756e08a8705b85742c36c14a02225d9e23658ba6dadf8d",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-biting-breeze-red-four-live-sparse938-actual-full-block-preserves-printed-go-again-without-hit-effect",
+      "card_id": "biting_breeze_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "b2ff254c97052c13a0536afb282489f82b281425f3b1649585afa24c14afee81",
+        "actions.json": "9f2158a76a224facb898cc12561b10d89380d0d90e15b49131c1d4359e991d29",
+        "assertions.json": "702f2a87dc9988abe5bf3bfaa605531711ab2ab1dfc57c7ad98b2f44f5bac69b",
+        "expected_final_gamestate.txt": "e42e0506ae18bddee3fa473a80ad1729bd5b1a54f8c6c2b8ddd480216eb1cf32",
+        "meta.json": "55a62f96452ae79adf6d48f3a9fa41ede7f6a408d61563041dcadf260e89b569"
+      },
+      "fixture_sha256": "da043c48ca2f987ed26b782a445e5cb9f8fbbe3fe1d1e064816474f73ddf978d",
+      "actions": 29,
+      "native_assertions": 149,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse938-20261122.json",
+      "input_sha256": "5dbc144fff075f174e756e08a8705b85742c36c14a02225d9e23658ba6dadf8d",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse938-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-biting-breeze-red-four-live-sparse938-actual-full-block-preserves-printed-go-again-without-hit-effect",
+        "fixture_slug": "card-biting-breeze-red-four-live-sparse938-actual-full-block-preserves-printed-go-again-without-hit-effect",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-bittering-thorns-red-four-live-sparse938-actual-full-block-preserves-printed-go-again-without-hit-effect",
+      "card_id": "bittering_thorns_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "1b9f3368970dbc46e9ee65c07bedc021d252e98e11a6d3019a40bb506c500ed8",
+        "actions.json": "a44e24b9f9b348ce659c847e7dbea1e0cd33c5233e8ac4933f9391118d55ee4b",
+        "assertions.json": "f7a9703f76a67a860dadb2c8d7f0b3aad9f2b9f911c0ef2425d3cc7e15be0e0f",
+        "expected_final_gamestate.txt": "1c8c64b0013aedebdb3eebe777d897f55ee0233adf96a6834cc6de346c801cd0",
+        "meta.json": "820cbb055ebe165456ae57b55da6f0694dbdc51f6b17ff3ca85884a69337c8cb"
+      },
+      "fixture_sha256": "dc4ab57f90cb5d22d8b925a392c9dec6211fea2afb3f38dbd6c4bf49e87493fd",
+      "actions": 30,
+      "native_assertions": 171,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse938-20261122.json",
+      "input_sha256": "5dbc144fff075f174e756e08a8705b85742c36c14a02225d9e23658ba6dadf8d",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse938-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-bittering-thorns-red-four-live-sparse938-actual-full-block-preserves-printed-go-again-without-hit-effect",
+        "fixture_slug": "card-bittering-thorns-red-four-live-sparse938-actual-full-block-preserves-printed-go-again-without-hit-effect",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-trap-and-release-red-four-live-sparse938-actual-full-block-preserves-printed-go-again-without-hit-effect",
+      "card_id": "trap_and_release_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "e64d7a65152eb6dc82143731973d358a3789ff390e995e2dd27f3d533f6dbf87",
+        "actions.json": "a44e24b9f9b348ce659c847e7dbea1e0cd33c5233e8ac4933f9391118d55ee4b",
+        "assertions.json": "d389da6ee2f48abef52638e19225463fbaa79d0c18dce3b6333c9bd756df0638",
+        "expected_final_gamestate.txt": "a48531cb31823c828c9a22cfdbd5bbf611b7761c4ff3e40fac3d92c02230f663",
+        "meta.json": "fd7483d09eda7a395988e4f704cc25d4d96770092e9272945398ea6cb014d339"
+      },
+      "fixture_sha256": "d72d4c57e7f2bf399258f024d60f13f33c42684a22d84f11f5fce036a0198395",
+      "actions": 30,
+      "native_assertions": 171,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse938-20261122.json",
+      "input_sha256": "5dbc144fff075f174e756e08a8705b85742c36c14a02225d9e23658ba6dadf8d",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse938-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-trap-and-release-red-four-live-sparse938-actual-full-block-preserves-printed-go-again-without-hit-effect",
+        "fixture_slug": "card-trap-and-release-red-four-live-sparse938-actual-full-block-preserves-printed-go-again-without-hit-effect",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-be-like-water-red-four-live-sparse938-actual-full-block-preserves-printed-go-again-without-hit-effect",
+      "card_id": "be_like_water_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "b7c5f81a439f334687f995f0264442ba68c308b0893dfefc3a9727b9b83c9a24",
+        "actions.json": "9f2158a76a224facb898cc12561b10d89380d0d90e15b49131c1d4359e991d29",
+        "assertions.json": "2cc3f074900c40323294d28317f234401418ec68a5a222dbfaab43188c7a2f7a",
+        "expected_final_gamestate.txt": "6d83e04ea9a16c272879d30dcf3d374c9946fe86049bf5651db6c3f7aa8fcc3e",
+        "meta.json": "759d6430656216f8632538d4af4504f5177b2199ccf34b86659c699a7d3d0501"
+      },
+      "fixture_sha256": "c22ed88b3a3952a59023c3b15e5efc8f17bada82dc8864b8b15bd1720559a525",
+      "actions": 29,
+      "native_assertions": 149,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse938-20261122.json",
+      "input_sha256": "5dbc144fff075f174e756e08a8705b85742c36c14a02225d9e23658ba6dadf8d",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse938-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-be-like-water-red-four-live-sparse938-actual-full-block-preserves-printed-go-again-without-hit-effect",
+        "fixture_slug": "card-be-like-water-red-four-live-sparse938-actual-full-block-preserves-printed-go-again-without-hit-effect",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "spec_sha256": "5dbc144fff075f174e756e08a8705b85742c36c14a02225d9e23658ba6dadf8d",
+    "reviewer": "breadth_review independent source/semantic review",
+    "basis": [
+      "Four printed Ninja Action Attacks are legal on natural20 Fai; no extra talent required. ActualHand5/source5, adjacent Hero4 target before assets and zero/one-cost payment are normal main paths. ActualBlue6 only for cost1 yieldsR0/2/2/0, AP0 after payment; no activated card ability or preplay mode is required.",
+      "Each printed Go again is standalone/unconditional, separate from its WHEN-hit sentence. Cached card_keywords includeGoagain, and GameLogic454-476 recognizes standalone own-text keywords while excluding quoted grants. FaBAttackHasGoAgain501 uses that own keyword regardless of actual hit; with no suppressants, AP0 through DAMAGE then AP1 at RESOLUTION/final is correct even fully blocked.",
+      "Two Generic actual Hand defenders eachdefense3 fully block printed3/4/4/3. Native consecutive P4Hand0 declarations and own source/defenderUIDs6,7 or7,8 moving to respectivegraveyards match qualified932 transport. Actualdamage0/HP20/attackHitfalse/Stack0 proves the hit event is absent, so no earned hit-response layer or Tiger/buff/mark/rename/pay choice is owed.",
+      "BeLikeWater source keeps original CardID in ownedGY because no hit rename occurs. BitingTiger creation/Banish permission and other positive hit effects are outside scope. All four manual live-seat priority/combat rounds and physical costs/sourcefate retained; no conflicting zone-count oracles or outcome flags seeded."
+    ],
+    "limits": [
+      "Source/spec review only; native recording and targeted clean replay pending Root. No PHP/native execution, T edits, network or Git mutation.",
+      "Only actualfullblock/payment/unconditionalGA/nohit/sourcefate branches. Exact unblockedpower, positive hit-response timing/Tiger ownership/next-attack buff consumption/Mark/rename/permission, future interactions, siblings/support identities or whole-card behavior untested; existing positive shared concerns remain unresolved."
+    ]
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse938-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "38a4138bb77e810d67324efb95b2f5b7c464f893ef10846e9601e202d9b373a9"
+  },
+  "full_suite_run": false
+}

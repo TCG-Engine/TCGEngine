@@ -1,0 +1,7 @@
+{
+    "name": "Bully Tactics / actual Ally target does not earn Hero-only trigger",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-25T01:38:22+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "FourmanualyoungUPFkayo_strong_arm1/Dori2/3/Dromai4all20. Realbully_tactics_red5formalnativePERMANENTdescriptorUID9Arena4boundtorealAllyAshwingnotHero4; canonicalAshwing9UPR_ASH1/DYN_ASHash/HP1andMight10, realopponentHandPotion11def0+Razor12andDeckRed13. OwnrealBlue6/7pitchonlyifneeded,payprinted0/R0/AP0, actualbasepower3. OwnDeck14/15andProtocolrealEvo16underBaseHeadmakepotentialHeroeventassetsnonvacuous. GeneratedFaBFaiHeroHitfalseforALLYmeansprintedattacksHeroWHENnotearned, noWager/reveal/payment/peek/Draw/forceddefense/Intimidate orHostileHeroCrush. Allfourmanualwindows\u2192actual3physicalkillsAlly9only; allHeroHP20/Might10/Hand11,12/Deck13remain; fullclose5GY. NoGA/refund; actualretainedzero-costWounding8clickrejectsAP0. LimitednegativeHero-onlycondition plusrealAllyattackdamage/fates, notpositiveHero-triggercoverage. NoAshcreation/history/support/pitchsiblings/fullcardcredit/enginechange. Sources: FaBSim/GeneratedCode/cardArrayCache.json#bully_tactics_red FaBSim/GeneratedCode/GeneratedMacroCode.php#bully_tactics_red FaBSim/Custom/GameLogic.php FaBSim/Custom/FaiCards.php#FaBFaiHeroHit FaBSim/Custom/UPRCards.php#FaBUPRTransform FaBSim/Custom/UPRCards.php#FaBUPRDeal"
+}

@@ -1,0 +1,7 @@
+{
+    "name": "Arakni Orb Weaver / native base identity, real discard/equip, next Stealth plus3 and free Graphene attack",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-25T03:57:00+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Native youngArakni20 UID1becomesOrb during explicitinitialsetup, HNT_BASE_HEROarakni retained/nohistorycredit. ActualInstant0costdiscardrealAssassinIsolate5 fromHand toGY, HeroAbility6Stack whileallfour respond; noAP/tap/resourcecost and noequipmentearly. ResolveequipsGrapheneToken7 andnextSTEALTH+3. AtR0/Handempty/Pitchempty actualownGraphene7 ActivationprintedR1 isfreefromOrbstaticdiscount; formallydeclareunmarkedHero4 beforeAP1->0, attackproxy8Stack source7. ActualStealthbase1+3=4/noGA, allfourmanualwindows and real4physical Hero4=16. Fullcloseproxygone, Isolate5onlyGY, physicalWeapon7 usedonce/Status1, HeroOrb1readyCounterbase+ARC_USED0=2, AP0/R0/UID8/RNG0. Positiveprimaryequip/nextStealthpower/costdiscountonly; no priortransition, endreturn, markedHeroWHEN, siblings or secondaryidentitycredit. Authoring-onlyfixtureextension, noenginechange. Sources: FaBSim/GeneratedCode/cardArrayCache.json#arakni_orb_weaver FaBSim/GeneratedCode/GeneratedMacroCode.php#arakni_orb_weaver FaBSim/Custom/HNTCards.php#FaBHNTBecome FaBSim/Custom/HNTRuntime.php#FaBHNTAbilityCost FaBSim/Custom/DYNRuntime.php#FaBDYNWeaponAttack DevTools/FaB/CardRegression/initial_agent_setup.php"
+}

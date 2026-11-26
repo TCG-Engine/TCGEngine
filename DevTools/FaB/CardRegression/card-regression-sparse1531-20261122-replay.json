@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-fai-rising-rebellion-two-live-sparse1531-real-draconic-link-cost-and-once-with-later-eligible-flame",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-fai-rising-rebellion-two-live-sparse1531-real-draconic-link-cost-and-once-with-later-eligible-flame",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1531-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1531-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "a691f5a5e0e9aff141a4d409d0717d4cb5385f92c74b6406ffa5d6ba1cb3d3d9",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "44a3337a3b8001c2b2fc7e267ecdd923415f4597b933ab4d0e3106559131df01",
+        "actions.json": "045b88e0207315d4b3e34bf0f04f808073b6ca91232f99d7202806264de72e4a",
+        "assertions.json": "d7c4acecfe78f6eccddef445206cd73d9becf4640398458e2fcd3f01b270e541",
+        "expected_final_gamestate.txt": "b560d9a3b8ea908c286037da794b982a7235f27453daf51006afbb238168a124",
+        "meta.json": "8a4cd3898cfbb338a060dde4eec310bc53d81613c3b8f401511799f1fee7dade"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

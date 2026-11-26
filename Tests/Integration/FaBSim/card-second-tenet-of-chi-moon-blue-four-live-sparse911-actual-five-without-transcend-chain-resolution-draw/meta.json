@@ -1,0 +1,7 @@
+{
+    "name": "Second Tenet of Chi: Moon / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T19:05:28+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "If you've **transcended** this turn, this gets \"When this chain link resolves, draw a card.\" Representative only: actual_five_without_transcend_chain_resolution_draw. Other pitch siblings, alternate targets and unexercised branches receive no credit. All four live/manual; only native entry-point actions. Sources: FaBSim/GeneratedCode/cardArrayCache.json#second_tenet_of_chi_moon_blue"
+}

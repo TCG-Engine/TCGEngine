@@ -1,0 +1,7 @@
+{
+    "name": "Insidious Chill / actual paid entry with three frost counters; Ice-fuse trigger untested",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-23T12:34:28+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "ENTRYWITHCOUNTERSONLY. LegalYoungIys18ElementalIceWizardplaysactualHandInsidiousChill5onownturn1(noIysopponentturntrigger), pays3fromrealGenericBlue6pitch3/R0/AP0. Allfourmanualresponsesbefore5leavesStack/entersArena. Printedenterswith3FROSTisnotearnedWHENentrytrigger; finalsameownedArena5CountersFROST3ready, oneownedPitch6, nootherchange/RNG/token/GA/AP0. NoIceFuseoccurs, so fuseWHEN/noCounterremoval/noDiscardtax/source-targetcontinuation/destructionat0/wholecardorHerocredit. Thisdoesnotclaimthetriggerworks. Sources: FaBSim/GeneratedCode/cardArrayCache.json#insidious_chill_blue FaBSim/GeneratedCode/GeneratedMacroCode.php"
+}

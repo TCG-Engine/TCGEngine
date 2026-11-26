@@ -1,0 +1,39 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-repair-gold146-aura151-shared-consumers.json",
+  "runtime_sha256": "abbeb00cfd0e743e7c8beafe7530e4ee354538d82e4c269ecef7671507b0544c",
+  "returncode": 0,
+  "completed_utc": "2026-11-16T21:52:43.528677+00:00",
+  "fixtures": [
+    {
+      "slug": "card-golden-gauntlets-four-live-correct-opposing-gold-reduces-real-ketch-cost-and-first-temper",
+      "fixture_sha256": "d450d6d8fc1d6f25b5a7c1bbb7c789170c1f11188950261bc6f3b106b62d1290",
+      "passed": true,
+      "result": "[PASS] golden_gauntlets / four live distinctive effect"
+    },
+    {
+      "slug": "card-uphold-tradition-four-live-original-correct-counter-and-damage-diagnostic",
+      "fixture_sha256": "c93dcce598a051018d74c10a05303ed0d734e2f5883513c72ad1ea5bf66964f2",
+      "passed": true,
+      "result": "[PASS] uphold_tradition / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-golden-gauntlets-four-live-correct-opposing-gold-reduces-real-ketch-cost-and-first-temper",
+      "returncode": 0,
+      "stdout": "[PASS] golden_gauntlets / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-uphold-tradition-four-live-original-correct-counter-and-damage-diagnostic",
+      "returncode": 0,
+      "stdout": "[PASS] uphold_tradition / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 2,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-hoarding-of-denial-four-live-sparse1107-real-cost-seven-hand-defender-gives-offhand-one-defense-and-exact-block",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-hoarding-of-denial-four-live-sparse1107-real-cost-seven-hand-defender-gives-offhand-one-defense-and-exact-block",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1107-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1107-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "3e46370010bdf54ffe1158ba6464c474fa62594d23e999f49aedf2737525ec4d",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "837279d06065bd347fc64c0b9e4fc5381925332336e824f8c6b524ea24cd7e6d",
+        "actions.json": "5e66c904371c6df1bdcfce3c48fa00e040d5b51953374c60e180e1ced402c6ea",
+        "assertions.json": "f9afda67daefce6c093b64d9872c7f068e84fc8a74dd0b30da4167a40fcdef9f",
+        "expected_final_gamestate.txt": "3791a254f8f223f0643762e84302f732f33a4c1f8167ee14aeb892b8b20559d1",
+        "meta.json": "326add5818976ed519bfc980910c57af5710ce3d3b44cb387855682943243d8e"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

@@ -1,0 +1,27 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-repair-plating159-after-shared131.json",
+  "runtime_sha256": "1ef6a1a18aeb87a1fd220e59552a0da5e51ea3ebaee2ce39d86a6a7d288ff84e",
+  "returncode": 0,
+  "completed_utc": "2026-11-16T20:51:01.362027+00:00",
+  "fixtures": [
+    {
+      "slug": "diagnostic-blade-beckoner-plating-four-live-real-weapon-defense-two-and-guardwell-two",
+      "fixture_sha256": "e426143361318f940b157498c7d7d9e8c57c71508f43e0817fa590485c25782b",
+      "passed": true,
+      "result": "[PASS] blade_beckoner_plating / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=diagnostic-blade-beckoner-plating-four-live-real-weapon-defense-two-and-guardwell-two",
+      "returncode": 0,
+      "stdout": "[PASS] blade_beckoner_plating / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

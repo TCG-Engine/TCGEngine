@@ -1,0 +1,7 @@
+{
+    "name": "Teklo Pounder / four-live actual search entry with three steam",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-23T04:59:12+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "This enters the arena with 3 steam counters. When this has none, destroy it.\n\nOnce per turn, when you boost an attack action card, remove a steam counter from this. If you do, the attack gets +2{p}. Legalnatural20Dash. PrimaryPounder8cost2actuallystartsDeck, notpreseededArena/counters. ActualsponsorSpark5declaresX2beforepayment; twoactualBlue6/7payXX4(R3insufficientthenR2/AP0). FourmanualsourceprioritybeforelegitimateMZMAYexactcost2search; source5heldStack/GY0, primary8Temp andwrongcost1AetherSink9Deckretained. Choose8\u2192sameownedArena8/STEAM3viaEVRAfterMove(staticenterswith3), noFAB_PLAY_ORDER/EVR_TURN/noBoostevent. Spark5ownedGY, twoBluePitch, remainingDeck9/nonemptyprovesnofalseBoostdraw/Hand0/AP0; putPounderisnotplayingit. NoBoosttrigger/steamremove/powergrant/zeroSteamdestroy/otherentryroute/hero/support/fullcardcredit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#teklo_pounder_blue"
+}

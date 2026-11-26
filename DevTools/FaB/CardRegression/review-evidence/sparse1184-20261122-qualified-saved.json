@@ -1,0 +1,357 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "breadth_review independent exact frozen Angel-pair/Ward delta review",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1184-20261122.json",
+  "source_spec_sha256": "b5f4d9c3562b8bf860f9e33e9fd1b1e579345b4e515199a2c96e7a88a494164d",
+  "input_sha256": "b5f4d9c3562b8bf860f9e33e9fd1b1e579345b4e515199a2c96e7a88a494164d",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-aegis-archangel-of-protection-four-live-sparse1184-ally-ward-four-prevents-three-and-dies-front-face",
+      "card_id": "aegis_archangel_of_protection",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "95a0941cfacf17e382019417c95327bbb4a3a9b438835ffe90139c65372554f8",
+        "actions.json": "84e9df45f06b849340f223d10945c33f889a6d4943efe4dad877a5b9127f1950",
+        "assertions.json": "eb9691f7107d57e284224d8bd0d6113f9be44322f8efb4472978fa29b70c87c5",
+        "expected_final_gamestate.txt": "8b665951d4358c5cad1f76d8c915b00d1ab5877e12d3066c8eedf5a64ce67a24",
+        "meta.json": "3c92df620f5dc16135eedfbe72ce02f3c669d994a9404541239e06b1949161ac"
+      },
+      "fixture_sha256": "d2c1c2d6ab20bd3001bef2bf6c6f4bae773a189cd75b95d2342424f88832f9ef",
+      "actions": 7,
+      "native_assertions": 250,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 4,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1184-20261122.json",
+      "input_sha256": "b5f4d9c3562b8bf860f9e33e9fd1b1e579345b4e515199a2c96e7a88a494164d",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1184-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-aegis-archangel-of-protection-four-live-sparse1184-ally-ward-four-prevents-three-and-dies-front-face",
+        "fixture_slug": "card-aegis-archangel-of-protection-four-live-sparse1184-ally-ward-four-prevents-three-and-dies-front-face",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-avalon-archangel-of-rebirth-four-live-sparse1184-ally-ward-four-prevents-three-and-dies-front-face",
+      "card_id": "avalon_archangel_of_rebirth",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "bc016ca934ef7b00ebc66beaffb7d6625056d5f6a3eecc27be66686911531d2d",
+        "actions.json": "84e9df45f06b849340f223d10945c33f889a6d4943efe4dad877a5b9127f1950",
+        "assertions.json": "068d99d0d683a5035ecf4829c24efa8715ed3c445721ecda5b05fc34dc092c0c",
+        "expected_final_gamestate.txt": "ae50ac0e717fd818ea588ba1e6d6ff235ba8a4fb07bbfa65edf3d9aefa17db41",
+        "meta.json": "573e598c02a551176668e162a17e7c829e57fda213743137409f2bd327ef6108"
+      },
+      "fixture_sha256": "8588b581fc61245168149274113ad2397f1d18cc35a292ca52c4e99180d6a935",
+      "actions": 7,
+      "native_assertions": 250,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 4,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1184-20261122.json",
+      "input_sha256": "b5f4d9c3562b8bf860f9e33e9fd1b1e579345b4e515199a2c96e7a88a494164d",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1184-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-avalon-archangel-of-rebirth-four-live-sparse1184-ally-ward-four-prevents-three-and-dies-front-face",
+        "fixture_slug": "card-avalon-archangel-of-rebirth-four-live-sparse1184-ally-ward-four-prevents-three-and-dies-front-face",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-bellona-archangel-of-war-four-live-sparse1184-ally-ward-four-prevents-three-and-dies-front-face",
+      "card_id": "bellona_archangel_of_war",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "b74574a88433fdd91fe77c2c2a978eeca2098d51656d6b21f22136b9a093abbc",
+        "actions.json": "84e9df45f06b849340f223d10945c33f889a6d4943efe4dad877a5b9127f1950",
+        "assertions.json": "2725d8ef84424883aabe65f2bf7810d62d2e55dbdf9d22cd2f52e37ba0e593bc",
+        "expected_final_gamestate.txt": "2d7af47bc78df608214bd7f8036e33d7faeba74b39f0ea92cb3bbcb879d32a99",
+        "meta.json": "f87a127fa31f8968e0870da11bf05a55af2a7d056eb5c0a647bca52f23459421"
+      },
+      "fixture_sha256": "240efdcf61c24fd2f39adbdbafd1e9c133f542972dda7bb053eb01746f0ef402",
+      "actions": 7,
+      "native_assertions": 250,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 4,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1184-20261122.json",
+      "input_sha256": "b5f4d9c3562b8bf860f9e33e9fd1b1e579345b4e515199a2c96e7a88a494164d",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1184-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-bellona-archangel-of-war-four-live-sparse1184-ally-ward-four-prevents-three-and-dies-front-face",
+        "fixture_slug": "card-bellona-archangel-of-war-four-live-sparse1184-ally-ward-four-prevents-three-and-dies-front-face",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-metis-archangel-of-tenacity-four-live-sparse1184-ally-ward-four-prevents-three-and-dies-front-face",
+      "card_id": "metis_archangel_of_tenacity",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "88b30589ebcb119a7a77ae5d719bbe11a050c3b081c2e391c7a9a16b4b19139a",
+        "actions.json": "84e9df45f06b849340f223d10945c33f889a6d4943efe4dad877a5b9127f1950",
+        "assertions.json": "36ae2620b016285f302af649d41b5d8d36d8c5fcddb687be9a89ef3c19ae5949",
+        "expected_final_gamestate.txt": "3d90243254c15991eb6b4a2150ba16518d9924c32a95f6f35de156f843d626fe",
+        "meta.json": "af7066af788c4e7116168b550ec473e2ebe63a5ca4d407e565794e164eedb279"
+      },
+      "fixture_sha256": "ae5b2b2a4587f901603a35e4950a43a6dbbd39779ba21b16214cb26689138efd",
+      "actions": 7,
+      "native_assertions": 250,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 4,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1184-20261122.json",
+      "input_sha256": "b5f4d9c3562b8bf860f9e33e9fd1b1e579345b4e515199a2c96e7a88a494164d",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1184-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-metis-archangel-of-tenacity-four-live-sparse1184-ally-ward-four-prevents-three-and-dies-front-face",
+        "fixture_slug": "card-metis-archangel-of-tenacity-four-live-sparse1184-ally-ward-four-prevents-three-and-dies-front-face",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-sekem-archangel-of-ravages-four-live-sparse1184-ally-ward-four-prevents-three-and-dies-front-face",
+      "card_id": "sekem_archangel_of_ravages",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "541fce24c26888633751521a848353f31047a559a450ca8b15f496e2fd3eca88",
+        "actions.json": "84e9df45f06b849340f223d10945c33f889a6d4943efe4dad877a5b9127f1950",
+        "assertions.json": "8db5c0e991f0b84e3d3bc0f80b21f73ff70c8afbed1bc1d95a66eb3f148e1a71",
+        "expected_final_gamestate.txt": "5b5b88b96b9abdd655d9237498f9fa1a2a3af49f7eb02efabe4259957aff407f",
+        "meta.json": "c0c08426e4d7be88a360c2854bb33e36ec70fb4431f1058830fb048ea9308a79"
+      },
+      "fixture_sha256": "42ca7b5542b2776363cc7c1f35d561b9112a6acd7aac66485a6dbb17dfc55875",
+      "actions": 7,
+      "native_assertions": 250,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 4,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1184-20261122.json",
+      "input_sha256": "b5f4d9c3562b8bf860f9e33e9fd1b1e579345b4e515199a2c96e7a88a494164d",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1184-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-sekem-archangel-of-ravages-four-live-sparse1184-ally-ward-four-prevents-three-and-dies-front-face",
+        "fixture_slug": "card-sekem-archangel-of-ravages-four-live-sparse1184-ally-ward-four-prevents-three-and-dies-front-face",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-suraya-archangel-of-erudition-four-live-sparse1184-ally-ward-four-prevents-three-and-dies-front-face",
+      "card_id": "suraya_archangel_of_erudition",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "fec9ba8b895f7e136db4a193c4477c9ba3aee34fa24afa24468bad67076be878",
+        "actions.json": "84e9df45f06b849340f223d10945c33f889a6d4943efe4dad877a5b9127f1950",
+        "assertions.json": "ecbf9651d75e1443c47dbaf20c930c79a515535fa110738c2335fb747a3c73e5",
+        "expected_final_gamestate.txt": "d0b834ff81cf95d45a01731742432ca6369d5a348a94b6cfbbc5e5e308065cf0",
+        "meta.json": "6cde2760f88e1f25643cad8f268900add2f83508b83fbe740ec7edd40b12d3fa"
+      },
+      "fixture_sha256": "dc24ede9946f125504002a6155821d68d0c5a0ceda1b13e07520a9aec76e4eaa",
+      "actions": 7,
+      "native_assertions": 250,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 4,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1184-20261122.json",
+      "input_sha256": "b5f4d9c3562b8bf860f9e33e9fd1b1e579345b4e515199a2c96e7a88a494164d",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1184-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-suraya-archangel-of-erudition-four-live-sparse1184-ally-ward-four-prevents-three-and-dies-front-face",
+        "fixture_slug": "card-suraya-archangel-of-erudition-four-live-sparse1184-ally-ward-four-prevents-three-and-dies-front-face",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-themis-archangel-of-judgment-four-live-sparse1184-ally-ward-four-prevents-three-and-dies-front-face",
+      "card_id": "themis_archangel_of_judgment",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "fd04f180fd5478bab6df856b1ee14aa50103d90db202eb7c00ba4ac6302903ba",
+        "actions.json": "84e9df45f06b849340f223d10945c33f889a6d4943efe4dad877a5b9127f1950",
+        "assertions.json": "a71b35648c2942a88ad46bebd12216590e90ca67a44e658a472c1ad2c12b9dbd",
+        "expected_final_gamestate.txt": "9c161880c4d3b4a90e0889af47a91be42e0f10e4cf4eba565e09a8c3ed3e89b0",
+        "meta.json": "6eae3ea7e56ef8479eb28dd7e9967c6bd14a3bbeb02deca6dcbfcb4f26452ee3"
+      },
+      "fixture_sha256": "f2cda9720419e5404be79d6ea22f26e988b6a9b3e1ce1840781e22d3633e39e2",
+      "actions": 7,
+      "native_assertions": 250,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 4,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1184-20261122.json",
+      "input_sha256": "b5f4d9c3562b8bf860f9e33e9fd1b1e579345b4e515199a2c96e7a88a494164d",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1184-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-themis-archangel-of-judgment-four-live-sparse1184-ally-ward-four-prevents-three-and-dies-front-face",
+        "fixture_slug": "card-themis-archangel-of-judgment-four-live-sparse1184-ally-ward-four-prevents-three-and-dies-front-face",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-victoria-archangel-of-triumph-four-live-sparse1184-ally-ward-four-prevents-three-and-dies-front-face",
+      "card_id": "victoria_archangel_of_triumph",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "8c7236eb3cedf1becb128868f3ec0128c9e819d5fbd39b7b7b78a4e7ad856b28",
+        "actions.json": "84e9df45f06b849340f223d10945c33f889a6d4943efe4dad877a5b9127f1950",
+        "assertions.json": "bb5d9bd4b0def34d5f54a6be55bc1c386f9781a2a830a6c85ed6a8dd4505e750",
+        "expected_final_gamestate.txt": "d51e1c14f70c8f52c4e7f433114dc30882348efe68bd260cabdccaba7e9898d8",
+        "meta.json": "9ac3a2a66dc56d1209fda1d0126ed3e73ba6b93d13dba0bc8a7a9e454b4600a9"
+      },
+      "fixture_sha256": "dcc6e2c2873b2e9866d7d941f5bcb53ea236f3e09ba3a1b0df2927b00554882e",
+      "actions": 7,
+      "native_assertions": 250,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 4,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1184-20261122.json",
+      "input_sha256": "b5f4d9c3562b8bf860f9e33e9fd1b1e579345b4e515199a2c96e7a88a494164d",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1184-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-victoria-archangel-of-triumph-four-live-sparse1184-ally-ward-four-prevents-three-and-dies-front-face",
+        "fixture_slug": "card-victoria-archangel-of-triumph-four-live-sparse1184-ally-ward-four-prevents-three-and-dies-front-face",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "reviewer": "breadth_review independent exact frozen Angel-pair/Ward delta review",
+    "spec_sha256": "b5f4d9c3562b8bf860f9e33e9fd1b1e579345b4e515199a2c96e7a88a494164d",
+    "case_count": 8,
+    "native_controls": 56,
+    "persistable_assertions": 2000,
+    "author_only_checks_omitted": 0,
+    "cases": [
+      {
+        "primary_angel": "aegis_archangel_of_protection",
+        "front_in_owner4_graveyard": "figment_of_protection_yellow",
+        "same_physical_uid": 5,
+        "native_controls": 7,
+        "persistable_assertions": 250,
+        "ward_keyword": 4,
+        "actual_incoming": 3,
+        "actual_prevented": 3,
+        "final_health": 20
+      },
+      {
+        "primary_angel": "avalon_archangel_of_rebirth",
+        "front_in_owner4_graveyard": "figment_of_rebirth_yellow",
+        "same_physical_uid": 5,
+        "native_controls": 7,
+        "persistable_assertions": 250,
+        "ward_keyword": 4,
+        "actual_incoming": 3,
+        "actual_prevented": 3,
+        "final_health": 20
+      },
+      {
+        "primary_angel": "bellona_archangel_of_war",
+        "front_in_owner4_graveyard": "figment_of_war_yellow",
+        "same_physical_uid": 5,
+        "native_controls": 7,
+        "persistable_assertions": 250,
+        "ward_keyword": 4,
+        "actual_incoming": 3,
+        "actual_prevented": 3,
+        "final_health": 20
+      },
+      {
+        "primary_angel": "metis_archangel_of_tenacity",
+        "front_in_owner4_graveyard": "figment_of_tenacity_yellow",
+        "same_physical_uid": 5,
+        "native_controls": 7,
+        "persistable_assertions": 250,
+        "ward_keyword": 4,
+        "actual_incoming": 3,
+        "actual_prevented": 3,
+        "final_health": 20
+      },
+      {
+        "primary_angel": "sekem_archangel_of_ravages",
+        "front_in_owner4_graveyard": "figment_of_ravages_yellow",
+        "same_physical_uid": 5,
+        "native_controls": 7,
+        "persistable_assertions": 250,
+        "ward_keyword": 4,
+        "actual_incoming": 3,
+        "actual_prevented": 3,
+        "final_health": 20
+      },
+      {
+        "primary_angel": "suraya_archangel_of_erudition",
+        "front_in_owner4_graveyard": "figment_of_erudition_yellow",
+        "same_physical_uid": 5,
+        "native_controls": 7,
+        "persistable_assertions": 250,
+        "ward_keyword": 4,
+        "actual_incoming": 3,
+        "actual_prevented": 3,
+        "final_health": 20
+      },
+      {
+        "primary_angel": "themis_archangel_of_judgment",
+        "front_in_owner4_graveyard": "figment_of_judgment_yellow",
+        "same_physical_uid": 5,
+        "native_controls": 7,
+        "persistable_assertions": 250,
+        "ward_keyword": 4,
+        "actual_incoming": 3,
+        "actual_prevented": 3,
+        "final_health": 20
+      },
+      {
+        "primary_angel": "victoria_archangel_of_triumph",
+        "front_in_owner4_graveyard": "figment_of_triumph_yellow",
+        "same_physical_uid": 5,
+        "native_controls": 7,
+        "persistable_assertions": 250,
+        "ward_keyword": 4,
+        "actual_incoming": 3,
+        "actual_prevented": 3,
+        "final_health": 20
+      }
+    ],
+    "basis": [
+      "Eight distinct back-face standalone groups uncovered/no exact named current hold. Actual young Prism20 legally controls admitted prior awakened Light Angel Ally5; young Verdance20 caster1 and two Dorinthea20. No current Awaken/entry/attack/Soul or Prism ability is activated.",
+      "All eight printed Angel backs have Ward4, one activated attack and a WHEN-attacks payoff; none has a leave/destroy effect. No attack occurs. Front Figment entry WHENs are not earned by a Graveyard arrival or by the admitted settled prior awakened state.",
+      "Verified every exact DTDCards9 front/back pair against frozen initial Angel and expected front Graveyard identity. Awaken10 is only CardID mutation; no missing required marker/subcard/material was assumed. DTDRuntime6 reverses that exact map on actual Arena departure, consistent with Root-verified official CR9.1.3b front reset in the new zone.",
+      "After only primary CardID replacement and expected owner4GY CardID substitution to each correct front, all controls and checkpoint assertion multisets match independently reviewed1181 Ward3-on-Zap3 routine. Actual prepared source6 target4/AP0, four source responders, mandatory owner4 MZCHOOSE p4Arena-0, held source6/primary5/HP20 before answer are intact.",
+      "Each actual Ward4 prevents all incoming3 (min4,3=3), destroys physical5 to owner4 GY as correct front Figment with sameUID5/controller4, and clears source6 to owner1 GY. Other heroes20/R0/AP0/no other zones/layer/queues/newUID/RNG are pinned.",
+      "All2000 declared checks persist; no author-only defense/can_play/can_activate diagnostics, contradictory oracles, front-primary credit or helper requalification."
+    ],
+    "source_sha256": {
+      "FaBSim/Custom/DTDCards.php": "3b31d7627858a24d9e6444285de1671c448e5a79d3a71f4d7dfcb2824a5273d4",
+      "FaBSim/Custom/DTDRuntime.php": "4393481861f97f02c611e9c2cc3c65ff53a7ea5c39db05d97d5b1dc93d0de4f0",
+      "FaBSim/Custom/MSTCards.php": "cd98a9b734b984bfc19af7d0e4a3eebd5496f298d08c7c79d7f6d43c363513c7",
+      "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3"
+    },
+    "limits": [
+      "Pending Root native recording, exact saved-query review and targeted clean replays; reviewer made no native/T/source change.",
+      "Only admitted awakened Ally Ward route on incoming3 and physical front-face reset. Full fourth point of Ward capacity/multiple packets, Awaken/entry/producer/attacks/Soul/printed payoffs/Hero/support/front identity/full-card credit are untested.",
+      "No Suraya Archangel of Knowledge/invocation/material-export route, native front-awakening ability, missing-marker workaround or lifetime/ownership repair is included."
+    ]
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1184-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "e4baa90199f32c64329a2ca2d8903123aa22df04b793c19156dde1fbc06fd04c"
+  },
+  "full_suite_run": false
+}

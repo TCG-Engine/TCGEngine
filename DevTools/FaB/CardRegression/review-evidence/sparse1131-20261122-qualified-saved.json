@@ -1,0 +1,64 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "breadth_review independent Ghostly Touch actual cost/morph/GA review",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1131-20261122.json",
+  "source_spec_sha256": "2825e17c8907381eb866f4532d1c3c03e44c67a152b8e18e817135f754adec33",
+  "input_sha256": "2825e17c8907381eb866f4532d1c3c03e44c67a152b8e18e817135f754adec33",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-ghostly-touch-four-live-sparse1131-real-paid-haunt-cost-then-same-equipment-morphs-to-owned-ally-and-earns-go-again",
+      "card_id": "ghostly_touch",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "417679fa7d65b0e815e55af73a8871b3b43ff36781629b24a7ec0691074ce1cc",
+        "actions.json": "377801e6eb888fbe3811a39f26aecdf7a55c558ac2bd9541ece307405fc17ac9",
+        "assertions.json": "823f5691accf991f7c2d6058533f6dd38a56fe7614d800d0b27dbaf5e1e46380",
+        "expected_final_gamestate.txt": "ed9030e995b43bc7048431f69abb50bac244f37a73872ea81de886af3eb35c42",
+        "meta.json": "b208d4249a4e5509140b6ef7a056ea28b9306d0b2bea48ce38bf66aac2344f29"
+      },
+      "fixture_sha256": "fca1425f19f93865f362084a20d911d6b194024f2a0bce0c4d142753bb4beec6",
+      "actions": 5,
+      "native_assertions": 256,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 4,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1131-20261122.json",
+      "input_sha256": "2825e17c8907381eb866f4532d1c3c03e44c67a152b8e18e817135f754adec33",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1131-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-ghostly-touch-four-live-sparse1131-real-paid-haunt-cost-then-same-equipment-morphs-to-owned-ally-and-earns-go-again",
+        "fixture_slug": "card-ghostly-touch-four-live-sparse1131-real-paid-haunt-cost-then-same-equipment-morphs-to-owned-ally-and-earns-go-again",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "spec_sha256": "2825e17c8907381eb866f4532d1c3c03e44c67a152b8e18e817135f754adec33",
+    "reviewer": "breadth_review independent Ghostly Touch actual cost/morph/GA review",
+    "basis": [
+      "Natural young Prism20 is legal Illusionist. Preexisting physicalEquipment5 HAUNT2 is a legitimate earlier-history state, with its producer unrecorded/uncredited. UPRAbilities7/22 explicitly supports ACTION0/once/GA with at least1haunt in Equipment. No current Phantasm destruction or hero body event is earned.",
+      "Actual Action payment spendsAP1to0 before ARCAbilities169 marks ARC_USED_0Turn2, then171/UPRAbilityPaid30 removesHAUNT2to1. Before all four manual response controls, physical5 remains Equipment with exact HAUNT1/ARC_USED_0=2, virtualABILITY6 rawOwner0/Controller1/Source5 is held. No early effect-cost-before-nonzero-asset dependence.",
+      "Generated15425 resolves direct FaBUPRGhost/UPRCards237 without async choice: same owned5 moves Equipment to Arena, stores UPR_GHOST_HP1 from remainingHAUNT1, tags UPR_GHOST/MON_PHANTASM and becomes ready. GameLogic316 maps UPR_GHOST to Illusionist Ally types. Exact sameUID/owner/controller/remainingcounter/oncecounter/parameter/tags, emptyEquipment/GY/ABI, AP1fromprintedGA and unchangedallHP/R0 are persisted."
+    ],
+    "limits": [
+      "Only actual paid-haunt morph representation/storedHPparameter and GA. No derived live power/life query, ally attack/Phantasm combat, earlier haunt producer, expiry/return, second activation, hero/support identity or whole-card credit.",
+      "No current exact Ghostly Touch hold found. Native Save and one clean replay pending."
+    ]
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1131-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "96affe02fdf8da806874a8a6151dfc6db06390d17d8857f9d4e40f1fc1046f34"
+  },
+  "full_suite_run": false
+}

@@ -1,0 +1,120 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "independent breadth_review1252",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1332-20261122.json",
+  "source_spec_sha256": "7e6d3f9d72951212b1b443cfac1585eaea3e91df9dd174ad5ff861c466cf34f7",
+  "input_sha256": "7e6d3f9d72951212b1b443cfac1585eaea3e91df9dd174ad5ff861c466cf34f7",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-unified-decree-yellow-four-live-sparse1332-paid-buff-and-reprise-earns-real-deck-reaction-play",
+      "card_id": "unified_decree_yellow",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "89d3ad9dd4d9da15ce366e67639c045cf8381ab3c142c40d0dd06c6c1cc82f26",
+        "actions.json": "21ef36038cbc1ec76099a930b7f471d24e986b33719e76ef7a706de7f336049f",
+        "assertions.json": "8aae28bb99e93a64e20d6bfed456c3fd7f62050eff6abd4217ac5a0c65b46427",
+        "expected_final_gamestate.txt": "b5ed08e9908aac81511d38bf56480f771f05c946badc34e6fd6959a20c8a04de",
+        "meta.json": "eb7567d6c0f8896c02253b8f7d477d2f40c1d8914be5fc961a88af9bfd2e5ea3"
+      },
+      "fixture_sha256": "cd03e07b72e22b6fe5eaf3a2668ea7e49f2624fffa0a975a553529a70c94cc86",
+      "actions": 40,
+      "native_assertions": 725,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 33,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1332-20261122.json",
+      "input_sha256": "7e6d3f9d72951212b1b443cfac1585eaea3e91df9dd174ad5ff861c466cf34f7",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1332-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-unified-decree-yellow-four-live-sparse1332-paid-buff-and-reprise-earns-real-deck-reaction-play",
+        "fixture_slug": "card-unified-decree-yellow-four-live-sparse1332-paid-buff-and-reprise-earns-real-deck-reaction-play",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "reviewer": "independent breadth_review1252",
+    "spec_sha256": "7e6d3f9d72951212b1b443cfac1585eaea3e91df9dd174ad5ff861c466cf34f7",
+    "source_note_sha256": "2df34a71fdb5d7b29357ff368c25cd29ee9207dff67157282c146383309289ae",
+    "case_count": 1,
+    "active_seats": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "players": "four_live_manual",
+    "native_controls": 40,
+    "query_checks": 725,
+    "persistable_assertions": 725,
+    "author_only_checks_omitted": 0,
+    "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+    "coverage_category": "POSITIVE_PAID_WEAPON_BUFF_REPRISE_BANISH_AND_ACTUAL_PERMISSION_CONSUMER",
+    "per_case": [
+      {
+        "card_id": "unified_decree_yellow",
+        "group_id": "identity:unified_decree_yellow",
+        "native_controls": 40,
+        "persistable_assertions": 725
+      }
+    ],
+    "basis": [
+      "Fresh standalone Unified Decree Yellow unrepresented/no exact group hold. Natural Young Warrior Kassai20 legal with one actual1H Cintari Sword and three Young Dori20/manual UPF. No Draw history or activated graveyard Gold permission. Physical weapon5, primary6 Hand, real Blue7 Hand, real IronsongRed8 Deck, legal Warrior NAA SharpenSteelBlue9 Hand4 allocate9; actual weapon attack creates virtual proxy10/SourceUID5. Physical5 OwnerController1 is pinned; no fictitious virtual proxy Owner1.",
+      "Actual printed weapon1 cost Blue7pitch3 leavesR2/AP0 before all four source responses. Incoming Cintari base2 has no GA or draw discount. Actual defender9 Hand\u2192CC DEFENSE/FromZoneHand/printed3 earns Reprise; NAA Action has no Attack type, so Cintari defended-by-AA WHEN is not earned. Opposing Dori automatic weapon-hit ability is irrelevant, Kassai Gold action unused.",
+      "Unified printed Attack Reaction2 costs exact remainingR2/AP0. Kind assertion corrected pre-native to physical ATTACK_REACTION from GameLogic1035\u20131038, distinct windowREACTION. Four-live holdPriority1 then explicit1/2/3/4 responses preserve source6 on Stack, power2/noDeck movement until resolve. Standard WTRCanPlay467\u2013496 requires actor current own weapon attack; exactly one unchanged active weapon attack10 exists. Unified generated110270+ tags current attackUID3 then actual handBlockUIDs predicate at110317 stages one real Deck8 Temp via AR-select and resolving MZMAYCHOOSE. No late target chooser occurs; this fixed singleton/pass-only path does not certify broader declaration persistence.",
+      "At actual resolving choice, physical primary6 remains Stack/ATTACK_REACTION and current weaponpower5 while same original8 Temp/Owner1, Deck0/Banish0. Accepting original Temp8 moves it faceup ownBanish/PlayableFromBanish1 and records untilChainCloses110289\u2013110290, then FinishOrder110285 clears Temp without shuffle or changing UID. Primary6 only finishes ownGY after resolving choice. Native Banish8 is actual earned-permission consumer, zero-cost physical AttackReaction atR0/AP0, with four fresh manual responses before effect. WTRCanPlay495 requires real Hand defense for Ironsong; WTRResolveReaction668\u2013673 supplies3, giving actual8/noGA.",
+      "Observable actual8 minus real3defense gives5damage/HP15, requiring both primarybuff3 and played consumerbuff3, not only permission flags. Final original6then8 ownGY, Blue7Pitch, defender9 ownGY4, physical weapon5 WeaponsStatus1 and virtual10retired/all other zones empty/APR0/UID10/RNG0/Stack decisions combat clear are coherent. All725 assertions across40 controls persist."
+    ],
+    "limits": [
+      "Only corrected current packet normal positive source semantics pending native save/replay; no native pass or coverage credit claimed.",
+      "Only fixed sole active weapon unchanged through pass-only responses. Unified/Ironsong use standard current-attack path outside audited declared-target profiles; no eager binding persistence, alternate target/change/removal/fizzle or broader target seam correctness claimed.",
+      "No false Reprise/non-ARtop/decline/expiry/Hero/support identity/full-card credit. No known held target route is retried; existing holds untouched.",
+      "Only W receipt written; no native tests/games/replays, T/engine/original-checkout edit or access, auth/network or Git."
+    ],
+    "source_sha256": {
+      "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+      "FaBSim/GeneratedCode/GeneratedMacroCode.php": "fe6a7982611df8f4de98ce2671b317b671b580146aa4b8c28e8f4b86d8461056",
+      "FaBSim/Custom/GameLogic.php": "c60fa151561f959e4e3e341b814de0e2b47c9e9f153bbc8793a04c43b5075061",
+      "FaBSim/Custom/CRUCards.php": "5f0ff2122f9e033b8ad9ced75e9ee2210f459c868633f3f1741f419bc437c12d",
+      "FaBSim/Custom/ARCCards.php": "f6b6a21d214e71fdcfd6a084f0671ce610f08a40c51a1266041877a5a12c0d52",
+      "FaBSim/Custom/WTRCards.php": "77d4452b30e45254a7199bc965396ded53e325717ecdd84a09b971f723f99f6a",
+      "FaBSim/Custom/WTRAbilities.php": "8c7b73f87e5151823dc8aab1546d7e0452e6a948e36fdf9b157d4aa5da0e2209",
+      "FaBSim/Custom/HVYCards.php": "1387ecf0971fae9aa4bfb7bc99baec47a46e9c8770030884b722915eb87a31f1",
+      "FaBSim/Custom/CardChoices.php": "c68ae2b8e984bcc64b00289cc2d71bc0c980b2fbbeaeadbca8ae3a9f9579c515",
+      "Schemas/FaBSim/GameSchema.txt": "7783800bd47bc85885cc915066aadca58cdf99f0c1180602ac312d9af5ebf643",
+      "Core/ShortcutPreferences.php": "25f300ea0b6fbc409f5b92e8bc3587a74b2ab0eaf31ccef38e18c455598eaba6",
+      "DevTools/FaB/CardRegression/record_card_regressions.php": "e53055b29e9ea641949b77019c4455607f41ca233325d716a9500637e19efd28"
+    },
+    "workspace_source_sha256": {
+      "author_breadth1332.py": "f7995e842baa09e6bc28f9f6322a859ba3ab67735c530272a8c9483de8d3813a",
+      "breadth1068_helpers.py": "997f949ec26c7e494ad26a818f9f2078f6f4f2a0c49ca7f61aa8c71f3b091b0a"
+    },
+    "secondary_identity_credit": false,
+    "alternate_target_credit": false
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1332-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "75aa9c3cc54399544169baab2d9775e21b94b20903e209d52e992091e0578200"
+  },
+  "full_suite_run": false
+}

@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-halo-of-lumina-light-four-live-sparse1574-real-zap-spellvoid-choice-declined",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-halo-of-lumina-light-four-live-sparse1574-real-zap-spellvoid-choice-declined",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1574-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1574-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "de7addcfc0561a16e1cddf8081e97e860f0c5a7c1509dc7250a45574c4e5aa61",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "f7c1a991691852fff7088c78d2ad46105b01e90872b1ceaab717bd05a0ff45ff",
+        "actions.json": "7103cab1da2baa625e148aafa83ebd6fc930e1a3ea47c9da0fb9754a8da1f1ea",
+        "assertions.json": "323330941e3989906bede0bd462fb4ab8a3f661df03950d3e75fdc280d80c99e",
+        "expected_final_gamestate.txt": "85656c438188a81658919a2b69119051dd8b73a90b58ad615611ceffce0a59bf",
+        "meta.json": "90cf76274b19dcb6425323fda783b761e675bf7668c55d0040eec093b5273950"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

@@ -1,0 +1,168 @@
+{
+  "status": "APPROVED_PLANNING_LIMIT_ONLY_NOT_GAMEPLAY",
+  "phase": "PLANNING",
+  "batch": 803,
+  "approved": true,
+  "planning_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "/root/sand_saved_recovery",
+  "created_utc": "2026-11-15T00:06:34.758159+00:00",
+  "card_id": "diced_blue",
+  "group_id": "pitch-cycle:diced",
+  "author_note": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov14-batch803-diced-known-late-target-unattempted-planning-hold.json",
+    "sha256": "805962fcf56ead505e2247722c4b4fb204913b96e3575d4c2d68d5e38678f914"
+  },
+  "firm": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov14-batch803-firm-reservation.json",
+    "sha256": "82535d06d0da873ca1f1bd79d47506207bda8d6f2b429a8c335986043a7328ae"
+  },
+  "support_dependency_evidence": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov14-batch803-selected-helper-preflight.json",
+    "sha256": "d19da98f5a9769669ef97ae44fc74cb6d8a6b3bedaa7972d5441527f4fa55216"
+  },
+  "independent_printed_selected_path_preparation": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov14-batch803-independent-printed-selected-path-preparation.json",
+    "sha256": "11ee4a08a2d0dcfdb865f8a2a71ab10956af8f5b697393700e674b32d5f4d392"
+  },
+  "runtime_sha256": "6695d68163d313f4f61cb20ad9122c7038e621a60c847909598150fe8da09d11",
+  "source_guard_witness": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov14-batch801-throw-actual-owned-blue-reveal-prevention-three-physical-consumer-author\\manifest.json",
+    "sha256": "1e60b5ef9d1321378bec04a40aa5e2a3eb0f5813431ea991ef7df4bc342cfd20"
+  },
+  "source_guard_count": 82,
+  "source_guard_map_sha256": "c1b296b05874e1f45757c427f517793877ef80b3bbd844f77bf7dc889de944cf",
+  "selected_preimage_count": 20,
+  "selected_source_preimages_sha256": {
+    "FaBSim/Custom/GameLogic.php": "a72657da1bbb2520e4ee5f8d71488f268914d539ce235b0a18ea4a03f6793ffd",
+    "FaBSim/Custom/CardChoices.php": "6d1122598624a9ac61d99bfc41574d01e80de211e714eadaafb7b6b817a4f975",
+    "FaBSim/Custom/HNTCards.php": "1dcd0b8ddf896fcdb67e1e28de4da6dd8dc47d36ee3bc15cee787e340f984c9d",
+    "FaBSim/Custom/IARCards.php": "d7462a79d8deea9b6270c5c878972878177c44726e389d1918022b6368d7e82a",
+    "FaBSim/Custom/IARRuntime.php": "8aae2efda118e15daa34381505cba3c5060059819960884caeaeede0f578a7d9",
+    "FaBSim/Custom/MONAbilities.php": "0e50c426738ec083bf3357d9f0326b30d78d8278586178a6a465d11ece280cc6",
+    "FaBSim/Custom/MONCards.php": "3e855be139501d1b2f78524ab700bdcdedb503257c4f089bc1d1d7b16d82bfcc",
+    "FaBSim/Custom/CRUCards.php": "b747479f996a5207246c171efce73f899471b9b9608c116241b10086c2c7c292",
+    "FaBSim/Custom/SEACards.php": "83e666cff3fb39ced8c52e5438ae0aa977b72be9bf2ccadcda562a89f7091ad8",
+    "FaBSim/Custom/SEARuntime.php": "61912a3f1e31e6d6e10c64fa92514c6ecf937fcbb1ca63af0ace0dfd3a9dc001",
+    "FaBSim/Custom/WTRCards.php": "5ead5cc6303b5e6760715b1a038e38d01014d8d42f16aa32bb24aa9df17e9515",
+    "FaBSim/Custom/OUTRuntime.php": "3c404a0b1b35aa8f69565e8d034f4b157f611282b99647a59c7873801f618b7f",
+    "FaBSim/Custom/ARCAbilities.php": "5330205cf8b98a1ba93cb15aa42f67c76d01dac3cb53b206669e7d00b0e9daca",
+    "FaBSim/Custom/WTRAbilities.php": "08b6d572e83e797848eaee02f9288bbe2bdc7de1dbe1ce522de0cd95a6c94d5c",
+    "DevTools/FaB/hnt_abilities.json": "4252b725640c5014d9264c987067b71a036ff1f7fa6e98f5fc1da5e542e080d8",
+    "DevTools/FaB/iar_abilities.json": "6b5db45b3a1cfd542bb2730f47347198055b7630486f6f32d51b11a781aa0fae",
+    "DevTools/FaB/sea_abilities.json": "6e6916ff797cb956d9cce2018dc151644d26644d9b803482f04fd91094258c78",
+    "DevTools/FaB/mon_abilities.json": "41ff76fda49bb17ddcce19fe71ace6302ccd8199ab155c88a5fff7285f4a4386",
+    "FaBSim/GeneratedCode/GeneratedMacroCode.php": "46204cec1b6bb44e3086f56ebe64bee747724f5ac0684ef8c9bdc27047688086",
+    "Schemas/FaBSim/GameSchema.txt": "7783800bd47bc85885cc915066aadca58cdf99f0c1180602ac312d9af5ebf643"
+  },
+  "all_current_guards_independently_matched": true,
+  "known_required_contract_rows": [
+    {
+      "file": "sparse-source-only-holds.json",
+      "json_path": ".holds[89]",
+      "card_id": "incision_blue",
+      "row_sha256": "3c8aa739e3b922937acea4fb297c7ab511621c55011fb1b97e00913d0c79ba95"
+    },
+    {
+      "file": "sparse-source-only-holds.json",
+      "json_path": ".holds[133]",
+      "card_id": "puncture_blue",
+      "row_sha256": "cc7c6926bb58d59da08a7d10dd3688dfbc8069a07c16c94f27a1c3b14160554a"
+    },
+    {
+      "file": "sparse-source-only-holds.json",
+      "json_path": ".holds[134]",
+      "card_id": "blade_flurry_red",
+      "row_sha256": "26ab8c5eca5d6f65ba7a784c57b6a3be4a88d404911b5eeb8bdb078c32379ae7"
+    },
+    {
+      "file": "sparse-source-only-holds.json",
+      "json_path": ".holds[246]",
+      "card_id": "twinning_blade_yellow",
+      "row_sha256": "803a0b20e7e281c87553e728124c24a43bd24cfde338d60d2a9a685963c2a3d0"
+    }
+  ],
+  "actual_implemented_Blue_body_sha256": "1a4a93b640034866883801e8f14fbb96506e84df514a09353c91c61f911b8669",
+  "actually_viewed_Blue_face": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\WebpImages\\diced_blue.webp",
+    "sha256": "5669c0904e31e3705712a0ea4c2d368b81438de1e2ed2fdfcdc0329b792b367e"
+  },
+  "official_Blue_text": "https://judge.fabtcg.com/cards/detail/3531/",
+  "selected_source_paths_and_functions": [
+    {
+      "path": "DevTools/FaB/hnt_abilities.json",
+      "functions": [
+        "diced_blue.ResolveCard"
+      ],
+      "finding": "Actual currentDaggerattack refs are followed by awaited MZChoose at resolution, then currentWTR_POWER:1 and nextDAGGER1. Complete body exists."
+    },
+    {
+      "path": "FaBSim/Custom/HNTCards.php",
+      "functions": [
+        "FaBHNTAffectsAttack",
+        "FaBHNTNext"
+      ],
+      "finding": "Current attack target and nextDagger modifier infrastructure exists, but no selected early declaration binding."
+    },
+    {
+      "path": "FaBSim/Custom/GameLogic.php",
+      "functions": [
+        "DoPlayCard",
+        "FaBRunSourceMacro",
+        "DoResolveCard"
+      ],
+      "lines": "923-994;1269-1326",
+      "finding": "Early exact binding bridge covers LungingBlue/currentattack, notDiced. Normal physical AttackReaction retention exists and is not the held seam."
+    },
+    {
+      "path": "FaBSim/Custom/CardChoices.php",
+      "functions": [
+        "FaBUsesDeclaredReactionTarget",
+        "FaBPrepareDeclaredReaction"
+      ],
+      "lines": "4-5;38-57",
+      "finding": "Declared-target registry covers Nip/Shred; Diced excluded. Actual positive target must bind attack UID/link before costs/priority; late singleton is not early binding."
+    },
+    {
+      "path": "FaBSim/Custom/DYNRuntime.php",
+      "functions": [
+        "FaBDYNWeaponCanAttack",
+        "FaBDYNWeaponAttack",
+        "FaBDYNPlayed"
+      ],
+      "lines": "25-44;108",
+      "finding": "Normal Quicksilver activation implementation exists. Fixed actual printed condition requires another weapon attack gainingGA, which is unearned; no invented WarriorNAA condition or support qualification."
+    },
+    {
+      "path": "FaBSim/Custom/OUTRuntime.php",
+      "functions": [
+        "FaBOUTDaggerHit"
+      ],
+      "lines": "100-104",
+      "finding": "Selected native payload keys are NerveScalpel/Orbitoclast/ScalePeeler; Quicksilver does not exercise Scale181 nextEquipment payload. Ordinary dagger hit bookkeeping alone is not a ban or a passing certificate."
+    }
+  ],
+  "independent_conclusion": "Required original currentDagger formal target is only selected by actual resolving chooser. Same known Incision89/Puncture133/BladeFlurry134/Twinning246 contract. A genuinely early singleton auto-bind would be legal, but none is present in this bounded selected path. Hold unattempted without late-singleton bypass, substitute or executable.",
+  "normal_AR_retention_and_effect_bodies_exist": true,
+  "planning_only": true,
+  "executable_cases": 0,
+  "native_attempted": false,
+  "diagnostic_attempted": false,
+  "fixture_saved": false,
+  "coverage_credit": false,
+  "confirmed_gameplay_bug": false,
+  "new_issue_claimed": false,
+  "new_distinct_root_cause_groups": 0,
+  "repair_proposal": false,
+  "source_fix": false,
+  "qualification_permitted": false,
+  "current_or_next_damage_or_AP_native_observed": false,
+  "B787_denied_operation_untouched": true,
+  "context_snapshot": "Preflight historical4066qualified/181issues/248holds/currentgameplay6695. Any separate Skeletal native work is not Diced evidence.",
+  "limits": [
+    "One selected Blue representative; no RGBsiblings/current+1/next+1/2+2damage/HP16/permission/AP/TimeSkippers/twoQuicksilver support outcome has executed or been qualified.",
+    "Fang marked/Fealty, Quicksilver gainedGA, Scale181 payload, otherdaggers/listeners/UPF branches remain unearned/uncertified.",
+    "No physicalproxy rules ownership assumption, framework/body absence or normalAR-lifetime fault claimed.",
+    "Only W proof write/read-only R; no PHP/native/replay/R/source/Git/repair/B787 action by reviewer."
+  ]
+}

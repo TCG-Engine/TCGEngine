@@ -1,0 +1,155 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-23T04:11:59.326432+00:00",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1057-20261122.json",
+  "source_spec_sha256": "2d7863a615bf156c5bd72fd464abd42ed482f842f26cd2660e7cc714a0fb87aa",
+  "new_scenarios": 4,
+  "new_groups": 4,
+  "new_primary_ids": 4,
+  "actions": 120,
+  "native_assertions": 1080,
+  "manual_passes": 100,
+  "totals": {
+    "saved_registered_scenarios": 4867,
+    "duels": 3075,
+    "four_live": 1792,
+    "recorded_primary_ids": 2015,
+    "identity_denominator": 5196,
+    "recorded_groups": 1889,
+    "group_denominator": 3324,
+    "four_live_groups": 1781,
+    "phase_qualified_scenarios_at_actual_contexts": 1504,
+    "phase_qualified_unique_groups": 1494,
+    "creation_replay_passes": 2246,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 665,
+  "scenarios": [
+    {
+      "card_id": "golden_gait",
+      "group_id": "identity:golden_gait",
+      "scenario_id": "golden-gait-four-live-sparse1057-actual-printed-two-defense-and-temper-close",
+      "effect_branches": [
+        "actual_printed_two_defense_and_temper_close"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/golden-gait-four-live-sparse1057-actual-printed-two-defense-and-temper-close",
+      "source_spec": "card-regression-sparse1057-20261122.json",
+      "source_spec_sha256": "2d7863a615bf156c5bd72fd464abd42ed482f842f26cd2660e7cc714a0fb87aa",
+      "review_evidence": "review-evidence/sparse1057-20261122-qualified-saved.json",
+      "review_evidence_sha256": "3c3e06ddb81cf2034cc3b50060c85fb3d4f3e35834e91720178e2f5744dc1a92",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1057-20261122-replay.json",
+          "sha256": "040b8ce1dd7de9fb9b22d5888a116ed25a532ecc610d065fa5ecfde6cebdb3a8",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "golden_heart_plate",
+      "group_id": "identity:golden_heart_plate",
+      "scenario_id": "golden-heart-plate-four-live-sparse1057-actual-printed-two-defense-and-temper-close",
+      "effect_branches": [
+        "actual_printed_two_defense_and_temper_close"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/golden-heart-plate-four-live-sparse1057-actual-printed-two-defense-and-temper-close",
+      "source_spec": "card-regression-sparse1057-20261122.json",
+      "source_spec_sha256": "2d7863a615bf156c5bd72fd464abd42ed482f842f26cd2660e7cc714a0fb87aa",
+      "review_evidence": "review-evidence/sparse1057-20261122-qualified-saved.json",
+      "review_evidence_sha256": "3c3e06ddb81cf2034cc3b50060c85fb3d4f3e35834e91720178e2f5744dc1a92",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1057-20261122-replay.json",
+          "sha256": "040b8ce1dd7de9fb9b22d5888a116ed25a532ecc610d065fa5ecfde6cebdb3a8",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "good_time_chapeau",
+      "group_id": "identity:good_time_chapeau",
+      "scenario_id": "good-time-chapeau-four-live-sparse1057-actual-printed-two-defense-and-temper-close",
+      "effect_branches": [
+        "actual_printed_two_defense_and_temper_close"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/good-time-chapeau-four-live-sparse1057-actual-printed-two-defense-and-temper-close",
+      "source_spec": "card-regression-sparse1057-20261122.json",
+      "source_spec_sha256": "2d7863a615bf156c5bd72fd464abd42ed482f842f26cd2660e7cc714a0fb87aa",
+      "review_evidence": "review-evidence/sparse1057-20261122-qualified-saved.json",
+      "review_evidence_sha256": "3c3e06ddb81cf2034cc3b50060c85fb3d4f3e35834e91720178e2f5744dc1a92",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1057-20261122-replay.json",
+          "sha256": "040b8ce1dd7de9fb9b22d5888a116ed25a532ecc610d065fa5ecfde6cebdb3a8",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "knucklehead",
+      "group_id": "identity:knucklehead",
+      "scenario_id": "knucklehead-four-live-sparse1057-actual-printed-two-defense-and-temper-close",
+      "effect_branches": [
+        "actual_printed_two_defense_and_temper_close"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/knucklehead-four-live-sparse1057-actual-printed-two-defense-and-temper-close",
+      "source_spec": "card-regression-sparse1057-20261122.json",
+      "source_spec_sha256": "2d7863a615bf156c5bd72fd464abd42ed482f842f26cd2660e7cc714a0fb87aa",
+      "review_evidence": "review-evidence/sparse1057-20261122-qualified-saved.json",
+      "review_evidence_sha256": "3c3e06ddb81cf2034cc3b50060c85fb3d4f3e35834e91720178e2f5744dc1a92",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1057-20261122-replay.json",
+          "sha256": "040b8ce1dd7de9fb9b22d5888a116ed25a532ecc610d065fa5ecfde6cebdb3a8",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

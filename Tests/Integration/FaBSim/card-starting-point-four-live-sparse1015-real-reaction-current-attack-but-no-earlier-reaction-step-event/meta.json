@@ -1,0 +1,7 @@
+{
+    "name": "Starting Point / sparse four-live restriction representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-23T02:52:00+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "**Attack Reaction** - Destroy this: Target attack gets **go again**. Activate this only if you've played a card or activated an ability this reaction step. Named prerequisite negative only. Legalnatural20uzuri, ownedreadyEquipment5, actualGenericWounding6 currentATTACK atREACTIONpriority1/AP0. Printed0destroycostfullyavailable, realcurrentAA6iseligibleTargetAttack. No card/ability played oractivated thisREACTIONstep; AA6playedbeforeREACTIONdoesnotqualify. ExplicitArakniReactionStepguardfalse rejects beforedestroy/target/AP/Stack. Thenactualfourmanualcombat4damageHP16/AP0/source6ownedGY; Equipment5ready/R0/remainingHand7,8,9/exactDeck10,11 retained. No positiveactivation/search/grantedGA/targettiming/hero/support/sibling/full-card claim. Sources: FaBSim/GeneratedCode/cardArrayCache.json#starting_point"
+}

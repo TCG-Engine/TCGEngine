@@ -1,0 +1,27 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch304.json",
+  "runtime_sha256": "0d877de49c131f29c152706e14bba3368630df61c59ef475c87a84f20b6e1a66",
+  "returncode": 0,
+  "completed_utc": "2026-11-03T07:37:16.079718+00:00",
+  "fixtures": [
+    {
+      "slug": "card-gloves-of-astral-sanctuary-four-live-sparse-real-hero-tap-and-destroy-prevents-one-of-seven",
+      "fixture_sha256": "21583c65be80448a80209b047e8a1249c88110dd348fce5d16afae570c532cf4",
+      "passed": true,
+      "result": "[PASS] gloves_of_astral_sanctuary / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-gloves-of-astral-sanctuary-four-live-sparse-real-hero-tap-and-destroy-prevents-one-of-seven",
+      "returncode": 0,
+      "stdout": "[PASS] gloves_of_astral_sanctuary / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

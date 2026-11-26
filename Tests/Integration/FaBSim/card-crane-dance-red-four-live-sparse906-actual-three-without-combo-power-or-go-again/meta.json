@@ -1,0 +1,7 @@
+{
+    "name": "Crane Dance / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T18:38:41+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "**Combo** - If Soulbead Strike was the last attack this combat chain, this gets +1{p}, **go again**, and this can't be defended by attack action cards with base {p} greater than the number of chain links you control. Representative only: actual_three_without_combo_power_or_go_again. Other pitch siblings, alternate targets and unexercised branches receive no credit. All four live/manual; only native entry-point actions. Sources: FaBSim/GeneratedCode/cardArrayCache.json#crane_dance_red"
+}

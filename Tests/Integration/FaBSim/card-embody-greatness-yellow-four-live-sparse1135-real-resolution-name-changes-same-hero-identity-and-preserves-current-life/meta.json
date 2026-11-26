@@ -1,0 +1,7 @@
+{
+    "name": "Embody Greatness / actual resolution name and same hero identity change",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-23T10:54:01+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "**Shiyana Specialization**\n\nName a living legend hero. You become that hero until the start of your next turn, except your base {h} doesn't change. NamedactualHeroidentity/currentlife branchonly. InitiallegalyoungShiyana20ownsSpecialization5Hand; thisdoesnotseedanadultUPFhero. ActualInstant0/AP1/R0, fourmanualresponsesbeforeNAMECARDeffectchoice (nottarget/mode). CachelistedCCLivingLegendOldhimGrandfather40isselectedbyexactdisplayname. ActualsameHeroUID1/owner1/controller1/status2 CardIDchangesOldhim; originalShiyanaflagstoredforexpiry, currentHealth20/AP1/R0unchanged, source5ownedGY1/ABIStacknone/noextraUID. No newtriggerfrombecomingOldhim. ThiscaseDOESNOTverifybase-health20exception, copiedabilities/intellect, next-startrestoration orwholecard/heroidentitycredit; onlyactualnaming/identity/currentlifepayout andsourcelifecycle. Sources: FaBSim/GeneratedCode/cardArrayCache.json#embody_greatness_yellow"
+}

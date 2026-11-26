@@ -1,0 +1,7 @@
+{
+    "name": "Dimenxxional Vortex / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T15:19:40+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "You may play this from your banished zone.\n\nIf you play this from your banished zone, this costs {r}{r} less to play.\n\nEach hero banishes a card from their arsenal.\n\n**Blood Debt** Representative only: hand_cast_makes_each_of_four_live_heroes_banish_real_arsenal. Other pitch siblings, alternate targets and unexercised branches receive no credit. All four live/manual; only native entry-point actions. Sources: FaBSim/GeneratedCode/cardArrayCache.json#dimenxxional_vortex"
+}

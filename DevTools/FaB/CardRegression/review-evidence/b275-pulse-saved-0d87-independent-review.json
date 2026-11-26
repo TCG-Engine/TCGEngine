@@ -1,0 +1,291 @@
+{
+  "status": "APPROVED_ACTUAL_SAVED_HEALTHY_PULSE_SUBSET_PENDING_ROOT_QUALIFICATION",
+  "approved": true,
+  "source_approved": true,
+  "semantically_approved": true,
+  "reviewer": "/root/nov2_next_author",
+  "created_utc": "2026-11-03T02:09:55.488810+00:00",
+  "source_spec": "card-regression-batch275.json",
+  "input_sha256": "d2dd3671ff25b2ef125a7b814cb0114086ed6b8c2bb2ebef463fb532756880b8",
+  "manifest_sha256": "1cfc9f23e4d86096a471f9fdd68bedd5720f8751df308be48001fb48c6dade42",
+  "runtime_sha256": "0d877de49c131f29c152706e14bba3368630df61c59ef475c87a84f20b6e1a66",
+  "recorded_runtime_sha256": "0d877de49c131f29c152706e14bba3368630df61c59ef475c87a84f20b6e1a66",
+  "semantic_approval": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch275-independent-source-review\\review.json",
+    "sha256": "c9f6c2709b4db2177a8fefb2d0dd11c4c21fb46c4bfffc240c7c3fee01dcbc30"
+  },
+  "recording_receipt": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch275-20261103T020236Z-6ae940bc6c7c4.json",
+    "sha256": "25ed529f9efac15ac8d9aa4163c6f367c68d6ddafb3150d080788a9e2270040a"
+  },
+  "root_wrapper_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch275-native-r1\\receipt.json",
+    "sha256": "02ed66bf1764ff1994ca6a1d0afcc155d40d9a5c61333e946c2a78f232d65648"
+  },
+  "actual_comparison_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch275-pulse-independent-saved-review\\audit_saved.py",
+    "sha256": "f51a9a022cce3917d3703886d6c58aa90f66ceb947d4a9f4f62ed6affab64a3d"
+  },
+  "review_method": "Printed/source approval reused. Every native action and persisted assertion mapped exactly; independently derived four-seat actors; full strict schema initial/final snapshots and every physicalUID/owner/controller/zone/economy/manual preference; final assertions evaluated and raw4/raw5 stable. No PHP/native/game/replay/backend or R writes.",
+  "fixtures": [
+    {
+      "index": 0,
+      "card_id": "pulse_of_isenloft_blue",
+      "slug": "card-pulse-of-isenloft-blue-four-live-sparse-real-paid-reaction-then-earth-action-defends-for-four",
+      "source_spec": "card-regression-batch275.json",
+      "input_sha256": "d2dd3671ff25b2ef125a7b814cb0114086ed6b8c2bb2ebef463fb532756880b8",
+      "reviewer": "/root/nov2_next_author",
+      "runtime_sha256": "0d877de49c131f29c152706e14bba3368630df61c59ef475c87a84f20b6e1a66",
+      "recorded_runtime_sha256": "0d877de49c131f29c152706e14bba3368630df61c59ef475c87a84f20b6e1a66",
+      "approved": true,
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_NEW_FOUR_LIVE_REPRESENTATIVE",
+      "fixture_path": "Tests\\Integration\\FaBSim\\card-pulse-of-isenloft-blue-four-live-sparse-real-paid-reaction-then-earth-action-defends-for-four",
+      "fixture_sha256": "ea12d4c0c287d72d55d0d8f3e0ef914d65182977a27b187426ec4ca6abb0fd18",
+      "raw4_sha256": {
+        "initial_gamestate.txt": "bd6d24658fa52041bec2e476474fa526f697eb2b8c55668d37b70357184601e3",
+        "actions.json": "0b3e1679329c431038ca32e2f55186f436250a063e1f304747d0c99708c220bc",
+        "assertions.json": "59f4a50fb34a90d54f4c12a443375a10f4ec4e120a9ec00c6fced3d47078fc98",
+        "expected_final_gamestate.txt": "c26a27098efec117340854e46a69b787c9c4b219e6aa6456707f8264e7fb25ef"
+      },
+      "raw5_sha256": {
+        "initial_gamestate.txt": "bd6d24658fa52041bec2e476474fa526f697eb2b8c55668d37b70357184601e3",
+        "actions.json": "0b3e1679329c431038ca32e2f55186f436250a063e1f304747d0c99708c220bc",
+        "assertions.json": "59f4a50fb34a90d54f4c12a443375a10f4ec4e120a9ec00c6fced3d47078fc98",
+        "expected_final_gamestate.txt": "c26a27098efec117340854e46a69b787c9c4b219e6aa6456707f8264e7fb25ef",
+        "meta.json": "7b06a63efec9502b346f2bd10619f1b2394005f1237e8223965c4889d41d4a51"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "bd6d24658fa52041bec2e476474fa526f697eb2b8c55668d37b70357184601e3",
+        "actions.json": "0b3e1679329c431038ca32e2f55186f436250a063e1f304747d0c99708c220bc",
+        "assertions.json": "59f4a50fb34a90d54f4c12a443375a10f4ec4e120a9ec00c6fced3d47078fc98",
+        "expected_final_gamestate.txt": "c26a27098efec117340854e46a69b787c9c4b219e6aa6456707f8264e7fb25ef",
+        "meta.json": "7b06a63efec9502b346f2bd10619f1b2394005f1237e8223965c4889d41d4a51"
+      },
+      "actions": 66,
+      "native_assertions": 5972,
+      "actual_manual_passes": 57,
+      "actual_priority_response_passes": 55,
+      "actual_defender_declaration_finish_inputs": 2,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4
+      ],
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "all_actions_and_assertions_exact": true,
+      "all_endpoint_physical_uid_card_zones_ownership_verified": true,
+      "all_terminal_assertions_evaluated_against_parsed_final_snapshot": true,
+      "initial_physical_uid_locations": {
+        "1": {
+          "card_id": "fai",
+          "zone": "p1Hero"
+        },
+        "9": {
+          "card_id": "raging_onslaught_red",
+          "zone": "p1Hand"
+        },
+        "10": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Hand"
+        },
+        "11": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Hand"
+        },
+        "8": {
+          "card_id": "harmonized_kodachi",
+          "zone": "p1Weapons"
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero"
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero"
+        },
+        "4": {
+          "card_id": "oldhim",
+          "zone": "p4Hero"
+        },
+        "5": {
+          "card_id": "pulse_of_isenloft_blue",
+          "zone": "p4Hand"
+        },
+        "6": {
+          "card_id": "autumns_touch_red",
+          "zone": "p4Hand"
+        },
+        "7": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p4Hand"
+        }
+      },
+      "final_physical_uid_locations": {
+        "1": {
+          "card_id": "fai",
+          "zone": "p1Hero"
+        },
+        "8": {
+          "card_id": "harmonized_kodachi",
+          "zone": "p1Weapons"
+        },
+        "9": {
+          "card_id": "raging_onslaught_red",
+          "zone": "p1Graveyard"
+        },
+        "10": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Pitch"
+        },
+        "11": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Pitch"
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero"
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero"
+        },
+        "4": {
+          "card_id": "oldhim",
+          "zone": "p4Hero"
+        },
+        "5": {
+          "card_id": "pulse_of_isenloft_blue",
+          "zone": "p4Graveyard"
+        },
+        "6": {
+          "card_id": "autumns_touch_red",
+          "zone": "p4Graveyard"
+        },
+        "7": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p4Pitch"
+        }
+      },
+      "final_health": [
+        20,
+        20,
+        20,
+        17
+      ],
+      "final_resources": [
+        2,
+        0,
+        0,
+        1
+      ],
+      "final_AP": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_Hero_Status": [
+        2,
+        2,
+        2,
+        2
+      ],
+      "checkpoint_count": 68,
+      "checkpoint_assertion_mapping_sha256": "5452aaa6c358bf16bf65f2e821548cb27adaf85fdf492cd8ac73b7b08f168e34",
+      "native_action_mapping_sha256": "f7abff71aefe7a87e19a0291b8b951633cad5078b928fb2f7c7ac1f28db47735",
+      "native_assertion_mapping_sha256": "8d222327aa9c682cb683f0bfc56d5764c3d0932b53e5011f595c7c655eae0365"
+    }
+  ],
+  "blocked_attempts": [
+    {
+      "slug": "card-prognosticate-red-four-live-correct-probe-real-crucible-four-arcane-earns-opt-one-source-retained",
+      "card_id": "prognosticate_red",
+      "semantically_approved": false,
+      "approved": false,
+      "fixture_saved": false,
+      "actual_attempted_actions": 8,
+      "error": "Expected FaBSim state [\"arcCards\",\"5\",\"arcaneBonus\"] to exist for JSON equality, got missing.",
+      "archive": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch275-20261103T020236Z-6ae940bc6c7c4.json",
+      "archive_sha256": "25ed529f9efac15ac8d9aa4163c6f367c68d6ddafb3150d080788a9e2270040a",
+      "input_sha256": "d2dd3671ff25b2ef125a7b814cb0114086ed6b8c2bb2ebef463fb532756880b8",
+      "runtime_sha256": "0d877de49c131f29c152706e14bba3368630df61c59ef475c87a84f20b6e1a66",
+      "coverage_credit": false,
+      "engine_bug_confirmed": false,
+      "failure_class": "UNQUALIFIED_PRIVATE_STATE_ORACLE_PREDICTION_FAILURE",
+      "scope": "Failed after target/payment before any primary source response, damage, Surge or Opt. No source-lifetime/native gameplay bug inferred. Original immutable probe remains; author bounded correction requires separate source review preserving physical4damage/Opt/lifetime expectations."
+    }
+  ],
+  "total_actions": 66,
+  "total_native_assertions": 5972,
+  "total_manual_passes": 57,
+  "total_priority_response_passes": 55,
+  "total_defender_declaration_finish_inputs": 2,
+  "material_findings": [
+    "Actual first Kodachi8 paidBlue10 pitch3/cost1/AP1 leavesR2 and conditionalGA earned from realcost0pitchcard. Exactproxy12/physicalused8 distinct. ActualP4Pulse5 HandDR paidBlue7pitch3/cost2 leavesP4R1/AP0 and Autumn6Hand; realfourresponseactors4/1/2/3 retain source5 beforedefending.",
+    "PrintedPulse6 blocksfirst1completely; no Actionbonus to DR. RealweaponGA earnsAP1 thenfullchainclosure clearsproxy12/Pulse5toownGY. ActualnewRaging9 paid3 fromfloatingR2+Blue11pitch3/AP1 leavesR2/AP0.",
+    "ActualEarthActionAutumn6 fromHand has printeddefense3 plus resolvedPulse1 throughcurrenthelper: physicalRaging7deals3/P4HP17. ExactpersistedbonusELE_PULSE_DEFENSE1/onlydamage3 andphysicalUID/source/actionledgers corroborate effect; no syntheticTag/query. Final P4GYunordered5/6/Pitch7, P1GY9/Pitch10/11/weapon8used; allqueuesframespaymentcombatclear/all4manual.",
+    "Mixedrootexit1 is expressly not an all-pass claim. OnlyPulse saved andapproved; Prognosticatefailed8-input private arcaneBonus presence oracle before source resolution, nofixture and no confirmed gameplay/source-lifetime bug."
+  ],
+  "limits": [
+    "Only healthy Pulse paidDR plus laterEarthAction defense branch qualified by this saved proof; no Ice/otherElemental/expiration/Legendaryvalidation/hero/support/fullcard/control credit.",
+    "Prognosticate original probe remains unqualified. Corrected private-oracle packet must independently preserve printed4damage/SurgeOpt1/physicalStacklifetime/suffix; no current bug or coverage claim.",
+    "Root two focused clean replays and registration remain separate required gates, not executed by reviewer."
+  ]
+}

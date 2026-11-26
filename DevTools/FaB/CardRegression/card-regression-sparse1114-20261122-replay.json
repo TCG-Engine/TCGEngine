@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-hell-hammer-four-live-sparse1114-real-blue-pays-weapon-two-for-six-damage-then-owned-weapon-banishes-at-close",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-hell-hammer-four-live-sparse1114-real-blue-pays-weapon-two-for-six-damage-then-owned-weapon-banishes-at-close",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1114-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1114-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "92b01f8fad436fb8bd3ec0db4c3792b85c6c500e697953cc9ef1127f0184bb43",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "96084a81e91ee927fc28730d7b788a1cffd2cfbba55c40b03072d2071c6f0aad",
+        "actions.json": "68555e1adb5ee3e99f23ac84afbf2383b3f3d2f96b985ad1552a9d323967372b",
+        "assertions.json": "e3f59a20e3c7a9550f84b6645c6bee924c20c19c974940ea3cf9351a9e7618e9",
+        "expected_final_gamestate.txt": "feeb2e29b612d4ec8597e5fcd97265cb07fe66aa93c723240657cd2396548e4b",
+        "meta.json": "b928248af2cfd3887a03d915683ce4e220bc08b6fd94da4614471aed6993da96"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

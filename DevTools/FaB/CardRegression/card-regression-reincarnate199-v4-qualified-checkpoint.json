@@ -1,0 +1,68 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-16T16:16:04.426699+00:00",
+  "runtime_sha256": "2439a9c85278682c852cd8190d4eaeefa8dd8e5711ae46586231434ee7f69301",
+  "source_spec": "card-regression-batch864-reincarnate-blue-nonberserk-positive-after-v3.json",
+  "source_spec_sha256": "bae094a8527c03064afb0477b7933793a50500634b8216e51d838c62c8d3f931",
+  "new_scenarios": 1,
+  "new_groups": 1,
+  "new_primary_ids": 1,
+  "actions": 32,
+  "native_assertions": 3965,
+  "manual_passes": 29,
+  "totals": {
+    "saved_registered_scenarios": 4105,
+    "duels": 3074,
+    "four_live": 1031,
+    "recorded_primary_ids": 1259,
+    "identity_denominator": 5196,
+    "recorded_groups": 1133,
+    "group_denominator": 3324,
+    "four_live_groups": 1024,
+    "phase_qualified_scenarios_at_actual_contexts": 742,
+    "phase_qualified_unique_groups": 737,
+    "creation_replay_passes": 1483,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 1,
+  "scenarios": [
+    {
+      "card_id": "reincarnate_blue",
+      "group_id": "pitch-cycle:reincarnate",
+      "scenario_id": "card-reincarnate-blue-four-live-real-additional-random-discard-earned-bottom-deck",
+      "effect_branches": [
+        "realWreckerPrinted2Blue3-singletonRandomDiscard5-earns4-physicalBottom8_9_5-fullParent8damage"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-reincarnate-blue-four-live-real-additional-random-discard-earned-bottom-deck",
+      "source_spec": "card-regression-batch864-reincarnate-blue-nonberserk-positive-after-v3.json",
+      "source_spec_sha256": "bae094a8527c03064afb0477b7933793a50500634b8216e51d838c62c8d3f931",
+      "review_evidence": "review-evidence/reincarnate199-independent-saved-qualified-v4.json",
+      "review_evidence_sha256": "a30cc601c65a9c7fd2a85a33a34ee5487cbce347a4626990e40d5bb9e3d98f95",
+      "recorded_runtime_sha256": "161af1af3a3563ff013d1c821b22ec8fb2d73016129a145ffb9921c789188423",
+      "qualification_runtime_sha256": "2439a9c85278682c852cd8190d4eaeefa8dd8e5711ae46586231434ee7f69301",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-replay-reincarnate199-v4-final.json",
+          "sha256": "f9dd742a00c77bb9568e23ecfa12bc12203d57b9a626f946920cae1fc2384187",
+          "runtime_sha256": "2439a9c85278682c852cd8190d4eaeefa8dd8e5711ae46586231434ee7f69301",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

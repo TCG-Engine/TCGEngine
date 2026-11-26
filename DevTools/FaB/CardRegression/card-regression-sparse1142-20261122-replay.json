@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-vambrace-of-determination-four-live-sparse1142-real-paid-reaction-reduces-actual-no-fear-prevention",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-vambrace-of-determination-four-live-sparse1142-real-paid-reaction-reduces-actual-no-fear-prevention",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1142-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1142-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "0a27568115616309376c28ced90cafa69a7b21195872a7a118ec6cf99a718309",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "fb8f1a49fa1c5b851c7d6d27d4cfd9c5d64529307c5e1af3c2ee3fa879a2ac6d",
+        "actions.json": "bd91203c7e7f567d29010f65c56b5a9aa5208f0774dec2354f922ecc09a95500",
+        "assertions.json": "b6ab0493757113778c7e93157e77f4bfe26388435f74c9fb6d84da9015f9d9a3",
+        "expected_final_gamestate.txt": "712729de842f7814fb70347d8ee6a05dd354f1b9b9150c963001955d6d3a4c89",
+        "meta.json": "d89af48ab2d164be98826e0c96b5aa9c44397429e1e24eab2223bbb996505e35"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

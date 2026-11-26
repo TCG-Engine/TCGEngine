@@ -1,0 +1,121 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "independent breadth_review1252",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1386-20261122.json",
+  "source_spec_sha256": "e90e324f35a93647006e17cd2cf0580f9eb5189acc702aa2b6b8299ffccca38a",
+  "input_sha256": "e90e324f35a93647006e17cd2cf0580f9eb5189acc702aa2b6b8299ffccca38a",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-korshem-crossroad-of-elements-four-live-sparse1386-actual-pitching-under-live-landmark-is-not-revealing-no-reward",
+      "card_id": "korshem_crossroad_of_elements",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "adb819c3e2c16ada747932df1872cbf260c04b66d6077786a13551264ad658f1",
+        "actions.json": "0fbbb2b338fa59e55682962b22915931bee573c2d0cbb1a693ac23206f3a6331",
+        "assertions.json": "9bf179a5fb12e4f1e6a41a8469889de2dd02069775d83e4dd4e630dca70ec610",
+        "expected_final_gamestate.txt": "80cbb2e790f5894ee657d022092cb8d244e2aebd6664df9436bfc1cd958597ab",
+        "meta.json": "0957419f2086e9eb2930b2224d5dc1ff7657ce6bd0676f1380f97cb2ded09526"
+      },
+      "fixture_sha256": "10b78850587aa5e7f1c16111720ff29f23a0920b99a601ebf01e58ece30b68fe",
+      "actions": 36,
+      "native_assertions": 345,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 29,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1386-20261122.json",
+      "input_sha256": "e90e324f35a93647006e17cd2cf0580f9eb5189acc702aa2b6b8299ffccca38a",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1386-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-korshem-crossroad-of-elements-four-live-sparse1386-actual-pitching-under-live-landmark-is-not-revealing-no-reward",
+        "fixture_slug": "card-korshem-crossroad-of-elements-four-live-sparse1386-actual-pitching-under-live-landmark-is-not-revealing-no-reward",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "reviewer": "independent breadth_review1252",
+    "spec_sha256": "e90e324f35a93647006e17cd2cf0580f9eb5189acc702aa2b6b8299ffccca38a",
+    "source_note_sha256": "e4053e3ba2ba98fec3cfb058acda972bfdb1270291bb5d42ea2db3def4aa167a",
+    "case_count": 1,
+    "active_seats": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "players": "four_live_manual",
+    "native_controls": 36,
+    "query_checks": 345,
+    "persistable_assertions": 345,
+    "author_only_checks_omitted": 0,
+    "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+    "coverage_category": "PITCH_VS_REVEAL_EVENT_GUARD_WITH_NATIVE_LANDMARK_AND_PAID_GUARDIAN_ATTACK",
+    "per_case": [
+      {
+        "card_id": "korshem_crossroad_of_elements",
+        "group_id": "identity:korshem_crossroad_of_elements",
+        "native_controls": 36,
+        "persistable_assertions": 345
+      }
+    ],
+    "basis": [
+      "Unrepresented/unheld Elemental Landmark Korshem cost1/printedGoAgain legal talent under naturalYoungOldhim20 ElementalGuardian and threeDori20/manual4UPF. Cached upf_banned=false is format basis; oldhim blitz_living_legend=true explicitly prevents any Blitz-eligibility claim despite other cached blitz flags. No current external legality/policy verified or asserted.",
+      "Native physicalKorshem5Hand action spends AP1to0/pays1 with Blue6pitch3/R2; four source responses enter same5Arena, printedGA earnsAP1. GameLogic2044 Landmark persistent; generatedMacro4095-4099 runs uniqueness helper but no other Landmark exists. No initial Item/virtualABI remains after removing1383 Timesnap prefix; UIDmax10 fits physical5..10.",
+      "While actualLandmark is live, realThunderQuakeBlue7GuardianAA6declares adjacentHero4 then actualBlues8/9 pitch3 each. R2+3 insufficient6, secondpitch gives8 thenpay6 retainsR2/AP0. PhysicalPitch slots6/8/9 and ThunderGY7/consumerHand10 mapping verified. Manualfour source/combat phases yield real8power/noGA/8damageHP4=12 and no resource/health/power bonus.",
+      "Pitching publicly is not the reveal event specified by Korshem. CardChoices257-277 explicitly invokes FaBELEKorshemReveal only after actual RevealChoices; ELECards299-300 is a separate reveal hook. No selected payment/recycle/trigger history creates reveal. Therefore no earned reward layer/modal, R2not3/allotherHP20/power8not9 correct. FullsameLandmark/fates/UID10/RNG0/quietStackDQs/AP0consumer rejection coherent."
+    ],
+    "limits": [
+      "Only pitch-versus-reveal filter with actualLandmark1payment/entry/printedGA and real paidGuardianattack/fates. Positive reveal WHEN/timing/reward modes, Landmark uniqueness destruction, endphase condition, support identity/Hero abilities, siblings/wholecard untested. Format statement is historical cached UPF setup only, not Blitz eligibility/current policy.",
+      "Approval pending native execution. No game/test/replay, engine/repository edit, original checkout access, auth/network, full suite or Git operation."
+    ],
+    "source_sha256": {
+      "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+      "FaBSim/GeneratedCode/GeneratedMacroCode.php": "fe6a7982611df8f4de98ce2671b317b671b580146aa4b8c28e8f4b86d8461056",
+      "FaBSim/Custom/ELECards.php": "5319104c32fb648c9ef90ee5e7e3a6a22e29c35a26c2cca31b338aada0e6110f",
+      "FaBSim/Custom/WTRCards.php": "77d4452b30e45254a7199bc965396ded53e325717ecdd84a09b971f723f99f6a",
+      "FaBSim/Custom/GameLogic.php": "c60fa151561f959e4e3e341b814de0e2b47c9e9f153bbc8793a04c43b5075061",
+      "FaBSim/Custom/CardChoices.php": "c68ae2b8e984bcc64b00289cc2d71bc0c980b2fbbeaeadbca8ae3a9f9579c515",
+      "FaBSim/ZoneAccessors.php": "9967567a9a10df81a6f22df820d4d77258828657e95c4ad145b8b13ce17866a7",
+      "Schemas/FaBSim/GameSchema.txt": "7783800bd47bc85885cc915066aadca58cdf99f0c1180602ac312d9af5ebf643",
+      "Core/EngineActionRunner.php": "add14b53dc571d2a6e64407bfa4038a98d6554d6410de7a9233810d99c46ea2a",
+      "Core/ShortcutPreferences.php": "25f300ea0b6fbc409f5b92e8bc3587a74b2ab0eaf31ccef38e18c455598eaba6",
+      "DevTools/FaB/CardRegression/record_card_regressions.php": "e53055b29e9ea641949b77019c4455607f41ca233325d716a9500637e19efd28"
+    },
+    "workspace_source_sha256": {
+      "author_breadth1386.py": "b2d86b1c0fc644046606185a7605b66e6111a7691a691e501cda8b73ab040953",
+      "breadth1068_helpers.py": "997f949ec26c7e494ad26a818f9f2078f6f4f2a0c49ca7f61aa8c71f3b091b0a",
+      "sparse1383-local-20261122/proposed.json": "7c210f77212a54f3e783d0e9648aa242eb343892da3de0852638029de9421d8c"
+    },
+    "secondary_identity_credit": false,
+    "whole_card_credit": false,
+    "positive_condition_credit": false,
+    "positive_trigger_timing_credit": false,
+    "positive_hero_trigger_credit": false,
+    "positive_reveal_trigger_credit": false
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1386-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "d8cb6d2e3362f67fc70ff62ff7cdff5f7a4c1741adc6e8eb4e211a50f7771201"
+  },
+  "full_suite_run": false
+}

@@ -1,0 +1,27 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch344-v2.json",
+  "runtime_sha256": "1f5122763a098fc452b0d810b2131d979a18b39e8a26633f59541507ea78de80",
+  "returncode": 0,
+  "completed_utc": "2026-11-03T15:37:30.054259+00:00",
+  "fixtures": [
+    {
+      "slug": "card-give-no-quarter-blue-four-live-sparse-real-two-watery-grave-ally-cost-reductions",
+      "fixture_sha256": "50a99e5749e3dabd157f3b9219baff6a12a9a96a8dba101efd085a41ed7a0051",
+      "passed": true,
+      "result": "[PASS] give_no_quarter_blue / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-give-no-quarter-blue-four-live-sparse-real-two-watery-grave-ally-cost-reductions",
+      "returncode": 0,
+      "stdout": "[PASS] give_no_quarter_blue / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

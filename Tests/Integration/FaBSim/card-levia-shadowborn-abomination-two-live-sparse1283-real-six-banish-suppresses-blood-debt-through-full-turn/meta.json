@@ -1,0 +1,7 @@
+{
+    "name": "Levia, Shadowborn Abomination / actual adult duel printed branch",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-24T02:42:25+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "NATURAL_ADULT40_VS40_NATIVE_TWO_LIVE_ONLY. Bothrealmanualplayersrespond. UIDsHero1,2/assets3,4,5/ABI6; supportedmodeomitsactiveSeats/defaultemptygameMode/noPassives. ActualEbonFold3HeadInstant1paidbyrealRed5pitch1/R0/destroy3costbeforebothresponses, realDread4Handpower6BloodDebthelduntilactualnonTargetresolutionchoicewithABI6held. Actual4faceupBanish(noflagseed)earnsLeviaBloodDebtwaiver. EmptyDeckdrawattemptnotpositiveDrawcredit. RealbothAction/endphasepassescompleteactualnextTurn2/number3/APonlyP2=1, HP40bothwithactualdebt4faceupBanish,3GY/fund5returned/refilledHand;noheal. Nofalsecondition/adultotherbranch/Young/support/fullcardcredit. PriorYoung1280/1282sourcesaredesignsnotreplayed/requalifiedorcreditedagain. Sources: FaBSim/GeneratedCode/cardArrayCache.json#levia_shadowborn_abomination FaBSim/Custom/MONCards.php FaBSim/Custom/MONAbilities.php FaBSim/Custom/ARCAbilities.php FaBSim/Custom/GameLogic.php"
+}

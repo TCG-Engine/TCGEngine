@@ -1,0 +1,155 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-22T21:00:50.821407+00:00",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse961-20261122.json",
+  "source_spec_sha256": "a90f3e7de3e7bc35dec7b6f1c70843b5475a2058d33de14fcea6b77c6d25d3da",
+  "new_scenarios": 4,
+  "new_groups": 4,
+  "new_primary_ids": 4,
+  "actions": 113,
+  "native_assertions": 597,
+  "manual_passes": 100,
+  "totals": {
+    "saved_registered_scenarios": 4577,
+    "duels": 3075,
+    "four_live": 1502,
+    "recorded_primary_ids": 1725,
+    "identity_denominator": 5196,
+    "recorded_groups": 1599,
+    "group_denominator": 3324,
+    "four_live_groups": 1491,
+    "phase_qualified_scenarios_at_actual_contexts": 1214,
+    "phase_qualified_unique_groups": 1204,
+    "creation_replay_passes": 1956,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 375,
+  "scenarios": [
+    {
+      "card_id": "offensive_behavior_blue",
+      "group_id": "identity:offensive_behavior_blue",
+      "scenario_id": "card-offensive-behavior-blue-four-live-sparse961-actual-exact-two-block-without-might-vigor-bonus-or-hit",
+      "effect_branches": [
+        "actual_exact_two_block_without_might_vigor_bonus_or_hit"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-offensive-behavior-blue-four-live-sparse961-actual-exact-two-block-without-might-vigor-bonus-or-hit",
+      "source_spec": "card-regression-sparse961-20261122.json",
+      "source_spec_sha256": "a90f3e7de3e7bc35dec7b6f1c70843b5475a2058d33de14fcea6b77c6d25d3da",
+      "review_evidence": "review-evidence/sparse961-20261122-qualified-saved.json",
+      "review_evidence_sha256": "056b24ccb3427d2004528203412711083262d772390a866c916ca1456ea46f1f",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse961-20261122-replay.json",
+          "sha256": "b6764cdb33c3dcd04956ebd9167250d1ac79958af1d6ded5489c43906c1aa05e",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "spew_obscenities_yellow",
+      "group_id": "identity:spew_obscenities_yellow",
+      "scenario_id": "card-spew-obscenities-yellow-four-live-sparse961-actual-halved-base-two-exact-block-without-token-bonus-or-hit",
+      "effect_branches": [
+        "actual_halved_base_two_exact_block_without_token_bonus_or_hit"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-spew-obscenities-yellow-four-live-sparse961-actual-halved-base-two-exact-block-without-token-bonus-or-hit",
+      "source_spec": "card-regression-sparse961-20261122.json",
+      "source_spec_sha256": "a90f3e7de3e7bc35dec7b6f1c70843b5475a2058d33de14fcea6b77c6d25d3da",
+      "review_evidence": "review-evidence/sparse961-20261122-qualified-saved.json",
+      "review_evidence_sha256": "056b24ccb3427d2004528203412711083262d772390a866c916ca1456ea46f1f",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse961-20261122-replay.json",
+          "sha256": "b6764cdb33c3dcd04956ebd9167250d1ac79958af1d6ded5489c43906c1aa05e",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "uplifting_performance_blue",
+      "group_id": "identity:uplifting_performance_blue",
+      "scenario_id": "card-uplifting-performance-blue-four-live-sparse961-actual-exact-five-block-without-confidence-toughness-bonus-or-hit",
+      "effect_branches": [
+        "actual_exact_five_block_without_confidence_toughness_bonus_or_hit"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-uplifting-performance-blue-four-live-sparse961-actual-exact-five-block-without-confidence-toughness-bonus-or-hit",
+      "source_spec": "card-regression-sparse961-20261122.json",
+      "source_spec_sha256": "a90f3e7de3e7bc35dec7b6f1c70843b5475a2058d33de14fcea6b77c6d25d3da",
+      "review_evidence": "review-evidence/sparse961-20261122-qualified-saved.json",
+      "review_evidence_sha256": "056b24ccb3427d2004528203412711083262d772390a866c916ca1456ea46f1f",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse961-20261122-replay.json",
+          "sha256": "b6764cdb33c3dcd04956ebd9167250d1ac79958af1d6ded5489c43906c1aa05e",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "chain_of_brutality_red",
+      "group_id": "identity:chain_of_brutality_red",
+      "scenario_id": "card-chain-of-brutality-red-four-live-sparse961-actual-base-two-below-six-without-go-again-or-hit-grant",
+      "effect_branches": [
+        "actual_base_two_below_six_without_go_again_or_hit_grant"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-chain-of-brutality-red-four-live-sparse961-actual-base-two-below-six-without-go-again-or-hit-grant",
+      "source_spec": "card-regression-sparse961-20261122.json",
+      "source_spec_sha256": "a90f3e7de3e7bc35dec7b6f1c70843b5475a2058d33de14fcea6b77c6d25d3da",
+      "review_evidence": "review-evidence/sparse961-20261122-qualified-saved.json",
+      "review_evidence_sha256": "056b24ccb3427d2004528203412711083262d772390a866c916ca1456ea46f1f",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse961-20261122-replay.json",
+          "sha256": "b6764cdb33c3dcd04956ebd9167250d1ac79958af1d6ded5489c43906c1aa05e",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

@@ -1,0 +1,450 @@
+{
+  "id": "FAB-REG-137",
+  "status": "NATIVE_CONFIRMED_CLOUD_SKIFF_NORMAL_PLAY_WRONGLY_REQUESTS_COG_ACTIVATION_COST",
+  "reviewer": "/root/b106_semantic_review",
+  "reviewer_independent": true,
+  "independent_review_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch531-independent-native-before-classification.json",
+  "independent_review_sha256": "f4485bfad574f9a7ec775f504e7109bc0214ec944aa34203b45d51d5dcbbd036",
+  "runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+  "source_spec": "card-regression-batch531.json",
+  "input_sha256": "6129c2a4938c55f7acf1ccc39b095f11b1877e170b003d4ea7627920d1b2c671",
+  "scenario_id": "card-cloud-skiff-blue-four-live-correct-normal-cost-then-separate-cog-tap-instant-deals-four",
+  "first_failure": {
+    "source_step_index0": 4,
+    "checkpoint": "STRICTordinaryAAplay_printedONEpending_R0AP1_same5Stack_Cog7STILLreadySTEAM0_NO_TapCogdecision_orcost_beforeoptionalactivation",
+    "checkpoint_check_index0": 7,
+    "checkpoint_check_ordinal1": 8,
+    "action_boundary": 2,
+    "global_check_index0": 197,
+    "global_check_ordinal1": 198,
+    "native_assertion": {
+      "step": 2,
+      "type": "decision_queue_empty",
+      "player": "1",
+      "viewerPlayerID": 1
+    },
+    "expected": "P1decisionqueueemptywhileordinaryattackwaitsprinted1assetpayment",
+    "actual": "Expected decision queue for player 1 to be empty.",
+    "actual_decision": {
+      "Type": "MZCHOOSE",
+      "Param": "p1Arena-0",
+      "Block": 1,
+      "Tooltip": "Tap_a_cog",
+      "DontSkipOnPass": 0,
+      "removed": null,
+      "Location": "DecisionQueue",
+      "PlayerID": 1,
+      "mzIndex": 0,
+      "_sourceZone": null
+    },
+    "interpretation": "UnrequestedTap_a_cog costchooser blocks normal attackplay; no optionalCloudSkiffInstant was activated."
+  },
+  "actual_native_prefix": {
+    "accepted_supported_inputs": 2,
+    "actual_manual_passes": 0,
+    "actual_pass_actors": [],
+    "actual_manual_actor_counts": {},
+    "initial_native_assertions_passed": 126,
+    "other_native_assertions_passed_before_failure": 71,
+    "total_native_assertions_passed_before_failure": 197,
+    "unrun_native_assertions_after_failure": 2770,
+    "unrun_supported_inputs_after_failure": 33,
+    "ordered_passed_prefix_sha256": "6f3217f6d754a91f245ac90e1be2adc8a53ebf3be0eb88d1ec694ecc65649f31",
+    "source_checkpoint_boundaries": [
+      {
+        "source_step_index0": 0,
+        "action_boundary": 0,
+        "assertions": 126
+      },
+      {
+        "source_step_index0": 2,
+        "action_boundary": 1,
+        "assertions": 64
+      },
+      {
+        "source_step_index0": 4,
+        "action_boundary": 2,
+        "assertions": 75
+      },
+      {
+        "source_step_index0": 6,
+        "action_boundary": 3,
+        "assertions": 71
+      },
+      {
+        "source_step_index0": 8,
+        "action_boundary": 4,
+        "assertions": 71
+      },
+      {
+        "source_step_index0": 10,
+        "action_boundary": 5,
+        "assertions": 71
+      },
+      {
+        "source_step_index0": 12,
+        "action_boundary": 6,
+        "assertions": 71
+      },
+      {
+        "source_step_index0": 14,
+        "action_boundary": 7,
+        "assertions": 77
+      },
+      {
+        "source_step_index0": 16,
+        "action_boundary": 8,
+        "assertions": 78
+      },
+      {
+        "source_step_index0": 18,
+        "action_boundary": 9,
+        "assertions": 82
+      },
+      {
+        "source_step_index0": 20,
+        "action_boundary": 10,
+        "assertions": 82
+      },
+      {
+        "source_step_index0": 22,
+        "action_boundary": 11,
+        "assertions": 82
+      },
+      {
+        "source_step_index0": 24,
+        "action_boundary": 12,
+        "assertions": 82
+      },
+      {
+        "source_step_index0": 26,
+        "action_boundary": 13,
+        "assertions": 78
+      },
+      {
+        "source_step_index0": 28,
+        "action_boundary": 14,
+        "assertions": 78
+      },
+      {
+        "source_step_index0": 30,
+        "action_boundary": 15,
+        "assertions": 78
+      },
+      {
+        "source_step_index0": 32,
+        "action_boundary": 16,
+        "assertions": 78
+      },
+      {
+        "source_step_index0": 34,
+        "action_boundary": 17,
+        "assertions": 78
+      },
+      {
+        "source_step_index0": 36,
+        "action_boundary": 18,
+        "assertions": 78
+      },
+      {
+        "source_step_index0": 38,
+        "action_boundary": 19,
+        "assertions": 78
+      },
+      {
+        "source_step_index0": 40,
+        "action_boundary": 20,
+        "assertions": 78
+      },
+      {
+        "source_step_index0": 42,
+        "action_boundary": 21,
+        "assertions": 78
+      },
+      {
+        "source_step_index0": 44,
+        "action_boundary": 22,
+        "assertions": 78
+      },
+      {
+        "source_step_index0": 46,
+        "action_boundary": 23,
+        "assertions": 78
+      },
+      {
+        "source_step_index0": 48,
+        "action_boundary": 24,
+        "assertions": 78
+      },
+      {
+        "source_step_index0": 50,
+        "action_boundary": 25,
+        "assertions": 78
+      },
+      {
+        "source_step_index0": 52,
+        "action_boundary": 26,
+        "assertions": 78
+      },
+      {
+        "source_step_index0": 54,
+        "action_boundary": 27,
+        "assertions": 81
+      },
+      {
+        "source_step_index0": 56,
+        "action_boundary": 28,
+        "assertions": 81
+      },
+      {
+        "source_step_index0": 58,
+        "action_boundary": 29,
+        "assertions": 81
+      },
+      {
+        "source_step_index0": 60,
+        "action_boundary": 30,
+        "assertions": 81
+      },
+      {
+        "source_step_index0": 62,
+        "action_boundary": 31,
+        "assertions": 81
+      },
+      {
+        "source_step_index0": 64,
+        "action_boundary": 32,
+        "assertions": 81
+      },
+      {
+        "source_step_index0": 66,
+        "action_boundary": 33,
+        "assertions": 81
+      },
+      {
+        "source_step_index0": 68,
+        "action_boundary": 34,
+        "assertions": 81
+      },
+      {
+        "source_step_index0": 70,
+        "action_boundary": 35,
+        "assertions": 69
+      },
+      {
+        "source_step_index0": 71,
+        "action_boundary": 35,
+        "assertions": 127
+      }
+    ],
+    "full_approved_native_action_envelopes_sha256": "f2efb5c8ca93ebb3ced2f70c2258e9803f77741cb137b66a37f3f723b9c4020d",
+    "full_approved_ordered_assertions_sha256": "6d222bc57d69a8181d17f17b18ad058b1344affcfa5521c0f3da043813f6cbf0",
+    "initial_manual_preference_values_verified": 48,
+    "initial_gamestate_sha256": "be35e8a85ed2ec7cc4a27b6a6db78e76ea39af15e61671a2e030025301246337",
+    "attempted_actions": [
+      {
+        "playerID": 1,
+        "mode": 10002,
+        "buttonInput": "",
+        "cardID": "p1Hand-0!FSM",
+        "chkInput": [],
+        "inputText": ""
+      },
+      {
+        "playerID": 1,
+        "mode": 100,
+        "buttonInput": "",
+        "cardID": "p4Hero-0",
+        "chkInput": [],
+        "inputText": ""
+      }
+    ],
+    "directly_proven": [
+      "Initialrawand126initialqueries establishPuffin20/threeDori20, fourlivingmanualUPF/all48settings, primary5/Blue6Hand1 andownGoldenCog7readyStatus2/STEAM0Arena1, P1AP1/R0/nohistoryoreffectseed.",
+      "ActualHandclickonlyopens legaladjacenthero targetchooser; next64queriespass, includingCog7Status2. Actor1answerp4Hero0isacceptedsecondinput. No handPLAY-vs-ability menu or unsupportedtransport is involved.",
+      "Aftersecondinput thefirstsevenqueriespass: priority1/pass0/windowPITCH/noCombat/P1HP20/R0/AP1. FirstP1DQemptyquerythenfails; actualrawDQ containsMZCHOOSEp1Arena0/TooltipTap_a_cog andCloudSkiffPrepare-await. Otherseatqueuesempty are observedraw, not subsequentpassedqueries.",
+      "RawpendingPaymentisnormalHandATTACKuid5/cost1/returnACTION, cardsPlayedempty. NoBluefundinginput/Coganswer/optionalABI/manualresponse hasrun. RawHandrefcount1iscaptured, butnotapostfailurecard-IDinventory.",
+      "CogStatus2wasdirectlyqueriedafterinput1. Its secondinputquery, physicalStack5properties andlatercostconfirmation occurAFTERthefailedqueuecheckandareUNRUN. SourceexplainswhyreadyCogisoffered andwhyitwouldremainuntappedwithoutanswer; thatisnotaseparatepostfailurephysicalquery."
+    ],
+    "raw_observed_state": {
+      "window": "PITCH",
+      "combatOpen": false,
+      "combatStep": "NONE",
+      "chainLink": 0,
+      "attacker": 0,
+      "defender": 0,
+      "attackUID": 0,
+      "attackTarget": null,
+      "pendingAttackTarget": null,
+      "previousAttackCardID": "",
+      "handBlockUIDs": [],
+      "intimidated": [],
+      "pendingPayment": {
+        "player": 1,
+        "uid": 5,
+        "cost": 1,
+        "fromZone": "Hand",
+        "kind": "ATTACK",
+        "returnWindow": "ACTION",
+        "returnCombatStep": "NONE"
+      },
+      "lastAttackName": "",
+      "attackHit": false,
+      "attackPower": 0,
+      "defenseValue": 0,
+      "damageDealt": 0,
+      "declaredBlockUIDs": [],
+      "passiveSeats": [],
+      "gameMode": "UPF",
+      "turnEffects": [],
+      "nextTurnEffects": [],
+      "hitsThisTurn": [],
+      "cardsPlayedThisTurn": [],
+      "arcCards": {
+        "5": {
+          "iarOrigin": 1,
+          "mstChiPitched": 0,
+          "rosMeld": -1,
+          "rosSurgeGo": false,
+          "evoDashPlay": false
+        }
+      }
+    },
+    "raw_observed_decisions": {
+      "1": [
+        {
+          "Type": "MZCHOOSE",
+          "Param": "p1Arena-0",
+          "Block": 1,
+          "Tooltip": "Tap_a_cog",
+          "DontSkipOnPass": 0,
+          "removed": null,
+          "Location": "DecisionQueue",
+          "PlayerID": 1,
+          "mzIndex": 0,
+          "_sourceZone": null
+        },
+        {
+          "Type": "CUSTOM",
+          "Param": "cloud_skiff_blue:0:PrepareCard-await|cloud_skiff_blue:0:PrepareCard#1|1|chosen",
+          "Block": 1,
+          "Tooltip": "",
+          "DontSkipOnPass": 0,
+          "removed": null,
+          "Location": "DecisionQueue",
+          "PlayerID": 1,
+          "mzIndex": 1,
+          "_sourceZone": null
+        },
+        {
+          "Type": "PASSPARAMETER",
+          "Param": "1",
+          "Block": 99,
+          "Tooltip": "",
+          "DontSkipOnPass": 0,
+          "removed": null,
+          "Location": "DecisionQueue",
+          "PlayerID": 1,
+          "mzIndex": 2,
+          "_sourceZone": null
+        },
+        {
+          "Type": "SYSTEM",
+          "Param": "PlayCard_AfterAction",
+          "Block": 99,
+          "Tooltip": "",
+          "DontSkipOnPass": 0,
+          "removed": null,
+          "Location": "DecisionQueue",
+          "PlayerID": 1,
+          "mzIndex": 3,
+          "_sourceZone": null
+        }
+      ],
+      "2": [],
+      "3": [],
+      "4": []
+    },
+    "raw_observed_hand_refs": {
+      "1": [
+        "p1Hand-0"
+      ],
+      "2": [],
+      "3": [],
+      "4": []
+    }
+  },
+  "classification": "NATIVE_GAMEPLAY_COST_SCOPE_DEFECT_NOT_ORACLE_OR_SUPPORTED_PROTOCOL_ERROR",
+  "expected": "Ordinary Cloud Skiff Blue attack play has printed cost1 and must not require the separate activated Instant Cog-tap cost. After the legal Hero target answer, the attack should wait only for normal payment with an empty decision queue. The optional Cog activation and mode choice occur later only if actually activated.",
+  "observed": "Exactly two native inputs ran (Hand play and legal P4 Hero target).197 checks passed; check198 failed on P1 decision-queue emptiness. Raw state has unrequested Tap_a_cog MZCHOOSE and Cloud Skiff Prepare-await, with unpaid normal ATTACK uid5/cost1/fromHand in PITCH and cardsPlayed empty. Cog ready2 was queried after input1 only; later Cog/Stack queries, Blue funding, all four responses, optional ABI/mode, damage and cleanup were unrun.2770 suffix checks unrun; no fixture saved.",
+  "source_evidence": {
+    "relevant_source_hashes": {
+      "FaBSim/Custom/SEACards.php": "83e666cff3fb39ced8c52e5438ae0aa977b72be9bf2ccadcda562a89f7091ad8",
+      "FaBSim/Custom/SEARuntime.php": "53466ba23c6ff2d845774e47160b7c9383878e3a8a3345f7d23ac6a20eb42067",
+      "FaBSim/Custom/ARCAbilities.php": "5330205cf8b98a1ba93cb15aa42f67c76d01dac3cb53b206669e7d00b0e9daca",
+      "FaBSim/Custom/GameLogic.php": "1cdad1555c8d2e3bd3fa98d69bf52791b84d21bf2269363ddea7249f4ee35a43",
+      "DevTools/FaB/sea_abilities.json": "6e6916ff797cb956d9cce2018dc151644d26644d9b803482f04fd91094258c78",
+      "FaBSim/GeneratedCode/GeneratedMacroCode.php": "63113a3d140cfd13409e1ad7ee737f8ecfbbc1f78c4eb8c540658a3bacc73c54"
+    },
+    "normative_source_gate_reused": true,
+    "selected_actual_ordinary_Prepare_continuation": "cloud_skiff_blue:0:PrepareCard-await|cloud_skiff_blue:0:PrepareCard#1|1|chosen",
+    "callback_or_helper_instrumentation_executed": false
+  },
+  "native_evidence": {
+    "native_recording_results": {
+      "path": "card-regression-batch531.recording-results.json",
+      "sha256": "7b20b242f0d8caafb529549815654d9d0b04ce84519c41baaa72d71e7520ebdf"
+    },
+    "immutable_archive": {
+      "path": "recording-runs/card-regression-batch531-20261105T221854Z-6aed00ce9a781.json",
+      "sha256": "4b435dcee6602ea145e08e430bcd0e3b2db9e4801acf265c19458f41479bdf57"
+    }
+  },
+  "source_expectation_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch531-independent-source-review.json",
+    "sha256": "e2e586d590d875b11be0f255d2283f408c6c6fdfaf20de57bd8ceff8729f0422"
+  },
+  "primary_sources": [
+    {
+      "url": "https://judge.fabtcg.com/cards/detail/3795/",
+      "finding": "Normal1/base3 versus separateoptionalInstanttapCogcost."
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/",
+      "rules": [
+        "5.1",
+        "5.2.1c",
+        "5.2.2b",
+        "5.3.4a",
+        "5.3.6",
+        "5.3.7"
+      ],
+      "finding": "Distinctcardplay/activationcosts; completeeffectchoicebeforeclearingABI."
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/08-keywords/",
+      "rules": [
+        "8.6.32",
+        "8.3.29"
+      ],
+      "finding": "GoldenCogenter1/optionalCrank/startunlessremoveone; removinglastcountercanpay."
+    },
+    {
+      "url": "https://fabtcg.com/rules-and-policy-center/release-notes/high-seas/",
+      "access": "Indexedofficialsearchsnippetretrieved;fullfetch403",
+      "finding": "CloudSkiff choiceofpowerorgoagain is made whentheactivatedabilityresolves; sourcefunctions onlyonattackingchainlink, notdefending."
+    }
+  ],
+  "limits": [
+    "Only actualacceptedprefix/queryorder/rawlimitedstate and boundedsourcecause classified. Correct35/2968fullprobe retainedunchanged andunsaved.",
+    "NoR/PHP/native/retry/source/candidate/fix/gen/service/fullsuite/denied135orotheroperation byreviewer. Rootaloneallocatesandretainsissue."
+  ],
+  "fixture_saved": false,
+  "coverage_credit": false,
+  "fix_applied": false,
+  "source_application_attempted": false,
+  "denied_repair_retried": false,
+  "new_core_root": false,
+  "new_distinct_gameplay_root_group": false,
+  "created_utc": "2026-11-05T22:22:33.234021+00:00"
+}

@@ -1,0 +1,65 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "breadth_review independent printed-text/source/transport review",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1009-20261122.json",
+  "source_spec_sha256": "a16aca89f0bc5e3b94d142ab50c8a488e65d60584128db12529d433c2d8244d1",
+  "input_sha256": "a16aca89f0bc5e3b94d142ab50c8a488e65d60584128db12529d433c2d8244d1",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-beseech-the-demigon-red-four-live-sparse1009-choose-real-banished-ghostly-then-seven-damage",
+      "card_id": "beseech_the_demigon_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "9f8fb1aeaebfb8b7b6925baef102d0d1f301e576f3f96ce8fb2695fdd2d4d017",
+        "actions.json": "0adb7daa58e467b2eb7f6003c782ec2b96ccd89500b406680e0d733b641da616",
+        "assertions.json": "bc1de0d2aff8fedab2e9a46d55231dbff11871c1b981f82972c9ac166832e409",
+        "expected_final_gamestate.txt": "195fd4ccec8b81053bb628698cf26ee41a45ce8faf9622a11fc3518e236b0f61",
+        "meta.json": "8285d2117875e90986b82df3a99cb18b7c8409195f93c83523696f4ff3f8bf25"
+      },
+      "fixture_sha256": "9b84c9f67b9121773fb23103dfca79391578553277c9181882517aac6937da0c",
+      "actions": 34,
+      "native_assertions": 283,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 29,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1009-20261122.json",
+      "input_sha256": "a16aca89f0bc5e3b94d142ab50c8a488e65d60584128db12529d433c2d8244d1",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1009-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-beseech-the-demigon-red-four-live-sparse1009-choose-real-banished-ghostly-then-seven-damage",
+        "fixture_slug": "card-beseech-the-demigon-red-four-live-sparse1009-choose-real-banished-ghostly-then-seven-damage",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "spec_sha256": "a16aca89f0bc5e3b94d142ab50c8a488e65d60584128db12529d433c2d8244d1",
+    "reviewer": "breadth_review independent printed-text/source/transport review",
+    "basis": [
+      "Beseech printed Choose is not targeted; correct resolution-time MZCHOOSE after four source responses. Actual faceup ownBanish Ghostly6 is eligible attack, legal Shadow caster Chane20, spell5cost0/AP0 retained physically onStack/owned5/GY0 through choice. Generated69873dd uses FaBDTDRefs Banish aa and tags chosen physical6 WTR_POWER3; after actual choice spell5 ownedGY/AP1 through printedGA.",
+      "Ghostly6 printed cost1/base4 and unconditional permission to play from Banish verified MONCards56. No own WHENplayed/WHENattacks trigger unlike avoided RiftBind route. NativeBanishclick6\u2192earlyadjacentHero4target\u2192Stack6SourceZoneBanish\u2192actualBlue7pay1/R2/AP0\u2192fullfourmanualunblockedcombat correctly expects7damage/HP13 and persistedpower7. Actual choice buff is consumed by real played attack, not synthetic initial state.",
+      "Final same orderedGGY[5,6], actualPitch7/Hand0/Banish0/sourceowners andnaturalallHP20exceptdamaged4, no prematureGA/extraAP orphantomlayer. SchemaBanish owns Owner/Controller/FaceDown fields; correct actor1 choice and physicaltarget6 throughout. No forbidden diagnostic kinds.",
+      "Exact single final Hero query correction Dromai\u2192Chane independently byte-proven by reconstructing originalSHAfc3e3f2f9ae2f4e3ee0a99b3c46e856551adc055c4d91a55868564db012150f1. No other queries or native inputs changed. No native/game output used for oracle choice."
+    ],
+    "limits": [
+      "One chosen faceup banished AA/actual+3 duringturn branch only. Alternate targets/choices/negativeeligibility, EOTexpiry/BloodDebt, supportingGhostly identity group, hero activation, pitch siblings/fullcard behavior untested. ExistingGhostly reference154 was DarkestHour support, not approval to reopen that issue.",
+      "Root owns native input retention/saved-assertion audit/one clean replay. Reviewer ran no native/PHP/test/game and changed no T/source/original/Git/network/auth/engine; only this W receipt."
+    ]
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1009-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "e65720b042b2ec76b573492e988857b52579bbbf9ccb0879f9cf7b523eb8cd5c"
+  },
+  "full_suite_run": false
+}

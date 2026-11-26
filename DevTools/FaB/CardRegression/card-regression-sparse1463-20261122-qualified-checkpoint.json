@@ -1,0 +1,213 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-25T02:12:29.958016+00:00",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1463-20261122.json",
+  "source_spec_sha256": "57e2861174ee67d2ae590819e48e58392f143ab049d7e0f69758c65d8407d0f7",
+  "new_scenarios": 6,
+  "new_groups": 6,
+  "new_primary_ids": 6,
+  "actions": 174,
+  "native_assertions": 2568,
+  "manual_passes": 150,
+  "totals": {
+    "saved_registered_scenarios": 5500,
+    "duels": 3135,
+    "four_live": 2365,
+    "recorded_primary_ids": 2648,
+    "identity_denominator": 5196,
+    "recorded_groups": 2522,
+    "group_denominator": 3324,
+    "four_live_groups": 2354,
+    "phase_qualified_scenarios_at_actual_contexts": 2137,
+    "phase_qualified_unique_groups": 2127,
+    "creation_replay_passes": 2879,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 1298,
+  "scenarios": [
+    {
+      "card_id": "sit_red",
+      "group_id": "identity:sit_red",
+      "scenario_id": "card-sit-red-four-live-sparse1463-generic-non-overpower-attack-does-not-earn-printed-defense-condition",
+      "effect_branches": [
+        "printed_Brute_attack_condition_false_against_real_Generic_non_Overpower_attack_actual_2_defense_and_2_physical_damage"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-sit-red-four-live-sparse1463-generic-non-overpower-attack-does-not-earn-printed-defense-condition",
+      "source_spec": "card-regression-sparse1463-20261122.json",
+      "source_spec_sha256": "57e2861174ee67d2ae590819e48e58392f143ab049d7e0f69758c65d8407d0f7",
+      "review_evidence": "review-evidence/sparse1463-20261122-qualified-saved.json",
+      "review_evidence_sha256": "bb4bf1a3de1377d88a8d367a41f9f6aa2b55ce4017c613d454d333c0606a874c",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1463-20261122-replay.json",
+          "sha256": "b622da0dfc9c0b38696a815bf8061afe3640ead41b3de15cc5648d919cb22384",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "teklonetic_force_field_red",
+      "group_id": "pitch-cycle:teklonetic_force_field",
+      "scenario_id": "card-teklonetic-force-field-red-four-live-sparse1463-generic-non-overpower-attack-does-not-earn-printed-defense-condition",
+      "effect_branches": [
+        "printed_Overpower_attack_condition_false_against_real_Generic_non_Overpower_attack_actual_3_defense_and_1_physical_damage"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-teklonetic-force-field-red-four-live-sparse1463-generic-non-overpower-attack-does-not-earn-printed-defense-condition",
+      "source_spec": "card-regression-sparse1463-20261122.json",
+      "source_spec_sha256": "57e2861174ee67d2ae590819e48e58392f143ab049d7e0f69758c65d8407d0f7",
+      "review_evidence": "review-evidence/sparse1463-20261122-qualified-saved.json",
+      "review_evidence_sha256": "bb4bf1a3de1377d88a8d367a41f9f6aa2b55ce4017c613d454d333c0606a874c",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1463-20261122-replay.json",
+          "sha256": "b622da0dfc9c0b38696a815bf8061afe3640ead41b3de15cc5648d919cb22384",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "clash_of_arms_yellow",
+      "group_id": "identity:clash_of_arms_yellow",
+      "scenario_id": "card-clash-of-arms-yellow-four-live-sparse1463-generic-non-overpower-attack-does-not-earn-printed-defense-condition",
+      "effect_branches": [
+        "printed_Guardian_attack_condition_false_against_real_Generic_non_Overpower_attack_actual_4_defense_and_0_physical_damage"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-clash-of-arms-yellow-four-live-sparse1463-generic-non-overpower-attack-does-not-earn-printed-defense-condition",
+      "source_spec": "card-regression-sparse1463-20261122.json",
+      "source_spec_sha256": "57e2861174ee67d2ae590819e48e58392f143ab049d7e0f69758c65d8407d0f7",
+      "review_evidence": "review-evidence/sparse1463-20261122-qualified-saved.json",
+      "review_evidence_sha256": "bb4bf1a3de1377d88a8d367a41f9f6aa2b55ce4017c613d454d333c0606a874c",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1463-20261122-replay.json",
+          "sha256": "b622da0dfc9c0b38696a815bf8061afe3640ead41b3de15cc5648d919cb22384",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "clash_of_chests_yellow",
+      "group_id": "identity:clash_of_chests_yellow",
+      "scenario_id": "card-clash-of-chests-yellow-four-live-sparse1463-generic-non-overpower-attack-does-not-earn-printed-defense-condition",
+      "effect_branches": [
+        "printed_Guardian_attack_condition_false_against_real_Generic_non_Overpower_attack_actual_4_defense_and_0_physical_damage"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-clash-of-chests-yellow-four-live-sparse1463-generic-non-overpower-attack-does-not-earn-printed-defense-condition",
+      "source_spec": "card-regression-sparse1463-20261122.json",
+      "source_spec_sha256": "57e2861174ee67d2ae590819e48e58392f143ab049d7e0f69758c65d8407d0f7",
+      "review_evidence": "review-evidence/sparse1463-20261122-qualified-saved.json",
+      "review_evidence_sha256": "bb4bf1a3de1377d88a8d367a41f9f6aa2b55ce4017c613d454d333c0606a874c",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1463-20261122-replay.json",
+          "sha256": "b622da0dfc9c0b38696a815bf8061afe3640ead41b3de15cc5648d919cb22384",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "clash_of_legs_yellow",
+      "group_id": "identity:clash_of_legs_yellow",
+      "scenario_id": "card-clash-of-legs-yellow-four-live-sparse1463-generic-non-overpower-attack-does-not-earn-printed-defense-condition",
+      "effect_branches": [
+        "printed_Guardian_attack_condition_false_against_real_Generic_non_Overpower_attack_actual_4_defense_and_0_physical_damage"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-clash-of-legs-yellow-four-live-sparse1463-generic-non-overpower-attack-does-not-earn-printed-defense-condition",
+      "source_spec": "card-regression-sparse1463-20261122.json",
+      "source_spec_sha256": "57e2861174ee67d2ae590819e48e58392f143ab049d7e0f69758c65d8407d0f7",
+      "review_evidence": "review-evidence/sparse1463-20261122-qualified-saved.json",
+      "review_evidence_sha256": "bb4bf1a3de1377d88a8d367a41f9f6aa2b55ce4017c613d454d333c0606a874c",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1463-20261122-replay.json",
+          "sha256": "b622da0dfc9c0b38696a815bf8061afe3640ead41b3de15cc5648d919cb22384",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "clash_of_shields_yellow",
+      "group_id": "identity:clash_of_shields_yellow",
+      "scenario_id": "card-clash-of-shields-yellow-four-live-sparse1463-generic-non-overpower-attack-does-not-earn-printed-defense-condition",
+      "effect_branches": [
+        "printed_Guardian_attack_condition_false_against_real_Generic_non_Overpower_attack_actual_4_defense_and_0_physical_damage"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-clash-of-shields-yellow-four-live-sparse1463-generic-non-overpower-attack-does-not-earn-printed-defense-condition",
+      "source_spec": "card-regression-sparse1463-20261122.json",
+      "source_spec_sha256": "57e2861174ee67d2ae590819e48e58392f143ab049d7e0f69758c65d8407d0f7",
+      "review_evidence": "review-evidence/sparse1463-20261122-qualified-saved.json",
+      "review_evidence_sha256": "bb4bf1a3de1377d88a8d367a41f9f6aa2b55ce4017c613d454d333c0606a874c",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1463-20261122-replay.json",
+          "sha256": "b622da0dfc9c0b38696a815bf8061afe3640ead41b3de15cc5648d919cb22384",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

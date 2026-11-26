@@ -1,0 +1,7 @@
+{
+    "name": "Bigger Than Big / native same-turn Guardian attack gets no next-turn reward",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-24T13:21:56+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "FOUR_REAL_MANUAL_UPF_BRAVO20_THREEDORI20. InitialTimesnap5ispriorItemassetonly. ActualAction0DestroycostspendsAP1to0, all4responsesthenrealGain2AP2. ActualprimaryAura6pays3byBlueBauble7andAP2to1,all4responses\u2192Arena6withoutGoAgain. SameTurn1/TurnNumber2notStartTurn; textgrantsnextGuardianattack+5andWagerONLYafterfutureStartTurnDestroy. RealGuardianThunderQuakeBlue8cost6fundedbyBlue9/10,adjacent4target,AP1to0,all4responses/actualbase8(no13)/noGA/neveranywagerlayer/choice/tokens,actualunblocked8damageP4HP12. Primary6staysArenaownedready/unchangedTurnEffects; finalsource5GY/attack8GY/Blue7,9,10Pitch/realWounding11HandattemptrejectatAP0/UID12RNG0/allothersHP20/Arenasempty/noStackDQ. ExactstartturnnegativeguardwithactualpaidGuardianattackanddamage; nopositiveStartTurnDestroy/buff/wager/timing/endturn/otherpitch/support/provenance/fullcardcredit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#bigger_than_big_red FaBSim/GeneratedCode/GeneratedMacroCode.php FaBSim/Custom/HVYRuntime.php FaBSim/Custom/HVYCards.php FaBSim/Custom/WTRCards.php FaBSim/Custom/WTRAbilities.php FaBSim/Custom/GameLogic.php"
+}

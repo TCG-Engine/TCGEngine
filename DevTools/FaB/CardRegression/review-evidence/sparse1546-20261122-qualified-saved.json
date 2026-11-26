@@ -1,0 +1,138 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "/root/breadth_review1457",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1546-20261122.json",
+  "source_spec_sha256": "abc872aa99f85e1187a43e9519246cfeb3ed590006e9f1d118923c1be9fb597e",
+  "input_sha256": "abc872aa99f85e1187a43e9519246cfeb3ed590006e9f1d118923c1be9fb597e",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-deep-recesses-of-existence-blue-four-live-sparse1546-real-rune-gate-resource-waiver-and-runechant-consequences-attack-prefix",
+      "card_id": "deep_recesses_of_existence_blue",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "4a4e344fc3a2a5bb3c8129aeec9728df9e8d527123b1a9ffdfbf33448bc822a2",
+        "actions.json": "5851afe2e5c0a53dce2353fe52c8f05cd656d478e657ca2058196c205133d980",
+        "assertions.json": "246a9f10f3e3ab522122a6a12a81b530a17052a16726b27248aab0ed6d85403f",
+        "expected_final_gamestate.txt": "f48b9b09a042eb262340048ca526d97932c4b95f695f5467a7af765dd1509edc",
+        "meta.json": "60f0c18c4bf415b3b6972c9ec6ba984c83fef2353bf592277207fae56e1dbb88"
+      },
+      "fixture_sha256": "91480a06698ea4b99e6ac90d476c87d90de635ce9706d5a7d3c8a94bc3bac98e",
+      "actions": 26,
+      "native_assertions": 503,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 20,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1546-20261122.json",
+      "input_sha256": "abc872aa99f85e1187a43e9519246cfeb3ed590006e9f1d118923c1be9fb597e",
+      "coverage_endpoint": "RUNE_GATE_ATTACK_BOUNDARY",
+      "covered_abilities": [
+        "Rune Gate permission and resource waiver"
+      ],
+      "prefix_limits": [
+        "No later physical damage, chain-close reward, Blood Debt or whole-card credit"
+      ],
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1546-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-deep-recesses-of-existence-blue-four-live-sparse1546-real-rune-gate-resource-waiver-and-runechant-consequences-attack-prefix",
+        "fixture_slug": "card-deep-recesses-of-existence-blue-four-live-sparse1546-real-rune-gate-resource-waiver-and-runechant-consequences-attack-prefix",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-widespread-annihilation-blue-four-live-sparse1546-real-rune-gate-resource-waiver-and-runechant-consequences-attack-prefix",
+      "card_id": "widespread_annihilation_blue",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "5dec808d25c40129972878c1a8279758010325277367e6a1f5956eadca7f5fef",
+        "actions.json": "5851afe2e5c0a53dce2353fe52c8f05cd656d478e657ca2058196c205133d980",
+        "assertions.json": "27d57139afbe72e01e42ac4fa5fd988f486fe76425426bfe8714d03d2227386d",
+        "expected_final_gamestate.txt": "2bcce136a132a7cbbc3ef35accab021b5fa5a75169c30c628a131fc5ba02ace8",
+        "meta.json": "319201fe38f6a7e8ee6b5fe10acabeaca898206a4db6f86f3169a4a4f39f26f8"
+      },
+      "fixture_sha256": "138af6bb32ccc4eca4a7f37e76056f880786fd2ff992863e9b3423cb01ab152e",
+      "actions": 26,
+      "native_assertions": 503,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 20,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1546-20261122.json",
+      "input_sha256": "abc872aa99f85e1187a43e9519246cfeb3ed590006e9f1d118923c1be9fb597e",
+      "coverage_endpoint": "RUNE_GATE_ATTACK_BOUNDARY",
+      "covered_abilities": [
+        "Rune Gate permission and resource waiver"
+      ],
+      "prefix_limits": [
+        "No later physical damage, chain-close reward, Blood Debt or whole-card credit"
+      ],
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1546-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-widespread-annihilation-blue-four-live-sparse1546-real-rune-gate-resource-waiver-and-runechant-consequences-attack-prefix",
+        "fixture_slug": "card-widespread-annihilation-blue-four-live-sparse1546-real-rune-gate-resource-waiver-and-runechant-consequences-attack-prefix",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "schema_version": 1,
+    "batch": 1546,
+    "reviewer": "/root/breadth_review1457",
+    "result": "approved_named_branches_only_pending_native_execution",
+    "reviewed_utc": "2026-11-25T12:16:37.862340+00:00",
+    "spec_sha256": "abc872aa99f85e1187a43e9519246cfeb3ed590006e9f1d118923c1be9fb597e",
+    "source_note_sha256": "21fd854ebfc389fd951da0f4e17567f0780ba433cd2f0aa8e9a1ffad78218dfa",
+    "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+    "source_sha256": {
+      "FaBSim/Custom/ARCAbilities.php": "e49ce4685f148ef423ea38aac544266b3298527ea8ca9eef11b12fb974e7c9f0",
+      "FaBSim/Custom/ARCCards.php": "f6b6a21d214e71fdcfd6a084f0671ce610f08a40c51a1266041877a5a12c0d52",
+      "FaBSim/Custom/DTDCards.php": "3b31d7627858a24d9e6444285de1671c448e5a79d3a71f4d7dfcb2824a5273d4",
+      "FaBSim/Custom/GameLogic.php": "c60fa151561f959e4e3e341b814de0e2b47c9e9f153bbc8793a04c43b5075061",
+      "FaBSim/GeneratedCode/GeneratedMacroCode.php": "fe6a7982611df8f4de98ce2671b317b671b580146aa4b8c28e8f4b86d8461056",
+      "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3"
+    },
+    "workspace_source_sha256": {
+      "nov25_rune_gate_prefix_review1546.py": "b2b4102cc2ef6977a669f4ce70d09faed543f3eff141e1035aa88acf132a1c32"
+    },
+    "cases": 2,
+    "findings": [
+      "Independent exact spec/adapter/driver review approved. Only two exact card allowlist and cost4/power6 map entries added to a copy of the established strict Rune Gate adapter; old adapter unchanged. Driver only adds bound1546 endpoint selection.",
+      "All four Runechant targets declared before responses. Fresh four-manual-seat rounds resolve four physical Runechant sources LIFO, actual arcane4/HP16, primary9 remains until all four finish then enters CC power6/noGA/AP0/R0/UID13/quiet ATTACK."
+    ],
+    "limits": [
+      "Only positive Rune Gate admission/resource waiver and real postplay Runechant consequences. No primary physical damage, Close, Blood Debt, production, sibling, whole-card credit or old-hold closure. Source/spec review only; native/save/replay still pending. Reviewer executed no games/tests/writes."
+    ]
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1546-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "7185dafa50486bde269c97fd7c7947281aa691e5bebfd251bf3589a5db6df537"
+  },
+  "full_suite_run": false
+}

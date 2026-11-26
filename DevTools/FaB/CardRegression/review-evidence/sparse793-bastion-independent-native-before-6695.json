@@ -1,0 +1,196 @@
+{
+  "status": "NATIVE_CONFIRMED_BASTION_FORMAL_SOLE_DEFEND_WHEN_LAYER_MISSING_UNSAVED",
+  "phase": "ACTUAL_BEFORE",
+  "reviewer_independent": true,
+  "reviewer": "/root/sand_saved_recovery",
+  "created_utc": "2026-11-14T20:53:36.251409+00:00",
+  "runtime_sha256": "6695d68163d313f4f61cb20ad9122c7038e621a60c847909598150fe8da09d11",
+  "input_sha256": "d307509fadf4fd542df55120c623bc9e310a41b8d417b38b486691be27a66a10",
+  "manifest_sha256": "323937f259ccd2577c4f05e78e608f5b3dc4e521672ba1b53ca52dba09ed5a42",
+  "source_spec": "card-regression-batch793-bastion-strict-probe.json",
+  "independent_Source": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov14-batch793-bastion-independent-strict-diagnostic-source-review-r2.json",
+    "sha256": "a195bdca4c4561a7dc8622c4ed8f54ad9ee9aa2adcd321888d6dbf318d2f6bbb"
+  },
+  "root_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov14-b793-bastion-original-correct-native-before\\receipt.json",
+    "sha256": "264866c0693686273f1df73e88fb10762605faaf88ab154fe9fd2bc6db32a4eb"
+  },
+  "native_result": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch793-bastion-strict-probe.recording-results.json",
+    "sha256": "b92cfb2b41ac5974b78202ca40b6e009cc40e67281ae8901401380dcf49067c8"
+  },
+  "immutable_archive": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch793-bastion-strict-probe-20261114T204919Z-6af8c94f930c8.json",
+    "sha256": "baaeedae3ec14b1b4470bf3bb81f01a9133bcac56f1aa759f033b28faea09bbc"
+  },
+  "actual_native_inputs": 12,
+  "actual_actions_exact": true,
+  "actual_manual_passes": 9,
+  "native_manual_pass_actors": [
+    1,
+    2,
+    3,
+    4,
+    1,
+    2,
+    3,
+    4,
+    4
+  ],
+  "final_actual_control": {
+    "playerID": 4,
+    "action": "Pass",
+    "meaning": "Formal finish of selected sole-defender group, not another block preview"
+  },
+  "persisted_prior_successful_queries": 733,
+  "persisted_prefix_exact": true,
+  "successful_initial_queries": 125,
+  "successful_block_preview_queries": 64,
+  "failed_ordered_query_ordinal": 734,
+  "failed_query": {
+    "step": 12,
+    "type": "zone_count",
+    "zone": "Stack",
+    "value": 1,
+    "viewerPlayerID": 1
+  },
+  "first_failed_observation": "Expected Stack count 1, got 0.",
+  "direct_observed_Stack_count": 0,
+  "unexecuted_queries_after_first_failure": 134,
+  "all_remaining_post_finish_physical_queries_unrun": true,
+  "actual_initial_raw_sha256": "6eabc6dc91e9b9503f8faeaf881f9528a0eb2b58cb8c9b7e0c278b0212cbb980",
+  "actual_initial_manual_booleans_checked": 48,
+  "actual_initial_queries_independently_evaluated": 125,
+  "actual_initial_physical_uid_locations": {
+    "1": {
+      "card_id": "betsy",
+      "zone": "p1Hero",
+      "owner": 1,
+      "controller": 1
+    },
+    "5": {
+      "card_id": "wounding_blow_red",
+      "zone": "p1Hand",
+      "owner": 1,
+      "controller": 1
+    },
+    "2": {
+      "card_id": "betsy",
+      "zone": "p2Hero",
+      "owner": 2,
+      "controller": 2
+    },
+    "3": {
+      "card_id": "betsy",
+      "zone": "p3Hero",
+      "owner": 3,
+      "controller": 3
+    },
+    "4": {
+      "card_id": "betsy",
+      "zone": "p4Hero",
+      "owner": 4,
+      "controller": 4
+    },
+    "6": {
+      "card_id": "battlefront_bastion_blue",
+      "zone": "p4Hand",
+      "owner": 4,
+      "controller": 4
+    }
+  },
+  "direct_successful_preview_facts": {
+    "window": "DEFEND_DECLARE",
+    "priority": 4,
+    "Stack": 0,
+    "same_defender_UID": 6,
+    "sole_defender_from_Hand": true,
+    "same_attack_UID": 5,
+    "computed_attack_power": 4,
+    "computed_go_again": 0,
+    "all_four_HP20": true
+  },
+  "separate_direct_normalized_state_observations": {
+    "window": "DEFEND_PRIORITY",
+    "combatOpen": true,
+    "combatStep": "DEFEND",
+    "chainLink": 1,
+    "attacker": 1,
+    "defender": 4,
+    "attackUID": 5,
+    "attackTarget": {
+      "type": "HERO",
+      "player": 4,
+      "uid": 4,
+      "zone": "Hero"
+    },
+    "pendingAttackTarget": null,
+    "pendingPayment": null,
+    "declaredBlockUIDs": [
+      6
+    ],
+    "handBlockUIDs": [
+      6
+    ],
+    "defenseValue": 2,
+    "damageDealt": 0,
+    "attackHit": false
+  },
+  "separate_direct_queue_diagnostic": {
+    "1": [],
+    "2": [],
+    "3": [],
+    "4": []
+  },
+  "observed_P4_turnEffects": [
+    {
+      "type": "SEA_ATTACKED_HERO",
+      "amount": 1,
+      "uses": 1
+    },
+    {
+      "type": "MST_BLUE_DEFENDED",
+      "amount": 1,
+      "uses": 1
+    },
+    {
+      "type": "ELE_AA_COMBAT",
+      "amount": 1,
+      "uses": 1
+    }
+  ],
+  "premature_prevention_natively_verified": false,
+  "observed_P4_PREVENT_DAMAGE_present": false,
+  "raw_post_finish_physical_snapshot_available": false,
+  "source_context": "Previously reviewed MST153 directly calls AddEffect at formal finish, but this persisted observed state has no PREVENT_DAMAGE entry. This proof certifies the missing required trigger layer only; it does not claim a natively retained premature prevention effect, instrumented source call trace, or a future damage outcome.",
+  "native_confirmed_correct_expectation_failure": true,
+  "diagnostic_only": true,
+  "fixture_count_before": 4056,
+  "fixture_count_after": 4056,
+  "fixture_inventory_unchanged": true,
+  "fixture_saved": false,
+  "qualification": false,
+  "coverage_credit": false,
+  "repair_proposal": false,
+  "source_application_approved": false,
+  "Vestige_known229_remains_unattempted": true,
+  "B787_denied_operation_untouched": true,
+  "limits": [
+    "Exactly12 actual envelopes,9 real manual passes and733 successful queries match the frozen approved input. Failure734 directly measures Stack0 after the real P4 formal finish; this is not a preview-only failure.",
+    "The134 later post-finish queries did not execute. Physical HP/zones/UIDs after finish, prevention retention/consumption, later trigger responses, damage and cleanup are uncertified.",
+    "Normalized DEFEND_PRIORITY,declaredBlockUIDs[6],defenseValue2 and empty four queues are direct diagnostics. They do not substitute for the unrun physical suffix.",
+    "Observed P4 effect tags are SEA_ATTACKED_HERO,MST_BLUE_DEFENDED,ELE_AA_COMBAT; PREVENT_DAMAGE1 is absent. No premature prevention native conclusion is inferred from the source leaf.",
+    "All48 actual initial manual values and125 raw initial queries independently checked; no raw final preferences claim.",
+    "No PHP/game/native/replay/fullsuite/R/source/Git/repair/B787 action by reviewer. No fixture/coverage/RGB/full-card or future Vestige certificate."
+  ],
+  "comparison_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov14_batch793_bastion_actual_before.py",
+    "sha256": "c5cba9d18a1ca7f13859006ccad186330120436025a27baa1587661b29633d9d"
+  },
+  "retained_readers": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\saved_fixture_review_tools.py",
+    "sha256": "57cb7672feb98a00216f1e194fd1df0395826af02e0d76f7042af920851c39e8"
+  },
+  "blockers": []
+}

@@ -1,0 +1,64 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "breadth_review independent current printed/source and actual native transport review",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1144-20261122.json",
+  "source_spec_sha256": "f1f729f8e486e2b926cdb55b610ca94c18762ceff30977c32140465d5f6b3e90",
+  "input_sha256": "f1f729f8e486e2b926cdb55b610ca94c18762ceff30977c32140465d5f6b3e90",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-farflight-longbow-four-live-sparse1144-actual-arrow-targets-opposite-live-seat-and-deals-four",
+      "card_id": "farflight_longbow",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "8504f6f5a3f77f466988ecbc6e630825a0bdf31e96eea7d0594545620df24c9e",
+        "actions.json": "17f2acdaed4add8c580f68cab85bc4b5c57fc0c0ac0a8acb103c4221c6c6e859",
+        "assertions.json": "6bea610e0e605535a973e866b4093a7c0ad5b52e31c941edcbb32a32555b4dc1",
+        "expected_final_gamestate.txt": "fb308216dc76bb77ee2478d122acb1a3f55926362155d9b2ef8c281cecd76d1e",
+        "meta.json": "058a88c5d8644e77eabebc0a3c5dfe645215cfac0e9f63ba57ffeb0be87fdb43"
+      },
+      "fixture_sha256": "3152b27ae933d1990becf154cdd85b6a021e2a5c1dcbbedc14588b649f578c47",
+      "actions": 27,
+      "native_assertions": 236,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1144-20261122.json",
+      "input_sha256": "f1f729f8e486e2b926cdb55b610ca94c18762ceff30977c32140465d5f6b3e90",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1144-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-farflight-longbow-four-live-sparse1144-actual-arrow-targets-opposite-live-seat-and-deals-four",
+        "fixture_slug": "card-farflight-longbow-four-live-sparse1144-actual-arrow-targets-opposite-live-seat-and-deals-four",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "spec_sha256": "f1f729f8e486e2b926cdb55b610ca94c18762ceff30977c32140465d5f6b3e90",
+    "reviewer": "breadth_review independent current printed/source and actual native transport review",
+    "basis": [
+      "Cached FarflightLongbow is a RangerBow whose arrow attacks may target any opposing hero or ally. NaturalyoungAzalea20 legally controls physicalBow5 and facedownArsenalSicEmShot6. Actual target opposite liveHero3 is declared before actualcost1 from admittedR1, leavingR0/AP0; this directly exercises static reach rather than Bow loading/activation.",
+      "PENCards898-900 tests Arrow plus active own Farflight; ProfessorCards51 invokes it in actual any-Hero reach. SicEmShotRed is cost1/base4/printedGA with no attack/hit callback, so actual4damage/HP3=16 and finalAP1 are supported. Fourmanualsource/combat including actualDEFEND_DECLARE3 are correctly rebound, with otherHero4HP20.",
+      "PhysicalBow5ready2/owned1 remains, sourceArrow6 is ownedGY1 and spentR0, allqueuesempty/maxUID6/noPitch are persisted. Both hold335/issue213 exact searches clear. No Aura/token/ownership, formalTarget late-resolution or earned trigger dependency enters this path."
+    ],
+    "limits": [
+      "ExistingBow nonadjacent opposing-Hero Arrow reach only. Initial floating-resource production, Bow loading/activation, ally reach, Hero/support/Arrow producer/fullcard or siblings untested.",
+      "Native Save and one clean targeted replay pending; no reviewer T/native/source/Git/network/original actions."
+    ]
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1144-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "1530d18195df1735ea2456b77550ac876ae7c19e294a2cf1eca5fdf11787f2ae"
+  },
+  "full_suite_run": false
+}

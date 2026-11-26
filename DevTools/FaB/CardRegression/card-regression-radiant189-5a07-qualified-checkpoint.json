@@ -1,0 +1,68 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-16T21:07:52.956659+00:00",
+  "runtime_sha256": "5a07738946b4c5166ee877b41bb186a6fa1bc7ac2ba6cb0488156740c8a211d0",
+  "source_spec": "card-regression-repair-radiant189-earned-layer.json",
+  "source_spec_sha256": "5944545e9878a9046964e659d9fe49b98077b99519ff59e17aa6e6fdcadd84db",
+  "new_scenarios": 1,
+  "new_groups": 1,
+  "new_primary_ids": 1,
+  "actions": 40,
+  "native_assertions": 4594,
+  "manual_passes": 36,
+  "totals": {
+    "saved_registered_scenarios": 4127,
+    "duels": 3074,
+    "four_live": 1053,
+    "recorded_primary_ids": 1280,
+    "identity_denominator": 5196,
+    "recorded_groups": 1154,
+    "group_denominator": 3324,
+    "four_live_groups": 1046,
+    "phase_qualified_scenarios_at_actual_contexts": 764,
+    "phase_qualified_unique_groups": 759,
+    "creation_replay_passes": 1505,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 1,
+  "scenarios": [
+    {
+      "card_id": "radiant_forcefield_yellow",
+      "group_id": "identity:radiant_forcefield_yellow",
+      "scenario_id": "probe-radiant-forcefield-yellow-four-live-one-soul-prevent-one-earned-empty-soul-destruction",
+      "effect_branches": [
+        "realInstant-oneSoul-mandatoryPrevent1-real3damage-earnedZeroSoulLayer-beforeDestroy"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/probe-radiant-forcefield-yellow-four-live-one-soul-prevent-one-earned-empty-soul-destruction",
+      "source_spec": "card-regression-repair-radiant189-earned-layer.json",
+      "source_spec_sha256": "5944545e9878a9046964e659d9fe49b98077b99519ff59e17aa6e6fdcadd84db",
+      "review_evidence": "review-evidence/radiant189-5a07-qualified-saved.json",
+      "review_evidence_sha256": "e41b5a03971ab1cce5127790506adc90581e445c21c9a3c9748c0fb450e0c7c5",
+      "recorded_runtime_sha256": "5a07738946b4c5166ee877b41bb186a6fa1bc7ac2ba6cb0488156740c8a211d0",
+      "qualification_runtime_sha256": "5a07738946b4c5166ee877b41bb186a6fa1bc7ac2ba6cb0488156740c8a211d0",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-replay-nov16-radiant189-replay.json",
+          "sha256": "7d18b96bc087681f538b47fedb22cd4daa9330dcfcb43d79a3e1f53289355d00",
+          "runtime_sha256": "5a07738946b4c5166ee877b41bb186a6fa1bc7ac2ba6cb0488156740c8a211d0",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

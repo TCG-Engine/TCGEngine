@@ -1,0 +1,7 @@
+{
+    "name": "Nasreth / actual Ally hit leaves real Light soul card and all Hero health unchanged",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-25T12:01:04+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "LegalVynnset20/NasrethToken5vsPrism20/Aegis6/realLightSoulHerald7. ActualDemonAction0declaresAlly6/AP0/taps5/proxy8power6. Allfourmanualwindows/noHeroWard onAllydamage. Actual6kills4HPAegis\u2192physicalfrontFigment6GY4; allHero20, LightSoul7unchanged/noBanish/noNasreth+1life orHero-hitlayer. FullcloseNasreth5Arenaused/Soul7/Front6GY/UID8/APR0/StackDQclean. Hero-onlyeventexclusion only; nopositiveSoulbanish/life/Hitcontinuation/producer/supportcredit. Noenginechange. Sources: FaBSim/GeneratedCode/cardArrayCache.json#nasreth_the_soul_harrower FaBSim/GeneratedCode/cardArrayCache.json#oblivion_blue FaBSim/Custom/MONAbilities.php#FaBMONArenaAttackSpec FaBSim/Custom/DTDRuntime.php#FaBDTDAfterMove FaBSim/Custom/GameLogic.php#OnHit"
+}

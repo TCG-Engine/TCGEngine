@@ -1,0 +1,50 @@
+{
+  "status": "QUALIFIED_NATIVE_INITIAL_BINDING_AND_CONFIGURED_CONTINUOUS_GRANT",
+  "utc": "2026-11-24T20:35:04.115257+00:00",
+  "source_spec": "card-regression-sparse1440-20261122.json",
+  "source_spec_sha256": "796d6b14ea33197476e85665b483299daf160ffa2d1483d905d7cff311b12048",
+  "scenario_id": "card-omens-of-arcana-two-live-sparse1440-bound-native-limited-macro-setup-grants-flow-spellvoid-one",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "native_setup_component": {
+    "command": [
+      "C:\\xampp\\php\\php.exe",
+      "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\omens_macro_setup1440.php"
+    ],
+    "returncode": 0,
+    "checks": 20,
+    "source_sha256": "ecfdac476d5d876ce769de229b04615dde37bea490baee3bcda80581f705eb93",
+    "complete_log_sha256": "e2fbe71af0d7db05ea4af6f84cba8e1070d1eac634e564e5347abd6d25c6a090",
+    "scope": "Native FaBOMNSetup derives omnMacro and both real starting Flows from a neutral shared macro, then serializes exact initial state. No CreateGame/authentication/gameplay. Separate initializer evidence; not replayed game initialization."
+  },
+  "recorded_initial_exactly_matches_native_setup_output": true,
+  "raw_initial_sha256": "f13f0ca93af869dff2f7c935e5e91c4a58ff5152fb86f5f5ec6e3ba3bbbaf43c",
+  "existing_fail_closed_guard": "DevTools/FaB/CardRegression/initial_snapshot_guard.php; record_card_regressions.php checks expectedInitialGamestateSHA256 before gameplay or fixture save. No observed-hash substitution.",
+  "reusable_setup_component": {
+    "utc": "2026-11-24T20:27:06.309840+00:00",
+    "command": [
+      "C:\\xampp\\php\\php.exe",
+      "C:\\Users\\maxim\\AppData\\Local\\Temp\\fm1122\\DevTools\\FaB\\CardRegression\\test_omens_macro_setup.php"
+    ],
+    "returncode": 0,
+    "source_path": "DevTools\\FaB\\CardRegression\\test_omens_macro_setup.php",
+    "source_sha256": "1031ba8cf80d6433cc5380441d54f386ed169db2be9b875b63e7fc2a80d66cab",
+    "output_sha256": "a1a4c1e2a4e186dde62a947d502e908f0d6916e28b4120ff0e943db1cfe3d11e",
+    "native_gameplay_or_replays": 0
+  },
+  "reusable_checks": 16,
+  "pre_native_corrections": [
+    "Use actual OMN Scion19/Zyggy20 and shared Macro Owner0/Controller0, rather than unsupported UPF/ROS hero assumptions.",
+    "Flash Bolt has no PrepareCard callback: use real payment/responses then repeat the TRP5.14 sole-opponent damage default in the later chooser. No early binding credit."
+  ],
+  "gameplay_result": "6 native inputs;252 persisted assertions;own target Flow destroys/ceases to exist;3arcane minus Spellvoid1 gives2real HP loss;first exact targeted replay PASS.",
+  "recording_or_replay_repeated": false,
+  "limits": [
+    "normal_CreateGame_frontend_or_authenticated_game_creation",
+    "initial_token_production_as_a_recorded_replay_action",
+    "four_player_UPF_macro_legality_or_interactions",
+    "all_other_macro_Lightning_Flow_abilities",
+    "whole_card_or_secondary_identity_credit",
+    "early_native_damage_target_binding_or_four_player_target_choice"
+  ],
+  "workspace_component_and_derivation_artifacts": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1440-local-20261122"
+}

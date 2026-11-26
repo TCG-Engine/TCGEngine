@@ -1,0 +1,7 @@
+{
+    "name": "Bonded Burial / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T22:52:52+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "When this hits a hero, you may destroy an ally you control or discard an ally. If you do, they discard a card. Representative only: actual Hand5 source, printed1 paid by Blue6/R2/AP0, two real Generic Hand AA7/8 eachdef3 fully block4or5, zero damage/HP20/nohit/Stack0/full four-live manual combat. Physical source/defenders reach owned graveyards; legitimate ally/hand/graveyard markers remain. No positive hit/optional cost/Soul transfer/Phoenix return/go again/ownership credit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#bonded_burial_red"
+}

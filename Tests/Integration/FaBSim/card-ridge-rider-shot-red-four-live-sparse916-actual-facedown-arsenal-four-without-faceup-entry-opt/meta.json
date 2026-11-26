@@ -1,0 +1,7 @@
+{
+    "name": "Ridge Rider Shot / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T19:15:24+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "When this is put into your arsenal face-up, **opt 1**. Representative only: actual_facedown_arsenal_four_without_faceup_entry_opt. No face-up loading effect or pitch sibling credit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#ridge_rider_shot_red"
+}

@@ -1,0 +1,125 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "/root/breadth_review1457",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1556-20261122.json",
+  "source_spec_sha256": "91f8f80b6d7301c710da9274afc8db4d206bc05faa71189539ed3318d80bb572",
+  "input_sha256": "91f8f80b6d7301c710da9274afc8db4d206bc05faa71189539ed3318d80bb572",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-nekria-four-live-sparse1556-real-zero-damage-no-damage-event-health-loss-or-ash",
+      "card_id": "nekria",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "25a902430631bdbb92a137129ef8239019586f8f0912a6f1f715776bf84b5c63",
+        "actions.json": "34fec76f7920fbf82f1acf413dda168554722dd5385fb5bf768c87a84ae31ec2",
+        "assertions.json": "95a0c008f015da84596272a31aea0b7d1edf11aa0bb0cf3206dd431cdf99f836",
+        "expected_final_gamestate.txt": "90dbe6145b18b01febd22b01c87e120df0006d67c73cb04bc50f287d0700a55c",
+        "meta.json": "d4cec910ec1b9d1a15169c1fbe38ee15abb14ea52e23147dcef2458e12d6a001"
+      },
+      "fixture_sha256": "7aaefaaa4f63869d0265b0b271094c6c9033a218fae8915d409f1b746f154bea",
+      "actions": 29,
+      "native_assertions": 379,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1556-20261122.json",
+      "input_sha256": "91f8f80b6d7301c710da9274afc8db4d206bc05faa71189539ed3318d80bb572",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1556-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-nekria-four-live-sparse1556-real-zero-damage-no-damage-event-health-loss-or-ash",
+        "fixture_slug": "card-nekria-four-live-sparse1556-real-zero-damage-no-damage-event-health-loss-or-ash",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-sticky-fingers-four-live-sparse1556-real-ally-target-not-hero-gold-retained-and-polly-dies",
+      "card_id": "sticky_fingers",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "ae59d5bcceca8e5bb8e65ea99030c472c62524c7efe711ab88413e2a3851927e",
+        "actions.json": "3be89c7247225f8e7fefd90d5c53c15d38e5326cdaf0e08887bca7a1549ea7cf",
+        "assertions.json": "ba80250fa003244b294c4951fb13117d70844a59f533a9b0554026a39f7e8d78",
+        "expected_final_gamestate.txt": "36c53c416b7daceddd96291f34dd14c4598a30e4d7ff1ec4d6c5d431e7dfa251",
+        "meta.json": "1425f8069d00dd9413355fb645321fc86d56c949669d8e066df1544f0bf534da"
+      },
+      "fixture_sha256": "183a552090ba413348f5e98cc0686cc683fecd42405b85c99109e3166caa79e5",
+      "actions": 27,
+      "native_assertions": 341,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1556-20261122.json",
+      "input_sha256": "91f8f80b6d7301c710da9274afc8db4d206bc05faa71189539ed3318d80bb572",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1556-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-sticky-fingers-four-live-sparse1556-real-ally-target-not-hero-gold-retained-and-polly-dies",
+        "fixture_slug": "card-sticky-fingers-four-live-sparse1556-real-ally-target-not-hero-gold-retained-and-polly-dies",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "schema_version": 1,
+    "batch": 1556,
+    "reviewer": "/root/breadth_review1457",
+    "result": "approved_named_branches_only_pending_native_execution",
+    "reviewed_utc": "2026-11-25T13:34:14.796495+00:00",
+    "spec_sha256": "91f8f80b6d7301c710da9274afc8db4d206bc05faa71189539ed3318d80bb572",
+    "source_note_sha256": "caffdf8a78daa2f28dd0519e8f223211d148b1712eda334998da5360589081c8",
+    "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+    "source_sha256": {
+      "FaBSim/Custom/CRUCards.php": "5f0ff2122f9e033b8ad9ced75e9ee2210f459c868633f3f1741f419bc437c12d",
+      "FaBSim/Custom/GameLogic.php": "c60fa151561f959e4e3e341b814de0e2b47c9e9f153bbc8793a04c43b5075061",
+      "FaBSim/Custom/MONAbilities.php": "7e5a6ba9e0523c03c7ece084793564d87ecd9d6fbba55b9252cb83f3d952b4fa",
+      "FaBSim/Custom/MONCards.php": "2eb22bda6f1dba583df2879046f9f4dec94f47f2e9b28f369758f3af72c9c3ac",
+      "FaBSim/Custom/SEACards.php": "5400728b0cfe26f7f9e60f7e135e0ee9b28ac85d39420f64aaade0fa9826f00f",
+      "FaBSim/Custom/SEARuntime.php": "6d998ea92dd3817d3329695a08db8c2fff78228967ee3bc35923f79eccdd3587",
+      "FaBSim/Custom/UPRCards.php": "62798bd281afc17805c396e92deab22497b9c80d881f99e943833cb82d449321",
+      "FaBSim/GeneratedCode/GeneratedMacroCode.php": "fe6a7982611df8f4de98ce2671b317b671b580146aa4b8c28e8f4b86d8461056",
+      "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3"
+    },
+    "cases": 2,
+    "findings": [
+      "Nekria source6canonicalpriorInvoke/Ash properties+ordinaryusecounters, actual4vsDEF6(2actualAApower4blockers<Phantasm6) damage0. No dealtorreceiveddamageevent; noUPR_LOST_HP/Ash/Damage/noGA, fullClosephysicallyretains7lifeDragon/Stormready/blockersGY.",
+      "StickyproperScurv20/Puffin20, Gold6andprior-returnPolly7Status1STEAM1; actualtargetPERMANENT7 notHero, actual2kills1HPnonTokenPollytoGY4, allHero20/Gold6retained/Sticky5tappedalive. No Hero-attackWHEN earned.",
+      "BothCCproxies9/8 havecorrectcanonical4counterprovenance includingMON_SOURCE_UID/WEAPON_UID, unsupportedCCSourceUniqueID correctedpre-native. All29/27actualmanualcontrolinputs andfates/UID/RNG consistent."
+    ],
+    "limits": [
+      "Only genuineeventexclusions, notfalseIFonWHEN alreadyearned. PositiveNekriaDamage/AshorStickyHeroSteal payload/timing andpriorproduction/Phantasm/equippedunequip/support/sibling/wholecard uncredited. Source/specreviewonly; nativepending; reviewer no games/tests/writes."
+    ]
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1556-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "6c959115ebd5dade60035e0ee35efa4ca8903fb2bb1e999cbf40e4025974af85"
+  },
+  "full_suite_run": false
+}

@@ -1,0 +1,430 @@
+{
+  "status": "APPROVED_ACTUAL_SAVED_B574_REAL_DAGGER_HIT_AND_GA_CONSUMER",
+  "approved": true,
+  "source_approved": true,
+  "semantically_approved": true,
+  "reviewer": "/root/b106_semantic_review",
+  "reviewer_independent": true,
+  "created_utc": "2026-11-06T05:54:38.331710+00:00",
+  "source_spec": "card-regression-batch574.json",
+  "input_sha256": "9a9b83b4ebf2119f3873c8679484301d81cc5940c632cdd543061d07a87b322d",
+  "manifest_sha256": "d0a97727a18b08accfba4fbc090f91f9fd458bcb6daa8bbdad968cbc961cc1a2",
+  "runtime_sha256": "9fbaaee63ccedad1dc7cad440f09376d21106a761ce61bad719156bdd7d20709",
+  "recorded_runtime_sha256": "9fbaaee63ccedad1dc7cad440f09376d21106a761ce61bad719156bdd7d20709",
+  "source_guards_verified": 72,
+  "prior_independent_semantic_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch574-independent-source-review.json",
+    "sha256": "a928bcdd78ff5594a03cd6b3008326dae517123c97eb390c65013460d42d8335"
+  },
+  "recording_receipt": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch574-20261106T054654Z-6aed69cef3c54.json",
+    "sha256": "ec8183d608b47442b1f188ad35b568d47af81faa9f9550533dccda716d18b7fe"
+  },
+  "specific_results": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch574.recording-results.json",
+    "sha256": "2f6c72011470cd26721bf7c001423ce11457636f275506f0e2cdaa016700fa9d"
+  },
+  "root_wrapper_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch574-native-r1-9fbaa\\receipt.json",
+    "sha256": "e94673f59ddda583de78505c6c99a4ee351769c6fdaa6cc5a1a32e3b81af214c"
+  },
+  "fixtures": [
+    {
+      "index": 0,
+      "card_id": "knife_through_blue",
+      "group_id": "pitch-cycle:knife_through",
+      "slug": "card-knife-through-blue-four-live-real-dagger-hit-earns-go-again-and-damage-consumer",
+      "source_spec": "card-regression-batch574.json",
+      "input_sha256": "9a9b83b4ebf2119f3873c8679484301d81cc5940c632cdd543061d07a87b322d",
+      "reviewer": "/root/b106_semantic_review",
+      "approved": true,
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_REAL_DAGGER_HIT_PRIMARY_GA_AND_CONSUMER",
+      "runtime_sha256": "9fbaaee63ccedad1dc7cad440f09376d21106a761ce61bad719156bdd7d20709",
+      "recorded_runtime_sha256": "9fbaaee63ccedad1dc7cad440f09376d21106a761ce61bad719156bdd7d20709",
+      "fixture_path": "Tests\\Integration\\FaBSim\\card-knife-through-blue-four-live-real-dagger-hit-earns-go-again-and-damage-consumer",
+      "fixture_sha256": "3d23037361edd858e944f4a24a5d91b191384c23c2018afef429f6f2c6cef7b0",
+      "raw4_sha256": {
+        "initial_gamestate.txt": "66f89e13aeb58e790ffa79ae491ede205445a4ddbac594b765894d5782946d0c",
+        "actions.json": "5940c9490edbb2bfc3422e0a55b166c7aa39bb5488c6dd9b3d911e69d50e7bf2",
+        "assertions.json": "61ba448286f1a608f43403a3f7eca58ac63845d55a017e28fb83a7111bfbeac9",
+        "expected_final_gamestate.txt": "8ad9745212ae375b7913213784ab32baaa244cbeb8635c4328d8e8d0b9d545fb"
+      },
+      "raw5_sha256": {
+        "initial_gamestate.txt": "66f89e13aeb58e790ffa79ae491ede205445a4ddbac594b765894d5782946d0c",
+        "actions.json": "5940c9490edbb2bfc3422e0a55b166c7aa39bb5488c6dd9b3d911e69d50e7bf2",
+        "assertions.json": "61ba448286f1a608f43403a3f7eca58ac63845d55a017e28fb83a7111bfbeac9",
+        "expected_final_gamestate.txt": "8ad9745212ae375b7913213784ab32baaa244cbeb8635c4328d8e8d0b9d545fb",
+        "meta.json": "7a31831df08ba9bbfa936066160b3c1d3586733aaabe66935d77fc8e301fdac8"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "66f89e13aeb58e790ffa79ae491ede205445a4ddbac594b765894d5782946d0c",
+        "actions.json": "5940c9490edbb2bfc3422e0a55b166c7aa39bb5488c6dd9b3d911e69d50e7bf2",
+        "assertions.json": "61ba448286f1a608f43403a3f7eca58ac63845d55a017e28fb83a7111bfbeac9",
+        "expected_final_gamestate.txt": "8ad9745212ae375b7913213784ab32baaa244cbeb8635c4328d8e8d0b9d545fb",
+        "meta.json": "7a31831df08ba9bbfa936066160b3c1d3586733aaabe66935d77fc8e301fdac8"
+      },
+      "actions": 77,
+      "native_assertions": 7550,
+      "actual_manual_passes": 71,
+      "actual_priority_response_passes": 68,
+      "actual_defender_declaration_finish_inputs": 3,
+      "actual_administrative_END_PHASE_passes": 0,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4
+      ],
+      "actual_manual_actor_counts": {
+        "1": 17,
+        "2": 17,
+        "3": 17,
+        "4": 20
+      },
+      "schema_property_assertions": 2963,
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "all_actions_and_assertions_exact": true,
+      "no_recorder_only_assertions": true,
+      "all_endpoint_physical_uid_card_zones_ownership_verified": true,
+      "all_terminal_assertions_evaluated_against_parsed_final_snapshot": true,
+      "initial_assertions_also_evaluated_against_parsed_initial_snapshot": true,
+      "initial_physical_uid_locations": {
+        "1": {
+          "card_id": "arakni",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "knife_through_blue",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "8": {
+          "card_id": "wounding_blow_red",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "9": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "graphene_chelicera",
+          "zone": "p1Weapons",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "timesnap_potion_blue",
+          "zone": "p1Arena",
+          "owner": 1,
+          "controller": 1
+        },
+        "10": {
+          "card_id": "orb_weaver_spinneret_red",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_physical_uid_locations": {
+        "1": {
+          "card_id": "arakni",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "graphene_chelicera",
+          "zone": "p1Weapons",
+          "owner": 1,
+          "controller": 1
+        },
+        "10": {
+          "card_id": "orb_weaver_spinneret_red",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "timesnap_potion_blue",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "knife_through_blue",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "8": {
+          "card_id": "wounding_blow_red",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "9": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Pitch",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_physical_uidset": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "actual_Potion_UID": 7,
+      "actual_Potion_AP_gain": 2,
+      "actual_Dagger_UID": 6,
+      "actual_Dagger_proxy_UID": 12,
+      "actual_Dagger_resource_cost": 1,
+      "actual_real_pitch_UID": 9,
+      "actual_Dagger_damage": 1,
+      "actual_Dagger_go_again": false,
+      "actual_primary_UID": 5,
+      "actual_primary_damage": 1,
+      "actual_primary_go_again": true,
+      "actual_primary_Resolution_refund": 1,
+      "actual_consumer_UID": 8,
+      "actual_consumer_damage": 4,
+      "actual_consumer_go_again": false,
+      "final_health": [
+        20,
+        20,
+        20,
+        14
+      ],
+      "final_resources": [
+        2,
+        0,
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_GY1_exact_UIDset": [
+        5,
+        7,
+        8,
+        10
+      ],
+      "final_Weapons1_exact_UIDs": [
+        6
+      ],
+      "final_Pitch1_exact_UIDs": [
+        9
+      ],
+      "ceased_virtual_UIDs": [
+        11,
+        12
+      ],
+      "final_UniqueIDCounter": 12,
+      "RandomCounter": 0,
+      "prior_Orb_UID10_retained": true,
+      "current_Orb_buff_seed_absent": true,
+      "current_Mark_seed_absent": true,
+      "checkpoint_assertion_mapping_sha256": "d211ae52b57739b078aa87460af4349f74b395dd2e863a3dcb54418c8e3d8312",
+      "native_action_mapping_sha256": "d96073dfd879e7114be21a5693d4453cf667eb158b1f634263cde4887fa56de3",
+      "native_assertion_mapping_sha256": "e96afa39a482755187f63b084d00b8f7047fe66baa80c56555709ccfd5c5af21",
+      "actual_backend_cardsPlayedThisTurn": {
+        "1": [
+          "graphene_chelicera",
+          "knife_through_blue",
+          "wounding_blow_red"
+        ]
+      },
+      "physical_hand_card_UIDs_played": [
+        5,
+        8
+      ],
+      "weapon_proxy_history_not_independent_cardplay_credit": true
+    }
+  ],
+  "blocked_attempts": [],
+  "total_actions": 77,
+  "total_native_assertions": 7550,
+  "total_manual_passes": 71,
+  "total_priority_response_passes": 68,
+  "total_defender_declaration_finish_inputs": 3,
+  "total_schema_property_assertions": 2963,
+  "material_findings": [
+    "ActualnativeCOMPLETE0/stderr0/newfixture1at9fbaa. Allrawfive/77envelopes7550orderedchecks2963properties/71manual(17/17/17/20),72guards and48manualpreferencesperendpoint verified. ActivecomputedreferencesprogressChain0->Chain1->Chain2onlywhennewattacksresolve.",
+    "ActualPotion7destroy/AP1costbeforefour, thenonlyfourthGain2AP. ActualGraphene6targetsadjacentunmarkedHero4beforeproxy12/assets. RealBlue9pitches3/pays1+AP1->R2/AP1; same6usedStatus/countersbeforefour. Firstactual1damageHP19andNOweaponGAleaveAP1throughResolution. Marked-heroWHENisunearned,notskippedorcertified.",
+    "Knife5spendsremainingPotionAPonsameopenchain; realpriorDaggerhitmakesprinted1/conditionalGAtrue. Actual1damageHP18andonlyResolutionrefundAP1, thenrealblankGeneric8consumesitfor4damageHP14/noGA/AP0. ThusconsumerisnotfundedbyunspentPotionAPorfalseGrapheneGA.",
+    "FullcloseexactunorderedGYUIDset{5,7,8,10}/properCardIDs; wholepriorOrb10unchanged. SameGraphene6Weaponsused/exactusemap, wholeBlue9Pitch andallquietHerorawobjects unchanged. AlloriginalphysicalUID1..10conserved/virtual11,12ceased/counter12RNG0/R2AP0/fullStackchainDQpaymentawaitquiet.",
+    "PriorOrblegal+3THISturnbuffisexpired, no currentbuff/history/Mark/permissionseed. Knifeactualpower1and1damageconfirmunbuffedselectedbranch. Priorproducer/Graphenecreation/Potionplacementnotexecutedcredited; noContractexistssoOldAraknioptionaltriggerisunearned. Stableweapon/APsourcehelpersandsourcea928rulesreusedwithoutlegacyaudit. Rootfocusedreplaysseparate."
+  ],
+  "primary_sources": [
+    {
+      "url": "https://judge.fabtcg.com/cards/detail/4557/",
+      "scope": "Current primary0/1/Stealth/real same-chain Daggerhit condition."
+    },
+    {
+      "url": "https://judge.fabtcg.com/cards/detail/3615/",
+      "scope": "Current OrbRed0/equipGraphene/nextstealthTHISturn+3/ownGA, supports legal expired prior buff."
+    },
+    {
+      "url": "https://judge.fabtcg.com/cards/detail/1833/",
+      "scope": "Current youngArakni20/Contract-only optional trigger."
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/08-keywords/",
+      "rules": [
+        "8.6.30",
+        "8.3.5b"
+      ],
+      "scope": "Graphene marked-hero attack trigger and Resolution-only GA refund."
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/07-combat/",
+      "rules": [
+        "7.6.2",
+        "7.6.3a",
+        "7.7"
+      ],
+      "scope": "Same-chain next attacks without prematurely closing; true hit/current chain and fullclose."
+    },
+    {
+      "url": "https://fabtcg.com/rules-and-policy-center/release-notes/the-hunted/",
+      "scope": "Indexed official ruling corroborates marked-hero WHEN; full page returned403, not claimed retrieved."
+    }
+  ],
+  "limits": [
+    "One real Daggerhit\u2192primaryconditionalGA\u2192real consumer branch. No markedGrapheneWHEN/marked-target implementation, otherDagger/pitch/falsecondition/hit-target, repeatweaponattack or support/full-card/sibling certification.",
+    "Prior Orb token creation/expired buff and prior Potion placement are lawful setup only, not their executed producer/currentcreation history credit. No 122creator-ledger workaround or completion repair is executed.",
+    "OldArakni Contract, currentStealthbuff, Mark producer, heroactivation, supportcard effects beyond requiredPotionAP and selectedWeaponattack, negative suppression and future EndPhase remain unqualified.",
+    "OfficialfullHuntedrelease403limitationretained; no alternativecurrenttext/imagefetchclaim.",
+    "Onlyactualorderedassertionsandfullinitial/finalrawstateareobserved; rawundoVersionshash-boundbutexcludedfromcurrentUIDinventory. No per-inputfullsnapshots/privatecallbackinstrumentation.",
+    "No support/priorproducer/WG/markedGraphene/fullcard/siblingcoverage or reviewerPHP/native/replay/R/source/fullsuite/deniedoperation. Rootreplay/registrationgatesremainseparate.",
+    "The backend cardsPlayedThisTurn ledger also records the Graphene attack proxy. This is observed bookkeeping, not a claim that the prior physical token was played from Hand or a general card-play semantics certificate."
+  ],
+  "blockers": [],
+  "actual_comparison_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov6_batch574_saved_readonly.py",
+    "sha256": "bf2bc45e17e670a24d7b5b995ff8f8a75c159d89c03658d65ebcdb5422e9a846"
+  }
+}

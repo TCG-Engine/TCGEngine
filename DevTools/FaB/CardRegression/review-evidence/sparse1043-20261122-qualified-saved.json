@@ -1,0 +1,144 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "breadth_review independent printed/spec delta review",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1043-20261122.json",
+  "source_spec_sha256": "8277b02c45ff08fd9f209b63df62f2ff5cfbd21ef33ec4fb6034424203c23572",
+  "input_sha256": "8277b02c45ff08fd9f209b63df62f2ff5cfbd21ef33ec4fb6034424203c23572",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "dealers-grip-four-live-sparse1043-real-defense-battleworn-close",
+      "card_id": "dealers_grip",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "f69d369e3af413de03343e5aa86bbb3e5d4d7a5726ee90079640a1196d01b928",
+        "actions.json": "511bf2f3686ee96e12e3d9cdbe580febcac902b797e5ec827a96d5ccd74ac457",
+        "assertions.json": "a507a46b23754e0d321d49ef513571d85e1b5c11358e9144e4225bc3b3e8795f",
+        "expected_final_gamestate.txt": "90eea97ec5efef50a7ffd709cf7ee76637e9fdcdd4498c57f22b0bafc29a10d4",
+        "meta.json": "c61a7dfcf79c84f110b510cb7f91bd38806540102e4b3546082d94fb533d1e01"
+      },
+      "fixture_sha256": "ed265f0ff6227c38ed0c7659be2d3f33925d25d43c66323f3f7c71ed0656d95a",
+      "actions": 30,
+      "native_assertions": 270,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1043-20261122.json",
+      "input_sha256": "8277b02c45ff08fd9f209b63df62f2ff5cfbd21ef33ec4fb6034424203c23572",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1043-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "dealers-grip-four-live-sparse1043-real-defense-battleworn-close",
+        "fixture_slug": "dealers-grip-four-live-sparse1043-real-defense-battleworn-close",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "edge-laden-plate-four-live-sparse1043-real-defense-battleworn-close",
+      "card_id": "edge_laden_plate",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "2e85371e4c3d30cc906fa3a9de22beecb17717ca83c59dd2ff7d1d4454f79b69",
+        "actions.json": "511bf2f3686ee96e12e3d9cdbe580febcac902b797e5ec827a96d5ccd74ac457",
+        "assertions.json": "75043745aa71ca835d72f1afb3cc436ce8a6ab4a85ef8314f4b0934f527ee558",
+        "expected_final_gamestate.txt": "3b84d11c76dd41b79117e95f1832b461937b337494860014ada19d2d438f198c",
+        "meta.json": "bb462032fd91eb74737593aeea377034f12ba6f3fcf48f0fe10580670127949b"
+      },
+      "fixture_sha256": "241f068078d92b6d30bdb0abd7ce76fdff3cde06fca01718b75a4376cd88674d",
+      "actions": 30,
+      "native_assertions": 270,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1043-20261122.json",
+      "input_sha256": "8277b02c45ff08fd9f209b63df62f2ff5cfbd21ef33ec4fb6034424203c23572",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1043-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "edge-laden-plate-four-live-sparse1043-real-defense-battleworn-close",
+        "fixture_slug": "edge-laden-plate-four-live-sparse1043-real-defense-battleworn-close",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "dragonscaler-flight-path-four-live-sparse1043-real-defense-battleworn-close",
+      "card_id": "dragonscaler_flight_path",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "66da19dcfe71169e46f62b2d673155ffa3d538b8e1bf02121d61c8994259601d",
+        "actions.json": "511bf2f3686ee96e12e3d9cdbe580febcac902b797e5ec827a96d5ccd74ac457",
+        "assertions.json": "84cdab167cc34b372be7a18fdf497df0b6fe883c7cc6484de62b5aebc099b786",
+        "expected_final_gamestate.txt": "364d068d417784952ac6edeaad6c324aebd0674308e888925676f197fca549ad",
+        "meta.json": "17dbe5259e013fd7fa1326799c83f9478d9ca530b1bf1d044b8a108571c01bb4"
+      },
+      "fixture_sha256": "2ace56be609714ae03004118fec01b9a14913675aafeae3e579d8089577d97a1",
+      "actions": 30,
+      "native_assertions": 270,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1043-20261122.json",
+      "input_sha256": "8277b02c45ff08fd9f209b63df62f2ff5cfbd21ef33ec4fb6034424203c23572",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1043-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "dragonscaler-flight-path-four-live-sparse1043-real-defense-battleworn-close",
+        "fixture_slug": "dragonscaler-flight-path-four-live-sparse1043-real-defense-battleworn-close",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "drive-brake-four-live-sparse1043-real-defense-battleworn-close",
+      "card_id": "drive_brake",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "4146af3867a5742e1abac2deca29862e2cd2c43a20ebc7d13bec82d2f2f16195",
+        "actions.json": "511bf2f3686ee96e12e3d9cdbe580febcac902b797e5ec827a96d5ccd74ac457",
+        "assertions.json": "c0f72e57198cfb0005ca13b5f59a0d8b2f5ac02ff6bb2082c323a31aed6c7df8",
+        "expected_final_gamestate.txt": "c3d52f6f324373ab438845ed449092d7f46af323a7b3fa5b59f1d25d8226768d",
+        "meta.json": "1a079cfbb09eab8d550f350f4c3b86bcac55967326c1555e87da42064b85a3d8"
+      },
+      "fixture_sha256": "f9ab1ed16f6ac0d41e3d511c4edee4127e3585bfa7bf643ab93a344e14c3d44d",
+      "actions": 30,
+      "native_assertions": 270,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1043-20261122.json",
+      "input_sha256": "8277b02c45ff08fd9f209b63df62f2ff5cfbd21ef33ec4fb6034424203c23572",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1043-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "drive-brake-four-live-sparse1043-real-defense-battleworn-close",
+        "fixture_slug": "drive-brake-four-live-sparse1043-real-defense-battleworn-close",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "spec_sha256": "8277b02c45ff08fd9f209b63df62f2ff5cfbd21ef33ec4fb6034424203c23572",
+    "reviewer": "breadth_review independent printed/spec delta review",
+    "basis": [
+      "Allfourcachecards printedDEF1/Battleworn, noWHENdefends trigger. Legalnatural20DoriWarrior(DealersGrip/EdgeLaden), FaiDraconicNinja(DragonScaler), DashMechanologist(DriveBrake); noactivation/sharpen/ownedhit/boostbanish/body orhero event earned by this defense.",
+      "Nativecontrolsequences exactlyequal qualified1037Aether equipment donor. ActualDoriDawnblade7/Blue8pay1/R2/AP0, actualowner4Equipment5thenGenericNAAHand6DEF2 givesexactDEF3/0damage/noHit/HP20/allfourmanual; roles/source/funder/defenderUIDs persist.",
+      "Same reviewed GLBattlewornclose: DEFENSE1 reducesbase1to0butretainsphysical5Equipmentowner4; actualHand6ownedGY4/Blue8Pitch/weapon7usedretained, AP/R/HP/queues checked. Noauthor-onlydiagnostics."
+    ],
+    "limits": [
+      "Ordinarydefense/singleBattlewornclose only; activatedbody/support/hero/sibling/fullcard and prior source-only activation/trigger holds remain unattempted/uncredited. No native/PHP/T/source/Git/original/network actions by reviewer."
+    ]
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1043-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "16395eb3d57b853d942f63c3c15c5dc587e58a7b60b605db56cd2663eeaf4348"
+  },
+  "full_suite_run": false
+}

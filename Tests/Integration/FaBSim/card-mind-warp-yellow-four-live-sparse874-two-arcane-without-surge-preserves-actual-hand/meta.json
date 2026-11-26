@@ -1,0 +1,7 @@
+{
+    "name": "Mind Warp / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T06:04:52+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Deal 2 arcane damage to target hero.\n\n**Surge** - If this deals more than 2 damage to a hero, they shuffle their hand into their deck, then they draw that many cards minus 1. Representative only: two_arcane_without_surge_preserves_actual_hand. Other pitch siblings, alternate targets and unexercised branches receive no credit. All four live/manual; only native entry-point actions. Sources: FaBSim/GeneratedCode/cardArrayCache.json#mind_warp_yellow"
+}

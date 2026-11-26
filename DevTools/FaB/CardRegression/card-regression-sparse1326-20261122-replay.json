@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-belittle-red-four-live-sparse1326-unpaid-optional-reveal-keeps-real-tutor-target-and-go-again-funds-second-attack",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-belittle-red-four-live-sparse1326-unpaid-optional-reveal-keeps-real-tutor-target-and-go-again-funds-second-attack",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1326-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1326-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "65f85539911ab93ad2618c62b91a1bf2f448d0ce4005e53195c47c7630ce0e20",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "77b66ee460920ec16e3d27a4b3241f03042a744429ec32d355211221a31c55aa",
+        "actions.json": "65eeab4eb3b539ca0750ed8ff5ecf6b56c759270e22d5b31fddbc28e5e4a74a4",
+        "assertions.json": "47405b97ed87404493c21cc990490f6a750ea60c259a96e14d6c3527f45519c0",
+        "expected_final_gamestate.txt": "6434153509ecbac8b227d3fc6fc482c687c001d37799220bcc87283f369f7901",
+        "meta.json": "043896ec54cdd34cb34ab1e19ea6501518b0d42c64c54d88409abef04283211d"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

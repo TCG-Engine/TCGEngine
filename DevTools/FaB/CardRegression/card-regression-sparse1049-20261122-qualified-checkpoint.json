@@ -1,0 +1,155 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-23T03:47:11.298758+00:00",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1049-20261122.json",
+  "source_spec_sha256": "1f8b820425318514422bf68a19eeb8136d4a10094cf5b080dbaaef9e50c8fdc6",
+  "new_scenarios": 4,
+  "new_groups": 4,
+  "new_primary_ids": 4,
+  "actions": 120,
+  "native_assertions": 1078,
+  "manual_passes": 100,
+  "totals": {
+    "saved_registered_scenarios": 4837,
+    "duels": 3075,
+    "four_live": 1762,
+    "recorded_primary_ids": 1985,
+    "identity_denominator": 5196,
+    "recorded_groups": 1859,
+    "group_denominator": 3324,
+    "four_live_groups": 1751,
+    "phase_qualified_scenarios_at_actual_contexts": 1474,
+    "phase_qualified_unique_groups": 1464,
+    "creation_replay_passes": 2216,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 635,
+  "scenarios": [
+    {
+      "card_id": "carrion_crown",
+      "group_id": "identity:carrion_crown",
+      "scenario_id": "carrion-crown-four-live-sparse1049-actual-printed-two-defense-and-blade-break-close",
+      "effect_branches": [
+        "actual_printed_two_defense_and_blade_break_close"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/carrion-crown-four-live-sparse1049-actual-printed-two-defense-and-blade-break-close",
+      "source_spec": "card-regression-sparse1049-20261122.json",
+      "source_spec_sha256": "1f8b820425318514422bf68a19eeb8136d4a10094cf5b080dbaaef9e50c8fdc6",
+      "review_evidence": "review-evidence/sparse1049-20261122-qualified-saved.json",
+      "review_evidence_sha256": "5d5c36b913e9f6caf35504d78b13b9d6c052bdede4863a42fa4313d0b6bde187",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1049-20261122-replay.json",
+          "sha256": "246060c42764afb62b3d2a0c05fd94ae9c9405b0118fcb03f4645566433077c8",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "coronet_peak",
+      "group_id": "identity:coronet_peak",
+      "scenario_id": "coronet-peak-four-live-sparse1049-actual-printed-two-defense-and-blade-break-close",
+      "effect_branches": [
+        "actual_printed_two_defense_and_blade_break_close"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/coronet-peak-four-live-sparse1049-actual-printed-two-defense-and-blade-break-close",
+      "source_spec": "card-regression-sparse1049-20261122.json",
+      "source_spec_sha256": "1f8b820425318514422bf68a19eeb8136d4a10094cf5b080dbaaef9e50c8fdc6",
+      "review_evidence": "review-evidence/sparse1049-20261122-qualified-saved.json",
+      "review_evidence_sha256": "5d5c36b913e9f6caf35504d78b13b9d6c052bdede4863a42fa4313d0b6bde187",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1049-20261122-replay.json",
+          "sha256": "246060c42764afb62b3d2a0c05fd94ae9c9405b0118fcb03f4645566433077c8",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "embraforged_gauntlet",
+      "group_id": "identity:embraforged_gauntlet",
+      "scenario_id": "embraforged-gauntlet-four-live-sparse1049-actual-printed-two-defense-and-temper-close",
+      "effect_branches": [
+        "actual_printed_two_defense_and_temper_close"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/embraforged-gauntlet-four-live-sparse1049-actual-printed-two-defense-and-temper-close",
+      "source_spec": "card-regression-sparse1049-20261122.json",
+      "source_spec_sha256": "1f8b820425318514422bf68a19eeb8136d4a10094cf5b080dbaaef9e50c8fdc6",
+      "review_evidence": "review-evidence/sparse1049-20261122-qualified-saved.json",
+      "review_evidence_sha256": "5d5c36b913e9f6caf35504d78b13b9d6c052bdede4863a42fa4313d0b6bde187",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1049-20261122-replay.json",
+          "sha256": "246060c42764afb62b3d2a0c05fd94ae9c9405b0118fcb03f4645566433077c8",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "aurum_aegis",
+      "group_id": "identity:aurum_aegis",
+      "scenario_id": "aurum-aegis-four-live-sparse1049-actual-printed-two-defense-and-temper-close",
+      "effect_branches": [
+        "actual_printed_two_defense_and_temper_close"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/aurum-aegis-four-live-sparse1049-actual-printed-two-defense-and-temper-close",
+      "source_spec": "card-regression-sparse1049-20261122.json",
+      "source_spec_sha256": "1f8b820425318514422bf68a19eeb8136d4a10094cf5b080dbaaef9e50c8fdc6",
+      "review_evidence": "review-evidence/sparse1049-20261122-qualified-saved.json",
+      "review_evidence_sha256": "5d5c36b913e9f6caf35504d78b13b9d6c052bdede4863a42fa4313d0b6bde187",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1049-20261122-replay.json",
+          "sha256": "246060c42764afb62b3d2a0c05fd94ae9c9405b0118fcb03f4645566433077c8",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

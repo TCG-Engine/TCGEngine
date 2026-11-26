@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-beseech-the-demigon-red-four-live-sparse1009-choose-real-banished-ghostly-then-seven-damage",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-beseech-the-demigon-red-four-live-sparse1009-choose-real-banished-ghostly-then-seven-damage",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1009-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1009-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "f3d61fe249a259b1c80f4a75884fddeaa5219b38f1b6162b8bf301c7de3864cb",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "9f8fb1aeaebfb8b7b6925baef102d0d1f301e576f3f96ce8fb2695fdd2d4d017",
+        "actions.json": "0adb7daa58e467b2eb7f6003c782ec2b96ccd89500b406680e0d733b641da616",
+        "assertions.json": "bc1de0d2aff8fedab2e9a46d55231dbff11871c1b981f82972c9ac166832e409",
+        "expected_final_gamestate.txt": "195fd4ccec8b81053bb628698cf26ee41a45ce8faf9622a11fc3518e236b0f61",
+        "meta.json": "8285d2117875e90986b82df3a99cb18b7c8409195f93c83523696f4ff3f8bf25"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

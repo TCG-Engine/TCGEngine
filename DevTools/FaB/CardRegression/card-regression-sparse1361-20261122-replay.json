@@ -1,0 +1,56 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-riptide-four-live-sparse1361-real-arsenal-play-not-hand-play-no-load-despite-eligible-hand-and-empty-arsenal",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-riptide-four-live-sparse1361-real-arsenal-play-not-hand-play-no-load-despite-eligible-hand-and-empty-arsenal",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1361-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1361-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "0e677030cc1f26c802558a4a3c8f89a5e8377af30ecda8d09072fc9f9001c34c",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "d0089cee3541e6912844687d465284e96a59f124c69f0e57549fba5d6e447689",
+        "actions.json": "aa28c80b9314c126361e09b4921f791238d9422e9409317fe707290a6ce30e13",
+        "assertions.json": "9936b236ed3bd3147dd10976b83c48c428a93e9b02801880f078014148118f8f",
+        "expected_final_gamestate.txt": "514ac9d0be8d004313569942e620ea568c50ce82cb22d7dfaa11a150e94158a9",
+        "meta.json": "feb93429d9f2ed4cdc40af932ca33e782104a9fe3c4b048907f039d28e5e02c1"
+      }
+    },
+    {
+      "slug": "card-prism-advent-of-thrones-four-live-sparse1361-real-herald-pitch-not-soul-no-figment-search-with-eligible-deck",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-prism-advent-of-thrones-four-live-sparse1361-real-herald-pitch-not-soul-no-figment-search-with-eligible-deck",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1361-local-20261122\\clean-replays\\01.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1361-local-20261122\\clean-replays\\01.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "258b5b1a2a08c1fe9a15961ba27def077061de6108bc9a3cf4a60ed75c7a0f68",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "987786f9cca37102a81ee8c77addd66fe76e2b689641cd9beabe5cba345c9ab9",
+        "actions.json": "0c005a52a51dc48a24f481bec6cbd5cfe2cb93ecd847ec1063490764f1d7d9ea",
+        "assertions.json": "a61ff2ed0a9f5136c29d4b9ba826a7280c9e2913b4b1e2fbf152141a270c9e1e",
+        "expected_final_gamestate.txt": "55dd3843a1bad2576fb0119fba9f566b8e2470452f2c2f6a38df7c50eb21ee0f",
+        "meta.json": "dbf245542da8286ae58f865908ba8e0b0f234eb89670ee747ec6ebc434ffd473"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

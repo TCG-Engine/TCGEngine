@@ -1,0 +1,116 @@
+{
+  "status": "APPROVED_EXACT_SAVED_LAVA_REAL_SECOND_DRACONIC_LINK_CONDITIONAL_GA_REPLAYS_SEPARATE",
+  "reviewer": "/root/nov2_metadata_review",
+  "reviewed_utc": "2026-11-03T09:54:08.699822+00:00",
+  "runtime_sha256": "0d877de49c131f29c152706e14bba3368630df61c59ef475c87a84f20b6e1a66",
+  "input_file": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch315.json",
+  "input_sha256": "7eeffe84296733ae8b4503799809cb2fc544a0546b626b369926c67ea2628356",
+  "fixtures": [
+    {
+      "slug": "card-lava-vein-loyalty-red-four-live-sparse-real-ronin-first-link-earns-second-draconic-link-go-again",
+      "card_id": "lava_vein_loyalty_red",
+      "group_id": "pitch-cycle:lava_vein_loyalty",
+      "fixture_sha256": "f29d75628ec223dfb6f50140dd3bb070b742c6dd58ebc90bc64653e0468e3c59",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "9c959913ac257a150389dd14b67600ec78abcb8c0b65f5388a9b84fb38b4c455",
+        "actions.json": "a1c0fb865135f4b0fb996e6307c74a694bdb0cad52c73d39d27065954a2de236",
+        "assertions.json": "49392fc87787884be5c7fa5611ddaed81ba4341f48cb978f04fd775e652a0ff6",
+        "expected_final_gamestate.txt": "ad4cfb0cd97d83a45e1aa82a1175edd24c936480e5c188d6b4984e7da5212bf1",
+        "meta.json": "2d5bb1dd82c2df0cb1bcd2a84ddf91aad14b1970518bfc6017c498af2ba28fd7"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "9c959913ac257a150389dd14b67600ec78abcb8c0b65f5388a9b84fb38b4c455",
+        "actions.json": "a1c0fb865135f4b0fb996e6307c74a694bdb0cad52c73d39d27065954a2de236",
+        "assertions.json": "49392fc87787884be5c7fa5611ddaed81ba4341f48cb978f04fd775e652a0ff6",
+        "expected_final_gamestate.txt": "ad4cfb0cd97d83a45e1aa82a1175edd24c936480e5c188d6b4984e7da5212bf1",
+        "meta.json": "2d5bb1dd82c2df0cb1bcd2a84ddf91aad14b1970518bfc6017c498af2ba28fd7"
+      },
+      "actions": 49,
+      "native_assertions": 3613,
+      "actual_manual_passes": 46,
+      "manual_passes": 46,
+      "priority_response_passes": 44,
+      "defender_declaration_finish_inputs": 2,
+      "manual_pass_actor_counts": {
+        "1": 11,
+        "2": 11,
+        "3": 11,
+        "4": 13
+      },
+      "semantically_approved": true,
+      "every_native_action_and_assertion_exactly_maps_to_approved_source": true,
+      "initial_and_final_snapshots_fully_parsed": true,
+      "physical_uid_conservation_without_duplicates": true,
+      "original_uid_ownership_conserved": true,
+      "final_graveyard_uid_sets": {
+        "1": [
+          5,
+          6
+        ],
+        "2": [],
+        "3": [],
+        "4": []
+      },
+      "final_pitch_uid_sets": {
+        "1": [],
+        "2": [],
+        "3": [],
+        "4": []
+      },
+      "final_health": [
+        20,
+        20,
+        20,
+        14
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_action_points": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "physical_findings": "ActualquietyoungFai20/threeDori20; onlyphysicalRonin5/Lava6Hand/noFlame/Deck/effects/assets/historyseeds. ActualRonin0paysAP1(noPitch), capturedadjacentP4targetbeforemovement, fourmanualsource\u2192actualDraconiclink1/3power/printedGA. Real3damageHP17/AP0, fourthDAMAGE\u2192earnedAP1/RES. ImmediatelyactualLava6usesearnedAP0cost whileRonin5remainslink1; noextraTargetanswer/chainclose. Source6Stackuntagged/oneactualChainlinkthroughthreefreshresponses, fourthmovesSAME6toactualATTACKlink2; computedpower3/GA1withbothphysicalTurnEffects[] andnoGO_AGAINseed. Real3moredamageHP14, AP0throughthreeDAMAGEpasses; fourthearnsconditionalAP1. FourfinalRESclosesboth; exactownedpublicGYUIDset5,6/alloriginalphysicalUID1-6ownershipconserved/UniqueIDCounter6/Random0/R0/P1AP1/otherAP0/StackChainsqueuesawaitframesclear/heroesreadyalllive/all11manualwindowsfalse. Every49nativeaction/3613orderedassertionmatchesapprovedinput; actual46manualactors11,11,11,13 verified.",
+      "qualification": "OnlyrealpositiveexactlytwoDraconicchainlinks/conditionalGA/3damage/fullclose. NoStack-onlycomputedAPI/thirdlink/one-linkfalsecondition/sibling/abilitysuppression/Faihero/PhoenixFlame/supportRoninprimary/fullcard/controlcredit."
+    }
+  ],
+  "source_expectation_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch315-independent-source-review.json",
+    "sha256": "a6b34466d69069378c54fe98fca66126e69fbafd99df33e59d0de330deca8dd4",
+    "manifest_sha256": "22e8539d5167d59056457dce00f76187f5ce59147d089642a46ef156ab65001f"
+  },
+  "immutable_native_archive": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch315-20261103T095239Z-6ae9aee762633.json",
+    "sha256": "23861ae0a07db9b3e573a34cbfc1ca6ada5e633c0ec6e7f4bd5155ab86f58cf1"
+  },
+  "recording_results": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch315.recording-results.json",
+    "sha256": "037ad22e89424ac9342e76f45804ea8c75295f0c7a11c0ffca3c02bbcb3a08b9"
+  },
+  "native_wrapper": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch315-native-r1\\receipt.json",
+    "sha256": "13a971af4e55e860218e4f3b4a288c2857052e0c1f752785af47ea818642b816",
+    "stdout_sha256": "04dc339dba3ddd5ba0cd9b23c86aa58a789fd7c89dd52a4c4e03798b720f8e1b",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "exit_code": 0,
+    "stderr_bytes": 0,
+    "runtime_before": "0d877de49c131f29c152706e14bba3368630df61c59ef475c87a84f20b6e1a66",
+    "runtime_after": "0d877de49c131f29c152706e14bba3368630df61c59ef475c87a84f20b6e1a66"
+  },
+  "generic_readonly_review_prefix": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov3_batch285_saved_readonly.py",
+    "sha256": "6454b10b9bf38ed53b267adf6a5a2dc12e5bb7af7d6efef37c8e0f9c3ba58cd8",
+    "scope": "Own genericraw5/archive/schema/action/assertionparserprefix exactB315bindings only; unrelatedoldsemanticsection neverexecuted."
+  },
+  "method": "Independentread-only exactsavedraw5review: every49actualactor/mode/payload+3613orderednativeassertions equalapprovedfrozeninput; fullschema initial/final ownership/profiles/economy/actualtwoDraconiclinks/noStackcomputedAPI/3+3damage/conditionalAPreturn/fullphysicalUIDcleanupverified. NoPHP/native/replay/Rwrites byreviewer.",
+  "limits": [
+    "Savedcreationreviewonly; Roottwofocusedreplaysseparateevidence, not executed by reviewer.",
+    "OnlyrealpositiveexactlytwoDraconicchainlinks/conditionalGA/3damage/fullclose. NoStack-onlycomputedAPI/thirdlink/one-linkfalsecondition/sibling/abilitysuppression/Faihero/PhoenixFlame/supportRoninprimary/fullcard/controlcredit.",
+    "Current0dcontextretained; no sourceapplication/runtime migration/oldcorpus audit or deniedrepairretry."
+  ]
+}

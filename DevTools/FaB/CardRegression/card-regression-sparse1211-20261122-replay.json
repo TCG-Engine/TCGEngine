@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-volcanic-vice-four-live-sparse1211-real-created-seismic-surge-enables-spellvoid-against-opposing-arcane",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-volcanic-vice-four-live-sparse1211-real-created-seismic-surge-enables-spellvoid-against-opposing-arcane",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1211-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1211-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "b2e78ad57e72441b1dbe8c9b23d23e5fc75a3c4d50818bfea7b1117d599a93ed",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "98d90af85ff3bb228963329baf6a3f6874384bc79a93e77eb6c546686a065e6b",
+        "actions.json": "2dd9ca9434981ed640aa398eeaa18b7dc72b259b8a59871032eb4089baed6f3d",
+        "assertions.json": "500a90abce04c44ad63c7c840843787c8e11661c612d4a3eb0dd29cff852ccd5",
+        "expected_final_gamestate.txt": "bf9a70b81743d4c05e4043765d88f2f1929d861da6007ca52b2a9caaaf20a458",
+        "meta.json": "b92289b7353afb42ff7791d9f2d1d3f54f447178d9dc82e0e102be12abaf028d"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

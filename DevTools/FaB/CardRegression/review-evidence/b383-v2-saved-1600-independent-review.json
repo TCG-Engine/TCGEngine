@@ -1,0 +1,527 @@
+{
+  "status": "APPROVED_ACTUAL_SAVED_B383_V2_PROMISE_FOLLOWTHROUGH_AND_NOURISHING_OPEN_DAMAGE",
+  "approved": true,
+  "source_approved": true,
+  "semantically_approved": true,
+  "reviewer": "/root/b105_semantic_review",
+  "created_utc": "2026-11-04T19:52:28.508136+00:00",
+  "source_spec": "card-regression-batch383-v2.json",
+  "input_sha256": "1ba411f132b3e74ed6331cfe0075222d74335fa1a016017562924ff62a155ca7",
+  "manifest": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov4-batch383-v2-damage-endpoint\\manifest.json",
+  "manifest_sha256": "b12bd2fb5dd68ba2374d9d1d4b38e6bd2f2ba445c84d724116ce0cc15df2c16a",
+  "runtime_sha256": "16008fc2ea54254561814b31f0c66123ef5e0c474aa0db1f6ddfd47ef63cca7e",
+  "recorded_runtime_sha256": "16008fc2ea54254561814b31f0c66123ef5e0c474aa0db1f6ddfd47ef63cca7e",
+  "source_guards_verified": 25,
+  "prior_independent_semantic_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov4-batch383-v2-independent-source-review.json",
+    "sha256": "fe7498d4b566891ac5310ba6e24f7dcb1d2d10d67ba5c73366a9b459b1dada18",
+    "reused_not_rereviewed": true
+  },
+  "recording_receipt": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch383-v2-20261104T194715Z-6aeb8bc38ff9a.json",
+    "sha256": "9ec84e692862eb149d4dc637a4c99b4074cbfb7168711a63f7f0d1868e157fea"
+  },
+  "root_wrapper_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov4-b383-v2-native-1600-r1\\receipt.json",
+    "sha256": "ff12134e5a2c5e264e5f77b80e55fea6cd838c322eb69380962d52b208515ad7"
+  },
+  "actual_comparison_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov4_batch383_saved_readonly.py",
+    "sha256": "94dbfca95db9e71a6259c1887f8012409424853a3407d97cd590a1543db29c50"
+  },
+  "fixtures": [
+    {
+      "index": 0,
+      "card_id": "promise_of_plenty_yellow",
+      "group_id": "pitch-cycle:promise_of_plenty",
+      "slug": "card-promise-of-plenty-yellow-four-live-sparse-real-arsenal-go-again-fullblock-earns-paid-action-followthrough",
+      "source_spec": "card-regression-batch383-v2.json",
+      "input_sha256": "1ba411f132b3e74ed6331cfe0075222d74335fa1a016017562924ff62a155ca7",
+      "reviewer": "/root/b105_semantic_review",
+      "approved": true,
+      "semantically_approved": true,
+      "runtime_sha256": "16008fc2ea54254561814b31f0c66123ef5e0c474aa0db1f6ddfd47ef63cca7e",
+      "recorded_runtime_sha256": "16008fc2ea54254561814b31f0c66123ef5e0c474aa0db1f6ddfd47ef63cca7e",
+      "fixture_path": "Tests\\Integration\\FaBSim\\card-promise-of-plenty-yellow-four-live-sparse-real-arsenal-go-again-fullblock-earns-paid-action-followthrough",
+      "fixture_sha256": "b15e8de5c6f99eeab66f28e2fdd1d7942191c6ca26fde6e962d27456f0e8b300",
+      "raw4_sha256": {
+        "initial_gamestate.txt": "fc3c8bfbaee291ed3e9431f0405fe5cd6bd2b9220a0ce9bbfdba97f7fbdb10df",
+        "actions.json": "0a8693abba979a0bfaf16d81abbe60f7ea752d908abe245d44e4771a1a2dae35",
+        "assertions.json": "4a411ebf3ac88d36acafba992ec2abead39f461b166f21a336962b8a2e3cf56a",
+        "expected_final_gamestate.txt": "3b5465e568b832257c9b8faeedd8266f20d5e329613e0cdba92e3b9c8e88b780"
+      },
+      "raw5_sha256": {
+        "initial_gamestate.txt": "fc3c8bfbaee291ed3e9431f0405fe5cd6bd2b9220a0ce9bbfdba97f7fbdb10df",
+        "actions.json": "0a8693abba979a0bfaf16d81abbe60f7ea752d908abe245d44e4771a1a2dae35",
+        "assertions.json": "4a411ebf3ac88d36acafba992ec2abead39f461b166f21a336962b8a2e3cf56a",
+        "expected_final_gamestate.txt": "3b5465e568b832257c9b8faeedd8266f20d5e329613e0cdba92e3b9c8e88b780",
+        "meta.json": "2837a92ca833989579621ebb1bb6e6f6db431d889cfe62f3df4638e826c7b76c"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "fc3c8bfbaee291ed3e9431f0405fe5cd6bd2b9220a0ce9bbfdba97f7fbdb10df",
+        "actions.json": "0a8693abba979a0bfaf16d81abbe60f7ea752d908abe245d44e4771a1a2dae35",
+        "assertions.json": "4a411ebf3ac88d36acafba992ec2abead39f461b166f21a336962b8a2e3cf56a",
+        "expected_final_gamestate.txt": "3b5465e568b832257c9b8faeedd8266f20d5e329613e0cdba92e3b9c8e88b780",
+        "meta.json": "2837a92ca833989579621ebb1bb6e6f6db431d889cfe62f3df4638e826c7b76c"
+      },
+      "actions": 55,
+      "native_assertions": 4407,
+      "actual_manual_passes": 50,
+      "actual_priority_response_passes": 48,
+      "actual_defender_declaration_finish_inputs": 2,
+      "actual_administrative_end_phase_inputs": 0,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4
+      ],
+      "actual_manual_actor_counts": {
+        "1": 12,
+        "2": 12,
+        "3": 12,
+        "4": 14
+      },
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "all_actions_and_assertions_exact": true,
+      "initial_and_terminal_data_assertions_evaluated_against_serialized_endpoints": true,
+      "computed_assertions_bound_to_successful_native_checks_and_serialized_values_not_engine_recomputed": true,
+      "initial_physical_uid_locations": {
+        "1": {
+          "card_id": "dorinthea",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "Status": "2",
+          "counters": {}
+        },
+        "6": {
+          "card_id": "wounding_blow_red",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "promise_of_plenty_yellow",
+          "zone": "p1Arsenal",
+          "owner": 1,
+          "controller": 1,
+          "FaceDown": "1",
+          "counters": {}
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "Status": "2",
+          "counters": {}
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "Status": "2",
+          "counters": {}
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "Status": "2",
+          "counters": {}
+        },
+        "7": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p4Hand",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_physical_uid_locations": {
+        "1": {
+          "card_id": "dorinthea",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "Status": "2",
+          "counters": {}
+        },
+        "5": {
+          "card_id": "promise_of_plenty_yellow",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1,
+          "FaceDown": "0"
+        },
+        "6": {
+          "card_id": "wounding_blow_red",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1,
+          "FaceDown": "0"
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "Status": "2",
+          "counters": {}
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "Status": "2",
+          "counters": {}
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "Status": "2",
+          "counters": {}
+        },
+        "7": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p4Graveyard",
+          "owner": 4,
+          "controller": 4,
+          "FaceDown": "0"
+        }
+      },
+      "asserted_second_hand_noop": null,
+      "endpoint": "Closed ACTION/earned-AP followthrough",
+      "full_combat_cleanup_qualified": true,
+      "checkpoint_mapping_sha256": "fbc724ed25ae2107205535f710531ed9aa42eeda3d514e379116738e49fb6029",
+      "native_action_mapping_sha256": "9719b4f7bc943c82f8a37463296f900e7467d4c9d6293aaeef0317cac7ad049f",
+      "native_assertion_mapping_sha256": "da9d9c70b1b470a5dccefcbe6a531430b058789bed6265c6b8d7319d73dbd61b"
+    },
+    {
+      "index": 1,
+      "card_id": "nourishing_emptiness_red",
+      "group_id": "identity:nourishing_emptiness_red",
+      "slug": "card-nourishing-emptiness-red-four-live-sparse-real-empty-graveyard-dominate-rejects-second-hand-defender",
+      "source_spec": "card-regression-batch383-v2.json",
+      "input_sha256": "1ba411f132b3e74ed6331cfe0075222d74335fa1a016017562924ff62a155ca7",
+      "reviewer": "/root/b105_semantic_review",
+      "approved": true,
+      "semantically_approved": true,
+      "runtime_sha256": "16008fc2ea54254561814b31f0c66123ef5e0c474aa0db1f6ddfd47ef63cca7e",
+      "recorded_runtime_sha256": "16008fc2ea54254561814b31f0c66123ef5e0c474aa0db1f6ddfd47ef63cca7e",
+      "fixture_path": "Tests\\Integration\\FaBSim\\card-nourishing-emptiness-red-four-live-sparse-real-empty-graveyard-dominate-rejects-second-hand-defender",
+      "fixture_sha256": "20e86dc5b91a7d01a9a75a43457b1432c6d231c01f44b835e7afd91cc2e8b2bf",
+      "raw4_sha256": {
+        "initial_gamestate.txt": "cb1ba4e67caca800b514da1f6507d651c44d366f9d930c07bc51f4b8d3143fdd",
+        "actions.json": "94facdcd068b98bcd84c6ecbe9a3534681761b0d69808bf4cd6ee27899c9608a",
+        "assertions.json": "83ab5711bce66a585a708df8166bc501fcb20bf3b1075d9349e93d8a780826dc",
+        "expected_final_gamestate.txt": "90ff09519f22c0c207cdd1b1b679dacb204ea8b213afdc7b7e41beed34468d3a"
+      },
+      "raw5_sha256": {
+        "initial_gamestate.txt": "cb1ba4e67caca800b514da1f6507d651c44d366f9d930c07bc51f4b8d3143fdd",
+        "actions.json": "94facdcd068b98bcd84c6ecbe9a3534681761b0d69808bf4cd6ee27899c9608a",
+        "assertions.json": "83ab5711bce66a585a708df8166bc501fcb20bf3b1075d9349e93d8a780826dc",
+        "expected_final_gamestate.txt": "90ff09519f22c0c207cdd1b1b679dacb204ea8b213afdc7b7e41beed34468d3a",
+        "meta.json": "cd88d26cc597569a6c692e57c217bdba7cde20f9675959bf5406cdd67162e21a"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "cb1ba4e67caca800b514da1f6507d651c44d366f9d930c07bc51f4b8d3143fdd",
+        "actions.json": "94facdcd068b98bcd84c6ecbe9a3534681761b0d69808bf4cd6ee27899c9608a",
+        "assertions.json": "83ab5711bce66a585a708df8166bc501fcb20bf3b1075d9349e93d8a780826dc",
+        "expected_final_gamestate.txt": "90ff09519f22c0c207cdd1b1b679dacb204ea8b213afdc7b7e41beed34468d3a",
+        "meta.json": "cd88d26cc597569a6c692e57c217bdba7cde20f9675959bf5406cdd67162e21a"
+      },
+      "actions": 24,
+      "native_assertions": 2490,
+      "actual_manual_passes": 17,
+      "actual_priority_response_passes": 16,
+      "actual_defender_declaration_finish_inputs": 1,
+      "actual_administrative_end_phase_inputs": 0,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4
+      ],
+      "actual_manual_actor_counts": {
+        "1": 4,
+        "2": 4,
+        "3": 4,
+        "4": 5
+      },
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "all_actions_and_assertions_exact": true,
+      "initial_and_terminal_data_assertions_evaluated_against_serialized_endpoints": true,
+      "computed_assertions_bound_to_successful_native_checks_and_serialized_values_not_engine_recomputed": true,
+      "initial_physical_uid_locations": {
+        "1": {
+          "card_id": "dorinthea",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "Status": "2",
+          "counters": {}
+        },
+        "5": {
+          "card_id": "nourishing_emptiness_red",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "Status": "2",
+          "counters": {}
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "Status": "2",
+          "counters": {}
+        },
+        "4": {
+          "card_id": "bravo",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "Status": "2",
+          "counters": {}
+        },
+        "9": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p4Hand",
+          "owner": 4,
+          "controller": 4
+        },
+        "10": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p4Hand",
+          "owner": 4,
+          "controller": 4
+        },
+        "7": {
+          "card_id": "tectonic_plating",
+          "zone": "p4Equipment",
+          "owner": 4,
+          "controller": 4,
+          "Status": "2",
+          "FaceDown": "0",
+          "counters": {}
+        },
+        "8": {
+          "card_id": "ironrot_helm",
+          "zone": "p4Equipment",
+          "owner": 4,
+          "controller": 4,
+          "Status": "2",
+          "FaceDown": "0",
+          "counters": {}
+        }
+      },
+      "final_physical_uid_locations": {
+        "1": {
+          "card_id": "dorinthea",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "Status": "2",
+          "counters": {}
+        },
+        "6": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Pitch",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "nourishing_emptiness_red",
+          "zone": "p1CombatChain",
+          "owner": 1,
+          "controller": 1,
+          "Status": "2",
+          "Role": "ATTACK",
+          "ChainLink": "1",
+          "FromZone": "Hand",
+          "counters": {
+            "FAB_PLAY_ORDER": 1
+          }
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "Status": "2",
+          "counters": {}
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "Status": "2",
+          "counters": {}
+        },
+        "4": {
+          "card_id": "bravo",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "Status": "2",
+          "counters": {}
+        },
+        "10": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p4Hand",
+          "owner": 4,
+          "controller": 4
+        },
+        "9": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p4CombatChain",
+          "owner": 4,
+          "controller": 4,
+          "Status": "2",
+          "Role": "DEFENSE",
+          "ChainLink": "1",
+          "FromZone": "Hand",
+          "counters": {}
+        },
+        "7": {
+          "card_id": "tectonic_plating",
+          "zone": "p4CombatChain",
+          "owner": 4,
+          "controller": 4,
+          "Status": "2",
+          "Role": "DEFENSE",
+          "ChainLink": "1",
+          "FromZone": "Equipment",
+          "counters": {}
+        },
+        "8": {
+          "card_id": "ironrot_helm",
+          "zone": "p4CombatChain",
+          "owner": 4,
+          "controller": 4,
+          "Status": "2",
+          "Role": "DEFENSE",
+          "ChainLink": "1",
+          "FromZone": "Equipment",
+          "counters": {}
+        }
+      },
+      "asserted_second_hand_noop": {
+        "action_steps": [
+          12,
+          13
+        ],
+        "assertions_each": 94,
+        "asserted_gameplay_fields_equal": true,
+        "all_raw_state_equality_claimed": false,
+        "transport_mode": 10002,
+        "retained_hand_uid": 10,
+        "accepted_hand_defender_uid": 9
+      },
+      "endpoint": "Open DAMAGE/zero damage/no close event",
+      "full_combat_cleanup_qualified": false,
+      "checkpoint_mapping_sha256": "11c161a9044d72d040a5088e4e4040e313f66472fbbb233c6378df1d3c4737f1",
+      "native_action_mapping_sha256": "b37e47723541dc3eb044c3e071a829558170bc91dcd05bfcb86c5f44aa930086",
+      "native_assertion_mapping_sha256": "0440547aed4d4476a7a7d5a2c548d4cf39379c0f0e95b5802d459376c6507a14"
+    }
+  ],
+  "total_actions": 79,
+  "total_native_assertions": 6897,
+  "total_actual_manual_passes": 67,
+  "total_actual_priority_response_passes": 64,
+  "total_actual_defender_declaration_finish_inputs": 3,
+  "findings": [
+    "Both raw5 fixtures match exact approved V2 action/check order and full endpoint UID/economy/manual profiles. No selected-branch discrepancy.",
+    "Promise source5Arsenal conditionalGA: printed2 fullyblocked/nohit, AP0 throughDamage then1atResolution; actual Wounding6 consumes earnedAP1 and deals4/HP16/noGA, endsAP0/fullyclosed.",
+    "Nourishing realBlue6 funds2/R1AP0; Hand9 admitted and secondHand10 accepted FSM input leaves all94 asserted gameplay fields unchanged. Equipment7/8 legally defend; real6 blocked6/allHP20. Source5 and blockers9/7/8 remain on open DAMAGE chain, Hand10/Pitch6 retained, GYs empty, no wear/close event earned."
+  ],
+  "limits": [
+    "Nourishing open-combat endpoint intentionally does not qualify full cleanup/Battleworn/BladeBreak close-trigger timing/destruction/counters. Original V1 tail remains source-only/unattempted.",
+    "No Promise hit Arsenal-loading, Nourishing hit intellect, false Dominate branch, HandDR/retroactive restriction, hero/support-primary, sibling/full-card/control credit.",
+    "No-op proof covers exact94 recorded asserted gameplay fields, not bitwise equality of UI/log/history state or transport rejection.",
+    "Intermediate asserted definitions bind successful immutable recording; no invented intermediate snapshots/private-await claims. Raw Versions bytes bound without legacy semantic review.",
+    "Root targeted replay/registration separate; reviewer no PHP/native/replay/R/service/generation/fullsuite/stage/commit/push/deploy."
+  ],
+  "computed_assertion_evidence_boundary": "Expected power/go-again values come from the reused independent printed-text and real earned-state review plus exact passed ordered native assertions. Raw cached attackPower6/attackGoAgainfalse fields are corroboration only, never recomputation or a substitute oracle."
+}

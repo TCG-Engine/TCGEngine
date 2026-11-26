@@ -1,0 +1,7 @@
+{
+    "name": "Dive Through Data / actual Boost banishes a Mechanologist card and refunds an action after full block",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-25T14:01:40+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Four manual natural20Dash/Dori/Dori/Dori. PriorPotion5Arena/primary6Hand/ThrottleBlue7onlyDeck/realWounding8and9Hand4. ActualPotionInstantABI10costdestroy5/allfourresponses producesR2/AP1. FormalHero4target beforeBoostdeclaration; realPrepareMZMODAL Boost0 whileAP1/R2/Deck7intact. CurrentreviewedsharedBoostdeclaration defers actualbanish untilfixedcost1/AP1paid; afteranswer0 realR1/AP0/primary6Stack andactualMechThrottle7faceupBanish/Deck0. PrimarygainsGO_AGAIN. No activeHyperDriver/equipment/otherBoostWHENandDashstartGameabilitynotentered. FourresponsesactualAA4/GA; actualtwoHandDEF3+3 fullyblocks4, damage0/allHP20 so no primaryhitWHENearned. FullfourmanualClose actualGArefundAP1/R1, GY1Potion5thenprimary6, GY4Wound8then9, Blue7Banish/noDeck/UID10RNG0. No positiveOpt/selfbottom/sibling/support/wholecardcredit orenginechange. Sources: FaBSim/GeneratedCode/cardArrayCache.json#dive_through_data_red FaBSim/Custom/ARCAbilities.php#FaBARCBoost FaBSim/GeneratedCode/GeneratedMacroCode.php#dive_through_data_red:0:PrepareCard FaBSim/Custom/ARCCards.php FaBSim/Custom/CRUCards.php FaBSim/Custom/WTRAbilities.php FaBSim/Custom/GameLogic.php"
+}

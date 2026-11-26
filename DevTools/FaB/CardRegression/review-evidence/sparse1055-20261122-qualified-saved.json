@@ -1,0 +1,143 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "breadth_review independent cached-text/spec delta review",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1055-20261122.json",
+  "source_spec_sha256": "3797793d231322198e2d42672202d749bc2439a680fd35b8508f151ee4db5bdb",
+  "input_sha256": "3797793d231322198e2d42672202d749bc2439a680fd35b8508f151ee4db5bdb",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "savage-sash-four-live-sparse1055-actual-printed-two-defense-and-temper-close",
+      "card_id": "savage_sash",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "0b748d26852323616b4b621e1613bfc4544a8347a57c2665cf2329d2cc886258",
+        "actions.json": "511bf2f3686ee96e12e3d9cdbe580febcac902b797e5ec827a96d5ccd74ac457",
+        "assertions.json": "cd40de5c0885c4a684931daeacb304b2aad732c56569b427a7ee03f66c302677",
+        "expected_final_gamestate.txt": "d5a80e4b4f8fe32818f0a55e23cbf2a7c72e700afc1d000d2ec8650525ea47b1",
+        "meta.json": "841646e6e174ac70d5d29d828dfd6d0a99a77e3ee16542cae15cb6ce6d35d68f"
+      },
+      "fixture_sha256": "28e9ea33fd593b40110c2fad56fc5541f3578585cf3be41b2da9b84b4b4dc041",
+      "actions": 30,
+      "native_assertions": 270,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1055-20261122.json",
+      "input_sha256": "3797793d231322198e2d42672202d749bc2439a680fd35b8508f151ee4db5bdb",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1055-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "savage-sash-four-live-sparse1055-actual-printed-two-defense-and-temper-close",
+        "fixture_slug": "savage-sash-four-live-sparse1055-actual-printed-two-defense-and-temper-close",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "trampling-trackers-four-live-sparse1055-actual-printed-two-defense-and-temper-close",
+      "card_id": "trampling_trackers",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "5b6b5c5ff04e8d3378f83947663daf74bfbf6d7b377d5a48deb40819d5c86180",
+        "actions.json": "511bf2f3686ee96e12e3d9cdbe580febcac902b797e5ec827a96d5ccd74ac457",
+        "assertions.json": "80b978b41fb10c47696d5c2bf49ee1efa427d50a58f2d214dcd0c84deddcf123",
+        "expected_final_gamestate.txt": "ec20f83afe6432f07d03708661de725ede72f71522126d0a35c22bd3983e6a27",
+        "meta.json": "555a89cd0391dd1b1b0167fb25a0477c614e04d3c4e3d9f7143a2f1a8669966b"
+      },
+      "fixture_sha256": "c928d3df820fc2495bbb56ce3f01b64b32462d5eb6c0992923ae66bfecfeb86a",
+      "actions": 30,
+      "native_assertions": 270,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1055-20261122.json",
+      "input_sha256": "3797793d231322198e2d42672202d749bc2439a680fd35b8508f151ee4db5bdb",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1055-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "trampling-trackers-four-live-sparse1055-actual-printed-two-defense-and-temper-close",
+        "fixture_slug": "trampling-trackers-four-live-sparse1055-actual-printed-two-defense-and-temper-close",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "warband-of-bellona-four-live-sparse1055-actual-printed-two-defense-and-temper-close",
+      "card_id": "warband_of_bellona",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "b47a266961244b41e93705d5a8c9f9bee27502c072a3711ff7dcd4f5eecb3dba",
+        "actions.json": "511bf2f3686ee96e12e3d9cdbe580febcac902b797e5ec827a96d5ccd74ac457",
+        "assertions.json": "8bad6a7c457d0d97d02adcc64dfa88ded96176088a56598e1e73f9d9972b0d6c",
+        "expected_final_gamestate.txt": "bc6c5d07f26b87b799a47e6908a89b105c5d0d77a401261955bfe13a6a8fe575",
+        "meta.json": "cc055b3af0af03f29ef0c3b07becb4c268c0e0f69f0ef120e43ad0f9a0beb866"
+      },
+      "fixture_sha256": "eded367f9759daeb7559057679c5187ced3fc4fdeda339eb2ed7e029b364edc7",
+      "actions": 30,
+      "native_assertions": 270,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1055-20261122.json",
+      "input_sha256": "3797793d231322198e2d42672202d749bc2439a680fd35b8508f151ee4db5bdb",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1055-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "warband-of-bellona-four-live-sparse1055-actual-printed-two-defense-and-temper-close",
+        "fixture_slug": "warband-of-bellona-four-live-sparse1055-actual-printed-two-defense-and-temper-close",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "paragon-plate-four-live-sparse1055-actual-printed-two-defense-and-temper-close",
+      "card_id": "paragon_plate",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "a945b96fdb16c673a4df20dc145fce289accbc2198f5e6fc6fdf97ff3da22c80",
+        "actions.json": "511bf2f3686ee96e12e3d9cdbe580febcac902b797e5ec827a96d5ccd74ac457",
+        "assertions.json": "a78de27da1ec1e9e5cf34ec6822b9c5737cc0e21a0623880762b620f5fef44fe",
+        "expected_final_gamestate.txt": "9e8398c728c777f7bf158de1b0b9a1adafd085f8809bd2f42a261162782b3207",
+        "meta.json": "fcfb8a804fe257c40d1f06d0b7f8ba5ce3c8464d365fd74f98b0e88b691d2a31"
+      },
+      "fixture_sha256": "9a82fd19384e880ec052ddfaf6e51be442abe0a4a8be556d7d9aba3e1305335b",
+      "actions": 30,
+      "native_assertions": 270,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1055-20261122.json",
+      "input_sha256": "3797793d231322198e2d42672202d749bc2439a680fd35b8508f151ee4db5bdb",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1055-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "paragon-plate-four-live-sparse1055-actual-printed-two-defense-and-temper-close",
+        "fixture_slug": "paragon-plate-four-live-sparse1055-actual-printed-two-defense-and-temper-close",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "spec_sha256": "3797793d231322198e2d42672202d749bc2439a680fd35b8508f151ee4db5bdb",
+    "reviewer": "breadth_review independent cached-text/spec delta review",
+    "basis": [
+      "SavageSash activated discount, Bellona charge activation and Paragon own-sword reaction all unactivated. Trampling actual WHEN beat chest event absent, so no earned destroy/Agility layer. Rhinar no discard, Boltyn no charge/own attack, Dorinthea no own weapon hit. All four printed Temper and natural20 legal owners, including Light Warband on Light Boltyn.",
+      "All exact native controls and persisted assertions equal qualified1037 Steelbraid donor after only primaryID/defenderHero and descriptive headers are rebound. Actual owned Equipment5 DEF2 plus real NAA6 DEF2 versus Rhinar Club7 power4; actual Blue8 pays2/R1/AP0, all four seats manual, zero damage/noHit/HP20. Equipment5 declared DEFENSE then retained owned Equipment with DEFENSE1 after close; NAA6 owned graveyard, weapon7 used, Blue8 Pitch. No author-only diagnostics."
+    ],
+    "limits": [
+      "Ordinary defense and first keyword close only. No activated body, hero ability, charge/beat chest/boost/sharpen/die/Gold creation/wager/positive hit, repeated defense/destruction threshold/future phase/support/sibling/full-card credit; no prior hold closure. No native/PHP/T/source/Git/original/network actions by reviewer."
+    ]
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1055-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "b2ec196480fa2c7bfec57cefb6e78a9f66ababcac0a6b3da604cd9d8a9416c52"
+  },
+  "full_suite_run": false
+}

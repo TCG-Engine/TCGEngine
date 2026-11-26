@@ -1,0 +1,2239 @@
+{
+  "runtime_sha256": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+  "fixtures": [
+    {
+      "slug": "card-ancestral-harmony-blue-four-live-sparse-actual-top-combo-banish-permission-and-real-four-damage-attack",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "d6ff877485e02f79455eaf97c9b87f604c1c38c3cf40abec47abf21bfd509ca3"
+    },
+    {
+      "slug": "card-arcane-polarity-blue-conditional-heal-arsenal-face-down",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "ff0d342c895852a7da7cf83172cbc5f1a76c18360e0bdb3a0cd451aec0db2728"
+    },
+    {
+      "slug": "card-arcane-polarity-blue-conditional-heal-arsenal-face-up",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "61823bf6f84fd3929b70c6f79ab1659e5f832a8d3833f6e808ff945d43fb091c"
+    },
+    {
+      "slug": "card-arcane-polarity-blue-conditional-heal-nonturn-instant-zero-ap",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "1bda3cb47a14bef434ee36d0190d67febd0e05cabafaf9804c87459802158604"
+    },
+    {
+      "slug": "card-arcane-polarity-blue-conditional-heal-own-hand-floating-exact",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "2c0944558ef043e1b170139885a8ad6459f1692d749cbaad9c4f413734c81c62"
+    },
+    {
+      "slug": "card-arcane-polarity-blue-conditional-heal-own-hand-overfunded",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "fa6fd9f0d5fba82994ac7ec51b39099b75edd5223c6dd9dbda0a569f160539c5"
+    },
+    {
+      "slug": "card-arcane-polarity-blue-conditional-heal-own-hand-zero-ap",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "998c3d66fdb4c2b1944f1f7ea6e4753b73d84094c78d932045742d91a3cfebf9"
+    },
+    {
+      "slug": "card-arcane-polarity-red-conditional-heal-arsenal-face-down",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "7d9d7c7931cbd32082cebf1a1f99193ec065cc9e7a68b911868baea2ab11b3b6"
+    },
+    {
+      "slug": "card-arcane-polarity-red-conditional-heal-arsenal-face-up",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "5b8b6a664be62de2a647480ed1325b5449db8c25340fcdb19d5b86b2b8b0bfbd"
+    },
+    {
+      "slug": "card-arcane-polarity-red-conditional-heal-nonturn-instant-zero-ap",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "af34a65b691937a269ec5987ad6491600a762cbd47c1952fd5cc6fcf2685253d"
+    },
+    {
+      "slug": "card-arcane-polarity-red-conditional-heal-own-hand-floating-exact",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "9c3a1421462dbfd2ae7a498b7ac4d85643088d4eee9c18e912007fce0e56269d"
+    },
+    {
+      "slug": "card-arcane-polarity-red-conditional-heal-own-hand-overfunded",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "c83259a4e8a6702f6880fb70c264c4e0fc0b9e03a094a8c83bd503ec7831a143"
+    },
+    {
+      "slug": "card-arcane-polarity-red-conditional-heal-own-hand-zero-ap",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "0195763c2d76bac322d1ca1d787906c3193a68ba41c2b32a465051a92ea0cfb0"
+    },
+    {
+      "slug": "card-arcane-polarity-yellow-conditional-heal-arsenal-face-down",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "45a6330b797323c3a414de88d3c1e2824fe6ea535a7c542d48e1b239f937e38d"
+    },
+    {
+      "slug": "card-arcane-polarity-yellow-conditional-heal-arsenal-face-up",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "d4f2af7db961860f4fec90fd8822cb54f7cdd4795d913e5c745de2e2b88d8cf5"
+    },
+    {
+      "slug": "card-arcane-polarity-yellow-conditional-heal-nonturn-instant-zero-ap",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "05788ae03e144d70e95ded108db8923b597bda637e56a17d0080cab3d50720d1"
+    },
+    {
+      "slug": "card-arcane-polarity-yellow-conditional-heal-own-hand-floating-exact",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "358791b98035b283214840a7d94c0af31bfbdd801374c9a12ef311ecc096917a"
+    },
+    {
+      "slug": "card-arcane-polarity-yellow-conditional-heal-own-hand-overfunded",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "46b404fa987df6aeaf4ae4483f39d90f84dd0fbe577e145eb645adb4c0a207e7"
+    },
+    {
+      "slug": "card-arcane-polarity-yellow-conditional-heal-own-hand-zero-ap",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "c357a3d466ca4e696c5432023b0f3765c5ae16955ae333a777b26424e621db20"
+    },
+    {
+      "slug": "card-arrogant-showboating-blue-four-live-sparse-actual-three-opponent-defenders-create-three-owned-might-in-legal-reaction-window",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "42e44c9a8d557a8a2dd53e5eabaee2b620cd3d49942d6f102497eea0f1846874"
+    },
+    {
+      "slug": "card-ball-breaker-four-live-sparse-real-six-power-discard-earns-weapon-plus-one-paid-six-damage",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "5008a94bae706426f1168cc10f4fe1687eee8596ecf07da9cf5f1982dc0bfe5d"
+    },
+    {
+      "slug": "card-battered-not-broken-red-four-live-sparse-actual-instant-prevents-two-physical-damage-and-creates-one-might",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "8071a314c22a1c378f37f1534997353d8272f21ea398aa4e3d3cd832d58cb405"
+    },
+    {
+      "slug": "card-bear-hug-red-four-live-sparse-actual-six-power-pitch-earns-legal-play-then-paid-bear-hug-attack",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "d55b6a98bd779f3dbc39765828968c7546ddc4412d1b958d576c8899a73e95b4"
+    },
+    {
+      "slug": "card-billowing-mist-blue-four-live-sparse-actual-mystic-action-next-physical-attack-plus-one",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "bffcadc1b83b5bcb8a0bdc0a5bb89ea2f9ec40e6993e5c59242754e06ff99c15"
+    },
+    {
+      "slug": "card-blackstone-greaves-four-live-real-shock-earned-defense-and-temper-survival",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "4721608d38d4e730a39ae848a090896ea4fd4bfe4a25017fa129f4db96fbd13f"
+    },
+    {
+      "slug": "card-blessing-of-salvation-red-four-live-sparse-actual-paid-light-action-gains-three-life",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "061bbdb4b66595ecd74f23121504e0dcd01d8852855b85e6c09e8e2c02495aa1"
+    },
+    {
+      "slug": "card-blessing-of-serenity-red-four-live-sparse-actual-instant-prevents-three-of-four-real-physical-damage",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "cba5a9e15a352671184fe5b00ac4300a5e67c1b9ca98b8cec60eb96d2eed4234"
+    },
+    {
+      "slug": "card-blink-blue-arsenal-face-down-opponent-phase-zero-ap",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "cb0ced4386b331adf2ab2bcd80f330d40b3119ad459ca48ec812c049b8906ad7"
+    },
+    {
+      "slug": "card-blink-blue-arsenal-face-down-own-phase-zero-ap",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "af751f6fb2c7a33be396ce712c0e973a5fa1d8342e1fd0c06d7aaff903db0d0d"
+    },
+    {
+      "slug": "card-blink-blue-arsenal-face-up-opponent-phase-zero-ap",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "1a93bc17c60c0c28f9f0827e501ba1beb85dea40c4d38dfce29fec17729396ed"
+    },
+    {
+      "slug": "card-blink-blue-arsenal-face-up-own-phase-zero-ap",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "07f7c372773fd671a718227e1c097bf73aa207a0d93427ec903b60744b82c46e"
+    },
+    {
+      "slug": "card-blink-blue-hand-existing-assets-additive",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "53928865d3a27120d36b1a6b199594fd73e4ff727fe0578d91cb0ac370208d8f"
+    },
+    {
+      "slug": "card-blink-blue-hand-opponent-phase-zero-ap",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "f8a548137a86c95112120604f6e8b740813b4ad2265a7d48f68a7cf21bc50913"
+    },
+    {
+      "slug": "card-blink-blue-hand-own-phase",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "b0f1212632e654ad58eb6d222c09bfa8c49e124a46bdf63acf0462cbf98c7010"
+    },
+    {
+      "slug": "card-blink-blue-hand-own-phase-zero-ap",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "7cc27ce21738442fc380bed181f5e71ed8bfd748db0b0068d740f5915efc869a"
+    },
+    {
+      "slug": "card-blink-blue-opponent-phase-gain-does-not-permit-action",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "29e7f441f13b11339e45ddacd4ecd8eeaea82e810b2b561cd28adfd069cf3654"
+    },
+    {
+      "slug": "card-blink-blue-two-copies-sequential-additive",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "669723104c611a8c52521e1ceeff96a14987e5326afba704580f61b1593be92d"
+    },
+    {
+      "slug": "card-blood-dripping-frenzy-blue-four-live-sparse-real-pitch-whole-hand-banish-draw-and-eight-power-consumer",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "867fb412aaae6e1194b9e13c594ab8700ffd25d525811c0d67a6a842a46c3c53"
+    },
+    {
+      "slug": "card-break-open-the-chests-yellow-four-live-sparse-all-four-real-arsenals-face-up-opposite-yellow-two-gold",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "e450153640497fa6c75d4a9fc6a25323c62df01a287518a43e4c1771f9c90c1f"
+    },
+    {
+      "slug": "card-bubble-to-the-surface-red-four-live-sparse-real-paid-reveal-first-red-and-use-banish-play-permission",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "84e1ff0c8c430d3b970859bac15c7c4ed6c9beccc1869ae3d8aecc1883cd7987"
+    },
+    {
+      "slug": "card-burgeoning-blue-arsenal-opponent-instant-above-pending-attack",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "8fca90f6a7816d12191736d1665a4056d8e636c87c5bd21b2305d4946b78ca69"
+    },
+    {
+      "slug": "card-burgeoning-red-arsenal-opponent-instant-above-pending-attack",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "6542863b8f995af5e155e6d101b60a72b93d344601416226c453cbe1bcc2073e"
+    },
+    {
+      "slug": "card-burgeoning-yellow-arsenal-opponent-instant-above-pending-attack",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "f749b5bc9d7f2add0f7e09194be4601b5f1e85ec1d0f2761c276b0969ff5831e"
+    },
+    {
+      "slug": "card-calming-breeze-red-four-live-sparse-real-instant-prevents-one-of-seven-physical-damage",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "a449536196d9d981e118e84ad1f646c682ca7cbe76306e64ea7634418b0fb765"
+    },
+    {
+      "slug": "card-cash-in-yellow-four-live-sparse-actual-four-resource-two-card-pitch-draws-two",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "9a4ae195874558e0db62ce7a44a8877541f4692598ee4200360b640b0bcb02d2"
+    },
+    {
+      "slug": "card-cast-bones-four-live-real-six-power-singleton-deck-reveal-creates-one-owned-might-and-retains-physical-deck-card",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "b6a398e16ea2d0dafb032cf527a9b73a420124b045c25b159a3eb93f2c97380b"
+    },
+    {
+      "slug": "card-catch-of-the-day-blue-four-live-sparse-real-next-arrow-plus-two-damage-without-go-fish-event",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "ce95d40848fb3fc293d3058c49d5b3ecb301fac48cfa2aea4e8f114aac155c63"
+    },
+    {
+      "slug": "card-command-and-conquer-red-hit-trigger-sigil-arsenal-response",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "08f944f7b1d13e355911bb7baf71fc0c6b8b5bf1d17a8f1b360b484ba4b56913"
+    },
+    {
+      "slug": "card-command-and-conquer-red-hit-trigger-sigil-hand-response",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "926652afd8d7df23b676e75b483b44065495dca757a13be0e1b8223d7be0d30a"
+    },
+    {
+      "slug": "card-commanding-performance-red-four-live-sparse-actual-paid-warrior-plus-three",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "e6ff61103ce3e913e9d971d3476e056c1e0ce63898144d76e03ee4e512a8a6e6"
+    },
+    {
+      "slug": "card-cosmic-flare-red-arsenal-face-down-opponent-phase-zero-ap",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "c095dadafaa5e9af1db91bb6dd7ccfae1e4c75b34426d8d31f0091be3b53c799"
+    },
+    {
+      "slug": "card-cosmic-flare-red-arsenal-face-down-own-phase-zero-ap",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "5ae5fbb246799e4ee2ed1121a41dfbe89588c2995980c18e8d957bf18961a697"
+    },
+    {
+      "slug": "card-cosmic-flare-red-arsenal-face-up-opponent-phase-zero-ap",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "a0e95686419f76ac2a7a426bd702c79e8143ed0e705b3d34681e4c5aa5a00f1b"
+    },
+    {
+      "slug": "card-cosmic-flare-red-arsenal-face-up-own-phase-zero-ap",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "1e178b5c7d69fbe5d6d42fb0de2136d1855f68f58c497bbf9d235f5a6909ef2c"
+    },
+    {
+      "slug": "card-cosmic-flare-red-hand-existing-assets-additive",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "6c74d29d8a2075735ed47435daccdddfdc125ee6a26b502dff2e63f83dc835f7"
+    },
+    {
+      "slug": "card-cosmic-flare-red-hand-opponent-phase-zero-ap",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "1edefbeacc0fb3cbb89c8c96d9f0e286311fb94c9ed0da17f26f9d6fb64228b1"
+    },
+    {
+      "slug": "card-cosmic-flare-red-hand-own-phase",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "227bd5601b054b80e26242c066890d9145ca274befa9767f00d38adbbca8f0a9"
+    },
+    {
+      "slug": "card-cosmic-flare-red-hand-own-phase-zero-ap",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "8c7199926153bbdbced767702bc49654dea65b57c837372e6903887ad7e1b8bb"
+    },
+    {
+      "slug": "card-cosmic-flare-red-opponent-phase-gain-does-not-permit-action",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "a6b4272f6727dddc48e4efadaed62a13616875f58b48d19e40cf59cafb0b2df2"
+    },
+    {
+      "slug": "card-cosmic-flare-red-two-copies-sequential-additive",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "22c026ebf89d94fdde1426995de8210388bba616e7017a08bfc15b5e9213ec18"
+    },
+    {
+      "slug": "card-crowd-goes-wild-yellow-four-live-sparse-real-cheer-earns-three-resource-discount-and-nine-damage",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "668edd460f96be0c5e5398bde6440a5b3d8d231dc13e4595d89090a3ab18db50"
+    },
+    {
+      "slug": "card-cruel-ambition-red-four-live-sparse-actual-zero-cost-reviled-action-creates-three-owned-might-tokens",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "b59423f0f5de66cbd8893fb020bd5ecaa245832fa20d62390741955572bc8701"
+    },
+    {
+      "slug": "card-cut-deep-blue-nonattack-action-preserves-buff",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "b9bfd271236f6e1d6dd06e4d33e889f3278f1f5b2b0deb73e777ebfe6989a60b"
+    },
+    {
+      "slug": "card-cut-deep-blue-opponent-response-before-buff-resolves",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "7ce267803d74f44db2382e29ff2961f2b68c98ddd3bb678d42f1259211dcd8e0"
+    },
+    {
+      "slug": "card-cut-deep-red-nonattack-action-preserves-buff",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "933a9b25a251703cc2590f09b4d4c3160979cda074969f3145bf67c80a3279c4"
+    },
+    {
+      "slug": "card-cut-deep-red-opponent-response-before-buff-resolves",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "cca8d3d45c4ab4ba424b6b30c4c5ad1994d92eb06742a5f6c7ef973ae937c22e"
+    },
+    {
+      "slug": "card-cut-deep-yellow-nonattack-action-preserves-buff",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "960f2db8e56bb8258ea90b3fe7466de10bdc55eafd498d698fd8952ca9e55747"
+    },
+    {
+      "slug": "card-cut-deep-yellow-opponent-response-before-buff-resolves",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "a014398ec37fb255a1f60b2c9aa87aed15fff532997f0ed22e7160157f40475a"
+    },
+    {
+      "slug": "card-dense-blue-mist-blue-four-live-sparse-real-paid-nochi-instant-reduces-targeting-attack-power",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "24493cbe90b97146f8da93b8211bd2a433bd7b86b13d3680af4773518181b0f7"
+    },
+    {
+      "slug": "card-destructive-deliberation-red-token75-actual-opponent-sigil-response-before-token-resolution",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "fd0b16870888ae966aaa0fab1be4315740ea78f505196f5791b0ccf67157c3a0"
+    },
+    {
+      "slug": "card-destructive-deliberation-red-token75-real-ripple-then-instant-response-preserves-action-token-attribution",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "f0ef9e891d2b4a5983b1292ed95fc373885b5de2963e035cb1d12f206549dd57"
+    },
+    {
+      "slug": "card-dissolve-reality-yellow-four-live-sparse-all-four-arsenals-bottom-decks-and-own-ponder",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "5068ccb02878ef74ce1190b704d6c01f6a54f7d41a0cc2031e7aaf6341d172cd"
+    },
+    {
+      "slug": "card-divvy-up-blue-casual-four-live-treasure-island-macro-variant-removes-two-creates-two-gold",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "5a2123b0be586eb601bf5fb542bbe460e7a43da9295dd51a293e65529f8f0e94"
+    },
+    {
+      "slug": "card-doomsday-blue-four-live-sparse-real-six-public-blood-debt-cards-create-owned-blasmophet",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "6764020d104c398a926880f288c457f04cf5115780d02b5254e587c018e85664"
+    },
+    {
+      "slug": "card-draw-swords-red-four-live-sparse-actual-three-cost-warrior-action-draws-one",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "6266174a9039877be51a0fac634bf6a62da1fd0dd4478c62cba8049cf4df2da1"
+    },
+    {
+      "slug": "card-dromai-four-live-sparse-real-red-play-earns-dragon-go-again-and-action-point-refund",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "7ae9eda2fa71f3eed44a570f147f04d4dc71a8c9b5598beccb5612382f8e0d13"
+    },
+    {
+      "slug": "card-drop-of-dragon-blood-red-four-live-sparse-zero-draconic-links-resource-and-one-draw",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "1e54fb2b6feb7423c9c5085776864782a53ba8c757b905a5a6efe0684262ffda"
+    },
+    {
+      "slug": "card-earth-form-red-token75-actual-opponent-sigil-response-before-token-resolution",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "74313e686223f682b917f5cb1cd9565d0feb7d6870f17bd32f960e29dba53f45"
+    },
+    {
+      "slug": "card-earth-form-red-token75-real-ripple-then-instant-response-preserves-action-token-attribution",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "0718d041005248391a88c1d62023995c2ce1ed86c2f84b5db4545cafb21c2b63"
+    },
+    {
+      "slug": "card-electrify-red-four-live-sparse-actual-paid-arsenal-lightning-action-draws-one-real-physical-card-and-go-again",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "f228bd1d82c006a6f5bfd74615c8e781e36cf214625654728164e0f1f23ec2e7"
+    },
+    {
+      "slug": "card-electryn-joltstep-red-four-live-sparse-actual-paid-next-lightning-buff-and-owned-flow",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "05fee2ae7cc5317c30c9145fd175e414ec20af61a11ad1263d7edd1bc2b334bf"
+    },
+    {
+      "slug": "card-empowering-ruckus-yellow-four-live-real-cheer-conditional-plus-one-and-nine-damage",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "31c00e4aa15c8502dbd48e23f80f27bfd6ce053daa4f08f7d6bc9ac48d4e76e5"
+    },
+    {
+      "slug": "card-en-garde-red-nonattack-action-preserves-buff",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "b9aa17b334113b10645ec675a420784f7292fbbde8f0704a148e6f8a90ebda3e"
+    },
+    {
+      "slug": "card-en-garde-red-opponent-response-before-buff-resolves",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "417e083c219d4bc1b5daba63b41cf898b60db0353f66fb405662919fadff28bc"
+    },
+    {
+      "slug": "card-energy-of-the-audience-yellow-four-live-real-all-other-heroes-heal-earns-suspense-power-four-damage",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "01d88e462c3792e4d4ad76561f7c3b0c34a4cade8e97cd5f44d04226615cdd66"
+    },
+    {
+      "slug": "card-envelop-in-darkness-red-four-live-sparse-real-one-cost-shadow-runeblade-action-creates-one-owned-runechant",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "3b240af340e9363b308b7b66233099e04803cbd2ff51b3e32a15575ee2d5fbc5"
+    },
+    {
+      "slug": "card-fertile-ground-blue-conditional-heal-arsenal-face-down",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "68b9120900fcfeedb3a2215cc9bbf2ed40f8af91342a57766dbae2a1f09063a0"
+    },
+    {
+      "slug": "card-fertile-ground-blue-conditional-heal-arsenal-face-up",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "b7ab0f748a8d811b5b48bd8ff5914abc9e886b525273a8e634de1cf3cb9a7972"
+    },
+    {
+      "slug": "card-fertile-ground-blue-conditional-heal-blue-pitch-overfunding",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "829566db1ed27da996a0fd089893380f834ed65da7a0f957f060a0b2d272f218"
+    },
+    {
+      "slug": "card-fertile-ground-blue-conditional-heal-four-earth-in-graveyard-negative",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "43b828ffeb204633ed4d0dc1b2d8e7d07fda5c3c6d929618a30a0c49780f4dcf"
+    },
+    {
+      "slug": "card-fertile-ground-blue-conditional-heal-nonturn-instant-zero-ap",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "67b177fb1231c4c8c31249f92dedf5103842108031bff076aa5ac6f5a3aca6e6"
+    },
+    {
+      "slug": "card-fertile-ground-blue-conditional-heal-only-opponent-four-earth-negative",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "526ac00bc2064c2cb6c5e047b1978323839bf3ff4fb21b8daf8f71d3b1d6e606"
+    },
+    {
+      "slug": "card-fertile-ground-blue-conditional-heal-own-face-up-earth-count3",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "b528dbd5e61ffea35a2e01732573d4a12c792804ac3b2b8c94394394614b889b"
+    },
+    {
+      "slug": "card-fertile-ground-blue-conditional-heal-own-face-up-earth-count4",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "3f25d640e8381bc95938c026f3c137ca4d8a904d1aa9ef1f05762e4042e4b199"
+    },
+    {
+      "slug": "card-fertile-ground-blue-conditional-heal-own-face-up-earth-count5",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "36e669daae7b036bdca0a684ca4fe41fdef7224be556a3da18ae7c90aec85114"
+    },
+    {
+      "slug": "card-fertile-ground-blue-conditional-heal-own-hand-floating-exact",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "bdff28f97df87fa110dde18afe44f3397acb9966becd88b295eb3da3cd49ddcf"
+    },
+    {
+      "slug": "card-fertile-ground-blue-conditional-heal-own-hand-overfunded",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "6bcf81bf07c6c69f4794f7b4d910c72e6cd54259ad2f0cd61dec76be9e439cb8"
+    },
+    {
+      "slug": "card-fertile-ground-blue-conditional-heal-own-hand-zero-ap",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "21046147738f320f425c557cf494c7f1133e8fbee570396ab5d39acf6d2cc454"
+    },
+    {
+      "slug": "card-fertile-ground-blue-conditional-heal-red-then-red-two-stage-payment",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "c60b3f1b626a2793be855999bbe178b7f058703a9505817fba2ca7f3c023b5ff"
+    },
+    {
+      "slug": "card-fertile-ground-blue-conditional-heal-three-earth-plus-elemental-non-earth-negative",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "3462bccb1d1bdc1c7f344d938cbd5da7cc2f149d1676debd420c4d212851b66a"
+    },
+    {
+      "slug": "card-fertile-ground-blue-conditional-heal-three-public-earth-plus-fourth-face-down-negative",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "67a08690ec3ee7490971b320539f8d0a6bf602add8772866685abadcd7273fc7"
+    },
+    {
+      "slug": "card-fertile-ground-red-conditional-heal-arsenal-face-down",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "fc7d6bf40657bd2f53c0a5a88af202be1b987017d26b62a8f92096d58b0af454"
+    },
+    {
+      "slug": "card-fertile-ground-red-conditional-heal-arsenal-face-up",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "51ae58b915430869a79917093a5b98fe21a296139290a8afd434a300be871cc5"
+    },
+    {
+      "slug": "card-fertile-ground-red-conditional-heal-blue-pitch-overfunding",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "dd6272fbbfb2832dc918a08698211f5d83608012fb4c54a5f9cefcb65812c4cd"
+    },
+    {
+      "slug": "card-fertile-ground-red-conditional-heal-four-earth-exact-threshold",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "56ef7f508a5941e628e025ac13de29a9b5a7a1be3ae35d3835c649a47dfe4207"
+    },
+    {
+      "slug": "card-fertile-ground-red-conditional-heal-four-earth-in-graveyard-negative",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "1eb3bc2043e363fa5ac15944d98bc89ccc5f80c6541b02df057c221584344a6d"
+    },
+    {
+      "slug": "card-fertile-ground-red-conditional-heal-nonturn-instant-zero-ap",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "f71220001a41aa00f31c1737724eb5b9cb0a4b7bc76a67c1bcfe93f892040d4d"
+    },
+    {
+      "slug": "card-fertile-ground-red-conditional-heal-only-opponent-four-earth-negative",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "e6b1b68d180331f29ebcf6781fa10951190943df740e0c28b4e191b73d6aa4d0"
+    },
+    {
+      "slug": "card-fertile-ground-red-conditional-heal-own-face-up-earth-count3",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "5b34ec69b52c521c2fe4e5a4cbbea78a795ac5f2fc463390b64a0c8d714015c9"
+    },
+    {
+      "slug": "card-fertile-ground-red-conditional-heal-own-face-up-earth-count5",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "8b9126162520264effd1a6215688684a183e2a0b4d8b2541b77630469385f1d1"
+    },
+    {
+      "slug": "card-fertile-ground-red-conditional-heal-own-hand-floating-exact",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "e90a507493235b1d54809678836d89190b90d24c995ef7f1ff51e2763e00542d"
+    },
+    {
+      "slug": "card-fertile-ground-red-conditional-heal-own-hand-overfunded",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "d3d722ee0ba0ca9ea4867fcfeae564a722ab9b4eb7c65bc0178806a803792cb0"
+    },
+    {
+      "slug": "card-fertile-ground-red-conditional-heal-own-hand-zero-ap",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "2f281bfe9e1151bd35fbe702f7df5547d61da0b74ae4bb2e4fc15ff031f62579"
+    },
+    {
+      "slug": "card-fertile-ground-red-conditional-heal-red-then-red-two-stage-payment",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "11eb10ae2875a74fe8c709472104db7bee9f4df1419b95a6d6c69f5472b7e348"
+    },
+    {
+      "slug": "card-fertile-ground-red-conditional-heal-three-earth-plus-elemental-non-earth-negative",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "935284ca9a0510435b78f0b1f4b9c36f87fedbd2e0daa6bb8f364d68872a3b04"
+    },
+    {
+      "slug": "card-fertile-ground-red-conditional-heal-three-public-earth-plus-fourth-face-down-negative",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "0559b6935bca0867d09b2d2aa37e82f129ff206469e5c696292a8e28e98d192d"
+    },
+    {
+      "slug": "card-fertile-ground-yellow-conditional-heal-arsenal-face-down",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "611d0f6623ab538c183ed15ebb209e2bf3a54d6ce7e3ac5e3afede1b76095b8a"
+    },
+    {
+      "slug": "card-fertile-ground-yellow-conditional-heal-arsenal-face-up",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "15f623160b80209fd1eb2af59a15c44a36b506f79b7f4df187594b21446f470f"
+    },
+    {
+      "slug": "card-fertile-ground-yellow-conditional-heal-blue-pitch-overfunding",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "7c3bc07380636d64750976660b5e99d5a33cc35c9d1ed44494e2c3edd3ff979d"
+    },
+    {
+      "slug": "card-fertile-ground-yellow-conditional-heal-four-earth-in-graveyard-negative",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "b106a83539362ad5015290eb4d72c118017a105c429d50f8f66abc72de027668"
+    },
+    {
+      "slug": "card-fertile-ground-yellow-conditional-heal-nonturn-instant-zero-ap",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "13348fde4cef4711e8baa71375a4bad8b216c03e8a0cc0898ef1345622719176"
+    },
+    {
+      "slug": "card-fertile-ground-yellow-conditional-heal-only-opponent-four-earth-negative",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "06075b8e603fa4f54082cb0838d3266ec4c5c414746d0c234af28a709d87e3e9"
+    },
+    {
+      "slug": "card-fertile-ground-yellow-conditional-heal-own-face-up-earth-count3",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "63704a24ae5d1a24d7d0852fc5bb042393bbf798ce2838c278fe84381c800943"
+    },
+    {
+      "slug": "card-fertile-ground-yellow-conditional-heal-own-face-up-earth-count4",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "eac6741663411eae08d24bd190c1eba2ff695d4f2b35c32cdab8e6bf5b342bf1"
+    },
+    {
+      "slug": "card-fertile-ground-yellow-conditional-heal-own-face-up-earth-count5",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "086c35033f73ade684c41522af805dc4043cfccff97570e38643e6145c2a2753"
+    },
+    {
+      "slug": "card-fertile-ground-yellow-conditional-heal-own-hand-floating-exact",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "0ee8489202f28cd852143972941591b74963221146f0ad235f192c51163e08c3"
+    },
+    {
+      "slug": "card-fertile-ground-yellow-conditional-heal-own-hand-overfunded",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "5d5296fd0b4ec84f595aac5a4a3575c959c1913b7ae2035df3f8b83e59da53f1"
+    },
+    {
+      "slug": "card-fertile-ground-yellow-conditional-heal-own-hand-zero-ap",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "a63b69f957aa3c41a2830781788fd731fa20fc1c3e868cb97460e00a92c4ede1"
+    },
+    {
+      "slug": "card-fertile-ground-yellow-conditional-heal-red-then-red-two-stage-payment",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "0bc0eaabe10acb2a163916b66fc8f14b0128b4a73acffa761fc93fecf28b30c5"
+    },
+    {
+      "slug": "card-fertile-ground-yellow-conditional-heal-three-earth-plus-elemental-non-earth-negative",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "7347a49ed78e38fb9e1cf7ed958ab47d76c41e239ec984ffbf6521c8b39512da"
+    },
+    {
+      "slug": "card-fertile-ground-yellow-conditional-heal-three-public-earth-plus-fourth-face-down-negative",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "819668b79a50e84dba1e04ca2623694eebc5f7b2b651410739a8ea44ec2d6ad1"
+    },
+    {
+      "slug": "card-first-tenet-of-chi-wind-blue-four-live-sparse-next-real-blue-action-granted-go-again",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "f423caedadd39b6236e6d96d9ab3db13143b4e8cbcc095568ff260fc361fcbf0"
+    },
+    {
+      "slug": "card-flamescale-furnace-four-live-real-red-play-red-pitch-and-resource-funded-five-damage",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "a9356e1ace552e6dbb8f20bde82dcf478fd36bf023f422147c7b2a7a0c868beb"
+    },
+    {
+      "slug": "card-flittering-charge-red-four-live-sparse-real-instant-played-this-chain-link-earns-go-again",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "087a9d68e0ed006f338701251db6d9f37f2360ddc647c284adf7c7c35cd296b7"
+    },
+    {
+      "slug": "card-flittering-forcefield-red-four-live-sparse-real-same-link-sigil-instant-earns-four-defense-and-three-damage",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "abbac2454889c2177bf90203c0fe47988d84188d17dd8c9210d26072ad69c80e"
+    },
+    {
+      "slug": "card-flock-of-the-feather-walkers-red-opponent-response-before-quicken-created",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "bfee49ffb8a68ae3f3536a2ac54fc6e6160640d9158a2f67a04a3e6b7015557d"
+    },
+    {
+      "slug": "card-florian-four-live-sparse-four-physical-public-earth-banish-replaces-real-three-aura-token-batch-with-four",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "e173ce4e4d883b4a35570c58bae84d0824690b3242714506f8ca95e67c7baeab"
+    },
+    {
+      "slug": "card-fog-down-yellow-four-live-sparse-opposing-live-seat-static-aura-removes-printed-go-again-from-real-nonattack",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "44c1ffa6d8df4196c982e6b5645a20f9fd33730d190c4def50e29fef9eac40d0"
+    },
+    {
+      "slug": "card-full-tilt-red-boost-cost-before-opponent-response",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "6929ae72599326eedefffc1ee49c0e0d3d49ba5bcb5c9f714d425b4229b6751b"
+    },
+    {
+      "slug": "card-funeral-moon-red-four-live-sparse-actual-ordinary-hand-action-creates-one-owned-runechant",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "8e9410047017b6cf78979e95e18e0610c80fb18367417b6a012c614154570338"
+    },
+    {
+      "slug": "card-future-sight-red-four-live-sparse-real-one-resource-instant-creates-three-owned-sigils-of-fate",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "1cfc2e0704e1f68a05a022c38337ac39b52a3a7e9bb9ed266eec79aaa4f5f53a"
+    },
+    {
+      "slug": "card-goblet-of-bloodrun-wine-blue-four-live-sparse-actual-zero-cost-warrior-action-creates-owned-agility-and-vigor",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "7210c51a41b25c6e43c085132c225e46dacdc8c90334e3f0097edac94a6f00fc"
+    },
+    {
+      "slug": "card-gold-the-tip-yellow-four-live-sparse-real-faceup-yellow-arrow-earns-gold-next-arrow-plus-three-fully-blocked",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "327cc2d16e5b08494bf277b79000748d63926b3c0d484f3b6aaa371ce0de818b"
+    },
+    {
+      "slug": "card-grim-feast-red-four-live-sparse-actual-full-hand-cost-shadow-action-gains-three",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "2be4118e9e7b8c2c3f83dd6278d615d4633b500195b8b5d4207ab78797dbdcc5"
+    },
+    {
+      "slug": "card-hack-to-reality-yellow-four-live-sparse-real-paid-action-buff-consumed-by-fully-blocked-six-power-attack",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "74d98da805140e5a0c9cd654d53ff7103fb96e3b1e9670c5f5b8635e196429dd"
+    },
+    {
+      "slug": "card-healing-balm-blue-arsenal-face-down",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "71f958d2ac0566c17d5502bcd434ee91c8365190ecfffd0b24979897bd5918a7"
+    },
+    {
+      "slug": "card-healing-balm-blue-arsenal-face-up",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "e550395686d73b22afe1b50f8e058c8dd24747e1857605e0d729249a5a328c34"
+    },
+    {
+      "slug": "card-healing-balm-blue-hand-low-life",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "237122c50d50ef06de49bf0d4c6a0d7633170e1ecf834956eb42cb05e9312b05"
+    },
+    {
+      "slug": "card-healing-balm-blue-hand-spare-action-point",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "8e5c50ed18351aae0ec0524c86e32bea7376e236a9773594c6a71ecda557227e"
+    },
+    {
+      "slug": "card-healing-balm-blue-hand-starting-life-no-cap",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "ec80a0486765a7378a2e08198d4bd8f40db76e682ddc421e16edcc460e42786f"
+    },
+    {
+      "slug": "card-healing-balm-blue-no-go-again-followup-action-rejected",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "075d2129bd30dd91dc5f6ab92ecc376b71ddd6a5b0269975f80a1fafbe69f1f1"
+    },
+    {
+      "slug": "card-healing-balm-blue-spare-action-point-can-fund-followup-attack",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "08d2d0096ba677b085722cd4b06a3c2eeb81a40ec1a14bd7cc77de6739d79b4d"
+    },
+    {
+      "slug": "card-healing-balm-red-arsenal-face-down",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "740aa1589accb6cb1de7472dc90a99dfa65c757c780e941cabe2166ed714991e"
+    },
+    {
+      "slug": "card-healing-balm-red-arsenal-face-up",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "8f8809f454d14cf54bb98263b2c610b68f2484bf653c9f3dc1205cfae90649dd"
+    },
+    {
+      "slug": "card-healing-balm-red-hand-low-life",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "6ea96371ca928b8f83609d407432272c35f4db877e571c996d61819b7f0d894a"
+    },
+    {
+      "slug": "card-healing-balm-red-hand-spare-action-point",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "22942c0ce55f7b3617d2f7ddc9d4d68905fd770fb2ce01c89c80aaac24a907c4"
+    },
+    {
+      "slug": "card-healing-balm-red-hand-starting-life-no-cap",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "f6c31ca70655d45259a5fe2c03eff8d049be859de2ec189cffea570ad49575c3"
+    },
+    {
+      "slug": "card-healing-balm-red-no-go-again-followup-action-rejected",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "29fc4a886b985c762baf2ea2d0f50b5efc2963e8022ecc2290fa04b5a54bfe7e"
+    },
+    {
+      "slug": "card-healing-balm-red-spare-action-point-can-fund-followup-attack",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "49b5325b497f331831f1dcc4a31021f44dd8b96c87c4a92f62f0eae1648fed35"
+    },
+    {
+      "slug": "card-healing-balm-yellow-arsenal-face-down",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "29bf52d386cbded95a1e00040e59d156330e687d60b32327c3a3a5404217e414"
+    },
+    {
+      "slug": "card-healing-balm-yellow-arsenal-face-up",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "b62811109d9c7112c75129f765f785831165a741e49e8d8b62dda9b77ec9b516"
+    },
+    {
+      "slug": "card-healing-balm-yellow-hand-low-life",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "e7805aba2050b6eeeecbb2d157c8d25a1ce71b55cea521a1df3e6d7a22d240f2"
+    },
+    {
+      "slug": "card-healing-balm-yellow-hand-spare-action-point",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "797fe10281698eb6bb9efea35fc155f9320a397c40490a92218dc20d54a63524"
+    },
+    {
+      "slug": "card-healing-balm-yellow-hand-starting-life-no-cap",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "b6485bfadf0b2d1cba2d0ce5a9668bdf866a4de06363d51af34699303b501cd6"
+    },
+    {
+      "slug": "card-healing-balm-yellow-no-go-again-followup-action-rejected",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "0cf7abd5e1044dbf39ae0b1a4d0f07adef8b0a57c48b283b8100fdd15e882d9c"
+    },
+    {
+      "slug": "card-healing-balm-yellow-spare-action-point-can-fund-followup-attack",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "4bc4c5ea29bd3cdf5826bffa431c74c131baffb2ff4ec1f49910b3dbcfb07c43"
+    },
+    {
+      "slug": "card-heart-wrencher-red-boost-cost-before-opponent-response",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "f2b077658f587ae04b649666276612ac847fa035a26f7627af6c3a7907774d07"
+    },
+    {
+      "slug": "card-heartbeat-of-candlehold-blue-four-live-sparse-actual-blue-pitch-paid-specialization-gains-three-life-with-empty-earth-banish",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "9f9dfb6e21ec51637ddce6c09cb0310002095c0ad7c95489d90d563598db92a0"
+    },
+    {
+      "slug": "card-heartened-cross-strap-activation-nonattack-does-not-consume",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "449956f89429be9949c025303aaedc74be45cf1fb0cc3c6a47f6af8b0a4d7fe9"
+    },
+    {
+      "slug": "card-heroic-grit-yellow-four-live-sparse-actual-zero-cost-revered-action-creates-one-owned-toughness",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "5fabc9eaae03598bcb013fb6e5fe8b7fd346448b82d0869e406a738a34a875c4"
+    },
+    {
+      "slug": "card-heroic-pose-red-four-live-correct-probe-real-crowd-cheer-hero-trigger-before-confidence-and-seven-power-attack",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "90bf7cc40c844969cf8ec79963875d7f1307330dbeeb94f3e0f18567c1200ced"
+    },
+    {
+      "slug": "card-high-octane-red-four-live-sparse-actual-paid-mechanologist-action-draws-one",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "09ae2ee5ad0fee7dfa64304fe20afcc63d29f4e5038aa64cb95f2f5f553c590a"
+    },
+    {
+      "slug": "card-hold-the-line-blue-four-live-sparse-real-attacker-draws-two-earns-defense-reaction-prevention-three",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "71903799c65d2cdaf0c3328f4352bf2cc0801e417ff9409779629be5e74c3126"
+    },
+    {
+      "slug": "card-homage-to-ancestors-blue-four-live-sparse-actual-first-blue-instant-gains-one-without-transcend",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "ad75b17fd24c35557ab3b9c622b9e323bdc40c90cb4f466d33a5db4dbf7950d0"
+    },
+    {
+      "slug": "card-humble-entrance-blue-four-live-sparse-actual-zero-cost-revered-action-creates-three-owned-toughness",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "a2c3552c8b9925cb2697b77734749104e1e1f00d16e51f73bbb0e67dc3d845ec"
+    },
+    {
+      "slug": "card-ice-quake-red-four-live-sparse-real-one-cost-next-attack-plus-three-and-full-block",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "2bce790b43acc6d7ee9d11e9ad2d4d565ddba8b5103a6e49a5c6bcd6b7fe60d8"
+    },
+    {
+      "slug": "card-ion-charged-yellow-four-live-sparse-actual-instant-conditionally-adds-one-to-real-arsenal-lightning-attack-with-go-again",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "2934ffcc37335bfd7b814b04e3a8b9f25d75288748164e31ef5057412b63eec1"
+    },
+    {
+      "slug": "card-kindle-red-four-live-sparse-actual-empty-hand-instant-draw",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "ba11be31c5becc7bfc934142aaaf39fd590b29fc07168e1ac2ff9aa65e4cbc63"
+    },
+    {
+      "slug": "card-laden-with-earth-red-four-live-sparse-actual-earth-bond-token-and-next-real-zero-cost-attack-plus-three",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "a2c1043e7fe026eda9d1e53bba05f7be3f449ba9f40c5fe7b20efcc075d81d6b"
+    },
+    {
+      "slug": "card-lead-the-charge-blue-instant-excluded-preserves-effect",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "bd1714de05c5c75047a6c80a2c333b4ceab31ea1c094840c8df2d9340f8e4a5d"
+    },
+    {
+      "slug": "card-lead-the-charge-blue-nonattack-action-qualifies",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "0fedc0dc974f7d08148f03eaef4ec066633dc305e31d489e3baa0c501f1c87b6"
+    },
+    {
+      "slug": "card-lead-the-charge-blue-opponent-response-before-ap-gain",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "b6c159628ef58a6d6658fb4bb87271d927b5005cd24049082dc6a4f994ae535d"
+    },
+    {
+      "slug": "card-lead-the-charge-red-instant-excluded-preserves-effect",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "229d53363070008e45db4dbd2f811d6614757a9142960bcadcb5a9857a6ffc52"
+    },
+    {
+      "slug": "card-lead-the-charge-red-opponent-response-before-ap-gain",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "a0d7461c509e850d8b4fff00ff0c57367649a3e23e122a41b1b6c7571cc8c4f1"
+    },
+    {
+      "slug": "card-lead-the-charge-yellow-instant-excluded-preserves-effect",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "b70bde922c64e367e6a7009ae7c353ef4d01892dac6ebfcee6c2eb99823910ff"
+    },
+    {
+      "slug": "card-lead-the-charge-yellow-nonattack-action-qualifies",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "12f60ded1aba065d12f7f900d843eeaf9311d0a6b291a0ed5800d5d6e1589500"
+    },
+    {
+      "slug": "card-lead-the-charge-yellow-opponent-response-before-ap-gain",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "c98cdcd38764bf34e9f5d2cb5d89e4b1746a2203c12187aba8b29e960e36c23d"
+    },
+    {
+      "slug": "card-lead-with-heart-red-four-live-sparse-actual-paid-warrior-buff-owned-vigor-and-real-nine-damage",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "6124fed5d5a5dafcc97b0a036760fc4cf6e1faf97f1b156f7e9aa5aec7fc1e6a"
+    },
+    {
+      "slug": "card-lead-with-power-red-four-live-sparse-actual-paid-brute-buff-owned-might-and-real-nine-damage",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "bc2be096d872eac521ec165fe527551a535da55af296eda9e1261d5132f8e7a6"
+    },
+    {
+      "slug": "card-lead-with-speed-red-four-live-sparse-actual-brute-weapon-plus-three-and-owned-agility",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "9f74db1e1c69342d04a62590f57e73211c620146d2292e9ae69e149c40864c07"
+    },
+    {
+      "slug": "card-lightning-form-red-token75-actual-opponent-sigil-response-before-token-resolution",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "54f3c6312304a2e56850594586a6e4008060393fd15f436e627bdf01a1c023e5"
+    },
+    {
+      "slug": "card-lightning-form-red-token75-real-ripple-then-instant-response-preserves-action-token-attribution",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "78c53a2f20e1e7a3fbab61408ce0a51ce178a5f58a794fba058ce14aa8d76074"
+    },
+    {
+      "slug": "card-manifest-muscle-blue-four-live-real-token-creation-earns-plus-one-and-three-damage",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "feb995e8c51969699a68ca1abaeede2f777c5e64c98abfb8ac37880ab9d9221e"
+    },
+    {
+      "slug": "card-march-of-loyalty-red-four-live-real-fealty-created-this-turn-and-go-again-consumer",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "846a4e1c0111a1a1bdb887e55a8ed5ffd6c6c14e3e789d693d8c04fffc16e45b"
+    },
+    {
+      "slug": "card-mightybone-knuckles-four-live-real-health-lead-three-might-and-go-again-consumer",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "469efe6ce5be8772a2d52ed7e174e3493e4e15ca0105f89d9087ce1ca33291fb"
+    },
+    {
+      "slug": "card-monkey-powder-red-four-live-sparse-actual-blue-pitch-full-three-cost-ranger-action-draws-one-owned-physical-card",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "0271423c439a23b7fbe757ced873e827690e6a17167115e0758d8751675dbea9"
+    },
+    {
+      "slug": "card-mutiny-on-the-battalion-barque-blue-four-live-sparse-real-gold-theft-earns-next-attack-two",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "1e51d9ca2d54f02d903c129e8c8f0fef8a7ac077a4fdec949c83327fc8eedeb8"
+    },
+    {
+      "slug": "card-mutiny-on-the-nimbus-sovereign-blue-four-live-real-gold-theft-earns-overpower-and-one-damage",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "3741c0b6b1588f989409cc963ba7ae53826f13532f912d71b1a194ed8b4192c5"
+    },
+    {
+      "slug": "card-mutiny-on-the-swiftwater-blue-four-live-sparse-real-gold-theft-earns-next-attack-go-again",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "d9c6aa7097f57d91cd8d8b4a5097a6ce7baa2b3033895370ae128cb52f7d973d"
+    },
+    {
+      "slug": "card-oath-of-oak-red-four-live-sparse-real-zero-cost-earth-action-creates-three-owned-embodiments-of-earth",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "b128f7505a5495d45c105583fe5ca1738ac9a1546637b402fd6e4cd98ce98538"
+    },
+    {
+      "slug": "card-oath-of-the-arknight-red-four-live-sparse-actual-blue-pitch-paid-runeblade-action-creates-owned-runechant",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "180d413ffa8427ec1ea7e01b977890bbd151d6881d7f048519a20f3ba69f6638"
+    },
+    {
+      "slug": "card-oblivion-blue-four-live-sparse-real-exact-six-owned-runechants-instant-creates-nasreth",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "671d2168d09b3ef2d5fb8921310c2a456b756abfc4c4a351fea98e29dca7e20f"
+    },
+    {
+      "slug": "card-obsidian-fire-vein-four-live-real-same-link-draconic-plus-one-go-again-and-consumer",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "2c6869783ef638781b5680dcccfc2b4b17a2cb047785b8b3fbf35a3778bf5ce0"
+    },
+    {
+      "slug": "card-ominous-respite-yellow-conditional-heal-arsenal-face-down",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "5ed53a431e9fb76c8671e654e84b17047934c157258426dd71c4af7148228a94"
+    },
+    {
+      "slug": "card-ominous-respite-yellow-conditional-heal-arsenal-face-up",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "695d54f91dec1d206803edba73c79ed33cc4fdb796f73277686036a9957cd222"
+    },
+    {
+      "slug": "card-ominous-respite-yellow-conditional-heal-blue-pitch-overfunding",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "fd30df9d513d3a21db53fea5e56c585f2c72a4c03cb93eae4be784dfee36e3ac"
+    },
+    {
+      "slug": "card-ominous-respite-yellow-conditional-heal-nonturn-instant-zero-ap",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "bf17a5fd2b218d16d14596103d054acedfc437f7d7658107492cea3577c79b97"
+    },
+    {
+      "slug": "card-ominous-respite-yellow-conditional-heal-own-aura-present-not-destroyed-negative",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "b3a1e3be0587cbad72da9d2f8f1ed47ff4108b3323e45ab9c9335f067a7d4de7"
+    },
+    {
+      "slug": "card-ominous-respite-yellow-conditional-heal-own-hand-floating-exact",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "f0a84ffc2c46c249763adadf777a5a82a09183fbb8a3c4a1248bb5aff528b589"
+    },
+    {
+      "slug": "card-ominous-respite-yellow-conditional-heal-own-hand-overfunded",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "4ea898e94338f20634bc70822a34b977b6b09a484846be3ea23bd4559d18846b"
+    },
+    {
+      "slug": "card-ominous-respite-yellow-conditional-heal-own-hand-zero-ap",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "d2ff5cd826ee37d4fcfd7b10aa504b281351ac93ccebb3718080128ae11fb7a1"
+    },
+    {
+      "slug": "card-ominous-respite-yellow-conditional-heal-own-non-aura-item-destroyed-negative",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "6eb498e4678f8a74f32848fa9c08936666f2634834b4740bb57335df238a26ff"
+    },
+    {
+      "slug": "card-ominous-respite-yellow-conditional-heal-red-pitch-exact",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "afc9fadd24688346cd24222c1face3bbc522f6448e79ce9230f4f6dfaab638be"
+    },
+    {
+      "slug": "card-orihon-of-mystic-tenets-blue-four-live-sparse-real-chi-and-red-pay-four-replaces-two-draw-with-three-physical-cards",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "6c3ab500765ae57a8353489ac5674252500d6da74b7f86b039be295082c25396"
+    },
+    {
+      "slug": "card-otherworldly-sins-red-four-live-sparse-actual-blue-pitch-paid-shadow-runeblade-action-creates-owned-runechant",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "5f8dbcbab91cbd3aee6ab548dc4a382f9583dcbd256d4ef336ede4b1bfca1f5c"
+    },
+    {
+      "slug": "card-outland-skirmish-red-four-live-sparse-real-next-one-hand-plus-three-fully-blocked-without-hit",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "3dac03dbd8c71cedcf5536817f84b6807c76e4b7730641a190456609087e41ac"
+    },
+    {
+      "slug": "card-overcharge-red-four-live-sparse-real-instant-played-this-link-gives-three-power-and-four-damage",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "10dacd6ab353161fad647d75ec94aa19b4eacc69416a768ce4c27958f7e2069d"
+    },
+    {
+      "slug": "card-peace-of-mind-red-four-live-sparse-actual-blue-pitch-paid-instant-creates-one-owned-ponder",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "aed64aa6adf7656d80f7a97313b5dec46dea4df81a94e77bd0a6603bf143b548"
+    },
+    {
+      "slug": "card-pint-of-strong-and-stout-blue-four-live-sparse-actual-zero-cost-guardian-action-creates-owned-might-and-vigor",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "6617257340b12d921944ac93d48c9f79470827fe5f1db3e06b68a1bddb01cd84"
+    },
+    {
+      "slug": "card-planar-chaos-red-four-live-sparse-real-zero-resource-shadow-action-creates-one-owned-gate",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "888f375f7abeef0f5d5ef48f675aa47b0d4f417d43e94b1adaf608fbd15e1a8e"
+    },
+    {
+      "slug": "card-pledge-fealty-red-four-live-sparse-real-zero-cost-draconic-instant-creates-one-owned-fealty",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "61386998d4e9710a8fffaf7efe27cb7728f6b3c73bfa2239cba823d632a204de"
+    },
+    {
+      "slug": "card-point-of-engagement-red-four-live-real-marked-hero-and-dagger-grants-five-damage-mark-clears-live-power-four",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "e2735377389c81347d4b9d00db2f59a624d7f90d268482296f72aa0ea4a54514"
+    },
+    {
+      "slug": "card-pouncing-qi-blue-four-live-real-created-banished-tiger-combo-and-go-again-consumer",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "111550a4923abaf5d744bb991106e2e267278f275390b72d09fb18e2d4e7de43"
+    },
+    {
+      "slug": "card-power-play-blue-arsenal-opponent-instant-above-pending-attack",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "3fa063a3c62031efb0d47a6680c8d04bbe964d8d80b8e7f6b195864c5d15a122"
+    },
+    {
+      "slug": "card-power-play-red-arsenal-opponent-instant-above-pending-attack",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "346bbf01448ecd87c0b014aff75c2370e27f7e9ec90c866502ee047506f252b5"
+    },
+    {
+      "slug": "card-power-play-yellow-arsenal-opponent-instant-above-pending-attack",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "7e9ec348e3ea38c2209b77cbebfcd0c18a768b13673d56eeb4a84c482d5f230a"
+    },
+    {
+      "slug": "card-predatory-assault-red-four-live-sparse-real-single-six-discard-earns-dominate-one-legal-block",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "242d0b9185f6977addddac4ee64555feb16c74be07b4258a76627bfe1c58ee9a"
+    },
+    {
+      "slug": "card-predatory-streak-red-four-live-sparse-recovery-create-own-banished-tigers-then-real-uid-six-play-normalizes-owner-and-zero-damage",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "2cd3af3ebd64a3ec226cede451f7e557b554af0fe55693c867705b75bcf32401"
+    },
+    {
+      "slug": "card-primed-to-fight-red-four-live-real-might-condition-legal-lyath-and-paid-six-damage",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "1b9ab1db62d3bcbffe5a43d0fa6e720e3e41402c238ca6d95b4947bee4333f56"
+    },
+    {
+      "slug": "card-prismatic-leyline-yellow-four-live-sparse-real-zero-cost-action-buffs-next-real-blue-attack-by-three",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "9d921e47e8ad74f0e4e2a77d7134286f18e12822d19b313c0fc1f1e8d63467a5"
+    },
+    {
+      "slug": "card-prismatic-shield-red-four-live-sparse-real-three-resource-instant-creates-three-owned-spectral-shields",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "eac7fa9624f751dbf20698af095cff108ba851d03e064fda038ce035767b4c3d"
+    },
+    {
+      "slug": "card-qi-unleashed-blue-four-live-real-created-banished-tiger-combo-and-five-damage",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "766e7e678284694961086382e70d28554a4ba7f98a32d4f44f3a905018d44d27"
+    },
+    {
+      "slug": "card-quick-succession-red-four-live-sparse-first-real-lightning-attack-plus-one-go-again",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "ca3f4d512ce3238865e40b194356449927d9af2624cc198442294298da4dab6d"
+    },
+    {
+      "slug": "card-quicken-nonattack-instant-does-not-trigger",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "7aa5333daea9adc5b6a1479d53ccec430e19bad89b71b222473e9fdc3e7ce3b1"
+    },
+    {
+      "slug": "card-quicken-opponent-response-before-destroy-and-grant",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "b08d5f086dfead0a7e485d91eee1d1d9644aa7f94da5a1c9b17e2cd6a5c8050e"
+    },
+    {
+      "slug": "card-rain-razors-yellow-four-live-sparse-real-arrow-plus-two-and-six-damage",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "34c783271ed9a9964395b3c146148a875358e9d1b52de3359ac7a16994a22a10"
+    },
+    {
+      "slug": "card-rake-over-the-coals-four-live-real-draconic-instant-raises-ronin-power-and-physical-damage",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "ed9c0e7e40a40becbb6a6154d1fef9389bcb5efa74d8baabdef434fea94d219f"
+    },
+    {
+      "slug": "card-rapid-fire-yellow-four-live-sparse-real-granted-arrow-go-again-earns-action-point-after-four-damage",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "8b44374754f3d0e6480f04f94c446166d67470c05e5c18cca8fd8bc38a3174d8"
+    },
+    {
+      "slug": "card-read-the-runes-red-upf-four-live-one-representative-three-owned-runechants",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "3f0fa8cd90d89f8b3bdb16e57b8fe4181052eb4396aa66a65c503ced917a1a4f"
+    },
+    {
+      "slug": "card-rejuvenate-red-four-live-sparse-ordinary-unfused-action-heal",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "4062f03700c85d99e3daa198602ff7ed64d3b3802e7da3d05821f313395b61b8"
+    },
+    {
+      "slug": "card-requiem-for-the-damned-red-four-live-sparse-actual-ordinary-hand-action-creates-one-owned-eloquence",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "89a8089635ac44d316562221bdd2aa94f47b9a673df20ee0abd514d07263acf4"
+    },
+    {
+      "slug": "card-revolting-gesture-red-four-live-sparse-actual-blue-pitch-paid-reviled-action-creates-one-owned-might",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "6fa9f7f5c7995cadee31c07dcaa8c2dc115788a0e0c7b51912ea008aa9cda4bb"
+    },
+    {
+      "slug": "card-rip-off-the-top-yellow-four-live-sparse-actual-draw-sole-random-pitch-six-power-condition-and-next-attack-plus-three",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "6476d88964f0f1a5277c237b118e8bbb9c481026b6ff73638c4ae6f4519bf9cd"
+    },
+    {
+      "slug": "card-rites-of-nightfall-blue-four-live-sparse-real-one-resource-shadow-action-creates-one-owned-gate",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "f1bdf3029d2d1c26cacaad5311f20e444e0c828dc4f4c6708bf5656888381181"
+    },
+    {
+      "slug": "card-roar-of-the-tiger-yellow-four-live-sparse-recovery-create-own-hand-tiger-then-real-uid-six-play-normalizes-owner-and-plus-one-damage",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "9ec819068ec0d62e304ee7392213a5b86a02742d10dfc85382af777c8c55ba04"
+    },
+    {
+      "slug": "card-rumble-grunting-red-four-live-sparse-real-six-discard-earns-next-brute-plus-four-thirteen-damage",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "98ed399685574e0261cdc7b767cf6905dd8fa21b008e3fcd13991ca9b12df0c8"
+    },
+    {
+      "slug": "card-savage-beatdown-red-four-live-sparse-real-prior-six-and-own-seven-discard-earns-six-power-fourteen-damage",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "eaca2043cc5b6ef394577f37bb2e856b485506443d01199958b5520aac3544bf"
+    },
+    {
+      "slug": "card-savor-bloodshed-red-four-live-real-dagger-plus-four-leaves-six-life-ally-at-one-life",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "f3d836cf0a41c0816df2b361c3588443c5d50b92024b99faac9ca05bf64affbc"
+    },
+    {
+      "slug": "card-scar-for-a-scar-blue-wtr-equal-play-not-retroactive-after-opponent-heal",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "1c98c2582ada87a4b4ed15b84e34a70a8e8c4771db64e1b8aafe34a22733f85a"
+    },
+    {
+      "slug": "card-scar-for-a-scar-blue-wtr-grant-persists-after-own-heal",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "241612b776df689597add94a38932ed5691f31c86dac40ec7120113508252f78"
+    },
+    {
+      "slug": "card-scar-for-a-scar-red-equal-no-retroactive-grant",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "87f836e2aa799db61a04fa6e284cb00e3d6718a52ff15949abf5a2961f5ba921"
+    },
+    {
+      "slug": "card-scar-for-a-scar-red-equal-opponent-heal-enables-condition",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "c390c4ab7178df606ec20170d27beb5e51501cd9494bb6356bd293c4d7479e24"
+    },
+    {
+      "slug": "card-scar-for-a-scar-red-lower-grant-persists-after-heal",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "1cbdcf73835e1fdacf65acbea5551d1ff8325102f75d4e525868c0ee22cbec64"
+    },
+    {
+      "slug": "card-scar-for-a-scar-red-lower-own-heal-removes-condition",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "b4cd162c9ddb081d29551b9c3e38df1dafa9c6729ca29355e90092fd4542cf15"
+    },
+    {
+      "slug": "card-scar-for-a-scar-red-wtr-equal-play-not-retroactive-after-opponent-heal",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "30bb283407abe52a093494a05869ebae5ffa0e3f1489075cb63e0d45daf9ad87"
+    },
+    {
+      "slug": "card-scar-for-a-scar-red-wtr-grant-persists-after-own-heal",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "266573cba9d8ca914ce60b82118d97c83b017e97caf518ca816a7ef4fa1ab81f"
+    },
+    {
+      "slug": "card-scar-for-a-scar-yellow-wtr-equal-play-not-retroactive-after-opponent-heal",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "c1778de4494a96352ac448b267f4c3df31721c795505d545d3b1989ab69a21bc"
+    },
+    {
+      "slug": "card-scar-for-a-scar-yellow-wtr-grant-persists-after-own-heal",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "324074c765814005232c50637779df4e50a79f4df9357498a2f42a6b09721a87"
+    },
+    {
+      "slug": "card-seeds-of-strength-red-four-live-sparse-actual-earth-blue-pitch-paid-action-creates-four-owned-might-tokens",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "703e22d41660a7159efe457854aa22562129005be9ac80ddd96c9baa7729a0a4"
+    },
+    {
+      "slug": "card-seismic-eruption-yellow-four-live-sparse-actual-printed-instant-creates-3-owned-seismic-surge-tokens",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "b3bb492694e825f462ba309917d50acace27f746a802e50ef18aeba9df064a13"
+    },
+    {
+      "slug": "card-seismic-stir-red-four-live-sparse-actual-blue-pitch-paid-action-creates-three-owned-seismic-surges",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "2d577e4b89c96274a0ce0addab0ff035485c5449477b602be2bfee8a3d0b58c9"
+    },
+    {
+      "slug": "card-sharpen-steel-blue-nonattack-action-preserves-buff",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "13a45e75ca71488eab8207cfeeec0f2f6a5d9300ddc4373abdefda7f9712b9e6"
+    },
+    {
+      "slug": "card-sharpen-steel-blue-opponent-response-before-buff-resolves",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "ec09c776ad08f64ad3959498fd243a533ca26e0c7b6d5591ecfc074a966526a8"
+    },
+    {
+      "slug": "card-sharpen-steel-red-nonattack-action-preserves-buff",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "dd6f6f8c257f4e9e06e3dd4bf335ac72020cbae3914480ad7163dea9a644155c"
+    },
+    {
+      "slug": "card-sharpen-steel-red-opponent-response-before-buff-resolves",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "fccd71cfd586eeb73621f8d9032c6e2f7e2ee7b423e9e6621200d7c3f35395af"
+    },
+    {
+      "slug": "card-sharpen-steel-yellow-nonattack-action-preserves-buff",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "b385879ea5366b8c7c037dd8e5be93b50cd87705eae534200ed1f3c6b371a50b"
+    },
+    {
+      "slug": "card-sharpen-steel-yellow-opponent-response-before-buff-resolves",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "b92a9253169fde81f919dc6fbcb8f25727c3258b61e0f855acac469a921b0a5d"
+    },
+    {
+      "slug": "card-shifting-winds-of-the-mystic-beast-blue-four-live-sparse-real-chi-payment-creates-two-owned-crouching-tigers",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "e8f15049fc66efca02e1ff2a63e33e346e3056200047c54e0cbb3be7b958142f"
+    },
+    {
+      "slug": "card-sigil-of-solace-blue-gain",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "8fb54d705f8e873629fb1d55f2ca04f9b9b5dff131525e5616b67e353806db64"
+    },
+    {
+      "slug": "card-sigil-of-solace-blue-opponent-turn-instant",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "1bc61d18901eed2e1736c0856cf125931b3af4cf0ba2fd38d5f7d8333748b75f"
+    },
+    {
+      "slug": "card-sigil-of-solace-red-four-live-hold-priority-correct-rule-before-probe",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "648f7fc890027f6c6123f74ef95c93ad72863ded79828ecf9d0ba46b0367a046"
+    },
+    {
+      "slug": "card-sigil-of-solace-red-gain",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "41474d9f6f79d55fd7ba802f357534f9995ed9c5c3534e0479844a14a90eaed7"
+    },
+    {
+      "slug": "card-sigil-of-solace-red-opponent-turn-instant",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "6625097ff00733240d96ed5e8954197fec15eff715c737117baac51b94aa1d1f"
+    },
+    {
+      "slug": "card-sigil-of-solace-yellow-gain",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "f41eeadb3ae89f61cac0a5d46ccfcd7034c4a23656f3e81498c54a6000b63b29"
+    },
+    {
+      "slug": "card-sigil-of-solace-yellow-opponent-turn-instant",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "0e2d1a933afba9e0123b3760055977d988aa84cae108956892d1d36513ca5887"
+    },
+    {
+      "slug": "card-sky-fire-lanterns-red-four-live-sparse-real-reveal-of-red-physical-deck-top-creates-one-owned-runechant",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "967099a75ede0d86c32f0e1e91da2441650712ff3e8cbe92c83be3e7005b1265"
+    },
+    {
+      "slug": "card-slice-and-dice-red-four-live-sparse-actual-first-sword-plus-one",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "bd3c8e58119aec0e452e4637576a9455b633bb30f6dc6b3e9d1cc0480e42ebcb"
+    },
+    {
+      "slug": "card-smashback-alehorn-blue-four-live-sparse-actual-zero-cost-brute-action-creates-owned-agility-and-might",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "aa6c9b5a59786ae81fa7b0f210119c97235e5c233d53df9e8039f87228570b14"
+    },
+    {
+      "slug": "card-snag-blue-four-live-sparse-actual-instant-prevents-real-less-life-attack-own-three-power-gain",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "c04b07952e4ba063d0329fdd7bc5e9b8c871264b71441e18ae7d6e33b9cc53ac"
+    },
+    {
+      "slug": "card-spectral-manifestations-red-four-live-sparse-real-paid-action-with-no-other-illusionist-auras-creates-shield-with-three-power-counters",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "8794c5a0c7e1f6aad0eead92626b1eed274dc1b845232e440e1b4cfd310ba8b1"
+    },
+    {
+      "slug": "card-spoils-of-war-red-four-live-sparse-real-paid-next-sword-two-power-go-again-full-block",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "b4076d8814d9e6b64078b22f44c9ff8810867f9b84f1a1f680d1a0888d7cee97"
+    },
+    {
+      "slug": "card-spreading-mist-blue-four-live-sparse-actual-next-attack-granted-go-again",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "cb3171c88a52b5ee609aaf44576feb262a0a967771cd0a95722f79d7f225a2b1"
+    },
+    {
+      "slug": "card-starting-stake-yellow-four-live-sparse-actual-zero-cost-action-with-no-gold-creates-one-owned-gold",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "637f4f483ae9a57483d0c61223d7c66dece729e1e128f97f41003cb8e7c5f39c"
+    },
+    {
+      "slug": "card-starworld-warning-yellow-four-live-sparse-actual-printed-instant-creates-2-owned-lightning-flow-tokens",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "ebaef933b60bc04731e8c75facee4505f7e8209e86362538e93fbd61e498a7d1"
+    },
+    {
+      "slug": "card-strike-gold-red-token75-actual-opponent-sigil-response-before-token-resolution",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "7561c335eb39b459ab8b952f330bc99c0fa9b934786204cac68bc08c5c31c7c3"
+    },
+    {
+      "slug": "card-strike-gold-red-token75-real-ripple-then-instant-response-preserves-action-token-attribution",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "1c20bd5b5ed321f7b11311a58828e7a3012f283d480fc5fd1b73dd5391663850"
+    },
+    {
+      "slug": "card-strike-gold-red-upf-four-live-adjacent-four-all-seat-sigil-responses",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "ac750e10ef105e2a08f3c157f5184ac8dbd84d5268c3ca0ecb00fa46c0665461"
+    },
+    {
+      "slug": "card-sun-kiss-red-four-live-sparse-ordinary-heal-no-moon-wish",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "71b268c070d14be0e3c55bb6f7c4f4df5805318afd450f38bd1b8b9a70fb3311"
+    },
+    {
+      "slug": "card-swarming-gloomveil-red-four-live-sparse-real-one-aura-created-earns-go-again-after-runechant-consumed",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "3daa1ac7292e9e11be5061831db992fd8f4c0f6ae748eda9c17ecce93d053b3c"
+    },
+    {
+      "slug": "card-tearing-shuko-four-live-sparse-actual-destroy-instant-next-created-tiger-plus-two-real-play-and-damage",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "d7a2de3c005e726c456811298b3583b70f646875e9e5813b36bd04e07f4bf011"
+    },
+    {
+      "slug": "card-three-of-a-kind-red-four-live-sparse-actual-paid-ranger-action-draws-three-ordered-physical-cards",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "44f2ced95f3c84f99a0e634c53f49479b85ce48144adf7aa774ff896ceb954d2"
+    },
+    {
+      "slug": "card-throttle-red-boost-cost-before-opponent-response",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "d832a80d80465fcc3d8d17959967b0a79b819f4ced6a1a7b308d2ea5159e6b83"
+    },
+    {
+      "slug": "card-tiger-form-incantation-red-four-live-sparse-actual-blue-pitch-creates-owned-hand-tiger",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "622891b38c82b5a36e67d7ce5a37437519d9d2b3bedb89fee834e3a520e12402"
+    },
+    {
+      "slug": "card-time-flies-when-youre-having-fun-red-four-live-sparse-real-arsenal-bonus-kills-six-life-ally-without-hero-hit",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "e4db80498215d62731bd8a4e2bfdbbba5b9967145210b12bbabdef360590800e"
+    },
+    {
+      "slug": "card-tip-the-barkeep-blue-four-live-real-rum-creation-no-eligible-gold",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "1ffbaddd7f990ac85fa84e3acfdd36ffe1edf591e4a7922e0df90b9828c01a64"
+    },
+    {
+      "slug": "card-tome-of-divinity-yellow-four-live-sparse-ordinary-draw-two-no-soul-history",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "6d6494a1c0119cb2306282a58931baff2c7a30f2e1f9500a510895a7799fdb83"
+    },
+    {
+      "slug": "card-tome-of-fyendal-yellow-four-live-sparse-arsenal-draw-two-then-heal-current-hand",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "7dd2943106e8ac89abbbd06c3c94ce87d809f44b40049bdbb25f7aeb475101aa"
+    },
+    {
+      "slug": "card-tome-of-imperial-flame-red-four-live-zero-red-draw-one-then-banish-both-blue-hand-cards",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "ecbcb669843cf51009dcc68e36114abbdf8c21d5d1ddcc1223a9cc15397a6284"
+    },
+    {
+      "slug": "card-tome-of-pandemonium-yellow-four-live-real-all-deck-banish-and-opponent-owned-play-consumer",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "493dae42f4031ba8435af781e08b871f1184872489cc89d081f91c2ff3d0577d"
+    },
+    {
+      "slug": "card-tome-of-quandaries-blue-four-live-sparse-actual-printed-instant-creates-2-owned-ponder-tokens",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "096207b4439ea74ef900986b6699af278a58d2e36c865e41c68840d96ce3bc09"
+    },
+    {
+      "slug": "card-tome-of-the-arknight-blue-four-live-sparse-actual-blue-pitch-paid-tome-reveals-aa-and-non-aa-and-moves-both-owned-cards-to-hand",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "2e1479621807bc9fe1e655ab132a3a67ff799b8ccda584fa36e15bc2098a8cb0"
+    },
+    {
+      "slug": "card-tome-of-torment-red-four-live-sparse-actual-hand-action-draws-one-physical-deck-card",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "296e44d5d35645599f902242e30e015a53b12b908f0b3532b419e3bc9df3ad8e"
+    },
+    {
+      "slug": "card-uprising-red-four-live-sparse-actual-action-first-draconic-attack-plus-one",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "d42d37d41ea7eb888c3fd11bf4986959672918223d4efa75fbc5b37f2f6e2a78"
+    },
+    {
+      "slug": "card-verdant-tide-red-four-live-sparse-actual-earth-pitch-bond-and-own-replacement-create-two-owned-embodiments",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "714ac798222f1acb0c4dc031306ca49b7c7815ddb421689f12033b3be99d92be"
+    },
+    {
+      "slug": "card-vigor-rush-red-four-live-sparse-real-prior-nonattack-go-again-base-four-excludes-minnow",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "c7cc4d869193df5551f49a8b1822c79b0beb8c2caaae6ff39e38c74fd2d1128c"
+    },
+    {
+      "slug": "card-visit-the-imperial-forge-red-four-live-sparse-actual-sword-piercing-three-against-real-equipment-defender",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "bc6fc85b6d2b406d0f7c9feb7a56c5dbef58ce1b98ed18a66d563e9bed7c8da6"
+    },
+    {
+      "slug": "card-wash-away-blue-four-live-real-other-blue-sigil-heals-above-base-earns-five-defense-and-two-damage",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "27d0fe248090c6f41e9c68e7c7caa8e09d4dd53c881bd09858c330cd5850d707"
+    },
+    {
+      "slug": "card-water-glow-lanterns-red-four-live-sparse-actual-reveal-matching-red-decktop-creates-owned-shield",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "b4e4cfe1949daa6cace6e0b2079f1b717498c9ae869a11a5ddbf8b3e00f234c8"
+    },
+    {
+      "slug": "card-whispering-mist-blue-four-live-sparse-actual-mystic-instant-increases-own-real-blue-attack-by-one",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "f2d9710adfc5084d488b7dda6fbb4af8567caedd443ecc062643ad56861fe935"
+    },
+    {
+      "slug": "card-wind-chakra-red-four-live-sparse-real-created-tiger-consumes-next-three-power-and-deals-four",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "84947acd0c6b29ffe0147a80a11bbecad141bc229750b2c3f0ba88ec37f805cd"
+    },
+    {
+      "slug": "card-wounded-bull-blue-wtr-bonus-persists-after-own-heal",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "eda7abc1e505a4ebfda13569e09f359b3eaf271100413580aabd38e4a28422c7"
+    },
+    {
+      "slug": "card-wounded-bull-red-equal-no-retroactive-grant",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "af851fbb4ff58f9370f26bc3c72f398a39caa167730587317afbb514380abb08"
+    },
+    {
+      "slug": "card-wounded-bull-red-equal-opponent-heal-enables-condition",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "6d2df45ee9f202ceaea07c3c55eee1ba910a8b5c7ee0f81aa12f19bfbbfe2572"
+    },
+    {
+      "slug": "card-wounded-bull-red-lower-grant-persists-after-heal",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "2c69777babfb5dbad133bcb07460f9de7a26fedeacef76b1562e3b5f65ea0070"
+    },
+    {
+      "slug": "card-wounded-bull-red-lower-own-heal-removes-condition",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "0847410cf0a180cad1248e328b53ed6ae09d0ef53d353f5793d72eb1043fd672"
+    },
+    {
+      "slug": "card-wounded-bull-red-wtr-bonus-persists-after-own-heal",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "e8aed7bc2744a21d6830077ec6e2db099dfd965bac2ed0c0bf88f8db9fe089c6"
+    },
+    {
+      "slug": "card-wounded-bull-yellow-wtr-bonus-persists-after-own-heal",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "e8b0df77b71b210929bf499c45c6347730a99cb0b3377ac49948e4b3751dae9d"
+    },
+    {
+      "slug": "card-yinti-yanti-red-mon-live-enters-attack",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "96fc56bfe8ddc8467514112e5446551fe13a2ad6dff8bf92b77634d4a498cf83"
+    },
+    {
+      "slug": "rule-end-turn-clears-unused-action-points",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "2d6a9fe69fce7cf7cac8207c603cd4f94f7f5795da282e572518459d923f675f"
+    }
+  ],
+  "full_suite_run": false
+}

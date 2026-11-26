@@ -1,0 +1,7 @@
+{
+    "name": "Vynnset, Iron Maiden / conditional guard with actual Read the Runes creation",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-24T11:42:11+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "TWO_REAL_MANUAL_ADULTVYNNSET40_DORI40. InitialRunechant6andfaceupGenericBanish5arephysicalpositiononly/noStartTurnprovenance. ActualReadRunesRed3isRunebladeNAAbutNOTSHADOW. HeroShadowtraitdoesnotmakecardShadow. ThusnoearnedHeroWHEN/life1choice/HPchange/preventiongrant. Nativecost0/AP0/defaultresponsepriority2/then1; actualspellcreatesexactthreeRunechants7/8/9afterexisting6(total4)/UID9, noNAA-triggeredRunechantattack. Original3GY1/Potion4Hand1/Banish5+Rune6sameownedUID/allHP40/R0/nochoice; actual0PotionconsumerrejectAP0/noextratoken/card/lifechange. OnlyadultID/nonShadowtypeguard/nativecreate3delta/fates; positiveWHEN/ShadowNAA/triggerTiming/lifepay/unpreventableRunechant/StartTurn/support/fullcarduncredited. Sources: FaBSim/GeneratedCode/cardArrayCache.json#vynnset_iron_maiden FaBSim/GeneratedCode/GeneratedMacroCode.php FaBSim/Custom/GameLogic.php FaBSim/Custom/DTDCards.php FaBSim/Custom/DTDRuntime.php FaBSim/Custom/ARCCards.php FaBSim/Custom/WTRCards.php"
+}

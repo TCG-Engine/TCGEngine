@@ -1,0 +1,94 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "breadth_review independent printed-text/source/transport review",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse985-20261122.json",
+  "source_spec_sha256": "09df0a550bf1327bbd46d43241a77e1b95736a1839901a48009a837b070bec50",
+  "input_sha256": "09df0a550bf1327bbd46d43241a77e1b95736a1839901a48009a837b070bec50",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-voltic-vanguard-four-live-sparse985-reject-no-prior-instant-play",
+      "card_id": "voltic_vanguard",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "b3a16882d7c576bb047b4b5693c5f4fe5947519c834b5f45d979fafe440336f7",
+        "actions.json": "1da07b47d68c485b562420997d531d2c0092071d782f19db3fb87cd1f1159c1a",
+        "assertions.json": "4cea24fb6dbac9dee0e370fcc465598fda8c9fa4be7cde3b98f9737477bb6a8a",
+        "expected_final_gamestate.txt": "03911a75b2884237276c9f2201409bd86674e897a36c05a12733faf5fbea55d2",
+        "meta.json": "958a050634798bc7fd94935a34da1377528d60034c936bb352fbbbb2aaca1bcc"
+      },
+      "fixture_sha256": "4e736c07d51290e93be277bd6e5687bcb719394e4e1e28c0527304a12669b503",
+      "actions": 28,
+      "native_assertions": 171,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse985-20261122.json",
+      "input_sha256": "09df0a550bf1327bbd46d43241a77e1b95736a1839901a48009a837b070bec50",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse985-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-voltic-vanguard-four-live-sparse985-reject-no-prior-instant-play",
+        "fixture_slug": "card-voltic-vanguard-four-live-sparse985-reject-no-prior-instant-play",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-starfield-veil-four-live-sparse985-reject-no-attack-has-fragmented",
+      "card_id": "starfield_veil",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "5e36053b9e923d3cd45e7fdf3d86c16a88fc18620dbd628e3be4eea13b6e6039",
+        "actions.json": "1da07b47d68c485b562420997d531d2c0092071d782f19db3fb87cd1f1159c1a",
+        "assertions.json": "74bd7dcc88c5c6e5b43de3321c7a68b2b63a6970ac3bc3cb6dfb162d94e58d92",
+        "expected_final_gamestate.txt": "f139dffa542d74aa11665e27aec4faf93584458105669b2e61f3853215b9e960",
+        "meta.json": "3f64b546d26c346f1e51e4c09e9cc07635b6f5676625658201fc8efcf988bdbc"
+      },
+      "fixture_sha256": "e17c03af0710e29273a4151c8344607cd8165759764b15a9044ef5f2fdee9bf6",
+      "actions": 28,
+      "native_assertions": 171,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse985-20261122.json",
+      "input_sha256": "09df0a550bf1327bbd46d43241a77e1b95736a1839901a48009a837b070bec50",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse985-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-starfield-veil-four-live-sparse985-reject-no-attack-has-fragmented",
+        "fixture_slug": "card-starfield-veil-four-live-sparse985-reject-no-attack-has-fragmented",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "spec_sha256": "09df0a550bf1327bbd46d43241a77e1b95736a1839901a48009a837b070bec50",
+    "reviewer": "breadth_review independent printed-text/source/transport review",
+    "basis": [
+      "Cached printed texts confirm Voltic Vanguard requires a prior Instant card played, and Starfield Veil requires any attack fragmented this turn. Initial fresh ACTION/empty effects/chain0 gives neither prerequisite. Both abilities are Instant, destroy-source costs with0 resources, so real ready owned Equipment5 is the needed physical asset and no absent resource/target masks the restriction.",
+      "Voltic Lightning equipment is legal for natural20 Aurora through Essence of Lightning; Starfield LightningIllusionist equipment is legal for actual young Zyggy20. Neither hero has a passive earned by the Generic follow-through, and neither hero ability is activated. Equipment Status2/Owner1/Controller1/UID5 are supported raw schema fields.",
+      "Real activation routes are present, avoiding missing-handler rejection: PENCards.php:381 explicit Voltic Instant0/destroy row and:451/:471 legality guard; OMNCards.php:203-204 Starfield row and:226/:247 all-live FRAGMENT guard. ARCAbilities.php:56 enforces both legality functions; WTRCards.php:908-915 gates native activation then dispatches indexed actions. GeneratedMacroCode.php:18477 Voltic prevention and:17818 Starfield holo ResolveAbility handlers also exist; positive execution remains untested.",
+      "Initial equipment click is followed immediately by retained Equipment5 ready, Hand1/support6, AP1/R0, Stack0/noGYPitch/emptyallqueues/ACTION/no pending payment. Actual support p1Hand-0 UID6 then declares adjacent Hero4, pays0/spends AP, passes through allfourmanual combat seats, deals4/HP16 and reaches owned graveyard. No stale primaryUID5 Hand/Stack/CombatChain/GY query remains; equipment identity/readiness/ownership survives final guards. Each packet has28 actual planned controls including the rejected equipment input.",
+      "Current group-map/current+addition union independently shows both groups unrepresented; exact current issue ledger matches0. Only named false-prerequisite branches are approved, not generated positive behavior."
+    ],
+    "limits": [
+      "Native rejection, retention of the attempted activation input in raw recordings, fixture save and one clean replay are pending Root. Any mismatch must remain unsaved/unqualified; no oracle weakening or repair.",
+      "No positive prevention/holo/Fragment prerequisite, timing under damage, hero activation, equipment defense/Battleworn/Guardwell, produced ownership, siblings/support/full-card credit.",
+      "Reviewer made no native PHP/game/test/T/source/original/Git/network/engine changes; only this W receipt was written."
+    ]
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse985-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "3ffc9144ab0791204dd9f6e696e6f82ea887cc2adf1ee20abbba884017e78bc7"
+  },
+  "full_suite_run": false
+}

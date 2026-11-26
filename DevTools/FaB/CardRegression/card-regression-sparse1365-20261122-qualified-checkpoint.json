@@ -1,0 +1,97 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-24T10:42:13.767763+00:00",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1365-20261122.json",
+  "source_spec_sha256": "c21f810ccfb604e06300584490a051c99f7ce8f6183fb060eb3ce134264f436f",
+  "new_scenarios": 2,
+  "new_groups": 2,
+  "new_primary_ids": 2,
+  "actions": 8,
+  "native_assertions": 490,
+  "manual_passes": 4,
+  "totals": {
+    "saved_registered_scenarios": 5347,
+    "duels": 3107,
+    "four_live": 2240,
+    "recorded_primary_ids": 2495,
+    "identity_denominator": 5196,
+    "recorded_groups": 2369,
+    "group_denominator": 3324,
+    "four_live_groups": 2229,
+    "phase_qualified_scenarios_at_actual_contexts": 1984,
+    "phase_qualified_unique_groups": 1974,
+    "creation_replay_passes": 2726,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 1145,
+  "scenarios": [
+    {
+      "card_id": "viserai_rune_blood",
+      "group_id": "identity:viserai_rune_blood",
+      "scenario_id": "card-viserai-rune-blood-two-live-sparse1365-first-runeblade-nonattack-not-another-three-not-four-runes",
+      "effect_branches": [
+        "first_runeblade_nonattack_does_not_count_itself_as_another_exact_three_runechants_no_extra_hero_token"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-viserai-rune-blood-two-live-sparse1365-first-runeblade-nonattack-not-another-three-not-four-runes",
+      "source_spec": "card-regression-sparse1365-20261122.json",
+      "source_spec_sha256": "c21f810ccfb604e06300584490a051c99f7ce8f6183fb060eb3ce134264f436f",
+      "review_evidence": "review-evidence/sparse1365-20261122-qualified-saved.json",
+      "review_evidence_sha256": "750c6857d8a68cc7e6ff27f42ffe032173b9b94769132940af7393e4bfe67d3c",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1365-20261122-replay.json",
+          "sha256": "f27435c4ce39d8639df3002357096e8158316c73333104627f224ad9f7925fc7",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "two_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "vynnset_iron_maiden",
+      "group_id": "identity:vynnset_iron_maiden",
+      "scenario_id": "card-vynnset-iron-maiden-two-live-sparse1365-non-shadow-nonattack-no-life-payment-existing-rune-plus-three",
+      "effect_branches": [
+        "actual_runeblade_nonattack_without_shadow_type_no_vynnset_life_payment_or_choice_existing_runechant_plus_exact_three_spell_tokens_retained"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-vynnset-iron-maiden-two-live-sparse1365-non-shadow-nonattack-no-life-payment-existing-rune-plus-three",
+      "source_spec": "card-regression-sparse1365-20261122.json",
+      "source_spec_sha256": "c21f810ccfb604e06300584490a051c99f7ce8f6183fb060eb3ce134264f436f",
+      "review_evidence": "review-evidence/sparse1365-20261122-qualified-saved.json",
+      "review_evidence_sha256": "750c6857d8a68cc7e6ff27f42ffe032173b9b94769132940af7393e4bfe67d3c",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1365-20261122-replay.json",
+          "sha256": "f27435c4ce39d8639df3002357096e8158316c73333104627f224ad9f7925fc7",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "two_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

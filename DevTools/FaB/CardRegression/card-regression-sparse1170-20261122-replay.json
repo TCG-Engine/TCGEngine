@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-thunderous-retort-red-four-live-sparse1170-real-aura-barrier-three-pays-blue-three-prevents-three",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-thunderous-retort-red-four-live-sparse1170-real-aura-barrier-three-pays-blue-three-prevents-three",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1170-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1170-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "15069860fa49e5a571fb8a13600c69601b991ecad7005005e31d181c1cfd4680",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "554237a4bd88910208ddc98452b02a60da4e6ff0fcdb0e0fbea9d99a61c581b2",
+        "actions.json": "abeb3c8b027bfa26d05afb7a0c385c41d6388c2ae6f8105e03a2cd84dc242119",
+        "assertions.json": "bb1a216ee2f5aa3d5a891a11886a029746b24728d71965ac2b991775148c8c51",
+        "expected_final_gamestate.txt": "99899a38468e83efdfa8b539adfb5ede58582492ecf37fa10664aa183aa674db",
+        "meta.json": "86419e5d7b27cb29e39f17709c9008367e7fb4b08454a31c0db9f4b056ac4940"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

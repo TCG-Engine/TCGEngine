@@ -1,0 +1,79 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-oscilio-scion-of-the-third-age-four-live-sparse1370-opponent-lightning-flow-is-not-your-destroy-cost-no-tap-or-payment",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-oscilio-scion-of-the-third-age-four-live-sparse1370-opponent-lightning-flow-is-not-your-destroy-cost-no-tap-or-payment",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1370-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1370-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "157931f6c5922a008635cbb3481aeb83fc3a346c53c55a1f63fdb4ead8535c15",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "e5d42e0c3177af91109dc7ae1268b125c829742ddb4372fa3a2f042890a50e95",
+        "actions.json": "ac673259567516b5b5ef11f98e430a78f681931005187b4b165ab1b080ddb86c",
+        "assertions.json": "0238f50c20ff216e9a5815bfab5449eedbd372356c9297d00b923cf73fca0488",
+        "expected_final_gamestate.txt": "3d7b0efe8f93936e978334c0491d10756643dc3f6822f9494b327a3e7427818d",
+        "meta.json": "f8ad9d1e54e94faae3e0702767b184661e855368ba5f7538be4f2805a414e24b"
+      }
+    },
+    {
+      "slug": "card-oscilio-forked-continuum-two-live-sparse1370-opponent-lightning-flow-is-not-your-destroy-cost-no-tap-or-payment",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-oscilio-forked-continuum-two-live-sparse1370-opponent-lightning-flow-is-not-your-destroy-cost-no-tap-or-payment",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1370-local-20261122\\clean-replays\\01.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1370-local-20261122\\clean-replays\\01.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "6dc01ae1ad0b7a4066cc0fe50325fe77f4ef0f0bd088492aa4e2a9e21f1c9468",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "478cb2a102e3414570bcaea5539dbc470791f199ff44741235f3d1bd5482089e",
+        "actions.json": "60fb8348f75055e993fa39479526b14fb228f29fea0fb1ea6138778633e308c6",
+        "assertions.json": "5560da154bbdcf6b33970cf97b75bec45b5096afd7be20f8c6b99af91720b981",
+        "expected_final_gamestate.txt": "537b605227cd4e8e686d44d039a5f4c9bc47dc628691fc5dae0d2eb4aa897762",
+        "meta.json": "4a290f872a596d9a3cfdcd3cb5a7759ea927a8bbe397b1555818f3fe7308a521"
+      }
+    },
+    {
+      "slug": "card-aurora-legacy-of-tempest-two-live-sparse1370-opponent-lightning-flow-is-not-your-destroy-cost-no-tap-or-payment",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-aurora-legacy-of-tempest-two-live-sparse1370-opponent-lightning-flow-is-not-your-destroy-cost-no-tap-or-payment",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1370-local-20261122\\clean-replays\\02.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1370-local-20261122\\clean-replays\\02.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "57046e251d546a5225cfe4c8e5f8241d62d989bb07a5028373572e7f0e1d5e10",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "e3993b5b287d9a65ca6f85842c77388febf775da4ca2cc06d1fdaa7f2ab18eb6",
+        "actions.json": "60fb8348f75055e993fa39479526b14fb228f29fea0fb1ea6138778633e308c6",
+        "assertions.json": "0e790bce6c6c68ac4e81fe717aaedf471f9710240103287671bceeb26388a0b4",
+        "expected_final_gamestate.txt": "35fd6490612fe2c5aa34efaf6ff0282b0fcaa3bf97c3d45875bedfb6389a546c",
+        "meta.json": "23a3da64070f3d768381f2777fd0c0d31982be06f0a89129b9457478b72afa69"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

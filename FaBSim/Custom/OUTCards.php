@@ -97,7 +97,7 @@ function FaBOUTCyclone(): void {$s=FaBGetState();$a=FaBFindUID(intval($s['attack
 function FaBOUTMeltingTargets(int $p): string {return implode('&',array_filter(FaBChoiceRefs($p,'Weapons',['type'=>'1H']),fn($r)=>intval(CardPower(FaBIdentityFromMZ($r)['object']->CardID))===1));}
 function FaBOUTScrapTargets(int $p): string {return implode('&',array_filter(FaBChoiceRefs($p,'Graveyard'),fn($r)=>is_numeric(CardPower(FaBIdentityFromMZ($r)['object']->CardID))&&intval(CardPower(FaBIdentityFromMZ($r)['object']->CardID))===1));}
 function FaBOUTScrap(int $p,int $uid,string $r): void {if(in_array($r,explode('&',FaBOUTScrapTargets($p)),true)&&FaBMoveChoice($p,$r,'Graveyard','Banish')){FaBTagUID($uid,'WTR_POWER:1');FaBTagUID($uid,'GO_AGAIN');}}
-function FaBOUTCodexTokens(int $p,string $token): void {FaBOUTToken($p,'ponder');foreach(FaBOpponents($p) as $victim)FaBOUTToken($victim,$token);}
+function FaBOUTCodexTokens(int $p,string $token): void {FaBWTRCreateArena($p,'ponder',false,$p);foreach(FaBOpponents($p) as $victim)FaBWTRCreateArena($victim,$token,false,$p);}
 function FaBOUTInfectious(int $p,int $victim): void {foreach(['frailty','inertia','bloodrot_pox'] as $token)if(FaBMONArena($p,$token))FaBOUTToken($victim,$token);}
 function FaBOUTFlip(string $r): void {$f=FaBIdentityFromMZ($r);if($f&&$f['zone']==='Arsenal'){$f['object']->FaceDown=0;FaBARCArsenalFaceUp($f['player'],$f['object']);}}
 function FaBOUTPitchRefs(array $uids,int $pitch): string {return implode('&',array_filter(explode('&',FaBEVRUIDRefs($uids)),fn($r)=>intval(CardPitch(FaBIdentityFromMZ($r)['object']->CardID))===$pitch));}

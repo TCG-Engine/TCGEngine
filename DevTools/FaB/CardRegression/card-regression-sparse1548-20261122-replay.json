@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-arknight-descendancy-blue-four-live-sparse1548-real-five-runechant-discount-and-eleven-total-damage",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-arknight-descendancy-blue-four-live-sparse1548-real-five-runechant-discount-and-eleven-total-damage",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1548-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1548-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "ca90a1c8a01c26029af1df2a1915cb46796bb6ca0800aca72693144b2b7f719f",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "f5e43606a688f6a4bf31af84ee1c243569aa71b6d25780716a251e1f59d6c0d6",
+        "actions.json": "7ec6aa6185ced90c89bdcbea49ec981ee1a56771f65cd0e8b5167df63e444e84",
+        "assertions.json": "363b1b2640fe98fb4cf5dcbb014a10fecf17306306942ab527b125c366045b21",
+        "expected_final_gamestate.txt": "f198ec7ad191c0ea5f30f766f008e6df4d052f339e3fecc57f5929abad26f57e",
+        "meta.json": "5bf336e704ecefcf1fbc0cb63a64a6cd4be1b0786402638b4d9ed142ab97d111"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

@@ -1,0 +1,27 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch311.json",
+  "runtime_sha256": "0d877de49c131f29c152706e14bba3368630df61c59ef475c87a84f20b6e1a66",
+  "returncode": 0,
+  "completed_utc": "2026-11-03T08:58:05.558297+00:00",
+  "fixtures": [
+    {
+      "slug": "card-ice-quake-red-four-live-sparse-real-one-cost-next-attack-plus-three-and-full-block",
+      "fixture_sha256": "3a2331452eacb82d16a8cbd11aaa628e5117ba7b72d459cc531656fbd38362f5",
+      "passed": true,
+      "result": "[PASS] ice_quake_red / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-ice-quake-red-four-live-sparse-real-one-cost-next-attack-plus-three-and-full-block",
+      "returncode": 0,
+      "stdout": "[PASS] ice_quake_red / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

@@ -1,0 +1,7 @@
+{
+    "name": "Summerwood Shelter / actual combat defender does not satisfy target restriction",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-25T06:11:03+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "ActualWoundingRed5cost0attacksHero4/AP0. Allfourmanualresponses/attackwindows thenrealWoundingBlue7fromdefender4HanddeclaredRoleDEFENSE/FromHand/printeddef3. Primary6cost0InstantclickedatDEFEND_PRIORITY4byprinted-legalBriar4. ActualdefendingActionisGenericnotEarthorElemental. Correctspecifictargetadmissionrejects, leavingprimaryHand6/attack5/defender7/livePower4/liveDefense3/noGA/StackDQ/APRunchanged. Actualdamage1HP19 confirmsphysicaldefensewithoutcached-defense-onlyoracle; fullcloseactualattack5GY1/defender7GY4/primary6Handcaster/allotherHP20/AP0R0/noAuraToken/await. No primarypositivebuff/debuff/targettiming or siblingscredit. BriardealsnoownattackdamageandplaysnoNAA, so noBriartrigger. Sources: FaBSim/GeneratedCode/cardArrayCache.json#summerwood_shelter_red FaBSim/Custom/DTDCards.php#FaBDTDCanPlay FaBSim/Custom/ELECards.php#FaBELECanPlay FaBSim/Custom/GameLogic.php#FaBDeclareBlock"
+}

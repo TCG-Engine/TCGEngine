@@ -1,0 +1,301 @@
+{
+  "status": "NATIVE_CONFIRMED_OVER_LOOP_CURRENT_WHEN_HIT_DESTINATION_APPLIED_BEFORE_RESPONSE_LAYER",
+  "reviewer": "/root/nov2_metadata_review",
+  "reviewed_utc": "2026-11-03T22:26:38.408149+00:00",
+  "proposed_named_record": "ROOT_TO_ASSIGN",
+  "classification": "existing043_missing_responseable_trigger_named_OverLoop_current_WHEN_hit_caller",
+  "related_prior_issue": "FAB-REG-043",
+  "secondary_related_issues": [
+    "FAB-REG-068",
+    "FAB-REG-081",
+    "FAB-REG-082",
+    "FAB-REG-083"
+  ],
+  "new_distinct_gameplay_root_group": false,
+  "new_core_root": false,
+  "root_count_limitation": "Named reached caller witness only; no new global/shared framework or Core root/count inferred.",
+  "runtime_sha256": "0a2a062faba12b15a119fa82f44fab56e0a6e02970b8d8d26f47f16b24397256",
+  "input_file": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch373-over-loop-v2.json",
+  "input_sha256": "53c5f2a803763b41694e7acd0c0526d7608ffbac6e2a655b4eaed1cb446ee855",
+  "source_expectation_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch373-over-loop-v2-independent-source-review.json",
+    "sha256": "c6839e5f441bbe7e8be9b33d052aa8c7fa5425a2d82010868eefbbf15a45c39f"
+  },
+  "native_wrapper": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-b373-over-loop-v2-native-0a2a-r1\\receipt.json",
+    "sha256": "04f0eecaef4837ccb085daa706abdd8df9a456d79d6816beb2c7d4363571d2e3"
+  },
+  "immutable_native_archive": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch373-over-loop-v2-20261103T222352Z-6aea5ef8506b2.json",
+    "sha256": "e0017fa66c3efc98636b199c9d3919a772904fdf7d8cbfd60759229f81e72e53"
+  },
+  "per_spec_recording_results": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch373-over-loop-v2.recording-results.json",
+    "sha256": "5fda8a2362708d231e083234e4a587f36520ee9bc2d44b8a398b1367c5c614fa",
+    "matches_archive_results": true
+  },
+  "initial_snapshot_sha256": "2ca7b9f4ea8786ff9e1f108e89f94a955817451e3da87393e9bcaad686150744",
+  "fixture_saved": false,
+  "fixture_absence_verified": true,
+  "coverage_credit": false,
+  "fix_applied": false,
+  "actual_native_inputs": 21,
+  "actual_manual_priority_and_finish_inputs": 17,
+  "manual_pass_actor_counts": {
+    "1": 4,
+    "2": 4,
+    "3": 4,
+    "4": 5
+  },
+  "observed_error": "Expected p1Deck count 1, got 2.",
+  "exact_reached_boundary": {
+    "recipe_step": 42,
+    "action_ordinal": 21,
+    "last_action": {
+      "playerID": 4,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    "last_action_meaning": "P4 fourth REACTION response after real noBoostOverLoop hit path",
+    "first_failed_assertion_zero_based": 20,
+    "current_failed_assertion": {
+      "type": "zone_count",
+      "zone": "p1Deck",
+      "value": 1
+    },
+    "passed_prior_checkpoint_assertions": 1554,
+    "completed_assertions_before_first_failure": 1574,
+    "checks_before_failure_in_current_checkpoint": [
+      {
+        "type": "scalar_zone_equals",
+        "zone": "PriorityPlayer",
+        "value": 1
+      },
+      {
+        "type": "scalar_zone_equals",
+        "zone": "ConsecutivePasses",
+        "value": 0
+      },
+      {
+        "kind": "state",
+        "key": "combatOpen",
+        "value": true
+      },
+      {
+        "type": "scalar_zone_equals",
+        "zone": "p1Health",
+        "value": 20
+      },
+      {
+        "type": "scalar_zone_equals",
+        "zone": "p1Resources",
+        "value": 1
+      },
+      {
+        "type": "scalar_zone_equals",
+        "zone": "p1ActionPoints",
+        "value": 0
+      },
+      {
+        "type": "decision_queue_empty",
+        "player": "1"
+      },
+      {
+        "type": "scalar_zone_equals",
+        "zone": "p2Health",
+        "value": 20
+      },
+      {
+        "type": "scalar_zone_equals",
+        "zone": "p2Resources",
+        "value": 0
+      },
+      {
+        "type": "scalar_zone_equals",
+        "zone": "p2ActionPoints",
+        "value": 0
+      },
+      {
+        "type": "decision_queue_empty",
+        "player": "2"
+      },
+      {
+        "type": "scalar_zone_equals",
+        "zone": "p3Health",
+        "value": 20
+      },
+      {
+        "type": "scalar_zone_equals",
+        "zone": "p3Resources",
+        "value": 0
+      },
+      {
+        "type": "scalar_zone_equals",
+        "zone": "p3ActionPoints",
+        "value": 0
+      },
+      {
+        "type": "decision_queue_empty",
+        "player": "3"
+      },
+      {
+        "type": "scalar_zone_equals",
+        "zone": "p4Health",
+        "value": 15
+      },
+      {
+        "type": "scalar_zone_equals",
+        "zone": "p4Resources",
+        "value": 0
+      },
+      {
+        "type": "scalar_zone_equals",
+        "zone": "p4ActionPoints",
+        "value": 0
+      },
+      {
+        "type": "decision_queue_empty",
+        "player": "4"
+      },
+      {
+        "kind": "state",
+        "key": "pendingPayment",
+        "value": null
+      }
+    ],
+    "expected_Deck1_count": 1,
+    "observed_Deck1_count": 2,
+    "later_Stack1_assertion_zero_based": 27,
+    "later_Stack1_assertion_reached": false
+  },
+  "actual_observed_state_subset": {
+    "window": "DAMAGE",
+    "combatOpen": true,
+    "combatStep": "DAMAGE",
+    "chainLink": 1,
+    "attacker": 1,
+    "defender": 4,
+    "attackUID": 5,
+    "attackTarget": {
+      "type": "HERO",
+      "player": 4,
+      "uid": 4,
+      "zone": "Hero"
+    },
+    "pendingPayment": null,
+    "lastAttackName": "Over Loop",
+    "attackPower": 5,
+    "defenseValue": 0,
+    "damageDealt": 5,
+    "attackHit": true,
+    "attackGoAgain": false,
+    "cardsPlayedThisTurn": {
+      "1": [
+        "over_loop_red"
+      ]
+    },
+    "hitsThisTurn": {
+      "1": [
+        5
+      ]
+    },
+    "attackActionHits": {
+      "1": 1
+    },
+    "departedChainTypes": {
+      "1": {
+        "1": [
+          "Mechanologist",
+          "Action",
+          "Attack"
+        ]
+      }
+    }
+  },
+  "actual_observed_decisions": {
+    "1": [],
+    "2": [],
+    "3": [],
+    "4": []
+  },
+  "actual_observed_hand_refs": {
+    "1": [],
+    "2": [],
+    "3": [],
+    "4": []
+  },
+  "evidence_bounds": [
+    "Immutablearchive contains actual GameState/DQs/Handrefs and full INITIALsnapshot, not postfailure rawphysicalzones/Stack. Actual error proves p1Deckcount2 at earliesthitboundary. It does not expose physicalDeckIDs/order/Owner/Controller or rawcurrentChain/Stack contents; do not invent those as observed.",
+    "SequentialFCRChecks stop at currentcheck20 after1554prior+20current=1574completedchecks. Current precedingnativechecks establish P1R1/AP0/P4HP15/otherHP20/allotherRAP0/priority1/pass0/combatOpen/pendingPaymentnull/emptyDQs. CurrentDeckUIDproperties and laterStackcount1/sourceABIproperties are unreached, not assertedpass.",
+    "ArchivedactualdamageDealt5/attackPower5/defense0/attackHittrue and departedChainTypes record corroborate a hit and departure. Exactphysical5movedbottomofownerDeck is a causal source inference supported by initialUIDs and compiledcode, not a postfailure rawDeck observation. Missing response window is established by premature observedDeckgrowth against approved retainedsource-beforelayer rule; rawStack0 is not separately observed.",
+    "Actual21inputprefix has realtarget/modal DECLINEboost/Blue6pitch and four primarysource/Attack/DefendPriority/Reaction withP4defenderfinish. Current freshhit-triggerresponses/bottom-onresolution/DAMAGE+RESOLUTION/fullcleanup remain UNREACHED. No incorrectfixture/coverage; olddelayedV1 neverinstalledor executed."
+  ],
+  "causal_source_observation": {
+    "canonical_path": "DevTools\\FaB\\arc_abilities.json",
+    "canonical_file_sha256": "ca670664228ddd31ad2a9475434ecb2bc95b83721503772f091c75239e1aa909",
+    "canonical_Hit_body_sha256": "7ed74fd005aaf939878828979433a80374aea0115a076e2d3d7e2dc5e622b68a",
+    "generated_path": "FaBSim\\GeneratedCode\\GeneratedMacroCode.php",
+    "generated_file_sha256": "1adb9203e51af18ef76111dbcab7a01f15a337a8324b2b18bc182cc5696a99d6",
+    "generated_selected_body_sha256": "faf21d9776f034fd3f47bcce0c4eb951b6106d8efc2e52db39b43e646576cf9e",
+    "game_logic_path": "FaBSim\\Custom\\GameLogic.php",
+    "game_logic_sha256": "7d475db6dcd99f151b41818ad0dca7111329e951af68e97badf943333d927a23",
+    "ARC_destination_helper_path": "FaBSim\\Custom\\ARCCards.php",
+    "ARC_destination_helper_sha256": "542227b196338a40c49f83966d9d2b0979a98676d4c9d39d00b0f5cc9a32323f",
+    "finding": "FaBBeginDamageStep computes/dealsactualhit then synchronously OnHit->FaBRunSourceMacro Hit->actualcompiledOverLoopHit->FaBARCToDeck(false). Helper preserves attackGoAgain LKI then FaBMoveUID Deck immediately, no responseablequeue. This matches nativeDeckgrowth at correctWHEN-hitboundary; it is not the obsoleteoldprint delayedlink expectation."
+  },
+  "expected_rule_scope": [
+    "Current officialErrata5/currentcatalog WHEN-hit creates separateearnedlayer immediatelyathit beforeDamagepriority. Source5/Controller1 retained onChain through freshthree responses; fourthmovesSAME5bottomownerDeck7,5.",
+    "OverLoopeffect has noBoostdependency; optionalBoost wasexplicitlydeclined. Noearlybonus/payment/printedtarget concern is classified. After5leavesChain useLKI/no currentChaincomputedpower/GAassertion and finishnormalDamage/Resolution."
+  ],
+  "primary_evidence": [
+    {
+      "url": "https://fabtcg.com/articles/errata-bulletin-5/",
+      "publication_date": "2022-10-03",
+      "retrieval": "Primary official search-index excerpt retrieved twice; direct full article fetch403. No claim to full-page retrieval.",
+      "paraphrase": "Over Loop updated to When hits put bottom of ownerDeck; Boost remains."
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/06-effects/",
+      "sections": [
+        "6.6.1",
+        "6.6.4",
+        "6.6.5",
+        "6.6.6"
+      ],
+      "finding": "Earned WHEN-hit trigger is a distinct responseable layer before Damage priority."
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/07-combat/",
+      "sections": [
+        "7.5.2a",
+        "7.5.3",
+        "7.5.4",
+        "7.6.2",
+        "7.6.2a",
+        "7.0.3c"
+      ],
+      "finding": "Hit occurs at damage; link resolution later and chainclose separate. After source leaves use chainlink LKI, not source-on-Chain computed APIs."
+    }
+  ],
+  "narrow_repair_recommendation": {
+    "scope": "Named OverLoop WHEN-hit producer/effect only, reusing existing responseabletrigger framework.",
+    "recommendation": "Queue a captured earned hit layer instead of synchronous FaBARCToDeck. Capture actual sourceCardID/UID5/controller1 and owner at earning, retain physicalattack until its own resolver, then move that same UID to bottom of ownerDeck with appropriate current-zone/no-resurrection checks and preserve attackGoAgain/LKI. Preserve existing hit-suppression/cost/Boost paths. Use existing queue/resolver lifecycle, not a globalnonce/freshness/Core/combatrefactor.",
+    "generation_requirement": "Current producer is canonical arc_abilities Hit plus actual compiled closure. Any canonical/builder/bridge correction needs independently reviewed W candidate and existing guarded remote-read/emitter/scope route; no manual generated edit or unreviewed servicewrite. Root alone authorizes/applies/executes.",
+    "native_scope": "Red noBoost reached branch only. Matching siblings may share source family but have no newnative/variant/fullcard credit. No repairproposal/application/nativeafter claimed here."
+  },
+  "execution": {
+    "PHP": false,
+    "native": false,
+    "replay": false,
+    "R_write": false,
+    "source_or_generation": false
+  },
+  "limits": [
+    "Classification uses only reached currentV2hitboundary and exactarchivedevidence; no rawStackabsence/DeckUIDorder invented.",
+    "Correctprobe remains unchanged, no current-outputfitting or obsoleteV1timingrepair.",
+    "Tenold070079holds/SmashItem and parkedconcerns untouched; root alone assignsissueID/ledger/controlcount."
+  ]
+}

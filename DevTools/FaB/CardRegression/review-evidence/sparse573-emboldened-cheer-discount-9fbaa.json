@@ -1,0 +1,382 @@
+{
+  "status": "APPROVED_ACTUAL_SAVED_B573_REAL_CHEER_FREE_DR_AND_DAMAGE",
+  "approved": true,
+  "source_approved": true,
+  "semantically_approved": true,
+  "reviewer": "/root/b106_semantic_review",
+  "reviewer_independent": true,
+  "created_utc": "2026-11-06T05:33:46.364865+00:00",
+  "source_spec": "card-regression-batch573.json",
+  "input_sha256": "b74e4c5b491e0e8284bfd98d25e625fbfc4e1566e82e70a98813d89482fd744f",
+  "manifest_sha256": "285ec9c62ed332982d56584d1729695896a988549010ba7d45cf7d9afd67693c",
+  "runtime_sha256": "9fbaaee63ccedad1dc7cad440f09376d21106a761ce61bad719156bdd7d20709",
+  "recorded_runtime_sha256": "9fbaaee63ccedad1dc7cad440f09376d21106a761ce61bad719156bdd7d20709",
+  "source_guards_verified": 70,
+  "prior_independent_semantic_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch573-independent-source-review.json",
+    "sha256": "1ef17dec3884d12175f779f7cb477bf499023a0133019de76b4ac503e1382c2e"
+  },
+  "recording_receipt": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch573-20261106T052836Z-6aed6584e6604.json",
+    "sha256": "f6e79871d469b52eed9cf9cfd97641e0811f61bdacd8a58358772c012a5c49e7"
+  },
+  "specific_results": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch573.recording-results.json",
+    "sha256": "0064b116b355b6ab08aae04cbfd8e7ecf2bb2a2378faf4b77d869a6a9c31d46b"
+  },
+  "root_wrapper_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch573-native-r1-9fbaa\\receipt.json",
+    "sha256": "57ca62f6f9c75bda18893cfb818ba2563d65cf932b8e9eea99e8abd331ad27f4"
+  },
+  "fixtures": [
+    {
+      "index": 0,
+      "card_id": "emboldened_by_the_crowd_yellow",
+      "group_id": "identity:emboldened_by_the_crowd_yellow",
+      "slug": "card-emboldened-by-the-crowd-yellow-four-live-real-cheer-cost-three-to-zero-and-six-defense",
+      "source_spec": "card-regression-batch573.json",
+      "input_sha256": "b74e4c5b491e0e8284bfd98d25e625fbfc4e1566e82e70a98813d89482fd744f",
+      "reviewer": "/root/b106_semantic_review",
+      "approved": true,
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_CHEER_DISCOUNT_AND_SIX_DEFENSE",
+      "runtime_sha256": "9fbaaee63ccedad1dc7cad440f09376d21106a761ce61bad719156bdd7d20709",
+      "recorded_runtime_sha256": "9fbaaee63ccedad1dc7cad440f09376d21106a761ce61bad719156bdd7d20709",
+      "fixture_path": "Tests\\Integration\\FaBSim\\card-emboldened-by-the-crowd-yellow-four-live-real-cheer-cost-three-to-zero-and-six-defense",
+      "fixture_sha256": "041e9585f70908e43e157a3cd265b43ddbdcee247467e07386e186f52f13ac9f",
+      "raw4_sha256": {
+        "initial_gamestate.txt": "8b4e677814de62b42df576b362c7c89ec3b55df06ee0eb9a3d4bb0812ca7bec7",
+        "actions.json": "d86bf869fcd35caf65fce21c8b4e05ea915291024f1707a044084a329d5b13dc",
+        "assertions.json": "788692973c5c7c13218a2338868624f86fe440067729def42f84a63ab58fdf1e",
+        "expected_final_gamestate.txt": "8f46cad55ce9d60409169a517f2abd16108b8a96be0c7ca10f2415cdfe446bd9"
+      },
+      "raw5_sha256": {
+        "initial_gamestate.txt": "8b4e677814de62b42df576b362c7c89ec3b55df06ee0eb9a3d4bb0812ca7bec7",
+        "actions.json": "d86bf869fcd35caf65fce21c8b4e05ea915291024f1707a044084a329d5b13dc",
+        "assertions.json": "788692973c5c7c13218a2338868624f86fe440067729def42f84a63ab58fdf1e",
+        "expected_final_gamestate.txt": "8f46cad55ce9d60409169a517f2abd16108b8a96be0c7ca10f2415cdfe446bd9",
+        "meta.json": "690eaf73e65790e7ba8ec9c87d6248d17105515a1c89592fd582566371bdb6aa"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "8b4e677814de62b42df576b362c7c89ec3b55df06ee0eb9a3d4bb0812ca7bec7",
+        "actions.json": "d86bf869fcd35caf65fce21c8b4e05ea915291024f1707a044084a329d5b13dc",
+        "assertions.json": "788692973c5c7c13218a2338868624f86fe440067729def42f84a63ab58fdf1e",
+        "expected_final_gamestate.txt": "8f46cad55ce9d60409169a517f2abd16108b8a96be0c7ca10f2415cdfe446bd9",
+        "meta.json": "690eaf73e65790e7ba8ec9c87d6248d17105515a1c89592fd582566371bdb6aa"
+      },
+      "actions": 46,
+      "native_assertions": 4318,
+      "actual_manual_passes": 40,
+      "actual_priority_response_passes": 39,
+      "actual_defender_declaration_finish_inputs": 1,
+      "actual_administrative_END_PHASE_passes": 0,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4
+      ],
+      "actual_manual_actor_counts": {
+        "1": 10,
+        "2": 10,
+        "3": 10,
+        "4": 10
+      },
+      "schema_property_assertions": 1674,
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "all_actions_and_assertions_exact": true,
+      "no_recorder_only_assertions": true,
+      "all_endpoint_physical_uid_card_zones_ownership_verified": true,
+      "all_terminal_assertions_evaluated_against_parsed_final_snapshot": true,
+      "initial_assertions_also_evaluated_against_parsed_initial_snapshot": true,
+      "initial_physical_uid_locations": {
+        "1": {
+          "card_id": "dorinthea",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "prime_the_crowd_blue",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "8": {
+          "card_id": "raging_onslaught_red",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "9": {
+          "card_id": "driving_blade_blue",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3
+        },
+        "4": {
+          "card_id": "pleiades",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4
+        },
+        "5": {
+          "card_id": "emboldened_by_the_crowd_yellow",
+          "zone": "p4Hand",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_physical_uid_locations": {
+        "1": {
+          "card_id": "dorinthea",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "prime_the_crowd_blue",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "8": {
+          "card_id": "raging_onslaught_red",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Pitch",
+          "owner": 1,
+          "controller": 1
+        },
+        "9": {
+          "card_id": "driving_blade_blue",
+          "zone": "p1Pitch",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3
+        },
+        "4": {
+          "card_id": "pleiades",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4
+        },
+        "11": {
+          "card_id": "confidence",
+          "zone": "p4Arena",
+          "owner": 4,
+          "controller": 4
+        },
+        "5": {
+          "card_id": "emboldened_by_the_crowd_yellow",
+          "zone": "p4Graveyard",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_physical_uidset": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        11
+      ],
+      "actual_Prime_UID": 6,
+      "actual_Prime_resource_cost": 2,
+      "actual_first_pitch_UID": 7,
+      "actual_Prime_GA_refund": 1,
+      "actual_Hero_trigger_controller": 4,
+      "actual_Hero_trigger_source_UID": 4,
+      "virtual_Hero_layer_UID_unpinned": true,
+      "new_Confidence_UID": 11,
+      "new_Confidence_Owner": 4,
+      "new_Confidence_Controller": 4,
+      "actual_Raging_UID": 8,
+      "actual_second_pitch_UID": 9,
+      "actual_Raging_resource_cost": 3,
+      "actual_attack_power": 9,
+      "actual_primary_printed_resource_cost": 3,
+      "actual_primary_resource_cost": 0,
+      "actual_primary_AP_cost": 0,
+      "actual_primary_UID": 5,
+      "actual_primary_DEF": 6,
+      "actual_physical_damage": 3,
+      "final_health": [
+        20,
+        20,
+        20,
+        17
+      ],
+      "final_resources": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_GY1_exact_UIDset": [
+        6,
+        8
+      ],
+      "final_GY4_exact_UIDset": [
+        5
+      ],
+      "final_Pitch1_exact_UIDs": [
+        7,
+        9
+      ],
+      "final_Arena4_exact_UIDs": [
+        11
+      ],
+      "final_UniqueIDCounter": 11,
+      "RandomCounter": 0,
+      "checkpoint_assertion_mapping_sha256": "5cac92cdb16ecd67be82662110c83a62ebf44b3f927c7e3e242e16ddd9d20c79",
+      "native_action_mapping_sha256": "a6513397b7f261c4a205c9866f1b5039d3dd5f2749cf0d8fdcf7407575564ed6",
+      "native_assertion_mapping_sha256": "fe7a69e5f0b1b12bd9d60d668886b5da97299d98b0e3dffcbbc1f9521302571e"
+    }
+  ],
+  "blocked_attempts": [],
+  "total_actions": 46,
+  "total_native_assertions": 4318,
+  "total_manual_passes": 40,
+  "total_priority_response_passes": 39,
+  "total_defender_declaration_finish_inputs": 1,
+  "total_schema_property_assertions": 1674,
+  "material_findings": [
+    "Actual nativeCOMPLETE0/stderr0/newfixture1at9fbaa, exactrawfive/46nativeenvelopes4318orderedchecks1674properties/40manual(10each)/48rawpreferences perendpoint and70sourceguards verified. No initialCheer/token/history/discount/AP/resource seed.",
+    "RealPrime6printed2 usesactualWoundingBlue7pitch3andAP1\u2192R1AP0. Primecompletion refundsownGAAP1 and earnsactualP4PleiadesHero4/controller4layer. Freshfouractualactors1/2/3/4retainnoConfidencefirstthree; onlyfourthcreatesnewownedcontrolled4readyConfidence11. Prime/controller1isnottheHerotriggersource.",
+    "RealRaging8spendsearnedAP; actualsecondDrivingBlue9pitch3plusfloating1pays3\u2192R1AP0, actualprinted7+Prime2=current9/noGA. DuringactualReactionP4priorityafterthreepasses, primary5printed3 playsatR0/AP0/Handonly5becauseactualCheerTHISturnreduces3to0. ItremainsrealDRStackthroughfresh4/1/2/3thenjoinsFromHandasDEFENSE_REACTION6.",
+    "Actualphysical9minus6=3damage/P4HP17; noGArefund. Fullcloseprimary5GY4/Prime6andRaging8exactGY1UIDset{6,8}/firstBlue7secondBlue9Pitch1/Confidence11retained. Originalphysical1..9plusonlynewphysical11conserved/allHeroesrawunchanged/counter11RNG0/R1AP0/fullStackchainDQpaymentawaitquiet.",
+    "Current092/source1ef factsreusedwithoutunchangedsourceaudit. No P4ownstart, Confidencefutureeffect/Pleiadesactivation/supportprimary/alternativecostcondition/sibling/fullcardcredit orRootreplayclaim. VirtualHero-layeridentity/privatepayloadisnotinvented."
+  ],
+  "primary_sources": [
+    {
+      "url": "https://judge.fabtcg.com/cards/detail/4491/",
+      "scope": "Current primary printed3/DEF6/cheered-this-turn cost reduction independently retrieved."
+    },
+    {
+      "url": "https://judge.fabtcg.com/cards/detail/4279/",
+      "scope": "Current BluePrime printed2/+2/eachReveredCheer/eachReviledBoo/ownGA independently retrieved."
+    },
+    {
+      "url": "https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/APS002.webp",
+      "scope": "Hash-bound publisherPleiades youngReveredGuardian20/mandatoryCheerWHEN independently viewed locally."
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/08-keywords/",
+      "rules": [
+        "8.5.57",
+        "8.1.3",
+        "8.3.5a"
+      ],
+      "scope": "Receiving player is cheered; legal own-hero defense reaction and nonattack go-again completion."
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/06-effects/",
+      "rules": [
+        "6.6.5"
+      ],
+      "scope": "Earned mandatoryWHEN creates separate triggered layer."
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/",
+      "rules": [
+        "5.1",
+        "5.3"
+      ],
+      "scope": "Real asset payment then completed effects/independent responseable layers."
+    }
+  ],
+  "limits": [
+    "One actual this-turn Cheer discount3to0/DR6/physical3damage branch. No falsecostcondition/other pitches/expiry/generalCheer matrix, alternate hero/menu/Helm/Charm/Shining producer, Confidence futureownstart, Pleiadesactivation/support/sibling/full-card certification.",
+    "Actual first funding isWoundingBlueUID7; second isDrivingBlueUID9, bothlegalpitch3. Root shorthand did not change frozen recipe or support legality.",
+    "Existing092 capturedHero route/source/currentruntime reused; no legacy native rerun, general untestedHero branch or synchronousPrime internal source-lifetime certification.",
+    "Only actualorderedassertionledgerandfullinitial/finalstatesobserved; no per-input rawsnapshot/private instrumentation. RawundoVersionshash-bound,excludedfromcurrentphysicalUIDinventory.",
+    "Roottwofocusedreplaysandregistrationremainseparate. No reviewerPHP/native/replay/R/source/fullsuite/deniedoperation."
+  ],
+  "blockers": [],
+  "actual_comparison_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov6_batch573_saved_readonly.py",
+    "sha256": "b7c0dc790bcf7279f9d49104c86056342e0fdacc3cd8983af4b351ba19d63519"
+  }
+}

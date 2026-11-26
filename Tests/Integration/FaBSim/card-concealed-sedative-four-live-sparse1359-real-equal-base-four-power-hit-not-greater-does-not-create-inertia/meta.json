@@ -1,0 +1,7 @@
+{
+    "name": "Concealed Sedative / qualifying-hit condition false; cloaked equipment retained",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-24T11:12:27+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "FOUR_REAL_MANUAL_UPF_NATURAL_DORI20ACTOR_TWOOTHERDORI20_LEXI20DEFENDER4. RealownedcontrolledcloakedRangerChest7equippedFaceDown1/Status2; notdefending/activated/flipped. ActualGenericWounding5cost0/AP0/base4/noGAdeclaresHero4/allfourresponses/actualunblocked4damageHP16. NerveGasrequiresgoAgainandattackdoesNOThaveit; Sedativerequirespowergreaterthanbasebutactual4equalsprintedbase4. Actualhitdoesnotmakeeitherconditiontrue. Correctconditionfalse/noearnedtrapWHEN; sameFD1Chest7survives/allHeroArena0/noFrailty/Inertia/Pox/destruction/extraUID/RNG/damage. Fullcloseprimaryequipment7stillEquipped4/Wounding5GY1/Potion6Hand0/H1HP20/actuallegal0PotionconsumerrejectsAP0withoutchanges/UID7/allresources0/AP0/StackDQCCquiet. Onlyfalsehitcondition/nativefourdamage/Cardtype-versus-windowguard/physicalfates; positivequalifyinghit/destruction/tokencreation/WHENtiming/targetandownershipmatrix/Hero/support/siblings/fullcarduncredited. Sources: FaBSim/GeneratedCode/cardArrayCache.json#concealed_sedative FaBSim/GeneratedCode/GeneratedMacroCode.php FaBSim/Custom/GameLogic.php FaBSim/Custom/PENCards.php FaBSim/Custom/MSTCards.php FaBSim/Custom/OUTCards.php FaBSim/Custom/WTRCards.php FaBSim/Custom/ARCCards.php"
+}

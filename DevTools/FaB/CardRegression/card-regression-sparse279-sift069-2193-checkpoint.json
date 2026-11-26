@@ -1,0 +1,75 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-03T15:00:05.445243+00:00",
+  "runtime_sha256": "2193d53b1dff3b62f59a0fc2d1de83e95653f9973a587dfb9e6a3cc637b5e26b",
+  "source_spec": "card-regression-batch279.json",
+  "source_spec_sha256": "a64ee42f2fa13e3ea16365fd3874102144c1d6cd6e30855a43bc284362648c5e",
+  "new_scenarios": 1,
+  "new_groups": 1,
+  "new_primary_ids": 1,
+  "actions": 34,
+  "native_assertions": 3079,
+  "manual_passes": 29,
+  "totals": {
+    "saved_registered_scenarios": 3626,
+    "duels": 3074,
+    "four_live": 552,
+    "recorded_primary_ids": 781,
+    "identity_denominator": 5196,
+    "recorded_groups": 655,
+    "group_denominator": 3324,
+    "four_live_groups": 546,
+    "phase_qualified_scenarios_at_actual_contexts": 263,
+    "phase_qualified_unique_groups": 259,
+    "creation_replay_passes": 526,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 1,
+  "scenarios": [
+    {
+      "card_id": "sift_red",
+      "group_id": "pitch-cycle:sift",
+      "scenario_id": "card-sift-red-four-live-correct-probe-real-two-card-bottom-draw-retains-source-before-go-again-followthrough",
+      "effect_branches": [
+        "sift-red-four-live-correct-probe-real-two-card-bottom-draw-retains-source-before-go-again-followthrough"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-sift-red-four-live-correct-probe-real-two-card-bottom-draw-retains-source-before-go-again-followthrough",
+      "source_spec": "card-regression-batch279.json",
+      "source_spec_sha256": "a64ee42f2fa13e3ea16365fd3874102144c1d6cd6e30855a43bc284362648c5e",
+      "review_evidence": "review-evidence/sift069-saved-2193-independent-review.json",
+      "review_evidence_sha256": "0ab6453163356c5545d65e50078490a0218e5b2a11b260d238d58d686a783717",
+      "recorded_runtime_sha256": "2193d53b1dff3b62f59a0fc2d1de83e95653f9973a587dfb9e6a3cc637b5e26b",
+      "qualification_runtime_sha256": "2193d53b1dff3b62f59a0fc2d1de83e95653f9973a587dfb9e6a3cc637b5e26b",
+      "matches_current_runtime": true,
+      "two_clean_replays": [
+        {
+          "path": "card-regression-replay-nov3-sift069-2193-r1.json",
+          "sha256": "57959dfcf92ad35ff71523f950bd1898c56e7abc240c0c4c17d373c2567419c6",
+          "runtime_sha256": "2193d53b1dff3b62f59a0fc2d1de83e95653f9973a587dfb9e6a3cc637b5e26b",
+          "passed": true
+        },
+        {
+          "path": "card-regression-replay-nov3-sift069-2193-r2.json",
+          "sha256": "5f6ac67063e75b53cae3a8e628afa497523cdd868e5ab11e209b3dcc6b120763",
+          "runtime_sha256": "2193d53b1dff3b62f59a0fc2d1de83e95653f9973a587dfb9e6a3cc637b5e26b",
+          "passed": true
+        }
+      ],
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": [
+    "card-spell-fray-cloak-four-live-sparse-real-static-spellvoid-destroy-prevents-one-of-three-arcane"
+  ]
+}

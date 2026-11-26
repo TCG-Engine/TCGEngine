@@ -1,0 +1,117 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "breadth_review independent source/semantic review",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse949-20261122.json",
+  "source_spec_sha256": "e1fdcabf892ee84f7bb60af35a443e652c566673a4f87009de7654d5bc741af7",
+  "input_sha256": "e1fdcabf892ee84f7bb60af35a443e652c566673a4f87009de7654d5bc741af7",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-annexation-of-all-things-known-yellow-four-live-sparse949-actual-two-blue-payment-unblocked-damage-against-non-guardian",
+      "card_id": "annexation_of_all_things_known_yellow",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "68430162cc1bced4de153c8e0a1a07f4826eff03f47ae497d3cab8fb96551200",
+        "actions.json": "e22a6cb0fbc57b85cb4c085dff11ef900ce5afc681d1998045a7b38700519346",
+        "assertions.json": "33c8fd1ca2ff125c4b07482a7cd6ae470e5d5e9612133fe1c518d14227701178",
+        "expected_final_gamestate.txt": "46548b2a23b80cacd7ba9568cd2daa618b22dbb83f9a730fccae1f0a3dc1ef22",
+        "meta.json": "80906b2186f0cbc857d638aebdd67d6fc260232dba72c6ce71e80563d533c9ec"
+      },
+      "fixture_sha256": "9e6fdbaf25cabf78a648648d458289bab25347d1c05413e16e83e16e48a07365",
+      "actions": 29,
+      "native_assertions": 151,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse949-20261122.json",
+      "input_sha256": "e1fdcabf892ee84f7bb60af35a443e652c566673a4f87009de7654d5bc741af7",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse949-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-annexation-of-all-things-known-yellow-four-live-sparse949-actual-two-blue-payment-unblocked-damage-against-non-guardian",
+        "fixture_slug": "card-annexation-of-all-things-known-yellow-four-live-sparse949-actual-two-blue-payment-unblocked-damage-against-non-guardian",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-blinding-of-the-old-ones-red-four-live-sparse949-actual-two-blue-payment-unblocked-damage-against-non-guardian",
+      "card_id": "blinding_of_the_old_ones_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "cb02ca44e260324b4bb9e6f969920d42d3f747bbad1327b4f383b6da547b036f",
+        "actions.json": "e22a6cb0fbc57b85cb4c085dff11ef900ce5afc681d1998045a7b38700519346",
+        "assertions.json": "6593fe364a94bb97a2d83ea90f0fe61eb240cb238c8364f3ab05d45ebfbc7985",
+        "expected_final_gamestate.txt": "99acda7e0dce78ab86d0a6fffe7d67437410f50251f435da7b9521fa06a8818b",
+        "meta.json": "8e759670700a53751580b1106cd8cf1e155fcbe481bec55455a423718f4cfab8"
+      },
+      "fixture_sha256": "b3068c60c90594b259e30ac0faf0bb0deb0acfa28118c8e69b8d10d4a8d972e3",
+      "actions": 29,
+      "native_assertions": 151,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse949-20261122.json",
+      "input_sha256": "e1fdcabf892ee84f7bb60af35a443e652c566673a4f87009de7654d5bc741af7",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse949-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-blinding-of-the-old-ones-red-four-live-sparse949-actual-two-blue-payment-unblocked-damage-against-non-guardian",
+        "fixture_slug": "card-blinding-of-the-old-ones-red-four-live-sparse949-actual-two-blue-payment-unblocked-damage-against-non-guardian",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-disenchantment-of-the-old-ones-red-four-live-sparse949-actual-two-blue-payment-unblocked-damage-against-non-guardian",
+      "card_id": "disenchantment_of_the_old_ones_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "690e7ae6706baa0895b581ac79e8992af9c8ed8b196cf60954b109f76d457375",
+        "actions.json": "e22a6cb0fbc57b85cb4c085dff11ef900ce5afc681d1998045a7b38700519346",
+        "assertions.json": "58e0b5ce103e4fc31ee25bf4a3237af590c3aaa3fef5fb455422f95182c50d5a",
+        "expected_final_gamestate.txt": "09bc9ed420874e327ec36d66884a3093008a68a536b099f75fe23c3005a6d4e7",
+        "meta.json": "f24091dac14cdf99bd26735aeffd71b2acd4633325a37cf2425a264c237102df"
+      },
+      "fixture_sha256": "a3e592320e6d6e6ea9b109ea88b7bd5e2b71c0673f701d088652615556e6eb8e",
+      "actions": 29,
+      "native_assertions": 151,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse949-20261122.json",
+      "input_sha256": "e1fdcabf892ee84f7bb60af35a443e652c566673a4f87009de7654d5bc741af7",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse949-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-disenchantment-of-the-old-ones-red-four-live-sparse949-actual-two-blue-payment-unblocked-damage-against-non-guardian",
+        "fixture_slug": "card-disenchantment-of-the-old-ones-red-four-live-sparse949-actual-two-blue-payment-unblocked-damage-against-non-guardian",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "spec_sha256": "e1fdcabf892ee84f7bb60af35a443e652c566673a4f87009de7654d5bc741af7",
+    "reviewer": "breadth_review independent source/semantic review",
+    "basis": [
+      "Cached Guardian attacks cost5/6/6 and power8/10/10. Bravo20 is legal; target Dorinthea20 is Warrior, not Guardian. Printed Crush event specifically requires4+ damage to a Guardian hero, so that typed event is absent despite actual8/10 damage. It is not an unconditional hit event with a later IF.",
+      "Generated hit handlers explicitly gate Guardian hero type before permission, suppression or aura destruction. No own Hero ability or Heave route is activated. Physical target facedown NAA Arsenal8 is retained.",
+      "Native target before assets; two actual Blue6/7 pitches. First leaves R3/AP1 while insufficient; final payment leaves R1/0/0 and AP0. Full four-seat manual combat, natural HP, actual base damage, unchanged marker and owned source5 graveyard guards. Configured initial counts and UIDs are consistent."
+    ],
+    "limits": [
+      "Only main play/two-pitch payment and non-Guardian type exclusion. No positive Guardian Crush permissions/suppression/destruction, Heave, siblings, or whole-card certification. Aura destruction absence is vacuous with no auras. Native execution/replay pending."
+    ]
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse949-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "4fd289b2eecfc552cd3ad576f9fbb59cae9107b0cedb4cd1c08cce4d8944cef6"
+  },
+  "full_suite_run": false
+}

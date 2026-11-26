@@ -1,0 +1,79 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-blossoming-spellblade-red-four-live-sparse1298-real-unfused-attack-no-fused-only-arcane-or-go-again",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-blossoming-spellblade-red-four-live-sparse1298-real-unfused-attack-no-fused-only-arcane-or-go-again",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1298-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1298-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "89b72c572c4f68929f735a7752ce5d611d6f0ff35d95ae0a67c656f9f2db95b7",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "89e7719288e5f7e7b37139c5e4c798dae61aad0062117fb1b5ead5c25c5874b1",
+        "actions.json": "1ef1359f0cb6a63079e6f6cd368d56bb483cc14d047b770aadf86c15dfedfbeb",
+        "assertions.json": "f68bbd6d33d614ccf690fc58577ea03bd18de08e4e5b0b8b879f7d3616f4822b",
+        "expected_final_gamestate.txt": "58be0c2f8f5e02c1d59d5b158da6373ba5404be2bef70c53d73f053aa2e60261",
+        "meta.json": "4e046d8c28f70eaa74804b595351368914e92927a3430f1df2da4c9f4d9fb4a6"
+      }
+    },
+    {
+      "slug": "card-rites-of-lightning-red-four-live-sparse1298-real-unfused-attack-no-fused-only-arcane-or-go-again",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-rites-of-lightning-red-four-live-sparse1298-real-unfused-attack-no-fused-only-arcane-or-go-again",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1298-local-20261122\\clean-replays\\01.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1298-local-20261122\\clean-replays\\01.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "d60c1195df8d4177e086158f6817ef5e69d99396fe7940ceb59877cdff621313",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "e2bbfbfd9d61e16b14b8dc358f5d6ec83c0b3eb9d36caa6b18d1c53a9e202baa",
+        "actions.json": "1ef1359f0cb6a63079e6f6cd368d56bb483cc14d047b770aadf86c15dfedfbeb",
+        "assertions.json": "8eedeae70e6b4dc0183dd5891bfab541e4eaeb2ee549267221362b4231b13dcf",
+        "expected_final_gamestate.txt": "9bb28e45b996b6b6b337370b86c4a128f7f0a6082dd34212b1dbab26a0d2f800",
+        "meta.json": "db4fb5b1daabafa0220ea203f00ac17fbe97a252944fcd2caf8f31fc07629b1e"
+      }
+    },
+    {
+      "slug": "card-chilling-icevein-red-four-live-sparse1298-real-unfused-attack-no-fused-only-discard-tax",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-chilling-icevein-red-four-live-sparse1298-real-unfused-attack-no-fused-only-discard-tax",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1298-local-20261122\\clean-replays\\02.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1298-local-20261122\\clean-replays\\02.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "50026dcd2abb664a319c23c9483a5e8dbd2041ce0a55c869c704fc1fb8210ea6",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "cc3d7fe75936e6ab987f2b91077dc1e944f457a8f7937e41ab170266714d52cc",
+        "actions.json": "b96e8c04efb76e5837c8044bbe521bb58679cd607490b707f44b4b59901b066f",
+        "assertions.json": "b5035bcac1cd45bf4709e1f11ad03ff47b3281838b6626e7710cc910eca6cc09",
+        "expected_final_gamestate.txt": "2a64e424cfe4c98da0f03225815e120522072cbd25bab10b065044e77b28758b",
+        "meta.json": "0951f8e475179c4fcfe6b2ed016a6277978c7730843ed06eeadff4a725c1c7dc"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

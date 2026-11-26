@@ -1,0 +1,27 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-repair-disable119-crush-response.json",
+  "runtime_sha256": "1b86c87d01c4892c664d94ab2a193064ab3274b5594215cc988dc88ffc18f76a",
+  "returncode": 0,
+  "completed_utc": "2026-11-17T04:40:51.885207+00:00",
+  "fixtures": [
+    {
+      "slug": "card-disable-red-four-live-original-current-crush-when-keeps-arsenal-through-fresh-trigger-before-owner-deck-bottom",
+      "fixture_sha256": "7a710cb0a636f5f36edd15ad21f9aa730b215961b6891b274802e2b7d997dfea",
+      "passed": true,
+      "result": "[PASS] disable_red / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-disable-red-four-live-original-current-crush-when-keeps-arsenal-through-fresh-trigger-before-owner-deck-bottom",
+      "returncode": 0,
+      "stdout": "[PASS] disable_red / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

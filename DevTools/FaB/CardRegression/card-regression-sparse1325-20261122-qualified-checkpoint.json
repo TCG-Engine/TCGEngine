@@ -1,0 +1,68 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-24T06:11:50.863646+00:00",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1325-20261122.json",
+  "source_spec_sha256": "7d3e5443bdf32750b473154eef989409c7baf7a831de26c5320ad46b6face228",
+  "new_scenarios": 1,
+  "new_groups": 1,
+  "new_primary_ids": 1,
+  "actions": 20,
+  "native_assertions": 342,
+  "manual_passes": 15,
+  "totals": {
+    "saved_registered_scenarios": 5278,
+    "duels": 3101,
+    "four_live": 2177,
+    "recorded_primary_ids": 2426,
+    "identity_denominator": 5196,
+    "recorded_groups": 2300,
+    "group_denominator": 3324,
+    "four_live_groups": 2166,
+    "phase_qualified_scenarios_at_actual_contexts": 1915,
+    "phase_qualified_unique_groups": 1905,
+    "creation_replay_passes": 2657,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 1076,
+  "scenarios": [
+    {
+      "card_id": "maxx_the_hype_nitro",
+      "group_id": "identity:maxx_the_hype_nitro",
+      "scenario_id": "card-maxx-the-hype-nitro-two-live-sparse1325-earned-boost-funds-paid-two-steam-token-and-real-crank",
+      "effect_branches": [
+        "adult_duel_actual_printed_boost_earns_action_refund_then_real_hero_payment_creates_two_steam_token_and_crank_removes_one_for_one_action"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-maxx-the-hype-nitro-two-live-sparse1325-earned-boost-funds-paid-two-steam-token-and-real-crank",
+      "source_spec": "card-regression-sparse1325-20261122.json",
+      "source_spec_sha256": "7d3e5443bdf32750b473154eef989409c7baf7a831de26c5320ad46b6face228",
+      "review_evidence": "review-evidence/sparse1325-20261122-qualified-saved.json",
+      "review_evidence_sha256": "1e33554d0bb6e83594814eb9a37b9c4b2d6108a4e1ac6e5f9b886871e5564d1f",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1325-20261122-replay.json",
+          "sha256": "eb185795a533c93021a0bc3e2cde14caf4214a753d50623dbb63b636d6ea1450",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "two_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

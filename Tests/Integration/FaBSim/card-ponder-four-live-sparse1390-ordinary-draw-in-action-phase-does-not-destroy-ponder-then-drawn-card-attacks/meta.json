@@ -1,0 +1,7 @@
+{
+    "name": "Ponder / ordinary draw in action phase does not destroy ponder then drawn card attacks",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-24T13:55:54+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "FOUR_REAL_MANUAL_UPF_KANO15_THREEDORI20. PriorPonder5validposition(noorigincredit), Luck6Arena+realWounding7faceDownArsenal/HandDeckempty. NativeLuckInstant0Destroy6GYpreservesAP1\u2192ABI8SourceArena6,all4responses: actualArsenal7shuffledtosingletonDeckthenDRAW1same7Hand/noRNG. OrdinaryDrawduringexistingACTIONisNOTbeginningownEndphase; Ponder5remainsArena/notdestroyed/noitsdraw/extraability. Actuallydrawn7playedAA0toadjacent4,all4manualwindows/base4/noGA/AP0/real4damageP4HP16/fullclose. SamePonder5Arena/Potion6GY0/drawn7GY1/HandDeckArsenalempty/UID8RNG0/KanoHP15/others20/AP0/R0/quietStackDQ. No positivefutureEndDestroy/draw/timing/tokenproduction/support/history/fullcardcredit; noenginechange. Sources: FaBSim/GeneratedCode/cardArrayCache.json#ponder FaBSim/GeneratedCode/GeneratedMacroCode.php FaBSim/Custom/GameLogic.php FaBSim/Custom/CardChoices.php FaBSim/Custom/ARCAbilities.php FaBSim/Custom/EVRAbilities.php FaBSim/Custom/MONAbilities.php FaBSim/Custom/MONCards.php FaBSim/Custom/WTRCards.php"
+}

@@ -1,0 +1,92 @@
+{
+  "id": "FAB-REG-119",
+  "status": "CONFIRMED_NATIVE_BEFORE_CRUSH_INLINE_WITHOUT_RESPONSEABLE_TRIGGER",
+  "reviewer": "/root/b105_semantic_review",
+  "reviewer_independent": true,
+  "independent_review_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch468-disable-independent-native-before-classification.json",
+  "independent_review_sha256": "38b79129502ebf6396db65eac3607c0b6ed5773ab827e6462589a65585c96cbd",
+  "runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+  "source_spec": "card-regression-batch468-v3.json",
+  "input_sha256": "e09911356f055e7dd179f20d89ef68b2492cdd8614139926787a3dd0db1a3e84",
+  "scenario_id": "card-disable-red-four-live-original-current-crush-when-keeps-arsenal-through-fresh-trigger-before-owner-deck-bottom",
+  "first_failure": {
+    "source_case_index": 0,
+    "source_step_index": 42,
+    "native_input_count": 21,
+    "last_accepted_action": {
+      "playerID": 4,
+      "mode": 10001,
+      "cardID": "!CustomInput!Pass",
+      "buttonInput": "",
+      "chkInput": [],
+      "inputText": ""
+    },
+    "check_ordinal_in_checkpoint": 24,
+    "ordered_source_check_ordinal": 1708,
+    "preceding_successful_source_check_count_from_failfast_order": 1707,
+    "check": {
+      "type": "zone_count",
+      "zone": "Stack",
+      "value": 1
+    },
+    "expected": 1,
+    "actual": 0,
+    "error": "Expected Stack count 1, got 0."
+  },
+  "actual_native_prefix": {
+    "accepted_inputs": 21,
+    "manual_passes": 17,
+    "manual_pass_actor_counts": {
+      "1": 4,
+      "2": 4,
+      "3": 4,
+      "4": 5
+    },
+    "remaining_inputs_not_run": 12,
+    "remaining_source_checks_not_run": 1233
+  },
+  "passed_first23_checks_at_failure": "TurnPlayerpriority1/pass0/combatOpen; allHP20exceptP4actual11/P1R1AP0/allotherRAP0/DQsallEmpty/noPayment/P1DeckTempEquipment0. Next24Stackcount1failsactual0. CurrentChainidentity/sourceABI/Deck9/Arsenal8retention/power/noGA/counter/Chi/live/herostatuschecksafter24NOTexecuted.",
+  "observed_damage": "RecordedDAMAGE/combatStepDAMAGE/open/link1/attack5/P4target, attackPower9/defense0/damageDealt9/hittrue/hitsThisTurn1[5]; actualP4health11passedcheck16frominitial20, priorfreshpower9passed40. ThisisrealcalculatedDamageStep, unlikepreDamageattackPowercache0; howevercurrentexplicitdamageDealt/hit/defensechecks63..65notrunandarelabelledrecordedstate.",
+  "physical_arsenal_and_layer_evidence_limit": "Initialrawcapturesphysical8WoundingRedP4ArsenalFaceDown1OwnerController4/Deck9WoundingBlueOwnerController4. BoundaryStack0isactualnativecountfailure; currentArsenal8andDeckorderchecksunreachedandnofullpostfailzonescapture. ActualobservedstatearcCards8permissionresetisnotDecklocationproof. Inline8toDeckbottompathisSOURCE-DERIVEDonly; no directpostfail8Deckrow/order claim. NoactualCrushchooserorresponseablelayerrecorded/observed; directselectedsourcebranchdoesnotproduceone, ratherthanprematureremovalofaproducedlayer.",
+  "classification": "CONFIRMED_NATIVE_CRUSH_EFFECT_RESOLVES_INLINE_WITHOUT_RESPONSEABLE_TRIGGER_LAYER",
+  "bounded_source_cause": "FaBBeginDamageStep calculates9power-0defense/DoDamage and hit dispatch; OnHit callsFaBWTRHit(player1,physical5,amount9). WTRHit756 usesamount>=4thenFaBWTRCrush(1,defender4,5)insidecurrenthit/suppression gate. WTRCrush781selecteddisable branch directlyiteratesArsenal4andFaBMoveUID(firstcard,Deck,4), noFaBROSQueue/AddStack/ResolveAbility/chooser. Initialsolecard8+noearlierArsenalactionsandrecordedarcCards8move-resetcorroborationareconsistentwith8movingimmediately. Thisisboundedsource-derivedeffectpath, notfullpostfailrawDeckcapture. ExistingROSQueuepatternwouldproducecapturedresponseablelayerbutwasnotusedbythisbranch; no assertionofanexistinglayerprematurelyremoved. NativeStack0+actual9damagequalifiesandconfirmsmissingCrushresponseboundary, irrespectiveofuncapturedphysicalbottomstate. No sourcefix/proposal/workaroundprovided.",
+  "selected_source_file_sha256": {
+    "FaBSim/Custom/GameLogic.php": "1cdad1555c8d2e3bd3fa98d69bf52791b84d21bf2269363ddea7249f4ee35a43",
+    "FaBSim/Custom/WTRCards.php": "eab18b7298617eabc10f5b5cf4d706b1c6cb242d7470049d6807806b4ba7b517",
+    "FaBSim/Custom/ROSCards.php": "881b788c96ac6fe7382461b82c23c0fc28a40c393f92784401bf5d8955ae8dfa",
+    "Core/DecisionQueueController.php": "65bfcf5b4f595d62d6dfb8bde0b884de42cd1a726618b5431fccf8939eed9a9d"
+  },
+  "source_guards_verified": 69,
+  "native_evidence": {
+    "native_recording_results": {
+      "path": "card-regression-batch468-v3.recording-results.json",
+      "sha256": "24068b7d5c025d88439b217509aca89fc685e379d1c8fae6a6e657f2be8f546a"
+    },
+    "immutable_native_archive": {
+      "path": "recording-runs\\card-regression-batch468-v3-20261105T131415Z-6aec8127e8f04.json",
+      "sha256": "dcadaa88a657c6dbc0cda4fa3a862645691910f0810ff1d2417a181579101e04"
+    }
+  },
+  "primary_sources": {
+    "current_card": "https://judge.fabtcg.com/cards/detail/161/",
+    "keywords": "https://rules.fabtcg.com/en/cr/08-keywords/",
+    "effects": "https://rules.fabtcg.com/en/cr/06-effects/",
+    "combat": "https://rules.fabtcg.com/en/cr/07-combat/",
+    "meaning": "CurrentDisableCrushWHENthisdeals4+damagehero. CR8.4.2 triggered-static/8.4.2adamageevent;6.6.5createstriggeredlayerand6.6.6addsStackbeforepriority; effectonlygeneratedwhenlayerresolves6.6.1d. NineactualdamageP4HP11meetscondition, no prevention/suppression/alternatehit. CR7.5.3turnplayerpriorityfreshfourcanrespond; Arsenal8mustremainuntilresolution. OldWTR048IFfaceisnotcurrenttimingauthority. V3priority1stopendsafterexactfourthReactioninput, cannotautopasscorrecttriggerround."
+  },
+  "limits": [
+    "NO fixture/finalraw5/passingcoverage. OriginalV3 strict33actions2941checks preserve freshresponseableCrush/Arsenal8retention/fourthbottom[9,8]/fullcleanup. Source42checks25..91 and12laterinputs/1233laterchecks unexecuted; no freshCrushresponses/bottomDeck order/fullcleanup outcomes certified.",
+    "ObservedrawboundarycontainsGameState/DQs/HandRefs/initialbytes only, NOTfullpostfailureArsenal/Deck/Stackphysicalrows. Stack0directlyestablishedbyfailednativezone-count; HP11passedbeforefailure. Source-derivedinlineArsenal8Deckmoveclearlylabelled; no native-observedfinalDeck2/order[9,8]/FaceDownstateorcurrentUIDcounterclaim.",
+    "No existingtriggerwasobservedprematurelyremoved. BoundedsourceDisableCrushbranchcallsdirectmovewithoutqueue/chooser; nopriortriggerresponseinputsoccurred. Failureconfirmsmissingresponseabletriggeratboundary, not094asyncawaitcompletion/source-layer-lifetime defect.",
+    "SinglepositiveRed9damage/soleArsenalownedvictimrouteonly. No exact4threshold/falseCrush/multipleArsenal/foreignowner/otherCrush/suppression/retarget/hero/support/sibling/fullcard/totalcatalogue/controlqualification. Root alone issue119 allocation; no reviewer global/Core/rootcount allocation.",
+    "No PHP/native/rerun/companion/continuedsuffix/R/sourcefix/gen/service/fullsuite/held089090094096retry/integrationbyreviewer."
+  ],
+  "fixture_saved": false,
+  "coverage_credit": false,
+  "fix_applied": false,
+  "source_application_attempted": false,
+  "denied_repair_retried": false,
+  "new_distinct_gameplay_root_group": false,
+  "new_core_root": false,
+  "created_utc": "2026-11-05T13:20:48.209693+00:00"
+}

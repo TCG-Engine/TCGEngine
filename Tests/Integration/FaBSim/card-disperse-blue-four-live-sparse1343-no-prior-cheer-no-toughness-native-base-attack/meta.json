@@ -1,0 +1,7 @@
+{
+    "name": "Disperse / real base attack with false grant condition",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-24T09:49:16+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "FOUR_REAL_MANUAL_UPF_NATURAL_TUFFNUT20_THREEDORI20. Noearliercheer/nohistory/allArenaempty, interveningattackIFfalse/noToughness. Actual5baseattack/cost3; no defending-card6defensebranchperformed. Allfourmanualsourceandcombatresponses/nativeactualbasepower5/damage5/HP4=15/AP1to0/R0. Originalprimary5GY1/fund6Pitch1/legalFDGenericWounding7Arsenal1/sameUIDandFaceDown/otherzonesempty/UID7/RNG0. Fullcloseactual0costArsenalresourceaffordablebutnativeclickrejectsAP0beforeTarget/StackDQ/payment/movement; finalresources/HP/physicalassetsunchanged. Onlynamedfalsecondition/baseattack/nativeconsumerGuard; positivecondition/WHENtiming/grants/GA/tokens/bloodDebt/Hero/support/siblings/fullcarduncredited. Sources: FaBSim/GeneratedCode/cardArrayCache.json#disperse_blue FaBSim/GeneratedCode/GeneratedMacroCode.php FaBSim/Custom/GameLogic.php FaBSim/Custom/SUPCards.php FaBSim/Custom/ARCCards.php FaBSim/Custom/WTRCards.php"
+}

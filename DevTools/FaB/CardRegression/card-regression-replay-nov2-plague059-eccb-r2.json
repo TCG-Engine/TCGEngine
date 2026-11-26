@@ -1,0 +1,30 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch258.json",
+  "runtime_sha256": "eccb0e932251262e0a946fcca0fcdf03d3c8705eef951f11cd51acc8e38ab421",
+  "returncode": 0,
+  "completed_utc": "2026-11-02T22:04:20.948201+00:00",
+  "fixtures": [
+    {
+      "slug": "card-spreading-plague-yellow-four-live-sparse-real-paid-reaction-two-defenders-create-two-owned-bloodrots",
+      "fixture_sha256": "45d250c70c66080181229a91cc4fabd627edfa6d2bd68da21cd0d694c1cd3313",
+      "passed": true,
+      "result": "[PASS] spreading_plague_yellow / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-spreading-plague-yellow-four-live-sparse-real-paid-reaction-two-defenders-create-two-owned-bloodrots",
+      "returncode": 0,
+      "stdout": "[PASS] spreading_plague_yellow / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [
+    "card-bulls-eye-bracers-four-live-sparse-real-optional-load-earned-plus-one-and-five-damage",
+    "card-grasp-of-the-darknight-four-live-sparse-paid-destroy-opt-bottom-then-runechant-and-earned-go-again"
+  ],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

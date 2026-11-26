@@ -1,0 +1,56 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-miragai-four-live-sparse1209-first-ordinary-ash-dragon-attack-survives-real-power-six-blocker-without-phantasm",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-miragai-four-live-sparse1209-first-ordinary-ash-dragon-attack-survives-real-power-six-blocker-without-phantasm",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1209-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1209-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "f3e4e9b0e866e4d563317d789855e6bf038dc8203b4f1c7770907e7c3559884d",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "164822e4c250bc1d0795f959b7e667f6b8aaf8c1edd1d00c9be7a1a6b2c01f7d",
+        "actions.json": "8906cb8fb36f2cf38a5be0460839ee037ad38c1d138428e50d0de6141a0c82dd",
+        "assertions.json": "b0ee0f6d2e9e91cbc9e0d14f14d9adfded20703af42e89f8855b8e9fc240529b",
+        "expected_final_gamestate.txt": "e8ba5cb4b10262be1834b2f51a2d35d9672ad9138b8ec2e3718e0ca47be23f11",
+        "meta.json": "fece04407b1968b891de32d29cd513d2ce24a0afa5145088267a11467694e277"
+      }
+    },
+    {
+      "slug": "card-themai-four-live-sparse1209-own-turn-static-lock-stops-real-opposing-instant-response-then-attack-deals-four",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-themai-four-live-sparse1209-own-turn-static-lock-stops-real-opposing-instant-response-then-attack-deals-four",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1209-local-20261122\\clean-replays\\01.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1209-local-20261122\\clean-replays\\01.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "d948c2e6a8aba30c81ae79a47e45e7da45b95e0617f0f5c2b03fac5f3ba42533",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "fca94fc4c84cda3a87344757810ccea552be97f8b55bebd8908ecd306e006cdd",
+        "actions.json": "6a21ce89b792e79ed3b3265e1ab684a1caf1ed3e285ec832e0ddefaf182be714",
+        "assertions.json": "46cb10e25c12f9127bc67561331030e4eaeda9cff6fcf6fc1739fdfafe1ce5ae",
+        "expected_final_gamestate.txt": "26c92eebb2a91ed3fc96e11da47c0e26fd848d09db1ac33f3595cd4179224f08",
+        "meta.json": "80c5538713edbc53da32bd07830ade6e74a0ecb19fc9acae40c342d2a22ac7e4"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

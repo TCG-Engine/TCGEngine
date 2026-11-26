@@ -1,0 +1,7 @@
+{
+    "name": "Helios Mitre / paid source choice prevents one actual opposing arcane damage",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-23T11:39:36+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "NaturalDori4 ownsHelios5 andrealBlue7; actualVerdance1Zap6Action0declaresHero4 thenAP0. Atrealpriority4 primaryInstant2 response is paid byBlue7pitch3/R1/AP0. Allfouruppermanualresponses precede legitimate resolution sourcechoice Stack0=physicalopposingZap6, withABI8Source5heldaboveit. Choice capturesactualUID6, marksfutureenddestroy but primary5remainsEquipment. Fourfreshlowerresponses thenactualZap3minuschosen-sourceprevention1deals2/HP18. PhysicalHelios5readyretained/Blue7ownedPitch4/Zap6ownedGY1/AP0/R1; ABI8gone, nootherprevention/counterseed. Noendphase/expiry/otherSource/type/secondactivation orproducer/Hero/support/fullcard credit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#helios_mitre"
+}

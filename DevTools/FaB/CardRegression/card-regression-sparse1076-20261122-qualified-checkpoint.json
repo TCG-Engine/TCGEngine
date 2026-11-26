@@ -1,0 +1,184 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-23T05:12:40.070127+00:00",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1076-20261122.json",
+  "source_spec_sha256": "b838f73bac912d6128fdb908de6e12a8b030edf07b318ff405a25070db60c599",
+  "new_scenarios": 5,
+  "new_groups": 5,
+  "new_primary_ids": 5,
+  "actions": 40,
+  "native_assertions": 1365,
+  "manual_passes": 20,
+  "totals": {
+    "saved_registered_scenarios": 4921,
+    "duels": 3075,
+    "four_live": 1846,
+    "recorded_primary_ids": 2069,
+    "identity_denominator": 5196,
+    "recorded_groups": 1943,
+    "group_denominator": 3324,
+    "four_live_groups": 1835,
+    "phase_qualified_scenarios_at_actual_contexts": 1558,
+    "phase_qualified_unique_groups": 1548,
+    "creation_replay_passes": 2300,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 719,
+  "scenarios": [
+    {
+      "card_id": "blitz_kicks",
+      "group_id": "identity:blitz_kicks",
+      "scenario_id": "card-blitz-kicks-four-live-sparse1076-real-arcane-barrier-one-paid-by-blue-pitch-equipment-retained",
+      "effect_branches": [
+        "real_arcane_barrier_one_paid_by_blue_pitch_equipment_retained"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-blitz-kicks-four-live-sparse1076-real-arcane-barrier-one-paid-by-blue-pitch-equipment-retained",
+      "source_spec": "card-regression-sparse1076-20261122.json",
+      "source_spec_sha256": "b838f73bac912d6128fdb908de6e12a8b030edf07b318ff405a25070db60c599",
+      "review_evidence": "review-evidence/sparse1076-20261122-qualified-saved.json",
+      "review_evidence_sha256": "dea5a842522473e465876bcc2ee1a2e6a515c362c5084b8acce44f900f8005ba",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1076-20261122-replay.json",
+          "sha256": "4ef04fd6f2e3930d9b7732f167d4aac6a483ec8ba29497c49c7e9f5a7f71dc48",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "crown_of_dichotomy",
+      "group_id": "identity:crown_of_dichotomy",
+      "scenario_id": "card-crown-of-dichotomy-four-live-sparse1076-real-arcane-barrier-one-paid-by-blue-pitch-equipment-retained",
+      "effect_branches": [
+        "real_arcane_barrier_one_paid_by_blue_pitch_equipment_retained"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-crown-of-dichotomy-four-live-sparse1076-real-arcane-barrier-one-paid-by-blue-pitch-equipment-retained",
+      "source_spec": "card-regression-sparse1076-20261122.json",
+      "source_spec_sha256": "b838f73bac912d6128fdb908de6e12a8b030edf07b318ff405a25070db60c599",
+      "review_evidence": "review-evidence/sparse1076-20261122-qualified-saved.json",
+      "review_evidence_sha256": "dea5a842522473e465876bcc2ee1a2e6a515c362c5084b8acce44f900f8005ba",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1076-20261122-replay.json",
+          "sha256": "4ef04fd6f2e3930d9b7732f167d4aac6a483ec8ba29497c49c7e9f5a7f71dc48",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "gauntlet_of_sword_and_sorcery",
+      "group_id": "identity:gauntlet_of_sword_and_sorcery",
+      "scenario_id": "card-gauntlet-of-sword-and-sorcery-four-live-sparse1076-real-arcane-barrier-one-paid-by-blue-pitch-equipment-retained",
+      "effect_branches": [
+        "real_arcane_barrier_one_paid_by_blue_pitch_equipment_retained"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-gauntlet-of-sword-and-sorcery-four-live-sparse1076-real-arcane-barrier-one-paid-by-blue-pitch-equipment-retained",
+      "source_spec": "card-regression-sparse1076-20261122.json",
+      "source_spec_sha256": "b838f73bac912d6128fdb908de6e12a8b030edf07b318ff405a25070db60c599",
+      "review_evidence": "review-evidence/sparse1076-20261122-qualified-saved.json",
+      "review_evidence_sha256": "dea5a842522473e465876bcc2ee1a2e6a515c362c5084b8acce44f900f8005ba",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1076-20261122-replay.json",
+          "sha256": "4ef04fd6f2e3930d9b7732f167d4aac6a483ec8ba29497c49c7e9f5a7f71dc48",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "hidden_agenda",
+      "group_id": "identity:hidden_agenda",
+      "scenario_id": "card-hidden-agenda-four-live-sparse1076-real-arcane-barrier-one-paid-by-blue-pitch-equipment-retained",
+      "effect_branches": [
+        "real_arcane_barrier_one_paid_by_blue_pitch_equipment_retained"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-hidden-agenda-four-live-sparse1076-real-arcane-barrier-one-paid-by-blue-pitch-equipment-retained",
+      "source_spec": "card-regression-sparse1076-20261122.json",
+      "source_spec_sha256": "b838f73bac912d6128fdb908de6e12a8b030edf07b318ff405a25070db60c599",
+      "review_evidence": "review-evidence/sparse1076-20261122-qualified-saved.json",
+      "review_evidence_sha256": "dea5a842522473e465876bcc2ee1a2e6a515c362c5084b8acce44f900f8005ba",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1076-20261122-replay.json",
+          "sha256": "4ef04fd6f2e3930d9b7732f167d4aac6a483ec8ba29497c49c7e9f5a7f71dc48",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "metacarpus_node",
+      "group_id": "identity:metacarpus_node",
+      "scenario_id": "card-metacarpus-node-four-live-sparse1076-real-arcane-barrier-one-paid-by-blue-pitch-equipment-retained",
+      "effect_branches": [
+        "real_arcane_barrier_one_paid_by_blue_pitch_equipment_retained"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-metacarpus-node-four-live-sparse1076-real-arcane-barrier-one-paid-by-blue-pitch-equipment-retained",
+      "source_spec": "card-regression-sparse1076-20261122.json",
+      "source_spec_sha256": "b838f73bac912d6128fdb908de6e12a8b030edf07b318ff405a25070db60c599",
+      "review_evidence": "review-evidence/sparse1076-20261122-qualified-saved.json",
+      "review_evidence_sha256": "dea5a842522473e465876bcc2ee1a2e6a515c362c5084b8acce44f900f8005ba",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1076-20261122-replay.json",
+          "sha256": "4ef04fd6f2e3930d9b7732f167d4aac6a483ec8ba29497c49c7e9f5a7f71dc48",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

@@ -1,0 +1,134 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer": "/root",
+  "reviewer_independent": false,
+  "runtime_sha256": "430d065d6f9e9b1dde4ecdc7e25d75b87871324a27f5931852d608e30644aec4",
+  "source_spec": "card-regression-repair-blossom-20261126.json",
+  "input_sha256": "19bbacc6b976918430d17e51776291df1b0ee80713d12c8688eeea56d43cb9ea",
+  "fixtures": [
+    {
+      "slug": "repair-blossom-of-spring-four-live-20261126-real-destroy-cost-resource-and-go-again",
+      "card_id": "blossom_of_spring",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "2e3107752bb5a25e6b0a5bec944fa85bdcc5bfb770f94b588e973503d07a76f0",
+        "actions.json": "377801e6eb888fbe3811a39f26aecdf7a55c558ac2bd9541ece307405fc17ac9",
+        "assertions.json": "8d95fb3b15306d4de7933dad5bf223e17101f6d1d9a0976d423f6955ed42a834",
+        "expected_final_gamestate.txt": "740c9b8d718b4a51cd8efeeec7f04f2d0e29f313f333250341666f061e30bec5",
+        "meta.json": "2948609193effadaa15e3b1ace7cf1da616c0fe40042900df73bc4602211f9ee"
+      },
+      "fixture_sha256": "0ac9c5f755be74054d9090a6d05aae45cf44f8b7c26603d0b67215e0838a808b",
+      "actions": 5,
+      "native_assertions": 203,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 4,
+      "recorded_runtime_sha256": "430d065d6f9e9b1dde4ecdc7e25d75b87871324a27f5931852d608e30644aec4",
+      "runtime_sha256": "430d065d6f9e9b1dde4ecdc7e25d75b87871324a27f5931852d608e30644aec4",
+      "source_spec": "card-regression-repair-blossom-20261126.json",
+      "input_sha256": "19bbacc6b976918430d17e51776291df1b0ee80713d12c8688eeea56d43cb9ea",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual"
+    }
+  ],
+  "repair_only": true,
+  "new_breadth_groups": 0,
+  "newly_represented_repair_group": 1,
+  "whole_card_complete": false,
+  "full_suite_run": false,
+  "source_proposal": {
+    "status": "APPLIED_PENDING_NATIVE_QUALIFICATION",
+    "path": "FaBSim/Custom/WTRAbilities.php",
+    "before_sha256": "8c7b73f87e5151823dc8aab1546d7e0452e6a948e36fdf9b157d4aa5da0e2209",
+    "candidate_sha256": "c876d53a8315f3c8b6eac1d9fc9d29e6a35344c123f95bc9324cbc35f39b1fd7",
+    "before_runtime": "a8c26a317373c6eea6408db573adb6b481fb21ac24d570adbbeb4a7e2e827155",
+    "scope": "Exact named ACTION0/destroy/goAgain/noonce spec, exact resolution gain1; common controller/AP/payment/physicalcost/priority/goAgain timing unchanged. No generated output or Core change.",
+    "runtime": "430d065d6f9e9b1dde4ecdc7e25d75b87871324a27f5931852d608e30644aec4"
+  },
+  "targeted_replays": {
+    "runtime": "430d065d6f9e9b1dde4ecdc7e25d75b87871324a27f5931852d608e30644aec4",
+    "fixtures": [
+      {
+        "slug": "repair-blossom-of-spring-four-live-20261126-real-destroy-cost-resource-and-go-again",
+        "passed": true,
+        "runtime": "430d065d6f9e9b1dde4ecdc7e25d75b87871324a27f5931852d608e30644aec4",
+        "command": [
+          "C:\\xampp\\php\\php.exe",
+          "DevTools/RunIntegrationTests.php",
+          "--root=FaBSim",
+          "--test=repair-blossom-of-spring-four-live-20261126-real-destroy-cost-resource-and-go-again",
+          "--max-failures=1",
+          "--compact",
+          "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\blossom234\\strict1.log"
+        ],
+        "returncode": 0,
+        "complete_log_sha256": "47afddbb5256fc3f1fea92753767b65f145b793ec631e653b0ea819c948f537b",
+        "raw5_unchanged": true
+      },
+      {
+        "slug": "card-stubby-hammerers-four-live-sparse-real-arms-destroy-and-low-base-attacking-buff",
+        "passed": true,
+        "runtime": "430d065d6f9e9b1dde4ecdc7e25d75b87871324a27f5931852d608e30644aec4",
+        "command": [
+          "C:\\xampp\\php\\php.exe",
+          "DevTools/RunIntegrationTests.php",
+          "--root=FaBSim",
+          "--test=card-stubby-hammerers-four-live-sparse-real-arms-destroy-and-low-base-attacking-buff",
+          "--max-failures=1",
+          "--compact",
+          "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\blossom234\\strict2.log"
+        ],
+        "returncode": 0,
+        "complete_log_sha256": "e665b52e95c9c022bf0b00f3bb0ea0c6fe957a38b75802847bb1117cdb1bc009",
+        "raw5_unchanged": true
+      },
+      {
+        "slug": "card-energy-potion-blue-activation-deploy-then-instant-at-zero-ap",
+        "passed": true,
+        "runtime": "430d065d6f9e9b1dde4ecdc7e25d75b87871324a27f5931852d608e30644aec4",
+        "command": [
+          "C:\\xampp\\php\\php.exe",
+          "DevTools/RunIntegrationTests.php",
+          "--root=FaBSim",
+          "--test=card-energy-potion-blue-activation-deploy-then-instant-at-zero-ap",
+          "--max-failures=1",
+          "--compact",
+          "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\blossom234\\strict3.log"
+        ],
+        "returncode": 0,
+        "complete_log_sha256": "c4a89dfb08272b50e8965598afb243129c30b519113cbc8f9a387d05a8bcc97b",
+        "raw5_unchanged": true
+      },
+      {
+        "slug": "card-timesnap-potion-blue-activation-zero-action-points-rejected",
+        "passed": true,
+        "runtime": "430d065d6f9e9b1dde4ecdc7e25d75b87871324a27f5931852d608e30644aec4",
+        "command": [
+          "C:\\xampp\\php\\php.exe",
+          "DevTools/RunIntegrationTests.php",
+          "--root=FaBSim",
+          "--test=card-timesnap-potion-blue-activation-zero-action-points-rejected",
+          "--max-failures=1",
+          "--compact",
+          "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\blossom234\\strict4.log"
+        ],
+        "returncode": 0,
+        "complete_log_sha256": "86737a48105f987712d412c57ea834d38ee6c6de9ac567064f0ef38e6c9976ce",
+        "raw5_unchanged": true
+      }
+    ],
+    "full_suite_run": false
+  },
+  "limits": [
+    "No native tax/prevention/control-change or later resource-spend branch credit.",
+    "Existing no-AP Action and zero-AP Instant neighbors checked; no exhaustive activation audit.",
+    "No separate-agent saved review in this continuation; primary-agent source-to-saved verification and printed-rule oracle.",
+    "Four targeted strict passes, not a new fullsuite."
+  ],
+  "scope": "Two exact named rows in WTRAbilities add ACTION0/destroy/goAgain metadata and gain1 resolution. Existing common legality/payment/physical destruction/response/GA timing reused; no Core or generated change. Original five-input positive oracle and all203checks are unchanged."
+}

@@ -1,0 +1,56 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-cogwerx-base-legs-four-live-sparse1177-real-boost-and-steam-cost-gains-actual-extra-action-point-before-boost-go-again",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-cogwerx-base-legs-four-live-sparse1177-real-boost-and-steam-cost-gains-actual-extra-action-point-before-boost-go-again",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1177-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1177-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "13d5f4a9cf08cf799b0924979641713d7bb018e6bc394d77de6ef9fe587cf82d",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "44d93f4de3f6d54fe773507a63aeb7a3b305ab7c3dcc0990958f920352a27148",
+        "actions.json": "5cd977126e6819ba10fad71e97cf8ffc652460c2d44b338f2c01665095b681f3",
+        "assertions.json": "c078922fb451c079e0e07a1a0301236d0031917d19b498c8851da6a3756809e1",
+        "expected_final_gamestate.txt": "241c7b8b9edc58c13533d900b367a6a7556850f846d21d89947abb7bdb47d464",
+        "meta.json": "bb5b0d1c0d23107f2a0e71447c139d0dc5ffdaa0301b04f30c6a96f188c1544e"
+      }
+    },
+    {
+      "slug": "card-cogwerx-base-head-four-live-sparse1177-real-boost-and-steam-cost-returns-actual-banished-attack-to-singleton-deck",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-cogwerx-base-head-four-live-sparse1177-real-boost-and-steam-cost-returns-actual-banished-attack-to-singleton-deck",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1177-local-20261122\\clean-replays\\01.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1177-local-20261122\\clean-replays\\01.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "f865d97206794452f81e862902822602661993f6ffeb34787ba4d3b67aebce54",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "b752a891b0d1061100310af18639e1d1d7465404336a9a4bb8186f7fb8674f47",
+        "actions.json": "16ea5f1cfb2f0b62d1681c38360072c7bf17454caf840a352da5ce2e4838fbc9",
+        "assertions.json": "2898717dcc58a99ba450ac01423022ccab4f40aaa3a68d8a80658b9e69c5ccc3",
+        "expected_final_gamestate.txt": "a849f5a5bc061f1daee9a8ce2cd566e31138dc6349921bb8aa74078702deb5e2",
+        "meta.json": "12fca5d6cf9d59f65bbe50872277d9759d000c67ae2feca9e68a5002188cdad0"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

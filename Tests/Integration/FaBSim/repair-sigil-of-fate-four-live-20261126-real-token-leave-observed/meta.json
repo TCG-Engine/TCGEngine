@@ -1,0 +1,7 @@
+{
+    "name": "Sigil of Fate / actual destruction, responseable leave trigger and real Opt1",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-26T03:15:46+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "OWNED_SIGIL_LEAVE_AND_OPT1_BOTTOM_ONLY. FourmanualYoungKano15/3Dori20. LawfulpriorownedWizardSigilFate5Arena1(e.g.priorShrouddestructionuncredited)andGenericImperialWarhorn6Arena1, Blue7Hand1, DeckWounding8thenRaging9. ActualWarhornAction1realBlue3pays1/AP0/R2,destroysown6GYasactivationcost, virtual10Source6/fourmanualresponses. Resolutioneffect(noformalTargetphrase)choosesownHero1thenactualSigil5, destroysit/TokenCeases/noGY, earnsSigil11Source5. Parent10retires, leave11getsitsownfresh4responsesbeforeOpt1looksactualUID8viaTemp. Layer11mustremainthroughOptMZREARRANGE; actualBottomchoiceputs8after9(noUIDclone/draw/shuffle). FinalDeck9then8/GY6/Pitch7/Token5ceased/noStackDQsArenaTemp/AP0/R2/RNG0/UID11/allhealthunchanged. NoSigilproducer/startActiondestroy, foreignHero/Royal/multichoiceWarhorn/Heroactivation/support/fullcardcredit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#sigil_of_fate FaBSim/Custom/DYNRuntime.php FaBSim/Custom/DYNCards.php FaBSim/Custom/PENCards.php FaBSim/Custom/ARCCards.php FaBSim/Custom/GameLogic.php FaBSim/GeneratedCode/GeneratedMacroCode.php"
+}

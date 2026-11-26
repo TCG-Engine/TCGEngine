@@ -1,0 +1,228 @@
+{
+  "status": "CONFIRMED_NATIVE_BEFORE_QUANTUM_WRONG_CLASS_CANDIDATE",
+  "reviewer": "/root/b106_semantic_review",
+  "reviewer_independent": true,
+  "reviewed_utc": "2026-11-06T12:14:34.991979+00:00",
+  "issue": null,
+  "issue_allocation_owner": "Root",
+  "runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+  "input_sha256": "2d384ea03d6182df9c8845696a3ac320ace8f9a247f1751a4750fd5ab9badbca",
+  "source_spec": "card-regression-batch603-quantum-strict.json",
+  "source_guards_verified": 70,
+  "original_normative_source_gate": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch603-quantum-strict-independent-source-review.json",
+    "sha256": "f76364bf5f2e1565141ef46289181f7b197b233a6e7f6a248e6d3738d95f553e"
+  },
+  "root_native_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch603-quantum-strict-native-c53\\receipt.json",
+    "sha256": "bfaa5569c10bc307fc08714fd3474c595282803847d08e7a153d8fb47327b350"
+  },
+  "native_recording_results": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch603-quantum-strict.recording-results.json",
+    "sha256": "30f80cede4bfe17253aeaba672edd316e292ae670ece02d5e5bbc55dabe83188"
+  },
+  "immutable_archive": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch603-quantum-strict-20261106T120501Z-6aedc26d46a60.json",
+    "sha256": "a047c6f2ea554ab79618269b8190b5bfa8e8b3882fd51eb2d91b8151421368d0"
+  },
+  "source_evidence": {
+    "relevant_source_hashes": {
+      "FaBSim/Custom/EVOCards.php": "dff20a12d7dd29417b34c9609dbc3fd27325e1c8d3be2b15da481fef7e277462",
+      "FaBSim/Custom/EVORuntime.php": "e38af5f56cd9ecc3c87e5ef6eb81fc03850151833fde02af8a4ae1a29600962b",
+      "FaBSim/Custom/ARCAbilities.php": "5330205cf8b98a1ba93cb15aa42f67c76d01dac3cb53b206669e7d00b0e9daca",
+      "FaBSim/Custom/GameLogic.php": "1cdad1555c8d2e3bd3fa98d69bf52791b84d21bf2269363ddea7249f4ee35a43",
+      "DevTools/FaB/evo_abilities.json": "681df04ce6b2430623dbd34d7266c09131bff3eb7c7e1f946820e33549cb9552",
+      "FaBSim/GeneratedCode/GeneratedMacroCode.php": "63113a3d140cfd13409e1ad7ee737f8ecfbbc1f78c4eb8c540658a3bacc73c54"
+    },
+    "cause": "Quantum canonical ResolveAbility uses FaBEVORefs('Hand','cheap',false); actual cheap predicate checks Item/numericcost<=1 but omits printed Mechanologist. Actual FaBEVOPutItem also lacks class validation; invalid placement not executed/confirmed by this probe."
+  },
+  "first_failure": {
+    "source_step": 10,
+    "check_index": 54,
+    "after_input": 5,
+    "ordinal": 476,
+    "checkpoint": "actual_fourth_Quantumresponse_STRICTcardCandidateMenu_ONLYlegalMechDriver6_EXCLUDESGenericItem7_ABI8held_R0AP1",
+    "native_assertion_ordinal_1_based": 476,
+    "prior_assertions_passed": 475,
+    "total_expected_assertions": 690,
+    "expected": "p1Hand-0",
+    "actual": "p1Hand-0&p1Hand-1",
+    "last_input": {
+      "ordinal": 5,
+      "source_step": 9,
+      "player": 4,
+      "mode": 10001,
+      "cardID": "!CustomInput!Pass"
+    },
+    "error": "Expected p1DecisionQueue-0.Param to equal 'p1Hand-0', got 'p1Hand-0&p1Hand-1'."
+  },
+  "actual_native_prefix": {
+    "accepted_inputs": 5,
+    "reported_attempted_inputs": 5,
+    "manual_inputs": 4,
+    "manual_actor_counts": {
+      "1": 1,
+      "2": 1,
+      "3": 1,
+      "4": 1
+    },
+    "initial_manual_preferences_verified": 48,
+    "ordered_assertions_passed": 475,
+    "total_authored_inputs": 6,
+    "total_authored_assertions": 690,
+    "passed_native_query_facts": [
+      "At currentfailureboundary Stackcount1 and capturedABI8/CardIDQuantum/Controller1/KindABILITY/SourceArenaUID5 actually passed441\u2013447; no early source-lifetime failure.",
+      "Current Handcount2/MechDriver6/p1Hand0 and GenericPotion7/p1Hand1 physicalIDs/owner/controller actually passed448\u2013456.",
+      "Current source5Arena/OwnerController1/Status2/STEAM0+ARC_USED_0=2 actually passed461\u2013467; R0/AP1/allHP20 queries passed, no unprintedTap/APcost.",
+      "Current chooserType MZMAYCHOOSE passed475 then exactParam476 failed. No incorrectoutput blessed or illegalanswerexecuted."
+    ],
+    "direct_observed_state": {
+      "window": "PRIORITY",
+      "combatOpen": false,
+      "pendingPayment": null,
+      "resolvingReaction": {
+        "uid": 8,
+        "owner": 1,
+        "controller": 1,
+        "kind": "ABILITY",
+        "resolutionClass": "ARC_ABILITY",
+        "cardID": "quantum_processor_yellow",
+        "sourceMZ": "p1Arena-0",
+        "frameMacro": "ResolveAbility",
+        "abilityGoAgain": false,
+        "sourceUniqueID": 5,
+        "returnWindow": "ACTION",
+        "returnCombatStep": "NONE",
+        "baselineFrameKeys": [],
+        "ownedFrameKeys": [
+          "quantum_processor_yellow:0:ResolveAbility#1"
+        ]
+      },
+      "observed_decisions": {
+        "1": [
+          {
+            "Type": "MZMAYCHOOSE",
+            "Param": "p1Hand-0&p1Hand-1",
+            "Block": 1,
+            "Tooltip": "Put_item_into_arena",
+            "DontSkipOnPass": 0,
+            "removed": null,
+            "Location": "DecisionQueue",
+            "PlayerID": 1,
+            "mzIndex": 0,
+            "_sourceZone": null
+          },
+          {
+            "Type": "CUSTOM",
+            "Param": "quantum_processor_yellow:0:ResolveAbility-await|quantum_processor_yellow:0:ResolveAbility#1|1|chosen",
+            "Block": 1,
+            "Tooltip": "",
+            "DontSkipOnPass": 0,
+            "removed": null,
+            "Location": "DecisionQueue",
+            "PlayerID": 1,
+            "mzIndex": 1,
+            "_sourceZone": null
+          }
+        ],
+        "2": [],
+        "3": [],
+        "4": []
+      },
+      "observed_hand_refs": {
+        "1": [
+          "p1Hand-0",
+          "p1Hand-1"
+        ],
+        "2": [],
+        "3": [],
+        "4": []
+      }
+    },
+    "queried_vs_raw_distinction": "Authored resolvingReaction uid/controller/source/class queries477\u2013480 are UNRUN; their same facts are directly present in recorded observed_state, not falsely credited as passedqueries. Currentcounter/RNG/Chi/live/manualguards481\u2013494 are unrun at thischeckpoint though earlierprefix checks established priorcounter8/RNG0/fourmanual.",
+    "unrun": [
+      "Sixth input positiveHand0answer atsource11 neverexecuted. No Driver6placement/ArenaSteam3/virtual8completion/finalHandPotion7/quietcleanup or positiveeffectsuffix observed.",
+      "No GenericPotion selection or invalidplacement, no PASS/decline, no repeat/nextturn/Crank/upkeep/DriverBoost/producer/Hero/support/fullcard path.",
+      "No sourcefix/candidate/afterclaim/globalroot orCore allocation."
+    ]
+  },
+  "classification": "Correct strict printed-class probe confirms an illegal GenericItem0 in the resolving candidate set. Normal activation/cost/physical identity/fourmanual/managed ability lifetime reached correctly; not an oracle, actor, stop-condition or wrong-zone transport failure. Native confirms candidate eligibility only; downstream placement guard omission remains source-only/unattempted.",
+  "fixture_saved": false,
+  "coverage_credit": false,
+  "confirmed_native_failure": true,
+  "new_global_root_or_Core_count": false,
+  "primary_sources": [
+    {
+      "url": "https://judge.fabtcg.com/cards/detail/2597/",
+      "finding": "Current printed required Mechanologist Item cost<=1, Instant0once and upkeep."
+    },
+    {
+      "local_path": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\WebpImages\\quantum_processor_yellow.webp",
+      "sha256": "c910d5a13b0d95b1b234df4cc56a01f7ec578880a7f61cdd84188707b485f359",
+      "printing": "EVO072",
+      "actually_viewed": true
+    },
+    {
+      "url": "https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/1HP382.webp",
+      "local_path": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\WebpImages\\potion_of_strength_blue.webp",
+      "sha256": "e5f534805080815cd8cc8885eb83456456977783b29e3eccdb3bdbf892256670",
+      "printing_actually_viewed": "TCC073",
+      "actually_viewed": true,
+      "finding": "GenericItem0legalHand but wrongclass; issueralternateprinting only, not remoteimageview claim."
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/",
+      "finding": "Resolving choice parameters honor printed restriction; actual costs/owned ability held through resolving choice."
+    }
+  ],
+  "preserved_evidence": [
+    {
+      "original": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch603-quantum-strict.json",
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch603-quantum-independent-native-before-evidence\\correct-strict-input.json",
+      "sha256": "2d384ea03d6182df9c8845696a3ac320ace8f9a247f1751a4750fd5ab9badbca"
+    },
+    {
+      "original": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch603-quantum-strict-independent-source-review.json",
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch603-quantum-independent-native-before-evidence\\normative-source-review.json",
+      "sha256": "f76364bf5f2e1565141ef46289181f7b197b233a6e7f6a248e6d3738d95f553e"
+    },
+    {
+      "original": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch603-quantum-strict-native-c53\\receipt.json",
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch603-quantum-independent-native-before-evidence\\root-receipt.json",
+      "sha256": "bfaa5569c10bc307fc08714fd3474c595282803847d08e7a153d8fb47327b350"
+    },
+    {
+      "original": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch603-quantum-strict.recording-results.json",
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch603-quantum-independent-native-before-evidence\\recording-results.json",
+      "sha256": "30f80cede4bfe17253aeaba672edd316e292ae670ece02d5e5bbc55dabe83188"
+    },
+    {
+      "original": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch603-quantum-strict-20261106T120501Z-6aedc26d46a60.json",
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch603-quantum-independent-native-before-evidence\\recording-archive.json",
+      "sha256": "a047c6f2ea554ab79618269b8190b5bfa8e8b3882fd51eb2d91b8151421368d0"
+    },
+    {
+      "original": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch603-quantum-strict-native-c53\\stdout.log",
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch603-quantum-independent-native-before-evidence\\root-stdout.log",
+      "sha256": "8a53c09b273843678dd3c1bf1ae98ae52d40a6ff286ec08f060f43dc9a42649f"
+    },
+    {
+      "original": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch603-quantum-strict-native-c53\\stderr.log",
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch603-quantum-independent-native-before-evidence\\root-stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch603-quantum-independent-native-before-evidence\\initial_gamestate.txt",
+      "sha256": "56274a02515f7e50b4143cd97a7b6ff32ee833c63046766a3f6567076f40c732"
+    }
+  ],
+  "limits": [
+    "Only actual wrong-class candidate membership confirmed; no illegalchoice/placement or positiveput/Driverentry/cleanup suffix executed.",
+    "Raw resolving marker facts explicitly separated from unrun477\u2013480 queries. No fresh counter/RNG/live getter credit beyond475 despite raw/source context.",
+    "Original correctstrict probe unchanged; sourcec53 all70guards unchanged. Reviewer Wpreservation only/noPHP/native/R/source/fullsuite/remote/deniedretry."
+  ],
+  "comparison_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov6_batch603_quantum_native_before_readonly.py",
+    "sha256": "38c421b083ca39e155ccc469a228eccb225bd5976355e8fe5b0b03114bdf5c69"
+  }
+}

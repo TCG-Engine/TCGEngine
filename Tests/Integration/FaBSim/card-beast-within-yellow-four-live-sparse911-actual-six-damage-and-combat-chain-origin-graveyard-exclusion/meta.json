@@ -1,0 +1,7 @@
+{
+    "name": "Beast Within / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T19:05:24+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "When this is put into a graveyard from anywhere other than the combat chain, banish the top card of your deck and lose 1{h}. If it has 6 or more {p}, put it into your hand, otherwise repeat this process. Representative only: actual_six_damage_and_combat_chain_origin_graveyard_exclusion. Other pitch siblings, alternate targets and unexercised branches receive no credit. All four live/manual; only native entry-point actions. Sources: FaBSim/GeneratedCode/cardArrayCache.json#beast_within_yellow"
+}

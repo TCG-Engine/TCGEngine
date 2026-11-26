@@ -1,0 +1,68 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-23T09:38:09.691087+00:00",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1133-20261122.json",
+  "source_spec_sha256": "68e7c4dccab3213b342c5af49a5b50a767268dbb09638e314de438c9fe73bedc",
+  "new_scenarios": 1,
+  "new_groups": 1,
+  "new_primary_ids": 1,
+  "actions": 28,
+  "native_assertions": 243,
+  "manual_passes": 25,
+  "totals": {
+    "saved_registered_scenarios": 5007,
+    "duels": 3075,
+    "four_live": 1932,
+    "recorded_primary_ids": 2155,
+    "identity_denominator": 5196,
+    "recorded_groups": 2029,
+    "group_denominator": 3324,
+    "four_live_groups": 1921,
+    "phase_qualified_scenarios_at_actual_contexts": 1644,
+    "phase_qualified_unique_groups": 1634,
+    "creation_replay_passes": 2386,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 805,
+  "scenarios": [
+    {
+      "card_id": "express_lightning_red",
+      "group_id": "pitch-cycle:express_lightning",
+      "scenario_id": "card-express-lightning-red-four-live-sparse1133-basic-attack-only-explicitly-declines-optional-charge-no-positive-charge-ability-credit",
+      "effect_branches": [
+        "basic_attack_only_explicitly_declines_optional_charge_no_positive_charge_ability_credit"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-express-lightning-red-four-live-sparse1133-basic-attack-only-explicitly-declines-optional-charge-no-positive-charge-ability-credit",
+      "source_spec": "card-regression-sparse1133-20261122.json",
+      "source_spec_sha256": "68e7c4dccab3213b342c5af49a5b50a767268dbb09638e314de438c9fe73bedc",
+      "review_evidence": "review-evidence/sparse1133-20261122-qualified-saved.json",
+      "review_evidence_sha256": "174b19d009efb780dc02096fe926d9c32dbfd87bfa91681f322489e9b6d38d94",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1133-20261122-replay.json",
+          "sha256": "a3a2a92e87c0ab4bcbbcd37ebf68124123ad08c9ef97fb9e9eebfbbcd7b12616",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

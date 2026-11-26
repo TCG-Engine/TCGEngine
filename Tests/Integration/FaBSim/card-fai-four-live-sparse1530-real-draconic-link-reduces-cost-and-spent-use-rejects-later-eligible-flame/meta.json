@@ -1,0 +1,7 @@
+{
+    "name": "Fai / real controlled Draconic link discounts paid activation, spent use rejects later eligible Flame",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-25T11:24:04+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "RealPhoenix5DraconicAA0createsonecontrolledlink/AP0/Power0/GA. ActualFaiInstant3minusone=2paidBlue6pitch3leavesR1/AP0/onceCounter2/ABI8Source1; fourresponses withactiveFlame5notGY andnoeligibleGY resolvewithoutawait/return. Fullallfourcombat0damage/HPall20/PhoenixGAAP1thenFlame5GY. NowGYeligible andR1+Blue7Hand3fundsunreduced3butsecondHeroactivationrefusesonceCounter2/UID8/allphysicalassetsretained. Positiveprintedcostreductionandonce-use only; nopositiveGYreturn/pendingchoice/startoption/turnreset/siblings/secondarycredit. Noenginechange. Sources: FaBSim/GeneratedCode/cardArrayCache.json#fai FaBSim/Custom/WTRAbilities.php#FaBWTRAbilityCost FaBSim/Custom/WTRAbilities.php#FaBWTRAbilityLegal FaBSim/Custom/WTRAbilities.php#FaBWTRPayAbilityCosts FaBSim/Custom/GameLogic.php#FaBFaiChainCount FaBSim/GeneratedCode/GeneratedMacroCode.php#fai:0:ResolveAbility"
+}

@@ -1,0 +1,250 @@
+{
+  "status": "APPROVED_ACTUAL_SAVED_LEXI_OBSERVABLE_FLIP_COST_LIGHTNING_GRANTED_ATTACK_GA_PENDING_ROOT_QUALIFICATION",
+  "approved": true,
+  "source_approved": true,
+  "semantically_approved": true,
+  "reviewer": "/root/nov2_next_author",
+  "created_utc": "2026-11-03T06:20:02.113958+00:00",
+  "source_spec": "card-regression-batch296.json",
+  "input_sha256": "ea677f3f46bbb39b99c8cc7c415690c341685d58a32fb5f7af8e2fefa604a97f",
+  "manifest_sha256": "c6d8eef15edd7e01d7afb1ba884140ba34200b620a756a80b9ae6fa8daa94eaa",
+  "runtime_sha256": "0d877de49c131f29c152706e14bba3368630df61c59ef475c87a84f20b6e1a66",
+  "recorded_runtime_sha256": "0d877de49c131f29c152706e14bba3368630df61c59ef475c87a84f20b6e1a66",
+  "semantic_approval": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch296-independent-source-review\\review.json",
+    "sha256": "6b5d18d70c0ad2b3ea44ecb3908914e1875f8d7555e84982bc83881153656efe"
+  },
+  "recording_receipt": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch296-20261103T061719Z-6ae97c6fc71ab.json",
+    "sha256": "ad3a473618c4619e1478e87713aea4879dc9846d0d277d0bf4a49d52a2f7e230"
+  },
+  "root_wrapper_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch296-native-r1\\receipt.json",
+    "sha256": "9b0aa44f56860cc2f41fc515fd40c01b95ec30b7aa57898c1e7fe364470e35b5"
+  },
+  "actual_comparison_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch296-independent-saved-review\\audit_saved.py",
+    "sha256": "75050a21cf7140e75fb9a3d395a3d5f3b39c285290f4f10a15bfa046b5ea9ee3"
+  },
+  "review_method": "Sourceprintedreview reused. Everyactual33nativeinput/2346assertions exactlymapped, all29Passactors independentlyderived, strictentireschemaendpointprofiles/physicalUIDownercontroller/manual48each, terminalassertions evaluated/raw4raw5stable. NoPHP/native/replay/R/backend/sourcework.",
+  "fixtures": [
+    {
+      "index": 0,
+      "card_id": "lexi",
+      "slug": "card-lexi-young-four-live-sparse-real-lightning-arsenal-flip-cost-grants-next-attack-go-again",
+      "source_spec": "card-regression-batch296.json",
+      "input_sha256": "ea677f3f46bbb39b99c8cc7c415690c341685d58a32fb5f7af8e2fefa604a97f",
+      "reviewer": "/root/nov2_next_author",
+      "runtime_sha256": "0d877de49c131f29c152706e14bba3368630df61c59ef475c87a84f20b6e1a66",
+      "recorded_runtime_sha256": "0d877de49c131f29c152706e14bba3368630df61c59ef475c87a84f20b6e1a66",
+      "approved": true,
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_NEW_FOUR_LIVE_REPRESENTATIVE",
+      "fixture_path": "Tests\\Integration\\FaBSim\\card-lexi-young-four-live-sparse-real-lightning-arsenal-flip-cost-grants-next-attack-go-again",
+      "fixture_sha256": "326683291f6e438aba73d97452e5c7aaf6fc70b52b77905a7e160cccccc46420",
+      "raw4_sha256": {
+        "initial_gamestate.txt": "9af0d35ed2ec1cf63c86b92095ec20eccf620a0efeb8e9062a6f659846871bce",
+        "actions.json": "2d1dca8ff232f2f3152b69d2d8ef3815faf412fb352004d76aad7b2355399ff4",
+        "assertions.json": "0073caf414bb0c7f47baef50b02874cc046d285b41f202b6aa9aa0bac2a5b7b8",
+        "expected_final_gamestate.txt": "707ae189be4f9041a8b26ec54393b4eafa2fd45be02ed0217fd4a37dc84f3f7e"
+      },
+      "raw5_sha256": {
+        "initial_gamestate.txt": "9af0d35ed2ec1cf63c86b92095ec20eccf620a0efeb8e9062a6f659846871bce",
+        "actions.json": "2d1dca8ff232f2f3152b69d2d8ef3815faf412fb352004d76aad7b2355399ff4",
+        "assertions.json": "0073caf414bb0c7f47baef50b02874cc046d285b41f202b6aa9aa0bac2a5b7b8",
+        "expected_final_gamestate.txt": "707ae189be4f9041a8b26ec54393b4eafa2fd45be02ed0217fd4a37dc84f3f7e",
+        "meta.json": "ef2abc25affffd8737ffdd56ca0fad6dbdbb7146013e9a0829d1b5029a2890dc"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "9af0d35ed2ec1cf63c86b92095ec20eccf620a0efeb8e9062a6f659846871bce",
+        "actions.json": "2d1dca8ff232f2f3152b69d2d8ef3815faf412fb352004d76aad7b2355399ff4",
+        "assertions.json": "0073caf414bb0c7f47baef50b02874cc046d285b41f202b6aa9aa0bac2a5b7b8",
+        "expected_final_gamestate.txt": "707ae189be4f9041a8b26ec54393b4eafa2fd45be02ed0217fd4a37dc84f3f7e",
+        "meta.json": "ef2abc25affffd8737ffdd56ca0fad6dbdbb7146013e9a0829d1b5029a2890dc"
+      },
+      "actions": 33,
+      "native_assertions": 2346,
+      "actual_manual_passes": 29,
+      "actual_priority_response_passes": 28,
+      "actual_defender_declaration_finish_inputs": 1,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4
+      ],
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "all_actions_and_assertions_exact": true,
+      "all_endpoint_physical_uid_card_zones_ownership_verified": true,
+      "all_terminal_assertions_evaluated_against_parsed_final_snapshot": true,
+      "initial_physical_uid_locations": {
+        "1": {
+          "card_id": "lexi",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2,
+          "counters": {}
+        },
+        "6": {
+          "card_id": "wounding_blow_red",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "weave_lightning_red",
+          "zone": "p1Arsenal",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2,
+          "counters": {}
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2,
+          "counters": {}
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2,
+          "counters": {}
+        }
+      },
+      "final_physical_uid_locations": {
+        "1": {
+          "card_id": "lexi",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2,
+          "counters": {
+            "ARC_USED_0": 2
+          }
+        },
+        "5": {
+          "card_id": "weave_lightning_red",
+          "zone": "p1Arsenal",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "wounding_blow_red",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2,
+          "counters": {}
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2,
+          "counters": {}
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2,
+          "counters": {}
+        }
+      },
+      "final_health": [
+        20,
+        20,
+        20,
+        16
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_AP": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "final_Hero_Status": [
+        2,
+        2,
+        2,
+        2
+      ],
+      "final_Hero1_once_counter": {
+        "ARC_USED_0": 2
+      },
+      "actual_Arsenal5_FaceDown_1_to0": true,
+      "checkpoint_count": 35,
+      "checkpoint_assertion_mapping_sha256": "f4aadbd9328092148b5c1c699b9e30a795703cb83e3fe549781b2ad4452b649b",
+      "native_action_mapping_sha256": "a3c93b969c93df6c77e00bf67d22e0df19adf3eb841fab47e9d83a238c9f8b36",
+      "native_assertion_mapping_sha256": "fb2365d4e638a716db79ccbcae59a60bcfdbbc63ad21211826f69be7a06e5519"
+    }
+  ],
+  "blocked_attempts": [],
+  "total_actions": 33,
+  "total_native_assertions": 2346,
+  "total_manual_passes": 29,
+  "total_priority_response_passes": 28,
+  "total_defender_declaration_finish_inputs": 1,
+  "material_findings": [
+    "Actuallegalfouryoung20/manualUPF setup withsamephysicalLexiHero1ready, ownfacedownLightningArsenal5 andHandAA6, noseededGA/history/AP/resources. Firstactualclick iscostdeclaration: 5stillfacedown/AP1; answerflipsSAME5faceup/paysAP1/marksactualonceARC_USED_0=2beforeresponses. Internalasset/effectcostorderwithintheanswerinput notcredited.",
+    "Actualfourfreshsourcepasses1/2/3/4 retain capturedABILITY7/SourceHero1/AP0 andsame5faceup; onlyfourthLightningeffectandownGAcomplete/returnACTIONAP1. RealnextWounding6declaresP4beforemovement/assets, thenpayszeroresource/earnedAP1andactualStack6hasGO_AGAIN. NoWeaveplayorprintedWoundingGA.",
+    "ActualfourlivingcombatroundsplusP4defenderfinish showpower4+GA and4damage/P4HP16, GAAP1onlyatResolution, fullcloseownGY6. Strictfullsnapshotsallphysical1-6preservedunique: Hero1ready/once2, same5faceupArsenal, same6publicownGY, virtual7ceased; R0/AP1onlyP1/fourlive/queues/payment/await/managedclean andnextattackeffectconsumed."
+  ],
+  "limits": [
+    "Onlyobservableflipadditionalcost/LightningnextattackGA/ownGA/realGenericAA4+GA branch. Nointernaloneinputcostsuborder/revealtrigger/IceFrostbite/ArrowBow/adult/onceperturnsecondactivation/Weaveplay/supportprimary/fullcard/control/siblingcredit.",
+    "Intermediateboundariessupportedbycompletednativeassertionenforcement/exactledgers; endpointfilesalone donotsnapshoteveryprivateintermediate. Nooutputfitting/syntheticnativeapproval.",
+    "Roottwofocusednewcase replays/registrationseparategates, notrunhere. NoR/PHP/native/backend/sourcefix/generation/service/remote/fullsuite/legacycorpus; B297peerresumesafterthisgate."
+  ]
+}

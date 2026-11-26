@@ -1,0 +1,7 @@
+{
+    "name": "Goon Tactics / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T21:02:09+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "If you control 3 or more auras, this gets +3{p} and \"When this hits a hero, destroy the top card of their deck.\" Representative only: actual_one_with_zero_auras_keeps_real_enemy_deck. Actual printed payment, four live manual seats/full unblocked combat, real HP loss, no granted go again/hit ability, owned original source in graveyard. Positive Combo/control thresholds and pitch siblings untested. Sources: FaBSim/GeneratedCode/cardArrayCache.json#goon_tactics_blue"
+}

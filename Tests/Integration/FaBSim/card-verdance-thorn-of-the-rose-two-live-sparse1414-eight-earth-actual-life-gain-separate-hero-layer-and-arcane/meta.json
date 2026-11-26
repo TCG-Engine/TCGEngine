@@ -1,0 +1,7 @@
+{
+    "name": "Verdance Thorn of the Rose / eight Earth actual heal and Hero arcane",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-24T16:54:02+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "TWO_REAL_MANUAL_ADULTCC_VERDANCE40_DORI40. EightactualfaceupEarthBanishedcards4through11(priorlegallocalpositions, creationnotcredited), noeffects/healhistory. Printedadult8thresholdmet. RealSigilBlue3Instant0waitsbothmanualresponsesbeforeactualheal40to41/AP1preserved/3GY. HeroWHENearnedseparateABI12SourceHero1, freshresponsesbeforearcane. Control2executesoldSigilfinalpass1thennewHerofirstpass1toPriority2 (exact2nativepasses), explicitheldABI12/HP2still40. Opp2responseopensoptionalMZMulti0|1onlyHero2; soleopposingHero2defaultprecommittedunderTRP5.14, noformalbinding/UPFcredit. ChooseactualHero2onearcane\u2192HP39, ownHP41/readyHero/noAPcost, 3GY/eightEarthsameUIDFaceUp/UID12RNG0/allquiet. Positiveadultthreshold/actualheal/separatelayer/observable1arcane, notwrongownernegative. Below8/beyond8/hiddenEarth/priorbanishprovenance/targetbinding/pitches/secondary/fullcarduncredited. Sources: FaBSim/GeneratedCode/cardArrayCache.json#verdance_thorn_of_the_rose FaBSim/GeneratedCode/GeneratedMacroCode.php FaBSim/Custom/GameLogic.php FaBSim/Custom/ROSCards.php FaBSim/Custom/ROSRuntime.php FaBSim/Custom/CRUCards.php https://rules.fabtcg.com/en/trp/05-gameplay-logistics/"
+}

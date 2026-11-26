@@ -1,0 +1,7 @@
+{
+    "name": "Proto Base Head / actual matching-slot transformation material",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-23T19:11:51+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "BASEMATERIALONLY, no Evo-primarycredit. FourmanualYoungDash20/3Dori20. Actualstartingproto_base_head5Equipment1ready(legalMechBaseHead, blanktext), realevo_tekloscope_blue6Hand1/cost3 and GenericBlue7Hand1. Nativeplay6/realBluepitch3pays3/AP1to0beforeallfourresponses; sameownedbase5remainsseparateandreadywhile6isStack. Untargeted printedmatchingbaseconditionis a resolutioninstruction, notadditionalcost orformalTarget. ActualResolveCardFaBEvoEquip->FaBEVOTransform consumesmatchingbase5onlyonresolution, equipsreal6ready/owned1withSUBCARDS[proto_base_head]; source7Pitch1, noGY/Banish/Temp/otherpermanents/UIDbeyond7/HPorAPrefund. OldbasehasnoWHENandisnotEvo, soSteelSoultriggernotearned; selectedoldLegendaryEvohasnoprintedentryWHENandnotonFaBEVOEquippedspecialhooklist. NativeencodedSUBCARDS retainsCardIDonly, so no underlyingUID/foreignowner/exportclaim. TestsBase+slotqualificationandactualmaterialfateonly; noequip-fromInventory, empty/wrongslot, laterexport, EvoBlasterstaticdiscount/power/GA/targeting, Battleworn/Hero/support/fullcardcredit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#proto_base_head FaBSim/Custom/ProfessorCards.php FaBSim/Custom/EVOCards.php FaBSim/Custom/GameLogic.php FaBSim/GeneratedCode/GeneratedMacroCode.php"
+}

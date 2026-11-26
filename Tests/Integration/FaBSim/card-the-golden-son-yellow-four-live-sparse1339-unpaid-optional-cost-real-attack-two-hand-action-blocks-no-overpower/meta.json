@@ -1,0 +1,7 @@
+{
+    "name": "The Golden Son / unpaid optional cost with real attack and physical controls",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-24T09:10:20+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "FOUR_REAL_MANUAL_UPF_NATURAL_VICTOR_GOLDMANE20_THREEDORI20. Primarythe_golden_son_yellow5Hand/printedcost4power7. NoGoldinArena sooptionalobjectcostUNPAID/noobjectactuallymovedbeforeassets/no099physicaleffectcostpath. ActualBlue6pitch3leavesPITCHR3/AP1thenRed7pitch1pays4\u2192R0/AP0/freshfourresponses/power7notpaidbonus/noGA. ActualTWOHandActionNAAdefendersSharpenBlue8/9each3bothenterCCDEFENSE; successfulseconddefenderpinsNOunearnedOVERPOWERratherthanprivateflag. Real7-6=1damage/HP4=19/noClashreveal/Gold/Victordraw. Finalprimary5GY1/actualfundersPitch1/defendersGY4/allArena0/UID9RNG0/APR0/StackDQCCquiet. Onlyunpaidoptionalcost/nativebasecost/powerandnoOverpowerguard; positivecost/bonus/trigger/Clash/Hero/support/siblings/fullcarduncredited. Sources: FaBSim/GeneratedCode/cardArrayCache.json#the_golden_son_yellow FaBSim/GeneratedCode/GeneratedMacroCode.php FaBSim/Custom/GameLogic.php FaBSim/Custom/ARCCards.php FaBSim/Custom/WTRCards.php FaBSim/Custom/OUTCards.php FaBSim/Custom/HVYCards.php FaBSim/Custom/EVOCards.php FaBSim/Custom/EVORuntime.php"
+}

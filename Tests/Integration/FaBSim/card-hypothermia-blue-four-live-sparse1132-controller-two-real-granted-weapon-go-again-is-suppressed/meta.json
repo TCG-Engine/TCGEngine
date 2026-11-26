@@ -1,0 +1,7 @@
+{
+    "name": "Hypothermia / actual opponent-owned Affliction suppresses real granted weapon go again",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-23T10:33:04+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Your attacks can't gain **go again**.\n\nAt the beginning of your end phase, destroy this. Namedstaticprohibitionpositive only, notprimaryplay. Validexistingowner1OldhimIceAffliction5underopposingcontroller2Boltyn20, p2Turn2/AP1; initialpriorplacementunrecorded/uncredited. ActualHitAndRunRed8Action0/fourmanual2/3/4/1 resolvesnextWeaponGAgrant; itsownNAAprintedGAunaffectedbyattackprohibition restoresAP1. RealCintariSword7cost1declaresadjacentseat3, realBlue6pays3/R2/AP0, allfoursource/combatmanual. UnconditionalactualWTR_NEXT_WEAPONgoAgain attempttagsphysicalattackproxy9GO_AGAIN, butHypothermiacontroller2Aura limitsgainedGA: nativecomputedGA0. Swordprinted2/noinherentGA, noAAblocks/noCintaridefenseWHEN/unchargedBoltynconditionfalse. Actual2damageHP3=18 andfinalAP2=0 evenafterresolution pinactualsuppression, Hero1/otherAP0. CrossownedAura5staysArena2Owner1Controller2; physicalWeapon7retained/Pitch6/GYHitRun8/proxy9removed. NoAuraannouncing/play/placement/lifetime/endphase, existingprintedGAattack, othergrantor, Hero/source/supportfullcardcredit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#hypothermia_blue"
+}

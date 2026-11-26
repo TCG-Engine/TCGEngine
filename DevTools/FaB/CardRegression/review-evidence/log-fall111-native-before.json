@@ -1,0 +1,99 @@
+{
+  "id": "FAB-REG-111",
+  "status": "NATIVE_CONFIRMED_LOG_FALL_EARNED_OVERPOWER_SECOND_ACTION_BLOCK_ACCEPTED",
+  "reviewer": "/root/b105_semantic_review",
+  "reviewer_independent": true,
+  "independent_review_sha256": "cbf6db6ec29260a45c473511664194d646f63bcded36d805ba088107f6c2f5c4",
+  "independent_review_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch449-log-fall-independent-native-before-classification.json",
+  "runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+  "source_spec": "card-regression-batch449.json",
+  "input_sha256": "30bbc73d98bf1a6714350b113cff1f2bafad285937607d704634157aea862721",
+  "manifest_sha256": "a3446aca8bda363e9b9d5cc79d31bd69878c3f29e82a56aab549183464b30ea8",
+  "blocked_attempt": {
+    "slug": "card-log-fall-red-four-live-correct-real-earth-pitch-overpower-rejects-second-action-defender",
+    "card_id": "log_fall_red",
+    "group_id": "pitch-cycle:log_fall",
+    "classification": "CONFIRMED_NATIVE_EARTH_BOND_OVERPOWER_NOT_ENFORCED_SECOND_ACTION_DEFENDER_ACCEPTED",
+    "accepted_inputs": 13,
+    "actual_manual_passes": 8,
+    "manual_pass_actor_counts": {
+      "1": 2,
+      "2": 2,
+      "3": 2,
+      "4": 2
+    },
+    "first_failure": {
+      "source_case_index": 0,
+      "source_step_index": 26,
+      "native_input_count": 13,
+      "last_accepted_action": {
+        "playerID": 4,
+        "mode": 10002,
+        "cardID": "p4Hand-0!FSM",
+        "buttonInput": "",
+        "chkInput": [],
+        "inputText": ""
+      },
+      "check_ordinal_in_checkpoint": 44,
+      "ordered_check_ordinal": 1071,
+      "preceding_successful_check_count_from_source_failfast_order": 1070,
+      "check": {
+        "type": "zone_count",
+        "zone": "p4Hand",
+        "value": 1
+      },
+      "expected": 1,
+      "actual": 0,
+      "error": "Expected p4Hand count 1, got 0."
+    },
+    "last_fully_passed_checkpoint": {
+      "source_step_index": 24,
+      "native_input_count": 12,
+      "checks": 81,
+      "facts": "ActualEarthAutumn6PitchOwnerController1 afterpay3/R0AP0, physicalLogFall5ownedChainATTACK/FromHand/link1/P4target andfreshcomputedpower5/noGA0; firstActionRaging7P4ChainDEFENSE/FromHand/link1/DEF3, secondWounding8P4Handremaining. AllHP20, noStack/queue/payment. Allfrompassednativechecks, notfullintermediaterawsnapshot."
+    },
+    "passed_first43_checks_at_failure": "P4priority4/pass0/windowDEFEND_DECLARE/open; allfourHP20/R0/AP0/DQempty, nopendingpayment; Stack0/P1Hand0/P1Chainone/actual5ownedATTACKFromHand/link1; EarthAutumn6physicalP1PitchOwnerController1. ThefirstfailisP4Handcount; subsequentP4Chaincount/role/UID8physicalrows, UniqueIDCounter/Chi/liveSeat/power/noGAchecks atthischeckpointwerenotreached.",
+    "recorded_facts": "observedHandRefsP4empty; observedstatehandBlockUIDsANDdeclaredBlockUIDs[7,8], windowDEFEND_DECLARE/combatStepDEFEND/link1/attack5/P4target. Actual13thordinaryP4Hand0inputisrecordedaccepted. penPitchTypes[Earth,Action,Attack]/elePitchedEarthtrue/rosEarthPitchtrueunderactual5 confirmrealEarthpaymentconditionrecorded. ThisisnotPITCH/playprotocolorunaffordablecost: defendedcardsarenotplayed/payingprintedcost.",
+    "source_derived_physical_movement": "CurrentFaBDeclareBlockfirstchecksFaBCanBlock, thenFaBMoveUIDtoCombatChain; onlyaftersuccessitassignsRoleDEFENSE/FromZoneandappendsUIDtohandBlockUIDsanddeclaredBlockUIDs. CombinedactualemptyHand+newUID8inbothlistsandlastpassedHand8identity,thissupportsnormalblockmovementof8despiteOverpower. No directfullpostfailureP4CombatChainrawrowswerecaptured; source-derivedmovementisexplicitlydistinguishedfromrecordedstate/passedchecks.",
+    "source_cause": "ActualEarthpitchforTHIS5isrecordedcorrectly, buttheeffectiveOverpowerdefensegatefailedtoexcludesecondAction. CurrentFaBCanBlockcallsFaBDYNBlockLegal; itsActioncheckwouldrejecta secondActionifFaBDYNOverpoweradmittedthekeyword. Thatpredicateacceptsselectedfamilyhelpers/standaloneprintedkeyword/explicitturntags. CurrentFaBPrintedKeywordIsActivedistinguishesstandaloneownkeywordfromconditionalIFgrant, so catalogkeywordmetadataOverpowerinsideEarthBonddoesnotbyitselfactivateit. PENCardsrecordsrealpendingUIDpitchtypesandFaBPENBondcouldreadthem; boundedcurrentreadhasnotestablishedaLogFallconditionalgrantproducer/admission. NativeestablishesmissingpositiveEarthBondrestrictioninselectedcase, notexhaustivetotalimplementationabsence. Predicatecallreturnvalueswerenotinstrumented; thisisboundedsource-derivedcause, nofix/workaroundproposed.",
+    "fresh_getter_vs_cache_and_unreached_damage": "Freshcomputedpower5/noGA0passedatpreviouscompletecheckpoint24. Atfailurecheckpoint26thosechecks80/81wereNOTexecuted. observedattackPower0/defenseValue6/damageDealt0/attackHitfalsearecapturedcachedstate, notfreshpower/damagegettersorlaterdamage. NoDamageStep, noactual0or2heroDamage/HP18or20damageoutcome/GArefund/fullcleanupclaim. AllfourHP20aftersecondinputisindependentlyestablishedbyfirst43passedchecks, withoutclaimingsuffix.",
+    "rules_basis": {
+      "current_card": "https://judge.fabtcg.com/cards/detail/3220/",
+      "current_keywords": "https://rules.fabtcg.com/en/cr/08-keywords/",
+      "meaning": "PrintedEarthBondIFactualEarthcardpitchedtoplaythisgrantsOverpower;8.4.15conditional-label/noWHEN.8.3.22/22a prohibitsmorethanoneACTIONcarddefender(AAandNAA). ActualEarth6paidall3forthis5; first7andsecond8areActionAA, sosecondmustberejectedunchanged. Correct81-checkNOOP/2HP18suffixisretained, noNAAexception/outputfit."
+    },
+    "limits": [
+      "NO fixture/finalraw5/passingcoverage. Original30actions2620checks/strictsecondblockrejection/2damageHP18suffixunchanged; noneoflater17inputsor1549checksattemptedafterfirstfailure.",
+      "No fullpostfailurephysicalrawsnapshot; onlyspecificobservedstate/handrefs andpassedchecks establishlistedfacts. Initialrawindependentlyvalidatedpreserved. No postfailureglobalcounter/physicalownerallzonesclaim.",
+      "SelectedpositiveEarthBond/AAdefendercaseonly; nofalseBond/nonEarth/preexistingPitch/otherActiontypes/DR/equipment/control/retarget/suppression/Oldhimability/fullcard/support/siblings/helpercontrols. RootreservesFAB-REG-111; reviewerneitherallocatesissueIDnorglobal/Core/rootcount.",
+      "No rerun/companion/continuedsuffix/game/PHP/native/R/sourcefix/gen/service/fullsuite/heldoperationretryorintegrationbyreviewer."
+    ]
+  },
+  "native_evidence": {
+    "immutable_native_archive": {
+      "path": "recording-runs\\card-regression-batch449-20261105T103925Z-6aec5cdddc2f2.json",
+      "sha256": "e03f45b916f3594ce21b24e341e9fe4523f1ba3d95b3d3db23d59a5b2234b3f9"
+    },
+    "recording_results": {
+      "path": "card-regression-batch449.recording-results.json",
+      "sha256": "20fefc32880f508d127c517dfe48b7b6c443b88fa6868d5a7bbccf807cc30e22"
+    }
+  },
+  "relevant_source_sha256": {
+    "FaBSim/Custom/GameLogic.php": "1cdad1555c8d2e3bd3fa98d69bf52791b84d21bf2269363ddea7249f4ee35a43",
+    "FaBSim/Custom/DYNCards.php": "769ba9ca4fc0e527144ee5b6e7bf90e612063a2974c78000845b0697862f340b",
+    "FaBSim/Custom/PENCards.php": "3e7a54b0fe8426e65e7d2baadec53bbda7caff5c0a8e48f79b2832e0b2376a94",
+    "FaBSim/Custom/CardChoices.php": "6d1122598624a9ac61d99bfc41574d01e80de211e714eadaafb7b6b817a4f975",
+    "FaBSim/Custom/CustomInput.php": "91a368821f71a4f60bed8812c7cda2edeb91f481a0d6341557586e5e6ab5c2e6",
+    "Core/EngineActionRunner.php": "f64e3d31c9524103bc14aa6ace7611c90be6ae0a0d09a421b81d87593aefebec"
+  },
+  "initial_gamestate_sha256": "4fb19600f9daae70356883b61fcb7156f2acdc008b0166960674bcf453ef4bc9",
+  "all48_initial_manual_settings_verified": true,
+  "fixture_saved": false,
+  "coverage_credit": false,
+  "fix_applied": false,
+  "source_application_attempted": false,
+  "denied_repair_retried": false,
+  "root_attribution": "Native card finding; no newly allocated global gameplay/Core root.",
+  "created_utc": "2026-11-05T10:47:46.667013+00:00"
+}

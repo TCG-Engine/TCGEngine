@@ -1,0 +1,92 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "/root/breadth_review1457",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1478-20261122.json",
+  "source_spec_sha256": "f00f174f083f6cb8457e6482ea753a34ed880c4ca360db99197988e0c2c3ca8e",
+  "input_sha256": "f00f174f083f6cb8457e6482ea753a34ed880c4ca360db99197988e0c2c3ca8e",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-knick-knack-bric-a-brac-red-four-live-sparse1478-zero-coins-real-cost-three-and-potion-search",
+      "card_id": "knick_knack_bric_a_brac_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "e9c1d93fc29e89e6c9cad0feaf83e99186033f93f4a9643b7397cdcd918c34e0",
+        "actions.json": "9661c033c94a4a48893da41d89cf023756b76ee23545396d11661223610547b1",
+        "assertions.json": "fd34673128dc28ce6217cf339b801025e50188b25978b2dac5e0cbbf72b54e00",
+        "expected_final_gamestate.txt": "679af42d7610d10bbed32a7c880386293c364f8414a1efbf968e263b378e2c0e",
+        "meta.json": "b034d19fcd03f8caa2c20eea11e266d3f4ce6500df29948c2464df4bb33d4518"
+      },
+      "fixture_sha256": "c9440cef5d6d8083734edec57515a7a90b92006b57603271b3f203af2621ffaa",
+      "actions": 7,
+      "native_assertions": 271,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 4,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1478-20261122.json",
+      "input_sha256": "f00f174f083f6cb8457e6482ea753a34ed880c4ca360db99197988e0c2c3ca8e",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1478-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-knick-knack-bric-a-brac-red-four-live-sparse1478-zero-coins-real-cost-three-and-potion-search",
+        "fixture_slug": "card-knick-knack-bric-a-brac-red-four-live-sparse1478-zero-coins-real-cost-three-and-potion-search",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "schema_version": 1,
+    "batch": 1478,
+    "reviewer": "/root/breadth_review1457",
+    "result": "approved_named_branches_only_pending_native_execution",
+    "reviewed_utc": "2026-11-25T03:58:56.846655+00:00",
+    "spec_sha256": "f00f174f083f6cb8457e6482ea753a34ed880c4ca360db99197988e0c2c3ca8e",
+    "source_note_sha256": "c1df5e511a61ed07ae819a681966ff461fb8ef0865b4d49646591dcb3a56dda3",
+    "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+    "source_sha256": {
+      "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+      "FaBSim/GeneratedCode/GeneratedMacroCode.php": "fe6a7982611df8f4de98ce2671b317b671b580146aa4b8c28e8f4b86d8461056",
+      "FaBSim/Custom/GameLogic.php": "c60fa151561f959e4e3e341b814de0e2b47c9e9f153bbc8793a04c43b5075061",
+      "FaBSim/Custom/EVRCards.php": "ae4e1ea2da09ac679821be116bc55f898ed8de2e5ceadf16f548e13d0495c275",
+      "FaBSim/Custom/CardChoices.php": "c68ae2b8e984bcc64b00289cc2d71bc0c980b2fbbeaeadbca8ae3a9f9579c515"
+    },
+    "cases": 1,
+    "planned_actions": 7,
+    "persistable_checks": 271,
+    "named_primary_ids": [
+      "knick_knack_bric_a_brac_red"
+    ],
+    "findings": [
+      "Actual current group uncovered. With no coins the optional Prepare destroys nothing; actual printed3 payment by Blue6 and AP1to0 is required.",
+      "Same primary source5 staysStack through directDeck7MZMAYCHOOSE, then physicalPotion7 movesownedArena/ready, source5GY andBlue6Pitch. No cross-seat continuation or mandatory Item enterWHEN.",
+      "Potion was put intoArena notplayed, so no play-order counter requirement. Emptyshuffle consumesnoRNGiteration; UID7/AP0/R0 and quietfates constrain outcome.",
+      "Precise oldordinarysourcecohortconcern supersededby existingcurrentstructuralmanagement; no newenginecode."
+    ],
+    "limits": [
+      "Independent source/spec review only; no reviewer games/replays/output reads. Credit only after savedfirsttargetedreplay.",
+      "Zero optionalcoins/singlepositivePotion only; no nonzeroadditionalcost/repeatedsearch/decline/otheritems/shuffle randomness/secondary activation/sibling/fullcard credit."
+    ]
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1478-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "80ff7d460b7ad8a3d450f56468d0cd20b1fe285bc5eaf93ccb50be9186dfc9c2"
+  },
+  "full_suite_run": false
+}

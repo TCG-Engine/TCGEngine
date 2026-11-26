@@ -1,0 +1,50 @@
+{
+  "status": "CONFIRMED_NATIVE_SAND_TARGET_NOT_DECLARED_ON_ANNOUNCEMENT_NO_FIXTURE",
+  "issue": "FAB-REG-175",
+  "utc": "2026-11-14T06:17:08.196799+00:00",
+  "runtime_sha256": "84153c85b77da6585bccfffa90af57baf67d2e75619c15433c06b444f9ec5aea",
+  "card_id": "sand_cover_blue",
+  "group_id": "pitch-cycle:sand_cover",
+  "source": {
+    "path": "card-regression-batch786-sand-target-probe.json",
+    "sha256": "9a26f3fe95770540bd93e9ff06a50e37600524e94add6b5d1832b4af5ef56216"
+  },
+  "recording_results": {
+    "path": "card-regression-batch786-sand-target-probe.recording-results.json",
+    "sha256": "5d08f7ad47157aa47fe9e86bb5b323e10ecf38e9ba257576b96339034a9c6f6f"
+  },
+  "independent_correct_source": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov14-batch786-sand-independent-strict-diagnostic-source-review.json",
+    "sha256": "0ffe85b37dee285d2bac373147c3fe213ff5f6dd75e220d294baad081c6aba9c",
+    "role": "External source review or focused execution receipt; not a replay dependency"
+  },
+  "native_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov14-b786-sand-original-correct-native-before\\receipt.json",
+    "sha256": "49600f5d46a10a58866607f7939f41d3d85fc2d36dcbb3a431e2e7bbb927358a",
+    "role": "External source review or focused execution receipt; not a replay dependency"
+  },
+  "native_inputs": 19,
+  "successful_persisted_queries": 1444,
+  "first_failed_query_ordinal": 1445,
+  "total_planned_queries": 1517,
+  "unrun_queries_after_failure": 72,
+  "expected": "With two own legal Ash7 and8, actual opponent-seat4 Sand6 announcement must ask its controller to declare the Ash target before any Sand response input.",
+  "observed_error": "Expected p4DecisionQueue-0.Type to equal 'MZCHOOSE', got ''.",
+  "observed_window": "REACTION",
+  "observed_decision_queues": "Allfour empty in actual failure export",
+  "actual_scope": "The first target-choice Type query failed. Later sourceStack/twoAsh queries and72 suffix queries were not run; no direct final raw-zone/target-key/universe/priority-player export claim.",
+  "fixture_saved": false,
+  "fixture_inventory_unchanged": true,
+  "passing_corpus_scenarios": 4051,
+  "coverage_credit": false,
+  "fix_applied": false,
+  "assertions_weakened": false,
+  "mandatory_probe_only": true,
+  "full_suite_run": false,
+  "historical_corpus_replayed": false,
+  "limits": [
+    "Native before witness covers selected two-Ash true declaration route only, not sibling pitches, no-target, stale-target or actualWard damage consumption.",
+    "Future target7 choice/response quorums/Ward2 prevention and only7 destruction/fullcombatcleanup remain unrun.",
+    "Lowercase-only Source successor changes no action/query expectations; uppercase author packet remains uninstalled/unexecuted."
+  ]
+}

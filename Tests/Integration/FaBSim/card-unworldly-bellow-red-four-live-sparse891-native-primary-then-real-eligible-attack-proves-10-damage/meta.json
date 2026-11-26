@@ -1,0 +1,7 @@
+{
+    "name": "Unworldly Bellow / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T17:26:19+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "As an additional cost to play this, banish 3 random cards from your graveyard.\n\nThe next Brute or Shadow attack action card you play this turn gets +4{p}.\n\n**Go again** Representative only: native_primary_then_real_eligible_attack_proves_10_damage. Other pitch siblings, alternate targets and unexercised branches receive no credit. All four live/manual; only native entry-point actions. Sources: FaBSim/GeneratedCode/cardArrayCache.json#unworldly_bellow_red"
+}

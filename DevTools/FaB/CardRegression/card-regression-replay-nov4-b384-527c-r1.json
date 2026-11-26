@@ -1,0 +1,39 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch384.json",
+  "runtime_sha256": "527c3e3bf7e18d626fbaf23ae221d77fc65bf1ec080080758a7009069800afa2",
+  "returncode": 0,
+  "completed_utc": "2026-11-04T20:05:32.584939+00:00",
+  "fixtures": [
+    {
+      "slug": "card-sandscour-greatbow-four-live-sparse-real-paid-top-look-hand-arrow-load-and-paid-arsenal-play",
+      "fixture_sha256": "4b69b57aa93e5cfab002b0b34b190acfb88c8bfbd578ef24b591d0abfba7e73f",
+      "passed": true,
+      "result": "[PASS] sandscour_greatbow / four live distinctive effect"
+    },
+    {
+      "slug": "card-predatory-plating-four-live-sparse-real-controlled-seven-power-attack-earns-destroy-instant-resource",
+      "fixture_sha256": "6054224ff34254b84c5d4e54e1131d610c0ac18e28816b8218582b19d3fa8ed3",
+      "passed": true,
+      "result": "[PASS] predatory_plating / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-sandscour-greatbow-four-live-sparse-real-paid-top-look-hand-arrow-load-and-paid-arsenal-play",
+      "returncode": 0,
+      "stdout": "[PASS] sandscour_greatbow / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-predatory-plating-four-live-sparse-real-controlled-seven-power-attack-earns-destroy-instant-resource",
+      "returncode": 0,
+      "stdout": "[PASS] predatory_plating / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 2,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

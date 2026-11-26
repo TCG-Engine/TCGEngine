@@ -1,0 +1,7 @@
+{
+    "name": "Tick Tock Clock / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T16:17:34+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "**Crank**\n\nThis enters the arena with a steam counter. At the start of your turn, destroy this and it deals 1 damage to you unless you remove a steam counter from it.\n\nWhen a Mechanologist attack action card you control hits a hero, destroy this and up to 2 other items in the arena. Then deal X damage to them, where X is the number of items destroyed this way. Representative only: actual_item_enters_with_one_steam_and_declines_crank. Other pitch siblings, alternate targets and unexercised branches receive no credit. All four live/manual; only native entry-point actions. Sources: FaBSim/GeneratedCode/cardArrayCache.json#tick_tock_clock_red"
+}

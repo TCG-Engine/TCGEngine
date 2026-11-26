@@ -1,0 +1,84 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "independent breadth_review",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1201-20261122.json",
+  "source_spec_sha256": "f96bfcd34b007c6fc5574d9d3c2d7099aab381aa8acdfa77f00104679b0e724a",
+  "input_sha256": "f96bfcd34b007c6fc5574d9d3c2d7099aab381aa8acdfa77f00104679b0e724a",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-burn-up-shock-red-four-live-sparse1201-real-left-go-again-attack-hit-separate-four-arcane-trigger",
+      "card_id": "burn_up_shock_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "49f558a8152af437075c98d2df353ded66ff27af21ae9fa7f4a2f081bdf17321",
+        "actions.json": "cf56bd0eb0d6a6a9dc57126a892cde53576854a640a8d8e7f5565aae6ff76098",
+        "assertions.json": "3ccec938ec5f487d0a616c9e1aa287babced88abec4fa93ef3df7b901bdd4a3d",
+        "expected_final_gamestate.txt": "ea2036f9e0714e2670d86c0f05aa26093637a873ef9340017239c12badd6f4bc",
+        "meta.json": "c6f444d040effcd99d68665fcec64937815eaf273f207035892226865d964751"
+      },
+      "fixture_sha256": "3c4bcb6c761f3f2c9f6464f21a65e0840d7057e151b3d5659b8849cda8aaa949",
+      "actions": 37,
+      "native_assertions": 460,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 33,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1201-20261122.json",
+      "input_sha256": "f96bfcd34b007c6fc5574d9d3c2d7099aab381aa8acdfa77f00104679b0e724a",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1201-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-burn-up-shock-red-four-live-sparse1201-real-left-go-again-attack-hit-separate-four-arcane-trigger",
+        "fixture_slug": "card-burn-up-shock-red-four-live-sparse1201-real-left-go-again-attack-hit-separate-four-arcane-trigger",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "reviewer": "independent breadth_review",
+    "spec_sha256": "f96bfcd34b007c6fc5574d9d3c2d7099aab381aa8acdfa77f00104679b0e724a",
+    "case_count": 1,
+    "native_controls": 37,
+    "persistable_assertions": 460,
+    "author_only_checks_omitted": 0,
+    "card_id": "burn_up_shock_red",
+    "group_id": "identity:burn_up_shock_red",
+    "basis": [
+      "Exact frozen sequence/checks, printed text and current source reviewed. Legal young Aurora20 Runeblade/EssenceLightning caster1 and threeDorinthea20 seats avoid unrelated Hero observers. Primary is unrepresented and both current ledgers checked. RealBurn5/Wounding6 are the only non-Hero assets; no buff/history/permission is seeded.",
+      "Actual left Meld0 is chosen before payment. Printed Action0 spends AP1\u21920 before four live source responders; ResolveCardd3f952c7de5e260643b4 stores BURN with sourceUID5. Printed left-half Go again is applied only after source resolution, returning actualAP1 with physical5ownedGY1. No Shock target or extra arcane packet is entered.",
+      "Actual Wounding6 cost0 declares adjacent Hero4, spends AP1\u21920 and receives four source responses/full combat. It remains nativepower4/GAfalse and deals actual4physical to HP16 without any early arcane benefit. Printed Burn is a delayed next-hit effect, not a granted attack-owned ability, so captured source5/controller1 is correct. FaBFaiHeroHit is a generic Hero-target predicate, not a requirement to control Fai.",
+      "GameLogic2531 invokes hit processing; ROSRuntime29 consumes BURN and queues distinct Burn ability7/source5/controller1 with captured victim4. ROSQueue24 sets windowPRIORITY; GameLogic2533 reloads current state after OnHit and preserves that window while combatStep remainsDAMAGE. Control37 correctly stops at PRIORITY1/Stack1/HP16, not a DAMAGE predicate that would silently pass the effect.",
+      "All fresh responder seats1,2,3,4 occur before the separate arcane packet. ResolveAbility8b451be596aad392126e reads captured rosSource5/rosTarget4, resolves the actual Hero UID, uses fixed packet4/source5 and deals to that same victim. With no Barrier/Ward/Spellvoid/Quell/other prevention asset or observer, this exact path finishes its generated frame synchronously without a suspended decision; no094 prevention-choice branch is exercised or certified.",
+      "After the generic ROS layer completes, empty-stack GameLogic1953 restores the current DAMAGE step/turn-player priority1. Actual HP12/Stack0 is asserted only after the four response passes. Fresh Damage and Resolution cycles then finish ordinary combat, leaving ownedGY1[5,6], maxUID7/noStack/DQs/R0 and casterAP0. Attack6 does not inherit the source NAA Go again or receive a second action point.",
+      "Physical HP20\u219216 followed only after responses by16\u219212, plus actualAP1\u21920\u21921\u21920, pin distinct primary benefits and correct timing. All460 checks normalize to portable saved assertions with zero author-only omissions or conflicting duplicate checkpoint values."
+    ],
+    "source_sha256": {
+      "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+      "FaBSim/GeneratedCode/GeneratedMacroCode.php": "fe6a7982611df8f4de98ce2671b317b671b580146aa4b8c28e8f4b86d8461056",
+      "FaBSim/Custom/ROSCards.php": "c79f80e918be279dde3c7fe5323ea3031228c131e3e2d0b2b254619e0944b59a",
+      "FaBSim/Custom/ROSRuntime.php": "36dbcc7bea9b33ae47568714360c07ed4c764b0185aa0e9b01c435fa0d75b8dc",
+      "FaBSim/Custom/GameLogic.php": "c60fa151561f959e4e3e341b814de0e2b47c9e9f153bbc8793a04c43b5075061",
+      "FaBSim/Custom/FaiCards.php": "222e95c7670e2df62aaec1185f75e63b6cc563bbd8fcfd52b4dd8f1f14110786"
+    },
+    "source_note_sha256": "eb27ba6ebc92715d2ed586bbbd7826b264fd929b89a3b9833fddae4c64469de5",
+    "limits": [
+      "Pending Root native recording, exact saved-assertion mapping and targeted replay; no native success claimed here.",
+      "Only left-mode delayed hit positive on one actual Hero hit, with the no-prevention synchronous resolution branch and source own Go again. No Shock/right/Meld-both, blocked/no-hit/second-hit/expiry, alternate damage/prevention/suppression, source-on-Stack observer, Hero/support-group or whole-card credit.",
+      "Generated body contains await machinery, but none is suspended in this selected empty-prevention route. No general virtual-layer/source-lifetime correctness or094 repair/waiver is claimed. Known Close/099/other holds remain untouched; no engine/framework/source changes performed."
+    ]
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1201-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "997f273150c8f6f0244d3c1d217d3045537c85cc595546fb6d656503cb16cd1a"
+  },
+  "full_suite_run": false
+}

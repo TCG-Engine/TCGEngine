@@ -1,0 +1,79 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-bridge-of-damnation-blue-four-live-sparse1220-play-persistence-and-go-again-spent-on-real-attack-only",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-bridge-of-damnation-blue-four-live-sparse1220-play-persistence-and-go-again-spent-on-real-attack-only",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1220-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1220-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "69192d70a1b83032289b994124384ea3c5d3badf85713e8d5ef90ab646cf9776",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "380558342cd666b9d6c0563a6b553071b954457777b347ddffd1143ca9d1e42b",
+        "actions.json": "0af8a1ea1ec8c5c1cd86d16e2bbdc5cce415580ef97f75c13ce0010d1f71cfc6",
+        "assertions.json": "0bfdbfbc545ccd161917d8f34d8ff02987186b81cf8dc072d5b3f05fba2a5a3c",
+        "expected_final_gamestate.txt": "13d53c921a6cfbfcae24c5ba4c587ce37701da3763a0c45cbe51452ba43fce91",
+        "meta.json": "4db248ee1ad074c5ed77ae410900d27d9cc2905dd4b47454925b8236cb32afa9"
+      }
+    },
+    {
+      "slug": "card-shifting-tides-blue-four-live-sparse1220-play-persistence-and-go-again-spent-on-real-attack-only",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-shifting-tides-blue-four-live-sparse1220-play-persistence-and-go-again-spent-on-real-attack-only",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1220-local-20261122\\clean-replays\\01.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1220-local-20261122\\clean-replays\\01.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "3eaf224c9d87160c33eb990d4818b37b5f9bd444be66e47986350365c73f868b",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "f97d4350e0b729204fcaf49a7850b919fb0c08382006d899cb1ade7f7757fcab",
+        "actions.json": "0af8a1ea1ec8c5c1cd86d16e2bbdc5cce415580ef97f75c13ce0010d1f71cfc6",
+        "assertions.json": "13bd81b5c557fff2840030fda8fd88f1a07cd936634338e6b9105c513c13dbac",
+        "expected_final_gamestate.txt": "c086ad49612af42cabe5f7df0ed2aefb52b2d911b58953ec5a8b12c441ca67f6",
+        "meta.json": "abd21c44a80cb00d4a52815e1d0dfb90322c245eced3a168ee3419decf91144d"
+      }
+    },
+    {
+      "slug": "card-doomsaying-red-four-live-sparse1220-play-persistence-and-go-again-spent-on-real-attack-only",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-doomsaying-red-four-live-sparse1220-play-persistence-and-go-again-spent-on-real-attack-only",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1220-local-20261122\\clean-replays\\02.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1220-local-20261122\\clean-replays\\02.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "3a5220154d020f795fa105e71f3544bf1ae756103539acd2770e1091d3933a67",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "f44ea59804305eca51c4ff175bc61b1fb3c5f3595ae806062c2b237bccd6a8d6",
+        "actions.json": "0af8a1ea1ec8c5c1cd86d16e2bbdc5cce415580ef97f75c13ce0010d1f71cfc6",
+        "assertions.json": "2143878df8dc01b8338adda2d3290f0c76a4c1cb7b2d15b78ac1884e94763782",
+        "expected_final_gamestate.txt": "55485ce01fe6fbcb61d58d1dfd3ba4b7b3c63bb370a912a89a7c5f9366911686",
+        "meta.json": "a587cfcf1e0ed06d48e38396f64ac7236d0e727888d600087e76a93c24f0966c"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

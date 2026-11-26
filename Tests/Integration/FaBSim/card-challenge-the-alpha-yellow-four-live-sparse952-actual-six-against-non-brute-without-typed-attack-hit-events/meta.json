@@ -1,0 +1,7 @@
+{
+    "name": "Challenge the Alpha / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T21:37:10+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "When this attacks a Brute hero, this gets +2{p}.\n\nWhen this hits a Brute hero, they discard a card. If it has 6 or more {p}, you lose 2{h}. ActualtargetDorintheaWarrior/notBrute/notMystic/unmarkedHeroCounters[], so typedattacks/hits eventnotearned. Printedcost0or3/realBlue6if3/AP0; actual6/4/3/3HPdamage, realenemyHand/FaceDownArsenal/Deckretained/Banish0/GY0, noSilverArena. Namednegativequalificationonly. Sources: FaBSim/GeneratedCode/cardArrayCache.json#challenge_the_alpha_yellow"
+}

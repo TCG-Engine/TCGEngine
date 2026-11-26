@@ -1,0 +1,56 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-darling-of-the-crowd-yellow-four-live-sparse1322-real-three-defense-and-one-hero-damage-without-cheer",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-darling-of-the-crowd-yellow-four-live-sparse1322-real-three-defense-and-one-hero-damage-without-cheer",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1322-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1322-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "9bef843dc4a019dddce448d8090512d070d7b5ed6f9907e8d36f3a51cfed28ec",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "0b240ac1f2082861053f7425e9770c614c8868f5840b010188c6e93ffe90a3c6",
+        "actions.json": "5af67ec73dd5988db1a058227e5dcccf44c896ddc4b34170fb8eb2fb4f3ccefb",
+        "assertions.json": "f0e8f429e0e17dc41a018e3eb4257868dac8498fa59be61568a957cc88f7df95",
+        "expected_final_gamestate.txt": "80a0bcdbaf7ea3b74247dc5aa9df507e61df0c790785bc90e8924a3a8b65b4f1",
+        "meta.json": "c9e3dee76931ea4a151e3f595d37f88cb145dce395064058a4e7163e9043519e"
+      }
+    },
+    {
+      "slug": "card-disdainful-delight-yellow-four-live-sparse1322-real-three-defense-and-one-hero-damage-without-boo",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-disdainful-delight-yellow-four-live-sparse1322-real-three-defense-and-one-hero-damage-without-boo",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1322-local-20261122\\clean-replays\\01.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1322-local-20261122\\clean-replays\\01.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "484774e1ee0e7ecf20f1c559944fdf756985f9671254f24049d2693f329d6b93",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "a0421b1d9116fc8841b15ff11050ac305a05aff7d64da550662e50cf1af8cdcc",
+        "actions.json": "5af67ec73dd5988db1a058227e5dcccf44c896ddc4b34170fb8eb2fb4f3ccefb",
+        "assertions.json": "7d61f02e2e9a4c599e3ec1aa188aa69e6bf32ea8e3971fd82e3ff643266402f4",
+        "expected_final_gamestate.txt": "da36a87b8a9bbd6e87ea6a2556b535eb0a8820871d999975b1324b2b6c8c4eb9",
+        "meta.json": "0095731e94205a98a67f3d5d8bec948cd311b362cf8fd0d98c85edb197da6ad3"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

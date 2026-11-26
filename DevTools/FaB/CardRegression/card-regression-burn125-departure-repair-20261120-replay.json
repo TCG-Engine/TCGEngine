@@ -1,0 +1,66 @@
+{
+  "runtime_sha256": "0e7817837e772fde21e98830ecbb5671c11566788c816a5822791ce7a7e102b8",
+  "returncode": 0,
+  "fixtures": [
+    {
+      "slug": "repair-burn125-four-live-real-shock-departed-dragon-earned-arcane",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:/xampp/php/php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=repair-burn125-four-live-real-shock-departed-dragon-earned-arcane",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov20-burn125-new-clean-replay\\0.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov20-burn125-new-clean-replay\\0.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov20-burn125-new-clean-replay\\0.complete.log",
+      "complete_log_sha256": "65f3a7e933a1abcc37efb83f7a043fe931d7d2510cf79f2ac071f8489e5f1118"
+    }
+  ],
+  "directly_affected_compatibility": [
+    {
+      "slug": "card-burn-them-all-red-four-live-real-dragon-attack-trigger-before-one-arcane-each-opponent-correct-probe",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:/xampp/php/php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-burn-them-all-red-four-live-real-dragon-attack-trigger-before-one-arcane-each-opponent-correct-probe",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov20-burn125-final-compatibility-replays\\0.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov20-burn125-final-compatibility-replays\\0.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov20-burn125-final-compatibility-replays\\0.complete.log",
+      "complete_log_sha256": "e474a6802b91af2202c228e6d0cbe9bb5dfc45e2fde5dda029762ab7a99352a1"
+    },
+    {
+      "slug": "repair-burn125-four-live-captured-dragon-source-specific-prevention",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:/xampp/php/php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=repair-burn125-four-live-captured-dragon-source-specific-prevention",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov20-burn125-final-compatibility-replays\\1.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov20-burn125-final-compatibility-replays\\1.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov20-burn125-final-compatibility-replays\\1.complete.log",
+      "complete_log_sha256": "da26d2ce2bb51c8251e1ec7be29e2f3244ad886c1226e71f2c69824c8d1b3ac1"
+    }
+  ],
+  "raw5_unchanged": true,
+  "runs_per_fixture": 1,
+  "full_suite_run": false,
+  "complete_receipts_external": [
+    "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov20-burn125-new-clean-replay\\receipt.json",
+    "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov20-burn125-final-compatibility-replays\\receipt.json"
+  ]
+}

@@ -1,0 +1,1282 @@
+{
+  "status": "EXACT_REVIEWED_STRICT_FINAL_ORACLES",
+  "review": {
+    "reviewer": "/root/breadth_review1457",
+    "approved": true,
+    "scope": "Exact11,55raw5guards,whole candidate/capture equality. Complete newdelta:5quiet mzIDchanges,75removed fictional source Grave-entryrows,12STARFALLcorrections,5actualPEN_CREATED1insertions,6physicalGYrow swaps and5retiredamount omissions; no other numeric/state/objectpayload changed. Source resolves beforeclear: DigDinnerBanish/RaySoul/SigilHomageTranscend avoidfictionalGYevents;EVRCards235countsallliveforactualentry,SEAownBlue,OMNInstantGrave. Orb realGraphenecreatedduringresolution PENCards279 beforeclear. Tear actualdraw/discardUID9beforeTear5clear; exactobjectbytes retained. GlidewellSearingHeroHitgenericmacro notinvokedforALLY underowned purehitproducer;amount5oldunusedparameter omitted,actual5AllyDamage/health unchanged. MixedBanish/Handparams retainedexactly exceptboundretiredmzID. All affectedroot/Undo queues,Stack,continuation ownership empty. Source-derived fixture maintenance with strict comparator/untouchedcompanions, normal targetedPASSrequired; no newmechanicscertified. Reviewer ran no games/tests/writes.",
+    "source_details": "14/28/42/301: lower owned Hand resolver bindsStack0 while unsupplied cardID/fromZone fields can remain stale from earlier Kano/Banish; preserve those fields, not a claim Banish sourcecurrentlyownsStack0.126/342/368/369: DinnerdirectBanish/RaySoul/HomageChiHand, GLclears onlystillStacksource, so nofictionalGYentry; allroot/Undo actualnewGraveUIDs rederived excludingseededcards, noothernewGYexit/reentry.126also drops three now-empty seatbuckets, beyond key reordering, no effects lost.310:HNT60createsGraphene thenPENAfterMove(empty,Weapons),PEN279created1beforeclear.408:MONDrawDiscardsynchronously places9beforeTear5clear; exactsix serializedrowsswapped.215:Searing Hero-only producerWTRAbilities94to124 isunearnedagainstUrsurALLY;GL1343to55skipobsoletegenericHit amount5write; deleteonlyunownedparam in5quietcapsules, actual5damage/Herohealthassertionsintact."
+  },
+  "review_manifest_sha256": "9ce0edca43e2e87eebedf4127b5dfc0375b388fe51a61bb67295d32eff791634",
+  "runtime_sha256": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+  "fixtures": [
+    {
+      "number": 14,
+      "slug": "card-arcane-polarity-blue-conditional-heal-arcane-after-announcement-before-resolution",
+      "passed": true,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "exit_code": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-arcane-polarity-blue-conditional-heal-arcane-after-announcement-before-resolution",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\snapshot-cohort-445\\sourceeleven-014.log"
+      ],
+      "complete_log_sha256": "690cd6752b527ee1359838d36a6d1fc678614ca0a68ae32e2769428c75f093ce",
+      "before_expected_sha256": "d18ce57128ae79b10cf56f3545e7bcd262a503f5f6046e506b2fb5acce37bfd6",
+      "expected_sha256": "41a5c3ebb6135eb529571e182a95e754f8cb6df907ec6d6a9addab42b2741400",
+      "other_four_files_unchanged": true,
+      "failed_candidate_restored": false,
+      "edits": [
+        {
+          "location": "line86",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "1",
+          "accounting_bag_sha256": "72eb0ee7dafc03050f3ba3e98ae1aec331c293d63edd84aa695cf34b39b89e0d",
+          "ordered_nonaccounting_sha256": "1ea73bc2311521968f57f7cc5bbcd8c4f824a1ae15baa817546f2f8e594ea134",
+          "before_rows_sha256": "0fc90d534970cab0e58582396d6d3b7219a04417a0788591e8d13c6e89a82ef0",
+          "after_rows_sha256": "85fa71593f71f3f7b055b9fff988469035fb76ca1849f91c5050be388cec521a"
+        },
+        {
+          "location": "line104",
+          "kind": "RETAINED_COMPLETED_SOURCE_REFERENCE",
+          "old": "p1Graveyard-0",
+          "new": "Stack-0",
+          "other_fields_unchanged": true
+        }
+      ]
+    },
+    {
+      "number": 28,
+      "slug": "card-arcane-polarity-red-conditional-heal-arcane-after-announcement-before-resolution",
+      "passed": true,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "exit_code": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-arcane-polarity-red-conditional-heal-arcane-after-announcement-before-resolution",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\snapshot-cohort-445\\sourceeleven-028.log"
+      ],
+      "complete_log_sha256": "e427bbb29bff5fc44da184d44624be96ac266d1dab739ea08287360c3b7908c3",
+      "before_expected_sha256": "01cd690019bf5a5a3c132e00a1a2243450d96a42416daf08407b8c4b26a5470a",
+      "expected_sha256": "6f0bac6eb1df777b1a4d19fcde8b2259746a1b3cd0cda02fc20e0bc709324a98",
+      "other_four_files_unchanged": true,
+      "failed_candidate_restored": false,
+      "edits": [
+        {
+          "location": "line86",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "1",
+          "accounting_bag_sha256": "76d35d8c49292e966ac10e47ca315860d9d3490f6cb36574a1f5e18d7edc1d45",
+          "ordered_nonaccounting_sha256": "710dd8ee9bb1a5b9c4c2a4c5a145107b7f2ee383123aa2af6effcb795b300b57",
+          "before_rows_sha256": "366fde3ecaff4d1e5c504d7718b96210b1510d18dcbab41a7412644ef012cc50",
+          "after_rows_sha256": "21508a39fe9f716f531add8333e4ce4f35f688f418a646741c65129d9efacb78"
+        },
+        {
+          "location": "line104",
+          "kind": "RETAINED_COMPLETED_SOURCE_REFERENCE",
+          "old": "p1Graveyard-0",
+          "new": "Stack-0",
+          "other_fields_unchanged": true
+        }
+      ]
+    },
+    {
+      "number": 42,
+      "slug": "card-arcane-polarity-yellow-conditional-heal-arcane-after-announcement-before-resolution",
+      "passed": true,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "exit_code": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-arcane-polarity-yellow-conditional-heal-arcane-after-announcement-before-resolution",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\snapshot-cohort-445\\sourceeleven-042.log"
+      ],
+      "complete_log_sha256": "e1ba9023dceb7084678efd6ee76f0bbc14892948af650b37f8d7d99d7e033daf",
+      "before_expected_sha256": "589b1099aaec5f2e85f58d5aa8e5d7301bf0b8c4fcac02731b2ab9e77ccd18aa",
+      "expected_sha256": "a4e584405ed71fd1873f00ce89a1404f979025d56e344d7183b90f73b1eb7a97",
+      "other_four_files_unchanged": true,
+      "failed_candidate_restored": false,
+      "edits": [
+        {
+          "location": "line86",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "1",
+          "accounting_bag_sha256": "b6b4b9ec21be7211a507c2c43784bc209e3fe92e0a995e781c3681e9d9ecae63",
+          "ordered_nonaccounting_sha256": "710dd8ee9bb1a5b9c4c2a4c5a145107b7f2ee383123aa2af6effcb795b300b57",
+          "before_rows_sha256": "e1f40d525e617bbba86be05231029aab813d7ee767551ce062918c3cd63129b3",
+          "after_rows_sha256": "dc9cd898ef4916b253e9bf98c71f15cb8510b34448ac0e726bfca1e79c26e907"
+        },
+        {
+          "location": "line104",
+          "kind": "RETAINED_COMPLETED_SOURCE_REFERENCE",
+          "old": "p1Graveyard-0",
+          "new": "Stack-0",
+          "other_fields_unchanged": true
+        }
+      ]
+    },
+    {
+      "number": 126,
+      "slug": "card-dig-up-dinner-blue-four-live-sparse-real-three-graveyard-selection-recycles-one-heals-one-self-banish",
+      "passed": true,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "exit_code": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-dig-up-dinner-blue-four-live-sparse-real-three-graveyard-selection-recycles-one-heals-one-self-banish",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\snapshot-cohort-445\\sourceeleven-126.log"
+      ],
+      "complete_log_sha256": "5dbbd30cf24d48f86bba05548c619491edaa308ec76b6b0114dc3880dc3de4cf",
+      "before_expected_sha256": "1c2365940c6a904dbac70d2d1e76df33a00ce73b4e930ca66284fa766b776f73",
+      "expected_sha256": "58ca4c4f621ecdb51ec607f6788cb26b4315f19b0f89c55bc6b64c083b11a337",
+      "other_four_files_unchanged": true,
+      "failed_candidate_restored": false,
+      "edits": [
+        {
+          "location": "line91",
+          "kind": "REMOVE_ONE_FICTIONAL_SOURCE_GRAVE_ENTRY",
+          "seat": "1",
+          "type": "EVR_GRAVEYARD",
+          "predicted_real_new_grave_entries": 0,
+          "source_fate": "Source resolves directly toBanish/Soul/Chi, neverGraveyard"
+        },
+        {
+          "location": "line91",
+          "kind": "REMOVE_ONE_FICTIONAL_SOURCE_GRAVE_ENTRY",
+          "seat": "1",
+          "type": "SEA_BLUE_GRAVE",
+          "predicted_real_new_grave_entries": 0,
+          "source_fate": "Source resolves directly toBanish/Soul/Chi, neverGraveyard"
+        },
+        {
+          "location": "line91",
+          "kind": "REMOVE_ONE_FICTIONAL_SOURCE_GRAVE_ENTRY",
+          "seat": "2",
+          "type": "EVR_GRAVEYARD",
+          "predicted_real_new_grave_entries": 0,
+          "source_fate": "Source resolves directly toBanish/Soul/Chi, neverGraveyard"
+        },
+        {
+          "location": "line91",
+          "kind": "REMOVE_ONE_FICTIONAL_SOURCE_GRAVE_ENTRY",
+          "seat": "3",
+          "type": "EVR_GRAVEYARD",
+          "predicted_real_new_grave_entries": 0,
+          "source_fate": "Source resolves directly toBanish/Soul/Chi, neverGraveyard"
+        },
+        {
+          "location": "line91",
+          "kind": "REMOVE_ONE_FICTIONAL_SOURCE_GRAVE_ENTRY",
+          "seat": "4",
+          "type": "EVR_GRAVEYARD",
+          "predicted_real_new_grave_entries": 0,
+          "source_fate": "Source resolves directly toBanish/Soul/Chi, neverGraveyard"
+        },
+        {
+          "location": "line91",
+          "kind": "TURN_EFFECT_SEAT_MAP_INSERTION_ORDER_ONLY",
+          "old_seat_order": [
+            "1",
+            "2",
+            "3",
+            "4"
+          ],
+          "new_seat_order": [
+            "1"
+          ]
+        },
+        {
+          "location": "line111",
+          "kind": "RETAINED_COMPLETED_SOURCE_REFERENCE",
+          "old": "p1Graveyard-3",
+          "new": "Stack-0",
+          "other_fields_unchanged": true
+        }
+      ]
+    },
+    {
+      "number": 215,
+      "slug": "card-glidewell-fins-four-live-real-paid-destroyed-arrow-load-plus-one-and-five-ally-damage",
+      "passed": true,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "exit_code": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-glidewell-fins-four-live-real-paid-destroyed-arrow-load-plus-one-and-five-ally-damage",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\snapshot-cohort-445\\sourceeleven-215.log"
+      ],
+      "complete_log_sha256": "08af8a610d888a674b3db1c86161d99d339960ef290ecf070f65d51f0ff533b3",
+      "before_expected_sha256": "03fb66fb7ac6f8c202aaa0e0cc5bc3235a3d618fab01ee71e942b27fd62aa929",
+      "expected_sha256": "d85264bbe31ef8c449d17d7ede75b6e6fc16b82539fa445efdb061bf975aa107",
+      "other_four_files_unchanged": true,
+      "failed_candidate_restored": false,
+      "edits": [
+        {
+          "location": "line107/Versions/86",
+          "kind": "RETIRED_UNOWNED_ALLY_DAMAGE_ARGUMENT_NOT_WRITTEN_BY_CURRENT_ROUTE",
+          "removed_amount": 5,
+          "semantic_review_required": true
+        },
+        {
+          "location": "line109/Versions/86",
+          "kind": "RETIRED_UNOWNED_ALLY_DAMAGE_ARGUMENT_NOT_WRITTEN_BY_CURRENT_ROUTE",
+          "removed_amount": 5,
+          "semantic_review_required": true
+        },
+        {
+          "location": "line111/Versions/86",
+          "kind": "RETIRED_UNOWNED_ALLY_DAMAGE_ARGUMENT_NOT_WRITTEN_BY_CURRENT_ROUTE",
+          "removed_amount": 5,
+          "semantic_review_required": true
+        },
+        {
+          "location": "line113/Versions/86",
+          "kind": "RETIRED_UNOWNED_ALLY_DAMAGE_ARGUMENT_NOT_WRITTEN_BY_CURRENT_ROUTE",
+          "removed_amount": 5,
+          "semantic_review_required": true
+        },
+        {
+          "location": "line118",
+          "kind": "RETIRED_UNOWNED_ALLY_DAMAGE_ARGUMENT_NOT_WRITTEN_BY_CURRENT_ROUTE",
+          "removed_amount": 5,
+          "semantic_review_required": true
+        }
+      ]
+    },
+    {
+      "number": 301,
+      "slug": "card-ominous-respite-yellow-conditional-heal-own-aura-destroyed-after-announcement-before-resolution",
+      "passed": true,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "exit_code": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-ominous-respite-yellow-conditional-heal-own-aura-destroyed-after-announcement-before-resolution",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\snapshot-cohort-445\\sourceeleven-301.log"
+      ],
+      "complete_log_sha256": "1af8a8f25cef6d07e26e25bf65292f192b34dfd0e2afafd57f8f9c805f2802f8",
+      "before_expected_sha256": "5b1b48dbb1640274dec255c7eda02013c66bb76b31b19de5f00dc700609aa327",
+      "expected_sha256": "b5be68c74a3a66808c9300f271a4e701a9a9ed6fcfcc4a85ebbcd08e7dfbe7db",
+      "other_four_files_unchanged": true,
+      "failed_candidate_restored": false,
+      "edits": [
+        {
+          "location": "line86",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "1",
+          "accounting_bag_sha256": "b6b4b9ec21be7211a507c2c43784bc209e3fe92e0a995e781c3681e9d9ecae63",
+          "ordered_nonaccounting_sha256": "7b55a3b71ea8892a22b1caa21f256f9449f1eacc740362b4014775a0eb120fcc",
+          "before_rows_sha256": "32f874d00166090a8d2b8e4ce622bc19731008c5c59d93d27f59fdf8dfc21412",
+          "after_rows_sha256": "41f739d802703a05d17d125e14f81a3ca47bb193f9a91d1593e5a143ac945668"
+        },
+        {
+          "location": "line104",
+          "kind": "RETAINED_COMPLETED_SOURCE_REFERENCE",
+          "old": "p1Graveyard-0",
+          "new": "Stack-0",
+          "other_fields_unchanged": true
+        }
+      ]
+    },
+    {
+      "number": 310,
+      "slug": "card-orb-weaver-spinneret-red-four-live-sparse-real-equip-graphene-and-next-stealth-plus-three",
+      "passed": true,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "exit_code": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-orb-weaver-spinneret-red-four-live-sparse-real-equip-graphene-and-next-stealth-plus-three",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\snapshot-cohort-445\\sourceeleven-310.log"
+      ],
+      "complete_log_sha256": "7cf6a7d0bbd8f3e40364b8a79c45a2e13ae350196c508c0d9b6d6028ec7dc780",
+      "before_expected_sha256": "96b0c4ef576c442390564f851ff4757bf6f414226c97998eb2bca66311960f3a",
+      "expected_sha256": "6bd1d01549d2f48e5f4b6ed79f78f48c0bf3ef0c719b06eabc40686d2a41a24f",
+      "other_four_files_unchanged": true,
+      "failed_candidate_restored": false,
+      "edits": [
+        {
+          "location": "line91",
+          "kind": "ONE_ACTUALLY_CREATED_GRAPHENE_EQUIPMENT_TOKEN_BEFORE_SOURCE_CLEAR",
+          "seat": "1",
+          "type": "PEN_CREATED",
+          "amount": 1
+        },
+        {
+          "location": "line100/Versions/90",
+          "kind": "ONE_ACTUALLY_CREATED_GRAPHENE_EQUIPMENT_TOKEN_BEFORE_SOURCE_CLEAR",
+          "seat": "1",
+          "type": "PEN_CREATED",
+          "amount": 1
+        },
+        {
+          "location": "line102/Versions/90",
+          "kind": "ONE_ACTUALLY_CREATED_GRAPHENE_EQUIPMENT_TOKEN_BEFORE_SOURCE_CLEAR",
+          "seat": "1",
+          "type": "PEN_CREATED",
+          "amount": 1
+        },
+        {
+          "location": "line104/Versions/90",
+          "kind": "ONE_ACTUALLY_CREATED_GRAPHENE_EQUIPMENT_TOKEN_BEFORE_SOURCE_CLEAR",
+          "seat": "1",
+          "type": "PEN_CREATED",
+          "amount": 1
+        },
+        {
+          "location": "line106/Versions/90",
+          "kind": "ONE_ACTUALLY_CREATED_GRAPHENE_EQUIPMENT_TOKEN_BEFORE_SOURCE_CLEAR",
+          "seat": "1",
+          "type": "PEN_CREATED",
+          "amount": 1
+        }
+      ]
+    },
+    {
+      "number": 342,
+      "slug": "card-ray-of-hope-yellow-four-live-sparse-real-paid-lower-life-self-soul-and-shadow-attack-power",
+      "passed": true,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "exit_code": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-ray-of-hope-yellow-four-live-sparse-real-paid-lower-life-self-soul-and-shadow-attack-power",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\snapshot-cohort-445\\sourceeleven-342.log"
+      ],
+      "complete_log_sha256": "d8a32b142b976cade6ac2984db512271f0d7f468439decfa2b17aacdb3feee0a",
+      "before_expected_sha256": "44ce59cf31f763a880a84aad687520f8bc78d0dcf5a6b424bec630b13bc28e7b",
+      "expected_sha256": "06de7318b5193b2103f3c6c5a703e8797e903987b9902018c836ceb3d8ce5f19",
+      "other_four_files_unchanged": true,
+      "failed_candidate_restored": false,
+      "edits": [
+        {
+          "location": "line89",
+          "kind": "REMOVE_ONE_FICTIONAL_SOURCE_GRAVE_ENTRY",
+          "seat": "1",
+          "type": "EVR_GRAVEYARD",
+          "predicted_real_new_grave_entries": 1,
+          "source_fate": "Source resolves directly toBanish/Soul/Chi, neverGraveyard"
+        },
+        {
+          "location": "line89",
+          "kind": "REMOVE_ONE_FICTIONAL_SOURCE_GRAVE_ENTRY",
+          "seat": "2",
+          "type": "EVR_GRAVEYARD",
+          "predicted_real_new_grave_entries": 1,
+          "source_fate": "Source resolves directly toBanish/Soul/Chi, neverGraveyard"
+        },
+        {
+          "location": "line89",
+          "kind": "REMOVE_ONE_FICTIONAL_SOURCE_GRAVE_ENTRY",
+          "seat": "3",
+          "type": "EVR_GRAVEYARD",
+          "predicted_real_new_grave_entries": 1,
+          "source_fate": "Source resolves directly toBanish/Soul/Chi, neverGraveyard"
+        },
+        {
+          "location": "line89",
+          "kind": "REMOVE_ONE_FICTIONAL_SOURCE_GRAVE_ENTRY",
+          "seat": "4",
+          "type": "EVR_GRAVEYARD",
+          "predicted_real_new_grave_entries": 1,
+          "source_fate": "Source resolves directly toBanish/Soul/Chi, neverGraveyard"
+        },
+        {
+          "location": "line98/Versions/90",
+          "kind": "REMOVE_ONE_FICTIONAL_SOURCE_GRAVE_ENTRY",
+          "seat": "1",
+          "type": "EVR_GRAVEYARD",
+          "predicted_real_new_grave_entries": 0,
+          "source_fate": "Source resolves directly toBanish/Soul/Chi, neverGraveyard"
+        },
+        {
+          "location": "line98/Versions/90",
+          "kind": "REMOVE_ONE_FICTIONAL_SOURCE_GRAVE_ENTRY",
+          "seat": "2",
+          "type": "EVR_GRAVEYARD",
+          "predicted_real_new_grave_entries": 0,
+          "source_fate": "Source resolves directly toBanish/Soul/Chi, neverGraveyard"
+        },
+        {
+          "location": "line98/Versions/90",
+          "kind": "REMOVE_ONE_FICTIONAL_SOURCE_GRAVE_ENTRY",
+          "seat": "3",
+          "type": "EVR_GRAVEYARD",
+          "predicted_real_new_grave_entries": 0,
+          "source_fate": "Source resolves directly toBanish/Soul/Chi, neverGraveyard"
+        },
+        {
+          "location": "line98/Versions/90",
+          "kind": "REMOVE_ONE_FICTIONAL_SOURCE_GRAVE_ENTRY",
+          "seat": "4",
+          "type": "EVR_GRAVEYARD",
+          "predicted_real_new_grave_entries": 0,
+          "source_fate": "Source resolves directly toBanish/Soul/Chi, neverGraveyard"
+        },
+        {
+          "location": "line98/Versions/90",
+          "kind": "STARFALL_COUNTS_ONLY_ACTUAL_INSTANT_GRAVE_ENTRIES",
+          "seat": "1",
+          "old": 1,
+          "new": 0,
+          "absent_if_zero": true
+        },
+        {
+          "location": "line100/Versions/90",
+          "kind": "REMOVE_ONE_FICTIONAL_SOURCE_GRAVE_ENTRY",
+          "seat": "1",
+          "type": "EVR_GRAVEYARD",
+          "predicted_real_new_grave_entries": 0,
+          "source_fate": "Source resolves directly toBanish/Soul/Chi, neverGraveyard"
+        },
+        {
+          "location": "line100/Versions/90",
+          "kind": "REMOVE_ONE_FICTIONAL_SOURCE_GRAVE_ENTRY",
+          "seat": "2",
+          "type": "EVR_GRAVEYARD",
+          "predicted_real_new_grave_entries": 0,
+          "source_fate": "Source resolves directly toBanish/Soul/Chi, neverGraveyard"
+        },
+        {
+          "location": "line100/Versions/90",
+          "kind": "REMOVE_ONE_FICTIONAL_SOURCE_GRAVE_ENTRY",
+          "seat": "3",
+          "type": "EVR_GRAVEYARD",
+          "predicted_real_new_grave_entries": 0,
+          "source_fate": "Source resolves directly toBanish/Soul/Chi, neverGraveyard"
+        },
+        {
+          "location": "line100/Versions/90",
+          "kind": "REMOVE_ONE_FICTIONAL_SOURCE_GRAVE_ENTRY",
+          "seat": "4",
+          "type": "EVR_GRAVEYARD",
+          "predicted_real_new_grave_entries": 0,
+          "source_fate": "Source resolves directly toBanish/Soul/Chi, neverGraveyard"
+        },
+        {
+          "location": "line100/Versions/90",
+          "kind": "STARFALL_COUNTS_ONLY_ACTUAL_INSTANT_GRAVE_ENTRIES",
+          "seat": "1",
+          "old": 1,
+          "new": 0,
+          "absent_if_zero": true
+        },
+        {
+          "location": "line102/Versions/90",
+          "kind": "REMOVE_ONE_FICTIONAL_SOURCE_GRAVE_ENTRY",
+          "seat": "1",
+          "type": "EVR_GRAVEYARD",
+          "predicted_real_new_grave_entries": 0,
+          "source_fate": "Source resolves directly toBanish/Soul/Chi, neverGraveyard"
+        },
+        {
+          "location": "line102/Versions/90",
+          "kind": "REMOVE_ONE_FICTIONAL_SOURCE_GRAVE_ENTRY",
+          "seat": "2",
+          "type": "EVR_GRAVEYARD",
+          "predicted_real_new_grave_entries": 0,
+          "source_fate": "Source resolves directly toBanish/Soul/Chi, neverGraveyard"
+        },
+        {
+          "location": "line102/Versions/90",
+          "kind": "REMOVE_ONE_FICTIONAL_SOURCE_GRAVE_ENTRY",
+          "seat": "3",
+          "type": "EVR_GRAVEYARD",
+          "predicted_real_new_grave_entries": 0,
+          "source_fate": "Source resolves directly toBanish/Soul/Chi, neverGraveyard"
+        },
+        {
+          "location": "line102/Versions/90",
+          "kind": "REMOVE_ONE_FICTIONAL_SOURCE_GRAVE_ENTRY",
+          "seat": "4",
+          "type": "EVR_GRAVEYARD",
+          "predicted_real_new_grave_entries": 0,
+          "source_fate": "Source resolves directly toBanish/Soul/Chi, neverGraveyard"
+        },
+        {
+          "location": "line102/Versions/90",
+          "kind": "STARFALL_COUNTS_ONLY_ACTUAL_INSTANT_GRAVE_ENTRIES",
+          "seat": "1",
+          "old": 1,
+          "new": 0,
+          "absent_if_zero": true
+        },
+        {
+          "location": "line104/Versions/90",
+          "kind": "REMOVE_ONE_FICTIONAL_SOURCE_GRAVE_ENTRY",
+          "seat": "1",
+          "type": "EVR_GRAVEYARD",
+          "predicted_real_new_grave_entries": 0,
+          "source_fate": "Source resolves directly toBanish/Soul/Chi, neverGraveyard"
+        },
+        {
+          "location": "line104/Versions/90",
+          "kind": "REMOVE_ONE_FICTIONAL_SOURCE_GRAVE_ENTRY",
+          "seat": "2",
+          "type": "EVR_GRAVEYARD",
+          "predicted_real_new_grave_entries": 0,
+          "source_fate": "Source resolves directly toBanish/Soul/Chi, neverGraveyard"
+        },
+        {
+          "location": "line104/Versions/90",
+          "kind": "REMOVE_ONE_FICTIONAL_SOURCE_GRAVE_ENTRY",
+          "seat": "3",
+          "type": "EVR_GRAVEYARD",
+          "predicted_real_new_grave_entries": 0,
+          "source_fate": "Source resolves directly toBanish/Soul/Chi, neverGraveyard"
+        },
+        {
+          "location": "line104/Versions/90",
+          "kind": "REMOVE_ONE_FICTIONAL_SOURCE_GRAVE_ENTRY",
+          "seat": "4",
+          "type": "EVR_GRAVEYARD",
+          "predicted_real_new_grave_entries": 0,
+          "source_fate": "Source resolves directly toBanish/Soul/Chi, neverGraveyard"
+        },
+        {
+          "location": "line104/Versions/90",
+          "kind": "STARFALL_COUNTS_ONLY_ACTUAL_INSTANT_GRAVE_ENTRIES",
+          "seat": "1",
+          "old": 1,
+          "new": 0,
+          "absent_if_zero": true
+        }
+      ]
+    },
+    {
+      "number": 368,
+      "slug": "card-second-tenet-of-chi-tide-blue-four-live-real-sigil-homage-transcend-and-seven-damage",
+      "passed": true,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "exit_code": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-second-tenet-of-chi-tide-blue-four-live-real-sigil-homage-transcend-and-seven-damage",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\snapshot-cohort-445\\sourceeleven-368.log"
+      ],
+      "complete_log_sha256": "fbd3c6dca4a3d173c75061cc740ee72bcce50e40c1faaade94cc4342e8b8a708",
+      "before_expected_sha256": "48365cdffcda3a5f1787664774c1ebce6844c3083b368b70a4899d3058d6ff37",
+      "expected_sha256": "6782ac8c18c6ad7a72bd7f3b3c408a9467f77e77a866320b8dd6009fe043e9ad",
+      "other_four_files_unchanged": true,
+      "failed_candidate_restored": false,
+      "edits": [
+        {
+          "location": "line90",
+          "kind": "REMOVE_ONE_FICTIONAL_SOURCE_GRAVE_ENTRY",
+          "seat": "1",
+          "type": "EVR_GRAVEYARD",
+          "predicted_real_new_grave_entries": 2,
+          "source_fate": "Source resolves directly toBanish/Soul/Chi, neverGraveyard"
+        },
+        {
+          "location": "line90",
+          "kind": "REMOVE_ONE_FICTIONAL_SOURCE_GRAVE_ENTRY",
+          "seat": "1",
+          "type": "SEA_BLUE_GRAVE",
+          "predicted_real_new_grave_entries": 2,
+          "source_fate": "Source resolves directly toBanish/Soul/Chi, neverGraveyard"
+        },
+        {
+          "location": "line90",
+          "kind": "REMOVE_ONE_FICTIONAL_SOURCE_GRAVE_ENTRY",
+          "seat": "2",
+          "type": "EVR_GRAVEYARD",
+          "predicted_real_new_grave_entries": 2,
+          "source_fate": "Source resolves directly toBanish/Soul/Chi, neverGraveyard"
+        },
+        {
+          "location": "line90",
+          "kind": "REMOVE_ONE_FICTIONAL_SOURCE_GRAVE_ENTRY",
+          "seat": "3",
+          "type": "EVR_GRAVEYARD",
+          "predicted_real_new_grave_entries": 2,
+          "source_fate": "Source resolves directly toBanish/Soul/Chi, neverGraveyard"
+        },
+        {
+          "location": "line90",
+          "kind": "REMOVE_ONE_FICTIONAL_SOURCE_GRAVE_ENTRY",
+          "seat": "4",
+          "type": "EVR_GRAVEYARD",
+          "predicted_real_new_grave_entries": 2,
+          "source_fate": "Source resolves directly toBanish/Soul/Chi, neverGraveyard"
+        },
+        {
+          "location": "line90",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "1",
+          "accounting_bag_sha256": "7b30ff61c4f1ba4e3fdc1b3a2a3b95680296ee43e2a91c521209841386099e45",
+          "ordered_nonaccounting_sha256": "5c1d92130a47cae3ef1cf2dfd9e260cab7c9676091eb698377ca2a83fa16718d",
+          "before_rows_sha256": "11492807c020c2f3e9758f2f7509352dfba205b238213634e829a482d609f185",
+          "after_rows_sha256": "fdfb184355b5688ab4485318498bd542712c0d7fcfc137394fbdeb6b2ec82aa4"
+        },
+        {
+          "location": "line99/Versions/90",
+          "kind": "REMOVE_ONE_FICTIONAL_SOURCE_GRAVE_ENTRY",
+          "seat": "1",
+          "type": "EVR_GRAVEYARD",
+          "predicted_real_new_grave_entries": 1,
+          "source_fate": "Source resolves directly toBanish/Soul/Chi, neverGraveyard"
+        },
+        {
+          "location": "line99/Versions/90",
+          "kind": "REMOVE_ONE_FICTIONAL_SOURCE_GRAVE_ENTRY",
+          "seat": "1",
+          "type": "SEA_BLUE_GRAVE",
+          "predicted_real_new_grave_entries": 1,
+          "source_fate": "Source resolves directly toBanish/Soul/Chi, neverGraveyard"
+        },
+        {
+          "location": "line99/Versions/90",
+          "kind": "REMOVE_ONE_FICTIONAL_SOURCE_GRAVE_ENTRY",
+          "seat": "2",
+          "type": "EVR_GRAVEYARD",
+          "predicted_real_new_grave_entries": 1,
+          "source_fate": "Source resolves directly toBanish/Soul/Chi, neverGraveyard"
+        },
+        {
+          "location": "line99/Versions/90",
+          "kind": "REMOVE_ONE_FICTIONAL_SOURCE_GRAVE_ENTRY",
+          "seat": "3",
+          "type": "EVR_GRAVEYARD",
+          "predicted_real_new_grave_entries": 1,
+          "source_fate": "Source resolves directly toBanish/Soul/Chi, neverGraveyard"
+        },
+        {
+          "location": "line99/Versions/90",
+          "kind": "REMOVE_ONE_FICTIONAL_SOURCE_GRAVE_ENTRY",
+          "seat": "4",
+          "type": "EVR_GRAVEYARD",
+          "predicted_real_new_grave_entries": 1,
+          "source_fate": "Source resolves directly toBanish/Soul/Chi, neverGraveyard"
+        },
+        {
+          "location": "line99/Versions/90",
+          "kind": "STARFALL_COUNTS_ONLY_ACTUAL_INSTANT_GRAVE_ENTRIES",
+          "seat": "1",
+          "old": 2,
+          "new": 1,
+          "absent_if_zero": false
+        },
+        {
+          "location": "line99/Versions/90",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "1",
+          "accounting_bag_sha256": "7fb7c598a1730b5360970cdf370b1227ce0131554ee7d357052cfecb21a734ba",
+          "ordered_nonaccounting_sha256": "0cfbb935ce5a6082e86cb7780f30691e2a974de36937043f7888c4295dfd1c94",
+          "before_rows_sha256": "5b886c22b400fdddddb0da3ec0585dcc2d0f610f8ab95bb7ae69610f1489494c",
+          "after_rows_sha256": "a3d00fe5175c0c3a13e1d0952802ffba6c81a86207842a50b8415d5866aa62e6"
+        },
+        {
+          "location": "line101/Versions/90",
+          "kind": "REMOVE_ONE_FICTIONAL_SOURCE_GRAVE_ENTRY",
+          "seat": "1",
+          "type": "EVR_GRAVEYARD",
+          "predicted_real_new_grave_entries": 1,
+          "source_fate": "Source resolves directly toBanish/Soul/Chi, neverGraveyard"
+        },
+        {
+          "location": "line101/Versions/90",
+          "kind": "REMOVE_ONE_FICTIONAL_SOURCE_GRAVE_ENTRY",
+          "seat": "1",
+          "type": "SEA_BLUE_GRAVE",
+          "predicted_real_new_grave_entries": 1,
+          "source_fate": "Source resolves directly toBanish/Soul/Chi, neverGraveyard"
+        },
+        {
+          "location": "line101/Versions/90",
+          "kind": "REMOVE_ONE_FICTIONAL_SOURCE_GRAVE_ENTRY",
+          "seat": "2",
+          "type": "EVR_GRAVEYARD",
+          "predicted_real_new_grave_entries": 1,
+          "source_fate": "Source resolves directly toBanish/Soul/Chi, neverGraveyard"
+        },
+        {
+          "location": "line101/Versions/90",
+          "kind": "REMOVE_ONE_FICTIONAL_SOURCE_GRAVE_ENTRY",
+          "seat": "3",
+          "type": "EVR_GRAVEYARD",
+          "predicted_real_new_grave_entries": 1,
+          "source_fate": "Source resolves directly toBanish/Soul/Chi, neverGraveyard"
+        },
+        {
+          "location": "line101/Versions/90",
+          "kind": "REMOVE_ONE_FICTIONAL_SOURCE_GRAVE_ENTRY",
+          "seat": "4",
+          "type": "EVR_GRAVEYARD",
+          "predicted_real_new_grave_entries": 1,
+          "source_fate": "Source resolves directly toBanish/Soul/Chi, neverGraveyard"
+        },
+        {
+          "location": "line101/Versions/90",
+          "kind": "STARFALL_COUNTS_ONLY_ACTUAL_INSTANT_GRAVE_ENTRIES",
+          "seat": "1",
+          "old": 2,
+          "new": 1,
+          "absent_if_zero": false
+        },
+        {
+          "location": "line101/Versions/90",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "1",
+          "accounting_bag_sha256": "7fb7c598a1730b5360970cdf370b1227ce0131554ee7d357052cfecb21a734ba",
+          "ordered_nonaccounting_sha256": "0cfbb935ce5a6082e86cb7780f30691e2a974de36937043f7888c4295dfd1c94",
+          "before_rows_sha256": "5b886c22b400fdddddb0da3ec0585dcc2d0f610f8ab95bb7ae69610f1489494c",
+          "after_rows_sha256": "a3d00fe5175c0c3a13e1d0952802ffba6c81a86207842a50b8415d5866aa62e6"
+        },
+        {
+          "location": "line103/Versions/90",
+          "kind": "REMOVE_ONE_FICTIONAL_SOURCE_GRAVE_ENTRY",
+          "seat": "1",
+          "type": "EVR_GRAVEYARD",
+          "predicted_real_new_grave_entries": 1,
+          "source_fate": "Source resolves directly toBanish/Soul/Chi, neverGraveyard"
+        },
+        {
+          "location": "line103/Versions/90",
+          "kind": "REMOVE_ONE_FICTIONAL_SOURCE_GRAVE_ENTRY",
+          "seat": "1",
+          "type": "SEA_BLUE_GRAVE",
+          "predicted_real_new_grave_entries": 1,
+          "source_fate": "Source resolves directly toBanish/Soul/Chi, neverGraveyard"
+        },
+        {
+          "location": "line103/Versions/90",
+          "kind": "REMOVE_ONE_FICTIONAL_SOURCE_GRAVE_ENTRY",
+          "seat": "2",
+          "type": "EVR_GRAVEYARD",
+          "predicted_real_new_grave_entries": 1,
+          "source_fate": "Source resolves directly toBanish/Soul/Chi, neverGraveyard"
+        },
+        {
+          "location": "line103/Versions/90",
+          "kind": "REMOVE_ONE_FICTIONAL_SOURCE_GRAVE_ENTRY",
+          "seat": "3",
+          "type": "EVR_GRAVEYARD",
+          "predicted_real_new_grave_entries": 1,
+          "source_fate": "Source resolves directly toBanish/Soul/Chi, neverGraveyard"
+        },
+        {
+          "location": "line103/Versions/90",
+          "kind": "REMOVE_ONE_FICTIONAL_SOURCE_GRAVE_ENTRY",
+          "seat": "4",
+          "type": "EVR_GRAVEYARD",
+          "predicted_real_new_grave_entries": 1,
+          "source_fate": "Source resolves directly toBanish/Soul/Chi, neverGraveyard"
+        },
+        {
+          "location": "line103/Versions/90",
+          "kind": "STARFALL_COUNTS_ONLY_ACTUAL_INSTANT_GRAVE_ENTRIES",
+          "seat": "1",
+          "old": 2,
+          "new": 1,
+          "absent_if_zero": false
+        },
+        {
+          "location": "line103/Versions/90",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "1",
+          "accounting_bag_sha256": "7fb7c598a1730b5360970cdf370b1227ce0131554ee7d357052cfecb21a734ba",
+          "ordered_nonaccounting_sha256": "0cfbb935ce5a6082e86cb7780f30691e2a974de36937043f7888c4295dfd1c94",
+          "before_rows_sha256": "5b886c22b400fdddddb0da3ec0585dcc2d0f610f8ab95bb7ae69610f1489494c",
+          "after_rows_sha256": "a3d00fe5175c0c3a13e1d0952802ffba6c81a86207842a50b8415d5866aa62e6"
+        },
+        {
+          "location": "line105/Versions/90",
+          "kind": "REMOVE_ONE_FICTIONAL_SOURCE_GRAVE_ENTRY",
+          "seat": "1",
+          "type": "EVR_GRAVEYARD",
+          "predicted_real_new_grave_entries": 1,
+          "source_fate": "Source resolves directly toBanish/Soul/Chi, neverGraveyard"
+        },
+        {
+          "location": "line105/Versions/90",
+          "kind": "REMOVE_ONE_FICTIONAL_SOURCE_GRAVE_ENTRY",
+          "seat": "1",
+          "type": "SEA_BLUE_GRAVE",
+          "predicted_real_new_grave_entries": 1,
+          "source_fate": "Source resolves directly toBanish/Soul/Chi, neverGraveyard"
+        },
+        {
+          "location": "line105/Versions/90",
+          "kind": "REMOVE_ONE_FICTIONAL_SOURCE_GRAVE_ENTRY",
+          "seat": "2",
+          "type": "EVR_GRAVEYARD",
+          "predicted_real_new_grave_entries": 1,
+          "source_fate": "Source resolves directly toBanish/Soul/Chi, neverGraveyard"
+        },
+        {
+          "location": "line105/Versions/90",
+          "kind": "REMOVE_ONE_FICTIONAL_SOURCE_GRAVE_ENTRY",
+          "seat": "3",
+          "type": "EVR_GRAVEYARD",
+          "predicted_real_new_grave_entries": 1,
+          "source_fate": "Source resolves directly toBanish/Soul/Chi, neverGraveyard"
+        },
+        {
+          "location": "line105/Versions/90",
+          "kind": "REMOVE_ONE_FICTIONAL_SOURCE_GRAVE_ENTRY",
+          "seat": "4",
+          "type": "EVR_GRAVEYARD",
+          "predicted_real_new_grave_entries": 1,
+          "source_fate": "Source resolves directly toBanish/Soul/Chi, neverGraveyard"
+        },
+        {
+          "location": "line105/Versions/90",
+          "kind": "STARFALL_COUNTS_ONLY_ACTUAL_INSTANT_GRAVE_ENTRIES",
+          "seat": "1",
+          "old": 2,
+          "new": 1,
+          "absent_if_zero": false
+        },
+        {
+          "location": "line105/Versions/90",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "1",
+          "accounting_bag_sha256": "7fb7c598a1730b5360970cdf370b1227ce0131554ee7d357052cfecb21a734ba",
+          "ordered_nonaccounting_sha256": "0cfbb935ce5a6082e86cb7780f30691e2a974de36937043f7888c4295dfd1c94",
+          "before_rows_sha256": "5b886c22b400fdddddb0da3ec0585dcc2d0f610f8ab95bb7ae69610f1489494c",
+          "after_rows_sha256": "a3d00fe5175c0c3a13e1d0952802ffba6c81a86207842a50b8415d5866aa62e6"
+        }
+      ]
+    },
+    {
+      "number": 369,
+      "slug": "card-second-tenet-of-chi-wind-blue-four-live-real-sigil-homage-transcend-and-go-again-consumer",
+      "passed": true,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "exit_code": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-second-tenet-of-chi-wind-blue-four-live-real-sigil-homage-transcend-and-go-again-consumer",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\snapshot-cohort-445\\sourceeleven-369.log"
+      ],
+      "complete_log_sha256": "f0a1e0f313ae6acabba6db8484b33a6bfaeace7ea1b48554c6d8c39623fa9b79",
+      "before_expected_sha256": "93226bf3690f4d6072fc66119efbd9e4b1de38ab6e8f25964bcd65ec61935f92",
+      "expected_sha256": "016dc9e0050445038822759a7cb26d691b2874cc24482cd0a1a7cdaa667bf22c",
+      "other_four_files_unchanged": true,
+      "failed_candidate_restored": false,
+      "edits": [
+        {
+          "location": "line91",
+          "kind": "REMOVE_ONE_FICTIONAL_SOURCE_GRAVE_ENTRY",
+          "seat": "1",
+          "type": "EVR_GRAVEYARD",
+          "predicted_real_new_grave_entries": 3,
+          "source_fate": "Source resolves directly toBanish/Soul/Chi, neverGraveyard"
+        },
+        {
+          "location": "line91",
+          "kind": "REMOVE_ONE_FICTIONAL_SOURCE_GRAVE_ENTRY",
+          "seat": "1",
+          "type": "SEA_BLUE_GRAVE",
+          "predicted_real_new_grave_entries": 2,
+          "source_fate": "Source resolves directly toBanish/Soul/Chi, neverGraveyard"
+        },
+        {
+          "location": "line91",
+          "kind": "REMOVE_ONE_FICTIONAL_SOURCE_GRAVE_ENTRY",
+          "seat": "2",
+          "type": "EVR_GRAVEYARD",
+          "predicted_real_new_grave_entries": 3,
+          "source_fate": "Source resolves directly toBanish/Soul/Chi, neverGraveyard"
+        },
+        {
+          "location": "line91",
+          "kind": "REMOVE_ONE_FICTIONAL_SOURCE_GRAVE_ENTRY",
+          "seat": "3",
+          "type": "EVR_GRAVEYARD",
+          "predicted_real_new_grave_entries": 3,
+          "source_fate": "Source resolves directly toBanish/Soul/Chi, neverGraveyard"
+        },
+        {
+          "location": "line91",
+          "kind": "REMOVE_ONE_FICTIONAL_SOURCE_GRAVE_ENTRY",
+          "seat": "4",
+          "type": "EVR_GRAVEYARD",
+          "predicted_real_new_grave_entries": 3,
+          "source_fate": "Source resolves directly toBanish/Soul/Chi, neverGraveyard"
+        },
+        {
+          "location": "line91",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "1",
+          "accounting_bag_sha256": "6f31cebf95ddff19761a2c08d1cf8e999bb0c16a12cfc5a29fc9abcc691dc41b",
+          "ordered_nonaccounting_sha256": "eaa7a0e8203cdd0f8f9ecc1f37657647d7b2c9f5d365a600fa098b48c7de3bea",
+          "before_rows_sha256": "7ba0908ebace3567f5c0809e3d1a1633035d9ba1929beead92f549da36085e00",
+          "after_rows_sha256": "f59adc2db94a1099b0cf48cc49adc2e5f3135d468877240878a23ea57459b790"
+        },
+        {
+          "location": "line100/Versions/90",
+          "kind": "REMOVE_ONE_FICTIONAL_SOURCE_GRAVE_ENTRY",
+          "seat": "1",
+          "type": "EVR_GRAVEYARD",
+          "predicted_real_new_grave_entries": 1,
+          "source_fate": "Source resolves directly toBanish/Soul/Chi, neverGraveyard"
+        },
+        {
+          "location": "line100/Versions/90",
+          "kind": "REMOVE_ONE_FICTIONAL_SOURCE_GRAVE_ENTRY",
+          "seat": "1",
+          "type": "SEA_BLUE_GRAVE",
+          "predicted_real_new_grave_entries": 1,
+          "source_fate": "Source resolves directly toBanish/Soul/Chi, neverGraveyard"
+        },
+        {
+          "location": "line100/Versions/90",
+          "kind": "REMOVE_ONE_FICTIONAL_SOURCE_GRAVE_ENTRY",
+          "seat": "2",
+          "type": "EVR_GRAVEYARD",
+          "predicted_real_new_grave_entries": 1,
+          "source_fate": "Source resolves directly toBanish/Soul/Chi, neverGraveyard"
+        },
+        {
+          "location": "line100/Versions/90",
+          "kind": "REMOVE_ONE_FICTIONAL_SOURCE_GRAVE_ENTRY",
+          "seat": "3",
+          "type": "EVR_GRAVEYARD",
+          "predicted_real_new_grave_entries": 1,
+          "source_fate": "Source resolves directly toBanish/Soul/Chi, neverGraveyard"
+        },
+        {
+          "location": "line100/Versions/90",
+          "kind": "REMOVE_ONE_FICTIONAL_SOURCE_GRAVE_ENTRY",
+          "seat": "4",
+          "type": "EVR_GRAVEYARD",
+          "predicted_real_new_grave_entries": 1,
+          "source_fate": "Source resolves directly toBanish/Soul/Chi, neverGraveyard"
+        },
+        {
+          "location": "line100/Versions/90",
+          "kind": "STARFALL_COUNTS_ONLY_ACTUAL_INSTANT_GRAVE_ENTRIES",
+          "seat": "1",
+          "old": 2,
+          "new": 1,
+          "absent_if_zero": false
+        },
+        {
+          "location": "line100/Versions/90",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "1",
+          "accounting_bag_sha256": "7fb7c598a1730b5360970cdf370b1227ce0131554ee7d357052cfecb21a734ba",
+          "ordered_nonaccounting_sha256": "cb541dac666599100c44531a5ce76f92ac3f5bedd9f4df4f234d7769c9e49083",
+          "before_rows_sha256": "44d146781f2054891be673441c4d0bfe22bb7f88568ebde58cbe4ede8f913c14",
+          "after_rows_sha256": "4e9879ef306d10fcea954ab6ccfef33dc31f616d5c1c77f25c1d8611b1468044"
+        },
+        {
+          "location": "line102/Versions/90",
+          "kind": "REMOVE_ONE_FICTIONAL_SOURCE_GRAVE_ENTRY",
+          "seat": "1",
+          "type": "EVR_GRAVEYARD",
+          "predicted_real_new_grave_entries": 1,
+          "source_fate": "Source resolves directly toBanish/Soul/Chi, neverGraveyard"
+        },
+        {
+          "location": "line102/Versions/90",
+          "kind": "REMOVE_ONE_FICTIONAL_SOURCE_GRAVE_ENTRY",
+          "seat": "1",
+          "type": "SEA_BLUE_GRAVE",
+          "predicted_real_new_grave_entries": 1,
+          "source_fate": "Source resolves directly toBanish/Soul/Chi, neverGraveyard"
+        },
+        {
+          "location": "line102/Versions/90",
+          "kind": "REMOVE_ONE_FICTIONAL_SOURCE_GRAVE_ENTRY",
+          "seat": "2",
+          "type": "EVR_GRAVEYARD",
+          "predicted_real_new_grave_entries": 1,
+          "source_fate": "Source resolves directly toBanish/Soul/Chi, neverGraveyard"
+        },
+        {
+          "location": "line102/Versions/90",
+          "kind": "REMOVE_ONE_FICTIONAL_SOURCE_GRAVE_ENTRY",
+          "seat": "3",
+          "type": "EVR_GRAVEYARD",
+          "predicted_real_new_grave_entries": 1,
+          "source_fate": "Source resolves directly toBanish/Soul/Chi, neverGraveyard"
+        },
+        {
+          "location": "line102/Versions/90",
+          "kind": "REMOVE_ONE_FICTIONAL_SOURCE_GRAVE_ENTRY",
+          "seat": "4",
+          "type": "EVR_GRAVEYARD",
+          "predicted_real_new_grave_entries": 1,
+          "source_fate": "Source resolves directly toBanish/Soul/Chi, neverGraveyard"
+        },
+        {
+          "location": "line102/Versions/90",
+          "kind": "STARFALL_COUNTS_ONLY_ACTUAL_INSTANT_GRAVE_ENTRIES",
+          "seat": "1",
+          "old": 2,
+          "new": 1,
+          "absent_if_zero": false
+        },
+        {
+          "location": "line102/Versions/90",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "1",
+          "accounting_bag_sha256": "7fb7c598a1730b5360970cdf370b1227ce0131554ee7d357052cfecb21a734ba",
+          "ordered_nonaccounting_sha256": "cb541dac666599100c44531a5ce76f92ac3f5bedd9f4df4f234d7769c9e49083",
+          "before_rows_sha256": "44d146781f2054891be673441c4d0bfe22bb7f88568ebde58cbe4ede8f913c14",
+          "after_rows_sha256": "4e9879ef306d10fcea954ab6ccfef33dc31f616d5c1c77f25c1d8611b1468044"
+        },
+        {
+          "location": "line104/Versions/90",
+          "kind": "REMOVE_ONE_FICTIONAL_SOURCE_GRAVE_ENTRY",
+          "seat": "1",
+          "type": "EVR_GRAVEYARD",
+          "predicted_real_new_grave_entries": 1,
+          "source_fate": "Source resolves directly toBanish/Soul/Chi, neverGraveyard"
+        },
+        {
+          "location": "line104/Versions/90",
+          "kind": "REMOVE_ONE_FICTIONAL_SOURCE_GRAVE_ENTRY",
+          "seat": "1",
+          "type": "SEA_BLUE_GRAVE",
+          "predicted_real_new_grave_entries": 1,
+          "source_fate": "Source resolves directly toBanish/Soul/Chi, neverGraveyard"
+        },
+        {
+          "location": "line104/Versions/90",
+          "kind": "REMOVE_ONE_FICTIONAL_SOURCE_GRAVE_ENTRY",
+          "seat": "2",
+          "type": "EVR_GRAVEYARD",
+          "predicted_real_new_grave_entries": 1,
+          "source_fate": "Source resolves directly toBanish/Soul/Chi, neverGraveyard"
+        },
+        {
+          "location": "line104/Versions/90",
+          "kind": "REMOVE_ONE_FICTIONAL_SOURCE_GRAVE_ENTRY",
+          "seat": "3",
+          "type": "EVR_GRAVEYARD",
+          "predicted_real_new_grave_entries": 1,
+          "source_fate": "Source resolves directly toBanish/Soul/Chi, neverGraveyard"
+        },
+        {
+          "location": "line104/Versions/90",
+          "kind": "REMOVE_ONE_FICTIONAL_SOURCE_GRAVE_ENTRY",
+          "seat": "4",
+          "type": "EVR_GRAVEYARD",
+          "predicted_real_new_grave_entries": 1,
+          "source_fate": "Source resolves directly toBanish/Soul/Chi, neverGraveyard"
+        },
+        {
+          "location": "line104/Versions/90",
+          "kind": "STARFALL_COUNTS_ONLY_ACTUAL_INSTANT_GRAVE_ENTRIES",
+          "seat": "1",
+          "old": 2,
+          "new": 1,
+          "absent_if_zero": false
+        },
+        {
+          "location": "line104/Versions/90",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "1",
+          "accounting_bag_sha256": "7fb7c598a1730b5360970cdf370b1227ce0131554ee7d357052cfecb21a734ba",
+          "ordered_nonaccounting_sha256": "cb541dac666599100c44531a5ce76f92ac3f5bedd9f4df4f234d7769c9e49083",
+          "before_rows_sha256": "44d146781f2054891be673441c4d0bfe22bb7f88568ebde58cbe4ede8f913c14",
+          "after_rows_sha256": "4e9879ef306d10fcea954ab6ccfef33dc31f616d5c1c77f25c1d8611b1468044"
+        },
+        {
+          "location": "line106/Versions/90",
+          "kind": "REMOVE_ONE_FICTIONAL_SOURCE_GRAVE_ENTRY",
+          "seat": "1",
+          "type": "EVR_GRAVEYARD",
+          "predicted_real_new_grave_entries": 1,
+          "source_fate": "Source resolves directly toBanish/Soul/Chi, neverGraveyard"
+        },
+        {
+          "location": "line106/Versions/90",
+          "kind": "REMOVE_ONE_FICTIONAL_SOURCE_GRAVE_ENTRY",
+          "seat": "1",
+          "type": "SEA_BLUE_GRAVE",
+          "predicted_real_new_grave_entries": 1,
+          "source_fate": "Source resolves directly toBanish/Soul/Chi, neverGraveyard"
+        },
+        {
+          "location": "line106/Versions/90",
+          "kind": "REMOVE_ONE_FICTIONAL_SOURCE_GRAVE_ENTRY",
+          "seat": "2",
+          "type": "EVR_GRAVEYARD",
+          "predicted_real_new_grave_entries": 1,
+          "source_fate": "Source resolves directly toBanish/Soul/Chi, neverGraveyard"
+        },
+        {
+          "location": "line106/Versions/90",
+          "kind": "REMOVE_ONE_FICTIONAL_SOURCE_GRAVE_ENTRY",
+          "seat": "3",
+          "type": "EVR_GRAVEYARD",
+          "predicted_real_new_grave_entries": 1,
+          "source_fate": "Source resolves directly toBanish/Soul/Chi, neverGraveyard"
+        },
+        {
+          "location": "line106/Versions/90",
+          "kind": "REMOVE_ONE_FICTIONAL_SOURCE_GRAVE_ENTRY",
+          "seat": "4",
+          "type": "EVR_GRAVEYARD",
+          "predicted_real_new_grave_entries": 1,
+          "source_fate": "Source resolves directly toBanish/Soul/Chi, neverGraveyard"
+        },
+        {
+          "location": "line106/Versions/90",
+          "kind": "STARFALL_COUNTS_ONLY_ACTUAL_INSTANT_GRAVE_ENTRIES",
+          "seat": "1",
+          "old": 2,
+          "new": 1,
+          "absent_if_zero": false
+        },
+        {
+          "location": "line106/Versions/90",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "1",
+          "accounting_bag_sha256": "7fb7c598a1730b5360970cdf370b1227ce0131554ee7d357052cfecb21a734ba",
+          "ordered_nonaccounting_sha256": "cb541dac666599100c44531a5ce76f92ac3f5bedd9f4df4f234d7769c9e49083",
+          "before_rows_sha256": "44d146781f2054891be673441c4d0bfe22bb7f88568ebde58cbe4ede8f913c14",
+          "after_rows_sha256": "4e9879ef306d10fcea954ab6ccfef33dc31f616d5c1c77f25c1d8611b1468044"
+        }
+      ]
+    },
+    {
+      "number": 408,
+      "slug": "card-tear-limb-from-limb-blue-four-live-sparse-real-drawn-six-discard-earns-next-brute-base-power",
+      "passed": true,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "exit_code": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-tear-limb-from-limb-blue-four-live-sparse-real-drawn-six-discard-earns-next-brute-base-power",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\snapshot-cohort-445\\sourceeleven-408.log"
+      ],
+      "complete_log_sha256": "0d18bf57dfb34bcd2cc6298b1f6f95bb95d1a120202803e420fe07b24837f740",
+      "before_expected_sha256": "d6375029f73f5f0d4e6a58185a171a5ca438e8d190d8366c89a8047304cd5e80",
+      "expected_sha256": "aaf12f16e6ace832b326c1433cc354f635cb548c8b03d1791ca1c8c45b5f36d8",
+      "other_four_files_unchanged": true,
+      "failed_candidate_restored": false,
+      "edits": [
+        {
+          "location": "line41",
+          "kind": "DRAW_DISCARD_DURING_RESOLUTION_PRECEDES_CLEARING_TEAR_SOURCE",
+          "source_uid": 5,
+          "discard_uid": 9
+        },
+        {
+          "location": "line42",
+          "kind": "DRAW_DISCARD_DURING_RESOLUTION_PRECEDES_CLEARING_TEAR_SOURCE",
+          "source_uid": 5,
+          "discard_uid": 9
+        },
+        {
+          "location": "line92",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "1",
+          "accounting_bag_sha256": "023979e90e511ea03c2e00d63cfc8801b9230e52fc636afa03bcf25a8c320ef0",
+          "ordered_nonaccounting_sha256": "f43fc67165d39cb81abe058db2106285c467a8d0d786e5160f886d4a09a30c08",
+          "before_rows_sha256": "1461e624fafa313bdc8d6852bb1c0f6db283285b27cebeb5357e5beea9ce20bd",
+          "after_rows_sha256": "56b943b91be1742ac02bb771e993314d7be8e8996537819a6b74a26caf2c4aa2"
+        },
+        {
+          "location": "line101/Versions/14",
+          "kind": "DISCARD_BEFORE_TEAR_CLEARING",
+          "all_physical_object_bytes_retained": true
+        },
+        {
+          "location": "line101/Versions/90",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "1",
+          "accounting_bag_sha256": "33440b91bc961bf2cb5c4194294bde5480c17bd9e626c0af9ae0cff092db3818",
+          "ordered_nonaccounting_sha256": "f43fc67165d39cb81abe058db2106285c467a8d0d786e5160f886d4a09a30c08",
+          "before_rows_sha256": "ce267282d11883feee8b50ecb1df877070b3dd5306f9be45944f72d803bfd8a5",
+          "after_rows_sha256": "bd9e0649cd5ae17a62b973f64cfc53e27caee7324f3cf8fce9949fd0af8ec283"
+        },
+        {
+          "location": "line103/Versions/14",
+          "kind": "DISCARD_BEFORE_TEAR_CLEARING",
+          "all_physical_object_bytes_retained": true
+        },
+        {
+          "location": "line103/Versions/90",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "1",
+          "accounting_bag_sha256": "33440b91bc961bf2cb5c4194294bde5480c17bd9e626c0af9ae0cff092db3818",
+          "ordered_nonaccounting_sha256": "f43fc67165d39cb81abe058db2106285c467a8d0d786e5160f886d4a09a30c08",
+          "before_rows_sha256": "ce267282d11883feee8b50ecb1df877070b3dd5306f9be45944f72d803bfd8a5",
+          "after_rows_sha256": "bd9e0649cd5ae17a62b973f64cfc53e27caee7324f3cf8fce9949fd0af8ec283"
+        },
+        {
+          "location": "line105/Versions/14",
+          "kind": "DISCARD_BEFORE_TEAR_CLEARING",
+          "all_physical_object_bytes_retained": true
+        },
+        {
+          "location": "line105/Versions/90",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "1",
+          "accounting_bag_sha256": "33440b91bc961bf2cb5c4194294bde5480c17bd9e626c0af9ae0cff092db3818",
+          "ordered_nonaccounting_sha256": "f43fc67165d39cb81abe058db2106285c467a8d0d786e5160f886d4a09a30c08",
+          "before_rows_sha256": "ce267282d11883feee8b50ecb1df877070b3dd5306f9be45944f72d803bfd8a5",
+          "after_rows_sha256": "bd9e0649cd5ae17a62b973f64cfc53e27caee7324f3cf8fce9949fd0af8ec283"
+        },
+        {
+          "location": "line107/Versions/14",
+          "kind": "DISCARD_BEFORE_TEAR_CLEARING",
+          "all_physical_object_bytes_retained": true
+        },
+        {
+          "location": "line107/Versions/90",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "1",
+          "accounting_bag_sha256": "33440b91bc961bf2cb5c4194294bde5480c17bd9e626c0af9ae0cff092db3818",
+          "ordered_nonaccounting_sha256": "f43fc67165d39cb81abe058db2106285c467a8d0d786e5160f886d4a09a30c08",
+          "before_rows_sha256": "ce267282d11883feee8b50ecb1df877070b3dd5306f9be45944f72d803bfd8a5",
+          "after_rows_sha256": "bd9e0649cd5ae17a62b973f64cfc53e27caee7324f3cf8fce9949fd0af8ec283"
+        }
+      ]
+    }
+  ],
+  "full_suite_run": false,
+  "new_groups_or_scenarios": 0,
+  "comparison_or_gameplay_changes": false,
+  "preserved": "All original actions, assertions, initial snapshots, metadata and every final byte outside the exact reviewed edits."
+}

@@ -1,0 +1,522 @@
+{
+  "status": "APPROVED_ACTUAL_SAVED_B414_TWO_NEW_FOUR_LIVE_REPRESENTATIVES",
+  "approved": true,
+  "source_approved": true,
+  "semantically_approved": true,
+  "reviewer": "/root/b106_semantic_review",
+  "created_utc": "2026-11-05T03:51:45.459832+00:00",
+  "source_spec": "card-regression-batch414.json",
+  "input_sha256": "d2b69043cb0bd2a8a8542874bb4c2a5541ef0cc79c6da6b331e2ab95f268c614",
+  "manifest_sha256": "69347719ad81b487d9ee5d9d4bedd7567b79aefc2ab68cb083c1a0904e7cf2e5",
+  "runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+  "recorded_runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+  "source_guards_verified": 58,
+  "prior_independent_semantic_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch414-independent-source-review.json",
+    "sha256": "ee18ee18e07bef384aabcfa5e15ccb88afee120d59a8a7639cdaffc3be08e43e",
+    "reviewer": "/root/b106_semantic_review",
+    "unchanged_rules_model_reused": true
+  },
+  "recording_receipt": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch414-20261105T034835Z-6aebfc937e9c2.json",
+    "sha256": "985bd4e4d590b086c39d9e74f897f676d9e95450b9d08d4bde494ec24ae3242a"
+  },
+  "root_wrapper_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-b414-native-9e984-r1\\receipt.json",
+    "sha256": "fe25c88908f401df4d8d39708e0bc713f961fb1203ce8fad80f8225099009fa8"
+  },
+  "actual_comparison_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov5_batch414_saved_readonly.py",
+    "sha256": "e944352538ff6db8a04a39ee1213638b3bcfa7882462d2ffe17ff54c9b783a8c"
+  },
+  "read_only_helper": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\saved_fixture_review_tools.py",
+    "sha256": "57cb7672feb98a00216f1e194fd1df0395826af02e0d76f7042af920851c39e8"
+  },
+  "reviewer_independence": "Reviewer authored neither recipes nor source implementation/native recording; independently approved current official/source model reused without gameplay simulation.",
+  "fixtures": [
+    {
+      "index": 0,
+      "card_id": "seek_and_destroy_red",
+      "group_id": "identity:seek_and_destroy_red",
+      "slug": "card-seek-and-destroy-red-four-live-sparse-real-next-arrow-plus-three-consumed-before-full-block",
+      "source_spec": "card-regression-batch414.json",
+      "input_sha256": "d2b69043cb0bd2a8a8542874bb4c2a5541ef0cc79c6da6b331e2ab95f268c614",
+      "reviewer": "/root/b106_semantic_review",
+      "approved": true,
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_NEW_FOUR_LIVE_REPRESENTATIVE",
+      "runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+      "recorded_runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+      "fixture_path": "Tests\\Integration\\FaBSim\\card-seek-and-destroy-red-four-live-sparse-real-next-arrow-plus-three-consumed-before-full-block",
+      "fixture_sha256": "e5c62954cd408f34c4b869f46419c058e0233a7439b8eb6e97676ce369a0305d",
+      "raw4_sha256": {
+        "initial_gamestate.txt": "2a2484d45ce56e4277f269d232522d09d7738d65c1fe8645d0c3f26058e4c1ae",
+        "actions.json": "14fc2e9d5c14543d5a9e557ee4e3f311ebd54d3b106352fe348dd7a54aa8a208",
+        "assertions.json": "4ae112a07d9553c8bedbc6df1550fc083c1088a017b5100776c7e2238c9cb49f",
+        "expected_final_gamestate.txt": "aa5e3c426b44821a5f96880f402729335ed33e324c7112f01bfdd75a05ed8254"
+      },
+      "raw5_sha256": {
+        "initial_gamestate.txt": "2a2484d45ce56e4277f269d232522d09d7738d65c1fe8645d0c3f26058e4c1ae",
+        "actions.json": "14fc2e9d5c14543d5a9e557ee4e3f311ebd54d3b106352fe348dd7a54aa8a208",
+        "assertions.json": "4ae112a07d9553c8bedbc6df1550fc083c1088a017b5100776c7e2238c9cb49f",
+        "expected_final_gamestate.txt": "aa5e3c426b44821a5f96880f402729335ed33e324c7112f01bfdd75a05ed8254",
+        "meta.json": "e4fc9b3f014c5018c6e1893f8f3fbc0a917cf38c6b237999751252c0075579ee"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "2a2484d45ce56e4277f269d232522d09d7738d65c1fe8645d0c3f26058e4c1ae",
+        "actions.json": "14fc2e9d5c14543d5a9e557ee4e3f311ebd54d3b106352fe348dd7a54aa8a208",
+        "assertions.json": "4ae112a07d9553c8bedbc6df1550fc083c1088a017b5100776c7e2238c9cb49f",
+        "expected_final_gamestate.txt": "aa5e3c426b44821a5f96880f402729335ed33e324c7112f01bfdd75a05ed8254",
+        "meta.json": "e4fc9b3f014c5018c6e1893f8f3fbc0a917cf38c6b237999751252c0075579ee"
+      },
+      "actions": 34,
+      "native_assertions": 3162,
+      "actual_manual_passes": 29,
+      "actual_priority_response_passes": 28,
+      "actual_defender_declaration_finish_inputs": 1,
+      "actual_administrative_END_PHASE_passes": 0,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4
+      ],
+      "actual_manual_actor_counts": {
+        "1": 7,
+        "2": 7,
+        "3": 7,
+        "4": 8
+      },
+      "schema_property_assertions": 1160,
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "all_actions_and_assertions_exact": true,
+      "no_recorder_only_assertions": true,
+      "all_endpoint_physical_uid_card_zones_ownership_verified": true,
+      "all_terminal_assertions_evaluated_against_parsed_final_snapshot": true,
+      "initial_assertions_also_evaluated_against_parsed_initial_snapshot": true,
+      "initial_physical_uid_locations": {
+        "1": {
+          "card_id": "azalea",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "5": {
+          "card_id": "seek_and_destroy_red",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "falcon_wing_red",
+          "zone": "p1Arsenal",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "death_dealer",
+          "zone": "p1Weapons",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2
+        },
+        "8": {
+          "card_id": "driving_blade_blue",
+          "zone": "p4Hand",
+          "owner": 4,
+          "controller": 4
+        },
+        "9": {
+          "card_id": "driving_blade_blue",
+          "zone": "p4Hand",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_physical_uid_locations": {
+        "1": {
+          "card_id": "azalea",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "7": {
+          "card_id": "death_dealer",
+          "zone": "p1Weapons",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "seek_and_destroy_red",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "falcon_wing_red",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2
+        },
+        "8": {
+          "card_id": "driving_blade_blue",
+          "zone": "p4Graveyard",
+          "owner": 4,
+          "controller": 4
+        },
+        "9": {
+          "card_id": "driving_blade_blue",
+          "zone": "p4Graveyard",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_health": [
+        20,
+        20,
+        20,
+        20
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_AP": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "final_physical_uidset": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "final_UniqueIDCounter": 9,
+      "RandomCounter": 0,
+      "checkpoint_assertion_mapping_sha256": "25ba276eed5e1c66ea333c00b05c372bfe37b8686d17afb7c3a9b65a13540903",
+      "native_action_mapping_sha256": "4c94259bd813cfda3b4ba207c084313d07af366ebba85a0c6d3dadd1fd670f93",
+      "native_assertion_mapping_sha256": "de6e491cacb17a33cfa1ddfd7bef0dd011fc3948601d2305702f36c9db3c6ce6"
+    },
+    {
+      "index": 1,
+      "card_id": "swarming_gloomveil_red",
+      "group_id": "identity:swarming_gloomveil_red",
+      "slug": "card-swarming-gloomveil-red-four-live-sparse-real-one-aura-created-earns-go-again-after-runechant-consumed",
+      "source_spec": "card-regression-batch414.json",
+      "input_sha256": "d2b69043cb0bd2a8a8542874bb4c2a5541ef0cc79c6da6b331e2ab95f268c614",
+      "reviewer": "/root/b106_semantic_review",
+      "approved": true,
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_NEW_FOUR_LIVE_REPRESENTATIVE",
+      "runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+      "recorded_runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+      "fixture_path": "Tests\\Integration\\FaBSim\\card-swarming-gloomveil-red-four-live-sparse-real-one-aura-created-earns-go-again-after-runechant-consumed",
+      "fixture_sha256": "9aa4ea06cddf1036d8c43e0f2ea17db9a1ce46f141b95577c2d8e2dd82fbc5ad",
+      "raw4_sha256": {
+        "initial_gamestate.txt": "38199838374137aeabad0d6b0a59671ab30bba9ecf18390b01e8924d95dd541c",
+        "actions.json": "da3c5e0d7d304a119eaf694d8e2a8b8559a2634917022d610ca60fdcdc14dd36",
+        "assertions.json": "b7f8331734a4f03bc3a9f3180bdabc090d2f293bffba006005a8d65710131c52",
+        "expected_final_gamestate.txt": "b326c847ffde1be4adba3d059bf03b25e91b76559b17e0166809d8a227e3cd8b"
+      },
+      "raw5_sha256": {
+        "initial_gamestate.txt": "38199838374137aeabad0d6b0a59671ab30bba9ecf18390b01e8924d95dd541c",
+        "actions.json": "da3c5e0d7d304a119eaf694d8e2a8b8559a2634917022d610ca60fdcdc14dd36",
+        "assertions.json": "b7f8331734a4f03bc3a9f3180bdabc090d2f293bffba006005a8d65710131c52",
+        "expected_final_gamestate.txt": "b326c847ffde1be4adba3d059bf03b25e91b76559b17e0166809d8a227e3cd8b",
+        "meta.json": "4bda16c86bedf6dc2942a9b4d7f6a4606bbd08b23c2115d2c8513a222c0b9865"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "38199838374137aeabad0d6b0a59671ab30bba9ecf18390b01e8924d95dd541c",
+        "actions.json": "da3c5e0d7d304a119eaf694d8e2a8b8559a2634917022d610ca60fdcdc14dd36",
+        "assertions.json": "b7f8331734a4f03bc3a9f3180bdabc090d2f293bffba006005a8d65710131c52",
+        "expected_final_gamestate.txt": "b326c847ffde1be4adba3d059bf03b25e91b76559b17e0166809d8a227e3cd8b",
+        "meta.json": "4bda16c86bedf6dc2942a9b4d7f6a4606bbd08b23c2115d2c8513a222c0b9865"
+      },
+      "actions": 42,
+      "native_assertions": 3314,
+      "actual_manual_passes": 37,
+      "actual_priority_response_passes": 36,
+      "actual_defender_declaration_finish_inputs": 1,
+      "actual_administrative_END_PHASE_passes": 0,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4
+      ],
+      "actual_manual_actor_counts": {
+        "1": 9,
+        "2": 9,
+        "3": 9,
+        "4": 10
+      },
+      "schema_property_assertions": 873,
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "all_actions_and_assertions_exact": true,
+      "no_recorder_only_assertions": true,
+      "all_endpoint_physical_uid_card_zones_ownership_verified": true,
+      "all_terminal_assertions_evaluated_against_parsed_final_snapshot": true,
+      "initial_assertions_also_evaluated_against_parsed_initial_snapshot": true,
+      "initial_physical_uid_locations": {
+        "1": {
+          "card_id": "chane",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "5": {
+          "card_id": "swarming_gloomveil_red",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "read_the_runes_blue",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "timesnap_potion_blue",
+          "zone": "p1Arena",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2
+        }
+      },
+      "final_physical_uid_locations": {
+        "1": {
+          "card_id": "chane",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "6": {
+          "card_id": "timesnap_potion_blue",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "read_the_runes_blue",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "swarming_gloomveil_red",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2
+        }
+      },
+      "final_health": [
+        20,
+        20,
+        20,
+        16
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_AP": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "final_physical_uidset": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "final_UniqueIDCounter": 10,
+      "RandomCounter": 0,
+      "checkpoint_assertion_mapping_sha256": "2ea1b8ee6a621c2379906110d1f6a6d73f80f1db7e9636d303d336c284fa389c",
+      "native_action_mapping_sha256": "89ee1bfc40b773ede58669f23582ee484cf8893e01710c5e29b0367c1e4373bf",
+      "native_assertion_mapping_sha256": "40506fa3981e319b353b4419be73cb5ff7af853009f50d62eb5be17e202f1a97"
+    }
+  ],
+  "blocked_attempts": [],
+  "total_actions": 76,
+  "total_native_assertions": 6476,
+  "total_manual_passes": 66,
+  "total_priority_response_passes": 64,
+  "total_defender_declaration_finish_inputs": 2,
+  "total_administrative_END_PHASE_passes": 0,
+  "total_schema_property_assertions": 2033,
+  "material_findings": [
+    "Seek: realzero-cost5spendsAP1 then ownGA refunds onlyafterfreshfour; samephysicalArrow6is played frompriorArsenal with actualreadyBow7, adjacentP4 declared beforezeroAPpayment. Persistednative computedpower6=3+3(noAim), intrinsicFalconGA; actualP4twoNAA3D UID8/9 fullyblock6, damage0/hitfalse/HP20, noSeekhitABI orfuturepayoff. ArrowGA refundsAP1 onlyatResolution. Fullclose GY1same5/6/GY4same8/9/publicowners, Bow7fullrawrecordunchanged, R0AP1/counter9/noextraobjects.",
+    "Swarming: actualTimesnap6destroycost/ABI8/AP0, freshfour gains2AP; ReadBlue7reallyspendsAP2to1 thenfourcreates exactlyoneownedRune9. ActualSwarming5spendslastAP aftertarget, RuneTRIGGER10source9/capturedP4receivesitsownfreshfour: actualtoken destruction and1arcaneHP19 beforeprimary5sourcefour. Aura creationhistory remains exactly1afterRuneceased, actualcomputedbase3/conditionalGA true (no2/3thresholdbonus),3physicalHP16/AP0. OnlyDamage-toResolutionrefundsAP1; fullclose GY1UID5/6/7, actualoriginal1..7conserved, created9andvirtual8/10absent/counter10.",
+    "Allraw10/76actualenvelopes/6476orderedpersistedchecks/2033schema properties compareexactly to originald2b690andapprovedee18.66manualinputs comprise64priorityresponses+2P4defender declaration finishes; no adminEND_PHASE. Everyactualraw48manualpreferencevalue at eachendpoint/case, quietyoungfourlivingHeroes/fullUIDownership/actualRAPHP/queues/frame/target/combatcleanup checked. Final historicalsharedmzID refersactualprimaryattack source, withno pendingframe; it is not interpreted as a livefinalChainobject."
+  ],
+  "limits": [
+    "OnlySeeknextArrow+3/ownGA fullblock andSwarmingonecreatedAuraGApositive are qualified by this review. NoSeekhit/nextendphase/expiry/Aim/Bowactivation/hero/supportprimary/siblings; noSwarmingtwo-or-threeAura/hit-prevention/playedAura/doublecount/falsezero/expiry/creator/supportprimary/siblings credit.",
+    "Physicalinitial/finalrawsnapshots are complete; intermediate facts use actualpassednativeassertions/envelopes only. No privatePC/awaitlocals or completeintermediate snapshot is invented. SerializedVersions remain opaqueundo data, hash-bound and excluded from currentphysicalUIDinventory.",
+    "Historicalunexecuted/sourcependingrecipe prose remains immutablemeta. This savedproof supplies actualnativequalification-stage evidence without retagging oldsourceproof or claiming Rootreplay/registration results. Root targetedreplays and registration are separate.",
+    "No PHP/native/replay/R/source/service/gen/fullsuite/optional simulation/held089090retry/reroute byreviewer. Currentactual9 contextisexplicit; future094managerapplication cannot relabel this native run."
+  ]
+}

@@ -1,0 +1,102 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-reckless-stampede-red-four-live-sparse1011-actual-unblocked-seven-without-card-defends-clash-event",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-reckless-stampede-red-four-live-sparse1011-actual-unblocked-seven-without-card-defends-clash-event",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1011-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1011-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "5f0b2331f193686473e2bf04bd54d67d3a565423abafdf06f65e3cab07d7241d",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "1d53acad0bd4b2fa00ea5faeebf1caf0415250b5e4362a3348f3e0a1ca03f1cb",
+        "actions.json": "25920dc16af50701b0be20453cc3345d5c14a09166881d7481930bfb87552093",
+        "assertions.json": "3b95c0cf1a42f3d0edf413c8ad04326c13198ebe08cb3a825488bcbc5a0ebfe8",
+        "expected_final_gamestate.txt": "54d6314958cb6607e9d9246bb153a8b63dc370a69d0e9674197cac8428367ab1",
+        "meta.json": "796554207d8789c199a1379745aca345e2808fde9b57c15911a436e06932b35c"
+      }
+    },
+    {
+      "slug": "card-deny-redemption-red-four-live-sparse1011-normal-play-at-equal-life-no-more-health-attack-event",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-deny-redemption-red-four-live-sparse1011-normal-play-at-equal-life-no-more-health-attack-event",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1011-local-20261122\\clean-replays\\01.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1011-local-20261122\\clean-replays\\01.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "0a6f2f1738b1fd09cb1a069db04bb21d1e84a412f51ce8fea80bcd3e98208cfc",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "4baba1fdb4426379f3ca9fa1e8adc23530de99bb816fffc50a4ae526508ea471",
+        "actions.json": "3593173685454522019b405de78cb5503822c22a7904ad622d8a4fcde6586217",
+        "assertions.json": "c929965044708baacd2adc06a8de6821347927bf06b1669e8f10a400a7c4e80a",
+        "expected_final_gamestate.txt": "4054727d6547f16998cacafa159332bfd885900282dd6edb5777b1b1600c7443",
+        "meta.json": "f8475e5e96354989d7b2b30e7f39cec0c539bc1f3b4b27b0704cc913808e1319"
+      }
+    },
+    {
+      "slug": "card-ice-aged-oak-blue-four-live-sparse1011-real-generic-blue-no-ice-bond-two-hand-blocks-no-hit",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-ice-aged-oak-blue-four-live-sparse1011-real-generic-blue-no-ice-bond-two-hand-blocks-no-hit",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1011-local-20261122\\clean-replays\\02.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1011-local-20261122\\clean-replays\\02.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "799feef3f92bd4a90a264df2f78b5e2a7e888e7775634cce3fe119fe6566bd3e",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "c1c6a528490e48c643dfa62958a6a8efb653836f82ba659c78846a3dbef2292d",
+        "actions.json": "a44e24b9f9b348ce659c847e7dbea1e0cd33c5233e8ac4933f9391118d55ee4b",
+        "assertions.json": "e797f885f5cad05b5bc3c55e90c096e383495505c261a816b850ce65cbf003ea",
+        "expected_final_gamestate.txt": "e430824a178787554063ac8b95a37db87bafaf78324a071982a9a37e025fc8ce",
+        "meta.json": "c579ebf4a7526bdd01b9e573c8915495fe2fce88178054da2db5c840de5809a5"
+      }
+    },
+    {
+      "slug": "card-light-it-up-yellow-four-live-sparse1011-actual-unfused-arsenal-full-block-no-damage-event",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-light-it-up-yellow-four-live-sparse1011-actual-unfused-arsenal-full-block-no-damage-event",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1011-local-20261122\\clean-replays\\03.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1011-local-20261122\\clean-replays\\03.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "617c9cd973f9db971109fcb28a18706b0599c8c5b8f19b448f984ff25855f4b4",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "2b8551524b9b3d49fdc27429a730d0486c92dc1f830ccc8bf1bf6ff2242e02a8",
+        "actions.json": "93f50488e0f312b4020445b2819360dd950e8b021a9e4ab90b9924171869c098",
+        "assertions.json": "f0300d83b3b4ccd8da306b8d3e28ba030c115af877c034109043d2da9e97b096",
+        "expected_final_gamestate.txt": "282bda314f555b9a557d44ddf4aca718729b5b3c2d07d87d199cbf3e18d1f18b",
+        "meta.json": "0e4fbd67f7777976fe9f7b342b648fbd854fbdd9a14cea732a34b4c7398831c6"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

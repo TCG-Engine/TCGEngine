@@ -1,0 +1,65 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "breadth_review independent legal-hero and intrinsic BladeBreak delta review",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1110-20261122.json",
+  "source_spec_sha256": "5e3f470cc9d350ad931ba2ae400f63c8253cd51a122a3961b8ee12f9ad88d81b",
+  "input_sha256": "5e3f470cc9d350ad931ba2ae400f63c8253cd51a122a3961b8ee12f9ad88d81b",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-starfield-carapace-four-live-sparse1110-ordinary-real-defense-and-blade-break-without-instant-activation",
+      "card_id": "starfield_carapace",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "717a3f353d22911cf8020f25f0f6b499e84b0fc49cbadef4cf9ecc04ea98dbbe",
+        "actions.json": "5e66c904371c6df1bdcfce3c48fa00e040d5b51953374c60e180e1ced402c6ea",
+        "assertions.json": "07dfb65e6b98f2886b8efc6006c6a5fee5f777d9ce244b54a9a81c1c0ea1c709",
+        "expected_final_gamestate.txt": "9a5ffeab49fded2edff8b5e240203dd1f6896fe673b006fb39c0f38ef7527950",
+        "meta.json": "2373e61e45827dc0b9c42fadadc1ccf87a2efc9a1eebbb049d0fd5d1ae3836cc"
+      },
+      "fixture_sha256": "97211f56e38a8ff30aaec354509c6a4f0115a344b49d1da15be34dff5a8d8c01",
+      "actions": 29,
+      "native_assertions": 239,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1110-20261122.json",
+      "input_sha256": "5e3f470cc9d350ad931ba2ae400f63c8253cd51a122a3961b8ee12f9ad88d81b",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1110-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-starfield-carapace-four-live-sparse1110-ordinary-real-defense-and-blade-break-without-instant-activation",
+        "fixture_slug": "card-starfield-carapace-four-live-sparse1110-ordinary-real-defense-and-blade-break-without-instant-activation",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "spec_sha256": "5e3f470cc9d350ad931ba2ae400f63c8253cd51a122a3961b8ee12f9ad88d81b",
+    "reviewer": "breadth_review independent legal-hero and intrinsic BladeBreak delta review",
+    "basis": [
+      "Cached Starfield Carapace is Lightning Illusionist Chest/DEF1/BladeBreak. Actual young Zyggy20 is Lightning Illusionist, satisfying both class/talent and configured four-live young-Hero format; all hero and natural-health guards are rebound.",
+      "Printed body is an unactivated Instant ability, not a WHEN defending/destroyed trigger. Ordinary BladeBreak destruction does not activate it. Zyggy hero ability is also unused; no Aphrodias/Lightning Flow/aura/hero event is involved.",
+      "Qualified1103 actual Wounding7 cost0/printed4 source/combat flow is reused with four manual responders. Real Critical Blue6 DEF3 plus physical Equipment5 DEF1 fully block4, damage0/noHit/HP20.",
+      "Normal Close BladeBreak puts Hand6 then same Equipment5 in owner4graveyard; actual source7 owner1graveyard, empty Equipment/Stack/queues and AP/resource/physical IDs remain guarded. No author-only diagnostic assertions."
+    ],
+    "limits": [
+      "IntrinsicDEF1/fullblock/BladeBreak only. No activation, Aphrodias cost/trigger, Lightning Flow, hero/support/native-equip/full-card or held timing credit.",
+      "Exact native recording and clean replay pending; no child native/T/source changes."
+    ]
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1110-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "4418a6e2d658110ffab0bd46b6abed7fac33c6a63991311bc61cbd31bc567bc4"
+  },
+  "full_suite_run": false
+}

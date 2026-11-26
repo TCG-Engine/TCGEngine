@@ -1,0 +1,70 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "breadth_review independent existing-Aura Arcane Barrier3/payment review",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1170-20261122.json",
+  "source_spec_sha256": "9713001d28035b45df82989a95a734ab468194bd378730edadd887f880ddca3c",
+  "input_sha256": "9713001d28035b45df82989a95a734ab468194bd378730edadd887f880ddca3c",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-thunderous-retort-red-four-live-sparse1170-real-aura-barrier-three-pays-blue-three-prevents-three",
+      "card_id": "thunderous_retort_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "554237a4bd88910208ddc98452b02a60da4e6ff0fcdb0e0fbea9d99a61c581b2",
+        "actions.json": "abeb3c8b027bfa26d05afb7a0c385c41d6388c2ae6f8105e03a2cd84dc242119",
+        "assertions.json": "bb1a216ee2f5aa3d5a891a11886a029746b24728d71965ac2b991775148c8c51",
+        "expected_final_gamestate.txt": "99899a38468e83efdfa8b539adfb5ede58582492ecf37fa10664aa183aa674db",
+        "meta.json": "86419e5d7b27cb29e39f17709c9008367e7fb4b08454a31c0db9f4b056ac4940"
+      },
+      "fixture_sha256": "e6cbd3927513514c7c641ea7f228c91bb4711a0642e8138279b88e906c29f255",
+      "actions": 8,
+      "native_assertions": 294,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 4,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1170-20261122.json",
+      "input_sha256": "9713001d28035b45df82989a95a734ab468194bd378730edadd887f880ddca3c",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1170-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-thunderous-retort-red-four-live-sparse1170-real-aura-barrier-three-pays-blue-three-prevents-three",
+        "fixture_slug": "card-thunderous-retort-red-four-live-sparse1170-real-aura-barrier-three-pays-blue-three-prevents-three",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "spec_sha256": "9713001d28035b45df82989a95a734ab468194bd378730edadd887f880ddca3c",
+    "reviewer": "breadth_review independent existing-Aura Arcane Barrier3/payment review",
+    "basis": [
+      "Thunderous Retort is Lightning Instant Aura with unconditional printed Arcane Barrier3. Young Aurora20 has Lightning eligibility; prior owned Aura5 is admitted before its next action-phase beginning. Its future beginning-action destruction/GA trigger has not been earned, and its entry is not part of this fixture.",
+      "UPRBarrierValue257 reads printed AB3 and LegacyPreventionPlans263-274 enumerates Arena sources. With only Aura5 and actual Blue6 pitch3, the available plans are Take damage and pay3/prevent3; modal ordinal1 is correct. AB3 is a single3-resource payment, not an option to pay1 repeatedly or destroy the Aura.",
+      "Actual Verdance20 Zap7 announces Hero4 and pays Action0 before all four manual source responses. Spell7 stays held while victim4 selects pay3 then actually pitches owned Blue6. Source-context preservation retains Zap as the damage source after foreign pitching. Real resource3 pays3/R0 and prevents all incoming3, leaving HP20.",
+      "Final same owned/controller4 ready Aura5 remains with unchanged counters, actual Blue6 ownedPitch4 and Zap7 ownedGY1, no new UID, no Equipment/Quell/Ward/Alluvion flag or destruction. No Lightning card is played or hero ability activated by victim4; no unrelated mandatory hero trigger is owed."
+    ],
+    "persisted_check_review": {
+      "controls": 8,
+      "normalized_assertions": 294,
+      "author_only_omissions": 0
+    },
+    "limits": [
+      "Existing-Aura AB3 only against one Zap3. No Aura entry or future beginning-action destruction/next-attack GA, other packets, decline/partial payment/overpay, other prevention, hero/support/sibling or full-card credit.",
+      "Reviewer performed no native/PHP/T/source/engine/fixture/Git/network/original actions."
+    ]
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1170-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "ea85d943c126b5cc6f4ea8f29f8a6afcad2d727d1159622b8fa6ed433763b5e2"
+  },
+  "full_suite_run": false
+}

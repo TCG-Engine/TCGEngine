@@ -1,0 +1,7 @@
+{
+    "name": "Puffin / first actual Crank is not the second and does not draw the available card",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-25T15:13:22+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Four genuine manual youngPuffin20/Dori20/Dori20/Dori20. ActualDissolvingShield5Hand1cost0, realThrottle6Deck1 asnonvacuousdrawcontrol. NoGold/Heroability/historyseed, initialturnEffects[]. RealItem5play/AP1to0thenallfourmanualresponses. NativeCrankentrychoice offersCrank/KeepSteam, provisionalItemArenaSTEAM3/AP0; no entry/provisionalzone timing beyond completedoutcome certified. DeliberateCrank0removesoneSTEAMto2/grantsoneAPto1/completesactualItementry, source5retained/Handempty/Deck6unchanged/allHero20/R0/UID6RNG0/noStack/DQ. ExactlyoneCrankevent occurred, so printedSECOND-time eventconditionnotmet andnoHeroDrawlayerowed, notWHENIFfalse. Onlyownfirstordinalnegative, notpositive2nddraw/timing orGoldadditionalcost/Cog. ActualCrankeffectissupport, no identitycredit/nextturn/Instantability orenginechange. Sources: FaBSim/GeneratedCode/cardArrayCache.json#puffin FaBSim/GeneratedCode/GeneratedMacroCode.php FaBSim/Custom/EVOCards.php FaBSim/Custom/EVORuntime.php FaBSim/Custom/SEARuntime.php FaBSim/Custom/MONCards.php FaBSim/Custom/GameLogic.php https://rules.fabtcg.com/en/cr/08-keywords/"
+}

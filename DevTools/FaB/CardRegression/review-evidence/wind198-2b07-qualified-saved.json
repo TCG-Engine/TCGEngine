@@ -1,0 +1,54 @@
+{
+  "status": "WIND198_ORIGINAL111_13746_FULL_FUTURE_IRA_SINGLE_CLEAN_REPLAY_PASS",
+  "reviewer": "Root independent of b820 patch/checker and original856 recipe author",
+  "reviewer_independent": true,
+  "approved": true,
+  "semantically_approved": true,
+  "runtime_sha256": "2b072f2c46c89f392fe7e90666b549c10a9d1449032b50dbc4828afe3219ede5",
+  "input_sha256": "c3a69011c2dbcafba7ee1969cb424adb5f62d3618a8b0834d23bc82130df373d",
+  "source_spec": "card-regression-repair-wind198-earned-hit-delayed-phase.json",
+  "fixtures": [
+    {
+      "slug": "probe-wind-slicer-blue-four-live-real-item-hit-earned-next-ira-two-kodachi",
+      "card_id": "wind_slicer_blue",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "d6e7a26a1a13ea4f668ea1171dc72f60f75cc7d8ce57f32ba1ffa06fcbaf508e",
+        "actions.json": "5b913865ab1e98eeebd076441f51920d201d0fd34fb0a3d6a01e9c3fe34d2ceb",
+        "assertions.json": "419976616bb215ba12e3c04817225228accad3a207f12399d734cefd6111b1d0",
+        "expected_final_gamestate.txt": "40af991e0e64dc26383cd32d9ea367a2452d2c0efac5a70a70ae89de4107470d",
+        "meta.json": "cc6a1d8d8d6b451227c8e70dcc617d4da7b5f20a1d34d3f0293ff3a2c0b74712"
+      },
+      "fixture_sha256": "9cbf56bff8048c954fd2c18f9d38d5a60802ca5d46d4edd7bf35b9e50768f92b",
+      "actions": 111,
+      "native_assertions": 13746,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 103,
+      "recorded_runtime_sha256": "2b072f2c46c89f392fe7e90666b549c10a9d1449032b50dbc4828afe3219ede5",
+      "runtime_sha256": "2b072f2c46c89f392fe7e90666b549c10a9d1449032b50dbc4828afe3219ede5",
+      "source_spec": "card-regression-repair-wind198-earned-hit-delayed-phase.json",
+      "input_sha256": "c3a69011c2dbcafba7ee1969cb424adb5f62d3618a8b0834d23bc82130df373d"
+    }
+  ],
+  "replay": {
+    "path": "card-regression-replay-nov17-wind198-replay.json",
+    "sha256": "4e697a18249303620c0d7b0fe142f4de8dc2232d4997310819fcbbc2d7dd8f76",
+    "passed": true
+  },
+  "source_review_sha256": "7eea86f7e767f230b7acd375c0969a29c1130f305fed90432f0b286b693606e2",
+  "components": 25,
+  "component_receipt_sha256": "1127d67335f784a8f9fe2af960c0ab52775d5989c5f5d556473ad19d6ad9c24b",
+  "basis": "All original111actions/13746queries/setup unchanged. Real activated/tapped Item Wind5 pays1 with Blue6/R2, attacks and deals1 to Hero4/HP19. Earned captured physical-source5 hit layer gets fresh four-live responses before scheduling; printed go again and true close destroy same Item5 to ownerGY. Three actual native turn transitions reach Turn5/P4 Action phase. Two real Kodachi7/8 attacks each deal1, so P1HP18 instead of unblanked Ira17; original HeadJab9 pitch, P4R1/AP1, P1 normal End/refill Blue6Hand and full Stack/DQ/await/combat cleanup pinned. This is a functional future passive consumer, not merely a schedule flag snapshot. Existing WindPhase/End and Hero ability-loss consumer are byte-preserved.",
+  "defect_evidence_distinction": {
+    "missing_earned_layer": "Confirmed by original Native-before20inputs/2480passed assertions followed by direct Stack0 failure.",
+    "schedule_lifetime": "Original stopped Native did not reach this suffix. Actual old ResetWindowState isolation proves iarWind dropped; source repair now passes the complete actual next-Ira gameplay route. No invented Native-before reproduction of the later gap."
+  },
+  "official_sources": [
+    "https://rules.fabtcg.com/en/cr/06-effects/"
+  ],
+  "limits": [
+    "Original Blue real-Item-hit/next-Ira two-Kodachi branch only. Other Heroes, multiple schedules, source control/reentry, Native expiry/restored-passive and other Item attack branches unqualified.",
+    "25 actual-function components separately exercise old reset loss, exact unchanged output members, corrected retention, activation and WindEnd expiry with isolated primitives. Direct WindEnd check is not Native expiry/restoration credit.",
+    "GL change only preserves nonempty array iarWind beside dynEdicts. Physical/virtual ability completion paths and denied094 untouched. No Core/generated/schema/service/remote authoring change, full suite/historical corpus run or new breadth."
+  ]
+}

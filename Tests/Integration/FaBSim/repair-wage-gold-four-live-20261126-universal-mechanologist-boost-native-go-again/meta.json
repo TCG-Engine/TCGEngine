@@ -1,0 +1,7 @@
+{
+    "name": "Wage Gold / Universal Mechanologist typing must enable actual Boost",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-26T02:59:45+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "FOURREALMANUALUPF_YOUNGDASH20_THREEDORI20. ActualZeroToSixty5Hand0cost/formalHero4attacktarget/Boostmodal0. ActualownWageGoldRed6topDeckisbypublishedUniversalCR8.3.35sameclassasownMechanologistDashinANYzone; nooverridesorShiyana. ActualBoostadditionalcostbanishesreal6afterAP1to0, physical6OwnerController1Banishpublic. Fourfreshresponsesresolveactual4powerattack; correctobservableGO=truebecauseactualtopUniversalcardMechanologist(CR8.3.9). Thisisnotawagerevent: primary6neverattackssoitsWagerabilityunearned. StrictprobeendsatATTACKnofutureoutcomeclaimed; nofixtureorcoverageevenifpassuntilseparatereview. Noenginechange. Sources: FaBSim/GeneratedCode/cardArrayCache.json#wage_gold_red FaBSim/Custom/GameLogic.php FaBSim/Custom/ARCAbilities.php FaBSim/GeneratedCode/GeneratedMacroCode.php https://rules.fabtcg.com/en/cr/08-keywords/"
+}

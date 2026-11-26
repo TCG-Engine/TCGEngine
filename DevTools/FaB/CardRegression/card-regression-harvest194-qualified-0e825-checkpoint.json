@@ -1,0 +1,68 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-16T16:58:41.887134+00:00",
+  "runtime_sha256": "0e8250ae60f0d6180065cf516588546c2b5e2533cb4951533ca1c6fbf004f40a",
+  "source_spec": "card-regression-repair-harvest194-after0e825.json",
+  "source_spec_sha256": "2dbaad0dee3f81cab73a2d5693f213a8ebf3e187fb26bc6feda2d068913c7c88",
+  "new_scenarios": 1,
+  "new_groups": 1,
+  "new_primary_ids": 1,
+  "actions": 12,
+  "native_assertions": 1408,
+  "manual_passes": 8,
+  "totals": {
+    "saved_registered_scenarios": 4107,
+    "duels": 3074,
+    "four_live": 1033,
+    "recorded_primary_ids": 1260,
+    "identity_denominator": 5196,
+    "recorded_groups": 1134,
+    "group_denominator": 3324,
+    "four_live_groups": 1026,
+    "phase_qualified_scenarios_at_actual_contexts": 744,
+    "phase_qualified_unique_groups": 739,
+    "creation_replay_passes": 1485,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 1,
+  "scenarios": [
+    {
+      "card_id": "harvest_season_blue",
+      "group_id": "pitch-cycle:harvest_season",
+      "scenario_id": "card-harvest-season-blue-four-live-real-next-action-earned-destroy-life-repair",
+      "effect_branches": [
+        "actualTurnAdvance-NoEndStartPriority-firstP2Action-AP1-earned4-destroy-realOneLife"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-harvest-season-blue-four-live-real-next-action-earned-destroy-life-repair",
+      "source_spec": "card-regression-repair-harvest194-after0e825.json",
+      "source_spec_sha256": "2dbaad0dee3f81cab73a2d5693f213a8ebf3e187fb26bc6feda2d068913c7c88",
+      "review_evidence": "review-evidence/harvest194-qualified-saved-0e825.json",
+      "review_evidence_sha256": "02834fca38a808f682bd06f24b8ea970aad3906e2f95ec30b72b0556e07110e8",
+      "recorded_runtime_sha256": "0e8250ae60f0d6180065cf516588546c2b5e2533cb4951533ca1c6fbf004f40a",
+      "qualification_runtime_sha256": "0e8250ae60f0d6180065cf516588546c2b5e2533cb4951533ca1c6fbf004f40a",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-replay-nov16-harvest194-after0e825-replay.json",
+          "sha256": "665e0bd69bd0e61a3d9658d1ba2e06e8f6a9f7453147aaafc3b60574f2b8b6f2",
+          "runtime_sha256": "0e8250ae60f0d6180065cf516588546c2b5e2533cb4951533ca1c6fbf004f40a",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

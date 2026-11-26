@@ -1,0 +1,27 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch582.json",
+  "runtime_sha256": "9fbaaee63ccedad1dc7cad440f09376d21106a761ce61bad719156bdd7d20709",
+  "returncode": 0,
+  "completed_utc": "2026-11-06T06:53:06.420133+00:00",
+  "fixtures": [
+    {
+      "slug": "card-redspine-manta-four-live-real-tapped-bow-faceup-arrow-load-and-earned-action-damage",
+      "fixture_sha256": "115c99a23c84199569e8b5b227147493d272d0f36230d10d83249d92eb386b81",
+      "passed": true,
+      "result": "[PASS] redspine_manta / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-redspine-manta-four-live-real-tapped-bow-faceup-arrow-load-and-earned-action-damage",
+      "returncode": 0,
+      "stdout": "[PASS] redspine_manta / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

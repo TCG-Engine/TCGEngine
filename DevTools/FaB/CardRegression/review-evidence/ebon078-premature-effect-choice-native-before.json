@@ -1,0 +1,240 @@
+{
+  "status": "INDEPENDENT_NATIVE_BEFORE_CONFIRMED_EBON_FOLD_PREMATURE_RESOLUTION_CHOICE_NAMED_PHASE_CALLER_EXTENSION",
+  "reviewer": "/root/nov2_next_author",
+  "created_utc": "2026-11-03T11:55:10.871442+00:00",
+  "issue_id": "FAB-REG-078",
+  "card_ids": [
+    "ebon_fold"
+  ],
+  "classification": "native_confirmed_resolution_effect_misclassified_as_prepared_additional_cost_named_caller_extension",
+  "root_cause_group": "prepared_effect_costs",
+  "related_prior_issues": [
+    "FAB-REG-060",
+    "FAB-REG-039"
+  ],
+  "new_distinct_gameplay_defect_group": false,
+  "new_core_root": false,
+  "named_caller_extension": true,
+  "correct_probe_oracle_approved": true,
+  "current_engine_behavior_approved": false,
+  "fixture_saved": false,
+  "coverage_credit": false,
+  "fix_applied": false,
+  "source_proposal_authored": false,
+  "runtime_sha256": "0d877de49c131f29c152706e14bba3368630df61c59ef475c87a84f20b6e1a66",
+  "source_input": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch330-correct-cost-probe.json",
+    "sha256": "7f9d86dc7471abbd0a515007b91267ea1150e014648ace0990b0dc98f8206581"
+  },
+  "source_approval": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch330-independent-source-review.json",
+    "sha256": "91daeaa641a44a13e0d0e71a6d91de4091a9f24ea47da7fc177faf257a3da062"
+  },
+  "manifest_sha256": "4f36aa81024a3c52338eb8fe834b0b8d552d0b578bedfb4521f631bc84377659",
+  "native_wrapper": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch330-native-r1\\receipt.json",
+    "sha256": "614445a61608b1f9fcd7b84df0309aeeb18aacb6cc79b4c11763d7b532636813"
+  },
+  "immutable_native_archive": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch330-correct-cost-probe-20261103T114652Z-6ae9c9ac284ce.json",
+    "sha256": "95964aaaa417ff9378fe5e3af278d56a22787670e5770bfd762b1814fd63c1e2"
+  },
+  "private_observer_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-ebon330-failed-prefix\\receipt.json",
+    "sha256": "4b9e52ea0d9fd5b318416138ce9bc4e70281d30ee77cef4e7e0db2e493ec4abb"
+  },
+  "private_prefix_spec": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-ebon330-failed-prefix\\prefix-only.json",
+    "sha256": "05c1a654761d914a31c7ec5707786f042884e5634e147d3dfa76471e8e069c91"
+  },
+  "raw_actual_prefix_snapshot": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-focused-prefix-0d87\\runtime\\Tests\\Integration\\FaBSim\\negative-control-nov3-ebon330-failed-prefix\\initial_gamestate.txt",
+    "sha256": "8e2c8392876dd31189a39bf48de9ad6eb0bcbf02f86de8a48d4ea96aad4920fd",
+    "schema_fully_parsed": true
+  },
+  "private_actions_sha256": "69b4d628bad3b97ad1cdf2ad4632cbf2c6cdb0aed188fb1b83bec9a276475da8",
+  "private_diagnostic_sha256": "3d3b4d072f87f3112930551488615f6a4b4a05c8e885056b13f6ffd7c88ffa01",
+  "archived_native_initial_sha256": "1fc3fd4b266dc234241fe4194a3ce50da43188a29d166bd45d3f8cebf940b670",
+  "actual_accepted_inputs": 1,
+  "actual_actions": [
+    {
+      "playerID": 1,
+      "mode": 10002,
+      "buttonInput": "",
+      "cardID": "p1Equipment-0!FSM",
+      "chkInput": [],
+      "inputText": ""
+    }
+  ],
+  "native_error": "Expected decision queue for player 1 to be empty.",
+  "source_guards": {
+    "AGENTS.md": "98e92f639d0768613c07759d84393fe2a58ff145e239bbd5bb0c3f8fdcf1f09d",
+    ".github/copilot-instructions.md": "27d6d8211b219cc826a4f2bf63d6d59765ed805feea6fb6571bfd225eb824543",
+    "FaBSim/Custom/GameLogic.php": "ac90c758c64c079d3dde209920d1a01e4b937e03562a0f4f69fd5e88c1a92ff8",
+    "FaBSim/Custom/WTRCards.php": "0ea973502c30ac28776809c7975fab70ed5f7da0d84874969110947aa3cc1cda",
+    "FaBSim/Custom/WTRAbilities.php": "f33a915de3a95208a7d29b7acb5dbbc8c5b0f4f2d56ace281c3c9c7b8bbc5448",
+    "FaBSim/Custom/ARCCards.php": "5bde46f342529508e33d983cc4a2475debbe2cfb2ba05a6c78a00da2f861672b",
+    "FaBSim/Custom/ARCAbilities.php": "5330205cf8b98a1ba93cb15aa42f67c76d01dac3cb53b206669e7d00b0e9daca",
+    "FaBSim/Custom/MONCards.php": "61ffc3d4c3c446b33cac71828436e9b08badc76da4eb3a7208c43d2934e1bcb7",
+    "FaBSim/Custom/MONAbilities.php": "0e50c426738ec083bf3357d9f0326b30d78d8278586178a6a465d11ece280cc6",
+    "FaBSim/Custom/CardChoices.php": "6d1122598624a9ac61d99bfc41574d01e80de211e714eadaafb7b6b817a4f975",
+    "FaBSim/GeneratedCode/GeneratedMacroCode.php": "6a318ca63856aff98427ea1f9ecbdbcdf677e67f0f476895fac863926e9c52a6",
+    "FaBSim/GeneratedCode/GeneratedCardDictionaries.php": "1be127d10c8f7fe3fa10b8aa098678fa43b2790910c95666226b18eb79ea7c60",
+    "FaBSim/ZoneClasses.php": "874bb2ae00a80a8ba3dfe1789b4c932fd0b7cf1286504a62828e0055ca1cb355",
+    "Schemas/FaBSim/GameSchema.txt": "7783800bd47bc85885cc915066aadca58cdf99f0c1180602ac312d9af5ebf643",
+    "Core/DecisionQueueController.php": "65bfcf5b4f595d62d6dfb8bde0b884de42cd1a726618b5431fccf8939eed9a9d",
+    "Core/RegressionTestFramework.php": "670028e69e1a59c22aef5e6512edd2cd0dee5fdcaed4cf8c31374b8eb2b7ca6a",
+    "DevTools/FaB/mon_abilities.json": "a06c06aa49853536c865fabcbe72f36cba1eab95f010aad2b4a17be3a4e3f77b"
+  },
+  "source_guards_verified": 17,
+  "initial_legal_four_live_source_approval_reused": true,
+  "actual_manual_preference_values_verified": 48,
+  "actual_physical_uid_locations": {
+    "1": {
+      "card_id": "levia",
+      "zone": "p1Hero",
+      "owner": 1,
+      "controller": 1,
+      "status": 2
+    },
+    "6": {
+      "card_id": "wounding_blow_blue",
+      "zone": "p1Hand",
+      "owner": 1,
+      "controller": 1
+    },
+    "7": {
+      "card_id": "ghostly_visit_red",
+      "zone": "p1Hand",
+      "owner": 1,
+      "controller": 1
+    },
+    "8": {
+      "card_id": "wounding_blow_red",
+      "zone": "p1Deck",
+      "owner": 1,
+      "controller": 1
+    },
+    "5": {
+      "card_id": "ebon_fold",
+      "zone": "p1Equipment",
+      "owner": 1,
+      "controller": 1
+    },
+    "2": {
+      "card_id": "dorinthea",
+      "zone": "p2Hero",
+      "owner": 2,
+      "controller": 2,
+      "status": 2
+    },
+    "3": {
+      "card_id": "dorinthea",
+      "zone": "p3Hero",
+      "owner": 3,
+      "controller": 3,
+      "status": 2
+    },
+    "4": {
+      "card_id": "dorinthea",
+      "zone": "p4Hero",
+      "owner": 4,
+      "controller": 4,
+      "status": 2
+    }
+  },
+  "actual_virtual_layer_uid": 9,
+  "expected_first_boundary": "After announcing Instant1, physical5 remains ready Equipment while resource1 waits for real Blue funding. Hand6/7 andDeck8 remain untouched, no resolution-effect Hand chooser exists before cost payment and fresh four-seat responses.",
+  "observed_prefix": {
+    "window": "PITCH",
+    "pending_cost": 1,
+    "resources": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "action_points": [
+      1,
+      0,
+      0,
+      0
+    ],
+    "health": [
+      20,
+      20,
+      20,
+      20
+    ],
+    "source_Head_equipped_ready_uid": 5,
+    "Hand_uids": [
+      6,
+      7
+    ],
+    "Deck_uids": [
+      8
+    ],
+    "Pitch_uids": [],
+    "Graveyard_uids": [],
+    "Banish_uids": [],
+    "Stack_virtual_uid": 9,
+    "source_uid": 5,
+    "source_controller": 1,
+    "decision_type": "MZCHOOSE",
+    "decision_param": "p1Hand-0&p1Hand-1",
+    "decision_tooltip": "Pay_additional_cost",
+    "continuation": "ebon_fold:0:PrepareCard-await",
+    "actual_responses": 0
+  },
+  "finding": "A real normal Equipment activation produces Ebon-specific resolution-effect Hand choice before paying resource1/destroy costs or allowing any response. The prompt is not a generic pitch UI: its exact Ebon PrepareCard continuation/await locals identify the Hand-banish effect preparer. The original rules-correct no-early-choice assertion therefore fails semantically at accepted input1.",
+  "source_cause": "Current ARCAbilities151 excludes Halo only and invokes Ebon canonical PrepareCard before TryCompletePayment160. Ebon Prepare awaits a Hand choice labeledPay_additional_cost, then would banish/storemonDraw before FinishPreparedCard; ResolveAbility only readsmonDraw/draws. Printed Ebon costs resource1+destroy, and its post-colon Handbanish/Shadowdraw belong to resolution. Only the premature choice placement is natively observed here; later preparer movement/effect predictions are source-only.",
+  "deduplication": {
+    "ledger_path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-issues.json",
+    "ledger_sha256": "53d5322032f0d394d6176bfd82612654b11a68f3f588288561cb809f1da505bd",
+    "compared_exact_issue_ids": [
+      "FAB-REG-060",
+      "FAB-REG-039"
+    ],
+    "reason": "Halo060 already names the same resolution-effect-as-additional-cost placement in the existing039 phase family. Ebon is another unmigrated named caller/producer; this prefix does not disprove managed activated-layer infrastructure or previously qualified Halo/039 repairs."
+  },
+  "rule_sources": [
+    {
+      "url": "https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/",
+      "sections": [
+        "5.2.1c",
+        "5.2.1d",
+        "5.2.2b",
+        "5.3.1",
+        "5.3.4",
+        "5.3.6",
+        "5.3.7"
+      ],
+      "supports": "Activation costs before response window; resolution effects and pending layer lifetime."
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/08-keywords/",
+      "sections": [
+        "8.1.6"
+      ],
+      "supports": "Instant timing; no action-point asset-cost."
+    }
+  ],
+  "unexecuted_or_uncredited": [
+    "No choice answer, Blue pitch/resource payment, destruction, priority response, Hand banish, draw or full correct suffix executed.",
+    "No resolution-source retention failure, later draw bug, extra mandatory-Hand legality branch, Spellvoid, nonShadow/emptyHand/alternateowner, hero, BloodDebt/endphase, replay/control, passing fixture or coverage demonstrated."
+  ],
+  "observation_safety": {
+    "mutation_keys": [],
+    "active_R_written": false,
+    "private_prefix_only": true,
+    "passing_fixture_saved": false,
+    "coverage_credit": false,
+    "observer_run_performed_by_Root": true,
+    "reviewer_native_PHP_execution": false
+  },
+  "limits": [
+    "One original correct probe/one accepted input; first error is a premature post-colon effect chooser. No resource-loss/card-movement/damage/later suffix claim.",
+    "Current source repair remains unapplied and pending human authorization; no proposal/application/generation/backend/denial retry or workaround.",
+    "W proof only. Root alone retains issue metadata; no R/source/fixture writes, native/PHP/replay/fullsuite by reviewer."
+  ]
+}

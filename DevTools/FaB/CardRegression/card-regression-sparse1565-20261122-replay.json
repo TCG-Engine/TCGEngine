@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-dorinthea-four-live-sparse1565-blocked-weapon-earns-no-extra-use-despite-real-ap-and-resource",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-dorinthea-four-live-sparse1565-blocked-weapon-earns-no-extra-use-despite-real-ap-and-resource",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1565-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1565-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "e577265d2a47bde2b653f316cad61917c04ad048da872a1a5480945928246720",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "7516ceb2f2ccaee8d6f6e28055867f869df1f0267a7bedbcbe8eb496371106b9",
+        "actions.json": "24d49ee0a1a2ed6f115fad7f1afec0e276cd6b2b3fc14c68d086c7ee2a111462",
+        "assertions.json": "ce0286af20d499dbbce9ea494c9c6fede5f75a51bfbc1186c3eb458045d19793",
+        "expected_final_gamestate.txt": "f626d3db0b324d0819576e1fec4b7d5113d987e9ac4d71e5939f3f34284042d1",
+        "meta.json": "1c1ee91dad346d80ca01eb7f9f53d081bd3e1f89db647034e7a5f2417bcac864"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

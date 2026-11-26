@@ -1,0 +1,60 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "Root independent of packet author",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse903-20261122.json",
+  "source_spec_sha256": "c3872a67c677059e0a7c18d4b6f20218a4c15e839ec9c3fbc91b4f317067cbb8",
+  "input_sha256": "e27c220fa892dcbc1d86ec9f5603a0edb8083d6faabc6cb24e5a8a38d531f194",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-shield-beater-four-live-sparse903-real-two-blue-payment-and-weapon-tap-pay-four-then-actual-attack-deals-five",
+      "card_id": "shield_beater",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "4c6eab5a65486247d2d01be07e96dd9bd87c8bd435fc2e3b7a9cedb1a42912e4",
+        "actions.json": "c7df17254164f38cfbbc422645516425a0f3ef16aefebae5c184fb506f50ee53",
+        "assertions.json": "d92b4ad71ae4b800e805747e8eea00398254a469d8350a601a4c04e4249bfb15",
+        "expected_final_gamestate.txt": "67196ec465b24ceec6d1cbef1aa505b60933198cc2d564a8ea21b71e7f1d5a1f",
+        "meta.json": "7274cd04429fff3de72521257f87634fe9b7fb7e6f41e8ecca49f2bdcbcbe82a"
+      },
+      "fixture_sha256": "f2d16eb26407b3b205a93eff0b4a01dc1aea2a78a687fb2a49cc60040fa6e63c",
+      "actions": 29,
+      "native_assertions": 156,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse903-20261122.json",
+      "input_sha256": "e27c220fa892dcbc1d86ec9f5603a0edb8083d6faabc6cb24e5a8a38d531f194",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse903-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-shield-beater-four-live-sparse903-real-two-blue-payment-and-weapon-tap-pay-four-then-actual-attack-deals-five",
+        "fixture_slug": "card-shield-beater-four-live-sparse903-real-two-blue-payment-and-weapon-tap-pay-four-then-actual-attack-deals-five",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "reviewer": "Root independent of packet author",
+    "result": "approved_named_branches_only_pending_native_execution",
+    "spec_sha256": "e27c220fa892dcbc1d86ec9f5603a0edb8083d6faabc6cb24e5a8a38d531f194",
+    "evidence": [
+      "ShieldBeater printedAction4resources+tap/base5, realBlue6and7pay6from0/R2/AP0. FirstBlueR3insufficient andsourceStatus2; finishassets FaBCRUUseWeapon taps5beforepriority. ActualsourceWeapon5owned1 retained; proxy8Source5/WEAPON_UID5(ChainCounter),no inventedproxyOwner. Actual5damage/full4livecombat/noGA. StaticVisitAnvilheimgrantunexercised.",
+      "FrostSpike printedCreate inexposedzone hasnoTarget/formalModeclause, exposed-slot selection correctlyoccursduringresolution. OwnturnIyslander18avoidsopponent-turnHeroicecardtrigger; exposedopponent2Head islegalwithnoequipment. ActualsourceStack5retainedthroughMZModal, ownsnewFrostbite6ascreator1andController2perCardownershiprule1.3.1a. Sourceownershipconcernpreserved; expectationsnotfittoactualoutput. IfOwnerwrong,thecasefailsunsaved/getszerocredit.",
+      "All4naturalLive/manual, source physicalUID5andrealassetUIDs, effectscopefirstbranchonly, no alternatives/pitch-sibling/support credit. KnownDusk/HatchetconditionalWHENsources skippedbeforeanygame."
+    ]
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse903-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "d23742e20520c1e6c253f50001c9c3e72d646e5628c5f4bcfe9454c40c07afd6"
+  },
+  "full_suite_run": false
+}

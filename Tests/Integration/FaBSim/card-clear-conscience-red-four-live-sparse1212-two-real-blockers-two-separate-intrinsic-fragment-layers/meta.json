@@ -1,0 +1,7 @@
+{
+    "name": "Clear Conscience / two actual blockers and separate intrinsic Fragment layers",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-23T17:54:57+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "FourmanualYoungPrism20/3Dori20. Realprimary5Hand1/Blue6Hand1/tworealWarriorSharpenSteelRed7Blue8DEF3eachHand4. Nativecost3AttackdeclaresHero4beforeBlue3/AP1to0/R0; fourmanualresponsesandattackwindows, physical5atprinted8beforedefenders. BothrealNAAblocksdeclaredfirst,noearlyfragmentduringclicks; finishDeclareearnsTWOintrinsicABI9/10fromsameSource5. FourfreshDEFEND_PRIORITY1/2/3/4responsesbeforefirst-2, thenStack1windowPRIORITY1/power6, fourfreshPRIORITYresponsesbeforesecond-2, thenStack0DEFEND_PRIORITY1/power4. Freshnormaldefensepriority/reactionsfinishrealDamage power4vsactualDEF6=0/nohit/HP20all. ThusprintedWHENhitneverearnsreward, notomitted. NoWHENfragmentsecondaryprintedonthisprimary. Finalprimary5GY1/Blue6Pitch1/realblocks7/8GY4/UID10/AP/R0/noArenaStackDQschains. IntrinsicFragmenttwiceandfullblockonly; nohit/copy/Ponder/Handbottom/anotherpitch/D R/otherdefense/producer/Hero/support/fullcardcredit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#clear_conscience_red FaBSim/Custom/OMNCards.php#FaBOMNDefended FaBSim/Custom/OMNCards.php#FaBOMNFragment FaBSim/Custom/GameLogic.php FaBSim/GeneratedCode/GeneratedMacroCode.php https://rules.fabtcg.com/en/cr/08-keywords/"
+}

@@ -1,0 +1,7 @@
+{
+    "name": "Tap Lessons Past / real arcane damage and optional hero tap",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-24T16:51:26+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "TWO_REAL_MANUAL_ADULTCC_OSCILIOCONSTELLA36_DORI40. Eachdamage-targetinstanceusespublishedTRP5.14onlyopposingHero2defaultatannouncement; laterUIanswersrepeat2withoutnewinformation/retarget, noimplementationbinding/UPFcredit. Realprimary3NAAspendsAP1to0, cost0Nucleusorcost1TapLessonspaidactualBlue4pitch3/R2. Bothresponseshold3Stack/noearlydamage/Hero1ready. Firstactualarcane3or4makesHP2=37or36andonlyTHENoffersoptionalTap; original3staysStackwhilechoicepending/Hero1stillready. ChooseTap1actualHeroStatus1, thenNucleusdefaultssecondseparatedamageinstance2anddeals1moretoHP36; TapLessonschoosesactualSigil5GY(untargetedprintedreturn)andputsitBOTTOMafterunchangedDeck6withsameUID, noextraarcane. Final3GY/StackDQframesquiet/Hero1tapped/noAP/R0or2/UID4or6/RNG0/ownHP36/opp36. Positiveactualdamage+optionalfollowup/lifecycle, noannouncedtargetenginebinding/retargeting/declinetap/unreadyHero/prevention/UPF/siblings/support/fullcardcredit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#tap_lessons_past_red FaBSim/GeneratedCode/GeneratedMacroCode.php FaBSim/Custom/GameLogic.php FaBSim/Custom/OMNCards.php FaBSim/Custom/ROSCards.php https://rules.fabtcg.com/en/trp/05-gameplay-logistics/"
+}

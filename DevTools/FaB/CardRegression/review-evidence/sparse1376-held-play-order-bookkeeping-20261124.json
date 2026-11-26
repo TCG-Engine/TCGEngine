@@ -1,0 +1,36 @@
+{
+  "classification": "NATIVE_BOOKKEEPING_INVARIANT_FAILURE_WITH_SOURCE_PERSISTENCE_EXPLANATION_NOT_PRINTED_CARD_FAILURE",
+  "card_id": "sting_of_sorcery_blue",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "native_inputs_executed": 10,
+  "first_error": "Expected p1Arena-1.Counters to equal '{\"FAB_PLAY_ORDER\":2}', got '{\"FAB_PLAY_ORDER\":1}'.",
+  "observed": {
+    "window": "ACTION",
+    "cardsPlayedThisTurn": {
+      "1": [
+        "sting_of_sorcery_blue",
+        "potion_of_luck_blue"
+      ]
+    },
+    "combatPlaySequence": null,
+    "pendingPayment": null,
+    "resolvingReaction": null
+  },
+  "expected_basis": "Code increments combatPlaySequence and assigns FAB_PLAY_ORDER; two successive actual card plays were expected to have ordinals1and2. This is an inferred internal implementation invariant, not a printed Sting rule.",
+  "source_explanation": [
+    "GameLogic.php increments a local state combatPlaySequence, assigns the new value to the Stack object, then reloads state from FaBGetState before later persistence. The local sequence increment is lost.",
+    "Only other inspected consumers are CodeGeneration.php/ROSCards.php Ebbing Fragmented incarnation guards. No incorrect observable outcome of that consumer was exercised; no wider gameplay defect count."
+  ],
+  "actual_card_behavior_limits": "NativeprimaryStingplay/entry/goagain and Potionentry prefix executed; later failingcheckpoint checks and final Wounding consumer are unrun. Do not claim incorrect arcane/health/goagain or fullcorrectness from this witness.",
+  "diagnostic_source": "card-regression-sparse1376-held-sting-play-order-20261124.json",
+  "diagnostic_source_sha256": "3e5a30a3d29628a3e517a6c507d98f69773ca62f9ab497c5d2c23acdc8f3d210",
+  "native_receipt_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1376-local-20261122\\save\\receipt.json",
+  "native_receipt_sha256": "5c36573f06adf81d3d0487e9bcaa93186935336141cd316782c95ca53272629f",
+  "fixture_saved": false,
+  "qualified": false,
+  "coverage_credit": false,
+  "new_distinct_gameplay_root_credit": 0,
+  "engine_changed": false,
+  "repair_deferred": true,
+  "reproducer_command": "php DevTools/FaB/CardRegression/record_card_regressions.php DevTools/FaB/CardRegression/card-regression-sparse1376-held-sting-play-order-20261124.json --probe-only"
+}

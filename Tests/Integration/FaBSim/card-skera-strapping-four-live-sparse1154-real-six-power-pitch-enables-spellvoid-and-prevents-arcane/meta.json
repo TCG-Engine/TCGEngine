@@ -1,0 +1,7 @@
+{
+    "name": "Skera Strapping / real six-power pitch enables Spellvoid 3 against actual arcane damage",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-23T11:52:08+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "NaturalRhinar20 ownsSkera5, actualWreckerBlue7printed6Power/pitch3 paysClub6cost2andAP1 leavingR1/AP0. Itispitchednotdiscarded/played, soRhinar/WreckeradditionaldiscardWHENSnotearned. RealpitchenablesSkeraSpellvoid3, nofakehistory. Clubvirtual9reachesATTACK butneverd ealsdamage. NativeopposingIyslander18playsGenericWizardBlueZap8fromArsenalasInstant,target1beforecost/responses,noIceWHEN. Fourlivefreshresponses precedeactualSkeraSpellvoidMAYchoice; choose5, actualdestroytoownGY1 mustpreventmin(3,1)=1ofrealZap1, soHP1stays20. SourceZap8GY4/AP4=0, ownR1/AP0/pitch7retained, Club9activeCC/weapon6retained. StopduringATTACKafterprimaryeffect, not fullweaponcombat/lifecycle. No disabledconditionalnegative, producer/secondpayment/fullcard/Hero/supportcredit. Source-onlyconcern inlegacyreturnedpreventionamount istested withstrictcorrectHP20; ifincorrect save no fixture and hold, neverblessHP19. Sources: FaBSim/GeneratedCode/cardArrayCache.json#skera_strapping"
+}

@@ -1,0 +1,68 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-23T11:27:24.991722+00:00",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1163-20261122.json",
+  "source_spec_sha256": "324fe832d1bd3b001077bb0d056588e8c62ed9484a780f4295269228367ebfef",
+  "new_scenarios": 1,
+  "new_groups": 1,
+  "new_primary_ids": 1,
+  "actions": 27,
+  "native_assertions": 230,
+  "manual_passes": 25,
+  "totals": {
+    "saved_registered_scenarios": 5032,
+    "duels": 3075,
+    "four_live": 1957,
+    "recorded_primary_ids": 2180,
+    "identity_denominator": 5196,
+    "recorded_groups": 2054,
+    "group_denominator": 3324,
+    "four_live_groups": 1946,
+    "phase_qualified_scenarios_at_actual_contexts": 1669,
+    "phase_qualified_unique_groups": 1659,
+    "creation_replay_passes": 2411,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 830,
+  "scenarios": [
+    {
+      "card_id": "shadow_of_ursur_blue",
+      "group_id": "identity:shadow_of_ursur_blue",
+      "scenario_id": "card-shadow-of-ursur-blue-four-live-sparse1163-actual-play-from-banish-without-optional-cost-or-go-again",
+      "effect_branches": [
+        "printed_banish_play_permission_real_two_damage_without_optional_cost_or_go_again"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-shadow-of-ursur-blue-four-live-sparse1163-actual-play-from-banish-without-optional-cost-or-go-again",
+      "source_spec": "card-regression-sparse1163-20261122.json",
+      "source_spec_sha256": "324fe832d1bd3b001077bb0d056588e8c62ed9484a780f4295269228367ebfef",
+      "review_evidence": "review-evidence/sparse1163-20261122-qualified-saved.json",
+      "review_evidence_sha256": "910f8ee87300cba6724688e7382c81cee3d994bab13e2293f57bbfd0e3c4c150",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1163-20261122-replay.json",
+          "sha256": "5c6d15ec9f6951a84c06de3ca0f539cefe3edca5e93f2ade8215395b9c130455",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

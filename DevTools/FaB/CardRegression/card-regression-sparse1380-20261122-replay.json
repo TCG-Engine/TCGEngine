@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-channel-thunder-steppe-yellow-four-live-sparse1380-real-instant-not-action-no-payment-or-unearned-action-point",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-channel-thunder-steppe-yellow-four-live-sparse1380-real-instant-not-action-no-payment-or-unearned-action-point",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1380-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1380-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "0057bf2f2009a7c771d2fa1f6e8f867fbca2bb46262b779c49d0e77853c59393",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "42985a48b060cc7a15629a18599d0f278df10d45e601697d52bee63ce5fb940b",
+        "actions.json": "ecfc3b356d170d3adcd369c59f64176c3b17ffe7af3900115b2de1a20afbaf7c",
+        "assertions.json": "d3c41a925069851b8e349567306b3e7effce6e8493455c26050dabd91c2a5b74",
+        "expected_final_gamestate.txt": "f97d0ea472f9d9144272297fadb018c87faf5901fbbe9220ef380abd470d6994",
+        "meta.json": "433abb2b3a88a593a810eb7cf8ef952fd66c51a5825d1ffe959258eb49e51f93"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

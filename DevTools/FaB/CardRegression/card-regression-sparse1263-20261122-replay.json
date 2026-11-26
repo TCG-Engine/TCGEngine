@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-kano-dracai-of-aether-two-live-sparse1263-real-three-cost-look-banish-grant-plays-actual-zap-with-zero-action-points",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-kano-dracai-of-aether-two-live-sparse1263-real-three-cost-look-banish-grant-plays-actual-zap-with-zero-action-points",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1263-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1263-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "a88a3c6ab43a69745f08039ff300032b680c6c1cb30689d19785220d9a46db7f",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "984be9a56e641b649d6442917051f930ca1a0068ab425ee4d098ca28532e61b8",
+        "actions.json": "d3c65d7a00acb6297d3ab4ef2b9519450687234fac8e811662421cc31c514612",
+        "assertions.json": "606875f82da175aad8f0560a59ee8e9a8c5bd485ebca9e881637db697154ed23",
+        "expected_final_gamestate.txt": "0c842b3fae3bc186d8ff2803e33bcce5b5e1ebcd30228a0811899ff87f68fc9a",
+        "meta.json": "fd8b6a2e1f68924a6c9537f5ffc2ac5960a73e21e4e852e3291c3ba06edd3c75"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

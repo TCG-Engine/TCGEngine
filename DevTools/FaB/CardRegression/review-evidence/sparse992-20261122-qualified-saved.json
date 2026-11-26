@@ -1,0 +1,115 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "Root independent of breadth_review replacement author",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse992-20261122.json",
+  "source_spec_sha256": "f4f3d735b5c5e79754e2169ba027583cc2b0165ac08cc30d79b3634aa2aaa0cc",
+  "input_sha256": "f4f3d735b5c5e79754e2169ba027583cc2b0165ac08cc30d79b3634aa2aaa0cc",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-graphene-chelicera-four-live-sparse992-actual-paid-unmarked-weapon-full-block-no-go-again",
+      "card_id": "graphene_chelicera",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "6b8a1a80d28c257dd844a1344afb99d8442e6c57bd3d0d900827d8b2e3542e03",
+        "actions.json": "4ff186c6adb584eb1b6641fe635420989eee7886f133ff4fa25707225e9caa60",
+        "assertions.json": "7a071d44ee6fa1e7d3d59f64b2fd72c70e30e7a3726424ef23cec0f87345a74b",
+        "expected_final_gamestate.txt": "1e57c9551778c8160d47226c8eacbdd950076bae8b3dc0e58a5e9bd40c417e3c",
+        "meta.json": "6bb945007a5abe6ad68c224b089ddee5807bc39052e7088b27f8ba91c4716b38"
+      },
+      "fixture_sha256": "292c7f026cc0953662715dd0d3026b53fae75d64b8d841235ec4d551a2a62d2f",
+      "actions": 29,
+      "native_assertions": 171,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse992-20261122.json",
+      "input_sha256": "f4f3d735b5c5e79754e2169ba027583cc2b0165ac08cc30d79b3634aa2aaa0cc",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse992-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-graphene-chelicera-four-live-sparse992-actual-paid-unmarked-weapon-full-block-no-go-again",
+        "fixture_slug": "card-graphene-chelicera-four-live-sparse992-actual-paid-unmarked-weapon-full-block-no-go-again",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-beckoning-mistblade-four-live-sparse992-actual-paid-nonstealth-weapon-full-block-printed-go-again",
+      "card_id": "beckoning_mistblade",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "83f9e0b255a6242a993161faa242af1703f76b600503ccb5d4cadf6b01fc38fb",
+        "actions.json": "4ff186c6adb584eb1b6641fe635420989eee7886f133ff4fa25707225e9caa60",
+        "assertions.json": "caa2321ad6038706a479c8d3ccacaee43117507929cedb7fb94d6d3fd7baf80b",
+        "expected_final_gamestate.txt": "579aa31bb47c39f07c5e2d1a091712b70ba28cc5dfb29313c4388ffec5c7b7d5",
+        "meta.json": "3cf65565e2c6642d6b86582b2148973032ec14491579de1536216178e591b548"
+      },
+      "fixture_sha256": "1988fea81d0fbada80fc88ae11f3daa5c349d462cb785c998804344f5248c84f",
+      "actions": 29,
+      "native_assertions": 171,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse992-20261122.json",
+      "input_sha256": "f4f3d735b5c5e79754e2169ba027583cc2b0165ac08cc30d79b3634aa2aaa0cc",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse992-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-beckoning-mistblade-four-live-sparse992-actual-paid-nonstealth-weapon-full-block-printed-go-again",
+        "fixture_slug": "card-beckoning-mistblade-four-live-sparse992-actual-paid-nonstealth-weapon-full-block-printed-go-again",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-jubeel-spellbane-four-live-sparse992-actual-paid-weapon-exact-full-block-no-aegis",
+      "card_id": "jubeel_spellbane",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "0d9e1731e7f3072ae7b8781c0f4bf71cca80bc20afd4ba68f7bed4007a0cb0db",
+        "actions.json": "4ff186c6adb584eb1b6641fe635420989eee7886f133ff4fa25707225e9caa60",
+        "assertions.json": "b4b310a2b663e56793e70a81517a5bcbffb76a1ebac79c5eeffac643edda1360",
+        "expected_final_gamestate.txt": "1a4914fafb720caf70e984cb74a5d5392bb64f232571cee9c3b00cfd2cbe89ec",
+        "meta.json": "9c2b0a39a6df7526320f4ba27b1c6daaea560f3f163d304d78bb4ecc3bd7352c"
+      },
+      "fixture_sha256": "e125e791a764a5a48a8774cb058f6651cade94efeedbf67ee400046768082364",
+      "actions": 29,
+      "native_assertions": 171,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse992-20261122.json",
+      "input_sha256": "f4f3d735b5c5e79754e2169ba027583cc2b0165ac08cc30d79b3634aa2aaa0cc",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse992-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-jubeel-spellbane-four-live-sparse992-actual-paid-weapon-exact-full-block-no-aegis",
+        "fixture_slug": "card-jubeel-spellbane-four-live-sparse992-actual-paid-weapon-exact-full-block-no-aegis",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "reviewer": "Root independent of breadth_review replacement author",
+    "batch": 992,
+    "result": "approved_named_branches_only_pending_native_execution",
+    "spec_sha256": "f4f3d735b5c5e79754e2169ba027583cc2b0165ac08cc30d79b3634aa2aaa0cc",
+    "findings": [
+      "Verified printed1/1/3 weaponpower andDYNexplicitactivationcost1/2/1 supportedroute; legalnatural20heroesUzuri/Nuu/Dori. ActualBlue6pays3 leaving2/1/2 andphysicalWeapon5used/linksource, manualall4responses.",
+      "Unmarkedhero meansGraphenetypedattackeventabsent; nohitvsactualWounding7DEF3 makesMistblade/Jubeelhit-triggerseventsabsent. MistbladeprintedGArefund1evenblocked, noStealthsoneverearnsNuuCCbanishability. Graphenecreatorrecord122notretriedbyexistinginitialphysicaltoken.",
+      "PersistentattackPower/defenseValue/zeroactualdamage/noHit/HP, actualblockownedGGY4/physical5retained/pitches/AP/queuespinbranches; zeroauthor-onlydiagnostics. Original992earned-triggerdraftisunrunoutsidecorpus. Native+onetargetedreplaypending."
+    ]
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse992-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "9847413d71fed00e6330608116075e87d48fa97b6b1452af1568776f79de9046"
+  },
+  "full_suite_run": false
+}

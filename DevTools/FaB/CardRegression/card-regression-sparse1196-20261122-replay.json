@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-cheers-blue-four-live-sparse1196-real-opposing-destruction-separate-cheer-and-hero-confidence-layers",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-cheers-blue-four-live-sparse1196-real-opposing-destruction-separate-cheer-and-hero-confidence-layers",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1196-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1196-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "12f0979726c1e73a615e7081347733ee118a327a161e1965ab9bcfa4e0d015bd",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "2cbb379d23c315c976e531077a6c445a94f278cea93fbcf3ddf7bb7ddcc9289f",
+        "actions.json": "4b83630a8dbd594922117ad41efd4eb4fd89e434d94247e091616f0ed5a1f012",
+        "assertions.json": "c8fbdab1e3a5ac627e13f4fbee23fdf6c71c5ede76b479b6f9966731a1d6d534",
+        "expected_final_gamestate.txt": "d1403267d75ab2eab703d12022ff8f851856800e6d8bb53af7ef1a91c8b9678c",
+        "meta.json": "8b10c687f823798de56c5c7b9d33c6cbdb7d96532ddc8dec4064c129b449c66b"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

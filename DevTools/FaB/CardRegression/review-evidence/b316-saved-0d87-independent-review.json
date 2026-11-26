@@ -1,0 +1,306 @@
+{
+  "status": "APPROVED_ACTUAL_SAVED_SEEKERS_MITTS_PAID_DESTROY_RETAINED_OPT_BOTTOM_PREVENTION_PENDING_ROOT_QUALIFICATION",
+  "approved": true,
+  "source_approved": true,
+  "semantically_approved": true,
+  "reviewer": "/root/nov2_next_author",
+  "created_utc": "2026-11-03T09:54:28.060693+00:00",
+  "source_spec": "card-regression-batch316.json",
+  "input_sha256": "cb360ccc12de6df6f4ae422ed78dcb09425f0c932f4ffe6197c7e8dff6c3bff4",
+  "manifest_sha256": "50c8e6e888d608bc60e7d5adf5dd9547764da9312699f64c164e2686284c314b",
+  "runtime_sha256": "0d877de49c131f29c152706e14bba3368630df61c59ef475c87a84f20b6e1a66",
+  "recorded_runtime_sha256": "0d877de49c131f29c152706e14bba3368630df61c59ef475c87a84f20b6e1a66",
+  "semantic_approval": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch316-independent-source-review\\review.json",
+    "sha256": "00210c98efffbf0b2ce5de8b1e8a4c53e4601c86df8b91d24bafdb5926a706b0"
+  },
+  "recording_receipt": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch316-20261103T095112Z-6ae9ae9081dcc.json",
+    "sha256": "6827bb44720720f3fdeb1bf5b02dc7039933f269d9fb8366495783279ac458ac"
+  },
+  "root_wrapper_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch316-native-r1\\receipt.json",
+    "sha256": "b05c28ce428c802ac59bdbcbf536296dd76bcace3842c0fd8be2e1506ec58ff7"
+  },
+  "actual_comparison_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch316-independent-saved-review\\audit_saved.py",
+    "sha256": "f86a2102175b03db9599213486121148935c04e01fe1a53df9b058d320ee6686"
+  },
+  "review_method": "Reused selected independent printed/source model. All38actions3602assertions exactly mapped, all32manualactors scheduled; strict fullschema initial/final physical identities/owners/zones/order/economy, 48manualpreferences each endpoint, allterminal assertions evaluated, exactmeta/raw4/raw5/runtime stable. No old fixture re-review or reviewer native/PHP/R writes.",
+  "fixtures": [
+    {
+      "index": 0,
+      "card_id": "seekers_mitts",
+      "slug": "card-seekers-mitts-four-live-sparse-paid-instant-retained-opt-and-one-real-damage-prevention",
+      "source_spec": "card-regression-batch316.json",
+      "input_sha256": "cb360ccc12de6df6f4ae422ed78dcb09425f0c932f4ffe6197c7e8dff6c3bff4",
+      "reviewer": "/root/nov2_next_author",
+      "runtime_sha256": "0d877de49c131f29c152706e14bba3368630df61c59ef475c87a84f20b6e1a66",
+      "recorded_runtime_sha256": "0d877de49c131f29c152706e14bba3368630df61c59ef475c87a84f20b6e1a66",
+      "approved": true,
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_NEW_FOUR_LIVE_REPRESENTATIVE",
+      "fixture_path": "Tests\\Integration\\FaBSim\\card-seekers-mitts-four-live-sparse-paid-instant-retained-opt-and-one-real-damage-prevention",
+      "fixture_sha256": "f48e7a0ab3e03faf33dbbeb3c01f90f90e8cab5d847242a9983404650f17d8dc",
+      "raw4_sha256": {
+        "initial_gamestate.txt": "1a60ce6c0b24d11c0e31f3967156ba98bf2ed9e2e43858072aa68c377ce87314",
+        "actions.json": "74066cf7d18e7647d7252a704ceafbb3fa47b233d640635b4768aaab8e88d071",
+        "assertions.json": "040a8edf4eed313863db18c9053b52d45c173b5ec1d2699da13ad1187637f951",
+        "expected_final_gamestate.txt": "0c9e9b7cf06631930eb343c713d38229c9f7b820e535e86493d239ee3da91024"
+      },
+      "raw5_sha256": {
+        "initial_gamestate.txt": "1a60ce6c0b24d11c0e31f3967156ba98bf2ed9e2e43858072aa68c377ce87314",
+        "actions.json": "74066cf7d18e7647d7252a704ceafbb3fa47b233d640635b4768aaab8e88d071",
+        "assertions.json": "040a8edf4eed313863db18c9053b52d45c173b5ec1d2699da13ad1187637f951",
+        "expected_final_gamestate.txt": "0c9e9b7cf06631930eb343c713d38229c9f7b820e535e86493d239ee3da91024",
+        "meta.json": "807ccefe5738b47aeec5ef57fa70294de232304e1c3f62cff89542b8c104a8a2"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "1a60ce6c0b24d11c0e31f3967156ba98bf2ed9e2e43858072aa68c377ce87314",
+        "actions.json": "74066cf7d18e7647d7252a704ceafbb3fa47b233d640635b4768aaab8e88d071",
+        "assertions.json": "040a8edf4eed313863db18c9053b52d45c173b5ec1d2699da13ad1187637f951",
+        "expected_final_gamestate.txt": "0c9e9b7cf06631930eb343c713d38229c9f7b820e535e86493d239ee3da91024",
+        "meta.json": "807ccefe5738b47aeec5ef57fa70294de232304e1c3f62cff89542b8c104a8a2"
+      },
+      "actions": 38,
+      "native_assertions": 3602,
+      "actual_manual_passes": 32,
+      "actual_priority_response_passes": 31,
+      "actual_defender_declaration_finish_inputs": 1,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4
+      ],
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "all_actions_and_assertions_exact": true,
+      "all_endpoint_physical_uid_card_zones_ownership_verified": true,
+      "all_terminal_assertions_evaluated_against_parsed_final_snapshot": true,
+      "initial_physical_uid_locations": {
+        "1": {
+          "card_id": "fai",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "7": {
+          "card_id": "raging_onslaught_red",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "8": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2
+        },
+        "6": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p4Hand",
+          "owner": 4,
+          "controller": 4
+        },
+        "9": {
+          "card_id": "wounding_blow_red",
+          "zone": "p4Deck",
+          "owner": 4,
+          "controller": 4
+        },
+        "10": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p4Deck",
+          "owner": 4,
+          "controller": 4
+        },
+        "11": {
+          "card_id": "wounding_blow_yellow",
+          "zone": "p4Deck",
+          "owner": 4,
+          "controller": 4
+        },
+        "5": {
+          "card_id": "seekers_mitts",
+          "zone": "p4Equipment",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_physical_uid_locations": {
+        "1": {
+          "card_id": "fai",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "7": {
+          "card_id": "raging_onslaught_red",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "8": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Pitch",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2
+        },
+        "10": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p4Deck",
+          "owner": 4,
+          "controller": 4
+        },
+        "11": {
+          "card_id": "wounding_blow_yellow",
+          "zone": "p4Deck",
+          "owner": 4,
+          "controller": 4
+        },
+        "9": {
+          "card_id": "wounding_blow_red",
+          "zone": "p4Deck",
+          "owner": 4,
+          "controller": 4
+        },
+        "5": {
+          "card_id": "seekers_mitts",
+          "zone": "p4Graveyard",
+          "owner": 4,
+          "controller": 4
+        },
+        "6": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p4Pitch",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_health": [
+        20,
+        20,
+        20,
+        14
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        2
+      ],
+      "final_AP": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_Hero_Status": [
+        2,
+        2,
+        2,
+        2
+      ],
+      "final_p4_deck_uid_order": [
+        10,
+        11,
+        9
+      ],
+      "ceased_virtual_uid": 12,
+      "checkpoint_count": 40,
+      "checkpoint_assertion_mapping_sha256": "a46f76872494d05ad42be98c1917c00e3b478e49cd01582b39ba04fc67fa79f0",
+      "native_action_mapping_sha256": "65c32f7b764deb49e2538790ec3f2d55cee6b2f5ac8dabe8fe9ade6cb01ad1d5",
+      "native_assertion_mapping_sha256": "dacfbd9f63c72043a28557631ed84f2abf24195f4be779030fe5e5364f31b864"
+    }
+  ],
+  "blocked_attempts": [],
+  "total_actions": 38,
+  "total_native_assertions": 3602,
+  "total_manual_passes": 32,
+  "total_priority_response_passes": 31,
+  "total_defender_declaration_finish_inputs": 1,
+  "material_findings": [
+    "Actual four legal living youngheroes/manualUPF, no initial prevention/resource/history seeds. Real P1Blue8 fundsRaging7cost3/AP1. Four source/attack/defending rounds and realP4finish plus threeReactionpasses earn P4Instant priority.",
+    "Actual P4Mitts5 cost1 captures virtual12 while5stillEquipment. ActualBlue6pitch3 pays1/R2 then same5destroycost toownedpublicGY before fresh actual4/1/2/3source responses. Allheroes remain ready/live; no hero tap/AP cost/GA refund.",
+    "Fourth source response stages sameownedUID9 intoTemp and leaves10/11Deck; virtual12/capturedEquipment5 remainsStack with managed frame through actualP4Opt. Actualbottom answer moves SAME9 into Deck10,11,9 and onlythen clearsvirtual/await/Temp and returnsReactionP1/pass0. This is material physicalOpt follow-through, no random/order proxy.",
+    "Four actual remainingReaction responses resolve attack7 power7 minus next1 prevention =6damage/P4HP14; actualdamage histories corroborate6 and prevention consumed. AllremainingDamage/Resolutionresponses finish. FinalsameownedGY4uid5/Pitch4uid6/Deck10,11,9 and GY1uid7/Pitch1uid8; alloriginalphysicalUID1-11 conserved/virtual12ceased, P4R2/otherR0/APall0/heroStatusall2/fullcombat/DQ/payment/await cleanup."
+  ],
+  "limits": [
+    "Only selected new Mitts identity paid1/destroy/acceptedOptbottom/onephysicaldamagepacket prevention branch. No Hood/Gilet/Leggings/slot/supportprimary/hero/fullcard/control credit.",
+    "No top/emptyDeck/otherpacket/unpreventable/suppression/expiry/entry/normalblock/otherfunding branches. Intermediate evidence is exact completed native action/assertion ledger, not additional percheckpoint snapshot files.",
+    "Root performs two focused replay/registration gates separately. No R/native/PHP/source repair/generation/service/fullsuite/legacy replay or authorization retry."
+  ]
+}

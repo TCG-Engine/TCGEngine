@@ -1,0 +1,104 @@
+{
+  "status": "SAVED_APPROVED_INDEPENDENT_FOUR_LIVE_TENSION_BLUE_ZERO_SEPARATE_LEAVE_REAL_SIX_DAMAGE",
+  "phase": "SAVED",
+  "batch": 829,
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer": "/root/ebbing_recovery_review",
+  "reviewer_independent": true,
+  "created_utc": "2026-11-15T21:00:52.756689+00:00",
+  "runtime_sha256": "a11fb2abaf062a707ad2c9372bf41321fcde25d5fe32a99bf55a1b4d2bae4223",
+  "source_spec": "card-regression-batch829-tension-blue-real-zero-leave-consumer-positive.json",
+  "input_sha256": "4f736210d17798007c0e74bfcc050783d2b12f4fdb7bfd0a4ccbc1f3a3b3372f",
+  "manifest_sha256": "e0aa269d611c672cd13370bc40c9901741ac9a01ab9ec4bbe133be1da2fd891e",
+  "independent_positive_Source": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-batch829-tension-independent-normal-positive-source-review.json",
+    "sha256": "e01635a28bf5471f2aa473fc7f8963c7d840cb98d3d185d15331c44eadee9be9"
+  },
+  "root_native_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-b829-tension-positive-native-save-a11\\receipt.json",
+    "sha256": "a0a1d61791f55fc447d1ee39601adfc77f7ca8fd820cbe790c6cf8015f1249a5"
+  },
+  "actual_result": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch829-tension-blue-real-zero-leave-consumer-positive.recording-results.json",
+    "sha256": "e95f1113b180cb3ede3745dc70961c50b7cdd2832be38df2fc7592b80cfff84d"
+  },
+  "actual_immutable_archive": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch829-tension-blue-real-zero-leave-consumer-positive-20261115T205813Z-6afa1ce55c2dd.json",
+    "sha256": "10f1851fb249bd0792e36581500df56a267775cdfbb1403acff10e06ec250a3d"
+  },
+  "fixtures": [
+    {
+      "card_id": "tension_in_the_air_blue",
+      "slug": "card-tension-in-the-air-blue-four-live-real-zero-leave-and-six-damage-consumer",
+      "actions": 41,
+      "native_assertions": 4609,
+      "manual_passes": 37,
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "b4cc86618f1e2f78de606f1052e90aabd883a2c8204f46bf611caf1d61892c23",
+        "actions.json": "8e55ad0ca5aeb86a6d46859de5b88ccaab775b9f59108c70f128369e0c3ebf7e",
+        "assertions.json": "a414abd69f8c8e5dfd5da4574e0479aad43693f36732201bf1b9aa5202eaab5e",
+        "expected_final_gamestate.txt": "d4abb14ce779315c633d7f03b5ebddb5805bd0cf4e472e143d68a398f6880281",
+        "meta.json": "001862a659b72f78c7be5fe3d58e33cdb8d58657c8ba5c61b11c68d43d357f05"
+      },
+      "fixture_sha256": "6cf399810bf7f38605d265260be551b8b5c74fbc9927bb3f0e1d102068df922c",
+      "input_sha256": "4f736210d17798007c0e74bfcc050783d2b12f4fdb7bfd0a4ccbc1f3a3b3372f",
+      "runtime_sha256": "a11fb2abaf062a707ad2c9372bf41321fcde25d5fe32a99bf55a1b4d2bae4223",
+      "recorded_runtime_sha256": "a11fb2abaf062a707ad2c9372bf41321fcde25d5fe32a99bf55a1b4d2bae4223",
+      "actual_manual_actor_counts": {
+        "1": 9,
+        "2": 9,
+        "3": 9,
+        "4": 10
+      },
+      "initial_raw_48_manual_controls": true,
+      "final_raw_48_manual_controls": true,
+      "genuine_four_live_manual_seats": true,
+      "initial_queries_independently_evaluated": 127,
+      "terminal_queries_independently_evaluated": 222,
+      "expected_original_41_controls_4609_queries_unchanged": true,
+      "native_fault_credit": 0,
+      "scope": "Exact Blue Tension pre-existing one-counter zero/leave and real6damage consumer only; no own cast/entry/startphase/pitch-sibling/general-layer-order coverage."
+    }
+  ],
+  "full_saved_action_and_query_order_matched": true,
+  "all_4609_native_queries_semantically_reviewed_against_approved_Tension_source": true,
+  "all_41_saved_native_envelopes_and_manual_actors_matched": true,
+  "checkpoint_count": 43,
+  "typed_property_queries": 814,
+  "source_guard_count": 82,
+  "selected_support_guard_count": 29,
+  "actual_initial_and_final_raw_schema_fully_consumed": true,
+  "initial_and_final_raw_manual_shortcut_checks": 96,
+  "sibling_native_coverage": false,
+  "saved_review_only_not_replay_certificate": true,
+  "two_new_only_clean_replays_required": true,
+  "confirmed_gameplay_bug": false,
+  "source_fix": false,
+  "full_suite_run": false,
+  "historical_corpus_replay": false,
+  "PHP_native_network_executed_by_reviewer": false,
+  "R_writes_by_reviewer": false,
+  "B787_denied_operation_untouched": true,
+  "review_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov15_batch829_actual_saved.py",
+    "sha256": "833719426586e959ac9e0a7fe213d8a6354bc6d025bdfaf7073493a2dabb5f97"
+  },
+  "reused_pure_parser_source": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov15_batch824_actual_saved.py",
+    "sha256": "e91764c206e187ff9f80bb4a39b705aa97abdf186777c4451832c34b8eddb97f"
+  },
+  "semantic_witnesses": [
+    "Actual41TensionNative envelopes and4609ordered assertions exactly match its own approved finalSource. All37manual inputs are persisted:9each seats1/2/3 and10seat4 including formaldefendfinish; no pass_until hides more inputs.",
+    "ActualHero1 click and choice pay physicalTension6 SUSP1tozero[] and tapHero beforepriority; originalABILITY7/zero8 are separate. Fourzero responses physicallydestroy6toGY and createleave9withnoSUP_NEXT. Fourleave responses then addSUP_NEXT2; separatefourresponses finish originalHero7withouteligibleAura orrefund.",
+    "Exact source-derived history arrays are verified through actual persistedqueries: EVR_ACTIVATED/DTD_HERO_USED/EVR_GRAVEYARD/SEA_BLUE_GRAVE; next2appears onlyafterleavecompletion and remains through formalattacktargetrequest, then realRed5consumesit onceasWTR_POWER:2. No OMN turnEffects row or separate OMN-counter coverage is claimed.",
+    "ActualformalHero4target, Red5source and allAttack/Defend/Reaction/Damage/Resolution windows give power6/noGA and physicalHP4=14. Rawfinal independently shows sameTension6andRed5publicGY1, Hero1tapped/RAP0, fourlivingYoung/UPF/manual, no Stack/queues/await/combat. All127initial and222terminal semanticqueries independently evaluatedonraw endpoints."
+  ],
+  "limitations": [
+    "Savedreview is not a replaycertificate. Two separate new-only clean replays and Rootregistration remain qualification gates.",
+    "Only Blue Tension pre-existing one-counter/zero/leave/real consumer. Owncast2/entry2/startphase/replenishment/otherlisteners/control/suppression/generalvirtualdeletionorder/heroCrowd/fullcard/nativepitchsiblings remain untested.",
+    "Tension own frozenSource and Native are independently bound. Earlier Act/Edge protocol work supplies stable encoding only; no previous Native coverage is borrowed. Denied Elliptical184 and B787 source repairs remain untouched.",
+    "Read-only W validator narrowly decodes native array TurnEffects wire and Counters JSON from schema. It changes no native query, rawfixture, or runtime. No nativefault/fullsuite/historicalcorpus credit."
+  ]
+}

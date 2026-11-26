@@ -1,0 +1,97 @@
+{
+  "status": "APPROVED_ACTUAL_TREE083_EMITTED_NOOP_BODY_AND_EXACT_ONE_CLOSURE_SCOPE_NATIVE_PENDING",
+  "approved": true,
+  "reviewer": "/root/nov2_sparse_author",
+  "reviewed_utc": "2026-11-03T21:41:16.970981+00:00",
+  "runtime_before_sha256": "bc14dcabff3f9b4b1592a0afc364de72de1c9bd326e0204056369b1c1ff9574b",
+  "runtime_sha256": "0a2a062faba12b15a119fa82f44fab56e0a6e02970b8d8d26f47f16b24397256",
+  "application_receipt_sha256": "581055d355643afb8a149cdda2fa93e0bdf03caec61068943c50fff787c2bc3d",
+  "generated_scope_sha256": "07036f54390a7120920bd67ee69084ffeb73348a19dc0cd43e85ffffba8c6268",
+  "manifest_sha256": "392440e0d22e55d18449e02f393e64b72bd06d6c664db70c87194784ee4b4c83",
+  "source_review_sha256": "3dcfdfca531e2c86f6deb2847ee38b9c2820ebbee21cbc703b9d72cb7942a972",
+  "transport_review_sha256": "eb8dd0af4eea69ccc4194e57b0778a0704f1839c52938356a70b774746784f64",
+  "actual_component_receipt_sha256": "fd740198b35347ea7d3fa148471684b9acec537f47da55e2f2616a45352bd9c9",
+  "actual_source_files": [
+    {
+      "path": "FaBSim/Custom/ROSCards.php",
+      "before_sha256": "fd52fcc1ce037db4c8204509713c6d743e494a5ffd26cd6ed71348efd76c4a9d",
+      "after_sha256": "41dc8057b503c1eb33417e93515ec1e86d89197115391c64c18f195f794848b5",
+      "backup": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-tree083-guarded-application-generation\\before\\FaBSim\\Custom\\ROSCards.php"
+    },
+    {
+      "path": "DevTools/FaB/ros_abilities.json",
+      "before_sha256": "b123b36f73a7bb45210eee6dcd4ce2326e2be071ef5366444376c9484e4ed229",
+      "after_sha256": "2851433ce5bc948fec9532a33ffc709d4a595f74078fcb9d956c922a8ff18ff8",
+      "backup": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-tree083-guarded-application-generation\\before\\DevTools\\FaB\\ros_abilities.json"
+    },
+    {
+      "path": "DevTools/FaB/build_ros_abilities.py",
+      "before_sha256": "772cf758cb896edc2925f79a44d5f5c4bb2cf0c88ad673429527c15722550a36",
+      "after_sha256": "48b89a4b9f3fb19956dc9bfa526dd984c60e07c27180f7f4938cb6947848da9f",
+      "backup": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-tree083-guarded-application-generation\\before\\DevTools\\FaB\\build_ros_abilities.py"
+    },
+    {
+      "path": "FaBSim/Custom/CodeGeneration.php",
+      "before_sha256": "95907fd9ae6b679d115c29af526352e95668f49528d82ef639ed5be0db478ce5",
+      "after_sha256": "944fa1506535116e40ca1c5f0f0ed7566795fe683540eb8923eb3e805612500d",
+      "backup": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-tree083-guarded-application-generation\\before\\FaBSim\\Custom\\CodeGeneration.php"
+    }
+  ],
+  "generated_before": [
+    {
+      "path": "FaBSim/GeneratedCode/GeneratedMacroCode.php",
+      "sha256": "d914a1e15dc334dd4951fea75c1ccaa14f67ff5b85d3a0f2e5ebcdbc8125e4e3",
+      "backup": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-tree083-guarded-application-generation\\before\\FaBSim\\GeneratedCode\\GeneratedMacroCode.php"
+    },
+    {
+      "path": "FaBSim/GeneratedCode/GeneratedMacroCount.js",
+      "sha256": "760ab242a13d1e53e08f6bcd92240f3838f81ce7d1062477652d0d9a57a61132",
+      "backup": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-tree083-guarded-application-generation\\before\\FaBSim\\GeneratedCode\\GeneratedMacroCount.js"
+    }
+  ],
+  "actual_emitted_files": [
+    {
+      "path": "FaBSim/GeneratedCode/GeneratedMacroCode.php",
+      "sha256": "1adb9203e51af18ef76111dbcab7a01f15a337a8324b2b18bc182cc5696a99d6",
+      "captured": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-tree083-guarded-application-generation\\emitted\\FaBSim\\GeneratedCode\\GeneratedMacroCode.php"
+    },
+    {
+      "path": "FaBSim/GeneratedCode/GeneratedMacroCount.js",
+      "sha256": "5d67c0778ebcb4467b21afb983fdb5a375fa7485615f414c7acee727815ad8fe",
+      "captured": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-tree083-guarded-application-generation\\emitted\\FaBSim\\GeneratedCode\\GeneratedMacroCount.js"
+    }
+  ],
+  "actual_selected_closure_sha256": "bda4c235b166bf0fb0e2d3c81eb63f25e33c64720143f7d69f1714ed0d405a65",
+  "actual_selected_closure": "$resolveCardAbilities[\"channel_the_millennium_tree_red:0\"] = function($player) { //channel_the_millennium_tree_red\r\n  // Retrieve macro parameters\n  $mzID = DecisionQueueController::GetVariable(\"mzID\");\n  /* Entry amp is queued by FaBROSAfterMove. */\r\n};\r\n",
+  "semantic_findings": [
+    "Actual single TreeResolveCard0 closure retains parameter retrieval and contains only approved entry-queue comment; no direct AMPgrant, no await/helper/callback/other effect. Entrygrant lives only in reviewed source-aware ROS entry-hook/earned-event path.",
+    "Captured MacroCode/Count bytes equal currentR. Independently compared actualold/new files through approved strictscope: exact AMPcall\u2192comment wrapper only; everyunselectedPHPbyte inclsamecardStartTurn/awaithelpers/BIOS and MacroCount substance preserved except validated timestamps.",
+    "Allfour currentRsource hashes and six verified backups match approvedreceipt/manifest preimages+candidates. Actual runtime independently recomputed0a2a. Rootreceipt binds exactlyone successfulselectiveemission/stderr0 and threeactualRPHPlintsPASS; reviewer ran none."
+  ],
+  "scope": {
+    "status": "PASS_EXACT_ONE_TREE_RESOLVECARD_SCOPE",
+    "selected_closures": 1,
+    "selected_macro": "channel_the_millennium_tree_red:0:ResolveCard",
+    "old_block_sha256": "4defa12d8fc9f0740ffc8b1d1789586fd423ab15385811a9208380cd81809568",
+    "new_block_sha256": "bda4c235b166bf0fb0e2d3c81eb63f25e33c64720143f7d69f1714ed0d405a65",
+    "unselected_php_sha256": "5cdf77feffe9f7605986b13f33d9bc6a492f570573be2b414e44c8e145c209f2",
+    "unselected_php_bytes_preserved": true,
+    "same_card_StartTurn_and_await_helpers_preserved": true,
+    "BIOS_and_all_unselected_macros_preserved": true,
+    "macro_count_timestamp_only": true,
+    "new_helpers_or_callbacks_allowed": 0,
+    "limits": "Emission scope only; actual body review and unchanged strict native qualification remain separate"
+  },
+  "fixture_inventory_before_after": [
+    3667,
+    3667
+  ],
+  "holds": [],
+  "native_credit": false,
+  "qualification_credit": false,
+  "limits": [
+    "Actual emitted-body/scope review only; no repeat sourceaudit, syntaxexecution, faultcontrols or historicalfixtures.",
+    "No PHP/native/replay/R/source/service/generator writes or execution by reviewer. Original unchangedTree16/native/exactsaved/twofocusedreplays remain separate.",
+    "ExistingbeginningActionphase/ChannelEarth unchanged/uncredited; no fullcard/globalroot/Corecount claim."
+  ]
+}

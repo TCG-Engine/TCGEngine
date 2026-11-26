@@ -1,0 +1,335 @@
+{
+  "status": "APPROVED_EXACT_SAVED_B364_THREE_STATIC_POSITIVE_ATTACK_CYCLES_REPLAYS_SEPARATE",
+  "approved": true,
+  "reviewer": "/root/nov2_sparse_author",
+  "reviewed_utc": "2026-11-03T19:29:28.944062+00:00",
+  "runtime_sha256": "98e3105fdd74db35601cd035de7f8ccb67589a88587d3d53727bf6103c4092a0",
+  "input_file": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch364.json",
+  "input_sha256": "26d287189dcfea76cc66303cc5b8f1b67763e7736dd1a7217daffab06c29ff01",
+  "manifest_sha256": "92dc31930022d88f568c638df131fb404813a407f06d7e7d2f7c840bd86e14e5",
+  "fixtures": [
+    {
+      "slug": "card-arcanic-spike-red-four-live-sparse-real-runechant-arcane-earns-plus-two-and-seven-physical",
+      "card_id": "arcanic_spike_red",
+      "group_id": "pitch-cycle:arcanic_spike",
+      "fixture_sha256": "83468f7824ca198a8882be0fe7bafa03707ad17b64c71a563dd82457361a96fa",
+      "behavior_sha256": "83468f7824ca198a8882be0fe7bafa03707ad17b64c71a563dd82457361a96fa",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "fa43401e4141b6b65df5aea849d43b41165ef6a0595f513ad7701df8d7ed6217",
+        "actions.json": "188229fd540f8f4e5b6aa3157a7f675fc0a338fe19d1bd4f2eaead09e3838ac6",
+        "assertions.json": "535ea43c740a46b7006cf72f805cd4e0b74e3daab42e7c43a59f719afb3549b4",
+        "expected_final_gamestate.txt": "606d23a965cbea23dbefaccce698297cc4fc09b1c65857b37a10fbe5f9ab79e5",
+        "meta.json": "5de354456ba7641fdb8b1c745ceab974023b5f37bea3b1b98741a91675264eaf"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "fa43401e4141b6b65df5aea849d43b41165ef6a0595f513ad7701df8d7ed6217",
+        "actions.json": "188229fd540f8f4e5b6aa3157a7f675fc0a338fe19d1bd4f2eaead09e3838ac6",
+        "assertions.json": "535ea43c740a46b7006cf72f805cd4e0b74e3daab42e7c43a59f719afb3549b4",
+        "expected_final_gamestate.txt": "606d23a965cbea23dbefaccce698297cc4fc09b1c65857b37a10fbe5f9ab79e5",
+        "meta.json": "5de354456ba7641fdb8b1c745ceab974023b5f37bea3b1b98741a91675264eaf"
+      },
+      "actions": 33,
+      "native_assertions": 2617,
+      "actual_manual_pass_inputs": 29,
+      "actual_manual_passes": 29,
+      "manual_passes": 29,
+      "priority_pass_inputs": 28,
+      "defending_declaration_finish_inputs": 1,
+      "manual_pass_actor_counts": {
+        "1": 7,
+        "2": 7,
+        "3": 7,
+        "4": 8
+      },
+      "priority_actor_counts": {
+        "1": 7,
+        "2": 7,
+        "3": 7,
+        "4": 7
+      },
+      "semantically_approved": true,
+      "every_native_action_and_assertion_exactly_maps_to_approved_source": true,
+      "initial_and_final_snapshots_fully_parsed": true,
+      "all_four_live_and_all_48_manual_preferences_verified": true,
+      "physical_uid_conservation_without_duplicates": true,
+      "terminal_assertions_independently_checked": 182,
+      "final_original_physical_uids": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "final_graveyard_uid_sets": {
+        "1": [
+          5
+        ],
+        "2": [],
+        "3": [],
+        "4": []
+      },
+      "final_pitch_uid_order": {
+        "1": [
+          6
+        ],
+        "2": [],
+        "3": [],
+        "4": []
+      },
+      "final_health": [
+        20,
+        20,
+        20,
+        12
+      ],
+      "final_resources": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "final_action_points": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "physical_findings": "Actual Blue6 pays printed2/AP1, R1AP0. Declared Runechant targetP4 and four fresh responders retain physical Spike5 Stack under trigger8; fourth destroys owned Arena7, ceases8 and deals exactly1 arcane/HP19. Actual raw arcaneDealt1to4=1 and ROS_ARCANE amount1/uses1 verified without effect-index pin. Four further source responders resolve5 to printed5+static2=7/noGA. Actual7 physical gives HP12/AP0. Fullclose GY5/Pitch6/R1AP0, originalRune7 and virtual8 absent.",
+      "qualification": "One Red positive representative of this cycle only. No siblings, false conditions, extra arcane/links, Runechant creation, Fai/Chane ability, Phoenix Flame, EndPhase, support-primary, full-card or isolated control credit.",
+      "actual_raw_arcane_dealt": {
+        "1": {
+          "4": 1
+        }
+      },
+      "actual_raw_earned_ros_arcane": {
+        "type": "ROS_ARCANE",
+        "amount": 1,
+        "uses": 1
+      },
+      "ceased_original_token_uid": 7,
+      "ceased_virtual_trigger_uid": 8
+    },
+    {
+      "slug": "card-cinderskin-devotion-red-four-live-sparse-real-paid-second-draconic-link-earns-go-again",
+      "card_id": "cinderskin_devotion_red",
+      "group_id": "pitch-cycle:cinderskin_devotion",
+      "fixture_sha256": "2aee0da28f35181cc5b11d4434b6254ea31ce7b58a58418374ca20542c2f93c1",
+      "behavior_sha256": "2aee0da28f35181cc5b11d4434b6254ea31ce7b58a58418374ca20542c2f93c1",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "7b2ac39cb8d0b9bb748d38649b47306051686eb86a8e84b98f3fe00c2b866325",
+        "actions.json": "17aa71cbbc0396b458020d34706bfcadbc72169c8b2c3178a95c090c6d58aab9",
+        "assertions.json": "0e0054781c5101e39a5eab780afc9c674b14f308b18d6d23d05bfb091b25404c",
+        "expected_final_gamestate.txt": "ea1fcaef5f764125ef00272e74aad7a353ee6fbb6f823d14c1f4af3120dec989",
+        "meta.json": "feeb729ecda834cdc771c0c9a69f3ce1e4bb9750448abd3b2848f186e9505c56"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "7b2ac39cb8d0b9bb748d38649b47306051686eb86a8e84b98f3fe00c2b866325",
+        "actions.json": "17aa71cbbc0396b458020d34706bfcadbc72169c8b2c3178a95c090c6d58aab9",
+        "assertions.json": "0e0054781c5101e39a5eab780afc9c674b14f308b18d6d23d05bfb091b25404c",
+        "expected_final_gamestate.txt": "ea1fcaef5f764125ef00272e74aad7a353ee6fbb6f823d14c1f4af3120dec989",
+        "meta.json": "feeb729ecda834cdc771c0c9a69f3ce1e4bb9750448abd3b2848f186e9505c56"
+      },
+      "actions": 50,
+      "native_assertions": 4091,
+      "actual_manual_pass_inputs": 46,
+      "actual_manual_passes": 46,
+      "manual_passes": 46,
+      "priority_pass_inputs": 44,
+      "defending_declaration_finish_inputs": 2,
+      "manual_pass_actor_counts": {
+        "1": 11,
+        "2": 11,
+        "3": 11,
+        "4": 13
+      },
+      "priority_actor_counts": {
+        "1": 11,
+        "2": 11,
+        "3": 11,
+        "4": 11
+      },
+      "semantically_approved": true,
+      "every_native_action_and_assertion_exactly_maps_to_approved_source": true,
+      "initial_and_final_snapshots_fully_parsed": true,
+      "all_four_live_and_all_48_manual_preferences_verified": true,
+      "physical_uid_conservation_without_duplicates": true,
+      "terminal_assertions_independently_checked": 188,
+      "final_original_physical_uids": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "final_graveyard_uid_sets": {
+        "1": [
+          5,
+          6
+        ],
+        "2": [],
+        "3": [],
+        "4": []
+      },
+      "final_pitch_uid_order": {
+        "1": [
+          7
+        ],
+        "2": [],
+        "3": [],
+        "4": []
+      },
+      "final_health": [
+        20,
+        20,
+        20,
+        13
+      ],
+      "final_resources": [
+        2,
+        0,
+        0,
+        0
+      ],
+      "final_action_points": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "physical_findings": "Actual Ronin5 link1 deals3/HP17 and earns AP1 only at fourth DAMAGE response. Same chain remains open. Physical Cinderskin6 stays Stack while Ronin5 remains actual first link; Blue7 pays printed1/AP1, R2AP0. Four source responses put same6 on actual link2; two Draconic links give computed GA with no granted GO_AGAIN tag. Printed4 damage gives HP13; AP1 only at fourth DAMAGE response. Fullclose exact owned GY UIDset{5,6}/Pitch7/R2AP1.",
+      "qualification": "One Red positive representative of this cycle only. No siblings, false conditions, extra arcane/links, Runechant creation, Fai/Chane ability, Phoenix Flame, EndPhase, support-primary, full-card or isolated control credit."
+    },
+    {
+      "slug": "card-grow-wings-red-four-live-sparse-real-prior-draconic-attack-earns-go-again",
+      "card_id": "grow_wings_red",
+      "group_id": "pitch-cycle:grow_wings",
+      "fixture_sha256": "a44d31a9685a9752afee3d3e5f5c131df39385289e6aec93476fa02024820c00",
+      "behavior_sha256": "a44d31a9685a9752afee3d3e5f5c131df39385289e6aec93476fa02024820c00",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "577bb9da6606b0f61f8e76afd50d47abf84ac35651591efe82a921eba51bc079",
+        "actions.json": "a1c0fb865135f4b0fb996e6307c74a694bdb0cad52c73d39d27065954a2de236",
+        "assertions.json": "945941ed754f2d143fe94465bc01b9183820cfba92eb9dc8842420fbfbed1210",
+        "expected_final_gamestate.txt": "ec8fb3c7ed28b223a1d8437cd3ca361d28a5c58a9f6aac97f410a23ee278316e",
+        "meta.json": "05dd0439569c7406fa26080bc6e3bc682d6d7e9a63c7e6b803c3267955ea0471"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "577bb9da6606b0f61f8e76afd50d47abf84ac35651591efe82a921eba51bc079",
+        "actions.json": "a1c0fb865135f4b0fb996e6307c74a694bdb0cad52c73d39d27065954a2de236",
+        "assertions.json": "945941ed754f2d143fe94465bc01b9183820cfba92eb9dc8842420fbfbed1210",
+        "expected_final_gamestate.txt": "ec8fb3c7ed28b223a1d8437cd3ca361d28a5c58a9f6aac97f410a23ee278316e",
+        "meta.json": "05dd0439569c7406fa26080bc6e3bc682d6d7e9a63c7e6b803c3267955ea0471"
+      },
+      "actions": 49,
+      "native_assertions": 3802,
+      "actual_manual_pass_inputs": 46,
+      "actual_manual_passes": 46,
+      "manual_passes": 46,
+      "priority_pass_inputs": 44,
+      "defending_declaration_finish_inputs": 2,
+      "manual_pass_actor_counts": {
+        "1": 11,
+        "2": 11,
+        "3": 11,
+        "4": 13
+      },
+      "priority_actor_counts": {
+        "1": 11,
+        "2": 11,
+        "3": 11,
+        "4": 11
+      },
+      "semantically_approved": true,
+      "every_native_action_and_assertion_exactly_maps_to_approved_source": true,
+      "initial_and_final_snapshots_fully_parsed": true,
+      "all_four_live_and_all_48_manual_preferences_verified": true,
+      "physical_uid_conservation_without_duplicates": true,
+      "terminal_assertions_independently_checked": 180,
+      "final_original_physical_uids": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "final_graveyard_uid_sets": {
+        "1": [
+          5,
+          6
+        ],
+        "2": [],
+        "3": [],
+        "4": []
+      },
+      "final_pitch_uid_order": {
+        "1": [],
+        "2": [],
+        "3": [],
+        "4": []
+      },
+      "final_health": [
+        20,
+        20,
+        20,
+        14
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_action_points": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "physical_findings": "Actual Ronin5 first link deals3/HP17 and earns AP1 at fourth DAMAGE response. Grow6 spends that AP at printed0, physical5 remains link1 while6 is Stack; source four puts6 on link2. Actual prior resolved Draconic Ronin earns computed GA on non-Draconic Grow through DAMAGE. Printed3 gives HP14; fourth DAMAGE reaches Resolution/AP1. No stale continuing GA asserted after Grow becomes last resolved attack. Fullclose exact owned GY UIDset{5,6}/no Pitch/R0AP1.",
+      "qualification": "One Red positive representative of this cycle only. No siblings, false conditions, extra arcane/links, Runechant creation, Fai/Chane ability, Phoenix Flame, EndPhase, support-primary, full-card or isolated control credit."
+    }
+  ],
+  "blocked_attempts": [],
+  "source_expectation_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch364-independent-source-review.json",
+    "sha256": "25fc1e39a00113c02f21ecac0593aa4509e186156cdc7308298cbad39f8c2f62",
+    "manifest_sha256": "92dc31930022d88f568c638df131fb404813a407f06d7e7d2f7c840bd86e14e5"
+  },
+  "source_guards_verified": 24,
+  "immutable_native_archive": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch364-20261103T192216Z-6aea3468e0a14.json",
+    "sha256": "148be63ec4201113534c2e783d14cbfbea7a8a466f4cd30d0696a3a2f8c3f132"
+  },
+  "recording_results": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch364.recording-results.json",
+    "sha256": "b4927bb618caa4f230367a4a40ab1886b8e9e358923a9d40de9988eec3635a9c"
+  },
+  "native_wrapper": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch364-native-r2\\receipt.json",
+    "sha256": "5d8debe3b3ee5a0d593bfe7212c19a675e31affa5ab3de21774df22a71661bb3",
+    "stdout_sha256": "70829e5655969a0ae029b102f06014abb82bc9e8d04cc458db18b8310533adb5",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "exit_code": 0,
+    "stderr_bytes": 0,
+    "runtime_before": "98e3105fdd74db35601cd035de7f8ccb67589a88587d3d53727bf6103c4092a0",
+    "runtime_after": "98e3105fdd74db35601cd035de7f8ccb67589a88587d3d53727bf6103c4092a0"
+  },
+  "reused_pure_readonly_helpers": {
+    "review_nov3_batch269_saved_readonly.py": "e339d37f4f4da91e01b26ae282f6302b1b1c4c6ec4a13715e4f7726016fb0641",
+    "review_nov3_batch270_saved_readonly.py": "16278de0c810a2c4909430c44e4d3e76dc4e716e92172eb403b4e33089adf8a0",
+    "review_nov3_batch271_saved_readonly.py": "e3b66ee7901ab0c0b5ebbec9176e4b29c02b97b67a93254d6dee572237058813"
+  },
+  "method": "Read-only exact five-file review. Every actual actor/mode/payload and every persisted assertion/order/step matched the approved frozen input. Complete schema-backed initial/final snapshots parsed, every terminal oracle independently checked, and physical/economy/HP/active-phase power/GA checkpoints checked against independent source model. No author builder or game execution.",
+  "behavior_digest_definition": "SHA256 ordered filenames and raw bytes of initial/actions/assertions/expected_final; all five individual file hashes separately bound.",
+  "focused_controls": "NOT_RUN_NOT_CLAIMED",
+  "replays": "NOT_CLAIMED_BY_THIS_SAVED_REVIEW",
+  "limits": [
+    "Only actual completed R2 recording/archive and its three saved fixtures reviewed. Interrupted R1 has no completed-game or fixture credit; no old contexts re-reviewed.",
+    "Printed legal heroes/support and static conditions reuse independent source approval25fc1. No earned primary WHEN/choice omitted; optional Fai starting Flame and hero abilities are unexecuted.",
+    "132 actions/10510 assertions/121 manual inputs, three Red primary representatives only; no siblings, full-card, support-primary or isolated fault-control credit.",
+    "Root focused replay receipts remain separate. Reviewer ran no PHP/native/replay/full suite and wrote no R/source/generator/backend files."
+  ]
+}

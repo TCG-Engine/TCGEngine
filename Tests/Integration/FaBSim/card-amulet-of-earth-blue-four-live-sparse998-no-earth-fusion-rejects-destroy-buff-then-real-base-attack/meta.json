@@ -1,0 +1,7 @@
+{
+    "name": "Amulet of Earth / sparse four-live activation prerequisite representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-23T01:15:02+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "**Go again**\n\n**Instant** - Destroy this: Attack action cards you control get +1{p} and +1{d} this turn. Activate this only if you've **Earth fused** this turn. Named false-fusion activation branch: no_earth_fusion_rejects_destroy_buff_then_real_base_attack. Legal natural20 verdance owns actual ready Arena5/Status2; Instant0 destroy cost has a real source and no other asset requirement. Freshhistory has no fusion. First actualArena0click must reject before destroy/layer/target/effect: same owned5ready/Arena1/Hand6/AP1/R0/Stack0/emptyqueues retained. Then actualGenericWounding6 plays0cost/targetsHero4, all4manual source/combat seats, actual4damage/HP16/AP0 and ownGGY6 while Item5 remains. No positivefusion, targettax/prevention/buff/createdownership/heroability/entry/start/Crank/sibling/support/fullcard credit. Verdance has EssenceEarth; no4EarthBanish/noLifeGain. Briar avoided because its first-AA-damage trigger would earn a separate layer. Actual4damage instead of5 is a real consumer witness against a leaked+1attack buff; defensebuff remains untested. Sources: FaBSim/GeneratedCode/cardArrayCache.json#amulet_of_earth_blue"
+}

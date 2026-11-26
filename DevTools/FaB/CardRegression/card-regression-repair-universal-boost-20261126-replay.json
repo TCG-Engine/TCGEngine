@@ -1,0 +1,57 @@
+{
+  "runtime": "32c238622e4f70eb18a45412c72b36d804a11212ce3f8ecfc8f381666822c140",
+  "fixtures": [
+    {
+      "slug": "repair-wage-gold-four-live-20261126-universal-mechanologist-boost-native-go-again",
+      "passed": true,
+      "runtime": "32c238622e4f70eb18a45412c72b36d804a11212ce3f8ecfc8f381666822c140",
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=repair-wage-gold-four-live-20261126-universal-mechanologist-boost-native-go-again",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\universal227\\strict1.log"
+      ],
+      "returncode": 0,
+      "complete_log_sha256": "351f248edee8776b12d5e5e668942a54e3ea043312e18f080172c8dbefe8f8e8",
+      "raw5_unchanged": true
+    },
+    {
+      "slug": "card-zero-to-sixty-red-boost-mechanologist-unblocked",
+      "passed": true,
+      "runtime": "32c238622e4f70eb18a45412c72b36d804a11212ce3f8ecfc8f381666822c140",
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-zero-to-sixty-red-boost-mechanologist-unblocked",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\universal227\\strict2.log"
+      ],
+      "returncode": 0,
+      "complete_log_sha256": "d44d26f78ca3d80c2e8807ca87296f116a51762df627b2789ee8d5a23b065605",
+      "raw5_unchanged": true
+    },
+    {
+      "slug": "card-zero-to-sixty-red-boost-nonmechanologist-no-go-again",
+      "passed": true,
+      "runtime": "32c238622e4f70eb18a45412c72b36d804a11212ce3f8ecfc8f381666822c140",
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-zero-to-sixty-red-boost-nonmechanologist-no-go-again",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\universal227\\strict3.log"
+      ],
+      "returncode": 0,
+      "complete_log_sha256": "45dde980ea580a37c0667ff7f98928aac1cc2cd7d7924e66a9a7cf83a48f27f2",
+      "raw5_unchanged": true
+    }
+  ],
+  "full_suite_run": false
+}

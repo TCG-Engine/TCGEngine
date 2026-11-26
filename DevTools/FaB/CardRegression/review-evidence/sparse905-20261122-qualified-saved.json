@@ -1,0 +1,114 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "Root independent of author",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse905-20261122.json",
+  "source_spec_sha256": "ddc2d271fb6b34c7a6e771a5beed2847367978c41b309f2b5cb4873c239166e7",
+  "input_sha256": "ddc2d271fb6b34c7a6e771a5beed2847367978c41b309f2b5cb4873c239166e7",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-aggressive-pounce-red-four-live-sparse905-actual-blue-cost-two-and-six-damage-without-unearned-intimidate-go-again",
+      "card_id": "aggressive_pounce_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "8013aa93385a31e2b1e2037994e7ca6d7fc9a3cac7396ec282cf88e8e04e56dd",
+        "actions.json": "25920dc16af50701b0be20453cc3345d5c14a09166881d7481930bfb87552093",
+        "assertions.json": "9844e2f17b24230790bf8432b46030e87b3a4f306c50a688d1028cedaea54497",
+        "expected_final_gamestate.txt": "33ec253a7c7e23f16783829bdb2dd395b8560923d5c5cdabff34ac141990fea8",
+        "meta.json": "0494550e9cfd2af8c6ab8325d9a08228a02a2bd0de2fcc9073fba3ebfcadd6c7"
+      },
+      "fixture_sha256": "7cabd01c11ae626716c9193bccbe11b1401bc5089a0f63bcf7555d8185cabf7c",
+      "actions": 28,
+      "native_assertions": 135,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse905-20261122.json",
+      "input_sha256": "ddc2d271fb6b34c7a6e771a5beed2847367978c41b309f2b5cb4873c239166e7",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse905-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-aggressive-pounce-red-four-live-sparse905-actual-blue-cost-two-and-six-damage-without-unearned-intimidate-go-again",
+        "fixture_slug": "card-aggressive-pounce-red-four-live-sparse905-actual-blue-cost-two-and-six-damage-without-unearned-intimidate-go-again",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-shadowrealm-harvester-red-four-live-sparse905-actual-hand-play-and-blue-cost-two-deal-six-without-banish-origin-bonus",
+      "card_id": "shadowrealm_harvester_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "443fbbead988e2b7bec9c9148e6f92e24282e975e8d2b6efb80bac291d054b97",
+        "actions.json": "25920dc16af50701b0be20453cc3345d5c14a09166881d7481930bfb87552093",
+        "assertions.json": "e0aa59f07a494d87c53ead06048458f70659335fb9dfff52e198be63bd082a22",
+        "expected_final_gamestate.txt": "2318adaad817f2d11e35782ed8d551e8a96d82b3e4e382be9d8d58e5a8ec896e",
+        "meta.json": "5751c418d386e5e7bb14891694fe75d2fddc0f9f1ecdb38f506aeeac41aa0f12"
+      },
+      "fixture_sha256": "a3083b33c5718c3bcd2443a83d69e0db0b2c3963230d47564d74c4ec307ec2d7",
+      "actions": 28,
+      "native_assertions": 135,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse905-20261122.json",
+      "input_sha256": "ddc2d271fb6b34c7a6e771a5beed2847367978c41b309f2b5cb4873c239166e7",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse905-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-shadowrealm-harvester-red-four-live-sparse905-actual-hand-play-and-blue-cost-two-deal-six-without-banish-origin-bonus",
+        "fixture_slug": "card-shadowrealm-harvester-red-four-live-sparse905-actual-hand-play-and-blue-cost-two-deal-six-without-banish-origin-bonus",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-valiant-thrust-red-four-live-sparse905-actual-blue-cost-one-and-four-damage-without-unearned-charge-power",
+      "card_id": "valiant_thrust_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "853d1421314f6d5c3410ced28db73e65492d4c4f880b1af16ddc4dc6139f92db",
+        "actions.json": "25920dc16af50701b0be20453cc3345d5c14a09166881d7481930bfb87552093",
+        "assertions.json": "93f424ca8128b70905388b6138195b5c918422ef6bc1b2b8aacf55c5187f51fd",
+        "expected_final_gamestate.txt": "96a8c179f6d70c3d6b0593f8ba93f83d9f5a9fd611aaf2be8be15a44107ff868",
+        "meta.json": "1c82211eed6e510fa80a492589607e1bd0a2ea0fd544952b582393fc4a0d20e7"
+      },
+      "fixture_sha256": "c80558ea32a209dcf7b07ec66ec5b3564e7c1823dfb7f45f12724427f1a9ddbc",
+      "actions": 28,
+      "native_assertions": 135,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse905-20261122.json",
+      "input_sha256": "ddc2d271fb6b34c7a6e771a5beed2847367978c41b309f2b5cb4873c239166e7",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse905-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-valiant-thrust-red-four-live-sparse905-actual-blue-cost-one-and-four-damage-without-unearned-charge-power",
+        "fixture_slug": "card-valiant-thrust-red-four-live-sparse905-actual-blue-cost-one-and-four-damage-without-unearned-charge-power",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "reviewer": "Root independent of author",
+    "result": "approved_named_branches_only_pending_native_execution",
+    "spec_sha256": "ddc2d271fb6b34c7a6e771a5beed2847367978c41b309f2b5cb4873c239166e7",
+    "evidence": [
+      "Cachedprintedtypes/costs/powerverified: BrutePounce2/6legalLevia20, ShadowHarvester2/6legalLevia20, LightWarriorValiant1/4legalBoltyn20. ActualHandsource5declaresadjacentHero4beforeassetpayment; actualBlue6paysfrom0, R1/1/2/AP0.",
+      "No Intimidate/charge/Banish-origin history seeded or earned; staticIFconditionsfalse. Actual6/6/4damage andAP0nospuriousGA, samephysicalcard5GY/Pitch6. No omittedWHEN-attacks layer oradditionalcostchoice.",
+      "Boltyn notdefendedbyAA andSoul0, so noheropower/GA sideeffect. Fourlive/nativefullcombatmanual, no cachedpower/defensesubstituteforHerohealth. Positivebonus/Overpower/BloodDebt/otherorigins/siblings/supportcardgroupsunqualified."
+    ]
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse905-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "e4815da282fb8922e6df0b6436ba109e49ca623708d6264d8d9a6201a2643641"
+  },
+  "full_suite_run": false
+}

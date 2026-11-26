@@ -1,0 +1,7 @@
+{
+    "name": "Art of the Dragon: Blood / ninja card not draconic does not earn go again",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-24T07:03:08+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "FOUR_REAL_MANUAL_UPF_NATURAL_YOUNG_fai20_DORI20_DORI20_DORI20. ActualprintedNinjaAAisnotDraconic, noTypegrant/history; FaiHerotalentdoesnotconfercardtype. ThereforeconditionedGAandthreeCardcostdiscountnotearned; selectedGArefundabsenceisactuallywitnessed, noeligiblefutureDraconiccardcostconsumerexecuted. Primary5normalHandcost0/realzeroCostWoundingRed6retained/AP1to0/formalHero4target/allfourresponses; actualprinted4physicalHeroDamageHP16. RealzeroCostWoundingRed6Hand1staysafterfullcloseAP0/R0/StackDQCCclean; actualnativeHandclickfailswithoutAP/fullstateunchanged. RetainedownDeck10/opponentHand8/Arsenal9/Equipment7Counters[]/RNG0. Namedfalsecondition/normalcost/damage/refundorTokenabsenceonly; no positivecondition/typegrant/discountconsumer/Mightproducer/Herotalent/support/sibling/fullcardcredit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#art_of_the_dragon_blood_red FaBSim/GeneratedCode/GeneratedMacroCode.php FaBSim/Custom/GameLogic.php FaBSim/Custom/HNTCards.php FaBSim/Custom/SUPCards.php FaBSim/Custom/FaiCards.php"
+}

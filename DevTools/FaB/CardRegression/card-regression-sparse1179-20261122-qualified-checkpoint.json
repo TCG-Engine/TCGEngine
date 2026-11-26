@@ -1,0 +1,68 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-23T13:12:00.175160+00:00",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1179-20261122.json",
+  "source_spec_sha256": "78bd3fa6f9c92221ee113a27dffcbf65bf6b7ec6918f0cb8bb481dea824bd8c9",
+  "new_scenarios": 1,
+  "new_groups": 1,
+  "new_primary_ids": 1,
+  "actions": 39,
+  "native_assertions": 441,
+  "manual_passes": 33,
+  "totals": {
+    "saved_registered_scenarios": 5060,
+    "duels": 3075,
+    "four_live": 1985,
+    "recorded_primary_ids": 2208,
+    "identity_denominator": 5196,
+    "recorded_groups": 2082,
+    "group_denominator": 3324,
+    "four_live_groups": 1974,
+    "phase_qualified_scenarios_at_actual_contexts": 1697,
+    "phase_qualified_unique_groups": 1687,
+    "creation_replay_passes": 2439,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 858,
+  "scenarios": [
+    {
+      "card_id": "gate_to_iarathael",
+      "group_id": "identity:gate_to_iarathael",
+      "scenario_id": "card-gate-to-iarathael-four-live-sparse1179-real-target-and-destroy-cost-enable-actual-banished-action-play",
+      "effect_branches": [
+        "actual_prepared_blood_debt_target_paid_gate_destruction_then_real_banish_play_and_effect_consumer"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-gate-to-iarathael-four-live-sparse1179-real-target-and-destroy-cost-enable-actual-banished-action-play",
+      "source_spec": "card-regression-sparse1179-20261122.json",
+      "source_spec_sha256": "78bd3fa6f9c92221ee113a27dffcbf65bf6b7ec6918f0cb8bb481dea824bd8c9",
+      "review_evidence": "review-evidence/sparse1179-20261122-qualified-saved.json",
+      "review_evidence_sha256": "6a9c56ccad78117b6506a260c3610927c5fefb9fbc3b7ce6abb378fa0b1bcc6b",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1179-20261122-replay.json",
+          "sha256": "66da53654cbb21a71b6a64df0d953e0ad061932b2ae6c0c203a328c0355a2bf3",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

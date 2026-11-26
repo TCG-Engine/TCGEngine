@@ -1,0 +1,23 @@
+{
+  "runtime": "3aa989176c22f1a39e08f36a370dfbbfa20e3956059d12417c8afff28a8e4c10",
+  "fixtures": [
+    {
+      "slug": "repair-marlynn-four-live-20261126-earned-draw-layer-keeps-arrow-await",
+      "passed": true,
+      "runtime": "3aa989176c22f1a39e08f36a370dfbbfa20e3956059d12417c8afff28a8e4c10",
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=repair-marlynn-four-live-20261126-earned-draw-layer-keeps-arrow-await",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\cog211-marlynn214\\marlynn\\strict1.log"
+      ],
+      "returncode": 0,
+      "complete_log_sha256": "1e3f0b4d87ddbb9f0eecb80014bc338cbea5a752b69a8eda40abe96f21f2d63e",
+      "raw5_unchanged": true
+    }
+  ],
+  "full_suite_run": false
+}

@@ -1,0 +1,125 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-erase-face-red-four-live-sparse944-actual-two-hand-blocks-prevent-hit-and-keep-real-markers",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-erase-face-red-four-live-sparse944-actual-two-hand-blocks-prevent-hit-and-keep-real-markers",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse944-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse944-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "ee1a1ce43459ff1f9e1317ff3dc59a05e942a086612c8d8adfb3d708028e202a",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "4a151ce8ce073c50fddeb229a70474514c874b5518e1df6e23ceb4dde0dce256",
+        "actions.json": "a44e24b9f9b348ce659c847e7dbea1e0cd33c5233e8ac4933f9391118d55ee4b",
+        "assertions.json": "7839767c21186ac9a88efb6236b545c75d5802caf2cac800d375c26a3f4194f8",
+        "expected_final_gamestate.txt": "9593f1630b575479e224dcd2e27d75b6b0b1cc81a3fd74e4dea0dcea60fde69f",
+        "meta.json": "6e16b708300f75d5c13e9f20387671da7d164798403b9d859060a8bab08ea84b"
+      }
+    },
+    {
+      "slug": "card-hand-behind-the-pen-red-four-live-sparse944-actual-two-hand-blocks-prevent-hit-and-keep-real-markers",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-hand-behind-the-pen-red-four-live-sparse944-actual-two-hand-blocks-prevent-hit-and-keep-real-markers",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse944-local-20261122\\clean-replays\\01.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse944-local-20261122\\clean-replays\\01.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "f8b7d47a7d2e8828f4df8fc742068ea26b9ba17dc600a3e745edcf18e2b62786",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "3d97651fd2a86cab45ac0bbefdae35914261946e20f150469005b30abc19f56a",
+        "actions.json": "a44e24b9f9b348ce659c847e7dbea1e0cd33c5233e8ac4933f9391118d55ee4b",
+        "assertions.json": "ecb068fb5815a66f3809d189db2de3a3ebedd66c71de308fbc4e5222df9e4bb0",
+        "expected_final_gamestate.txt": "492c0cb92a4ba1b76fe7c71a7b16f9022959d6e323acea4cf8e4aa407bde70e0",
+        "meta.json": "6d798566560036b588c267fb92f275e2a62de1ed5c7af3ae86b2e33c27c504ea"
+      }
+    },
+    {
+      "slug": "card-art-of-desire-body-red-four-live-sparse944-actual-two-hand-blocks-prevent-hit-and-keep-real-markers",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-art-of-desire-body-red-four-live-sparse944-actual-two-hand-blocks-prevent-hit-and-keep-real-markers",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse944-local-20261122\\clean-replays\\02.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse944-local-20261122\\clean-replays\\02.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "9284bef9858be2be2938f54fddcaa976b209f67a5657d9c24eab86f78d80f5f7",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "e331700f77330439b5ac153e8506ff98d605f728b2901286d88cd5e9dec977f6",
+        "actions.json": "9f2158a76a224facb898cc12561b10d89380d0d90e15b49131c1d4359e991d29",
+        "assertions.json": "607c83c71b9a6af484929bfaae8c2345d214be660d507254c797fccc97e33c09",
+        "expected_final_gamestate.txt": "f51096c2855538e4b90753e5ce5401697437eca1cd97f3239f983032d6b019a1",
+        "meta.json": "6caedab5977392e68cb991e429a60346290533956305185b41f511bf126de509"
+      }
+    },
+    {
+      "slug": "card-art-of-desire-mind-blue-four-live-sparse944-actual-two-hand-blocks-prevent-hit-and-keep-real-markers",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-art-of-desire-mind-blue-four-live-sparse944-actual-two-hand-blocks-prevent-hit-and-keep-real-markers",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse944-local-20261122\\clean-replays\\03.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse944-local-20261122\\clean-replays\\03.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "96db0a8feff325fbef576719fb29986238ce61653a454a241b9ec9ce06cfee97",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "5b5f79be7f710ad951fda11ea7b173fd256f903a35f2b10ad98bc243ff5758df",
+        "actions.json": "9f2158a76a224facb898cc12561b10d89380d0d90e15b49131c1d4359e991d29",
+        "assertions.json": "7f6ee894c8c9b93e0ed90d38d8cf7427398730869249f6eff500760ef4fd233c",
+        "expected_final_gamestate.txt": "4dc72eb499907caed7bb9dbac0a8e3f34d0529b18f275a77b07ea10376cb8ee3",
+        "meta.json": "62e9d600ca2e5163f40dd5cbf472d228965469ef800d2c5e4d86e3770ad323b6"
+      }
+    },
+    {
+      "slug": "card-art-of-desire-soul-yellow-four-live-sparse944-actual-two-hand-blocks-prevent-hit-and-keep-real-markers",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-art-of-desire-soul-yellow-four-live-sparse944-actual-two-hand-blocks-prevent-hit-and-keep-real-markers",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse944-local-20261122\\clean-replays\\04.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse944-local-20261122\\clean-replays\\04.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "dd301c8d4313ead5fdf989cd77c2a3b43a49ad587826ca2f72f88badedaba20c",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "9914fe8e8ceaedf8d74eed299ac4f0ba123b42c1bec6f6e6ac8b3468ffb376a1",
+        "actions.json": "9f2158a76a224facb898cc12561b10d89380d0d90e15b49131c1d4359e991d29",
+        "assertions.json": "d734bb69da5e04f3e69d0a915e99df9d3cebfedf3dcce92d375d0d3e31812b8b",
+        "expected_final_gamestate.txt": "802e66f2be75eac17f296af96876c11fd00b48e66122936220c662c01bbfc63b",
+        "meta.json": "2c9d3a67f59b78829e7d1854220705a6e152d93fdd5fde5fc04cf978d296409d"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

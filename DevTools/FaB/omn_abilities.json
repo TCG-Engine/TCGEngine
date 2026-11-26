@@ -19,10 +19,15 @@
     "cardId": "aethersling_red",
     "abilities": [
       {
+        "macroName": "PrepareCard",
+        "abilityCode": "$uid = FaBPENUID($mzID);\n$refs = FaBOMNAetherslingPrepareRefs($player, $uid);\n$chosen = \"-\";\nif ($refs !== \"\") {\n$chosen = await $player.MZChoose($refs, \"Choose_arcane_target\");\n}\nif (FaBOMNAetherslingBind($player, $uid, $chosen)) {\nFaBFinishPreparedCard($uid);\n}\n",
+        "isImplemented": true
+      },
+      {
         "macroName": "ResolveCard",
-        "abilityCode": "$uid = FaBPENUID($mzID);\n$chosen = \"-\";\n$refs = FaBPENTargets($player, false);\nif ($refs !== \"\") {\n$chosen = await $player.MZChoose($refs, \"Choose_arcane_target\");\n}\n$targetUID = FaBPENUID($chosen);\n$packet = 4;\n$packetTarget = $targetUID;\n$packetSource = $uid;\n$f = FaBFindUID($packetTarget);\n$dealt = 0;\nif ($f !== null && $packet > 0) {\n$victim = intval($f['player']);\n$isHero = $f['zone'] === 'Hero';\n$packet = FaBUPRDamageBonus($player, $packetSource, $packet, 'ARCANE' );\n$used = [];\nif ($isHero) {\n$barriers = FaBUPRBarrierChoices($victim, $used, $packetSource);\nwhile ($packet > 0 && $barriers !== '') {\n$barrier = await $victim.MZMayChoose($barriers, \"Choose_arcane_barrier\");\nif ($barrier === 'PASS') {\nbreak;\n}\n$barrierUID = intval(FaBIdentityFromMZ($barrier)['object']->UniqueID);\n$cost = FaBUPRBarrierValue($barrier);\nif (FaBOMNVariableBarrier($barrier)) {\n$maxX = min($packet, FaBAvailablePitch($victim));\n$x = await $victim.NumberChoose(1, $maxX, \"Choose_arcane_barrier_X\");\n$cost = intval($x);\n}\nwhile (intval(GetResources($victim)) < $cost) {\n$pitchRefs = FaBARCPitchChoices($victim);\n$pitched = await $victim.MZChoose($pitchRefs, \"Pitch_for_arcane_barrier\");\nFaBARCPitchForEffect($victim, $pitched);\n}\nAddResources($victim, intval(GetResources($victim)) - $cost);\n$prevented = min($packet, $cost);\n$packet = max(0, $packet - $cost);\n$used[] = $barrierUID;\nif (FaBUPRAlluvionReady($barrierUID, $prevented)) {\n$mode = await $victim.Modal(1, 1, \"Add_energy&Decline\", \"Alluvion_Constellas\");\nFaBUPRAlluvion($barrierUID, $mode === '0');\n}\n$barriers = FaBUPRBarrierChoices($victim, $used, $packetSource);\n}\n$voidRefs = FaBMONSpellvoidRefs($victim);\nwhile ($packet > 0 && $voidRefs !== '' && !FaBUPRUnpreventable($packetSource)) {\n$void = await $victim.MZMayChoose($voidRefs, \"Destroy_Spellvoid\");\nif ($void === 'PASS') {\nbreak;\n}\n$packet = max(0, $packet - FaBMONSpellvoid($victim, $void));\n$voidRefs = FaBMONSpellvoidRefs($victim);\n}\n$usedQuell = [];\n$quell = FaBUPRQuellChoices($victim, $usedQuell);\nwhile ($packet > 0 && $quell !== '' && !FaBUPRUnpreventable($packetSource)) {\n$item = await $victim.MZMayChoose($quell, \"Quell_damage\");\nif ($item === 'PASS') {\nbreak;\n}\n$usedQuell[] = intval(FaBIdentityFromMZ($item)['object']->UniqueID);\nwhile (intval(GetResources($victim)) < 1) {\n$pitchRefs = FaBARCPitchChoices($victim);\n$pitched = await $victim.MZChoose($pitchRefs, \"Pitch_for_Quell\");\nFaBARCPitchForEffect($victim, $pitched);\n}\n$packet = max(0, $packet - FaBUPRQuell($victim, $item));\n$quell = FaBUPRQuellChoices($victim, $usedQuell);\n}\n}\n$dealt = FaBUPRDeal($player, $packetSource, $packetTarget, $packet, 'ARCANE');\n}\nif ($dealt > 0 && FaBOMNHeroReady($player)) {\n$mode = await $player.Modal(1, 1, \"Decline&Tap_hero\", \"Tap_hero_for_bonus\");\nif ($mode === \"1\" && FaBOMNTapHero($player)) {\nFaBOMNResolvedGoAgain($player);\n}\n}\n",
+        "abilityCode": "$uid = FaBPENUID($mzID);\n$targetUID = FaBOMNAetherslingTargetUID($player, $uid);\n$packet = 4;\n$packetTarget = $targetUID;\n$packetSource = $uid;\n$f = FaBFindUID($packetTarget);\n$dealt = 0;\nif ($f !== null && $packet > 0) {\n$victim = intval($f['player']);\n$isHero = $f['zone'] === 'Hero';\n$packet = FaBUPRDamageBonus($player, $packetSource, $packet, 'ARCANE' );\n$used = [];\nif ($isHero) {\n$barriers = FaBUPRBarrierChoices($victim, $used, $packetSource);\nwhile ($packet > 0 && $barriers !== '') {\n$barrier = await $victim.MZMayChoose($barriers, \"Choose_arcane_barrier\");\nif ($barrier === 'PASS') {\nbreak;\n}\n$barrierUID = intval(FaBIdentityFromMZ($barrier)['object']->UniqueID);\n$cost = FaBUPRBarrierValue($barrier);\nif (FaBOMNVariableBarrier($barrier)) {\n$maxX = min($packet, FaBAvailablePitch($victim));\n$x = await $victim.NumberChoose(1, $maxX, \"Choose_arcane_barrier_X\");\n$cost = intval($x);\n}\nwhile (intval(GetResources($victim)) < $cost) {\n$pitchRefs = FaBARCPitchChoices($victim);\n$pitched = await $victim.MZChoose($pitchRefs, \"Pitch_for_arcane_barrier\");\nFaBARCPitchForEffect($victim, $pitched);\n}\nAddResources($victim, intval(GetResources($victim)) - $cost);\n$prevented = min($packet, $cost);\n$packet = max(0, $packet - $cost);\n$used[] = $barrierUID;\nif (FaBUPRAlluvionReady($barrierUID, $prevented)) {\n$mode = await $victim.Modal(1, 1, \"Add_energy&Decline\", \"Alluvion_Constellas\");\nFaBUPRAlluvion($barrierUID, $mode === '0');\n}\n$barriers = FaBUPRBarrierChoices($victim, $used, $packetSource);\n}\n$voidRefs = FaBMONSpellvoidRefs($victim);\nwhile ($packet > 0 && $voidRefs !== '' && !FaBUPRUnpreventable($packetSource)) {\n$void = await $victim.MZMayChoose($voidRefs, \"Destroy_Spellvoid\");\nif ($void === 'PASS') {\nbreak;\n}\n$packet = max(0, $packet - FaBMONSpellvoid($victim, $void));\n$voidRefs = FaBMONSpellvoidRefs($victim);\n}\n$usedQuell = [];\n$quell = FaBUPRQuellChoices($victim, $usedQuell);\nwhile ($packet > 0 && $quell !== '' && !FaBUPRUnpreventable($packetSource)) {\n$item = await $victim.MZMayChoose($quell, \"Quell_damage\");\nif ($item === 'PASS') {\nbreak;\n}\n$usedQuell[] = intval(FaBIdentityFromMZ($item)['object']->UniqueID);\nwhile (intval(GetResources($victim)) < 1) {\n$pitchRefs = FaBARCPitchChoices($victim);\n$pitched = await $victim.MZChoose($pitchRefs, \"Pitch_for_Quell\");\nFaBARCPitchForEffect($victim, $pitched);\n}\n$packet = max(0, $packet - FaBUPRQuell($victim, $item));\n$quell = FaBUPRQuellChoices($victim, $usedQuell);\n}\n}\n$dealt = FaBUPRDeal($player, $packetSource, $packetTarget, $packet, 'ARCANE');\n}\nif ($dealt > 0 && FaBOMNHeroReady($player)) {\n$mode = await $player.Modal(1, 1, \"Decline&Tap_hero\", \"Tap_hero_for_bonus\");\nif ($mode === \"1\" && FaBOMNTapHero($player)) {\nFaBOMNResolvedGoAgain($player);\n}\n}\n",
         "isImplemented": true,
-        "previousCodeHash": "b0e5e349f9f51bd07dfa3960a52abbf034429f782c74402de5271e102be4b789"
+        "previousCodeHash": "fe459b98aa670140cbc4a0cd559dfa8bfa0459336e0e4911dbb1eef7c54b21b3"
       }
     ]
   },
@@ -845,9 +850,9 @@
     "abilities": [
       {
         "macroName": "ResolveAbility",
-        "abilityCode": "if (DecisionQueueController::GetVariable(\"rosEvent\") === \"omnFragment\") {\n$uid = intval(DecisionQueueController::GetVariable(\"rosSource\"));\nFaBOMNFragment($player, $uid);\nFaBTagUID($uid, 'GO_AGAIN');\n}\n",
+        "abilityCode": "if (DecisionQueueController::GetVariable(\"rosEvent\") === \"omnFragment\") {\n$uid = intval(DecisionQueueController::GetVariable(\"rosSource\"));\n$attack = FaBFindUID($uid);\n$state = FaBGetState();\nif ($attack !== null && $attack['zone'] === 'CombatChain'\n&& ($attack['object']->Role ?? '') === 'ATTACK'\n&& intval($state['attackUID'] ?? 0) === $uid\n&& intval($attack['object']->ChainLink ?? 0) === intval($state['chainLink'] ?? 0)\n&& in_array($attack['object']->CardID, ['ebbing_arcstride_red','ebbing_arcstride_yellow','ebbing_arcstride_blue'], true)) {\nFaBOMNFragment($player, $uid);\n$attack = FaBFindUID($uid);\nif ($attack !== null && $attack['zone'] === 'CombatChain'\n&& ($attack['object']->Role ?? '') === 'ATTACK'\n&& intval(FaBGetState()['attackUID'] ?? 0) === $uid\n&& !HasNoAbilities($attack['object'])) {\n$controller = intval($attack['object']->Controller ?? 0);\nif (FaBSeatIsLive($controller)) {\nFaBROSQueue($controller, $attack['object']->CardID, $uid,\n['rosEvent'=>'omnEbbingFragmented', 'omnEbbingLink'=>intval($attack['object']->ChainLink),\n'omnEbbingTurn'=>intval(GetTurnNumber()),\n'omnEbbingPlayOrder'=>intval(FaBObjectCounters($attack['object'])['FAB_PLAY_ORDER'] ?? 0)]);\n}\n}\n}\n}\n",
         "isImplemented": true,
-        "previousCodeHash": "f22cc6bf1c7da67ee8d31ff98b1f173d6074d960bdc82935c00809865ebf9b2a"
+        "previousCodeHash": "7fe4dd00409c5816184773fb66890060536b7a4dc7889483ffd7b6d364e8406f"
       }
     ]
   },
@@ -856,9 +861,9 @@
     "abilities": [
       {
         "macroName": "ResolveAbility",
-        "abilityCode": "if (DecisionQueueController::GetVariable(\"rosEvent\") === \"omnFragment\") {\n$uid = intval(DecisionQueueController::GetVariable(\"rosSource\"));\nFaBOMNFragment($player, $uid);\nFaBTagUID($uid, 'GO_AGAIN');\n}\n",
+        "abilityCode": "if (DecisionQueueController::GetVariable(\"rosEvent\") === \"omnFragment\") {\n$uid = intval(DecisionQueueController::GetVariable(\"rosSource\"));\n$attack = FaBFindUID($uid);\n$state = FaBGetState();\nif ($attack !== null && $attack['zone'] === 'CombatChain'\n&& ($attack['object']->Role ?? '') === 'ATTACK'\n&& intval($state['attackUID'] ?? 0) === $uid\n&& intval($attack['object']->ChainLink ?? 0) === intval($state['chainLink'] ?? 0)\n&& in_array($attack['object']->CardID, ['ebbing_arcstride_red','ebbing_arcstride_yellow','ebbing_arcstride_blue'], true)) {\nFaBOMNFragment($player, $uid);\n$attack = FaBFindUID($uid);\nif ($attack !== null && $attack['zone'] === 'CombatChain'\n&& ($attack['object']->Role ?? '') === 'ATTACK'\n&& intval(FaBGetState()['attackUID'] ?? 0) === $uid\n&& !HasNoAbilities($attack['object'])) {\n$controller = intval($attack['object']->Controller ?? 0);\nif (FaBSeatIsLive($controller)) {\nFaBROSQueue($controller, $attack['object']->CardID, $uid,\n['rosEvent'=>'omnEbbingFragmented', 'omnEbbingLink'=>intval($attack['object']->ChainLink),\n'omnEbbingTurn'=>intval(GetTurnNumber()),\n'omnEbbingPlayOrder'=>intval(FaBObjectCounters($attack['object'])['FAB_PLAY_ORDER'] ?? 0)]);\n}\n}\n}\n}\n",
         "isImplemented": true,
-        "previousCodeHash": "f22cc6bf1c7da67ee8d31ff98b1f173d6074d960bdc82935c00809865ebf9b2a"
+        "previousCodeHash": "7fe4dd00409c5816184773fb66890060536b7a4dc7889483ffd7b6d364e8406f"
       }
     ]
   },
@@ -867,9 +872,9 @@
     "abilities": [
       {
         "macroName": "ResolveAbility",
-        "abilityCode": "if (DecisionQueueController::GetVariable(\"rosEvent\") === \"omnFragment\") {\n$uid = intval(DecisionQueueController::GetVariable(\"rosSource\"));\nFaBOMNFragment($player, $uid);\nFaBTagUID($uid, 'GO_AGAIN');\n}\n",
+        "abilityCode": "if (DecisionQueueController::GetVariable(\"rosEvent\") === \"omnFragment\") {\n$uid = intval(DecisionQueueController::GetVariable(\"rosSource\"));\n$attack = FaBFindUID($uid);\n$state = FaBGetState();\nif ($attack !== null && $attack['zone'] === 'CombatChain'\n&& ($attack['object']->Role ?? '') === 'ATTACK'\n&& intval($state['attackUID'] ?? 0) === $uid\n&& intval($attack['object']->ChainLink ?? 0) === intval($state['chainLink'] ?? 0)\n&& in_array($attack['object']->CardID, ['ebbing_arcstride_red','ebbing_arcstride_yellow','ebbing_arcstride_blue'], true)) {\nFaBOMNFragment($player, $uid);\n$attack = FaBFindUID($uid);\nif ($attack !== null && $attack['zone'] === 'CombatChain'\n&& ($attack['object']->Role ?? '') === 'ATTACK'\n&& intval(FaBGetState()['attackUID'] ?? 0) === $uid\n&& !HasNoAbilities($attack['object'])) {\n$controller = intval($attack['object']->Controller ?? 0);\nif (FaBSeatIsLive($controller)) {\nFaBROSQueue($controller, $attack['object']->CardID, $uid,\n['rosEvent'=>'omnEbbingFragmented', 'omnEbbingLink'=>intval($attack['object']->ChainLink),\n'omnEbbingTurn'=>intval(GetTurnNumber()),\n'omnEbbingPlayOrder'=>intval(FaBObjectCounters($attack['object'])['FAB_PLAY_ORDER'] ?? 0)]);\n}\n}\n}\n}\n",
         "isImplemented": true,
-        "previousCodeHash": "f22cc6bf1c7da67ee8d31ff98b1f173d6074d960bdc82935c00809865ebf9b2a"
+        "previousCodeHash": "7fe4dd00409c5816184773fb66890060536b7a4dc7889483ffd7b6d364e8406f"
       }
     ]
   },
@@ -2815,7 +2820,7 @@
     "abilities": [
       {
         "macroName": "AttackPowerModifier",
-        "abilityCode": "return FaBOMNInstantLink($player) ? 3 : 0;\n",
+        "abilityCode": "return FaBOMNInstantLink($player) ? 2 : 0;\n",
         "isImplemented": true
       },
       {
@@ -2830,7 +2835,7 @@
     "abilities": [
       {
         "macroName": "AttackPowerModifier",
-        "abilityCode": "return FaBOMNInstantLink($player) ? 3 : 0;\n",
+        "abilityCode": "return FaBOMNInstantLink($player) ? 1 : 0;\n",
         "isImplemented": true
       },
       {

@@ -1,0 +1,155 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-22T15:20:16.810584+00:00",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse882-20261122.json",
+  "source_spec_sha256": "fff656b256dba40c78c14ee00b15c18f8281f4d769aba2f69b6e7b8739ba5fb5",
+  "new_scenarios": 4,
+  "new_groups": 4,
+  "new_primary_ids": 4,
+  "actions": 26,
+  "native_assertions": 404,
+  "manual_passes": 16,
+  "totals": {
+    "saved_registered_scenarios": 4280,
+    "duels": 3075,
+    "four_live": 1205,
+    "recorded_primary_ids": 1428,
+    "identity_denominator": 5196,
+    "recorded_groups": 1302,
+    "group_denominator": 3324,
+    "four_live_groups": 1194,
+    "phase_qualified_scenarios_at_actual_contexts": 917,
+    "phase_qualified_unique_groups": 907,
+    "creation_replay_passes": 1658,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 78,
+  "scenarios": [
+    {
+      "card_id": "teklo_core_blue",
+      "group_id": "identity:teklo_core_blue",
+      "scenario_id": "card-teklo-core-blue-four-live-sparse882-actual-owned-specialization-item-enters-with-two-steam",
+      "effect_branches": [
+        "actual_owned_specialization_item_enters_with_two_steam"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-teklo-core-blue-four-live-sparse882-actual-owned-specialization-item-enters-with-two-steam",
+      "source_spec": "card-regression-sparse882-20261122.json",
+      "source_spec_sha256": "fff656b256dba40c78c14ee00b15c18f8281f4d769aba2f69b6e7b8739ba5fb5",
+      "review_evidence": "review-evidence/sparse882-20261122-qualified-saved.json",
+      "review_evidence_sha256": "166369ed7d1cada6aea0094379dab6d721d18a5e2ff72d8e45c44e802349b268",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse882-20261122-replay.json",
+          "sha256": "64a57d06435928b460f30d06dcffee88b58836ba2bfc063ca0134f9a4501015b",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "tick_tock_clock_red",
+      "group_id": "identity:tick_tock_clock_red",
+      "scenario_id": "card-tick-tock-clock-red-four-live-sparse882-actual-item-enters-with-one-steam-and-declines-crank",
+      "effect_branches": [
+        "actual_item_enters_with_one_steam_and_declines_crank"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-tick-tock-clock-red-four-live-sparse882-actual-item-enters-with-one-steam-and-declines-crank",
+      "source_spec": "card-regression-sparse882-20261122.json",
+      "source_spec_sha256": "fff656b256dba40c78c14ee00b15c18f8281f4d769aba2f69b6e7b8739ba5fb5",
+      "review_evidence": "review-evidence/sparse882-20261122-qualified-saved.json",
+      "review_evidence_sha256": "166369ed7d1cada6aea0094379dab6d721d18a5e2ff72d8e45c44e802349b268",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse882-20261122-replay.json",
+          "sha256": "64a57d06435928b460f30d06dcffee88b58836ba2bfc063ca0134f9a4501015b",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "visit_the_golden_anvil_blue",
+      "group_id": "identity:visit_the_golden_anvil_blue",
+      "scenario_id": "card-visit-the-golden-anvil-blue-four-live-sparse882-actual-gold-additional-cost-equips-real-inventory-equipment",
+      "effect_branches": [
+        "actual_gold_additional_cost_equips_real_inventory_equipment"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-visit-the-golden-anvil-blue-four-live-sparse882-actual-gold-additional-cost-equips-real-inventory-equipment",
+      "source_spec": "card-regression-sparse882-20261122.json",
+      "source_spec_sha256": "fff656b256dba40c78c14ee00b15c18f8281f4d769aba2f69b6e7b8739ba5fb5",
+      "review_evidence": "review-evidence/sparse882-20261122-qualified-saved.json",
+      "review_evidence_sha256": "166369ed7d1cada6aea0094379dab6d721d18a5e2ff72d8e45c44e802349b268",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse882-20261122-replay.json",
+          "sha256": "64a57d06435928b460f30d06dcffee88b58836ba2bfc063ca0134f9a4501015b",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "visit_the_floating_dojo_blue",
+      "group_id": "identity:visit_the_floating_dojo_blue",
+      "scenario_id": "card-visit-the-floating-dojo-blue-four-live-sparse882-actual-surging-and-combo-move-to-chosen-top-and-bottom",
+      "effect_branches": [
+        "actual_surging_and_combo_move_to_chosen_top_and_bottom"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-visit-the-floating-dojo-blue-four-live-sparse882-actual-surging-and-combo-move-to-chosen-top-and-bottom",
+      "source_spec": "card-regression-sparse882-20261122.json",
+      "source_spec_sha256": "fff656b256dba40c78c14ee00b15c18f8281f4d769aba2f69b6e7b8739ba5fb5",
+      "review_evidence": "review-evidence/sparse882-20261122-qualified-saved.json",
+      "review_evidence_sha256": "166369ed7d1cada6aea0094379dab6d721d18a5e2ff72d8e45c44e802349b268",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse882-20261122-replay.json",
+          "sha256": "64a57d06435928b460f30d06dcffee88b58836ba2bfc063ca0134f9a4501015b",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

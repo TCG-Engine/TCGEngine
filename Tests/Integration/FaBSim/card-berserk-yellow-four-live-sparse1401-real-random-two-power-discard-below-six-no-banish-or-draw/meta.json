@@ -1,0 +1,7 @@
+{
+    "name": "Berserk / actual random two-power discard stays below six",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-24T15:39:22+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "FOUR_REAL_MANUAL_UPF_RHINAR20_THREEDORI20. NativeBerserk5Action1paidrealCriticalBlue7pitch3/R2/AP0/all4responses\u21925GY/printedGAAP1. ThenrealSavageSwing6Action1targetsadjacent4, paysR1/AP0andmandatoryRANDOMdiscard; onlyremainingHandWoundingBlue8base2makesidentitydeterministic(noRNGadvanceinsingletonnativepath). Actualdiscardnotpitch, owned8GY1beforepriority. BerserkrequiresRANDOMAND6+; actual2fails6threshold, soWHENunearned/noBerserkbanish/reveal/draw. Rhinar6+conditionalsofalse/nointimidate. ActualtopDeck9SavageRedbase7woulddrawifwrongthresholdpassed, so9sameDeck/Hand0/Banish0aremeaningfulnegativecontrols; no directreveal-logclaim. ActualSavage6AA7/noGA/all4manualwindows/7damageHP4=13/fullclose5GY0/8GY1/6GY2/7Pitch/9Deck/UID9RNG0/R1AP0. Onlynamedbelow6threshold/nativecost/GA/randomdiscard/attack; positive6+trigger/timing/banish/reveal/draw/replacements/provenance/support/fullcarduncredited. Noenginechange. Sources: FaBSim/GeneratedCode/cardArrayCache.json#berserk_yellow FaBSim/GeneratedCode/GeneratedMacroCode.php FaBSim/Custom/GameLogic.php FaBSim/Custom/DYNRuntime.php FaBSim/Custom/DYNCards.php FaBSim/Custom/WTRCards.php"
+}

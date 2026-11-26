@@ -1,0 +1,65 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "breadth_review independent named static/resource-payment scope review",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1145-20261122.json",
+  "source_spec_sha256": "f8f71d621f045024d8345d7794106617120cc633005d499a6903faa6f6e1721a",
+  "input_sha256": "f8f71d621f045024d8345d7794106617120cc633005d499a6903faa6f6e1721a",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-luminaris-four-live-sparse1145-actual-aura-weapon-one-power-and-yellow-pitch-go-again",
+      "card_id": "luminaris",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "5e010b07b215ddbb248dc916b0004e32198c7aba14958908422826f7bcbdd2e7",
+        "actions.json": "a768bf0dcca7fe78ad4748b146f2162f29630c2be755b170d0430eecb855d1d5",
+        "assertions.json": "5c84c4df614eb2f77e5b9a6f9a7b837f3e1c22484daa54c38f99b382fbde5270",
+        "expected_final_gamestate.txt": "c78f65a5f313cac9d97efa4c96f355200ca42e5da34b4866b3340e4f077b6d78",
+        "meta.json": "252efbcf773f19152eef2563d041714500b7b6161f5803fa2991c3d1c51b34a4"
+      },
+      "fixture_sha256": "2dfefa13dd6bb27af05e286b5daab3f4c3b11d264e424528d2bb97aa98f617f7",
+      "actions": 27,
+      "native_assertions": 363,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1145-20261122.json",
+      "input_sha256": "f8f71d621f045024d8345d7794106617120cc633005d499a6903faa6f6e1721a",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1145-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-luminaris-four-live-sparse1145-actual-aura-weapon-one-power-and-yellow-pitch-go-again",
+        "fixture_slug": "card-luminaris-four-live-sparse1145-actual-aura-weapon-one-power-and-yellow-pitch-go-again",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "spec_sha256": "f8f71d621f045024d8345d7794106617120cc633005d499a6903faa6f6e1721a",
+    "reviewer": "breadth_review independent named static/resource-payment scope review",
+    "basis": [
+      "Cached Luminaris on legalyoungPrism20 makes controlled IllusionistAura weapons base1/OnceAction0Attack during own action phase, and actual yellowPitch grants Illusionist attacksGA. ExistingSpectralShield5, Luminaris6 and actualGenericYellow7Pitch are legitimate admitted assets, with no source producer credit.",
+      "MONAbilities57-77 supplies actualAuraAttackcost0/base1, requires currentownTurn/AP1, declares adjacent4 then creates virtualATTACK8 fromactualArena5. PhysicalAura andLuminaris ownership stay1; no Handcard or fakepower/GA flag is seeded. CurrentGL weaponized type and MONCards251-253 actualyellowPitch drive computedpower1/GAtrue.",
+      "Allfourmanualsource/combat rounds and actual1damage/HP4=19/earnedGAAP1, physicalAura5/Luminaris6/YellowPitch7retention, virtualSourceUID5 and cleanup/emptyGY establish both named static effects. SpectralShieldWard is not exercised, no Phantom/entry/Hero trigger is owed.",
+      "Exact pre-native delta from57df05166d757635524e26c6defc0593b9b5cb99ee59e94919a788fc686964fe is eight post-click AuraStatus2 checks removed, with identical action/check bodies otherwise and only oracle scope wording changed. Initial pre-click ready2 and all LuminarisWeapon ready2 guards are retained. No Status1 expected value was added. RawStatus may represent used-weapon bookkeeping and is not certified as literal rules tap/exhaustion; omission does not weaken actualattack/basepower/GA/HP/AP/source invariants."
+    ],
+    "limits": [
+      "Named firstAuraAttack/base1/yellowGA only. No sourceproduction, Ward, once-per-turnnegative, rules tap/untap/exhaustion, future tap-cost interaction, secondactivation, yellowabsence/otherAura or fullcard/support credit.",
+      "Native Save and one clean replay pending; no reviewer T/native/source/Git/network/original actions."
+    ]
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1145-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "0c36e725857d1ae50744c5325a6a8fa2b8d7c51df3b889bcd213ad3559a9b03a"
+  },
+  "full_suite_run": false
+}

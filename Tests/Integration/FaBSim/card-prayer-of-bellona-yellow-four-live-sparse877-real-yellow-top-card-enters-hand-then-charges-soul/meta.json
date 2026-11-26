@@ -1,0 +1,7 @@
+{
+    "name": "Prayer of Bellona / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T15:23:16+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Your next attack this turn gets +2{p}.\n\nReveal the top card of your deck. If it's yellow, put it into your hand, then **charge** your hero's soul.\n\n**Go again** Representative only: real_yellow_top_card_enters_hand_then_charges_soul. Other pitch siblings, alternate targets and unexercised branches receive no credit. All four live/manual; only native entry-point actions. Sources: FaBSim/GeneratedCode/cardArrayCache.json#prayer_of_bellona_yellow"
+}

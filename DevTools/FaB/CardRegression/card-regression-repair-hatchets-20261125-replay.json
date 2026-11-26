@@ -1,0 +1,51 @@
+{
+  "runtime": "2cfa73379c7cb718817903fee81340976f3f970ba870165a19c7d1c1d7d9b533",
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "repair-hatchet-of-mind-four-live-20261125-false-and-true-when-response-layers-real-two-then-three-damage",
+      "status": "PASS",
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=repair-hatchet-of-mind-four-live-20261125-false-and-true-when-response-layers-real-two-then-three-damage",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\hatchet-events\\witnesses\\replay-0.complete.log"
+      ],
+      "raw5_sha256": {
+        "initial_gamestate.txt": "e7691f89bdebb5ecf85bca87e5f95121bfc4c7768ce71b7a2ae19711d2946907",
+        "actions.json": "b47ad1debc36cf885e55a036cb3b1eaa2a39f4fb97eed5319ccac11a37264a35",
+        "assertions.json": "22055c90c6a4ffe7ffbff906b3ab837a03fb7ac85c9c066bc587fcce7aed46c7",
+        "expected_final_gamestate.txt": "5aa1df13ad07ebb8243abc1d0c9adb8e0d2bf163a548f654f99588e6424b7104",
+        "meta.json": "e61183b84a8aff6ec5f83439ac4e5d4926b5e7fd01c92a2b3123e1ae8e66d7d3"
+      },
+      "log_sha256": "bd160cc8fa523e5012e08bd93076b80116ba7ac2b4da415907b210a77974065e"
+    },
+    {
+      "slug": "repair-hatchet-of-body-four-live-20261125-false-and-true-when-response-layers-real-two-then-three-damage",
+      "status": "PASS",
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=repair-hatchet-of-body-four-live-20261125-false-and-true-when-response-layers-real-two-then-three-damage",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\hatchet-events\\witnesses\\replay-1.complete.log"
+      ],
+      "raw5_sha256": {
+        "initial_gamestate.txt": "938400da06dbc33e9825fe92d6b7abddde58950995afaf36d822a3ec204103a6",
+        "actions.json": "b47ad1debc36cf885e55a036cb3b1eaa2a39f4fb97eed5319ccac11a37264a35",
+        "assertions.json": "1f2ba3c39cc35c8d30aa4e05a6c9019548690df836281e027f8df46ad5ba0d3b",
+        "expected_final_gamestate.txt": "76e8daf406213d1634b87014027259c69ce8ece9eea38612114a8f944c84720c",
+        "meta.json": "5d01a2794c9479de68fc2ab8ae64ff72f6ef69140550ee1db9f696512fbc2f42"
+      },
+      "log_sha256": "5e348a5fbf05029c1c4d617c279a534da66b6e13d5a0dc03ad472334384a5558"
+    }
+  ]
+}

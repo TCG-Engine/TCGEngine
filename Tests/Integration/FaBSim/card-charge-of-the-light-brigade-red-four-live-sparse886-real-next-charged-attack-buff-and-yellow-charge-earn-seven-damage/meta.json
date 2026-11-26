@@ -1,0 +1,7 @@
+{
+    "name": "Charge of the Light Brigade / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T16:46:35+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "The next attack you **charge** to play this turn gets +3{p}.\n\n**Go again** Representative only: real_next_charged_attack_buff_and_yellow_charge_earn_seven_damage. Other pitch siblings, alternate targets and unexercised branches receive no credit. All four live/manual; only native entry-point actions. Sources: FaBSim/GeneratedCode/cardArrayCache.json#charge_of_the_light_brigade_red"
+}

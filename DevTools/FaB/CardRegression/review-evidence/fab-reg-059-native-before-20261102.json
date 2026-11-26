@@ -1,0 +1,41 @@
+{
+  "status": "CONFIRMED_NATIVE_FAILURE_NO_FIXTURE_NO_COVERAGE",
+  "utc": "2026-11-02T21:06:05.982787+00:00",
+  "issue": "FAB-REG-059",
+  "card_id": "spreading_plague_yellow",
+  "runtime_sha256": "8920e1e6614e36197a63b081c0f31c875f202bff50933210dfcf8f769c329d38",
+  "input_file": "card-regression-batch258.json",
+  "input_sha256": "befc62d5cc654a0c499eaa37701024b65fabee647d141be7dc437a70056ae403",
+  "recording_archive": "recording-runs/card-regression-batch258-20261102T205357Z-6ae8f86565ecd.json",
+  "recording_archive_sha256": "69720c18dc3b6c00b4d54dac575db4c27f81857fb9c8c588d004bfa75d752147",
+  "slug": "card-spreading-plague-yellow-four-live-sparse-real-paid-reaction-two-defenders-create-two-owned-bloodrots",
+  "attempted_actions": 23,
+  "exact_error": "Expected p4Arena-0.Owner to equal '1', got '4'.",
+  "observed_decisions": {
+    "1": [],
+    "2": [],
+    "3": [],
+    "4": []
+  },
+  "observed_state_fields": {
+    "window": "REACTION",
+    "combatStep": "REACTION",
+    "pendingPayment": null,
+    "resolvingReaction": null
+  },
+  "expected": "The actual instructed creatorP1 owns each Bloodrot; defendingP4 controls it.",
+  "observed": "After23 native inputs, the first token has Owner4 rather than expected1; all queues empty at REACTION.",
+  "source_paths": [
+    "DevTools/FaB/build_out_abilities.py",
+    "DevTools/FaB/out_abilities.json",
+    "FaBSim/Custom/OUTRuntime.php",
+    "FaBSim/Custom/HVYCards.php"
+  ],
+  "classification": "creator_owner_caller_extension",
+  "related_existing_family": "Existing creator-owner family, repair-status-20261024.json applied_repair_groups[7] icy_encounter; correct owner-aware API already exists.",
+  "fix_applied": false,
+  "fixture_saved": false,
+  "coverage_credit": false,
+  "source_changes": false,
+  "full_suite_run": false
+}

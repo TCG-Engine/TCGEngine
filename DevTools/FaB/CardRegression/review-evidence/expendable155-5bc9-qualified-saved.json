@@ -1,0 +1,67 @@
+{
+  "status": "EXPENDABLE155_97_7450_PHASE_AND_PERMISSION_CONSUMPTION_SINGLE_CLEAN_REPLAY_PASS",
+  "reviewer": "Root independent of b820 patch/checker author",
+  "reviewer_independent": true,
+  "approved": true,
+  "semantically_approved": true,
+  "runtime_sha256": "5bc9b0cf7b0f58b8de6f8f3d81ce38663ab3f2559708fbc53ed666b706919b9e",
+  "input_sha256": "8f0c5d6fc5553c4a9c5c8d86125310612571168151c590d02f04e8d8ca294383",
+  "source_spec": "card-regression-repair-expendable155-next-action-permission.json",
+  "fixtures": [
+    {
+      "slug": "card-expendable-limbs-blue-four-live-future-banish-play-duration-diagnostic",
+      "card_id": "expendable_limbs_blue",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "f5bae11808fae50b3820d4cbdc6e1c5ad68cf3505be90252c068c35fe7d07926",
+        "actions.json": "d05084b1c6e0b89afeeb11358c2b57e44442e36ecab2a8e013d09eb462bafb4d",
+        "assertions.json": "493010ea03d377a73658abdc8c341d44a1e5b6b1b96a93cb398a15540ce5bc11",
+        "expected_final_gamestate.txt": "31f6c9ef2ccae71ba6a2d699d02d5099dddebf9b4470be09fd725338f016ec4f",
+        "meta.json": "b7b9b6ba2b752516aba82c416d4799cec56c36e4c5ad140a51c7a7ea45479a5b"
+      },
+      "fixture_sha256": "af9f0c183dc2fa3ccdc027b063e6a053e1889754d7b3b2d924493c6e3728d5fa",
+      "actions": 97,
+      "native_assertions": 7450,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 89,
+      "recorded_runtime_sha256": "5bc9b0cf7b0f58b8de6f8f3d81ce38663ab3f2559708fbc53ed666b706919b9e",
+      "runtime_sha256": "5bc9b0cf7b0f58b8de6f8f3d81ce38663ab3f2559708fbc53ed666b706919b9e",
+      "source_spec": "card-regression-repair-expendable155-next-action-permission.json",
+      "input_sha256": "8f0c5d6fc5553c4a9c5c8d86125310612571168151c590d02f04e8d8ca294383"
+    }
+  ],
+  "replay": {
+    "path": "card-regression-replay-nov17-expendable155-r2-replay.json",
+    "sha256": "74a0b55d827267bb9276f909a238facf64410dc582ea4f0b5b1894083ce601df",
+    "passed": true
+  },
+  "source_review_sha256": "b8f14432f9575449a2e438b6957bdfdbaa42dfeca305bdda4c38c24c7ea6702d",
+  "initial_source_review_sha256": "3ea74b45a5545eb75da00c7091a763eeb5eceb80cc17d2fa8771cb3c5bb6c9e8",
+  "components": 40,
+  "caller_component_receipt_sha256": "4720e17bcee0498c0812e379f76f11c56b7cf2e33301e2daa5707175e2ca7e29",
+  "component_receipt_sha256": "26e3ab886c1b2f04eae428eeedc917d50c9d93e6ff288b7844c1122d301c971a",
+  "basis": "All97controls/setup and7449 semantic expectations preserved, plus one durable final permission-bank missing-or-null check; sixphase query types nowphase_is MAIN, all7443otherchecks unchanged. Actual DR5 additional sole-six handbanish6 and managed reaction resolution blocks4 fromreal7, actual3damageHP4=17/fullclose. Realfour-live turnprogression reachesowner4nextActionTurn5/AP1; actual Potions9/10destroyedandresolvedearn4resources. Same GenericRaging6actualBanish click now entersnormal target/payment/Stack, paysprinted3/AP1leavingR1/AP0, dealsreal6HP1=14, truefullclose6GYafter5/9/10. AllUIDownership, survivingP1Hand8/GY7, emptyP4Banish/Arena/bank (direct Banish play now consumes only that UID after Stack creation) and48manualpreferences/virtual/queue/await/paymentcleanupverified. No other intrinsicpermission can admit GenericRaging forLevia; no permission/privateeffect seed.",
+  "phase_api_erratum": {
+    "type_change": "Six numeric-only CurrentPhase assertions replaced with existing phase_is; expected MAIN unchanged, no Core edit.",
+    "independent_review_sha256": "06a79d916d1014026cfcb604b8547115869dcc8f736938c116978e9ac6e486cb",
+    "backup_manifest_sha256": "aad303488f23ee659111db0680abe416cb276be3e40f987a95d0705dca32cde0",
+    "old_raw5_preserved_outside_repo": true,
+    "qualification_note": "Initial native/replay used six vacuous numeric0 checks and was not qualified. Corrected phase Native/replay still left a stale permission row, caught by independent Saved review. The caller cleanup and one additional durable bank check now pass; only final R2 Native/replay count as qualified."
+  },
+  "diagnostic_promotion": {
+    "source": "card-regression-batch665-probe-r2.json",
+    "source_sha256": "c417ebf6cd59dcd63e26bdf487f92d9f3bd9c5630ec3f9abfae788d240638890",
+    "old_spec_still_mandatory_no_save": true,
+    "scope": "Explicit Root operational promotion of only unchanged quiet fully-resolved original future-permission route, within standing repair/regression authorization. Metadata provenance/oracle updated to remove obsolete diagnostic-only command; no control or assertion changed."
+  },
+  "known_unqualified_concerns": [
+    "Early Prepare grant/cancelled-DR resolution timing remains SOURCE_ONLY/open and unchanged. This successful fully-resolved route does not endorse it or count it repaired.",
+    "Alternative random pools, late cancellation, native expiry/Start/End/foreignholder/reentry gameplay and fullcard remain unqualified;25 actual-function controls are separate isolation evidence.",
+    "Legacy next grants missing activeTurn fail closed, not migrated or assigned an invented past/future phase. No user save-data modification."
+  ],
+  "limits": [
+    "Existing End-phase extra passes are administrative transport staging on a quiet board, not certified rule-granted End priority. Expiry is attached to actual Action-end before staged End/Intimidate priority, as tested separately.",
+    "No earlier registered named Expendable/Chains/Spoiled fixture found in bounded primary-slug lookup; no unlabeled secondary corpus audit, full suite or historical corpus replay.",
+    "No094/canonical/generated/service/Core/schema changes."
+  ]
+}

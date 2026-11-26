@@ -1,0 +1,7 @@
+{
+    "name": "Kayo Armed and Dangerous / off-turn outside-chain power crosses real discard threshold",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-24T07:32:14+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "TWO_REAL_MANUAL_ADULT_DORI40_TURNPLAYER1_AND_PRIMARY_KAYO_ARMED_DANGEROUS40_SEAT2. ActualforeignGenericWounding3Handcost0/fourpowerunmodifiedbyopposingHero/noBlocks/bothresponses. AtREACTION2actualRecklessSwing4zeroCostDefReactionmovesStackandsoleOTHERHandCriticalRed5printed5israndomlydiscardedownedGY2. KayoownedAA+1outsideCCmakesactualdiscardpower6; noothermodifiers/historyseed. SolecandidateEngineRandomInt0,0doesnotadvanceRNGcounter. Noresource/APassetcost(099notused). Bothrealreactionresponsesprecedeeffect; actualRecklessconditional2damagetoattackingHero1HP38proves6thresholdwhereprinted5alonewouldnotdeal2. Swing4thenactualCCDEFENSE_REACTION4defense, foreignincoming4isfullyprevented/noHero2damage. ThisisOPPONENTturn, soKayoownaction-phaseMighttriggerunearned/noMight/newUID; allArena0. Final3GY1/5then4GY2/HP38vs40/APR0/UID5RNG0/StackDQCCclean/Heroesready. Onlyoutside-chainownedpower/offturnthreshold; noownCCpower/weaponzone/Might/ownturn/discardproducer/secondary/wholeHerocredit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#kayo_armed_and_dangerous FaBSim/GeneratedCode/GeneratedMacroCode.php FaBSim/Custom/GameLogic.php FaBSim/Custom/WTRCards.php FaBSim/Custom/HVYCards.php FaBSim/Custom/MONCards.php Core/DeterministicRNG.php"
+}

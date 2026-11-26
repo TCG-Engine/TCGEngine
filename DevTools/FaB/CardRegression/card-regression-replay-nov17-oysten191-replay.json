@@ -1,0 +1,27 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-repair-oysten191-earned-death-gold.json",
+  "runtime_sha256": "7e806d4e8d49dd309fdda55af5eb53be6a34b8ab4d65af84b34799ab5c0caed3",
+  "returncode": 0,
+  "completed_utc": "2026-11-17T02:42:22.862700+00:00",
+  "fixtures": [
+    {
+      "slug": "probe-oysten-heart-of-gold-yellow-four-live-real-ally-lethal-earned-gold-watery",
+      "fixture_sha256": "9e318183ae0ab9a618820c148b11d03c79a3812b15917c5b674d88c2c8d7d316",
+      "passed": true,
+      "result": "[PASS] Oysten / actual Ally lethal earns Gold and Watery layers"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=probe-oysten-heart-of-gold-yellow-four-live-real-ally-lethal-earned-gold-watery",
+      "returncode": 0,
+      "stdout": "[PASS] Oysten / actual Ally lethal earns Gold and Watery layers\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

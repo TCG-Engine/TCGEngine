@@ -1,0 +1,7 @@
+{
+    "name": "Stadium Security / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T18:51:01+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "While this is in your arsenal, if you've controlled a Toughness token this turn, this gets **ambush**. Representative only: actual_hand_attack_deals_seven_without_arsenal_ambush_branch. Other pitch siblings, alternate targets and unexercised branches receive no credit. All four live/manual; only native entry-point actions. Sources: FaBSim/GeneratedCode/cardArrayCache.json#stadium_security_red"
+}

@@ -1,0 +1,107 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "independent breadth_review1252",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1280-20261122.json",
+  "source_spec_sha256": "9298c0bbd842c9e0d9f5ee33f6e7f3e05221e759d82994f1fd0acf199f7e68ad",
+  "input_sha256": "9298c0bbd842c9e0d9f5ee33f6e7f3e05221e759d82994f1fd0acf199f7e68ad",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-levia-four-live-sparse1280-real-six-power-banish-via-paid-ebon-fold-suppresses-blood-debt-through-turn-end",
+      "card_id": "levia",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "0550da29916732ce0f224d25686f61013d61b2f2d290371f6d3190242497a6ba",
+        "actions.json": "4af6f0d84793ccaa65aee0a0c184a66e93a2aa0439ce1255b4c080ca10790b14",
+        "assertions.json": "40edff674e7fd312a2a633c337cce9d39acfba4a03912b416cf415ca3876c8df",
+        "expected_final_gamestate.txt": "21d6fa1662c3c585732e812eef1b75483a15c58aca205c128cae0fab4cc8620a",
+        "meta.json": "f0fd95c2b22c9862dd85390860813e5aa3c03d13c9e01374dc047c18ca446f91"
+      },
+      "fixture_sha256": "9149e90c63dd9b55c2f6281774e24e80fa89b8c3eccc7a60c3088635fffb0e66",
+      "actions": 15,
+      "native_assertions": 391,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 12,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1280-20261122.json",
+      "input_sha256": "9298c0bbd842c9e0d9f5ee33f6e7f3e05221e759d82994f1fd0acf199f7e68ad",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1280-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-levia-four-live-sparse1280-real-six-power-banish-via-paid-ebon-fold-suppresses-blood-debt-through-turn-end",
+        "fixture_slug": "card-levia-four-live-sparse1280-real-six-power-banish-via-paid-ebon-fold-suppresses-blood-debt-through-turn-end",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "reviewer": "independent breadth_review1252",
+    "spec_sha256": "9298c0bbd842c9e0d9f5ee33f6e7f3e05221e759d82994f1fd0acf199f7e68ad",
+    "source_note_sha256": "a2e4079225efcabe51c2c15fdb9a58807425f60fa38adc069fe1651b93bfe9c8",
+    "case_count": 1,
+    "active_seats": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "players": "four_live_manual",
+    "native_controls": 15,
+    "query_checks": 391,
+    "persistable_assertions": 391,
+    "author_only_checks_omitted": 0,
+    "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+    "coverage_category": "ACTUAL_YOUNG_LEVIA_FOUR_LIVE_EARNED_SIX_POWER_BANISH_BLOOD_DEBT_WAIVER",
+    "basis": [
+      "Natural YoungLevia20 plus three YoungDorinthea20, explicit four live seats1234/manual UPF, no passives, native default four-seat priority/hold contract. identity:levia absent from both current coverage indexes. Initial heroUIDs1..4 and physical Head5/Dread6/Red7 now agree with native allocation and every subsequent source/UID guard; activation allocates only ABI8.",
+      "Cached EbonFold Instant resource1+destroy is printed cost, whereas Hand banish is resolution effect. Actual legal GenericRed7 pitch1 pays exactly1/R0 without AP expenditure; physical Head5 is destroyed into ownGY before responses, but original Dread6 must remain Hand through all four responses. Managed ARC_ABILITY and current Ebon await ownership guards retain ABI8 SourceUID5 through actual non-target Hand choice.",
+      "Actual selected DreadScreamerRed6 is ShadowBruteAA printed basepower6 with BloodDebt, so same physical card moves Hand to own faceupBanish and native MON movement hook earns BANISHED_SIX. No private history, face-down trick, health override or preseeded six flag earns the waiver. Empty Deck permits Shadow draw attempt with no positive draw assertion or new Arsenal/Hand choice.",
+      "Printed Levia condition is a continuous waiver, not a new responseable trigger claim. DTDRuntime FaBDTDBloodDebt checks active Levia plus earned BANISHED_SIX before MONEnd blood-debt life loss; actual faceup BloodDebt6 remains present throughout asserted real end-phase and complete end-turn transition. HP20 unchanged is the intended observable outcome, no healing or missing-debt substitute.",
+      "All four explicit ACTION passes reach END_PHASE1, then all four explicit end-phase passes complete native turn; no collapsed multiple-pass control remains. Current end-turn calls debt handling before turn-effect clearing, returns sole real Red7Pitch to Deck, then native actor1 end refill draws that same7 from otherwise empty Deck. Final natural TurnPlayer2/TurnNumber3/Priority2/AP2=1, all other AP0/R0, Ebon5GY, Dread6faceupBanish, Red7Hand, UID8/RNG0 and clean Stack/queues/combat match scope.",
+      "All391 query/state assertions are persistable through current native recorder; fifteen logical controls each require one native action. Initial serialized UID inconsistency and earlier duel-ID draft were corrected before any native/save; this receipt binds only current corrected spec."
+    ],
+    "limits": [
+      "Semantic/source review only, pending actual native save and targeted replay; no pass, replay or coverage credit claimed.",
+      "Only actual positive YoungLevia six-power-banish BloodDebt life-loss waiver through a native complete end turn. No false threshold, later-turn expiry, other debt counts, positive Ebon draw, Dread play/go-again, Spellvoid, adult, secondary/support or whole-card credit.",
+      "Only this W receipt written. No native/test/replay execution, T/source/engine/registry edits, authentication/network, Git or original-checkout access."
+    ],
+    "source_sha256": {
+      "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+      "FaBSim/GeneratedCode/GeneratedMacroCode.php": "fe6a7982611df8f4de98ce2671b317b671b580146aa4b8c28e8f4b86d8461056",
+      "FaBSim/Custom/MONCards.php": "2eb22bda6f1dba583df2879046f9f4dec94f47f2e9b28f369758f3af72c9c3ac",
+      "FaBSim/Custom/MONAbilities.php": "7e5a6ba9e0523c03c7ece084793564d87ecd9d6fbba55b9252cb83f3d952b4fa",
+      "FaBSim/Custom/DTDRuntime.php": "4393481861f97f02c611e9c2cc3c65ff53a7ea5c39db05d97d5b1dc93d0de4f0",
+      "FaBSim/Custom/ARCAbilities.php": "e49ce4685f148ef423ea38aac544266b3298527ea8ca9eef11b12fb974e7c9f0",
+      "FaBSim/Custom/GameLogic.php": "c60fa151561f959e4e3e341b814de0e2b47c9e9f153bbc8793a04c43b5075061",
+      "Schemas/FaBSim/GameSchema.txt": "7783800bd47bc85885cc915066aadca58cdf99f0c1180602ac312d9af5ebf643",
+      "Core/ShortcutPreferences.php": "25f300ea0b6fbc409f5b92e8bc3587a74b2ab0eaf31ccef38e18c455598eaba6",
+      "DevTools/FaB/CardRegression/record_card_regressions.php": "e53055b29e9ea641949b77019c4455607f41ca233325d716a9500637e19efd28"
+    },
+    "workspace_source_sha256": {
+      "author_breadth1280_py": "6e35fa19ff9c36193474b15a6f573a5fac5dbe5bda0dc8f351cba55a1fda525e",
+      "breadth1068_helpers_py": "997f949ec26c7e494ad26a818f9f2078f6f4f2a0c49ca7f61aa8c71f3b091b0a"
+    }
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1280-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "37804706e82a7e6cd68f52f72dd3b7c470ef9d4ff477da2ac1cbadead28fa759"
+  },
+  "full_suite_run": false
+}

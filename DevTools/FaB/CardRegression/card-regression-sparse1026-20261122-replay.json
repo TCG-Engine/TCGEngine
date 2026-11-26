@@ -1,0 +1,56 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-knife-through-butter-red-four-live-sparse1026-real-dagger-plus-four-unmarked-full-block",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-knife-through-butter-red-four-live-sparse1026-real-dagger-plus-four-unmarked-full-block",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1026-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1026-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "3d4b48c4e2034e57d7e164a426c351cc3d31c5a73477371a84ccf76b71bf9d69",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "48eee9d768413fed938f7228ee2dc8cb618d9b801f7225a844ec9b98d998e692",
+        "actions.json": "61fb93699972b6a8043fb3e32dcd2e28aa924acd00042d81d53b137bc08db94b",
+        "assertions.json": "3e588fe6450a760cf6f1f35cc6bf29246e0dfe5ef9d88ac8a44dd9731c1e0445",
+        "expected_final_gamestate.txt": "e84b8f114c03ee6486e5040ff9da5d350f7fb3c6ae2d5e85ad89e015d64fbf53",
+        "meta.json": "40a053d48b5a370003715a9215b7d08fe15ada28982aa5b4640660ce32d4c6e7"
+      }
+    },
+    {
+      "slug": "card-sand-sketched-plan-blue-four-live-sparse1026-real-sole-card-search-then-non-six-random-discard-no-bonus-ap",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-sand-sketched-plan-blue-four-live-sparse1026-real-sole-card-search-then-non-six-random-discard-no-bonus-ap",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1026-local-20261122\\clean-replays\\01.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1026-local-20261122\\clean-replays\\01.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "53670139cebdc1f5c4f553c225d1c91c6abf622db5d83c376f0f67eed1735392",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "65e2fcd90d769bbd0e57cb4473ead76551117ef5e59de6ef939ca75e4a38bf1e",
+        "actions.json": "c2e0bb39d588a299d199e38394fb2d4901c534feaf25a626780644900ae564c1",
+        "assertions.json": "3a663ce1f381d52d6cf05e077b6e2ef84bfce2aae3a075bd0f1425a067e109a5",
+        "expected_final_gamestate.txt": "30d428aec77a26a64397bd30b0d3d8a5b17327368fecb5cf865e2adf30e4670e",
+        "meta.json": "baf04e3bef18f1c4fdf2bd002d8026eb57725e0af78713f389842e1a41a7405e"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

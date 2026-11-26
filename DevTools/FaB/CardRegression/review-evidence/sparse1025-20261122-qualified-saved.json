@@ -1,0 +1,118 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "breadth_review independent source/spec review",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1025-20261122.json",
+  "source_spec_sha256": "02b70b175e11a70a6cf764404fd7bab89eb48f0ac8c20d0b436a83d7ff2f7c1d",
+  "input_sha256": "02b70b175e11a70a6cf764404fd7bab89eb48f0ac8c20d0b436a83d7ff2f7c1d",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-brothers-of-flame-red-four-live-sparse1025-real-dagger-target-without-two-draconic-chain-links",
+      "card_id": "brothers_of_flame_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "e8efb5ba707c6c9d6450db83e57c2a45cc69b2cf70e894889cded368f3ef8cdc",
+        "actions.json": "0dd64dbd975d38bfa553d9e02d440fa38f1f621d52a78bfeec6695534975d7f8",
+        "assertions.json": "dab2de51f0a7f661e0fb26ebd01b0b9ffe75e8ef6ff2761995a4b5929eee546f",
+        "expected_final_gamestate.txt": "0a1999b028dfada768f973eda0e2501227499e53ba2d01d74bd5d85a5e5c6f40",
+        "meta.json": "b0c289ead8762dc655820fc6ea079460f3d65ef5ce8addf33d7920e39e90386a"
+      },
+      "fixture_sha256": "7cf2377f6361540b3677954245f13c044b87f8e0399b9c4a22cdf91e14e0e224",
+      "actions": 30,
+      "native_assertions": 229,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1025-20261122.json",
+      "input_sha256": "02b70b175e11a70a6cf764404fd7bab89eb48f0ac8c20d0b436a83d7ff2f7c1d",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1025-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-brothers-of-flame-red-four-live-sparse1025-real-dagger-target-without-two-draconic-chain-links",
+        "fixture_slug": "card-brothers-of-flame-red-four-live-sparse1025-real-dagger-target-without-two-draconic-chain-links",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-sisters-of-fire-red-four-live-sparse1025-real-dagger-target-without-two-draconic-chain-links",
+      "card_id": "sisters_of_fire_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "16b22fd91ee3de021e1f0658ac9cf5f689c67528ce16a8046234eb83c01edd72",
+        "actions.json": "0dd64dbd975d38bfa553d9e02d440fa38f1f621d52a78bfeec6695534975d7f8",
+        "assertions.json": "bd9d451f7187f8fe79b8208baee5bd61a6a05e310ca2af21537e02b0a47383f0",
+        "expected_final_gamestate.txt": "380d1a9ec15f0e7dc38d8b044e1f45e3a1ef83212cfdbf0327c73affce02b6fe",
+        "meta.json": "9080921fac14234d69624ad8b0d32b02cf4988ffa3561eb78d57c5b3f10dedfc"
+      },
+      "fixture_sha256": "d2f741c49e8f20886bd1dcb663d0835a1dbd42aef9afed22501fa432956b74f5",
+      "actions": 30,
+      "native_assertions": 229,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1025-20261122.json",
+      "input_sha256": "02b70b175e11a70a6cf764404fd7bab89eb48f0ac8c20d0b436a83d7ff2f7c1d",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1025-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-sisters-of-fire-red-four-live-sparse1025-real-dagger-target-without-two-draconic-chain-links",
+        "fixture_slug": "card-sisters-of-fire-red-four-live-sparse1025-real-dagger-target-without-two-draconic-chain-links",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-hunts-end-red-four-live-sparse1025-real-dagger-target-without-three-fealty-tokens",
+      "card_id": "hunts_end_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "d92dbc0da78ada5bb2bfffddb023a1b156727e81d25e2a61844dc9a20a47058c",
+        "actions.json": "0dd64dbd975d38bfa553d9e02d440fa38f1f621d52a78bfeec6695534975d7f8",
+        "assertions.json": "a00543422274c993ccfb67e7f4778f4d268c73e339a5bc50a43908bafa627849",
+        "expected_final_gamestate.txt": "23a6785538d6c3e0c857f1f8525c0e24651bfa825d98b1d0e6eadb99a216dabe",
+        "meta.json": "229bf2265eff471cef060c6aab7d4f5ce40ebcc935b6cbd5e49d472c905e7d00"
+      },
+      "fixture_sha256": "08a647acd96ab96f6ed184b710031cdf89573a8b27032c0de2e8e1dca6fc7f55",
+      "actions": 30,
+      "native_assertions": 229,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1025-20261122.json",
+      "input_sha256": "02b70b175e11a70a6cf764404fd7bab89eb48f0ac8c20d0b436a83d7ff2f7c1d",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1025-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-hunts-end-red-four-live-sparse1025-real-dagger-target-without-three-fealty-tokens",
+        "fixture_slug": "card-hunts-end-red-four-live-sparse1025-real-dagger-target-without-three-fealty-tokens",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "spec_sha256": "02b70b175e11a70a6cf764404fd7bab89eb48f0ac8c20d0b436a83d7ff2f7c1d",
+    "reviewer": "breadth_review independent source/spec review",
+    "basis": [
+      "Cached Brothers of Flame/Sisters of Fire require two Draconic chain links; Hunts End requires three Fealty. Explicit HNTCanPlay checks those actual prerequisites and separately requires a current owned dagger attack. Legal natural20 Fang is Royal Draconic Warrior, so all primary classes/talents and plain Warrior Quicksilver Dagger are legal.",
+      "Current first link is the actual non-Draconic Quicksilver Dagger6; no Fealty/Arena assets or prior links. Real weapon1 paid by actual Blue7 leavesR2, enough for Brothers1/others0. At own REACTIONpriority1 the actual Dagger target exists and AP0 is legal for attack reactions, isolating prerequisite failure.",
+      "Native target/pitch/one-real-NAAblock/reaction transport matches reviewed1023. Corrected Warriors Valor8 is legal Warrior NAA/DEF3, fully blocks actual Dagger1. QS static other-weapon-GA false and Fang marked-hit event not earned at0damage/noHit. Source5 staysHand with no cost/choice/Stack/priority leakage; weapon6used retained, realPitch7 and defender8ownedGY/HP20/AP0/R2/queues persisted.",
+      "Three unrepresented groups; all four live/manual seats, naturalHP and physical owners/fates guarded; no author-only diagnostic kinds."
+    ],
+    "limits": [
+      "Prerequisite-negative admission and actual blocked dagger followthrough only. No positive reaction buffs/target timing, Draconic threshold/Fealty generation, Fang hit/discount, extra weapon attack/GA, support/sibling/full-card credit. No native/PHP/T/source/Git/original/network actions by reviewer."
+    ]
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1025-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "9dbbcd602ff464cd40f31ce7a22b127b3c5091502b4fce0613502bb5164feabb"
+  },
+  "full_suite_run": false
+}

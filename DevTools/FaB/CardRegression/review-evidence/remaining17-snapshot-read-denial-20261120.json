@@ -1,0 +1,10 @@
+{
+  "status": "AUTO_REVIEW_DENIED_BEFORE_CREATEPROCESS_KNOWN_UNEXECUTED",
+  "action": "C:/xampp/php/php.exe remaining095-cardcode-input-diagnostic.php",
+  "target": "https://soulmastersdb.net/TCGEngine/CardEditor/API/CardCodeService.php?action=snapshot&root=FaBSim",
+  "method": "GET through existing normal PHP client, existing token, fixed HTTPS host, no redirects",
+  "reason": "Automatic approval review classified the snapshot as private/unverified remote data and credentialed access outside its interpreted local-fixture scope.",
+  "request_executed": false,
+  "retry_or_workaround": false,
+  "needed": "Specific approval of this exact read-only snapshot diagnostic, or user-provided current Aethersling PrepareCard/ResolveCard authoring input for review; do not transmit credentials."
+}

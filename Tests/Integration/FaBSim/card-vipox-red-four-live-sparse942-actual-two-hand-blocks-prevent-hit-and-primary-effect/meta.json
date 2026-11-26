@@ -1,0 +1,7 @@
+{
+    "name": "Vipox / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T21:09:47+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "When this hits a hero, they lose {h} equal to the number of cards in their hand. Representative only: actual_two_hand_blocks_prevent_hit_and_primary_effect Sources: FaBSim/GeneratedCode/cardArrayCache.json#vipox_red"
+}

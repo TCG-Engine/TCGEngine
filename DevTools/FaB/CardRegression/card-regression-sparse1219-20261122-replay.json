@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-breaker-helm-protos-four-live-sparse1219-existing-base-head-transforms-under-real-tekloscope-only",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-breaker-helm-protos-four-live-sparse1219-existing-base-head-transforms-under-real-tekloscope-only",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1219-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1219-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "0f9f69ebe05e91d1c30cfe76ee681eeba1b5a0edfd7abd306549cb1221ef3e48",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "24ff73e607e381f6288baaaa4dbeccc5e1b96a85863e79434b0fc64ba5edfb35",
+        "actions.json": "c9e30c252fa7ee7dec5f8a364eea8e728c688845dd8df7f54427b2bc62c71d2d",
+        "assertions.json": "414710f7558ce56c54cdfe793def317dde34441088ddfaa0c988eb801fa5d2cd",
+        "expected_final_gamestate.txt": "13c7c5c3aca780e43a3a340ff754fb417b8445ae3f448e5f7e3f1927b35add36",
+        "meta.json": "8bf4335c478baedf1b6a8134f190c875c316ff6610bdd234c8bfee30e7fd5a0c"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

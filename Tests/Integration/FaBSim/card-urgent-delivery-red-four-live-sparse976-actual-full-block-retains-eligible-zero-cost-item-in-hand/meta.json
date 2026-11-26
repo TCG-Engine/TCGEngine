@@ -1,0 +1,7 @@
+{
+    "name": "Urgent Delivery / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T23:18:53+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "When this hits, you may put a Mechanologist item from your hand into the arena with cost less than or equal to the number of times you've **boosted** this combat chain. Representative only: actual_full_block_retains_eligible_zero_cost_item_in_hand. Actual Hand5 play with real printed payment, real Hand AA defenses, four live/manual seats, zero damage/nohit/Stack0/AP0/source and defenders in owned graveyards. Legitimate physical cards/counters retained; no positive hit/reaction/banish/steal/random/entry/ownership credit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#urgent_delivery_red"
+}

@@ -1,0 +1,56 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-edge-ahead-red-four-live-sparse1291-real-paid-next-warrior-attack-bonus-versus-ally-no-wager",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-edge-ahead-red-four-live-sparse1291-real-paid-next-warrior-attack-bonus-versus-ally-no-wager",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1291-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1291-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "df9ac08585fe942638e5d7b4d4f5c722ae542b4c93fb9216b78e9016a2f60943",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "edd0b51671d9fe4a41fb8052586e2121d75d65c7026e42de5380b90ca33b0240",
+        "actions.json": "3f766d8b7dc7c4fad6a06f0c70c2906c502f986a0bb9c1df568a7a64e95120c4",
+        "assertions.json": "90f3742e2391809b26e8c8cf124fc9ad4c92161c9eec70d2235773f14589af0d",
+        "expected_final_gamestate.txt": "70cc29100bfe0739caeb1732194ed5dd905cb4d1b41b41a8bf9bd96e4f1ddd83",
+        "meta.json": "5044d51774e18f84abf6f388afdb6b2fbacc6d2a1c0255d8b801aa781dab5a40"
+      }
+    },
+    {
+      "slug": "card-hold-em-red-four-live-sparse1291-real-paid-next-warrior-attack-bonus-versus-ally-no-wager",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-hold-em-red-four-live-sparse1291-real-paid-next-warrior-attack-bonus-versus-ally-no-wager",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1291-local-20261122\\clean-replays\\01.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1291-local-20261122\\clean-replays\\01.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "dd78c673c2b0e7461de3d7853b123383c07d2c478b3bb71a078cfd199f211d30",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "11c98db0b73f5113c25e944a78f46ec496543bab7e3a654239865685a0893367",
+        "actions.json": "3f766d8b7dc7c4fad6a06f0c70c2906c502f986a0bb9c1df568a7a64e95120c4",
+        "assertions.json": "cc0eb9f4a55ae61dfe987db67c977659d1f621cc065ab1675b9dad537c51e19a",
+        "expected_final_gamestate.txt": "913e06f216e83181790f256f892afdee0c4f9776a4b2ae0169972e19c94c529b",
+        "meta.json": "e48ec6f076796982f8529ac2255a12a9d35ec8824ad7324cb87ebcd9845e7354"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

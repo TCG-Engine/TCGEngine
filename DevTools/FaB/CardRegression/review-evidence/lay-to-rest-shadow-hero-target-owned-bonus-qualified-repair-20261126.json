@@ -1,0 +1,144 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer": "/root",
+  "reviewer_independent": false,
+  "runtime_sha256": "55e463af3c1ff4d6bb4e60f450ba0c6115ef862ec071e994f8c1213a382e166a",
+  "source_spec": "card-regression-repair-lay-shadow-ally-20261126.json",
+  "input_sha256": "4fa436baff71d44f31db45c8b0de8f7e0a82d65a30e042b24cf31dcbcf5f2750",
+  "fixtures": [
+    {
+      "slug": "repair-lay-to-rest-red-four-live-20261126-shadow-ally-five-damage-survives-full-close",
+      "card_id": "lay_to_rest_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "51b5fd00fce57e61d234aee0a1e6e4b7d4d91d88e712d3c96b7c120d7a3ad767",
+        "actions.json": "1ef1359f0cb6a63079e6f6cd368d56bb483cc14d047b770aadf86c15dfedfbeb",
+        "assertions.json": "b1cdc9079ee1fba5d6fc66529b319c1b807f75c1c19434041675b8313c62378b",
+        "expected_final_gamestate.txt": "420a503c4cc4794d9e478705fb6a98973afb883e1aaadf331d00e8e4c1fcd251",
+        "meta.json": "e2e7df7aeb781a717ba7f628e4c92a2d98ab318256d0a6956cc01a68785432e1"
+      },
+      "fixture_sha256": "7da656ab3c0183bc6a12e4500e73ba12af28e9193418a4032fa4c743f1f0741e",
+      "actions": 28,
+      "native_assertions": 422,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "55e463af3c1ff4d6bb4e60f450ba0c6115ef862ec071e994f8c1213a382e166a",
+      "runtime_sha256": "55e463af3c1ff4d6bb4e60f450ba0c6115ef862ec071e994f8c1213a382e166a",
+      "source_spec": "card-regression-repair-lay-shadow-ally-20261126.json",
+      "input_sha256": "4fa436baff71d44f31db45c8b0de8f7e0a82d65a30e042b24cf31dcbcf5f2750",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual"
+    }
+  ],
+  "repair_only": true,
+  "new_breadth_groups": 0,
+  "newly_represented_repair_group": 0,
+  "whole_card_complete": false,
+  "full_suite_run": false,
+  "source_proposal": {
+    "status": "APPLIED_PENDING_NATIVE_QUALIFICATION",
+    "before_runtime": "34e0259fc72949acb3abe50292bbd2faca2944e385306f277d44c81790927177",
+    "files": [
+      {
+        "path": "FaBSim/Custom/DTDRuntime.php",
+        "before_sha256": "4393481861f97f02c611e9c2cc3c65ff53a7ea5c39db05d97d5b1dc93d0de4f0",
+        "candidate_sha256": "b6697304f1fe9d7a9685254394f9b4edab26a17033b21c382373b693c8342765",
+        "candidate": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\lay230\\candidate\\FaBSim\\Custom\\DTDRuntime.php"
+      },
+      {
+        "path": "FaBSim/Custom/GameLogic.php",
+        "before_sha256": "b32422199952fb9d80fe1c616858875dfa7e2f9706c6d1bc642b475f21404e59",
+        "candidate_sha256": "72f1e1b7784e592bb1cba31281a73028aa94aeddd913c154190f48256afab400",
+        "candidate": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\lay230\\candidate\\FaBSim\\Custom\\GameLogic.php"
+      }
+    ],
+    "scope": "Replace wrong continuous controller-Hero lookup with exact Shadow-Hero AttackDeclared owned native layer. Existing owned-event lifecycle/physical source/await guards retained; own-power Snag provenance preserved. No generated/CardCode/Core edit.",
+    "generated_macro_sha256": "b63a4ba571e1df0a1d4f1103e40fa2e896a8d01628c550cdb5ab7cad0f0d496b",
+    "runtime": "55e463af3c1ff4d6bb4e60f450ba0c6115ef862ec071e994f8c1213a382e166a",
+    "target_api_correction": "ResolveAttackTarget returns validated descriptor; reacquire actual Hero by its validated UID before effective Shadow query. Positive native prefix exposed this before Save.",
+    "false_context_compatibility": "No earned Lay event still delegates through legacy zero-macro dispatch, retaining original attacker/defender variables and strict existing snapshots; existing fixture unchanged."
+  },
+  "targeted_replays": {
+    "runtime": "55e463af3c1ff4d6bb4e60f450ba0c6115ef862ec071e994f8c1213a382e166a",
+    "fixtures": [
+      {
+        "slug": "repair-lay-to-rest-red-four-live-20261126-shadow-ally-five-damage-survives-full-close",
+        "passed": true,
+        "runtime": "55e463af3c1ff4d6bb4e60f450ba0c6115ef862ec071e994f8c1213a382e166a",
+        "command": [
+          "C:\\xampp\\php\\php.exe",
+          "DevTools/RunIntegrationTests.php",
+          "--root=FaBSim",
+          "--test=repair-lay-to-rest-red-four-live-20261126-shadow-ally-five-damage-survives-full-close",
+          "--max-failures=1",
+          "--compact",
+          "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\lay230\\r2-strict1.log"
+        ],
+        "returncode": 0,
+        "complete_log_sha256": "4732625acc7e0d7f4320780165f0a274de410801a9258f3c2f89b1d9fe703ec0",
+        "raw5_unchanged": true
+      },
+      {
+        "slug": "card-lay-to-rest-red-four-live-sparse1466-real-ally-target-excludes-hero-only-trigger",
+        "passed": true,
+        "runtime": "55e463af3c1ff4d6bb4e60f450ba0c6115ef862ec071e994f8c1213a382e166a",
+        "command": [
+          "C:\\xampp\\php\\php.exe",
+          "DevTools/RunIntegrationTests.php",
+          "--root=FaBSim",
+          "--test=card-lay-to-rest-red-four-live-sparse1466-real-ally-target-excludes-hero-only-trigger",
+          "--max-failures=1",
+          "--compact",
+          "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\lay230\\r2-strict2.log"
+        ],
+        "returncode": 0,
+        "complete_log_sha256": "2e3011d7c57f398152a96c524033244f961d96fce1bce68850b3a5576b557614",
+        "raw5_unchanged": true
+      },
+      {
+        "slug": "repair-war-cry-themis-yellow-four-live-20261126-empty-soul-owned-attack-layer-eight-damage",
+        "passed": true,
+        "runtime": "55e463af3c1ff4d6bb4e60f450ba0c6115ef862ec071e994f8c1213a382e166a",
+        "command": [
+          "C:\\xampp\\php\\php.exe",
+          "DevTools/RunIntegrationTests.php",
+          "--root=FaBSim",
+          "--test=repair-war-cry-themis-yellow-four-live-20261126-empty-soul-owned-attack-layer-eight-damage",
+          "--max-failures=1",
+          "--compact",
+          "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\lay230\\r2-strict3.log"
+        ],
+        "returncode": 0,
+        "complete_log_sha256": "7e7737e84d2128dcefcd0d3ae70f773f3bb088f5443d1ed8573cf5c5467c25b8",
+        "raw5_unchanged": true
+      }
+    ],
+    "full_suite_run": false
+  },
+  "limits": [
+    "Red only native-qualified; pitch siblings and printed Hero-hit face-down ability untested.",
+    "ShadowHero positive control stops after earned-layer responses and power6; it is an unsaved repair diagnostic, no new scenario/group credit.",
+    "Existing Lay group/Red identity already represented: new witness only, no additional group or identity credit.",
+    "The first positive control caught a new target-descriptor/object API mistake before Save; corrected by reacquiring live Hero via validated UID. Failed evidence retained, final controls pass.",
+    "Primary-agent source/saved verification; no new separate-agent approval.",
+    "Three strict focused passes, not a fullsuite.",
+    "Strict existing nonShadow control exposed missing legacy dispatch vars; fixed source dispatch instead of changing old expected snapshots. New unregistered owned fixture was rerecorded after verified outside-repo backup; original actions/assertions/setup hashes unchanged."
+  ],
+  "scope": "Wrong continuous controller-Hero Shadow lookup removed. Exact Lay attacks earn a native owned-event layer only when their actual target is a Shadow Hero; existing generic managed resolution and self-power Snag provenance reused. Source departure/current-link guards retained; no generated/Core edits. All original20-input Ally survival checks pass unchanged and full28-input close proves actual5damage leaves six-health Blasmophet alive. Correct-Hero11-input no-save control proves base5 before4freshresponses and6 after them; no positive Hero-damage or hit-choice claim.",
+  "additional_validation": {
+    "original_unsaved_prefix_inputs": 20,
+    "hero_positive_unsaved_inputs": 11,
+    "hero_positive_spec_sha256": "836197459c5c1d2b9c89a5f657077f47d4dcd07933a6cbe52d9fd288b00da523",
+    "hero_positive_receipt_sha256": "ac78ace83da58374e2785b07d199e8ed0c1d0af9a21335980033e38c21d9035c",
+    "source_macro_unchanged": true,
+    "rule": "https://judge.fabtcg.com/cards/detail/2287/",
+    "final_runtime": "55e463af3c1ff4d6bb4e60f450ba0c6115ef862ec071e994f8c1213a382e166a",
+    "new_fixture_original_actions_assertions_initial_unchanged_after_context_compatibility": true
+  }
+}

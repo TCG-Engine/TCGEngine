@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-arakni-orb-weaver-four-live-sparse1469-native-base-form-discard-equip-next-stealth-and-zero-cost-dagger",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-arakni-orb-weaver-four-live-sparse1469-native-base-form-discard-equip-next-stealth-and-zero-cost-dagger",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1469-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1469-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "20f199a9f6e9da761d986b4812b72c9b7a89ec28b377c75d7aaac63c969e32df",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "4236aa6580bf83dc9a90afaaf0ed271732a06529b1cfa41818865d88c306e246",
+        "actions.json": "8590e359db2cea1f8e3d0ac24bccac8a7ac9ea535b7d68f020f64a7a4329b12e",
+        "assertions.json": "c91181b888904b53813fe55d69999a996f74925c8147e3293b7f1618d1647cb6",
+        "expected_final_gamestate.txt": "3613d6799f5a80b793397a34f06ede71af34489427f850b32395d21ca755a6d8",
+        "meta.json": "bdd6a8a5d182d61d8cf8a1594db0a7b08ca4c56a552fa3c5d5e1dfe70e76ce9c"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

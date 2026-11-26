@@ -1,0 +1,56 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-flurry-four-live-sparse1375-actual-attack-action-is-not-weapon-activation-ready-real-sword-and-token-retained",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-flurry-four-live-sparse1375-actual-attack-action-is-not-weapon-activation-ready-real-sword-and-token-retained",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1375-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1375-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "80734bfa46c88065cb998d1f28b083f24ae0ffb336049db9b212a67036ae6409",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "f537a155bd41e37d080cf6a98ed83a85fdccf6eede92466c414f7e781453177c",
+        "actions.json": "0c005a52a51dc48a24f481bec6cbd5cfe2cb93ecd847ec1063490764f1d7d9ea",
+        "assertions.json": "01bd487df134270839f898af18301f1e61c1fffe9d96d7d647c90602f9b67b36",
+        "expected_final_gamestate.txt": "53672dd2551ea63841037afb5fbdfd36943152101d44b62972f6704b63406f4e",
+        "meta.json": "373f2484122d4940165abec9789b86963d263e87abf104e1fa517e26b6ada194"
+      }
+    },
+    {
+      "slug": "card-eloquence-four-live-sparse1375-actual-attack-action-is-not-nonattack-token-retained-and-unplayed-nonattack-consumer-rejected",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-eloquence-four-live-sparse1375-actual-attack-action-is-not-nonattack-token-retained-and-unplayed-nonattack-consumer-rejected",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1375-local-20261122\\clean-replays\\01.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1375-local-20261122\\clean-replays\\01.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "55e3a27956e38754034d4ea9bc013fd78d7c2b2107bf6187adc15eff7b298ee4",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "4b3401cd20ebacc84b902eac30ac1cbc0fa15740c820eb295987df23b7121a0f",
+        "actions.json": "03d8ba6664b359988a254b0b85136b29a95f48d60e969fe7103afff3ef5a7a2a",
+        "assertions.json": "fd7028306fc771235282ce0e26c397cdd0bb91ff1fa2482afe6d839af9509f77",
+        "expected_final_gamestate.txt": "278264d9e5990734e8a3d2f1641bfe120bfd0dd0c1b0d03e56c271260872a62e",
+        "meta.json": "5ff082996b9a9dc9ef314f66d0d9b1449cfcca133ccc0cf502542578b4bc93f3"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

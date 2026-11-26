@@ -1,0 +1,108 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "/root/breadth_review1457",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1540-20261122.json",
+  "source_spec_sha256": "637902f5c88a5b8e69c44ed7365492c775b35cfecc241b8f73625608c520cad7",
+  "input_sha256": "637902f5c88a5b8e69c44ed7365492c775b35cfecc241b8f73625608c520cad7",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-consuming-aftermath-red-four-live-sparse1540-real-potions-fund-empty-hand-no-dominate",
+      "card_id": "consuming_aftermath_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "5cad9533435e815ba573f0301b27a8ed143362ff3814692dad9f3dc6ea1e67d9",
+        "actions.json": "114da9a709c6b87620eafdcb7e8988cd0e6b031a507a1a8683aebd8a02d93304",
+        "assertions.json": "e483b1c7507297995e9ca5fda192dfdc6597ed957d017b925458d9293334108e",
+        "expected_final_gamestate.txt": "2df97aff59e4b4d489b636657a823ade22164b917ed9005bbacfc2f983b081f2",
+        "meta.json": "2fdf900f644232f1a7903af617169c1224c8ea055375e0088695671e1ec74dcb"
+      },
+      "fixture_sha256": "767a3e2282da78313d8e5015cdd362d109bfcd32513f0c4fc18fbe31c831e9e7",
+      "actions": 39,
+      "native_assertions": 580,
+      "author_only_checks_not_persisted": [
+        {
+          "step": 21,
+          "check": {
+            "kind": "defense",
+            "value": 3
+          }
+        },
+        {
+          "step": 22,
+          "check": {
+            "kind": "defense",
+            "value": 6
+          }
+        },
+        {
+          "step": 31,
+          "check": {
+            "kind": "defense",
+            "value": 6
+          }
+        }
+      ],
+      "actual_manual_pass_inputs": 33,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1540-20261122.json",
+      "input_sha256": "637902f5c88a5b8e69c44ed7365492c775b35cfecc241b8f73625608c520cad7",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1540-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-consuming-aftermath-red-four-live-sparse1540-real-potions-fund-empty-hand-no-dominate",
+        "fixture_slug": "card-consuming-aftermath-red-four-live-sparse1540-real-potions-fund-empty-hand-no-dominate",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "schema_version": 1,
+    "batch": 1540,
+    "reviewer": "/root/breadth_review1457",
+    "result": "approved_named_branches_only_pending_native_execution",
+    "reviewed_utc": "2026-11-25T11:30:09.343679+00:00",
+    "spec_sha256": "637902f5c88a5b8e69c44ed7365492c775b35cfecc241b8f73625608c520cad7",
+    "source_note_sha256": "1aaa76d7beefcbc24869d808a09e1ecfdbe7cc5a82a58d87b70869e5ef3cdd5b",
+    "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+    "source_sha256": {
+      "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+      "FaBSim/GeneratedCode/GeneratedMacroCode.php": "fe6a7982611df8f4de98ce2671b317b671b580146aa4b8c28e8f4b86d8461056",
+      "FaBSim/Custom/GameLogic.php": "c60fa151561f959e4e3e341b814de0e2b47c9e9f153bbc8793a04c43b5075061",
+      "FaBSim/Custom/WTRAbilities.php": "8c7b73f87e5151823dc8aab1546d7e0452e6a948e36fdf9b157d4aa5da0e2209",
+      "FaBSim/Custom/MONCards.php": "2eb22bda6f1dba583df2879046f9f4dec94f47f2e9b28f369758f3af72c9c3ac",
+      "FaBSim/ZoneAccessors.php": "9967567a9a10df81a6f22df820d4d77258828657e95c4ad145b8b13ce17866a7"
+    },
+    "cases": 1,
+    "findings": [
+      "LeviaShadowBrute20 legally supports primary Shadow-only AA6/cost3; no claim primary is Brute-typed.",
+      "Two realPotionInstantdestroycosts/ABI10,11 allfourresponses eachR0->2->4/AP1. LegacyABIprotocolOwner0/Controller1/source5or6 and physicalownedGYcards checked.",
+      "SoleHand7 toStack emptiesHand; Prepare7051cases11/10/6/5/1 skips optionalmaterialPASS/null. Actualcost3/R1/AP0, noShadowbanish/noDominate; bothactualHand3def accepted6vs6 zero. LeviaBloodDebtconditionstatic, noendphase/banish/hittrigger. Exactfullfourclose GY5,6,7 anddef8,9 correct."
+    ],
+    "limits": [
+      "Zerooptionalbanish subset only. Positive099banish-costorder, othermaterials andwholecard/support/sibling remainunverified. Readonlysource/spec review, noreviewer games/tests/writes."
+    ]
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1540-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "fba9560aef0e717ae8b59aca9aa0016346c8ef18d91616b5a6f6d9fdf915b9ed"
+  },
+  "full_suite_run": false
+}

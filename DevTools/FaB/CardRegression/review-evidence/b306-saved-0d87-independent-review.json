@@ -1,0 +1,130 @@
+{
+  "status": "APPROVED_EXACT_SAVED_B306_ARSENAL_GA_FULL_BLOCK_REPLAYS_SEPARATE",
+  "reviewer": "/root/nov2_sparse_author",
+  "reviewed_utc": "2026-11-03T08:01:41.582633+00:00",
+  "runtime_sha256": "0d877de49c131f29c152706e14bba3368630df61c59ef475c87a84f20b6e1a66",
+  "input_file": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch306.json",
+  "input_sha256": "75376992de0f0e66fca6ed95d4b892ab221eb88b813a92412f1d699188e6df4c",
+  "manifest_sha256": "f6182307be503d25a307aef8079802a026c9a2bfd26b3a609091886b8ea5fe27",
+  "fixtures": [
+    {
+      "slug": "card-fervent-forerunner-red-four-live-sparse-real-arsenal-origin-go-again-after-complete-block",
+      "card_id": "fervent_forerunner_red",
+      "group_id": "pitch-cycle:fervent_forerunner",
+      "fixture_sha256": "ec4be0495cc2d92550bca2abfe790785d40ecaa5d4b2363fce047a1232f163f9",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "cffca260a0aaef25342a000609afd6a7c2421392f18df8acf6b75eea1c3f369c",
+        "actions.json": "a5f45af847b1b2a77034bc61fce22b48c0c13f012da798b954f58e55731d93db",
+        "assertions.json": "26e1cd33e7a35db87a65c22981d9c7ec72b684dc080d2b8696cbec77a9b49825",
+        "expected_final_gamestate.txt": "c7e8c11a653fe093856f642adfd8633b376cc24c872680fa37b7f2bf5db60609",
+        "meta.json": "bbabf6b9c30df2f4b3f682a92a4477f1a5f74b50c2f999f2798e412e4d0802cf"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "cffca260a0aaef25342a000609afd6a7c2421392f18df8acf6b75eea1c3f369c",
+        "actions.json": "a5f45af847b1b2a77034bc61fce22b48c0c13f012da798b954f58e55731d93db",
+        "assertions.json": "26e1cd33e7a35db87a65c22981d9c7ec72b684dc080d2b8696cbec77a9b49825",
+        "expected_final_gamestate.txt": "c7e8c11a653fe093856f642adfd8633b376cc24c872680fa37b7f2bf5db60609",
+        "meta.json": "bbabf6b9c30df2f4b3f682a92a4477f1a5f74b50c2f999f2798e412e4d0802cf"
+      },
+      "actions": 28,
+      "native_assertions": 2285,
+      "actual_manual_pass_inputs": 25,
+      "actual_manual_passes": 25,
+      "manual_passes": 25,
+      "priority_pass_inputs": 24,
+      "defending_declaration_finish_inputs": 1,
+      "manual_pass_actor_counts": {
+        "1": 6,
+        "2": 6,
+        "3": 6,
+        "4": 7
+      },
+      "priority_actor_counts": {
+        "1": 6,
+        "2": 6,
+        "3": 6,
+        "4": 6
+      },
+      "semantically_approved": true,
+      "every_native_action_and_assertion_exactly_maps_to_approved_source": true,
+      "initial_and_final_snapshots_fully_parsed": true,
+      "all_four_live_and_all_48_manual_preferences_verified": true,
+      "physical_uid_conservation_without_duplicates": true,
+      "final_original_physical_uids": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "final_deck_uids": [
+        7,
+        8
+      ],
+      "final_graveyard_uid_sets": {
+        "1": [
+          5
+        ],
+        "2": [],
+        "3": [],
+        "4": [
+          6
+        ]
+      },
+      "final_health": [
+        20,
+        20,
+        20,
+        20
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_action_points": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "no_virtual_uid_allocated": true,
+      "physical_findings": "ActualfacedownArsenal5→freshP4target→real0resource/AP1payment→source5Stack/fromArsenal retained through4responses→same5Chain power3/earnedGA. RealP4Hand6 printeddef3 physicallydefends/RoleDEFENSE/FromHand; actual3minus3=0/allHP20/nohit. Every nativecheckpoint keeps originalDeck7,8/Temp0; no Opt choice executes. AP0through3DAMAGEresponses, AP1onlyfourth→RES. Fullsame5GY1/same6GY4/publicowners/controllers andalloriginalUID1-8conserved, no virtualallocated, Deck7/8 byteidentical before/after. Actual4live/manualsettings/queues/cleanup verified.",
+      "qualification": "One Red cycle Arsenal-GA/fullblock positive representative. No successfulHitOpt2/noArsenalcondition/unblockedattack/secondattack/hero/support-primary/sibling/fullcard/rejection/control credit."
+    }
+  ],
+  "blocked_attempts": [],
+  "source_expectation_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch306-independent-source-review.json",
+    "sha256": "61d5bef186e2029111dbb2c5451a4f20b69467f3650f696b34f232d7d1657ea3",
+    "manifest_sha256": "f6182307be503d25a307aef8079802a026c9a2bfd26b3a609091886b8ea5fe27"
+  },
+  "immutable_native_archive": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch306-20261103T075925Z-6ae9945d691b1.json",
+    "sha256": "afa21265a6d4aa4bee7afccb97bd57a6daed05d903984acdc24f1521fa3bde00"
+  },
+  "recording_results": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch306.recording-results.json",
+    "sha256": "d117a12befd625a33258e765f22e321df3fd8c95a844bb399ca66061c669260e"
+  },
+  "native_wrapper": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch306-native-r1\\receipt.json",
+    "sha256": "b57e6257b616b66cf8d2dad5dbea03b5fc35a81e66d12af7d1104126057840eb"
+  },
+  "reused_pure_readonly_helpers": {
+    "review_nov3_batch269_saved_readonly.py": "e339d37f4f4da91e01b26ae282f6302b1b1c4c6ec4a13715e4f7726016fb0641",
+    "review_nov3_batch270_saved_readonly.py": "16278de0c810a2c4909430c44e4d3e76dc4e716e92172eb403b4e33089adf8a0",
+    "review_nov3_batch271_saved_readonly.py": "e3b66ee7901ab0c0b5ebbec9176e4b29c02b97b67a93254d6dee572237058813"
+  },
+  "focused_controls": "NOT_RUN_NOT_CLAIMED",
+  "replays": "NOT_CLAIMED_BY_THIS_SAVED_REVIEW",
+  "limits": [
+    "Exact saved passing representative only; successfulHitOpt2/otherbranches remain unexecuted/uncredited.",
+    "Replay qualification belongs to separate actual Root reports.",
+    "No R writes, native/PHP execution, source changes, generator/backend/service/fullsuite by reviewer."
+  ]
+}

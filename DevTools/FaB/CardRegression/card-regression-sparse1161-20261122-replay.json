@@ -1,0 +1,56 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-conduit-of-frostburn-four-live-sparse1161-real-quell-one-pitch-payment-and-deferred-destruction",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-conduit-of-frostburn-four-live-sparse1161-real-quell-one-pitch-payment-and-deferred-destruction",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1161-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1161-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "7c70bde31c025d787eae02abef83a76cf26ee94026820c5c9bd1e68330e86cd7",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "00ae6274a4ae66830e0673ed82c54dda5f834d4b10c7fc66009c341ce31a6aab",
+        "actions.json": "abeb3c8b027bfa26d05afb7a0c385c41d6388c2ae6f8105e03a2cd84dc242119",
+        "assertions.json": "3d05a796b2a1f25f94f87cd0bb0ac68d8761292662849d970d6c99e007d38161",
+        "expected_final_gamestate.txt": "052b884509d341375d74b67308f3dda238830362e02a3defd972b8ed1d2a54bd",
+        "meta.json": "bbe9cbec377c83d6d4cc4aeff601885e184cb81afa842978604e8623539b7600"
+      }
+    },
+    {
+      "slug": "card-silken-form-four-live-sparse1161-real-quell-one-pitch-payment-and-deferred-destruction",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-silken-form-four-live-sparse1161-real-quell-one-pitch-payment-and-deferred-destruction",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1161-local-20261122\\clean-replays\\01.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1161-local-20261122\\clean-replays\\01.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "120a19938784de50797085a70c67593071ef0d258a69d0cb5718599614a0663e",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "627eb569eef27ad2ca0ca8a70289258dbcaef1cf29b2b563b6a6f2f7c4627500",
+        "actions.json": "abeb3c8b027bfa26d05afb7a0c385c41d6388c2ae6f8105e03a2cd84dc242119",
+        "assertions.json": "8a89f8a5a9f6fb5f83481dc0fbad32dff1c0428764a70af79ffae6cd5625a259",
+        "expected_final_gamestate.txt": "64bb301a40bd6eb9357843816d527915c3a6fe89ba085a23fd987e7539ba61bd",
+        "meta.json": "7cebb5431af39ed7dae617aac0537ec76452e4b79a8d386b066e3fed5f0919a6"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

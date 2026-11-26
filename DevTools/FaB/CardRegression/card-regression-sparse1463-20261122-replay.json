@@ -1,0 +1,148 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-sit-red-four-live-sparse1463-generic-non-overpower-attack-does-not-earn-printed-defense-condition",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-sit-red-four-live-sparse1463-generic-non-overpower-attack-does-not-earn-printed-defense-condition",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1463-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1463-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "d7990905bdb9d29a874fe8a45b1fbe088a946de285fe595a63e5a3dc33ff9c27",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "bd9d6f5620054309129ffc271a2ee0a7573f50d53d3fe22ca5607ebd6c7d9d4e",
+        "actions.json": "7f1369969f97aed5d86f58799e04f153711f5b54ba2a8e29ed493fe9985a8a01",
+        "assertions.json": "e8fb549415ab4e83501633e2cfcff5c0f1a7e2e57a04df2a0fee9a8ae0a0ef7d",
+        "expected_final_gamestate.txt": "eca4c535e0cfc03d2ff6c92a6018a97f9b5f7c3bce419f7e0e4c329faddf6262",
+        "meta.json": "4fbf8ab20610de09fb4a10f588166387e6c2d2b7d32fdc530cde65861c26e32e"
+      }
+    },
+    {
+      "slug": "card-teklonetic-force-field-red-four-live-sparse1463-generic-non-overpower-attack-does-not-earn-printed-defense-condition",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-teklonetic-force-field-red-four-live-sparse1463-generic-non-overpower-attack-does-not-earn-printed-defense-condition",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1463-local-20261122\\clean-replays\\01.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1463-local-20261122\\clean-replays\\01.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "119b9bb19c5e4338dc9022952c29c7a838326e60738a11d63ffcfc5667fbb871",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "628dd6ed79af9ac2d108ea26067ec1bbb53bd08c02c67b8b773874aded3cc156",
+        "actions.json": "7f1369969f97aed5d86f58799e04f153711f5b54ba2a8e29ed493fe9985a8a01",
+        "assertions.json": "ada6d66fd7bbd4873cee5a52297499d7485bb9851c874e46c461124207c609a5",
+        "expected_final_gamestate.txt": "8c62304729853c6fe54293e8191b76c6b34bb2eb403a165b0a97c501cc484f33",
+        "meta.json": "51f6a656a64b54a0287908bd1e33cd79329987c835f953ccb31fff2b25fa2092"
+      }
+    },
+    {
+      "slug": "card-clash-of-arms-yellow-four-live-sparse1463-generic-non-overpower-attack-does-not-earn-printed-defense-condition",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-clash-of-arms-yellow-four-live-sparse1463-generic-non-overpower-attack-does-not-earn-printed-defense-condition",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1463-local-20261122\\clean-replays\\02.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1463-local-20261122\\clean-replays\\02.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "581ffc69aa76c2e6dff2c409ec3e2070883e55e28bf0ee26802dc80bb765e09f",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "c03c5478814bd2ad1a15494284903faaf268207def1d37469fc8cf9995148820",
+        "actions.json": "7f1369969f97aed5d86f58799e04f153711f5b54ba2a8e29ed493fe9985a8a01",
+        "assertions.json": "b5d26ada3623a9f8c1136e886923e9fc678dcc3389126d656a282e6803d1c19b",
+        "expected_final_gamestate.txt": "d7dc920dd00420cdfc92b6c555e886cf184fbf553d9fa0ec1460f5c9f9b5a0b5",
+        "meta.json": "e36c7832d5f97f334bee4ea9506611260852618b4834f21aad6464a409a9897c"
+      }
+    },
+    {
+      "slug": "card-clash-of-chests-yellow-four-live-sparse1463-generic-non-overpower-attack-does-not-earn-printed-defense-condition",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-clash-of-chests-yellow-four-live-sparse1463-generic-non-overpower-attack-does-not-earn-printed-defense-condition",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1463-local-20261122\\clean-replays\\03.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1463-local-20261122\\clean-replays\\03.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "3fd46a43f34b2d0bbcc99fce6b485b01a64cfda19dd9c461a6ffcdde42e1b126",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "776900e9ce5013d69ad4c82e761b48c40805b6d9e8167ebffa694bd0fe0709ce",
+        "actions.json": "7f1369969f97aed5d86f58799e04f153711f5b54ba2a8e29ed493fe9985a8a01",
+        "assertions.json": "8ee0c95a9fd5386c1e39f4b67f7f1fe9181f656e1d013d4423629dfae712ced6",
+        "expected_final_gamestate.txt": "60275a92d4dc0af83e7bd5662b3d15a9ba5048f7fce274cae546d321b0851331",
+        "meta.json": "052eab71213018b92885dbe3034d4545d94f467b44b085f722d360528714883d"
+      }
+    },
+    {
+      "slug": "card-clash-of-legs-yellow-four-live-sparse1463-generic-non-overpower-attack-does-not-earn-printed-defense-condition",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-clash-of-legs-yellow-four-live-sparse1463-generic-non-overpower-attack-does-not-earn-printed-defense-condition",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1463-local-20261122\\clean-replays\\04.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1463-local-20261122\\clean-replays\\04.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "d4b646bbdbf46d0084de24aa64e9b8c590410b8e21e7f0e0be77526c2e184611",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "0ad1735e0f547de1ee91686828c9791d61ae5bde01f1372d86a124ad9577e3e7",
+        "actions.json": "7f1369969f97aed5d86f58799e04f153711f5b54ba2a8e29ed493fe9985a8a01",
+        "assertions.json": "5c0e2a5f15a502cfb0cd903ebc5136771e34ddc178c32d1379a6084d6343d501",
+        "expected_final_gamestate.txt": "4f18a92750b236660959b1bcc81052999b9e7acd50c7f719da709140d0877235",
+        "meta.json": "18f44602d87c00c054d1e8796d93fa699fedac61d871d333acfd277f4748b34c"
+      }
+    },
+    {
+      "slug": "card-clash-of-shields-yellow-four-live-sparse1463-generic-non-overpower-attack-does-not-earn-printed-defense-condition",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-clash-of-shields-yellow-four-live-sparse1463-generic-non-overpower-attack-does-not-earn-printed-defense-condition",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1463-local-20261122\\clean-replays\\05.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1463-local-20261122\\clean-replays\\05.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "dfd3adfd057da345d17473c1aa2dba316731836377fbb6dead336022e84bf496",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "9542d4d3e4f927b30a86f8221d4112af03cb724350a3a2d7a40b8496f34c31c7",
+        "actions.json": "7f1369969f97aed5d86f58799e04f153711f5b54ba2a8e29ed493fe9985a8a01",
+        "assertions.json": "859e1a7126027a1a2aa52b0cbaa9aa8856a415eee67d9dd3b936ab1d51cb6f1e",
+        "expected_final_gamestate.txt": "88594bbfc9f83550ae09cbf7f452cea3d36d519aefd23afcff114e7a572f768f",
+        "meta.json": "c41960c3b815d29c539fdd8f7eeb28863b753ebf233871cc95972f8b7e395553"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

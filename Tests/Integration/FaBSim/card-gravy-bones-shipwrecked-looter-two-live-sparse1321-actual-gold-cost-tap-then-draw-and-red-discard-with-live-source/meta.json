@@ -1,0 +1,7 @@
+{
+    "name": "Gravy Bones, Shipwrecked Looter / actual gold cost tap then draw and red discard with live source",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-24T06:53:47+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "TWO_REAL_MANUAL_ADULT_gravy_bones_shipwrecked_looter40_DORI40. DistinctunrepresentedadultHeroidentity; youngcounterpartnotcredited. ActualprintedInstantwithNOresourceorAPassetcost, realtapandselectedeffectcostbeforefreshresponses2then1; AP1preserved/R0beforebody. RealownedGold3destroyed/token ceases,Hero1tap2to1; realBlue5DeckdrawntoHandafterRed4; virtualABI6SourceHero1remainsStackthroughmandatorydiscardchoice, actualRed4discardedownGY/drawnBlue5retained, thenABIclears. RednotBlueGYsoWateryGravepermissionnotearned/untested. Actualassets/HP40both/UID/RNG/pendingpayments/queues/virtualsourcecleanupstrict. Noextraactivations/otherHeroabilities/tokenproducer/positiveconditional/othermode/UPF/wholecardcredit. Known099nonzeroassetseamnotused. Sources: FaBSim/GeneratedCode/cardArrayCache.json#gravy_bones_shipwrecked_looter FaBSim/GeneratedCode/GeneratedMacroCode.php FaBSim/Custom/GameLogic.php FaBSim/Custom/ARCAbilities.php FaBSim/Custom/SEARuntime.php FaBSim/Custom/SUPCards.php"
+}

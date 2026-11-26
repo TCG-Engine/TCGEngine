@@ -1,0 +1,7 @@
+{
+    "name": "Bingo / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T21:05:06+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "When this hits a hero, they reveal a card from their hand. If an attack action card is revealed this way, this gets **go again**. If a non-attack action card is revealed this way, draw a card. ActualGenericHandblocks3+3fullyblock5/6, zeroactualdamage/nohit/AP0, physicalcardsownerGY. Positivehiteffects andexactunblockedpower notcertified. Sources: FaBSim/GeneratedCode/cardArrayCache.json#bingo_red"
+}

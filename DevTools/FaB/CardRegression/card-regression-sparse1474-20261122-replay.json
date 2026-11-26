@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-smoldering-steel-red-four-live-sparse1474-real-ice-bond-frostbite-creation-replaced-by-graveyard-banish",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-smoldering-steel-red-four-live-sparse1474-real-ice-bond-frostbite-creation-replaced-by-graveyard-banish",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1474-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1474-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "6d6c39fc8f3c79d64e8a21f6c971db8d64a8349b42c0292a44cff404564669b9",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "f4ea6a2fdc31911a7256b663dfb4f2761ff1fd453e4d4b7719d6d39c5ffb4e7b",
+        "actions.json": "36f792c94e2c05c23b2c8c6b82c0069b0e6ff1c7b65b0156343e06f9f03d2f42",
+        "assertions.json": "c7b537084fdb402437c3d8348dd9d9f47cacb91d719360c285565943255929bb",
+        "expected_final_gamestate.txt": "21415ddb29b0670ea0c7386dd4ea0da025f50864ac9425b82fa0c19189dd4e8f",
+        "meta.json": "8412c20d5179231058b4fa14d4ecca3b2931863241f049298e2f64bfa1a0c4a4"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

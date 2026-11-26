@@ -1,0 +1,27 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch451.json",
+  "runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+  "returncode": 0,
+  "completed_utc": "2026-11-05T10:59:57.757447+00:00",
+  "fixtures": [
+    {
+      "slug": "card-panel-beater-red-four-live-sparse-real-zero-defense-equipment-block-adds-one-power-and-damage",
+      "fixture_sha256": "29adbb9ab0424f6db96fc4e5005ab407ca80c464632fe6b683abc47c1bcd699b",
+      "passed": true,
+      "result": "[PASS] panel_beater_red / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-panel-beater-red-four-live-sparse-real-zero-defense-equipment-block-adds-one-power-and-damage",
+      "returncode": 0,
+      "stdout": "[PASS] panel_beater_red / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

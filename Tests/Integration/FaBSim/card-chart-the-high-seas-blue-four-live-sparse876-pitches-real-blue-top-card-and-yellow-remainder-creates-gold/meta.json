@@ -1,0 +1,7 @@
+{
+    "name": "Chart the High Seas / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T15:19:38+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Look at the top 2 cards of your deck. You may pitch a blue card from among them. Put the rest into your graveyard.\n\nCreate a Gold token for each yellow card put into your graveyard this way.\n\n**Go again** Representative only: pitches_real_blue_top_card_and_yellow_remainder_creates_gold. Other pitch siblings, alternate targets and unexercised branches receive no credit. All four live/manual; only native entry-point actions. Sources: FaBSim/GeneratedCode/cardArrayCache.json#chart_the_high_seas_blue"
+}

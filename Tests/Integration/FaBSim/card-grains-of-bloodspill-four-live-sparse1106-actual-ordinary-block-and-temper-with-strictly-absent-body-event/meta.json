@@ -1,0 +1,7 @@
+{
+    "name": "Grains of Bloodspill / four-live ordinary defense and keyword",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-23T08:10:01+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Whenever a weapon attack you control hits, you may pay {r}. If you do, create a Vigor token. \n\n**Temper** Named ordinary printedDEF2 and Temper branch only. Legalnatural dorinthea20 owns real primaryEquipment5 and GenericHand6. Primary controller4 never attacks and controls no weapon; opposing player1 Club attack fullyblocks/nohit. No own weapon-hit event occurs. ActualopponentRhinarClub7base4/cost2paidbyBlue8pitch3/R1/AP0. GenericLeadChargeRed6DEF2+Gear2 exactlyblock4. Allfourmanualsource/combat; real0damage/HP20/noHit, normalCloseoneTemperDEFENSEcounter1retainsgearcurrentDEF1/Hand6owner4GY, physicalClub7used1/Pitch8 retained. No bodyevent/positivebodyeffect/hero/equipproducer/support/sibling/fullcard credit; noheldrepairs altered. Sources: FaBSim/GeneratedCode/cardArrayCache.json#grains_of_bloodspill"
+}

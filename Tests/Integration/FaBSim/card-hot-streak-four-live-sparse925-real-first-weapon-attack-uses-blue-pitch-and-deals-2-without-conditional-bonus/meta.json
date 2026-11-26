@@ -1,0 +1,7 @@
+{
+    "name": "Hot Streak / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T20:01:20+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "**Once per Turn Action** - {r}: **Attack**\n\nWhen this is defended by 1 or more attack action cards, this card's attacks get **go again** this turn. Representative only: real_first_weapon_attack_uses_blue_pitch_and_deals_2_without_conditional_bonus. Other pitch siblings, alternate targets and unexercised branches receive no credit. All four live/manual; only native entry-point actions. Only first native attack ability; conditional weapon bonus, repeated attacks and end phase untested. Physical weapon stays Weapons; attack proxy has no asserted rules owner. Sources: FaBSim/GeneratedCode/cardArrayCache.json#hot_streak"
+}

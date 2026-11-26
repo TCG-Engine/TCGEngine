@@ -1,0 +1,7 @@
+{
+    "name": "Erase Face / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T21:24:29+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "When this hits a hero, cards they own lose all class and talent types until the end of their next turn. Representative only: actual_two_hand_blocks_prevent_hit_and_keep_real_markers. Actual printed payment, two real Generic Hand defenses, four live manual seats/full combat, zero hit, owned source/defenders in their graveyards. Positive Hit/secondary banish effects untested. Sources: FaBSim/GeneratedCode/cardArrayCache.json#erase_face_red"
+}

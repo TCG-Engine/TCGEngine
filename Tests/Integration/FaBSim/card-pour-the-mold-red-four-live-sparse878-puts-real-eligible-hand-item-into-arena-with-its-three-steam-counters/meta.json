@@ -1,0 +1,7 @@
+{
+    "name": "Pour the Mold / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T15:35:11+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Put a Mechanologist item with cost 2 or less from your hand into the arena.\n\nIf you've **boosted** this turn, put a steam counter on it.\n\n**Go again** Representative only: puts_real_eligible_hand_item_into_arena_with_its_three_steam_counters. Other pitch siblings, alternate targets and unexercised branches receive no credit. All four live/manual; only native entry-point actions. Sources: FaBSim/GeneratedCode/cardArrayCache.json#pour_the_mold_red"
+}

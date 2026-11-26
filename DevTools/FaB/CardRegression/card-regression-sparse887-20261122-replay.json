@@ -1,0 +1,56 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-chart-a-course-red-four-live-sparse887-optional-island-counter-declined-then-actual-first-attack-earns-ten-damage",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-chart-a-course-red-four-live-sparse887-optional-island-counter-declined-then-actual-first-attack-earns-ten-damage",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse887-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse887-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "b65f5f48ade8dcad9e542851dadb72f8cb3676de24398963bf2fc02ad7f4ae01",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "ac549584976b3ffcf269ded38fbc3f6381546f65200c22fc76daffe7d098cdc5",
+        "actions.json": "55acd4002610205ecd7c25babeb1725168b94959aba28ce2911067e8c54b9fda",
+        "assertions.json": "5e7ebffebe0b7945a342cd9a2991ab250f0b3baa997a141ae61beb1226f2881b",
+        "expected_final_gamestate.txt": "3e6acb7b601dd05218a6726f8ba2544ea101e6ca6bbddd0347e0ac9b57efbe88",
+        "meta.json": "5be5785a4c487579253eacb2efc397aafcb1eccb1c267b4b035fcbea40d702ac"
+      }
+    },
+    {
+      "slug": "card-perk-up-red-four-live-sparse887-declines-hero-untap-then-real-unboosted-mechanologist-attack-earns-eight-damage",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-perk-up-red-four-live-sparse887-declines-hero-untap-then-real-unboosted-mechanologist-attack-earns-eight-damage",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse887-local-20261122\\clean-replays\\01.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse887-local-20261122\\clean-replays\\01.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "7edba6c33772ed6dc50f0654e6b2a7d520ce566af6271c92c697eda4b6b65541",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "db2f4e83c61a080d7431947017467f5e0266d13e46223d4c9dbf0ea481fa9553",
+        "actions.json": "8855d2765f7778059e4b82f4a8964f0ca43767c6a00d0b501112f74a5b64b2b7",
+        "assertions.json": "7471e2a21f7fbeaff412a7b025f4597d1b4240fbd7f8db985036067bb5801f82",
+        "expected_final_gamestate.txt": "0fc744ff761791729f31bc2eb48784e7ae00e2c93cd7c4b450d4796e10e85c5c",
+        "meta.json": "ea0a491a51b24465657a929bdb54e386cedb5d1709c90b4e035c6f8f5f8f1379"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

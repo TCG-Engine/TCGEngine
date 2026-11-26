@@ -1,0 +1,27 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch872-steel-automatic-start-real-saber-three-positive.json",
+  "runtime_sha256": "cdc081ff4c87ff2f9338b1d69040d0dc98d7600ba33976384336534ea3f92d22",
+  "returncode": 0,
+  "completed_utc": "2026-11-16T14:48:16.792676+00:00",
+  "fixtures": [
+    {
+      "slug": "card-blessing-of-steel-blue-four-live-automatic-start-real-saber-three-damage",
+      "fixture_sha256": "a3f5714d9dc2350e1deaa4f3903b68176cf33cab4ea7c220a6b5e1032465d669",
+      "passed": true,
+      "result": "[PASS] Blessing of Steel Blue / automatic Start then actual Saber deals three"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-blessing-of-steel-blue-four-live-automatic-start-real-saber-three-damage",
+      "returncode": 0,
+      "stdout": "[PASS] Blessing of Steel Blue / automatic Start then actual Saber deals three\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

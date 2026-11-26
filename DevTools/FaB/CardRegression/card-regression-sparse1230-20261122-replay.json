@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-embodiment-of-lightning-four-live-sparse1230-real-trigger-destroys-token-then-grants-only-first-attack-go-again",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-embodiment-of-lightning-four-live-sparse1230-real-trigger-destroys-token-then-grants-only-first-attack-go-again",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1230-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1230-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "54dc9d057c15ba6090a97d2e3c93601296406be5ce9bb20ed10649ee08d9a58d",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "dd2713e9352a609f68224b39c987fbe4f688d2b422bfe69048fbdad7068f7a5c",
+        "actions.json": "721be4324791acac6e2f0d8a193b9bd806a993ef8c77b41601bb9b7edc4247aa",
+        "assertions.json": "aa0266c21d7d24c1ddfa474df66e1365808937a2d0fd5f6fae8366a3df1d9245",
+        "expected_final_gamestate.txt": "585ec337b7430c412dadbc93af0ca2dbcd27051af8ac683cbfcad80eeee16fcd",
+        "meta.json": "19986d7b38bc8dbeb7ada7350c93e05c64b7b6ce2443dc77e865749b1813edb8"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

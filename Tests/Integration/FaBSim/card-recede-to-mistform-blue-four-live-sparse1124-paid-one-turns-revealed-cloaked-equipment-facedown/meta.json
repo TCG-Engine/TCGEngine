@@ -1,0 +1,7 @@
+{
+    "name": "Recede to Mistform / actual paid X1 turns existing revealed equipment face-down",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-23T09:54:40+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Choose X equipment with cloaked you have equipped. Turn them face-down. Named paid-X1 actual face-down branch. Young Mystic Nuu20 owns existing legitimately previously revealed RipplingWave7 FaceDown0 with admitted mstFlipped=true, matching prior accepted1069 representation; its prior flip/equip producer is unrecorded and uncredited. Actual primary5 announces NUMBERCHOOSE1 before costs, actual Blue6 pitch3 pays1/R2 while Instant preservesAP1. Four live manual responses precede actual nonTarget MZMULTICHOOSE one real equipped Cloaked7 while physicalsource5 staysStack and7 staysfaceup. Selecting7 turns the same owned/controlled ready Equipment face-down1, without moving it, allocating a new object or resetting mstFlipped. Source5 clears to ownedgraveyard,6Pitch/AP1/R2/allHP20. No prior/current native cloak equip/flip producer, history reset/reactivation/ability admission, durability/body/expiry, alternate X/pitch, hero/support identity or whole-card credit. Pending independent Root review/native Save/one clean replay. Sources: FaBSim/GeneratedCode/cardArrayCache.json#recede_to_mistform_blue"
+}

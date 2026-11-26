@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-fire-and-brimstone-red-four-live-sparse1087-real-reaction-cost-buffs-current-dagger-attack-one-to-two",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-fire-and-brimstone-red-four-live-sparse1087-real-reaction-cost-buffs-current-dagger-attack-one-to-two",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1087-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1087-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "6b7f79437660355a8a4bbf8b5d2cdd15a09e0c31231254e08f2186321ef2b4d4",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "295a277fda4e89fade2de9959a4528d16e2a1ed334a5308142a1b7f0e684f267",
+        "actions.json": "a6a003ac54e6585051c3a1348f48dc4fd5d583cd75a2ebdb6889af3878dffc38",
+        "assertions.json": "9851e2e4278404ab5066e9348ab615e1d1ec23a65f97940c9595f2405ed143b8",
+        "expected_final_gamestate.txt": "200f57ab9a59067b8e3065c04aae670015d4879aec39095f51b1955011cc4ddb",
+        "meta.json": "0c7aca6d4afa7c70fc6adc502e6da4f09b4f8ab2879c5b07630b3fb3a4ec0c89"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

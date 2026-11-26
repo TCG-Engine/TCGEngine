@@ -1,0 +1,7 @@
+{
+    "name": "Golden Glare / four-live ordinary block with no joined-condition event",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-23T08:08:45+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "**Victor Specialization**\n\nWhen this defends together with 2 or more yellow cards, create a Gold token.\n\n**Blade Break** Named ordinaryDEF2/BladeBreak positive with strictly absent joineddefender event. Legalnatural victor_goldmane20 controls primaryEquipment5, actualGenericLeadChargeRed6NAADEF2 and realunusedDeckWoundingBlue8 marker. Actualopponent1WoundingRed7AAcost0/AP0/4power declaresadjacent4, allfourmanualsource/combat. DefenderHand6thenEquipment5defend2+2=4; zero yellow defending cards, so event requiring two yellow partners does not occur. No bodylayer/Gold/heroDraw/discard/draw effect earned. Actual0damage/noHit/HP20, defendersstaychain/GY0 untilClose. BladeBreakclears5owner4GYafterHand6, AA7owner1GY, unusedDeck8retained; noArena/token/resource/RNG/APgain. No positivejoinedconditions, Gold/Victortrigger, actualdiscard/draw/hero/support/sibling/fullcardcredit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#golden_glare"
+}

@@ -1,0 +1,66 @@
+{
+  "status": "APPROVED_PLANNING_LIMIT_ONLY_NOT_GAMEPLAY",
+  "batch": 801,
+  "approved": true,
+  "planning_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "/root/sand_saved_recovery",
+  "created_utc": "2026-11-14T23:27:09.883847+00:00",
+  "card_id": "tentacular_toll_blue",
+  "group_id": "pitch-cycle:tentacular_toll",
+  "author_note": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov14-batch801-toll-known-awaited-source-lifetime-unattempted-planning-hold.json",
+    "sha256": "8edf9785474ab56fec87417d20d9a9ba2b4953d418cd712e4ece56f354c6577c"
+  },
+  "firm": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov14-batch801-firm-reservation.json",
+    "sha256": "52e7b98fb69d9cd0a8dbd54b22fde6d107f02e9ed5019b2f106951a62824d4bc"
+  },
+  "support_dependency_evidence": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov14-batch801-selected-helper-preflight-r2-reveal-evidence.json",
+    "sha256": "c54bcf35b8bce1c071badfbbf02aaf2fa360ca08d12f46baace9ec593247ea49"
+  },
+  "independent_limited_preparation": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov14-batch801-independent-rules-selected-path-preparation.json",
+    "sha256": "45c1838bae595336523ff98036b1ec9745f4153e537aa0bbfd8b4ad0d07cfef4"
+  },
+  "independent_preparation_reveal_correction": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov14-batch801-independent-reveal-evidence-availability-correction-r2.json",
+    "sha256": "d75ce02c40302d8c4990df97294c0534a74919aab573190cd94247aeae7e7cf5"
+  },
+  "runtime_sha256": "6695d68163d313f4f61cb20ad9122c7038e621a60c847909598150fe8da09d11",
+  "selected_preimage_count": 18,
+  "selected_preimage_map_sha256": "c9e976d64aa3496c435274c88e30125c1011e822fe2c0cd28222c5da17334af2",
+  "all_selected_preimages_independently_matched": true,
+  "actual_implemented_primary_body_sha256": "acd911d05d1570701e457c7bac2b8939a42f5829f4fa125da8d3d2a7d1f84521",
+  "known_contract": {
+    "file": "sparse-source-only-holds.json",
+    "json_path": ".holds[238]",
+    "card_id": "shadowrealm_solace_blue",
+    "row_sha256": "e059954432f260b50983871d6566a483dc2ea606044b91aee46a522e3e7c074c"
+  },
+  "bounded_independent_findings": [
+    "Toll printed Blue choice turns up to1 own allyGY face-down, then creates that many Gold; there is no target wording. Required positive resolution choice is legal and actual implemented await/body exists. Ordinary owned face-up BarnacleGY is setup, not ally play/death or permission credit.",
+    "Actual PENCards59-67 validates own face-up AllyGY and retains UID/zone while changingFaceDown. Current GL1571/1637 predicates both exclude Toll, and GL1823 moves physical spell toGY before await;1827 grantsGA while required choice/effects remain unfinished.",
+    "This exact selected mandatory positive choice exercises known Index/Solace238 awaited physical-source/AP lifetime contract. Known bad dependency stays unattempted; no zero-choice/baseplay substitute or Goldconsumer execution.",
+    "Quiet synchronous Throw is separately admitted only observable scope; its Source/native evidence does not cure or certify the required awaited Toll route."
+  ],
+  "planning_only": true,
+  "executable_cases": 0,
+  "native_attempted": false,
+  "diagnostic_attempted": false,
+  "fixture_saved": false,
+  "coverage_credit": false,
+  "new_issue_claimed": false,
+  "new_root_cause_group": false,
+  "confirmed_gameplay_bug": false,
+  "repair_proposal": false,
+  "source_fix": false,
+  "qualification_permitted": false,
+  "Gold_creation_activation_draw_AP_or_attack_native_observed": false,
+  "B787_denied_operation_untouched": true,
+  "limits": [
+    "Only fixed Blue representative; no untested RGB siblings, Gold token/activation/draw/GA/futureHP16, Gravy Hero, full-card or framework health certificate.",
+    "W evidence only; no PHP/native/replay/R/source/Git/repair or denied B787 operation."
+  ]
+}

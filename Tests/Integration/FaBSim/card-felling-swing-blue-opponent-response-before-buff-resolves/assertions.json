@@ -577,118 +577,118 @@
         "value": "[]"
     },
     {
-        "step": 9,
+        "step": 11,
         "type": "computed_power_equals",
         "viewerPlayerID": 1,
         "mzId": "p1CombatChain-0",
         "value": 6
     },
     {
-        "step": 9,
+        "step": 11,
         "type": "computed_go_again_equals",
         "viewerPlayerID": 1,
         "mzId": "p1CombatChain-0",
         "value": 0
     },
     {
-        "step": 9,
+        "step": 11,
         "type": "scalar_zone_equals",
         "viewerPlayerID": 1,
         "zone": "p1Health",
         "value": 20
     },
     {
-        "step": 9,
+        "step": 11,
         "type": "scalar_zone_equals",
         "viewerPlayerID": 1,
         "zone": "p1Resources",
         "value": 0
     },
     {
-        "step": 9,
+        "step": 11,
         "type": "scalar_zone_equals",
         "viewerPlayerID": 1,
         "zone": "p1ActionPoints",
         "value": 0
     },
     {
-        "step": 9,
+        "step": 11,
         "type": "scalar_zone_equals",
         "viewerPlayerID": 1,
         "zone": "p2Health",
         "value": 21
     },
     {
-        "step": 9,
+        "step": 11,
         "type": "scalar_zone_equals",
         "viewerPlayerID": 1,
         "zone": "p2Resources",
         "value": 0
     },
     {
-        "step": 9,
+        "step": 11,
         "type": "scalar_zone_equals",
         "viewerPlayerID": 1,
         "zone": "p2ActionPoints",
         "value": 0
     },
     {
-        "step": 18,
+        "step": 20,
         "type": "scalar_zone_equals",
         "viewerPlayerID": 1,
         "zone": "p1Health",
         "value": 20
     },
     {
-        "step": 18,
+        "step": 20,
         "type": "scalar_zone_equals",
         "viewerPlayerID": 1,
         "zone": "p1Resources",
         "value": 0
     },
     {
-        "step": 18,
+        "step": 20,
         "type": "scalar_zone_equals",
         "viewerPlayerID": 1,
         "zone": "p1ActionPoints",
         "value": 0
     },
     {
-        "step": 18,
+        "step": 20,
         "type": "scalar_zone_equals",
         "viewerPlayerID": 1,
         "zone": "p2Health",
         "value": 15
     },
     {
-        "step": 18,
+        "step": 20,
         "type": "scalar_zone_equals",
         "viewerPlayerID": 1,
         "zone": "p2Resources",
         "value": 0
     },
     {
-        "step": 18,
+        "step": 20,
         "type": "scalar_zone_equals",
         "viewerPlayerID": 1,
         "zone": "p2ActionPoints",
         "value": 0
     },
     {
-        "step": 18,
+        "step": 20,
         "type": "zone_count",
         "viewerPlayerID": 1,
         "zone": "Stack",
         "value": 0
     },
     {
-        "step": 18,
+        "step": 20,
         "type": "decision_queue_empty",
         "viewerPlayerID": 1,
         "player": "all"
     },
     {
-        "step": 18,
+        "step": 20,
         "type": "game_state_field",
         "viewerPlayerID": 1,
         "rootName": "FaBSim",
@@ -698,7 +698,7 @@
         "comparison": "missing_or_null"
     },
     {
-        "step": 18,
+        "step": 20,
         "type": "game_state_field",
         "viewerPlayerID": 1,
         "rootName": "FaBSim",
@@ -708,7 +708,7 @@
         "comparison": "missing_or_null"
     },
     {
-        "step": 18,
+        "step": 20,
         "type": "game_state_field",
         "viewerPlayerID": 1,
         "rootName": "FaBSim",
@@ -719,7 +719,7 @@
         "valueJson": "\"RESOLUTION\""
     },
     {
-        "step": 18,
+        "step": 20,
         "type": "card_property_equals",
         "viewerPlayerID": 1,
         "mzId": "p1Weapons-0",

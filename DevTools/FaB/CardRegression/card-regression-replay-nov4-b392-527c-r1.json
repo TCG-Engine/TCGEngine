@@ -1,0 +1,39 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch392.json",
+  "runtime_sha256": "527c3e3bf7e18d626fbaf23ae221d77fc65bf1ec080080758a7009069800afa2",
+  "returncode": 0,
+  "completed_utc": "2026-11-04T22:00:10.787549+00:00",
+  "fixtures": [
+    {
+      "slug": "card-ripple-away-blue-four-live-sparse-real-offturn-discard-reduces-opponent-three-runechant-batch-to-two",
+      "fixture_sha256": "9cdd556866fda2e292eca67d53fe13d3119a2f1503fd1192ffdeb47fb5c1faf1",
+      "passed": true,
+      "result": "[PASS] ripple_away_blue / four live distinctive effect"
+    },
+    {
+      "slug": "card-rip-through-reality-red-four-live-sparse-real-banish-play-runechant-arcane-earns-go-again",
+      "fixture_sha256": "e248950a53b379634fd2792bd29872f2ce0cec1aea974c3265123a6f9f8ab8b6",
+      "passed": true,
+      "result": "[PASS] rip_through_reality_red / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-ripple-away-blue-four-live-sparse-real-offturn-discard-reduces-opponent-three-runechant-batch-to-two",
+      "returncode": 0,
+      "stdout": "[PASS] ripple_away_blue / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-rip-through-reality-red-four-live-sparse-real-banish-play-runechant-arcane-earns-go-again",
+      "returncode": 0,
+      "stdout": "[PASS] rip_through_reality_red / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 2,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

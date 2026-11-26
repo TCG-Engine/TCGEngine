@@ -1,0 +1,56 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-haunting-specter-red-four-live-sparse1550-printed-ward-value-real-cosmo-aura-weapon-damage-only",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-haunting-specter-red-four-live-sparse1550-printed-ward-value-real-cosmo-aura-weapon-damage-only",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1550-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1550-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "cd4c1a9827663124a22ebbef8f9380386e56aacd9d71a778e195313d077f4cf9",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "bf88534d97a46a168a28816ed4e2d787458771c30da998e174bc50bf4cbf840b",
+        "actions.json": "836f6abec2fec2ea3ac1fbc219668dfc5bbfbbd8cbeb15582748b988171af799",
+        "assertions.json": "2b7d28e90465646ae37a0894e3df2ab3069f353dac8fd378e323d9f7a973e461",
+        "expected_final_gamestate.txt": "08a2f751c4cf7ba1a3853cdaf8617bfca2fc524160fdc8ad5b7156cc90e367b1",
+        "meta.json": "8f03e468a7165a38293f25cccc8add072b12d89c38c2590d90840f699e683aa4"
+      }
+    },
+    {
+      "slug": "card-essence-of-ancestry-soul-yellow-four-live-sparse1550-printed-ward-value-real-cosmo-aura-weapon-damage-only",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-essence-of-ancestry-soul-yellow-four-live-sparse1550-printed-ward-value-real-cosmo-aura-weapon-damage-only",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1550-local-20261122\\clean-replays\\01.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1550-local-20261122\\clean-replays\\01.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "923a5818a2b4f055bae249b19e5ceec3a71fe6bb629dfae3b9c29b5151d7ae99",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "2b02dafdfc2726c5bd057c0dae8a130ffc3f0f3e44bd1ee97b35cb841af28c63",
+        "actions.json": "836f6abec2fec2ea3ac1fbc219668dfc5bbfbbd8cbeb15582748b988171af799",
+        "assertions.json": "71104f9026a07135582b2ffbb6dd4267ba5ae6deff5ab17a329a4084852be809",
+        "expected_final_gamestate.txt": "dcb1d9cbb886e6a2f494855e621649c43000c10b7c94688d936b0cad03d270c1",
+        "meta.json": "fe930a1526e379b2b9e9cc1dfd765f6af4b157bc73b9f5784b3f066167eecf43"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

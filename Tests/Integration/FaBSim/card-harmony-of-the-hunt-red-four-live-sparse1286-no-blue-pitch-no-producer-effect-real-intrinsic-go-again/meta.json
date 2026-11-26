@@ -1,0 +1,7 @@
+{
+    "name": "Harmony of the Hunt / false prerequisite and actual intrinsic go again only",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-24T03:03:06+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "PARTIAL_NEGATIVE_PREREQUISITE_PLUS_ACTUAL_PRINTED_GO_AGAIN_ONLY; notpositiveproducercoverage. FourrealYoungzen20/threeDori20/manualUPF. Actualprimary5Handcost1andnormaladjacentHero4declaration. ActualnonBluecritical_strike_red6pitch1paysexactcost/R0; noBluecardpitched. NoBluepitchmeansintervening-ifTigercreationconditionfalse, soNOearnedtrigger/choice/newTiger. Allfourfreshresponsesmovereal5toCCwithprintedpower3/intrinsicGAtrue, realunblocked3damageHP4=17/AP0untillastDamagepass, thenAP1. Fullcleanactual5ownedGY/funderPitchifany, noTiger/Hand/Temp/Banish/Stack/DQs/newUID/RNG. NOtrueBlue/earlierRed producer/search/recovery/triggerresponse/tokens/support/fullcard/pitchsiblingcredit. Noenginefix, do notrelaxanyfalse-prerequisite orgoagainexpectation. Sources: FaBSim/GeneratedCode/cardArrayCache.json#harmony_of_the_hunt_red FaBSim/Custom/GameLogic.php FaBSim/Custom/MSTCards.php FaBSim/Custom/UPRCards.php"
+}

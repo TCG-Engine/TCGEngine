@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-jolly-bludger-yellow-four-live-sparse1448-nonpermanent-defender-cog-instant-nonfunctional-with-real-rally-defending-exception-control",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-jolly-bludger-yellow-four-live-sparse1448-nonpermanent-defender-cog-instant-nonfunctional-with-real-rally-defending-exception-control",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1448-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1448-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "3bb70342e9a58782f577ddd452ba3708ceced6a986f7dc4ced5b9be3c56bf37e",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "347d23635a9f16fd77874392e5006e2b55d1082fdd4639c976f1dcb15cd7fa16",
+        "actions.json": "db7f385638ea42a9d602c270ab5f013cad3e5dad1fccac56724e8ed1b7b69317",
+        "assertions.json": "fd4850791f0d1d7cdee35f2401ccbcfaa06f415fa8e233c58fd23732f74d8181",
+        "expected_final_gamestate.txt": "f4458064dc46d66d3c43069b3cbbff5bcf694f850e76cced12150a450f3e0fd5",
+        "meta.json": "9199b07b7b8f6581b6bd5fbaf5f7410bb49b5bb6611db75b705e2b2ff752fce9"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

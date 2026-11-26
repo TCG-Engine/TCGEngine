@@ -1,0 +1,56 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-buckling-blow-red-four-live-sparse980-actual-full-block-keeps-eligible-equipment-without-crush-counter",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-buckling-blow-red-four-live-sparse980-actual-full-block-keeps-eligible-equipment-without-crush-counter",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse980-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse980-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "c3e1bf81d0ff4d8a97703494831701cb5069853a15ea86311e2d76f2c148076a",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "50ce7ec5801b85cf4916c63ddb92573b182e2a9571f9e86bc22c009ebf6e4868",
+        "actions.json": "400c7ef141316ef795234399abbf4c39ff912cb043b7eeb5490a65df81f266b4",
+        "assertions.json": "ae9f4385fa0abc9fe39feb57dbd41746a2485c8ab93f70003cae3e2d0321fbb5",
+        "expected_final_gamestate.txt": "95d7e16029e67e017386b1f4405244ed1b0860b74aaa4c58518e26115c00283f",
+        "meta.json": "969fd7e1cce4b27bd22034f7fa079f7aadba704c2385909abcbf8dc979fdf117"
+      }
+    },
+    {
+      "slug": "card-flatten-the-field-red-four-live-sparse980-actual-full-block-keeps-eligible-seismic-surge-without-crush",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-flatten-the-field-red-four-live-sparse980-actual-full-block-keeps-eligible-seismic-surge-without-crush",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse980-local-20261122\\clean-replays\\01.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse980-local-20261122\\clean-replays\\01.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "c4f44d9e86e08abc06e03aa5fc6a2dc67686bb0250635e66143ce43d71bed5ab",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "0cd1cde4630b62ee2cb0975f2ff812ace310cebb14678bba528591a1b6f0d60b",
+        "actions.json": "400c7ef141316ef795234399abbf4c39ff912cb043b7eeb5490a65df81f266b4",
+        "assertions.json": "14232476a34f3076dee01869327d46954572efbb8cad6aa22fc852f8a6d3e302",
+        "expected_final_gamestate.txt": "9a639d22ce4775bc69e483d9473c27499be51eb4f84beb2fcbcb641beb140826",
+        "meta.json": "2d27d5776535197af215be3b628cffdfa5574d01e66d671c30e7646527d31998"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

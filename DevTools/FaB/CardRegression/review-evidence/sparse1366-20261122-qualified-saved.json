@@ -1,0 +1,166 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "independent breadth_review1252",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1366-20261122.json",
+  "source_spec_sha256": "fdf0ab1ca1218a3888c8a19897b8ead02d254ca6a6c485ae39d1410e1ee8d619",
+  "input_sha256": "fdf0ab1ca1218a3888c8a19897b8ead02d254ca6a6c485ae39d1410e1ee8d619",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-mark-of-lightning-four-live-sparse1366-generic-attack-real-hand-block-not-lightning-no-destruction-or-extra-damage",
+      "card_id": "mark_of_lightning",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "dd5de1afac59c0d155a74a1ac31014ad9f34cf5a4dd7e803f15d200dd3ab0112",
+        "actions.json": "391d0c3198a3462eb041e6d636e4470fb6e77a744dbc147221d49725d7cc518a",
+        "assertions.json": "a51d3091b284bf7ce3d595df90afb8b47db377a2b535eb8f67f41468f1fd5460",
+        "expected_final_gamestate.txt": "2aeeb65cea1f00495b0d7dd873794f049068b1d393e8132479575f7a08f97e43",
+        "meta.json": "13bb3d500568543a7941681553920d95bfa4cbf81bf1a64f7dec012bf9d95b58"
+      },
+      "fixture_sha256": "00a16dac28226ddabc4ddbb3e21a3e67ce79b230b91c37a85c443f93a16abc1b",
+      "actions": 29,
+      "native_assertions": 441,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1366-20261122.json",
+      "input_sha256": "fdf0ab1ca1218a3888c8a19897b8ead02d254ca6a6c485ae39d1410e1ee8d619",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1366-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-mark-of-lightning-four-live-sparse1366-generic-attack-real-hand-block-not-lightning-no-destruction-or-extra-damage",
+        "fixture_slug": "card-mark-of-lightning-four-live-sparse1366-generic-attack-real-hand-block-not-lightning-no-destruction-or-extra-damage",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-soulbond-resolve-four-live-sparse1366-existing-soul-is-not-charged-this-turn-first-five-damage-not-prevented",
+      "card_id": "soulbond_resolve",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "a88430a18a273b22ce1f5d78a6c0ad12dc62166170c420e04860bf95d38c06e1",
+        "actions.json": "0c005a52a51dc48a24f481bec6cbd5cfe2cb93ecd847ec1063490764f1d7d9ea",
+        "assertions.json": "bde38469d081db442a4dbd9f2556cac829a142d57d8fcfa6c55f21e7736952cc",
+        "expected_final_gamestate.txt": "b29d2ec142fbaed0bfbb1915337e85697481615c6f02a23fdcde272620dcf1b4",
+        "meta.json": "12e0a958d5c956b729207c9f3c32238a800fe29ff22535b4d20c0b93e85dc833"
+      },
+      "fixture_sha256": "4ae4ac69d6ed52acbfb1832c3b974f6fd1defbba628464698b6da7caef1a6b69",
+      "actions": 29,
+      "native_assertions": 528,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1366-20261122.json",
+      "input_sha256": "fdf0ab1ca1218a3888c8a19897b8ead02d254ca6a6c485ae39d1410e1ee8d619",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1366-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-soulbond-resolve-four-live-sparse1366-existing-soul-is-not-charged-this-turn-first-five-damage-not-prevented",
+        "fixture_slug": "card-soulbond-resolve-four-live-sparse1366-existing-soul-is-not-charged-this-turn-first-five-damage-not-prevented",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "reviewer": "independent breadth_review1252",
+    "spec_sha256": "fdf0ab1ca1218a3888c8a19897b8ead02d254ca6a6c485ae39d1410e1ee8d619",
+    "source_note_sha256": "5d6d8823d73c7c6b409cffa20aa9355239d9ce693d84db92fc8497e64b3db92f",
+    "case_count": 2,
+    "active_seats": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "players": "four_live_manual",
+    "native_controls": 58,
+    "query_checks": 969,
+    "persistable_assertions": 969,
+    "author_only_checks_omitted": 0,
+    "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+    "coverage_category": "EQUIPMENT_FALSE_ATTACK_ELEMENT_OR_CHARGED_HISTORY_GUARDS_WITH_REAL_DAMAGE",
+    "per_case": [
+      {
+        "card_id": "mark_of_lightning",
+        "group_id": "identity:mark_of_lightning",
+        "native_controls": 29,
+        "persistable_assertions": 441
+      },
+      {
+        "card_id": "soulbond_resolve",
+        "group_id": "identity:soulbond_resolve",
+        "native_controls": 29,
+        "persistable_assertions": 528
+      }
+    ],
+    "basis": [
+      "Two unrepresented/unheld standaloneequipmentgroups/classlegalnaturalYoung20/manual4UPF. MarkLightning LightningArms legal underLexiEssenceofLightning; SoulbondResolveLightWarriorChest legal underBoltyn. PhysicalUIDmappingMarkCritical5/fund6/victimCritical7+Blue8/Mark9; SoulbondCritical5/fund6/FDArsenal7/Soulbond8/SoulEngulfing9. SameownedreadyequipmentStatus2/Counters[]/TurnEffects[] retained; cachedlocalupf_banned=false only, no externalpolicyclaim.",
+      "Mark: realGenericCriticalRed5Handattackcost1 paidBlue6pitch3/R2/AP0/power5. VictimCriticalRed7actuallydeclaresHandDEFENSE3 whileBlue8Handretained. ELEAbilities70 checks defenderFromZoneHand AND actualattackingobjectLightning|Elemental. GenericCritical doesnotinheritLexiHeroElemental/Lightning, so falseeventcondition earnsnooptionalDestroy/chooser/layer/extra1damage. Actual5-3=2damageHP4=18not17, Mark9retained, source5GY1/fund6Pitch1/defender7GY4/victim8Hand4/UID9/RNG0/allArena0.",
+      "Soulbond: realSoulEngulfing9 isadmittedpriorposition, notchargeevent/historythisturn; initialturnEffects empty and equipmentnotdeclareddefender. MONCards17-19 chargesonlyactualHand-toSoulcostandrecordsCHARGED; DTDRuntime203-206 firstdamage reducerrequiresactualFaBMONCount(CHARGED). Falsechargecondition leavesfirstrealCritical5fiveDamageHPBoltyn4=15not16. Equipment8/Soul9 unchanged, nodefendWHEN/Temper/charge orpositiveprevention isperformed.",
+      "Pre-native initialSoulquerycorrection removesonlyunsupportedOwner/Controller: GameSchema152Soul hasCardID/UniqueID only, allcurrentSoulguardssupported. MarknoArsenalconsumer inthiscase; realHandblock/fatesanddamage areobservablewitnesses. Soulbondactualzero-costArsenalconsumerrejectsAP0/resourceR2unchangedafterfullfourmanualcombatclose. CountsMark29/441+Soulbond29/528=58controls969persistable assertions."
+    ],
+    "limits": [
+      "Only falseLightningElementalattacktype andunchargedfirstdamageguards withrealHanddefense/damage/retainedfates approvedpendingnative. No nativepass orcoverage claimed.",
+      "PositiveMarkWHEN/destroy/extraDamage, positivechargedprevention/Charge/defendWHEN/Temper/timing, Hero/support/sibling/fullcard behavior andinitialSoulprovenance untested/uncredited. Existingholdsuntouched/noenginechange.",
+      "Only W reviewreceiptwritten; no nativegame/test/replay, engine/repositoryedit, originalcheckoutaccess, auth/network, fullsuite orGitoperation."
+    ],
+    "source_sha256": {
+      "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+      "FaBSim/GeneratedCode/GeneratedMacroCode.php": "fe6a7982611df8f4de98ce2671b317b671b580146aa4b8c28e8f4b86d8461056",
+      "FaBSim/Custom/GameLogic.php": "c60fa151561f959e4e3e341b814de0e2b47c9e9f153bbc8793a04c43b5075061",
+      "FaBSim/Custom/DTDRuntime.php": "4393481861f97f02c611e9c2cc3c65ff53a7ea5c39db05d97d5b1dc93d0de4f0",
+      "FaBSim/Custom/MONCards.php": "2eb22bda6f1dba583df2879046f9f4dec94f47f2e9b28f369758f3af72c9c3ac",
+      "FaBSim/Custom/ELEAbilities.php": "d0da7637932733ee6c0e77f4786c4950fbaa4e41eb74c5d1f5d536961fa27ab8",
+      "FaBSim/Custom/ELECards.php": "5319104c32fb648c9ef90ee5e7e3a6a22e29c35a26c2cca31b338aada0e6110f",
+      "FaBSim/Custom/WTRCards.php": "77d4452b30e45254a7199bc965396ded53e325717ecdd84a09b971f723f99f6a",
+      "FaBSim/Custom/ARCCards.php": "f6b6a21d214e71fdcfd6a084f0671ce610f08a40c51a1266041877a5a12c0d52",
+      "Core/EngineActionRunner.php": "add14b53dc571d2a6e64407bfa4038a98d6554d6410de7a9233810d99c46ea2a",
+      "Schemas/FaBSim/GameSchema.txt": "7783800bd47bc85885cc915066aadca58cdf99f0c1180602ac312d9af5ebf643",
+      "Core/ShortcutPreferences.php": "25f300ea0b6fbc409f5b92e8bc3587a74b2ab0eaf31ccef38e18c455598eaba6",
+      "DevTools/FaB/CardRegression/record_card_regressions.php": "e53055b29e9ea641949b77019c4455607f41ca233325d716a9500637e19efd28"
+    },
+    "workspace_source_sha256": {
+      "author_breadth1366.py": "e11118f49cb39ed3f1bfe385ae1c31f0984d8a0dd038623bf68f09f118740763",
+      "breadth1068_helpers.py": "997f949ec26c7e494ad26a818f9f2078f6f4f2a0c49ca7f61aa8c71f3b091b0a"
+    },
+    "secondary_identity_credit": false,
+    "whole_card_credit": false,
+    "positive_condition_credit": false,
+    "positive_trigger_timing_credit": false,
+    "positive_hero_trigger_credit": false,
+    "adult_credit": false,
+    "positive_equipment_ability_credit": false
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1366-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "b4a3c7eeb7adfd079e3bae4af181525326db3a4f2e2350afae92f5c923548de1"
+  },
+  "full_suite_run": false
+}

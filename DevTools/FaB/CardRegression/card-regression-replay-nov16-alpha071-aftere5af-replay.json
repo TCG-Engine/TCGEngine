@@ -1,0 +1,27 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-repair-alpha071-aftere5af.json",
+  "runtime_sha256": "e5af401621234ca4779d8cc684cdbd7ada359c9c914d08fe63ea1f712712566b",
+  "returncode": 0,
+  "completed_utc": "2026-11-16T18:24:27.932306+00:00",
+  "fixtures": [
+    {
+      "slug": "card-adaptive-alpha-mold-four-live-sparse-real-action-moves-modular-chest-to-another-arms-zone",
+      "fixture_sha256": "8af702aacfc3bd57ea587050318da4c5c8abaededa21afbf24f1765cf1555cc2",
+      "passed": true,
+      "result": "[PASS] adaptive_alpha_mold / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-adaptive-alpha-mold-four-live-sparse-real-action-moves-modular-chest-to-another-arms-zone",
+      "returncode": 0,
+      "stdout": "[PASS] adaptive_alpha_mold / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

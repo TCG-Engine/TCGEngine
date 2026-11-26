@@ -1,0 +1,26 @@
+{
+  "status": "COMPLETE",
+  "runtime_before": "bc14dcabff3f9b4b1592a0afc364de72de1c9bd326e0204056369b1c1ff9574b",
+  "spec": "card-regression-batch363-correct-delayed-trigger-v3.json",
+  "spec_sha256": "3f6ebbe900c02d2179914d4d78e09b458ca6ccc532ed3e6c9ad634098c3f3658",
+  "command": [
+    "C:\\xampp\\php\\php.exe",
+    "DevTools/FaB/CardRegression/record_card_regressions.php",
+    "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch363-correct-delayed-trigger-v3.json"
+  ],
+  "started_utc": "2026-11-03T20:17:03.594669+00:00",
+  "expected_new_slugs": [
+    "card-bios-update-red-four-live-original-correct-delayed-item-relocation-and-boost-power-probe"
+  ],
+  "existing_scenario_count": 3657,
+  "full_suite_run": false,
+  "pid": 18068,
+  "exit_code": 0,
+  "runtime_after": "bc14dcabff3f9b4b1592a0afc364de72de1c9bd326e0204056369b1c1ff9574b",
+  "new_fixture_slugs": [
+    "card-bios-update-red-four-live-original-correct-delayed-item-relocation-and-boost-power-probe"
+  ],
+  "new_fixture_count": 1,
+  "stderr_bytes": 0,
+  "completed_utc": "2026-11-03T20:17:56.315784+00:00"
+}

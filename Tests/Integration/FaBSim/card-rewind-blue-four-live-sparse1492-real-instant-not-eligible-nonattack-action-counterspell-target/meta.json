@@ -1,0 +1,7 @@
+{
+    "name": "Rewind / actual Instant on Stack is not a non-attack Action target",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-25T06:14:09+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "NaturalKano15/legalWizard/manual4. ActualSigilBlue5Instantcost0ownStack/AP1/R0/noearlyHPgain, primaryRewind6Hand andBlue7availablepitch3coverscost1. RewindclickedatrealPRIORITY1mustrejectbecauseSigilisInstantnotnonattackAction, notbecauseemptyStack/resource/class/window/owner. SameSigil5Stack/primary6Blue7Hand/AP1/R0/UID7/DQempty. Allfourmanualpasses thenactualSigilgains1HPto16/source5GY, primary6Blue7Hand, AP1not2/noNegate/return/payment/pitch/newUID/await. Rejection-onlytargettypeguard; positivecounterspell/effect/formaltargettiming/Kanoabilities/siblingsuncredited. Sources: FaBSim/GeneratedCode/cardArrayCache.json#rewind_blue FaBSim/Custom/UPRCards.php#FaBUPRCanPlay FaBSim/Custom/UPRCards.php#FaBUPRRewindTargets"
+}

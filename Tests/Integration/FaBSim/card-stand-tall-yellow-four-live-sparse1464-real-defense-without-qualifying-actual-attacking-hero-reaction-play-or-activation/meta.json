@@ -1,0 +1,7 @@
+{
+    "name": "Stand Tall / real defense without printed qualifying event",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-25T03:15:24+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "RealDori1GenericWounding54 targetslegalHero4; primarystand_tall_yellow6 owneddorinthea4actuallyHanddefends. RealRazorReflex+Bluepitch retained and neverplayed/activated despite genuineattackerReaction1; no+2def. PrintedbaseDefense3 yieldsactualphysical1/Hero4=19; noearnedconditionalWHENorabilityeffect. Alllive manualresponses/fullclose sourceGYandretainedDeck/Hand/equipment, noAura/UIDallocation/RNG. AP0actualPotionItemclickreject. Limitedbasicdefense+negativecondition only, no positiveeffect, siblings or supportidentitycredit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#stand_tall_yellow FaBSim/GeneratedCode/GeneratedMacroCode.php#stand_tall_yellow FaBSim/Custom/GameLogic.php#OnDefended"
+}

@@ -1,0 +1,7 @@
+{
+    "name": "Show Time! / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-26T03:26:52+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "**Bravo Specialization**\n\nWhen this enters the arena, search your deck for a Guardian attack action card, reveal it, put it into your hand, then shuffle.\n\nAt the beginning of your action phase, destroy this then draw a card. Representative only: real_guardian_attack_search_to_hand_with_aura_retained. Other pitch siblings, alternate targets and unexercised branches receive no credit. All four live/manual; only native entry-point actions. The When-this-enters search must be a separately responseable earned trigger; no search stage or choice before its four responses. Sources: FaBSim/GeneratedCode/cardArrayCache.json#show_time_blue"
+}

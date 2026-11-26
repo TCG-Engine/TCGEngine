@@ -1,0 +1,118 @@
+{
+  "id": "FAB-REG-125",
+  "status": "NATIVE_CONFIRMED_PREMATURE_BURN_ARCANE_BEFORE_FRESH_DRAGON_ATTACK_TRIGGER_RESPONSES",
+  "reviewer": "/root/b106_semantic_review",
+  "reviewer_independent": true,
+  "independent_review_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch481-burn-independent-native-before-classification.json",
+  "independent_review_sha256": "dadbd085544cc7867104b7b450d03c72f62a34a4b4f9b6d6900b13546d30eb63",
+  "runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+  "source_spec": "card-regression-batch481.json",
+  "input_sha256": "da8fd73580a433ae9173753724c6d249629fd2b5a6948bcc73d99e6464fc07e3",
+  "source_case_index": 1,
+  "scenario_id": "card-burn-them-all-red-four-live-real-dragon-attack-trigger-before-one-arcane-each-opponent-correct-probe",
+  "first_failure": {
+    "error": "Expected p2Health to equal 20, got 19.",
+    "native_action_boundary": 11,
+    "source_step_index": 22,
+    "source_check_index": 7,
+    "ordered_authored_check_ordinal_1based_within_Burn_case": 923,
+    "preceding_ordered_Burn_checks_passed": 922,
+    "completed_prior_boundary_checks": 915,
+    "same_boundary_checks_before_failure": 7,
+    "expected_p2Health": 20,
+    "actual_p2Health": 19,
+    "raw_source_check": {
+      "type": "scalar_zone_equals",
+      "zone": "p2Health",
+      "value": 20
+    },
+    "remaining_authored_checks_after_failure_unexecuted": 2431,
+    "earlier_healthy_Book_checks_separate": 2102
+  },
+  "actual_native_prefix": {
+    "accepted_inputs": 11,
+    "remaining_inputs_unexecuted": 25,
+    "manual_inputs": 8,
+    "manual_actor_counts": {
+      "1": 2,
+      "2": 2,
+      "3": 2,
+      "4": 2
+    },
+    "passed_prefix": "RealRedAura5cast0/freshfour/entry/ownGAAP1, no opponentdamage; realStorm-grantedDragon6attack0targetP4/tap6/proxy8SourceArena6, first3 source responses retainpendingAttackStack8 andallHP20. Input11 actor4fourthsourcepass priority-onlystop; first7queriesprovePriority1/pass0/combatopen/P1HP20/R0AP0/queue1empty thenP2HP20queryfails19. No freshBurntriggerresponse ran.",
+    "direct_recipient_query_limit": "P2HP19 is the only postevent recipientHPscalar actuallyqueried; P3HPsource22/check11 andP4HPcheck15 wereunrun. Do not claim theirHP19fromthose laterexpectations.",
+    "separate_raw_recipient_evidence": "Observedstate independentlyrecords arcaneDealt controller1 toP2/P3/P4=1each and eachvictim ROS_ARCANE_TAKEN1/DTD_LOST1. Those are directcapturednative damage-history facts for allthree, not repeatedliveHPqueries or a completepostfailurephysicalsnapshot. ATTACK/link1/attackUID8/targetHero4 withdamageDealt0/attackHitfalse independentlyshows this precedesDragonphysicalhit."
+  },
+  "classification": {
+    "category": "NATIVE_GAMEPLAY_DRAGON_ATTACK_WHEN_EFFECT_DEALS_ARCANE_PREMATURELY_INLINE",
+    "protocol_or_oracle_error_at_first_failure": false,
+    "native_confirmed": "P2already lost1 atfirstpriorityafterDragonbecomesattacking, beforeanyfreshWHENlayerresponse. Rawperrecipientarcanehistory separatelyconfirms early1arcaneeventsrecordedforeachopponent. CorrectHP20pendingtriggerfourthenall19 remainsunchanged.",
+    "Stack_and_source_limit": "ExpectedStack1query/source22check23 andtriggerCardID/controller/AuraSource5 querieswereunrun. RecordercapturednoStackarray/count; emptyDQdoesnotproveemptyStack. No nativeStack0 ormissing-sourcegetter assertionclaimed. CurrentUPR directResolveAbility call supportsinline-sourcecause but not a separatelyobservedStackcount.",
+    "other_limits": "CurrentcapturedattackGoAgainfalse is only cachedstate; freshcomputedGAafterChainwasunrun, so noadditionalGAdefect isallocated. LogicalattackUID8isobservedstate; postfailurephysicalChain8/Dragon6/Aura5inventory querieswereunrun. RawHNT_DAMAGED_BYuid6bookkeepingdoesnotcertify a source-sensitivepreventionmatrix or fullDragon-versusproxy attribution."
+  },
+  "selected_source_file_sha256": {
+    "FaBSim\\Custom\\UPRCards.php": "144c369209e0a53f5f0ad540f2e549f4c4c0f0234b9a2c9bf703c2e22cd4e8af",
+    "DevTools\\FaB\\upr_abilities.json": "c83daf0e6e0a9894808e3eb5ed632db532256b5cd6621066d2429efcd4bca18f",
+    "FaBSim\\Custom\\GameLogic.php": "1cdad1555c8d2e3bd3fa98d69bf52791b84d21bf2269363ddea7249f4ee35a43",
+    "FaBSim\\GeneratedCode\\GeneratedMacroCode.php": "63113a3d140cfd13409e1ad7ee737f8ecfbbc1f78c4eb8c540658a3bacc73c54"
+  },
+  "native_evidence": {
+    "native_recording_results": {
+      "path": "card-regression-batch481.recording-results.json",
+      "sha256": "64d45ef1f9e9dea742945e5615640886098d14c2b763d554db143545c4069ef8"
+    },
+    "immutable_native_archive": {
+      "path": "recording-runs/card-regression-batch481-20261105T154237Z-6aeca3ed25c89.json",
+      "sha256": "71a7b621fe05a1f413cc9e93d5872f33995b7d606011172ae66aebf2b83f8463"
+    }
+  },
+  "primary_sources": [
+    {
+      "url": "https://judge.fabtcg.com/cards/detail/1494/",
+      "finding": "Fresh current Burn0/ownGA/once-per-turn controlledDragon WHENattack/1arcaneeachopponent and unearnedendphaseupkeep."
+    },
+    {
+      "url": "https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/PEN289.webp",
+      "finding": "PublisherByBook face independentlyviewed locally/currentcatalog: globalactionphase drawprohibition/noGA/conditionalInstant and futureownstartdestroy."
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/06-effects/",
+      "rules": [
+        "6.6.1",
+        "6.6.5",
+        "6.6.6"
+      ],
+      "finding": "Actualattackevent earns separate responseableAura layer beforeeffectdamage; no inline substitution."
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/07-combat/",
+      "rules": [
+        "7.2.2",
+        "7.2.3",
+        "7.6.2"
+      ],
+      "finding": "Dragon becomes activeattack onChain, thenattackevent; actualDragonGA atResolution."
+    },
+    {
+      "url": "https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/1HP383.webp",
+      "finding": "ActualPotionActiondestroycost then gain2AP, noGA."
+    },
+    {
+      "url": "https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/ANQ024.webp",
+      "finding": "CurrentTRoM1 EachheroDraw1 then ownGA."
+    }
+  ],
+  "limits": [
+    "Originalstrict36/3354correctprobe unchanged/noBurnfixture. Plannedfreshtriggerfour12..15, normalattack/defend/reaction/physical1damage/HP4=18/GArefund/fullclose/UIDcleanup/final48prefs unexecuted;2431authoredchecks afterfirstfailureunrun.",
+    "Onlyrawinitial complete. No postfailurephysicalStack/Chain/Dragon/Aura/inventory snapshots fabricated. No sibling/secondDragon/once-limit/prevention/packet-source-sensitive/Raze/endphase/Hero/support/fullcard/nativecontrol/globalRoot/Core credit.",
+    "ByBook healthy16/2102 exactSavedgate separate; its save doesnotqualifyBurn. No rerun/companion/sourcefix/PHP/native/replay/R/source/service/generation/fullsuite/remote/deniedrepairretry byreviewer."
+  ],
+  "fixture_saved": false,
+  "coverage_credit": false,
+  "fix_applied": false,
+  "source_application_attempted": false,
+  "denied_repair_retried": false,
+  "new_core_root": false,
+  "new_distinct_gameplay_root_group": false,
+  "created_utc": "2026-11-05T15:53:08.595278+00:00"
+}

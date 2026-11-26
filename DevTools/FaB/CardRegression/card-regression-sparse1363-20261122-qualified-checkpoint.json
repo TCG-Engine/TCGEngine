@@ -1,0 +1,97 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-24T10:40:44.275363+00:00",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1363-20261122.json",
+  "source_spec_sha256": "59dc6b3cee212b04e6d1e9b7eb4d82be305deb167decbb3a5dc51bde17ef5952",
+  "new_scenarios": 2,
+  "new_groups": 2,
+  "new_primary_ids": 2,
+  "actions": 60,
+  "native_assertions": 1176,
+  "manual_passes": 50,
+  "totals": {
+    "saved_registered_scenarios": 5345,
+    "duels": 3105,
+    "four_live": 2240,
+    "recorded_primary_ids": 2493,
+    "identity_denominator": 5196,
+    "recorded_groups": 2367,
+    "group_denominator": 3324,
+    "four_live_groups": 2229,
+    "phase_qualified_scenarios_at_actual_contexts": 1982,
+    "phase_qualified_unique_groups": 1972,
+    "creation_replay_passes": 2724,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 1143,
+  "scenarios": [
+    {
+      "card_id": "danger_digits",
+      "group_id": "identity:danger_digits",
+      "scenario_id": "card-danger-digits-four-live-sparse1363-opponent-dagger-is-not-controlled-no-destruction",
+      "effect_branches": [
+        "no_controlled_dagger_despite_real_opponent_dagger"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-danger-digits-four-live-sparse1363-opponent-dagger-is-not-controlled-no-destruction",
+      "source_spec": "card-regression-sparse1363-20261122.json",
+      "source_spec_sha256": "59dc6b3cee212b04e6d1e9b7eb4d82be305deb167decbb3a5dc51bde17ef5952",
+      "review_evidence": "review-evidence/sparse1363-20261122-qualified-saved.json",
+      "review_evidence_sha256": "bedf4442c6083b50eeaf2a61008d29db0efa2feb5da6a4393494a0820a22b94d",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1363-20261122-replay.json",
+          "sha256": "3f90aa799923d5a3261c821fb605a6ddc8e5554de140af3ba350885951e9a8f6",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "fingers_of_fragmentation",
+      "group_id": "identity:fingers_of_fragmentation",
+      "scenario_id": "card-fingers-of-fragmentation-four-live-sparse1363-unfragmented-active-attack-no-target-no-payment-or-destruction",
+      "effect_branches": [
+        "no_fragmented_attack_despite_real_active_attack_and_two_resources"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-fingers-of-fragmentation-four-live-sparse1363-unfragmented-active-attack-no-target-no-payment-or-destruction",
+      "source_spec": "card-regression-sparse1363-20261122.json",
+      "source_spec_sha256": "59dc6b3cee212b04e6d1e9b7eb4d82be305deb167decbb3a5dc51bde17ef5952",
+      "review_evidence": "review-evidence/sparse1363-20261122-qualified-saved.json",
+      "review_evidence_sha256": "bedf4442c6083b50eeaf2a61008d29db0efa2feb5da6a4393494a0820a22b94d",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1363-20261122-replay.json",
+          "sha256": "3f90aa799923d5a3261c821fb605a6ddc8e5554de140af3ba350885951e9a8f6",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

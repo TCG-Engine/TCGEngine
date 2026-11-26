@@ -1,0 +1,7 @@
+{
+    "name": "Walk the Plank / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T21:06:49+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "When this hits a Pirate hero, {t} them or an ally they control. Representative only: actual_seven_hits_non_pirate_hero_without_tap_event. Other pitch siblings, alternate targets and unexercised branches receive no credit. All four live/manual; only native entry-point actions. Sources: FaBSim/GeneratedCode/cardArrayCache.json#walk_the_plank_red"
+}

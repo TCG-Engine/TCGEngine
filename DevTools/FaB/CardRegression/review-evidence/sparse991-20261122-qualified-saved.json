@@ -1,0 +1,65 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "breadth_review independent source/printed-text/transport review",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse991-20261122.json",
+  "source_spec_sha256": "0a1a9e08d9f14962de73e920ca7f7d6d4790e41df8cd78d384a1cf9b49195dc6",
+  "input_sha256": "0a1a9e08d9f14962de73e920ca7f7d6d4790e41df8cd78d384a1cf9b49195dc6",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-for-the-dracai-red-four-live-sparse991-unmarked-hero-no-fealty",
+      "card_id": "for_the_dracai_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "867ce9bcaf06177b4e15d06df8754582107ecb7058c113396c0afe6564a18131",
+        "actions.json": "71f0d0f07cf85244a3ec27fdb1f824cd62aa3126d639c98c13ca23327907bd8b",
+        "assertions.json": "4c572a1605073288fdd0b5261c9c2ec8b8f24ff6648e06bd76fd69aa20ec70f6",
+        "expected_final_gamestate.txt": "75c6023e6a8704d88000cfee9878ccc014c709def44b22d0448292be53735c29",
+        "meta.json": "eb1edb9c93bed7fa7dc613b3ccd72edf2864122aced1a35b124bfa630f6f158f"
+      },
+      "fixture_sha256": "ae32589a5b736241346ac22bb4e8eb3bd7b2652d4b9266c4673009dc7fd0f1a0",
+      "actions": 27,
+      "native_assertions": 162,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse991-20261122.json",
+      "input_sha256": "0a1a9e08d9f14962de73e920ca7f7d6d4790e41df8cd78d384a1cf9b49195dc6",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse991-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-for-the-dracai-red-four-live-sparse991-unmarked-hero-no-fealty",
+        "fixture_slug": "card-for-the-dracai-red-four-live-sparse991-unmarked-hero-no-fealty",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "spec_sha256": "0a1a9e08d9f14962de73e920ca7f7d6d4790e41df8cd78d384a1cf9b49195dc6",
+    "reviewer": "breadth_review independent source/printed-text/transport review",
+    "basis": [
+      "Filtered canonical contains only For the Dracai Red. Printed plain Draconic AA0/power4 is legal for natural20 Dromai; no Ninja class requirement. No pitch means no Dromai red-pitch Ash trigger; this is not a Dragon attack and gains no hero-derived goagain.",
+      "Printed WHEN this attacks a marked hero is an event-qualified trigger. Target4 Dorinthea has Hero.Counters[] before/after, so event itself is absent and no Fealty/trigger layer is earned. GeneratedMacroCode.php:21725 gates the effect with FaBHNTMarkedTarget; only false side is reviewed, positive creation/timing/ownership untested.",
+      "Actual owned Hand5 declares adjacent Hero4 before assets, cost0/spendsAP, four live seats manually pass each source/combat window. Physical CardID/UID5/ATTACK/owner/controller, actual4damage/HP16, noGA/AP0, ownedGGY5 and allArena0/noFealty/cleanqueues persist. No author-only defense/legality diagnostic kinds. Current group independently unrepresented and exact issue-ledger match0 at review.",
+      "Removed unexecuted prior3-case draft SHA0ec94adccbbd1ccd851f1e162079f961f711102b1fc74841c02e14d07b06b23c contained FourFeathers and Enflame with missing earned-attack-trigger response rounds. Those selections are source-only known-family skips, no native attempt/failure/fix/qualification claimed; approval does not extend to them."
+    ],
+    "limits": [
+      "Only unmarked-target main branch. No positive Fealty/marked trigger/creator ownership, Dromai ability, sibling/support/full-card credit. Native/save/one clean replay pending Root.",
+      "Reviewer made no PHP/native/test/T/source/original/Git/network/auth/engine change; only W review receipts written."
+    ]
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse991-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "bdf45eb9725c9c74673b45431570b98f0076ad5a392be689caf9a9603fddc98b"
+  },
+  "full_suite_run": false
+}

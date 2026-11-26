@@ -1,0 +1,61 @@
+{
+  "status": "QUALIFIED_AFTER_REVIEWED_SERIALIZATION_CORRECTION",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1438-20261122.json",
+  "source_spec_sha256": "1a48bbda052b95bd4cb35e17b8f385bcaa411bb1698d256dc95f690d8cafea21",
+  "correction": "Read-only verifier now decodes serialized Stack.Params as strict base64 JSON, matching the existing ZoneClasses serializer, before asserting the same Hero4 target. No expectation, fixture, game, native recorder or runner change.",
+  "native_receipt_sha256": "9f8ca559b8c7a9e03ff4c19795503532ca3c87909af02645cba008b00048c3b4",
+  "corrected_independent_review_sha256": "e8f9500cb7580ff462027868742eb39277b6b2d7dd9c70c87cce68ad11586d40",
+  "saved_proof": "review-evidence/sparse1438-20261122-qualified-saved.json",
+  "saved_proof_sha256": "b750cb551edd4cd03420e93952d56067e7cace0c106f718d4fa31b1259322ff9",
+  "adapter_sha256": "1c7dd970e6fb4a9e5c6920231fcabbf9a0ed6dbe9bfce37b9677dbacd5f6956f",
+  "raw_five_file_sets_unchanged_from_before_correction": true,
+  "fixtures": {
+    "card-murmuring-gloomblade-red-four-live-sparse1438-intrinsic-permission-vs-ordinary-card-paid-banish-play-prefix": {
+      "initial_gamestate.txt": "1ee0ab8499d8b84667d5f022facd9d260b6bed41ddc05491c7c438c6a3bbeaf1",
+      "actions.json": "58f8876cf1937c473be3b7844987aec5a9e10cd7099c066c20c9a67cc3baf23b",
+      "assertions.json": "869fc898886bd7f891eb472d9751a87daaed50d4cddcf2098ee3f12ef893584f",
+      "expected_final_gamestate.txt": "25728dac4a2ec7e350311cd94ef09ede5995c61c86b5559c34da446c51dd281d",
+      "meta.json": "7d7cd1e4dd580a18c397268698cb649bcaf4788203314ef9739270fdf36a536d"
+    },
+    "card-sinspeaker-gloomblade-red-four-live-sparse1438-intrinsic-permission-vs-ordinary-card-paid-banish-play-prefix": {
+      "initial_gamestate.txt": "efd4c0e90613c577c39fd457e4a694ab64a5d3432527eb911aa267ba7927bf46",
+      "actions.json": "43411a102aa72bfff1d53b2d224bcb1e7994921f41f6632bf7c1bae9b443695a",
+      "assertions.json": "135a4163ab500c377eb7c5a3610a140a44774e83a5ca20fdca3f92cb3d04c9c4",
+      "expected_final_gamestate.txt": "dd7ae92652f5cda3eb16e2ebb63b9b2deff320040470f3ca534af46b124f1265",
+      "meta.json": "31675dd2958d071ffea6beecc1af6d9602d1ec9d3ce06e47161d32e175096e92"
+    },
+    "card-ghost-protocol-architect-red-four-live-sparse1438-actual-boosted-copy-only-paid-banish-play-prefix": {
+      "initial_gamestate.txt": "c6959d0ef24dacf4805ca4e05a4735f79b55e980b72f7ec3cad4fb93e8621319",
+      "actions.json": "d2749122ce140f013746cc8bda1701c4a7186825bfa46a3ccfb517ac01290cfe",
+      "assertions.json": "178af0a2055278ffc6f965ccc024896f7bb7616bb065ce72d511c7d2d8536128",
+      "expected_final_gamestate.txt": "d84cc7daf6214f13060e7edd126a1a4c4167dc901e949a5c5f6e68b847256d14",
+      "meta.json": "35be157a174802c21f63bbe311ad79f040c1f1966904005be5fce711972e859e"
+    }
+  },
+  "first_targeted_replays": {
+    "passed": 3,
+    "failed": 0,
+    "runs_per_fixture": 1,
+    "receipt": "card-regression-sparse1438-20261122-replay.json"
+  },
+  "offline_negative_controls": [
+    {
+      "control": "wrong_paid_resource_balance",
+      "rejected": true,
+      "guard_file": "nov24_paid_banish_prefix_review.py",
+      "guard_line": 58,
+      "guard": "assert int(sn[f'p{v}Health'])==health and int(sn[f'p{v}Resources'])==(1 if cost and v==1 else 0)and int(sn[f'p{v}ActionPoints'])==0"
+    },
+    {
+      "control": "wrong_declared_target",
+      "rejected": true,
+      "guard_file": "nov24_paid_banish_prefix_review.py",
+      "guard_line": 51,
+      "guard": "params=src.get('Params',{});params=json.loads(__import__('base64').b64decode(params,validate=True))if isinstance(params,str)else params;target=params['attackTarget'];assert target['type']=='HERO'and int(target['player'])==4"
+    }
+  ],
+  "offline_control_scope": "In-memory witnesses only; no extra native games or replays; native fault-control counters unchanged.",
+  "transient_backup_and_decoder_receipt": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1438-local-20261122",
+  "original_review_preserved": true
+}

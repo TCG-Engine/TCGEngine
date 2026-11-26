@@ -1,0 +1,63 @@
+{
+  "runtime_sha256": "39ea7198588aa12a77f1b2f47c9b523e54789383be9e5ee5bc96ff8ac6a9a2e5",
+  "status": "SELECTED_PASSES_AND_EXPLICIT_PENDING_FINALS",
+  "fixtures": [
+    {
+      "slug": "card-consuming-command-blue-four-live-real-granted-insatiable-attack-six-damage-and-action-refund",
+      "passed": false,
+      "status": "FAIL_FINAL_SNAPSHOT",
+      "returncode": 1,
+      "runtime_sha256": "39ea7198588aa12a77f1b2f47c9b523e54789383be9e5ee5bc96ff8ac6a9a2e5",
+      "raw5_sha256": {
+        "actions.json": "e80c10a71f34b728da4a8e71557196d4fcd4309d92de21609d2193b5f59b8886",
+        "assertions.json": "95d140ca542dbd2445f26e9ccb05a60f027ec7c0ca962b2ec368203ec1938a9b",
+        "expected_final_gamestate.txt": "8bf39c9126be6c4645032a3a59d782e5742977409b594b2eda6a6b037ac6c073",
+        "initial_gamestate.txt": "90bf7947b0a1194e79dd3d6a5a8ab38c57f58eb9e12a14875a102599a08daedb",
+        "meta.json": "ea3496f76e4589f013b4a2e9df267b771dbbb20324a6df39a0c2493f967bc58f"
+      }
+    },
+    {
+      "slug": "card-flex-speed-red-four-live-sparse-real-come-to-fight-buff-crosses-six-and-grants-go-again",
+      "passed": true,
+      "status": "PASS",
+      "returncode": 0,
+      "runtime_sha256": "39ea7198588aa12a77f1b2f47c9b523e54789383be9e5ee5bc96ff8ac6a9a2e5",
+      "raw5_sha256": {
+        "actions.json": "6ccb49c39b1099d224e618f22a9f834a44c4efac7bd722a0ae88ecbc66d7d083",
+        "assertions.json": "a7b0f0c5b49d47b6d3216f00ef69d1ac08ae05bb80d67e9a0b6df399be5639fd",
+        "expected_final_gamestate.txt": "14b9fe34d60a6ede1d9d44f9d11d29937df2c62cceac1e820b29cd4cbe6aac74",
+        "initial_gamestate.txt": "1a8fdee2e00c1263b03ab612c8cac2f9d396cb1400052ff38a0c2c910c5f8df0",
+        "meta.json": "6928cd3ee067c2a5f8085970acf3ad2a0cbc68bdbee018abe2f018c47572e8cd"
+      }
+    },
+    {
+      "slug": "card-flex-strength-red-four-live-sparse-real-come-to-fight-crosses-six-and-enables-own-three-power",
+      "passed": true,
+      "status": "PASS",
+      "returncode": 0,
+      "runtime_sha256": "39ea7198588aa12a77f1b2f47c9b523e54789383be9e5ee5bc96ff8ac6a9a2e5",
+      "raw5_sha256": {
+        "actions.json": "6ccb49c39b1099d224e618f22a9f834a44c4efac7bd722a0ae88ecbc66d7d083",
+        "assertions.json": "8bd8ca136cd67405126cd353c97ac6dd7fc25ea273125c6f9adcd432060e021e",
+        "expected_final_gamestate.txt": "3e16348aa583c492f886d4e218c578c836f5b18300aa73cd0d629ffa346fb800",
+        "initial_gamestate.txt": "3b9b686318bbbb048f2a9000984f685105a7f66c0a3553e7ea07d50ef2086732",
+        "meta.json": "d68c33ff7040aabba56b48c1e1007f0c98870684d29570cbd873642d2123810b"
+      }
+    },
+    {
+      "slug": "card-quickfire-blue-four-live-real-hyper-driver-cost-reduction-and-unspent-boost-grant",
+      "passed": false,
+      "status": "FAIL_FINAL_SNAPSHOT",
+      "returncode": 1,
+      "runtime_sha256": "39ea7198588aa12a77f1b2f47c9b523e54789383be9e5ee5bc96ff8ac6a9a2e5",
+      "raw5_sha256": {
+        "actions.json": "ac86f7cb09704a75eaf795ed4d0a4f1122328f650ff501b111749b96249d552e",
+        "assertions.json": "1823ce6dfd7907faa514a3c84ae6091fc504f16cce1de89429d0b3d6be9b33bd",
+        "expected_final_gamestate.txt": "585fa596e105e33ae926e37ca1e8fd05472158138b4544eb10e9f2568f04b57f",
+        "initial_gamestate.txt": "e58f5ea81ce85434fc719d2e9ec72a20d8d2259274d5a91d1610c6e3a79dd646",
+        "meta.json": "1d8c3f0648958f852f57c66ea6cf8a5bf7be96dde1c073c21045099207849e34"
+      }
+    }
+  ],
+  "full_suite_run": false
+}

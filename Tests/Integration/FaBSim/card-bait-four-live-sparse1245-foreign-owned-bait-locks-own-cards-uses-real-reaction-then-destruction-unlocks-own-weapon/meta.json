@@ -1,0 +1,7 @@
+{
+    "name": "Bait / foreign ownership restriction, attack reaction, destruction and own weapon unlocked",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-23T23:34:31+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "ADMITTED_FOREIGN_BAIT_PRIMARY. NaturalYoungKassai20/2Dori20/Azalea20. RealpriorBait5Arena1Owner4Controller1 matchesnormalSUPBaitcreatorownership, not a currenthistoryflag. Produceruncredited. RealownDawnblade6andWounding7otherwiselegal/affordable atAP1/R1. NativeownHandclickandownWeaponclickmustleaveACTION/AP/R/Stack/DQ/assetsexactunchanged. Foreign-ownedBaitcanactivatezero-costattack5->virtual8/AP0; afterfourresponsesbasepower0/noGA. ActualBait5attackreaction0createsability9; owncardlockdoesnotapplybecausephysicalOwner4, ownabilitymustbeallowed. Fourfreshresponsesgrant+1/GA; realdamage1Hero4HP19beforelinkresolution. AtactualresolutiondestroyphysicalToken5andretireproxy8withoutGYexport; GArefundAP1. ThenformerlyblockedownDawnblade6actuallydeclares4/paysR1andAP, generatesproxy10anddeals3HP19to16throughfullcombat; noGArefund. Kassaihasnotdrawn, sofirstswordcost1; noHeroabilityactivated, noGoldobserver. Dawnbladefirstswordhitdoesnotearnsecondhitcountertrigger. Noearlybuff,tokencreation/repeatability/othercontroller/wholecard/supportcredit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#bait FaBSim/Custom/SUPCards.php FaBSim/Custom/MONAbilities.php FaBSim/Custom/ARCAbilities.php FaBSim/Custom/WTRCards.php FaBSim/Custom/GameLogic.php FaBSim/GeneratedCode/GeneratedMacroCode.php"
+}

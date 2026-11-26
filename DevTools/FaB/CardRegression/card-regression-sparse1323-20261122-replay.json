@@ -1,0 +1,56 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-art-of-the-dragon-blood-red-four-live-sparse1323-ninja-card-not-draconic-does-not-earn-go-again",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-art-of-the-dragon-blood-red-four-live-sparse1323-ninja-card-not-draconic-does-not-earn-go-again",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1323-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1323-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "e193a53f19f06a786c665356dae43bda70de099078b207e5b4dd67271cc044cf",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "3e9cf292d422dab3c7ffeffd28dcdd8a8bb27ec4499166087527d13651d82cba",
+        "actions.json": "cb28b47f5dc15b249b3654ad141cf5f2ccf833368e3cb287e1fd2c33043e8215",
+        "assertions.json": "e83c0aafd308064faf657ee9ba646e8cb44104d86cffb9bf16c9a42a7c6292ab",
+        "expected_final_gamestate.txt": "dbaa388217042336b7924f2d86ddeac15f15aaee0eabf92dc3e372625d52382a",
+        "meta.json": "dd6cb9071a41e449cae5a33a4e99aaeac72ff53d62c1cd3fd7dcaeb02f47cb39"
+      }
+    },
+    {
+      "slug": "card-escalate-violence-blue-four-live-sparse1323-no-controlled-might-does-not-create-three-more",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-escalate-violence-blue-four-live-sparse1323-no-controlled-might-does-not-create-three-more",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1323-local-20261122\\clean-replays\\01.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1323-local-20261122\\clean-replays\\01.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "e41a5f7faf0f96197944b09245ec0f592e014f5307d922655479a59219f5411c",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "6cf0163ec66cc3124b5a58c753b353f28321eab1426d0657f886bea4021eb11e",
+        "actions.json": "03d8ba6664b359988a254b0b85136b29a95f48d60e969fe7103afff3ef5a7a2a",
+        "assertions.json": "e818c2888738a772219e6405ee6d4e36e671708e7a969ab6682f736ae2fb6696",
+        "expected_final_gamestate.txt": "f2a42145b119c089206b6cdb21bdd268612c32c780050d31bae23dc4c01c90d7",
+        "meta.json": "4ac25085ea1a291ef1abdd0a591b3bb5ff99d4e30f0cdc8d6e883402c5398e2e"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

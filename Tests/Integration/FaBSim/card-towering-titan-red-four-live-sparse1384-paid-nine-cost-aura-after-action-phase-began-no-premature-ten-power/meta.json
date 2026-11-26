@@ -1,0 +1,7 @@
+{
+    "name": "Towering Titan / played after beginning of Action phase earns no immediate +10",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-24T13:24:23+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "FOUR_REAL_MANUAL_UPF_BRAVO20_THREEDORI20. Reuses1383actualTimesnap5DestroyAction0/all4responses\u2192real2AP; no seededextraAP. CurrentTurn2MAIN/ACTIONphasehasalreadybegunbeforeprimary6played. ActualToweringTitanRed9costpaidbythreeBaubleBlue7/8/9andAP2to1(noGA),all4responses\u2192Aura6Arena. PlayingduringexistingActionphaseisNOTbeginningnewActionphase, soDestroy/+10notearnednow. RealGuardianThunderQuakeBlue10cost6paidbyWoundingBlue11/12(AP1to0),actualadjacent4target/all4manualwindows/base8not18/noGA/noextraLayer/actual8damageP4HP12. Aura6sameownedreadyArena, realTimesnap5GY/Thunder10GY/5realBluePitch/realRedWounding13HandrejectAP0/UID14RNG0/allotherHP20/nootherArenas/StackDQquiet. Exactly3copiesBaubleBlue+2copiesWoundingBluewithinlegallimits. NofuturebeginActionphaseDestroy/+10/timing/Heave/endphase/otherpitches/support/provenance/fullcardcredit; no enginechange. Sources: FaBSim/GeneratedCode/cardArrayCache.json#towering_titan_red FaBSim/GeneratedCode/GeneratedMacroCode.php FaBSim/Custom/CRUCards.php FaBSim/Custom/WTRCards.php FaBSim/Custom/WTRAbilities.php FaBSim/Custom/GameLogic.php"
+}

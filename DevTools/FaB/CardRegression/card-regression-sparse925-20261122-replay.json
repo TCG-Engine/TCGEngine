@@ -1,0 +1,56 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-hot-streak-four-live-sparse925-real-first-weapon-attack-uses-blue-pitch-and-deals-2-without-conditional-bonus",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-hot-streak-four-live-sparse925-real-first-weapon-attack-uses-blue-pitch-and-deals-2-without-conditional-bonus",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse925-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse925-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "3984fe725c28eaf3faf97d6b51f5bf0684b2c1414b18a74ce66a8cc099ce1939",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "b4eb5e4a993b44a4c39666949c7338b00afb39f567ce4f397b3331a5a936eb58",
+        "actions.json": "68555e1adb5ee3e99f23ac84afbf2383b3f3d2f96b985ad1552a9d323967372b",
+        "assertions.json": "b15587a9a9b473743ea5c0b62e4e21be3206a4112a1ecc79c0b32a901f93871c",
+        "expected_final_gamestate.txt": "0d761005f688bb1a6f6c0fe3eda5892b173247eaaa538ffb6fba338fea5915c2",
+        "meta.json": "062c2e374c9c08a186eb25a4f2ed7b8688eed87973a2ba9539e16fc34efe094f"
+      }
+    },
+    {
+      "slug": "card-decimator-great-axe-four-live-sparse925-real-first-weapon-attack-uses-blue-pitch-and-deals-4-without-conditional-bonus",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-decimator-great-axe-four-live-sparse925-real-first-weapon-attack-uses-blue-pitch-and-deals-4-without-conditional-bonus",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse925-local-20261122\\clean-replays\\01.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse925-local-20261122\\clean-replays\\01.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "fa80edb63135ca25a34efebb7c9df9dc5f3afd2076d305a9e90faf276a05991a",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "df6a24f811f2ff9712648408b18db903abf993fa24428862740c33041307c74d",
+        "actions.json": "68555e1adb5ee3e99f23ac84afbf2383b3f3d2f96b985ad1552a9d323967372b",
+        "assertions.json": "dcbff6a9d8617108f5a7c1a2dce10bdca81f6e0afc0cd657ea9174d736f4fc22",
+        "expected_final_gamestate.txt": "212129490de01e350bc6a080809ac889bd31ddd46be1a7acb6f63873b400ae5e",
+        "meta.json": "4035e407e78afcd1268850ba73190757966fa4b3d325c4452f9b61d319a91339"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

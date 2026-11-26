@@ -1,0 +1,7 @@
+{
+    "name": "Sigil of Permafrost / sparse four-live defense-reaction representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-23T01:11:06+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "**Ice Fusion**\n\nIf this was **fused**, the next time you deal arcane damage to a hero this turn, create that many Frostbite tokens under their control. Named partial branch: unfused_real_blue_payment_base_four_three_damage. Actual natural18 legal iyslander defender4 plays real owned Hand5 in Reaction. Printedcost1 uses actualBlue6 if positive (R2) or retains unusedBlue6 if0; noAPcost. Actual Raging7/Blue8paid3/noGA/no normal blocks, allfour manual DR responses4,1,2,3 then fresh1,2,3,4. Persisted defenseValue4/damage3/HP15 and source5/RoleDEFENSE_REACTION/ownedGGY4, attack7ownedGGY1/attackerNAA9retained pin outcomes. No author-only diagnostics or seeded modifiers. Only other defenderHand card GenericBlue6 is notIce; sourceitself is ElementalWizard, notIce, so no Iyslander Ice-play trigger. No fuse reveal/positivePermafrost/Frostbite/arcane consumer or ownership branch tested. Sources: FaBSim/GeneratedCode/cardArrayCache.json#sigil_of_permafrost_red"
+}

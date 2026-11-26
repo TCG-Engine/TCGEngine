@@ -1,0 +1,7 @@
+{
+    "name": "Blunten / real defense against nonqualifying attack Action",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-24T15:12:27+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "FOUR_REAL_MANUAL_UPF_DORI20_DORI20_DORI20_DORINTHEA20. RealWoundingRed5HandAA0/paysAP/all4manualresponses/adjacent4/base4/noGA. Realprimary7Hand4declaredDEFENSE(notplayed), printeddefense2, actualdamage2/HP4=18, fullclose5GY1/7GY4/AP0/R0. GenericAAisnotSwordWeaponandnotGuardian, evenwhenitsdefendingHeroisGuardian. ThusprimaryprintedWHENpredicatefalse; noearnedprimarytrigger/layer/reward. AttackeractualextraHandBlue6sameUIDprovesnoincorrectBluntenDiscard; actualunequalDecks8redAA4vs9blueAA2andrealreadyHead10emptyCountersproveincorrectClashcouldhavewinnerandheadconsequence, butbothDecksandHeadunchanged/UID10RNG0. No directreveal-logclaim. MomentpositiveSwordlock/BluntenWeapondiscard/ClashGuardiantrigger/timing/winner/counters/optionalchoicesandpitchesuncredited; basicdefenseplusnamedfalseguardonly, notwholecard. Noenginechange. Sources: FaBSim/GeneratedCode/cardArrayCache.json#blunten_yellow FaBSim/Custom/GameLogic.php FaBSim/Custom/WTRCards.php FaBSim/Custom/HVYCards.php FaBSim/Custom/MPGCards.php"
+}

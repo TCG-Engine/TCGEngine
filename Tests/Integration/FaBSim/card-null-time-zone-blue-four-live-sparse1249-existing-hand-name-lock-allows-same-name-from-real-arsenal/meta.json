@@ -1,0 +1,7 @@
+{
+    "name": "Null Time Zone / existing persistent name restriction and native positive follow-through",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-24T00:03:49+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "EXISTING_PRIOR_NAMED_PERMANENT_ONLY. NaturalYoungDori20/2Dori20/dash20. Physicalprimary5ownedArena4frompriorcontrollerturn; persistentnamedchoiceWoundingBlowalreadyrecordedbyactualnormalstateformatarcCards5hntName, notcurrentTurnhistoryornewpermission. Priorentry/namechoiceuncredited, noWHENproducerclaim. RealownWounding6Hand1isaffordable0/AP1butnativeclickmustnotmoveit/openTarget/paycostwhileglobalnameprohibitionactive. RealownsecondWounding7ArsenalFaceDown1isnotHand; sameNamepermittedbyprintedHandscopewhileItem5remainsArena4/STEAM2. ActualArsenalplaydeclares4, StackKindATTACK7/AP1to0, deals4, originalHand6unchanged. NoNameMapclear/removalpermissionseed; activeItem5mustremain, noentry/Crank/upkeep. FinalHP4=16/other20, R0/AP0/UID7/noRNG/StackDQ. NoPitch/defend/entryGA/naming/decksearch/currentturnstart/support/fullcardcredit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#null_time_zone_blue FaBSim/Custom/ARCCards.php FaBSim/Custom/HNTRuntime.php FaBSim/Custom/EVOCards.php FaBSim/Custom/ROSCards.php FaBSim/Custom/ROSRuntime.php FaBSim/Custom/GameLogic.php FaBSim/GeneratedCode/GeneratedMacroCode.php"
+}

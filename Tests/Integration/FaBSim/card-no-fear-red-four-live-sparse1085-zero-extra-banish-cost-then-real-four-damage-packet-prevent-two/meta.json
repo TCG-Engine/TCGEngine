@@ -1,0 +1,7 @@
+{
+    "name": "No Fear / four-live zero additional cards actual damage prevention",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-23T06:59:43+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "As an additional cost to play this, banish any number of cards with 6 or more {p} from your hand. At the beginning of the end phase, return them to your hand.\n\nThe next time you would be dealt damage this turn, prevent X of that damage, where X is 2 plus the number of cards banished to play this. Namedzeroadditionalcardsandpositivefirstlargepacketpreventiononly. NaturalRhinar4ownsNoFear5andactualCriticalBlue6power3(noeligible6power), nohistory/resources/preventionseeded. NaturalRhinar1Club7actualbase4cost2Blue8pays3/R1/AP0, actualtargetadjacent4/allfourmanualsource/combat; noblocks. AtREACTION4nativeInstant5cost0/AP0chooseszeroextraBanish(noeligiblecostcard), allfourfreshmanualsourceprioritybefore5ownedGY. Blue6Handunchanged/Banish0/R0, nofreepitch/lifegain. Real4damagepacketpreventsexactly2/HP4=18, afterlinknormalClub7retainedused/Pitch8/NoFear5ownedGY4/Blue6Hand4/noGA. Noeligiblepositivebanish/return/endphase/partialsmallpacket/laterpackets/sourcechoice/hero/support/sibling/fullcard oroldholdcredit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#no_fear_red"
+}

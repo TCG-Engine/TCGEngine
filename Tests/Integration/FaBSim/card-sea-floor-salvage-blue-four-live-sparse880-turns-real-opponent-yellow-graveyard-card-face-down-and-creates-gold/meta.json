@@ -1,0 +1,7 @@
+{
+    "name": "Sea Floor Salvage / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T15:44:57+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Turn a card in a graveyard face-down. If it's yellow, create a Gold token.\n\n**Go again** Representative only: turns_real_opponent_yellow_graveyard_card_face_down_and_creates_gold. Other pitch siblings, alternate targets and unexercised branches receive no credit. All four live/manual; only native entry-point actions. Sources: FaBSim/GeneratedCode/cardArrayCache.json#sea_floor_salvage_blue"
+}

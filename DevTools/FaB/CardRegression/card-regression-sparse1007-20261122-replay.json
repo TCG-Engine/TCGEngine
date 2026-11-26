@@ -1,0 +1,102 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-evo-steel-soul-controller-blue-four-live-sparse1007-real-two-blue-cost-four-proto-arms-transforms-without-other-evo-event",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-evo-steel-soul-controller-blue-four-live-sparse1007-real-two-blue-cost-four-proto-arms-transforms-without-other-evo-event",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1007-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1007-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "e3e33ad521d33e6ab85bf2165a19126bac7deba4d429d90ee6457e95b6e175ec",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "9215590e86d43fdca30a428b7676e9c421e6de1a353d91807aaeb51f99c8d4b7",
+        "actions.json": "a907406d774bb8334491a9a2f4fc1202e9fe451a7f49dab65e2cf96fdb62fb75",
+        "assertions.json": "f05e762be40b6d2a69793256fd517a2e8a34ab18d859074d59dfd543a1437ae9",
+        "expected_final_gamestate.txt": "16775fb7617246ae1da8d031bf3e1ba117eaf2a9da9bfffacd4a5d90197c1936",
+        "meta.json": "b639993cafcc07cc97427f29db53fb90181f7b3aaa79c00fcc337dc689dfa835"
+      }
+    },
+    {
+      "slug": "card-evo-steel-soul-memory-blue-four-live-sparse1007-real-two-blue-cost-four-proto-head-transforms-without-other-evo-event",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-evo-steel-soul-memory-blue-four-live-sparse1007-real-two-blue-cost-four-proto-head-transforms-without-other-evo-event",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1007-local-20261122\\clean-replays\\01.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1007-local-20261122\\clean-replays\\01.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "63a286f30fd84aa64e5d4a3da7391a17dd8143b45107bdd5fbde8522308a9409",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "393eb5258dec714d77c2e9c1ba8cb0f2935c634ffdc38b01d86ab66b55151881",
+        "actions.json": "a907406d774bb8334491a9a2f4fc1202e9fe451a7f49dab65e2cf96fdb62fb75",
+        "assertions.json": "6ad4a8e0c527ec055611c1dded497fb4a772a4d1765587cf3399534770281005",
+        "expected_final_gamestate.txt": "87eeb9ef9e203209f84b14e8941b18a438baa849bce56169b0c33f58eade1495",
+        "meta.json": "3e3b8fc3d04f76a112961ea9d189cf05d9f10ff9ac985b90eee1b957eee376e6"
+      }
+    },
+    {
+      "slug": "card-evo-steel-soul-processor-blue-four-live-sparse1007-real-two-blue-cost-four-proto-chest-transforms-without-other-evo-event",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-evo-steel-soul-processor-blue-four-live-sparse1007-real-two-blue-cost-four-proto-chest-transforms-without-other-evo-event",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1007-local-20261122\\clean-replays\\02.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1007-local-20261122\\clean-replays\\02.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "8ef28c99cc118f7f4795174f9bee7f0a67c675a37c7e93ede0cd6b076b91bab7",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "8a4f2a0c5e8481dde37267614789a3b0ed59afe6eed5eab956bf189f42e43564",
+        "actions.json": "a907406d774bb8334491a9a2f4fc1202e9fe451a7f49dab65e2cf96fdb62fb75",
+        "assertions.json": "a1612d64f33d0e998722ef05d5ba59c1a45262a221011430c72e64dea6bf5004",
+        "expected_final_gamestate.txt": "d482a1ac7600157aba303d79db385ca3ed7c6cfe74a3d7e730508c16e04991a2",
+        "meta.json": "ba449023c37eb5fc2094246e11d1c99d0cae86923d377f9c0025d14659b0012c"
+      }
+    },
+    {
+      "slug": "card-evo-steel-soul-tower-blue-four-live-sparse1007-real-two-blue-cost-four-proto-legs-transforms-without-other-evo-event",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-evo-steel-soul-tower-blue-four-live-sparse1007-real-two-blue-cost-four-proto-legs-transforms-without-other-evo-event",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1007-local-20261122\\clean-replays\\03.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1007-local-20261122\\clean-replays\\03.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "46cc0b18f7f76933a2acb1eefc4b696153006725565dba82083bd6ace6bc0d71",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "dcaf8120068a7504ff693e53ed32c29cf4c240c2d9164e01132a1a7b54402ed9",
+        "actions.json": "a907406d774bb8334491a9a2f4fc1202e9fe451a7f49dab65e2cf96fdb62fb75",
+        "assertions.json": "8d25826c6f6d9fbf10fbe7214bec80f3f6df3e6f2996cd14e0bb14bab5ffe0e7",
+        "expected_final_gamestate.txt": "22c1db1efdda7f825c08d7a44792abec4bedc22b7bb651f5d550647e4cdf60cd",
+        "meta.json": "66114df2b6dd8b0a0e7ad7b07eb6516e2f8f8bc24f56fea8f01bda0ffcae592c"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

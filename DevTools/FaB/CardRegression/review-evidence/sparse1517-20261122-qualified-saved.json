@@ -1,0 +1,88 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "/root/breadth_review1457",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1517-20261122.json",
+  "source_spec_sha256": "cfaa5c8edc5e7982d65b183a20d18547ddb64fe404b0a38f05544a1fe35e4dd1",
+  "input_sha256": "cfaa5c8edc5e7982d65b183a20d18547ddb64fe404b0a38f05544a1fe35e4dd1",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-quiver-of-abyssal-depths-four-live-sparse1517-real-three-resource-cost-returns-one-arrow-to-empty-deck",
+      "card_id": "quiver_of_abyssal_depths",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "0c19fbfcb51f85a28f45d41a98f59f1d176ce9b49ec12aed7f2bc5017053ddc1",
+        "actions.json": "56ea4c0e9bc3dd488d53e3c60350f9f27937606bbf36d702ce41f3b54f0ab14f",
+        "assertions.json": "1b170746a3eec4ae9ba6b022d665034a79eccc0b71f65a918aa6a6f5aea904f6",
+        "expected_final_gamestate.txt": "f8de8c1df0bc98ae7285d50d9c3658a7a4730898df4c791409c03fce1fa3ef1c",
+        "meta.json": "032424203c31e20faf461fc673dd7f01241f839e4ab485c8fb760fc65c6ffd1c"
+      },
+      "fixture_sha256": "91882afe4fc3ed90051fd98af83cf9192b23b43fbeecd93ee0bf795cff53d6f5",
+      "actions": 12,
+      "native_assertions": 518,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 8,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1517-20261122.json",
+      "input_sha256": "cfaa5c8edc5e7982d65b183a20d18547ddb64fe404b0a38f05544a1fe35e4dd1",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1517-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-quiver-of-abyssal-depths-four-live-sparse1517-real-three-resource-cost-returns-one-arrow-to-empty-deck",
+        "fixture_slug": "card-quiver-of-abyssal-depths-four-live-sparse1517-real-three-resource-cost-returns-one-arrow-to-empty-deck",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "schema_version": 1,
+    "batch": 1517,
+    "reviewer": "/root/breadth_review1457",
+    "result": "approved_named_branches_only_pending_native_execution",
+    "reviewed_utc": "2026-11-25T08:22:38.285730+00:00",
+    "spec_sha256": "cfaa5c8edc5e7982d65b183a20d18547ddb64fe404b0a38f05544a1fe35e4dd1",
+    "source_note_sha256": "9517e617ab8bb537d7b6511d9ecad4d1573c78ce53d177585553524cea4799ce",
+    "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+    "source_sha256": {
+      "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+      "FaBSim/GeneratedCode/GeneratedMacroCode.php": "fe6a7982611df8f4de98ce2671b317b671b580146aa4b8c28e8f4b86d8461056",
+      "FaBSim/Custom/GameLogic.php": "c60fa151561f959e4e3e341b814de0e2b47c9e9f153bbc8793a04c43b5075061",
+      "FaBSim/Custom/ARCAbilities.php": "e49ce4685f148ef423ea38aac544266b3298527ea8ca9eef11b12fb974e7c9f0",
+      "FaBSim/Custom/OUTCards.php": "93f83523894205662afb911abd42b5c82b618020597b2ffecf6612fccc362d91",
+      "FaBSim/Custom/CardChoices.php": "c68ae2b8e984bcc64b00289cc2d71bc0c980b2fbbeaeadbca8ae3a9f9579c515",
+      "Core/DeterministicRNG.php": "1dab74f1628bf52a89a1aca6941dfe5e4513fef660ef7b8b58fe057c70fa517a"
+    },
+    "cases": 1,
+    "findings": [
+      "NewprintedupTo3subsetoneeligibleArrow, not replacement/requalificationofoldtwoArrowrecipe.",
+      "Potion8ABI9R2/AP1, Quiver5ABI10realcost3needsBlue6pitch3; physical5staysEquipmentuntilfullpaymentthenR2/AP1/destructionbeforepriority.",
+      "SameARCmanagedABI10throughfourresponses andMZMAYCHOOSEGY0; chooseUID7, noextraPASS, helperexhaustsnamelistthenmoves7toemptyDeck.",
+      "Unmodifiedproductionstrongshufflecount1haszeroiterations; exactDeck7/GYPotion8Quiver5/Pitch6/AP1R2Random0/allHP20 correct."
+    ],
+    "limits": [
+      "No multiArrowrandomorder, differentnamefilter, oldtwoArrowrecipe, priorcreation, Arrowplay orsecondaryabilitiescredit. Reviewer read-only source/spec review, no native games or writes."
+    ]
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1517-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "41149b17369808c9edcded9533fbf3e94f5b076c4e9c7537e8fce7cba94a0f03"
+  },
+  "full_suite_run": false
+}

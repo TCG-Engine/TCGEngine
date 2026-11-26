@@ -1,0 +1,7 @@
+{
+    "name": "Virulent Touch / sparse four-live origin restriction representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-23T02:23:08+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "This can't be played from hand.\n\nWhen this chain link resolves, if this is defended by a card from hand, create a Bloodrot Pox token under the defending hero's control. Named origin-negative branch only: legalnaturalUzuri20/cost0/AP1/R0, realHand5 cannot be played fromHand, explicitOUTCanPlay guard. Rejectbeforetarget/payment/move/Stack/AP, retainHand2/source5. Then actualGenericWounding6cost0/targetadjacentHero4/fourmanualcombat deals4/HP16/AP0/source6ownedGY, original5staysHand. No positive Arsenal/alternateorigin/chain-resolution token timing/ownership/hero/support/sibling/fullcard claim. Sources: FaBSim/GeneratedCode/cardArrayCache.json#virulent_touch_red"
+}

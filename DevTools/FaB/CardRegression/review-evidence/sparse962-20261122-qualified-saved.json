@@ -1,0 +1,141 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "Root independent of breadth_review author",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse962-20261122.json",
+  "source_spec_sha256": "56a7095047dcae9087311892462bd0d02f8e22e26647672cec94bc4841e8e029",
+  "input_sha256": "56a7095047dcae9087311892462bd0d02f8e22e26647672cec94bc4841e8e029",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-minds-desire-red-four-live-sparse962-actual-full-block-retains-real-eligible-non-attack-action-deck",
+      "card_id": "minds_desire_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "1b51452691c7366cabe38d374ff6101a6b758655e0a6bd2d054f27b9e192a5e1",
+        "actions.json": "9f2158a76a224facb898cc12561b10d89380d0d90e15b49131c1d4359e991d29",
+        "assertions.json": "06c89ac843011c408f52ac45debeb978f73a0fb3f9ff7a229c9a86067de6873d",
+        "expected_final_gamestate.txt": "c9171435be9bdafc0d623d0d6e9d39734d6b3604e83213587e8c456260e5c0fb",
+        "meta.json": "d22adb0b970adfec42bd98036117eabdbd2f558b8ea16013b5be3ebf7a450c6a"
+      },
+      "fixture_sha256": "2f752de34c7e323aeaac441fdee48c57c1225824ee04988e5318fc713b6f16e2",
+      "actions": 29,
+      "native_assertions": 183,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse962-20261122.json",
+      "input_sha256": "56a7095047dcae9087311892462bd0d02f8e22e26647672cec94bc4841e8e029",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse962-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-minds-desire-red-four-live-sparse962-actual-full-block-retains-real-eligible-non-attack-action-deck",
+        "fixture_slug": "card-minds-desire-red-four-live-sparse962-actual-full-block-retains-real-eligible-non-attack-action-deck",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-desires-of-flesh-red-four-live-sparse962-actual-full-block-retains-real-eligible-attack-action-deck",
+      "card_id": "desires_of_flesh_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "b1dbc4ecd5e771b09eba10150a65237e4ad8c7d03eb487a1a4c9ef1511297641",
+        "actions.json": "9f2158a76a224facb898cc12561b10d89380d0d90e15b49131c1d4359e991d29",
+        "assertions.json": "777b5e7a1ea1c3378bd71a5863234ed47541c32b0ef2107c4713f16c8b259274",
+        "expected_final_gamestate.txt": "2f33569b5bd19f6382d931a1e42de555eff90e71a22cbb54562d87fe3b9e1be8",
+        "meta.json": "8c45489ad4cb14462063de7e169d8c58783e7824e41498d54378f332a0852963"
+      },
+      "fixture_sha256": "69d5edf614c0c2aae5ca0b6253e410ca460a34cb72ce8669ee467e49d8d81f39",
+      "actions": 29,
+      "native_assertions": 183,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse962-20261122.json",
+      "input_sha256": "56a7095047dcae9087311892462bd0d02f8e22e26647672cec94bc4841e8e029",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse962-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-desires-of-flesh-red-four-live-sparse962-actual-full-block-retains-real-eligible-attack-action-deck",
+        "fixture_slug": "card-desires-of-flesh-red-four-live-sparse962-actual-full-block-retains-real-eligible-attack-action-deck",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-bonds-of-attraction-red-four-live-sparse962-actual-full-block-retains-real-same-color-distinct-name-deck-and-graveyard",
+      "card_id": "bonds_of_attraction_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "4407f6dafbd71df32224b515c6979b41fb4366584930301e016dc7f1d6807120",
+        "actions.json": "9f2158a76a224facb898cc12561b10d89380d0d90e15b49131c1d4359e991d29",
+        "assertions.json": "2cf160ef60c94e53e1e86624d5ed4fa348aaf348fb908996d06747aa1ca6b530",
+        "expected_final_gamestate.txt": "50a5b5673d5a68d3c029e65b1cf01e6f17ba5a12140b633f621dc82dd6b28134",
+        "meta.json": "fc4685ee0e335e5f12b616bb73ad477d3bcff4cf18f61920b944ea0db80c32d5"
+      },
+      "fixture_sha256": "95ed4ca3f3ab2fc144ed841fb255db4492389f5156f4741b013ef20f9a18a1ac",
+      "actions": 29,
+      "native_assertions": 190,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse962-20261122.json",
+      "input_sha256": "56a7095047dcae9087311892462bd0d02f8e22e26647672cec94bc4841e8e029",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse962-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-bonds-of-attraction-red-four-live-sparse962-actual-full-block-retains-real-same-color-distinct-name-deck-and-graveyard",
+        "fixture_slug": "card-bonds-of-attraction-red-four-live-sparse962-actual-full-block-retains-real-same-color-distinct-name-deck-and-graveyard",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-bonds-of-memory-red-four-live-sparse962-actual-full-block-retains-real-same-name-deck-and-graveyard",
+      "card_id": "bonds_of_memory_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "848aa3e40920020c789699221c7b312276d872cfcaaa383bacafc70bf8c21cb7",
+        "actions.json": "9f2158a76a224facb898cc12561b10d89380d0d90e15b49131c1d4359e991d29",
+        "assertions.json": "785ee2fa4f47f73ab682c6b63262159ec48ca7f307e15f8113aaebff0f27dba4",
+        "expected_final_gamestate.txt": "a3a610eafa47fd885f3ae264d55dd440157b9f0283c0ce2da2158b8309977ec7",
+        "meta.json": "0c53c32e76384acaef18e1c082f72202c0a872e76c104c7a40a21091ef675d33"
+      },
+      "fixture_sha256": "3b86a3cce12b7c21224f1e6b5f614d4c866cea660c74e336533add9d4b4f8b36",
+      "actions": 29,
+      "native_assertions": 190,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse962-20261122.json",
+      "input_sha256": "56a7095047dcae9087311892462bd0d02f8e22e26647672cec94bc4841e8e029",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse962-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-bonds-of-memory-red-four-live-sparse962-actual-full-block-retains-real-same-name-deck-and-graveyard",
+        "fixture_slug": "card-bonds-of-memory-red-four-live-sparse962-actual-full-block-retains-real-same-name-deck-and-graveyard",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "spec_sha256": "56a7095047dcae9087311892462bd0d02f8e22e26647672cec94bc4841e8e029",
+    "reviewer": "Root independent of breadth_review author",
+    "basis": [
+      "Printed hit/banish predicates absent atactual0damage/fullblock6vs3, no otherunconditionalWHENattacks/plays. LegalplainAssassinUzuri20/noactivation, physicalsource5/defenders6,7/realownerGY, cost0/R0/AP0/allfourmanualcombat.",
+      "ActualeligibleDeck8NAA/AA orsamecolor/sameNameDeck8+GY9retained. BondslegitimatepreexistingGY9staysindex0andactualdefendersappend1,2; count3/exactCardIDUIDOwner4guardsincludeallobjects. No selected/banished flags seeded. BothBanish0/all4Arena0/ownHP20 catchunearnedbanish/creation/healing. No positivehit/matching/heal/ownership/sibling/fullcardcredit.",
+      "Exactauthorpacket/note/templatechangesreviewed; no missingformaltriggeredtargetbecausehitneverhappens. Nativeexecutionandonefocusedreplaypending. IsolatedTsourceonly, no originalread."
+    ]
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse962-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "3e7391182a0eb36ae4f6ca163110af48c14f6555eafbc36a98056838f5b4ce03"
+  },
+  "full_suite_run": false
+}

@@ -1,0 +1,7 @@
+{
+    "name": "Gauntlet of Sword and Sorcery / four-live paid Arcane Barrier one",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-23T06:12:29+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "**Action** - {r}{r}, {t} this and your hero: The next attack action card you play this turn gets \"When this attacks, deal 1 arcane damage to any opposing target. If damage is dealt this way, this gets +1{p}.\" **Go again**\n\n**Arcane Barrier 1** NamedpaidArcaneBarrier1only. Naturalviserai20 ownsrealreadyEquipment5/intrinsicAB1 and actualBlue7Hand; naturalVerdance20ownsWizardZap6Hand/cost0/base3. Native6playdeclaresadjacentHero4beforeAPpayment; AP1\u21920thenallfourmanualsourcepriorityresponses. Real4ABmodalchoosepay1, source6heldStack/GY0/HP4unchanged/R0/Blue7stillHand throughreplacementandrealpitchchooser. ActualBlue7pitch3pays1/R2, prevents1fromZap3anddeals2/HP4=18. Source6ownedGY1, Eq5owned4readyretained, Blue7Pitch4, nootherassets/resources/lifegain/counters/preventionseeded. Noactivatedability/otherbodyproducer/defense/Spellvoid/endphase/alternatepayments/hero/support/wholecard/sibling/oldholdcredit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#gauntlet_of_sword_and_sorcery"
+}

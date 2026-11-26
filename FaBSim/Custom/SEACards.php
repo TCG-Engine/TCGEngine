@@ -5,7 +5,7 @@ function FaBSEAAdd(int $p,string $key,int $n=1,array $extra=[]): void {FaBWTRAdd
 function FaBSEAClear(int $p,string $key): void {FaBWTRSetEffects($p,array_values(array_filter(FaBWTREffects($p),fn($e)=>($e['type']??'')!=='SEA_'.$key)));}
 function FaBSEAWatery($o): bool {return FaBHasKeyword($o,'Watery Grave')||FaBHasKeyword($o,'Legend of the Watery Grave');}
 function FaBSEAHighTide(int $p): bool {return count(FaBChoiceRefs($p,'Pitch',['pitch'=>3]))>=2;}
-function FaBSEALessGold(int $p): bool {$n=count(FaBChoiceRefs($p,'Arena',['base'=>'gold']));foreach(FaBOpponents($p) as $v)if(count(FaBChoiceRefs($v,'Arena',['base'=>'gold']))>$n)return true;return false;}
+function FaBSEALessGold(int $p): bool {$n=count(array_filter(explode('&',FaBHVYGold($p))));foreach(FaBOpponents($p) as $v)if(count(array_filter(explode('&',FaBHVYGold($v))))>$n)return true;return false;}
 function FaBSEARefs(int $p,string $kind,string $zone='Arena',bool $all=false): string {
  $out=[];foreach($all?FaBLiveSeats():[$p] as $v)foreach(FaBChoiceRefs($v,$zone) as $r){$o=FaBIdentityFromMZ($r)['object'];
   $ok=match($kind){'gun'=>FaBHasType($o,'Gun'),'bow'=>FaBHasType($o,'Bow'),'nimblism'=>FaBWTRBase($o->CardID)==='nimblism','cog'=>FaBHasType($o,'Cog'),'readyCog'=>FaBHasType($o,'Cog')&&FaBSEACanTap($o),'readyAlly'=>FaBHasType($o,'Ally')&&FaBSEACanTap($o),'ally'=>FaBHasType($o,'Ally'),'watery'=>FaBSEAWatery($o),'blue'=>intval(CardPitch($o->CardID))===3,'yellow'=>intval(CardPitch($o->CardID))===2,'item'=>FaBHasType($o,'Item'),'arrow'=>FaBHasType($o,'Arrow'),'gold'=>$o->CardID==='gold',default=>true};if($ok)$out[]=$r;
@@ -37,7 +37,25 @@ function FaBSEAGraveEntered(int $p,object $o,string $from,?object $source=null):
  if(FaBWTRBase($o->CardID)==='sirens_of_safe_harbor')FaBCRUGainLife($p,1);
  if(FaBSEAWatery($o)&&in_array($from,['Arena','Equipment','Weapons','Hero'],true))FaBROSQueue($p,$o->CardID,intval($o->UniqueID),['rosEvent'=>'seaWatery']);
 }
-function FaBSEADiscarded(int $p,string $id): void {if($id==='fools_gold_yellow')FaBHVYToken($p,'gold');if($id==='sea_legs_yellow')FaBHVYToken($p,'goldkiss_rum');}
+function FaBSEADiscarded(int $p,string $id,int $uid=0,?object $lastKnown=null): void {
+ $token=['fools_gold_yellow'=>'gold','sea_legs_yellow'=>'goldkiss_rum'][$id]??'';
+ if($token==='')return;
+ // These triggers need the actual event source, never a guessed graveyard copy.
+ // All native discard callers supply a pre-move snapshot and its physical UID.
+ if($p<1||$p>4||$uid<1||$lastKnown===null
+  ||intval($lastKnown->UniqueID??0)!==$uid||(string)($lastKnown->CardID??'')!==$id
+  ||intval($lastKnown->Controller??0)!==$p)throw new LogicException('SEA discard trigger requires matching pre-move source context');
+ if(!FaBSeatIsLive($p)||HasNoAbilities($lastKnown))return;
+ FaBROSQueue($p,$id,$uid,['rosEvent'=>'seaDiscardedToken']);
+}
+function FaBSEAResolveDiscardedToken(int $p,object $layer): void {
+ $params=is_array($layer->Params??null)?$layer->Params:[];
+ $token=['fools_gold_yellow'=>'gold','sea_legs_yellow'=>'goldkiss_rum'][$layer->CardID??'']??'';
+ if($token===''||($layer->Kind??'')!=='ABILITY'||($params['rosEvent']??'')!=='seaDiscardedToken'
+  ||intval($layer->Controller??0)!==$p||intval($layer->SourceUniqueID??0)<1||!FaBSeatIsLive($p))return;
+ // An earned token trigger is independent of later source movement or blanking.
+ FaBHVYToken($p,$token);
+}
 function FaBSEASteal(int $p,string $ref,bool $temporary=false): bool {
  $f=FaBIdentityFromMZ($ref);if(!$f||$f['player']===$p||$f['zone']!=='Arena'||(!FaBHasType($f['object'],'Item')&&!FaBHasType($f['object'],'Ally')))return false;
  $u=intval($f['object']->UniqueID);$source=clone $f['object'];$old=$f['player'];$f['object']->removed=true;

@@ -1,0 +1,273 @@
+{
+  "status": "APPROVED_ACTUAL_SAVED_B806_SILKEN_R2",
+  "phase": "SAVED",
+  "approved": true,
+  "saved_approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "/root/sand_saved_recovery",
+  "created_utc": "2026-11-15T01:10:22.505924+00:00",
+  "source_spec": "card-regression-batch806-silken_shroud-ward-choice-r2.json",
+  "input_sha256": "b4b13a1667fced4dc4b5cccc25446b53a12214182c72e5e607bd010294a1c6f4",
+  "manifest_sha256": "c17174dc95edb05a47d3771eb9a62861cafed6b8152f155fcb8225778140523f",
+  "runtime_sha256": "6695d68163d313f4f61cb20ad9122c7038e621a60c847909598150fe8da09d11",
+  "recorded_runtime_sha256": "6695d68163d313f4f61cb20ad9122c7038e621a60c847909598150fe8da09d11",
+  "recorder_sha256": "ab33a3250462d0453f71d38dd4138cb9fbc3d595d2586742e989a52251c9c4a9",
+  "manifest": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-batch806-silken-real-ward-one-destruction-earned-ponder-four-priority-author-r2\\manifest.json",
+    "sha256": "c17174dc95edb05a47d3771eb9a62861cafed6b8152f155fcb8225778140523f"
+  },
+  "prior_independent_source_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-batch806-silken-independent-correct-positive-source-review-r2.json",
+    "sha256": "61411f3df32557da3724d0336b8d7204f4d9749f37d924ba62b566c5807248a3"
+  },
+  "original_operator_stop_correction": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-batch806-silken-independent-original-operator-stop-review.json",
+    "sha256": "45ecad44338c950117c3b7de0e6870ae111fd8c874ec74022da37fd58b919516"
+  },
+  "root_wrapper_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-b806-silken-r2-native-explicit-ward-choice\\receipt.json",
+    "sha256": "6ecc0d01b826b145b317ba758b72429be6690d229a1466c384a8b16993e840b7"
+  },
+  "recording_receipt": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch806-silken_shroud-ward-choice-r2-20261115T010743Z-6af905dfc4ad6.json",
+    "sha256": "a3e5ac0d3e4d8c6238902244d72f85a5e019336d80e1986148088d7c3a62afeb"
+  },
+  "specific_results": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch806-silken_shroud-ward-choice-r2.recording-results.json",
+    "sha256": "e66638915a8cd1c8b39c1394bba66550ad130ff823299021250a6fa9c245654a"
+  },
+  "fixtures": [
+    {
+      "slug": "card-silken-real-ward-one-destruction-earned-ponder-four-priority-ward-choice-r2",
+      "card_id": "silken_shroud",
+      "group_id": "identity:silken_shroud",
+      "source_spec": "card-regression-batch806-silken_shroud-ward-choice-r2.json",
+      "input_sha256": "b4b13a1667fced4dc4b5cccc25446b53a12214182c72e5e607bd010294a1c6f4",
+      "runtime_sha256": "6695d68163d313f4f61cb20ad9122c7038e621a60c847909598150fe8da09d11",
+      "recorded_runtime_sha256": "6695d68163d313f4f61cb20ad9122c7038e621a60c847909598150fe8da09d11",
+      "approved": true,
+      "semantically_approved": true,
+      "reviewer_independent": true,
+      "fixture_path": "Tests/Integration/FaBSim/card-silken-real-ward-one-destruction-earned-ponder-four-priority-ward-choice-r2",
+      "fixture_sha256": "27f08718be087d22d40be59dc809825ecd5991b3749594c5ab091af6a0639124",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "85c7f4a87a6ed042390f7bbbb0f87438aa145aa84a6f2d77672356104dde0e05",
+        "actions.json": "a7ee642e1f573c9c4dcc034bb7fa1bc5b85fb84cfe75ccd2e413f3c2a962560b",
+        "assertions.json": "a6664e5146179a64bb146f43412a6a5a26027daa558ea226daa5093b0b2e8869",
+        "expected_final_gamestate.txt": "7b61d6f7b3cd9fcdb34aa5eb3e5735dcc8fb4aab7532b2bfb07e42a942ef73eb",
+        "meta.json": "b94f5c1c39aab46646ee4277cffdbf57808210b4aa40fff14fbda1bff147d1fc"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "85c7f4a87a6ed042390f7bbbb0f87438aa145aa84a6f2d77672356104dde0e05",
+        "actions.json": "a7ee642e1f573c9c4dcc034bb7fa1bc5b85fb84cfe75ccd2e413f3c2a962560b",
+        "assertions.json": "a6664e5146179a64bb146f43412a6a5a26027daa558ea226daa5093b0b2e8869",
+        "expected_final_gamestate.txt": "7b61d6f7b3cd9fcdb34aa5eb3e5735dcc8fb4aab7532b2bfb07e42a942ef73eb",
+        "meta.json": "b94f5c1c39aab46646ee4277cffdbf57808210b4aa40fff14fbda1bff147d1fc"
+      },
+      "raw4_sha256": {
+        "initial_gamestate.txt": "85c7f4a87a6ed042390f7bbbb0f87438aa145aa84a6f2d77672356104dde0e05",
+        "actions.json": "a7ee642e1f573c9c4dcc034bb7fa1bc5b85fb84cfe75ccd2e413f3c2a962560b",
+        "assertions.json": "a6664e5146179a64bb146f43412a6a5a26027daa558ea226daa5093b0b2e8869",
+        "expected_final_gamestate.txt": "7b61d6f7b3cd9fcdb34aa5eb3e5735dcc8fb4aab7532b2bfb07e42a942ef73eb"
+      },
+      "actions": 32,
+      "native_assertions": 2086,
+      "manual_passes": 29,
+      "actual_manual_passes": 29,
+      "actual_priority_response_passes": 28,
+      "actual_destroyed_trigger_response_passes": 4,
+      "actual_defender_declaration_finish_inputs": 1,
+      "actual_Ward_replacement_answer_inputs": 1,
+      "actual_manual_actor_counts": {
+        "1": 7,
+        "2": 7,
+        "3": 7,
+        "4": 8
+      },
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4
+      ],
+      "schema_property_assertions": 387,
+      "checkpoint_count": 34,
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "endpoint_assertions_evaluated": {
+        "0": 131,
+        "32": 191
+      },
+      "all_actions_and_assertions_exact": true,
+      "all_terminal_assertions_evaluated_against_parsed_final_snapshot": true,
+      "initial_assertions_also_evaluated_against_parsed_initial_snapshot": true,
+      "initial_physical_uid_locations": {
+        "1": {
+          "card_id": "betsy",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "wounding_blow_red",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "betsy",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2
+        },
+        "3": {
+          "card_id": "betsy",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3
+        },
+        "4": {
+          "card_id": "prism",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4
+        },
+        "6": {
+          "card_id": "silken_shroud",
+          "zone": "p4Equipment",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_physical_uid_locations": {
+        "1": {
+          "card_id": "betsy",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "wounding_blow_red",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "betsy",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2
+        },
+        "3": {
+          "card_id": "betsy",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3
+        },
+        "4": {
+          "card_id": "prism",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4
+        },
+        "8": {
+          "card_id": "ponder",
+          "zone": "p4Arena",
+          "owner": 4,
+          "controller": 4
+        },
+        "6": {
+          "card_id": "silken_shroud",
+          "zone": "p4Graveyard",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "native_action_mapping_sha256": "4eaa4f3a5832881827d6c4de7b5018751f5112ca906d610e59a1eef9088064bb",
+      "native_assertion_mapping_sha256": "78645372b52db3df81a3c1bbbbddef4d09da6f828b71eecb3851f61d38cc98b3",
+      "checkpoint_assertion_mapping_sha256": "d70c960b3c1fe9bbfdbb5de102505ad50093a8e98d7a6ab66e0150c498ffa742",
+      "actual_new_Ponder_UniqueID": 8,
+      "new_token_UID_predetermined_in_input": false,
+      "earned_trigger_UID_kind_virtual_Owner_asserted": false,
+      "full_card_certification": false
+    }
+  ],
+  "source_guard_count": 82,
+  "selected_support_guard_count": 21,
+  "all_current_guards_matched": true,
+  "total_actions": 32,
+  "total_native_assertions": 2086,
+  "total_manual_passes": 29,
+  "total_schema_property_assertions": 387,
+  "total_checkpoints": 34,
+  "total_endpoint_assertions_evaluated": 322,
+  "actual_initial_health": [
+    20,
+    20,
+    20,
+    20
+  ],
+  "actual_final_health": [
+    20,
+    20,
+    20,
+    17
+  ],
+  "material_findings": [
+    "All32actualnativeenvelopes/2086successfulpersistedqueries/29manualactors7,7,7,8matchexactR2. PublicP4Wardanswerisatnative20; all322rawendpointqueries/48manualpreferenceseachindependentlyevaluated.",
+    "Actualprechoicecontrol19HP20/sameownedHead6Equipment4/Stack0/Ponder0/publicMZCHOOSEexactoption. ActualP4answerp4Equipment-0destroysSAMEHead6ownGY4/prevents1fromRed4->physical3HP17/P1priority.",
+    "ActualpendingStack1Controller4andPonder0throughfresh1,2,3passes; fourthactualP4passresolvesonePonderOwner4Controller4/P1again. EarnedlayerUID/kind/Owner/windowandnewtokenUIDwerenotassertedguesses. ActualfinalrawPonderUID8/newcounter8verifieddirectlyandboundinraw5/fullfinalreplays.",
+    "TrueCloseactualRed5GY1/Head6GY4/Ponder8Arena4/originalHeroquiet/allRChiAP0/StackChainsDQsTargetPaymentManagerAwaitclear. NoRadiantphysicalcardplayed; aliasisexistingsharedpreventiontransport.",
+    "OriginalR1stop45ecadwasunansweredlegitimateWardchoice/operatoromission, notenginefailure. Its1138priorchecksareexecution-boundarycountwithnorawassertionarrayretained; actualR2nowretainsandpassesall2086queries. Nooldfailureoutcomecredittransferred."
+  ],
+  "observable_only_admission": true,
+  "general_Ward_system_certified": false,
+  "general_token_creation_certified": false,
+  "general_triggered_ability_lifecycle_certified": false,
+  "new_token_UID_predetermined": false,
+  "legal_post_damage_priority_order": [
+    1,
+    2,
+    3,
+    4
+  ],
+  "limits": [
+    "OneSilkenHeadWard-destroy-Ponderpositiveonly. NofuturePonderEnd/draw, PrismSoul/Shieldcreator/ability, otherWard/creator, fullcard/siblingsorunrelatedheldbranchcertificate.",
+    "No genericvirtualROSlayerlifetime/triggerframeworkcertificate; exactobservedpendingcontroller/physicaltoken/damage/ownershiponly.",
+    "Roottwonew-onlyfocusedreplaysandregistrationremain. ReviewernoPHP/native/replay/R/source/Git/repair/B787action."
+  ],
+  "qualification_credit_before_registration": false,
+  "replays_executed_by_reviewer": false,
+  "B787_denied_operation_untouched": true,
+  "blockers": [],
+  "comparison_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov15_batch806_silken_saved_r2.py",
+    "sha256": "675bdb074359b6ae07a8c8863d5aa5f43112a1915004354ce1c3183d38a5bc9c"
+  }
+}

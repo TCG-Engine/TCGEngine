@@ -1,0 +1,7 @@
+{
+    "name": "Wallop / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T19:28:10+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "When you win a **clash** revealing this, create a Vigor token. Representative only: actual_two_blue_seven_damage_without_clash_reveal_vigor. Positive dormant conditions and pitch siblings untested. Sources: FaBSim/GeneratedCode/cardArrayCache.json#wallop_red"
+}

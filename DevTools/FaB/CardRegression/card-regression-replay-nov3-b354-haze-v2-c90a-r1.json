@@ -1,0 +1,27 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch354-haze-v2.json",
+  "runtime_sha256": "c90ad7d34900eb8cbcfccd8c5e0c3a45f7f9ba7a6cbaabf97328e00033dc51d3",
+  "returncode": 0,
+  "completed_utc": "2026-11-03T17:55:52.316717+00:00",
+  "fixtures": [
+    {
+      "slug": "card-haze-shelter-red-four-live-sparse-real-blue-paid-aura-ward-four-prevents-four-of-seven",
+      "fixture_sha256": "96dbb2a9ab8f222f69942b289a7cda7a797d87266668adaef0c76e6f7a3c72a1",
+      "passed": true,
+      "result": "[PASS] haze_shelter_red / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-haze-shelter-red-four-live-sparse-real-blue-paid-aura-ward-four-prevents-four-of-seven",
+      "returncode": 0,
+      "stdout": "[PASS] haze_shelter_red / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

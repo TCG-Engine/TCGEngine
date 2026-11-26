@@ -1,0 +1,102 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-thespian-charm-yellow-four-live-sparse1259-actual-single-destroy-mode-removes-real-owned-aura-token",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-thespian-charm-yellow-four-live-sparse1259-actual-single-destroy-mode-removes-real-owned-aura-token",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1259-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1259-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "75485fa205a1eb879e36a21580ad29bd8c45bc5b306a27ef57e4b47c9619e443",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "f3acbe2a31885aa74198c3cad3f368f4269d762c1e4cf68985db1c13cdec7835",
+        "actions.json": "edf121f520381418dc3ec685f250e6ad0661ab94088cf0f94b4b5f43f50dc854",
+        "assertions.json": "55c03480f569addec79fd62526494a4afe5080a2f6d68f35cb3de03da27dc38f",
+        "expected_final_gamestate.txt": "749288560ddf52b85fac52d4805468fa15b6b9d77c9a56aac03326573f6204a3",
+        "meta.json": "65c250379dca99911a2ef4662de680725341ccfb186b1baa4b60ada083151405"
+      }
+    },
+    {
+      "slug": "card-numbskull-charm-yellow-four-live-sparse1259-actual-single-destroy-mode-removes-real-owned-aura-token",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-numbskull-charm-yellow-four-live-sparse1259-actual-single-destroy-mode-removes-real-owned-aura-token",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1259-local-20261122\\clean-replays\\01.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1259-local-20261122\\clean-replays\\01.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "a134b5f987551259ab3bcd94c30fc994621790b116be839fa28abf0bdc39e532",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "3653b9e398cdda64a4d2cabf88505d6b5caa44509c4562d1f032405478d69b5c",
+        "actions.json": "edf121f520381418dc3ec685f250e6ad0661ab94088cf0f94b4b5f43f50dc854",
+        "assertions.json": "64494b595289b70e6d38eff63d32baf5ea75542318ede9026ac9b98e4f902969",
+        "expected_final_gamestate.txt": "863fb1221c1d8ffc2afa17e449084298bd3f66271d8624c6aeacd4506a7937ac",
+        "meta.json": "17fc7628d5fd824b2809207684c294c7166f6ce8fcdcaf6e60a4c33c4867c368"
+      }
+    },
+    {
+      "slug": "card-liars-charm-yellow-four-live-sparse1259-actual-single-steal-mode-keeps-foreign-owner-and-changes-token-controller",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-liars-charm-yellow-four-live-sparse1259-actual-single-steal-mode-keeps-foreign-owner-and-changes-token-controller",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1259-local-20261122\\clean-replays\\02.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1259-local-20261122\\clean-replays\\02.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "73019bc1c0075b33279b5a31fff54b4e72addc7f2f89fc2e0945ac33a2d1c669",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "cd6c10af96568c3c0ac1ee9e7b7838224262f13034bb4f56efe0c8ddaa839bd4",
+        "actions.json": "791f24acc01a4af882f557f7f6b33bff52f86b3de329d59411801035b58c9d30",
+        "assertions.json": "2ccc6060060f9f9c08e1a427f2f1e1e5165cf36ee0c1c27bb27acaae1c9cd601",
+        "expected_final_gamestate.txt": "88fd503850f7f2fd5c415576cc8f72a389fc4bdd4d7ff92417bd7aac98db581d",
+        "meta.json": "ae0a0d18027dfba0f6b282db30a6ff952fe70eb7324b30f8e8d38892e6acc564"
+      }
+    },
+    {
+      "slug": "card-cheaters-charm-yellow-four-live-sparse1259-actual-single-steal-mode-keeps-foreign-owner-and-changes-token-controller",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-cheaters-charm-yellow-four-live-sparse1259-actual-single-steal-mode-keeps-foreign-owner-and-changes-token-controller",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1259-local-20261122\\clean-replays\\03.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1259-local-20261122\\clean-replays\\03.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "52d3a700fa3e8b8692a71e4eac3e65332ad9fbdf4909b0388a2bf753fb018328",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "5af83732f1582c569abb918625517fa528a1f62a98e0ff9da756841754a2d0cd",
+        "actions.json": "791f24acc01a4af882f557f7f6b33bff52f86b3de329d59411801035b58c9d30",
+        "assertions.json": "663a31a2447d4f6e0b8660f502b323b4687eed5457dacd69a376c646219748af",
+        "expected_final_gamestate.txt": "da0552da31ad922b16cffe20962fa86107082f7f149573b503ae92d5a8015a7e",
+        "meta.json": "4df388256fe77d62d93484ee72922154c257d457e7e77d4ab5a5c6cd26ed9d35"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

@@ -1,0 +1,131 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "independent breadth_review1252",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1411-20261122.json",
+  "source_spec_sha256": "b045e5f27b82bd4756483047d71ef3f253d54f4720427b0d1eef5876a7a30456",
+  "input_sha256": "b045e5f27b82bd4756483047d71ef3f253d54f4720427b0d1eef5876a7a30456",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-astral-bridge-red-two-live-sparse1411-official-single-opponent-default-real-noninstant-mill-no-permission-or-self-starfall",
+      "card_id": "astral_bridge_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "c3bbe79f7e500f8bef163554c1c8648e02563950c691d091a7226d1bc476ac5f",
+        "actions.json": "0ce644897d5409ddab8831c9142933a350b3a9b79923ea2582a54baf3677c301",
+        "assertions.json": "fd304f799c3b2a9a05a6958e0d9ac8da7840903ac4a0d33ed667eea16f8a204b",
+        "expected_final_gamestate.txt": "7900abf6c318172e6490d4368f0914ffffc06faab8f2191dae5f84f45c6d9b8f",
+        "meta.json": "608c519f50a7d95f6ec58fa47d13693b86b769abb6f48c2db08ed9ddcdae57b7"
+      },
+      "fixture_sha256": "4d0a85faa231a15006ec58de5f4a975d73cece77fa58b51c56a48c96d0e1d23b",
+      "actions": 18,
+      "native_assertions": 307,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 15,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1411-20261122.json",
+      "input_sha256": "b045e5f27b82bd4756483047d71ef3f253d54f4720427b0d1eef5876a7a30456",
+      "active_seats": [
+        1,
+        2
+      ],
+      "players": "two_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1411-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-astral-bridge-red-two-live-sparse1411-official-single-opponent-default-real-noninstant-mill-no-permission-or-self-starfall",
+        "fixture_slug": "card-astral-bridge-red-two-live-sparse1411-official-single-opponent-default-real-noninstant-mill-no-permission-or-self-starfall",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "reviewer": "independent breadth_review1252",
+    "spec_sha256": "b045e5f27b82bd4756483047d71ef3f253d54f4720427b0d1eef5876a7a30456",
+    "source_note_sha256": "a3b4c5496633dc00fab5827cbbcc40fce68fd28012ceb6722c9bb517ff327a0c",
+    "case_count": 1,
+    "active_seats": [
+      1,
+      2
+    ],
+    "players": "two_live_manual",
+    "native_controls": 18,
+    "query_checks": 307,
+    "persistable_assertions": 307,
+    "author_only_checks_omitted": 0,
+    "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+    "coverage_category": "POSITIVE_NATIVE_MILL_TWO_PLAYER_PUBLISHED_DEFAULT_WITH_NONINSTANT_PERMISSION_AND_SELF_STARFALL_NEGATIVES",
+    "per_case": [
+      {
+        "card_id": "astral_bridge_red",
+        "group_id": "identity:astral_bridge_red",
+        "native_controls": 18,
+        "persistable_assertions": 307
+      }
+    ],
+    "basis": [
+      "Narrow two-adult case, unrepresented primary identity but separately held four-live targeting route explicitly preserved. Cached CC-legal/notbanned AstralBridge LightningWizardInstant0 under actual adultOscilioConstella36 EssenceLightning vs adultDoriIronsong40. activeSeats omitted, two physical/manual seats, default gameMode empty/passiveSeats[], no UPF or adultHeroidentity credit.",
+      "Official TRP5.14 DefaultDecisions explicitly uses AstralBridge declared without target then milling as example of opposing-hero default where there is one opponent; with multiple opposing heroes no such default applies. This exact duel has only one opposingHero2 and condition remains false throughout, so omitted announcement can be understood using published default. This does not establish engine target-binding/persistence, validate a positiveStarfall packet, or cure the heldUPF route.",
+      "PhysicalInstant3 fromHand waits real defaultpriority2 then responder2 givesPR1 withsame3Stack/top4Deck/GYempty; responder1 resolves. OMNCards277-280 moves realtopWoundingBlue4 Action notInstant toGY, so grants no omnPlayableTurn; secondTopTitaniumBauble6 staysDeck. GameLogic managedInstant keeps3Stack during this resolution, so no Instant has enteredGY when Starfall checked; physical3 only later appendsGY1. No arcane packet/target-resolution choice expected, allHP36/40 unchanged.",
+      "Actual4GYplay attempt must reject while AP1/resource0 and bothoriginal4/3 remainGY. RealHandWoundingRed5AA0 then auto single-opponent attack spends preservedAP1, paidPR2->PR1->ATTACK1, nativeboth-seat combat/base4/noGA gives4physicaldamage HP2=36. Final4GY0/3GY1/5GY2/6sameDeck/UID6RNG0/R0AP0/quietStackDQs/combatclosed coherent. The duel mapping of original4-live5/6/7/8 to3/4/5/6 and18 controls/307checks independently verified."
+    ],
+    "limits": [
+      "Only two-player published-default-compatible actual mill/second-top preservation, nonInstant permission rejection, false self-Starfall and real action follow-through. No positiveInstant permission/Starfall arcane, latent target persistence/retargeting, four-player targeting/UPF, support or adultHero identities/siblings/whole-card credit. B1410 four-live source hold remains unrun and unresolved.",
+      "Approval pending native execution; no game/test/replay, engine/repository edit, original checkout access, auth, full suite or Git operation. Strict fate/AP/damage expectations retained; default rule does not license hiding a positive binding defect."
+    ],
+    "source_sha256": {
+      "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+      "FaBSim/GeneratedCode/GeneratedMacroCode.php": "fe6a7982611df8f4de98ce2671b317b671b580146aa4b8c28e8f4b86d8461056",
+      "FaBSim/Custom/GameLogic.php": "c60fa151561f959e4e3e341b814de0e2b47c9e9f153bbc8793a04c43b5075061",
+      "FaBSim/Custom/OMNCards.php": "f679d81ac69c6d5d23fa3b0d4cd5ee3e44a0a180f7d0a896f31d2e9817090284",
+      "FaBSim/Custom/ROSRuntime.php": "36dbcc7bea9b33ae47568714360c07ed4c764b0185aa0e9b01c435fa0d75b8dc",
+      "FaBSim/Custom/WTRCards.php": "77d4452b30e45254a7199bc965396ded53e325717ecdd84a09b971f723f99f6a",
+      "FaBSim/ZoneAccessors.php": "9967567a9a10df81a6f22df820d4d77258828657e95c4ad145b8b13ce17866a7",
+      "Schemas/FaBSim/GameSchema.txt": "7783800bd47bc85885cc915066aadca58cdf99f0c1180602ac312d9af5ebf643",
+      "Core/EngineActionRunner.php": "add14b53dc571d2a6e64407bfa4038a98d6554d6410de7a9233810d99c46ea2a",
+      "Core/ShortcutPreferences.php": "25f300ea0b6fbc409f5b92e8bc3587a74b2ab0eaf31ccef38e18c455598eaba6",
+      "DevTools/FaB/CardRegression/record_card_regressions.php": "e53055b29e9ea641949b77019c4455607f41ca233325d716a9500637e19efd28"
+    },
+    "workspace_source_sha256": {
+      "author_breadth1411.py": "8407f8c30675bf3460eb57cc0fd2d41c27df69bfb50ce0d76fc8ecf87e87f487",
+      "breadth1068_helpers.py": "997f949ec26c7e494ad26a818f9f2078f6f4f2a0c49ca7f61aa8c71f3b091b0a",
+      "duel_breadth1261_helpers.py": "786de4cb45fa4cb12016e55b204ba1aa5f823bb576c7778732623fae7ed05dbd",
+      "author_breadth1379.py": "234d979a957c662c2ef06ddff48b64f44f608b3bac839ef6589b7c8b9c6dd6ea",
+      "sparse1410-local-20261122/proposed.json": "90bc21ccf789bf7469f8f7872f5567bfa1da639b876853f1cd19c8026de1bf66"
+    },
+    "secondary_identity_credit": false,
+    "whole_card_credit": false,
+    "positive_instant_graveyard_permission_credit": false,
+    "positive_starfall_credit": false,
+    "four_player_target_declaration_credit": false,
+    "latent_target_binding_credit": false,
+    "published_single_opponent_default_scope": true,
+    "official_rules_evidence": [
+      {
+        "url": "https://rules.fabtcg.com/en/trp/05-gameplay-logistics/",
+        "section": "5.14 Default Decisions",
+        "retrieval_scope": "Official public rules content retrieved in preceding B1410 review, including explicit AstralBridge omitted-target-before-mill example and no default with multiple opposing heroes. No new external fetch or speculative ruling needed."
+      },
+      {
+        "url": "https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/",
+        "scope": "5.1.4a targets declared before resolution; published single-opponent default covers only this case, not positive engine target-binding evidence."
+      }
+    ]
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1411-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "69ff8072fcf6eff6654f4bd273f37f64eef8ef30de7493c104eefb07306c8a92"
+  },
+  "full_suite_run": false
+}

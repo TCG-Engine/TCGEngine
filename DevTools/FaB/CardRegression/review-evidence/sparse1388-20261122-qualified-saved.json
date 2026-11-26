@@ -1,0 +1,290 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "independent breadth_review1252",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1388-20261122.json",
+  "source_spec_sha256": "a1d50f72f9db7bf07e14a54cea4cae491d8743d65b27449aed5a932a9dd08ba9",
+  "input_sha256": "a1d50f72f9db7bf07e14a54cea4cae491d8743d65b27449aed5a932a9dd08ba9",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-hearty-block-red-four-live-sparse1388-wrong-might-not-vigor-no-healing",
+      "card_id": "hearty_block_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "0378d6d6075fb1897645adf7ef825b016a7c9d01614ca1734067190e3219060e",
+        "actions.json": "391d0c3198a3462eb041e6d636e4470fb6e77a744dbc147221d49725d7cc518a",
+        "assertions.json": "e68dbbecadad73540c403d5cb66f557292698c5b9e9aa3ea180aac34617ded13",
+        "expected_final_gamestate.txt": "9a2c8ea53df436a628c8041b7a8a6a2029d133df76d69644c8d25c97e90043a1",
+        "meta.json": "76e03f81b15cf2a6f01d28dbf8b452967010cfc8894f2acc9cbc1ea9102b7c3f"
+      },
+      "fixture_sha256": "0cbe7af4b2a34e4f91c099c1635e808a5eb9eec95b776d79dddd46a45165c2d1",
+      "actions": 29,
+      "native_assertions": 395,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1388-20261122.json",
+      "input_sha256": "a1d50f72f9db7bf07e14a54cea4cae491d8743d65b27449aed5a932a9dd08ba9",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1388-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-hearty-block-red-four-live-sparse1388-wrong-might-not-vigor-no-healing",
+        "fixture_slug": "card-hearty-block-red-four-live-sparse1388-wrong-might-not-vigor-no-healing",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-run-into-trouble-red-four-live-sparse1388-wrong-might-not-agility-no-retaliation",
+      "card_id": "run_into_trouble_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "015a0926a15802348f9024d4b7662c30b9b577e028bf7fc0692e9f22ae5a3c43",
+        "actions.json": "391d0c3198a3462eb041e6d636e4470fb6e77a744dbc147221d49725d7cc518a",
+        "assertions.json": "7b58939ed2181959a25a7a93b8522089b3d9233d3db149f5b84fd1a25c2bcbd7",
+        "expected_final_gamestate.txt": "5094bdf0935c4f12fdb6bbcb08fec9bb483f9067c646fa06a5bc15e06e20ef23",
+        "meta.json": "abba11c4ab23bd2c0fa1692bf0aafdd812e5081d2d8fdd04658b4df1aea76567"
+      },
+      "fixture_sha256": "a52572b49934074fb356edbabbd8eed1c75f850462e6f2e4c89fa1abb770081c",
+      "actions": 29,
+      "native_assertions": 395,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1388-20261122.json",
+      "input_sha256": "a1d50f72f9db7bf07e14a54cea4cae491d8743d65b27449aed5a932a9dd08ba9",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1388-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-run-into-trouble-red-four-live-sparse1388-wrong-might-not-agility-no-retaliation",
+        "fixture_slug": "card-run-into-trouble-red-four-live-sparse1388-wrong-might-not-agility-no-retaliation",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-wall-of-meat-and-muscle-red-four-live-sparse1388-wrong-vigor-not-might-no-graveyard-return",
+      "card_id": "wall_of_meat_and_muscle_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "080963a6d2223b4c6da4e60886b913200fbd5de690fef8dfa51d4bdcc803b86b",
+        "actions.json": "391d0c3198a3462eb041e6d636e4470fb6e77a744dbc147221d49725d7cc518a",
+        "assertions.json": "b52e46bf68f7ecae3383edd0c9aafd38c83d0a15fdcec344bcf17fb723b9758c",
+        "expected_final_gamestate.txt": "f3878a8cbfce7cd68d58eeed5eb24dacf49da11110c6604b005a0dc17be5e252",
+        "meta.json": "0680611aa371edc29e7724d3dc3933181128de37057e676aac31aba1237e2957"
+      },
+      "fixture_sha256": "25929b118f63ed845ad2d10bbc91e0d9ddd9e563b254013c8206f934ee3cc086",
+      "actions": 29,
+      "native_assertions": 395,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1388-20261122.json",
+      "input_sha256": "a1d50f72f9db7bf07e14a54cea4cae491d8743d65b27449aed5a932a9dd08ba9",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1388-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-wall-of-meat-and-muscle-red-four-live-sparse1388-wrong-vigor-not-might-no-graveyard-return",
+        "fixture_slug": "card-wall-of-meat-and-muscle-red-four-live-sparse1388-wrong-vigor-not-might-no-graveyard-return",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-turning-point-blue-four-live-sparse1388-equal-life-no-cheer-or-defense-bonus",
+      "card_id": "turning_point_blue",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "a7fa1ac6154bafd1a3747c7ea49d26f358cb98cd62942687e2b9db6306798f1d",
+        "actions.json": "391d0c3198a3462eb041e6d636e4470fb6e77a744dbc147221d49725d7cc518a",
+        "assertions.json": "a172dc8818d3862f13cb8ac10c41843a691c22a51db204f1e89861b919ee074b",
+        "expected_final_gamestate.txt": "0c5866e35c6173b570a3a7eafdf29d63fe47c1f4306a3243d50f0732f028dc1e",
+        "meta.json": "3d21f1ed34eb4370a8a6ae7ad129301019c6e2c72fa5b2adb6cbc1fbcbb2dd8d"
+      },
+      "fixture_sha256": "9c7c7ba16c66d50f1fbe35c3fcd7912cc1e97013acd2eb744a9cf79d6074ef0f",
+      "actions": 29,
+      "native_assertions": 395,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1388-20261122.json",
+      "input_sha256": "a1d50f72f9db7bf07e14a54cea4cae491d8743d65b27449aed5a932a9dd08ba9",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1388-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-turning-point-blue-four-live-sparse1388-equal-life-no-cheer-or-defense-bonus",
+        "fixture_slug": "card-turning-point-blue-four-live-sparse1388-equal-life-no-cheer-or-defense-bonus",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-down-but-not-out-red-four-live-sparse1388-equal-life-despite-fewer-equipment-and-tokens-no-bonus",
+      "card_id": "down_but_not_out_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "47ebcb4465baee7706c98048e2255a77fe5dfe2cd75c6432cf44f009b5fcfbd6",
+        "actions.json": "25920dc16af50701b0be20453cc3345d5c14a09166881d7481930bfb87552093",
+        "assertions.json": "769a161b8bb0067c92f16f3938f23f0d27e895342c66c7a812ba85429e095fa6",
+        "expected_final_gamestate.txt": "2ff0753e6923cbef099061cbdbad2e9a77db98f1d3bd9245a580d3206690d2bc",
+        "meta.json": "2a4ef5437b88c5fa6f1588e6e61a301e7968618d360baba6720e741d89a14a04"
+      },
+      "fixture_sha256": "eb00b2f017c62448e397a69bc095842543a3e596e9b54ed5b9786c6a710cfc5f",
+      "actions": 28,
+      "native_assertions": 364,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1388-20261122.json",
+      "input_sha256": "a1d50f72f9db7bf07e14a54cea4cae491d8743d65b27449aed5a932a9dd08ba9",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1388-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-down-but-not-out-red-four-live-sparse1388-equal-life-despite-fewer-equipment-and-tokens-no-bonus",
+        "fixture_slug": "card-down-but-not-out-red-four-live-sparse1388-equal-life-despite-fewer-equipment-and-tokens-no-bonus",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "reviewer": "independent breadth_review1252",
+    "spec_sha256": "a1d50f72f9db7bf07e14a54cea4cae491d8743d65b27449aed5a932a9dd08ba9",
+    "source_note_sha256": "2519880edbe92012a51b117587f16f92c7b3e09d9598a5f84011903ebf6cd115",
+    "case_count": 5,
+    "active_seats": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "players": "four_live_manual",
+    "native_controls": 144,
+    "query_checks": 1944,
+    "persistable_assertions": 1944,
+    "author_only_checks_omitted": 0,
+    "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+    "coverage_category": "NAMED_WRONG_TOKEN_OR_EQUAL_LIFE_CONDITIONAL_GUARDS_WITH_NATIVE_ATTACK_DEFENSE_AND_DAMAGE",
+    "per_case": [
+      {
+        "card_id": "hearty_block_red",
+        "group_id": "identity:hearty_block_red",
+        "native_controls": 29,
+        "persistable_assertions": 395
+      },
+      {
+        "card_id": "run_into_trouble_red",
+        "group_id": "identity:run_into_trouble_red",
+        "native_controls": 29,
+        "persistable_assertions": 395
+      },
+      {
+        "card_id": "wall_of_meat_and_muscle_red",
+        "group_id": "identity:wall_of_meat_and_muscle_red",
+        "native_controls": 29,
+        "persistable_assertions": 395
+      },
+      {
+        "card_id": "turning_point_blue",
+        "group_id": "identity:turning_point_blue",
+        "native_controls": 29,
+        "persistable_assertions": 395
+      },
+      {
+        "card_id": "down_but_not_out_red",
+        "group_id": "pitch-cycle:down_but_not_out",
+        "native_controls": 28,
+        "persistable_assertions": 364
+      }
+    ],
+    "basis": [
+      "Five distinct unrepresented/unheld groups. Cached printed primary types allow WarriorDori for HeartyGuardian/Warrior and RunBrute/Warrior, Bravo for WallBrute/Guardian, ReveredGuardianPleiades for TurningPoint, GenericDown underDori. All naturalYoung20/manual4UPF/cachedallowed. Opponent4 priorMight/Vigor token legal on TurnPlayer1, no owner4 start-turn event due.",
+      "Actual CriticalRed5cost1 fundedBlueBauble6pitch3 gives5power/R2/AP0. Hearty/Run/Wall realHand4primary7def3 leaves2damageHP18. GeneratedDefended25435 requiresVigor forHeartyheal, Runawait227557Agility forretaliation, Wallawait232944Might foroptionalGYreturn. WrongMight/Might/Vigor respectively makes intervening conditionfalse, so no earned trigger/layer/chooser. EligibleGYattack9 and Deck10 retained make Wall selected false guard nonempty.",
+      "TurningPoint generated26309 compares owner health strictly lower at defense event; natural20equalsattacker20 so noCheer. SUPDefense111 requiresCHEER for+3; noCheer/history exists, realprinted2def leaves3damageHP17, not zero. Pleiades Confidence likewiseunearned. Laterdamage cannot retroactively create earlier defense-trigger event.",
+      "Down actualGenericAA5cost3/Bluepitch3/AP0/R0 with Hero4target and ownEquipment0/Token0 versus actualIronhide7Equipment1/Might8Token1. HVYRuntime43 exactpredicate equipment/tokens bothtrue but strictlife conditionfalse20equals20. HVYCards227 therefore no h v y Down flag/power3/Overpower grant; actualbase5/noGA/5damageHP15 and nohit-created3tokens correct. No fullOverpower behavior claimed from unblocked attack.",
+      "Four real manual source/combat windows percase, physicaldefender7RoleDEFENSE then finalGYindex1 after retainedGY9index0, fixedDeck10/Token8, Downequipment7retained, exactUID10/RNG0/AP/R/allHP/fates coherent. AllArena counts preserve existingwrongtoken only and no newlayer/choice/reward. 4x29+28 controls and4x395+364 assertions counted."
+    ],
+    "limits": [
+      "Only named wrong-token/equal-life false conditions, native base cost/defense/actualdamage and physicalfates. Positive WHEN timing/heal/retaliation/GYchoice/Cheer/+3defense/Downbuff/Overpowerrestriction/tokens, otherconditioncombinations, Hero abilities, asset provenance/support/siblings/wholecard untested.",
+      "Approval pending native execution. No game/test/replay, engine/repository edit, original checkout access, auth/network, full suite or Git operation."
+    ],
+    "source_sha256": {
+      "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+      "FaBSim/GeneratedCode/GeneratedMacroCode.php": "fe6a7982611df8f4de98ce2671b317b671b580146aa4b8c28e8f4b86d8461056",
+      "FaBSim/Custom/GameLogic.php": "c60fa151561f959e4e3e341b814de0e2b47c9e9f153bbc8793a04c43b5075061",
+      "FaBSim/Custom/HVYCards.php": "1387ecf0971fae9aa4bfb7bc99baec47a46e9c8770030884b722915eb87a31f1",
+      "FaBSim/Custom/HVYRuntime.php": "2866849d60037455d66281b8ccd8cc8af4c647d28d76fd2ca0fa031f7652055f",
+      "FaBSim/Custom/SUPCards.php": "d0cf162a89b60b29590121e4c97e1e5fe0e2dc790130bf181949ca068092c1fa",
+      "FaBSim/Custom/WTRCards.php": "77d4452b30e45254a7199bc965396ded53e325717ecdd84a09b971f723f99f6a",
+      "FaBSim/ZoneAccessors.php": "9967567a9a10df81a6f22df820d4d77258828657e95c4ad145b8b13ce17866a7",
+      "Schemas/FaBSim/GameSchema.txt": "7783800bd47bc85885cc915066aadca58cdf99f0c1180602ac312d9af5ebf643",
+      "Core/EngineActionRunner.php": "add14b53dc571d2a6e64407bfa4038a98d6554d6410de7a9233810d99c46ea2a",
+      "Core/ShortcutPreferences.php": "25f300ea0b6fbc409f5b92e8bc3587a74b2ab0eaf31ccef38e18c455598eaba6",
+      "DevTools/FaB/CardRegression/record_card_regressions.php": "e53055b29e9ea641949b77019c4455607f41ca233325d716a9500637e19efd28"
+    },
+    "workspace_source_sha256": {
+      "author_breadth1388.py": "014f9aaf97ac3b103446b87889a9dbb322af9411563c479e72f8288c94f137af",
+      "breadth1068_helpers.py": "997f949ec26c7e494ad26a818f9f2078f6f4f2a0c49ca7f61aa8c71f3b091b0a"
+    },
+    "secondary_identity_credit": false,
+    "whole_card_credit": false,
+    "positive_condition_credit": false,
+    "positive_trigger_timing_credit": false,
+    "positive_hero_trigger_credit": false,
+    "initial_position_provenance_credit": false
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1388-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "4eedbb5845fcb6d65fa8145ee11e22b01ef4847a3520a3d8030de3a3951ebb8e"
+  },
+  "full_suite_run": false
+}

@@ -1,0 +1,303 @@
+{
+  "status": "APPROVED_ACTUAL_SAVED_B520_MELTING_POINT",
+  "approved": true,
+  "source_approved": true,
+  "semantically_approved": true,
+  "reviewer": "/root/nov2_metadata_review",
+  "reviewer_independent": true,
+  "semantic_author": "/root/nov2_sparse_author",
+  "created_utc": "2026-11-05T20:40:41.549925+00:00",
+  "source_spec": "card-regression-batch520.json",
+  "input_sha256": "46add2a36f1b057bbd15f92ca14a9574c3f881e0c83f634ed7b42fe259caa815",
+  "manifest_sha256": "d6daad6c81a4605a106cee88241a6543119348b1324549c686762608ae46e232",
+  "runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+  "recorded_runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+  "source_guards_verified": 69,
+  "prior_independent_source_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch520-independent-source-review.json",
+    "sha256": "bedbb0aa9873b17544c9c577df739c566449ea4e206ec4282758b71afc18efa1",
+    "reused_not_expanded": true
+  },
+  "recording_receipt": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch520-20261105T203710Z-6aece8f60dc74.json",
+    "sha256": "ce8138c37994d213b887e8eb20585c1dda314a6ebd23531816d43f736da5d496"
+  },
+  "specific_results": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch520.recording-results.json",
+    "sha256": "96c70e178cea7fa0456b2b13bf1deaecccde5d77a32a3d2e107105a137000298"
+  },
+  "root_wrapper_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch520-native-r1-9e984\\receipt.json",
+    "sha256": "a27102d635e7c43a76e871cbed90fe2c276cca49e5d5e9cf78244b9c6f4c23bb"
+  },
+  "actual_comparison_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov5_batch520_saved_readonly.py",
+    "sha256": "c07a716b109b5ec6049219c24da7a34c360052f26527601cd92ca54ea6d7b016"
+  },
+  "fixtures": [
+    {
+      "index": 0,
+      "card_id": "melting_point_red",
+      "group_id": "identity:melting_point_red",
+      "slug": "card-melting-point-red-four-live-real-next-arrow-plus-four-and-earned-action-deals-three-damage",
+      "source_spec": "card-regression-batch520.json",
+      "input_sha256": "46add2a36f1b057bbd15f92ca14a9574c3f881e0c83f634ed7b42fe259caa815",
+      "reviewer": "/root/nov2_metadata_review",
+      "approved": true,
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_FOUR_LIVE_MELTING_POINT_ARROW_PLUS_FOUR",
+      "runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+      "recorded_runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+      "fixture_path": "Tests\\Integration\\FaBSim\\card-melting-point-red-four-live-real-next-arrow-plus-four-and-earned-action-deals-three-damage",
+      "fixture_sha256": "516a77d38d3545292aac2ec6d092f91e2406e8ec674134f02c345044ee48e61f",
+      "raw4_sha256": {
+        "initial_gamestate.txt": "de688a1a6fa923000c9e2c1134d27747540280f8213234a0539aa912b102c8a2",
+        "actions.json": "07bd0e85f5515d5bdb4ab22178612d72b38c5efe6471d81d62a9e5e5ded5de6f",
+        "assertions.json": "8e4a85e154e1f3728ea4caada317ed3f3b997e63c8cf2f9f7a7d69c8e772c6e9",
+        "expected_final_gamestate.txt": "fad472abb6d51e35071699793074186d1e58f5bd5c6d413d0d6f2a6a37f39460"
+      },
+      "raw5_sha256": {
+        "initial_gamestate.txt": "de688a1a6fa923000c9e2c1134d27747540280f8213234a0539aa912b102c8a2",
+        "actions.json": "07bd0e85f5515d5bdb4ab22178612d72b38c5efe6471d81d62a9e5e5ded5de6f",
+        "assertions.json": "8e4a85e154e1f3728ea4caada317ed3f3b997e63c8cf2f9f7a7d69c8e772c6e9",
+        "expected_final_gamestate.txt": "fad472abb6d51e35071699793074186d1e58f5bd5c6d413d0d6f2a6a37f39460",
+        "meta.json": "1509233531450caf57b2fbcf9bd2335b5171bb3e5b89289ec1cf779f08a45c0d"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "de688a1a6fa923000c9e2c1134d27747540280f8213234a0539aa912b102c8a2",
+        "actions.json": "07bd0e85f5515d5bdb4ab22178612d72b38c5efe6471d81d62a9e5e5ded5de6f",
+        "assertions.json": "8e4a85e154e1f3728ea4caada317ed3f3b997e63c8cf2f9f7a7d69c8e772c6e9",
+        "expected_final_gamestate.txt": "fad472abb6d51e35071699793074186d1e58f5bd5c6d413d0d6f2a6a37f39460",
+        "meta.json": "1509233531450caf57b2fbcf9bd2335b5171bb3e5b89289ec1cf779f08a45c0d"
+      },
+      "actions": 34,
+      "native_assertions": 3166,
+      "actual_manual_passes": 29,
+      "actual_priority_response_passes": 28,
+      "actual_defender_declaration_finish_inputs": 1,
+      "actual_administrative_END_PHASE_passes": 0,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4
+      ],
+      "actual_manual_actor_counts": {
+        "1": 7,
+        "2": 7,
+        "3": 7,
+        "4": 8
+      },
+      "schema_property_assertions": 1138,
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "all_actions_and_assertions_exact": true,
+      "no_recorder_only_assertions": true,
+      "all_endpoint_physical_uid_card_zones_ownership_verified": true,
+      "all_terminal_assertions_evaluated_against_parsed_final_snapshot": true,
+      "initial_assertions_also_evaluated_against_parsed_initial_snapshot": true,
+      "endpoint_assertion_counts": {
+        "0": 133,
+        "34": 208
+      },
+      "initial_physical_uid_locations": {
+        "1": {
+          "card_id": "azalea",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "melting_point_red",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "ridge_rider_shot_blue",
+          "zone": "p1Arsenal",
+          "owner": 1,
+          "controller": 1
+        },
+        "8": {
+          "card_id": "red_liner",
+          "zone": "p1Weapons",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4
+        },
+        "9": {
+          "card_id": "driving_blade_blue",
+          "zone": "p4Hand",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_physical_uid_locations": {
+        "1": {
+          "card_id": "azalea",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1
+        },
+        "8": {
+          "card_id": "red_liner",
+          "zone": "p1Weapons",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "melting_point_red",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "ridge_rider_shot_blue",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Pitch",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4
+        },
+        "9": {
+          "card_id": "driving_blade_blue",
+          "zone": "p4Graveyard",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_health": [
+        20,
+        20,
+        20,
+        17
+      ],
+      "final_resources": [
+        2,
+        0,
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_Chi": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_UniqueIDCounter": 9,
+      "final_RandomCounter": 0,
+      "actual_fresh_power": 6,
+      "actual_base_power": 2,
+      "actual_primary_bonus": 4,
+      "actual_defense": 3,
+      "actual_damage": 3,
+      "actual_Arrow_GA": false,
+      "actual_primary_GA_refund_spent_on_Arrow": true,
+      "actual_initial_Arrow7_facing": 1,
+      "actual_Bow8_unchanged": true,
+      "actual_next_arrow_effect_consumed": true,
+      "checkpoint_assertion_mapping_sha256": "09c0ecb0e194ac50cf30664e682a3c9aade6edfd1b4fc616238e9a1ca6552b27",
+      "native_action_mapping_sha256": "d7d35b196a3bfdd5e8758123e4539534023fb74a774c91b8328f7217a946ac76",
+      "native_assertion_mapping_sha256": "b8467d836ad87ada194ba86fc256ca410627bb420b462dd8607d60e0f42daad8"
+    }
+  ],
+  "blocked_attempts": [],
+  "total_actions": 34,
+  "total_native_assertions": 3166,
+  "total_manual_passes": 29,
+  "total_priority_response_passes": 28,
+  "total_defender_declaration_finish_inputs": 1,
+  "total_administrative_END_PHASE_passes": 0,
+  "total_schema_property_assertions": 1138,
+  "material_findings": [
+    "Actual raw5/all34orderedactions/3166normalizedchecks/29manualinputs/1138properties equal exact independent source ledger. Full typed endpoints contain all48 manual preferences each, allUID1..9 and exact ownership/zone/HP/R/AP/Chi; no extra/ceased physical object.",
+    "Real primaryAction1 paid by actualBlue6pitch3 givesR2AP0; only fourthsource response puts5GY and refunds ownGAAP1. Actual same faceDOWNArsenalArrow7 played with controlledBow8 and printedcost0 spends earnedAP1, then sourcefour becomes realChain currentbase2+4=6/noGA. RealHandNAA9DEF3 gives3physicaldamage/HP17 and noArrowAPrefund.",
+    "Fullclose has primary5+Arrow7GY1/defender9GY4/Blue6Pitch/Bow8ready/R2AP0/counter9/RNG0, no Stack/Chain/DQ/payment/await. Actual initial Arrow counters empty and final origin faceUpfalse; no Aim-producing action or face-up-Arsenal entry, so Melting conditional weapon-hit and Ridge Opt WHENs are unearned. Historical scalar DQV caches are not pending work."
+  ],
+  "limits": [
+    "One positive MeltingPoint+4/ownGA/actualArrowAPconsumer/3damage only. No Aim-hit/destruction/expiry/BowHero/support/sibling/fullcard credit; source-only unattempted Aim concern remains separate.",
+    "No per-action full snapshot claim: every actual saved action/assertion and both complete typed endpoints independently reviewed. Root two clean focused replays/registration remain separate.",
+    "No PHP/native/replay/R/source/gen/service/fullsuite/git/remote/denied repair action by reviewer; IAR preparation remains outside this review."
+  ],
+  "blockers": [],
+  "native_executed_by_reviewer": false,
+  "repository_writes": false,
+  "source_changes": false
+}

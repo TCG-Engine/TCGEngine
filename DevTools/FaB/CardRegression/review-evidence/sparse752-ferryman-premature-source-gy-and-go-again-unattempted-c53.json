@@ -1,0 +1,58 @@
+{
+  "status": "SOURCE_ONLY_UNATTEMPTED_SELECTED_ROUTE_PLANNING_LIMIT",
+  "card_id": "dimenxxional_ferryman_blue",
+  "group_id": "identity:dimenxxional_ferryman_blue",
+  "planning_review_approved": true,
+  "approved": false,
+  "reviewer": "/root/b750_saved_recovery",
+  "reviewer_independent": true,
+  "created_utc": "2026-11-08T22:34:39.344204+00:00",
+  "runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+  "recorder_sha256": "ab33a3250462d0453f71d38dd4138cb9fbc3d595d2586742e989a52251c9c4a9",
+  "planning_hold": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov8-batch752-ferryman-shadow-lord-source-only-author\\batch752-two-unattempted-source-only-plans.json",
+    "sha256": "a9ee5914259fec30ce4228cf958037ce6377e0948aff6a16eb46bd2107091016"
+  },
+  "manifest": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov8-batch752-ferryman-shadow-lord-source-only-author\\manifest.json",
+    "sha256": "e60ba88873df18461df3c237a8af317223cdea7fe9bb7ba9bc90345e0e44a13f"
+  },
+  "independent_combined_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov8-batch752-ferryman-shadow-lord-independent-source-only-planning-review.json",
+    "sha256": "f1bc3fc1d48999202c7e2a499a3678d7496524ca8a9436ba89411d94d751ed4d"
+  },
+  "analysis_reused_without_source_reaudit": true,
+  "current_source_guards_verified": 70,
+  "source_body_present": true,
+  "positive_conditions_valid": true,
+  "engine_implementation_concern": true,
+  "executable_cases": 0,
+  "limits": [
+    "Both selected ordinary nonpersistent ACTIONs route through current fallback: original source moves Stack to GY before the resolving MZCHOOSE; printed Go again/AP refund runs while the required choice is queued.",
+    "Retain original source on Stack/AP0 during positive debt-Action choice; effect moves chosen original plus Ferryman to Deck, then Go again uses LKI. Relative bottom order remains unattempted/unqualified.",
+    "Implemented bodies and positive support conditions are present. This is a shared early source-to-GY/Go-again lifetime concern, retained as unattempted static Source inference; no native or confirmed-bug claim.",
+    "No executed Ferryman bottom ordering or Runechant/Gate production is certified. No source repair, replacement primary, empty-zone/condition-false workaround, Hero/support/sibling/full-card or coverage credit.",
+    "Exact frozen material and full Source evidence are retained in the referenced independent combined proof and manifest. This per-card derivative repackages that same approved planning analysis only."
+  ],
+  "source_approved": false,
+  "source_spec_approved": false,
+  "gameplay_approved": false,
+  "semantically_approved": false,
+  "semantic_gameplay_approved": false,
+  "runnable": false,
+  "runnable_approved": false,
+  "installable": false,
+  "native_attempted": false,
+  "native_executed": false,
+  "replay_executed": false,
+  "fixture_saved": false,
+  "coverage_credit": false,
+  "confirmed_engine_bug": false,
+  "confirmed_gameplay_bug": false,
+  "confirmed_bug": false,
+  "bug_reproduced": false,
+  "source_fix": false,
+  "repair_attempted": false,
+  "repository_writes": false,
+  "full_suite_run": false
+}

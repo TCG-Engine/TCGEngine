@@ -1,0 +1,65 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "breadth_review independent actual name/become-identity and current-life scope review",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1135-20261122.json",
+  "source_spec_sha256": "3dbe92bf5f431dc38d0373179320fb859fb60f628ee04b89ee17dc3aaa7e9698",
+  "input_sha256": "3dbe92bf5f431dc38d0373179320fb859fb60f628ee04b89ee17dc3aaa7e9698",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-embody-greatness-yellow-four-live-sparse1135-real-resolution-name-changes-same-hero-identity-and-preserves-current-life",
+      "card_id": "embody_greatness_yellow",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "5de3b39fddcaa8790f086f8a6e0de967311bdb08ef554c05c29fd8a704db7ca4",
+        "actions.json": "0b48b70c4ee76215a8a8c4ab5ca41b841d7a0e2e6e9fa52ff39da165b1caed5f",
+        "assertions.json": "e2747d8a11d039c9f56759bb7b56a2dbd9b9bf59f3a01c909eb895a0f3c197d2",
+        "expected_final_gamestate.txt": "52eb4535d311ec4cb42196f5b0aa878592c26ae28222e2ea4a7b1f7ab56c55c5",
+        "meta.json": "b8ac3e11dcb63342fff98c77fa089d1b26aa53ebf570487103b62dda1e180262"
+      },
+      "fixture_sha256": "49d7d9445f63136033de10eee6195bc9c9186fe841885078e9ec0b22149ac11a",
+      "actions": 6,
+      "native_assertions": 269,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 4,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1135-20261122.json",
+      "input_sha256": "3dbe92bf5f431dc38d0373179320fb859fb60f628ee04b89ee17dc3aaa7e9698",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1135-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-embody-greatness-yellow-four-live-sparse1135-real-resolution-name-changes-same-hero-identity-and-preserves-current-life",
+        "fixture_slug": "card-embody-greatness-yellow-four-live-sparse1135-real-resolution-name-changes-same-hero-identity-and-preserves-current-life",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "spec_sha256": "3dbe92bf5f431dc38d0373179320fb859fb60f628ee04b89ee17dc3aaa7e9698",
+    "reviewer": "breadth_review independent actual name/become-identity and current-life scope review",
+    "basis": [
+      "Cached EmbodyGreatnessYellow is ShiyanaSpecialization Instant0. Young ShiyanaDiamondGemini20 is legal; OldhimGrandfatherOfEternity has exact cached display name and cc_living_legend=true. Adult identity is named during a legal in-game effect, not supplied as an adult four-live starting Hero.",
+      "Generated Resolve await0d2dcf8aa63187f22db5 at56193 correctly hydrates and updates its NAMECARD resolution frame. Naming is printed resolution choice, not a formal target or announcement mode. All four manual responses occur with source5 physically Stack-held and original Hero1 unchanged, then exact Oldhim display-name answer is used.",
+      "PENCards1084-1092 builds actual LL-name-to-ID map and records penEmbodyOriginal before changing the same Hero CardID. It writes no current Health scalar; final sameUID1/Owner1/Controller1/ready2/oldhim identity/currentHealth20 and original-id state guard are supported. No automatic Oldhim ability is earned by becoming him in this selected interval.",
+      "Six native controls and persisted physical source5 owned-GY/finalemptyStack/nochoice/AP1/R0/UniqueMax5 checks cover actual effect and cleanup without adding entities. All checks use persisted type/state forms."
+    ],
+    "limits": [
+      "Actual naming/become-identity and unchanged current life only. Base-health exception, copied abilities/class interactions, original Shiyana start-action trigger/copy, next-turn expiry and full-card/hero identity coverage remain untested. No inference that baseHealth40 or20 has been implemented or verified.",
+      "Native Save and one clean targeted replay pending. No source/framework/native/T/Git/network/original actions by reviewer."
+    ]
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1135-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "3e6488aba008853ba4fa74009f56927ce935f92a609ae4d4641a782ad6b5a386"
+  },
+  "full_suite_run": false
+}

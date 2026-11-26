@@ -1,0 +1,7 @@
+{
+    "name": "Wind Cutter / sparse four-live restriction representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-23T02:51:57+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "**Attack Reaction** - {r}, {t}: Search your deck for a Shuriken item, put it into the arena, then shuffle. Activate this only if you've hit 2 or more times this combat chain.\n\n**Blade Break** Named prerequisite negative only. Legalnatural20fai, ownedreadyEquipment5, actualGenericWounding6 currentATTACK atREACTIONpriority1/AP0. DeclaredR1coversprinted1/tapcost andrealeligibleShurikenDeck10exists; sourceStatus2tapavailable, butchainHits0<2 soPENguardrejectsbeforetap/payment/search/shuffle. Thenactualfourmanualcombat4damageHP16/AP0/source6ownedGY; Equipment5ready/R1/remainingHand7,8,9/exactDeck10,11 retained. No positiveactivation/search/grantedGA/targettiming/hero/support/sibling/full-card claim. Sources: FaBSim/GeneratedCode/cardArrayCache.json#wind_cutter"
+}

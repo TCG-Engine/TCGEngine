@@ -1,0 +1,101 @@
+{
+  "status": "SAVED_APPROVED_INDEPENDENT_FOUR_LIVE_PALM_SUSPENSE_ENTRY_AND_DRAW",
+  "phase": "SAVED",
+  "batch": 825,
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer": "/root/ebbing_recovery_review",
+  "reviewer_independent": true,
+  "created_utc": "2026-11-15T19:08:02.417734+00:00",
+  "runtime_sha256": "a11fb2abaf062a707ad2c9372bf41321fcde25d5fe32a99bf55a1b4d2bae4223",
+  "source_spec": "card-regression-batch825-palm-real-suspense-entry-draw-positive.json",
+  "input_sha256": "8fdfe37068b130a11f65cae517e5d5ddb0fc6c2ef5c04623c678ecd7058c0c4d",
+  "manifest_sha256": "62c35195013a132e96e546efd43fab5e458add44e9593bccbf571023c7474bc9",
+  "independent_positive_Source": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-batch825-palm-independent-normal-positive-source-review.json",
+    "sha256": "fde4de36ba9b3601126424e0d8bddf9e03b1dfef835686c956661202b5708f99"
+  },
+  "root_native_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-b825-palm-positive-native-save-a11\\receipt.json",
+    "sha256": "b31133b94a562ba72be9252884d2cc4f816d0f7c9c0ec4cb903d9b31766734c3"
+  },
+  "actual_result": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch825-palm-real-suspense-entry-draw-positive.recording-results.json",
+    "sha256": "1e01a51bfa1ad731683766ae377d0502aee024152d89e45894b7678fdc428377"
+  },
+  "actual_immutable_archive": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch825-palm-real-suspense-entry-draw-positive-20261115T190429Z-6afa023d333ed.json",
+    "sha256": "59e6f611483224f8a50c4792d06fc01c73b7a00a2fe5bdf5c40c985cd20a7886"
+  },
+  "fixtures": [
+    {
+      "card_id": "in_the_palm_of_your_hand_red",
+      "slug": "card-in-the-palm-of-your-hand-red-four-live-real-suspense-entry-draw",
+      "actions": 10,
+      "native_assertions": 1404,
+      "manual_passes": 8,
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "0be79211f65e45b49156d31818822726876c1a961fe85f6d8155d5a715a04eca",
+        "actions.json": "08b7c88dd560dd892dd1da00b1d8e0d9b8e5d04bddb0c383507c568ace9cd4b9",
+        "assertions.json": "d16027393741e87791cbad51c56d2bf41e6f04e8fd1105c58c4aaa2dbdc2ac95",
+        "expected_final_gamestate.txt": "97f396d34439c790e21f4330b526f2e4d8fd1e898b55cdc7b456c37341cbf459",
+        "meta.json": "8d7d87e06036fce5b487f9b2c6b67bc41f16d8d9754b18de0ac71124a8f765da"
+      },
+      "fixture_sha256": "1be5d33f1e190083bddbc5ece62e8fd44cef15ee978d3cb3bfca63b230ac2e2f",
+      "input_sha256": "8fdfe37068b130a11f65cae517e5d5ddb0fc6c2ef5c04623c678ecd7058c0c4d",
+      "runtime_sha256": "a11fb2abaf062a707ad2c9372bf41321fcde25d5fe32a99bf55a1b4d2bae4223",
+      "recorded_runtime_sha256": "a11fb2abaf062a707ad2c9372bf41321fcde25d5fe32a99bf55a1b4d2bae4223",
+      "actual_manual_actor_counts": {
+        "1": 2,
+        "2": 2,
+        "3": 2,
+        "4": 2
+      },
+      "initial_raw_48_manual_controls": true,
+      "final_raw_48_manual_controls": true,
+      "genuine_four_live_manual_seats": true,
+      "terminal_queries_independently_evaluated": 246,
+      "expected_original_10_controls_1404_queries_unchanged": true,
+      "native_fault_credit": 0,
+      "scope": "Exact Red Suspense-entry2 plus separate entry-draw only. Leave/startphase/zero-destroy/otherbranches untested."
+    }
+  ],
+  "full_saved_action_and_query_order_matched": true,
+  "all_1404_native_queries_semantically_reviewed_against_unchanged_source": true,
+  "all_10_saved_native_envelopes_and_manual_actors_matched": true,
+  "checkpoint_count": 12,
+  "typed_property_queries": 348,
+  "source_guard_count": 82,
+  "selected_support_guard_count": 21,
+  "actual_initial_and_final_raw_schema_fully_consumed": true,
+  "initial_and_final_raw_manual_shortcut_checks": 96,
+  "sibling_native_coverage": false,
+  "saved_review_only_not_replay_certificate": true,
+  "two_new_only_clean_replays_required": true,
+  "confirmed_gameplay_bug": false,
+  "source_fix": false,
+  "full_suite_run": false,
+  "historical_corpus_replay": false,
+  "PHP_native_network_executed_by_reviewer": false,
+  "R_writes_by_reviewer": false,
+  "B787_denied_operation_untouched": true,
+  "review_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov15_batch825_actual_saved.py",
+    "sha256": "77a673de367d4d7b5166b2940ae68a6b6f3b68394956a3cf836b428d760eb8bc"
+  },
+  "reused_pure_parser_source": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov15_batch824_actual_saved.py",
+    "sha256": "e91764c206e187ff9f80bb4a39b705aa97abdf186777c4451832c34b8eddb97f"
+  },
+  "semantic_witnesses": [
+    "All10savedNativeenvelopes/1404orderedqueries matchapprovedSource;8actualmanualpasses2each establish all4liveYoungBetsyresponses. Source5Instantcost2fundedbynativeBlue6pitch3/R1; AP1remains1withoutspend/refund.",
+    "Input6realPalm5entersArena withSUSPENSE2 andseparateABILITY9SourceUID5/supEnter. Entrycounterreplacementgetsnoextraresponsewindow; actual4entrytriggerresponses retainRed7Deck/noHanduntilfinalinput10draw. PhysicalPalm5remainsArena, notsourceGY.",
+    "Freshrawinitial/finalprofiles prove all4manual/live/youngUPF/noauto/passive. Actualfinalrawpins Palm5Arena/SUSPENSE2, Blue6Pitch1, sameRed7Hand1, soleYellow8Deck1, allHP20/R1AP1/otherRAP0/noStackqueuesawaitframes/combat. All246terminalqueries independently evaluatedonrawfinal. IntermediatewitnessesareacceptedNativequeries,notrawsnapshots."
+  ],
+  "limitations": [
+    "ExactSavedreview only; two new-only cleanreplayreceipts atunchangeda11 remain the separatequalification/registration gate.",
+    "OnlyRedentrypositivebranch. No leave-draw/naturalstartphase/removal/zero-destroy/multiturn/otherlistener/suppression/controlchange/genericvirtualdeletionorder/fullcard/nativepitchsibling certificate orB825enginebug/fixclaim.",
+    "No isolatednativefaultcredit, fullsuite orhistoricalcorpuspass. HunterknownAttackWHENhold remainsunattempted."
+  ]
+}

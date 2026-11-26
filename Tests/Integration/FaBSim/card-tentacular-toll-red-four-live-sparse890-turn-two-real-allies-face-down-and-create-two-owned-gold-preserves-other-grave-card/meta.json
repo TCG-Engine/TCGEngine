@@ -1,0 +1,7 @@
+{
+    "name": "Tentacular Toll / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T17:23:56+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Turn up to 3 ally cards in your graveyard face-down, then create that many Gold tokens.\n\n**Go again** Representative only: turn_two_real_allies_face_down_and_create_two_owned_gold_preserves_other_grave_card. Other pitch siblings, alternate targets and unexercised branches receive no credit. All four live/manual; only native entry-point actions. Sources: FaBSim/GeneratedCode/cardArrayCache.json#tentacular_toll_red"
+}

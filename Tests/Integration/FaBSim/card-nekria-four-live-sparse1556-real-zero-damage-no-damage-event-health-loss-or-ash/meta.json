@@ -1,0 +1,7 @@
+{
+    "name": "Nekria / actual full block earns no damage event, no health counter or Ash",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-25T14:34:21+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Fourmanual20Dromai/Dori/Dori/Dori. Storm5Weapon/priorcanonicalInvokedNekria6Arena(frontinvoke_nekria_red/Ashmaterialcounters), realWounding7/8Hand4. ActualDragonAction0targetHero4/AP0/tap6/proxy9/source6/printedpower4/noGA(noRedcardplayed/pitched). BothactualHandWoundingDEF3+3 fullyblock4; eachbasepower4<6 so noAsh-grantedPhantasmtrigger. Actualdamage0/allHero20 meansnoNekriadealsdamageevent (notfalseIFonWHEN), sourceitselftakesnodamage. NoUPR_LOST_HPcounter/noAsh/UID9unchanged/sourceDamage0/HP7. FullmanualClose retainsDragon6used/Storm5ready, blockers7/8GY4. Priorinvocationnotcredited. Noenginechange/fakecurrenthistory/support/sibling/wholecardcredit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#nekria FaBSim/Custom/MONAbilities.php FaBSim/Custom/MONCards.php FaBSim/Custom/UPRCards.php FaBSim/Custom/SEARuntime.php FaBSim/Custom/SEACards.php FaBSim/Custom/CRUCards.php FaBSim/Custom/GameLogic.php FaBSim/GeneratedCode/GeneratedMacroCode.php"
+}

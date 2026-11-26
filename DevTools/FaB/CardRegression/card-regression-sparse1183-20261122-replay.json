@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-lyath-goldmane-four-live-sparse1183-real-odd-base-defense-halved-rounded-up-in-actual-damage",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-lyath-goldmane-four-live-sparse1183-real-odd-base-defense-halved-rounded-up-in-actual-damage",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1183-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1183-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "619cf4c7d4412f303c75f3748f72aa220fcdf145d7135ce7ab71604deb3d7454",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "589c3dbe8c73f8e991cc5f970745f12ded18c9519f266eb5e3dbca7930f17954",
+        "actions.json": "5af67ec73dd5988db1a058227e5dcccf44c896ddc4b34170fb8eb2fb4f3ccefb",
+        "assertions.json": "63f1b4fbde9310e532ce0466d3600ae17076a29388f7f0fcdc0c5941405955d4",
+        "expected_final_gamestate.txt": "ff03ce75630efa0b11cefcfac4cecc4d219c749041ea61023d89c40288a49faf",
+        "meta.json": "ededd38d7913add599cbccb55d5b2855cfa327381cda2f49a38ccd516e4782c7"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

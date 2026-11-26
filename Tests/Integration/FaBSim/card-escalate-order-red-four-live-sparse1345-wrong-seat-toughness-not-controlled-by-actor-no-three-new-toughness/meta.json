@@ -1,0 +1,7 @@
+{
+    "name": "Escalate Order / real base attack with false grant condition",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-24T09:54:52+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "FOUR_REAL_MANUAL_UPF_NATURAL_TUFFNUT20_THREEDORI20. RealToughness8ArenaPlayer2ownedcontrolled2, actor1ArenaemptyhasnoToughness. Mustnotborrowotherseattokencondition/create3Toughness. ActualBlue6pitch3pays2R1/base6damageHP14/noadditionaltokens/Arena2exactoneoriginalToughness8/sameUID8; allotherArena0/UID8/RNG0; noCheer/Tuffnuttrigger. Allfourmanualsourceandcombatresponses/nativeactualbasepower6/damage6/HP4=14/AP1to0/R1. Originalprimary5GY1/fund6Pitch1/legalFDGenericWounding7Arsenal1/sameUIDandFaceDown/realwrongseatArenaOrOwnedDagger8unchanged/otherzonesempty/UID8/RNG0. Fullcloseactual0costArsenalresourceaffordablebutnativeclickrejectsAP0beforeTarget/StackDQ/payment/movement; finalresources/HP/physicalassetsunchanged. Onlynamedfalsecondition/baseattack/nativeconsumerGuard; positivecondition/WHENtiming/grants/GA/tokens/bloodDebt/Hero/support/siblings/fullcarduncredited. Sources: FaBSim/GeneratedCode/cardArrayCache.json#escalate_order_red FaBSim/GeneratedCode/GeneratedMacroCode.php FaBSim/Custom/GameLogic.php FaBSim/Custom/HNTCards.php FaBSim/Custom/HNTRuntime.php FaBSim/Custom/OUTCards.php FaBSim/Custom/SUPCards.php FaBSim/Custom/WTRCards.php FaBSim/Custom/ARCCards.php"
+}

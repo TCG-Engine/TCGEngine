@@ -1,0 +1,85 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "breadth_review independent exact frozen packet/current source review",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1179-20261122.json",
+  "source_spec_sha256": "78bd3fa6f9c92221ee113a27dffcbf65bf6b7ec6918f0cb8bb481dea824bd8c9",
+  "input_sha256": "78bd3fa6f9c92221ee113a27dffcbf65bf6b7ec6918f0cb8bb481dea824bd8c9",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-gate-to-iarathael-four-live-sparse1179-real-target-and-destroy-cost-enable-actual-banished-action-play",
+      "card_id": "gate_to_iarathael",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "649a7a6ed00f6af7b331ceee16532195aacee1e87af05eb0ed90b00328feffdf",
+        "actions.json": "56ce885e5d681de282868edf75d53be972c0c32a890618eb3b68da7caf34c411",
+        "assertions.json": "dbfb60d1313b6319205d59b5194b400806fffc52d442d295151dbc127b8e90d6",
+        "expected_final_gamestate.txt": "0ae2e51fe4cd7ef80bb494327f392b85df41b732c214871bdbff72332e8b0728",
+        "meta.json": "7db56c8f3b356e04f120cafa495b67e0d1cd6edaf2eddaea3305eb66de832586"
+      },
+      "fixture_sha256": "c13a3015967ab1e18247d48bfed7cc9f89b96631068b40c6731242eb58929865",
+      "actions": 39,
+      "native_assertions": 441,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 33,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1179-20261122.json",
+      "input_sha256": "78bd3fa6f9c92221ee113a27dffcbf65bf6b7ec6918f0cb8bb481dea824bd8c9",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1179-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-gate-to-iarathael-four-live-sparse1179-real-target-and-destroy-cost-enable-actual-banished-action-play",
+        "fixture_slug": "card-gate-to-iarathael-four-live-sparse1179-real-target-and-destroy-cost-enable-actual-banished-action-play",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "reviewer": "breadth_review independent exact frozen packet/current source review",
+    "spec_sha256": "78bd3fa6f9c92221ee113a27dffcbf65bf6b7ec6918f0cb8bb481dea824bd8c9",
+    "case_count": 1,
+    "native_controls": 39,
+    "persistable_assertions": 441,
+    "author_only_checks_omitted": 0,
+    "card_id": "gate_to_iarathael",
+    "group_id": "identity:gate_to_iarathael",
+    "basis": [
+      "Uncovered standalone primary group with no exact named current hold. Actual young Chane20/three Dorinthea20, all four manual seats; legal Shadow Action Fasting Carcass Red6 is a valid own public Blood Debt target. Prior Gate5/banished6 are admitted lawful states, with no producer credit.",
+      "IARRuntime4/21/37 and ARC ability dispatch establish actual Instant1/destroy cost and proper Prepare. Generated dbf13ac... stores actual own Banish6 target in iarGrant on ABI9 before FinishPreparedCard. UI MZCHOOSE p1Banish-0 occurs while realGate5 remains and no resource/AP cost has been paid.",
+      "Real GenericBlue7 pitch3 pays resource1/R2/AP1; ARC paid hook then destroys Gate5 before four fresh manual PRIORITY responses. Token5 leaves play and does not become a Graveyard card; independent ABI9 KindABILITY/Controller1/SourceUniqueID5 survives and resolves. No paid-effect/source-lifetime bypass is required.",
+      "ResolveAbility15394 reads arcAbilityUID9, not the destroyed physical Gate lookup, then calls FaBIARGrantPermission. IARRuntime68-74 checks captured UID6/zone/BloodDebt/Action and grants player1 current-turn Banish permission. IARCards252-264 and GL982 admit the actual subsequent native Banish6 play.",
+      "Fasting Carcass has no intrinsic Banish play text and is absent from native MON/DTD/IAR unconditional lists; no PlayableFromBanish seed, Soul Shackle activation, Blasmophet, Professor/Evo, stolen-card or other permission source appears in setup. Actual Banish6-to-Stack play, full responses and ownedGY6 prove use of the generated permission rather than only a private marker.",
+      "Cache Fasting Red cost0/plain next-red-action GA plus own GA matches actual AP1->0->1. ResolveCard2813 adds PEN_NEXT_COLOR_GO1; PENCards584 consumes it on real subsequent Red Wounding8 play, granting GO_AGAIN. No additional power is granted: actual computed4/GAtrue and 4damage/HP16/fullcleanup/AP1 are correct.",
+      "Exact39-control sequence includes four separate source responders for Gate, Fasting and Wounding, then complete attack/defense/reaction/damage/resolution flow. Final owned GY[6,8], Pitch7/R2, no Gate/tokenGY/Arena/Banish/Stack/CC/DQs, UID9/Random0 and all other heroes20 are pinned.",
+      "All declared checks persist under current normalizer, with no unsupported diagnostics or contradictory checkpoint values."
+    ],
+    "source_sha256": {
+      "FaBSim/Custom/IARRuntime.php": "a867233dd027ea6466d776cb9c3bfdbbeedc5e4e535f67f09b1c6e7d9cb3924e",
+      "FaBSim/Custom/IARCards.php": "0abc78c4d25203b2a0ae489bc183e5687e3375a2a7a29dc9401bbbd7df670783",
+      "FaBSim/Custom/PENCards.php": "9d4f443c833ec535bdae15c1973910925c1b7a1223fbfab7fcb89a5b204a7ed8",
+      "FaBSim/Custom/ARCAbilities.php": "e49ce4685f148ef423ea38aac544266b3298527ea8ca9eef11b12fb974e7c9f0",
+      "FaBSim/Custom/GameLogic.php": "c60fa151561f959e4e3e341b814de0e2b47c9e9f153bbc8793a04c43b5075061",
+      "FaBSim/GeneratedCode/GeneratedMacroCode.php": "fe6a7982611df8f4de98ce2671b317b671b580146aa4b8c28e8f4b86d8461056",
+      "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3"
+    },
+    "limits": [
+      "Pending Root native recording, saved-assertion review and clean targeted replay; no reviewer native/T/source changes.",
+      "Only named positive prepared Gate permission and actual subsequent native play plus real GA consumer. No prior Gate/Banish producer, prepermission rejection, other targets/Planar Chaos/foreign owner, multiple use, permission expiry, Blood Debt/endphase, Chane ability, support/sibling/full-card credit.",
+      "The source-independent destruction-cost ability is validated on the named existing supported route; no general source lifetime/ownership/target repair or held-family correctness claim."
+    ]
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1179-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "66da53654cbb21a71b6a64df0d953e0ad061932b2ae6c0c203a328c0355a2bf3"
+  },
+  "full_suite_run": false
+}

@@ -1,0 +1,7 @@
+{
+    "name": "Toxicity / real go again funding and generic attack does not gain assassin ranger life loss",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-24T06:27:27+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "FOUR_REAL_MANUAL_UPF_NATURAL_YOUNG_azalea20_AND_DORI20. Primary5Handnormal0costActionspendsAP1to0/allfourresponses/ownedGY/printedGArefund1fundsactualWoundingBlowRed6GenericAttackAction0cost/formalHero4target/fourfreshresponses/noBlocks/actual4physicaldamageHP16. A Hero class does not grant its class to the Generic card. ActualGenericAAisneitherAssassinnorRangerdespiteAzaleaHero;noOUT_TOXICITYgrant/HeroHitlifeloss;HP16not11/UID7. RealHandblockcontrol7retained/allArena0/RNG0/APR0/StackDQCCclean. OnlypositiveGAfundingandnamedclassguard. NoeligibleGuardianCrushmill/AssassinRangergrantlifeloss/Heroactivation/support/otherpitch/fullcardcredit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#toxicity_red FaBSim/GeneratedCode/GeneratedMacroCode.php FaBSim/Custom/GameLogic.php FaBSim/Custom/MPGCards.php FaBSim/Custom/OUTRuntime.php FaBSim/Custom/OUTCards.php"
+}

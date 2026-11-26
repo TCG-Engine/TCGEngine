@@ -1,0 +1,7 @@
+{
+    "name": "Beseech the Demigon / four-live chosen banished attack actually consumes +3",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-23T02:07:37+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Choose an attack action card in your banished zone. It gets +3{p} until end of turn.\n\n**Go again** Actualnatural20ChaneShadowRuneblade/ownedspell5/faceupbanishedGhostly6/base4cost1 andrealBlue7. Cost0spellspendsAP, all4manualresponses, non-targetprintedChooseatresolution selectsactual6whilephysical5remainsStack/AP0/GY0. Then5ownedGGY/AP1 viaGA. Nativeplay6fromBanishdeclarestargetHero4beforeassets, Blue7pays1\u2192R2/AP0, all4manualcombat; base4+chosen3=7actualpower/damage/HP4=13. GhostlyhasunconditionalBanishplaypermissionandnoownplayed/attacktrigger; RiftBindavoided. Actual6GGYafter5, Pitch7/allownedfates, noEndTurnBloodDebt orhero/sibling/support/fullcardcredit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#beseech_the_demigon_red"
+}

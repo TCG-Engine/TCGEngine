@@ -1,0 +1,79 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-gear-turner-red-four-live-sparse964-actual-two-hand-blocks-preserve-real-cog-or-deck-without-hit",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-gear-turner-red-four-live-sparse964-actual-two-hand-blocks-preserve-real-cog-or-deck-without-hit",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse964-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse964-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "826beee1370cd96c489f062dce27b50044dc695a6896f80da45ad8d9da7e2e91",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "28dc6dd4769ce7fb3ee3068646ba0b5fb8fc830d19c539240024949be14ad050",
+        "actions.json": "a44e24b9f9b348ce659c847e7dbea1e0cd33c5233e8ac4933f9391118d55ee4b",
+        "assertions.json": "6a779b390b9cbb52ca5c31836b5686ad29611c8d495d99cf35d51069d2d66db8",
+        "expected_final_gamestate.txt": "f914d5c07770940bce8c4169efcd5b298c3e7ac53cc64a8fe9a7b8f5d3e44deb",
+        "meta.json": "b4bfadb11333a6a724345c1f761f9b6d511749f2e2c5be87c1b06914d1a8dcb2"
+      }
+    },
+    {
+      "slug": "card-cogwerx-dovetail-red-four-live-sparse964-actual-two-hand-blocks-preserve-real-cog-or-deck-without-hit",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-cogwerx-dovetail-red-four-live-sparse964-actual-two-hand-blocks-preserve-real-cog-or-deck-without-hit",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse964-local-20261122\\clean-replays\\01.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse964-local-20261122\\clean-replays\\01.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "9f241886c4ceea6b2ec7a005ae183528023a4243353eb642496fb9db874f95ec",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "1ffa3a8603efff8f6ea91380ffc3164dc95f544eeed4277fd4be0e5fcd1805b8",
+        "actions.json": "a44e24b9f9b348ce659c847e7dbea1e0cd33c5233e8ac4933f9391118d55ee4b",
+        "assertions.json": "a25ae7c911e583925ad207af6bdb9c342ed32fcf49b55d291865339affb95a8c",
+        "expected_final_gamestate.txt": "74376056b56e21d7bd4ae85334bfd90f0ffc2f246eec6ed96c96cb3c4baa4c67",
+        "meta.json": "57da5ea3d173b2b8f0ab8dc4b829c58826026c4dd4ab6ca4e70f66f358a46a48"
+      }
+    },
+    {
+      "slug": "card-cogwerx-prong-bot-yellow-four-live-sparse964-actual-two-hand-blocks-preserve-real-cog-or-deck-without-hit",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-cogwerx-prong-bot-yellow-four-live-sparse964-actual-two-hand-blocks-preserve-real-cog-or-deck-without-hit",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse964-local-20261122\\clean-replays\\02.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse964-local-20261122\\clean-replays\\02.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "fa0303a1642205287330c6b1f7d23a1b603d8dabf2c2fa92b403a343c720c54f",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "3c4509b24e6fc9e7a6d6fcc221afa87daca94db1392a629124057f3b3ed54aff",
+        "actions.json": "ec4751855611b71af8512336dca4a46fb793b63b2fcc2d184ee431d8b3e5152d",
+        "assertions.json": "43626b8539bffb3fa8bc2131ff579acee6b21e0a5fb94f4b99b6ca83617ddcd0",
+        "expected_final_gamestate.txt": "a1fc2c63e824e149dddfa4245423983fd447b2a66ebe0d246aaa2be36c3668e2",
+        "meta.json": "b0a2b339615db81677a9855773c01b744906832f163f9a6e8e7034a56ba25919"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

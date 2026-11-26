@@ -1,0 +1,7 @@
+{
+    "name": "Voltic Vanguard / four-live activation restriction representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-23T00:13:21+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "**Instant** - Destroy this: Prevent the next 2 damage that would be dealt to you this turn. Activate this only if you've played an instant card this turn. Named equipment activation-prerequisite failure only: natural legalAurora20 EssenceLightning or Zyggy20 LightningIllusionist, realownedreadyEquipment5/Status2 and plainGenericWoundingBlow6Hand. Ability is supported by explicit set activation row/handler; false priorInstant/Fragment condition must reject before destroying5/creatingeffect, noresource cost ormissingassetmask. Actual firstEquipmentclick leavesEquipment5ready/Hand1/Stack0/AP1/R0/emptyqueues; then legalGeneric6plays0cost/deals4 toHero4 throughfourmanualseats/AP0/GY6 whileequipment5retained. No positiveprevention/holo/Fragment/heroactivation/armorbranch/sibling/fullcard/supportcredit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#voltic_vanguard"
+}

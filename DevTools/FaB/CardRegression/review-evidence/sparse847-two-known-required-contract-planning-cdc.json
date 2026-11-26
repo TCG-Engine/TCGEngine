@@ -1,0 +1,141 @@
+{
+  "status": "INDEPENDENT_APPROVED_B847_TWO_REQUIRED_KNOWN_CONTRACT_NOTES_SOURCE_ONLY_UNATTEMPTED",
+  "phase": "PLANNING",
+  "batch": 847,
+  "reviewer": "/root/ebbing_recovery_review",
+  "reviewer_independent": true,
+  "approved": true,
+  "planning_note_approved": true,
+  "source_approved": false,
+  "native_probe_approved": false,
+  "normal_save_approved": false,
+  "qualification": false,
+  "coverage_credit": false,
+  "native_attempted": false,
+  "confirmed_gameplay_bug": false,
+  "source_fix_applied": false,
+  "new_issue": false,
+  "manifest": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch847-two-known-required-contract-notes-manifest.json",
+    "sha256": "109ff8aaa27e3562a4c90660d7d86aea44f58177aaa04de1168a301ca5aa6700"
+  },
+  "manifest_sha256": "109ff8aaa27e3562a4c90660d7d86aea44f58177aaa04de1168a301ca5aa6700",
+  "firm_reservation": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch847-firm-reservation.json",
+    "sha256": "b59960bbf4e3d73e14ac9a5e3ff043f8ab9f315d49caca89dc35812336d9e258"
+  },
+  "runtime_sha256": "cdc081ff4c87ff2f9338b1d69040d0dc98d7600ba33976384336534ea3f92d22",
+  "all_current_source_guards_matched": true,
+  "source_guard_count": 18,
+  "holds": [
+    {
+      "card_id": "helm_of_unity",
+      "group_id": "identity:helm_of_unity",
+      "status": "APPROVED_AS_SOURCE_ONLY_UNATTEMPTED_SELECTED_KNOWN_CONTRACT",
+      "classification": "KNOWN_REQUIRED_FORMAL_UNITY_TRIGGER_RESPONSE_WINDOW",
+      "note": {
+        "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch847-helm-known-unity-when-unattempted-note.json",
+        "sha256": "f015650480dcf53e2e375f09fce1907ce58b591a3ea5fc0cba70a264670ab902"
+      },
+      "known_contracts": [
+        {
+          "card_id": "gauntlets_of_unity",
+          "row": 287,
+          "evidence": {
+            "path": "review-evidence/sparse838-two-known-required-contract-planning-cdc.json",
+            "sha256": "06f50ef577ba675a1d0f9c7c3acf7e8d5bad7d389b06f17495d9092523646dd6"
+          }
+        }
+      ],
+      "native_attempted": false,
+      "confirmed_gameplay_bug": false,
+      "fixture_saved": false,
+      "coverage_credit": false
+    },
+    {
+      "card_id": "throw_dagger_blue",
+      "group_id": "identity:throw_dagger_blue",
+      "status": "APPROVED_AS_SOURCE_ONLY_UNATTEMPTED_SELECTED_KNOWN_CONTRACT",
+      "classification": "KNOWN_EARLIER_WEAPON_ONLY_REACTION_ADMISSION_ON_FIXED_ORDINARY_AA",
+      "note": {
+        "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch847-throw-dagger-known-formal-target-unattempted-note.json",
+        "sha256": "f3331105fcb90a659b7d66daf508445358b6f3d535da8b36003292e586b65cee"
+      },
+      "known_contracts": [
+        {
+          "id": "FAB-REG-148",
+          "evidence": {
+            "path": "review-evidence/sirens148-legal-generic-attack-reaction-native-before-c53.json",
+            "sha256": "a7ca7b0471a09210d21579874085bd86aa85c217aa8b536e717db959db4a2808"
+          }
+        },
+        {
+          "id": "FAB-REG-153",
+          "evidence": {
+            "path": "review-evidence/night153-stealth-aa-admission-c53-native-before.json",
+            "sha256": "9dc7043dd45e58b8d29d78c48e98791557ba065058c283f575d423464677cf44"
+          }
+        },
+        {
+          "card_id": "cut_to_the_chase_blue",
+          "row": 290,
+          "evidence": {
+            "path": "review-evidence/sparse839-two-known-required-contract-planning-cdc.json",
+            "sha256": "99ab6a486de14b2679907b31522f2206a172a0627ab596ded03c1776c8b5787b"
+          }
+        },
+        {
+          "card_id": "tarantula_toxin_red",
+          "row": 267,
+          "evidence": {
+            "path": "review-evidence/sparse820-independent-diagnostic-source-and-tarantula-planning-review-429a.json",
+            "sha256": "68d361e8a46fd5eea83bebf0528dbb6491f15e7150675f92be9892cb6bf14122"
+          }
+        }
+      ],
+      "native_attempted": false,
+      "confirmed_gameplay_bug": false,
+      "fixture_saved": false,
+      "coverage_credit": false
+    }
+  ],
+  "independent_findings": [
+    "Helm actualBoltyn+PEN canonical and compiled25479 ordinaryDefended call sameFaBBoltynUnity45..50 asGauntlets287, throughGL1237..1244. Positive sameeventHelm+realHandNimblismBlue defense immediatelytagsBOLTYN_UNITY/WTR_DEFENSE1 instead of separateearnedfourresponses; exactrequiredcontract, not missingconjunction/body/blanketWHEN or newNativefinding.",
+    "Helm fullfuturelegalDorintheaYoung4 vsWoundingRed4: realHelm1+HandDEF2=3 beforeUnity, thenearned4responsesbefore+1=total4/preventallHP20. Immediate chaincloseTemper must itselfearnlayer/responses, then currentHelm1+stillactiveUnity1-counter1=1 meansSURVIVES, notbase1-onlydestroy. EOTexpiry/subsequentblock/otherbranchesunrun.",
+    "Throw earliestFIXEDordinaryAA barrier is WTR464..487 same148/153weapon-onlyadmission: actualThrowhasnoexception, onlyNip/Shredearlytargetpredicate, so nonWeaponWoundingAA rejected BEFORE payment/source/target/effect. No weapon-host substitution or redundantNative. DownstreamlateformalDagger target inonlyResolveCardMZChoose remainsrequiredknown267/290source-only/unrun, not firstobservedThrowfailure.",
+    "LegalYoungMysticNinjaZen+actualNinjaDaggerHarmonizedKodachi1H offchain is present in catalog, noownHittrigger; itsattack/conditionalGA unactivated. Throwprinted0/real1damageHP19/conditionalDeckdraw/actualsameDaggerdestroy plusoriginalAA4damageHP15/fullcleanup allremainUNRUN. NativeHNT46..49 daggerHits is legitimateaggregateobservable; no inventedDaggerUIDrecord inhitsThisTurn is required. FaBFaiHeroHit68 is Hero-target predicate, notalready-hitprerequisite."
+  ],
+  "note_accuracy_clarification": {
+    "note": {
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch847-helm-known-unity-when-unattempted-note.json",
+      "sha256": "f015650480dcf53e2e375f09fce1907ce58b591a3ea5fc0cba70a264670ab902"
+    },
+    "field": "later_unrun_requirements",
+    "clerical_phrase": "UnchosenHand defender goes correctownerGY",
+    "required_interpretation": "The ACTUALLY DECLARED NimblismBlue Hand defender goes to ownerGraveyard onchaincleanup. Any undeclared Handcard remainsinHand. No approval to move an unchosen/nondefending card. Fixedroute states that Nimblism is actually declared together withHelm.",
+    "does_not_change_known_earlier_contract_or_claim_execution": true
+  },
+  "primary_rules": [
+    {
+      "url": "https://rules.fabtcg.com/en/cr/08-keywords/",
+      "sections": [
+        "8.3.10",
+        "8.4.10"
+      ],
+      "official_read_only_web_read": true
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/",
+      "sections": [
+        "5.1.3a"
+      ],
+      "reuses_verified_formal_target_normative_contract_review": true
+    }
+  ],
+  "limits": [
+    "Onlysource-onlyplanningnoteaccuracy with explicitclericalclarification is approved. No executable/Native/fixture/coverage/fullcard/support/Tempersuffix/pseudoHitcertificate or newissue/root/repair.",
+    "Allactualco-defense/Unity/Temper/damage/targeting/Daggerhit/draw/destruction/currentAAcleanupremainunrun. No source-greenfallback/empty-hand-equipment-only/basicattack/hostswitch.",
+    "NoPHP/native/replay/Rwrites/sourcepatch/framework/CodeGen/fullsuite/Git/remote/newagents/Radiant189/Head190repair or denied188184B787 retry byreviewer."
+  ],
+  "created_utc": "2026-11-16T05:20:32.706535+00:00"
+}

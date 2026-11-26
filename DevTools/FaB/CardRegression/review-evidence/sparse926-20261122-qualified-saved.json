@@ -1,0 +1,164 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "breadth_review independent source/semantic review",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse926-20261122.json",
+  "source_spec_sha256": "5d001e0dda918796051e98e3a47261e89943066d4ed42699ce22f9be7e898f63",
+  "input_sha256": "2157fc8a635aab3182a1ec3dd45fd622087810f5267928fd97742f325e4dfa11",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-raydn-duskbane-four-live-sparse926-actual-zero-cost-zero-damage-raydn-without-charge",
+      "card_id": "raydn_duskbane",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "0ca0bb2ada3113089cb68cea7331971f5cb893ca1695757ead5193862566c460",
+        "actions.json": "8df3b5f29ae6367544ab75c908df457f9fef4a285dc235e90f8fed778486cef3",
+        "assertions.json": "d25f45886855e7bdd954273aee54daf15df147aedb25444d9728128e1f6c9db5",
+        "expected_final_gamestate.txt": "5e9cffe6692fa3a3c84f44b89c136338f72670be6276762a96f02ee3fc8054da",
+        "meta.json": "85fc92c303acf73e85b3c1b7ac56a83c3fd7e170cf68b45eab242065aa7b1899"
+      },
+      "fixture_sha256": "b360b20a486c6869c68512a0f7bf77a5a6245d2f176da177e5422e083b3cb8f3",
+      "actions": 27,
+      "native_assertions": 117,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse926-20261122.json",
+      "input_sha256": "2157fc8a635aab3182a1ec3dd45fd622087810f5267928fd97742f325e4dfa11",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse926-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-raydn-duskbane-four-live-sparse926-actual-zero-cost-zero-damage-raydn-without-charge",
+        "fixture_slug": "card-raydn-duskbane-four-live-sparse926-actual-zero-cost-zero-damage-raydn-without-charge",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-nerve-scalpel-four-live-sparse926-actual-three-defense-blocks-one-power-dagger-and-printed-go-again",
+      "card_id": "nerve_scalpel",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "18a927f0c98f0164b7cd35baec062ee10b2ce975f913aa77c3d0464de42a9ca6",
+        "actions.json": "4ff186c6adb584eb1b6641fe635420989eee7886f133ff4fa25707225e9caa60",
+        "assertions.json": "d0e6624ee2cbea8087f33c70fe21e7c0e9012e15d4745d65c3364416c046edd5",
+        "expected_final_gamestate.txt": "0835f5b907f5c46c53953ddf3bd5fc4f13d48626815a53fa54fa45fa7ead66da",
+        "meta.json": "11862df5faaeb41121566a591ef67f2a16401e4afab491d8f852d0f01d38958e"
+      },
+      "fixture_sha256": "b92b3c94ffe2bd1569ef3e8a5e2e85d0566474b739cc72af7b3eeac05726d54b",
+      "actions": 29,
+      "native_assertions": 150,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse926-20261122.json",
+      "input_sha256": "6bc89e6d4e818d15a522333b377a6b239256e3e8dd84e0a4e26754010bf9ff21",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse926-local-20261122\\retry-effects\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-nerve-scalpel-four-live-sparse926-actual-three-defense-blocks-one-power-dagger-and-printed-go-again",
+        "fixture_slug": "card-nerve-scalpel-four-live-sparse926-actual-three-defense-blocks-one-power-dagger-and-printed-go-again",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-orbitoclast-four-live-sparse926-actual-three-defense-blocks-one-power-dagger-and-printed-go-again",
+      "card_id": "orbitoclast",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "3235dece83166a13be41a620d00825f558129c6845115bc5b2821e793053b350",
+        "actions.json": "4ff186c6adb584eb1b6641fe635420989eee7886f133ff4fa25707225e9caa60",
+        "assertions.json": "03075146c573d9dbdce0be5cc6b3f813d48ece2d8f8194abc4aa0330d90e98e0",
+        "expected_final_gamestate.txt": "b77e4c0a0e71d912b05a433281f6579e48dd657d643e3a7e843b0705395d29e7",
+        "meta.json": "f2bbd791da355b84a7f183dc893597e828e8b9b0ab8a5513f918b4f7e603e89c"
+      },
+      "fixture_sha256": "d9eddbfb01114310205a0ff096eb89d177fbd6a5f8046c20a988de02d4c2ee31",
+      "actions": 29,
+      "native_assertions": 150,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse926-20261122.json",
+      "input_sha256": "6bc89e6d4e818d15a522333b377a6b239256e3e8dd84e0a4e26754010bf9ff21",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse926-local-20261122\\retry-effects\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-orbitoclast-four-live-sparse926-actual-three-defense-blocks-one-power-dagger-and-printed-go-again",
+        "fixture_slug": "card-orbitoclast-four-live-sparse926-actual-three-defense-blocks-one-power-dagger-and-printed-go-again",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-spiders-bite-four-live-sparse926-actual-three-defense-blocks-one-power-dagger-and-printed-go-again",
+      "card_id": "spiders_bite",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "675d951218611cc95211c50622249ff4b4835157f08e3cc3a5bbb8cb40aa8bc4",
+        "actions.json": "4ff186c6adb584eb1b6641fe635420989eee7886f133ff4fa25707225e9caa60",
+        "assertions.json": "031c8bda23648d931a4a72e03675fe362107086a43389ee0d7b07642391ca902",
+        "expected_final_gamestate.txt": "1ee74deb62a753f0561b0fde0025053be369beaa11af619d8fe99be49cf176ab",
+        "meta.json": "3f236e408e85639ccd364c84fc7c35936861dbaae29db95f154129f3d463813b"
+      },
+      "fixture_sha256": "5c30f9cec1f02a459403d31c6bc46ccf84625dde2744b08906b11e37e22a4031",
+      "actions": 29,
+      "native_assertions": 150,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse926-20261122.json",
+      "input_sha256": "6bc89e6d4e818d15a522333b377a6b239256e3e8dd84e0a4e26754010bf9ff21",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse926-local-20261122\\retry-effects\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-spiders-bite-four-live-sparse926-actual-three-defense-blocks-one-power-dagger-and-printed-go-again",
+        "fixture_slug": "card-spiders-bite-four-live-sparse926-actual-three-defense-blocks-one-power-dagger-and-printed-go-again",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "spec_sha256": "5d001e0dda918796051e98e3a47261e89943066d4ed42699ce22f9be7e898f63",
+    "reviewer": "breadth_review independent source/semantic review",
+    "basis": [
+      "Raydn Duskbane is legal Light Warrior Boltyn20, printed ability0 and base0 with no charge history. WTRCards897/917/918-929 explicitly route cost0 weapon attack and target preflight; zero-cost completion spendsAP but requires no pitch input. PhysicalWeapon5 remains, proxy6 uses source5/WEAPON_UID5, actual0damage/noGA/AP0 is correct.",
+      "Nerve Scalpel/Orbitoclast/Spiders Bite are legal Assassin Uzuri20 weapons with explicit DYNRuntime25-44 cost2 native activation. Actual Blue6 pays2/R1/AP0, next proxy UID8 follows initial enemy physicalHand7. No alternate ability menu exists for these initial weapons; target MZCHOOSE then payment is coherent.",
+      "Wounding Blow Red has printed defense3, is a legal Generic Hand blocker, and has no defending trigger. During actualP4 DEFEND_DECLARE, click Hand0 moves ownedUID7 to the combat chain with RoleDEFENSE; subsequent pass ends declarations and enters the four-seat response round. It is not an Equipment defender, so Piercing adds no power. Printed1 attacks are fully blocked and deal0, so no Hit event or earned debuff layer occurs.",
+      "GameLogic494 explicitly grants all three Daggers go again without requiring a hit. Their real blocked attacks therefore restore AP1 during resolution despite zero damage; Raydn remainsAP0. RealBlue6Pitch, physicalWeapon5 retained, defender7 in owned4 graveyard and empty final turnEffects correctly pin paid/block/GA and no-hit-effect branch. DYNSPIDER is stored via WTRAddEffect, so final empty turnEffects includes that absence guard.",
+      "All four live/manual rounds and physical source links retained; no preseeded attack/defense/damage flags, no invented proxyOwner. Initial effects empty, final HP20 and real motion observed in the planned oracles."
+    ],
+    "limits": [
+      "Source/spec review only; native recording and targeted clean replay remain pending Root. No PHP/native execution, T edits, network or Git mutation.",
+      "Only Raydn uncharged zero-cost attack and Daggers actual block/cost/GA branches. Exact dagger power is not distinguished by a3defense blocker; no positive charge, hit debuff, Equipment Piercing, downstream defense reduction, second attack, support identity or whole-card coverage. Inherited unblocked/buff-consumption checkpoint labels confer no such credit."
+    ],
+    "final_delta_review": {
+      "result": "approved_named_branches_only_pending_native_execution",
+      "spec_sha256": "5d001e0dda918796051e98e3a47261e89943066d4ed42699ce22f9be7e898f63",
+      "reviewer": "breadth_review independent delta/source review",
+      "basis": [
+        "Exact structural delta verified: Raydn unchanged; each of three unsaved Daggers replaces only its last whole turnEffects empty-map assertion with four portable state-field assertions. All costs, native inputs, block/HP/AP/physical-source and defender graveyard checks are unchanged.",
+        "The original whole-map empty guard was an oracle error missed in initial review. SEARuntime143 appends SEA_ATTACKED_HERO to attacked seat4 on attack declaration; ELEAbilities68 appends ELE_AA_COMBAT when the real attack-action Wounding Blow defends; EVRCards235 appends EVR_GRAVEYARD to each live seat when that defender reaches graveyard. These events occur in that order without any hero activation or hit. WTRCards19-24 appends effect entries, preserving order.",
+        "Read-only inspection of all three existing failed receipts confirms exactly those three p4 effect types, after the preceding physical/health/action-point checks. This evidence is consistent with the independent source routes, not a new gameplay defect.",
+        "Native zero damage cannot earn Hit. OUTRuntime100-103 would append OUT_DAGGER_REACTION/NAA on positive Nerve/Orbit hit; DYNRuntime110-115 and DYNCards3-4 append DYN_SPIDER for Spider hit. Distinct type identities and missing index3 reject any added hit-debuff entry while allowing only the three legitimate seat4 bookkeeping entries. No amounts/history values are asserted.",
+        "Core/RegressionTestFramework supports rootName FaBSim ordered array/string-key paths, JSON-string equality and missing_or_null without valueJson. The submitted game_state_field queries use that portable syntax."
+      ],
+      "limits": [
+        "Source/spec delta review only. Retry only the three unsaved corrected cases; Raydn was already recorded and unchanged. No native games/replays, T edits, network or Git mutation by reviewer.",
+        "This corrects a fixture oracle, not engine behavior or a newly counted defect. Existing named blocked/payment/GA scope and positive-hit/charge/Piercing/downstream-debuff exclusions remain. Native retry and clean replay still pending Root."
+      ]
+    },
+    "original_spec_sha256": "2157fc8a635aab3182a1ec3dd45fd622087810f5267928fd97742f325e4dfa11"
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse926-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "3942c99cc3537fda908fc09107fc596a46d5f47ded7ebc45683f40bc7af00a1e"
+  },
+  "full_suite_run": false
+}

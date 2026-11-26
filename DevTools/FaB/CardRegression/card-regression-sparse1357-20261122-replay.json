@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-scurv-stowaway-four-live-sparse1357-opponent-gold-cannot-pay-hero-cost-no-tap-or-action-loss-real-followup",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-scurv-stowaway-four-live-sparse1357-opponent-gold-cannot-pay-hero-cost-no-tap-or-action-loss-real-followup",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1357-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1357-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "5eb9c1de72d0c7cdb99c3e4b88f8406e198e2806d651d11ce09ce953164211c9",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "bc842f3be38d049bad9ad983e5ba67ac3322ea42b4e85e6453f6032a96465f16",
+        "actions.json": "bf72baf493944896a293e60ddc505c2907bdd04ba2d8bafd5e6fa832a17112c2",
+        "assertions.json": "886ea381e7a423fc0899a0dc4395ed17ae39be19e5e4e3219595a1457d892ce3",
+        "expected_final_gamestate.txt": "db47d5ea4057c359aa3477f3b9bf2e3bb930630f67faeb44bd7cbbdf70f0cdd9",
+        "meta.json": "399034d4c48d40b3244ffbedee1ae13d592be789a06d888e9fa712673ecec581"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

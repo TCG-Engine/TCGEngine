@@ -1,0 +1,85 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "independent breadth_review",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1208-20261122.json",
+  "source_spec_sha256": "dfb8fab67c3dce47a4f1df30a4146417f047c9a5559bceedea7e8474f0caa134",
+  "input_sha256": "dfb8fab67c3dce47a4f1df30a4146417f047c9a5559bceedea7e8474f0caa134",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-singularity-red-four-live-sparse1208-real-six-paid-full-hero-weapon-four-evo-transform-and-soul",
+      "card_id": "singularity_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "07f45be77ce39fca83780c1a4f675cfc26c74a72006e043042f82f890b6221e3",
+        "actions.json": "a907406d774bb8334491a9a2f4fc1202e9fe451a7f49dab65e2cf96fdb62fb75",
+        "assertions.json": "b7a33f4a837d46b21bb77b1d27bb49da007290ea70de71361221ec65b774a51a",
+        "expected_final_gamestate.txt": "fe91f1321a4fbd6696f29f0c02b484fcb1caa8940a32f7a568c618c07b69ae18",
+        "meta.json": "2e4d3b9a5b2c37ebbd750985c7d69ec1984c317f6ce039c88500fd9d819f2fa9"
+      },
+      "fixture_sha256": "be67b3727c0e6def2bfc4fad5fbb48f3694362fc7e44614eadf4065f38007b77",
+      "actions": 7,
+      "native_assertions": 589,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 4,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1208-20261122.json",
+      "input_sha256": "dfb8fab67c3dce47a4f1df30a4146417f047c9a5559bceedea7e8474f0caa134",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1208-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-singularity-red-four-live-sparse1208-real-six-paid-full-hero-weapon-four-evo-transform-and-soul",
+        "fixture_slug": "card-singularity-red-four-live-sparse1208-real-six-paid-full-hero-weapon-four-evo-transform-and-soul",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "reviewer": "independent breadth_review",
+    "spec_sha256": "dfb8fab67c3dce47a4f1df30a4146417f047c9a5559bceedea7e8474f0caa134",
+    "case_count": 1,
+    "native_controls": 7,
+    "persistable_assertions": 589,
+    "author_only_checks_omitted": 0,
+    "card_id": "singularity_red",
+    "group_id": "identity:singularity_red",
+    "basis": [
+      "Exact frozen setup, all7 native controls and589 prospective persisted checks reviewed. Young Teklovossen20/threeDorinthea20 is legal four-live UPF; Singularity is exact Teklovossen specialization, cost6. Primary5Hand1 plus actual Bluefuel6/7, correct four prior Red Breakers8-11 with their corresponding ProtoBaseSUBCARDS, weapon12 and hero1 form the complete required all-owned input. Group is unrepresented.",
+      "Real first Blue pitch leaves resources3/AP1 and stillPITCH. Only actual second Blue pitch pays6 toR0/AP0 and opens sourcePRIORITY1. Four fresh real responders1/2/3/4 occur with physical5heldStack and old hero/equipment/weapon/Soul unchanged. No formal target, modal declaration, extra effect-cost, phase or virtual-ability await is needed.",
+      "GeneratedMacroCode7023 exact ResolveCard binding directly calls FaBEVOSingularity(player,actualUID5). EVOCards72-77 checks all4 Evos plus weapon/hero before mutation; ProfessorCards4 enumerates live equipped cards in insertion order. Each captured BaseCardID becomes actual Soul card13-16, each existing Evo8-11 retains physicalUID into Soul, then actual weapon12 and oldHero1 move to Soul.",
+      "After moving all complete inputs, EVOCards76 clears old Hero zone and moves actual primary5 from its resolving Stack source to Hero, changes CardID to TeklovossenMechropotent, explicitly clears Counters and TurnEffects. This is an in-play transform from legal young setup, not an illegal adult UPF starting hero. Natural current health20 stays20 as the printed enters-with-life result requires for this case.",
+      "All four selected Red Breakers and the new form are outside the evo_steel_soul_ prefix; EVOCards54-57 therefore queues no SteelSoul transform observer. No material equip/attack/endphase ability is earned in this route. Normal managed source completion sees physical5 already inHero and does not place it inGY.",
+      "The all-owned material path is explicit: both source containers/player1 and prior equipped/weapon/hero ownership are guarded, all ten correct CardID/UID entries are asserted in Soul1, Soul2/3/4 are empty. Soul schema659-680 represents only CardID/UniqueID, with no Owner/Controller field. AddSoul(player1,CardID) therefore does not establish a semantic owner0 defect for these all-owned inputs. This narrow container-ownership proof does not release the earlier1102 generic under-material export concern or any foreign-owner reconstruction path.",
+      "Final singleHeroUID5/Counters[], life20/AP0/R0, physicalPitch6/7, Soul count10 and exact order/Base13-16/Evo8-11/Weapon12/oldHero1, maxUID16, empty Hand/Equipment/Weapons/GY/Stack/decisions are coherent. All589 checks normalize to persisted assertions; no author-only diagnostic or contradictory same-checkpoint literal was found."
+    ],
+    "limits": [
+      "Only one complete all-owned transform at natural current life20; native save, stored evidence review and one clean replay remain Root pending.",
+      "No incomplete requirements, alternative materials or ownership, material UID conservation before admission, foreign-owner export, subsequent Soul movement, new form attack/abilities, SteelSoul observer, other health, count-as-four-Evos consumer, original setup producer, second-face/support identity or full-card credit.",
+      "Prior1102 source-only under-material ownership concern is not globally resolved; this case does not exercise a schema Owner field or unknown foreign material history. Newly allocated BaseUIDs13-16 are source-predicted export identifiers, not a claim to recover former hidden physical UIDs.",
+      "No native/PHP/T/source/framework/engine/Git/network/original-checkout actions by reviewer."
+    ],
+    "source_note_sha256": "8c2f953277bb44b5d358dbeefb879571a5cbfd89214a0da708412b27af535fbb",
+    "source_sha256": {
+      "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+      "FaBSim/GeneratedCode/GeneratedMacroCode.php": "fe6a7982611df8f4de98ce2671b317b671b580146aa4b8c28e8f4b86d8461056",
+      "FaBSim/Custom/EVOCards.php": "7e946cadb04817da7a0c0b17d94cf5a6bd03655adba07b714d39654329b54dbe",
+      "FaBSim/Custom/ProfessorCards.php": "6e5cc57b008552dc444d06831bd9dbec45db47214087de049da99b68deb96988",
+      "FaBSim/Custom/GameLogic.php": "c60fa151561f959e4e3e341b814de0e2b47c9e9f153bbc8793a04c43b5075061",
+      "FaBSim/ZoneClasses.php": "874bb2ae00a80a8ba3dfe1789b4c932fd0b7cf1286504a62828e0055ca1cb355"
+    }
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1208-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "41543c9f545db4d2d6bc71232f120bc731c49b41b1331d66024b000c81af8272"
+  },
+  "full_suite_run": false
+}

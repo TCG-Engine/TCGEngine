@@ -1,0 +1,60 @@
+{
+  "status": "LENS156_ORIGINAL6_766_SINGLE_CLEAN_REPLAY_PASS",
+  "reviewer": "Root independent of b820 source/checker and original668 recipe author",
+  "reviewer_independent": true,
+  "approved": true,
+  "semantically_approved": true,
+  "runtime_sha256": "9fdf6e852d640b623e640e5693f42e560b3934b3770762ad860619cbfa92ccd1",
+  "input_sha256": "3f5d1f045c6bd425ea11d9df83f7fbc0e627f890e499b032756223096bf93c0a",
+  "recorded_input_sha256": "c8c5b83adb0a75f882b8d104dd710a4ab167a6c02ac1c0fc6d5890bb60b8493d",
+  "source_spec": "card-regression-repair-lens156-owned-arc-banish-top.json",
+  "fixtures": [
+    {
+      "slug": "card-prismatic-lens-yellow-four-live-owned-banish-item-to-deck-top",
+      "card_id": "prismatic_lens_yellow",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "4d0e6f83596f572b98b4f162eac4a3a6adbb042d941f22124688c28da9e5ee96",
+        "actions.json": "26f1f12b81530e8bc5d3a8bc6dac6c17aee556b4c7e40fcee9a19d3c17075660",
+        "assertions.json": "383408a2d55baa7681964f471a35093b5ea47b8fde350f3be5b318e4bd96b183",
+        "expected_final_gamestate.txt": "7dbdc043c13a0e3aaaf393838335f22a3e3af071e0c5132217bbf83751fc7d23",
+        "meta.json": "e9bc900651811db4c7a4c5877b35b2ce86ea51203515b139d817367527adf4fa"
+      },
+      "fixture_sha256": "f520ca0c5bdda96f204b5e5119d109cd8197cc2ce9315accc63e9f73842250a1",
+      "actions": 6,
+      "native_assertions": 766,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 4,
+      "recorded_runtime_sha256": "9fdf6e852d640b623e640e5693f42e560b3934b3770762ad860619cbfa92ccd1",
+      "runtime_sha256": "9fdf6e852d640b623e640e5693f42e560b3934b3770762ad860619cbfa92ccd1",
+      "source_spec": "card-regression-repair-lens156-owned-arc-banish-top.json",
+      "input_sha256": "3f5d1f045c6bd425ea11d9df83f7fbc0e627f890e499b032756223096bf93c0a",
+      "recorded_input_sha256": "c8c5b83adb0a75f882b8d104dd710a4ab167a6c02ac1c0fc6d5890bb60b8493d"
+    }
+  ],
+  "replay": {
+    "path": "card-regression-replay-nov17-lens156-replay.json",
+    "sha256": "ebb701770ae61d946c04b90b2040f828026b5a480caf03331ebad6aef12204d5",
+    "passed": true
+  },
+  "source_review_sha256": "4136896f540f7807a8ce9ff0d0163848940fac08260393f79d8325ed7f55943f",
+  "components": 59,
+  "component_receipt_sha256": "6e2ddafba9bd380a64a87a597c2bf302ae7b74a48d986ab004c9ab6d666f6e8b",
+  "metadata_only_erratum": {
+    "status": "METADATA_ONLY_DESCRIPTION_CORRECTED_NO_GAMEPLAY_OR_ASSERTION_CHANGE",
+    "recorded_input_sha256": "c8c5b83adb0a75f882b8d104dd710a4ab167a6c02ac1c0fc6d5890bb60b8493d",
+    "current_source_sha256": "3f5d1f045c6bd425ea11d9df83f7fbc0e627f890e499b032756223096bf93c0a",
+    "basis": "Root wrapper prose mistakenly said destructioncost. Original setup/actions/assertions and officialcard2590 correctly specify OncePerTurnInstant0, Lens5remainingArenaSTEAM0/ARC_USED. Original GYZero8 andBanishHyper7 are preexisting provenance, not current activation costs. Correct only wrapperoracleprose; actual Nativefixture/replay unchanged, no rerun warranted.",
+    "official_source": "https://judge.fabtcg.com/cards/detail/2590/",
+    "fixtures_changed": false,
+    "engine_changed": false
+  },
+  "basis": "Alloriginal6actions766queries unchanged. RealOncePerTurnInstant0Lens5activation/fourmanualresponses revealoriginalBlue6; actualofferedownfaceupBlueMechItem7 movesfromBanish totrueDecktopbefore6. SameUIDs/owners retained; Lens5survivesArenaSTEAM0/ARC_USED_0=2, oldGYZero8 andfourHandcards unchanged, HP20/R0/AP1/fullStackDQawaitcleanup exact. Actual emittedPC1/publicARC mover executes under originalownedARC ability/frame; no genericROS094extension, sourcepremovement or syntheticexpected-state capture.",
+  "official_source": "https://judge.fabtcg.com/cards/detail/2590/",
+  "limits": [
+    "Only selected ownfaceupsamecolorItem branch. Foreigncards/othercolors/menus/Quantum144/futureupkeep/Crank/Boost/priorcast or fullcard unqualified. Earlier legitimate history is unexecuted provenance.",
+    "59actualhelper/publicmover/emittedPC1 components cover guards, frameownership, physicalsourcegone/blank and legacyGY/Topsy. Their state/zone/frame primitives are modeled; actual Native above supplies realchoice/serialization/sourcecompletion.",
+    "Rootwrappercostprose corrected afterNative from destructioncost to actualInstant0; originalsetup/actions/assertions alwayscorrect. RecordedsourceSHA retained separately; currentSource metadata only, raw5 and replay unchanged/no redundant rerun.",
+    "No generated/Core/schema/service edit, deniedrepairretry, fullsuite/historicalcorpusreplay or breadth expansion."
+  ]
+}

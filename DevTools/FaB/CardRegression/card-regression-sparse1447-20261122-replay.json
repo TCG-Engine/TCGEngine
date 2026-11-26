@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-teklovossen-the-mechropotent-two-live-sparse1447-native-bound-current-form-grants-go-again-with-boost-declined-and-real-item-consumer",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-teklovossen-the-mechropotent-two-live-sparse1447-native-bound-current-form-grants-go-again-with-boost-declined-and-real-item-consumer",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1447-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1447-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "a846da6de74c9bf55ae1e9435d2ae1708d2b4607f4f8d0bccde9d07be3952540",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "9a9a3c3fbffea8c780b4340895ceb59c001a915d1605590141a4c1e001b9431e",
+        "actions.json": "d8faa3fbcdf19aabe21d962b63d61ff5795e1d252814f34f2b66e3bfba2a9359",
+        "assertions.json": "f8663f101ef7d9ad1a29ad26ffe89710a36290149debcca2976e85511bcb787e",
+        "expected_final_gamestate.txt": "0e557a1c9ab02671872e8a005b98219acc3b755ae2a1d7e1e7d216f16a64f933",
+        "meta.json": "6cf7727f26edcc0306a5045f3338f869fc8bfe38a10e8ae40e9029282d483f78"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

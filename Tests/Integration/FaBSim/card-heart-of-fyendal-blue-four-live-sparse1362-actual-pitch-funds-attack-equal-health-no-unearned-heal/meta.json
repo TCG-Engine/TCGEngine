@@ -1,0 +1,7 @@
+{
+    "name": "Heart of Fyendal / equal health pitch earns no life",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-24T11:33:56+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "FOUR_REAL_MANUAL_UPF_NATURAL_DORI20. ActualHeartFyendalBlue6HandPITCH3paysGenericCriticalStrikeRed5cost1/R2/AP0/5damageHP4=15. Atactualpitchallfourherohealth20: less-than-opponentconditionfalse, noHeartheal/layer/choice/newUID. Targetlaterfalls15cannotretroactivelytriggerheal; ownHP20atpayment/responses/damage/fullclose. Heart6remainsPitchsameownedUID, allArena0/UID7RNG0/Soul0/Hand0/source5GY1/FDArsenalWounding7retained. Actual0costArsenalconsumerrejectAP0. Onlyconditionalpitch/noHealguard/nativefunding; positiveunequalHPheal/WHENtiming/resourceplay/support/fullcarduncredited. Sources: FaBSim/GeneratedCode/cardArrayCache.json#heart_of_fyendal_blue FaBSim/GeneratedCode/GeneratedMacroCode.php FaBSim/Custom/GameLogic.php FaBSim/Custom/WTRCards.php FaBSim/Custom/SEACards.php FaBSim/Custom/ARCCards.php"
+}

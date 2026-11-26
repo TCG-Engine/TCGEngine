@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-viserai-the-forsaken-two-live-sparse1419-real-three-runechants-one-creation-hero-layer-banish-one-and-traverse",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-viserai-the-forsaken-two-live-sparse1419-real-three-runechants-one-creation-hero-layer-banish-one-and-traverse",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1419-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1419-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "60cfe01e0d2abe94edb05edb3e99606b1425ecbae3f384850f4b43351e4ffecf",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "970371d9d126c8a46c57327557ab1a2f14466c59b4d3f1ac30b1d87d5a20e19d",
+        "actions.json": "bea815f125883ae4155d972b135236047252d46caf9c1dbb9fa48e064f697361",
+        "assertions.json": "a52c1f9195a8c0e9751f775d782b15c29d201a2c221e4a7fd6a3784e712a67f1",
+        "expected_final_gamestate.txt": "8c1fe6c125ab8050a07ae70d3faca4a45ad00b3ddb72afc1997e3f113a253ef8",
+        "meta.json": "093e4c403d506ebb07417e6b28524108b75149eadff108ceca8588815f2dedfb"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

@@ -1,0 +1,138 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "/root/breadth_review1457",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1504-20261122.json",
+  "source_spec_sha256": "bdb01a54503b750403e4c34eb8f374b111c51070dd5f55fa38159de095b79d16",
+  "input_sha256": "bdb01a54503b750403e4c34eb8f374b111c51070dd5f55fa38159de095b79d16",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-gesture-of-goodwill-blue-four-live-sparse1504-actual-own-hero-block-is-not-protecting-another-hero-with-token-available",
+      "card_id": "gesture_of_goodwill_blue",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "3f14420eff5a8b90e9afdf149bb23f9553467fc196ae1780e972540bc29a1a3f",
+        "actions.json": "5af67ec73dd5988db1a058227e5dcccf44c896ddc4b34170fb8eb2fb4f3ccefb",
+        "assertions.json": "ce99bdb487426da9b3b40059c0312d94c34a18acb9e5af36127ef36347084ca6",
+        "expected_final_gamestate.txt": "737fc8a4941ff9d92803ae210e787877ec757654fbd5e195438c68c8b37d80f9",
+        "meta.json": "d4f16cb52908382b17a404a45d71292ac65fff6e3ffde9416d57996d45b7e7d8"
+      },
+      "fixture_sha256": "76cc8158a8cb32285b49d81aa0c657d690dcedcd1b2655cbfcbc27e912298952",
+      "actions": 28,
+      "native_assertions": 360,
+      "author_only_checks_not_persisted": [
+        {
+          "step": 12,
+          "check": {
+            "kind": "defense",
+            "value": 3,
+            "player": 4
+          }
+        }
+      ],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1504-20261122.json",
+      "input_sha256": "bdb01a54503b750403e4c34eb8f374b111c51070dd5f55fa38159de095b79d16",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1504-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-gesture-of-goodwill-blue-four-live-sparse1504-actual-own-hero-block-is-not-protecting-another-hero-with-token-available",
+        "fixture_slug": "card-gesture-of-goodwill-blue-four-live-sparse1504-actual-own-hero-block-is-not-protecting-another-hero-with-token-available",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-not-so-tuff-blue-four-live-sparse1504-actual-non-revered-attack-does-not-destroy-real-toughness-or-create-might",
+      "card_id": "not_so_tuff_blue",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "391a92bfdf5ea3b6761cbd164e965558945631767ceaf45756daf496ebb3a0b1",
+        "actions.json": "5af67ec73dd5988db1a058227e5dcccf44c896ddc4b34170fb8eb2fb4f3ccefb",
+        "assertions.json": "13b05f6a57595817524808a8b064c704d036e90370ccbc2bf7a141a11190d82a",
+        "expected_final_gamestate.txt": "b148c3137b50670da3019fc1c897c0c2359c93ecaf31d448de90ca136d250fd4",
+        "meta.json": "70f4a0b7ac87fc121655741836f1d5a3d2b189a1cc61d9e5421bc4b2f7563911"
+      },
+      "fixture_sha256": "9ef6181712512bd3433e836dd964014b837243ba2e9c7968a4ad573dc7457eb4",
+      "actions": 28,
+      "native_assertions": 360,
+      "author_only_checks_not_persisted": [
+        {
+          "step": 12,
+          "check": {
+            "kind": "defense",
+            "value": 2,
+            "player": 4
+          }
+        }
+      ],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1504-20261122.json",
+      "input_sha256": "bdb01a54503b750403e4c34eb8f374b111c51070dd5f55fa38159de095b79d16",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1504-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-not-so-tuff-blue-four-live-sparse1504-actual-non-revered-attack-does-not-destroy-real-toughness-or-create-might",
+        "fixture_slug": "card-not-so-tuff-blue-four-live-sparse1504-actual-non-revered-attack-does-not-destroy-real-toughness-or-create-might",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "schema_version": 1,
+    "batch": 1504,
+    "reviewer": "/root/breadth_review1457",
+    "result": "approved_named_branches_only_pending_native_execution",
+    "reviewed_utc": "2026-11-25T06:26:51.609050+00:00",
+    "spec_sha256": "bdb01a54503b750403e4c34eb8f374b111c51070dd5f55fa38159de095b79d16",
+    "source_note_sha256": "32b0cc53edd9ee2a039cda086ee07a736a98941f124fb65ba6eab1993a63ab33",
+    "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+    "source_sha256": {
+      "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+      "FaBSim/GeneratedCode/GeneratedMacroCode.php": "fe6a7982611df8f4de98ce2671b317b671b580146aa4b8c28e8f4b86d8461056",
+      "FaBSim/Custom/GameLogic.php": "c60fa151561f959e4e3e341b814de0e2b47c9e9f153bbc8793a04c43b5075061",
+      "FaBSim/Custom/SUPCards.php": "d0cf162a89b60b29590121e4c97e1e5fe0e2dc790130bf181949ca068092c1fa"
+    },
+    "cases": 2,
+    "findings": [
+      "Gesture ordinary ownHero4 defense does not protect another Hero. No exact emitted callback; only basic3defense/false condition observation, not verified Protect/gift implementation.",
+      "NotSoTuff Defended reads actual attacker Hero and only enters Revered branch. Dori1 false exits before chooser/destruction/Might despite realToughness1. Killjoy legalReviled20,noBoo/steal.",
+      "Toughness owner turn1 not opposingturnstart; primaryBlock notAction. CanonicalDEFENSE and exact3/2defense\u21921/2damage, tokenUID7owner/controller intact."
+    ],
+    "limits": [
+      "Basic defense and specific false printed conditions only. Positive abilities/trigger timing/token creation histories uncredited. Source/spec review, no reviewer games."
+    ]
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1504-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "67d887487896936172f00e5cea774f143473cea6db35a755dc60d158d20d231a"
+  },
+  "full_suite_run": false
+}

@@ -1,0 +1,33 @@
+{
+  "issue": "FAB-REG-094",
+  "status": "AUTO_REVIEW_DENIED_BEFORE_CREATEPROCESS_KNOWN_UNEXECUTED",
+  "target": "FaBSim/Custom/GameLogic.php",
+  "action": "python .\\apply_nov5_blood_vest094_guarded_final.py --execute --confirm-idle --confirm-all-qualified --operational-review .\\nov5-blood-vest094-final-independent-operational-review.json --operational-review-sha256 49fc54741c1aa4223ec8e8deec30b5af2c2b345b25531ec510b5f32844168e0e",
+  "reason": "This persistently modifies FaBSim gameplay source, while the user authorized documenting incorrect behavior rather than changing rules and provided no direct approval for this repair.",
+  "source_application_executed": false,
+  "actual_runtime_unchanged": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+  "actual_source_sha256": "1cdad1555c8d2e3bd3fa98d69bf52791b84d21bf2269363ddea7249f4ee35a43",
+  "application_output_absent": true,
+  "source_peer_approved": true,
+  "controlled_checks": {
+    "before_contracts": 6,
+    "before_checks": 67,
+    "candidate_contracts": 14,
+    "candidate_checks": 189
+  },
+  "full_denial_record": {
+    "external_workspace_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-blood-vest094-auto-review-denial.json",
+    "sha256": "0c0717ef85a621856608f1811732f84b5a082788d986aa7a1c4d3806c1cd725e"
+  },
+  "source_review_sha256": "7571979f43487fe70c622001a9fc7fe404c9dbff612caddf97665e3c9dc54138",
+  "component_receipt_sha256": "aecbc3d0edb3aed2b0f8f278c120d45682604942c7b5241c8a3dd36effa2d56a",
+  "operational_review_sha256": "49fc54741c1aa4223ec8e8deec30b5af2c2b345b25531ec510b5f32844168e0e",
+  "correct_unsaved_probe": "card-regression-batch413-blood-vest-correct-probe.json",
+  "native_before": "review-evidence/blood-vest094-native-before.json",
+  "native_after_run": false,
+  "fixture_saved": false,
+  "coverage_credit": false,
+  "approval": "Fresh specific approval requested; async UI accepted the question, no answer received. Do not treat as authorization.",
+  "retry": "No retry/reroute. Future approval also requires fresh inventory/preimage/evidence checks; current final pin3744 may become historical during independent breadth.",
+  "full_suite_run": false
+}

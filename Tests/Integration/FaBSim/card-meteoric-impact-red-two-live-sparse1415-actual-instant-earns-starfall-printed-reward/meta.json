@@ -1,0 +1,7 @@
+{
+    "name": "Meteoric Impact / actual Starfall condition",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-24T16:57:38+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "TWO_REAL_MANUAL_ADULTCC_OSCILIOCONSTELLA36_DORI40. SoleopposingHero2damage-targetdefaultTRP5.14precommittedbeforepayment; laterUIrepeatssame2/noinfo/retarget, noearlybinding/UPFcredit. RealSigil3Instant0/allbothresponses\u21923GY/HP1=37/AP1beforeprimary4; actualInstantinGYthisturnearnsSTARFALL(nohistoryseed). Actualprimary4NAAprintedcost1paidrealBlue5pitch3/R2/AP1to0/bothresponsesheld/noearlydamageorToken/actualtarget2. Real5arcaneinsteadbase3(Comet/Meteoric)orprinted4+conditionalFlow(Overload), finalHP2=35, Hero1ready; FinalsourceGY/SigilGY0/Hand0/Decksame6/UID6RNG0/AP0/R2/StackDQframesquiet. NoArenaorToken. OnlynamedpositiveStarfallamount/rewardorpaidHeroTaprewardandactualdamage; decline/unearnedcondition/hiddenhistory/futuretokenuse/targetbinding/otherpitches/secondary/fullcarduncredited. Noenginechange. Sources: FaBSim/GeneratedCode/cardArrayCache.json#meteoric_impact_red FaBSim/GeneratedCode/GeneratedMacroCode.php FaBSim/Custom/GameLogic.php FaBSim/Custom/OMNCards.php FaBSim/Custom/ROSRuntime.php https://rules.fabtcg.com/en/trp/05-gameplay-logistics/"
+}

@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-enigma-ledger-of-ancestry-two-live-sparse1549-first-real-shield-attack-cost-one-reduced-to-zero",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-enigma-ledger-of-ancestry-two-live-sparse1549-first-real-shield-attack-cost-one-reduced-to-zero",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1549-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1549-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "b006c0b4c4556af5679913bdeea526b2916c6d65ef928f6f8784acd5268f3682",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "496239394b3e83f732698e4e36a143720b5e2a54af1b41bf58dcf810b39bbc5c",
+        "actions.json": "2d5afd0da8b7c29d72052d147e99d3b95bda2ea1e26163e1ed4fdf455ab3f053",
+        "assertions.json": "211d138ffd3f60007e05c6ecc6529d69a8eae72e9544a3007829bf351be497a0",
+        "expected_final_gamestate.txt": "da4dece9670c6f588ad7adf8512f99b619660b81862ed4fd78a672b439ff9196",
+        "meta.json": "f8a744ea7e7bf866445a9c46085e383ad78c11533dd9d1dd84082940e0ce9854"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

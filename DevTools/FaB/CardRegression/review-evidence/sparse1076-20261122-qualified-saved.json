@@ -1,0 +1,178 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "breadth_review independent printed/legality/AB transport/spec review",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1076-20261122.json",
+  "source_spec_sha256": "b838f73bac912d6128fdb908de6e12a8b030edf07b318ff405a25070db60c599",
+  "input_sha256": "b838f73bac912d6128fdb908de6e12a8b030edf07b318ff405a25070db60c599",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-blitz-kicks-four-live-sparse1076-real-arcane-barrier-one-paid-by-blue-pitch-equipment-retained",
+      "card_id": "blitz_kicks",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "5801463e78b89ad7d029c29e8bad580ef50bee81ed787dac76d122b42d004238",
+        "actions.json": "abeb3c8b027bfa26d05afb7a0c385c41d6388c2ae6f8105e03a2cd84dc242119",
+        "assertions.json": "67d970f6e58f4d3d4801e3a37cba9604d6b620ccd52015a33bb1561b1c75db7d",
+        "expected_final_gamestate.txt": "cd81692596d946d682c3f7589a59dd532c91e277204c31d2429865e641f6adc1",
+        "meta.json": "3f4d9ee96c397efd168e9c36ec4d462fd46fb25e9a3d383afd914d8df1bcc715"
+      },
+      "fixture_sha256": "61c136c32194d0cef2cd1f261deaf6d5dccf8808b9730b64648d0013bbb86f6a",
+      "actions": 8,
+      "native_assertions": 273,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 4,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1076-20261122.json",
+      "input_sha256": "b838f73bac912d6128fdb908de6e12a8b030edf07b318ff405a25070db60c599",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1076-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-blitz-kicks-four-live-sparse1076-real-arcane-barrier-one-paid-by-blue-pitch-equipment-retained",
+        "fixture_slug": "card-blitz-kicks-four-live-sparse1076-real-arcane-barrier-one-paid-by-blue-pitch-equipment-retained",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-crown-of-dichotomy-four-live-sparse1076-real-arcane-barrier-one-paid-by-blue-pitch-equipment-retained",
+      "card_id": "crown_of_dichotomy",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "db1e46159747d71ecc6826854dceece862d6a1b30ecd82cc1a3f4cb1b098baba",
+        "actions.json": "abeb3c8b027bfa26d05afb7a0c385c41d6388c2ae6f8105e03a2cd84dc242119",
+        "assertions.json": "c8a5b0ba9454f11370288c5a3d511923778d59ae51b2c0a85c13e6e34964ef98",
+        "expected_final_gamestate.txt": "33063dd4449672cd8fb0c2e4a7e127c637ef7ca8640d65c3b6dae382716dcccb",
+        "meta.json": "cf390b4f862098f78ef5420ba698c4e9e8f8bea52f97bf960d59e2866e29d218"
+      },
+      "fixture_sha256": "b3503f4df51f9973883677c09950555a22d00620b8579db0570ea57136a107f1",
+      "actions": 8,
+      "native_assertions": 273,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 4,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1076-20261122.json",
+      "input_sha256": "b838f73bac912d6128fdb908de6e12a8b030edf07b318ff405a25070db60c599",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1076-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-crown-of-dichotomy-four-live-sparse1076-real-arcane-barrier-one-paid-by-blue-pitch-equipment-retained",
+        "fixture_slug": "card-crown-of-dichotomy-four-live-sparse1076-real-arcane-barrier-one-paid-by-blue-pitch-equipment-retained",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-gauntlet-of-sword-and-sorcery-four-live-sparse1076-real-arcane-barrier-one-paid-by-blue-pitch-equipment-retained",
+      "card_id": "gauntlet_of_sword_and_sorcery",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "78cec9639d430361afdfc05b009c8c1c70a76aeabc0e1ec2b13dfa7791da2cac",
+        "actions.json": "abeb3c8b027bfa26d05afb7a0c385c41d6388c2ae6f8105e03a2cd84dc242119",
+        "assertions.json": "5a391635107a5c5cfa2438d81880bd1530b44d9b635c21fb5fdebb32c2aa60cc",
+        "expected_final_gamestate.txt": "6b2a889d516a0c2372f0bb6c2df016eb32bf3de79fa0fc2350161b604ecf963c",
+        "meta.json": "8c8db0d97aced338485ce448f19e7eca291e3ddeefae323fe5351243c9c1f5de"
+      },
+      "fixture_sha256": "9c9eea3ac218b509b39b48e645c202f6722cf8e8d7de89417508dbcb3ffbccf7",
+      "actions": 8,
+      "native_assertions": 273,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 4,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1076-20261122.json",
+      "input_sha256": "b838f73bac912d6128fdb908de6e12a8b030edf07b318ff405a25070db60c599",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1076-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-gauntlet-of-sword-and-sorcery-four-live-sparse1076-real-arcane-barrier-one-paid-by-blue-pitch-equipment-retained",
+        "fixture_slug": "card-gauntlet-of-sword-and-sorcery-four-live-sparse1076-real-arcane-barrier-one-paid-by-blue-pitch-equipment-retained",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-hidden-agenda-four-live-sparse1076-real-arcane-barrier-one-paid-by-blue-pitch-equipment-retained",
+      "card_id": "hidden_agenda",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "277a69b98064a3ddfa7c9520d0d234d51f391b518b27754162fdaeb1edd0a8f8",
+        "actions.json": "abeb3c8b027bfa26d05afb7a0c385c41d6388c2ae6f8105e03a2cd84dc242119",
+        "assertions.json": "8103845a456f2c8b95ad780446051e9100a1418036127d04908c873b2d629578",
+        "expected_final_gamestate.txt": "a91b8e786da9d461306ebc624ecebb9f0ee0d334649a0c5d5fbb89bc477665e6",
+        "meta.json": "c868a1502dca263049be2f5fd3b46c756e470db4b6a9210a340ab9cc5472bf59"
+      },
+      "fixture_sha256": "2e2ca6f8c67d49e47a8e7ae2c9fd15d150836cfadb32909c82052989db814e3a",
+      "actions": 8,
+      "native_assertions": 273,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 4,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1076-20261122.json",
+      "input_sha256": "b838f73bac912d6128fdb908de6e12a8b030edf07b318ff405a25070db60c599",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1076-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-hidden-agenda-four-live-sparse1076-real-arcane-barrier-one-paid-by-blue-pitch-equipment-retained",
+        "fixture_slug": "card-hidden-agenda-four-live-sparse1076-real-arcane-barrier-one-paid-by-blue-pitch-equipment-retained",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-metacarpus-node-four-live-sparse1076-real-arcane-barrier-one-paid-by-blue-pitch-equipment-retained",
+      "card_id": "metacarpus_node",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "03ee1c1e17ccfd0f40420d00bdfee46c9f51be878fb6502aef8e7a274fc941e9",
+        "actions.json": "abeb3c8b027bfa26d05afb7a0c385c41d6388c2ae6f8105e03a2cd84dc242119",
+        "assertions.json": "1b5bab5c2a231bce910f9c298bcff081cc8b9b38a2aa0d895f80f6f96116709b",
+        "expected_final_gamestate.txt": "c896b7ff9e6b772b7f08180e99362666829daed4f5334f9dfcba38e81e4e4a21",
+        "meta.json": "1572477cd43542550b836a5287d170b1b37bea7635ad43bc9c4f27d47f0b2ccf"
+      },
+      "fixture_sha256": "def059a7e23438b87ca21f33051a488d10e5bd96b8935d66798df316385e6b1d",
+      "actions": 8,
+      "native_assertions": 273,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 4,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1076-20261122.json",
+      "input_sha256": "b838f73bac912d6128fdb908de6e12a8b030edf07b318ff405a25070db60c599",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1076-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-metacarpus-node-four-live-sparse1076-real-arcane-barrier-one-paid-by-blue-pitch-equipment-retained",
+        "fixture_slug": "card-metacarpus-node-four-live-sparse1076-real-arcane-barrier-one-paid-by-blue-pitch-equipment-retained",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "spec_sha256": "b838f73bac912d6128fdb908de6e12a8b030edf07b318ff405a25070db60c599",
+    "reviewer": "breadth_review independent printed/legality/AB transport/spec review",
+    "reviewed_cards": [
+      "blitz_kicks",
+      "crown_of_dichotomy",
+      "gauntlet_of_sword_and_sorcery",
+      "hidden_agenda",
+      "metacarpus_node"
+    ],
+    "basis": [
+      "Aurora Essence Lightning permits Blitz Kicks; Viserai matches Runeblade Crown/Gauntlet, Azalea Ranger Hidden Agenda, Kano Wizard Node/natural15. Only opponent Verdance plays Zap, so Node own-play trigger and Viserai play-Runeblade trigger are not earned; no other equipment body is activated.",
+      "All five printed active Arcane Barrier1/noCloaked/nootherprevention assets and legal natural young heroes checked. Actual equipped5/owner4, Wizard Verdance20 Zap6 cost0 declares hero4 before payment, AP0/four manual responses. Source6 remains Stack/GY0 through AB1 modal and actual Blue7 pitch choice; no damage/resource cost paid early.",
+      "Actual Blue7 pitch3 pays1/R2; printed3arcane minus1 prevention yields2 damage, health20\u219218 or Kano15\u219213. Source6 ownedGY, Equipment5 ready/retained/counters[], Blue7 ownedPitch, all queues clean/p4AP0. Eight current native controls identical across cases and reused qualified transport; persisted HP/resource/card fates pin effect without cache-only diagnostics."
+    ],
+    "limits": [
+      "Single paid one-point AB replacement branch only, not maximum total barrier capacity, alternatives/refusal/Spellvoid/additional packets or activated/passive body/hero/support/siblings/full-card/old-hold repair. No native/PHP/T/source/Git/original/network actions by reviewer."
+    ]
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1076-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "4ef04fd6f2e3930d9b7732f167d4aac6a483ec8ba29497c49c7e9f5a7f71dc48"
+  },
+  "full_suite_run": false
+}

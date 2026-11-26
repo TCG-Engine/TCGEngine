@@ -1,0 +1,27 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch356.json",
+  "runtime_sha256": "c90ad7d34900eb8cbcfccd8c5e0c3a45f7f9ba7a6cbaabf97328e00033dc51d3",
+  "returncode": 0,
+  "completed_utc": "2026-11-03T17:45:25.060437+00:00",
+  "fixtures": [
+    {
+      "slug": "card-putrid-stirrings-red-four-live-sparse-real-banish-action-earns-plus-five-on-actual-rune-gated-attack",
+      "fixture_sha256": "b8c8b91875e5b2bb30be4cde81438f8751cd557388c4dc470765a7c92dbd7098",
+      "passed": true,
+      "result": "[PASS] putrid_stirrings_red / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-putrid-stirrings-red-four-live-sparse-real-banish-action-earns-plus-five-on-actual-rune-gated-attack",
+      "returncode": 0,
+      "stdout": "[PASS] putrid_stirrings_red / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

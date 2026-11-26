@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-spur-locked-blue-four-live-sparse1225-four-real-number-choices-then-nonlethal-highest-chooser-searches-real-deck",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-spur-locked-blue-four-live-sparse1225-four-real-number-choices-then-nonlethal-highest-chooser-searches-real-deck",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1225-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1225-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "4bbef4f5d4a1df784f5c90779f1e4dda569fa648fda956bbb434531493585544",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "e43fe3c8ee72572b3884904b60e1f530d782e0c9e755135948b21c1f16dd8b07",
+        "actions.json": "249021eaf78cdb11c7772cfca1a0cebccb828163b3479f5dfc1ea6b7245c4444",
+        "assertions.json": "50d15b8ee7bd6431970300e6da54da86535632bb73bb04a27d24f9b752e1149b",
+        "expected_final_gamestate.txt": "ea78f52c68649af6422582b7e8cb75bd8f26df5af7deddc2ccb2ac9e73d21434",
+        "meta.json": "c830caa44701b1903327d52aa81095d56a36d5918d41fad82298d9c9d93a2853"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

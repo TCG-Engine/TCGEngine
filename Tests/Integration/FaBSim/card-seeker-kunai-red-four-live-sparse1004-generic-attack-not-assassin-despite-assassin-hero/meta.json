@@ -1,0 +1,7 @@
+{
+    "name": "Seeker Kunai / four-live reaction activation restriction",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-23T01:37:33+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "**Attack Reaction** - {r}, destroy this: Target Assassin attack action card gets +1{p}.\n\nWhile this is in your graveyard, at the start of your turn, you may destroy 2 Silver you control. If you do, return this to the arena. Named reaction-rejection branch only. Legalnatural20 uzuri, actualreadyowned5 atproperEquipment/ItemArena, declaredR1coversprinted1destroycost (no paidcostcredit). ActualownGenericWounding6currentATTACKroleatREACTIONpriority1/AP0 suppliesattacktarget/window. CurrentAA6isGeneric, notAssassin; controlledbyAssassinhero doesnotchangeitscardclass. PENselectorASSASSINhasnolegalattackdespitea realcurrentAA. RejectbeforeStack/destroy/chooser/payment; thenactualfourmanualcombat4damage/HP4=16/AP0/GGY6 whileprimary5ready/R1/Hand3/Deck2retained. Positive target/GoAgain/powergrant/ownstartSilverreturn/hero/support/siblings/fullcardunrun. Sources: FaBSim/GeneratedCode/cardArrayCache.json#seeker_kunai_red"
+}

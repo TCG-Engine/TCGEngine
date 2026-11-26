@@ -1,0 +1,68 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-24T07:35:10.356919+00:00",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1334-20261122.json",
+  "source_spec_sha256": "654806efaaa3bfa4c6611cd8aa33c1b71f5b0999374c4fafbfa648c9df5318d6",
+  "new_scenarios": 1,
+  "new_groups": 1,
+  "new_primary_ids": 1,
+  "actions": 35,
+  "native_assertions": 320,
+  "manual_passes": 30,
+  "totals": {
+    "saved_registered_scenarios": 5288,
+    "duels": 3103,
+    "four_live": 2185,
+    "recorded_primary_ids": 2436,
+    "identity_denominator": 5196,
+    "recorded_groups": 2310,
+    "group_denominator": 3324,
+    "four_live_groups": 2174,
+    "phase_qualified_scenarios_at_actual_contexts": 1925,
+    "phase_qualified_unique_groups": 1915,
+    "creation_replay_passes": 2667,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 1086,
+  "scenarios": [
+    {
+      "card_id": "ser_boltyn_breaker_of_dawn",
+      "group_id": "identity:ser_boltyn_breaker_of_dawn",
+      "scenario_id": "card-ser-boltyn-breaker-of-dawn-two-live-sparse1334-real-soul-reaction-funds-seven-then-four-damage",
+      "effect_branches": [
+        "adult_duel_native_empowered_attack_real_soul_banish_reaction_go_again_then_actual_earned_action_followup"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-ser-boltyn-breaker-of-dawn-two-live-sparse1334-real-soul-reaction-funds-seven-then-four-damage",
+      "source_spec": "card-regression-sparse1334-20261122.json",
+      "source_spec_sha256": "654806efaaa3bfa4c6611cd8aa33c1b71f5b0999374c4fafbfa648c9df5318d6",
+      "review_evidence": "review-evidence/sparse1334-20261122-qualified-saved.json",
+      "review_evidence_sha256": "8725c28474c3e6fd95fb761f3d5341fa71b23e9925c89427cca0a184d86f90ab",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1334-20261122-replay.json",
+          "sha256": "a2c52490f6b6e1da8113337389d0902b87496a67816de305d3565c2f68969d49",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "two_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

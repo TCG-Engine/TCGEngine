@@ -1,0 +1,56 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-ponder-four-live-sparse1390-ordinary-draw-in-action-phase-does-not-destroy-ponder-then-drawn-card-attacks",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-ponder-four-live-sparse1390-ordinary-draw-in-action-phase-does-not-destroy-ponder-then-drawn-card-attacks",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1390-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1390-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "526a866c769324eca5cbbed8662e22693edac2965bc5ad19a6c1be35d674bc12",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "8e5a0f5b37522e25c8d25956e7788e097f99ccf167e47666417de8a2e9df96d0",
+        "actions.json": "2eb6ebee3f21d5d4b43ba88d60dab521af3bb137fad3d8f72dad95ba030fa1d1",
+        "assertions.json": "985ffa0bd30020acf42c9abe933837155ef28264890f22ef3d0891a127490669",
+        "expected_final_gamestate.txt": "09beda54e1666fb3f7914214622babca49e9c29e0d5f9f1c38c0cc2753a8cef5",
+        "meta.json": "6836c555ead7e4648c8f73b6ba7a99a6db4cb8708b3fb810ce47190889bc1725"
+      }
+    },
+    {
+      "slug": "card-soul-shackle-four-live-sparse1390-native-chane-cost-token-created-after-action-phase-began-no-immediate-top-deck-banish",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-soul-shackle-four-live-sparse1390-native-chane-cost-token-created-after-action-phase-began-no-immediate-top-deck-banish",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1390-local-20261122\\clean-replays\\01.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1390-local-20261122\\clean-replays\\01.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "e8009fd734e44174ca5c78273a2a94b0feef107e748438a4e3ec339c4fb7a42b",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "626909fd330628e7e9d748c804fb5ededbdf0a90dbf99a8ac24bd017413f21db",
+        "actions.json": "69d27b28d135e2c57984529d79948c865b348f12b9873e6adbc4b0f616f96d47",
+        "assertions.json": "edf2e971daffba009528c8dfee641cd940c52f4d90b9380c78420456ca4cd02b",
+        "expected_final_gamestate.txt": "36b9f03d0a8ad5c47b070add629c773540f0ca9652070514f38603e7c0068a06",
+        "meta.json": "d139500856333b977a002fab9c7d6a3bf15f854ca4285d6b7c3d7a48cc0c068b"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

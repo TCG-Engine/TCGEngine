@@ -1,0 +1,97 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-16T21:54:05.346924+00:00",
+  "runtime_sha256": "abbeb00cfd0e743e7c8beafe7530e4ee354538d82e4c269ecef7671507b0544c",
+  "source_spec": "card-regression-repair-gold146-aura151-shared-consumers.json",
+  "source_spec_sha256": "0aaa8d372606a75d2b00bfd3fb727aa837e0ee9b1684f3ba4df8b7d3b3403c32",
+  "new_scenarios": 2,
+  "new_groups": 2,
+  "new_primary_ids": 2,
+  "actions": 63,
+  "native_assertions": 5458,
+  "manual_passes": 54,
+  "totals": {
+    "saved_registered_scenarios": 4132,
+    "duels": 3074,
+    "four_live": 1058,
+    "recorded_primary_ids": 1285,
+    "identity_denominator": 5196,
+    "recorded_groups": 1159,
+    "group_denominator": 3324,
+    "four_live_groups": 1051,
+    "phase_qualified_scenarios_at_actual_contexts": 769,
+    "phase_qualified_unique_groups": 764,
+    "creation_replay_passes": 1510,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 2,
+  "scenarios": [
+    {
+      "card_id": "golden_gauntlets",
+      "group_id": "identity:golden_gauntlets",
+      "scenario_id": "card-golden-gauntlets-four-live-correct-opposing-gold-reduces-real-ketch-cost-and-first-temper",
+      "effect_branches": [
+        "golden-gauntlets-four-live-correct-opposing-gold-reduces-real-ketch-cost-and-first-temper"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-golden-gauntlets-four-live-correct-opposing-gold-reduces-real-ketch-cost-and-first-temper",
+      "source_spec": "card-regression-repair-gold146-aura151-shared-consumers.json",
+      "source_spec_sha256": "0aaa8d372606a75d2b00bfd3fb727aa837e0ee9b1684f3ba4df8b7d3b3403c32",
+      "review_evidence": "review-evidence/gold146-aura151-abbe-qualified-saved.json",
+      "review_evidence_sha256": "a35b4801121a4bee3d70874585d76991cee87c7079b89530b9f5baa05aff5605",
+      "recorded_runtime_sha256": "abbeb00cfd0e743e7c8beafe7530e4ee354538d82e4c269ecef7671507b0544c",
+      "qualification_runtime_sha256": "abbeb00cfd0e743e7c8beafe7530e4ee354538d82e4c269ecef7671507b0544c",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-replay-nov16-gold146-aura151-replay.json",
+          "sha256": "6c2e4553bc7f8b4c1ef19cd67e981019212e9358e5936a20ece2e1a0f2d241c9",
+          "runtime_sha256": "abbeb00cfd0e743e7c8beafe7530e4ee354538d82e4c269ecef7671507b0544c",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "uphold_tradition",
+      "group_id": "identity:uphold_tradition",
+      "scenario_id": "card-uphold-tradition-four-live-original-correct-counter-and-damage-diagnostic",
+      "effect_branches": [
+        "uphold-tradition-four-live-real-cloaked-cost-ward-counter-and-two-aura-damage"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-uphold-tradition-four-live-original-correct-counter-and-damage-diagnostic",
+      "source_spec": "card-regression-repair-gold146-aura151-shared-consumers.json",
+      "source_spec_sha256": "0aaa8d372606a75d2b00bfd3fb727aa837e0ee9b1684f3ba4df8b7d3b3403c32",
+      "review_evidence": "review-evidence/gold146-aura151-abbe-qualified-saved.json",
+      "review_evidence_sha256": "a35b4801121a4bee3d70874585d76991cee87c7079b89530b9f5baa05aff5605",
+      "recorded_runtime_sha256": "abbeb00cfd0e743e7c8beafe7530e4ee354538d82e4c269ecef7671507b0544c",
+      "qualification_runtime_sha256": "abbeb00cfd0e743e7c8beafe7530e4ee354538d82e4c269ecef7671507b0544c",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-replay-nov16-gold146-aura151-replay.json",
+          "sha256": "6c2e4553bc7f8b4c1ef19cd67e981019212e9358e5936a20ece2e1a0f2d241c9",
+          "runtime_sha256": "abbeb00cfd0e743e7c8beafe7530e4ee354538d82e4c269ecef7671507b0544c",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

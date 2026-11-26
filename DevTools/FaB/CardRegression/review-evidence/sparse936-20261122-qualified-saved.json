@@ -1,0 +1,92 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "breadth_review independent source/semantic review",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse936-20261122.json",
+  "source_spec_sha256": "e2514322c96fcbb282a192e35dbf3db8dfc08891d64a7d49488da6db49723875",
+  "input_sha256": "e2514322c96fcbb282a192e35dbf3db8dfc08891d64a7d49488da6db49723875",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-vela-flash-red-four-live-sparse936-actual-unfused-hand-five-without-instant-permission",
+      "card_id": "vela_flash_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "251151725312e8d25ef118e2af9d06d6c7ed2ce1951dcb7bf22d55cfb1f028c2",
+        "actions.json": "25920dc16af50701b0be20453cc3345d5c14a09166881d7481930bfb87552093",
+        "assertions.json": "e057147994e22e238f3ba2ad8f3010802c44fc5fa59e197d1671e2d829b926e1",
+        "expected_final_gamestate.txt": "8d60d01b009ad91b4572a34fe543fd1058d624dc088a7e4912d8dbc6322ae419",
+        "meta.json": "e2abb3fa85720ed83c591d1e141e5058c2758e5c6efb67a769c5cc6dbb138f9c"
+      },
+      "fixture_sha256": "5cf15e4b1f157b1674c529a428791eaab19f1ad61d2db0bc00de7553091d1ac7",
+      "actions": 28,
+      "native_assertions": 142,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse936-20261122.json",
+      "input_sha256": "e2514322c96fcbb282a192e35dbf3db8dfc08891d64a7d49488da6db49723875",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse936-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-vela-flash-red-four-live-sparse936-actual-unfused-hand-five-without-instant-permission",
+        "fixture_slug": "card-vela-flash-red-four-live-sparse936-actual-unfused-hand-five-without-instant-permission",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-flake-out-red-four-live-sparse936-actual-unfused-facedown-arrow-five-without-dominate",
+      "card_id": "flake_out_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "66eedd24eaa5fdbf80ae6fc1ece1c00b64531521eecf118899947c9b569699ad",
+        "actions.json": "b96e8c04efb76e5837c8044bbe521bb58679cd607490b707f44b4b59901b066f",
+        "assertions.json": "7c4797d88dff437e2a6b4226a9eba5b5fbfab0504c51957ac4401699def5987b",
+        "expected_final_gamestate.txt": "276b9b40f67cdc10de564107415f3b345b45feb8a738b615bc066016ab383617",
+        "meta.json": "1268e496fbba16ff209eaa4de3b0960248f1d42463d62dc8af4d87e9b1ef8542"
+      },
+      "fixture_sha256": "35dcb416881671e950059c44421dd11b8906bbbc70e43be89fce5cec0c4ce6a4",
+      "actions": 28,
+      "native_assertions": 152,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse936-20261122.json",
+      "input_sha256": "e2514322c96fcbb282a192e35dbf3db8dfc08891d64a7d49488da6db49723875",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse936-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-flake-out-red-four-live-sparse936-actual-unfused-facedown-arrow-five-without-dominate",
+        "fixture_slug": "card-flake-out-red-four-live-sparse936-actual-unfused-facedown-arrow-five-without-dominate",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "spec_sha256": "e2514322c96fcbb282a192e35dbf3db8dfc08891d64a7d49488da6db49723875",
+    "reviewer": "breadth_review independent source/semantic review",
+    "basis": [
+      "Current cached Aurora is Elemental Runeblade Young20, so Vela Flash Elemental Runeblade is legal. Cached Lexi is Elemental Ranger Young20, so Flake Out Elemental Ranger Arrow is legal. Hero class and Elemental talent both match; no hero activation is used.",
+      "Vela primary plays fromHand5, Flake from realfacedownArsenal5 with ownedShiver7 Bow. Sole otherHand is Generic CriticalStrikeBlue6, not Lightning/Ice; after primary movesStack there is no eligible Fusion reveal. The optional Fusion branch is not taken and requires no extra reveal decision. No selected effect cost or ownership seam is exercised.",
+      "Printed1/base5 for both is paid by actualBlue6, leavingR2/AP0; targetHero4 announced before payment, sourceUID5 retained, four manual live-seat combat windows, actual5HP damage and sourceowner1graveyard/noGA are coherent. InitialBlue references are Hand1 for Vela sourceHand0 and Hand0 for Flake sourceArsenal0, as required.",
+      "Vela conditional next-NAA instant permission and Flake fusedDominate are not enabled by the unfused setup. No unconditional WHEN-attacks trigger exists, and Arrow play does not turn it face-up insideArsenal or activate Lexi/Bow. No Frostbite produced or tested."
+    ],
+    "limits": [
+      "Source/spec review only; native recording and targeted clean replay pending Root. No PHP/native execution, T edits, network or Git mutation.",
+      "Qualifies unfused ordinarymain/payment/physicaldamage/sourcefate only. Positive Fusion/reveal/effect-cost timing, downstream instant-permission or Dominate admission, Arrow loading, siblings/support or whole-card behavior are not certified. Existing positive shared concerns remain unresolved."
+    ]
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse936-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "0119081a9cefca7854a585fefbd832aaea1bcaa0f8e49c81ac4dd59b8414d378"
+  },
+  "full_suite_run": false
+}

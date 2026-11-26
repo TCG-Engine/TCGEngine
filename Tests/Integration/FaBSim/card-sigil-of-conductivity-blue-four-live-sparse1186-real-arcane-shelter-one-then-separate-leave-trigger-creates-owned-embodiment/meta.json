@@ -1,0 +1,7 @@
+{
+    "name": "Sigil of Conductivity / real Arcane Shelter and separate leave trigger",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-23T14:58:39+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "LegalYoungAurora20LightningRunebladevictim4/YoungVerdance20Wizardcaster1/twoDori20manual. PriorownedSigil5Arena4; actualZap6targetHero4/AP1->0/allfourresponses. ArcaneShelter1staticmandatory(CR8.3.37) actualoneAuraorderingMZCHOOSEselect5,destroy5ownGY4/prevent1ofreal3arcane, actualHP18. OnlythenearnedseparateSigilABI7Source5/controller4; Zap6ownGY1, noEmbodimentyet. Fourfresh1,2,3,4manualresponsesresolveleavebodyandcreateEmbodimentLightning8owned/controller4. FinalownedGY5P4/6P1/token8Arena4/HP18/AP0/R0/UID8/RNG0/noStack/DQs/otherzones. NoSigilproducer/bodyonstartphase(Aura hasnostartdestroyclause), noEmbodimentbeginAction/GA/Herouse/physicaldamage-shelternonapplicability/secondpacket/wholecard-exhaustivecredit. Thisrouteusesactualdamage-shelterdeparture, notknownheldstartphaseadmission. Sources: FaBSim/GeneratedCode/cardArrayCache.json#sigil_of_conductivity_blue FaBSim/GeneratedCode/cardArrayCache.json#zyggy FaBSim/Custom/DTDCards.php FaBSim/GeneratedCode/GeneratedMacroCode.php"
+}

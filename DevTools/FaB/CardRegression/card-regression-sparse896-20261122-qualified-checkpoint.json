@@ -1,0 +1,126 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-22T16:55:36.508217+00:00",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse896-20261122.json",
+  "source_spec_sha256": "794324018ef67fb58dd8bb24c62ca31581250f2fb0270770d84bc4c6470bb0bd",
+  "new_scenarios": 3,
+  "new_groups": 3,
+  "new_primary_ids": 3,
+  "actions": 26,
+  "native_assertions": 422,
+  "manual_passes": 24,
+  "totals": {
+    "saved_registered_scenarios": 4312,
+    "duels": 3075,
+    "four_live": 1237,
+    "recorded_primary_ids": 1460,
+    "identity_denominator": 5196,
+    "recorded_groups": 1334,
+    "group_denominator": 3324,
+    "four_live_groups": 1226,
+    "phase_qualified_scenarios_at_actual_contexts": 949,
+    "phase_qualified_unique_groups": 939,
+    "creation_replay_passes": 1690,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 110,
+  "scenarios": [
+    {
+      "card_id": "blessing_of_occult_red",
+      "group_id": "pitch-cycle:blessing_of_occult",
+      "scenario_id": "card-blessing-of-occult-red-four-live-sparse896-natural-start-destroys-real-aura-then-creates-three-owned-runechants",
+      "effect_branches": [
+        "natural_start_destroys_real_aura_then_creates_three_owned_runechants"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-blessing-of-occult-red-four-live-sparse896-natural-start-destroys-real-aura-then-creates-three-owned-runechants",
+      "source_spec": "card-regression-sparse896-20261122.json",
+      "source_spec_sha256": "794324018ef67fb58dd8bb24c62ca31581250f2fb0270770d84bc4c6470bb0bd",
+      "review_evidence": "review-evidence/sparse896-20261122-qualified-saved.json",
+      "review_evidence_sha256": "898cf43402bd4cb5f8cf2827115b03928adae9558a1fcce25f6709f71bec4f9b",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse896-20261122-replay.json",
+          "sha256": "afa6ee46ddae6edcc0f5ecdb59d8c5bbb4a065886053766fea33629239c1c580",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "blessing_of_ingenuity_red",
+      "group_id": "pitch-cycle:blessing_of_ingenuity",
+      "scenario_id": "card-blessing-of-ingenuity-red-four-live-sparse896-natural-start-returns-three-actual-hyper-drivers-from-graveyard-and-banish",
+      "effect_branches": [
+        "natural_start_returns_three_actual_hyper_drivers_from_graveyard_and_banish"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-blessing-of-ingenuity-red-four-live-sparse896-natural-start-returns-three-actual-hyper-drivers-from-graveyard-and-banish",
+      "source_spec": "card-regression-sparse896-20261122.json",
+      "source_spec_sha256": "794324018ef67fb58dd8bb24c62ca31581250f2fb0270770d84bc4c6470bb0bd",
+      "review_evidence": "review-evidence/sparse896-20261122-qualified-saved.json",
+      "review_evidence_sha256": "898cf43402bd4cb5f8cf2827115b03928adae9558a1fcce25f6709f71bec4f9b",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse896-20261122-replay.json",
+          "sha256": "afa6ee46ddae6edcc0f5ecdb59d8c5bbb4a065886053766fea33629239c1c580",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "blessing_of_focus_red",
+      "group_id": "pitch-cycle:blessing_of_focus",
+      "scenario_id": "card-blessing-of-focus-red-four-live-sparse896-natural-start-opt-three-reorders-real-middeck-arrow-to-faceup-arsenal-with-aim",
+      "effect_branches": [
+        "natural_start_opt_three_reorders_real_middeck_arrow_to_faceup_arsenal_with_aim"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-blessing-of-focus-red-four-live-sparse896-natural-start-opt-three-reorders-real-middeck-arrow-to-faceup-arsenal-with-aim",
+      "source_spec": "card-regression-sparse896-20261122.json",
+      "source_spec_sha256": "794324018ef67fb58dd8bb24c62ca31581250f2fb0270770d84bc4c6470bb0bd",
+      "review_evidence": "review-evidence/sparse896-20261122-qualified-saved.json",
+      "review_evidence_sha256": "898cf43402bd4cb5f8cf2827115b03928adae9558a1fcce25f6709f71bec4f9b",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse896-20261122-replay.json",
+          "sha256": "afa6ee46ddae6edcc0f5ecdb59d8c5bbb4a065886053766fea33629239c1c580",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

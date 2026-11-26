@@ -1,0 +1,256 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "independent breadth_review1252",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1300-20261122.json",
+  "source_spec_sha256": "6a64cc7dbcb9cdc07d4671090c1736aec796964d9cd5adc881be2291fb95e64d",
+  "input_sha256": "279ffa9d8d696e964c18582233d940c2549ecaa69561cce45a84c0f680f5f07c",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-aspect-of-tiger-mind-blue-four-live-sparse1300-first-link-not-its-own-combo-prerequisite",
+      "card_id": "aspect_of_tiger_mind_blue",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "2a144df81bc5589448964d4717c77df7adc6fd6918da527142c4f29854b952e1",
+        "actions.json": "71f0d0f07cf85244a3ec27fdb1f824cd62aa3126d639c98c13ca23327907bd8b",
+        "assertions.json": "15ce318f295101c61275a446efc5a0960a674854810b938df277669eb307d61c",
+        "expected_final_gamestate.txt": "8d90ccfb72477666f133e48fcda00e14c6c85ab0fecf77562a9e143469917f29",
+        "meta.json": "e4cb06d82c5bef656c36203b9d3715fa66a2afcbed15b65b85b40fcc91099a5c"
+      },
+      "fixture_sha256": "4e1125286febfaf94a24a95997bc2acb740e63d9a968415a463869937f94d42f",
+      "actions": 27,
+      "native_assertions": 264,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1300-20261122.json",
+      "input_sha256": "279ffa9d8d696e964c18582233d940c2549ecaa69561cce45a84c0f680f5f07c",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1300-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-aspect-of-tiger-mind-blue-four-live-sparse1300-first-link-not-its-own-combo-prerequisite",
+        "fixture_slug": "card-aspect-of-tiger-mind-blue-four-live-sparse1300-first-link-not-its-own-combo-prerequisite",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-aspect-of-tiger-soul-yellow-four-live-sparse1300-first-link-not-its-own-combo-prerequisite",
+      "card_id": "aspect_of_tiger_soul_yellow",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "db1ccd36f0035d07cfd1ed6558a82a6d9f176ecb1ee14acb1bf97029e7243f1f",
+        "actions.json": "71f0d0f07cf85244a3ec27fdb1f824cd62aa3126d639c98c13ca23327907bd8b",
+        "assertions.json": "dd884adb4dca2c5cc05d18bfaaae9c7d07db7fb91156eb7a6c145380e6bca864",
+        "expected_final_gamestate.txt": "5f0733c082cc3eff369943cd8cf9feb331e8acf9eafe56349ab22b18b2e0c56d",
+        "meta.json": "baa83735fee3642bf8c3fb11f3399549303f7e40f4eb9c46cf3d969fc9d46520"
+      },
+      "fixture_sha256": "0876808ac8caf088212d9539572947941bae4ebdc105ca509e6dd041e1ed3f80",
+      "actions": 27,
+      "native_assertions": 264,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1300-20261122.json",
+      "input_sha256": "279ffa9d8d696e964c18582233d940c2549ecaa69561cce45a84c0f680f5f07c",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1300-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-aspect-of-tiger-soul-yellow-four-live-sparse1300-first-link-not-its-own-combo-prerequisite",
+        "fixture_slug": "card-aspect-of-tiger-soul-yellow-four-live-sparse1300-first-link-not-its-own-combo-prerequisite",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-herons-flight-red-four-live-sparse1300-first-link-not-its-own-combo-prerequisite",
+      "card_id": "herons_flight_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "f11b192d780e92b3a06389078b99ca9575c6ce63123957979d47c9a47e2c2a9a",
+        "actions.json": "71f0d0f07cf85244a3ec27fdb1f824cd62aa3126d639c98c13ca23327907bd8b",
+        "assertions.json": "5d0cfb67dc80a6216c3007cea135274a1e2a63156e8c7a5f5ac90c2fc3a9b87d",
+        "expected_final_gamestate.txt": "6e3666daf29d3b337876a6e4109091aff54044b3cd746fab92cdb1e24fb9ab34",
+        "meta.json": "1b8b512d9c72e03d063957dfa65b8faf5976122a4790647d1eff0874edd70834"
+      },
+      "fixture_sha256": "5040ce8642158f322659103f7d40252e6cdfbeb00aae06f93361649d11b53a9a",
+      "actions": 27,
+      "native_assertions": 264,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1300-20261122.json",
+      "input_sha256": "279ffa9d8d696e964c18582233d940c2549ecaa69561cce45a84c0f680f5f07c",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1300-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-herons-flight-red-four-live-sparse1300-first-link-not-its-own-combo-prerequisite",
+        "fixture_slug": "card-herons-flight-red-four-live-sparse1300-first-link-not-its-own-combo-prerequisite",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-chase-the-tail-red-four-live-sparse1300-first-link-not-its-own-combo-prerequisite",
+      "card_id": "chase_the_tail_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "5906d71e89c5b689d24b4f5e0f53a519d797519d33d2c7f094f77dfcdfdac14d",
+        "actions.json": "25920dc16af50701b0be20453cc3345d5c14a09166881d7481930bfb87552093",
+        "assertions.json": "2599118ff1cf3d1a7d8177fd65dec72d572a93aeef458411531195bc0bae26b0",
+        "expected_final_gamestate.txt": "d5add26d65821f6a0da00246c09c2f5aa004b59fa96c91383026c98f37fd67cb",
+        "meta.json": "d2537e5d90ff7eae356be7d1b6a6752ef6dd3bb0c262e07cb49d55f12b03c0f7"
+      },
+      "fixture_sha256": "03068eafa5fd9966860b5396bfc533dff7b4d7fb2bc80eb1ccf61877070eb523",
+      "actions": 28,
+      "native_assertions": 299,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1300-20261122.json",
+      "input_sha256": "279ffa9d8d696e964c18582233d940c2549ecaa69561cce45a84c0f680f5f07c",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1300-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-chase-the-tail-red-four-live-sparse1300-first-link-not-its-own-combo-prerequisite",
+        "fixture_slug": "card-chase-the-tail-red-four-live-sparse1300-first-link-not-its-own-combo-prerequisite",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "reviewer": "independent breadth_review1252",
+    "spec_sha256": "6a64cc7dbcb9cdc07d4671090c1736aec796964d9cd5adc881be2291fb95e64d",
+    "source_note_sha256": "a35ac832c60081f71d68555b1c01cb473ffafd53da2d26c224d980e8159c65fd",
+    "case_count": 4,
+    "active_seats": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "players": "four_live_manual",
+    "native_controls": 109,
+    "query_checks": 1091,
+    "persistable_assertions": 1091,
+    "author_only_checks_omitted": 0,
+    "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+    "coverage_category": "FIRST_LINK_UNMET_COMBO_PREREQUISITE_ONLY",
+    "positive_combo_credit": false,
+    "direct_reveal_log_credit": false,
+    "per_case": [
+      {
+        "card_id": "aspect_of_tiger_mind_blue",
+        "group_id": "identity:aspect_of_tiger_mind_blue",
+        "native_controls": 27,
+        "persistable_assertions": 264
+      },
+      {
+        "card_id": "aspect_of_tiger_soul_yellow",
+        "group_id": "identity:aspect_of_tiger_soul_yellow",
+        "native_controls": 27,
+        "persistable_assertions": 264
+      },
+      {
+        "card_id": "herons_flight_red",
+        "group_id": "identity:herons_flight_red",
+        "native_controls": 27,
+        "persistable_assertions": 264
+      },
+      {
+        "card_id": "chase_the_tail_red",
+        "group_id": "identity:chase_the_tail_red",
+        "native_controls": 28,
+        "persistable_assertions": 299
+      }
+    ],
+    "basis": [
+      "Exact-filter review only: canonical four cases equal original five with only failed FloodOfForceYellow removed, preserving all remaining fields, steps, assertions and order. Their semantic approval is the archived original independent review; no duplicated semantic or native work was performed.",
+      "Retained AspectTigerMindBlue/AspectTigerSoulYellow/HeronsFlightRed/ChaseTailRed named first-link falseCombo scopes remain unchanged, with original no-positiveCombo/no-producer/no-support/full-card limits. Retained totals109controls1091persistable assertions.",
+      "Original save selected input and mixed native receipt remain untouched; allfour retained results report recorded_semantically_checked, and20 raw fixture files match retained-fixtures hashes. Qualification replay remains a separate pending step; this review ran none."
+    ],
+    "limits": [
+      "Semantic/source review only pending native saves and targeted replays; no nativepass, replay orcoveragecredit claimed.",
+      "Explicitpartialfirst-linkfalseCombo only. No trueCombo/trigger timing/Tigerpermission/producer, Herondefendmode/restrictions, nextTigerbuff/followup, directRevealLog, support/sibling orwhole-card credit.",
+      "Only W receipt written; no native/test/replay execution, T/source/engine/registry edits, authentication/network, Git ororiginalcheckoutaccess."
+    ],
+    "source_sha256": {
+      "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+      "FaBSim/GeneratedCode/GeneratedMacroCode.php": "fe6a7982611df8f4de98ce2671b317b671b580146aa4b8c28e8f4b86d8461056",
+      "FaBSim/Custom/MSTCards.php": "cd98a9b734b984bfc19af7d0e4a3eebd5496f298d08c7c79d7f6d43c363513c7",
+      "FaBSim/Custom/MSTRuntime.php": "b96f21727c089c90c21bf3aadaf913301b1ef7c922f2a17ac055258682ed45ce",
+      "FaBSim/Custom/CRUCards.php": "5f0ff2122f9e033b8ad9ced75e9ee2210f459c868633f3f1741f419bc437c12d",
+      "FaBSim/Custom/WTRCards.php": "77d4452b30e45254a7199bc965396ded53e325717ecdd84a09b971f723f99f6a",
+      "FaBSim/Custom/GameLogic.php": "c60fa151561f959e4e3e341b814de0e2b47c9e9f153bbc8793a04c43b5075061",
+      "Schemas/FaBSim/GameSchema.txt": "7783800bd47bc85885cc915066aadca58cdf99f0c1180602ac312d9af5ebf643",
+      "Core/ShortcutPreferences.php": "25f300ea0b6fbc409f5b92e8bc3587a74b2ab0eaf31ccef38e18c455598eaba6",
+      "DevTools/FaB/CardRegression/record_card_regressions.php": "e53055b29e9ea641949b77019c4455607f41ca233325d716a9500637e19efd28"
+    },
+    "workspace_source_sha256": {
+      "author_breadth1300.py": "148cbe8cb64c31a0d708b6bd2608f96233cecc44a924a7cf85b6952f29cb226f",
+      "breadth1068_helpers.py": "997f949ec26c7e494ad26a818f9f2078f6f4f2a0c49ca7f61aa8c71f3b091b0a"
+    },
+    "exact_filter_provenance": {
+      "kind": "REMOVE_FAILED_FLOOD_ONLY_RETAIN_FOUR_IDENTICAL_RECORDED_CASES",
+      "original_spec_sha256": "279ffa9d8d696e964c18582233d940c2549ecaa69561cce45a84c0f680f5f07c",
+      "original_semantic_review_sha256": "4904755af08ab1e656d36d0fb04c9b6891b9e0adcdc97c9e23de22a1d5c2b7dc",
+      "original_recorded_input_sha256": "279ffa9d8d696e964c18582233d940c2549ecaa69561cce45a84c0f680f5f07c",
+      "original_native_receipt_sha256": "b0837761afcd3385403f481bb627cb2e47c144f6193791798ae9157bdd4d041f",
+      "retained_fixtures_receipt_sha256": "e7e11ac7e34723be619bd5c9f0aeabe9b22ee8f5be7db6d945f5cb84ac87e849",
+      "exact_retained_cases": 4,
+      "raw_fixture_files_verified_unchanged": 20,
+      "source_hashes_unchanged": true,
+      "removed_slug": "card-flood-of-force-yellow-four-live-sparse1300-first-link-not-its-own-combo-prerequisite",
+      "removed_issue": "FAB-REG-222",
+      "removed_evidence_sha256": "ace25c1bd5862eae9446a75228d8b67c31b0d58f6580db60abd8e5063329c344",
+      "failure_scope": "First-link livepower expected1 got4 after6inputs; exact later draw/GoAgain/damage/final assertions unrun. No Flood passing fixture or credit. Source uses active attack as previous; confirmed separately before this filter-only review.",
+      "native_rerecordings_by_reviewer": 0,
+      "replays_by_reviewer": 0,
+      "replay_qualification_pending": true,
+      "interruption": "Earlier read-only filter verification was interrupted; parent verified no receipt/clean-replays. This resumed bounded read/hash verification before sole W receipt write."
+    }
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1300-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "6f63bb36868f510e1e060706e73a3846bcbab4a7f64ec00bdd89e5a589ffdc7f"
+  },
+  "full_suite_run": false
+}

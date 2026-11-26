@@ -1,0 +1,63 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "breadth_review independent printed/source/spec review",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1027-20261122.json",
+  "source_spec_sha256": "5c55d7f43800a3029164f46cfe102185eb8784c5fa2b1e180a9f3e53c70c5ce6",
+  "input_sha256": "5c55d7f43800a3029164f46cfe102185eb8784c5fa2b1e180a9f3e53c70c5ce6",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-invert-existence-blue-four-live-sparse1027-real-mixed-opponent-graveyard-banish-two-arcane",
+      "card_id": "invert_existence_blue",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "5bb92e1ab8cf68230f18842431d31d852a2b512c3dc00cce68e74df50d5df813",
+        "actions.json": "f52c9f33c35bd900652d31f022fd2cca73bd66bd01486f5f2a07d91926eb3729",
+        "assertions.json": "77e682a10fb307d9913c3ee61ff53262b6f84328171c6d34bc8d27fc00aaa89b",
+        "expected_final_gamestate.txt": "ddeca05a8be1b246288979d834d5ed93efa4be7803febd809e887ad7bc8c711c",
+        "meta.json": "fcb3beb2195809e8b71b84c19f80e8235cb488259eb013847ccaa8f0a7f84f87"
+      },
+      "fixture_sha256": "fb97a3d8e6f8bd1a31a3064f5d2c6ba129a6af64fc72650018e875a091c5e64d",
+      "actions": 8,
+      "native_assertions": 218,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 4,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1027-20261122.json",
+      "input_sha256": "5c55d7f43800a3029164f46cfe102185eb8784c5fa2b1e180a9f3e53c70c5ce6",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1027-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-invert-existence-blue-four-live-sparse1027-real-mixed-opponent-graveyard-banish-two-arcane",
+        "fixture_slug": "card-invert-existence-blue-four-live-sparse1027-real-mixed-opponent-graveyard-banish-two-arcane",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "spec_sha256": "5c55d7f43800a3029164f46cfe102185eb8784c5fa2b1e180a9f3e53c70c5ce6",
+    "reviewer": "breadth_review independent printed/source/spec review",
+    "basis": [
+      "Cached Invert Existence is Shadow Instant cost1: banish up to2 cards from one opposing graveyard, mixed AA+NAA causes2arcane to that hero. Text has no Target or modal announcement, so opponent/graveyard selection during resolution is valid. Natural Chane20 legalShadow and all four live heroes; actualBlue6 pays1/R2, Instant keepsAP1.",
+      "Reviewed exact generated await791 resolution: choose opposingHero4, then MZMULTICHOOSE0..2 from GY4, determine FaBMONHasBoth before moving selected cards, then FaBMONBanishSelected moves each physicalUID to its own player Banish. Selected actual AA Wounding7 plus actual NAA WarriorsValor8 satisfy mixed condition; residual AA9 not selected staysGY4.",
+      "All-four manual source priority passes precede choices; physical5 remainsStack/owned1/GY0 through both real selection answers; no pre-resolution banish/damage. Final sameowner4 face-up Banish7/8, residualGY9, source5owned1GY, realBlue6Pitch/R2/AP1 and actual2arcane/HP4=18 persist. No Barrier/Spellvoid/prevention assets, otherHP20/queues/Arenas0. No author-only diagnostics."
+    ],
+    "limits": [
+      "Hand-origin mixed-two selection only. No banished-play permission, BloodDebt/endphase, zero/one/same-type/alternate opponent counts, prevention/targets, token ownership, hero/support identity/siblings or whole-card credit. No native/PHP/T/source/Git/original/network actions by reviewer."
+    ]
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1027-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "d43edb82aa1688d0a1ba22fb1d66787e43236c8d1246d1df7dd81a624247fd00"
+  },
+  "full_suite_run": false
+}

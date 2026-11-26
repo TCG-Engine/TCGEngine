@@ -1,0 +1,7 @@
+{
+    "name": "Olympia / successful ordinary hit is not a wager win",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-24T11:13:03+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "FOUR_REAL_MANUAL_UPF_NATURAL_YOUNGOLYMPIA20_THREEDORI20. FirstordinaryGenericCriticalRed5AAhasnoabilities/wagertext/noearliercards/effects/registeredwager. Actualcost1paidBlue6pitch3/R2/AP0/base5/noGA/allfourmanualresponses/unblocked5damageHP4=15/successfulhit; ahitisNOTwagerwinwithoutawager. NoOlympiaGoldWHENearned/noReward/GoldorotherTokens/extraUID/allArena0/UID7RNG0. Noactualwagerentered/resolved(specifictimingholdnotreprobed). Fullclose5GY1/6Pitch1/FDArsenalWounding7same. Actual0ArsenalconsumerresourceaffordableR2butnativeclickrejectsAP0beforetarget/payment/movement, samephysicalfates/HP/resources. Onlynonwager-hitHeroEventGuard/nativebasecost/damage/noGold/noRefundconsumer. Positivewagerregistration/win/rewardWHEN/timing/targets/Herootherbranches/support/siblings/fullcarduncredited. Sources: FaBSim/GeneratedCode/cardArrayCache.json#olympia FaBSim/GeneratedCode/GeneratedMacroCode.php FaBSim/Custom/GameLogic.php FaBSim/Custom/HVYCards.php FaBSim/Custom/WTRCards.php FaBSim/Custom/ARCCards.php"
+}

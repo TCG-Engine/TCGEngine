@@ -1,0 +1,7 @@
+{
+    "name": "Snuff Out / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T21:38:48+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "When this hits a hero, you may destroy an aura you control. If you do, they discard a card. ActualtwoHandAAeachdef3block6>=printedpower, actual0damage/HP20/attackHitfalse/Stack0. Realeligiblephysicalitem/Arsenal/Aura andforSnuffHandretained withsameOwner/controller, so noearneddestruction/banish/discard. PrintedcostrealBlue6/AP0/source5andblockersGY. AlternateInstantandpositiveHituntested. Sources: FaBSim/GeneratedCode/cardArrayCache.json#snuff_out_red"
+}

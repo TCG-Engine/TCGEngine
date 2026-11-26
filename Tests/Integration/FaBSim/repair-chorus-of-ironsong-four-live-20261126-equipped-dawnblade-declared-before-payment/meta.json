@@ -1,0 +1,7 @@
+{
+    "name": "Diagnostic only / Chorus should target equipped Dawnblade while another card attacks",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-26T03:35:43+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Correct expectation NO SAVE probe. RealDori1/Wounding5AA4 atREACTIONpriority1, actualownedreadyDawnblade8 equippedpermanent, ChorusYellow6Hand/Blue7fund3. PrintedtargetisDawnbladepermanent, notDawnbladeattack, so Chorus6 must be legally announced (samephysical6Stack) duringthisvalidreactionwindow. A current-attack-only prefilter refusing it is incorrect. No target/payment/buff/unpreventable/Unity/suffix or passingcoverageclaimed; --probe-only required. Sources: FaBSim/GeneratedCode/cardArrayCache.json#chorus_of_ironsong_yellow FaBSim/Custom/DTDCards.php#FaBDTDCanPlay FaBSim/Custom/DTDCards.php#FaBDTDAttacks"
+}

@@ -1,0 +1,165 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "/root/breadth_review independent cached-text/source-spec batch semantic review; Root exact saved mapping and native clean replay",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1465-20261122.json",
+  "source_spec_sha256": "083afe0bbec2038462cd70b9e807cf19d0f3ab50df1440a7d90686ebd123fd8c",
+  "input_sha256": "083afe0bbec2038462cd70b9e807cf19d0f3ab50df1440a7d90686ebd123fd8c",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-courageous-crossing-blue-four-live-sparse1465-generic-non-overpower-attack-does-not-earn-printed-defense-condition",
+      "card_id": "courageous_crossing_blue",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "94a2697f51d0c8150958eadf6516f86cf3f1d8457d0f1d56a4aa66c7ef62a396",
+        "actions.json": "7f1369969f97aed5d86f58799e04f153711f5b54ba2a8e29ed493fe9985a8a01",
+        "assertions.json": "d9991c46a529f70653dc7ff2e4a984ff64b17bafa5d0b493e08a7c4552764338",
+        "expected_final_gamestate.txt": "511546e0bae7f55f3159ca4b29d4bef2c6cc00db56814dbd74265fdfb1488dff",
+        "meta.json": "c4aeef8fab519a816a6bc608260d7f13de2c99a916703dd82e19f45635c82611"
+      },
+      "fixture_sha256": "60c34ce03b3b126894097ada8907c4642c726097ce5beb502b01998c8796e92e",
+      "actions": 29,
+      "native_assertions": 504,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1465-20261122.json",
+      "input_sha256": "083afe0bbec2038462cd70b9e807cf19d0f3ab50df1440a7d90686ebd123fd8c",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1465-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-courageous-crossing-blue-four-live-sparse1465-generic-non-overpower-attack-does-not-earn-printed-defense-condition",
+        "fixture_slug": "card-courageous-crossing-blue-four-live-sparse1465-generic-non-overpower-attack-does-not-earn-printed-defense-condition",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-frail-swingline-blue-four-live-sparse1465-generic-non-overpower-attack-does-not-earn-printed-defense-condition",
+      "card_id": "frail_swingline_blue",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "e87f6b53e16147a789dcd61f619384beaa5b4c605a752d5b7726a4258f3f95ba",
+        "actions.json": "7f1369969f97aed5d86f58799e04f153711f5b54ba2a8e29ed493fe9985a8a01",
+        "assertions.json": "6af94a8ad3cb03af0a0c5e25bd4ac2f3d7603b9e326b9c2e2ffeaa27829ded51",
+        "expected_final_gamestate.txt": "d9813236c27144f1ef27c06938caba342481e685f2d344981120b74f509d36d9",
+        "meta.json": "555295781e0bf50a083a62b1241ce4dc00bb443ba4cda9c4ba93827b24773d1c"
+      },
+      "fixture_sha256": "c9f3f5e71222c6f39e72493841fc42a1afa92a20cab5082f4ba166a85b9c13f0",
+      "actions": 29,
+      "native_assertions": 504,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1465-20261122.json",
+      "input_sha256": "083afe0bbec2038462cd70b9e807cf19d0f3ab50df1440a7d90686ebd123fd8c",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1465-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-frail-swingline-blue-four-live-sparse1465-generic-non-overpower-attack-does-not-earn-printed-defense-condition",
+        "fixture_slug": "card-frail-swingline-blue-four-live-sparse1465-generic-non-overpower-attack-does-not-earn-printed-defense-condition",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-quickening-sand-blue-four-live-sparse1465-generic-non-overpower-attack-does-not-earn-printed-defense-condition",
+      "card_id": "quickening_sand_blue",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "86d905a93ed2a06cca50c73426d3247c4b5c4d791a745d3bd2ed3f66880433d6",
+        "actions.json": "7f1369969f97aed5d86f58799e04f153711f5b54ba2a8e29ed493fe9985a8a01",
+        "assertions.json": "260574aa4ce79ce87d223c80c28dc90d9832ea4cd02684b9e169d62ec40d6342",
+        "expected_final_gamestate.txt": "ff43147afaef6cef3e9b29a08422acb25bf10a38ae0aec708ed45dc8d677cf7b",
+        "meta.json": "4c3b6e0a06f7c2a9fe359a179c8bc3451230673d7be959e0ad663c3a4789de6d"
+      },
+      "fixture_sha256": "ff070fad8ba9703fe2524a98b756201da10e24488d4406c8941045279e0ec5ed",
+      "actions": 29,
+      "native_assertions": 504,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1465-20261122.json",
+      "input_sha256": "083afe0bbec2038462cd70b9e807cf19d0f3ab50df1440a7d90686ebd123fd8c",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1465-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-quickening-sand-blue-four-live-sparse1465-generic-non-overpower-attack-does-not-earn-printed-defense-condition",
+        "fixture_slug": "card-quickening-sand-blue-four-live-sparse1465-generic-non-overpower-attack-does-not-earn-printed-defense-condition",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "schema_version": 1,
+    "batch": 1465,
+    "result": "approved_named_branches_only_pending_native_execution",
+    "reviewed_utc": "2026-11-25T02:17:20.451280+00:00",
+    "spec_sha256": "083afe0bbec2038462cd70b9e807cf19d0f3ab50df1440a7d90686ebd123fd8c",
+    "source_note_sha256": "ca3aa7a768f362fbbbbbf5e5c73c31fd4265e8f02a768b2fd326a308cba2b357",
+    "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+    "source_hashes": {
+      "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+      "FaBSim/GeneratedCode/GeneratedMacroCode.php": "fe6a7982611df8f4de98ce2671b317b671b580146aa4b8c28e8f4b86d8461056",
+      "FaBSim/Custom/GameLogic.php": "c60fa151561f959e4e3e341b814de0e2b47c9e9f153bbc8793a04c43b5075061",
+      "FaBSim/Custom/PENCards.php": "9d4f443c833ec535bdae15c1973910925c1b7a1223fbfab7fcb89a5b204a7ed8",
+      "FaBSim/Custom/WTRCards.php": "77d4452b30e45254a7199bc965396ded53e325717ecdd84a09b971f723f99f6a"
+    },
+    "cases": 3,
+    "planned_actions": 87,
+    "persistable_checks": 1512,
+    "named_primary_ids": [
+      "courageous_crossing_blue",
+      "frail_swingline_blue",
+      "quickening_sand_blue"
+    ],
+    "findings": [
+      "Three distinct unrepresented/unheld Ranger Trap Action groups defend from Hand under legal young Azalea4; four manual young UPF seats and Generic Deck witnesses are legal. No primary is cast as an Action, so printed token-creation/Go-again casting effects are not entered.",
+      "Courageous exact compiled Defended guard is attack delta>0; Frail is delta<0; Quickening is attack GoAgain. Real Generic Wounding base/current4 and no go again make all conditions false before any target/discard/tap flow. Azalea avoids the Riptide rider.",
+      "Actual legal Dori1 Dawnblade10 is ready with prior persistent POWER1 counter, providing a removable permanent; it is not attacking and no weapon hit event occurs. Real attacker HandPotion9 is retained and all Hero Status2 is asserted, making discard/tap exclusions nonvacuous.",
+      "All primary defenses3 cause actual physical damage1/Hero4 health19; manual all-seat priority and complete combat close preserve source fates, Deck7/8 order, Potion9 Hand, Dawnblade counter/status, RNG0 and UID10. Actual retained Item click rejects AP0."
+    ],
+    "limits": [
+      "Source/spec review only; no reviewer games/replays or passing coverage granted.",
+      "Basic defense plus negative Trap-defense qualification only. No primary casting target/creation effect, positive greater/less/go-again trigger, earned response/target timing, pitch sibling, support identity, prior counter creation or whole-card credit."
+    ]
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1465-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "799a4d6b253bf4272ca7b175ef240445d116fe2eb83e10ce21275913faa881d2"
+  },
+  "full_suite_run": false
+}

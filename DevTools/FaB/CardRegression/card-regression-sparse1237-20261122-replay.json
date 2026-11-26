@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-mistcloak-gully-four-live-sparse1237-only-first-resolved-attack-at-controller-loses-one-power",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-mistcloak-gully-four-live-sparse1237-only-first-resolved-attack-at-controller-loses-one-power",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1237-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1237-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "53e319cbb1f0aab9fe141d6fc6c95d8675d4ada0ba102185e4a0699427d5bd26",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "4a5c80f43247f94b59a93c56553fd7b1aebf51df0f393a3655747f40d2e26265",
+        "actions.json": "0085e1ff6a57350226ffa1417ac4645efc3bb59432d9e66c8c74dc8234c8fd52",
+        "assertions.json": "fbfab01c47054cabfc36be0b82647f932186d2fe6001934c88277e5b77c7a784",
+        "expected_final_gamestate.txt": "836179bdd9f7cc304e4b36898ee4f6494d5bf11ca4e187dbc2b679d8f77b3cfa",
+        "meta.json": "dbfde4dc410bca1afc05a533e89ea63b820fe14b48fa59bf7461afd9ade4ab49"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

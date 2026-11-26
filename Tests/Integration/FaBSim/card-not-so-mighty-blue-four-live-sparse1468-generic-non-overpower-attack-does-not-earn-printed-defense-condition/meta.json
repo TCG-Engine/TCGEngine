@@ -1,0 +1,7 @@
+{
+    "name": "Not So Mighty / non-Reviled attacking Hero retains naturally created Might",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-25T03:34:22+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Real Bravo1 Guardian PintBlue10 Action0 spendsAP1\u21920; beforefourmanualresponses noAura, UID10. Actualresolution creates Might11 thenVigor12 Arena1, source10GY1, printedGArefundAP1. Currentactionphasealreadybegun so tokensnotdueforstartconsumption. ThenWounding5GenericAttack4 formallyHero4Zane, AP0. NotSoMighty6ReveredBlockdef2actuallyHanddefends. AttackingHeroBravo is NOTReviled, so noearnedWHEN despiteactualMight11; noMightdestruction orToughness creation. Actual4-2=2physical, Hero4=18, fullcloseWounding5GY1index1/Pint10GYindex0/primary6GY4. ActualMight11/Vigor12andDecks/Potion9retained, noextraUID/RNG, zeroAPItemclickreject. PrimarynegativeHero-talentqualificationonly; positivePintiscontrolnotsecondarycoverage; noenginechange/siblings/wholecardclaim. Sources: FaBSim/GeneratedCode/cardArrayCache.json#not_so_mighty_blue FaBSim/GeneratedCode/GeneratedMacroCode.php#not_so_mighty_blue FaBSim/Custom/SUPCards.php#FaBSUPAttackType FaBSim/Custom/DYNCards.php#FaBDYNOverpower FaBSim/Custom/GameLogic.php#OnDefended"
+}

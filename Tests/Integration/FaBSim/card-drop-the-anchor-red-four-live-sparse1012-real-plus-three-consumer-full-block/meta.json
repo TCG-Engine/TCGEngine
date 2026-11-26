@@ -1,0 +1,7 @@
+{
+    "name": "Drop the Anchor / four-live real +3 consumer",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-23T02:25:11+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Your next arrow attack this turn gets +3{p} and \"When this hits a hero, {t} them and all allies they control.\"\n\n**Go again** Actualuntargetedspell5cost0 resolvesafterfourmanualresponses/AP1/ownedGGY5. ThenactualArsenalArrow6withrequiredownedBow7 consumes+3: computedpower7 vsactualHandblocksDEF9 gives0damage/noHit/HP20, all4manual. BoltNShotpower7>base4 earnsGAevenblocked/AP1; noHitmeansnoReload orDropAnchorHero/Allytap; actualHero4remainsStatus2. Bow7unusedready, Arrow6ownedGGY1. No positiveHit/alternateconsumer/hero/support/sibling/fullcardcredit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#drop_the_anchor_red"
+}

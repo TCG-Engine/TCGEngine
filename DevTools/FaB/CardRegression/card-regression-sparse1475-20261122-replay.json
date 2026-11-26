@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-stir-the-pot-blue-four-live-sparse1475-real-other-blue-play-transcends-same-physical-spell-into-chi",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-stir-the-pot-blue-four-live-sparse1475-real-other-blue-play-transcends-same-physical-spell-into-chi",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1475-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1475-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "b8e282b3a29da102e8e8019ce28c3fe6843f7be3815d8be5c809071d2dae6d99",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "13d73fc0366c529c6705587d0cc425f99d1e80de1a0ecf8ddbf1cbb8956544f7",
+        "actions.json": "4e77e2368de6a39a387b48f8143fbb03a5c1857caed1dda4fe6546a2a3a944e4",
+        "assertions.json": "f5bdf4e29782e345818098cdb72efbed48d10b03880f38fc8c097ea2d112c527",
+        "expected_final_gamestate.txt": "c62e8b5cde3d6c6f32938862b1d62ff4376aef4cac8db24e8f1ef49c4f9d2abc",
+        "meta.json": "25456aa07107339585e1dc910d4377427f0719caabd1a63ef27200b7ed1045d4"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

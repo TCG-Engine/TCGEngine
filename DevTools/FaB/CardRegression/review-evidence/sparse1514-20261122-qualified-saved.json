@@ -1,0 +1,86 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "/root/breadth_review1457",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1514-20261122.json",
+  "source_spec_sha256": "36cf7fd959634ba87376514894f165b578bcb219b1ac6d3524fcc0a3f8763e3d",
+  "input_sha256": "36cf7fd959634ba87376514894f165b578bcb219b1ac6d3524fcc0a3f8763e3d",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-shift-the-tide-of-battle-yellow-four-live-sparse1514-unbuffed-real-decimator-warrior-axe-equal-to-base",
+      "card_id": "shift_the_tide_of_battle_yellow",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "010b867157b2cba5b9896f2381e3d40b98f6a8a1f862ea6576c893b62260de2f",
+        "actions.json": "2b3989014040b1b4e9ea0955e8d55317c37c6c0f3dbb068b9c96b550f1dec305",
+        "assertions.json": "b8c73c2c2e2b96739d24996070244ffe99396f8f70667bc34684dfe1597b1f38",
+        "expected_final_gamestate.txt": "b80a03843bc7e71a637a5965946a3719aaf44ac2331b8019626542b1f6ddd9f7",
+        "meta.json": "75afde0f7a6a2df1a0bfb312292b2575f102fca22238c8c6378bea3b8c636db6"
+      },
+      "fixture_sha256": "d4f95c49859aec1f987c5cd8a5871fda04a692c230c8b02243c8a3de76566530",
+      "actions": 29,
+      "native_assertions": 387,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1514-20261122.json",
+      "input_sha256": "36cf7fd959634ba87376514894f165b578bcb219b1ac6d3524fcc0a3f8763e3d",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1514-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-shift-the-tide-of-battle-yellow-four-live-sparse1514-unbuffed-real-decimator-warrior-axe-equal-to-base",
+        "fixture_slug": "card-shift-the-tide-of-battle-yellow-four-live-sparse1514-unbuffed-real-decimator-warrior-axe-equal-to-base",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "schema_version": 1,
+    "batch": 1514,
+    "reviewer": "/root/breadth_review1457",
+    "result": "approved_named_branches_only_pending_native_execution",
+    "reviewed_utc": "2026-11-25T08:00:01.872717+00:00",
+    "spec_sha256": "36cf7fd959634ba87376514894f165b578bcb219b1ac6d3524fcc0a3f8763e3d",
+    "source_note_sha256": "3abe8adf67c3f69dff37f208ab192c1cc8dc0f5fdb07df285051ab4bb6f59bb2",
+    "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+    "source_sha256": {
+      "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+      "FaBSim/Custom/HVYRuntime.php": "2866849d60037455d66281b8ccd8cc8af4c647d28d76fd2ca0fa031f7652055f",
+      "FaBSim/Custom/HVYCards.php": "1387ecf0971fae9aa4bfb7bc99baec47a46e9c8770030884b722915eb87a31f1",
+      "FaBSim/Custom/DYNRuntime.php": "b8cec432428757988b02fa831b6311cc32ef5671b2fcc2dd9eecbf82d0c5e231",
+      "FaBSim/Custom/GameLogic.php": "c60fa151561f959e4e3e341b814de0e2b47c9e9f153bbc8793a04c43b5075061"
+    },
+    "cases": 1,
+    "findings": [
+      "Decimator3paidBlue3/R0/AP0 formalHero4targetbeforepayment, normalproxy8WEAPON_UID7. Exactpower4/damage4/HP16,no stale2/R2/HP18.",
+      "NoDefender=>nofirstnonEquipmentdefendtrigger, noprintedattacktrigger. Boltynuncharged/noSoul.",
+      "HVYRuntime79/HVYCards169 warriorAbove guard excludes4=base4; primaryShift0otherwiseaffordable/correctownREACTION1. Refusedprimary earnsnoAgilityorGA.",
+      "Fullfourmanualcombat/weapon7/Pitch6/Hand5/fates sound. Original1496/233archive remainswithdrawn."
+    ],
+    "limits": [
+      "Noenginechange or positiveShift/targettiming/Agility/sibling credit. Reviewer read-only source/spec review only."
+    ]
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1514-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "a124a9ee6968eea1d559225eda96b9ed0be383ca2ad863fa08183e971992338c"
+  },
+  "full_suite_run": false
+}

@@ -1,0 +1,39 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch635-r2.json",
+  "runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+  "returncode": 0,
+  "completed_utc": "2026-11-06T19:22:28.446483+00:00",
+  "fixtures": [
+    {
+      "slug": "card-glidewell-fins-four-live-real-paid-destroyed-arrow-load-plus-one-and-five-ally-damage",
+      "fixture_sha256": "cf9e0e019869b6b31acb88f1307ea8f0f5d703bde24d359f9e624b92350c877b",
+      "passed": true,
+      "result": "[PASS] glidewell_fins / four live distinctive effect"
+    },
+    {
+      "slug": "card-stand-strong-four-live-real-suspense-prerequisite-paid-confidence-token-and-go-again-consumer",
+      "fixture_sha256": "b18953ecd68eb84071a2ddb6588da67fc39f8939b1d8cd18682bc0373c549c8f",
+      "passed": true,
+      "result": "[PASS] stand_strong / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-glidewell-fins-four-live-real-paid-destroyed-arrow-load-plus-one-and-five-ally-damage",
+      "returncode": 0,
+      "stdout": "[PASS] glidewell_fins / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-stand-strong-four-live-real-suspense-prerequisite-paid-confidence-token-and-go-again-consumer",
+      "returncode": 0,
+      "stdout": "[PASS] stand_strong / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 2,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

@@ -1,0 +1,158 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "independent breadth_review1252",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1307-20261122.json",
+  "source_spec_sha256": "de5b9c3cdc0eb97cb1739a23032c48f0f90485cb505413f51ee01e74b1da0969",
+  "input_sha256": "de5b9c3cdc0eb97cb1739a23032c48f0f90485cb505413f51ee01e74b1da0969",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-cold-wave-red-four-live-sparse1307-unfused-arrow-allows-real-opponent-zero-cost-instant",
+      "card_id": "cold_wave_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "951d91e7efc61d18ab9bca6942aa708c5972f5259df59ca942020825321ea536",
+        "actions.json": "31e63948cdd854a9012557b075fe2bb994bcd5c47b1046a810e04d1a56fcfb7a",
+        "assertions.json": "d4551abc62e9dbee5e23884ed74d42f6c2a176b4a189ed09e49655683f394c68",
+        "expected_final_gamestate.txt": "6f28480fef401f2bb17c3197487421f0657dfe110d4d35ff8667ee65358eca3b",
+        "meta.json": "ab6d9d7d28b1fcedfc139bcd6ae95bea2a197c61f79df90b08372d92462080e8"
+      },
+      "fixture_sha256": "43ea1749bb9297149268b4d7ac4d968e6624e5b7a99efe15df462c0821cfab9e",
+      "actions": 36,
+      "native_assertions": 655,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 32,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1307-20261122.json",
+      "input_sha256": "de5b9c3cdc0eb97cb1739a23032c48f0f90485cb505413f51ee01e74b1da0969",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1307-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-cold-wave-red-four-live-sparse1307-unfused-arrow-allows-real-opponent-zero-cost-instant",
+        "fixture_slug": "card-cold-wave-red-four-live-sparse1307-unfused-arrow-allows-real-opponent-zero-cost-instant",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-rites-of-replenishment-red-four-live-sparse1307-unfused-no-arcane-attack-keeps-both-eligible-graveyard-controls",
+      "card_id": "rites_of_replenishment_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "d7fd96df555480427437bb3fa39ed63675842a334dc8808366a1859d4dc96983",
+        "actions.json": "1ef1359f0cb6a63079e6f6cd368d56bb483cc14d047b770aadf86c15dfedfbeb",
+        "assertions.json": "aa5662a15c2c6b2d08bd2b8f6cc7b01b8f5b9c4df386b12f95dbfec328dcba6a",
+        "expected_final_gamestate.txt": "c36650ef440da405689082e7b951075982612075a5fab0921cd642c4fb9e66eb",
+        "meta.json": "cbc0422e16c1c5b2aa22df8714d06468767040415c17ffd8d608117330a4d737"
+      },
+      "fixture_sha256": "4b5564218f0e04487ff245002232bbdc20ccf335bd71ef9b5f0a0a44518ab119",
+      "actions": 28,
+      "native_assertions": 491,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1307-20261122.json",
+      "input_sha256": "de5b9c3cdc0eb97cb1739a23032c48f0f90485cb505413f51ee01e74b1da0969",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1307-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-rites-of-replenishment-red-four-live-sparse1307-unfused-no-arcane-attack-keeps-both-eligible-graveyard-controls",
+        "fixture_slug": "card-rites-of-replenishment-red-four-live-sparse1307-unfused-no-arcane-attack-keeps-both-eligible-graveyard-controls",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "reviewer": "independent breadth_review1252",
+    "spec_sha256": "de5b9c3cdc0eb97cb1739a23032c48f0f90485cb505413f51ee01e74b1da0969",
+    "source_note_sha256": "df2119ea686a3b63c71f1903ae5a752f71a3ae9d2e05a49ae4748636fa847060",
+    "case_count": 2,
+    "active_seats": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "players": "four_live_manual",
+    "native_controls": 64,
+    "query_checks": 1146,
+    "persistable_assertions": 1146,
+    "author_only_checks_omitted": 0,
+    "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+    "coverage_category": "UNFUSED_FUNCTIONAL_TAX_NEGATIVE_AND_DUAL_RECOVERY_PREREQUISITE_NEGATIVES",
+    "positive_fusion_credit": false,
+    "per_case": [
+      {
+        "card_id": "cold_wave_red",
+        "group_id": "pitch-cycle:cold_wave",
+        "native_controls": 36,
+        "persistable_assertions": 655
+      },
+      {
+        "card_id": "rites_of_replenishment_red",
+        "group_id": "pitch-cycle:rites_of_replenishment",
+        "native_controls": 28,
+        "persistable_assertions": 491
+      }
+    ],
+    "basis": [
+      "Two uncoveredElementalRed groups use legalYoungLexi20/EssenceIceLightning plusrequiredinactiveDeathDealer8 forColdWaveArrow5Arsenal orYoungBriar20/EssenceEarthLightning forRitesRuneblade5Hand; allfourmanualUPF/exact1234/naturalYoung20/no passives. ActualGenericRed6pitch1/Yellow6pitch2 payexactnormal1/2/R0/AP1to0, noeligibleIce/EarthHandreveal, so optionalFusionunable/unfused/nohistoryseed. Fullfourresponses retainphysicalUIDs/costs.",
+      "ColdWave printed attackWHEN iffused hasfalseintervening-if, so tax notearned. CurrentcompiledColdWaveCardPlayed body gates TAX on actualFaBELEFused, falsehere; no truefusedtrigger timing certified. ActualfivephysicalHero4damage/HP15/fullclose keepsactor1Turn2, Bow8ready, Blue7+Sigil9Hand4. ThreeactualACTIONpasses1\u21922\u21923\u21924 yieldopponent4priority without endingturn; actor4 AP0/R0 islegalInstanttiming.",
+      "ActualSigilRed9Hand1 printed0Instant mustenterphysicalStack9OwnerController4 atR0/AP0/no pendingPayment and leaveBlue7Hand0. ManualholdPriority4 thenresponses4\u21921\u21922\u21923\u2192resolveACTION1 coverallfourparticipants. Actualheal3givesHP15\u219218/samephysicalSigil9GY4, noextraPitch/AP/R/UIDspend, Cold5GY1/Blue6Pitch/Bow8retained andallotherHero20. Thisfunctionalcast witness detectswrongtaxasPITCH/pendingPayment ratherthanassumingprivateeffectabsence. Scopeonlythisopponent/Instant; nopositivefusedtaxclaim.",
+      "Rites printedtwo attackWHENs separately require priorarcane orfused, bothfalse. Generatedcontinuation tests FaBCRUArcane andFaBELEFused independently. Actual6physicalAlly7damage kills1lifeToken/noHeroHPspill/Briarproducer anddoesnot retroactivelyearnarcane. RealeligibleNimblismBlue10NAA/WoundingBlue11AA remainownedGYindices0/1 throughout, noDeckbottom/choice; primary5only appendsGY2 afterfullclose. InitialGYcount2/final3correct, funder6Pitch/enemycontrols8Hand9Arsenal retained.",
+      "All1146 query/state/power/go_again assertions persist across64singlecontrols: ColdWave36/655 andRites28/491. No copiedrecording/legacyqualification orHero/Bowactivation."
+    ],
+    "limits": [
+      "Semantic/source review only pending native saves/replays; no nativepass/replay/coveragecredit claimed.",
+      "OnlyfalsefusedtaxwithactualopponentInstant andbothfalserecoveryguards. No positiveFusion/tax/recovery/arcane/otheropponent/Hero/Bowproducer/support/sibling/fullcardcredit.",
+      "Only W receipt written; no games/tests/replays/T orengine edits/auth/network/originalcheckout/Git."
+    ],
+    "source_sha256": {
+      "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+      "FaBSim/GeneratedCode/GeneratedMacroCode.php": "fe6a7982611df8f4de98ce2671b317b671b580146aa4b8c28e8f4b86d8461056",
+      "FaBSim/Custom/ELECards.php": "5319104c32fb648c9ef90ee5e7e3a6a22e29c35a26c2cca31b338aada0e6110f",
+      "FaBSim/Custom/ELEAbilities.php": "d0da7637932733ee6c0e77f4786c4950fbaa4e41eb74c5d1f5d536961fa27ab8",
+      "FaBSim/Custom/FaiCards.php": "222e95c7670e2df62aaec1185f75e63b6cc563bbd8fcfd52b4dd8f1f14110786",
+      "FaBSim/Custom/UPRCards.php": "62798bd281afc17805c396e92deab22497b9c80d881f99e943833cb82d449321",
+      "FaBSim/Custom/GameLogic.php": "c60fa151561f959e4e3e341b814de0e2b47c9e9f153bbc8793a04c43b5075061",
+      "FaBSim/Custom/WTRCards.php": "77d4452b30e45254a7199bc965396ded53e325717ecdd84a09b971f723f99f6a",
+      "FaBSim/Custom/CRUCards.php": "5f0ff2122f9e033b8ad9ced75e9ee2210f459c868633f3f1741f419bc437c12d",
+      "Schemas/FaBSim/GameSchema.txt": "7783800bd47bc85885cc915066aadca58cdf99f0c1180602ac312d9af5ebf643",
+      "Core/ShortcutPreferences.php": "25f300ea0b6fbc409f5b92e8bc3587a74b2ab0eaf31ccef38e18c455598eaba6",
+      "DevTools/FaB/CardRegression/record_card_regressions.php": "e53055b29e9ea641949b77019c4455607f41ca233325d716a9500637e19efd28"
+    },
+    "workspace_source_sha256": {
+      "author_breadth1307.py": "17009cde9b7e954342df3e90af4983acd0b4f183536d7dea14fb61d196b03961",
+      "breadth1068_helpers.py": "997f949ec26c7e494ad26a818f9f2078f6f4f2a0c49ca7f61aa8c71f3b091b0a"
+    }
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1307-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "4449730cca5c0c4c5ed3c772a4c2a694ab1ffc3bc6b4b00211fcd2ba83bdef24"
+  },
+  "full_suite_run": false
+}

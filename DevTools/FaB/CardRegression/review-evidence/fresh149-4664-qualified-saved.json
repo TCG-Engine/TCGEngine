@@ -1,0 +1,63 @@
+{
+  "status": "FRESH149_SHARPEN_NATIVE25_2010_SINGLE_REPLAY_PASS_TERMINAL_DAMAGE",
+  "reviewer": "Root independent of original scenario author; Source/oracle corrections independently reviewed by b820",
+  "reviewer_independent": true,
+  "approved": true,
+  "semantically_approved": true,
+  "runtime_sha256": "46649e101654229d2ee2be85d48a469f88164ddfd954c7c3ec131246cd11c5a8",
+  "input_sha256": "da5bd02018a647cc59927ac791fcd49e7e603010bb16e913588051c2ea5e9d28",
+  "source_spec": "card-regression-repair-fresh149-supported-attack-oracle-v2.json",
+  "fixtures": [
+    {
+      "slug": "card-fresh-from-the-forge-red-four-live-original-correct-sharpen-ally-damage-diagnostic",
+      "card_id": "fresh_from_the_forge_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "bcead9d186e98fcb65b09f888a8c6728b16e6c712597efc2b618946f736885e1",
+        "actions.json": "7b062423e30942592046e7bf250033a9afea4238e9af78d8f8cbfe40c682c9d2",
+        "assertions.json": "945e845d704d4501ea8fecde7c2e383221a1d6f0da348da0ce4cb790241f998d",
+        "expected_final_gamestate.txt": "e3e0a564c87566bff934d8182c81feab2971bd2ddf36a1345dab0f61b2acd68b",
+        "meta.json": "730cd3368b80b3c49c6b88164ae44af878b5ff8ce7ed28fb50877d6664769376"
+      },
+      "fixture_sha256": "0d7f06662a5f3da1369545e16843f3a36ab935139369fd340601375bc2948a87",
+      "actions": 25,
+      "native_assertions": 2010,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 21,
+      "recorded_runtime_sha256": "46649e101654229d2ee2be85d48a469f88164ddfd954c7c3ec131246cd11c5a8",
+      "runtime_sha256": "46649e101654229d2ee2be85d48a469f88164ddfd954c7c3ec131246cd11c5a8",
+      "source_spec": "card-regression-repair-fresh149-supported-attack-oracle-v2.json",
+      "input_sha256": "da5bd02018a647cc59927ac791fcd49e7e603010bb16e913588051c2ea5e9d28"
+    }
+  ],
+  "replay": {
+    "path": "card-regression-replay-nov16-fresh149-corrected-replay.json",
+    "sha256": "35b4e5bffdfbd974ea4fb172f7f7ca25dc9ab434b0c6a7028dccff60ecdb38d2",
+    "passed": true
+  },
+  "source_review_sha256": "c40ba157f4cde2c3581997d779959c40e68a94df516b114ff8ee7fa962829582",
+  "oracle_review_sha256": "8d0d532e4075039a2a65ab132e9c79e620aee3c3b0c32282723830e7727c1f40",
+  "components": 16,
+  "component_receipt_sha256": "a2f38f1a81fabab0c67cb1580841538bb0d44fecf04e8f4d74496c7479e5b795",
+  "basis": "ActualFresh5resolvesSharpenoncontrolledDagger6; samephysicalPOWER1+legitimateusemarkers, currentproxy16base1+counter1, actual2damageonsameUrsur8; allHeroHP20,R2/AP0. Original25controls unchanged. Corrected one unsupported computed-power API target physicalWeapons toactualATTACK objectatvalue2 andaddedoneexactphysicalcounterassertion; other2008queriesunchanged. Fourlivepreferences/allseatresponses verified. This intentionallyendsDAMAGE asoriginalprobe specifies; no cleanup/End/Markcredit.",
+  "oracle_correction": {
+    "pointer": "/0/steps/50/checks/1/mzId",
+    "before": "p1Weapons-0",
+    "after": "p1CombatChain-0",
+    "expected_power_unchanged": 2,
+    "added_physical_counter_assertion": true,
+    "original_native_assertions": 2009,
+    "current_native_assertions": 2010,
+    "failed_predecessor_retained": true,
+    "two_key_unapproved_draft_executed": false
+  },
+  "sources": [
+    "https://judge.fabtcg.com/cards/detail/5222/",
+    "https://rules.fabtcg.com/en/cr/08-keywords/"
+  ],
+  "limits": [
+    "Terminal DAMAGE boundary only. No Resolution/Close/End completion, beginning-End delayed-trigger timing, Hero-hit optional Mark or fullcardqualification claimed.",
+    "Actual end-removal helper isolated components pass, not Native End timing. Existing Sword helper/Flurry unchanged.",
+    "No fullsuite, historicalcorpusreplay, generatedhandedit, otherheldgoal or newbreadth."
+  ]
+}

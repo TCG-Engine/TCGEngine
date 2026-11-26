@@ -1,0 +1,68 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-23T20:24:01.419581+00:00",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1230-20261122.json",
+  "source_spec_sha256": "b9c26fde070f4fa13798457924884e9a55a7629fea61460f0b71221a59f20402",
+  "new_scenarios": 1,
+  "new_groups": 1,
+  "new_primary_ids": 1,
+  "actions": 58,
+  "native_assertions": 328,
+  "manual_passes": 54,
+  "totals": {
+    "saved_registered_scenarios": 5138,
+    "duels": 3075,
+    "four_live": 2063,
+    "recorded_primary_ids": 2286,
+    "identity_denominator": 5196,
+    "recorded_groups": 2160,
+    "group_denominator": 3324,
+    "four_live_groups": 2052,
+    "phase_qualified_scenarios_at_actual_contexts": 1775,
+    "phase_qualified_unique_groups": 1765,
+    "creation_replay_passes": 2517,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 936,
+  "scenarios": [
+    {
+      "card_id": "embodiment_of_lightning",
+      "group_id": "identity:embodiment_of_lightning",
+      "scenario_id": "card-embodiment-of-lightning-four-live-sparse1230-real-trigger-destroys-token-then-grants-only-first-attack-go-again",
+      "effect_branches": [
+        "actual_attack_play_earns_four_seat_trigger_token_remains_until_resolution_then_first_attack_go_again_funds_real_second_attack_without_leak"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-embodiment-of-lightning-four-live-sparse1230-real-trigger-destroys-token-then-grants-only-first-attack-go-again",
+      "source_spec": "card-regression-sparse1230-20261122.json",
+      "source_spec_sha256": "b9c26fde070f4fa13798457924884e9a55a7629fea61460f0b71221a59f20402",
+      "review_evidence": "review-evidence/sparse1230-20261122-qualified-saved.json",
+      "review_evidence_sha256": "b6a2663a1e8193072075694adfd61d842ce75cb7236f7530a85edbf87f4b602b",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1230-20261122-replay.json",
+          "sha256": "abe12e37a3bf74f84df85606120203db17d970c6967c903cdf21d4fbbcd731fe",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

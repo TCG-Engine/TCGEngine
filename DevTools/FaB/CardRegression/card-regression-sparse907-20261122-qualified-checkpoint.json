@@ -1,0 +1,126 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-22T17:49:01.508176+00:00",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse907-20261122.json",
+  "source_spec_sha256": "3b175f4f3a989d086574332f16d769af840a2e554e594f38d836740fe8db8876",
+  "new_scenarios": 3,
+  "new_groups": 3,
+  "new_primary_ids": 3,
+  "actions": 84,
+  "native_assertions": 405,
+  "manual_passes": 75,
+  "totals": {
+    "saved_registered_scenarios": 4341,
+    "duels": 3075,
+    "four_live": 1266,
+    "recorded_primary_ids": 1489,
+    "identity_denominator": 5196,
+    "recorded_groups": 1363,
+    "group_denominator": 3324,
+    "four_live_groups": 1255,
+    "phase_qualified_scenarios_at_actual_contexts": 978,
+    "phase_qualified_unique_groups": 968,
+    "creation_replay_passes": 1719,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 139,
+  "scenarios": [
+    {
+      "card_id": "battlefield_blitz_red",
+      "group_id": "pitch-cycle:battlefield_blitz",
+      "scenario_id": "card-battlefield-blitz-red-four-live-sparse907-actual-blue-cost-one-and-five-damage-without-unearned-charge-go-again",
+      "effect_branches": [
+        "actual_blue_cost_one_and_five_damage_without_unearned_charge_go_again"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-battlefield-blitz-red-four-live-sparse907-actual-blue-cost-one-and-five-damage-without-unearned-charge-go-again",
+      "source_spec": "card-regression-sparse907-20261122.json",
+      "source_spec_sha256": "3b175f4f3a989d086574332f16d769af840a2e554e594f38d836740fe8db8876",
+      "review_evidence": "review-evidence/sparse907-20261122-qualified-saved.json",
+      "review_evidence_sha256": "3ed220a922874508e03fa4984108bac407d44d7acd49ff4b9df78a91f301984a",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse907-20261122-replay.json",
+          "sha256": "c53837a6370a0bd8b74801a477447a56afaeea5d9e743cec51b5973ea9ad8411",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "low_blow_red",
+      "group_id": "identity:low_blow_red",
+      "scenario_id": "card-low-blow-red-four-live-sparse907-actual-blue-cost-one-and-lyath-halved-base-two-damage-without-boo-power",
+      "effect_branches": [
+        "actual_blue_cost_one_and_lyath_halved_base_two_damage_without_boo_power"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-low-blow-red-four-live-sparse907-actual-blue-cost-one-and-lyath-halved-base-two-damage-without-boo-power",
+      "source_spec": "card-regression-sparse907-20261122.json",
+      "source_spec_sha256": "3b175f4f3a989d086574332f16d769af840a2e554e594f38d836740fe8db8876",
+      "review_evidence": "review-evidence/sparse907-20261122-qualified-saved.json",
+      "review_evidence_sha256": "3ed220a922874508e03fa4984108bac407d44d7acd49ff4b9df78a91f301984a",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse907-20261122-replay.json",
+          "sha256": "c53837a6370a0bd8b74801a477447a56afaeea5d9e743cec51b5973ea9ad8411",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "strong_wood_red",
+      "group_id": "pitch-cycle:strong_wood",
+      "scenario_id": "card-strong-wood-red-four-live-sparse907-actual-generic-blue-cost-three-and-six-damage-without-earth-bond-bonus",
+      "effect_branches": [
+        "actual_generic_blue_cost_three_and_six_damage_without_earth_bond_bonus"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-strong-wood-red-four-live-sparse907-actual-generic-blue-cost-three-and-six-damage-without-earth-bond-bonus",
+      "source_spec": "card-regression-sparse907-20261122.json",
+      "source_spec_sha256": "3b175f4f3a989d086574332f16d769af840a2e554e594f38d836740fe8db8876",
+      "review_evidence": "review-evidence/sparse907-20261122-qualified-saved.json",
+      "review_evidence_sha256": "3ed220a922874508e03fa4984108bac407d44d7acd49ff4b9df78a91f301984a",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse907-20261122-replay.json",
+          "sha256": "c53837a6370a0bd8b74801a477447a56afaeea5d9e743cec51b5973ea9ad8411",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

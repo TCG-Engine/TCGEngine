@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-puffin-hightail-two-live-sparse1577-actual-first-crank-no-second-time-draw",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-puffin-hightail-two-live-sparse1577-actual-first-crank-no-second-time-draw",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1577-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1577-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "11860b541c86681555ca4e383ea2a583d7288fcd25b79e99d470f019736e68ac",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "e1d7ccca7da200cce4ea25292ff7a87d20a676b847a21783443f6d81c2003100",
+        "actions.json": "fc23c8474ec6ec137e093753e96ba85d723fb3ceecfe0036811e8e185c10e719",
+        "assertions.json": "17aa92ee1b12ce9e9b0cd8eb96f845d009342a32c2a992fa32f33517d2a3ee4b",
+        "expected_final_gamestate.txt": "60fe6f8a7f5d81910f8cf5ebe934847bfa8e7b7ef6c2acbe63b5e51326c049f2",
+        "meta.json": "6a74f76639f60c1959fee264e6a4d66e8c8a0119882d9190688cf7877d7b7034"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

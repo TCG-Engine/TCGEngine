@@ -1,0 +1,102 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-hooves-of-the-shadowbeast-four-live-sparse1048-ordinary-equipment-defense-and-battleworn-close",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-hooves-of-the-shadowbeast-four-live-sparse1048-ordinary-equipment-defense-and-battleworn-close",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1048-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1048-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "8effb13c8c984bd7fad3e8b3dcbdae9a0e799e697c45860cc122634513b4c57d",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "7afe926086ff940b3511150f48f84548c062db39bb4caea6fb9be9f921131dc5",
+        "actions.json": "511bf2f3686ee96e12e3d9cdbe580febcac902b797e5ec827a96d5ccd74ac457",
+        "assertions.json": "563b75a04b9f63d6ef30f62dca223053354e3513e0089e35a795ea524d8d8988",
+        "expected_final_gamestate.txt": "e9cbbeb633dff3e7a947eb826f78a0aaa47b79020a2594d39456bd50bf562384",
+        "meta.json": "5af14c8f836ca50020b6a58c7c4f3244208b59a86f2f8b1d1776885232e21c9c"
+      }
+    },
+    {
+      "slug": "card-hide-tanner-four-live-sparse1048-ordinary-equipment-defense-and-battleworn-close",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-hide-tanner-four-live-sparse1048-ordinary-equipment-defense-and-battleworn-close",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1048-local-20261122\\clean-replays\\01.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1048-local-20261122\\clean-replays\\01.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "4a19cdc86bbeea0e687922f8810c58ec22d79bef8d88236ad9290234356d836d",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "4aab96d53991eebd0a995d59e5497fd446beb084b4fc875d8ff5d02cf961ec81",
+        "actions.json": "511bf2f3686ee96e12e3d9cdbe580febcac902b797e5ec827a96d5ccd74ac457",
+        "assertions.json": "cf8fbc0d733b76ad02830265beb941bbad9d45dd9e44dd74284970019e35f494",
+        "expected_final_gamestate.txt": "2bff27bd6306bb49d321075aad6cc0ae9a4b137b8fa082c9e719c9accbcb364b",
+        "meta.json": "2582962892b913c3f7a96cc33639b7a6d0f014ee96d968bd9e5ee5656917357b"
+      }
+    },
+    {
+      "slug": "card-prizeworn-pathfinders-four-live-sparse1048-ordinary-equipment-defense-and-battleworn-close",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-prizeworn-pathfinders-four-live-sparse1048-ordinary-equipment-defense-and-battleworn-close",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1048-local-20261122\\clean-replays\\02.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1048-local-20261122\\clean-replays\\02.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "f1eeb831782746e75b73456952f32b54e538b9224d5f6df22f1c018843241cf5",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "99e3eed86c368ec585e022c11a7dde33cc7966bc813deeee25b00c6068d11766",
+        "actions.json": "511bf2f3686ee96e12e3d9cdbe580febcac902b797e5ec827a96d5ccd74ac457",
+        "assertions.json": "9ec35e4990581740a7cdda521ebd38a7432dee1eb5d11f5c59174eb887b150e0",
+        "expected_final_gamestate.txt": "0960be6f1775237e823405ef237951e8cca9bbdb830a0ef094dc1a1a4b1f7b3f",
+        "meta.json": "08872aa744b46e4f852a01059c371975fed456332280a2105a9c86a8627d4909"
+      }
+    },
+    {
+      "slug": "card-skull-crushers-four-live-sparse1048-ordinary-equipment-defense-and-battleworn-close",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-skull-crushers-four-live-sparse1048-ordinary-equipment-defense-and-battleworn-close",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1048-local-20261122\\clean-replays\\03.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1048-local-20261122\\clean-replays\\03.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "0439550aa24b45b5b17ef8cdc32bf1f7d4720896969c11f94b2bfa411a81d317",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "b854f8c03701a37c048f9e88ba113137da145ebcff5bfbe04a026b04b657ad36",
+        "actions.json": "511bf2f3686ee96e12e3d9cdbe580febcac902b797e5ec827a96d5ccd74ac457",
+        "assertions.json": "c03529f97b94b7cff487ccad3673b2641017ecdd918bbf646e61380e1f5c90a0",
+        "expected_final_gamestate.txt": "50f8c95470573e50cb410073613425a413180bb43635d67f8577f9046d864cae",
+        "meta.json": "f5a39cb92266285f79624ef8d7feed145474cdbaa33d0ed7a528752eabd464cb"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

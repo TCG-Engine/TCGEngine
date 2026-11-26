@@ -1,0 +1,68 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-23T05:05:02.578829+00:00",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1071-20261122.json",
+  "source_spec_sha256": "058ace13046df3be2c611068cd8ae81a3841aa0b6d66724670f2298b7b7460cb",
+  "new_scenarios": 1,
+  "new_groups": 1,
+  "new_primary_ids": 1,
+  "actions": 34,
+  "native_assertions": 290,
+  "manual_passes": 29,
+  "totals": {
+    "saved_registered_scenarios": 4910,
+    "duels": 3075,
+    "four_live": 1835,
+    "recorded_primary_ids": 2058,
+    "identity_denominator": 5196,
+    "recorded_groups": 1932,
+    "group_denominator": 3324,
+    "four_live_groups": 1824,
+    "phase_qualified_scenarios_at_actual_contexts": 1547,
+    "phase_qualified_unique_groups": 1537,
+    "creation_replay_passes": 2289,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 708,
+  "scenarios": [
+    {
+      "card_id": "spew_shadow_red",
+      "group_id": "pitch-cycle:spew_shadow",
+      "scenario_id": "card-spew-shadow-red-four-live-sparse1071-real-banish-permission-and-light-hero-bonus",
+      "effect_branches": [
+        "real_banish_permission_and_light_hero_bonus"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-spew-shadow-red-four-live-sparse1071-real-banish-permission-and-light-hero-bonus",
+      "source_spec": "card-regression-sparse1071-20261122.json",
+      "source_spec_sha256": "058ace13046df3be2c611068cd8ae81a3841aa0b6d66724670f2298b7b7460cb",
+      "review_evidence": "review-evidence/sparse1071-20261122-qualified-saved.json",
+      "review_evidence_sha256": "1a1a787b32869dc730ceecfc20fa7536eeec791facac2a359a5db9088ad83f30",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1071-20261122-replay.json",
+          "sha256": "5e7ae87a18c448d745ecde250f9fbc60d363547d9760a5cfdd2dbc5c9df1f3b5",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

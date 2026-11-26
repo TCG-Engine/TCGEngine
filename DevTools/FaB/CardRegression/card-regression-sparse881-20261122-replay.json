@@ -1,0 +1,171 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-scrap-trader-red-four-live-sparse881-two-real-scrap-payments-banish-item-and-equipment-then-gain-four-resources",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-scrap-trader-red-four-live-sparse881-two-real-scrap-payments-banish-item-and-equipment-then-gain-four-resources",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse881-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse881-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "9b5e845d94d154ee6e21b302b6f4044f1aa790e6595c1c1d24f91b4c92dd74ac",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "3bbf262d20eb6100bf3d8f628e30b92909349b18da84c150bfe62e699440b889",
+        "actions.json": "396ee5711fca32c60add401d07631e8a8147d914fc95c2fcc231b5f4f7c02ca2",
+        "assertions.json": "579c138942d6bcef36da8fe2fdef59e1e98854548ac2a22e23e7ec577d8df8ff",
+        "expected_final_gamestate.txt": "66be63ee5722a0aef384807549eb6382ef09939f2618b5e36db6481989443796",
+        "meta.json": "ff7d100dad27c96ba883d14e6f4139069872c8a4acde2edff6034a01b0855f8a"
+      }
+    },
+    {
+      "slug": "card-save-the-thought-red-four-live-sparse881-recycles-real-nonattack-action-and-creates-owned-ponder",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-save-the-thought-red-four-live-sparse881-recycles-real-nonattack-action-and-creates-owned-ponder",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse881-local-20261122\\clean-replays\\01.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse881-local-20261122\\clean-replays\\01.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "d46ad2a90fcd1c10978064dc2bf2ba27e57ab95ffa6f18e7804a031577b7a342",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "dcdc27fca9293100915a0de7d934ebb7553945d76d6904656354d700d0b1865e",
+        "actions.json": "bba03b07a2d7cc63db8e8e309c16642c85121ccedae45ce9b274da2f84ec353f",
+        "assertions.json": "d70daf4860e9432fa726c418086975b5713bbcff4ecdc56bbf3da3293f920c58",
+        "expected_final_gamestate.txt": "70d8ef8aebf2db5acb6294a3db5a5996a9c9bf59177d5f754d7b964052f07517",
+        "meta.json": "890d80c39b1a14cd90e4c5bb17d95f0f1caa6026b0e0af1fec9b8e5c37ee2fa5"
+      }
+    },
+    {
+      "slug": "card-settle-the-bill-red-four-live-sparse881-loads-real-hand-arrow-face-up-with-printed-power-marker",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-settle-the-bill-red-four-live-sparse881-loads-real-hand-arrow-face-up-with-printed-power-marker",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse881-local-20261122\\clean-replays\\02.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse881-local-20261122\\clean-replays\\02.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "3600ed15e29535e5d86ab7a9398007beb861b6979966340ef19b69de3bc20e43",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "df126ff14909d6330c8a47e7e40bfcfbaeffc9f330bd1cfa1047ac421e3166ab",
+        "actions.json": "c4b2391abfbcf981b4ab16a79e1ef67007c67c23a0abc426d453339481bfbb4a",
+        "assertions.json": "ebc13bae586652687e8b892ab80f450e9538f582ec1740f3251833e9e41f728b",
+        "expected_final_gamestate.txt": "d4f8cac8e3fc7d08b0096eaf4993efb2f7eb0d51034f0c966b3d91012c00411c",
+        "meta.json": "ee1ce3cafb389fb1a9a9eac7df4c771b777c683b842619a433c09d8caab94db2"
+      }
+    },
+    {
+      "slug": "card-tome-of-duplicity-blue-four-live-sparse881-banishes-actual-second-peeked-nonattack-and-restores-other-card",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-tome-of-duplicity-blue-four-live-sparse881-banishes-actual-second-peeked-nonattack-and-restores-other-card",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse881-local-20261122\\clean-replays\\03.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse881-local-20261122\\clean-replays\\03.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "3a3a804d5d19db9a28d717e8d082d6f13255a2527dc7f2ef9504cd549f618b0f",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "e8366db937588df47ca7d2b88da4bac284deb09d8a8a20bafebe70fce596b5b5",
+        "actions.json": "c7c76ef9657a26c1fb8cbb3f7262aff4367436a409bd830f8f24877930c4f8b8",
+        "assertions.json": "12184c2bb835f5cc3b60fc5dc9a830d7c80b84d5e61a2b4235cfe3de6cd4bbfe",
+        "expected_final_gamestate.txt": "c87a753a0e44efb573d0b3f0ac468aa0a3683fc3dac5d97e9a5dee027382a0b9",
+        "meta.json": "60ef9fdda1a344ae23cab84f479ad082df6cd03efadde28c129a1e855c2ed6f7"
+      }
+    },
+    {
+      "slug": "card-teklovossens-workshop-red-four-live-sparse881-unboosted-reveal-puts-actual-top-item-into-arena-with-three-steam",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-teklovossens-workshop-red-four-live-sparse881-unboosted-reveal-puts-actual-top-item-into-arena-with-three-steam",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse881-local-20261122\\clean-replays\\04.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse881-local-20261122\\clean-replays\\04.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "86a43126e418426c79c06b4e2bb09d4f95c6581bd73a561570b3729e9981fd54",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "982fcace9d18f6d9ae26e12528b7d3d20582b994f2c4b5926a5c2b454a6506a1",
+        "actions.json": "ecfc3b356d170d3adcd369c59f64176c3b17ffe7af3900115b2de1a20afbaf7c",
+        "assertions.json": "925391efe9ace94998ca7dba7f8bcab704bbd9c6595ce352b4aeba51b52eed9e",
+        "expected_final_gamestate.txt": "384ab89f7f0d3ea36750ed0db945108f04bb69c658564d83b4b44bb91dca72b4",
+        "meta.json": "ea48e7de6098dccc55a07a09237b654e1a266528b66d0305821eaf2170cc85e3"
+      }
+    },
+    {
+      "slug": "card-twintek-charging-station-red-four-live-sparse881-recycles-actual-hyper-driver-to-empty-deck-and-gains-one-resource",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-twintek-charging-station-red-four-live-sparse881-recycles-actual-hyper-driver-to-empty-deck-and-gains-one-resource",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse881-local-20261122\\clean-replays\\05.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse881-local-20261122\\clean-replays\\05.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "10ac26b9541278f6589dbe66a3339a7b21f68f15361dc015eb239eb36892cdca",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "dbbb4901497fc83efa3eb75b03f32d7358303375cc250d93eadd03d57af4b830",
+        "actions.json": "79546c6b52b161f21e6196d31822f611f7c548529405f005bfc6953ee644cb4f",
+        "assertions.json": "1e0755c49357124596495e1254709f9f2e319aaa195494e40fd00831d9e53be1",
+        "expected_final_gamestate.txt": "2ddd38ca5cc80118252ae5d99e998789a17dcd32cb4d17398c1bac3c7fe1dad7",
+        "meta.json": "7f55efe812edd325f70fa2dcbea287732d1da817329fd3b8fe7d9f7e01f77964"
+      }
+    },
+    {
+      "slug": "card-visit-the-boneyard-blue-four-live-sparse881-actual-six-plus-power-card-moves-to-deck-top-and-creates-vigor",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-visit-the-boneyard-blue-four-live-sparse881-actual-six-plus-power-card-moves-to-deck-top-and-creates-vigor",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse881-local-20261122\\clean-replays\\06.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse881-local-20261122\\clean-replays\\06.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "48658b888665f142437783dff85a3ab85f5f1ef5b07885d83730987a8d71ac79",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "b84d98b3b0b8b04851cae4c2bed984eba2246342240059a267773f915a36edde",
+        "actions.json": "79546c6b52b161f21e6196d31822f611f7c548529405f005bfc6953ee644cb4f",
+        "assertions.json": "29a9f233a0c121db3a1eea466bb06f78864abab5b42b8cbe0f7a5e30d844e444",
+        "expected_final_gamestate.txt": "095f61c86d7552b7e3cf9d0f5a42219998d34bee7beb059888336993567ebd9e",
+        "meta.json": "cb30ea29316ce15dbece4ae596aa4c3fe27e161dd446ff2f5dbe84b40c8d7a94"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

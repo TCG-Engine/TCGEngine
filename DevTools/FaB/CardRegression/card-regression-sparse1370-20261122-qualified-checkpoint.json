@@ -1,0 +1,126 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-24T10:58:21.654670+00:00",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1370-20261122.json",
+  "source_spec_sha256": "034eb9a386a7d541095d8f69202549df37a5f963e4f01aaa897e8896f194c78d",
+  "new_scenarios": 3,
+  "new_groups": 3,
+  "new_primary_ids": 3,
+  "actions": 64,
+  "native_assertions": 1467,
+  "manual_passes": 51,
+  "totals": {
+    "saved_registered_scenarios": 5358,
+    "duels": 3111,
+    "four_live": 2247,
+    "recorded_primary_ids": 2506,
+    "identity_denominator": 5196,
+    "recorded_groups": 2380,
+    "group_denominator": 3324,
+    "four_live_groups": 2236,
+    "phase_qualified_scenarios_at_actual_contexts": 1995,
+    "phase_qualified_unique_groups": 1985,
+    "creation_replay_passes": 2737,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 1156,
+  "scenarios": [
+    {
+      "card_id": "oscilio_scion_of_the_third_age",
+      "group_id": "identity:oscilio_scion_of_the_third_age",
+      "scenario_id": "card-oscilio-scion-of-the-third-age-four-live-sparse1370-opponent-lightning-flow-is-not-your-destroy-cost-no-tap-or-payment",
+      "effect_branches": [
+        "no_owned_lightning_flow_despite_real_opponent_token_and_sufficient_resources_and_real_hand_card"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-oscilio-scion-of-the-third-age-four-live-sparse1370-opponent-lightning-flow-is-not-your-destroy-cost-no-tap-or-payment",
+      "source_spec": "card-regression-sparse1370-20261122.json",
+      "source_spec_sha256": "034eb9a386a7d541095d8f69202549df37a5f963e4f01aaa897e8896f194c78d",
+      "review_evidence": "review-evidence/sparse1370-20261122-qualified-saved.json",
+      "review_evidence_sha256": "fe39d914d7b2b4967ed2c44f6fcae3549ed65528a882cba22285e02802763ff6",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1370-20261122-replay.json",
+          "sha256": "208f373ee3416c3041d11c7567f4847d8353c582aea1524409105777296948ff",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "oscilio_forked_continuum",
+      "group_id": "identity:oscilio_forked_continuum",
+      "scenario_id": "card-oscilio-forked-continuum-two-live-sparse1370-opponent-lightning-flow-is-not-your-destroy-cost-no-tap-or-payment",
+      "effect_branches": [
+        "no_owned_lightning_flow_despite_real_opponent_token_and_sufficient_resources_and_real_hand_card"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-oscilio-forked-continuum-two-live-sparse1370-opponent-lightning-flow-is-not-your-destroy-cost-no-tap-or-payment",
+      "source_spec": "card-regression-sparse1370-20261122.json",
+      "source_spec_sha256": "034eb9a386a7d541095d8f69202549df37a5f963e4f01aaa897e8896f194c78d",
+      "review_evidence": "review-evidence/sparse1370-20261122-qualified-saved.json",
+      "review_evidence_sha256": "fe39d914d7b2b4967ed2c44f6fcae3549ed65528a882cba22285e02802763ff6",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1370-20261122-replay.json",
+          "sha256": "208f373ee3416c3041d11c7567f4847d8353c582aea1524409105777296948ff",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "two_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "aurora_legacy_of_tempest",
+      "group_id": "identity:aurora_legacy_of_tempest",
+      "scenario_id": "card-aurora-legacy-of-tempest-two-live-sparse1370-opponent-lightning-flow-is-not-your-destroy-cost-no-tap-or-payment",
+      "effect_branches": [
+        "no_owned_lightning_flow_despite_real_opponent_token_and_sufficient_resources_and_real_hand_card"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-aurora-legacy-of-tempest-two-live-sparse1370-opponent-lightning-flow-is-not-your-destroy-cost-no-tap-or-payment",
+      "source_spec": "card-regression-sparse1370-20261122.json",
+      "source_spec_sha256": "034eb9a386a7d541095d8f69202549df37a5f963e4f01aaa897e8896f194c78d",
+      "review_evidence": "review-evidence/sparse1370-20261122-qualified-saved.json",
+      "review_evidence_sha256": "fe39d914d7b2b4967ed2c44f6fcae3549ed65528a882cba22285e02802763ff6",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1370-20261122-replay.json",
+          "sha256": "208f373ee3416c3041d11c7567f4847d8353c582aea1524409105777296948ff",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "two_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

@@ -1,0 +1,147 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "breadth_review independent source/semantic review",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse929-20261122.json",
+  "source_spec_sha256": "ce32cf3f3282437b4e2c69d9c494081e449882bb78fe3b7aaaf0f86ed6e4289c",
+  "input_sha256": "ce32cf3f3282437b4e2c69d9c494081e449882bb78fe3b7aaaf0f86ed6e4289c",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-wither-red-four-live-sparse929-actual-hand-block-prevents-hit-and-primary-effect",
+      "card_id": "wither_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "733a26ed8d16c44096ee9b6855a75bf1580b35b636536ba665cc85b7cea9fcd9",
+        "actions.json": "5af67ec73dd5988db1a058227e5dcccf44c896ddc4b34170fb8eb2fb4f3ccefb",
+        "assertions.json": "d84ebf78c8a158de016c7769251788675ce0b7bb18882e6decb9632d174972cf",
+        "expected_final_gamestate.txt": "4fb62200b699573d4fdc7d28b178f8988607e299f873706f0246458c4db693fc",
+        "meta.json": "dfc8f7de052a599f3f4e4eb0abb5eb882e24f4f075a30206c8ef527601a9a14b"
+      },
+      "fixture_sha256": "ca65447d78e67d9ded650633124ffba9fd8d664b87bf9bcd07cf93091edf482c",
+      "actions": 28,
+      "native_assertions": 136,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse929-20261122.json",
+      "input_sha256": "ce32cf3f3282437b4e2c69d9c494081e449882bb78fe3b7aaaf0f86ed6e4289c",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse929-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-wither-red-four-live-sparse929-actual-hand-block-prevents-hit-and-primary-effect",
+        "fixture_slug": "card-wither-red-four-live-sparse929-actual-hand-block-prevents-hit-and-primary-effect",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-infect-red-four-live-sparse929-actual-hand-block-prevents-hit-and-primary-effect",
+      "card_id": "infect_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "96abed9ea4af9efa761a591e5cf82f9d51df87c8a395ae21713b8903a8060730",
+        "actions.json": "5af67ec73dd5988db1a058227e5dcccf44c896ddc4b34170fb8eb2fb4f3ccefb",
+        "assertions.json": "2b740c044d79af1d0c9f3e8e513c63f819512baa30491de6de82b9f07eba3f56",
+        "expected_final_gamestate.txt": "a6e58985f34545a1b672ee5f78d4eb6d9f198a8748e9572e53ecdcf6db29704e",
+        "meta.json": "3ede1f73e1b2d024f39cd0042dfb63b1a038e6be14876fd5389ed96a952d06c4"
+      },
+      "fixture_sha256": "36a7bec15b8d60d13ee2a5f7cc3c0ac9b48920cb09103cfb83c3dc555184346c",
+      "actions": 28,
+      "native_assertions": 136,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse929-20261122.json",
+      "input_sha256": "ce32cf3f3282437b4e2c69d9c494081e449882bb78fe3b7aaaf0f86ed6e4289c",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse929-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-infect-red-four-live-sparse929-actual-hand-block-prevents-hit-and-primary-effect",
+        "fixture_slug": "card-infect-red-four-live-sparse929-actual-hand-block-prevents-hit-and-primary-effect",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-sedate-red-four-live-sparse929-actual-hand-block-prevents-hit-and-primary-effect",
+      "card_id": "sedate_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "97a14b1702af91a52fc3dd7ae11db6b7d7e96275309ea93fb8798633662ef535",
+        "actions.json": "5af67ec73dd5988db1a058227e5dcccf44c896ddc4b34170fb8eb2fb4f3ccefb",
+        "assertions.json": "b89072f2c3fc306fdfc1949290c44e1d959e3da9bdfb62d0b04a9faf7147d355",
+        "expected_final_gamestate.txt": "b09afc2ae5793ffada0f05f4dbef2e34ba2105d4952042c1c601ca11c9662f1c",
+        "meta.json": "fe438c029c0d9dc5ea821a9ff5a7b6aa3b39bb9694e5428b0d47e4b0b7f28cee"
+      },
+      "fixture_sha256": "d6e9211ff63d3be6a2fd5977affa7296b3070574bdd3c0dc5cf1e543e1db192a",
+      "actions": 28,
+      "native_assertions": 136,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse929-20261122.json",
+      "input_sha256": "ce32cf3f3282437b4e2c69d9c494081e449882bb78fe3b7aaaf0f86ed6e4289c",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse929-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-sedate-red-four-live-sparse929-actual-hand-block-prevents-hit-and-primary-effect",
+        "fixture_slug": "card-sedate-red-four-live-sparse929-actual-hand-block-prevents-hit-and-primary-effect",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-infiltrate-red-four-live-sparse929-actual-hand-block-prevents-hit-and-primary-effect",
+      "card_id": "infiltrate_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "4d0bf63a80c1ea9fa0d36382f8072ea2a5248aa7fd26474a9a645eef45663663",
+        "actions.json": "5af67ec73dd5988db1a058227e5dcccf44c896ddc4b34170fb8eb2fb4f3ccefb",
+        "assertions.json": "8d6665bce20b8a456f9f564e9c7803e2ec7e44a3da0cc95906f55059974ffb40",
+        "expected_final_gamestate.txt": "282888640d837b85845fa0744e7bfd67382caf0954baef2a8293c2cb0ae99a27",
+        "meta.json": "6ec1d2ff0961e8b360cab4440bbd240f527804ceaddc54267612c7a4a7020692"
+      },
+      "fixture_sha256": "bc03420ff7f50853e7c92008725a731ad56d3dfbe4e0625beef974633f33ae41",
+      "actions": 28,
+      "native_assertions": 146,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse929-20261122.json",
+      "input_sha256": "ce32cf3f3282437b4e2c69d9c494081e449882bb78fe3b7aaaf0f86ed6e4289c",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse929-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-infiltrate-red-four-live-sparse929-actual-hand-block-prevents-hit-and-primary-effect",
+        "fixture_slug": "card-infiltrate-red-four-live-sparse929-actual-hand-block-prevents-hit-and-primary-effect",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "spec_sha256": "ce32cf3f3282437b4e2c69d9c494081e449882bb78fe3b7aaaf0f86ed6e4289c",
+    "reviewer": "breadth_review independent source/semantic review",
+    "basis": [
+      "Four legal Assassin Uzuri20 primary Hand5 attacks cost0/printed3. No additional costs, alternate activation or context menu for these cards; native click followed by adjacent Hero4 target MZCHOOSE is valid. Hero reaction is not activated and no hit-dependent passive applies.",
+      "Real opponent Wounding Blow Red UID6 is legal Generic Hand defense3 with no printed defend trigger. Native P4Hand0 click during DEFEND_DECLARE physically places it on the chain as DEFENSE, and the subsequent P4 pass finishes declarations before four manual DEFEND_PRIORITY responses. Source5/defender6 are tracked to their respective owner1/owner4 graveyards.",
+      "Printed3 is fully blocked by actualdefense3, so expecteddamage0/HP20 and AP0/noGA are correct. GameLogic2529-2531 only sets attackHit/invokes OnHit when actualamount>0. Each card has WHENhitsHero, not an unconditional played/attacked trigger, so no earned hit layer is omitted in this actual blocked branch.",
+      "Wither/Infect/Sedate create no Frailty/Pox/Inertia because no hit; actualenemyArena0 checks absence without relying on creator-owner behavior. Infiltrate retains real enemy DeckUID7/Owner4 and Banish0, making absent banish observable. Supporting blocker is not independently credited.",
+      "All four manual full-combat windows, same physical attackingUID5 and realP4 defense action retained; no outcome flags seeded or cached damage used as substitute for health. Initial/final queries contain no conflicting zone counts. Whole turnEffects empty-map guard is correctly absent; legitimate bookkeeping is allowed."
+    ],
+    "limits": [
+      "Source/spec review only; native recording and targeted clean replay remain pending Root. No PHP/native execution, T edits, network or Git mutation.",
+      "Qualifies actual blocking/no-hit/source fate and cost only, not exact unblocked power, positive token creation/ownership, positive banish/permission, hit response timing, stealth swap, siblings or whole-card/support identity behavior. Existing positive-hit timing and ownership concerns remain untested/unresolved."
+    ]
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse929-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "00a876ee5e816795c4512f7ea40f4ee858340cc048a752c766a0390083c04ec0"
+  },
+  "full_suite_run": false
+}

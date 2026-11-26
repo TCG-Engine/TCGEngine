@@ -1,0 +1,27 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch536.json",
+  "runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+  "returncode": 0,
+  "completed_utc": "2026-11-05T22:52:08.518681+00:00",
+  "fixtures": [
+    {
+      "slug": "card-spreading-flames-red-four-live-real-paid-primary-go-again-and-second-draconic-link-plus-one-damage",
+      "fixture_sha256": "2f2689e4e6bcef4469a3e9ade3ffc4c99c1e3cc3cccd38c22b5fa756c2826765",
+      "passed": true,
+      "result": "[PASS] spreading_flames_red / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-spreading-flames-red-four-live-real-paid-primary-go-again-and-second-draconic-link-plus-one-damage",
+      "returncode": 0,
+      "stdout": "[PASS] spreading_flames_red / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

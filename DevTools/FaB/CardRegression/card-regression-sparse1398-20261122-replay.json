@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-genesis-yellow-four-live-sparse1398-real-other-hero-start-no-soul-shield-or-draw-with-eligible-light-illusionist-hand",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-genesis-yellow-four-live-sparse1398-real-other-hero-start-no-soul-shield-or-draw-with-eligible-light-illusionist-hand",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1398-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1398-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "86170b1e28fdafc28dc757a61276fee95210d60d3f34fc2e5ca2625e1d6f24bb",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "e17dd542100e47fafa9a30aca3f4f72772862f40f1ba9cb9341d5fd81c4d8635",
+        "actions.json": "73ef51e215e1504678b3e0f836f4d2cf64bb9c544b0fe52aa164cd428e12e720",
+        "assertions.json": "52d9388f6a1ab588c171825d0e9cad008f2b271ee02102146eeea5f598bee23f",
+        "expected_final_gamestate.txt": "6d1cf2be1c4b681cdb7499b5bde9bc29f79abf1e2e905f7d2471905ae3630b92",
+        "meta.json": "ffe37180cf72c5b8cce281a15649fc7893b52ca82b8335308cf6d6463094b522"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

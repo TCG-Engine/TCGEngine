@@ -1,0 +1,7 @@
+{
+    "name": "Bloodrot Pox / four-live destroyed-source prevention, independent paid token and complete End",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-20T22:36:56+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Physical Pox5 owned byP4 and controlledP1 is destroyed before optionalpay3. Declining applies2GENERIC fromthatPox; one existingUPR_PROTECT source5 prevents1, soP1HP19. SecondPox6 is independently destroyed, thenP1 electsPay3 and pitchesactualBlue7 throughnativechoice; exactly3resources paid andno second damage. Both tokens ceaseexisting, notgraveyard. Existing End continuation waits throughpayment then returnsBlue7/refillsHand4, clearsPitch andchoices, advancesonce toP2Turn3MAIN ACTION, allfourseatsalive/manual. Administrative legacyEnd labels are notcertified asrulespriority; first fourACTIONpasses are actual all-seat priority flow. Sources: https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/AAC030.webp https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/OUT014.webp https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/ARK001.webp https://rules.fabtcg.com/en/cr/08-keywords/ https://rules.fabtcg.com/en/cr/04-game-structure/ https://rules.fabtcg.com/en/cr/01-game-concepts/ https://judge.fabtcg.com/cards/detail/1971/"
+}

@@ -1,0 +1,7 @@
+{
+    "name": "Riptide Lurker / Arsenal origin does not earn Hand-play trigger; same Arrow legally loads via Bracers",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-25T00:31:43+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Two manualnaturaladultRiptide38/Bravo40. ActualownedBracers3Equipment/priorface-downSigil4Arsenal/Arrow5Hand. Real0costInstant4fromArsenal spendsnoAP/allresponses\u2192realheal3HP41/noHeroHand-playWHENearned/noStack/chooser/load despiteemptyArsenal andrealeligibleArrow5. Then actualBracersActiondestroys3GYcost/AP0\u2192Ability6Source3Equipment/bothresponses; optionalnon-targetArrowmovementchoice offerssame5, layerretained/AP0throughchoice. Choose5Hand\u2192faceupArsenal; onlythenabilityclears/AP1goagain. NoHeroHandplayhappenedfrommovement/ability, noTrap. LimitedprimaryoriginnegativeONLY, realSigilhealandloadingarecontrolsnotnewgroups; nopositiveprimarytrigger/trap/Arrowhit/Bracerpowerconsumer/fullcardcredit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#riptide_lurker_of_the_deep FaBSim/Custom/OUTRuntime.php#FaBOUTPlayed FaBSim/Custom/ARCAbilities.php FaBSim/Custom/ARCCards.php#FaBARCLoadArsenal FaBSim/Custom/GameLogic.php#FaBManagedVirtualResolutionClass FaBSim/GeneratedCode/GeneratedMacroCode.php#bulls_eye_bracers"
+}

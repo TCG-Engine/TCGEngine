@@ -1,0 +1,7 @@
+{
+    "name": "Surgical Extraction / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T20:46:52+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "**Contract**  - You are contracted to banish opponents' blue cards. Whenever you complete this contract, create a Silver token.\n\nWhen this hits a hero, banish the top card of their deck, then look at their hand and banish a card. ActualtwoGenericHandAA3defeachfullyblock attack; zeroHP loss/nohit/noContract reward, realDeck9/10retained. Positivehit andexactunblockedpower notcertified. Sources: FaBSim/GeneratedCode/cardArrayCache.json#surgical_extraction_blue"
+}

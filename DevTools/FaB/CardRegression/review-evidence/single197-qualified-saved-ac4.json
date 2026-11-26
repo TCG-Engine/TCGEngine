@@ -1,0 +1,51 @@
+{
+  "status": "ORIGINAL_CORRECT_SINGLE197_NATIVE10_1285_SINGLE_REPLAY_AND_RESTLESS_COMPAT_PASS",
+  "reviewer": "root exact original Source/Saved/endpoints review with separate independent semantic source review",
+  "reviewer_independent": true,
+  "approved": true,
+  "semantically_approved": true,
+  "runtime_sha256": "ac4a4f45b6bbd33e424af064e6cb3fca5d625c4b3abe8a17e7e2b9fb25fbed67",
+  "input_sha256": "f18f3fbfe278867314336d1e714c3f7d4fc5173d1a0417f30b754848e35b94a6",
+  "source_spec": "card-regression-repair-single197-afterac4.json",
+  "fixtures": [
+    {
+      "slug": "card-single-minded-determination-blue-four-live-earned-entry-printed-one-counter-repair",
+      "card_id": "single_minded_determination_blue",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "9e7318f91e44df1eb7f07bcebae140ce9462ada6eb4e0a2b069256dbecfdea95",
+        "actions.json": "08b7c88dd560dd892dd1da00b1d8e0d9b8e5d04bddb0c383507c568ace9cd4b9",
+        "assertions.json": "1719b0183125c063426e54ab605ac98d34ae96a0819412a3951335dfab8b0d57",
+        "expected_final_gamestate.txt": "c8932423ad08f01c4fe1cd93a30da3aa920ff8584caf13a4a833fbc9744d3836",
+        "meta.json": "0166c6f99b9c7faddf483f4c72182410597755a6905c8c7fd644f123acea752f"
+      },
+      "fixture_sha256": "d8c9df94b2bffe1f083027ec88d355615fbb2fec725780f6210013a18ddc9163",
+      "actions": 10,
+      "native_assertions": 1285,
+      "actual_manual_pass_inputs": 8,
+      "recorded_runtime_sha256": "ac4a4f45b6bbd33e424af064e6cb3fca5d625c4b3abe8a17e7e2b9fb25fbed67",
+      "runtime_sha256": "ac4a4f45b6bbd33e424af064e6cb3fca5d625c4b3abe8a17e7e2b9fb25fbed67",
+      "source_spec": "card-regression-repair-single197-afterac4.json",
+      "input_sha256": "f18f3fbfe278867314336d1e714c3f7d4fc5173d1a0417f30b754848e35b94a6"
+    }
+  ],
+  "replay": {
+    "path": "card-regression-replay-nov16-single197-afterac4-replay.json",
+    "sha256": "f6a35ca30139515aa9bcec14bf899d21b6579abdd57ad6af251c379e313e4100",
+    "passed": true
+  },
+  "directly_affected_compatibility": {
+    "path": "card-regression-replay-nov16-restless135-after-single197-ac4-compat.json",
+    "sha256": "9af6e95e56a4ff9383a867f42193bdb0f4f683b710a0f80c850d9a6af9ab178f",
+    "passed": true
+  },
+  "independent_source_review_sha256": "d41fa2d47a3125eba7c496a0007dc924c3cc28a81b773a54aeb4995bd80d2fec",
+  "basis": "Original ten inputs and1285queries unchanged, exact Saved actions/assertions and four live manual seat guards at both endpoints. Physical source5 has only play-order counter until four earned responses, then exactly printed Blue POWER1; Blue6 pitched, R1/AP0 and no leftover stack, payment or decisions. No protocol-oracle correction.",
+  "isolated_components": 45,
+  "expected_before_causal_failures": 2,
+  "limits": [
+    "Only named Blue entry branch native-qualified. Red/Yellow amounts, response Aura/control/blank/reentry handling are isolated-component evidence, not new native coverage.",
+    "No broad virtual094, physical lifecycle, full suite, new shared Core root or sibling credit.",
+    "Historical qualification contexts retained; only directly affected Restless native compatibility was repeated."
+  ]
+}

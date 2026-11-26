@@ -1,0 +1,7 @@
+{
+    "name": "Scuttle the Canal / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T23:49:14+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "**Stealth**\n\nWhen this attacks a **marked** hero, this gets **go again**. Named main-path representative only: actual_unmarked_hero_attack_has_no_earned_go_again. Real owned Hand5/cost0/AP0, adjacent Hero4 declared before assets, all four live seats respond manually. Source5 finishes in its owner graveyard. Positive hit/marked-target/additional-cost/transform/shuffle/token branches are untested. Target4 is Dorinthea with actual Hero.Counters=[] before and after. Printed WHEN attacks a marked hero event is absent, rather than an earned trigger with a false later IF. Base3 deals actual3/HP17 with AP0. Both own Weapons and Equipment remain empty; no marked-branch equip/go-again credit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#scuttle_the_canal_red"
+}

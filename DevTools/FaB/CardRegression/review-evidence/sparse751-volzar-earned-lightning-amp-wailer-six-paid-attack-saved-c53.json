@@ -1,0 +1,534 @@
+{
+  "status": "APPROVED_ACTUAL_SAVED_B751_VOLZAR_AMP_AND_WAILER_SIX_PAID_PAIR",
+  "approved": true,
+  "source_approved": true,
+  "semantically_approved": true,
+  "reviewer": "/root/b106_semantic_review",
+  "reviewer_independent": true,
+  "created_utc": "2026-11-08T22:04:46.911069+00:00",
+  "source_spec": "card-regression-batch751.json",
+  "input_sha256": "8bd605112ad8ddff0c1e848f185ea42dcdf4b329479eca3aaef89a7315fda576",
+  "manifest_sha256": "2048cff0dc5b39daf676629e8f8bf8282f35b816787c6091093fb7413c5501f9",
+  "runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+  "recorded_runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+  "recorder_sha256": "ab33a3250462d0453f71d38dd4138cb9fbc3d595d2586742e989a52251c9c4a9",
+  "source_guards_verified": 71,
+  "prior_independent_semantic_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov8-batch751-v2-volzar-wailer-independent-source-review.json",
+    "sha256": "3449d50afe48456c53e386bad0af062abd731baccda65c20d8719410783ab341",
+    "unchanged_semantics_reused": true
+  },
+  "recording_receipt": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch751-20261108T220134Z-6af0f13ee1f1f.json",
+    "sha256": "54d2d78459ecf85851dc12b26d82be450beb4edb5ab312d13e7ae3ddda67082e"
+  },
+  "specific_results": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch751.recording-results.json",
+    "sha256": "71cf91d99934873a3767b74b792be94833c0599a59c4a2e7848323f10704be7e"
+  },
+  "root_wrapper_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov8-b751-volzar-wailer-native-recording\\receipt.json",
+    "sha256": "9824285baafd776ad60126c6f4f0f3deb3deb0711b51e04c35da4addcbcefe77"
+  },
+  "fixtures": [
+    {
+      "index": 0,
+      "card_id": "volzar_the_lightning_rod",
+      "group_id": "identity:volzar_the_lightning_rod",
+      "slug": "card-volzar-lightning-rod-four-live-real-lightning-play-paid-amp-one-and-zap-four-damage",
+      "source_spec": "card-regression-batch751.json",
+      "input_sha256": "8bd605112ad8ddff0c1e848f185ea42dcdf4b329479eca3aaef89a7315fda576",
+      "reviewer": "/root/b106_semantic_review",
+      "approved": true,
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_EARNED_LIGHTNING_AMP_ZAP_CONSUMER",
+      "runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+      "recorded_runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+      "fixture_path": "Tests\\Integration\\FaBSim\\card-volzar-lightning-rod-four-live-real-lightning-play-paid-amp-one-and-zap-four-damage",
+      "fixture_sha256": "3eda83fa2a0e7ebf25be3788a1629687d6792aa0e5bb346b02479b9e05a35698",
+      "raw4_sha256": {
+        "initial_gamestate.txt": "ba974ecdc06b768721e10b5edf0d3e6b368f3c662ff8b6e5ad4e9b6e8924953a",
+        "actions.json": "f815e7413db5247709d06ef500714cc1fe14dd3150d4650c9188f54f28bafd31",
+        "assertions.json": "155273344229cd3f3c828392d71a5650fdc0fb9bea9c267d48c37f653664f6de",
+        "expected_final_gamestate.txt": "2939d3ecefaa73045e997a930cfee13edf5c6709a995cdeeaebd2481fb4ed355"
+      },
+      "raw5_sha256": {
+        "initial_gamestate.txt": "ba974ecdc06b768721e10b5edf0d3e6b368f3c662ff8b6e5ad4e9b6e8924953a",
+        "actions.json": "f815e7413db5247709d06ef500714cc1fe14dd3150d4650c9188f54f28bafd31",
+        "assertions.json": "155273344229cd3f3c828392d71a5650fdc0fb9bea9c267d48c37f653664f6de",
+        "expected_final_gamestate.txt": "2939d3ecefaa73045e997a930cfee13edf5c6709a995cdeeaebd2481fb4ed355",
+        "meta.json": "841788f0ca8ad28e77586917fe2f1b3748dfa8c0ad28f8ae6f7267943ba4011e"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "ba974ecdc06b768721e10b5edf0d3e6b368f3c662ff8b6e5ad4e9b6e8924953a",
+        "actions.json": "f815e7413db5247709d06ef500714cc1fe14dd3150d4650c9188f54f28bafd31",
+        "assertions.json": "155273344229cd3f3c828392d71a5650fdc0fb9bea9c267d48c37f653664f6de",
+        "expected_final_gamestate.txt": "2939d3ecefaa73045e997a930cfee13edf5c6709a995cdeeaebd2481fb4ed355",
+        "meta.json": "841788f0ca8ad28e77586917fe2f1b3748dfa8c0ad28f8ae6f7267943ba4011e"
+      },
+      "actions": 39,
+      "native_assertions": 3347,
+      "actual_manual_passes": 33,
+      "actual_priority_response_passes": 32,
+      "actual_defender_declaration_finish_inputs": 1,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4
+      ],
+      "actual_manual_actor_counts": {
+        "1": 8,
+        "2": 8,
+        "3": 8,
+        "4": 9
+      },
+      "schema_property_assertions": 1074,
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "all_actions_and_assertions_exact": true,
+      "no_recorder_only_assertions": true,
+      "all_endpoint_physical_uid_card_zones_ownership_verified": true,
+      "all_terminal_assertions_evaluated_against_parsed_final_snapshot": true,
+      "initial_assertions_also_evaluated_against_parsed_initial_snapshot": true,
+      "initial_physical_uid_locations": {
+        "1": {
+          "card_id": "oscilio",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "6": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "zap_red",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "8": {
+          "card_id": "lightning_surge_blue",
+          "zone": "p1Arsenal",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "volzar_the_lightning_rod",
+          "zone": "p1Weapons",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2
+        }
+      },
+      "final_physical_uid_locations": {
+        "1": {
+          "card_id": "oscilio",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "5": {
+          "card_id": "volzar_the_lightning_rod",
+          "zone": "p1Weapons",
+          "owner": 1,
+          "controller": 1
+        },
+        "8": {
+          "card_id": "lightning_surge_blue",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "zap_red",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Pitch",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2
+        }
+      },
+      "final_physical_uidset": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "actual_primary_resources_paid": 1,
+      "actual_primary_AP_paid": 0,
+      "actual_earned_Lightning_cardplay_count": 1,
+      "actual_amp_consumed": 1,
+      "actual_Zap_arcane_damage": 4,
+      "actual_Ally_source5_tapped": false,
+      "actual_Ally_damage": 0,
+      "actual_Ally5_survives": false,
+      "ceased_ability_or_proxy_UID": 9,
+      "final_UniqueIDCounter": 9,
+      "RandomCounter": 0,
+      "final_health": [
+        18,
+        20,
+        20,
+        14
+      ],
+      "final_resources": [
+        2,
+        0,
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_Chi": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "full_card_certification": false,
+      "native_action_mapping_sha256": "ceaead22bd3e4c67ee8e20ad25dee45fdc0e1a47cecad4b970c394f8e0c8744b",
+      "native_assertion_mapping_sha256": "4236837d80cbb2a208d8de172d093f81ca561771e4248d323b18a94777042cd4"
+    },
+    {
+      "index": 1,
+      "card_id": "wailer_humperdinck_yellow",
+      "group_id": "identity:wailer_humperdinck_yellow",
+      "slug": "card-wailer-humperdinck-yellow-four-live-real-six-resource-tap-ally-attack-eleven-damage",
+      "source_spec": "card-regression-batch751.json",
+      "input_sha256": "8bd605112ad8ddff0c1e848f185ea42dcdf4b329479eca3aaef89a7315fda576",
+      "reviewer": "/root/b106_semantic_review",
+      "approved": true,
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_SIX_PAID_BEFORE_ALLY_TAP_AND_ELEVEN_DAMAGE",
+      "runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+      "recorded_runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+      "fixture_path": "Tests\\Integration\\FaBSim\\card-wailer-humperdinck-yellow-four-live-real-six-resource-tap-ally-attack-eleven-damage",
+      "fixture_sha256": "16a5b3d78b9ac7e2352b882fe4fef0b2a4c526af0cd47bf00199b67a32734287",
+      "raw4_sha256": {
+        "initial_gamestate.txt": "3cb0540089beffa9f62b8e4f48c5ae9b1c34845ea7f7c153b48745486f01fb62",
+        "actions.json": "cf12a2bf778d532e88407f2daf204c9ea3e266bc1a8142260d074dd2412513f1",
+        "assertions.json": "b3d3cd7934f244b8ee72c1343152f038f067b1acd3264c806e365e8c53b8696e",
+        "expected_final_gamestate.txt": "1ae319ba9096ee56332f200393ed2440f0935a74ee9531e64bbd99631a971cf2"
+      },
+      "raw5_sha256": {
+        "initial_gamestate.txt": "3cb0540089beffa9f62b8e4f48c5ae9b1c34845ea7f7c153b48745486f01fb62",
+        "actions.json": "cf12a2bf778d532e88407f2daf204c9ea3e266bc1a8142260d074dd2412513f1",
+        "assertions.json": "b3d3cd7934f244b8ee72c1343152f038f067b1acd3264c806e365e8c53b8696e",
+        "expected_final_gamestate.txt": "1ae319ba9096ee56332f200393ed2440f0935a74ee9531e64bbd99631a971cf2",
+        "meta.json": "85a88d9e05dd95fef2ca9a4cb0341c678c162992415e42766cce5a0574334967"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "3cb0540089beffa9f62b8e4f48c5ae9b1c34845ea7f7c153b48745486f01fb62",
+        "actions.json": "cf12a2bf778d532e88407f2daf204c9ea3e266bc1a8142260d074dd2412513f1",
+        "assertions.json": "b3d3cd7934f244b8ee72c1343152f038f067b1acd3264c806e365e8c53b8696e",
+        "expected_final_gamestate.txt": "1ae319ba9096ee56332f200393ed2440f0935a74ee9531e64bbd99631a971cf2",
+        "meta.json": "85a88d9e05dd95fef2ca9a4cb0341c678c162992415e42766cce5a0574334967"
+      },
+      "actions": 29,
+      "native_assertions": 2597,
+      "actual_manual_passes": 25,
+      "actual_priority_response_passes": 24,
+      "actual_defender_declaration_finish_inputs": 1,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4
+      ],
+      "actual_manual_actor_counts": {
+        "1": 6,
+        "2": 6,
+        "3": 6,
+        "4": 7
+      },
+      "schema_property_assertions": 812,
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "all_actions_and_assertions_exact": true,
+      "no_recorder_only_assertions": true,
+      "all_endpoint_physical_uid_card_zones_ownership_verified": true,
+      "all_terminal_assertions_evaluated_against_parsed_final_snapshot": true,
+      "initial_assertions_also_evaluated_against_parsed_initial_snapshot": true,
+      "initial_physical_uid_locations": {
+        "1": {
+          "card_id": "gravy_bones",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "6": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "wailer_humperdinck_yellow",
+          "zone": "p1Arena",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2
+        }
+      },
+      "final_physical_uid_locations": {
+        "1": {
+          "card_id": "gravy_bones",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "5": {
+          "card_id": "wailer_humperdinck_yellow",
+          "zone": "p1Arena",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Pitch",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Pitch",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2
+        }
+      },
+      "final_physical_uidset": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "actual_primary_resources_paid": 6,
+      "actual_primary_AP_paid": 1,
+      "actual_earned_Lightning_cardplay_count": 0,
+      "actual_amp_consumed": 0,
+      "actual_Zap_arcane_damage": 0,
+      "actual_Ally_source5_tapped": true,
+      "actual_Ally_damage": 11,
+      "actual_Ally5_survives": true,
+      "ceased_ability_or_proxy_UID": 8,
+      "final_UniqueIDCounter": 8,
+      "RandomCounter": 0,
+      "final_health": [
+        20,
+        20,
+        20,
+        9
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_Chi": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "full_card_certification": false,
+      "native_action_mapping_sha256": "7e52134a15da1cc61d2c171337453014b9dbd64b4aff80593c4df0fab07ac87e",
+      "native_assertion_mapping_sha256": "3fd4a35aca298de022b20caf22b4b4cc1687c8613af410b7c6c38cdcbfe0c021"
+    }
+  ],
+  "blocked_attempts": [],
+  "total_actions": 68,
+  "total_native_assertions": 5944,
+  "total_manual_passes": 58,
+  "total_schema_property_assertions": 1886,
+  "material_findings": [
+    "Exact rawfive each/behavior/all68 controls5944orderedpersistedqueries58manual1886typed/all48prefs each endpoint/current71c53ab33 match finalSource3449/input8bd6 and actualCOMPLETE0/stderr0 receipt/results/archive. Full initial/final queries and physicalUID/card/owner/zone maps independently parsed.",
+    "Actual OscilioNATURAL18/Surge8fromFDArsenal physical2HP18 and intrinsicGAAPrefund1. Actual staffInstant1 paidBlue6pitch3R2/AP1/capturedABI9freshfour/oncecounter; actualLightningcardplay1 earnedAMP1, correctlytargetedZap7cost0spendsAP and deals3+1=4HP14. Recorded finalLightningcount1/AMPconsumed0/source5staysready/allUID1..8/ABI9ceased/R2AP0. NoSigil/discount/seed/Heroability.",
+    "Actual Wailer5costSIX: firstBlue6R3/AP1/source5ready andproxy3markers; secondBlue7paysfull6/APTHENsource5tap, postpayfourmarkersincludeWEAPON_UID5 andallfournativequeriespass. Source5Arena/proxy8, actual11physicalHP9/noGA, fullClose8ceased/SAME5ArenaStatus1Damage0/life7/counter8/R0AP0/quiet. Waterydeath/futureconsumer/priorproducer unearned.",
+    "Four source-counter annotation strings were corrected pre-native only; original was never installed/executed and no nativefailure/Sourcehold/bug/fix claim arises. All printed material outcomes and control ordering remainedstrict."
+  ],
+  "limits": [
+    "Volzar onlypaid1/realLightningcard1/AMP1/actualZap4consumer; SigilAura-discount/Once-reject/multipleLightning/Hero/support/fullcard branches unearned/uncredited.",
+    "OscilioROS020natural18strict, narrowprinted-healthprofile; allfourliving/manual/48preferencesunchanged.",
+    "WaileronlyactualAttack6+tap/11damage/physicalArena-retention; WateryGrave/event/producer/death/life-refresh/repeatattack unearned/uncredited.",
+    "InitialArsenal/Allypublicfixtures haveunexecuted/uncreditedpriorproducerhistory; no currenthistory/AMP/AP/resourceflags seeded.",
+    "Rootnative/independentexactSaved/all48prefs/twoNEWcleanfocusedreplaysremainrequired; frozenauthoringhasno gameplay/coverage result.",
+    "Only these actual selected card-specific positive routes approved for execution. Oscilio18 fixed printed profile; no Heroability/Sigil costdiscount/otherLightningcounts or amp events/otherweapon activation/repeat-once rejection. Wailer initialArena is legal public setup only; priorplay/producer/UIDtrace unexecuted/uncredited, Waterydeath/futureattack/otherAlly/Hero/support/sibling/fullcard unqualified.",
+    "Native recording, exactSaved raw5/all48preferences/two NEW focused replays/Root registration remain separate; Source approval confers no fixture/coverage credit. Original frozenpair was never installed or executed. No reviewerPHP/native/replay/R/source/Git/remote/fullsuite/deniedretry.",
+    "Only these actual selected positive routes reviewed. NoSigil discount/differentLightningcount/otherAMPevents/repeatOnce/otherHero, WailerWaterydeath/priorplay/producer/initialUIDtrace/futureattack, support/sibling/fullcardcredit.",
+    "Root two new-only replays/registration/index/promotion remain separate; no qualification before registration. RawVersions hash-bound/excluded from physical inventory. No reviewerPHP/native/replay/R/source/Git/remote/fullsuite/deniedretry."
+  ],
+  "qualification_credit_before_registration": false,
+  "blockers": [],
+  "actual_comparison_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov8_batch751_volzar_wailer_saved_readonly.py",
+    "sha256": "233ec23080d0a5d83c0f1b91ca5f9034848e9f2b1aa9bc48cc5f69c25b75c6c1"
+  }
+}

@@ -1,0 +1,7 @@
+{
+    "name": "Shimmering Specter / Mirage excludes a real seven-power Illusionist attack, through Damage only",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-25T17:42:27+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Four manual young Prism1/Prism2/Dori3/4 at20. ActualPotion8/ABI10 funds2; actualHeraldTriumph9 declaresHero2 and pays2/AP1, attacks at7. P2 physically defends with owned Specter5 and Wounds6/7, defense2+3+3=8. Mirage requires a non-Illusionist attack with power6orhigher: this actual7-power attack is Illusionist, so no Mirage is earned. Specter is also Illusionist so cannot earn the attacker Phantasm; GenericWounds have less6power. RealDamage0/allhealth20 with allfourphysicalcards still on currentchain. Test ends strictly in DAMAGE before any further pass intoResolution/Close. Nothing leavesarena, so primaryleaveWHEN is not earned; that known timing route remains untested. Limited keywordclass exclusion, not positive destruction or completed wholecard combat. No engine change. Sources: FaBSim/GeneratedCode/cardArrayCache.json#shimmering_specter_red FaBSim/Custom/DTDRuntime.php FaBSim/Custom/MONCards.php FaBSim/Custom/PENCards.php FaBSim/Custom/GameLogic.php FaBSim/ZoneClasses.php https://rules.fabtcg.com/en/cr/08-keywords/"
+}

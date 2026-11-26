@@ -1,0 +1,157 @@
+{
+  "status": "APPROVED_EXACT_CURRENT_RULES_OVER_LOOP_WHEN_HIT_CORRECT_PROBE_NATIVE_PENDING",
+  "approved": true,
+  "source_approved": true,
+  "semantically_approved": true,
+  "implementation_approved": false,
+  "reviewer": "/root/nov2_metadata_review",
+  "reviewed_utc": "2026-11-03T22:23:00.504293+00:00",
+  "input": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch373-over-loop-current-hit-v2\\batch373-v2-over-loop-current-when-hit-correct-probe.json",
+  "source_spec": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch373-over-loop-current-hit-v2\\batch373-v2-over-loop-current-when-hit-correct-probe.json",
+  "input_sha256": "53c5f2a803763b41694e7acd0c0526d7608ffbac6e2a655b4eaed1cb446ee855",
+  "manifest": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch373-over-loop-current-hit-v2\\manifest.json",
+  "manifest_sha256": "ebc178160c312bb1bdfc39acb9df48879aafebae12655caba56131ec5dfe5c6b",
+  "author_QA_sha256": "0160fada688d828f2a67e99bda8eff36bd46ce7821408a7b26c4d61da54b3cf1",
+  "runtime_sha256": "0a2a062faba12b15a119fa82f44fab56e0a6e02970b8d8d26f47f16b24397256",
+  "source_guards": {
+    "AGENTS.md": "98e92f639d0768613c07759d84393fe2a58ff145e239bbd5bb0c3f8fdcf1f09d",
+    ".github/copilot-instructions.md": "27d6d8211b219cc826a4f2bf63d6d59765ed805feea6fb6571bfd225eb824543",
+    "FaBSim/Custom/GameLogic.php": "7d475db6dcd99f151b41818ad0dca7111329e951af68e97badf943333d927a23",
+    "FaBSim/Custom/WTRCards.php": "4c1331a4f5c53d231f94bff6f08cefec875047ff424aa443ed22eedc8644652c",
+    "FaBSim/Custom/WTRAbilities.php": "f33a915de3a95208a7d29b7acb5dbbc8c5b0f4f2d56ace281c3c9c7b8bbc5448",
+    "FaBSim/Custom/ARCAbilities.php": "5330205cf8b98a1ba93cb15aa42f67c76d01dac3cb53b206669e7d00b0e9daca",
+    "FaBSim/Custom/ARCCards.php": "542227b196338a40c49f83966d9d2b0979a98676d4c9d39d00b0f5cc9a32323f",
+    "FaBSim/Custom/HVYCards.php": "aeee5080ba3096b2413fd1fbf33aa8d8f24685d219e13c8b942dda45f0c66c7d",
+    "FaBSim/Custom/HVYRuntime.php": "e133c543240f428e8d7f8488971dcfd929720b066342d0d72b4f8cdbb64faa73",
+    "FaBSim/Custom/MONCards.php": "50ccaa44bdd2c94db708dbf2b358aa066d71ceb2c56b8dad14bc2fd1d242953f",
+    "FaBSim/Custom/ROSCards.php": "41dc8057b503c1eb33417e93515ec1e86d89197115391c64c18f195f794848b5",
+    "FaBSim/GeneratedCode/GeneratedMacroCode.php": "1adb9203e51af18ef76111dbcab7a01f15a337a8324b2b18bc182cc5696a99d6",
+    "FaBSim/GeneratedCode/GeneratedCardDictionaries.php": "1be127d10c8f7fe3fa10b8aa098678fa43b2790910c95666226b18eb79ea7c60",
+    "FaBSim/ZoneClasses.php": "874bb2ae00a80a8ba3dfe1789b4c932fd0b7cf1286504a62828e0055ca1cb355",
+    "FaBSim/ZoneAccessors.php": "9967567a9a10df81a6f22df820d4d77258828657e95c4ad145b8b13ce17866a7",
+    "Schemas/FaBSim/GameSchema.txt": "7783800bd47bc85885cc915066aadca58cdf99f0c1180602ac312d9af5ebf643",
+    "Core/DecisionQueueController.php": "65bfcf5b4f595d62d6dfb8bde0b884de42cd1a726618b5431fccf8939eed9a9d",
+    "Core/RegressionTestFramework.php": "670028e69e1a59c22aef5e6512edd2cd0dee5fdcaed4cf8c31374b8eb2b7ca6a",
+    "DevTools/FaB/hvy_abilities.json": "8efacf3b7fc39648144096451ba5b181b7d04f90896a8203eacbcd9ac98a146a",
+    "DevTools/FaB/arc_abilities.json": "ca670664228ddd31ad2a9475434ecb2bc95b83721503772f091c75239e1aa909"
+  },
+  "source_guards_verified": 20,
+  "runtime_fingerprint_verified": true,
+  "cases": [
+    {
+      "card_id": "over_loop_red",
+      "group_id": "pitch-cycle:over_loop",
+      "slug": "card-over-loop-red-four-live-current-when-hit-correct-probe-responseable-source-before-bottom",
+      "source_approved": true,
+      "semantically_approved": true,
+      "correct_expectation_probe": true,
+      "implementation_approved": false,
+      "actions": 33,
+      "authored_assertions": 2625,
+      "schema_property_checks": 681,
+      "manual_pass_inputs": 29,
+      "manual_pass_actor_counts": {
+        "1": 7,
+        "2": 7,
+        "3": 7,
+        "4": 8
+      },
+      "every_action_and_assertion_reconciled_to_independent_ledger": true
+    }
+  ],
+  "strict_installer_slug_regex_pass": true,
+  "prior_current_text_CR_preflight": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch373-independent-source-review-HOLD.json",
+    "sha256": "13731127adf5b5d8730807396c9cf2b0bf59341febdd3c77168b534562520acb",
+    "reused": true
+  },
+  "independent_semantic_findings": [
+    "Current official ErrataBulletin5 changes old ARC020 delayedlink print to WHEN-HIT bottom of ownerDeck; currentcatalog exactfunctionaltext and1HP205 imagepointer agree. Official indexedprimary excerpt retrieved, fullpage403 and newimagepixels unavailable; no falsefullpage/pixelviewclaim. OriginalV1 obsolete wrongoracle preserved/unattempted, not enginebug.",
+    "Legal quietyoungDash20 and3Dorinthea20; optionalstartingItem declined. ActualMechanologistOverLoopRed5cost2/base5/Boost with realBlue6pitch3/AP1funding beforefoursource leavesR1AP0. ExplicitnormalBoostmodal Do_not_boostindex1 means noboostbanish/cost/GAorpositiveDeckprerequisite. OriginalDeck7 exists solelyforbottom-vs-topphysicalwitness.",
+    "CR7.5.2a hit-event occursatdamage, before7.5.3priority and longbeforelinkResolution. CR6.6.1/.4/.5/.6 requires actualearnedWHEN-hit ABI beforepriority. AfterReactionfour actual5damage/HP15: physical5Chain/Deck7only plusStack1 KindABILITY/CardIDOverLoop/Controller1/SourceUID5. Freshfour1,2,3,4responses firstthreepreserve5Chain/7Deck; fourthmovesSAME5bottomDeck7,5 andremovesABI. VirtualUID/Params/SourceZone/privatewindowunpinned; lastReactionpriority1stop boundedbyexplicitpreviousP4.",
+    "Afterhit-source5leavesChain, CR7.0.3c/7.6.2a allowchainlinkLKI; no prematurechainclose7.7.2cbecause damagealreadycalculated. OrdinaryDAMAGE+RESOLUTIONfreshfourrounds remain. Computedpower/GAAPIchecks stop afteractualsource departure, while strictphysicalDeck7,5/HP15/R1AP0/Chainempty/Stackempty/fullclose remain; no resurrectiontoGY/no newdelayedABI.",
+    "Independentledger reconciled every33action/2625authoredcheck/681schema properties/29manualpasses withallfourready/live/manual guards andstrictcurrent20guards/runtime. First17inputs/checkpointprefixbyteequivalentasobjects; alloldV1+Stackedclonefilehashespreserved. Currentgroup/primary/effectmetadata absence checkedwithnohistoricalfixturecrawl.",
+    "CurrentcanonicalHitcallsFaBARCToDeckinline, so missingWHEN-hitresponse is onlyanticipatedSOURCE_ONLY untilRootnative. Approvaliscorrectspec/rulesprobe, not implementation/current-outputapproval or predictedpass. Firstnative mismatchmuststop/no incorrectfixture/coverage."
+  ],
+  "official_rules": [
+    {
+      "url": "https://fabtcg.com/articles/errata-bulletin-5/",
+      "publication_date": "2022-10-03",
+      "retrieval": "Primary official search-index excerpt retrieved twice; direct full article fetch403. No claim to full-page retrieval.",
+      "paraphrase": "Over Loop updated to When hits put bottom of ownerDeck; Boost remains."
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/06-effects/",
+      "sections": [
+        "6.6.1",
+        "6.6.4",
+        "6.6.5",
+        "6.6.6"
+      ],
+      "finding": "Earned WHEN-hit trigger is a distinct responseable layer before Damage priority."
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/07-combat/",
+      "sections": [
+        "7.5.2a",
+        "7.5.3",
+        "7.5.4",
+        "7.6.2",
+        "7.6.2a",
+        "7.0.3c"
+      ],
+      "finding": "Hit occurs at damage; link resolution later and chainclose separate. After source leaves use chainlink LKI, not source-on-Chain computed APIs."
+    }
+  ],
+  "current_newness": {
+    "primary_group_absent": true,
+    "base_effect_branches_empty": true,
+    "incremental_sha256": "ff109c3d07f27f1a4ec697fa47d70d5f3953ba13ef9859520d15ebb40f346f2c",
+    "primary_reviews_sha256": "289fe5b117bab26aaf17d63d8cb5d3f8c8cfbf7a9e09f075948a8a2424396ca8",
+    "old_fixture_contents_scanned": false
+  },
+  "required_exact_saved_outcomes": [
+    {
+      "card_id": "over_loop_red",
+      "correct_probe_only": true,
+      "health": [
+        20,
+        20,
+        20,
+        15
+      ],
+      "R": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "AP": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "Deck1_UIDorder": [
+        7,
+        5
+      ],
+      "GY_all_empty": true,
+      "Pitch1_UIDs": [
+        6
+      ],
+      "source5_retained_through_hit_trigger_first_three": true,
+      "WHEN_HIT_ABILITY_SourceUniqueID5_responseable_before_bottom": true,
+      "computed_power_GA_not_asserted_after_source_departure": true,
+      "counter": 8,
+      "RNG": 0
+    }
+  ],
+  "limits": [
+    "OnlyRed/noBoostpositivecurrentWHEN-hit/bottombranch; noBoost/nohit/reentry/multilink/hero/sibling/supportprimary/fullcard/control credit.",
+    "Native/exactSaved/focusedreplays pending; sourceconcern not nativebug.",
+    "NoPHP/native/R/source/service/generation/fullsuite by reviewer; tenoldholds/SmashItem unchanged."
+  ],
+  "native_credit": false,
+  "holds": []
+}

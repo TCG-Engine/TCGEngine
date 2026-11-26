@@ -1,0 +1,7 @@
+{
+    "name": "Briar Warden of Thorns / first non-attack is not second",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-24T11:52:09+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "TWO_REAL_MANUAL_ADULT_BRIAR40_DORI40. FirstactualNAAReadRunesRed3fromHand/0/AP0 withnoearlierplay/attack/damage/history/Arena; firstNAAisNOTsecondsoHeroLightningEmbodimentWHENunearned/noHeroLayer/token. NAAdealsnoattackactiondamageeither/noEarthEmbodiment. RealReadspellafterbothresponsescreatesexact3Runechants5/6/7notadditionalEmbodiment/UID7, source3GY1/Potion4Hand1/allHP40/R0/quietStackDQ. ActualGeneric0Potion4consumerrejectAP0withoutanotherNAA/newtoken/fatemovement. Onlyfirst-versus-secondNAAguard/noAttackDamage/nativeRunecreation/fates; positive2ndNAA/EmbodimentWHEN/timing/attackdamage/Earthdefense/support/fullcarduncredited. Sources: FaBSim/GeneratedCode/cardArrayCache.json#briar_warden_of_thorns FaBSim/GeneratedCode/GeneratedMacroCode.php FaBSim/Custom/GameLogic.php FaBSim/Custom/ARCCards.php FaBSim/Custom/ROSCards.php FaBSim/Custom/WTRCards.php FaBSim/Custom/ELECards.php FaBSim/Custom/ELEAbilities.php"
+}

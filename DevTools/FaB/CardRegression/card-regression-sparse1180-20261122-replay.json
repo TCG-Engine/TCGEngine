@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-fealty-four-live-sparse1180-real-next-card-draconic-earns-phoenix-flame-power-through-chain-history",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-fealty-four-live-sparse1180-real-next-card-draconic-earns-phoenix-flame-power-through-chain-history",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1180-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1180-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "09d4f95a37ccb174e3452c7415e34cf8c1978b8a4db9ebabc441ea30fdcf167c",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "26812fd194592e0d567f33fb995927a0283118eebc650c0f4de17de431361a48",
+        "actions.json": "0cd0118a6cef86f5ccd53f9b0bc67782fae6f4a80d0cad327d530667a51ddf49",
+        "assertions.json": "41d7232af2aa983dc6417d9b8f97fa0b06c4bdbb62ae333f4dd5ad754add8ce9",
+        "expected_final_gamestate.txt": "724534f79450bf4127444e11f3b990aabf7ec81a9f08fff32b1e0afc16d3d616",
+        "meta.json": "33ed851d6be8415a1945b0bf1e3dc63dc2f576f8405352563964bfd8bb9e36db"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

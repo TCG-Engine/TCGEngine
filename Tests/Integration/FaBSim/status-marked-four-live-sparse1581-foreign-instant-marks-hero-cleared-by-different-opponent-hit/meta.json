@@ -1,0 +1,7 @@
+{
+    "name": "Marked status / a different opponent hits the Hero and ends the mark",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-25T17:11:04+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "The primary marked catalog row is a functional status reminder with no card type, not a playable card. No fictitious marked card is placed in a zone; credit concerns status creation and duration only. Four genuine manual young Dori1/Hala2/Dori3/Dori4 at20. Actual empty P1 turn ends; in P2 Action, actual P2 and P3 passes give P4 priority. P4 activates the real Tip Off5 Hand Instant, declares opposing adjacent Hero3 before self-discard cost, discards5 to ownGY4 and creates owned ABI7. Four fresh responses resolve it, placing HNT_MARKED1 on Hero3 and returning priority to turn-player2. Actual Hala2 WoundingBlue6 targets Hero3; mark remains before damage, then actual two damage/Hit by opponent2 (different from creator4) ends it. Hero3 is18 and no longer marked before Resolution; full Close sends6 toGY2 and keeps5GY4. Native badge function reads this Hero counter; no seeded mark, imagined primary card, token or extra identity credit. No engine change. Sources: FaBSim/GeneratedCode/cardArrayCache.json#marked FaBSim/GeneratedCode/cardArrayCache.json#tip_off_blue FaBSim/Custom/HNTRuntime.php FaBSim/Custom/HNTCards.php FaBSim/Custom/ARCAbilities.php FaBSim/Custom/GameLogic.php FaBSim/GeneratedCode/GeneratedMacroCode.php FaBSim/ZoneClasses.php"
+}

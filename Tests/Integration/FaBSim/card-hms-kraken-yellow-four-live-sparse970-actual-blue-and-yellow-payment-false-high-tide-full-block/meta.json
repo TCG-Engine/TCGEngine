@@ -1,0 +1,7 @@
+{
+    "name": "HMS Kraken / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T22:50:47+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "When this hits a hero, destroy an item they control.\n\n**High Tide** - If there are 2 or more blue cards in your pitch zone, this gets +1{p} and **overpower**. ActualMarlynn20Pirate, Blue6pitch3+Yellow7pitch2pay4/R1/AP0, onlyONEblueinPitchdespite2cardssoHighTidefalse/noGA/noOverpower. Real3/2HandAAdef9/6fullyblock7/6, 0HP/nohit/Stack0/ownedsourceblockersGY/all4manual. ActualeligibleenemyArsenal11/Ally10/Item10/Deck10retained. BarracudatargetGravyBones20legallyownsPirateNecroBarnacle. NoHitGold/ally/item/deckdestruction orpositiveHighTidecredit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#hms_kraken_yellow"
+}

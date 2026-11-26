@@ -1,0 +1,27 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-repair-dark154-owned-prepare-save-projection.json",
+  "runtime_sha256": "1f80775213cd4742dc86a37fd47001a64e1223fa3712b3007f8b9f7594923f81",
+  "returncode": 0,
+  "completed_utc": "2026-11-17T00:31:06.216416+00:00",
+  "fixtures": [
+    {
+      "slug": "card-darkest-hour-blue-four-live-real-normal-payment-and-next-shadow-plus-two-consumer",
+      "fixture_sha256": "c05c8c6e0f7663753ff47a77a398d69f35ff709d0d74c446d33ea9a3996850fb",
+      "passed": true,
+      "result": "[PASS] darkest_hour_blue / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-darkest-hour-blue-four-live-real-normal-payment-and-next-shadow-plus-two-consumer",
+      "returncode": 0,
+      "stdout": "[PASS] darkest_hour_blue / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

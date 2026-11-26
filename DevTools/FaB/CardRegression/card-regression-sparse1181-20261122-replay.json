@@ -1,0 +1,79 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-heirloom-of-rabbit-hide-four-live-sparse1181-existing-face-up-ward-4-prevents-real-arcane",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-heirloom-of-rabbit-hide-four-live-sparse1181-existing-face-up-ward-4-prevents-real-arcane",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1181-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1181-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "7b7061a5c110c21ce47eff6c9e5f3ade60ae27c0f07a76ba53b0d187e851031d",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "45328d80464a6a25956e3e1ba5ba1b6966382b1a2296c5bbb52ca9aec3198273",
+        "actions.json": "63fcdec970afb6bec58eb589afcdcd7b550391da47a593b4cb3ee062b81befd8",
+        "assertions.json": "ccc58f9f5cdb0c24b8a26e0fefeaa0f3630e7d366254934657f814e978a1c974",
+        "expected_final_gamestate.txt": "bc0a0e06f2f84c684d66483bdd7e484bc098480f7ff5e6bc5d1ab5531dcad1bf",
+        "meta.json": "2a350171594d03edf1dfe1b563faa303d6d49b7829571afb8d646a3e7865ecb9"
+      }
+    },
+    {
+      "slug": "card-solitary-companion-red-four-live-sparse1181-existing-face-up-ward-3-prevents-real-arcane",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-solitary-companion-red-four-live-sparse1181-existing-face-up-ward-3-prevents-real-arcane",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1181-local-20261122\\clean-replays\\01.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1181-local-20261122\\clean-replays\\01.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "1d3df5f1e1fc6b129e41318ca2a4d550b780dc5a06e876543ae9c9a4618013b9",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "23ea13f4724429595a0ea87134e56424134e47c9e785c12db446c98722737327",
+        "actions.json": "84e9df45f06b849340f223d10945c33f889a6d4943efe4dad877a5b9127f1950",
+        "assertions.json": "31ff5ce6b1015f322e233f57a90887362208db8a5f5d84dafa184a8cf21db0a6",
+        "expected_final_gamestate.txt": "d6dc8fe2bb0cb3d78a00d46a207adfb7f569ab268b883fd1f32c8ed9774e4115",
+        "meta.json": "25a4ba4fbf6e43d71dc0abdd7caba4c623bd2b307e6bd32877eecbf47ef9256e"
+      }
+    },
+    {
+      "slug": "card-tranquil-passing-red-four-live-sparse1181-existing-face-up-ward-1-prevents-real-arcane",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-tranquil-passing-red-four-live-sparse1181-existing-face-up-ward-1-prevents-real-arcane",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1181-local-20261122\\clean-replays\\02.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1181-local-20261122\\clean-replays\\02.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "ddc0ad0f40a9d497b51d9a4f30423c15641e76e68a8ff217dc339828d3ca32d8",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "295cfa775128a80a2149594a9b5c4f3ce23c2e5fcf54d55c92f4851edb949da1",
+        "actions.json": "84e9df45f06b849340f223d10945c33f889a6d4943efe4dad877a5b9127f1950",
+        "assertions.json": "56572a649775943faba26c086de0874eb66393d048a87b15292019bd3d35ffdb",
+        "expected_final_gamestate.txt": "08268b52c1786740d79abb7657d0d3281c52a31c2557b385e61f598c4eac0909",
+        "meta.json": "3b72d311d33614ec453e4bcbc93f0cbb7db581dcd9daff20429f59284bd63903"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

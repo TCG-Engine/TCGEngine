@@ -1,0 +1,68 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-23T21:22:03.698613+00:00",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1236-20261122.json",
+  "source_spec_sha256": "5a6547ada804661b19ac594302568cc56ee165b5abb459da89150f6f6d5ea87a",
+  "new_scenarios": 1,
+  "new_groups": 1,
+  "new_primary_ids": 1,
+  "actions": 28,
+  "native_assertions": 310,
+  "manual_passes": 25,
+  "totals": {
+    "saved_registered_scenarios": 5141,
+    "duels": 3075,
+    "four_live": 2066,
+    "recorded_primary_ids": 2289,
+    "identity_denominator": 5196,
+    "recorded_groups": 2163,
+    "group_denominator": 3324,
+    "four_live_groups": 2055,
+    "phase_qualified_scenarios_at_actual_contexts": 1778,
+    "phase_qualified_unique_groups": 1768,
+    "creation_replay_passes": 2520,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 939,
+  "scenarios": [
+    {
+      "card_id": "vox_necropolis",
+      "group_id": "identity:vox_necropolis",
+      "scenario_id": "card-vox-necropolis-four-live-sparse1236-existing-zombie-uses-real-granted-one-resource-tap-attack",
+      "effect_branches": [
+        "owned_staff_grants_existing_zombie_actual_one_resource_tap_attack_three_damage_and_virtual_proxy_cleanup"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-vox-necropolis-four-live-sparse1236-existing-zombie-uses-real-granted-one-resource-tap-attack",
+      "source_spec": "card-regression-sparse1236-20261122.json",
+      "source_spec_sha256": "5a6547ada804661b19ac594302568cc56ee165b5abb459da89150f6f6d5ea87a",
+      "review_evidence": "review-evidence/sparse1236-20261122-qualified-saved.json",
+      "review_evidence_sha256": "832ed0b80242e91a7d7ff0310138451b0b036b2ebe7a9e61e1bae9220e44584a",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1236-20261122-replay.json",
+          "sha256": "831f81da9f6c9e05569dae4c7066d55d3ffa5eaa5d17e816d039dc476254f410",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

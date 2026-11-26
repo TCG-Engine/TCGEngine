@@ -1,0 +1,68 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-16T20:27:18.498524+00:00",
+  "runtime_sha256": "96daaf5312276a581cc536bf7b56f7affcae4e449f2b7fe6cb9a63ad267821cc",
+  "source_spec": "card-regression-repair-seek152-after-native-combo.json",
+  "source_spec_sha256": "304b170998367fc677ee74e8f2913c7be8893f6b2bde18dc0d7e870a90e03127",
+  "new_scenarios": 1,
+  "new_groups": 1,
+  "new_primary_ids": 1,
+  "actions": 72,
+  "native_assertions": 5421,
+  "manual_passes": 67,
+  "totals": {
+    "saved_registered_scenarios": 4121,
+    "duels": 3074,
+    "four_live": 1047,
+    "recorded_primary_ids": 1274,
+    "identity_denominator": 5196,
+    "recorded_groups": 1148,
+    "group_denominator": 3324,
+    "four_live_groups": 1040,
+    "phase_qualified_scenarios_at_actual_contexts": 758,
+    "phase_qualified_unique_groups": 753,
+    "creation_replay_passes": 1499,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 1,
+  "scenarios": [
+    {
+      "card_id": "seek_vengeance_blue",
+      "group_id": "pitch-cycle:seek_vengeance",
+      "scenario_id": "probe-seek-vengeance-blue-four-live-real-edge-prerequisite-and-actual-go-again-refund",
+      "effect_branches": [
+        "probe-seek-vengeance-blue-four-live-real-edge-prerequisite-and-actual-go-again-refund"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/probe-seek-vengeance-blue-four-live-real-edge-prerequisite-and-actual-go-again-refund",
+      "source_spec": "card-regression-repair-seek152-after-native-combo.json",
+      "source_spec_sha256": "304b170998367fc677ee74e8f2913c7be8893f6b2bde18dc0d7e870a90e03127",
+      "review_evidence": "review-evidence/seek152-96da-qualified-saved.json",
+      "review_evidence_sha256": "270f94d90855d393009df1ec7a8d26ace82f51519f15328e2f9feb96bbdad4ea",
+      "recorded_runtime_sha256": "96daaf5312276a581cc536bf7b56f7affcae4e449f2b7fe6cb9a63ad267821cc",
+      "qualification_runtime_sha256": "96daaf5312276a581cc536bf7b56f7affcae4e449f2b7fe6cb9a63ad267821cc",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-replay-nov16-seek152-replay.json",
+          "sha256": "451dd835c80d271c9444392628ee7b937b6412a033c7dbad9a3f5f5425d5792c",
+          "runtime_sha256": "96daaf5312276a581cc536bf7b56f7affcae4e449f2b7fe6cb9a63ad267821cc",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

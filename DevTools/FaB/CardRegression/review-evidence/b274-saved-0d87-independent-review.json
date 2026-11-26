@@ -1,0 +1,181 @@
+{
+  "status": "APPROVED_EXACT_SAVED_TWO_CASES_REPLAYS_SEPARATE",
+  "reviewer": "/root/nov2_metadata_review",
+  "reviewed_utc": "2026-11-03T02:02:19.971943+00:00",
+  "runtime_sha256": "0d877de49c131f29c152706e14bba3368630df61c59ef475c87a84f20b6e1a66",
+  "input_file": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch274.json",
+  "input_sha256": "3115d43d3d439abf443b56ad6d682461bd31dabe07c995ba619e1565b94c8ccb",
+  "fixtures": [
+    {
+      "slug": "card-pounding-gale-red-four-live-sparse-real-head-jab-open-center-combo-doubles-five-damage-to-ten",
+      "card_id": "pounding_gale_red",
+      "group_id": "identity:pounding_gale_red",
+      "fixture_sha256": "130ac0384a5a856c86e6aa3b6074c263652c87421a5612fe2a390654399591b5",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "0226c20fbce5f3a7b2ce675c09a66de1880077e9398d468fdb8bef7e679735db",
+        "actions.json": "2435297fe8dbe1c7b547cea4e7b2a6431445d24d1b82a0ae29a3788aee4ad0b1",
+        "assertions.json": "3813c29ebf1e0338bf5c2d597d8608a46628fb9ac33159ca65e6b3e511a8bc2f",
+        "expected_final_gamestate.txt": "0864b553d8fb47286aa6c022bc3c81a4045fb65a9c15e3394c8286c220f24341",
+        "meta.json": "4a6a6b5467cab4be775f5954784310b993ef7bb45e6efbbda624c0e8e356ef35"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "0226c20fbce5f3a7b2ce675c09a66de1880077e9398d468fdb8bef7e679735db",
+        "actions.json": "2435297fe8dbe1c7b547cea4e7b2a6431445d24d1b82a0ae29a3788aee4ad0b1",
+        "assertions.json": "3813c29ebf1e0338bf5c2d597d8608a46628fb9ac33159ca65e6b3e511a8bc2f",
+        "expected_final_gamestate.txt": "0864b553d8fb47286aa6c022bc3c81a4045fb65a9c15e3394c8286c220f24341",
+        "meta.json": "4a6a6b5467cab4be775f5954784310b993ef7bb45e6efbbda624c0e8e356ef35"
+      },
+      "actions": 72,
+      "native_assertions": 5576,
+      "actual_manual_passes": 67,
+      "manual_passes": 67,
+      "manual_pass_actor_counts": {
+        "1": 16,
+        "2": 16,
+        "3": 16,
+        "4": 19
+      },
+      "semantically_approved": true,
+      "every_native_action_and_assertion_exactly_maps_to_approved_source": true,
+      "initial_and_final_snapshots_fully_parsed": true,
+      "physical_uid_conservation_without_duplicates": true,
+      "final_graveyard_uid_sets": {
+        "1": [
+          5,
+          6,
+          7
+        ],
+        "2": [],
+        "3": [],
+        "4": []
+      },
+      "final_pitch_uid_order": {
+        "1": [
+          8
+        ],
+        "2": [],
+        "3": [],
+        "4": []
+      },
+      "final_health": [
+        20,
+        20,
+        20,
+        1
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_action_points": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "physical_findings": "ActualHeadJab5 link1 deals3/earnedGA, Open6 link2 deals6/earnedGA, bothphysicalpredecessorsretained untilGale7 link3. RealBlue8pitch3 fundsOpen2 thenremainingR1andearnedAP1payGale1. Source7 retainedStackthroughactualthree responders; currentphysical7 computedpower5/noGA/WTR_DOUBLE_DAMAGE, actualwoulddamage5 replaceswith10\u2192P4HP1/allfourlive. OnlyfinalfullclosepublicownGYUIDset{5,6,7}/Pitch8/R0AP0; alloriginalphysicalIDs/ownershipconserved, no newvirtual.",
+      "qualification": "One realOpenCenterCombo damage-replacement branch, notpower10; noDominateenforcement/otherpredecessor/falseCombo/defenses/prevention/Ally/otherdamage/Fai/support/fullcard/control credit."
+    },
+    {
+      "slug": "card-convection-amplifier-red-four-live-sparse-real-steam-cost-next-attack-dominate-grant-earned-action-followthrough",
+      "card_id": "convection_amplifier_red",
+      "group_id": "identity:convection_amplifier_red",
+      "fixture_sha256": "03c6f0c9867390cdf76247b33df0643d2acbe2eabed70bb7c9e9cde5f11472b9",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "4a6a589e2b69ad93a63c59ec610017fd3f970494052294573407d290713dfeb0",
+        "actions.json": "b86c6e517bb31a69ab86a731c016302085770139ed5d366b2cdb5ce5c6fa31a9",
+        "assertions.json": "52cbd7bda9759b72ee839370712c8f6425ce45a05e91d9b6b626f428c0055111",
+        "expected_final_gamestate.txt": "d6cf9c0fb00b4992db5649a4ce9dd1d4d829aa1df0e3eb577da924c196f13a45",
+        "meta.json": "19869eeeeceb4688e21706d0fb17bd7d58d9c9d92bbc8f37ca885e3fe8ea51b4"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "4a6a589e2b69ad93a63c59ec610017fd3f970494052294573407d290713dfeb0",
+        "actions.json": "b86c6e517bb31a69ab86a731c016302085770139ed5d366b2cdb5ce5c6fa31a9",
+        "assertions.json": "52cbd7bda9759b72ee839370712c8f6425ce45a05e91d9b6b626f428c0055111",
+        "expected_final_gamestate.txt": "d6cf9c0fb00b4992db5649a4ce9dd1d4d829aa1df0e3eb577da924c196f13a45",
+        "meta.json": "19869eeeeceb4688e21706d0fb17bd7d58d9c9d92bbc8f37ca885e3fe8ea51b4"
+      },
+      "actions": 33,
+      "native_assertions": 2488,
+      "actual_manual_passes": 29,
+      "manual_passes": 29,
+      "manual_pass_actor_counts": {
+        "1": 7,
+        "2": 7,
+        "3": 7,
+        "4": 8
+      },
+      "semantically_approved": true,
+      "every_native_action_and_assertion_exactly_maps_to_approved_source": true,
+      "initial_and_final_snapshots_fully_parsed": true,
+      "physical_uid_conservation_without_duplicates": true,
+      "final_graveyard_uid_sets": {
+        "1": [
+          6
+        ],
+        "2": [],
+        "3": [],
+        "4": [
+          7
+        ]
+      },
+      "final_pitch_uid_order": {
+        "1": [],
+        "2": [],
+        "3": [],
+        "4": []
+      },
+      "final_health": [
+        20,
+        20,
+        20,
+        19
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_action_points": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "physical_findings": "ActualphysicalItem5STEAM2\u21921cost/AP1\u21920 beforevirtual8body; source5retainedready. Fourrealresponders1/2/3/4 retainvirtual8 thenresolvegrant/printedGA\u2192AP1 andvirtual8ceases. ActualAA6cost0spendsearnedAP1, physical6Stack/ChainhasDOMINATE, realoneHandNAA7defense3 vsattack4\u21921damage/P4HP19. FullcloseGY1{6}/GY4{7}, retainedreadyItem5Steam1, allRAP0/emptyHandsStackChainqueues, alloriginalphysicalIDs/ownershipconserved.",
+      "qualification": "One actualpaidSteamcost+virtualsource/earnedGA+persistednextAA_DOMINATEgrant andlegaloneHandblock only. No second-Handblockrejection/enforcement, entry/zeroSteamdestruction/repeatactivation/secondattack/Dash/support/fullcard/control credit."
+    }
+  ],
+  "source_expectation_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch274-independent-source-review.json",
+    "sha256": "cf7651f99acb999a4856d4d9278d36b57bee4f2b3aec93497fbbff8b60f2cc5c",
+    "manifest_sha256": "10b707893832666f6467b78684a85936476ad546e090cf693b8f0c3fee8a7ff5"
+  },
+  "immutable_native_archive": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch274-20261103T015930Z-6ae9400284525.json",
+    "sha256": "e47784590dde29ac8111d482cd15465b99de2d5952a3cc838f7b1801156ec4c0"
+  },
+  "recording_results": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch274.recording-results.json",
+    "sha256": "cd727b771f81725eeae5a0ca4cc53e98b3bb8e57bfe271d464820d9c4a96ad54"
+  },
+  "native_wrapper": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch274-native-r1\\receipt.json",
+    "sha256": "c0ae4db0ae5dec9e690b864ee158c7acd6710a374cf7a4be58fafa5f6f358cd7",
+    "stdout_sha256": "61a0e308886b0b0292ce839fcebcc2db12517f93e54b2143d510a3ebabc0f9cd",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "exit_code": 0,
+    "stderr_bytes": 0,
+    "runtime_before": "0d877de49c131f29c152706e14bba3368630df61c59ef475c87a84f20b6e1a66",
+    "runtime_after": "0d877de49c131f29c152706e14bba3368630df61c59ef475c87a84f20b6e1a66"
+  },
+  "method": "Independentread-only raw5/saved review. All105actualactors/modes/payloads andall8064assertions/order/steps exactlymatch approvedsource; dynamiccurrentattackcomputedassertions bindphysicalUID/indices0,1,2. Fullinitial/finalschema-backed snapshots parsed; physicalUIDcost/Counter/ownership/HP/AP outcomes verified. Purepriorparser/action/normalizer functiondefinitions reused viaAST only; no authorbuilder/PHP/native/replay/R/backend executed.",
+  "limits": [
+    "Savedrecordingreview only; Roottwofocusedcreationreplays remainseparate evidence, notclaimedhere.",
+    "Poundingactualpower5/damage10/P4HP1 distinct; ConvectionactualSteamcost/GA/DOMINATEgrant/oneHandblock only, no enforcementrejectioncredit.",
+    "One boundedrepresentative each; no siblings/support/fullcard/control/legacy/fullsuite requalification or sourcechange."
+  ]
+}

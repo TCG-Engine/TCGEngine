@@ -1,0 +1,7 @@
+{
+    "name": "Annihilate the Armed / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T23:09:30+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "**Contract** - You are contracted to banish opponents' attack action cards. Whenever you complete this contract, create a Silver token.\n\nWhen this hits a hero, banish the top card of their deck. Representative only: actual_full_block_keeps_real_attack_deck_without_contract_banish_or_silver. Actual legal hero/natural20, printed cost and physical pitches, native four-manual-seat combat. Static Shock first ordinary action deals4 physical to enemy20->16, no earlier Lightning card, no additional arcane loss. Other four fully blocked by real Hand cards: actual0damage/noHit, retained eligible marker, no granted destruction/banish/token. Owned physical source and defenders in graveyard, no AP return. No positive Hit/Contract/LightningFlow producer, alternative ability, pitch sibling or whole-card credit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#annihilate_the_armed_red"
+}

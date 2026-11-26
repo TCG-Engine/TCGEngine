@@ -1,0 +1,39 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch424.json",
+  "runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+  "returncode": 0,
+  "completed_utc": "2026-11-05T06:41:26.071356+00:00",
+  "fixtures": [
+    {
+      "slug": "card-biting-blade-red-four-live-real-hand-defense-earns-reprise-weapon-bonus-and-four-damage",
+      "fixture_sha256": "2af2df8038bbde7e55a1ce0faf3c37a4371446b3bf567ace5c8e93ba12423fd8",
+      "passed": true,
+      "result": "[PASS] biting_blade_red / four live distinctive effect"
+    },
+    {
+      "slug": "card-blizzard-blue-four-live-real-unaffordable-payment-removes-intrinsic-go-again-and-action-refund",
+      "fixture_sha256": "fd155aa5f3c0713f17086f8f4640dc00a958280b79607aeff0cd2f9012316a2f",
+      "passed": true,
+      "result": "[PASS] blizzard_blue / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-biting-blade-red-four-live-real-hand-defense-earns-reprise-weapon-bonus-and-four-damage",
+      "returncode": 0,
+      "stdout": "[PASS] biting_blade_red / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-blizzard-blue-four-live-real-unaffordable-payment-removes-intrinsic-go-again-and-action-refund",
+      "returncode": 0,
+      "stdout": "[PASS] blizzard_blue / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 2,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

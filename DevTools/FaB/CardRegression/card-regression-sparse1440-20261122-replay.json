@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-omens-of-arcana-two-live-sparse1440-bound-native-limited-macro-setup-grants-flow-spellvoid-one",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-omens-of-arcana-two-live-sparse1440-bound-native-limited-macro-setup-grants-flow-spellvoid-one",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1440-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1440-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "8abec2cabbdafbbb3315c00e5ad741d66badae98b610fa93567696f40cb56adf",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "f13f0ca93af869dff2f7c935e5e91c4a58ff5152fb86f5f5ec6e3ba3bbbaf43c",
+        "actions.json": "94144925ac34dff327955991d7d628f5021df90ac07ec4ddc2ab19a179305f35",
+        "assertions.json": "57979b1c7557622943339a20ee710ff0a120752f4bdc04f689287d17dbd064f7",
+        "expected_final_gamestate.txt": "da56661a3f48641a4a482ee6e14af81305a571317c7bb942d9a5c52804c77a7c",
+        "meta.json": "852c23e940859e859feecb3f7f4c2693e39d0ddcd0ce973a9ab4e9089a6dd3a6"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

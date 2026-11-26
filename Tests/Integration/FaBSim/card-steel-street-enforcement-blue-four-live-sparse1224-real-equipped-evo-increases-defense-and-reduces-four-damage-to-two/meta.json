@@ -1,0 +1,7 @@
+{
+    "name": "Steel Street Enforcement / one real Evo raises defense from one to two",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-23T20:05:25+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "POSITIVE_STATIC_EVO_UPGRADE_ONLY. FourrealmanualYoungDori20x3/Dash20. PhysicalSteelStreetBlue5Hand4printeddefense1; lawfulpriorEvoTekloscope6Equipment4withconsumedownedBreakerHelmProtosSUBCARDS, ready/notdefending. ActualWounding7Hand1cost0formalHero4target/AP0/allfourfreshsourceandcombatwindows. Hero4normallydeclaresphysicalBlock5, notplayingit; EQUIPPED Evo6countsoneandstaticEVORuntime66adds1defense. Real4poweragainstactual2defensedeals2HP18(insteadof3withoutupgrade). Noattack/hitWHENonblankWoundingorBlock; existingEvo6doesnotdefend/transform/createWHEN. Block5andAttack7reachownGYs, Eq6readyunchangedowner/material, AP/R0/RNG0/maxUID7/noStack/DQs/CC. NoEvoProducer/Battleworn/materialexport/zeroEvo/multipleEvo/Hero/support/sibling/fullcardcredit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#steel_street_enforcement_blue FaBSim/Custom/EVORuntime.php FaBSim/Custom/EVOCards.php FaBSim/Custom/GameLogic.php"
+}

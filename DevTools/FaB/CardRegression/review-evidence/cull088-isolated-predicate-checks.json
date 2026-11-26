@@ -1,0 +1,54 @@
+{
+  "status": "PASS_ISOLATED_PREDICATES_NOT_NATIVE",
+  "candidate_manifest_sha256": "43dada2ba58320a4a1e7a8a1a30e6bc8b5579c08e0ea4e0ad3392523d827921a",
+  "harness_sha256": "9921d942a95aba6ac060211f17e26d2aa4be8311ee9ebada6b6fd656385be0ab",
+  "native_credit": false,
+  "checks": [
+    {
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "-l",
+        "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov4-cull088-predicate-component.php"
+      ],
+      "returncode": 0,
+      "stdout": "No syntax errors detected in C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov4-cull088-predicate-component.php\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "-l",
+        "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov4-cull382-managed-source-lifetime-proposed\\GameLogic.php"
+      ],
+      "returncode": 0,
+      "stdout": "No syntax errors detected in C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov4-cull382-managed-source-lifetime-proposed\\GameLogic.php\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov4-cull088-predicate-component.php",
+        "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\Custom\\GameLogic.php",
+        "04c1e0cfc89e837ab2d93573effdbbdcf947aa50b95d78e43522e970f9758135",
+        "before"
+      ],
+      "returncode": 0,
+      "stdout": "{\"status\":\"PASS\",\"phase\":\"before\",\"assertions\":15,\"native_credit\":false,\"actual_function_hashes\":{\"FaBKnownPlainSpellLifecycleCard\":{\"path\":\"C:\\\\xampp\\\\htdocs\\\\TCGEngine\\\\FaBSim\\\\Custom\\\\GameLogic.php\",\"source_sha256\":\"04c1e0cfc89e837ab2d93573effdbbdcf947aa50b95d78e43522e970f9758135\",\"function_sha256\":\"e66a26767c12d885c1de488ed34cbeae7169862b455328205b7f3135fb91e8bb\",\"evaluated_sha256\":\"e66a26767c12d885c1de488ed34cbeae7169862b455328205b7f3135fb91e8bb\"},\"FaBPlainSpellResolutionIsManaged\":{\"path\":\"C:\\\\xampp\\\\htdocs\\\\TCGEngine\\\\FaBSim\\\\Custom\\\\GameLogic.php\",\"source_sha256\":\"04c1e0cfc89e837ab2d93573effdbbdcf947aa50b95d78e43522e970f9758135\",\"function_sha256\":\"f425665a51d92aae63c0e7712ead23de164cbf1cab0113f037e706be9c9fa284\",\"evaluated_sha256\":\"f425665a51d92aae63c0e7712ead23de164cbf1cab0113f037e706be9c9fa284\"}}}\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov4-cull088-predicate-component.php",
+        "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov4-cull382-managed-source-lifetime-proposed\\GameLogic.php",
+        "1cdad1555c8d2e3bd3fa98d69bf52791b84d21bf2269363ddea7249f4ee35a43",
+        "after"
+      ],
+      "returncode": 0,
+      "stdout": "{\"status\":\"PASS\",\"phase\":\"after\",\"assertions\":15,\"native_credit\":false,\"actual_function_hashes\":{\"FaBKnownPlainSpellLifecycleCard\":{\"path\":\"C:\\\\Users\\\\maxim\\\\Documents\\\\Codex\\\\2026-10-19\\\\task\\\\nov4-cull382-managed-source-lifetime-proposed\\\\GameLogic.php\",\"source_sha256\":\"1cdad1555c8d2e3bd3fa98d69bf52791b84d21bf2269363ddea7249f4ee35a43\",\"function_sha256\":\"80b9ea2be812a2381a721c4b71f2fd49e829661ea6fd32c828aa5409a55f4dd4\",\"evaluated_sha256\":\"80b9ea2be812a2381a721c4b71f2fd49e829661ea6fd32c828aa5409a55f4dd4\"},\"FaBPlainSpellResolutionIsManaged\":{\"path\":\"C:\\\\Users\\\\maxim\\\\Documents\\\\Codex\\\\2026-10-19\\\\task\\\\nov4-cull382-managed-source-lifetime-proposed\\\\GameLogic.php\",\"source_sha256\":\"1cdad1555c8d2e3bd3fa98d69bf52791b84d21bf2269363ddea7249f4ee35a43\",\"function_sha256\":\"f425665a51d92aae63c0e7712ead23de164cbf1cab0113f037e706be9c9fa284\",\"evaluated_sha256\":\"f425665a51d92aae63c0e7712ead23de164cbf1cab0113f037e706be9c9fa284\"}}}\n",
+      "stderr": ""
+    }
+  ],
+  "source_before_sha256": "04c1e0cfc89e837ab2d93573effdbbdcf947aa50b95d78e43522e970f9758135",
+  "candidate_sha256": "1cdad1555c8d2e3bd3fa98d69bf52791b84d21bf2269363ddea7249f4ee35a43"
+}

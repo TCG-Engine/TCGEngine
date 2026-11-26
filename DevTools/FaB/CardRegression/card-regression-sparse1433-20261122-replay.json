@@ -1,0 +1,56 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-metex-red-four-live-sparse1433-actual-paid-boost-mechanologist-banish-and-go-again-consumer-no-hit",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-metex-red-four-live-sparse1433-actual-paid-boost-mechanologist-banish-and-go-again-consumer-no-hit",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1433-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1433-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "bddb8da9bcb976a6e2b1cd4e39bb05f56d3bac9469897bb1c27bc50f5e5a7daa",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "7c89b2777e08e5d8bd7c53c35a0fed04f609fbf2fa60458b00648d227fe31520",
+        "actions.json": "6abb41c17f578058cab1c3a67af099dc11d6c5c2b14eb0369eaf1958f8c8bf26",
+        "assertions.json": "be80df95e6ae39345abc1682551a5efac96c681e66af7aa1bb92d3a110249843",
+        "expected_final_gamestate.txt": "2d7228a43c3629fa8e655a862e304df708d1756b16f7311d66415537d8e992e0",
+        "meta.json": "2ccd79ddaac967e367281a2c6afc261065aea0cdac738107b330cec4819fea19"
+      }
+    },
+    {
+      "slug": "card-spring-a-leak-red-four-live-sparse1433-actual-paid-boost-mechanologist-banish-and-go-again-consumer-no-hit",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-spring-a-leak-red-four-live-sparse1433-actual-paid-boost-mechanologist-banish-and-go-again-consumer-no-hit",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1433-local-20261122\\clean-replays\\01.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1433-local-20261122\\clean-replays\\01.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "5afc139bf818d47af42775fa591a067a273a049ec4165f3bedfa95549a813cab",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "a0ead710106e286de8fde3e7b0c499139dc215acaba79cef500172b98afba3ea",
+        "actions.json": "6abb41c17f578058cab1c3a67af099dc11d6c5c2b14eb0369eaf1958f8c8bf26",
+        "assertions.json": "326213292fe8af46cfd8b8d09b67aa79e91d5a693e1c63a49dcd37a8036a4b4b",
+        "expected_final_gamestate.txt": "5fc84022b23b44f68ce6362c4097c9a69b4a6629485f84ff4021e5e08b848aee",
+        "meta.json": "8413212cd9ca4027eb6b4d0004dd26eb20013c3f1698c8033a2634ef604696e5"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

@@ -1,0 +1,7 @@
+{
+    "name": "Sigil of the Muse / foreign Aura replaces real draw with Ponder owned by drawer",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-23T12:48:45+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "PriorownedWizardAura5controller4YoungVerdance20isadmittedArena, noentry/startphase/producercredit. Duringturn1actionphaseYoungChane1playsactualTomeTorment6cost0/AP1to0; allfourmanualresponseskeeptopSigil7DeckandnoPonderuntilresolution. Printedglobalstaticdrawreplacementappliestoforeignhero1: actualdrawdoesnotmoveDeck7toHand/Banish; insteadonePonder8iscreatedownedcontrolledbydrawer1, notAuraowner4. Tome6ownedGY1, sameSigil7ownedDeck1, Aura5ownedArena4, HP20/R0/AP0all/noRNG/othergift. NoAuraentry/startdestroy/Ponderfuturetrigger/refill/multipledraw/replacementorder/suppression/wholecard/Hero/supportcredit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#sigil_of_the_muse_red FaBSim/Custom/IARRuntime.php FaBSim/Custom/GameLogic.php"
+}

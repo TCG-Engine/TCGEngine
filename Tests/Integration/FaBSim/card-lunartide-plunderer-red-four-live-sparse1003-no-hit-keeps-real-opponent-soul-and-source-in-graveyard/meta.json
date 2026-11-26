@@ -1,0 +1,7 @@
+{
+    "name": "Lunartide Plunderer / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-23T01:45:32+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "When this hits a hero, banish this and up to 1 card from their soul. Named partial branch no_hit_keeps_real_opponent_soul_and_source_in_graveyard. Legal natural20 levia, primary5 Hand, realBlue6 pays printed3 leavingR0/AP0; actual7 attack fully blocked by real Hand AA defense9. Persisted attackPower/defenseValue/0damage/HP20/noHit/Stack0, source5 and all real defenders reach respective owner graveyards. Allfour live/manual; no hero activation or hit effect earned. Enemy legalLight Boltyn4 Soul10 remains; original source5 reaches own Graveyard, all Banish0. No self/Soul banish. No positive hit/creator/permission/hero/support/pitch-sibling/full-card credit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#lunartide_plunderer_red"
+}

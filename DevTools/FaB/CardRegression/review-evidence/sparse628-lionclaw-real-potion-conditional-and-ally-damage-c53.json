@@ -1,0 +1,428 @@
+{
+  "status": "APPROVED_ACTUAL_SAVED_LIONCLAW_MAUL",
+  "approved": true,
+  "source_approved": true,
+  "semantically_approved": true,
+  "reviewer": "/root/b106_semantic_review",
+  "reviewer_independent": true,
+  "created_utc": "2026-11-06T18:11:08.882315+00:00",
+  "source_spec": "card-regression-batch628-lionclaw-maul.json",
+  "input_sha256": "7229412649dc26f7b16a67986f1bfeadaa7a3a8ddf9ba42ed0963d379a566cf4",
+  "manifest_sha256": "4e4d95df5e8ecdd61e95cb80450478fd330c2d05b588415b365b7af50f1b01f4",
+  "runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+  "recorded_runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+  "recorder_sha256": "ab33a3250462d0453f71d38dd4138cb9fbc3d595d2586742e989a52251c9c4a9",
+  "source_guards_verified": 70,
+  "prior_independent_semantic_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch628-independent-source-review.json",
+    "sha256": "931468d2aadb232ba3651528e1ac0e55851c2311e10736a1af07afce26376937",
+    "unchanged_semantics_reused": true
+  },
+  "recording_receipt": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch628-lionclaw-maul-20261106T180547Z-6aee16fb8fb4f.json",
+    "sha256": "267f5156af0a4069e30e451bdf5d58b3d8e9cd96299b1f9f6257a07820785610"
+  },
+  "specific_results": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch628-lionclaw-maul.recording-results.json",
+    "sha256": "ee6052ac4c38fe00ceed247d3d005752c154eee0b84f4f7770973f049ea94364"
+  },
+  "root_wrapper_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch628-lionclaw-maul-native-c53\\receipt.json",
+    "sha256": "bcb3720937b1e5bb0b0cb2e5a4b88dd3490afdf2a415d2677c28ddaca7b823ee"
+  },
+  "fixtures": [
+    {
+      "index": 0,
+      "card_id": "lionclaw_maul",
+      "group_id": "identity:lionclaw_maul",
+      "slug": "card-lionclaw-maul-four-live-real-potion-buff-conditional-plus-one-and-four-ally-damage",
+      "source_spec": "card-regression-batch628-lionclaw-maul.json",
+      "input_sha256": "7229412649dc26f7b16a67986f1bfeadaa7a3a8ddf9ba42ed0963d379a566cf4",
+      "reviewer": "/root/b106_semantic_review",
+      "approved": true,
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_PAID_TAPPED_CONDITIONAL_FOUR_ALLY_DAMAGE",
+      "runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+      "recorded_runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+      "fixture_path": "Tests\\Integration\\FaBSim\\card-lionclaw-maul-four-live-real-potion-buff-conditional-plus-one-and-four-ally-damage",
+      "fixture_sha256": "5d7fcf0d7751094559cc1d2a72666bf2cf808c1290f78329935a6a159e8097f6",
+      "raw4_sha256": {
+        "initial_gamestate.txt": "0491adc25988d67ef9aec90c78a4050c5b5f206179487afcdfa014d298c4ccb1",
+        "actions.json": "b656b72c744a7f117bff46b4f2198815cd7bd6d36acccd05e72f04bb08628380",
+        "assertions.json": "b6723a7a517804875b91338f7e77687f236bfd5134330892f851784fbf935c99",
+        "expected_final_gamestate.txt": "b73410b6305ca425a62b7a573548861c5833235fea49e702ecb61f4ab1e956f5"
+      },
+      "raw5_sha256": {
+        "initial_gamestate.txt": "0491adc25988d67ef9aec90c78a4050c5b5f206179487afcdfa014d298c4ccb1",
+        "actions.json": "b656b72c744a7f117bff46b4f2198815cd7bd6d36acccd05e72f04bb08628380",
+        "assertions.json": "b6723a7a517804875b91338f7e77687f236bfd5134330892f851784fbf935c99",
+        "expected_final_gamestate.txt": "b73410b6305ca425a62b7a573548861c5833235fea49e702ecb61f4ab1e956f5",
+        "meta.json": "401ab8be1e0f5f8937d6017cd554359501431c6eaefac0fc2999a902112039df"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "0491adc25988d67ef9aec90c78a4050c5b5f206179487afcdfa014d298c4ccb1",
+        "actions.json": "b656b72c744a7f117bff46b4f2198815cd7bd6d36acccd05e72f04bb08628380",
+        "assertions.json": "b6723a7a517804875b91338f7e77687f236bfd5134330892f851784fbf935c99",
+        "expected_final_gamestate.txt": "b73410b6305ca425a62b7a573548861c5833235fea49e702ecb61f4ab1e956f5",
+        "meta.json": "401ab8be1e0f5f8937d6017cd554359501431c6eaefac0fc2999a902112039df"
+      },
+      "actions": 33,
+      "native_assertions": 3298,
+      "actual_manual_passes": 29,
+      "actual_priority_response_passes": 28,
+      "actual_defender_declaration_finish_inputs": 1,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4
+      ],
+      "actual_manual_actor_counts": {
+        "1": 7,
+        "2": 7,
+        "3": 7,
+        "4": 8
+      },
+      "schema_property_assertions": 1210,
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "all_actions_and_assertions_exact": true,
+      "no_recorder_only_assertions": true,
+      "all_endpoint_physical_uid_card_zones_ownership_verified": true,
+      "all_terminal_assertions_evaluated_against_parsed_final_snapshot": true,
+      "initial_assertions_also_evaluated_against_parsed_initial_snapshot": true,
+      "initial_physical_uid_locations": {
+        "1": {
+          "card_id": "lyath_goldmane",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "7": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "lionclaw_maul",
+          "zone": "p1Weapons",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "potion_of_strength_blue",
+          "zone": "p1Arena",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "chane",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2
+        },
+        "8": {
+          "card_id": "ursur_the_soul_reaper",
+          "zone": "p4Arena",
+          "owner": 4,
+          "controller": 4
+        },
+        "9": {
+          "card_id": "eclipse_blue",
+          "zone": "p4Graveyard",
+          "owner": 4,
+          "controller": 4
+        },
+        "10": {
+          "card_id": "fasting_carcass_red",
+          "zone": "p4Graveyard",
+          "owner": 4,
+          "controller": 4
+        },
+        "11": {
+          "card_id": "fasting_carcass_red",
+          "zone": "p4Graveyard",
+          "owner": 4,
+          "controller": 4
+        },
+        "12": {
+          "card_id": "fasting_carcass_yellow",
+          "zone": "p4Graveyard",
+          "owner": 4,
+          "controller": 4
+        },
+        "13": {
+          "card_id": "fasting_carcass_yellow",
+          "zone": "p4Graveyard",
+          "owner": 4,
+          "controller": 4
+        },
+        "14": {
+          "card_id": "fasting_carcass_blue",
+          "zone": "p4Graveyard",
+          "owner": 4,
+          "controller": 4
+        },
+        "15": {
+          "card_id": "fasting_carcass_blue",
+          "zone": "p4Graveyard",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_physical_uid_locations": {
+        "1": {
+          "card_id": "lyath_goldmane",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "5": {
+          "card_id": "lionclaw_maul",
+          "zone": "p1Weapons",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "potion_of_strength_blue",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Pitch",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "chane",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2
+        },
+        "8": {
+          "card_id": "ursur_the_soul_reaper",
+          "zone": "p4Arena",
+          "owner": 4,
+          "controller": 4
+        },
+        "9": {
+          "card_id": "eclipse_blue",
+          "zone": "p4Graveyard",
+          "owner": 4,
+          "controller": 4
+        },
+        "10": {
+          "card_id": "fasting_carcass_red",
+          "zone": "p4Graveyard",
+          "owner": 4,
+          "controller": 4
+        },
+        "11": {
+          "card_id": "fasting_carcass_red",
+          "zone": "p4Graveyard",
+          "owner": 4,
+          "controller": 4
+        },
+        "12": {
+          "card_id": "fasting_carcass_yellow",
+          "zone": "p4Graveyard",
+          "owner": 4,
+          "controller": 4
+        },
+        "13": {
+          "card_id": "fasting_carcass_yellow",
+          "zone": "p4Graveyard",
+          "owner": 4,
+          "controller": 4
+        },
+        "14": {
+          "card_id": "fasting_carcass_blue",
+          "zone": "p4Graveyard",
+          "owner": 4,
+          "controller": 4
+        },
+        "15": {
+          "card_id": "fasting_carcass_blue",
+          "zone": "p4Graveyard",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_GY1_exact_UIDs": [
+        6
+      ],
+      "final_GY4_exact_UIDs": [
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15
+      ],
+      "prior_GY4_raw_unchanged": true,
+      "temporary_UIDs_ceased": [
+        16,
+        17
+      ],
+      "final_physical_uidset": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15
+      ],
+      "final_UniqueIDCounter": 17,
+      "RandomCounter": 0,
+      "final_health": [
+        20,
+        20,
+        20,
+        20
+      ],
+      "final_resources": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "actual_Ally_UID": 8,
+      "actual_Ally_Damage": 4,
+      "remaining_Ally_life_derived": 2,
+      "unsupported_computed_life_getter_claimed": false,
+      "full_card_certification": false,
+      "native_action_mapping_sha256": "5ad7784b165916fa30de911eed8d9fab50b14324c329bb37f767f762e74cd6f8",
+      "native_assertion_mapping_sha256": "ea37f892c0bc7526f5308355b98256ab7f34a6852459fe09678307ecb4752e27"
+    }
+  ],
+  "blocked_attempts": [],
+  "total_actions": 33,
+  "total_native_assertions": 3298,
+  "total_manual_passes": 29,
+  "total_schema_property_assertions": 1210,
+  "material_findings": [
+    "Raw5/all33actualnativeenvelopes3298orderedchecks29manual7,7,7,8/raw48preferencesateachendpoint/70c53guards+ab33/immutablearchive exactly match own source931468; originalfullinventories preserved, all initial/final native assertions independently parsed.",
+    "Actual Potion6Action0 spendsAP1/destroys same6 before capturedABI16; freshfour onlythen refundsAP1 and grants nextAttack+2. That refund funds realMaul5Action2; Blue7pitch3 pays2/R1AP0, actualprintedtap before source17freshfour. Livepower4/noGA is effectivebaseceil(1/2)=1 +realPotion2 +primaryconditional1.",
+    "Same owned P4Ursur8life6 target receives4Damage and survives2remaininglife (derived), allHeroHP20. No Hero-hitBoo/LyathBooWHEN earned or omitted. FullClose retains sameMaul5tappedDamage0/usecounters andUrsur8readyDamage4; Potion6GY1/Blue7Pitch1, priorGY4 exactUIDset{9..15}/rawobjects unchanged, originalUID1..15 conserved, virtual16/17ceased/counter17/RNG0/R1AP0/quiet.",
+    "Rules-only priorPotionplay/Chane sixFastingactualplays→Eclipse/Ursur/Handacquisition and expiredTRoM residuals reused from approved provenance; those producer histories are not newly executed/certified. Mistblade source-only planning remains separate, absent from recipe. Rootreplay/registration gates are not claimed by reviewer."
+  ],
+  "primary_sources": [
+    {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\WebpImages\\lionclaw_maul.webp",
+      "sha256": "a42a5a35f89441613e064acb8d002b39dcd8ba52e4c2844efc26ae0e0a550eab",
+      "actually_viewed": true
+    },
+    {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\WebpImages\\lyath_goldmane.webp",
+      "sha256": "eef5e02ed10cdc0a55b00128e4a83fdb50e10ceaa378e13f2c5083c87df8f800",
+      "actually_viewed": true
+    },
+    {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\WebpImages\\potion_of_strength_blue.webp",
+      "sha256": "e5f534805080815cd8cc8885eb83456456977783b29e3eccdb3bdbf892256670",
+      "actually_viewed": true
+    },
+    {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\WebpImages\\ursur_the_soul_reaper.webp",
+      "sha256": "2159310d72f5ce18abcd094feba43f0776f4d97a49134a25f3c7ffddfdb1b40b",
+      "actually_viewed": true
+    },
+    {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\WebpImages\\eclipse_blue.webp",
+      "sha256": "9cd51e1ed1c0d548cb56d02f051fa31746b4cd275ebfe55269d9059e1ed18d65",
+      "actually_viewed": true
+    },
+    {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\WebpImages\\fasting_carcass_blue.webp",
+      "sha256": "e8c35a4156085711a7c4766cf2661dc7ff6bac30d0198c66bb743c09170ea4f1",
+      "actually_viewed": true
+    }
+  ],
+  "limits": [
+    "One positive realPotion-poweredMaul conditional4/actualAllyDamage branch. No HeroBoo/LyathWHEN/negativecondition/otherbase/secondPotion/repeatedweapon/alternateHero or support/fullcard certification.",
+    "Prior Eclipse/Fasting/Chane/Ursurcreation/Potionproducer/Handacquisition are legal setup provenance only. Future End ally-heal event is unreached/unrun; retained currentDamage4 is required, not expiry/heal certification.",
+    "No unchanged source/history audit, PHP/native/replay/R/source/fullsuite/remote/deniedrepair by reviewer; only actual Saved approval, qualification/promotion remains Root. Opaque undo hash-bound and excluded from physical inventory."
+  ],
+  "qualification_credit_before_registration": false,
+  "blockers": [],
+  "actual_comparison_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov6_batch628_saved_readonly.py",
+    "sha256": "b10a461357f595faf57ce208cfa612829d15354d9899828902a72921510d6d8f"
+  }
+}

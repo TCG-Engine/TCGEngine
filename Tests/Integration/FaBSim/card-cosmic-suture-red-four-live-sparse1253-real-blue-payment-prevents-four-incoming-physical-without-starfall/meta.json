@@ -1,0 +1,7 @@
+{
+    "name": "Cosmic Suture / paid defensive instant prevents real four damage without Starfall",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-24T00:26:56+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "RED_PREVENT4_WITHOUT_PRIOR_STARFALL_ONLY. NaturalYoungDori20x3/Oscilio18 allmanual4. ActualWounding5Hand1declaresadjacentHero4,cost0AP0,allfourresponses,actualprinted4attack. AtREACTION4actualCosmic6Hand4playsInstantcost2,Blue7reallypitches3/R1/AP4remains0; physicalInstant6Stackthroughallfourmanualresponses/GY0. EmptyinitialGY/noInstantplayedpreviously; Blue7pitchednotplayed, soStarfallfalsewhileCosmicresolvesonStack. Preventnext4printedbuffearnedbyactualresolve, notseeded. Realunblocked4attackhasdefense0butdeals0/attackHitfalse/HP18, nothealing/blocking. FinalownedAttack5GY1/Cosmic6GY4/Blue7Pitch4, allHP18/R4one/APall0/UID7RNG0/emptyStackDQsCC. NoStarfallpositive/arcanetarget/damagechoice/partialorsecondpacket/otherpitch/Hero/support/fullcardcredit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#cosmic_suture_red FaBSim/GeneratedCode/GeneratedMacroCode.php FaBSim/Custom/WTRCards.php FaBSim/Custom/GameLogic.php"
+}

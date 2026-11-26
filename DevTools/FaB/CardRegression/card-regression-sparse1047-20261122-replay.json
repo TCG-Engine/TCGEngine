@@ -1,0 +1,102 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "heavy-industry-gear-shift-four-live-sparse1047-real-defense-battleworn-close",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=heavy-industry-gear-shift-four-live-sparse1047-real-defense-battleworn-close",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1047-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1047-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "de93d7b445ea55de080943b7a5963effcb380819579de18e98b511015c1bcb57",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "2d5567e730225b328e53ffcee9239659c7d253be88d48c5b8d01319ec8343c51",
+        "actions.json": "511bf2f3686ee96e12e3d9cdbe580febcac902b797e5ec827a96d5ccd74ac457",
+        "assertions.json": "6b7ebe9f68586af0c9d057e123f1a46aca15dccffb2b8b344766ef451288ca52",
+        "expected_final_gamestate.txt": "ee239b0d2669638ea5ce9d82bc3965cd613f0f9841ba19ec24134bf98e5b0b1f",
+        "meta.json": "34a246260a5d57048803e435be50ecc3fead9f41cc27365e1958c9fe93a315f2"
+      }
+    },
+    {
+      "slug": "mask-of-perdition-four-live-sparse1047-real-defense-battleworn-close",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=mask-of-perdition-four-live-sparse1047-real-defense-battleworn-close",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1047-local-20261122\\clean-replays\\01.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1047-local-20261122\\clean-replays\\01.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "013d2389276130f9bc2bb490a4a84f5b07914f14e038fe65d76d8e02d659bbf5",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "c198124f6ae1b2d8234d4344dc677d893e6efec89d6de0a229fb2bfa95376f8f",
+        "actions.json": "511bf2f3686ee96e12e3d9cdbe580febcac902b797e5ec827a96d5ccd74ac457",
+        "assertions.json": "99864d2e5b5b4ce8b48b711d3765dd6e2eae07b61d202df6d885835d482ae75f",
+        "expected_final_gamestate.txt": "d14ba9924654e2d9cc05b03faa9a4f5eb7ecab0ff6a0f1b684044f191eec5edc",
+        "meta.json": "480de23c235df328bd0bfa37b64547136dce3624a0eb9c68093aef275a86265e"
+      }
+    },
+    {
+      "slug": "shriek-razors-four-live-sparse1047-real-defense-battleworn-close",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=shriek-razors-four-live-sparse1047-real-defense-battleworn-close",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1047-local-20261122\\clean-replays\\02.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1047-local-20261122\\clean-replays\\02.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "8fc06e945db813f365aa34b78036bec978d49eb3a7cd938ff590c45fb7b814b3",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "2fa26d7be18ca0de732281181790045f51ef9ce74d275655f90e517448f1e0e7",
+        "actions.json": "511bf2f3686ee96e12e3d9cdbe580febcac902b797e5ec827a96d5ccd74ac457",
+        "assertions.json": "87da76fe769d19183d43009de964ad7c03708b54543405c42f811d8132492609",
+        "expected_final_gamestate.txt": "1b1113a1d005fe75f8607c03ff23adf965e3215d986687c83539d2a11243dfa5",
+        "meta.json": "d8fdc362b4f2d84984ae63776c16a6052b88fa8f92248ac467814ff224aa2e04"
+      }
+    },
+    {
+      "slug": "longsword-leggings-four-live-sparse1047-real-defense-battleworn-close",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=longsword-leggings-four-live-sparse1047-real-defense-battleworn-close",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1047-local-20261122\\clean-replays\\03.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1047-local-20261122\\clean-replays\\03.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "3a5dbd9b5ddae74041990922260a9be62f32ff5b1802ea33c2a4afd459c29ec5",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "a08b2f2287e3ab767344025486a2ec6f7e5bf05cbc6ca21c776d0fd280230d8e",
+        "actions.json": "511bf2f3686ee96e12e3d9cdbe580febcac902b797e5ec827a96d5ccd74ac457",
+        "assertions.json": "e5b1dcf7bd4860d4684f71b57148373eb9b1101128d7760e9e72daff7ef21f7e",
+        "expected_final_gamestate.txt": "669990661429382c94c8ff08cc8d45e74a1e761500c0da93b421622a731c9c2b",
+        "meta.json": "d1b6cc0dcf69d570daec0582f57a34416ce6a74882b6efcf250b3665e294fe03"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

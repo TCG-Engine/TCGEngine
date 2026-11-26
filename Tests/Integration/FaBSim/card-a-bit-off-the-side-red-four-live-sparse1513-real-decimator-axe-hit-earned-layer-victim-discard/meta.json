@@ -1,0 +1,7 @@
+{
+    "name": "A Bit Off the Side / real Axe hit earns responseable layer and victim discard",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-25T08:58:34+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Primary5 actualzeroCostAction resolves5GY/AP1 afterallfourmanualresponses. Activate realDecimator7, mandatoryadjacentHero4declaredbeforecost3, Blue6pitch3paysallR0/AP0/weaponTapped/proxy10. No defenders means noDecimator defendtrigger; unchargedBoltyn noHeroability. Actual4powerAxe deals4/HP16 and earnsABI11(primaryCardID,sourceproxy10), fourresponsepassesbeforevictim4chooser. SameABI11retainedthroughchoice; victimchoosesRed8GY, Potion9Hand. ABIclearsinDAMAGE; remainingmanualpassesclose withoutduplicateABI/discard/damage/refund. Primary5GY/weapon7Weapons/Blue6Pitch/R0/AP0. Positiveprimarygrantedhitdiscard/goagain; noDecimatorsecondaryability, multiplehits, expiry, siblings orwholecardcredit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#a_bit_off_the_side_red FaBSim/GeneratedCode/GeneratedMacroCode.php#a_bit_off_the_side_red FaBSim/Custom/OMNCards.php#FaBOMNHit FaBSim/Custom/ROSCards.php#FaBROSQueue FaBSim/Custom/GameLogic.php#FaBManagedVirtualResolutionClass FaBSim/Custom/GameLogic.php#FaBFinishReactionResolution"
+}

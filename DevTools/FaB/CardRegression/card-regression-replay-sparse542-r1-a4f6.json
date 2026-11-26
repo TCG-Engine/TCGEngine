@@ -1,0 +1,27 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch542.json",
+  "runtime_sha256": "a4f6dce9193c6e6f859f92e28121b1bdc0b78195500eba765f61f72524be40ba",
+  "returncode": 0,
+  "completed_utc": "2026-11-06T00:25:24.855544+00:00",
+  "fixtures": [
+    {
+      "slug": "card-patch-the-hole-four-live-real-destroy-instant-returns-owned-arsenal-card-for-four-damage",
+      "fixture_sha256": "cc9c2721e302ad69a06cc760b18b30e5f8d25c4a4db5c1a36341ff5ee27aa3db",
+      "passed": true,
+      "result": "[PASS] patch_the_hole / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-patch-the-hole-four-live-real-destroy-instant-returns-owned-arsenal-card-for-four-damage",
+      "returncode": 0,
+      "stdout": "[PASS] patch_the_hole / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

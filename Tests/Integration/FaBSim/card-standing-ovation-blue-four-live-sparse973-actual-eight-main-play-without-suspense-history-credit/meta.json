@@ -1,0 +1,7 @@
+{
+    "name": "Standing Ovation / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T23:00:33+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "If 3 or more auras of suspense have left the arena this turn, this gets \"When this hits a hero, take an extra turn after this one. At the beginning of the next end phase, they draw up to their {i}.\" Representative only: actual_eight_main_play_without_suspense_history_credit. Actual two Blue6/7 pitches pay printed4/5/6, firstR3/AP1/PITCH thenR2/1/0/AP0. Four-live manual combat, physical source5 owned graveyard; real retained markers. No positive typed Crush/Tower/discard/extra turn/future effect or hero activation credit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#standing_ovation_blue"
+}

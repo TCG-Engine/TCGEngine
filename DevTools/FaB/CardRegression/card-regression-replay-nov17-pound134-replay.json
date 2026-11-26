@@ -1,0 +1,27 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-repair-pound134-resolution-condition.json",
+  "runtime_sha256": "1b38ff271b35d26ef5b022618082ef84122b0c0f0387748587c4ee8989af86c9",
+  "returncode": 0,
+  "completed_utc": "2026-11-17T04:22:43.165405+00:00",
+  "fixtures": [
+    {
+      "slug": "card-pound-for-pound-red-four-live-real-opposing-heal-earns-responseable-play-dominate-one-hand-block-and-three-damage",
+      "fixture_sha256": "3df840a7be15cfdfc1f56030bd292cd825978aa5b79b4871e8c6440c7d0ef686",
+      "passed": true,
+      "result": "[PASS] pound_for_pound_red / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-pound-for-pound-red-four-live-real-opposing-heal-earns-responseable-play-dominate-one-hand-block-and-three-damage",
+      "returncode": 0,
+      "stdout": "[PASS] pound_for_pound_red / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

@@ -1,0 +1,56 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-perforate-yellow-four-live-sparse1519-actual-generic-attack-fails-specific-reaction-target-guard",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-perforate-yellow-four-live-sparse1519-actual-generic-attack-fails-specific-reaction-target-guard",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1519-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1519-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "dce87ef91a2ac8988ed0557be229bcae85deba815559fbe9a0bc9954b6273ace",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "ee01ad788f6588bac82dd3909817a1bac89afb4297430febde3970c5a6ed1ace",
+        "actions.json": "33011af21c84c32e1d3403a2fc580d1e46c0bef8b774f34c7533978a762bb108",
+        "assertions.json": "5b27f7bf0d485080093428df6a1ebaf9bc3eab0400695761f812544bf3331e45",
+        "expected_final_gamestate.txt": "c2512e098d9eab970584cc7a4c0673b35139e6de9624b20868231b1ef4d50ac3",
+        "meta.json": "e5088cb17c9684565f75955e5f5ebc4c55e45c76d4fc1afd38672b76a9318c2d"
+      }
+    },
+    {
+      "slug": "card-tarantula-toxin-red-four-live-sparse1519-actual-generic-attack-fails-specific-reaction-target-guard",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-tarantula-toxin-red-four-live-sparse1519-actual-generic-attack-fails-specific-reaction-target-guard",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1519-local-20261122\\clean-replays\\01.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1519-local-20261122\\clean-replays\\01.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "6bccb77be4d0a862cf290e6234b8f66241ec72759fbebf230463c19a1081a5c3",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "78272757259241f6ca6992809fbda1aefc8c48468dbd2fd9d480059cc01aef74",
+        "actions.json": "33011af21c84c32e1d3403a2fc580d1e46c0bef8b774f34c7533978a762bb108",
+        "assertions.json": "84f131c609ec3896e2f5fbd211fed65d2b58b131ead7dad5bc42d478000fa050",
+        "expected_final_gamestate.txt": "f8c3c49a4c233b005bbe24ea31faea5818c5fa850cf34e99cd1d6805e59c7597",
+        "meta.json": "c74761520109abdb204810533ea00b48589ee497564c0222c9905d1255882736"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

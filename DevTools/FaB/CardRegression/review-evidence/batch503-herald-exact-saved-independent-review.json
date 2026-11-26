@@ -1,0 +1,309 @@
+{
+  "status": "APPROVED_ACTUAL_SAVED_B503_HERALD_DOMINATE_PHANTASM",
+  "approved": true,
+  "source_approved": true,
+  "semantically_approved": true,
+  "reviewer": "/root/b106_semantic_review",
+  "reviewer_independent": true,
+  "created_utc": "2026-11-05T19:13:34.321805+00:00",
+  "source_spec": "card-regression-batch503.json",
+  "input_sha256": "103f9cef7a1b7ed0efc3698bb108fb0b2bba58a31a5998ca85bfc24b3cc92c64",
+  "manifest_sha256": "e26286a169a55694fb88cbc417b5597bb766e8fcb12c3227b259c4ac3ac3140d",
+  "runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+  "recorded_runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+  "source_guards_verified": 69,
+  "prior_independent_semantic_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch503-independent-source-review.json",
+    "sha256": "e560cb8e8e7852c51f02fec64efd7a74e89e1daca48761b8ffe9783facb83f3c",
+    "unchanged_normative_source_reused": true
+  },
+  "recording_receipt": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch503-20261105T190539Z-6aecd383e5430.json",
+    "sha256": "38c96f04605f889315606ca813a0f166805e7f2d26af819b158204e8ab038800"
+  },
+  "specific_results": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch503.recording-results.json",
+    "sha256": "7fd74fc9d1bac41d7f8a2beddaa1a918d1b78df7b7963214d293c8647e907cdc"
+  },
+  "root_wrapper_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch503-native-r1-9e984\\receipt.json",
+    "sha256": "c37434f137c4621dbd7d5cd0daa2d66dd16505d120766db6fb0f7e3d6d037631"
+  },
+  "fixtures": [
+    {
+      "index": 0,
+      "card_id": "herald_of_tenacity_red",
+      "group_id": "pitch-cycle:herald_of_tenacity",
+      "slug": "card-herald-of-tenacity-red-four-live-real-dominate-second-hand-rejection-and-earned-phantasm-destruction-before-damage",
+      "source_spec": "card-regression-batch503.json",
+      "input_sha256": "103f9cef7a1b7ed0efc3698bb108fb0b2bba58a31a5998ca85bfc24b3cc92c64",
+      "reviewer": "/root/b106_semantic_review",
+      "approved": true,
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_DOMINATE_SECOND_HAND_REJECTION_AND_PHANTASM_DESTROY_CLOSE",
+      "runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+      "recorded_runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+      "fixture_path": "Tests\\Integration\\FaBSim\\card-herald-of-tenacity-red-four-live-real-dominate-second-hand-rejection-and-earned-phantasm-destruction-before-damage",
+      "fixture_sha256": "68ed05ed8863447d1fe22468fd328bb20a7b643ab935c3e0eeea62d132b3bc42",
+      "raw4_sha256": {
+        "initial_gamestate.txt": "da997d02bc822d136fee2d2d43041a2d2fcac63ef91c61b78d3e62ce3f2b1afa",
+        "actions.json": "c15c6068794974346d4c1387d8750d90bd820dfbee98638a511001bbb71f7cc7",
+        "assertions.json": "360a218205c6010253b6e81c9b007d76301c3ac1d0adf8ca68bd258290742bf0",
+        "expected_final_gamestate.txt": "d043bcc2d6510a01f0095d124f7c2f701b4777a00fc51951f0552984864340d0"
+      },
+      "raw5_sha256": {
+        "initial_gamestate.txt": "da997d02bc822d136fee2d2d43041a2d2fcac63ef91c61b78d3e62ce3f2b1afa",
+        "actions.json": "c15c6068794974346d4c1387d8750d90bd820dfbee98638a511001bbb71f7cc7",
+        "assertions.json": "360a218205c6010253b6e81c9b007d76301c3ac1d0adf8ca68bd258290742bf0",
+        "expected_final_gamestate.txt": "d043bcc2d6510a01f0095d124f7c2f701b4777a00fc51951f0552984864340d0",
+        "meta.json": "fbf9d2f7e4e6039eb3c2af4b341a0325de9b73d9e1801fae33ea32824da4417d"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "da997d02bc822d136fee2d2d43041a2d2fcac63ef91c61b78d3e62ce3f2b1afa",
+        "actions.json": "c15c6068794974346d4c1387d8750d90bd820dfbee98638a511001bbb71f7cc7",
+        "assertions.json": "360a218205c6010253b6e81c9b007d76301c3ac1d0adf8ca68bd258290742bf0",
+        "expected_final_gamestate.txt": "d043bcc2d6510a01f0095d124f7c2f701b4777a00fc51951f0552984864340d0",
+        "meta.json": "fbf9d2f7e4e6039eb3c2af4b341a0325de9b73d9e1801fae33ea32824da4417d"
+      },
+      "actions": 18,
+      "native_assertions": 1739,
+      "actual_manual_passes": 13,
+      "actual_priority_response_passes": 12,
+      "actual_defender_declaration_finish_inputs": 1,
+      "actual_administrative_END_PHASE_passes": 0,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4
+      ],
+      "actual_manual_actor_counts": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 4
+      },
+      "schema_property_assertions": 524,
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "all_actions_and_assertions_exact": true,
+      "no_recorder_only_assertions": true,
+      "all_endpoint_physical_uid_card_zones_ownership_verified": true,
+      "all_terminal_assertions_evaluated_against_parsed_final_snapshot": true,
+      "initial_assertions_also_evaluated_against_parsed_initial_snapshot": true,
+      "initial_physical_uid_locations": {
+        "1": {
+          "card_id": "prism",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "herald_of_tenacity_red",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4
+        },
+        "7": {
+          "card_id": "brutal_assault_red",
+          "zone": "p4Hand",
+          "owner": 4,
+          "controller": 4
+        },
+        "8": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p4Hand",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_physical_uid_locations": {
+        "1": {
+          "card_id": "prism",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "herald_of_tenacity_red",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Pitch",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4
+        },
+        "8": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p4Hand",
+          "owner": 4,
+          "controller": 4
+        },
+        "7": {
+          "card_id": "brutal_assault_red",
+          "zone": "p4Graveyard",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_health": [
+        20,
+        20,
+        20,
+        20
+      ],
+      "final_resources": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_physical_uidset": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "final_UniqueIDCounter": 9,
+      "RandomCounter": 0,
+      "checkpoint_assertion_mapping_sha256": "a834bc351bba2f401792d29b46c38d17d8f62b6e51e174a7deaecb3a01a93a9f",
+      "native_action_mapping_sha256": "dbb9fab9d79515eb76c929617f9dc9e05125df41ff421470494b36e735872bb8",
+      "native_assertion_mapping_sha256": "994cad93104ef889cb2b8b8beac759da5ad75bf9eefc62581e9b7bac1b45ba5e"
+    }
+  ],
+  "blocked_attempts": [],
+  "total_actions": 18,
+  "total_native_assertions": 1739,
+  "total_manual_passes": 13,
+  "total_priority_response_passes": 12,
+  "total_defender_declaration_finish_inputs": 1,
+  "total_schema_property_assertions": 524,
+  "material_findings": [
+    "All raw5/18nativeactionenvelopes/1739orderedpersistedchecks/524properties/13manual(12responses+1declarationfinish), allfourlive/manual and48rawpreferencesateachendpoint independently equalapproved103fsource/current69guards9. No Source/legacy re-audit orengine/reviewer replay execution.",
+    "ActualBlue6pitches3forprimary2/R1AP0, same5attacksP4. ActualGenericBrutal7six-powerAA declared as firstHanddefender. Next actualP4Hand0click is physicalBlue8 and all86 before/afterchecks EXACTidentical, with actualP4priority/declaration and same8remainingHand; supports correctDominate rejection rather than wrongseat/noaction substitute.",
+    "Actualdeclarationcompletion earnsonecapturedPhantasmABILITY/CardIDHerald/controller1/sourceCombatChainUID5/Counter9. Firstthreefreshmanualresponses retainthatlayerandphysicalattack5+defender7/Soul0/allHP20. Fourth resolvesbeforeDamage and same5is ownpublicGY1/same7ownpublicGY4; chainabruptlycloses/no earnedhit/Soul/APrefund. DedicatedsyncPhantasmroute reused, notgenericROS/heldrepair.",
+    "FullcurrentphysicalUID1..8verified acrossallzones;5GY1/6Pitch1/7GY4/8Hand4; originalfourHeroes/Blue6/unusedBlue8 whole rawunchanged. Counter9/noRNG/StackChainsDQsawaitpaymentcombatquiet/R1AP0/allHP20. RawABIUniqueID was not separately authoredasserted; capturedsourcefields/oneallocation andfinalabsence ofvirtualobjects are witnessed. OpaqueundoVersionshashboundbutexcludedfromcurrentinventory."
+  ],
+  "primary_sources": [
+    {
+      "url": "https://judge.fabtcg.com/cards/detail/753/",
+      "finding": "Current primary2/base6/Dominate/WHEN hitSoul/Phantasm."
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/08-keywords/",
+      "rules": [
+        "8.3.4",
+        "8.3.13a",
+        "8.3.13b"
+      ],
+      "finding": "Dominate limits Hand defenders; Phantasm earnedlayerrechecks and destroys, closingchain if beforeDamage."
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/07-combat/",
+      "rules": [
+        "7.3.2b",
+        "7.3.2d",
+        "7.3.3"
+      ],
+      "finding": "Legaldeclareddefendersformamulti-event before priority; notplayingdefendercards."
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/04-game-structure/",
+      "rules": [
+        "4.2.1",
+        "4.2.2"
+      ],
+      "finding": "AdjacentEarthlorehold: StartPhasenoPriority/startlayersautomaticallyresolve; missingmanualABI is not a correct failureoracle."
+    }
+  ],
+  "adjacent_unattempted_hold": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch503-herald-phantasm-first-ready-author\\earthlore-empowerment-unattempted-start-turn-dispatch-hold.json",
+    "sha256": "4616ca7742ff2f32cc859d23283ae39a0ccd41b00a402299e0e5238499554cb1",
+    "card_id": "earthlore_empowerment_red",
+    "scope": "Only selected automatic-start-turn buff dispatch unestablished; no implementation-absence/nativebug/manualStartpriorityclaim.",
+    "native_attempted": false,
+    "fixture_saved": false,
+    "confirmed_bug": false,
+    "coverage_credit": false
+  },
+  "limits": [
+    "ONE HeraldTenacityRed representative only: realDominate secondHand rejection and earnedPhantasm destruction/fullclose beforeDamage.",
+    "No hit-to-Soul/negativePhantasm/modifiedblocker/otherpitches/supportprimary/hero/sibling/fullcard credit.",
+    "Earthlore compact selected-start-turn-dispatch unattempted hold only; no input/native/fixture/coverage/confirmedbug/sourcefix.",
+    "Actual source9/69guards; no PHP/native/R/source/gen/service/fullsuite/deniedretry/git/remote writes.",
+    "Only positive realDominate secondHandrejection plus earned6powerPhantasmdestruction/abruptclose. No hitSoul/negativecondition/Illusionistblocker/modifiedpower/suppression/foreigncontrol/multipitch/hero/supportprimary/sibling/fullcardcredit.",
+    "UnderlyingDEFEND_PRIORITYwithABIis supportedselectednativeprotocol, not normativeprioritywindowname. No attempt to certify othertrigger/incarnation/lifetimebranches.",
+    "NoPHP/native/replay/R/source/service/gen/fullsuite/git/remote/deniedretry byreviewer; Rootactualnative/Saved/replaysseparate.",
+    "Only positive realDominate Handlimit and earned6powerPhantasm destroy/close branch. No hitSoul/negativePhantasm/Illusionistblocker/modifiedpower/suppression/foreigncontrol/pitches/supportprimary/Hero/sibling/fullcardcredit.",
+    "No standalone damage callback instrumentation; actualsequence/layer/physicaldestruction/allHP20/nohit supports selected noDamage outcome. Earthlore remains unattempted/uncredited. Root replays/registration are separate, not claimed here."
+  ],
+  "blockers": [],
+  "actual_comparison_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov5_batch503_saved_readonly.py",
+    "sha256": "0fef27a4e45349030712222028a8ac9ca113717b714a59ea37cf6c7b76f1aba8"
+  }
+}

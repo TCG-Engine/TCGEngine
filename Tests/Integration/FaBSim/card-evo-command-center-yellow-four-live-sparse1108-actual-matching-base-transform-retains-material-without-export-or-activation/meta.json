@@ -1,0 +1,7 @@
+{
+    "name": "Evo Command Center / four-live matching base transform",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-23T08:13:05+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "If you have a base head equipped, **transform** it into this, then equip this.\n\n**Once per Turn Instant** - Destroy a card under this: Your next weapon attack this turn gets \"When this hits, draw a card.\"\n \n**Blade Break** Named positive matchingBase transform/equip only. LegalyoungTeklovossen20 owns realprimary5Hand andmatchingBaseteklo_base_head Equipment, no priorhistory/turneffects. Printedcost3paidbyrealBlue6pitch3/R0/AP0. Fourliveseatsmanuallyrespond whilebaseunchanged/primaryStack. Actualresolutionequipsprimary5readyowned/controller1withSUBCARDS exactly[matchingBaseID]; baseunderretained/notexported/noGY/Stack0/AP0/maxUIDunchanged. Noactivatedability/Crankcounter/weaponhitDraw/under-export/defense/BladeBreak/hero/support/pitchsiblings/fullcardcredit; knownmaterialexportownerholdunentered/unclosed. Sources: FaBSim/GeneratedCode/cardArrayCache.json#evo_command_center_yellow"
+}

@@ -1,0 +1,27 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch298.json",
+  "runtime_sha256": "0d877de49c131f29c152706e14bba3368630df61c59ef475c87a84f20b6e1a66",
+  "returncode": 0,
+  "completed_utc": "2026-11-03T06:29:09.546269+00:00",
+  "fixtures": [
+    {
+      "slug": "card-constella-tiara-four-live-sparse-real-two-resource-destroy-prevents-one-and-creates-owned-ponder",
+      "fixture_sha256": "59e85926c379db4f676ef0e60a1d7c33bc68bdaa18da0111db20371ecac69571",
+      "passed": true,
+      "result": "[PASS] constella_tiara / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-constella-tiara-four-live-sparse-real-two-resource-destroy-prevents-one-and-creates-owned-ponder",
+      "returncode": 0,
+      "stdout": "[PASS] constella_tiara / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

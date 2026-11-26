@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-diadem-of-dreamstate-four-live-sparse1377-real-non-token-item-destroyed-without-ward-no-ponder-despite-affordable-payment",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-diadem-of-dreamstate-four-live-sparse1377-real-non-token-item-destroyed-without-ward-no-ponder-despite-affordable-payment",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1377-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1377-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "636d4b0f057411e349a1068648495ae7b58f996fe770fcaaa1983b4e51557beb",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "a5ed8142e43a0aff633fff528863d5470ada351692d7cf4fefe8f1512db0b0cb",
+        "actions.json": "6fe9468c40cb1e401d54d890b029e90e347c3ad222e50a9d9a1df61d0b0514d8",
+        "assertions.json": "7b46c05260e896c447e74c2a8febb498923e45b2443e3255d58289b874e832de",
+        "expected_final_gamestate.txt": "7b37885f422c5bd686fcb2b94e7b3186e793e5015e9bc659998bde09d30880a9",
+        "meta.json": "213c4a160128f0a722f8d4e9bb64c628cb349e9fc6ec818b4c40688264dab515"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

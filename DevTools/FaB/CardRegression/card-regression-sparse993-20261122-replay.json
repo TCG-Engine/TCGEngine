@@ -1,0 +1,56 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-flail-of-agony-four-live-sparse993-actual-life-cost-full-block-no-runechant",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-flail-of-agony-four-live-sparse993-actual-life-cost-full-block-no-runechant",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse993-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse993-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "afbc79ce6f75c5d8ae45698b7b4a8f864c2455ea3974ec6611d658b7b7b80d21",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "dbd365508b82750c9dc077dc32b4121db80ae6454200c6b7b0e45b6100660662",
+        "actions.json": "15c4c78e5d4eda9a9552f0f48f8ec670b15e0110617e3adae1c8329bce165ecf",
+        "assertions.json": "c1d7f8ce3eddabfa185ccedd600edf68aa7f2da8fa9132d7bb3e2c2a66cacb3b",
+        "expected_final_gamestate.txt": "2c80ff57c07e44cb263efd1f8cb9807e36791c238fee05c73da88d439819508f",
+        "meta.json": "2d632c209c25c94d0c4124561fb0d719250ced2e8137212206d91548bdac18e0"
+      }
+    },
+    {
+      "slug": "card-hanabi-blaster-four-live-sparse993-actual-two-steam-cost-one-aa-block",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-hanabi-blaster-four-live-sparse993-actual-two-steam-cost-one-aa-block",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse993-local-20261122\\clean-replays\\01.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse993-local-20261122\\clean-replays\\01.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "cad35cc82b45d3e76b219ed90c584ee6286852b7daf2d58457cf986f6a3409ed",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "48b3c39d1dac8a9be188380a7f11903ad91f916b37e3098549eec46f97b8004f",
+        "actions.json": "15c4c78e5d4eda9a9552f0f48f8ec670b15e0110617e3adae1c8329bce165ecf",
+        "assertions.json": "42780e4799d24f7d079d8723f6be0c3659fdfab3c5643c1b7a49324de5bd1093",
+        "expected_final_gamestate.txt": "a642e65f4581fbae71276b3bc32a4006eddeeb11bf031caf2521b6ac55de8f24",
+        "meta.json": "f958a4e152286376ae8240c1599f1b5228b714014abfff9d157d49d326001cd5"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

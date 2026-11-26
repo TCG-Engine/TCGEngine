@@ -1,0 +1,155 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-22T18:14:16.908656+00:00",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse915-20261122.json",
+  "source_spec_sha256": "791c2acbe02a4397cdad99614fbad7e09a9c2493f2ed62a1dc93073747bc507f",
+  "new_scenarios": 4,
+  "new_groups": 4,
+  "new_primary_ids": 4,
+  "actions": 109,
+  "native_assertions": 518,
+  "manual_passes": 100,
+  "totals": {
+    "saved_registered_scenarios": 4377,
+    "duels": 3075,
+    "four_live": 1302,
+    "recorded_primary_ids": 1525,
+    "identity_denominator": 5196,
+    "recorded_groups": 1399,
+    "group_denominator": 3324,
+    "four_live_groups": 1291,
+    "phase_qualified_scenarios_at_actual_contexts": 1014,
+    "phase_qualified_unique_groups": 1004,
+    "creation_replay_passes": 1755,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 175,
+  "scenarios": [
+    {
+      "card_id": "photon_rush_red",
+      "group_id": "pitch-cycle:photon_rush",
+      "scenario_id": "card-photon-rush-red-four-live-sparse915-actual-three-without-preceding-lightning-card-go-again",
+      "effect_branches": [
+        "actual_three_without_preceding_lightning_card_go_again"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-photon-rush-red-four-live-sparse915-actual-three-without-preceding-lightning-card-go-again",
+      "source_spec": "card-regression-sparse915-20261122.json",
+      "source_spec_sha256": "791c2acbe02a4397cdad99614fbad7e09a9c2493f2ed62a1dc93073747bc507f",
+      "review_evidence": "review-evidence/sparse915-20261122-qualified-saved.json",
+      "review_evidence_sha256": "f2fec372643ad6eb642dcb06ffd2e0bf1f92febb5d17843e6999a218025ea262",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse915-20261122-replay.json",
+          "sha256": "672ec83286e3119ecedff8b2797681c2360ca3fb665da967b52f7d8f6abcec42",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "lunar_mirage_red",
+      "group_id": "identity:lunar_mirage_red",
+      "scenario_id": "card-lunar-mirage-red-four-live-sparse915-actual-three-and-go-again-without-large-attack-defense-copy",
+      "effect_branches": [
+        "actual_three_and_go_again_without_large_attack_defense_copy"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-lunar-mirage-red-four-live-sparse915-actual-three-and-go-again-without-large-attack-defense-copy",
+      "source_spec": "card-regression-sparse915-20261122.json",
+      "source_spec_sha256": "791c2acbe02a4397cdad99614fbad7e09a9c2493f2ed62a1dc93073747bc507f",
+      "review_evidence": "review-evidence/sparse915-20261122-qualified-saved.json",
+      "review_evidence_sha256": "f2fec372643ad6eb642dcb06ffd2e0bf1f92febb5d17843e6999a218025ea262",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse915-20261122-replay.json",
+          "sha256": "672ec83286e3119ecedff8b2797681c2360ca3fb665da967b52f7d8f6abcec42",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "vengeance_never_rests_blue",
+      "group_id": "identity:vengeance_never_rests_blue",
+      "scenario_id": "card-vengeance-never-rests-blue-four-live-sparse915-first-attack-without-edge-of-autumn-combo-go-again-or-banish",
+      "effect_branches": [
+        "first_attack_without_edge_of_autumn_combo_go_again_or_banish"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-vengeance-never-rests-blue-four-live-sparse915-first-attack-without-edge-of-autumn-combo-go-again-or-banish",
+      "source_spec": "card-regression-sparse915-20261122.json",
+      "source_spec_sha256": "791c2acbe02a4397cdad99614fbad7e09a9c2493f2ed62a1dc93073747bc507f",
+      "review_evidence": "review-evidence/sparse915-20261122-qualified-saved.json",
+      "review_evidence_sha256": "f2fec372643ad6eb642dcb06ffd2e0bf1f92febb5d17843e6999a218025ea262",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse915-20261122-replay.json",
+          "sha256": "672ec83286e3119ecedff8b2797681c2360ca3fb665da967b52f7d8f6abcec42",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "winds_of_eternity_blue",
+      "group_id": "identity:winds_of_eternity_blue",
+      "scenario_id": "card-winds-of-eternity-blue-four-live-sparse915-first-attack-without-hundred-winds-combo-power-or-hit-shuffle",
+      "effect_branches": [
+        "first_attack_without_hundred_winds_combo_power_or_hit_shuffle"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-winds-of-eternity-blue-four-live-sparse915-first-attack-without-hundred-winds-combo-power-or-hit-shuffle",
+      "source_spec": "card-regression-sparse915-20261122.json",
+      "source_spec_sha256": "791c2acbe02a4397cdad99614fbad7e09a9c2493f2ed62a1dc93073747bc507f",
+      "review_evidence": "review-evidence/sparse915-20261122-qualified-saved.json",
+      "review_evidence_sha256": "f2fec372643ad6eb642dcb06ffd2e0bf1f92febb5d17843e6999a218025ea262",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse915-20261122-replay.json",
+          "sha256": "672ec83286e3119ecedff8b2797681c2360ca3fb665da967b52f7d8f6abcec42",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

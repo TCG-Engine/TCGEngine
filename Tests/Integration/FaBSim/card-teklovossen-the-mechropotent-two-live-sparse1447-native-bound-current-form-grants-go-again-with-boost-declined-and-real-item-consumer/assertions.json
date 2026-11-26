@@ -1,0 +1,4218 @@
+[
+    {
+        "step": 0,
+        "type": "scalar_zone_equals",
+        "viewerPlayerID": 1,
+        "zone": "SeatOrder",
+        "value": 12
+    },
+    {
+        "step": 0,
+        "type": "scalar_zone_equals",
+        "viewerPlayerID": 1,
+        "zone": "LiveSeats",
+        "value": 12
+    },
+    {
+        "step": 0,
+        "type": "scalar_zone_equals",
+        "viewerPlayerID": 1,
+        "zone": "TurnPlayer",
+        "value": 1
+    },
+    {
+        "step": 0,
+        "type": "scalar_zone_equals",
+        "viewerPlayerID": 1,
+        "zone": "TurnNumber",
+        "value": 2
+    },
+    {
+        "step": 0,
+        "type": "scalar_zone_equals",
+        "viewerPlayerID": 1,
+        "zone": "PriorityPlayer",
+        "value": 1
+    },
+    {
+        "step": 0,
+        "type": "scalar_zone_equals",
+        "viewerPlayerID": 1,
+        "zone": "RandomCounter",
+        "value": 0
+    },
+    {
+        "step": 0,
+        "type": "game_state_field",
+        "viewerPlayerID": 1,
+        "rootName": "FaBSim",
+        "path": [
+            "window"
+        ],
+        "comparison": "equals",
+        "valueJson": "\"ACTION\""
+    },
+    {
+        "step": 0,
+        "type": "game_state_field",
+        "viewerPlayerID": 1,
+        "rootName": "FaBSim",
+        "path": [
+            "gameMode"
+        ],
+        "comparison": "equals",
+        "valueJson": "\"\""
+    },
+    {
+        "step": 0,
+        "type": "game_state_field",
+        "viewerPlayerID": 1,
+        "rootName": "FaBSim",
+        "path": [
+            "passiveSeats"
+        ],
+        "comparison": "equals",
+        "valueJson": "[]"
+    },
+    {
+        "step": 0,
+        "type": "game_state_field",
+        "viewerPlayerID": 1,
+        "rootName": "FaBSim",
+        "path": [
+            "turnEffects"
+        ],
+        "comparison": "equals",
+        "valueJson": "{\"1\":[{\"type\":\"MON_SOUL_ADDED\",\"amount\":1,\"uses\":1},{\"type\":\"MON_YELLOW_SOUL\",\"amount\":1,\"uses\":1},{\"type\":\"PEN_YELLOW_SOUL\",\"amount\":1,\"uses\":1},{\"type\":\"MON_SOUL_ADDED\",\"amount\":1,\"uses\":1},{\"type\":\"MON_YELLOW_SOUL\",\"amount\":1,\"uses\":1},{\"type\":\"PEN_YELLOW_SOUL\",\"amount\":1,\"uses\":1},{\"type\":\"MON_SOUL_ADDED\",\"amount\":1,\"uses\":1},{\"type\":\"MON_YELLOW_SOUL\",\"amount\":1,\"uses\":1},{\"type\":\"PEN_YELLOW_SOUL\",\"amount\":1,\"uses\":1},{\"type\":\"MON_SOUL_ADDED\",\"amount\":1,\"uses\":1},{\"type\":\"MON_YELLOW_SOUL\",\"amount\":1,\"uses\":1},{\"type\":\"PEN_YELLOW_SOUL\",\"amount\":1,\"uses\":1},{\"type\":\"MON_SOUL_ADDED\",\"amount\":1,\"uses\":1},{\"type\":\"MON_SOUL_ADDED\",\"amount\":1,\"uses\":1}]}"
+    },
+    {
+        "step": 0,
+        "type": "game_state_field",
+        "viewerPlayerID": 1,
+        "rootName": "FaBSim",
+        "path": [
+            "pendingPayment"
+        ],
+        "comparison": "missing_or_null"
+    },
+    {
+        "step": 0,
+        "type": "game_state_field",
+        "viewerPlayerID": 1,
+        "rootName": "FaBSim",
+        "path": [
+            "resolvingReaction"
+        ],
+        "comparison": "missing_or_null"
+    },
+    {
+        "step": 0,
+        "type": "zone_count",
+        "viewerPlayerID": 1,
+        "zone": "Stack",
+        "value": 0
+    },
+    {
+        "step": 0,
+        "type": "decision_queue_empty",
+        "viewerPlayerID": 1,
+        "player": "1"
+    },
+    {
+        "step": 0,
+        "type": "decision_queue_empty",
+        "viewerPlayerID": 1,
+        "player": "2"
+    },
+    {
+        "step": 0,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Hero-0",
+        "property": "CardID",
+        "value": "teklovossen_the_mechropotent"
+    },
+    {
+        "step": 0,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Hero-0",
+        "property": "Status",
+        "value": "2"
+    },
+    {
+        "step": 0,
+        "type": "scalar_zone_equals",
+        "viewerPlayerID": 1,
+        "zone": "p1Health",
+        "value": 40
+    },
+    {
+        "step": 0,
+        "type": "scalar_zone_equals",
+        "viewerPlayerID": 1,
+        "zone": "p1Resources",
+        "value": 0
+    },
+    {
+        "step": 0,
+        "type": "scalar_zone_equals",
+        "viewerPlayerID": 1,
+        "zone": "p1ActionPoints",
+        "value": 1
+    },
+    {
+        "step": 0,
+        "type": "zone_count",
+        "viewerPlayerID": 1,
+        "zone": "p1Hand",
+        "value": 3
+    },
+    {
+        "step": 0,
+        "type": "zone_count",
+        "viewerPlayerID": 1,
+        "zone": "p1Graveyard",
+        "value": 4
+    },
+    {
+        "step": 0,
+        "type": "zone_count",
+        "viewerPlayerID": 1,
+        "zone": "p1Deck",
+        "value": 1
+    },
+    {
+        "step": 0,
+        "type": "zone_count",
+        "viewerPlayerID": 1,
+        "zone": "p1Banish",
+        "value": 0
+    },
+    {
+        "step": 0,
+        "type": "zone_count",
+        "viewerPlayerID": 1,
+        "zone": "p1Weapons",
+        "value": 0
+    },
+    {
+        "step": 0,
+        "type": "zone_count",
+        "viewerPlayerID": 1,
+        "zone": "p1Equipment",
+        "value": 0
+    },
+    {
+        "step": 0,
+        "type": "zone_count",
+        "viewerPlayerID": 1,
+        "zone": "p1Arena",
+        "value": 0
+    },
+    {
+        "step": 0,
+        "type": "zone_count",
+        "viewerPlayerID": 1,
+        "zone": "p1Arsenal",
+        "value": 0
+    },
+    {
+        "step": 0,
+        "type": "zone_count",
+        "viewerPlayerID": 1,
+        "zone": "p1Pitch",
+        "value": 0
+    },
+    {
+        "step": 0,
+        "type": "zone_count",
+        "viewerPlayerID": 1,
+        "zone": "p1Soul",
+        "value": 6
+    },
+    {
+        "step": 0,
+        "type": "zone_count",
+        "viewerPlayerID": 1,
+        "zone": "p1CombatChain",
+        "value": 0
+    },
+    {
+        "step": 0,
+        "type": "zone_count",
+        "viewerPlayerID": 1,
+        "zone": "p1Temp",
+        "value": 0
+    },
+    {
+        "step": 0,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p2Hero-0",
+        "property": "CardID",
+        "value": "bravo_showstopper"
+    },
+    {
+        "step": 0,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p2Hero-0",
+        "property": "Status",
+        "value": "2"
+    },
+    {
+        "step": 0,
+        "type": "scalar_zone_equals",
+        "viewerPlayerID": 1,
+        "zone": "p2Health",
+        "value": 40
+    },
+    {
+        "step": 0,
+        "type": "scalar_zone_equals",
+        "viewerPlayerID": 1,
+        "zone": "p2Resources",
+        "value": 0
+    },
+    {
+        "step": 0,
+        "type": "scalar_zone_equals",
+        "viewerPlayerID": 1,
+        "zone": "p2ActionPoints",
+        "value": 0
+    },
+    {
+        "step": 0,
+        "type": "zone_count",
+        "viewerPlayerID": 1,
+        "zone": "p2Hand",
+        "value": 0
+    },
+    {
+        "step": 0,
+        "type": "zone_count",
+        "viewerPlayerID": 1,
+        "zone": "p2Graveyard",
+        "value": 0
+    },
+    {
+        "step": 0,
+        "type": "zone_count",
+        "viewerPlayerID": 1,
+        "zone": "p2Deck",
+        "value": 0
+    },
+    {
+        "step": 0,
+        "type": "zone_count",
+        "viewerPlayerID": 1,
+        "zone": "p2Banish",
+        "value": 0
+    },
+    {
+        "step": 0,
+        "type": "zone_count",
+        "viewerPlayerID": 1,
+        "zone": "p2Weapons",
+        "value": 0
+    },
+    {
+        "step": 0,
+        "type": "zone_count",
+        "viewerPlayerID": 1,
+        "zone": "p2Equipment",
+        "value": 0
+    },
+    {
+        "step": 0,
+        "type": "zone_count",
+        "viewerPlayerID": 1,
+        "zone": "p2Arena",
+        "value": 0
+    },
+    {
+        "step": 0,
+        "type": "zone_count",
+        "viewerPlayerID": 1,
+        "zone": "p2Arsenal",
+        "value": 0
+    },
+    {
+        "step": 0,
+        "type": "zone_count",
+        "viewerPlayerID": 1,
+        "zone": "p2Pitch",
+        "value": 0
+    },
+    {
+        "step": 0,
+        "type": "zone_count",
+        "viewerPlayerID": 1,
+        "zone": "p2Soul",
+        "value": 0
+    },
+    {
+        "step": 0,
+        "type": "zone_count",
+        "viewerPlayerID": 1,
+        "zone": "p2CombatChain",
+        "value": 0
+    },
+    {
+        "step": 0,
+        "type": "zone_count",
+        "viewerPlayerID": 1,
+        "zone": "p2Temp",
+        "value": 0
+    },
+    {
+        "step": 0,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Soul-0",
+        "property": "CardID",
+        "value": "evo_command_center_yellow"
+    },
+    {
+        "step": 0,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Soul-0",
+        "property": "UniqueID",
+        "value": "3"
+    },
+    {
+        "step": 0,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Soul-1",
+        "property": "CardID",
+        "value": "evo_engine_room_yellow"
+    },
+    {
+        "step": 0,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Soul-1",
+        "property": "UniqueID",
+        "value": "4"
+    },
+    {
+        "step": 0,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Soul-2",
+        "property": "CardID",
+        "value": "evo_smoothbore_yellow"
+    },
+    {
+        "step": 0,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Soul-2",
+        "property": "UniqueID",
+        "value": "5"
+    },
+    {
+        "step": 0,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Soul-3",
+        "property": "CardID",
+        "value": "evo_thruster_yellow"
+    },
+    {
+        "step": 0,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Soul-3",
+        "property": "UniqueID",
+        "value": "6"
+    },
+    {
+        "step": 0,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Soul-4",
+        "property": "CardID",
+        "value": "teklo_leveler"
+    },
+    {
+        "step": 0,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Soul-4",
+        "property": "UniqueID",
+        "value": "7"
+    },
+    {
+        "step": 0,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Soul-5",
+        "property": "CardID",
+        "value": "teklovossen_esteemed_magnate"
+    },
+    {
+        "step": 0,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Soul-5",
+        "property": "UniqueID",
+        "value": "8"
+    },
+    {
+        "step": 0,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Graveyard-0",
+        "property": "CardID",
+        "value": "teklo_base_head"
+    },
+    {
+        "step": 0,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Graveyard-0",
+        "property": "UniqueID",
+        "value": "9"
+    },
+    {
+        "step": 0,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Graveyard-0",
+        "property": "Owner",
+        "value": "1"
+    },
+    {
+        "step": 0,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Graveyard-0",
+        "property": "Controller",
+        "value": "1"
+    },
+    {
+        "step": 0,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Graveyard-1",
+        "property": "CardID",
+        "value": "teklo_base_chest"
+    },
+    {
+        "step": 0,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Graveyard-1",
+        "property": "UniqueID",
+        "value": "10"
+    },
+    {
+        "step": 0,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Graveyard-1",
+        "property": "Owner",
+        "value": "1"
+    },
+    {
+        "step": 0,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Graveyard-1",
+        "property": "Controller",
+        "value": "1"
+    },
+    {
+        "step": 0,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Graveyard-2",
+        "property": "CardID",
+        "value": "teklo_base_arms"
+    },
+    {
+        "step": 0,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Graveyard-2",
+        "property": "UniqueID",
+        "value": "11"
+    },
+    {
+        "step": 0,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Graveyard-2",
+        "property": "Owner",
+        "value": "1"
+    },
+    {
+        "step": 0,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Graveyard-2",
+        "property": "Controller",
+        "value": "1"
+    },
+    {
+        "step": 0,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Graveyard-3",
+        "property": "CardID",
+        "value": "teklo_base_legs"
+    },
+    {
+        "step": 0,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Graveyard-3",
+        "property": "UniqueID",
+        "value": "12"
+    },
+    {
+        "step": 0,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Graveyard-3",
+        "property": "Owner",
+        "value": "1"
+    },
+    {
+        "step": 0,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Graveyard-3",
+        "property": "Controller",
+        "value": "1"
+    },
+    {
+        "step": 0,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Hand-0",
+        "property": "CardID",
+        "value": "zero_to_sixty_red"
+    },
+    {
+        "step": 0,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Hand-0",
+        "property": "UniqueID",
+        "value": "13"
+    },
+    {
+        "step": 0,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Hand-0",
+        "property": "Owner",
+        "value": "1"
+    },
+    {
+        "step": 0,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Hand-0",
+        "property": "Controller",
+        "value": "1"
+    },
+    {
+        "step": 0,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Hand-1",
+        "property": "CardID",
+        "value": "hyper_driver_red"
+    },
+    {
+        "step": 0,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Hand-1",
+        "property": "UniqueID",
+        "value": "14"
+    },
+    {
+        "step": 0,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Hand-1",
+        "property": "Owner",
+        "value": "1"
+    },
+    {
+        "step": 0,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Hand-1",
+        "property": "Controller",
+        "value": "1"
+    },
+    {
+        "step": 0,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Hand-2",
+        "property": "CardID",
+        "value": "wounding_blow_blue"
+    },
+    {
+        "step": 0,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Hand-2",
+        "property": "UniqueID",
+        "value": "15"
+    },
+    {
+        "step": 0,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Hand-2",
+        "property": "Owner",
+        "value": "1"
+    },
+    {
+        "step": 0,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Hand-2",
+        "property": "Controller",
+        "value": "1"
+    },
+    {
+        "step": 0,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Deck-0",
+        "property": "CardID",
+        "value": "zero_to_sixty_blue"
+    },
+    {
+        "step": 0,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Deck-0",
+        "property": "UniqueID",
+        "value": "16"
+    },
+    {
+        "step": 0,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Deck-0",
+        "property": "Owner",
+        "value": "1"
+    },
+    {
+        "step": 0,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Deck-0",
+        "property": "Controller",
+        "value": "1"
+    },
+    {
+        "step": 0,
+        "type": "game_state_field",
+        "viewerPlayerID": 1,
+        "rootName": "FaBSim",
+        "path": [
+            "cardsPlayedThisTurn"
+        ],
+        "comparison": "equals",
+        "valueJson": "[]"
+    },
+    {
+        "step": 0,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Hero-0",
+        "property": "CardID",
+        "value": "teklovossen_the_mechropotent"
+    },
+    {
+        "step": 0,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Hero-0",
+        "property": "UniqueID",
+        "value": "1"
+    },
+    {
+        "step": 0,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Hero-0",
+        "property": "Owner",
+        "value": "1"
+    },
+    {
+        "step": 0,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Hero-0",
+        "property": "Controller",
+        "value": "1"
+    },
+    {
+        "step": 0,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Hero-0",
+        "property": "Status",
+        "value": "2"
+    },
+    {
+        "step": 0,
+        "type": "scalar_zone_equals",
+        "viewerPlayerID": 1,
+        "zone": "p1Health",
+        "value": 40
+    },
+    {
+        "step": 0,
+        "type": "zone_count",
+        "viewerPlayerID": 1,
+        "zone": "p1Soul",
+        "value": 6
+    },
+    {
+        "step": 0,
+        "type": "zone_count",
+        "viewerPlayerID": 1,
+        "zone": "p1Equipment",
+        "value": 0
+    },
+    {
+        "step": 0,
+        "type": "zone_count",
+        "viewerPlayerID": 1,
+        "zone": "p1Weapons",
+        "value": 0
+    },
+    {
+        "step": 0,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Deck-0",
+        "property": "CardID",
+        "value": "zero_to_sixty_blue"
+    },
+    {
+        "step": 0,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Deck-0",
+        "property": "UniqueID",
+        "value": "16"
+    },
+    {
+        "step": 0,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Deck-0",
+        "property": "Owner",
+        "value": "1"
+    },
+    {
+        "step": 0,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Deck-0",
+        "property": "Controller",
+        "value": "1"
+    },
+    {
+        "step": 0,
+        "type": "zone_count",
+        "viewerPlayerID": 1,
+        "zone": "p1Deck",
+        "value": 1
+    },
+    {
+        "step": 0,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Soul-0",
+        "property": "CardID",
+        "value": "evo_command_center_yellow"
+    },
+    {
+        "step": 0,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Soul-0",
+        "property": "UniqueID",
+        "value": "3"
+    },
+    {
+        "step": 0,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Soul-1",
+        "property": "CardID",
+        "value": "evo_engine_room_yellow"
+    },
+    {
+        "step": 0,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Soul-1",
+        "property": "UniqueID",
+        "value": "4"
+    },
+    {
+        "step": 0,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Soul-2",
+        "property": "CardID",
+        "value": "evo_smoothbore_yellow"
+    },
+    {
+        "step": 0,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Soul-2",
+        "property": "UniqueID",
+        "value": "5"
+    },
+    {
+        "step": 0,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Soul-3",
+        "property": "CardID",
+        "value": "evo_thruster_yellow"
+    },
+    {
+        "step": 0,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Soul-3",
+        "property": "UniqueID",
+        "value": "6"
+    },
+    {
+        "step": 0,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Soul-4",
+        "property": "CardID",
+        "value": "teklo_leveler"
+    },
+    {
+        "step": 0,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Soul-4",
+        "property": "UniqueID",
+        "value": "7"
+    },
+    {
+        "step": 0,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Soul-5",
+        "property": "CardID",
+        "value": "teklovossen_esteemed_magnate"
+    },
+    {
+        "step": 0,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Soul-5",
+        "property": "UniqueID",
+        "value": "8"
+    },
+    {
+        "step": 0,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Graveyard-0",
+        "property": "CardID",
+        "value": "teklo_base_head"
+    },
+    {
+        "step": 0,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Graveyard-0",
+        "property": "UniqueID",
+        "value": "9"
+    },
+    {
+        "step": 0,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Graveyard-0",
+        "property": "Owner",
+        "value": "1"
+    },
+    {
+        "step": 0,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Graveyard-0",
+        "property": "Controller",
+        "value": "1"
+    },
+    {
+        "step": 0,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Graveyard-1",
+        "property": "CardID",
+        "value": "teklo_base_chest"
+    },
+    {
+        "step": 0,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Graveyard-1",
+        "property": "UniqueID",
+        "value": "10"
+    },
+    {
+        "step": 0,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Graveyard-1",
+        "property": "Owner",
+        "value": "1"
+    },
+    {
+        "step": 0,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Graveyard-1",
+        "property": "Controller",
+        "value": "1"
+    },
+    {
+        "step": 0,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Graveyard-2",
+        "property": "CardID",
+        "value": "teklo_base_arms"
+    },
+    {
+        "step": 0,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Graveyard-2",
+        "property": "UniqueID",
+        "value": "11"
+    },
+    {
+        "step": 0,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Graveyard-2",
+        "property": "Owner",
+        "value": "1"
+    },
+    {
+        "step": 0,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Graveyard-2",
+        "property": "Controller",
+        "value": "1"
+    },
+    {
+        "step": 0,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Graveyard-3",
+        "property": "CardID",
+        "value": "teklo_base_legs"
+    },
+    {
+        "step": 0,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Graveyard-3",
+        "property": "UniqueID",
+        "value": "12"
+    },
+    {
+        "step": 0,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Graveyard-3",
+        "property": "Owner",
+        "value": "1"
+    },
+    {
+        "step": 0,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Graveyard-3",
+        "property": "Controller",
+        "value": "1"
+    },
+    {
+        "step": 0,
+        "type": "scalar_zone_equals",
+        "viewerPlayerID": 1,
+        "zone": "UniqueIDCounter",
+        "value": 16
+    },
+    {
+        "step": 0,
+        "type": "scalar_zone_equals",
+        "viewerPlayerID": 1,
+        "zone": "RandomCounter",
+        "value": 0
+    },
+    {
+        "step": 0,
+        "type": "decision_queue_empty",
+        "viewerPlayerID": 1,
+        "player": "1"
+    },
+    {
+        "step": 0,
+        "type": "decision_queue_empty",
+        "viewerPlayerID": 1,
+        "player": "2"
+    },
+    {
+        "step": 1,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1DecisionQueue-0",
+        "property": "Type",
+        "value": "MZMODAL"
+    },
+    {
+        "step": 1,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1DecisionQueue-0",
+        "property": "Param",
+        "value": "1|1|Boost&Do_not_boost"
+    },
+    {
+        "step": 1,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Deck-0",
+        "property": "CardID",
+        "value": "zero_to_sixty_blue"
+    },
+    {
+        "step": 1,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Deck-0",
+        "property": "UniqueID",
+        "value": "16"
+    },
+    {
+        "step": 1,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Deck-0",
+        "property": "Owner",
+        "value": "1"
+    },
+    {
+        "step": 1,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Deck-0",
+        "property": "Controller",
+        "value": "1"
+    },
+    {
+        "step": 1,
+        "type": "scalar_zone_equals",
+        "viewerPlayerID": 1,
+        "zone": "p1ActionPoints",
+        "value": 1
+    },
+    {
+        "step": 1,
+        "type": "scalar_zone_equals",
+        "viewerPlayerID": 1,
+        "zone": "p1Resources",
+        "value": 0
+    },
+    {
+        "step": 2,
+        "type": "game_state_field",
+        "viewerPlayerID": 1,
+        "rootName": "FaBSim",
+        "path": [
+            "window"
+        ],
+        "comparison": "equals",
+        "valueJson": "\"PRIORITY\""
+    },
+    {
+        "step": 2,
+        "type": "scalar_zone_equals",
+        "viewerPlayerID": 1,
+        "zone": "PriorityPlayer",
+        "value": 2
+    },
+    {
+        "step": 2,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "Stack-0",
+        "property": "CardID",
+        "value": "zero_to_sixty_red"
+    },
+    {
+        "step": 2,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "Stack-0",
+        "property": "UniqueID",
+        "value": "13"
+    },
+    {
+        "step": 2,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "Stack-0",
+        "property": "Owner",
+        "value": "1"
+    },
+    {
+        "step": 2,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "Stack-0",
+        "property": "Controller",
+        "value": "1"
+    },
+    {
+        "step": 2,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "Stack-0",
+        "property": "Kind",
+        "value": "ATTACK"
+    },
+    {
+        "step": 2,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "Stack-0",
+        "property": "SourceZone",
+        "value": "Hand"
+    },
+    {
+        "step": 2,
+        "type": "zone_count",
+        "viewerPlayerID": 1,
+        "zone": "Stack",
+        "value": 1
+    },
+    {
+        "step": 2,
+        "type": "zone_count",
+        "viewerPlayerID": 1,
+        "zone": "p1Banish",
+        "value": 0
+    },
+    {
+        "step": 2,
+        "type": "scalar_zone_equals",
+        "viewerPlayerID": 1,
+        "zone": "p1ActionPoints",
+        "value": 0
+    },
+    {
+        "step": 2,
+        "type": "scalar_zone_equals",
+        "viewerPlayerID": 1,
+        "zone": "p1Resources",
+        "value": 0
+    },
+    {
+        "step": 2,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Hero-0",
+        "property": "CardID",
+        "value": "teklovossen_the_mechropotent"
+    },
+    {
+        "step": 2,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Hero-0",
+        "property": "UniqueID",
+        "value": "1"
+    },
+    {
+        "step": 2,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Hero-0",
+        "property": "Owner",
+        "value": "1"
+    },
+    {
+        "step": 2,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Hero-0",
+        "property": "Controller",
+        "value": "1"
+    },
+    {
+        "step": 2,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Hero-0",
+        "property": "Status",
+        "value": "2"
+    },
+    {
+        "step": 2,
+        "type": "scalar_zone_equals",
+        "viewerPlayerID": 1,
+        "zone": "p1Health",
+        "value": 40
+    },
+    {
+        "step": 2,
+        "type": "zone_count",
+        "viewerPlayerID": 1,
+        "zone": "p1Soul",
+        "value": 6
+    },
+    {
+        "step": 2,
+        "type": "zone_count",
+        "viewerPlayerID": 1,
+        "zone": "p1Equipment",
+        "value": 0
+    },
+    {
+        "step": 2,
+        "type": "zone_count",
+        "viewerPlayerID": 1,
+        "zone": "p1Weapons",
+        "value": 0
+    },
+    {
+        "step": 2,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Deck-0",
+        "property": "CardID",
+        "value": "zero_to_sixty_blue"
+    },
+    {
+        "step": 2,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Deck-0",
+        "property": "UniqueID",
+        "value": "16"
+    },
+    {
+        "step": 2,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Deck-0",
+        "property": "Owner",
+        "value": "1"
+    },
+    {
+        "step": 2,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Deck-0",
+        "property": "Controller",
+        "value": "1"
+    },
+    {
+        "step": 2,
+        "type": "zone_count",
+        "viewerPlayerID": 1,
+        "zone": "p1Deck",
+        "value": 1
+    },
+    {
+        "step": 2,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Soul-0",
+        "property": "CardID",
+        "value": "evo_command_center_yellow"
+    },
+    {
+        "step": 2,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Soul-0",
+        "property": "UniqueID",
+        "value": "3"
+    },
+    {
+        "step": 2,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Soul-1",
+        "property": "CardID",
+        "value": "evo_engine_room_yellow"
+    },
+    {
+        "step": 2,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Soul-1",
+        "property": "UniqueID",
+        "value": "4"
+    },
+    {
+        "step": 2,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Soul-2",
+        "property": "CardID",
+        "value": "evo_smoothbore_yellow"
+    },
+    {
+        "step": 2,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Soul-2",
+        "property": "UniqueID",
+        "value": "5"
+    },
+    {
+        "step": 2,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Soul-3",
+        "property": "CardID",
+        "value": "evo_thruster_yellow"
+    },
+    {
+        "step": 2,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Soul-3",
+        "property": "UniqueID",
+        "value": "6"
+    },
+    {
+        "step": 2,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Soul-4",
+        "property": "CardID",
+        "value": "teklo_leveler"
+    },
+    {
+        "step": 2,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Soul-4",
+        "property": "UniqueID",
+        "value": "7"
+    },
+    {
+        "step": 2,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Soul-5",
+        "property": "CardID",
+        "value": "teklovossen_esteemed_magnate"
+    },
+    {
+        "step": 2,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Soul-5",
+        "property": "UniqueID",
+        "value": "8"
+    },
+    {
+        "step": 2,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Graveyard-0",
+        "property": "CardID",
+        "value": "teklo_base_head"
+    },
+    {
+        "step": 2,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Graveyard-0",
+        "property": "UniqueID",
+        "value": "9"
+    },
+    {
+        "step": 2,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Graveyard-0",
+        "property": "Owner",
+        "value": "1"
+    },
+    {
+        "step": 2,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Graveyard-0",
+        "property": "Controller",
+        "value": "1"
+    },
+    {
+        "step": 2,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Graveyard-1",
+        "property": "CardID",
+        "value": "teklo_base_chest"
+    },
+    {
+        "step": 2,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Graveyard-1",
+        "property": "UniqueID",
+        "value": "10"
+    },
+    {
+        "step": 2,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Graveyard-1",
+        "property": "Owner",
+        "value": "1"
+    },
+    {
+        "step": 2,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Graveyard-1",
+        "property": "Controller",
+        "value": "1"
+    },
+    {
+        "step": 2,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Graveyard-2",
+        "property": "CardID",
+        "value": "teklo_base_arms"
+    },
+    {
+        "step": 2,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Graveyard-2",
+        "property": "UniqueID",
+        "value": "11"
+    },
+    {
+        "step": 2,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Graveyard-2",
+        "property": "Owner",
+        "value": "1"
+    },
+    {
+        "step": 2,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Graveyard-2",
+        "property": "Controller",
+        "value": "1"
+    },
+    {
+        "step": 2,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Graveyard-3",
+        "property": "CardID",
+        "value": "teklo_base_legs"
+    },
+    {
+        "step": 2,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Graveyard-3",
+        "property": "UniqueID",
+        "value": "12"
+    },
+    {
+        "step": 2,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Graveyard-3",
+        "property": "Owner",
+        "value": "1"
+    },
+    {
+        "step": 2,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Graveyard-3",
+        "property": "Controller",
+        "value": "1"
+    },
+    {
+        "step": 2,
+        "type": "scalar_zone_equals",
+        "viewerPlayerID": 1,
+        "zone": "UniqueIDCounter",
+        "value": 16
+    },
+    {
+        "step": 2,
+        "type": "scalar_zone_equals",
+        "viewerPlayerID": 1,
+        "zone": "RandomCounter",
+        "value": 0
+    },
+    {
+        "step": 2,
+        "type": "decision_queue_empty",
+        "viewerPlayerID": 1,
+        "player": "1"
+    },
+    {
+        "step": 2,
+        "type": "decision_queue_empty",
+        "viewerPlayerID": 1,
+        "player": "2"
+    },
+    {
+        "step": 4,
+        "type": "computed_power_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1CombatChain-0",
+        "value": 4
+    },
+    {
+        "step": 4,
+        "type": "computed_go_again_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1CombatChain-0",
+        "value": 1
+    },
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1CombatChain-0",
+        "property": "CardID",
+        "value": "zero_to_sixty_red"
+    },
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1CombatChain-0",
+        "property": "UniqueID",
+        "value": "13"
+    },
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1CombatChain-0",
+        "property": "Owner",
+        "value": "1"
+    },
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1CombatChain-0",
+        "property": "Controller",
+        "value": "1"
+    },
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1CombatChain-0",
+        "property": "Role",
+        "value": "ATTACK"
+    },
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1CombatChain-0",
+        "property": "FromZone",
+        "value": "Hand"
+    },
+    {
+        "step": 4,
+        "type": "zone_count",
+        "viewerPlayerID": 1,
+        "zone": "Stack",
+        "value": 0
+    },
+    {
+        "step": 4,
+        "type": "zone_count",
+        "viewerPlayerID": 1,
+        "zone": "p1Banish",
+        "value": 0
+    },
+    {
+        "step": 4,
+        "type": "scalar_zone_equals",
+        "viewerPlayerID": 1,
+        "zone": "p2Health",
+        "value": 40
+    },
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Hero-0",
+        "property": "CardID",
+        "value": "teklovossen_the_mechropotent"
+    },
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Hero-0",
+        "property": "UniqueID",
+        "value": "1"
+    },
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Hero-0",
+        "property": "Owner",
+        "value": "1"
+    },
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Hero-0",
+        "property": "Controller",
+        "value": "1"
+    },
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Hero-0",
+        "property": "Status",
+        "value": "2"
+    },
+    {
+        "step": 4,
+        "type": "scalar_zone_equals",
+        "viewerPlayerID": 1,
+        "zone": "p1Health",
+        "value": 40
+    },
+    {
+        "step": 4,
+        "type": "zone_count",
+        "viewerPlayerID": 1,
+        "zone": "p1Soul",
+        "value": 6
+    },
+    {
+        "step": 4,
+        "type": "zone_count",
+        "viewerPlayerID": 1,
+        "zone": "p1Equipment",
+        "value": 0
+    },
+    {
+        "step": 4,
+        "type": "zone_count",
+        "viewerPlayerID": 1,
+        "zone": "p1Weapons",
+        "value": 0
+    },
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Deck-0",
+        "property": "CardID",
+        "value": "zero_to_sixty_blue"
+    },
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Deck-0",
+        "property": "UniqueID",
+        "value": "16"
+    },
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Deck-0",
+        "property": "Owner",
+        "value": "1"
+    },
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Deck-0",
+        "property": "Controller",
+        "value": "1"
+    },
+    {
+        "step": 4,
+        "type": "zone_count",
+        "viewerPlayerID": 1,
+        "zone": "p1Deck",
+        "value": 1
+    },
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Soul-0",
+        "property": "CardID",
+        "value": "evo_command_center_yellow"
+    },
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Soul-0",
+        "property": "UniqueID",
+        "value": "3"
+    },
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Soul-1",
+        "property": "CardID",
+        "value": "evo_engine_room_yellow"
+    },
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Soul-1",
+        "property": "UniqueID",
+        "value": "4"
+    },
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Soul-2",
+        "property": "CardID",
+        "value": "evo_smoothbore_yellow"
+    },
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Soul-2",
+        "property": "UniqueID",
+        "value": "5"
+    },
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Soul-3",
+        "property": "CardID",
+        "value": "evo_thruster_yellow"
+    },
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Soul-3",
+        "property": "UniqueID",
+        "value": "6"
+    },
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Soul-4",
+        "property": "CardID",
+        "value": "teklo_leveler"
+    },
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Soul-4",
+        "property": "UniqueID",
+        "value": "7"
+    },
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Soul-5",
+        "property": "CardID",
+        "value": "teklovossen_esteemed_magnate"
+    },
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Soul-5",
+        "property": "UniqueID",
+        "value": "8"
+    },
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Graveyard-0",
+        "property": "CardID",
+        "value": "teklo_base_head"
+    },
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Graveyard-0",
+        "property": "UniqueID",
+        "value": "9"
+    },
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Graveyard-0",
+        "property": "Owner",
+        "value": "1"
+    },
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Graveyard-0",
+        "property": "Controller",
+        "value": "1"
+    },
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Graveyard-1",
+        "property": "CardID",
+        "value": "teklo_base_chest"
+    },
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Graveyard-1",
+        "property": "UniqueID",
+        "value": "10"
+    },
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Graveyard-1",
+        "property": "Owner",
+        "value": "1"
+    },
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Graveyard-1",
+        "property": "Controller",
+        "value": "1"
+    },
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Graveyard-2",
+        "property": "CardID",
+        "value": "teklo_base_arms"
+    },
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Graveyard-2",
+        "property": "UniqueID",
+        "value": "11"
+    },
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Graveyard-2",
+        "property": "Owner",
+        "value": "1"
+    },
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Graveyard-2",
+        "property": "Controller",
+        "value": "1"
+    },
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Graveyard-3",
+        "property": "CardID",
+        "value": "teklo_base_legs"
+    },
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Graveyard-3",
+        "property": "UniqueID",
+        "value": "12"
+    },
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Graveyard-3",
+        "property": "Owner",
+        "value": "1"
+    },
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Graveyard-3",
+        "property": "Controller",
+        "value": "1"
+    },
+    {
+        "step": 4,
+        "type": "scalar_zone_equals",
+        "viewerPlayerID": 1,
+        "zone": "UniqueIDCounter",
+        "value": 16
+    },
+    {
+        "step": 4,
+        "type": "scalar_zone_equals",
+        "viewerPlayerID": 1,
+        "zone": "RandomCounter",
+        "value": 0
+    },
+    {
+        "step": 4,
+        "type": "decision_queue_empty",
+        "viewerPlayerID": 1,
+        "player": "1"
+    },
+    {
+        "step": 4,
+        "type": "decision_queue_empty",
+        "viewerPlayerID": 1,
+        "player": "2"
+    },
+    {
+        "step": 11,
+        "type": "game_state_field",
+        "viewerPlayerID": 1,
+        "rootName": "FaBSim",
+        "path": [
+            "damageDealt"
+        ],
+        "comparison": "equals",
+        "valueJson": "4"
+    },
+    {
+        "step": 11,
+        "type": "scalar_zone_equals",
+        "viewerPlayerID": 1,
+        "zone": "p2Health",
+        "value": 36
+    },
+    {
+        "step": 11,
+        "type": "scalar_zone_equals",
+        "viewerPlayerID": 1,
+        "zone": "p1ActionPoints",
+        "value": 0
+    },
+    {
+        "step": 11,
+        "type": "computed_go_again_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1CombatChain-0",
+        "value": 1
+    },
+    {
+        "step": 11,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Hero-0",
+        "property": "CardID",
+        "value": "teklovossen_the_mechropotent"
+    },
+    {
+        "step": 11,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Hero-0",
+        "property": "UniqueID",
+        "value": "1"
+    },
+    {
+        "step": 11,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Hero-0",
+        "property": "Owner",
+        "value": "1"
+    },
+    {
+        "step": 11,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Hero-0",
+        "property": "Controller",
+        "value": "1"
+    },
+    {
+        "step": 11,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Hero-0",
+        "property": "Status",
+        "value": "2"
+    },
+    {
+        "step": 11,
+        "type": "scalar_zone_equals",
+        "viewerPlayerID": 1,
+        "zone": "p1Health",
+        "value": 40
+    },
+    {
+        "step": 11,
+        "type": "zone_count",
+        "viewerPlayerID": 1,
+        "zone": "p1Soul",
+        "value": 6
+    },
+    {
+        "step": 11,
+        "type": "zone_count",
+        "viewerPlayerID": 1,
+        "zone": "p1Equipment",
+        "value": 0
+    },
+    {
+        "step": 11,
+        "type": "zone_count",
+        "viewerPlayerID": 1,
+        "zone": "p1Weapons",
+        "value": 0
+    },
+    {
+        "step": 11,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Deck-0",
+        "property": "CardID",
+        "value": "zero_to_sixty_blue"
+    },
+    {
+        "step": 11,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Deck-0",
+        "property": "UniqueID",
+        "value": "16"
+    },
+    {
+        "step": 11,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Deck-0",
+        "property": "Owner",
+        "value": "1"
+    },
+    {
+        "step": 11,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Deck-0",
+        "property": "Controller",
+        "value": "1"
+    },
+    {
+        "step": 11,
+        "type": "zone_count",
+        "viewerPlayerID": 1,
+        "zone": "p1Deck",
+        "value": 1
+    },
+    {
+        "step": 11,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Soul-0",
+        "property": "CardID",
+        "value": "evo_command_center_yellow"
+    },
+    {
+        "step": 11,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Soul-0",
+        "property": "UniqueID",
+        "value": "3"
+    },
+    {
+        "step": 11,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Soul-1",
+        "property": "CardID",
+        "value": "evo_engine_room_yellow"
+    },
+    {
+        "step": 11,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Soul-1",
+        "property": "UniqueID",
+        "value": "4"
+    },
+    {
+        "step": 11,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Soul-2",
+        "property": "CardID",
+        "value": "evo_smoothbore_yellow"
+    },
+    {
+        "step": 11,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Soul-2",
+        "property": "UniqueID",
+        "value": "5"
+    },
+    {
+        "step": 11,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Soul-3",
+        "property": "CardID",
+        "value": "evo_thruster_yellow"
+    },
+    {
+        "step": 11,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Soul-3",
+        "property": "UniqueID",
+        "value": "6"
+    },
+    {
+        "step": 11,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Soul-4",
+        "property": "CardID",
+        "value": "teklo_leveler"
+    },
+    {
+        "step": 11,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Soul-4",
+        "property": "UniqueID",
+        "value": "7"
+    },
+    {
+        "step": 11,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Soul-5",
+        "property": "CardID",
+        "value": "teklovossen_esteemed_magnate"
+    },
+    {
+        "step": 11,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Soul-5",
+        "property": "UniqueID",
+        "value": "8"
+    },
+    {
+        "step": 11,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Graveyard-0",
+        "property": "CardID",
+        "value": "teklo_base_head"
+    },
+    {
+        "step": 11,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Graveyard-0",
+        "property": "UniqueID",
+        "value": "9"
+    },
+    {
+        "step": 11,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Graveyard-0",
+        "property": "Owner",
+        "value": "1"
+    },
+    {
+        "step": 11,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Graveyard-0",
+        "property": "Controller",
+        "value": "1"
+    },
+    {
+        "step": 11,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Graveyard-1",
+        "property": "CardID",
+        "value": "teklo_base_chest"
+    },
+    {
+        "step": 11,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Graveyard-1",
+        "property": "UniqueID",
+        "value": "10"
+    },
+    {
+        "step": 11,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Graveyard-1",
+        "property": "Owner",
+        "value": "1"
+    },
+    {
+        "step": 11,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Graveyard-1",
+        "property": "Controller",
+        "value": "1"
+    },
+    {
+        "step": 11,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Graveyard-2",
+        "property": "CardID",
+        "value": "teklo_base_arms"
+    },
+    {
+        "step": 11,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Graveyard-2",
+        "property": "UniqueID",
+        "value": "11"
+    },
+    {
+        "step": 11,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Graveyard-2",
+        "property": "Owner",
+        "value": "1"
+    },
+    {
+        "step": 11,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Graveyard-2",
+        "property": "Controller",
+        "value": "1"
+    },
+    {
+        "step": 11,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Graveyard-3",
+        "property": "CardID",
+        "value": "teklo_base_legs"
+    },
+    {
+        "step": 11,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Graveyard-3",
+        "property": "UniqueID",
+        "value": "12"
+    },
+    {
+        "step": 11,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Graveyard-3",
+        "property": "Owner",
+        "value": "1"
+    },
+    {
+        "step": 11,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Graveyard-3",
+        "property": "Controller",
+        "value": "1"
+    },
+    {
+        "step": 11,
+        "type": "scalar_zone_equals",
+        "viewerPlayerID": 1,
+        "zone": "UniqueIDCounter",
+        "value": 16
+    },
+    {
+        "step": 11,
+        "type": "scalar_zone_equals",
+        "viewerPlayerID": 1,
+        "zone": "RandomCounter",
+        "value": 0
+    },
+    {
+        "step": 11,
+        "type": "decision_queue_empty",
+        "viewerPlayerID": 1,
+        "player": "1"
+    },
+    {
+        "step": 11,
+        "type": "decision_queue_empty",
+        "viewerPlayerID": 1,
+        "player": "2"
+    },
+    {
+        "step": 15,
+        "type": "game_state_field",
+        "viewerPlayerID": 1,
+        "rootName": "FaBSim",
+        "path": [
+            "combatOpen"
+        ],
+        "comparison": "equals",
+        "valueJson": "false"
+    },
+    {
+        "step": 15,
+        "type": "scalar_zone_equals",
+        "viewerPlayerID": 1,
+        "zone": "p1ActionPoints",
+        "value": 1
+    },
+    {
+        "step": 15,
+        "type": "scalar_zone_equals",
+        "viewerPlayerID": 1,
+        "zone": "p1Resources",
+        "value": 0
+    },
+    {
+        "step": 15,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Graveyard-4",
+        "property": "CardID",
+        "value": "zero_to_sixty_red"
+    },
+    {
+        "step": 15,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Graveyard-4",
+        "property": "UniqueID",
+        "value": "13"
+    },
+    {
+        "step": 15,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Graveyard-4",
+        "property": "Owner",
+        "value": "1"
+    },
+    {
+        "step": 15,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Graveyard-4",
+        "property": "Controller",
+        "value": "1"
+    },
+    {
+        "step": 15,
+        "type": "zone_count",
+        "viewerPlayerID": 1,
+        "zone": "p1Graveyard",
+        "value": 5
+    },
+    {
+        "step": 15,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Hand-0",
+        "property": "CardID",
+        "value": "hyper_driver_red"
+    },
+    {
+        "step": 15,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Hand-0",
+        "property": "UniqueID",
+        "value": "14"
+    },
+    {
+        "step": 15,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Hand-0",
+        "property": "Owner",
+        "value": "1"
+    },
+    {
+        "step": 15,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Hand-0",
+        "property": "Controller",
+        "value": "1"
+    },
+    {
+        "step": 15,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Hand-1",
+        "property": "CardID",
+        "value": "wounding_blow_blue"
+    },
+    {
+        "step": 15,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Hand-1",
+        "property": "UniqueID",
+        "value": "15"
+    },
+    {
+        "step": 15,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Hand-1",
+        "property": "Owner",
+        "value": "1"
+    },
+    {
+        "step": 15,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Hand-1",
+        "property": "Controller",
+        "value": "1"
+    },
+    {
+        "step": 15,
+        "type": "zone_count",
+        "viewerPlayerID": 1,
+        "zone": "p1Hand",
+        "value": 2
+    },
+    {
+        "step": 15,
+        "type": "zone_count",
+        "viewerPlayerID": 1,
+        "zone": "p1Banish",
+        "value": 0
+    },
+    {
+        "step": 15,
+        "type": "zone_count",
+        "viewerPlayerID": 1,
+        "zone": "Stack",
+        "value": 0
+    },
+    {
+        "step": 15,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Hero-0",
+        "property": "CardID",
+        "value": "teklovossen_the_mechropotent"
+    },
+    {
+        "step": 15,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Hero-0",
+        "property": "UniqueID",
+        "value": "1"
+    },
+    {
+        "step": 15,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Hero-0",
+        "property": "Owner",
+        "value": "1"
+    },
+    {
+        "step": 15,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Hero-0",
+        "property": "Controller",
+        "value": "1"
+    },
+    {
+        "step": 15,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Hero-0",
+        "property": "Status",
+        "value": "2"
+    },
+    {
+        "step": 15,
+        "type": "scalar_zone_equals",
+        "viewerPlayerID": 1,
+        "zone": "p1Health",
+        "value": 40
+    },
+    {
+        "step": 15,
+        "type": "zone_count",
+        "viewerPlayerID": 1,
+        "zone": "p1Soul",
+        "value": 6
+    },
+    {
+        "step": 15,
+        "type": "zone_count",
+        "viewerPlayerID": 1,
+        "zone": "p1Equipment",
+        "value": 0
+    },
+    {
+        "step": 15,
+        "type": "zone_count",
+        "viewerPlayerID": 1,
+        "zone": "p1Weapons",
+        "value": 0
+    },
+    {
+        "step": 15,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Deck-0",
+        "property": "CardID",
+        "value": "zero_to_sixty_blue"
+    },
+    {
+        "step": 15,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Deck-0",
+        "property": "UniqueID",
+        "value": "16"
+    },
+    {
+        "step": 15,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Deck-0",
+        "property": "Owner",
+        "value": "1"
+    },
+    {
+        "step": 15,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Deck-0",
+        "property": "Controller",
+        "value": "1"
+    },
+    {
+        "step": 15,
+        "type": "zone_count",
+        "viewerPlayerID": 1,
+        "zone": "p1Deck",
+        "value": 1
+    },
+    {
+        "step": 15,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Soul-0",
+        "property": "CardID",
+        "value": "evo_command_center_yellow"
+    },
+    {
+        "step": 15,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Soul-0",
+        "property": "UniqueID",
+        "value": "3"
+    },
+    {
+        "step": 15,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Soul-1",
+        "property": "CardID",
+        "value": "evo_engine_room_yellow"
+    },
+    {
+        "step": 15,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Soul-1",
+        "property": "UniqueID",
+        "value": "4"
+    },
+    {
+        "step": 15,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Soul-2",
+        "property": "CardID",
+        "value": "evo_smoothbore_yellow"
+    },
+    {
+        "step": 15,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Soul-2",
+        "property": "UniqueID",
+        "value": "5"
+    },
+    {
+        "step": 15,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Soul-3",
+        "property": "CardID",
+        "value": "evo_thruster_yellow"
+    },
+    {
+        "step": 15,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Soul-3",
+        "property": "UniqueID",
+        "value": "6"
+    },
+    {
+        "step": 15,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Soul-4",
+        "property": "CardID",
+        "value": "teklo_leveler"
+    },
+    {
+        "step": 15,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Soul-4",
+        "property": "UniqueID",
+        "value": "7"
+    },
+    {
+        "step": 15,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Soul-5",
+        "property": "CardID",
+        "value": "teklovossen_esteemed_magnate"
+    },
+    {
+        "step": 15,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Soul-5",
+        "property": "UniqueID",
+        "value": "8"
+    },
+    {
+        "step": 15,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Graveyard-0",
+        "property": "CardID",
+        "value": "teklo_base_head"
+    },
+    {
+        "step": 15,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Graveyard-0",
+        "property": "UniqueID",
+        "value": "9"
+    },
+    {
+        "step": 15,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Graveyard-0",
+        "property": "Owner",
+        "value": "1"
+    },
+    {
+        "step": 15,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Graveyard-0",
+        "property": "Controller",
+        "value": "1"
+    },
+    {
+        "step": 15,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Graveyard-1",
+        "property": "CardID",
+        "value": "teklo_base_chest"
+    },
+    {
+        "step": 15,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Graveyard-1",
+        "property": "UniqueID",
+        "value": "10"
+    },
+    {
+        "step": 15,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Graveyard-1",
+        "property": "Owner",
+        "value": "1"
+    },
+    {
+        "step": 15,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Graveyard-1",
+        "property": "Controller",
+        "value": "1"
+    },
+    {
+        "step": 15,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Graveyard-2",
+        "property": "CardID",
+        "value": "teklo_base_arms"
+    },
+    {
+        "step": 15,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Graveyard-2",
+        "property": "UniqueID",
+        "value": "11"
+    },
+    {
+        "step": 15,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Graveyard-2",
+        "property": "Owner",
+        "value": "1"
+    },
+    {
+        "step": 15,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Graveyard-2",
+        "property": "Controller",
+        "value": "1"
+    },
+    {
+        "step": 15,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Graveyard-3",
+        "property": "CardID",
+        "value": "teklo_base_legs"
+    },
+    {
+        "step": 15,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Graveyard-3",
+        "property": "UniqueID",
+        "value": "12"
+    },
+    {
+        "step": 15,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Graveyard-3",
+        "property": "Owner",
+        "value": "1"
+    },
+    {
+        "step": 15,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Graveyard-3",
+        "property": "Controller",
+        "value": "1"
+    },
+    {
+        "step": 15,
+        "type": "scalar_zone_equals",
+        "viewerPlayerID": 1,
+        "zone": "UniqueIDCounter",
+        "value": 16
+    },
+    {
+        "step": 15,
+        "type": "scalar_zone_equals",
+        "viewerPlayerID": 1,
+        "zone": "RandomCounter",
+        "value": 0
+    },
+    {
+        "step": 15,
+        "type": "decision_queue_empty",
+        "viewerPlayerID": 1,
+        "player": "1"
+    },
+    {
+        "step": 15,
+        "type": "decision_queue_empty",
+        "viewerPlayerID": 1,
+        "player": "2"
+    },
+    {
+        "step": 16,
+        "type": "game_state_field",
+        "viewerPlayerID": 1,
+        "rootName": "FaBSim",
+        "path": [
+            "window"
+        ],
+        "comparison": "equals",
+        "valueJson": "\"PITCH\""
+    },
+    {
+        "step": 16,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "Stack-0",
+        "property": "CardID",
+        "value": "hyper_driver_red"
+    },
+    {
+        "step": 16,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "Stack-0",
+        "property": "UniqueID",
+        "value": "14"
+    },
+    {
+        "step": 16,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "Stack-0",
+        "property": "Owner",
+        "value": "1"
+    },
+    {
+        "step": 16,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "Stack-0",
+        "property": "Controller",
+        "value": "1"
+    },
+    {
+        "step": 16,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "Stack-0",
+        "property": "Kind",
+        "value": "ACTION"
+    },
+    {
+        "step": 16,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Hand-0",
+        "property": "CardID",
+        "value": "wounding_blow_blue"
+    },
+    {
+        "step": 16,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Hand-0",
+        "property": "UniqueID",
+        "value": "15"
+    },
+    {
+        "step": 16,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Hand-0",
+        "property": "Owner",
+        "value": "1"
+    },
+    {
+        "step": 16,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Hand-0",
+        "property": "Controller",
+        "value": "1"
+    },
+    {
+        "step": 16,
+        "type": "scalar_zone_equals",
+        "viewerPlayerID": 1,
+        "zone": "p1ActionPoints",
+        "value": 1
+    },
+    {
+        "step": 16,
+        "type": "scalar_zone_equals",
+        "viewerPlayerID": 1,
+        "zone": "p1Resources",
+        "value": 0
+    },
+    {
+        "step": 17,
+        "type": "game_state_field",
+        "viewerPlayerID": 1,
+        "rootName": "FaBSim",
+        "path": [
+            "window"
+        ],
+        "comparison": "equals",
+        "valueJson": "\"PRIORITY\""
+    },
+    {
+        "step": 17,
+        "type": "scalar_zone_equals",
+        "viewerPlayerID": 1,
+        "zone": "PriorityPlayer",
+        "value": 2
+    },
+    {
+        "step": 17,
+        "type": "scalar_zone_equals",
+        "viewerPlayerID": 1,
+        "zone": "p1Resources",
+        "value": 2
+    },
+    {
+        "step": 17,
+        "type": "scalar_zone_equals",
+        "viewerPlayerID": 1,
+        "zone": "p1ActionPoints",
+        "value": 0
+    },
+    {
+        "step": 17,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Pitch-0",
+        "property": "CardID",
+        "value": "wounding_blow_blue"
+    },
+    {
+        "step": 17,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Pitch-0",
+        "property": "UniqueID",
+        "value": "15"
+    },
+    {
+        "step": 17,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Pitch-0",
+        "property": "Owner",
+        "value": "1"
+    },
+    {
+        "step": 17,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Pitch-0",
+        "property": "Controller",
+        "value": "1"
+    },
+    {
+        "step": 17,
+        "type": "zone_count",
+        "viewerPlayerID": 1,
+        "zone": "p1Pitch",
+        "value": 1
+    },
+    {
+        "step": 17,
+        "type": "zone_count",
+        "viewerPlayerID": 1,
+        "zone": "p1Hand",
+        "value": 0
+    },
+    {
+        "step": 17,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Hero-0",
+        "property": "CardID",
+        "value": "teklovossen_the_mechropotent"
+    },
+    {
+        "step": 17,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Hero-0",
+        "property": "UniqueID",
+        "value": "1"
+    },
+    {
+        "step": 17,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Hero-0",
+        "property": "Owner",
+        "value": "1"
+    },
+    {
+        "step": 17,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Hero-0",
+        "property": "Controller",
+        "value": "1"
+    },
+    {
+        "step": 17,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Hero-0",
+        "property": "Status",
+        "value": "2"
+    },
+    {
+        "step": 17,
+        "type": "scalar_zone_equals",
+        "viewerPlayerID": 1,
+        "zone": "p1Health",
+        "value": 40
+    },
+    {
+        "step": 17,
+        "type": "zone_count",
+        "viewerPlayerID": 1,
+        "zone": "p1Soul",
+        "value": 6
+    },
+    {
+        "step": 17,
+        "type": "zone_count",
+        "viewerPlayerID": 1,
+        "zone": "p1Equipment",
+        "value": 0
+    },
+    {
+        "step": 17,
+        "type": "zone_count",
+        "viewerPlayerID": 1,
+        "zone": "p1Weapons",
+        "value": 0
+    },
+    {
+        "step": 17,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Deck-0",
+        "property": "CardID",
+        "value": "zero_to_sixty_blue"
+    },
+    {
+        "step": 17,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Deck-0",
+        "property": "UniqueID",
+        "value": "16"
+    },
+    {
+        "step": 17,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Deck-0",
+        "property": "Owner",
+        "value": "1"
+    },
+    {
+        "step": 17,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Deck-0",
+        "property": "Controller",
+        "value": "1"
+    },
+    {
+        "step": 17,
+        "type": "zone_count",
+        "viewerPlayerID": 1,
+        "zone": "p1Deck",
+        "value": 1
+    },
+    {
+        "step": 17,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Soul-0",
+        "property": "CardID",
+        "value": "evo_command_center_yellow"
+    },
+    {
+        "step": 17,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Soul-0",
+        "property": "UniqueID",
+        "value": "3"
+    },
+    {
+        "step": 17,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Soul-1",
+        "property": "CardID",
+        "value": "evo_engine_room_yellow"
+    },
+    {
+        "step": 17,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Soul-1",
+        "property": "UniqueID",
+        "value": "4"
+    },
+    {
+        "step": 17,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Soul-2",
+        "property": "CardID",
+        "value": "evo_smoothbore_yellow"
+    },
+    {
+        "step": 17,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Soul-2",
+        "property": "UniqueID",
+        "value": "5"
+    },
+    {
+        "step": 17,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Soul-3",
+        "property": "CardID",
+        "value": "evo_thruster_yellow"
+    },
+    {
+        "step": 17,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Soul-3",
+        "property": "UniqueID",
+        "value": "6"
+    },
+    {
+        "step": 17,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Soul-4",
+        "property": "CardID",
+        "value": "teklo_leveler"
+    },
+    {
+        "step": 17,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Soul-4",
+        "property": "UniqueID",
+        "value": "7"
+    },
+    {
+        "step": 17,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Soul-5",
+        "property": "CardID",
+        "value": "teklovossen_esteemed_magnate"
+    },
+    {
+        "step": 17,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Soul-5",
+        "property": "UniqueID",
+        "value": "8"
+    },
+    {
+        "step": 17,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Graveyard-0",
+        "property": "CardID",
+        "value": "teklo_base_head"
+    },
+    {
+        "step": 17,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Graveyard-0",
+        "property": "UniqueID",
+        "value": "9"
+    },
+    {
+        "step": 17,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Graveyard-0",
+        "property": "Owner",
+        "value": "1"
+    },
+    {
+        "step": 17,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Graveyard-0",
+        "property": "Controller",
+        "value": "1"
+    },
+    {
+        "step": 17,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Graveyard-1",
+        "property": "CardID",
+        "value": "teklo_base_chest"
+    },
+    {
+        "step": 17,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Graveyard-1",
+        "property": "UniqueID",
+        "value": "10"
+    },
+    {
+        "step": 17,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Graveyard-1",
+        "property": "Owner",
+        "value": "1"
+    },
+    {
+        "step": 17,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Graveyard-1",
+        "property": "Controller",
+        "value": "1"
+    },
+    {
+        "step": 17,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Graveyard-2",
+        "property": "CardID",
+        "value": "teklo_base_arms"
+    },
+    {
+        "step": 17,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Graveyard-2",
+        "property": "UniqueID",
+        "value": "11"
+    },
+    {
+        "step": 17,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Graveyard-2",
+        "property": "Owner",
+        "value": "1"
+    },
+    {
+        "step": 17,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Graveyard-2",
+        "property": "Controller",
+        "value": "1"
+    },
+    {
+        "step": 17,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Graveyard-3",
+        "property": "CardID",
+        "value": "teklo_base_legs"
+    },
+    {
+        "step": 17,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Graveyard-3",
+        "property": "UniqueID",
+        "value": "12"
+    },
+    {
+        "step": 17,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Graveyard-3",
+        "property": "Owner",
+        "value": "1"
+    },
+    {
+        "step": 17,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Graveyard-3",
+        "property": "Controller",
+        "value": "1"
+    },
+    {
+        "step": 17,
+        "type": "scalar_zone_equals",
+        "viewerPlayerID": 1,
+        "zone": "UniqueIDCounter",
+        "value": 16
+    },
+    {
+        "step": 17,
+        "type": "scalar_zone_equals",
+        "viewerPlayerID": 1,
+        "zone": "RandomCounter",
+        "value": 0
+    },
+    {
+        "step": 17,
+        "type": "decision_queue_empty",
+        "viewerPlayerID": 1,
+        "player": "1"
+    },
+    {
+        "step": 17,
+        "type": "decision_queue_empty",
+        "viewerPlayerID": 1,
+        "player": "2"
+    },
+    {
+        "step": 19,
+        "type": "game_state_field",
+        "viewerPlayerID": 1,
+        "rootName": "FaBSim",
+        "path": [
+            "window"
+        ],
+        "comparison": "equals",
+        "valueJson": "\"ACTION\""
+    },
+    {
+        "step": 19,
+        "type": "game_state_field",
+        "viewerPlayerID": 1,
+        "rootName": "FaBSim",
+        "path": [
+            "combatOpen"
+        ],
+        "comparison": "equals",
+        "valueJson": "false"
+    },
+    {
+        "step": 19,
+        "type": "game_state_field",
+        "viewerPlayerID": 1,
+        "rootName": "FaBSim",
+        "path": [
+            "pendingPayment"
+        ],
+        "comparison": "missing_or_null"
+    },
+    {
+        "step": 19,
+        "type": "game_state_field",
+        "viewerPlayerID": 1,
+        "rootName": "FaBSim",
+        "path": [
+            "resolvingReaction"
+        ],
+        "comparison": "missing_or_null"
+    },
+    {
+        "step": 19,
+        "type": "scalar_zone_equals",
+        "viewerPlayerID": 1,
+        "zone": "TurnPlayer",
+        "value": 1
+    },
+    {
+        "step": 19,
+        "type": "scalar_zone_equals",
+        "viewerPlayerID": 1,
+        "zone": "TurnNumber",
+        "value": 2
+    },
+    {
+        "step": 19,
+        "type": "scalar_zone_equals",
+        "viewerPlayerID": 1,
+        "zone": "PriorityPlayer",
+        "value": 1
+    },
+    {
+        "step": 19,
+        "type": "zone_count",
+        "viewerPlayerID": 1,
+        "zone": "Stack",
+        "value": 0
+    },
+    {
+        "step": 19,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Hero-0",
+        "property": "CardID",
+        "value": "teklovossen_the_mechropotent"
+    },
+    {
+        "step": 19,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Hero-0",
+        "property": "UniqueID",
+        "value": "1"
+    },
+    {
+        "step": 19,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Hero-0",
+        "property": "Owner",
+        "value": "1"
+    },
+    {
+        "step": 19,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Hero-0",
+        "property": "Controller",
+        "value": "1"
+    },
+    {
+        "step": 19,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Hero-0",
+        "property": "Status",
+        "value": "2"
+    },
+    {
+        "step": 19,
+        "type": "scalar_zone_equals",
+        "viewerPlayerID": 1,
+        "zone": "p1Health",
+        "value": 40
+    },
+    {
+        "step": 19,
+        "type": "zone_count",
+        "viewerPlayerID": 1,
+        "zone": "p1Soul",
+        "value": 6
+    },
+    {
+        "step": 19,
+        "type": "zone_count",
+        "viewerPlayerID": 1,
+        "zone": "p1Equipment",
+        "value": 0
+    },
+    {
+        "step": 19,
+        "type": "zone_count",
+        "viewerPlayerID": 1,
+        "zone": "p1Weapons",
+        "value": 0
+    },
+    {
+        "step": 19,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Deck-0",
+        "property": "CardID",
+        "value": "zero_to_sixty_blue"
+    },
+    {
+        "step": 19,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Deck-0",
+        "property": "UniqueID",
+        "value": "16"
+    },
+    {
+        "step": 19,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Deck-0",
+        "property": "Owner",
+        "value": "1"
+    },
+    {
+        "step": 19,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Deck-0",
+        "property": "Controller",
+        "value": "1"
+    },
+    {
+        "step": 19,
+        "type": "zone_count",
+        "viewerPlayerID": 1,
+        "zone": "p1Deck",
+        "value": 1
+    },
+    {
+        "step": 19,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Soul-0",
+        "property": "CardID",
+        "value": "evo_command_center_yellow"
+    },
+    {
+        "step": 19,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Soul-0",
+        "property": "UniqueID",
+        "value": "3"
+    },
+    {
+        "step": 19,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Soul-1",
+        "property": "CardID",
+        "value": "evo_engine_room_yellow"
+    },
+    {
+        "step": 19,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Soul-1",
+        "property": "UniqueID",
+        "value": "4"
+    },
+    {
+        "step": 19,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Soul-2",
+        "property": "CardID",
+        "value": "evo_smoothbore_yellow"
+    },
+    {
+        "step": 19,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Soul-2",
+        "property": "UniqueID",
+        "value": "5"
+    },
+    {
+        "step": 19,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Soul-3",
+        "property": "CardID",
+        "value": "evo_thruster_yellow"
+    },
+    {
+        "step": 19,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Soul-3",
+        "property": "UniqueID",
+        "value": "6"
+    },
+    {
+        "step": 19,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Soul-4",
+        "property": "CardID",
+        "value": "teklo_leveler"
+    },
+    {
+        "step": 19,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Soul-4",
+        "property": "UniqueID",
+        "value": "7"
+    },
+    {
+        "step": 19,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Soul-5",
+        "property": "CardID",
+        "value": "teklovossen_esteemed_magnate"
+    },
+    {
+        "step": 19,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Soul-5",
+        "property": "UniqueID",
+        "value": "8"
+    },
+    {
+        "step": 19,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Graveyard-0",
+        "property": "CardID",
+        "value": "teklo_base_head"
+    },
+    {
+        "step": 19,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Graveyard-0",
+        "property": "UniqueID",
+        "value": "9"
+    },
+    {
+        "step": 19,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Graveyard-0",
+        "property": "Owner",
+        "value": "1"
+    },
+    {
+        "step": 19,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Graveyard-0",
+        "property": "Controller",
+        "value": "1"
+    },
+    {
+        "step": 19,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Graveyard-1",
+        "property": "CardID",
+        "value": "teklo_base_chest"
+    },
+    {
+        "step": 19,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Graveyard-1",
+        "property": "UniqueID",
+        "value": "10"
+    },
+    {
+        "step": 19,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Graveyard-1",
+        "property": "Owner",
+        "value": "1"
+    },
+    {
+        "step": 19,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Graveyard-1",
+        "property": "Controller",
+        "value": "1"
+    },
+    {
+        "step": 19,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Graveyard-2",
+        "property": "CardID",
+        "value": "teklo_base_arms"
+    },
+    {
+        "step": 19,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Graveyard-2",
+        "property": "UniqueID",
+        "value": "11"
+    },
+    {
+        "step": 19,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Graveyard-2",
+        "property": "Owner",
+        "value": "1"
+    },
+    {
+        "step": 19,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Graveyard-2",
+        "property": "Controller",
+        "value": "1"
+    },
+    {
+        "step": 19,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Graveyard-3",
+        "property": "CardID",
+        "value": "teklo_base_legs"
+    },
+    {
+        "step": 19,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Graveyard-3",
+        "property": "UniqueID",
+        "value": "12"
+    },
+    {
+        "step": 19,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Graveyard-3",
+        "property": "Owner",
+        "value": "1"
+    },
+    {
+        "step": 19,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Graveyard-3",
+        "property": "Controller",
+        "value": "1"
+    },
+    {
+        "step": 19,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Graveyard-4",
+        "property": "CardID",
+        "value": "zero_to_sixty_red"
+    },
+    {
+        "step": 19,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Graveyard-4",
+        "property": "UniqueID",
+        "value": "13"
+    },
+    {
+        "step": 19,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Graveyard-4",
+        "property": "Owner",
+        "value": "1"
+    },
+    {
+        "step": 19,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Graveyard-4",
+        "property": "Controller",
+        "value": "1"
+    },
+    {
+        "step": 19,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Arena-0",
+        "property": "CardID",
+        "value": "hyper_driver_red"
+    },
+    {
+        "step": 19,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Arena-0",
+        "property": "UniqueID",
+        "value": "14"
+    },
+    {
+        "step": 19,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Arena-0",
+        "property": "Owner",
+        "value": "1"
+    },
+    {
+        "step": 19,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Arena-0",
+        "property": "Controller",
+        "value": "1"
+    },
+    {
+        "step": 19,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Pitch-0",
+        "property": "CardID",
+        "value": "wounding_blow_blue"
+    },
+    {
+        "step": 19,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Pitch-0",
+        "property": "UniqueID",
+        "value": "15"
+    },
+    {
+        "step": 19,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Pitch-0",
+        "property": "Owner",
+        "value": "1"
+    },
+    {
+        "step": 19,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Pitch-0",
+        "property": "Controller",
+        "value": "1"
+    },
+    {
+        "step": 19,
+        "type": "scalar_zone_equals",
+        "viewerPlayerID": 1,
+        "zone": "UniqueIDCounter",
+        "value": 16
+    },
+    {
+        "step": 19,
+        "type": "scalar_zone_equals",
+        "viewerPlayerID": 1,
+        "zone": "RandomCounter",
+        "value": 0
+    },
+    {
+        "step": 19,
+        "type": "decision_queue_empty",
+        "viewerPlayerID": 1,
+        "player": "1"
+    },
+    {
+        "step": 19,
+        "type": "decision_queue_empty",
+        "viewerPlayerID": 1,
+        "player": "2"
+    },
+    {
+        "step": 19,
+        "type": "scalar_zone_equals",
+        "viewerPlayerID": 1,
+        "zone": "p1Health",
+        "value": 40
+    },
+    {
+        "step": 19,
+        "type": "scalar_zone_equals",
+        "viewerPlayerID": 1,
+        "zone": "p1Resources",
+        "value": 2
+    },
+    {
+        "step": 19,
+        "type": "scalar_zone_equals",
+        "viewerPlayerID": 1,
+        "zone": "p1ActionPoints",
+        "value": 0
+    },
+    {
+        "step": 19,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Hero-0",
+        "property": "Status",
+        "value": "2"
+    },
+    {
+        "step": 19,
+        "type": "zone_count",
+        "viewerPlayerID": 1,
+        "zone": "p1Hand",
+        "value": 0
+    },
+    {
+        "step": 19,
+        "type": "zone_count",
+        "viewerPlayerID": 1,
+        "zone": "p1Graveyard",
+        "value": 5
+    },
+    {
+        "step": 19,
+        "type": "zone_count",
+        "viewerPlayerID": 1,
+        "zone": "p1Deck",
+        "value": 1
+    },
+    {
+        "step": 19,
+        "type": "zone_count",
+        "viewerPlayerID": 1,
+        "zone": "p1Banish",
+        "value": 0
+    },
+    {
+        "step": 19,
+        "type": "zone_count",
+        "viewerPlayerID": 1,
+        "zone": "p1Weapons",
+        "value": 0
+    },
+    {
+        "step": 19,
+        "type": "zone_count",
+        "viewerPlayerID": 1,
+        "zone": "p1Equipment",
+        "value": 0
+    },
+    {
+        "step": 19,
+        "type": "zone_count",
+        "viewerPlayerID": 1,
+        "zone": "p1Arena",
+        "value": 1
+    },
+    {
+        "step": 19,
+        "type": "zone_count",
+        "viewerPlayerID": 1,
+        "zone": "p1Arsenal",
+        "value": 0
+    },
+    {
+        "step": 19,
+        "type": "zone_count",
+        "viewerPlayerID": 1,
+        "zone": "p1Pitch",
+        "value": 1
+    },
+    {
+        "step": 19,
+        "type": "zone_count",
+        "viewerPlayerID": 1,
+        "zone": "p1Soul",
+        "value": 6
+    },
+    {
+        "step": 19,
+        "type": "zone_count",
+        "viewerPlayerID": 1,
+        "zone": "p1CombatChain",
+        "value": 0
+    },
+    {
+        "step": 19,
+        "type": "zone_count",
+        "viewerPlayerID": 1,
+        "zone": "p1Temp",
+        "value": 0
+    },
+    {
+        "step": 19,
+        "type": "scalar_zone_equals",
+        "viewerPlayerID": 1,
+        "zone": "p2Health",
+        "value": 36
+    },
+    {
+        "step": 19,
+        "type": "scalar_zone_equals",
+        "viewerPlayerID": 1,
+        "zone": "p2Resources",
+        "value": 0
+    },
+    {
+        "step": 19,
+        "type": "scalar_zone_equals",
+        "viewerPlayerID": 1,
+        "zone": "p2ActionPoints",
+        "value": 0
+    },
+    {
+        "step": 19,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p2Hero-0",
+        "property": "Status",
+        "value": "2"
+    },
+    {
+        "step": 19,
+        "type": "zone_count",
+        "viewerPlayerID": 1,
+        "zone": "p2Hand",
+        "value": 0
+    },
+    {
+        "step": 19,
+        "type": "zone_count",
+        "viewerPlayerID": 1,
+        "zone": "p2Graveyard",
+        "value": 0
+    },
+    {
+        "step": 19,
+        "type": "zone_count",
+        "viewerPlayerID": 1,
+        "zone": "p2Deck",
+        "value": 0
+    },
+    {
+        "step": 19,
+        "type": "zone_count",
+        "viewerPlayerID": 1,
+        "zone": "p2Banish",
+        "value": 0
+    },
+    {
+        "step": 19,
+        "type": "zone_count",
+        "viewerPlayerID": 1,
+        "zone": "p2Weapons",
+        "value": 0
+    },
+    {
+        "step": 19,
+        "type": "zone_count",
+        "viewerPlayerID": 1,
+        "zone": "p2Equipment",
+        "value": 0
+    },
+    {
+        "step": 19,
+        "type": "zone_count",
+        "viewerPlayerID": 1,
+        "zone": "p2Arena",
+        "value": 0
+    },
+    {
+        "step": 19,
+        "type": "zone_count",
+        "viewerPlayerID": 1,
+        "zone": "p2Arsenal",
+        "value": 0
+    },
+    {
+        "step": 19,
+        "type": "zone_count",
+        "viewerPlayerID": 1,
+        "zone": "p2Pitch",
+        "value": 0
+    },
+    {
+        "step": 19,
+        "type": "zone_count",
+        "viewerPlayerID": 1,
+        "zone": "p2Soul",
+        "value": 0
+    },
+    {
+        "step": 19,
+        "type": "zone_count",
+        "viewerPlayerID": 1,
+        "zone": "p2CombatChain",
+        "value": 0
+    },
+    {
+        "step": 19,
+        "type": "zone_count",
+        "viewerPlayerID": 1,
+        "zone": "p2Temp",
+        "value": 0
+    }
+]

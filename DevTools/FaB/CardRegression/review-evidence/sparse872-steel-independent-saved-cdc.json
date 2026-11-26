@@ -1,0 +1,164 @@
+{
+  "status": "SAVED_APPROVED_STEEL_BLUE_AUTOMATIC_START_REAL_SABER_THREE_DAMAGE",
+  "phase": "SAVED",
+  "batch": 872,
+  "reviewer": "/root/ebbing_recovery_review",
+  "reviewer_independent": true,
+  "approved": true,
+  "semantically_approved": true,
+  "saved_review_complete": true,
+  "actual_saved_fixture_reviewed": true,
+  "source_spec": "card-regression-batch872-steel-automatic-start-real-saber-three-positive.json",
+  "source": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch872-steel-automatic-start-real-saber-three-positive-author\\steel-automatic-start-real-saber-three-positive.json",
+    "sha256": "17eb2e8fa86605aa9fa45fc013ac0ddefa5b88460e65253ba1fd5cdbec2b4696"
+  },
+  "input_sha256": "17eb2e8fa86605aa9fa45fc013ac0ddefa5b88460e65253ba1fd5cdbec2b4696",
+  "manifest": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch872-steel-automatic-start-real-saber-three-positive-author\\manifest.json",
+    "sha256": "9243cc821c326f6ce78732531dd2da5e020008d91b7a69f7013df308f9d31e47"
+  },
+  "manifest_sha256": "9243cc821c326f6ce78732531dd2da5e020008d91b7a69f7013df308f9d31e47",
+  "runtime_sha256": "cdc081ff4c87ff2f9338b1d69040d0dc98d7600ba33976384336534ea3f92d22",
+  "recorded_runtime_sha256": "cdc081ff4c87ff2f9338b1d69040d0dc98d7600ba33976384336534ea3f92d22",
+  "independent_positive_Source": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch872-steel-independent-automatic-start-normal-positive-source-review.json",
+    "sha256": "bea36b72ae62317b43d85720a4b585d90623f868a97648b9fbc9a270bd9cdc32"
+  },
+  "root_native_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-b872-steel-normal-native-save-cdc\\receipt.json",
+    "sha256": "d4cc526a6f2c5b100b60603d4aa1373336ff7382f31eb0a41a8cace23769a129"
+  },
+  "actual_result": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch872-steel-automatic-start-real-saber-three-positive.recording-results.json",
+    "sha256": "82801a16621446aa96457c5df0d33a2be1e9b36a540a67de11389b1b8fdd2e85"
+  },
+  "actual_immutable_archive": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch872-steel-automatic-start-real-saber-three-positive-20261116T144617Z-6afb1739e6ef6.json",
+    "sha256": "e67fdfdb89d15b04d2703e7afd2116ec02808c70d2041eeb3e3fcbba74d7922a"
+  },
+  "fixtures": [
+    {
+      "card_id": "blessing_of_steel_blue",
+      "slug": "card-blessing-of-steel-blue-four-live-automatic-start-real-saber-three-damage",
+      "actions": 36,
+      "native_assertions": 4275,
+      "manual_passes": 33,
+      "actual_manual_inputs": 36,
+      "actual_manual_actor_counts": {
+        "4": 9,
+        "1": 11,
+        "2": 8,
+        "3": 8
+      },
+      "actual_native_actor_counts": {
+        "4": 9,
+        "1": 11,
+        "2": 8,
+        "3": 8
+      },
+      "actual_pass_actor_counts": {
+        "4": 9,
+        "1": 8,
+        "2": 8,
+        "3": 8
+      },
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "ec761877f03ead864026d5623877812df7e63e8c280a7dc19ae782a26897e4f5",
+        "actions.json": "7301ca62f9dd0fde21595bc667481b574484667bf06f9f23e6167077946a0754",
+        "assertions.json": "876360c96c06ce86aa7b132737c824d9dc52ef4673b2cae64b43466f14ad1bf6",
+        "expected_final_gamestate.txt": "dac0867f70f98b363632eee1cf939009ad2015997a1422353d4e6913fbe5fe20",
+        "meta.json": "b101bf04e2dfff2637a253f45062b277b15d5cc1dd18d6ee882f9f29bda23484"
+      },
+      "fixture_sha256": "a3f5714d9dc2350e1deaa4f3903b68176cf33cab4ea7c220a6b5e1032465d669",
+      "behaviorfixture_sha256": "a3f5714d9dc2350e1deaa4f3903b68176cf33cab4ea7c220a6b5e1032465d669",
+      "input_sha256": "17eb2e8fa86605aa9fa45fc013ac0ddefa5b88460e65253ba1fd5cdbec2b4696",
+      "runtime_sha256": "cdc081ff4c87ff2f9338b1d69040d0dc98d7600ba33976384336534ea3f92d22",
+      "recorded_runtime_sha256": "cdc081ff4c87ff2f9338b1d69040d0dc98d7600ba33976384336534ea3f92d22",
+      "genuine_four_live_manual_seats": true,
+      "initial_raw_48_manual_controls": true,
+      "final_raw_48_manual_controls": true,
+      "initial_endpoint_queries_independently_evaluated": 131,
+      "terminal_endpoint_queries_independently_evaluated": 236
+    }
+  ],
+  "actions": 36,
+  "native_assertions": 4275,
+  "manual_passes": 33,
+  "actual_manual_inputs": 36,
+  "actual_manual_actor_counts": {
+    "4": 9,
+    "1": 11,
+    "2": 8,
+    "3": 8
+  },
+  "actual_native_actor_counts": {
+    "4": 9,
+    "1": 11,
+    "2": 8,
+    "3": 8
+  },
+  "actual_pass_actor_counts": {
+    "4": 9,
+    "1": 8,
+    "2": 8,
+    "3": 8
+  },
+  "actual_manual_definition": "All36 inputs were manually controlled: three native play/target/pitch inputs and33 PASS envelopes. PASS33 are separately28 real priority,1 defense finalizer and4 nonpriority END transports.",
+  "legal_priority_response_controls": 28,
+  "formal_defense_finish_inputs": 1,
+  "nonpriority_END_transport_controls": 4,
+  "pass_controls_are_not_all_priority_responses": true,
+  "actual_expected_envelope_mapping_sha256": "8c22120a32da60285687cc3c113fb3fecc2bb9d520dc8b80d4e08f1afc7a50c2",
+  "actual_ordered_query_mapping_sha256": "535ca93f6ff6ade93f046e8bc65ce2cae9634fd4d68e2f933499e317ceec7a59",
+  "checkpoint_mapping_sha256": "ef02c9295cb6aa65374c65cedae2f3ce382c269d25243c8bdb43dbe3ff71a73d",
+  "all_saved_actions_and_queries_match_exact_approved_Source": true,
+  "checkpoint_count": 38,
+  "typed_property_queries": 927,
+  "initial_raw_48_manual_controls": true,
+  "final_raw_48_manual_controls": true,
+  "genuine_four_live_manual_seats": true,
+  "actual_initial_and_final_raw_schema_fully_consumed": true,
+  "initial_and_final_raw_manual_shortcut_checks": 96,
+  "actual_semantics": [
+    "Actual complete initial raw verifies YoungBoltyn1/Betsy2/3/4 all20/UPF/live1234/no passive seats, exact physical Aura5Arena1/Saber6Weapons1/Blue7Hand1 and no other card assets. CurrentP4ACTION/Turn2/AP1 matches RootR3 admitted unused point; both actual endpoints retain holdPriority and all11 disabled auto windows per seat,48controls each.",
+    "All36 actual native envelopes and4275 persisted assertion objects match Source exactly, including step/checkpoint mapping. Native receipt/result/archive bind the exact input and unchanged CDC runtime, successful exit0/stderr0 and exactlyone new Saved fixture.131 initial and236 terminal assertions independently evaluate against their full raw snapshots; intermediate assertions are the exact Native-validated persisted sequence, not a claim to unavailable intermediate raw snapshots.",
+    "Actual four ordinary P4Action responses then four END transport inputs cross oldTurn4/Turn2 guarded checkpoints into firstP1MAIN/Turn3/AP1. At that first endpoint, actual assertions verify Aura5 ownGraveyard/Stack0 before Saber activation: printedStart selfdestroy/effect occurs automatically beforeAction priority, with no fabricated earned Start response quorum or preseeded buff. PriorAura cast is uncredited.",
+    "Actual realSaber6 native activation/formalHero4 target uses Blue7 pitch3 to pay printed1R, leavingR2/AP0; physical weapon becomes used. SourceUID6/Weapons and WEAPON_UID6 identify the real source without a guessed proxyUID. Current active attack computed3 and actual Hero4 health17 validate base2+Steel1 through real damage; no defenders enter Cintari own Defended trigger and no Boltyn charge/Soul activation is used.",
+    "Fresh actual final raw has sameAuraUID5 faceup owner/controller1GY, sameBlueUID7Pitch1, sameSaberUID6Weapons1Status1 with native counters WEAPON_ATTACK_TURN3/WEAPON_ATTACKS1, resources2/AP0 and health20/20/20/17. Owner1 DYN_NEXT is absent from actual final effects; this corroborates consumption by the first attack, without certifying a second weapon behavior. Stack/allDQ/allCombatChain/payment/resolvingReaction/awaitFrames clear; windowACTION/Turn1/Turn3/MAIN and physical Hand/Deck/Arena empty.",
+    "33 actual PASS envelopes are28 true priority responses, one P4 declaration finalizer, four nonpriority END transports. Native actors are1:11/2:8/3:8/4:9, while PASS actors are1:8/2:8/3:8/4:9. No End/Start transport is misreported as a game-priority response. Only Blue representative automaticStart/first real weapon consumer is approved; no old858 Native credit, sibling/priorcast/secondweapon/expiry/support/fullcard certificate."
+  ],
+  "qualification": false,
+  "coverage_credit": false,
+  "passing_replay_certificate": false,
+  "required_remaining_gates": "Root two new-only clean replays and guarded registration/index qualification are separate. This Saved proof supplies no borrowed replay or automatic coverage credit.",
+  "planning_corrections": {
+    "Root_R3": {
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch872-firm-reservation-r3-start-close-ap-prose.json",
+      "sha256": "8eb82af409261fc781f61027449b3a8ef44982fd91a8f220173c5a988531f2a6"
+    },
+    "meaning": "AutomaticSTART and initialunusedP4AP1 were admitted before Native with no frozen input change; Stonewall/Plating Close planning corrections are separate/unattempted and do not affect this fixture."
+  },
+  "limits": [
+    "Exact named Blue first functional branch only; priorcast/secondweapon/othercolours/start-internalordering/CintariDefended/Boltyncharge/Soul/support/fullcard unentered or uncredited.",
+    "No reviewer PHP/Native/replay/Rwrites/new agents/old corpus audit/sourcefix or denied operation retry. Raw5 actual unchanged at review."
+  ],
+  "reused_pure_parser_source": [
+    {
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov15_batch824_actual_saved.py",
+      "sha256": "e91764c206e187ff9f80bb4a39b705aa97abdf186777c4451832c34b8eddb97f",
+      "function": "snap",
+      "execution": "AST-selected pure function only"
+    },
+    {
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov16_batch858_blessing_r2_actual_saved.py",
+      "sha256": "df0d19021a639688c3ff281eaa0596e2d380829ed0cea03f75c10b92367fd7ff",
+      "function": "evaluate",
+      "execution": "AST-selected pure function only"
+    }
+  ],
+  "repository_writes": false,
+  "reviewer_PHP_executed": false,
+  "reviewer_Native_executed": false
+}

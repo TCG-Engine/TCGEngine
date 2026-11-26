@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-no-fear-red-four-live-sparse1085-zero-extra-banish-cost-then-real-four-damage-packet-prevent-two",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-no-fear-red-four-live-sparse1085-zero-extra-banish-cost-then-real-four-damage-packet-prevent-two",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1085-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1085-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "f88283948944ab632ced9d273d78024577be9bd141f1a9948de16738dbd21bb3",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "3712ba77dc34914174fb7dcb1a939b5a6d8a4a8958428bd310cebf992e6034b0",
+        "actions.json": "7153cf98b8e827a40ef72375d88a3e9442f54f1faed1cc67f552eec0611e6573",
+        "assertions.json": "615e26ffc1b0ffad38e9e6f76de8144628ef3bb19c6eefbe79060722dbc8b031",
+        "expected_final_gamestate.txt": "986e20bb4120fc75b0af47299f3ff4b57c30205734ed55558ab40c07d32e6fbe",
+        "meta.json": "74252de552f37b98abd3220f9b34c85fa35ecc3a20d8c2191040dce7c99882ac"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

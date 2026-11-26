@@ -1,0 +1,320 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "independent breadth_review1252",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1299-20261122.json",
+  "source_spec_sha256": "0571fd6d1418b8643749a9f9336d9c3e4a1de8bf5ca2f9e27664223006426111",
+  "input_sha256": "0571fd6d1418b8643749a9f9336d9c3e4a1de8bf5ca2f9e27664223006426111",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-big-bully-red-four-live-sparse1299-equal-life-no-crowd-or-unearned-bonus",
+      "card_id": "big_bully_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "875a08079d20c7dc9d23befdb9ab1697460c00e771d13e3ad97c387f4e2a3810",
+        "actions.json": "25920dc16af50701b0be20453cc3345d5c14a09166881d7481930bfb87552093",
+        "assertions.json": "7a399a548102af1a8915b273ef7a42d5a9c41d7c372b2c7d6399c34eebffcb08",
+        "expected_final_gamestate.txt": "f1d6c55fee23436eb145a3a4de1a014f49e3b5899829774dbbe92a9c7468e728",
+        "meta.json": "a3736629adee2810bc9efff4b48189919d9e9dcb747172022153fa3f83b6fada"
+      },
+      "fixture_sha256": "fe2f07f4a84c2d9e4cd57bbca561742ba1d1f2049e63ec6cdcb9c8d177ea7af0",
+      "actions": 28,
+      "native_assertions": 308,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1299-20261122.json",
+      "input_sha256": "0571fd6d1418b8643749a9f9336d9c3e4a1de8bf5ca2f9e27664223006426111",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1299-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-big-bully-red-four-live-sparse1299-equal-life-no-crowd-or-unearned-bonus",
+        "fixture_slug": "card-big-bully-red-four-live-sparse1299-equal-life-no-crowd-or-unearned-bonus",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-mocking-blow-red-four-live-sparse1299-equal-life-no-crowd-or-unearned-bonus",
+      "card_id": "mocking_blow_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "8bfc91551ba69f93466041dfca352674fe694fc2f9755a653a9271cd24291582",
+        "actions.json": "71f0d0f07cf85244a3ec27fdb1f824cd62aa3126d639c98c13ca23327907bd8b",
+        "assertions.json": "622ad0ac6005c3aa3b20f0d04f89a61fbd5d5e1ee031b0c6431b0753841055de",
+        "expected_final_gamestate.txt": "6bed7ed7e87fbd024b271f957dd5dd42d9b6bc128b1c577322799bbdf14c7c71",
+        "meta.json": "6a1d53a9ba376ce9d35beb83f6cda3a1c189140dc53c12e11da433634fa961f4"
+      },
+      "fixture_sha256": "8cd529255f61a29f521ba5d2b78601c850f1818f654b4c8fef873698cb77d560",
+      "actions": 27,
+      "native_assertions": 273,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1299-20261122.json",
+      "input_sha256": "0571fd6d1418b8643749a9f9336d9c3e4a1de8bf5ca2f9e27664223006426111",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1299-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-mocking-blow-red-four-live-sparse1299-equal-life-no-crowd-or-unearned-bonus",
+        "fixture_slug": "card-mocking-blow-red-four-live-sparse1299-equal-life-no-crowd-or-unearned-bonus",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-cries-of-encore-red-four-live-sparse1299-equal-life-no-crowd-or-unearned-bonus-rejects-unearned-graveyard-instant",
+      "card_id": "cries_of_encore_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "41c15209a157208524e5f587390a74ad89b45dddaac84fa6cc39d68b5bc12ea8",
+        "actions.json": "5ae120a275a77815f8ce75a529a435fa79efa29a6ef1f83cbbfdc4dacbc4e249",
+        "assertions.json": "0b516f4957e62c9da69e0d90ab8d340c623d2838b8388a361fa2c5d436ffd070",
+        "expected_final_gamestate.txt": "f7f7f0694c0e70e1fe4ca3f99371690ee1e73e59416a9ab7173856fb8e0016cf",
+        "meta.json": "31c077dbc9ef0c9b98fbbeebe7dafa95c891d8c8882c708c8fb72afe7d4d5e1b"
+      },
+      "fixture_sha256": "dc8be46726358a43c944e0f9601063b57d6b6ef2dbb87f5941f8c4daa0215815",
+      "actions": 29,
+      "native_assertions": 426,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1299-20261122.json",
+      "input_sha256": "0571fd6d1418b8643749a9f9336d9c3e4a1de8bf5ca2f9e27664223006426111",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1299-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-cries-of-encore-red-four-live-sparse1299-equal-life-no-crowd-or-unearned-bonus-rejects-unearned-graveyard-instant",
+        "fixture_slug": "card-cries-of-encore-red-four-live-sparse1299-equal-life-no-crowd-or-unearned-bonus-rejects-unearned-graveyard-instant",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-jaws-of-victory-red-four-live-sparse1299-equal-life-no-crowd-or-unearned-bonus",
+      "card_id": "jaws_of_victory_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "9fd2d602b34b8f99ed5617a619b1931da4a2ee78c79109dd5508ba344b77e9a8",
+        "actions.json": "25920dc16af50701b0be20453cc3345d5c14a09166881d7481930bfb87552093",
+        "assertions.json": "d9a5cf437b30189c546a8b7c716551bfa56177a3c1ae30741974744e35aea9c6",
+        "expected_final_gamestate.txt": "d93d52761d08915952b2e53bf2ad500bb2dab1bf5090da76e488cc466a04ee95",
+        "meta.json": "7430b93e55563afbe47f46e0b72fea08a8524e36c542c26d07c7c1240639dcef"
+      },
+      "fixture_sha256": "f82192ed2cf3e09e280e25425d7b7b231caffcb09b73692d8967684ef9395507",
+      "actions": 28,
+      "native_assertions": 308,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1299-20261122.json",
+      "input_sha256": "0571fd6d1418b8643749a9f9336d9c3e4a1de8bf5ca2f9e27664223006426111",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1299-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-jaws-of-victory-red-four-live-sparse1299-equal-life-no-crowd-or-unearned-bonus",
+        "fixture_slug": "card-jaws-of-victory-red-four-live-sparse1299-equal-life-no-crowd-or-unearned-bonus",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-comeback-kid-red-four-live-sparse1299-equal-life-no-crowd-or-unearned-bonus",
+      "card_id": "comeback_kid_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "ea3b2febf8fd8dca92c48d2a8a7107ff4daa4958a201a5b5e28542964c330b83",
+        "actions.json": "25920dc16af50701b0be20453cc3345d5c14a09166881d7481930bfb87552093",
+        "assertions.json": "7f5b4d841e48dc3c16be38f91b3eecfa0ec55ca5c63332e988281fa2d52ec545",
+        "expected_final_gamestate.txt": "417331c39afdd1ff52926a506ac4bd842464a4954ab7d398f606933001376720",
+        "meta.json": "2f84ebfb88359a2448f62d57ab13971301604965072f570412ca001068ecf3c0"
+      },
+      "fixture_sha256": "6c4df31c6d8ec6c817d7356fc154b20eb7fb01a19fc4069bb84d2a80a402e576",
+      "actions": 28,
+      "native_assertions": 308,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1299-20261122.json",
+      "input_sha256": "0571fd6d1418b8643749a9f9336d9c3e4a1de8bf5ca2f9e27664223006426111",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1299-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-comeback-kid-red-four-live-sparse1299-equal-life-no-crowd-or-unearned-bonus",
+        "fixture_slug": "card-comeback-kid-red-four-live-sparse1299-equal-life-no-crowd-or-unearned-bonus",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-tame-the-beastly-behavior-red-four-live-sparse1299-non-reviled-hero-keeps-arsenal",
+      "card_id": "tame_the_beastly_behavior_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "b35c197945ba2fe32afc66474494585bad36622a67a2692c2e8f7a15118b3abf",
+        "actions.json": "25920dc16af50701b0be20453cc3345d5c14a09166881d7481930bfb87552093",
+        "assertions.json": "f7fdd0fe22986adbca7e7ecbda51187eb65e0fecdc44c4612a40e951e8f738e4",
+        "expected_final_gamestate.txt": "16c6065953c228dbf8b8577926f0fb86f01ececddd238dae577f3818027cb866",
+        "meta.json": "f3ac2be820fefce07ff9b59e6751f9c094b777ced6e0912e59f670643028dfd6"
+      },
+      "fixture_sha256": "c0749497e6f9a60c57404e08a4401d1a95a5f92a01555d89b692ba51f96058d3",
+      "actions": 28,
+      "native_assertions": 347,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1299-20261122.json",
+      "input_sha256": "0571fd6d1418b8643749a9f9336d9c3e4a1de8bf5ca2f9e27664223006426111",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1299-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-tame-the-beastly-behavior-red-four-live-sparse1299-non-reviled-hero-keeps-arsenal",
+        "fixture_slug": "card-tame-the-beastly-behavior-red-four-live-sparse1299-non-reviled-hero-keeps-arsenal",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "reviewer": "independent breadth_review1252",
+    "spec_sha256": "0571fd6d1418b8643749a9f9336d9c3e4a1de8bf5ca2f9e27664223006426111",
+    "source_note_sha256": "59920bcc87cd440e40fbdcfe9b48abd9da2ba7246f1488f9e5439f79d5a65204",
+    "case_count": 6,
+    "active_seats": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "players": "four_live_manual",
+    "native_controls": 168,
+    "query_checks": 1970,
+    "persistable_assertions": 1970,
+    "author_only_checks_omitted": 0,
+    "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+    "coverage_category": "FALSE_EQUAL_LIFE_CROWD_OR_NON_REVILED_EVENT_GUARDS_WITH_CRIES_PERMISSION_NEGATIVE",
+    "positive_crowd_credit": false,
+    "positive_cheered_or_booed_bonus_credit": false,
+    "per_case": [
+      {
+        "card_id": "big_bully_red",
+        "group_id": "identity:big_bully_red",
+        "native_controls": 28,
+        "persistable_assertions": 308
+      },
+      {
+        "card_id": "mocking_blow_red",
+        "group_id": "pitch-cycle:mocking_blow",
+        "native_controls": 27,
+        "persistable_assertions": 273
+      },
+      {
+        "card_id": "cries_of_encore_red",
+        "group_id": "identity:cries_of_encore_red",
+        "native_controls": 29,
+        "persistable_assertions": 426
+      },
+      {
+        "card_id": "jaws_of_victory_red",
+        "group_id": "identity:jaws_of_victory_red",
+        "native_controls": 28,
+        "persistable_assertions": 308
+      },
+      {
+        "card_id": "comeback_kid_red",
+        "group_id": "pitch-cycle:comeback_kid",
+        "native_controls": 28,
+        "persistable_assertions": 308
+      },
+      {
+        "card_id": "tame_the_beastly_behavior_red",
+        "group_id": "identity:tame_the_beastly_behavior_red",
+        "native_controls": 28,
+        "persistable_assertions": 347
+      }
+    ],
+    "basis": [
+      "Six uncoveredRed pitch-cycle groups use matching legalnaturalYoung20 heroes: ReviledBruteKayoStrongArm for BigBully/Mocking, ReveredGuardianPleiades for Cries/Comeback/Tame, ReveredBruteTuffnut for Jaws; three neutralYoungDorinthea20 opponents/exact1234/manualUPF/no passives. Primary5/funder6 where costed and CriesSuspense7GY or TameArsenal7 allocate correctly. ActualGenericYellow2/Blue3 payexactnormal2/3cost or Mockingcost0; AP1to0/R0 beforeallfourresponses, noBoo/Cheer/bonus/history seed or Heroactivation.",
+      "BigBully/Mocking printed attackHero WHEN with intervening-if morelife isfalse at20equal20, so no Boo layer/event is earned. Actual4/1damage later makesactorhigher, but does not generate the earlier attack event again. Correct livepower4/1/noGA recheckedAFTERdamage, allArena0/noextraUID and noKayoVigor verify no retroactiveevent or Boo-conditioned doublebase/+4.",
+      "Cries/Jaws/Comeback attackHero WHEN iffewerlife isfalse at20equal20, so no Cheer layer/event or PleiadesConfidence/TuffnutToughness is earned. No earlier Cheer exists; printedpowers7/6/7/noGA remain afteractualdamage, with no Comeback+1, JawsGA or Cries acquiredHeroHitpermission. Explicit falseintervening-if differs from merely unpayableoptionalcost on an unconditional trigger.",
+      "Cries realTheSuspenseIsKillingMeBlue7GY is GuardianInstantAura/Suspense printedcost0, legal under Pleiades, not an intrinsically graveyard-playable card. It remains GY0 and actualprimary5 laterGY1. Current SUPEncorePlayable requires earnedENCORE; GameLogic Graveyard permission gate otherwise rejects. Afteractual7HeroDamage/fullclose ACTIONpriority1/Stackempty/AP0/R0 permits normalInstanttiming andcost0 if permission existed, so actualGY0click is an affordable permissionnegative rather than AP/resource obstruction. SupportednativeFSM click then persisted fullunchangedstate/UID7/GYorder/queues ensures no unearned permission, movement, payment or newlayer.",
+      "Tame actualtargetHero4Dorinthea is neutralWarrior, not Reviled. Printed attackReviledHero event and hitReviledHero event are not met, so no+1 attacktrigger or arsenal-bottom trigger is earned. Actualprinted7damage/HP13 and originalrealBlue7faceDownArsenal4 retained owner/controller4 make selected falsefaction guard observable, not emptyArsenal vacuity.",
+      "Fullfour-seat source/combat responses, exactactualdamage4/1/7/6/7/7, allotherHeroHP20, ownedsourceGY/funderPitch, APR0/UIDstable/RNG0/allArenas0/cleanStackDQsCC match selectedscope. All1970 query/state/power/go_again assertions persist across168 single controls:28/308,27/273,29/426,28/308,28/308,28/347."
+    ],
+    "limits": [
+      "Semantic/source review only pending native saves and targeted replays; no native pass, replay or coverage credit claimed. Suspense rule evidence is parent-supplied; reviewer made no network request.",
+      "Only falsehealth/faction guards and Cries affordablepermissionnegative. No trueCrowd event/response timing, positiveBooCheer bonuses/producers, trueReviled effect, positiveEncorepermission/Suspenseproduction, Hero/support/sibling or whole-card credit.",
+      "Only W receipt written; no native/test/replay execution, T/source/engine/registry edits, authentication/network, Git or original checkout access."
+    ],
+    "source_sha256": {
+      "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+      "FaBSim/GeneratedCode/GeneratedMacroCode.php": "fe6a7982611df8f4de98ce2671b317b671b580146aa4b8c28e8f4b86d8461056",
+      "FaBSim/Custom/SUPCards.php": "d0cf162a89b60b29590121e4c97e1e5fe0e2dc790130bf181949ca068092c1fa",
+      "FaBSim/Custom/GameLogic.php": "c60fa151561f959e4e3e341b814de0e2b47c9e9f153bbc8793a04c43b5075061",
+      "Core/EngineActionRunner.php": "add14b53dc571d2a6e64407bfa4038a98d6554d6410de7a9233810d99c46ea2a",
+      "Schemas/FaBSim/GameSchema.txt": "7783800bd47bc85885cc915066aadca58cdf99f0c1180602ac312d9af5ebf643",
+      "Core/ShortcutPreferences.php": "25f300ea0b6fbc409f5b92e8bc3587a74b2ab0eaf31ccef38e18c455598eaba6",
+      "DevTools/FaB/CardRegression/record_card_regressions.php": "e53055b29e9ea641949b77019c4455607f41ca233325d716a9500637e19efd28"
+    },
+    "workspace_source_sha256": {
+      "author_breadth1299.py": "fee272171ed5189ffcab10d5409572eeb174fe1f1571497bd01c32c271126bd5",
+      "breadth1068_helpers.py": "997f949ec26c7e494ad26a818f9f2078f6f4f2a0c49ca7f61aa8c71f3b091b0a"
+    }
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1299-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "4d46fd7f730dee2cfc90e86225e766f855f57f4c1a3468c5c58434986f89aa5d"
+  },
+  "full_suite_run": false
+}

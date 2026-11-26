@@ -1,0 +1,102 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer": "/root",
+  "reviewer_independent": false,
+  "runtime_sha256": "511ee9453270a3ff2d4326d3276ddba8b0fb1448238529de766e940751956c17",
+  "source_spec": "card-regression-repair-commander-zombie-power-20261126.json",
+  "input_sha256": "55069634ccc486185fa77511b0354cd320e3e57cc139e26a9be0d5428f0be575",
+  "fixtures": [
+    {
+      "slug": "repair-restless-commander-four-live-20261126-controlled-zombie-real-four-damage",
+      "card_id": "restless_commander_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "704e59fcafed240d9b6b4aba2a65108c3617bb9d3fc162d4911447f1ce19f578",
+        "actions.json": "2937940d9dece0caa0de05e74443eaa07fdcc10e0abbb60bd421a7209a286046",
+        "assertions.json": "6dcb2f2ddf2757040a18e7657185e23d7dc53cd7ac8760769c5c4145a68b5738",
+        "expected_final_gamestate.txt": "4a6e501a8c3a0fc83aa84a10d498938bbd965b2284d87eba0d61e040fb223821",
+        "meta.json": "8d48aa8495aec41692f13c57e4d202009a53bb0b45db9e1a3feb85097e1020d5"
+      },
+      "fixture_sha256": "e50bff1d13d42c256157606a4ff4fe09822acbf21814de043024cb959a340195",
+      "actions": 28,
+      "native_assertions": 347,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "511ee9453270a3ff2d4326d3276ddba8b0fb1448238529de766e940751956c17",
+      "runtime_sha256": "511ee9453270a3ff2d4326d3276ddba8b0fb1448238529de766e940751956c17",
+      "source_spec": "card-regression-repair-commander-zombie-power-20261126.json",
+      "input_sha256": "55069634ccc486185fa77511b0354cd320e3e57cc139e26a9be0d5428f0be575",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual"
+    }
+  ],
+  "repair_only": true,
+  "new_breadth_groups": 0,
+  "newly_represented_repair_group": 1,
+  "whole_card_complete": false,
+  "full_suite_run": false,
+  "source_proposal": {
+    "status": "APPLIED_PENDING_NATIVE_QUALIFICATION",
+    "path": "FaBSim/Custom/GameLogic.php",
+    "runtime_before": "73c53589cacec350594e17c63e2e7f41a59ca737fb15a858a9d6e1dc76eab876",
+    "runtime": "511ee9453270a3ff2d4326d3276ddba8b0fb1448238529de766e940751956c17",
+    "before_sha256": "627c6e437149bc55c869463b6d48b28ac1e70d0372c3be210301597a85dddf5c",
+    "candidate_sha256": "be11a515f37f8db19c95ae2f1559c29a226d9b087c5a89354e3e83110a72aa00",
+    "scope": "Native active attack power includes live unsuppressed same-controller Commander bonus for Zombie attacks; each physical Arena source counted once, ignores foreign controller/removed/suppressed; existing Snag/PEN gain handling reused."
+  },
+  "targeted_replays": {
+    "runtime": "511ee9453270a3ff2d4326d3276ddba8b0fb1448238529de766e940751956c17",
+    "fixtures": [
+      {
+        "slug": "repair-restless-commander-four-live-20261126-controlled-zombie-real-four-damage",
+        "passed": true,
+        "runtime": "511ee9453270a3ff2d4326d3276ddba8b0fb1448238529de766e940751956c17",
+        "command": [
+          "C:\\xampp\\php\\php.exe",
+          "DevTools/RunIntegrationTests.php",
+          "--root=FaBSim",
+          "--test=repair-restless-commander-four-live-20261126-controlled-zombie-real-four-damage",
+          "--max-failures=1",
+          "--compact",
+          "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\commander228\\strict1.log"
+        ],
+        "returncode": 0,
+        "complete_log_sha256": "994eb308c863587f575af06b59ec35076d045f2a7ca10989af54df84cd2db43f",
+        "raw5_unchanged": true
+      },
+      {
+        "slug": "repair-war-cry-themis-yellow-four-live-20261126-empty-soul-owned-attack-layer-eight-damage",
+        "passed": true,
+        "runtime": "511ee9453270a3ff2d4326d3276ddba8b0fb1448238529de766e940751956c17",
+        "command": [
+          "C:\\xampp\\php\\php.exe",
+          "DevTools/RunIntegrationTests.php",
+          "--root=FaBSim",
+          "--test=repair-war-cry-themis-yellow-four-live-20261126-empty-soul-owned-attack-layer-eight-damage",
+          "--max-failures=1",
+          "--compact",
+          "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\commander228\\strict2.log"
+        ],
+        "returncode": 0,
+        "complete_log_sha256": "4df6a43d2b3b9168a927b6b180ea3b6cdc1f96b29d47650df26d58d985fc65d2",
+        "raw5_unchanged": true
+      }
+    ],
+    "full_suite_run": false
+  },
+  "limits": [
+    "Native named other-Zombie positive; self/multiple/removed/suppression controls are isolated helper tests, not separate gameplay fixtures.",
+    "No catalog-wide Zombie or continuous-power audit.",
+    "Strict comparator unchanged, no fullsuite yet; primary-agent semantic/saved review."
+  ],
+  "scope": "Native active-attack power now includes each live unsuppressed controlled Commander for Zombie attacks; correct control rather than ownership, role/targettype/source suppression and Snag restrictions guarded. Original28-input full oracle retained: real Vox-funded Corpse attack deals4/HP4=16, fullclosequiescent. No generated or Core changes.",
+  "additional_validation": {
+    "actual_commander_bonus_component_checks": 12
+  }
+}

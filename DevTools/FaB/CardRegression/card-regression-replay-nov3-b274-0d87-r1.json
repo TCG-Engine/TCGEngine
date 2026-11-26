@@ -1,0 +1,39 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch274.json",
+  "runtime_sha256": "0d877de49c131f29c152706e14bba3368630df61c59ef475c87a84f20b6e1a66",
+  "returncode": 0,
+  "completed_utc": "2026-11-03T02:01:05.895241+00:00",
+  "fixtures": [
+    {
+      "slug": "card-pounding-gale-red-four-live-sparse-real-head-jab-open-center-combo-doubles-five-damage-to-ten",
+      "fixture_sha256": "130ac0384a5a856c86e6aa3b6074c263652c87421a5612fe2a390654399591b5",
+      "passed": true,
+      "result": "[PASS] pounding_gale_red / four live distinctive effect"
+    },
+    {
+      "slug": "card-convection-amplifier-red-four-live-sparse-real-steam-cost-next-attack-dominate-grant-earned-action-followthrough",
+      "fixture_sha256": "03c6f0c9867390cdf76247b33df0643d2acbe2eabed70bb7c9e9cde5f11472b9",
+      "passed": true,
+      "result": "[PASS] convection_amplifier_red / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-pounding-gale-red-four-live-sparse-real-head-jab-open-center-combo-doubles-five-damage-to-ten",
+      "returncode": 0,
+      "stdout": "[PASS] pounding_gale_red / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-convection-amplifier-red-four-live-sparse-real-steam-cost-next-attack-dominate-grant-earned-action-followthrough",
+      "returncode": 0,
+      "stdout": "[PASS] convection_amplifier_red / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 2,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

@@ -1,0 +1,366 @@
+{
+  "status": "CONFIRMED_NATIVE_BEFORE_GENERIC_POX_DAMAGE_MISCLASSIFIED_AS_PHYSICAL_UNSAVED",
+  "reviewer": "/root/b105_semantic_review",
+  "reviewer_independent": true,
+  "created_utc": "2026-11-06T16:07:09.041344+00:00",
+  "card_id": "bloodrot_pox",
+  "group_id": "identity:bloodrot_pox",
+  "scenario_id": "card-bloodrot-pox-four-live-original-correct-end-generic-damage-type-diagnostic",
+  "runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+  "input_sha256": "8e697f225c3f18bac0bc4d51c002cc6a84200d34c478288812a888d3720f57f3",
+  "source_spec": "card-regression-batch618-pox-probe-v3.json",
+  "parent_reserved_issue": "FAB-REG-147",
+  "issue_allocated_by_reviewer": false,
+  "source_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch618-pox-v3-independent-source-review.json",
+    "sha256": "5a1380e1e23b971147b51f91d727bd0ca863f41bb1d2d99323112d6eed2fbcdc"
+  },
+  "manifest": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch618-pox-v3-complete-generic-history-diagnostic\\manifest.json",
+    "sha256": "cc17cc8e135499a5d2973e0a46eeee49f881dfd2ab000d180ce8c2d9b7297c9e"
+  },
+  "root_native_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch618-pox-probe-v3-native-c53\\receipt.json",
+    "preserved_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch618-pox-v3-native-before-evidence\\receipt.json",
+    "sha256": "49c027bef4e86462c814d223dc6fc0d4801cde7f5cac009e4288d6a5d612ff52"
+  },
+  "native_recording_results": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch618-pox-probe-v3.recording-results.json",
+    "preserved_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch618-pox-v3-native-before-evidence\\native-recording-results.json",
+    "sha256": "bf9490d1293028f907a152ab1979f43b9eeb9dbbd3c532338d35965c877d5d84"
+  },
+  "immutable_native_archive": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch618-pox-probe-v3-20261106T160457Z-6aedfaa9b6276.json",
+    "preserved_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch618-pox-v3-native-before-evidence\\immutable-native-archive.json",
+    "sha256": "cb699a81614676b4cc4f2f2a280f73a58616ff21d285a02344a7bad453994a83"
+  },
+  "preserved_initial": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch618-pox-v3-native-before-evidence\\initial_gamestate.txt",
+    "sha256": "fdb8ed1e5404a24600390069289ff7eda54f442c9913154713993330a2ddc82b"
+  },
+  "evidence_preservation": {
+    "receipt.json": {
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch618-pox-probe-v3-native-c53\\receipt.json",
+      "preserved_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch618-pox-v3-native-before-evidence\\receipt.json",
+      "sha256": "49c027bef4e86462c814d223dc6fc0d4801cde7f5cac009e4288d6a5d612ff52"
+    },
+    "native-recording-results.json": {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch618-pox-probe-v3.recording-results.json",
+      "preserved_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch618-pox-v3-native-before-evidence\\native-recording-results.json",
+      "sha256": "bf9490d1293028f907a152ab1979f43b9eeb9dbbd3c532338d35965c877d5d84"
+    },
+    "immutable-native-archive.json": {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch618-pox-probe-v3-20261106T160457Z-6aedfaa9b6276.json",
+      "preserved_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch618-pox-v3-native-before-evidence\\immutable-native-archive.json",
+      "sha256": "cb699a81614676b4cc4f2f2a280f73a58616ff21d285a02344a7bad453994a83"
+    },
+    "correct-v3-input.json": {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch618-pox-probe-v3.json",
+      "preserved_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch618-pox-v3-native-before-evidence\\correct-v3-input.json",
+      "sha256": "8e697f225c3f18bac0bc4d51c002cc6a84200d34c478288812a888d3720f57f3"
+    },
+    "v3-independent-source-review.json": {
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch618-pox-v3-independent-source-review.json",
+      "preserved_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch618-pox-v3-native-before-evidence\\v3-independent-source-review.json",
+      "sha256": "5a1380e1e23b971147b51f91d727bd0ca863f41bb1d2d99323112d6eed2fbcdc"
+    },
+    "initial_gamestate.txt": {
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch618-pox-v3-native-before-evidence\\initial_gamestate.txt",
+      "sha256": "fdb8ed1e5404a24600390069289ff7eda54f442c9913154713993330a2ddc82b"
+    }
+  },
+  "first_failure": {
+    "native_assertion_ordinal": 952,
+    "native_assertion_ordinal_1based": 952,
+    "source_step": 20,
+    "source_check": 57,
+    "source_pointer": "/0/steps/20/checks/57/valueJson",
+    "native_input_count": 10,
+    "passed_assertions": 951,
+    "unrun_suffix_assertions": 143,
+    "query": "FaBSim GameState.turnEffects[1] exact JSON equality",
+    "expected_rows": [
+      {
+        "type": "DTD_DAMAGE_EVENT",
+        "amount": 1,
+        "uses": 1
+      },
+      {
+        "type": "CRU_DAMAGED",
+        "amount": 2,
+        "uses": 1
+      },
+      {
+        "type": "ROS_DAMAGE",
+        "amount": 2,
+        "uses": 1
+      },
+      {
+        "type": "HNT_DAMAGED_BY",
+        "amount": 1,
+        "uses": 1,
+        "uid": 1
+      },
+      {
+        "type": "DTD_LOST",
+        "amount": 2,
+        "uses": 1
+      },
+      {
+        "type": "ELE_DAMAGED",
+        "amount": 2,
+        "uses": 1
+      }
+    ],
+    "actual_rows": [
+      {
+        "type": "DTD_DAMAGE_EVENT",
+        "amount": 1,
+        "uses": 1
+      },
+      {
+        "type": "CRU_DAMAGED",
+        "amount": 2,
+        "uses": 1
+      },
+      {
+        "type": "ROS_DAMAGE",
+        "amount": 2,
+        "uses": 1
+      },
+      {
+        "type": "HNT_DAMAGED_BY",
+        "amount": 1,
+        "uses": 1,
+        "uid": 1
+      },
+      {
+        "type": "MON_PHYSICAL",
+        "amount": 1,
+        "uses": 1
+      },
+      {
+        "type": "MON_PHYSICAL",
+        "amount": 1,
+        "uses": 1
+      },
+      {
+        "type": "DTD_LOST",
+        "amount": 2,
+        "uses": 1
+      },
+      {
+        "type": "EVR_PHYSICAL",
+        "amount": 2,
+        "uses": 1
+      },
+      {
+        "type": "ELE_DAMAGED",
+        "amount": 2,
+        "uses": 1
+      }
+    ],
+    "physical_only_extra_rows": [
+      {
+        "type": "MON_PHYSICAL",
+        "amount": 1,
+        "uses": 1
+      },
+      {
+        "type": "MON_PHYSICAL",
+        "amount": 1,
+        "uses": 1
+      },
+      {
+        "type": "EVR_PHYSICAL",
+        "amount": 2,
+        "uses": 1
+      }
+    ],
+    "error": "Expected FaBSim state [\"turnEffects\",\"1\"] to equal JSON [{\"type\":\"DTD_DAMAGE_EVENT\",\"amount\":1,\"uses\":1},{\"type\":\"CRU_DAMAGED\",\"amount\":2,\"uses\":1},{\"type\":\"ROS_DAMAGE\",\"amount\":2,\"uses\":1},{\"type\":\"HNT_DAMAGED_BY\",\"amount\":1,\"uses\":1,\"uid\":1},{\"type\":\"DTD_LOST\",\"amount\":2,\"uses\":1},{\"type\":\"ELE_DAMAGED\",\"amount\":2,\"uses\":1}], got [{\"type\":\"DTD_DAMAGE_EVENT\",\"amount\":1,\"uses\":1},{\"type\":\"CRU_DAMAGED\",\"amount\":2,\"uses\":1},{\"type\":\"ROS_DAMAGE\",\"amount\":2,\"uses\":1},{\"type\":\"HNT_DAMAGED_BY\",\"amount\":1,\"uses\":1,\"uid\":1},{\"type\":\"MON_PHYSICAL\",\"amount\":1,\"uses\":1},{\"type\":\"MON_PHYSICAL\",\"amount\":1,\"uses\":1},{\"type\":\"DTD_LOST\",\"amount\":2,\"uses\":1},{\"type\":\"EVR_PHYSICAL\",\"amount\":2,\"uses\":1},{\"type\":\"ELE_DAMAGED\",\"amount\":2,\"uses\":1}]."
+  },
+  "actual_native_prefix": {
+    "accepted_inputs": 10,
+    "attempted_inputs": 10,
+    "all_envelopes_exactly_match_approved_recipe": true,
+    "all951_successful_assertions_exactly_match_approved_ordered_prefix": true,
+    "total_planned_assertions": 1095,
+    "rule_priority_manual_actors": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "administrative_End_control_actors": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "administrative_controls_not_End_rule_priority": true,
+    "manual_input_count": 8,
+    "ordering_choice": {
+      "player": 1,
+      "type": "MZCHOOSE",
+      "value": "p1Arena-0"
+    },
+    "optional_payment": {
+      "player": 1,
+      "type": "MZMODAL",
+      "value": "0",
+      "meaning": "Decline"
+    },
+    "HP18_passed_ordinal": 896,
+    "R0_AP1_passed_before_failure": true,
+    "first_Pox5_destroyed_and_ceased_before_payment": true,
+    "remaining_Pox6_Arena0_owner4_controller1_ready_zero_damage_and_empty_counters_effects_passed_before_failure": true,
+    "four_Blue_Hand_UID7_to10_retained_before_failure": true,
+    "remaining_ordering_MZCHOOSE_Type_passed_ordinal": 951,
+    "actual_remaining_ordering_choice_observed": {
+      "Type": "MZCHOOSE",
+      "Param": "p1Arena-0",
+      "Block": 1,
+      "Tooltip": "Choose_end_phase_trigger",
+      "DontSkipOnPass": 0,
+      "removed": null,
+      "Location": "DecisionQueue",
+      "PlayerID": 1,
+      "mzIndex": 0,
+      "_sourceZone": null
+    },
+    "remaining_token_not_answered": true,
+    "others_decision_queues_empty": true,
+    "unrun_source_suffix": {
+      "remaining_checks_of_step20": 14,
+      "step21_final_checks": 129,
+      "total": 143
+    },
+    "no_raw_final_gamestate_available_or_claimed": true
+  },
+  "classification": {
+    "kind": "GAMEPLAY_DAMAGE_TYPE_MISCLASSIFICATION_NOT_PROTOCOL_OR_COUNTER_SERIALIZATION",
+    "native_confirmed": true,
+    "correct_expected_generic_rows": 6,
+    "actual_rows": 9,
+    "only_difference_three_physical_only_rows": true,
+    "MON_PHYSICAL_rows": 2,
+    "MON_PHYSICAL_each_amount": 1,
+    "EVR_PHYSICAL_rows": 1,
+    "EVR_PHYSICAL_amount": 2,
+    "legitimate_DTD_DAMAGE_EVENT_in_both_expected_and_actual": true,
+    "correct_HP_does_not_make_wrong_damage_type_correct": true,
+    "bounded_cause": "Selected Pox EndTurn calls DoDamage(self,empty-source,self,2,PHYSICAL); its PHYSICAL argument reaches physical-only MONDamage and EVRDamaged consumers.",
+    "not_a_total_implementation_absence_or_global_Core_root_claim": true,
+    "source_identity_defect_not_natively_classified": true
+  },
+  "source_evidence": {
+    "relevant_source_hashes": {
+      "FaBSim/Custom/GameLogic.php": "1cdad1555c8d2e3bd3fa98d69bf52791b84d21bf2269363ddea7249f4ee35a43",
+      "DevTools/FaB/out_abilities.json": "6ba251fb5ef0d534096935d995d363be413ed82aa1388891228f1198121f47cf",
+      "FaBSim/Custom/DTDRuntime.php": "b5dcaff474c60a21cb71a7b4923bdf2192c3f9d63de24e60e54fa0067e9f19f2",
+      "FaBSim/Custom/DTDCards.php": "059938626cc5e4e1675d231f9bb0f689a22ef70c7be5748224b2f13eedb7bddd",
+      "FaBSim/Custom/WTRCards.php": "5ead5cc6303b5e6760715b1a038e38d01014d8d42f16aa32bb24aa9df17e9515",
+      "FaBSim/Custom/MONCards.php": "50ccaa44bdd2c94db708dbf2b358aa066d71ceb2c56b8dad14bc2fd1d242953f",
+      "FaBSim/Custom/EVRCards.php": "ad988b0e0e3d3f80bb0f9de0eb66bb826e32c8edbddbb15d5034926baa31e6af"
+    },
+    "selected_paths": [
+      {
+        "path": "DevTools/FaB/out_abilities.json",
+        "route": "bloodrot_pox EndTurn unpaid branch",
+        "finding": "After destroying the chosen Pox and declining Pay3, explicitly calls DoDamage(player,empty-source,player,2,PHYSICAL)."
+      },
+      {
+        "path": "FaBSim/Custom/GameLogic.php",
+        "lines": "1925,1937-1952",
+        "finding": "DTD first-event bookkeeping precedes common damage histories; damageType is forwarded to MONDamage and EVRDamaged."
+      },
+      {
+        "path": "FaBSim/Custom/DTDRuntime.php",
+        "lines": "116-119",
+        "finding": "DTD_DAMAGE_EVENT1 is legitimate for generic too; no type gate in this quiet positive preventable-damage path."
+      },
+      {
+        "path": "FaBSim/Custom/DTDCards.php",
+        "lines": "3-4",
+        "finding": "DTD_ prefix delegates to the ordinary turn-effect append helper."
+      },
+      {
+        "path": "FaBSim/Custom/WTRCards.php",
+        "lines": "19-24",
+        "finding": "Appends amount/defaultuses1 without merging the two same-seat PHYSICAL entries."
+      },
+      {
+        "path": "FaBSim/Custom/MONCards.php",
+        "lines": "266-270",
+        "finding": "PHYSICAL-specific source and victim histories both append for self damage."
+      },
+      {
+        "path": "FaBSim/Custom/EVRCards.php",
+        "lines": "139-140",
+        "finding": "PHYSICAL-specific damaged history appends amount2."
+      }
+    ],
+    "all_relevant_hashes_match_current_and_approved_gate": true
+  },
+  "primary_sources": [
+    {
+      "url": "https://rules.fabtcg.com/en/cr/08-keywords/",
+      "rules": [
+        "8.6.19",
+        "8.5.3a-b",
+        "8.5.3e-f"
+      ],
+      "finding": "Unpaid Pox damage is generic, so physical-only consumers cannot apply."
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/04-game-structure/",
+      "rules": [
+        "4.4.1-3"
+      ],
+      "finding": "End triggers auto-resolve before asset clearing; these native End controls are administrative, not manual rule priority."
+    }
+  ],
+  "earlier_V2_oracle_error": {
+    "classification": {
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch618-first-native-damage-history-classification.json",
+      "sha256": "9616b39a60ed1a1f3d728650cdc721c1baa06e429af8ff19a03ae82b57e392f0"
+    },
+    "original_input_sha256": "0c4b569b6c018b4e23ecdeaa194c681cacd0e04031c96eff34db02675495dc02",
+    "finding": "First probe omitted legitimate DTD_DAMAGE_EVENT; preserve that failed five-row oracle separately. This V3 includes it and now fails solely on forbidden physical-only rows.",
+    "original_evidence_unchanged": true
+  },
+  "safe_probe_execution": {
+    "root_executed_probe_only": true,
+    "actual_recorder_sha256": "ab33a3250462d0453f71d38dd4138cb9fbc3d595d2586742e989a52251c9c4a9",
+    "fixture_inventory_before": 3905,
+    "fixture_inventory_after": 3905,
+    "fixture_inventory_unchanged": true,
+    "native_exit_code": 1,
+    "runtime_unchanged": true,
+    "reviewer_executed_native": false
+  },
+  "limits": [
+    "No native assertion of exact Pox damage-source CardID/UID/LKI attribution; HNT uidHero1 is controller bookkeeping, not a Pox-source identity witness.",
+    "No End stack-layer count/lifetime certification, second token answer/payment/damage, later143 assertions, full End cleanup/refill/next turn or final physical-state claim.",
+    "Correct native HP18 and remaining token properties are reached; no later HP16/full cleanup or future behavior is inferred.",
+    "Diagnostic only: no passing fixture/qualification/coverage, source repair, generated-source operation or replay claim.",
+    "No new global/Core root, family deduplication or issue allocation is performed by this review."
+  ],
+  "fixture_saved": false,
+  "passing_fixture": false,
+  "coverage_credit": false,
+  "qualification": false,
+  "native_executed_by_reviewer": false,
+  "fix_applied": false,
+  "source_application_attempted": false,
+  "denied_repair_retried": false,
+  "new_core_root": false,
+  "new_distinct_gameplay_root_group": false,
+  "repository_writes": false,
+  "immutable_archive_exact_results_match": true,
+  "prepublication_draft": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch618-pox-v3-independent-native-before-classification.json",
+    "sha256": "60733b00409487972daa8c3e9be36aed4c763b3b332184a0ff2578f2e3f6035d",
+    "superseded_only": "Unrun143 breakdown was transposed by one: exact source contains14 remaining checks atstep20 and129 atstep21, total143 unchanged. Native facts/classification unchanged."
+  }
+}

@@ -1,0 +1,97 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-22T16:06:25.938496+00:00",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse887-20261122.json",
+  "source_spec_sha256": "284f999c4c856adf716e8df23c0faa3d913220f2792c1fa6528beef50eb79bd3",
+  "new_scenarios": 2,
+  "new_groups": 2,
+  "new_primary_ids": 2,
+  "actions": 68,
+  "native_assertions": 338,
+  "manual_passes": 58,
+  "totals": {
+    "saved_registered_scenarios": 4293,
+    "duels": 3075,
+    "four_live": 1218,
+    "recorded_primary_ids": 1441,
+    "identity_denominator": 5196,
+    "recorded_groups": 1315,
+    "group_denominator": 3324,
+    "four_live_groups": 1207,
+    "phase_qualified_scenarios_at_actual_contexts": 930,
+    "phase_qualified_unique_groups": 920,
+    "creation_replay_passes": 1671,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 91,
+  "scenarios": [
+    {
+      "card_id": "chart_a_course_red",
+      "group_id": "pitch-cycle:chart_a_course",
+      "scenario_id": "card-chart-a-course-red-four-live-sparse887-optional-island-counter-declined-then-actual-first-attack-earns-ten-damage",
+      "effect_branches": [
+        "optional_island_counter_declined_then_actual_first_attack_earns_ten_damage"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-chart-a-course-red-four-live-sparse887-optional-island-counter-declined-then-actual-first-attack-earns-ten-damage",
+      "source_spec": "card-regression-sparse887-20261122.json",
+      "source_spec_sha256": "284f999c4c856adf716e8df23c0faa3d913220f2792c1fa6528beef50eb79bd3",
+      "review_evidence": "review-evidence/sparse887-20261122-qualified-saved.json",
+      "review_evidence_sha256": "4893e82ea6292c2f58da3a13fe74474bd48d86c98823787282307241d89c026f",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse887-20261122-replay.json",
+          "sha256": "7016a6569347dfa7f455f9bb976f313a18dc0c94fd9824360d9afa28b56fca7d",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "perk_up_red",
+      "group_id": "identity:perk_up_red",
+      "scenario_id": "card-perk-up-red-four-live-sparse887-declines-hero-untap-then-real-unboosted-mechanologist-attack-earns-eight-damage",
+      "effect_branches": [
+        "declines_hero_untap_then_real_unboosted_mechanologist_attack_earns_eight_damage"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-perk-up-red-four-live-sparse887-declines-hero-untap-then-real-unboosted-mechanologist-attack-earns-eight-damage",
+      "source_spec": "card-regression-sparse887-20261122.json",
+      "source_spec_sha256": "284f999c4c856adf716e8df23c0faa3d913220f2792c1fa6528beef50eb79bd3",
+      "review_evidence": "review-evidence/sparse887-20261122-qualified-saved.json",
+      "review_evidence_sha256": "4893e82ea6292c2f58da3a13fe74474bd48d86c98823787282307241d89c026f",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse887-20261122-replay.json",
+          "sha256": "7016a6569347dfa7f455f9bb976f313a18dc0c94fd9824360d9afa28b56fca7d",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

@@ -1,0 +1,133 @@
+{
+  "status": "ACTUAL_UNSAVED_MORLOCK_MINERVA_PUBLIC_BANISH_VISIBILITY_FAILURE_CONFIRMED_UNFIXED",
+  "phase": "ACTUAL_DIAGNOSTIC_CLASSIFICATION",
+  "batch": 821,
+  "reviewer": "/root/ebbing_recovery_review",
+  "reviewer_independent": true,
+  "created_utc": "2026-11-15T17:44:59.724478+00:00",
+  "actual_classification_review_complete": true,
+  "diagnostic_review_complete": true,
+  "actual_no_save_route_approved": false,
+  "positive_promotion_recommended": false,
+  "confirmed_gameplay_bug": true,
+  "new_named_defect_instance_confirmed": true,
+  "new_distinct_gameplay_root_group": false,
+  "root_attribution_status": "Public-destination visibility-carry family extension related to prior FAB-REG-037. No new global root group allocated; named Morlock instance/ordinary Banish scope independently reproduced.",
+  "runtime_sha256": "429a5183b9e7db50822c8f5fc966113cc842af7066d5d0a4e235e780fe09ee73",
+  "root_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-b821-morlock-r2-native-unsaved-before-429a\\receipt.json",
+    "sha256": "40bff22c78180a401f18fc5b4875553c58ed8a93bd933146ed7481259c7536c7"
+  },
+  "actual_result": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch821-morlock-original-correct-public-banish-probe-r2.recording-results.json",
+    "sha256": "fb9d842022ebd8f5da67d13bb9ae30c87068e97160f760509df298181309f76d"
+  },
+  "actual_immutable_archive": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch821-morlock-original-correct-public-banish-probe-r2-20261115T173752Z-6af9edf087899.json",
+    "sha256": "0eb1783abae60660dcfb63595967ca321c65d67e5629a103ced0f9e398adbbe7"
+  },
+  "correct_R2_Source": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-batch821-morlock-r2-independent-correct-diagnostic-source-review.json",
+    "sha256": "c1cdf74c88634a0134de07eebc55622e19f45679f02d31621cf818019fcc53ea"
+  },
+  "correct_R2_input": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch821-morlock-original-correct-public-banish-probe-r2.json",
+    "sha256": "e338994fa34e7dbfde1b79a6dab3b1e3d35246a8b663c8dcf3af453e6a496fc9"
+  },
+  "separate_R1_protocol_oracle_error": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-batch821-morlock-independent-actual-protocol-oracle-stop-review.json",
+    "sha256": "5e8cf2a78283c0646c446e5beaa70675d3ce581a65c4d57a5f3ca381b85392eb"
+  },
+  "R1_error_fixed_and_not_counted_as_gameplay": true,
+  "actual_native_inputs": 28,
+  "actual_manual_passes": 24,
+  "actual_manual_actor_counts": {
+    "1": 6,
+    "2": 6,
+    "3": 6,
+    "4": 6
+  },
+  "actual_successful_persisted_queries": 3179,
+  "first_failed_query_number": 3180,
+  "first_failed_query": {
+    "step": 28,
+    "type": "card_property_equals",
+    "mzId": "p4Banish-0",
+    "property": "FaceDown",
+    "value": "0",
+    "viewerPlayerID": 1
+  },
+  "actual_observed_FaceDown": 1,
+  "expected_FaceDown": 0,
+  "unrun_queries_after_first_failed_query": 1012,
+  "failed_plus_unrun_queries": 1013,
+  "unrun_controls_after_stop": 8,
+  "actual_payment_answer_executed": true,
+  "actual_same_Minerva_UID7_Arsenal_removed_Banish_owned_controlled4_verified": true,
+  "bounded_after_payment_HP4_at_DAMAGE_observed": true,
+  "full_damage_resolution_and_cleanup_suffix_observed": false,
+  "actual_current_combat_state": {
+    "window": "DAMAGE",
+    "combatOpen": true,
+    "combatStep": "DAMAGE",
+    "attackUID": 5,
+    "chainLink": 1
+  },
+  "actual_prefix_evidence": [
+    "Input28 isactualP4MZMultiChooseanswerp4Arsenal-0. Earlierstep28acceptedqueriesproveArsenal0/Banish1 andBanishMinervaCardID/UID7/Owner4/Controller4. FailurethenreadsFaceDown1, notexpectedpublic0.",
+    "P4health4acceptedafterpaymentatDAMAGEwindow andobservedstatehasnohit; combatremainsopen atlink1 andlast8passes/cleanup areunrun. Do nottreattheboundedhealthwitness asfullpassingroute."
+  ],
+  "source_causal_evidence": [
+    {
+      "path": "FaBSim/Custom/DTDCards.php",
+      "sha256": "059938626cc5e4e1675d231f9bb0f689a22ef70c7be5748224b2f13eedb7bddd"
+    },
+    {
+      "path": "FaBSim/Custom/GameLogic.php",
+      "sha256": "a72657da1bbb2520e4ee5f8d71488f268914d539ce235b0a18ea4a03f6793ffd"
+    },
+    {
+      "path": "FaBSim/ZoneAccessors.php",
+      "sha256": "9967567a9a10df81a6f22df820d4d77258828657e95c4ad145b8b13ce17866a7"
+    }
+  ],
+  "source_causal_findings": [
+    "DTDPreventionPay152..153 recognizesnamedMinerva, setsreductiontopacketandclearsMORLOCK, thenordinaryFaBMoveUIDtoBanish withoutpublicvisibilityintent.",
+    "FaBMoveUID749..800 explicitlyrevealsprivatecardsonlyforGraveyard764. AddToZone737callsAddBanish(sourceObject); generatedAddBanish334..354 constructsdefaultFaceDown0then sourceDeepCopyoverwritesitwithArsenalFaceDown1. Existingowner/physicalUIDpreservationwork, destinationvisibilitydoesnot.",
+    "Earlierindependentreadall15AfterMovehooks foundnoquietDorinthea/MinervafaceUpreset. CurrentactualNativeconfirmsflagpersisted throughthatpath; no postpaymentorcleanupinferenceisneededtofindbug."
+  ],
+  "related_ledger_evidence": {
+    "ledger_path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-issues.json",
+    "ledger_sha256_at_read": "5d559905f80abd98bad0b1858ceb478cc656ac2e5c4a3a5e96c7db4f718ef071",
+    "related_issue": "FAB-REG-037",
+    "related_status": "fixed_verified_bounded_four_live_repair",
+    "related_scope": "TalismanOfWarfare ordinary facedownArsenal destruction to PUBLIC GRAVEYARD. Its qualified selectedfix remains intact; currentGLGraveyard-specific reset doesnotcoverordinaryBanish.",
+    "related_fix_runtime": "86b37a5e69d333081bd1eb0f983797b8fd1b1bd551d138c5a0821406b860fca0",
+    "intentional_private_exceptions": "WateryGrave andexplicitface-downBanish/Intimidate/Blasmophet/BlessingThemis are not defects merely forbeingprivate; do notblanketresetallBanishmoves."
+  },
+  "bounded_repair_options": [
+    "Reuseexistingowner-preservingFaBMoveUID foractualmovement; narrowlymakeMorlockMinerva costpublicBEFOREmove, onlywhen sourcehasFaceDown property. Handcost lacks thatproperty andalreadydefaults public; avoiddynamicpropertycreation.",
+    "Do notusepost-move-onlyflagreset as generalcorrectness: CR3.0.8 requiresvisibilitybeforemovement/replacement/listeners.",
+    "No suitablegeneralpublic-banish-with-intent helper wasfoundininspectedmove/banishpaths. Arsenalflip helpers cancarryunrelatedentry/permissionsemantics; do notsubstitute blindly.",
+    "A genericdefaultBanishreveal change affects private-after-move callers suchasIntimidate andrequires explicitdestinationintent/migration. Keepthisrepairbounded; noCore/generated/canonical/emitterchange isrequiredforselectedCustomDTD helpercorrection."
+  ],
+  "repair_proposal_applied": false,
+  "source_fix_applied": false,
+  "engine_repair_application_approved": false,
+  "independent_exact_candidate_review_required": true,
+  "fixture_saved": false,
+  "qualification": false,
+  "coverage_credit": false,
+  "qualified_corpus_unchanged": 4083,
+  "native_sibling_or_Mentor_primary_credit": false,
+  "full_suite": false,
+  "historical_corpus_replay": false,
+  "PHP_native_network_executed_by_reviewer": false,
+  "R_writes_by_reviewer": false,
+  "B787_denied_operation_untouched": true,
+  "limits": [
+    "NewselectedMorlockordinary-publicBanishfailureconfirmed; distinctglobalrootcountremainsunallocated/existingvisibilityfamilyextension, notdoublecountedwithR1oracleerror/Warfare.",
+    "Only28actualinputs/3179successfulqueries+failedFaceDownwitness. Later1012queries/eightpasses/fullcleanup/secondlethal/Handcost/Mentorstatic/lesson/sibling/fullcardbehaviorunrun.",
+    "PreservecorrectFaceDown0/HP4/full36controls4192queries. Anycandidatefixneedsindependentreview/focusedcomponents/reboundSource/mandatoryunsavedfullroute beforepromotion,normalSavedreview andtwo cleannew-onlyreplays."
+  ]
+}

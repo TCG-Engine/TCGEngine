@@ -1,0 +1,151 @@
+{
+  "status": "EXACT_THREE_ORACLE_CORRECTIONS_TARGETED_RESULTS_RECORDED",
+  "classification": "STALE_CAPTURED_SOURCE_LOCATION_EXPECTATION_NOT_ENGINE_BUG",
+  "source_fix": false,
+  "runtime": "39ea7198588aa12a77f1b2f47c9b523e54789383be9e5ee5bc96ff8ac6a9a2e5",
+  "source_spec": "card-regression-repair-lead-source-zone-20261125.json",
+  "input_sha256": "a2125059959ea0bc9e07a2ee3192c9bfe5f2171f07e3fcee64edcef33e3badc9",
+  "reviewer": "/root/breadth_review1457",
+  "review_scope": "Independent ARCCards322\u2013353/WTRAbilities349\u2013358 source-location consumer review and exact three field corrections. Prior card semantics retained; root native full entry-point results follow. No independent native game claimed.",
+  "expected": "Lead captures its diagnostic source location while its own layer resolves on Stack; the later trigger uses captured controller/turn/phase, not a new live zone lookup. Physical Lead-in-Graveyard assertions remain exact.",
+  "fixtures": [
+    {
+      "slug": "card-lead-the-charge-blue-equal-threshold-attack",
+      "step": 4,
+      "changed_field": "Stack-1.SourceZone",
+      "before": "Graveyard",
+      "after": "Stack",
+      "prior_review": {
+        "reviewer": "/root/wtr_attack_scenarios",
+        "reviewed_utc": "2026-10-20T03:02:34.083369+00:00",
+        "source_spec": "card-regression-batch27.json",
+        "fixture_sha256": "6b46b2cbe021070e50ed641af83ad929a3f523f6fd1f3b748e6e13113fb83857",
+        "verdict": "semantically_valid_partial_branch_coverage",
+        "review_basis": "Every native supported action and persisted oracle matched exact approved49/two-strengthened input. Independent printed threshold/cost/AP/trigger/source/multiplicity/exclusion/response/expiry model checked every specified checkpoint; full initial/final assets, physical UID, owner/controller, combat and cleanup reviewed. Clean replay is separate.",
+        "review_evidence": "review-evidence/b27-saved49-independent-review-e919b7a61151-e919b7a61151.json",
+        "review_evidence_sha256": "e919b7a6115115af140ae9f65cba0f3ae4510566f768da84ad7bc4d3c87e6f80",
+        "qualification": "Exact saved-fixture semantic review; clean replay and controls have separate runtime qualification. Does not mean every full-family fixture was manually inspected."
+      },
+      "before_raw5": {
+        "actions.json": "6ce9e524d082457580d717c0f282dab3645618a4db2f0d8bc4061cbff6d6b16a",
+        "assertions.json": "4ca883bfc16562a8d2c9489231bd6cc0e074ee9dcdf33d8d7222ad0ae55d7437",
+        "expected_final_gamestate.txt": "c0ecc6c97fa622c9ec137ba95e1ba458054dd4fda1c8c2242599d15ba07aa8f8",
+        "initial_gamestate.txt": "3fd2f1cacd804a8a8934d729d604c538aef85dbe1fe1b1ddfe6793ba38291f8f",
+        "meta.json": "3836e679f74ff9c6caeb7342aaead718927e04bedc0235c3963df8d9ae0fc551"
+      },
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-lead-the-charge-blue-equal-threshold-attack",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\lead-source-zone\\replay-0.complete.log"
+      ],
+      "returncode": 0,
+      "status": "PASS",
+      "console": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\lead-source-zone\\replay-0.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": "",
+      "after_raw5": {
+        "actions.json": "6ce9e524d082457580d717c0f282dab3645618a4db2f0d8bc4061cbff6d6b16a",
+        "assertions.json": "4b3c93a6dcfb0b19e20301b6619a56fac9863346479f755f9773670689f98b51",
+        "expected_final_gamestate.txt": "c0ecc6c97fa622c9ec137ba95e1ba458054dd4fda1c8c2242599d15ba07aa8f8",
+        "initial_gamestate.txt": "3fd2f1cacd804a8a8934d729d604c538aef85dbe1fe1b1ddfe6793ba38291f8f",
+        "meta.json": "3836e679f74ff9c6caeb7342aaead718927e04bedc0235c3963df8d9ae0fc551"
+      }
+    },
+    {
+      "slug": "card-lead-the-charge-red-nonattack-action-qualifies",
+      "step": 4,
+      "changed_field": "Stack-1.SourceZone",
+      "before": "Graveyard",
+      "after": "Stack",
+      "prior_review": {
+        "reviewer": "/root/wtr_attack_scenarios",
+        "reviewed_utc": "2026-10-20T03:02:34.083369+00:00",
+        "source_spec": "card-regression-batch27.json",
+        "fixture_sha256": "2997faa79f936df5933edf283a47ce060921cd034a15cdfff2ceec70acc07c4d",
+        "verdict": "semantically_valid_partial_branch_coverage",
+        "review_basis": "Every native supported action and persisted oracle matched exact approved49/two-strengthened input. Independent printed threshold/cost/AP/trigger/source/multiplicity/exclusion/response/expiry model checked every specified checkpoint; full initial/final assets, physical UID, owner/controller, combat and cleanup reviewed. Clean replay is separate.",
+        "review_evidence": "review-evidence/b27-saved49-independent-review-e919b7a61151-e919b7a61151.json",
+        "review_evidence_sha256": "e919b7a6115115af140ae9f65cba0f3ae4510566f768da84ad7bc4d3c87e6f80",
+        "qualification": "Exact saved-fixture semantic review; clean replay and controls have separate runtime qualification. Does not mean every full-family fixture was manually inspected."
+      },
+      "before_raw5": {
+        "actions.json": "792cf18cf7c7fe63cc6f809095d3f125b9db909b6f0bfb233e560e016f41fcb5",
+        "assertions.json": "3b4a305fe793ccdbf6fd95ba639f472444082ea98b006a645c188993f05e4b5b",
+        "expected_final_gamestate.txt": "c109ba0a62e48078c13864e763420b9aedd85de3dc749259ae7dea65defbc6aa",
+        "initial_gamestate.txt": "9b48add70a3253d4e12abb3e66a7a65200a616233eed2ba479f2fd341da6fe09",
+        "meta.json": "c857b07bae82ef243034168585ab50b5df0eacc599ab7ee60bfbe5ff45f5c308"
+      },
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-lead-the-charge-red-nonattack-action-qualifies",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\lead-source-zone\\replay-1.complete.log"
+      ],
+      "returncode": 0,
+      "status": "PASS",
+      "console": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\lead-source-zone\\replay-1.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": "",
+      "after_raw5": {
+        "actions.json": "792cf18cf7c7fe63cc6f809095d3f125b9db909b6f0bfb233e560e016f41fcb5",
+        "assertions.json": "a25da347f97fb7e62cd08bda88a7d7fbd157fa0e7be5575645885d802bbea04a",
+        "expected_final_gamestate.txt": "c109ba0a62e48078c13864e763420b9aedd85de3dc749259ae7dea65defbc6aa",
+        "initial_gamestate.txt": "9b48add70a3253d4e12abb3e66a7a65200a616233eed2ba479f2fd341da6fe09",
+        "meta.json": "c857b07bae82ef243034168585ab50b5df0eacc599ab7ee60bfbe5ff45f5c308"
+      }
+    },
+    {
+      "slug": "card-lead-the-charge-red-nonturn-real-kano-two-activations-no-action-point-gain",
+      "step": 16,
+      "changed_field": "Stack-1.SourceZone",
+      "before": "Graveyard",
+      "after": "Stack",
+      "prior_review": {
+        "reviewer": "/root/catalog_effect_map",
+        "reviewed_utc": "2026-10-20T03:02:34.083369+00:00",
+        "source_spec": "card-regression-batch32.json",
+        "fixture_sha256": "9ddf78580d4ea1570ae1631ea416a4d733f242730896ff018bc60b63c1a58451",
+        "verdict": "semantically_valid_partial_branch_coverage",
+        "review_basis": "Read-only independent audit of actual20 native actions,328 persisted assertions and initial/final snapshots against exact independently approved real two-Kano/Lead spec and official CR1.13.2b/8.5.7b/6.6.3. All18 captured checkpoint blocks inspected. No reviewer game/native source/fixture writes. Source permissions/UIDs/controller/economy/AP and delayed trigger existence validated. Current-runtime replay and semantic-control qualification remain separate parent gates.",
+        "review_evidence": "review-evidence/lead-nonturn-kano-ap-witness-saved-review-approved-rows-0f485d70df96-0f485d70df96.json",
+        "review_evidence_sha256": "0f485d70df969dd4155f12859b49ff5a67410de0ccd231badc2cfd7d98add494",
+        "qualification": "Exact saved-fixture semantic review; clean replay and controls have separate runtime qualification. Does not mean every full-family fixture was manually inspected."
+      },
+      "before_raw5": {
+        "actions.json": "97d3755fa66bce13a2255973955ad764f51d6065ba3f52524b7eba2812ba596e",
+        "assertions.json": "852f1d6cd522d466f029aa0d460d9a188624c02a366843e9c2591a9e11ca7f80",
+        "expected_final_gamestate.txt": "9063bb872507cdfc88782db2d457a6f762f596cd6f0f20ce8569960b8f0539c0",
+        "initial_gamestate.txt": "cd6baa0a96b5e080dcf93210a4ace4e12ebafff3c0245386a16d2a8cd3aa7338",
+        "meta.json": "f2fd6c59303f631d268bc9b47c014a2020d04a044f26cb9dfb57143f01872795"
+      },
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-lead-the-charge-red-nonturn-real-kano-two-activations-no-action-point-gain",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\lead-source-zone\\replay-2.complete.log"
+      ],
+      "returncode": 0,
+      "status": "PASS",
+      "console": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\lead-source-zone\\replay-2.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": "",
+      "after_raw5": {
+        "actions.json": "97d3755fa66bce13a2255973955ad764f51d6065ba3f52524b7eba2812ba596e",
+        "assertions.json": "9fe1701c9cad80fed15b7a517fcd86a7c312d917a8a1211ae7a7d81ba4366858",
+        "expected_final_gamestate.txt": "9063bb872507cdfc88782db2d457a6f762f596cd6f0f20ce8569960b8f0539c0",
+        "initial_gamestate.txt": "cd6baa0a96b5e080dcf93210a4ace4e12ebafff3c0245386a16d2a8cd3aa7338",
+        "meta.json": "f2fd6c59303f631d268bc9b47c014a2020d04a044f26cb9dfb57143f01872795"
+      }
+    }
+  ],
+  "full_suite_run": false,
+  "new_scenarios": 0,
+  "new_groups": 0
+}

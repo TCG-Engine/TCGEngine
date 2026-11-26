@@ -1,0 +1,83 @@
+{
+  "status": "B799_RAVENOUS_KNOWN_MINI_MEATAXE_ATTACK_WHEN_DRAW_DISCARD_CONTRACT_UNATTEMPTED_PLANNING_LIMIT",
+  "batch": 799,
+  "author": "/root/breadth787_author",
+  "created_utc": "2026-11-14T22:36:50.396038+00:00",
+  "card_id": "ravenous_meataxe",
+  "group_id": "identity:ravenous_meataxe",
+  "members": [
+    "ravenous_meataxe"
+  ],
+  "firm": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov14-batch799-firm-reservation.json",
+    "sha256": "840299f5785c2e992f84e74683e3fe5dc39709c90f9f98882831561683aefb0f"
+  },
+  "full_primary_support_family_helper_guard_witness": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov14-batch799-selected-helper-preflight-r2-holds244.json",
+    "sha256": "0f0662aac38ea1027ebdc5f1f13357c5d2b3706151dd8cc5a5f2c0e5e3e396b7"
+  },
+  "runtime_sha256": "6695d68163d313f4f61cb20ad9122c7038e621a60c847909598150fe8da09d11",
+  "fixed_printed_route": "Unchanged81b075: Levia20/soleBlue3HandfundsWeapon2/R1/AP0/emptyHand; actualATTACKS WHEN mustbeforeresponseableDraw/discard. SoleDeckblankRagingYellowAA6 wouldactuallydrawthenrandomsingletondiscard toearn+2/weapon5/real5damage. Entirefutureeffect route remainsUNRUN, no RNG/history/result/APseed oralternateprimary/support.",
+  "source_reason": "ActualnormalWeapon AttackDeclared caller directlyexecutes generateddraw/randomdiscard payload before separatelycapturedresponseableWHEN. Body exists; this exactdirectintrinsicattack contract is alreadyheld atMiniMeataxe190 and nativeconfirmedPulping076. Stopbeforeexecutable; no newreproductions/repair.",
+  "exact_source_chain": [
+    {
+      "path": "FaBSim/Custom/GameLogic.php",
+      "lines": "1205\u20131217;1269\u20131326",
+      "finding": "OnAttackDeclared calls selectedexpansionhooks thenordinaryFaBRunSourceMacro AttackDeclared. Current dispatcher directlycalls selectedgeneratedclosure; noMillerstyleawaitclaimorformalDefendedstage here."
+    },
+    {
+      "path": "FaBSim/Custom/WTRCards.php",
+      "lines": "643\u2013655",
+      "finding": "Named Flock capture exists; ordinaryRavenous isnotthatnamedsource, combo/grantedtags absent. No globaltrigger-infrastructureabsence claim."
+    },
+    {
+      "path": "FaBSim/Custom/MONCards.php",
+      "lines": "282\u2013289;315",
+      "finding": "MONAttack doesnotcaptureRavenous; actualFaBMONDrawDiscard315 performs DoDrawCard1 thenrealFaBDiscardRandom1 then6powercheck immediately. OwnLevia hasnoRhinar/Kayo/BloodDebt/Banish event inthisfixedroute."
+    },
+    {
+      "path": "DevTools/FaB/mon_abilities.json",
+      "finding": "ImplementedRavenous AttackDeclaredbody exists, callsFaBMONDrawDiscard andtagsactualunderlyingweaponWTR_POWER:2 ifsix."
+    },
+    {
+      "path": "FaBSim/GeneratedCode/GeneratedMacroCode.php",
+      "lines": "23067\u201323082",
+      "finding": "SelectedAttackDeclaredclosure directlycallsFaBMONDrawDiscard23073 andweapon+2 tag23077. No separatecapturedlayer or awaitchooser used bythissourcebody."
+    }
+  ],
+  "known_contract_evidence": {
+    "MiniMeataxe190": {
+      "file": "sparse-source-only-holds.json",
+      "json_path": ".holds[190]",
+      "row_sha256": "09d0ca2d5994fc02ceb43db9efdbe63893ca98ef9e97c0453418618f8436731a",
+      "status": "source_only_unattempted_selected_route",
+      "reason": "Normal native Weapon admission and draw/random-discard payload exist. The selected mandatory attack WHEN is reached directly rather than through an established captured responseable layer. No blank weapon baseline, global absence/admission failure, native-confirmed bug or passing coverage claim."
+    },
+    "Pulping076": {
+      "file": "card-regression-issues.json",
+      "id": "FAB-REG-076",
+      "row_sha256": "d6005d3f7f9df748529d9b17109b748f1674c0439a6a954c012a92af02a49101",
+      "status": "native_confirmed_unfixed_inline_attack_trigger_draw_discard",
+      "classification": "existing043_missing_responseable_trigger_intrinsic_attack_event_caller"
+    }
+  },
+  "disposition": "Root explicitlyagrees UNATTEMPTED exactMini190/FaBMONDrawDiscard/Pulping076 knowncontract; no redundantNative, future5damageclaim ornewbug. Other independentplanningreview/retention stillrequired; noengine/sourcefix proposed.",
+  "executable_cases": 0,
+  "native_attempted": false,
+  "diagnostic_attempted": false,
+  "fixture_saved": false,
+  "coverage_credit": false,
+  "confirmed_gameplay_bug": false,
+  "new_issue_claimed": false,
+  "repair_proposal": false,
+  "source_fix": false,
+  "any_draw_discard_random_HP_or_cleanup_native_observed": false,
+  "scope": [
+    "OnlyexactselectedWhenAttacks contract andsourcebody/helper existence; no passing baseweapon/negativecondition fallback.",
+    "SingletonplannedHand afterrealpayment/draw doesnotconstitute RNGexecution orqualification; no forcedindex/history/outcome seed.",
+    "NoRhinarIntimidate/KayoMight/LeviaBloodDebt/foreignsource/otherdiscard/otherweapon/pitchsibling/fullcard credit.",
+    "Stadiumhealthypositive separate, no source/native fixture or code changes byauthor.",
+    "No fullsuite/replay/stage/commit/push/deploy/remoteauthoring/deniedretry; allB787artifacts frozen."
+  ],
+  "B787_denied_operation_untouched": true
+}

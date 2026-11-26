@@ -1,0 +1,141 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "Root independent printed/source/spec delta review of breadth_review authored cases",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1046-20261122.json",
+  "source_spec_sha256": "218a387cfd45ecaaf800113439979d68d7b80c4d513f60d37ac8366c87d5f45a",
+  "input_sha256": "218a387cfd45ecaaf800113439979d68d7b80c4d513f60d37ac8366c87d5f45a",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-flight-path-four-live-sparse1046-ordinary-equipment-defense-and-battleworn-close",
+      "card_id": "flight_path",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "82d1485e52a166eb9392d12f6568094c7702b08ee084ee3ec811e133b0aed42d",
+        "actions.json": "511bf2f3686ee96e12e3d9cdbe580febcac902b797e5ec827a96d5ccd74ac457",
+        "assertions.json": "bf1fada2cac66d2e810a11a1e5069ab37957cf1baf71b857e53d1903a9cb54c0",
+        "expected_final_gamestate.txt": "43b4d472cbdf126725380d66d0ebdd4d5267e6efaf05cc97314a9e9b3e3b22a0",
+        "meta.json": "aee5048cecf9b9898851ce319ccabd29f954890f029d7398ed7d454f8f460b2a"
+      },
+      "fixture_sha256": "e975ead6e099a7db5347dab5add780a36c5f5fccf231bbb1bc5296dd57a3e5a3",
+      "actions": 30,
+      "native_assertions": 270,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1046-20261122.json",
+      "input_sha256": "218a387cfd45ecaaf800113439979d68d7b80c4d513f60d37ac8366c87d5f45a",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1046-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-flight-path-four-live-sparse1046-ordinary-equipment-defense-and-battleworn-close",
+        "fixture_slug": "card-flight-path-four-live-sparse1046-ordinary-equipment-defense-and-battleworn-close",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-heart-of-bladehold-four-live-sparse1046-ordinary-equipment-defense-and-battleworn-close",
+      "card_id": "heart_of_bladehold",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "d6a07247458024f0f44166e1863821e402075a46d8ef5c982ea180a8b12020b4",
+        "actions.json": "511bf2f3686ee96e12e3d9cdbe580febcac902b797e5ec827a96d5ccd74ac457",
+        "assertions.json": "4406eb4f605a659c28a1150357195d7055d82d537e6723ef38bb20cd1875d767",
+        "expected_final_gamestate.txt": "31f6ebcfe05ffc141da9edcb4eb4223abf377146367937015426a55a58a44dd3",
+        "meta.json": "fd2d23a7fed4e87e230391e541d0fed8812fcd72befd8453bffa080a3b5b5ece"
+      },
+      "fixture_sha256": "14ec26f34de47dd52ab01d4fa7320c6953659fadc50efd9a9815d62c842110e3",
+      "actions": 30,
+      "native_assertions": 270,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1046-20261122.json",
+      "input_sha256": "218a387cfd45ecaaf800113439979d68d7b80c4d513f60d37ac8366c87d5f45a",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1046-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-heart-of-bladehold-four-live-sparse1046-ordinary-equipment-defense-and-battleworn-close",
+        "fixture_slug": "card-heart-of-bladehold-four-live-sparse1046-ordinary-equipment-defense-and-battleworn-close",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-sharp-shooters-four-live-sparse1046-ordinary-equipment-defense-and-battleworn-close",
+      "card_id": "sharp_shooters",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "5dc604d0f32e27aa7404548b5b8354764bf18298d4fe83125c3130e31a87015f",
+        "actions.json": "511bf2f3686ee96e12e3d9cdbe580febcac902b797e5ec827a96d5ccd74ac457",
+        "assertions.json": "a604b3833e46a0565af1ca483c2d99a9adf9c89c7094b43b62a37b1943857ddb",
+        "expected_final_gamestate.txt": "0e5807a2d6d58ad00c3a8edb7d9ec68df81a863f93a7a0bfdaa4c45e4b948c88",
+        "meta.json": "3bbcbf91dca8456cb1d2dca4dc2f9e192036a74b1cd834608e925c6b8c445f3c"
+      },
+      "fixture_sha256": "c3738932832da6859de19ddda42fcea4649c04b80fcc0f000574957ee2cfdc83",
+      "actions": 30,
+      "native_assertions": 270,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1046-20261122.json",
+      "input_sha256": "218a387cfd45ecaaf800113439979d68d7b80c4d513f60d37ac8366c87d5f45a",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1046-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-sharp-shooters-four-live-sparse1046-ordinary-equipment-defense-and-battleworn-close",
+        "fixture_slug": "card-sharp-shooters-four-live-sparse1046-ordinary-equipment-defense-and-battleworn-close",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-inverters-nightcowl-four-live-sparse1046-ordinary-equipment-defense-and-battleworn-close",
+      "card_id": "inverters_nightcowl",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "dca59ca1cb01e53c120a06b7ded36bc1717519daaceaea20b584e8bffab06ba2",
+        "actions.json": "511bf2f3686ee96e12e3d9cdbe580febcac902b797e5ec827a96d5ccd74ac457",
+        "assertions.json": "a48c398ab8b16b30d923cbf7d1522c9077dcfd4b3220e042306f183ca5e8d774",
+        "expected_final_gamestate.txt": "a608f84e5228129e754d13880b448ca364b7b89c6bb16930f9465522bcb79d64",
+        "meta.json": "e5ee852afc4b10c5b39a3a1fdfadc3c4868bbd176db9960fc859772ec0210b5f"
+      },
+      "fixture_sha256": "7bd6a5b6f597efecba84ee12dc88a7428e68f13d58dfbe24f5d7439510f91c13",
+      "actions": 30,
+      "native_assertions": 270,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1046-20261122.json",
+      "input_sha256": "218a387cfd45ecaaf800113439979d68d7b80c4d513f60d37ac8366c87d5f45a",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1046-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-inverters-nightcowl-four-live-sparse1046-ordinary-equipment-defense-and-battleworn-close",
+        "fixture_slug": "card-inverters-nightcowl-four-live-sparse1046-ordinary-equipment-defense-and-battleworn-close",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "spec_sha256": "218a387cfd45ecaaf800113439979d68d7b80c4d513f60d37ac8366c87d5f45a",
+    "reviewer": "Root independent printed/source/spec delta review of breadth_review authored cases",
+    "basis": [
+      "Currentcachedclasses/DEF1/Battleworn/natural20 verified: FlightPath/SharpShooters RangerLexi, HeartBladeholdWarriorDori, InvertersNightcowlAssassinArakni (Chest). All activebodiesunactivated and noArrowaim/load/Swordextraattack/Stealthplay/ownedhit/contractevent.",
+      "Exactqualified1042 ordinarydefense transport/UIDs5/6/7/8 andallfourmanualwindows. ActualEq1+GenericNAA2exactblocksrealpaidDawnblade3/Blue8cost1/R2/AP0/0damage/noHit/HP20; equipmentreturnsowned4counter1atdefense0/Hand6ownedGY.",
+      "Allrole/owner/fate/AP/HP/manualguards persist; unchangedkeywordproof reused. No activated/hero/support/fullcardcredit, existingholdsunchanged. Nativepending."
+    ]
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1046-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "fcec2865c8b96258100223c2589b10194b68ff76befaccf66d7d70275d737271"
+  },
+  "full_suite_run": false
+}

@@ -1,0 +1,7 @@
+{
+    "name": "Deathly Wail / actual Rune Gate permission and resource waiver, Attack prefix",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-24T20:09:27+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "FOUR_REAL_MANUAL_VYNNSET20_THREEDORI20. Ownreal3Runechants5..7Arena andfaceupprimary8Banish, emptyHand/zeroR. Printedcost3cannotbepaidnormally, exactRuneGatecountthreshold permitsnativeBanishplayandwaivesresourcecost(CR8.3.27). FormaladjacentHero4attacktargetbeforepayment; realAP1to0/R0/primaryphysicalStackfromBanish. RunesarenotRuneGatecostandremainArena; actualAAplaythenearnsexactly3separateRunechantTRIGGERproxies9..11withSource5..7, alltargHero4declaredbeforeresponses. Freshall4roundperRunechantdeals1arcaneanddestroys/ceasesitsToken; total3arcaneHP4=17, GY0. Freshfinalall4roundresolvesactualprimarytoCC1RoleATTACK/FromBanish/basepower6/noGA. ATTACKPREFIXendpointonly: StackDQpaymentquiet, sourceUID8, RNG0/UID11/AP0R0, allrunestokens/proxiesgone. Futureprimaryphysicaldamage/defense/chainclosecallback/BloodDebtandpitchsiblingsUNRUN_UNCREDITED; noeffectfromthesebranchesblessed. Noenginechange. Sources: FaBSim/GeneratedCode/cardArrayCache.json#deathly_wail_red FaBSim/Custom/DTDCards.php FaBSim/Custom/ARCCards.php FaBSim/Custom/ARCAbilities.php FaBSim/Custom/GameLogic.php FaBSim/GeneratedCode/GeneratedMacroCode.php https://rules.fabtcg.com/en/cr/08-keywords/"
+}

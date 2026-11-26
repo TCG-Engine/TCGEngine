@@ -1,0 +1,75 @@
+{
+  "card_id": "frost_spike_blue",
+  "title": "Frost Spike assigns created Frostbite ownership to recipient rather than instructed creator",
+  "classification": "CREATED_AFFLICTION_OWNER_WRONG_RECIPIENT",
+  "expected": "Player1 own-turn FrostSpike creates physical FrostbiteUID6 in chosen opponent2 exposed-zone context. The instructed creator1 owns the token; expected p2Arena-0.Owner=1 under CR1.3.1a.",
+  "observed": "After6nativeinputs (play,allfourmanualresponses, exposed-slot Modal0), source5completed and realFrostbite6existsP2Arena, but Owner=2. No passing fixture saved. Controller2 and MPG_SLOTHead queries follow failure and remain unrun.",
+  "root_relationship": "Named token-creation ownership caller concern, related in kind to prior205/208; no new distinct shared root allocation and no fix claimed.",
+  "source_route": "FaBPENFrostSpike calls FaBMPGJarl with creator1 and chosen opponent label; FaBMPGJarl calls FaBHVYToken(recipient) without creator-owner override. Native result confirms recipient Owner2.",
+  "rules_basis": "https://rules.fabtcg.com/en/cr/01-game-concepts/ CR1.3.1a: owner is instructed creating player.",
+  "limits": [
+    "Only first owner failure confirmed; later slot/controller/tax/expiry branches unrun.",
+    "No engine repair, fixture save, full suite or coverage credit."
+  ],
+  "status": "CONFIRMED_NATIVE_FAILURE_NO_FIXTURE_SAVED",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse903-held-frost-spike-blue-20261122.json",
+  "source_spec_sha256": "395ac8273a287bd0b7ad9db9fce412b172c1fc193c5f79a4c7cfd4ea70e99883",
+  "original_native_input_sha256": "e27c220fa892dcbc1d86ec9f5603a0edb8083d6faabc6cb24e5a8a38d531f194",
+  "initial_gamestate_sha256": "d680d289509a40df4aacf282e689e59d10a6bcbb72bd09199b47051472aba33e",
+  "native_inputs": [
+    {
+      "playerID": 1,
+      "mode": 10002,
+      "buttonInput": "",
+      "cardID": "p1Hand-0!FSM",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 1,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 2,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 3,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 4,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 1,
+      "mode": 100,
+      "buttonInput": "",
+      "cardID": "0",
+      "chkInput": [],
+      "inputText": ""
+    }
+  ],
+  "first_failure": "Expected p2Arena-0.Owner to equal '1', got '2'.",
+  "source_changed": false,
+  "fixture_saved": false,
+  "coverage_credit": false,
+  "full_suite_run": false
+}

@@ -1,0 +1,7 @@
+{
+    "name": "Chum, Friendly First Mate / actual offturn tap and watery discard forces real attack to surviving ally not hero",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-23T18:12:36+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Fourmanual3YoungDori20/YoungGravyBones20owner4. Actualpriorally5Arena4ready/BeneathSurfaceYellow6Hand4/main7Hand1. EmptyACTIONTurn1/Turn2threepassesreach4BEFOREfourthpass/endphase. Owner4actuallyactivatesInstant0, mandatoryrealWGHand6discard+tap5paidbeforeABI8fresh4/1/2/3responses; noR/APassetsor099orderingdependency. DiscardHanddoesNOTearnWateryGrave(onlyArena), publicownedGY6FaceDown0/noextraABI; YellowavoidsGravyblueGYpermission. Source5livesArena/noawait/094. ActualChumforcedtargeteffectmustapplyBEFOREturn1Wounding7click: soleeligibleforcedtarget5AUTOselected(noMZCHOOSE), AP1to0/real7Stackandfourresponses. NativeactiveattackTargetPERMANENT/player4/UID5, notHero4. Fullcombatreal4damagegoestoChum5Damage4(printed6life,survives2), Hero4HP20/otherHP20; noWGdeparturebecausealive. Final7GY1/6publicGY4/5Arena4stilltappedDamage4/AP/R0/UID8/noCCStackDQs. Onlyoneforcedlegalattack; noChumattack/illegalHerochoice/othercreature/death/WGtrigger/expiry/Hero/support/fullcardcredit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#chum_friendly_first_mate_yellow FaBSim/Custom/SEARuntime.php FaBSim/Custom/SEACards.php FaBSim/Custom/SUPCards.php FaBSim/Custom/GameLogic.php FaBSim/GeneratedCode/GeneratedMacroCode.php"
+}

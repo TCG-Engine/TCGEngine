@@ -1,0 +1,173 @@
+{
+  "status": "HELD_CONFIRMED_NATIVE_FAILURE_NO_PASSING_FIXTURE",
+  "issue": "FAB-REG-215",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "card_id": "sigil_of_fate",
+  "group_id": "identity:sigil_of_fate",
+  "slug": "card-sigil-of-fate-four-live-sparse1232-real-warhorn-destruction-earns-opt-that-moves-real-top-card-to-bottom",
+  "native_inputs_executed": 8,
+  "setup": {
+    "heroes": [
+      "kano",
+      "dorinthea",
+      "dorinthea",
+      "dorinthea"
+    ],
+    "health": [
+      15,
+      20,
+      20,
+      20
+    ],
+    "resources": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "actionPoints": [
+      1,
+      0,
+      0,
+      0
+    ],
+    "state": {
+      "gameMode": "UPF",
+      "passiveSeats": []
+    },
+    "zones": [
+      {
+        "cardID": "sigil_of_fate",
+        "zone": "Arena",
+        "player": 1,
+        "properties": {}
+      },
+      {
+        "cardID": "imperial_warhorn_red",
+        "zone": "Arena",
+        "player": 1,
+        "properties": {}
+      },
+      {
+        "cardID": "sigil_of_solace_blue",
+        "zone": "Hand",
+        "player": 1,
+        "properties": {}
+      },
+      {
+        "cardID": "wounding_blow_red",
+        "zone": "Deck",
+        "player": 1,
+        "properties": {}
+      },
+      {
+        "cardID": "raging_onslaught_red",
+        "zone": "Deck",
+        "player": 1,
+        "properties": {}
+      }
+    ],
+    "activeSeats": [
+      1,
+      2,
+      3,
+      4
+    ]
+  },
+  "native_prefix": [
+    {
+      "playerID": 1,
+      "mode": 10002,
+      "buttonInput": "",
+      "cardID": "p1Arena-1!FSM",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 1,
+      "mode": 10002,
+      "buttonInput": "",
+      "cardID": "p1Hand-0!FSM",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 1,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 2,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 3,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 4,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 1,
+      "mode": 100,
+      "buttonInput": "",
+      "cardID": "p1Hero-0",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 1,
+      "mode": 100,
+      "buttonInput": "",
+      "cardID": "p1Arena-0",
+      "chkInput": [],
+      "inputText": ""
+    }
+  ],
+  "expected": "Destroying the actual owned Sigil token must earn its leave-arena Opt1 ability even though the token ceases to exist. The earned trigger must receive its own response window before looking at the deck.",
+  "observed": "After eight native inputs, including choosing own hero and actual Sigil5 for Imperial Warhorn destruction, windowACTION and all decision queues are empty instead of the expected earned-trigger PRIORITY. Opt and rearrangement were never reached.",
+  "first_error": "state window expected \"PRIORITY\" got \"ACTION\"",
+  "observed_window": "ACTION",
+  "observed_decisions": {
+    "1": [],
+    "2": [],
+    "3": [],
+    "4": []
+  },
+  "observed_resolvingReaction": null,
+  "initial_gamestate_sha256": "f683bc169dca2afff40791d47c1efd00b8484a84c05b1168651b1511380aaf83",
+  "source_explanation": [
+    "Warhorn generated e11f81752d4bb0fcc797 calls DYNDestroyUIDs, which uses MONDestroy and FaBMoveUID for actual Sigil5.",
+    "GameLogic.php:868-871 removes a Token then returns null before the non-null-destination hooks at884. FaBPENAfterMove at PENCards.php:257/293 contains the Sigil queue and is therefore skipped.",
+    "PENDestroyed at297-300 supplies no Sigil fallback. Independent failure review corrected the earlier source-spec assumption that the after-move hook would be reached."
+  ],
+  "related_records": [],
+  "root_count_limit": "One native missing-leave-trigger finding. No catalog-wide token audit, additional affected identity, repository Core defect or broader fixed-root count claimed.",
+  "full_correct_spec_local": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1232-local-20261122\\proposed.json",
+  "full_native_receipt_local": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1232-local-20261122\\save\\receipt.json",
+  "full_native_receipt_sha256": "4da500372ca88d35dde684fa73826a2be1defff1a10a8a9a215e30b61d78ddb8",
+  "independent_review_local": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1232-local-20261122\\failure-review.json",
+  "independent_review_sha256": "47989c02b0218e7529b318718ffd9a37b8ccdef1291f6033d5224ed935b461d0",
+  "fixture_saved": false,
+  "qualified": false,
+  "coverage_credit": false,
+  "engine_changed": false,
+  "full_suite_run": false,
+  "later_branches": "Unrun; no credit. Original correct expectations retained."
+}

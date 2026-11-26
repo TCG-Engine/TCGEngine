@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-bravo-showstopper-two-live-sparse1261-real-two-resource-hero-action-dominate-rejects-second-hand-block",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-bravo-showstopper-two-live-sparse1261-real-two-resource-hero-action-dominate-rejects-second-hand-block",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1261-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1261-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "e83e5b98df3392724a01ebcb742c279c7900b23e9feb8d7cbf0f163f9ca81290",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "e8566194287ec8f130d253c7a17a49cee293005831e27174f28a2534fd807e21",
+        "actions.json": "f0024c55a4ae1cc22540b280165290364e3f0e697ccd127e7ac606b4fe597ee8",
+        "assertions.json": "8393522f3fbebf769ee6e552c403673585e3f18b303939102412ffaa1339a95a",
+        "expected_final_gamestate.txt": "0ffb6d5059156c707e2f2e6debf5e8928f8bc82db61378a11abfba0a86ebadf8",
+        "meta.json": "4777e099e9031891af138f563f9c8ae094255dce3faabbfcf60f2d03cbce8e90"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

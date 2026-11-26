@@ -1,0 +1,7 @@
+{
+    "name": "Hungering Slaughterbeast / four-live mandatory additional-cost rejection",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-23T07:02:20+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "As an additional cost to play this, banish 3 random cards from your graveyard.\n\n**Blood Debt** Namedmandatoryadditionalcostadmissionfailureonly: only_two_graveyard_cards_for_mandatory_three_banish. Legalnaturallevia20/actualPrimary5Hand, genericBlue6providespitch3sufficientforprintedresourcecost, Nimblism7HandnotanAllyorHarpoon, realDeck8/9nonempty/actualownedGY10/11exactly2<3. Nativeprimary5clickmustleaveitHand/AP1/R0/sourceStack0/noTargets/noPitch/noBanish/noDraw/currentGYunchanged, becausemandatoryadditionalcostcannotbepaid. ThenactualseparatelegalNimblism7cost0/AP0withallfourmanualpriorityresponsesfinishesownGY/AP1, whileprimary5/Blue6/Deck8/9/priorGY remainexactlyunchanged. Primarydoesnotresolveoropenaresponsewindow; four-liveflowisexercisedbyindependentlegalfollowthrough, noNimblismprimary/effectconsumercredit. Positivecardeffects/payment/costtiming/untap/draw/banishrandom/hero/support/siblings/fullcard untested. Sources: FaBSim/GeneratedCode/cardArrayCache.json#hungering_slaughterbeast_red"
+}

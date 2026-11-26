@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-succumb-to-temptation-yellow-four-live-sparse1034-generic-hit-not-runeblade-hand-retained",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-succumb-to-temptation-yellow-four-live-sparse1034-generic-hit-not-runeblade-hand-retained",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1034-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1034-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "b5a998bfc0a0ca3a3b332c0a4830873c5cff7b296ca1d2a1961b2916f145ffd8",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "712f672e1bcbc8c0ac290b57d52c370e41b5452d91d83e59fa63fbd757fb1793",
+        "actions.json": "0af8a1ea1ec8c5c1cd86d16e2bbdc5cce415580ef97f75c13ce0010d1f71cfc6",
+        "assertions.json": "62301bcba125de39385ec9d23da4508f6b412044a8e20128fc9ccfedf9dba463",
+        "expected_final_gamestate.txt": "58596185c6a6db76b82e0df5e2fccd3153c78668a1b957eb8da4549b751c8d73",
+        "meta.json": "fba145ae0949de237e8d8eebaf3a3b38ed92bd53bd12a385a19d445bb693b757"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

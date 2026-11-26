@@ -1,0 +1,97 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-24T05:59:37.642976+00:00",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1322-20261122.json",
+  "source_spec_sha256": "f91eafbd4c54fc8b6f926a738dc5a0b65c653efe5cd057ea9a3414c895f7cd40",
+  "new_scenarios": 2,
+  "new_groups": 2,
+  "new_primary_ids": 2,
+  "actions": 56,
+  "native_assertions": 594,
+  "manual_passes": 50,
+  "totals": {
+    "saved_registered_scenarios": 5274,
+    "duels": 3100,
+    "four_live": 2174,
+    "recorded_primary_ids": 2422,
+    "identity_denominator": 5196,
+    "recorded_groups": 2296,
+    "group_denominator": 3324,
+    "four_live_groups": 2163,
+    "phase_qualified_scenarios_at_actual_contexts": 1911,
+    "phase_qualified_unique_groups": 1901,
+    "creation_replay_passes": 2653,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 1072,
+  "scenarios": [
+    {
+      "card_id": "darling_of_the_crowd_yellow",
+      "group_id": "identity:darling_of_the_crowd_yellow",
+      "scenario_id": "card-darling-of-the-crowd-yellow-four-live-sparse1322-real-three-defense-and-one-hero-damage-without-cheer",
+      "effect_branches": [
+        "actual_block_from_hand_printed_three_defense_without_cheer_bonus_incoming_four_deals_one_hero_damage"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-darling-of-the-crowd-yellow-four-live-sparse1322-real-three-defense-and-one-hero-damage-without-cheer",
+      "source_spec": "card-regression-sparse1322-20261122.json",
+      "source_spec_sha256": "f91eafbd4c54fc8b6f926a738dc5a0b65c653efe5cd057ea9a3414c895f7cd40",
+      "review_evidence": "review-evidence/sparse1322-20261122-qualified-saved.json",
+      "review_evidence_sha256": "b53025deda2bae5e1090b4733f1cf315045779345cae043c6e738ce17195e077",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1322-20261122-replay.json",
+          "sha256": "095a3eff277d7881fd659fabf378abf11c82885edd00b55edc8d0f10b1a4006b",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "disdainful_delight_yellow",
+      "group_id": "identity:disdainful_delight_yellow",
+      "scenario_id": "card-disdainful-delight-yellow-four-live-sparse1322-real-three-defense-and-one-hero-damage-without-boo",
+      "effect_branches": [
+        "actual_block_from_hand_printed_three_defense_without_boo_bonus_incoming_four_deals_one_hero_damage"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-disdainful-delight-yellow-four-live-sparse1322-real-three-defense-and-one-hero-damage-without-boo",
+      "source_spec": "card-regression-sparse1322-20261122.json",
+      "source_spec_sha256": "f91eafbd4c54fc8b6f926a738dc5a0b65c653efe5cd057ea9a3414c895f7cd40",
+      "review_evidence": "review-evidence/sparse1322-20261122-qualified-saved.json",
+      "review_evidence_sha256": "b53025deda2bae5e1090b4733f1cf315045779345cae043c6e738ce17195e077",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1322-20261122-replay.json",
+          "sha256": "095a3eff277d7881fd659fabf378abf11c82885edd00b55edc8d0f10b1a4006b",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

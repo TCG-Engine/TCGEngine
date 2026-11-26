@@ -1,0 +1,282 @@
+{
+  "status": "APPROVED_ACTUAL_SAVED_B797_VISOR_WITH_ORIGINAL_ONLY_TIMING_LIMIT",
+  "phase": "SAVED",
+  "batch": 797,
+  "approved": true,
+  "saved_approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "/root/sand_saved_recovery",
+  "created_utc": "2026-11-14T22:25:29.224309+00:00",
+  "source_spec": "card-regression-batch797-red_alert_visor.json",
+  "input_sha256": "d959e36c41ab9ab4172920b4b62b9fba2d05011bb884a21ff8ea5dbbe91b6c28",
+  "manifest_sha256": "a0feb8c132fc16a8b5e1c44fbde94b8dc0bf71bff37dc25d705210d1e5d3786b",
+  "runtime_sha256": "6695d68163d313f4f61cb20ad9122c7038e621a60c847909598150fe8da09d11",
+  "recorded_runtime_sha256": "6695d68163d313f4f61cb20ad9122c7038e621a60c847909598150fe8da09d11",
+  "recorder_sha256": "ab33a3250462d0453f71d38dd4138cb9fbc3d595d2586742e989a52251c9c4a9",
+  "manifest": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov14-batch797-visor-real-lunging-same-aa-continuous-defense-two-author\\manifest.json",
+    "sha256": "a0feb8c132fc16a8b5e1c44fbde94b8dc0bf71bff37dc25d705210d1e5d3786b"
+  },
+  "prior_independent_source_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov14-batch797-visor-independent-correct-positive-source-review.json",
+    "sha256": "bce4c2bafc2a6d830871166ebb4a8ddb166adc547193fa575cf3f456c1e2db72"
+  },
+  "exact_limited_dependency_admission": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov14-batch797-visor-independent-exact-dependency-admission.json",
+    "sha256": "c06b924c66b4c680e983c60d27aa76fa11bb1441786853d6ce82a2c604673114"
+  },
+  "root_wrapper_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov14-b797-visor-native-correct-real-reaction-defense\\receipt.json",
+    "sha256": "8d44f1b1e5567d7cf1cb47981c4c72ebbd7537abe5bffb44aea6063eb3c630a5"
+  },
+  "recording_receipt": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch797-red_alert_visor-20261114T222149Z-6af8defd617b9.json",
+    "sha256": "d038da998bd86c1f05b6e8022fda726bb2bb4085cb444f4eec63e57b2f7f5917"
+  },
+  "specific_results": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch797-red_alert_visor.recording-results.json",
+    "sha256": "33be1e25980644f14b4c5f989dca1c2b599b80f6f056ad80c89a9069a4ac9f4e"
+  },
+  "fixtures": [
+    {
+      "slug": "card-visor-real-lunging-same-aa-continuous-defense-two",
+      "card_id": "red_alert_visor",
+      "group_id": "identity:red_alert_visor",
+      "source_spec": "card-regression-batch797-red_alert_visor.json",
+      "input_sha256": "d959e36c41ab9ab4172920b4b62b9fba2d05011bb884a21ff8ea5dbbe91b6c28",
+      "runtime_sha256": "6695d68163d313f4f61cb20ad9122c7038e621a60c847909598150fe8da09d11",
+      "recorded_runtime_sha256": "6695d68163d313f4f61cb20ad9122c7038e621a60c847909598150fe8da09d11",
+      "approved": true,
+      "semantically_approved": true,
+      "reviewer_independent": true,
+      "fixture_path": "Tests/Integration/FaBSim/card-visor-real-lunging-same-aa-continuous-defense-two",
+      "fixture_sha256": "4b9d47acc86dc90327bd186c85db546f0cf7da165a778527289583c22bdf6de0",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "de7b07970438291043dfae609c2773757411e1116a49d1e68083e36da78b57c4",
+        "actions.json": "d1bb63dce478e3a65bba43b4307102b8594e11a53b5d3e095abafd081034e522",
+        "assertions.json": "3c013d79116f71426aec0c9c06769e4ad19382c45ae9fed43f4e81e04eb2e96f",
+        "expected_final_gamestate.txt": "9a1ed811e0f3b34874a20e483de85f637720f5f26659ab4f712b044b804a4b34",
+        "meta.json": "7968aca26d008ac33c4c1341c9caf284d3d283ac3d795fcb4134fd98dd57d32f"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "de7b07970438291043dfae609c2773757411e1116a49d1e68083e36da78b57c4",
+        "actions.json": "d1bb63dce478e3a65bba43b4307102b8594e11a53b5d3e095abafd081034e522",
+        "assertions.json": "3c013d79116f71426aec0c9c06769e4ad19382c45ae9fed43f4e81e04eb2e96f",
+        "expected_final_gamestate.txt": "9a1ed811e0f3b34874a20e483de85f637720f5f26659ab4f712b044b804a4b34",
+        "meta.json": "7968aca26d008ac33c4c1341c9caf284d3d283ac3d795fcb4134fd98dd57d32f"
+      },
+      "raw4_sha256": {
+        "initial_gamestate.txt": "de7b07970438291043dfae609c2773757411e1116a49d1e68083e36da78b57c4",
+        "actions.json": "d1bb63dce478e3a65bba43b4307102b8594e11a53b5d3e095abafd081034e522",
+        "assertions.json": "3c013d79116f71426aec0c9c06769e4ad19382c45ae9fed43f4e81e04eb2e96f",
+        "expected_final_gamestate.txt": "9a1ed811e0f3b34874a20e483de85f637720f5f26659ab4f712b044b804a4b34"
+      },
+      "actions": 33,
+      "native_assertions": 2117,
+      "recorded_persisted_assertions": 2117,
+      "manual_passes": 29,
+      "actual_manual_passes": 29,
+      "actual_priority_response_passes": 28,
+      "actual_defender_declaration_finish_inputs": 1,
+      "actual_manual_actor_counts": {
+        "1": 7,
+        "2": 7,
+        "3": 7,
+        "4": 8
+      },
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4
+      ],
+      "schema_property_assertions": 496,
+      "checkpoint_count": 35,
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "endpoint_assertions_evaluated": {
+        "0": 130,
+        "33": 189
+      },
+      "all_actions_and_assertions_exact": true,
+      "all_terminal_assertions_evaluated_against_parsed_final_snapshot": true,
+      "initial_assertions_also_evaluated_against_parsed_initial_snapshot": true,
+      "initial_physical_uid_locations": {
+        "1": {
+          "card_id": "betsy",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "lunging_press_blue",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "betsy",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2
+        },
+        "3": {
+          "card_id": "betsy",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4
+        },
+        "7": {
+          "card_id": "red_alert_visor",
+          "zone": "p4Equipment",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_physical_uid_locations": {
+        "1": {
+          "card_id": "betsy",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "lunging_press_blue",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "betsy",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2
+        },
+        "3": {
+          "card_id": "betsy",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4
+        },
+        "7": {
+          "card_id": "red_alert_visor",
+          "zone": "p4Graveyard",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "native_action_mapping_sha256": "78bef2e1be34339a036acdbbd87219e049f64e9a241781156e06104713c3e0e8",
+      "native_assertion_mapping_sha256": "498f4d2f224f9afab3f7a278dd8d149817f0f4df2dc1038084d15cf376ad2a47",
+      "checkpoint_assertion_mapping_sha256": "e242e3dac10b250d1a585d0a10370e0dcb9ca9a7044ebab06f39ad93fec4b2cc",
+      "nonpersisted_original_only_check_count": 2,
+      "nonpersisted_timing_checks_replayed": false,
+      "full_card_certification": false
+    }
+  ],
+  "source_guard_count": 82,
+  "selected_support_guard_count": 14,
+  "all_current_guards_matched": true,
+  "total_actions": 33,
+  "total_native_assertions": 2117,
+  "total_recorded_persisted_assertions": 2117,
+  "total_manual_passes": 29,
+  "total_schema_property_assertions": 496,
+  "total_checkpoints": 35,
+  "total_endpoint_assertions_evaluated": 319,
+  "original_author_native_checks": [
+    {
+      "after_action": 16,
+      "checkpoint": "actual_four_DEFEND_PRIORITY_responses_before_LP_fourth_actual_response",
+      "check": {
+        "kind": "defense",
+        "value": 1
+      },
+      "persisted": false,
+      "replayed": false
+    },
+    {
+      "after_action": 17,
+      "checkpoint": "actual_LP6_played_soleAA5_target_auto_bound_beforecost_Visor_live2_beforeeffect_ATTACKstill2_HP20",
+      "check": {
+        "kind": "defense",
+        "value": 2
+      },
+      "persisted": false,
+      "replayed": false
+    }
+  ],
+  "original_author_native_check_count": 2,
+  "original_logical_source_check_entries": 2119,
+  "original_nonpersisted_checks_passage_supported_by_completed_control_flow": true,
+  "nonpersisted_checks_passage_evidence": "Source-bound exact original input contains both strict FCR live-defense gates. Existing unchanged recorder executes every check in order and aborts on mismatch. Root exact original run completed/saved/exit0 through all2117 persisted assertions after both gates. This supports passage of defense1 at16 and2 at17 during original creation; no per-check values/timing are serialized in raw5 or replayed.",
+  "nonpersisted_checks_serialized": false,
+  "nonpersisted_timing_checks_replayed": false,
+  "material_findings": [
+    "All actual33 envelopes/29 manual pass actors/2117 ordered successful persisted queries match the exact Source. Raw endpoints independently confirm48 manual values EACH, no initial AR/history/condition/result seed and original physical1..7 ownership.",
+    "Actual LP6 waitsStack with captured soleAA5/link1 while attack2/HP20; real four-seat response round clears LP6toGY1 and boosts sameAA to3. Fresh Reaction round yields actual1damage/HP4_19 with defense2, then automatic BladeBreak cleanup retains exact order LP6thenAA5GY1 and ownVisor7GY4. Complete Stack/chain/queues/target/payment/manager/await cleanup verified.",
+    "Two original-only live FCR defense checks support initial base1 then continuous2 immediately after AR play before LP effect, by completed source-bound recording control flow. They are not serialized assertions;2117 is the fixture/replay count,2119 counts original logical source check entries."
+  ],
+  "limits": [
+    "Only exact quiet Visor representative. No Lunging primary/cycle/generalUPF, alternate target/chooser/resume/await/foreign/departure/suppression/turnchange/elimination, reactionactivation/autopass, Arakni/LeapFrog/Featherfoot listener or full-card credit.",
+    "The2 live defense timing gates have original-creation-only evidence; no serialized per-check observations and no replay timing assertion are claimed. Later replays test only2117 persisted assertions/raw endpoints.",
+    "Root focused replays/registration remain separate. Reviewer ran no PHP/native/game/replay/fullsuite/R/source/Git/remote mutation/new-agent/repair/B787 action."
+  ],
+  "qualification_credit_before_registration": false,
+  "replays_executed_by_reviewer": false,
+  "B787_denied_operation_untouched": true,
+  "blockers": [],
+  "comparison_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov14_batch797_visor_saved.py",
+    "sha256": "68f24277d6dfe4b939ed4302805cc998e6a26d182ee8c1fc561f26e0ac35aeb7"
+  }
+}

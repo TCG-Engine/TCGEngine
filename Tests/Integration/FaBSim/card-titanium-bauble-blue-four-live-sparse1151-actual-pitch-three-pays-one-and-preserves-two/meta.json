@@ -1,0 +1,7 @@
+{
+    "name": "Titanium Bauble / actual three-resource pitch pays one and leaves two",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-23T11:40:50+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "TitaniumBauble printedBlue pitch3 is a GenericResource with no abilities. NativeunpaidComeToFightcost1/AP1 fromR0 requiresactualpitch: sameBauble6Hand->Pitch produces3,pays1,leavesR2/AP0. Fourmanualsource responses resolveGenericComeToFight5ownedGY1/GAAP1 whileBauble6ownedPitch/R2retained. No token/extraUID/RNG/HPchange. No turn-endreturn/resourceexpiry/formatdeckbuilding/nextattack support or sibling/fullsupport credit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#titanium_bauble_blue"
+}

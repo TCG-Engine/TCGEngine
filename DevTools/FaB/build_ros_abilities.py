@@ -100,7 +100,7 @@ for c in json.loads((HERE/'ros_catalog.json').read_text()):
   add('PrepareCard',UID+'$maximum = FaBHVYMaxX($player, $uid); $x = await $player.NumberChoose(0, $maximum, "Choose_X"); FaBHVYSetX($uid, intval($x)); FaBFinishPreparedCard($uid);')
   add('ResolveCard',UID+"$x = intval(FaBARCCard($uid, 'evoX')); for ($i = 0; $i <= $x; $i = $i + 1) { $mode = await $player.Modal(1, 1, \"Runechant&Embodiment_of_Earth\", \"Create_token\"); FaBHVYToken($player, $mode === '0' ? 'runechant' : 'embodiment_of_earth'); } FaBCRUGainLife($player, $x + 1);")
  if b in ['arcane_polarity','fertile_ground','count_your_blessings']:
-  expr="FaBROSCount($player, 'ARCANE_TAKEN') > 0 ? "+str(v+1)+" : 1" if b=='arcane_polarity' else f'FaBROSEarth($player) >= 4 ? {v+2} : {2}' if b=='fertile_ground' else str(v)+" + count(FaBChoiceRefs($player, 'Graveyard', ['base'=>'count_your_blessings'])) - 1"
+  expr="FaBROSCount($player, 'ARCANE_TAKEN') > 0 ? "+str(v+1)+" : 1" if b=='arcane_polarity' else f'FaBROSEarth($player) >= 4 ? {v+2} : {2}' if b=='fertile_ground' else str(v)+" + count(FaBChoiceRefs($player, 'Graveyard', ['base'=>'count_your_blessings']))"
   add('ResolveCard',f'FaBCRUGainLife($player, {expr});')
  if b=='brush_off':add('ResolveCard',f"FaBROSAdd($player, 'BRUSH', {v});")
  if b=='seeds_of_tomorrow':
@@ -150,7 +150,7 @@ for c in json.loads((HERE/'ros_catalog.json').read_text()):
   elif b in bodies:add('ResolveAbility',bodies[b])
  if b in ['channel_lightning_valley','channel_the_millennium_tree']:
   add('StartTurn',UID+"$flow = FaBELEFlow($uid); "+many("FaBELESelect($player, 'Pitch', '"+('Earth' if b=='channel_the_millennium_tree' else 'Lightning')+"')",'$flow',0,'Bottom_element_cards_to_keep_Channel')+'FaBELEChannelPay($player, $uid, $chosen, $flow);')
-  if b=='channel_the_millennium_tree':add('ResolveCard',"FaBMSTAdd($player, 'AMP', 3);")
+  if b=='channel_the_millennium_tree':add('ResolveCard',"/* Entry amp is queued by FaBROSAfterMove. */")
  if b=='save_the_thought':add('ResolveCard',many("FaBROSRefs($player, 'Graveyard', 'NAA')",v,0,'Shuffle_non_attack_actions')+"FaBROSShuffle($player, $chosen); "+token('ponder'))
  if b=='call_to_the_grave':add('ResolveCard',choose('FaBStageSearch($player, [])','Search_for_card')+"FaBMoveChoice($player, $chosen, 'Temp', 'Graveyard'); FaBFinishSearch($player);")
  if b=='truce':add('ResolveCard',UID+choose("FaBARCHeroTargets($player, true, true)",'Choose_opponent',False)+"FaBROSSetTruce($uid, $chosen);")

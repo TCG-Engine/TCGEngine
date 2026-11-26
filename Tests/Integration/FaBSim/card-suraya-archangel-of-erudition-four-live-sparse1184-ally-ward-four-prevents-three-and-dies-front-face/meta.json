@@ -1,0 +1,7 @@
+{
+    "name": "Suraya, Archangel of Erudition / Ally Ward4 and correct front-face graveyard",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-23T14:42:35+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "ALLYWARD4/DFCFRONTRESETONLY: PriorlegallyawakenedLightAngelsuraya_archangel_of_erudition5Arena4underYoungPrism20; noAwaken/entryproducercredit. Actor1YoungVerdance20/2Dori20manual actualZap6Action0declaresHero4beforecost/AP1->0/fourresponses. ActualmandatoryWardchoiceonlyAlly5destroys5andpreventsmin(4,3)=3, actualHP4remains20. Allyisnotattackingnordealtdamageitself, soitsprintedWHENattacks/instructionsnotearned. Actualsamephysical5ownedGY4mustbeprintedfrontfigment_of_erudition_yellow(CR9.1.3b newcardafterleavingArena); DTDRuntime6 mapsbacktofront, notunsupportedmarker/counterassumption. Source6ownedGY1, noSoul/token/otherzones/AP/R/RNG/newUIDbeyond6/Stack/DQs. NoAwaken/entry/Angelattack/banishSoul/reward/Allydamage/deathobservers/Hero/frontprimary/support/fullcardcredit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#suraya_archangel_of_erudition FaBSim/GeneratedCode/cardArrayCache.json#zyggy FaBSim/Custom/DTDCards.php FaBSim/GeneratedCode/GeneratedMacroCode.php"
+}

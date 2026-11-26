@@ -1,0 +1,102 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-widow-back-abdomen-four-live-sparse1079-real-arcane-barrier-one-paid-by-blue-pitch-equipment-retained",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-widow-back-abdomen-four-live-sparse1079-real-arcane-barrier-one-paid-by-blue-pitch-equipment-retained",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1079-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1079-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "7ccfc412631913cbf6e164d7a61a6f5e31a9e1c025472d2920a66abd5d071870",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "f4d013c25ebcf7b8d4625bb9bd358f2b0ca65ec490c163bae8b0ffd9bb3a28d2",
+        "actions.json": "9cb03b650766799345ddee4396788330627427e226adb103241ae3a096a839bd",
+        "assertions.json": "a39e8e408e37fe7a21a61db27f26a5f0a5d8be9a068c5c0fdea5369255817c80",
+        "expected_final_gamestate.txt": "c77347834b8a84dd96c79d67a83ddb4b78e1c154a25ad1eed3ee40e754197e46",
+        "meta.json": "ad97c4a40dff3f69534ea7217d775378523495250454cc7d4c130493d5e7284f"
+      }
+    },
+    {
+      "slug": "card-widow-claw-tarsus-four-live-sparse1079-real-arcane-barrier-one-paid-by-blue-pitch-equipment-retained",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-widow-claw-tarsus-four-live-sparse1079-real-arcane-barrier-one-paid-by-blue-pitch-equipment-retained",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1079-local-20261122\\clean-replays\\01.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1079-local-20261122\\clean-replays\\01.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "11752df8468992a79378c35355ee742c503475c49b85c64dfc9a1457db4f6119",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "5455bb2c07195db1e23e2a4c28db1a865338ed2aabfaac9c395fdcdf14bd93b5",
+        "actions.json": "9cb03b650766799345ddee4396788330627427e226adb103241ae3a096a839bd",
+        "assertions.json": "4a15f7cfdc8991109bdeccce3aefaaee3944b8e28de79e3d7ba4d8402a21b895",
+        "expected_final_gamestate.txt": "45763558be95a2f9348e9777cda2dae6aef3424b86e05a2836a2dc17439589b2",
+        "meta.json": "84c122a4c358fc73664ae39e9fc4971f99bf8b4092ca06454b6f61504df02bc1"
+      }
+    },
+    {
+      "slug": "card-widow-veil-respirator-four-live-sparse1079-real-arcane-barrier-one-paid-by-blue-pitch-equipment-retained",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-widow-veil-respirator-four-live-sparse1079-real-arcane-barrier-one-paid-by-blue-pitch-equipment-retained",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1079-local-20261122\\clean-replays\\02.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1079-local-20261122\\clean-replays\\02.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "768dcd8806c66d64933fa94d96991d1a7d6c9700097e1b1262ff6b4d77a11422",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "1ecadb7654b8b212d52b48282a10d426386c597d8a48da48a14be3069728fef4",
+        "actions.json": "9cb03b650766799345ddee4396788330627427e226adb103241ae3a096a839bd",
+        "assertions.json": "8e5f393d247a830a4ad2cd832e92f0ea69910e14da2f34cae050d003811df713",
+        "expected_final_gamestate.txt": "8da6b5ac182d1d87e7502bed849fe0ceeb0b32d189cb223a966e25d3e54c37bb",
+        "meta.json": "fd87fb0d94728ae94962e7f2e767a1d36961cbd3247d2d4235d1266d88341f1a"
+      }
+    },
+    {
+      "slug": "card-widow-web-crawler-four-live-sparse1079-real-arcane-barrier-one-paid-by-blue-pitch-equipment-retained",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-widow-web-crawler-four-live-sparse1079-real-arcane-barrier-one-paid-by-blue-pitch-equipment-retained",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1079-local-20261122\\clean-replays\\03.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1079-local-20261122\\clean-replays\\03.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "7de18b33c634c589e8bfe602fb8537c70f3834708cef359533cb8e4bf3aff4f3",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "21440d47eee9f8ecd16b224b3a2d73df7791b2d10eaad4030db2ff907bf38aff",
+        "actions.json": "9cb03b650766799345ddee4396788330627427e226adb103241ae3a096a839bd",
+        "assertions.json": "2b24b5a9d0b3d98bdc595ee3e01ab07aa3b0e17d96a6e93220ff362a2af5a03e",
+        "expected_final_gamestate.txt": "0a6bc4816116fa6583c0429eb57c89087235bc198ce5aa07e7b38454e8413e18",
+        "meta.json": "dc171b15a92559a698e420f1f04d84926d1fcb754aafa1d1b137757a3f84b684"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

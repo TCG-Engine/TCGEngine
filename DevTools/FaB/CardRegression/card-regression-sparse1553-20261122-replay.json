@@ -1,0 +1,56 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-dive-through-data-red-four-live-sparse1553-real-paid-boost-banish-mech-go-again-fully-blocked",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-dive-through-data-red-four-live-sparse1553-real-paid-boost-banish-mech-go-again-fully-blocked",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1553-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1553-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "a7eb6673c84f10425c80f1db60cb5481099355a4ada4b65e3f7d5c3cb7021bd8",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "4a427867462258e17bf22d903f5be5677fb15714097753873938a1bb2d0ec330",
+        "actions.json": "9194fad16f357b3d3cfd0c2c50c8f229eef760576531a14bf2e1037d01ab1547",
+        "assertions.json": "3a98185a6fc890dba70c0855bd28d4434bbef11d0e3b717e49bd83ca2c3be0df",
+        "expected_final_gamestate.txt": "ec1fbcee25012d13ab8229ecedd45492c0358da326447ef4fec88c8647e6fe63",
+        "meta.json": "8c05486fd8d81ef78d13e451ef0e7f5f983355576c03959e85fc9321ec24df53"
+      }
+    },
+    {
+      "slug": "card-under-loop-red-four-live-sparse1553-real-paid-boost-banish-mech-go-again-fully-blocked",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-under-loop-red-four-live-sparse1553-real-paid-boost-banish-mech-go-again-fully-blocked",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1553-local-20261122\\clean-replays\\01.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1553-local-20261122\\clean-replays\\01.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "4faadae44d2bdf583e2aeb033b503cac9820be10603c76377653c21db662c477",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "d5d2e2062de3bd933296dd5347779a40a0270b32f7d2367bef77a04e9401b3d4",
+        "actions.json": "9194fad16f357b3d3cfd0c2c50c8f229eef760576531a14bf2e1037d01ab1547",
+        "assertions.json": "9203406010ed96e7db5aa2487768e819c9a17e73c9eb87d7af2045b38e0dfaed",
+        "expected_final_gamestate.txt": "82a4d38c7f2025153cbf3b3fae45edf22784de15bfc8ce6ccc258b854dcfedee",
+        "meta.json": "9f368c429f968825bf2652dd6849597b91ee80143268b044fe7db65375783590"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

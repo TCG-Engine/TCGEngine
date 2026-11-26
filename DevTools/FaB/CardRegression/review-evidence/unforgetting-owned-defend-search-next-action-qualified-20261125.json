@@ -1,0 +1,212 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "/root/breadth_review1457",
+  "reviewer_scope": "Exact6maintainedsource and normalemittercallback/frame/handler/counts; bounded actualbase-filter correction, exacttwo legalduelrecipes with actual paidnextActionMangle followthrough, exactsaved643assertions and59inputs, fresh2seat ownedresponse/awaitframe lifecycle and physical0/2damage. Root actualstrict4replay receipts; reviewer no games/writes.",
+  "runtime_sha256": "e30e2324afd40422257209774e9b99674b7727aabcc26689df6507e9fb606169",
+  "source_spec": "card-regression-repair-unforgetting-defend-search-20261125.json",
+  "input_sha256": "c2bb808cff38f7c7d74d289c7eb2f0cdce05c9465a843b0b83156d3d7aa84edf",
+  "fixtures": [
+    {
+      "slug": "repair-unforgetting-unforgiving-red-two-live-20261125-false-counter-condition-still-earns-defend-layer",
+      "card_id": "unforgetting_unforgiving_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "89d047f218523d3a4e1f842c13ec6a55957507f1d5715050782ab81cd37352de",
+        "actions.json": "831f967fe8796d1a3424813ab702a1a005497d670dbcabff662a0e15c33dc92f",
+        "assertions.json": "b2dd12b7f3d23dc3521eceae42d6b8df8c7634032e1826581b0f74138e2b7b19",
+        "expected_final_gamestate.txt": "4a0ad3e597e6a35637f3bfddac1d59887be74073cd56136b98b70ce9da12e915",
+        "meta.json": "0dd237b40ef2d982c0b654fb0d8af0e91feb0c0d7198e017011109cd8c4e05b8"
+      },
+      "fixture_sha256": "4b9bf4a63c91f8679cce79d61f8d1ba86ba7b587102621be1f86fb90471eec3a",
+      "actions": 18,
+      "native_assertions": 406,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 15,
+      "recorded_runtime_sha256": "9f027586d1022e77027fb7d75ee0a48545d54d3de57ac4a198460da86d63942d",
+      "runtime_sha256": "e30e2324afd40422257209774e9b99674b7727aabcc26689df6507e9fb606169",
+      "source_spec": "card-regression-repair-unforgetting-defend-search-20261125.json",
+      "input_sha256": "c2bb808cff38f7c7d74d289c7eb2f0cdce05c9465a843b0b83156d3d7aa84edf",
+      "active_seats": [
+        1,
+        2
+      ],
+      "players": "two_live_manual"
+    },
+    {
+      "slug": "repair-unforgetting-unforgiving-red-two-live-20261125-current-wear-search-owned-mangle-next-action-paid-two-damage",
+      "card_id": "unforgetting_unforgiving_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "83c6e16f329213072d3a3c0a73e50a45dc892b8119182b69e17defa4a9815f47",
+        "actions.json": "13ab8d9f33f0c48802c746e62585d645a639c1d06e3f4833a14a3db65ad1ee6b",
+        "assertions.json": "c5bcd0643070016915af0878111ad038c0ad349719b0364f090b8a6e0abf0b4c",
+        "expected_final_gamestate.txt": "459e80f3afc3108de0dd00de44af28c3fcd09f149b5160e5b18f7fe56fa2bb53",
+        "meta.json": "e708bc57c25d3bd196a6a652a952638a515011e660b044953655646850260801"
+      },
+      "fixture_sha256": "0b347d604ba5bdbc900b9d040b6f29211998e57c099fff2f072b0ecca7115564",
+      "actions": 41,
+      "native_assertions": 237,
+      "author_only_checks_not_persisted": [
+        {
+          "step": 6,
+          "check": {
+            "kind": "defense",
+            "value": 4
+          }
+        },
+        {
+          "step": 15,
+          "check": {
+            "kind": "defense",
+            "value": 4
+          }
+        },
+        {
+          "step": 32,
+          "check": {
+            "kind": "defense",
+            "value": 6
+          }
+        },
+        {
+          "step": 37,
+          "check": {
+            "kind": "defense",
+            "value": 6
+          }
+        }
+      ],
+      "actual_manual_pass_inputs": 32,
+      "recorded_runtime_sha256": "e30e2324afd40422257209774e9b99674b7727aabcc26689df6507e9fb606169",
+      "runtime_sha256": "e30e2324afd40422257209774e9b99674b7727aabcc26689df6507e9fb606169",
+      "source_spec": "card-regression-repair-unforgetting-defend-search-20261125.json",
+      "input_sha256": "c2bb808cff38f7c7d74d289c7eb2f0cdce05c9465a843b0b83156d3d7aa84edf",
+      "active_seats": [
+        1,
+        2
+      ],
+      "players": "two_live_manual"
+    }
+  ],
+  "repair_only": true,
+  "new_breadth_groups": 0,
+  "restored_group_credit": 1,
+  "restored_tested_primary_identity_credit": 1,
+  "whole_card_complete": false,
+  "full_suite_run": false,
+  "source_proposal_sha256": "6b1b46a5799951f5d93aec30013b3929a2e6d210e8a58353a21614d749294013",
+  "source_output_review": {
+    "reviewer": "/root/breadth_review1457",
+    "source_proposal_sha256": "6b1b46a5799951f5d93aec30013b3929a2e6d210e8a58353a21614d749294013",
+    "output_receipt_sha256": "ad05613900bd508b8fe922c3f03c29fbf92f4505943167e330cd81c6fb08f18e",
+    "source_and_output_approved": true,
+    "native_qualification": false,
+    "scope": "Current physical wear condition, original event-attacker capture, exact owned Defended await, private staged UID selection/noReveal, nextAction permission, exact normal generated frame/handler/count delta. Producer/managed-frame ownership inherited; no duplicate-event-delivery suppression claim."
+  },
+  "filter_correction": {
+    "status": "CORRECTED_REAL_BASE_FILTER_AND_ONE_UNUSED_DECK_FILLER_REMOVED",
+    "before_source_sha256": "8e1b9fd66b3eb194dd0e4f7629d064fbf0e23876494ab440537fca8918e7e461",
+    "after_source_sha256": "fb69365da59abea8bc62a134ef594075854556e94b774566fd81598d6c022f72",
+    "component_checks": 35,
+    "component_stdout": "PASS 35 actual-function component checks; isolated state, not native await/game coverage\n",
+    "component_stderr": "",
+    "spec_sha256": "c2bb808cff38f7c7d74d289c7eb2f0cdce05c9465a843b0b83156d3d7aa84edf",
+    "native_before_positive_error": "Expected p2Deck count2 got0; unsupported name filter staged non-Mangle Deck cards. No positive fixture saved.",
+    "native_false_fixture_preserved": true,
+    "meaningful_positive_expectations_unchanged": true,
+    "new_initial_uid": 13,
+    "new_owned_abi_uid": 14,
+    "no_generated_change": true
+  },
+  "targeted_replays": {
+    "runtime": "e30e2324afd40422257209774e9b99674b7727aabcc26689df6507e9fb606169",
+    "full_suite_run": false,
+    "fixtures": [
+      {
+        "slug": "repair-unforgetting-unforgiving-red-two-live-20261125-false-counter-condition-still-earns-defend-layer",
+        "passed": true,
+        "runtime": "e30e2324afd40422257209774e9b99674b7727aabcc26689df6507e9fb606169",
+        "returncode": 0,
+        "command": [
+          "C:\\xampp\\php\\php.exe",
+          "DevTools/RunIntegrationTests.php",
+          "--root=FaBSim",
+          "--test=repair-unforgetting-unforgiving-red-two-live-20261125-false-counter-condition-still-earns-defend-layer",
+          "--max-failures=1",
+          "--compact",
+          "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\unforgetting-trigger\\clean1.log"
+        ],
+        "complete_log_sha256": "2d56e3f77018c7e070a58056233f5092db56e2307d9c4f27b8d68e8d59d661f3",
+        "raw5_unchanged": true
+      },
+      {
+        "slug": "repair-unforgetting-unforgiving-red-two-live-20261125-current-wear-search-owned-mangle-next-action-paid-two-damage",
+        "passed": true,
+        "runtime": "e30e2324afd40422257209774e9b99674b7727aabcc26689df6507e9fb606169",
+        "returncode": 0,
+        "command": [
+          "C:\\xampp\\php\\php.exe",
+          "DevTools/RunIntegrationTests.php",
+          "--root=FaBSim",
+          "--test=repair-unforgetting-unforgiving-red-two-live-20261125-current-wear-search-owned-mangle-next-action-paid-two-damage",
+          "--max-failures=1",
+          "--compact",
+          "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\unforgetting-trigger\\clean2.log"
+        ],
+        "complete_log_sha256": "79fc8f04d0200a9af46f328eab67dc1c96230384a0e6711256809ba0fe7d9d5c",
+        "raw5_unchanged": true
+      },
+      {
+        "slug": "repair-bracken-rap-red-four-live-20261125-real-earth-pitch-delayed-owned-might-foreign-instant-response-and-six-damage",
+        "passed": true,
+        "runtime": "e30e2324afd40422257209774e9b99674b7727aabcc26689df6507e9fb606169",
+        "returncode": 0,
+        "command": [
+          "C:\\xampp\\php\\php.exe",
+          "DevTools/RunIntegrationTests.php",
+          "--root=FaBSim",
+          "--test=repair-bracken-rap-red-four-live-20261125-real-earth-pitch-delayed-owned-might-foreign-instant-response-and-six-damage",
+          "--max-failures=1",
+          "--compact",
+          "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\unforgetting-trigger\\clean3.log"
+        ],
+        "complete_log_sha256": "51052e12d38e4212e5213d000e687d829ae3b20e3704e1de4a8fc2aa50117e63",
+        "raw5_unchanged": true
+      },
+      {
+        "slug": "repair-deathly-duet-red-four-live-20261125-false-pitch-condition-still-earns-layer",
+        "passed": true,
+        "runtime": "e30e2324afd40422257209774e9b99674b7727aabcc26689df6507e9fb606169",
+        "returncode": 0,
+        "command": [
+          "C:\\xampp\\php\\php.exe",
+          "DevTools/RunIntegrationTests.php",
+          "--root=FaBSim",
+          "--test=repair-deathly-duet-red-four-live-20261125-false-pitch-condition-still-earns-layer",
+          "--max-failures=1",
+          "--compact",
+          "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\unforgetting-trigger\\clean4.log"
+        ],
+        "complete_log_sha256": "ba2770a93e79d5334235980a0e17a8fdbab20490d6a0e0418db4a095929dcd0d",
+        "raw5_unchanged": true
+      }
+    ]
+  },
+  "component": {
+    "actual_function_pass": 35,
+    "actual_loader_pass": 15,
+    "path": "tests/unforgetting_defended_search_test.php",
+    "sha256": "62f7ea876baf1ec0496cd8e7e0ddf6e7fec5fbaf1c25ae2475dae752b5ba5762",
+    "kind": "ActualSUPcondition/stage/finish +realChoiceRefs/StageSearch +realDTDpermission with isolated state I/O; loader test uses actualCodeGeneration helper with isolated canonical file; not native branches."
+  },
+  "limits": [
+    "Two adult CC seats, no four-player or sibling coverage claim.",
+    "No native fail-to-find/decline/equipment-change/source-departure/extra-Action/permission-expiry branch credit; applicable actual-function controls are isolated.",
+    "Positive uses one known legal prior Temper wear on Courage; no special support-card ability credit.",
+    "Four cached defense checks are author-only; actual physical blockers, power and real0/2damage are persisted.",
+    "Original wrong quarantine remains archived; no raw fixture restoration.",
+    "No broader search/name-filter/randomness/039/233 closure; no final fullsuite yet."
+  ]
+}

@@ -1,0 +1,123 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "/root/breadth_review1457",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1500-20261122.json",
+  "source_spec_sha256": "1118f5e0e44a0886ce55999da322478ad7979b5e363a8f2bc42a8a17bf79b2f0",
+  "input_sha256": "394763f8825d3a8ae4853547dd00393d443da8b08bc0bff673620ee2a7309dfa",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-edict-of-steel-red-four-live-sparse1500-actual-owned-axe-is-not-sword-target",
+      "card_id": "edict_of_steel_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "2caa6d9fa41bd68443aa22f26d33ed9fce97b06ed207cb192426d98a384e0666",
+        "actions.json": "33a09cf9c983c0500ea7af7a916466b1b436968329011005efe02f6aa494166b",
+        "assertions.json": "8aa198b1ff2401bd7a1533007c7a43d6dd382bc7d17dcba4bd46bf43c965b6c2",
+        "expected_final_gamestate.txt": "ff1e26679ed4f7f1324dff7dbf12ffb3df1f3e61557f18cfc30c501e578ea36d",
+        "meta.json": "4b9c0eb3f9465b48a778b5240443e9a8e1104e4e5f3aa0eafa9335053d18b1b5"
+      },
+      "fixture_sha256": "ee210c1c4612f86442551c0a38f792e11bf4ec308c3948311a986977c8a5cd7b",
+      "actions": 6,
+      "native_assertions": 314,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 4,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1500-20261122.json",
+      "input_sha256": "394763f8825d3a8ae4853547dd00393d443da8b08bc0bff673620ee2a7309dfa",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1500-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-edict-of-steel-red-four-live-sparse1500-actual-owned-Axe-is-not-Sword-target",
+        "fixture_slug": "card-edict-of-steel-red-four-live-sparse1500-actual-owned-axe-is-not-sword-target",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-point-the-tip-red-four-live-sparse1500-actual-arsenal-arrow-is-face-down-not-face-up-target",
+      "card_id": "point_the_tip_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "9b1a619e41c9d7ef5141103d6b8707190a7777ff7f72d5c31ba278acdb7c4da5",
+        "actions.json": "33a09cf9c983c0500ea7af7a916466b1b436968329011005efe02f6aa494166b",
+        "assertions.json": "1d7d7837997f6714a5d9ed94cab0b1c653e9289320aca4b0bff0d4fd89d842a5",
+        "expected_final_gamestate.txt": "38c12605aca2659b4ff18a4a7ac1058af34edff4b8e57f2d26cb7999969f9a43",
+        "meta.json": "fb2585d1e67147414cd97e3f427c9d183a2fac0d7407b372a1a489d98ee06aa6"
+      },
+      "fixture_sha256": "9a631407122b2942c62e1bb94fccaf63291cc4ccfe00fcd6ced76df4e1295bee",
+      "actions": 6,
+      "native_assertions": 342,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 4,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1500-20261122.json",
+      "input_sha256": "394763f8825d3a8ae4853547dd00393d443da8b08bc0bff673620ee2a7309dfa",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1500-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-point-the-tip-red-four-live-sparse1500-actual-Arsenal-Arrow-is-face-down-not-face-up-target",
+        "fixture_slug": "card-point-the-tip-red-four-live-sparse1500-actual-arsenal-arrow-is-face-down-not-face-up-target",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "schema_version": 1,
+    "batch": 1500,
+    "reviewer": "/root/breadth_review1457",
+    "result": "approved_named_branches_only_pending_native_execution",
+    "reviewed_utc": "2026-11-25T06:05:31.195122+00:00",
+    "spec_sha256": "1118f5e0e44a0886ce55999da322478ad7979b5e363a8f2bc42a8a17bf79b2f0",
+    "source_note_sha256": "43662ea694755124dddd1e708f3e4a35d159ba9fa77e8df41f9f5ad513b978f5",
+    "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+    "source_sha256": {
+      "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+      "FaBSim/Custom/GameLogic.php": "c60fa151561f959e4e3e341b814de0e2b47c9e9f153bbc8793a04c43b5075061",
+      "FaBSim/Custom/DYNRuntime.php": "b8cec432428757988b02fa831b6311cc32ef5671b2fcc2dd9eecbf82d0c5e231",
+      "FaBSim/Custom/DYNCards.php": "c3460cf12b68a92af4d9c4f836de4c2495d117e3a97e73fb23e8c026aa2f20f4",
+      "FaBSim/Custom/BoltynCards.php": "8bdd6a245ac50bae2bf5ddf47c6029f97239adeba09133170a1355d3287b8907"
+    },
+    "cases": 2,
+    "findings": [
+      "Exact EdictRed CanPlay guard requires own Sword; real plain Warrior Axe Hatchet1H is genuinely ineligible.",
+      "Point uses own Arsenal Arrow and !FaceDown; actual Arrow7 is face down.",
+      "Both cost0 NAA legal ACTION/AP1 after actual Sigil6 with allfour responses. Same physical Hand5/assets/UID/AP/fates pinned."
+    ],
+    "limits": [
+      "Only rejection branches; positive target declaration/Sharpen/Flurry/aim/GA uncredited. Source/spec review, no reviewer games."
+    ],
+    "prior_exact_review_spec_sha256": "394763f8825d3a8ae4853547dd00393d443da8b08bc0bff673620ee2a7309dfa",
+    "non_gameplay_slug_metadata_correction": "Reviewer confirmed lowercasing only slugs preserves semantic approval. Original bytes archived, all steps/zones/assertions/oracles and all native raw fixture hashes unchanged; no repeated recording. Independent approval did not imply game execution."
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1500-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "ab3278bf6764c8b951d53fed99d8600ae8e27498535722621d3aa0a227948ce1"
+  },
+  "full_suite_run": false
+}

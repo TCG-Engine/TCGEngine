@@ -1,0 +1,7 @@
+{
+    "name": "Florian Rotwood Harbinger / actual eight-Earth adult duel replacement",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-24T01:03:06+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "ADULT_FLORIAN40_TWO_LIVE_NATIVE_DUEL_ONLY. NaturalFlorianRotwood40/DoriIronsong40, activeSeatsOMITTED/SeatOrderLiveSeats12/nonUPF/defaultemptyGameMode/noPassives/bothmanualshortcutwindowsfalse. EightactualdistinctlawfulEarthcardsUID3to10Banish1areadmittedpriorphysicalassets, notfakedcurrentturnhistory/replacementflag. ActualReadRunesBlue11Handcost0/noGAspendsAP1to0; holdsStackthroughbothmanualresponses/noRunechantbeforeeffect. Adultthreshold8byrealbanishedEarthcardsmustreplacesinglecreateONEwithTWOactualownedRunechants12/13Arena1, ownedproducer11GY1. EightcardsstayBanish, HP40both/R0/AP0/UID13RNG0/emptyStackDQCC. NoEarthproducer/below8/YoungFlorian/four-live/multiple-token-instruction/repeatedproducer/tokenconsumer/support/fullcardcredit. Known217multi-tokenloopbugnotreprobed: selectedrequestisoneonly. Sources: FaBSim/GeneratedCode/cardArrayCache.json#florian_rotwood_harbinger FaBSim/GeneratedCode/GeneratedMacroCode.php FaBSim/Custom/ROSCards.php FaBSim/Custom/HVYCards.php FaBSim/Custom/WTRCards.php"
+}

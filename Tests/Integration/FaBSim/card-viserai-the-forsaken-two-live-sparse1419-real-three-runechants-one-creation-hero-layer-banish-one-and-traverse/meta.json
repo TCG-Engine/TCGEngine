@@ -1,0 +1,7 @@
+{
+    "name": "Viserai the Forsaken / bulk Runechant creation earns one hero layer",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-24T17:20:09+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "TWO_REAL_MANUAL_ADULTFORSKEN40_DORI40/cachedCC. RealReadRunes3NAA0/AP0waitsbothresponses. ActualoneFaBHVYTokenbulkcreation3tokens6-8earnsONEHeroABI9SourceHero1(not3layers), actualFrontstillForsaken/Deck4and5unchanged/Banish0untilseparatelayerresolved. Control2performsoldsourcefinalP1thenfreshHeroP1\u2192P2(exact2nativepasses), opponentP2resolvesHero: ONLYoriginaltop4banished, secondtop5preserved; sameHeroUID1actuallyTRAVERSEStoUsurper/health40retained(CR8.5.60). All3RunesremainownedArena, originalRead3GY/AP0/R0/UID9RNG0/StackDQquiet. PositivefrontHeroone-or-morequantifier/nativeonebanish/actualtraverse/healthcarry; noBackability/support/runeactivation/othercreationamounts/futureEnd/wholecardcredit. Noenginechange. Sources: FaBSim/GeneratedCode/cardArrayCache.json#viserai_the_forsaken FaBSim/GeneratedCode/GeneratedMacroCode.php FaBSim/Custom/GameLogic.php FaBSim/Custom/IARRuntime.php FaBSim/Custom/ARCCards.php FaBSim/Custom/HVYCards.php https://rules.fabtcg.com/en/cr/08-keywords/"
+}

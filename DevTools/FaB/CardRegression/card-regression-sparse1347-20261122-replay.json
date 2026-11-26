@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-judge-jury-executioner-red-four-live-sparse1347-actual-arsenal-arrow-no-aim-hit-retains-two-real-victim-hand-cards",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-judge-jury-executioner-red-four-live-sparse1347-actual-arsenal-arrow-no-aim-hit-retains-two-real-victim-hand-cards",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1347-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1347-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "f17dd76806345da41bf174f30a2882e6100a3d3d7da5faa6b95263e0de31c79a",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "3beb0f2a0c5b9e8fedab5ac55c57448b6ae268859e864ab4b81b3f30f6a6bac3",
+        "actions.json": "7df6c5bdcaa5df3625525f167eb515621fab31710e073b78a01190d983c673b2",
+        "assertions.json": "687ef09441b19873831006087ca8c5d59de753a90640f9d5e7fbbab631d38e75",
+        "expected_final_gamestate.txt": "1b0d42fcb73a3815fa98f4e589568811972c01b08b5a346da1db4153d8ee89ad",
+        "meta.json": "22f90e838d976b485d27bef4de1649e3e9f109584931c9ce94d17cfd6febe5f2"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

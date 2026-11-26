@@ -1,0 +1,30 @@
+{
+  "status": "COMPLETE_UNSAVED_DIAGNOSTIC",
+  "started_utc": "2026-11-16T05:57:04.468513+00:00",
+  "runtime_before": "cdc081ff4c87ff2f9338b1d69040d0dc98d7600ba33976384336534ea3f92d22",
+  "spec_sha256": "601c66319fa2c5c7956d346c5b137b6d1b221d25d16f947bd1230709c3f91480",
+  "source_review_sha256": "2d7c99289e5a3a4773855f7fb6e6c43a369e8feec2a2c323ea898b2e971aea3e",
+  "recorder_sha256": "ab33a3250462d0453f71d38dd4138cb9fbc3d595d2586742e989a52251c9c4a9",
+  "actual_no_save_control_sha256": "3485fb84c5eec54cf4ff20a1c9a8c277f18cfa346973f61ade3700c28bee2805",
+  "command": [
+    "C:\\xampp\\php\\php.exe",
+    "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\record_card_regressions.php",
+    "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch849-oysten-real-lethal-gold-watery-probe.json",
+    "--probe-only"
+  ],
+  "fixture_count_before": 4099,
+  "fixture_saved": false,
+  "qualification": false,
+  "coverage_credit": false,
+  "full_suite": false,
+  "pid": 37964,
+  "exit_code": 1,
+  "result_status": "blocked_or_incorrect",
+  "error": "Expected p4Arena count 0, got 1.",
+  "result_sha256": "a1b914204894c5ff47d16ca33d237b9efb63b816917512a1a1068944a9dbe4f2",
+  "runtime_after": "cdc081ff4c87ff2f9338b1d69040d0dc98d7600ba33976384336534ea3f92d22",
+  "fixture_count_after": 4099,
+  "fixture_inventory_unchanged": true,
+  "recorded_native_inputs": 20,
+  "completed_utc": "2026-11-16T05:57:38.341640+00:00"
+}

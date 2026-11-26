@@ -1,0 +1,39 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch639.json",
+  "runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+  "returncode": 0,
+  "completed_utc": "2026-11-06T20:04:38.616735+00:00",
+  "fixtures": [
+    {
+      "slug": "card-hammerhead-harpoon-cannon-four-live-real-four-resource-tap-plus-four-arrow-and-go-again-consumer",
+      "fixture_sha256": "ebb956736928601959b8dc2300e8c151e9ea6dd9787619c6adb125ac92232f9f",
+      "passed": true,
+      "result": "[PASS] hammerhead_harpoon_cannon / four live distinctive effect"
+    },
+    {
+      "slug": "card-longdraw-half-glove-four-live-real-two-hand-card-bottom-cost-and-plus-four-arrow",
+      "fixture_sha256": "a9e5f2f04668035d656c55aa6cf4009599cac4b962bb0baaaecbec89f2dcaec4",
+      "passed": true,
+      "result": "[PASS] longdraw_half_glove / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-hammerhead-harpoon-cannon-four-live-real-four-resource-tap-plus-four-arrow-and-go-again-consumer",
+      "returncode": 0,
+      "stdout": "[PASS] hammerhead_harpoon_cannon / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-longdraw-half-glove-four-live-real-two-hand-card-bottom-cost-and-plus-four-arrow",
+      "returncode": 0,
+      "stdout": "[PASS] longdraw_half_glove / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 2,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

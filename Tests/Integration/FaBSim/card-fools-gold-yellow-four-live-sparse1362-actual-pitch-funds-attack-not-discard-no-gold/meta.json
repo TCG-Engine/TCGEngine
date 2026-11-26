@@ -1,0 +1,7 @@
+{
+    "name": "Fools Gold / actual pitch is not discard",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-24T11:33:52+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "FOUR_REAL_MANUAL_UPF_NATURAL_DORI20. ActualFoolsGoldYellow6HandPITCH2paysGenericCriticalStrikeRed5cost1/R1/AP0/5damageHP4=15. PITCHnotDISCARD: noGold/trigger/newUID/choice/Shuffle; actualresource6remainsPitchwithsameownedUIDthroughresponses/damage/fullclose. AllArena0/UID7RNG0/Soul0/Hand0; source5GY1, FDArsenalWounding7retained, ownHP20. Actual0costArsenal7consumerrejectAP0withoutnewtarget/movement. Onlynativepitch-funding/notDiscard/noGoldguard; positiveDiscardtrigger/token/timing/resourceplay/support/fullcarduncredited. Sources: FaBSim/GeneratedCode/cardArrayCache.json#fools_gold_yellow FaBSim/GeneratedCode/GeneratedMacroCode.php FaBSim/Custom/GameLogic.php FaBSim/Custom/WTRCards.php FaBSim/Custom/SEACards.php FaBSim/Custom/ARCCards.php"
+}

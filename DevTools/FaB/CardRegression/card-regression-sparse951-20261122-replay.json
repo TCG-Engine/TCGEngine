@@ -1,0 +1,125 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-deadly-duo-red-four-live-sparse951-actual-two-hand-blocks-prevent-hit-but-printed-go-again-applies",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-deadly-duo-red-four-live-sparse951-actual-two-hand-blocks-prevent-hit-but-printed-go-again-applies",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse951-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse951-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "b95e7c75bdf982ff267c6eb33eda69aa77cfad4b438060a6418e564692f7fefc",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "1e05c80c353eaa99ec0db9727afd1cd2b1fde9b50b2da485f6823a85aaafd036",
+        "actions.json": "a44e24b9f9b348ce659c847e7dbea1e0cd33c5233e8ac4933f9391118d55ee4b",
+        "assertions.json": "520a48a7cd9ecb32455e145060d7c7732d341444be84544f1214c88908358f9d",
+        "expected_final_gamestate.txt": "d1ec8cdec164a9865eb9a3c30bc7025b633b07bd71a46b9f8e2c6ce410c349b8",
+        "meta.json": "54b12e1628d198a86c3141504bed9c0f3b81440012120109c6793dbd4c8321cb"
+      }
+    },
+    {
+      "slug": "card-plunge-red-four-live-sparse951-actual-two-hand-blocks-prevent-hit-but-printed-go-again-applies",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-plunge-red-four-live-sparse951-actual-two-hand-blocks-prevent-hit-but-printed-go-again-applies",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse951-local-20261122\\clean-replays\\01.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse951-local-20261122\\clean-replays\\01.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "4a678d9a30b9e7d889ae449825bad0a5c1b817c712e755941b96a547640df2bd",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "04ebb8a8b6e1db754c42f26f55e3286385d6ae2e49c0c3c5a00ba84bca8878e5",
+        "actions.json": "a44e24b9f9b348ce659c847e7dbea1e0cd33c5233e8ac4933f9391118d55ee4b",
+        "assertions.json": "84c78fe27141dcac9b8f8e91784cfc45717b57b074a28047e393686cb7880dfe",
+        "expected_final_gamestate.txt": "09a72d24ad9d80c68ee50d68f3fd473b56a628282bb008d0c5280a003fb27a21",
+        "meta.json": "34fe0aa8adab67c3a3a0ad13c73fe70b29d63884c7ae4790ee22e5357b1f9b6c"
+      }
+    },
+    {
+      "slug": "card-ride-the-tailwind-red-four-live-sparse951-actual-two-hand-blocks-prevent-hit-but-printed-go-again-applies",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-ride-the-tailwind-red-four-live-sparse951-actual-two-hand-blocks-prevent-hit-but-printed-go-again-applies",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse951-local-20261122\\clean-replays\\02.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse951-local-20261122\\clean-replays\\02.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "bd37fcaeaa564b8c3c70ad3fa238f8872241b78ed484432db08d52d24ad9a956",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "75fe3fd57e7c6f2c33abd72aa4561e52ed79169eeb307f86af101016a72deb77",
+        "actions.json": "9f2158a76a224facb898cc12561b10d89380d0d90e15b49131c1d4359e991d29",
+        "assertions.json": "6c36b4ec0d3871d46ccfe6aa92d8c27a70690ce2e779f224b151674746d49977",
+        "expected_final_gamestate.txt": "3f0ee8a88835929605ac8ad67ab8ad27183fbc6c382bb9a640ebc69b7ec9d785",
+        "meta.json": "c7b31fbd261626e6857c3a59267f0563428ebb8dabb8b1a8c2b23494475cb5b7"
+      }
+    },
+    {
+      "slug": "card-flex-claws-red-four-live-sparse951-actual-two-hand-blocks-prevent-hit-but-printed-go-again-applies",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-flex-claws-red-four-live-sparse951-actual-two-hand-blocks-prevent-hit-but-printed-go-again-applies",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse951-local-20261122\\clean-replays\\03.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse951-local-20261122\\clean-replays\\03.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "1e9b392fd05ff1858be93e103c15dc1ce7b1d08809ad42764c8786e066eeab44",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "76d11cc207931fdd0bc105b52db8acbf5d4b3ef8434de534e4464a515974c9af",
+        "actions.json": "a44e24b9f9b348ce659c847e7dbea1e0cd33c5233e8ac4933f9391118d55ee4b",
+        "assertions.json": "e8530f31eb2680b90738991e740ecccd1de2af6778bd2869577ab6fca136b0ac",
+        "expected_final_gamestate.txt": "0e6c8cf28feafdf70432ae911b6d798ba133db2f8819cbdf15ab1925b494afcd",
+        "meta.json": "11d802b3b3c2dcda594d9df1eeb5d31d003190ca50a8bde181a30c6e9adbeadf"
+      }
+    },
+    {
+      "slug": "card-engulfing-flamewave-red-four-live-sparse951-actual-two-hand-blocks-prevent-hit-but-printed-go-again-applies",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-engulfing-flamewave-red-four-live-sparse951-actual-two-hand-blocks-prevent-hit-but-printed-go-again-applies",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse951-local-20261122\\clean-replays\\04.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse951-local-20261122\\clean-replays\\04.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "9a01a1d9ca52b375605453958f91a610cae9ad1ebc12c3ec90b4e8b1358cb9dd",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "1a4a961be36b982a0a94793ba1622d935bc0e47f2cfc1978ea54e75b3e1d3871",
+        "actions.json": "a44e24b9f9b348ce659c847e7dbea1e0cd33c5233e8ac4933f9391118d55ee4b",
+        "assertions.json": "43de3e5730f4aba0e1238df1f63205fcc064f97da557485aa4de1e1deb1f5786",
+        "expected_final_gamestate.txt": "67935a74ce21bc182c18388a8a94a5d8b535344ce51d1716332e6f345d23f5dc",
+        "meta.json": "e315295a8a2867b1e9b96d25c79ad154d57bd51a454586f4efebff4c09ac2cfb"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

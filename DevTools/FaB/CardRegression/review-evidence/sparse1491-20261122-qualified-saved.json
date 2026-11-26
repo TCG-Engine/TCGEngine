@@ -1,0 +1,179 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "/root/breadth_review1457",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1491-20261122.json",
+  "source_spec_sha256": "8ff51cb1c5f294d0481f53c2e6c3cf0da6c3b0452f95fe7820383bc6503f4046",
+  "input_sha256": "8ff51cb1c5f294d0481f53c2e6c3cf0da6c3b0452f95fe7820383bc6503f4046",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-celestial-reprimand-red-four-live-sparse1491-real-ineligible-defending-combat-target-rejection",
+      "card_id": "celestial_reprimand_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "fdf4fa2d7c78d90c7f90649da097d4f48cdb97260f47f54d78265edff9934cf4",
+        "actions.json": "0a789578aa61486d0b95456fd40f727c762e3a3f609e20cab4c236d4ad29e4f2",
+        "assertions.json": "111a211bba17c9af0f347e2a50b2af36665eecf52c8977041bcfdc5928839b81",
+        "expected_final_gamestate.txt": "1096a5f87a1ffe6ab1525ca348b57fac695140722525a4926d26b6d5f1cfcaaf",
+        "meta.json": "d4456c4d282e837ff2b41734cd0ed42ed3a075f61aa404199485a31ea7e5c19e"
+      },
+      "fixture_sha256": "25689b64976702d004669dd80bcfd37832b371c6070cf599d8581c047c5a28f5",
+      "actions": 29,
+      "native_assertions": 348,
+      "author_only_checks_not_persisted": [
+        {
+          "step": 12,
+          "check": {
+            "kind": "defense",
+            "value": 3
+          }
+        },
+        {
+          "step": 13,
+          "check": {
+            "kind": "defense",
+            "value": 3
+          }
+        },
+        {
+          "step": 21,
+          "check": {
+            "kind": "defense",
+            "value": 3
+          }
+        }
+      ],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1491-20261122.json",
+      "input_sha256": "8ff51cb1c5f294d0481f53c2e6c3cf0da6c3b0452f95fe7820383bc6503f4046",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1491-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-celestial-reprimand-red-four-live-sparse1491-real-ineligible-defending-combat-target-rejection",
+        "fixture_slug": "card-celestial-reprimand-red-four-live-sparse1491-real-ineligible-defending-combat-target-rejection",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-summerwood-shelter-red-four-live-sparse1491-real-ineligible-defending-combat-target-rejection",
+      "card_id": "summerwood_shelter_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "dd31258d7b0c50c7fb508cb2ec50c87ab2114a98456050179f0870540679bb5e",
+        "actions.json": "7b8f5c86541461411c11a3ec8e1c3ec7668e96c00f174a032b20961e558a21a0",
+        "assertions.json": "8805c84df43d56b80aa5fcf3847ff33df6709c77759c00bd83f1b94e27d81d95",
+        "expected_final_gamestate.txt": "0cb964cea53be7eb8c370fcb34a417514c68edeeedee7fc1193939eab18a8c05",
+        "meta.json": "ab24b50bb99a0a1263a7e40f5250aae499631e245a3d8fc64d0ea9d81e844d74"
+      },
+      "fixture_sha256": "b5f0ffc31cf563c047bdcb2527c19e063ea164c4b4b47bb5e0639d6acf6a32d9",
+      "actions": 29,
+      "native_assertions": 348,
+      "author_only_checks_not_persisted": [
+        {
+          "step": 15,
+          "check": {
+            "kind": "defense",
+            "value": 3
+          }
+        },
+        {
+          "step": 16,
+          "check": {
+            "kind": "defense",
+            "value": 3
+          }
+        },
+        {
+          "step": 21,
+          "check": {
+            "kind": "defense",
+            "value": 3
+          }
+        }
+      ],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1491-20261122.json",
+      "input_sha256": "8ff51cb1c5f294d0481f53c2e6c3cf0da6c3b0452f95fe7820383bc6503f4046",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1491-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-summerwood-shelter-red-four-live-sparse1491-real-ineligible-defending-combat-target-rejection",
+        "fixture_slug": "card-summerwood-shelter-red-four-live-sparse1491-real-ineligible-defending-combat-target-rejection",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "schema_version": 1,
+    "batch": 1491,
+    "reviewer": "/root/breadth_review1457",
+    "result": "approved_named_branches_only_pending_native_execution",
+    "reviewed_utc": "2026-11-25T05:10:54.622569+00:00",
+    "spec_sha256": "8ff51cb1c5f294d0481f53c2e6c3cf0da6c3b0452f95fe7820383bc6503f4046",
+    "source_note_sha256": "1f298858a4b031f43e171b40c374bc4e36bb724a596fb3269d7a2ae2728261b4",
+    "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+    "source_sha256": {
+      "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+      "FaBSim/GeneratedCode/GeneratedMacroCode.php": "fe6a7982611df8f4de98ce2671b317b671b580146aa4b8c28e8f4b86d8461056",
+      "FaBSim/Custom/GameLogic.php": "c60fa151561f959e4e3e341b814de0e2b47c9e9f153bbc8793a04c43b5075061",
+      "FaBSim/Custom/DTDCards.php": "3b31d7627858a24d9e6444285de1671c448e5a79d3a71f4d7dfcb2824a5273d4",
+      "FaBSim/Custom/ELECards.php": "5319104c32fb648c9ef90ee5e7e3a6a22e29c35a26c2cca31b338aada0e6110f"
+    },
+    "cases": 2,
+    "planned_actions": [
+      29,
+      29
+    ],
+    "persistable_checks": [
+      351,
+      351
+    ],
+    "named_primary_ids": [
+      "celestial_reprimand_red",
+      "summerwood_shelter_red"
+    ],
+    "findings": [
+      "Actualgenericattack5/defendingAction7RoleDEFENSE/FromHandpresent, primary6zeroCostInstantlegalforcasterPrism1orBriar4. SpecificHeraldattack orEarth/Elementaldefenderrequirementsfalse.",
+      "Allfourmanualcombat; Summerpriorityprogress1\u21922\u21923\u21924 beforeprimaryreject thenpass4\u2192REACTION1 correct. BriarownAAhit/secondNAAeventsunearned.",
+      "Actualdef3 plus4minus3oneHerodamageHP19 confirmsphysicalblockingoutcome, notmerelycacheddefense. SameprimaryHand6, fullattack5GY1/defender7GY4/noextraUID/refund/tokens."
+    ],
+    "limits": [
+      "Rejection-onlyspecifictargettypes, no primarypositiveeffect orformal-targettimingcredit.",
+      "Independent source/specsemantics only; primarychecksexactstoredmappingandfirsttargetedreplay.",
+      "No engine changes/wholecard/siblings/faultcontrol/fullsuite."
+    ]
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1491-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "59e1585f34ec03f301f6014dc45bba66ddc81bd92ace30261514544e900e2fcd"
+  },
+  "full_suite_run": false
+}

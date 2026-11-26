@@ -1,0 +1,119 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "breadth_review independent printed-text/source/transport review",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse997-20261122.json",
+  "source_spec_sha256": "67eb33f853f7e7a7ea4bfc95bab2f62187f6ddedf50878a7c5dc6002788be265",
+  "input_sha256": "67eb33f853f7e7a7ea4bfc95bab2f62187f6ddedf50878a7c5dc6002788be265",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-tarpit-trap-yellow-four-live-sparse997-plain-first-attack-no-typed-event",
+      "card_id": "tarpit_trap_yellow",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "6c4d3623ced6fbcfdab693fbb944e11203c77d5cc771c0e2a1eb11f2e3b6616d",
+        "actions.json": "83add76d0e874fd8ae016e14517db6ea206c3b9e206dbce873083282bf38c1a3",
+        "assertions.json": "0575a7efe030b6e314b3c872fd6fde46e6de35185ff4a7ac9680555db8659119",
+        "expected_final_gamestate.txt": "669317a32c9be6749d6a2f0308a1cc4837bf089fc4470718e44097132df289c5",
+        "meta.json": "b713687fd24bf45fb873e7b51aad11377b4e34daca408b2514557fce7c2daa77"
+      },
+      "fixture_sha256": "383d8c3aaa51a8e5dc1b7ecca4f814ef99962790346c51d90387a9620ecf220b",
+      "actions": 36,
+      "native_assertions": 307,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 32,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse997-20261122.json",
+      "input_sha256": "67eb33f853f7e7a7ea4bfc95bab2f62187f6ddedf50878a7c5dc6002788be265",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse997-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-tarpit-trap-yellow-four-live-sparse997-plain-first-attack-no-typed-event",
+        "fixture_slug": "card-tarpit-trap-yellow-four-live-sparse997-plain-first-attack-no-typed-event",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-rainbow-goo-trap-red-four-live-sparse997-plain-first-attack-no-typed-event",
+      "card_id": "rainbow_goo_trap_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "358fb557b95a7d1129615544212ff5b4da523b03851767cee82789850d946f14",
+        "actions.json": "83add76d0e874fd8ae016e14517db6ea206c3b9e206dbce873083282bf38c1a3",
+        "assertions.json": "bf8d85112cacbdcfc5d4348b961096dce56e602c30fb12284be75a56a0ea3e9d",
+        "expected_final_gamestate.txt": "1e286d631d336d31d5a3f0ddfc415911afdbee8488f0f716c404fd0f4b9e2241",
+        "meta.json": "43adb2e0a5613f76316178aa32a3290c321f8511385628f1db08a23eabcc2a58"
+      },
+      "fixture_sha256": "d1395b3699819dfba62ed4eddbed5b6261318e32b41073dffb0653eb1c47f993",
+      "actions": 36,
+      "native_assertions": 307,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 32,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse997-20261122.json",
+      "input_sha256": "67eb33f853f7e7a7ea4bfc95bab2f62187f6ddedf50878a7c5dc6002788be265",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse997-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-rainbow-goo-trap-red-four-live-sparse997-plain-first-attack-no-typed-event",
+        "fixture_slug": "card-rainbow-goo-trap-red-four-live-sparse997-plain-first-attack-no-typed-event",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-tiger-trap-red-four-live-sparse997-plain-first-attack-no-typed-event",
+      "card_id": "tiger_trap_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "3e1b35bedc0be89ad0eeb1c666cf2f7aa15194ffaa2989ca7d43d3abcb93c796",
+        "actions.json": "83add76d0e874fd8ae016e14517db6ea206c3b9e206dbce873083282bf38c1a3",
+        "assertions.json": "932485e701e395c2f38e6ba74e2d590f8fa5df17ea750d75c26c40429b3db9cc",
+        "expected_final_gamestate.txt": "58d943aca414e0947d50338b8c08f402c975680bfcc956fbfc5b5179dcaabfdf",
+        "meta.json": "fff31bdc95be6e4de6d221058ac39dc7b6f53563a7089cb85a0eecc1bfed0afe"
+      },
+      "fixture_sha256": "2c8a7b2d5089e9a373794a3b6edd2cb7b9a82d1e213fe6e3a5cc9af342368e60",
+      "actions": 36,
+      "native_assertions": 307,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 32,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse997-20261122.json",
+      "input_sha256": "67eb33f853f7e7a7ea4bfc95bab2f62187f6ddedf50878a7c5dc6002788be265",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse997-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-tiger-trap-red-four-live-sparse997-plain-first-attack-no-typed-event",
+        "fixture_slug": "card-tiger-trap-red-four-live-sparse997-plain-first-attack-no-typed-event",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "spec_sha256": "67eb33f853f7e7a7ea4bfc95bab2f62187f6ddedf50878a7c5dc6002788be265",
+    "reviewer": "breadth_review independent printed-text/source/transport review",
+    "basis": [
+      "Allthree printed defend clauses have event qualifications. Real sole Raging attack hascurrent/base7/noGA/noDominate and onlyone ATTACK-role source; Tarpit GA event, Rainbow conjunction of greater-power+Dominate+GA, and Tiger three-elevated-attacks condition are absent. No earned trap event/layer is omitted.",
+      "Supported paths checked: OUTRuntime175-179 gates Tarpit on actual attackGoAgain; PENCards.php:720 Rainbow requirespositive attackDelta ANDGoAgain ANDDominate before power/ability suppression; :1108 Tiger counts actual ATTACK roles withpower>base and returns under3. Negative sides only, not positive trigger/player-selector correctness.",
+      "Actual Riptide19 own Arsenal5/FaceDown1/printedcost0/DEF3, unused actualHandBlue6, fourmanual DR and combat response rounds. Exact actual damage4/HP15, attackerHP20, primary5 DEFENSE_REACTION/ownedGGY4, realRaging7/Blue8 payment and ownedfates remain pinned. Real attackerHandNAA9 and Deck10/11 identities/order retained; allArenas0/no unexpected Riptide damage, no author-only diagnostic kinds. Allthree groups currentlyunrepresented/currentexactledger0.",
+      "Rainbow erroneous immediate\u22122 would change actualdamage4/HP15 and is observable. Tarpit later hit-effect suppression and Tiger future power-gain restriction consumer are deliberately not exercised; generic incoming attack hasno specialhit ability and no laterpowergain. Those properties receive no credit."
+    ],
+    "limits": [
+      "Only named baseline defense/payment/typed-event-negative physical-damage branches. No positive trap/Riptide trigger, ability-loss/anti-gain future behavior, exact positive triple-power count, suppression consumer, hero action, source-created ownership, siblings/support/fullcard credit.",
+      "Native/store/one replay pending Root. Any mismatch held unsaved/unqualified, no weakening or repair. No PHP/native/test/T/source/original/Git/network/auth/engine change; W receipt only."
+    ]
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse997-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "bef8f0ed5d1d79a9eed5443a4c8fbff73c88b43f6781a4e0388f89bab5a0a25d"
+  },
+  "full_suite_run": false
+}

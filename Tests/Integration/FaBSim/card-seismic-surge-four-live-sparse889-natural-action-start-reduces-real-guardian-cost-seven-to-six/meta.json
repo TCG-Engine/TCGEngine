@@ -1,0 +1,7 @@
+{
+    "name": "Seismic Surge / sparse natural start effect representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T17:30:35+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "At the beginning of your action phase, destroy this, then your next Guardian attack action card this turn costs {r} less to play. Representative only: natural_action_start_reduces_real_guardian_cost_seven_to_six. Actual owned existing Arena source and natural turn transition; no source entry/cost, supporting-card or whole-card credit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#seismic_surge"
+}

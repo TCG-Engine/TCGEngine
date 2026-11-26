@@ -1,0 +1,97 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-24T14:51:08.673600+00:00",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1406-20261122.json",
+  "source_spec_sha256": "62cd29d0e85a0875632f9dc99734dcd3ac306a9bc34b842680b37bd5c38659c1",
+  "new_scenarios": 2,
+  "new_groups": 2,
+  "new_primary_ids": 2,
+  "actions": 70,
+  "native_assertions": 844,
+  "manual_passes": 66,
+  "totals": {
+    "saved_registered_scenarios": 5414,
+    "duels": 3113,
+    "four_live": 2301,
+    "recorded_primary_ids": 2562,
+    "identity_denominator": 5196,
+    "recorded_groups": 2436,
+    "group_denominator": 3324,
+    "four_live_groups": 2290,
+    "phase_qualified_scenarios_at_actual_contexts": 2051,
+    "phase_qualified_unique_groups": 2041,
+    "creation_replay_passes": 2793,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 1212,
+  "scenarios": [
+    {
+      "card_id": "booze_blue",
+      "group_id": "identity:booze_blue",
+      "scenario_id": "card-booze-blue-four-live-sparse1406-actual-other-hero-start-no-booze-destroy-leave-boo-or-vigor",
+      "effect_branches": [
+        "actual_other_hero_start_no_booze_destroy_leave_boo_or_vigor_then_real_next_seat_attack_and_damage"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-booze-blue-four-live-sparse1406-actual-other-hero-start-no-booze-destroy-leave-boo-or-vigor",
+      "source_spec": "card-regression-sparse1406-20261122.json",
+      "source_spec_sha256": "62cd29d0e85a0875632f9dc99734dcd3ac306a9bc34b842680b37bd5c38659c1",
+      "review_evidence": "review-evidence/sparse1406-20261122-qualified-saved.json",
+      "review_evidence_sha256": "942bdc4a9eaadcca23f6e78285326830e8b2299602e4c076afed0b22abe0f822",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1406-20261122-replay.json",
+          "sha256": "b3ae9efbf973fb7c5012198998437cb3889ed0a8d40e6596976407b6ebec0442",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "confidence",
+      "group_id": "identity:confidence",
+      "scenario_id": "card-confidence-four-live-sparse1406-actual-other-hero-start-keeps-confidence-token-until-controller-start",
+      "effect_branches": [
+        "actual_other_hero_start_keeps_confidence_token_until_controller_start_then_real_next_seat_attack_and_damage"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-confidence-four-live-sparse1406-actual-other-hero-start-keeps-confidence-token-until-controller-start",
+      "source_spec": "card-regression-sparse1406-20261122.json",
+      "source_spec_sha256": "62cd29d0e85a0875632f9dc99734dcd3ac306a9bc34b842680b37bd5c38659c1",
+      "review_evidence": "review-evidence/sparse1406-20261122-qualified-saved.json",
+      "review_evidence_sha256": "942bdc4a9eaadcca23f6e78285326830e8b2299602e4c076afed0b22abe0f822",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1406-20261122-replay.json",
+          "sha256": "b3ae9efbf973fb7c5012198998437cb3889ed0a8d40e6596976407b6ebec0442",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

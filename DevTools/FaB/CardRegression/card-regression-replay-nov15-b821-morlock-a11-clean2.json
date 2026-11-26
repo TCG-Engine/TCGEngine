@@ -1,0 +1,27 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch821-morlock-full-positive-a11.json",
+  "runtime_sha256": "a11fb2abaf062a707ad2c9372bf41321fcde25d5fe32a99bf55a1b4d2bae4223",
+  "returncode": 0,
+  "completed_utc": "2026-11-15T18:22:58.651829+00:00",
+  "fixtures": [
+    {
+      "slug": "card-morlock-hill-blue-four-live-real-lethal-minerva-arsenal-public-banish-prevention",
+      "fixture_sha256": "fae0bf344e99c8da2ad94c0ce7916d14415d97215be48a3b0815159c376d01e2",
+      "passed": true,
+      "result": "[PASS] Morlock Hill Blue / actual lethal four prevented by public Arsenal Minerva banish"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-morlock-hill-blue-four-live-real-lethal-minerva-arsenal-public-banish-prevention",
+      "returncode": 0,
+      "stdout": "[PASS] Morlock Hill Blue / actual lethal four prevented by public Arsenal Minerva banish\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

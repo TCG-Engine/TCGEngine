@@ -1,0 +1,172 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "breadth_review independent source/semantic review",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse951-20261122.json",
+  "source_spec_sha256": "c65e8f95aa20d48ff513173fada75530ef806340e787b7d76ee8b9bda38bb668",
+  "input_sha256": "c65e8f95aa20d48ff513173fada75530ef806340e787b7d76ee8b9bda38bb668",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-deadly-duo-red-four-live-sparse951-actual-two-hand-blocks-prevent-hit-but-printed-go-again-applies",
+      "card_id": "deadly_duo_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "1e05c80c353eaa99ec0db9727afd1cd2b1fde9b50b2da485f6823a85aaafd036",
+        "actions.json": "a44e24b9f9b348ce659c847e7dbea1e0cd33c5233e8ac4933f9391118d55ee4b",
+        "assertions.json": "520a48a7cd9ecb32455e145060d7c7732d341444be84544f1214c88908358f9d",
+        "expected_final_gamestate.txt": "d1ec8cdec164a9865eb9a3c30bc7025b633b07bd71a46b9f8e2c6ce410c349b8",
+        "meta.json": "54b12e1628d198a86c3141504bed9c0f3b81440012120109c6793dbd4c8321cb"
+      },
+      "fixture_sha256": "a59a87d58e02703109de53e6b56d2402ef982898c38662bee97b9f7a047ec6a6",
+      "actions": 30,
+      "native_assertions": 183,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse951-20261122.json",
+      "input_sha256": "c65e8f95aa20d48ff513173fada75530ef806340e787b7d76ee8b9bda38bb668",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse951-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-deadly-duo-red-four-live-sparse951-actual-two-hand-blocks-prevent-hit-but-printed-go-again-applies",
+        "fixture_slug": "card-deadly-duo-red-four-live-sparse951-actual-two-hand-blocks-prevent-hit-but-printed-go-again-applies",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-plunge-red-four-live-sparse951-actual-two-hand-blocks-prevent-hit-but-printed-go-again-applies",
+      "card_id": "plunge_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "04ebb8a8b6e1db754c42f26f55e3286385d6ae2e49c0c3c5a00ba84bca8878e5",
+        "actions.json": "a44e24b9f9b348ce659c847e7dbea1e0cd33c5233e8ac4933f9391118d55ee4b",
+        "assertions.json": "84c78fe27141dcac9b8f8e91784cfc45717b57b074a28047e393686cb7880dfe",
+        "expected_final_gamestate.txt": "09a72d24ad9d80c68ee50d68f3fd473b56a628282bb008d0c5280a003fb27a21",
+        "meta.json": "34fe0aa8adab67c3a3a0ad13c73fe70b29d63884c7ae4790ee22e5357b1f9b6c"
+      },
+      "fixture_sha256": "3e1a1e7d16a3fac50f97f423e275969b8c33c5a7e7fc8efdd383003e5f3bcc46",
+      "actions": 30,
+      "native_assertions": 183,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse951-20261122.json",
+      "input_sha256": "c65e8f95aa20d48ff513173fada75530ef806340e787b7d76ee8b9bda38bb668",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse951-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-plunge-red-four-live-sparse951-actual-two-hand-blocks-prevent-hit-but-printed-go-again-applies",
+        "fixture_slug": "card-plunge-red-four-live-sparse951-actual-two-hand-blocks-prevent-hit-but-printed-go-again-applies",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-ride-the-tailwind-red-four-live-sparse951-actual-two-hand-blocks-prevent-hit-but-printed-go-again-applies",
+      "card_id": "ride_the_tailwind_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "75fe3fd57e7c6f2c33abd72aa4561e52ed79169eeb307f86af101016a72deb77",
+        "actions.json": "9f2158a76a224facb898cc12561b10d89380d0d90e15b49131c1d4359e991d29",
+        "assertions.json": "6c36b4ec0d3871d46ccfe6aa92d8c27a70690ce2e779f224b151674746d49977",
+        "expected_final_gamestate.txt": "3f0ee8a88835929605ac8ad67ab8ad27183fbc6c382bb9a640ebc69b7ec9d785",
+        "meta.json": "c7b31fbd261626e6857c3a59267f0563428ebb8dabb8b1a8c2b23494475cb5b7"
+      },
+      "fixture_sha256": "c5cd2ce1fc3903033074efeb58335884218282dfc61ae02b9170a8c2de8d287f",
+      "actions": 29,
+      "native_assertions": 161,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse951-20261122.json",
+      "input_sha256": "c65e8f95aa20d48ff513173fada75530ef806340e787b7d76ee8b9bda38bb668",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse951-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-ride-the-tailwind-red-four-live-sparse951-actual-two-hand-blocks-prevent-hit-but-printed-go-again-applies",
+        "fixture_slug": "card-ride-the-tailwind-red-four-live-sparse951-actual-two-hand-blocks-prevent-hit-but-printed-go-again-applies",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-flex-claws-red-four-live-sparse951-actual-two-hand-blocks-prevent-hit-but-printed-go-again-applies",
+      "card_id": "flex_claws_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "76d11cc207931fdd0bc105b52db8acbf5d4b3ef8434de534e4464a515974c9af",
+        "actions.json": "a44e24b9f9b348ce659c847e7dbea1e0cd33c5233e8ac4933f9391118d55ee4b",
+        "assertions.json": "e8530f31eb2680b90738991e740ecccd1de2af6778bd2869577ab6fca136b0ac",
+        "expected_final_gamestate.txt": "0e6c8cf28feafdf70432ae911b6d798ba133db2f8819cbdf15ab1925b494afcd",
+        "meta.json": "11d802b3b3c2dcda594d9df1eeb5d31d003190ca50a8bde181a30c6e9adbeadf"
+      },
+      "fixture_sha256": "c52f0f7efbec02f2cc05ba2b1e3cc99f4006f48fd86fc12a9235d49388ca23f3",
+      "actions": 30,
+      "native_assertions": 183,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse951-20261122.json",
+      "input_sha256": "c65e8f95aa20d48ff513173fada75530ef806340e787b7d76ee8b9bda38bb668",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse951-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-flex-claws-red-four-live-sparse951-actual-two-hand-blocks-prevent-hit-but-printed-go-again-applies",
+        "fixture_slug": "card-flex-claws-red-four-live-sparse951-actual-two-hand-blocks-prevent-hit-but-printed-go-again-applies",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-engulfing-flamewave-red-four-live-sparse951-actual-two-hand-blocks-prevent-hit-but-printed-go-again-applies",
+      "card_id": "engulfing_flamewave_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "1a4a961be36b982a0a94793ba1622d935bc0e47f2cfc1978ea54e75b3e1d3871",
+        "actions.json": "a44e24b9f9b348ce659c847e7dbea1e0cd33c5233e8ac4933f9391118d55ee4b",
+        "assertions.json": "43de3e5730f4aba0e1238df1f63205fcc064f97da557485aa4de1e1deb1f5786",
+        "expected_final_gamestate.txt": "67935a74ce21bc182c18388a8a94a5d8b535344ce51d1716332e6f345d23f5dc",
+        "meta.json": "e315295a8a2867b1e9b96d25c79ad154d57bd51a454586f4efebff4c09ac2cfb"
+      },
+      "fixture_sha256": "934e4b069280bf3c74d101b5d3df60b0d0c3142bae28bbdc016e4fac8ce6a9e6",
+      "actions": 30,
+      "native_assertions": 183,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse951-20261122.json",
+      "input_sha256": "c65e8f95aa20d48ff513173fada75530ef806340e787b7d76ee8b9bda38bb668",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse951-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-engulfing-flamewave-red-four-live-sparse951-actual-two-hand-blocks-prevent-hit-but-printed-go-again-applies",
+        "fixture_slug": "card-engulfing-flamewave-red-four-live-sparse951-actual-two-hand-blocks-prevent-hit-but-printed-go-again-applies",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "spec_sha256": "c65e8f95aa20d48ff513173fada75530ef806340e787b7d76ee8b9bda38bb668",
+    "reviewer": "breadth_review independent source/semantic review",
+    "basis": [
+      "Cached printed text confirms standalone go again for all five attacks, independent of their hit abilities. Fai20 is legal Ninja/Draconic; Plunge is dual Assassin/Ninja. No Hero ability activation or unconditional WHEN attacks/played event is omitted.",
+      "Actual Hand5 source, pre-payment adjacent target, real Blue6 payment for1/2 cost, R2/1 or0 for zero cost. Two actual generic AA defenders each defense3 fully block3/3/3/4/5. Their Hand click indices shift correctly, physical blocker UIDs reach owner4 graveyard; source5 reaches owner1 graveyard. Initial count/UID guards match setup.",
+      "Zero damage/unchanged natural HP/attackHit=false and Stack0 pin absent hit event. AP stays0 through DAMAGE and becomes1 at RESOLUTION/final from printed go again, even blocked; four seats respond manually in every window.",
+      "Final Engulfing delta uses real Wounding Blow Red0-cost Deck9, eligible below its one Draconic link if the hit ability wrongly exiled it; Deck9 retains CardID/UID/Owner and Banish0. Flex Claws Banish0 excludes an unearned Tiger. No reveal-log visibility is claimed."
+    ],
+    "limits": [
+      "Only full-block/no-hit/payment/physical fate/standalone go again. No exact unblocked power, positive hit buffs/Tiger/reveal/exile/permission, next consumer behavior, siblings or whole-card certification. Deck retention cannot independently prove no reveal occurred. Native execution/replay pending."
+    ]
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse951-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "6f4040e4474c20b3cab1f4c631aaa8985826d4a6aefc720d30c57bfaa261497f"
+  },
+  "full_suite_run": false
+}

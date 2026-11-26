@@ -1,0 +1,7 @@
+{
+    "name": "Pull from Beyond / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T15:23:14+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "**Opt 2**\n\nBanish the top card of your deck. If it's red, create a Gate to i'Arathael token. **Go again** Representative only: opt_orders_real_red_top_then_banishes_it_and_creates_gate. Other pitch siblings, alternate targets and unexercised branches receive no credit. All four live/manual; only native entry-point actions. Sources: FaBSim/GeneratedCode/cardArrayCache.json#pull_from_beyond_red"
+}

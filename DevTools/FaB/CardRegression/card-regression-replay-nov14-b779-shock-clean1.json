@@ -1,0 +1,27 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch779-shock-charmers-full-delayed.json",
+  "runtime_sha256": "cd7348b373b8adc0d4e5108b74b44fff9fd6e1b9a2e855e8cd14661bc2b66edf",
+  "returncode": 0,
+  "completed_utc": "2026-11-14T02:54:03.760798+00:00",
+  "fixtures": [
+    {
+      "slug": "card-shock-charmers-four-live-paid-instant-delayed-hit-four-responses-extra-one",
+      "fixture_sha256": "8efbc3b234395ded018459c8fd11743198ea7287b9d53aedd99e53f384a4aaa4",
+      "passed": true,
+      "result": "[PASS] Shock Charmers / paid Instant and delayed hit damage after four responses"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-shock-charmers-four-live-paid-instant-delayed-hit-four-responses-extra-one",
+      "returncode": 0,
+      "stdout": "[PASS] Shock Charmers / paid Instant and delayed hit damage after four responses\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

@@ -1,0 +1,7 @@
+{
+    "name": "Double Down / real resource payment and non-wager Sword",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-23T03:30:00+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "You may destroy a Gold you control rather than pay this card's {r} cost.\n\nThe next attack that **wagers** this turn gets +3{p} and **overpower**.\n\nIf a hero would create 1 or more tokens from a **wager** this turn, instead they create that many plus 1 of each of those tokens.\n\n**Go again** LegalDori20Warrior, noGold/Arena0; actualHand5printed2reallypaidBlue6/R1/AP0, noalternativecostclaimed. FourmanualsourcepriorityrefundsownGA/AP1, physical5GGY. ActualDawnblade7cost1paidR1to0/AP0/currentactualattackneverWagered. ConditionalNEXT_WAGERbonusdoesnotapply: base3not6, noOverpower, actualtwoHandAAdefenders8/9legalDEF6 fullblock/noHit/HP20/AP0allfourmanual. NoDori/DawnbladeHit, 5ownedGGY/7Weaponused/6Pitch/8,9ownedGGY, allcosts/UIDs/roles/queuespersist. No positiveWager+3/Overpower/replacementtokens/Goldcost/expiry/support/siblings/hero/fullcardcredit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#double_down_red"
+}

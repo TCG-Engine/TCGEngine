@@ -1,0 +1,236 @@
+{
+  "status": "APPROVED_EXACT_SAVED_ONE_LIMITED_TRANSFORM_REPLAYS_SEPARATE",
+  "reviewer": "/root/nov2_sparse_author",
+  "reviewed_utc": "2026-11-04T22:46:37.799641+00:00",
+  "runtime_sha256": "527c3e3bf7e18d626fbaf23ae221d77fc65bf1ec080080758a7009069800afa2",
+  "input_file": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch396-azvolai-counter-map-v2.json",
+  "input_sha256": "95d30955a79c2ba69ce5866c3c79390a00de9073b499877a9114ab43fe33b20b",
+  "fixtures": [
+    {
+      "slug": "card-invoke-azvolai-red-four-live-sparse-real-owned-ash-target-transforms-same-invocation-and-restores-action",
+      "card_id": "invoke_azvolai_red",
+      "group_id": "identity:invoke_azvolai_red",
+      "fixture_sha256": "86e2779581333f6b87507a3e12a7703814c2a207621fe0b6b5c482fef6bacc40",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "8ed7580c99ab47fb08bbe6cee345d053c3a7a0b0286a4ef459f77620d5094383",
+        "actions.json": "4aa2d8097cd2817fc4ee18bdbc00ed1ed4924eb4f02ab264511a18edcdee9d13",
+        "assertions.json": "6b97ab77a6ee9a8a563c829b46538fd0cb9723e3e3f41f9a758954a616ad8239",
+        "expected_final_gamestate.txt": "7cb5443425cb1928096df610371c062e80e805a36d3226edd416dc6d427f5d4c",
+        "meta.json": "a30fdce1ce751f7fb20dfe176e329e4950fa740cc4b6492b615180fc8245877a"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "8ed7580c99ab47fb08bbe6cee345d053c3a7a0b0286a4ef459f77620d5094383",
+        "actions.json": "4aa2d8097cd2817fc4ee18bdbc00ed1ed4924eb4f02ab264511a18edcdee9d13",
+        "assertions.json": "6b97ab77a6ee9a8a563c829b46538fd0cb9723e3e3f41f9a758954a616ad8239",
+        "expected_final_gamestate.txt": "7cb5443425cb1928096df610371c062e80e805a36d3226edd416dc6d427f5d4c",
+        "meta.json": "a30fdce1ce751f7fb20dfe176e329e4950fa740cc4b6492b615180fc8245877a"
+      },
+      "actions": 6,
+      "native_assertions": 631,
+      "actual_manual_passes": 4,
+      "manual_passes": 4,
+      "manual_pass_actor_counts": {
+        "1": 1,
+        "2": 1,
+        "3": 1,
+        "4": 1
+      },
+      "semantically_approved": true,
+      "every_native_action_and_assertion_exactly_maps_to_approved_source": true,
+      "initial_and_final_snapshots_fully_parsed": true,
+      "all48_manual_settings_raw_initial_and_final_verified": true,
+      "manual_profiles": {
+        "1": {
+          "version": 1,
+          "holdPriority": true,
+          "windows": {
+            "BLOCK": false,
+            "ATTACK_REACTION": false,
+            "DEFENSE_REACTION": false,
+            "ACTION_PRIORITY": false,
+            "INSTANT_PRIORITY": false,
+            "ATTACK_PRIORITY": false,
+            "DEFEND_PRIORITY": false,
+            "OTHER_REACTION": false,
+            "DAMAGE_PRIORITY": false,
+            "RESOLUTION_PRIORITY": false,
+            "END_PHASE": false
+          }
+        },
+        "2": {
+          "version": 1,
+          "holdPriority": true,
+          "windows": {
+            "BLOCK": false,
+            "ATTACK_REACTION": false,
+            "DEFENSE_REACTION": false,
+            "ACTION_PRIORITY": false,
+            "INSTANT_PRIORITY": false,
+            "ATTACK_PRIORITY": false,
+            "DEFEND_PRIORITY": false,
+            "OTHER_REACTION": false,
+            "DAMAGE_PRIORITY": false,
+            "RESOLUTION_PRIORITY": false,
+            "END_PHASE": false
+          }
+        },
+        "3": {
+          "version": 1,
+          "holdPriority": true,
+          "windows": {
+            "BLOCK": false,
+            "ATTACK_REACTION": false,
+            "DEFENSE_REACTION": false,
+            "ACTION_PRIORITY": false,
+            "INSTANT_PRIORITY": false,
+            "ATTACK_PRIORITY": false,
+            "DEFEND_PRIORITY": false,
+            "OTHER_REACTION": false,
+            "DAMAGE_PRIORITY": false,
+            "RESOLUTION_PRIORITY": false,
+            "END_PHASE": false
+          }
+        },
+        "4": {
+          "version": 1,
+          "holdPriority": true,
+          "windows": {
+            "BLOCK": false,
+            "ATTACK_REACTION": false,
+            "DEFENSE_REACTION": false,
+            "ACTION_PRIORITY": false,
+            "INSTANT_PRIORITY": false,
+            "ATTACK_PRIORITY": false,
+            "DEFEND_PRIORITY": false,
+            "OTHER_REACTION": false,
+            "DAMAGE_PRIORITY": false,
+            "RESOLUTION_PRIORITY": false,
+            "END_PHASE": false
+          }
+        }
+      },
+      "initial_standalone_UIDs": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "final_standalone_UIDs": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "same_physical_InvocationUID5_becomes_owned_ready_dragon": true,
+      "encoded_material": {
+        "UPR_ASH": 1,
+        "DYN_ASH": "ash"
+      },
+      "former_standalone_Ash6_ceases_as_new_subcard_no_removed_from_game_inference": true,
+      "final_health": [
+        20,
+        20,
+        20,
+        20
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_action_points": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "final_counter": 6,
+      "final_RNG": 0,
+      "physical_findings": "Actual target chooser binds own standaloneAsh6 before0resource/APpayment. Fresh1/2/3/4 source round retains5Stack/Ash6 throughthree; onlyfourth yieldsreadyownedAzvolai5/oneencodedAsh/AP1. Rawendpointmatchesexacthost/front/materialmap, noHPdamage/resources/Chi ornewstandaloneUID. All4manualprofilesremain11windowsfalse+holdPrioritytrue.",
+      "qualification": "Only limitedInvocationtarget/zeroresource+realAP/responseabletransform/oneencodedmaterial/ownGAendpoint. Noexplicitnewsubcardidentity/retrieval/topcardcleanup/materialdestruction/Phantasm/dragonattack/arcane/EndPhase/hero/support/sibling/fullcardcredit."
+    }
+  ],
+  "source_expectation_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov4-batch396-azvolai-v2-independent-source-delta-review.json",
+    "sha256": "78b4afd8ea1c1fc26e38016abeb3ea4e233e684a6f253c8b8aa38a63e2673c86",
+    "manifest_sha256": "4a174d92dbf00796d527beff804986c4add490add18d0d97fd3ece08b8edb402"
+  },
+  "immutable_native_archive": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch396-azvolai-counter-map-v2-20261104T224318Z-6aebb506f2f90.json",
+    "sha256": "45ac94034b3e608e9e1bd236991562e99097f5caf18b51b6477b4f3aae763205"
+  },
+  "recording_results": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch396-azvolai-counter-map-v2.recording-results.json",
+    "sha256": "e5d78acf27cdc28f86439bfc56d2092901ac07202d834d627cfbbe6470f65d9a"
+  },
+  "native_wrapper": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov4-b396-azvolai-counter-v2-native-527c-r1\\receipt.json",
+    "sha256": "9c129634f64755aca358aece1c3c0ebed85f0c9c06dc6d9657bf7d3caeb9b74f",
+    "stdout_sha256": "59ba2c2416e6691e2a413a67d23c87d687e5574a3699ba7360f8432bd5a9b9b0",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "exit_code": 0,
+    "stderr_bytes": 0,
+    "runtime_before": "527c3e3bf7e18d626fbaf23ae221d77fc65bf1ec080080758a7009069800afa2",
+    "runtime_after": "527c3e3bf7e18d626fbaf23ae221d77fc65bf1ec080080758a7009069800afa2"
+  },
+  "native_checkpoints": [
+    {
+      "step": 0,
+      "checkpoint": "full_four_live_legalDromai20_primaryInvocation5Hand_priorownedAsh6Arena_no_currentredpitch_history_resources_or_transform_flags",
+      "assertions": 122
+    },
+    {
+      "step": 1,
+      "checkpoint": "actual_Invocation5_physicalStack_before_target_choice_cost0_Action1_not_yet_paid_ownAsh6_only_legal_target_no_transform_or_GA",
+      "assertions": 63
+    },
+    {
+      "step": 2,
+      "checkpoint": "actual_ownAsh6_target_answer_completes_printedZERO_AP1_cost_R0AP0_before_fresh_four_Invocation5_stillStack_Ash6_standalone",
+      "assertions": 67
+    },
+    {
+      "step": 3,
+      "checkpoint": "fresh_four_Invocation_source_responses_keep_source5_and_standaloneAsh6_first_three_only_fourth_same5_readyAzvolai_one_encodedAsh_and_ownGA_AP1_actual_response_1_of_four",
+      "assertions": 67
+    },
+    {
+      "step": 4,
+      "checkpoint": "fresh_four_Invocation_source_responses_keep_source5_and_standaloneAsh6_first_three_only_fourth_same5_readyAzvolai_one_encodedAsh_and_ownGA_AP1_actual_response_2_of_four",
+      "assertions": 67
+    },
+    {
+      "step": 5,
+      "checkpoint": "fresh_four_Invocation_source_responses_keep_source5_and_standaloneAsh6_first_three_only_fourth_same5_readyAzvolai_one_encodedAsh_and_ownGA_AP1_actual_response_3_of_four",
+      "assertions": 67
+    },
+    {
+      "step": 6,
+      "checkpoint": "fresh_four_Invocation_source_responses_keep_source5_and_standaloneAsh6_first_three_only_fourth_same5_readyAzvolai_one_encodedAsh_and_ownGA_AP1_fourth_actual_response",
+      "assertions": 60
+    },
+    {
+      "step": 6,
+      "checkpoint": "full_final_four_living_physical_ownership_economy_queues_and_cleanup",
+      "assertions": 118
+    }
+  ],
+  "source_guards_verified": 50,
+  "original_zero_action_oracle_failure": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov4-batch396-azvolai-empty-counter-representation-classification.json",
+    "sha256": "5c0367ff2820daef9e2c5d965dc0066806df0e76d903e0d937f808d1525c5da9",
+    "gameplay_bug_claimed": false,
+    "original_preserved": true
+  },
+  "method": "Independent pure-Python read-only exact saved raw5/fullnativeaction+assertion equality/schema-backed complete initial/final parsing/manualprofiles/physicaltarget-cost-transform-outcomes. Stable selected parser/normalizer definitions reused without author builder or legacy case execution.",
+  "limits": [
+    "Saved creation review only; Root two focused replay rounds are separate and not executed or claimed by reviewer.",
+    "No full physical-UID conservation claim across Ash sub-card reset; standaloneAsh6absence alone is not destruction/removal-from-game. Only one encoded material positiveendpoint is accepted.",
+    "No explicit newsubcardidentity/retrieval/topcardcleanup/materialdestruction/Phantasm/attack/arcane/EndPhase or complete card/hero certification.",
+    "No PHP/native/R/source/service/generation/fullsuite or denied089 application retry by reviewer."
+  ]
+}

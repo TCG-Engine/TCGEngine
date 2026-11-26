@@ -1,0 +1,126 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-23T00:11:10.787858+00:00",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse995-20261122.json",
+  "source_spec_sha256": "e95e9fdfad1f0f770a4965d8d160566cd00205a52e7da905e42f97fd22b6d172",
+  "new_scenarios": 3,
+  "new_groups": 3,
+  "new_primary_ids": 3,
+  "actions": 109,
+  "native_assertions": 905,
+  "manual_passes": 96,
+  "totals": {
+    "saved_registered_scenarios": 4702,
+    "duels": 3075,
+    "four_live": 1627,
+    "recorded_primary_ids": 1850,
+    "identity_denominator": 5196,
+    "recorded_groups": 1724,
+    "group_denominator": 3324,
+    "four_live_groups": 1616,
+    "phase_qualified_scenarios_at_actual_contexts": 1339,
+    "phase_qualified_unique_groups": 1329,
+    "creation_replay_passes": 2081,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 500,
+  "scenarios": [
+    {
+      "card_id": "chain_reaction_yellow",
+      "group_id": "identity:chain_reaction_yellow",
+      "scenario_id": "card-chain-reaction-yellow-four-live-sparse995-hand-reaction-no-go-again-retains-eligible-facedown-arsenal",
+      "effect_branches": [
+        "hand_reaction_no_go_again_retains_eligible_facedown_arsenal"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-chain-reaction-yellow-four-live-sparse995-hand-reaction-no-go-again-retains-eligible-facedown-arsenal",
+      "source_spec": "card-regression-sparse995-20261122.json",
+      "source_spec_sha256": "e95e9fdfad1f0f770a4965d8d160566cd00205a52e7da905e42f97fd22b6d172",
+      "review_evidence": "review-evidence/sparse995-20261122-qualified-saved.json",
+      "review_evidence_sha256": "3a338c61d216ea686025ac3038cfa36b442773fd0ad72d9f6e10e347d7dace72",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse995-20261122-replay.json",
+          "sha256": "332786189e294c801a8b42ae7d1d355fa3ca54df55e4137ee71e180d6feb980b",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "lay_low_yellow",
+      "group_id": "identity:lay_low_yellow",
+      "scenario_id": "card-lay-low-yellow-four-live-sparse995-legal-unmarked-hand-reaction-base-three-actual-damage",
+      "effect_branches": [
+        "legal_unmarked_hand_reaction_base_three_actual_damage"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-lay-low-yellow-four-live-sparse995-legal-unmarked-hand-reaction-base-three-actual-damage",
+      "source_spec": "card-regression-sparse995-20261122.json",
+      "source_spec_sha256": "e95e9fdfad1f0f770a4965d8d160566cd00205a52e7da905e42f97fd22b6d172",
+      "review_evidence": "review-evidence/sparse995-20261122-qualified-saved.json",
+      "review_evidence_sha256": "3a338c61d216ea686025ac3038cfa36b442773fd0ad72d9f6e10e347d7dace72",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse995-20261122-replay.json",
+          "sha256": "332786189e294c801a8b42ae7d1d355fa3ca54df55e4137ee71e180d6feb980b",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "sigil_of_permafrost_red",
+      "group_id": "pitch-cycle:sigil_of_permafrost",
+      "scenario_id": "card-sigil-of-permafrost-red-four-live-sparse995-unfused-real-blue-payment-base-four-three-damage",
+      "effect_branches": [
+        "unfused_real_blue_payment_base_four_three_damage"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-sigil-of-permafrost-red-four-live-sparse995-unfused-real-blue-payment-base-four-three-damage",
+      "source_spec": "card-regression-sparse995-20261122.json",
+      "source_spec_sha256": "e95e9fdfad1f0f770a4965d8d160566cd00205a52e7da905e42f97fd22b6d172",
+      "review_evidence": "review-evidence/sparse995-20261122-qualified-saved.json",
+      "review_evidence_sha256": "3a338c61d216ea686025ac3038cfa36b442773fd0ad72d9f6e10e347d7dace72",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse995-20261122-replay.json",
+          "sha256": "332786189e294c801a8b42ae7d1d355fa3ca54df55e4137ee71e180d6feb980b",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

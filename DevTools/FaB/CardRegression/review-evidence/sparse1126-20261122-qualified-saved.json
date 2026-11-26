@@ -1,0 +1,65 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "breadth_review independent off-turn intrinsic Iyslander permission review",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1126-20261122.json",
+  "source_spec_sha256": "d77a1b231baaaf0adfce5ca4fd9add8a4715ca32d8701de3b6785485cf2f93fd",
+  "input_sha256": "d77a1b231baaaf0adfce5ca4fd9add8a4715ca32d8701de3b6785485cf2f93fd",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-iyslander-four-live-sparse1126-real-non-ice-blue-item-from-arsenal-as-instant-on-another-players-turn",
+      "card_id": "iyslander",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "1db209a9ac3fd0913d2861894c493992731c7370d847ddec97b135419a375437",
+        "actions.json": "f021f2fba610fe71ee2101f41800baad67f0ecdc5aabbb5edcf209d1450f6907",
+        "assertions.json": "52742cff139c97c158e43d047e8eed9cfd827104d2db9e64ccb729cc1b6a7ffa",
+        "expected_final_gamestate.txt": "8addcfc908cd19f2e769a013b1156f7b9e2667a9dd1f7066dbfea0fbedba3205",
+        "meta.json": "34e387b739603fa941fefdc265dc612cbe4f11cb4af52e3a0a5e231fa3e23bea"
+      },
+      "fixture_sha256": "d2c6371cfa7bce3ec307d0687713ad284e4fd07b3c991dbd635e0d5e024f288e",
+      "actions": 11,
+      "native_assertions": 333,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 9,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1126-20261122.json",
+      "input_sha256": "d77a1b231baaaf0adfce5ca4fd9add8a4715ca32d8701de3b6785485cf2f93fd",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1126-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-iyslander-four-live-sparse1126-real-non-ice-blue-item-from-arsenal-as-instant-on-another-players-turn",
+        "fixture_slug": "card-iyslander-four-live-sparse1126-real-non-ice-blue-item-from-arsenal-as-instant-on-another-players-turn",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "spec_sha256": "d77a1b231baaaf0adfce5ca4fd9add8a4715ca32d8701de3b6785485cf2f93fd",
+    "reviewer": "breadth_review independent off-turn intrinsic Iyslander permission review",
+    "basis": [
+      "Natural young Iyslander18 is primary Hero2; source1Dori20 and other seats young20. Real non-Ice Generic Blue EnergyPotion6 is facedown in own Arsenal, no resources/AP2. Printed permission and EVRCards146/FaBEVRAsInstant allow this Blue non-attack Action as an Instant on another player turn; GL1035-1050 determines KindINSTANT before moving it. This is genuine positive admission with AP2=0, not a quiet unsupported click. Ice-card event is absent, so no Frostbite/ownership dependency.",
+      "Actual Dori1 RedSigil5 remains a real lower layer/HP1=20 while player2 responds. Four manual upper responses actors2,3,4,1 resolve physicalPotion6 to owner/controller2 Arena, AP2=0 unchanged; lowerSigil5 remainsStack. GL2076 retains PRIORITY while lower layer exists. Four fresh manual lower responses then resolve actualSigil3life toHP1=23/source5ownedGY1. No EnergyPotion activation or hero activated ABI is used.",
+      "Arsenal has FaceDown1; Stack and Arena schema have no FaceDown member. Transferring through Stack/native response snapshots does not preserve an Arsenal-only field. Current two Arena CP guards correctly assert missing property empty string, not invented0; the real public Arena CardID/UID/Owner2/Controller2 and physical fates remain pinned. Exact pre-native delta is only these two query values0 to empty string."
+    ],
+    "limits": [
+      "Only intrinsic Blue non-attack Action from Arsenal off-turn. No Ice/Frostbite, activation of EnergyPotion, own-turn/other zones/colors/attacks/negative permission, GA or whole-hero/support identity claim. Public face-up Arena interpretation is intrinsic zone state, not a stored FaceDown0 field.",
+      "Native Save and one clean replay pending; no gameplay defect or source change from the representation correction."
+    ],
+    "pre_native_original_spec_sha256": "1711e651d823f9f6a311959e362b53e1acd42e470423b9e435ccdb608a0ee0a4"
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1126-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "113222b08e75d597fbea3d82ff5aae4d2ea89fd2664f4dd00c3aeac557c1109b"
+  },
+  "full_suite_run": false
+}

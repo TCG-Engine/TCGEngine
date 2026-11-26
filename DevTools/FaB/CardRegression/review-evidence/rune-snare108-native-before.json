@@ -1,0 +1,224 @@
+{
+  "status": "CONFIRMED_NATIVE_BEFORE_MISSING_ARROW_BONUS",
+  "reviewer": "/root/b105_semantic_review",
+  "reviewer_independent": true,
+  "runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+  "input_sha256": "12e42606a3b5285f23a9e707b2ecd1c11265c0df648f081f2037fdf3c4141a12",
+  "source_application": false,
+  "native_execution_by_reviewer": false,
+  "repository_writes": false,
+  "source_spec": "card-regression-batch433.json",
+  "independent_full_peer_sha256": "c0658e3b168b579da245b9ea003fa9000d7d3572b8392422d34aa7cc61ded634",
+  "source_guards": {
+    "FaBSim/Custom/GameLogic.php": "1cdad1555c8d2e3bd3fa98d69bf52791b84d21bf2269363ddea7249f4ee35a43",
+    "FaBSim/Custom/ELECards.php": "3e8c31c53540355b9618678a62ca24b04fcd98a5b13c1c45251ca9b00671bc82",
+    "DevTools/FaB/pen_abilities.json": "e50d82b686864b733032deae373b9825264b63a23ca8e6248c0c5f046c415054"
+  },
+  "immutable_native_archive": {
+    "path": "recording-runs/card-regression-batch433-20261105T082822Z-6aec3e26f04f2.json",
+    "sha256": "05b324258873da9315ac54b624460ce4f116741a528ef091392fe68758e350fe"
+  },
+  "recording_results": {
+    "path": "card-regression-batch433.recording-results.json",
+    "sha256": "2635bd9b8a8e63a8653b467ced59935f6f9a4a3df88432991d05f2ad0d61e083"
+  },
+  "blocked_attempt": {
+    "slug": "card-rune-snare-red-four-live-correct-next-arrow-three-consumer-and-seven-hero-damage-probe",
+    "card_id": "rune_snare_red",
+    "group_id": "identity:rune_snare_red",
+    "semantically_approved": false,
+    "fixture_saved": false,
+    "source_expectations_retained": true,
+    "classification": "CONFIRMED_NATIVE_MISSING_NEXT_ARROW_PLUS3_CONSUMPTION",
+    "accepted_inputs": 12,
+    "actual_manual_passes": 8,
+    "manual_pass_actor_counts": {
+      "1": 2,
+      "2": 2,
+      "3": 2,
+      "4": 2
+    },
+    "first_failure": {
+      "source_step_index": 24,
+      "native_input_count": 12,
+      "check_ordinal_in_checkpoint": 60,
+      "ordered_check_ordinal": 999,
+      "preceding_successful_check_count_from_source_failfast_order": 998,
+      "check": {
+        "kind": "power",
+        "expected": 7,
+        "actual_fresh_FaBAttackPower": 4
+      },
+      "error": "power  expected 7 got 4"
+    },
+    "passed_material_boundary": "RealRune5Action0 completedfourresponses/ownGAAP1, same5ownpublicGY. PriorfacedownArrow6 actualtarget4 thenBlue7cost1/R2AP0; fourArrowresponsescompletedtoATTACK/link1. First59checks atfailedcheckpoint passed: allHP20/R2AP0, Stack0, Bow8readyowned, Blue7Pitch, Rune5GY, physicalHeadShot6ownedChainRoleATTACK/FromZoneArsenal/link1, nootherdefenders. RawcardsPlayed includesRune+HeadShot andARC_NEXT_ARROW3uses1remainsunconsumed.",
+    "fresh_getter_vs_cache_and_damage": "FCRCheck kindpower callsactualFaBAttackPower at recorder32 and comparesbeforepersistingcomputedassertion. It returned4; observedstate cachedattackPower0 isnot thisgetter. Actualnormaldamagepath atGameLogic2003 wouldcallthe sameFaBAttackPower again, butDAMAGE wasnotreached. No actual4or7heroDamage/HP16or13 claim. Laterfreshgo_againcheck61 andremainingcheckpointswerenotreached.",
+    "source_cause": "CurrentcanonicalRuneResolveCard emitsARC_NEXT_ARROW3. ActualeffectremainsintheobservedledgerafterrealArrowplay. CurrentELECards115\u2013124 genericnextattackconsumption recognizesELE_NEXT_ARROW forArrow, then tagsWTR_POWER andconsumesmatchedentry; ARC_NEXT_ARROW isnotthatkey. BoundedexactliteralCustomscan foundnoARC_NEXT_ARROWconsumer. Thefreshgetterreadsbase4+currentmodifiers, leavingtheprinted+3unapplied. No sourcefixproposedorappliedbyreviewer.",
+    "rules_basis": "Currentofficial https://judge.fabtcg.com/cards/detail/4624/ grantsnextArrow+3andownGoAgain. CurrentHeadShot https://judge.fabtcg.com/cards/detail/396/ hasbase4; priorfacedownArsenalneverearnsput-into-Arsenal-face-up+2. Correct7isstrictandnotcurrentoutputfit.",
+    "observed_decisions": {
+      "1": [],
+      "2": [],
+      "3": [],
+      "4": []
+    },
+    "limits": [
+      "Nativefirstfailureestablishesmissing+3atfreshactiveArrowgetter, notphysicalheroDamage4or7. No continuedcompanionrun, laterStack/HP/cleanup/refund/consumptionsuffixobserved.",
+      "No fullpostfailurephysicalrawsnapshot exists; passednativeidentity/Stackassertions andexplicitobservedstate supportonlylistedfacts. Initialraw isindependentlypreserved.",
+      "AlternateTrapDefendedWHEN/faceupHeadShot/hero/Bowability/otherArrows/conditions/fullcard/siblings unearned. Root reserves/allocates108; reviewer createsnoissueIDorrepair. Originalstrict7/HP13/inputretained."
+    ],
+    "observed_state": {
+      "window": "ATTACK",
+      "combatOpen": true,
+      "combatStep": "ATTACK",
+      "attacker": 1,
+      "defender": 4,
+      "attackUID": 6,
+      "attackHit": false,
+      "damageDealt": 0,
+      "pendingPayment": null,
+      "turnEffects": {
+        "1": [
+          {
+            "type": "EVR_PLAYED",
+            "amount": 1,
+            "uses": 1
+          },
+          {
+            "type": "EVR_GRAVEYARD",
+            "amount": 1,
+            "uses": 1
+          },
+          {
+            "type": "ARC_NEXT_ARROW",
+            "amount": 3,
+            "uses": 1
+          },
+          {
+            "type": "MST_BLUE_PITCHED",
+            "amount": 1,
+            "uses": 1
+          },
+          {
+            "type": "SUP_COST_ONE",
+            "amount": 1,
+            "uses": 1
+          },
+          {
+            "type": "CRU_ATTACKS",
+            "amount": 1,
+            "uses": 1
+          },
+          {
+            "type": "EVR_PLAYED",
+            "amount": 1,
+            "uses": 1
+          },
+          {
+            "type": "HNT_ATTACKS",
+            "amount": 1,
+            "uses": 1
+          },
+          {
+            "type": "HNT_AA_ATTACK",
+            "amount": 1,
+            "uses": 1
+          },
+          {
+            "type": "HNT_ATTACKED_4",
+            "amount": 1,
+            "uses": 1
+          },
+          {
+            "type": "SEA_ATTACKED",
+            "amount": 1,
+            "uses": 1
+          },
+          {
+            "type": "SUP_ATTACKS",
+            "amount": 1,
+            "uses": 1
+          },
+          {
+            "type": "MON_LAST_head_shot",
+            "amount": 1,
+            "uses": 1
+          },
+          {
+            "type": "ELE_AA_COMBAT",
+            "amount": 1,
+            "uses": 1
+          }
+        ],
+        "2": [
+          {
+            "type": "EVR_GRAVEYARD",
+            "amount": 1,
+            "uses": 1
+          }
+        ],
+        "3": [
+          {
+            "type": "EVR_GRAVEYARD",
+            "amount": 1,
+            "uses": 1
+          }
+        ],
+        "4": [
+          {
+            "type": "EVR_GRAVEYARD",
+            "amount": 1,
+            "uses": 1
+          },
+          {
+            "type": "SEA_ATTACKED_HERO",
+            "amount": 1,
+            "uses": 1
+          }
+        ]
+      },
+      "arcCards": {
+        "5": {
+          "iarOrigin": 1,
+          "mstChiPitched": 0,
+          "rosMeld": -1,
+          "rosSurgeGo": false,
+          "evoDashPlay": false,
+          "omnFirstDamage": false,
+          "iarPlayedFrom": "Hand",
+          "mstFree": false,
+          "rosLastLightning": false,
+          "iarPermission": []
+        },
+        "6": {
+          "iarOrigin": 1,
+          "mstChiPitched": 0,
+          "rosMeld": -1,
+          "rosSurgeGo": false,
+          "faceUp": false,
+          "evoDashPlay": false,
+          "penPitchTypes": [
+            "Generic",
+            "Action",
+            "Attack"
+          ],
+          "dynPitchAA": true,
+          "omnFirstDamage": false,
+          "iarPlayedFrom": "Arsenal",
+          "outPreviousNames": [],
+          "mstFree": false,
+          "mstPreviousPitch": 0,
+          "mstPreviousAA": false,
+          "rosLastLightning": false,
+          "iarPermission": [],
+          "mstReactions": 0,
+          "mstBanished": [],
+          "supFirst": true
+        },
+        "7": {
+          "iarPermission": []
+        }
+      }
+    }
+  },
+  "retention": "Compact computed-power and live-grant witness; raw initial/full failed state/native input prefix remain in immutable archive. No primary damage or incorrect passing fixture claimed."
+}

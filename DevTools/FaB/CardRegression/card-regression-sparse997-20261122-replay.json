@@ -1,0 +1,79 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-tarpit-trap-yellow-four-live-sparse997-plain-first-attack-no-typed-event",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-tarpit-trap-yellow-four-live-sparse997-plain-first-attack-no-typed-event",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse997-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse997-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "fb4927fe7d6496c1da8b02096d6f77269c2f94c239acf55d0eb0949c4db81692",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "6c4d3623ced6fbcfdab693fbb944e11203c77d5cc771c0e2a1eb11f2e3b6616d",
+        "actions.json": "83add76d0e874fd8ae016e14517db6ea206c3b9e206dbce873083282bf38c1a3",
+        "assertions.json": "0575a7efe030b6e314b3c872fd6fde46e6de35185ff4a7ac9680555db8659119",
+        "expected_final_gamestate.txt": "669317a32c9be6749d6a2f0308a1cc4837bf089fc4470718e44097132df289c5",
+        "meta.json": "b713687fd24bf45fb873e7b51aad11377b4e34daca408b2514557fce7c2daa77"
+      }
+    },
+    {
+      "slug": "card-rainbow-goo-trap-red-four-live-sparse997-plain-first-attack-no-typed-event",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-rainbow-goo-trap-red-four-live-sparse997-plain-first-attack-no-typed-event",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse997-local-20261122\\clean-replays\\01.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse997-local-20261122\\clean-replays\\01.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "44bf7ef5a57d8ac63ac812027d2303458ddb486de4b4494f5e21490149d6def0",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "358fb557b95a7d1129615544212ff5b4da523b03851767cee82789850d946f14",
+        "actions.json": "83add76d0e874fd8ae016e14517db6ea206c3b9e206dbce873083282bf38c1a3",
+        "assertions.json": "bf8d85112cacbdcfc5d4348b961096dce56e602c30fb12284be75a56a0ea3e9d",
+        "expected_final_gamestate.txt": "1e286d631d336d31d5a3f0ddfc415911afdbee8488f0f716c404fd0f4b9e2241",
+        "meta.json": "43adb2e0a5613f76316178aa32a3290c321f8511385628f1db08a23eabcc2a58"
+      }
+    },
+    {
+      "slug": "card-tiger-trap-red-four-live-sparse997-plain-first-attack-no-typed-event",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-tiger-trap-red-four-live-sparse997-plain-first-attack-no-typed-event",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse997-local-20261122\\clean-replays\\02.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse997-local-20261122\\clean-replays\\02.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "42627a5b13eff4d6c16b1fe80c42af1b0aeb3cd26e198946f7d5819cd37416c6",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "3e1b35bedc0be89ad0eeb1c666cf2f7aa15194ffaa2989ca7d43d3abcb93c796",
+        "actions.json": "83add76d0e874fd8ae016e14517db6ea206c3b9e206dbce873083282bf38c1a3",
+        "assertions.json": "932485e701e395c2f38e6ba74e2d590f8fa5df17ea750d75c26c40429b3db9cc",
+        "expected_final_gamestate.txt": "58d943aca414e0947d50338b8c08f402c975680bfcc956fbfc5b5179dcaabfdf",
+        "meta.json": "fff31bdc95be6e4de6d221058ac39dc7b6f53563a7089cb85a0eecc1bfed0afe"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

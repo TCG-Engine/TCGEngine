@@ -1,0 +1,7 @@
+{
+    "name": "Biting Gale / sparse four-live defender reaction representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T23:56:05+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Printed Biting Gale Red cost2/defense4, Ice Fusion. Legal Oldhim20 defender4 plays physical Hand5 only in actual Reaction; no Ice in Hand, actual Blue6 pays2/R1/AP0. Four manual reaction responses4,1,2,3 resolve source5 to DEFENSE_REACTION on chain. Real Raging Onslaught7 paid3 by Blue8 attacks Hero4 for7; no normal blocks, actual DR4 gives3 physical damage/HP17. Actual attackerNAA9 remains Hand/no pay2/no discard while unfused; primary5 and attack7 close to respective owned graveyards. No Oldhim activation, prevention, positive Fusion/discard/pay-tax or sibling/full-card credit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#biting_gale_red"
+}

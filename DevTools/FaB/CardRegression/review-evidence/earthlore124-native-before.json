@@ -1,0 +1,108 @@
+{
+  "id": "FAB-REG-124",
+  "status": "CONFIRMED_NATIVE_FAILURE_NO_FIXTURE",
+  "reviewer": "/root/b105_semantic_review",
+  "reviewer_independent": true,
+  "independent_review_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch482-independent-native-before-classification.json",
+  "independent_review_sha256": "880d954a22da319e252c976cbd09bafa4910971dab4192b7f1610cc56e4ffa5b",
+  "runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+  "source_spec": "card-regression-batch482.json",
+  "input_sha256": "8958b018537b6cc3e646f1c37f8268c6aeaf3d3fd435af3f5a24d3e2fd461f9e",
+  "scenario_id": "card-earthlore-bounty-four-live-correct-real-action-draw-two-earns-one-responseable-trigger-and-two-owned-seismics",
+  "first_failure": {
+    "source_case_index": 0,
+    "source_step_index": 12,
+    "native_input_count": 6,
+    "last_accepted_action": {
+      "playerID": 4,
+      "mode": 10001,
+      "cardID": "!CustomInput!Pass",
+      "buttonInput": "",
+      "chkInput": [],
+      "inputText": ""
+    },
+    "check_ordinal_in_checkpoint": 33,
+    "ordered_source_check_ordinal": 578,
+    "preceding_successful_source_check_count_from_failfast_order": 577,
+    "check": {
+      "type": "zone_count",
+      "zone": "Stack",
+      "value": 1
+    },
+    "expected": 1,
+    "actual": 0,
+    "error": "Expected Stack count 1, got 0.",
+    "fresh_public_stack_count": true,
+    "fixture_assertions_file_saved": false
+  },
+  "actual_native_prefix": {
+    "accepted_inputs": 6,
+    "actual_manual_passes": 4,
+    "manual_pass_actor_counts": {
+      "1": 1,
+      "2": 1,
+      "3": 1,
+      "4": 1
+    },
+    "actual_cost_and_source_before_resolution": "NativeclickHandTomeYELLOW6, pendingcostONEandrealBlue7pitch3/pays1/APspent->R2AP0. Lastfullypassedcheckpoint10bindsTome6StackKindACTION/SourceHandUID6/Controller1, realBlue7Pitch, Bounty5ownedcontrolled1ready, Deck8/9/10stillthere, allHP20/R2AP0; fourmanualsourceactors1/2/3/4actualcompleted. NotGoldtoken/notBlueTome/noHandhealing.",
+    "passed_first32_at_failure": "Priority1/pass0/noCombat/noPayment/allHP20/P1R2AP0/otherRAP0/allDQsEmpty; DeckNOWonlysameownedUID10Blue tail, Temp0, physicalEarthlore5EquipmentOwnerController1/Status2stillpresent. NEXTcheck33freshStackcount1FAILEDgot0. Armorreadiness/identityisreachedactualevidence; attack/armor/Temper/futureSeismicsneverexercised.",
+    "actual_draw_evidence_and_boundary": "RawstatecardsPlayedThisTurnONLYTomeYELLOW/iarPlayedFromHand, SEA_DRAWN2andDTD_DRAWN2bookkeeping, observedP1TWOHandrefsandprior3cardDecknowonlytail10passed. ThesejointlysupportactualrealDraw2. SpecificnewHand8/9CardID/UID/ownerpropertiesoccurAFTERfailedStackcheckandwereNOTexecuted; theirmappingcomesfrominitialDeck/order+source,nottwoobservedpostfailureHandtuples."
+  },
+  "classification": {
+    "verdict": "CONFIRMED_NATIVE_GROUPED_ACTION_DRAW_EARTHLORE_TRIGGER_NOT_RESPONSEABLE",
+    "material_rule_failure": true,
+    "oracle_or_protocol_error": false,
+    "fixture_saved": false,
+    "coverage_credit": false,
+    "normative_basis": "CurrentofficialErrataBulletin10explicitmultiplecardsfromoneActioncarddraweffecttriggerEarthloreONCEandcreatethatmanytokensonresolution. ActualTomeYELLOW6isGenericActioncost1/draw2fromHand/noheal/noGA, Bounty5ownedreadyGuardianChest, fourlivingmanualactors. CorrectonecapturedBountySourceUID5/controller1/count2layerrequiresfreshresponseprioritybeforetokencreation. OriginalStack1andzeroTokensbeforefreshfourremaincorrect, notcurrentoutputfitting.",
+    "bounded_source_cause": "GLDoDrawCard2364+ movesrealDeckcards/countsactualdrawnthenFaBEVRDrewoncewithn. EVRCards207-211readsresolvingmzIDAction-sourceanddirectlyFaBEVRCreate(p,seismic_surge,n)foreachEarthlore; selectedcallernotqueueingcapturedresponseableWHEN. WTRCards613actualDoDraw2/Arsenal-onlyheal. Thiscorroboratesinline-effectexecutioninsteadnewresponseablegroupedtrigger. No existingBountylayerwasobservedorpassednativeandthenprematurelyremoved; confirmedfindingisabsenceoffreshresponseablelayerafterdrawevent, notheld094completionroute orseparatelayer-removaldefect.",
+    "source_derived_only": "ActualphysicalSeismicobjects/theirnumber/UID/owner/controller/ArenaandTome6publicGYcannotbeassertedfromlaterunrunchecks. SelecteddirectFaBEVRCreate_nandTomeclear sourcepredictinlinecreations/cleanup, andrawbookkeepingisconsistent, butnophysicalpostfailurezonecaptureestablishesthoseproperties. No finalDeck/Handexacttuple/Seismic12,13/counter13/triggercountParamsorfinalcleanupcredit.",
+    "unexecuted_scope": "FailedStackcheck33then49remainingcheckpointchecksandall4freshtriggerresponseinputs/unexecutedpostfailure535checks. No BountyABIproperties, physicalnewHand8/9tuple, postfailurePitch7tuple, TomeGY6, expectedzeroArena, virtualcounter11orfinal2tokens12/13properties/futureSeismicdiscount/Temper/fullcleanupwereexecutedafterfailure. PriorpassedPitch7/sourceidentityremainboundedhistoricalevidence."
+  },
+  "source_guards_verified": 69,
+  "selected_source_file_sha256": {
+    "FaBSim/Custom/GameLogic.php": "1cdad1555c8d2e3bd3fa98d69bf52791b84d21bf2269363ddea7249f4ee35a43",
+    "FaBSim/Custom/WTRCards.php": "eab18b7298617eabc10f5b5cf4d706b1c6cb242d7470049d6807806b4ba7b517",
+    "FaBSim/GeneratedCode/GeneratedMacroCode.php": "63113a3d140cfd13409e1ad7ee737f8ecfbbc1f78c4eb8c540658a3bacc73c54",
+    "FaBSim/Custom/EVRCards.php": "ad988b0e0e3d3f80bb0f9de0eb66bb826e32c8edbddbb15d5034926baa31e6af"
+  },
+  "native_evidence": {
+    "native_recording_results": {
+      "path": "card-regression-batch482.recording-results.json",
+      "sha256": "93ca3767731cd80e4d0ccdf19b5628d7236c1b43bf3357a088a434c9151f2078"
+    },
+    "immutable_native_archive": {
+      "path": "recording-runs/card-regression-batch482-20261105T153247Z-6aeca19fdf306.json",
+      "sha256": "57aabdc1b5637cf5b40508c5fc3cc55c072c775500e4cbf0333440b2eef699d1"
+    }
+  },
+  "primary_sources": {
+    "current_primary_authority_indexed_actually_verified": "https://fabtcg.com/articles/errata-bulletin-10/",
+    "current_support_official_actually_read": "https://judge.fabtcg.com/cards/detail/273/",
+    "local_faces_actually_viewed": {
+      "earthlore_bounty": {
+        "path": "FaBSim/WebpImages/earthlore_bounty.webp",
+        "sha256": "cdb8240380d006f986e125247a7c0d6f608ffffcdf1e23a725eba896d24bac5d"
+      },
+      "tome_of_fyendal_yellow": {
+        "path": "FaBSim/WebpImages/tome_of_fyendal_yellow.webp",
+        "sha256": "4f361f8f15a40fc4e1f866aac56a4ad8611836a4ca935aca69b0c61471cacc11"
+      }
+    },
+    "authority_findings": "CurrentofficialErrataBulletin10(2026-03-10)indexedprimaryconfirmsamultiple-carddrawfromoneeffectearnsONEEarthloretriggerandthatmanytokens; currentcatalogmatchesdraw1ormorewording. ThusDraw2earnsonecount2triggernot2individualtriggersorinlinecreation. Current273explicitYELLOW/cost1/Draw2/healONLYIFARSENAL; HandselectedhereNOHEAL. LocalEarthloreEVR020olderper-cardWHENtextisnotgroupingtimingauthority. CurrentCR6.6triggeredabilitiesqueueandprioritypassesbeforetheirresolution/5.3sourcecompletesfirst; SeismicfutureActionstarttriggernotcurrententry.",
+    "retrieval_limit": "DirectErrataBulletin10English/Frenchpagefetches403; onlyprimaryindexedcurrentwordingandgroupingexplanationpluscurrentcatalogwereactuallyobtained. No fullpage/liveupdatedissuerimageorJHubEarthloreIDfabricated."
+  },
+  "limits": [
+    "No fixture/passingcoverage/newArmor/Temper/tokenphysicalownership/ABI/postfailureHandtuple/futureSeismic/finalcleanup credit. Root assigns issue124/global/root/Core allocation independently.",
+    "SelectedoneActioncardDraw2earnedgroupedWHENtimingonly; no nonAction/otherdrawsources/otherowners/partialDeck/sibling/negative/fullcard/control qualification.",
+    "Original10/1113probeunchanged; no rerun/native/PHP/R/sourcefix/fullsuite/service/gen/deniedrepairretry performed by reviewer."
+  ],
+  "fixture_saved": false,
+  "coverage_credit": false,
+  "fix_applied": false,
+  "source_application_attempted": false,
+  "denied_repair_retried": false,
+  "new_distinct_gameplay_root_group": false,
+  "new_core_root": false,
+  "created_utc": "2026-11-05T15:40:59.053703+00:00"
+}

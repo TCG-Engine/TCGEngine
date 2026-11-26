@@ -1,0 +1,7 @@
+{
+    "name": "Cut Down to Size / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T21:48:48+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "When this hits a hero, if they have 4 or more cards in hand, they discard a card. Representative only: actual_full_block_keeps_four_real_remaining_enemy_hand_cards. Actual printed cost, two real Hand AA defenses totaling6, full four-live manual combat, zero damage/no hit, owned physical source and defenders in graveyards. No positive hit/steal/banish/creation/secondary damage credit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#cut_down_to_size_red"
+}

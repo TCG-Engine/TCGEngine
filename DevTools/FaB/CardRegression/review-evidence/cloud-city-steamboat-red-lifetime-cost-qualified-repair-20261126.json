@@ -1,0 +1,120 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer": "/root",
+  "reviewer_independent": false,
+  "runtime_sha256": "3aa989176c22f1a39e08f36a370dfbbfa20e3956059d12417c8afff28a8e4c10",
+  "source_spec": "card-regression-repair-cloud-city-steamboat-red-lifetime-cost-20261126.json",
+  "input_sha256": "5f3c3481fc3fc80c5c38da965e2e60b1127e52be83ea1a7b7a63006d9604c095",
+  "fixtures": [
+    {
+      "slug": "repair-cloud-city-steamboat-red-four-live-20261126-ordinary-cost-not-cog-activation",
+      "card_id": "cloud_city_steamboat_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "77db0042d08970bb2e8187229d9e9fb5c67aaabb919af8156dccdcfc02233184",
+        "actions.json": "a44e24b9f9b348ce659c847e7dbea1e0cd33c5233e8ac4933f9391118d55ee4b",
+        "assertions.json": "4afda924050add01778e90c601dc82c93fe07d62f858a7bfab14b1f9ef5d934b",
+        "expected_final_gamestate.txt": "74b975beb75619f85a0a40d9b1594c1d9385d3d70486f240a10dc7093609b168",
+        "meta.json": "a65b0e5174e86eecf9bf94e12a780a790488e98703e770f3dd1e279f26a42dfb"
+      },
+      "fixture_sha256": "aa8d8fbcb639eebd3fc5bdcad77d28959540f446a309fab1efbdec4d13b13ca3",
+      "actions": 30,
+      "native_assertions": 185,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "3aa989176c22f1a39e08f36a370dfbbfa20e3956059d12417c8afff28a8e4c10",
+      "runtime_sha256": "3aa989176c22f1a39e08f36a370dfbbfa20e3956059d12417c8afff28a8e4c10",
+      "source_spec": "card-regression-repair-cloud-city-steamboat-red-lifetime-cost-20261126.json",
+      "input_sha256": "5f3c3481fc3fc80c5c38da965e2e60b1127e52be83ea1a7b7a63006d9604c095",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual"
+    }
+  ],
+  "repair_only": true,
+  "new_breadth_groups": 0,
+  "newly_represented_repair_group": 1,
+  "whole_card_complete": false,
+  "full_suite_run": false,
+  "source_proposal": {
+    "status": "APPLIED_PENDING_NATIVE_QUALIFICATION",
+    "runtime_before": "7fd1365f95dd62624d86af47191911fbd0b3b721983de93497c9087406e7cd9c",
+    "runtime": "3aa989176c22f1a39e08f36a370dfbbfa20e3956059d12417c8afff28a8e4c10",
+    "path": "FaBSim/Custom/GameLogic.php",
+    "before_sha256": "59da889d7916e9921510542ad9bccc25870bf76538eb1d80e13a213d18ae06a4",
+    "candidate_sha256": "a92971196cc0b1d6a6a821bbc28a3a528ce28a87389576a5cddab3fc884f80cc",
+    "scope": "211 enroll exact two reproduced red ATTACK plays in existing context-bound ordinary-vs-activated Cog Prepare guard; ability path unaffected.214 exact named Marlynn draw ROS layer uses existing managed lifetime through generated arrow choice; dispatch stays namedroute, no universal named-event migration."
+  },
+  "targeted_replays": {
+    "runtime": "3aa989176c22f1a39e08f36a370dfbbfa20e3956059d12417c8afff28a8e4c10",
+    "fixtures": [
+      {
+        "slug": "repair-cloud-city-steamboat-red-four-live-20261126-ordinary-cost-not-cog-activation",
+        "passed": true,
+        "runtime": "3aa989176c22f1a39e08f36a370dfbbfa20e3956059d12417c8afff28a8e4c10",
+        "command": [
+          "C:\\xampp\\php\\php.exe",
+          "DevTools/RunIntegrationTests.php",
+          "--root=FaBSim",
+          "--test=repair-cloud-city-steamboat-red-four-live-20261126-ordinary-cost-not-cog-activation",
+          "--max-failures=1",
+          "--compact",
+          "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\cog211-marlynn214\\cloud_city_steamboat_red\\strict1.log"
+        ],
+        "returncode": 0,
+        "complete_log_sha256": "c5eb8b6255fba16e35046871859e4e2e182eee612055740c0bb92f96c78808c9",
+        "raw5_unchanged": true
+      },
+      {
+        "slug": "card-cloud-skiff-blue-four-live-correct-normal-cost-then-separate-cog-tap-instant-deals-four",
+        "passed": true,
+        "runtime": "3aa989176c22f1a39e08f36a370dfbbfa20e3956059d12417c8afff28a8e4c10",
+        "command": [
+          "C:\\xampp\\php\\php.exe",
+          "DevTools/RunIntegrationTests.php",
+          "--root=FaBSim",
+          "--test=card-cloud-skiff-blue-four-live-correct-normal-cost-then-separate-cog-tap-instant-deals-four",
+          "--max-failures=1",
+          "--compact",
+          "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\cog211-marlynn214\\cloud_city_steamboat_red\\strict2.log"
+        ],
+        "returncode": 0,
+        "complete_log_sha256": "8c7edda5c4d170ff96602e021912a9785d348571376b683dca1c3f1e033e64f6",
+        "raw5_unchanged": true
+      },
+      {
+        "slug": "card-blood-splattered-vest-four-live-correct-probe-real-dagger-hit-trigger-retained-through-gain-choice",
+        "passed": true,
+        "runtime": "3aa989176c22f1a39e08f36a370dfbbfa20e3956059d12417c8afff28a8e4c10",
+        "command": [
+          "C:\\xampp\\php\\php.exe",
+          "DevTools/RunIntegrationTests.php",
+          "--root=FaBSim",
+          "--test=card-blood-splattered-vest-four-live-correct-probe-real-dagger-hit-trigger-retained-through-gain-choice",
+          "--max-failures=1",
+          "--compact",
+          "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\cog211-marlynn214\\cloud_city_steamboat_red\\strict3.log"
+        ],
+        "returncode": 0,
+        "complete_log_sha256": "13f66116bc780b03e8871659a5b27ae470ef70128fd5d4b7ad4e4f841cb64624",
+        "raw5_unchanged": true
+      }
+    ],
+    "full_suite_run": false
+  },
+  "limits": [
+    "Two named red ordinary attack routes only; their positive hit abilities and untested pitchsiblings uncredited.",
+    "Marlynn native young Hero exactdrawroute, no adult/othernamed-event enrollment.",
+    "Nine isolated virtual-classification controls, not gameplay fixtures.",
+    "Primary-agent semantic/saved review; strict comparator unchanged; fullsuite unrun."
+  ],
+  "scope": "211 exact two reproduced red normalATTACK callers join existing context-bound Prepare bypass; separate activatedCogcost path retained. Original30-input2resource/two-real-Hand-block/no-hit/fullclose oracle passes each.214 exact seaMarlynn layer uses existing managed virtual lifetime without changing named dispatch; original15-input2draw-layer oracle passes through actualArrow7faceupArsenal, otherHand8, bothlayerscomplete/noextraactivation. All original assertions retained.",
+  "additional_validation": {
+    "actual_virtual_classification_checks": 9
+  }
+}

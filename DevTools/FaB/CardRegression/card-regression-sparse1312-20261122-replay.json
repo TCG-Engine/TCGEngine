@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-star-struck-yellow-four-live-sparse1312-three-damage-below-crush-allows-real-two-power-attack-next-turn",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-star-struck-yellow-four-live-sparse1312-three-damage-below-crush-allows-real-two-power-attack-next-turn",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1312-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1312-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "638bd240e5726a1e0523cafe96f7a45b80fcecb8ebccd4f8d961de61de8ff4e0",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "922dce0739fecb3228b14eb02f2852685c50d100480f10904829c8a432e22ac6",
+        "actions.json": "e4668dbb4154c8c0630bdda170c3a71a780f02575bd68091d395bc461aa6eb92",
+        "assertions.json": "60f0a32494782c791baedd75b00f798689e1c3a9ee4430431508adbed3f6081b",
+        "expected_final_gamestate.txt": "23e1b41a8fa340ca80e9ec12292264be068a0d5f439377fe452c03986d8c7efb",
+        "meta.json": "ddc80e736bc4c202cddf1f76806912fcb1736758b9e6cacb9cd19a854580a939"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

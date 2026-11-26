@@ -1,0 +1,99 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer": "/root",
+  "reviewer_independent": false,
+  "runtime_sha256": "34e0259fc72949acb3abe50292bbd2faca2944e385306f277d44c81790927177",
+  "source_spec": "card-regression-repair-adult-ira-20261126.json",
+  "input_sha256": "7dc2d9734bda68ffd925c9c991dd70e4b500ff837a9b0d37e3f45b51b7914456",
+  "fixtures": [
+    {
+      "slug": "repair-ira-scarlet-revenger-two-live-20261126-real-first-four-second-five",
+      "card_id": "ira_scarlet_revenger",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "c3aa3da39f09bfa152e850b4f1483f7fe9394d07de0db203c9f446c220e3ca40",
+        "actions.json": "60a00c170eef5acf180c9ba4e2dae19bd422d6385c628bbf40c268b764452424",
+        "assertions.json": "cc3d80d3ebe4334d7664a6f90b320c70bd908b8d1f989f32eacebabfc31427f9",
+        "expected_final_gamestate.txt": "28adbd066220544359a3001949fa85119ba9946e4908e3534b3be3de558a9ff0",
+        "meta.json": "c46c0f6bfefc08fe4eb1b81fe54917ad605515998f07eb601467836ba1baf3c3"
+      },
+      "fixture_sha256": "cd98021382d4c4ee2cfe44536a68595d785f6d239144a106eac797a7dbae1e23",
+      "actions": 31,
+      "native_assertions": 207,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 28,
+      "recorded_runtime_sha256": "34e0259fc72949acb3abe50292bbd2faca2944e385306f277d44c81790927177",
+      "runtime_sha256": "34e0259fc72949acb3abe50292bbd2faca2944e385306f277d44c81790927177",
+      "source_spec": "card-regression-repair-adult-ira-20261126.json",
+      "input_sha256": "7dc2d9734bda68ffd925c9c991dd70e4b500ff837a9b0d37e3f45b51b7914456",
+      "active_seats": [
+        1,
+        2
+      ],
+      "players": "two_live_manual"
+    }
+  ],
+  "repair_only": true,
+  "new_breadth_groups": 0,
+  "newly_represented_repair_group": 1,
+  "whole_card_complete": false,
+  "full_suite_run": false,
+  "source_proposal": {
+    "status": "APPLIED_PENDING_NATIVE_QUALIFICATION",
+    "path": "FaBSim/Custom/CRUCards.php",
+    "before_runtime": "59d1591f45b2d0acfbad37d7a925138e54364e4e090df8c18fc687fbc5a17cb9",
+    "before_sha256": "4f90f0c9cb981ebd9fcbfac1d8697423ec795a8090d9162d7d1c00844869612e",
+    "candidate_sha256": "5532d9c9e8128be63d8418476faf2d797cea9d35c43bd37f7546f4b6349ed22d",
+    "scope": "Same active/suppression-aware hero helper and exact second-attack count; add adult Ira alongside young Ira, no history/phase/weapon or generated change.",
+    "runtime": "34e0259fc72949acb3abe50292bbd2faca2944e385306f277d44c81790927177"
+  },
+  "targeted_replays": {
+    "runtime": "34e0259fc72949acb3abe50292bbd2faca2944e385306f277d44c81790927177",
+    "fixtures": [
+      {
+        "slug": "repair-ira-scarlet-revenger-two-live-20261126-real-first-four-second-five",
+        "passed": true,
+        "runtime": "34e0259fc72949acb3abe50292bbd2faca2944e385306f277d44c81790927177",
+        "command": [
+          "C:\\xampp\\php\\php.exe",
+          "DevTools/RunIntegrationTests.php",
+          "--root=FaBSim",
+          "--test=repair-ira-scarlet-revenger-two-live-20261126-real-first-four-second-five",
+          "--max-failures=1",
+          "--compact",
+          "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\ira221\\strict1.log"
+        ],
+        "returncode": 0,
+        "complete_log_sha256": "40edb19b09d5189440d766ff605b4bc2d1477e18ee88f4e9070ee7947abe7478",
+        "raw5_unchanged": true
+      },
+      {
+        "slug": "card-ira-crimson-haze-four-live-sparse-real-first-kodachi-then-other-kodachi-earns-second-attack-plus-one",
+        "passed": true,
+        "runtime": "34e0259fc72949acb3abe50292bbd2faca2944e385306f277d44c81790927177",
+        "command": [
+          "C:\\xampp\\php\\php.exe",
+          "DevTools/RunIntegrationTests.php",
+          "--root=FaBSim",
+          "--test=card-ira-crimson-haze-four-live-sparse-real-first-kodachi-then-other-kodachi-earns-second-attack-plus-one",
+          "--max-failures=1",
+          "--compact",
+          "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\ira221\\strict2.log"
+        ],
+        "returncode": 0,
+        "complete_log_sha256": "aeada63510bbcc087303695b281a1dad626e2fe255b7954172404f0c467fb163",
+        "raw5_unchanged": true
+      }
+    ],
+    "full_suite_run": false
+  },
+  "limits": [
+    "Adult2-live route uses legal two copies of GenericWounding, realTimesnap earns both Actions; not a four-player adult fixture.",
+    "Young four-live twoKodachi compatibility tested. Native thirdattack/nextturn/suppression/elimination/adultweapon route unqualified.",
+    "OfficialJudgeHub3384 text verified; primary-agent source/saved review, no new separate-agent approval.",
+    "Two focused strict passes, no fullsuite."
+  ],
+  "scope": "One exact CRUCards condition admits adult Ira ScarletRevenger alongside young Ira via the same active/suppression-aware hero helper. Existing exact second-attack history condition retained; no generic alias/history/goAgain/phase change. All original actual Timesnap payment, first4damage/HP36 and second5damage/HP31 assertions and all31nativeinputs preserved.",
+  "additional_validation": null
+}

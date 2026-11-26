@@ -1,0 +1,7 @@
+{
+    "name": "One-Two Punch / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T21:13:05+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "**Combo** - If Head Jab was the last attack this combat chain, this gets \"When this hits a hero, deal 2 damage to them.\" Representative only: actual_first_chain_three_without_head_jab_granted_damage. Actual printed payment/four live manual seats/full unblocked combat/real HP loss/same owned source in graveyard. No positive Combo or power-threshold hit ability is claimed. Sources: FaBSim/GeneratedCode/cardArrayCache.json#one_two_punch_red"
+}

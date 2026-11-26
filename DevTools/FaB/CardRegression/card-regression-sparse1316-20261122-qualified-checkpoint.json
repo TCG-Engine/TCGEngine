@@ -1,0 +1,126 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-24T05:16:31.845628+00:00",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1316-20261122.json",
+  "source_spec_sha256": "c591d9d96d3e57ad76240b726ca6cd11bfb5e8e6a5bd38994d5dc47468caa628",
+  "new_scenarios": 3,
+  "new_groups": 3,
+  "new_primary_ids": 3,
+  "actions": 84,
+  "native_assertions": 1341,
+  "manual_passes": 75,
+  "totals": {
+    "saved_registered_scenarios": 5260,
+    "duels": 3097,
+    "four_live": 2163,
+    "recorded_primary_ids": 2408,
+    "identity_denominator": 5196,
+    "recorded_groups": 2282,
+    "group_denominator": 3324,
+    "four_live_groups": 2152,
+    "phase_qualified_scenarios_at_actual_contexts": 1897,
+    "phase_qualified_unique_groups": 1887,
+    "creation_replay_passes": 2639,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 1058,
+  "scenarios": [
+    {
+      "card_id": "aether_slash_red",
+      "group_id": "pitch-cycle:aether_slash",
+      "scenario_id": "card-aether-slash-red-four-live-sparse1316-actual-attack-action-pitch-does-not-earn-non-attack-pitch-arcane",
+      "effect_branches": [
+        "actual_attack_action_pitch_does_not_earn_non_attack_pitch_arcane_with_real_normal_payment_and_ally_damage"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-aether-slash-red-four-live-sparse1316-actual-attack-action-pitch-does-not-earn-non-attack-pitch-arcane",
+      "source_spec": "card-regression-sparse1316-20261122.json",
+      "source_spec_sha256": "c591d9d96d3e57ad76240b726ca6cd11bfb5e8e6a5bd38994d5dc47468caa628",
+      "review_evidence": "review-evidence/sparse1316-20261122-qualified-saved.json",
+      "review_evidence_sha256": "6a134de072a389fafe222bb6b81e8932a44cab9c2b4e1980ee646e5c952d09af",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1316-20261122-replay.json",
+          "sha256": "59f249a9032fbb30b1d369380d6903e02eeefea88c00d6e654b28f9ac725aa05",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "art_of_the_dragon_fire_red",
+      "group_id": "identity:art_of_the_dragon_fire_red",
+      "scenario_id": "card-art-of-the-dragon-fire-red-four-live-sparse1316-non-draconic-card-does-not-earn-draconic-attack-damage",
+      "effect_branches": [
+        "non_draconic_card_does_not_earn_draconic_attack_damage_with_real_normal_payment_and_ally_damage"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-art-of-the-dragon-fire-red-four-live-sparse1316-non-draconic-card-does-not-earn-draconic-attack-damage",
+      "source_spec": "card-regression-sparse1316-20261122.json",
+      "source_spec_sha256": "c591d9d96d3e57ad76240b726ca6cd11bfb5e8e6a5bd38994d5dc47468caa628",
+      "review_evidence": "review-evidence/sparse1316-20261122-qualified-saved.json",
+      "review_evidence_sha256": "6a134de072a389fafe222bb6b81e8932a44cab9c2b4e1980ee646e5c952d09af",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1316-20261122-replay.json",
+          "sha256": "59f249a9032fbb30b1d369380d6903e02eeefea88c00d6e654b28f9ac725aa05",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "astral_strike_red",
+      "group_id": "identity:astral_strike_red",
+      "scenario_id": "card-astral-strike-red-four-live-sparse1316-no-lightning-flow-destroy-does-not-earn-draw-power-or-go-again-choice",
+      "effect_branches": [
+        "no_lightning_flow_destroy_does_not_earn_draw_power_or_go_again_choice_with_real_normal_payment_and_ally_damage"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-astral-strike-red-four-live-sparse1316-no-lightning-flow-destroy-does-not-earn-draw-power-or-go-again-choice",
+      "source_spec": "card-regression-sparse1316-20261122.json",
+      "source_spec_sha256": "c591d9d96d3e57ad76240b726ca6cd11bfb5e8e6a5bd38994d5dc47468caa628",
+      "review_evidence": "review-evidence/sparse1316-20261122-qualified-saved.json",
+      "review_evidence_sha256": "6a134de072a389fafe222bb6b81e8932a44cab9c2b4e1980ee646e5c952d09af",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1316-20261122-replay.json",
+          "sha256": "59f249a9032fbb30b1d369380d6903e02eeefea88c00d6e654b28f9ac725aa05",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

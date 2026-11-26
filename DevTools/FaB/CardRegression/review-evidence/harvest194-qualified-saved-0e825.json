@@ -1,0 +1,48 @@
+{
+  "status": "ORIGINAL_CORRECT_HARVEST194_NATIVE12_1408_AND_SINGLE_REPLAY_PASS",
+  "reviewer": "root independent actual Source-preservation/Saved/endpoint inspection; separate independent source review retained",
+  "reviewer_independent": true,
+  "approved": true,
+  "semantically_approved": true,
+  "runtime_sha256": "0e8250ae60f0d6180065cf516588546c2b5e2533cb4951533ca1c6fbf004f40a",
+  "input_sha256": "2dbaad0dee3f81cab73a2d5693f213a8ebf3e187fb26bc6feda2d068913c7c88",
+  "source_spec": "card-regression-repair-harvest194-after0e825.json",
+  "fixtures": [
+    {
+      "slug": "card-harvest-season-blue-four-live-real-next-action-earned-destroy-life-repair",
+      "card_id": "harvest_season_blue",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "0749cbe2b6f40368bb8b571db54d10f9fee84e20567a975551429154350a1c7b",
+        "actions.json": "b42b5da35fca394076be5f44a86c9d458716323d5b609e99c2124ec8e60fa215",
+        "assertions.json": "f34cab08df0a2328c081d19e20a7b1368abeaab5184cd9da868ad02b4e6717b1",
+        "expected_final_gamestate.txt": "ce4f445cc23d97e07ba13a7deae11fb49ca62fcf07c7e1b2ae0198a7d5fc9233",
+        "meta.json": "b5727a7080216e1880cc3933be5eea4753c972b7f228124befd318f174dd802b"
+      },
+      "fixture_sha256": "0609039af2b79ea2f33a0fff626ec3da250dee0a1a1d4c1470a7bf68ee79de8c",
+      "actions": 12,
+      "native_assertions": 1408,
+      "actual_manual_pass_inputs": 8,
+      "all_native_pass_inputs": 12,
+      "nonpriority_end_phase_transport_inputs": 4,
+      "recorded_runtime_sha256": "0e8250ae60f0d6180065cf516588546c2b5e2533cb4951533ca1c6fbf004f40a",
+      "runtime_sha256": "0e8250ae60f0d6180065cf516588546c2b5e2533cb4951533ca1c6fbf004f40a",
+      "source_spec": "card-regression-repair-harvest194-after0e825.json",
+      "input_sha256": "2dbaad0dee3f81cab73a2d5693f213a8ebf3e187fb26bc6feda2d068913c7c88"
+    }
+  ],
+  "replay": {
+    "path": "card-regression-replay-nov16-harvest194-after0e825-replay.json",
+    "sha256": "665e0bd69bd0e61a3d9658d1ba2e06e8f6a9f7453147aaafc3b60574f2b8b6f2",
+    "passed": true
+  },
+  "basis": "All original correct12nativeinputs/1408queries remain exact. Actualsavedactions+queries match Source. Raw48manualbooleans at both endpoints; fourordinaryActionpasses, four nonpriorityEndtransport signals, then fourrealbeginActiontriggerresponses by2/3/4/1. Source5Aura/life19 remain before earnedresolution; source5GY/life20/AP1 after. No oracle relaxation/callback-only proof.",
+  "independent_source_review_sha256": "f874bab05e6004f071270067bd3e2f3823df4b83e1099ea6f194c116f27925c2",
+  "components": 43,
+  "limits": [
+    "NativeBlue only; siblings, multiplecopyordering and response-source-removal branches are not native-qualified.",
+    "Red/Yellow amounts and identity/failure controls have isolated-component evidence only.",
+    "Other ROSStart sigils/StrongYield and virtualawait094 remain outside this fix.",
+    "No fullsuite; existing prior qualified fixtures retain their recorded runtime contexts."
+  ]
+}

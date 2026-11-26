@@ -1,0 +1,7 @@
+{
+    "name": "Amulet of Ice / sparse four-live activation prerequisite representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-23T01:15:04+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "**Go again**\n\n**Instant** - Destroy this: Target hero discards a card unless they pay {r}{r}. Activate this only if you've **Ice fused** this turn. Named false-fusion activation branch: no_ice_fusion_rejects_before_target_tax_then_real_attack. Legal natural20 lexi owns actual ready Arena5/Status2; Instant0 destroy cost has a real source and no other asset requirement. Freshhistory has no fusion. First actualArena0click must reject before destroy/layer/target/effect: same owned5ready/Arena1/Hand6/AP1/R0/Stack0/emptyqueues retained. Then actualGenericWounding6 plays0cost/targetsHero4, all4manual source/combat seats, actual4damage/HP16/AP0 and ownGGY6 while Item5 remains. No positivefusion, targettax/prevention/buff/createdownership/heroability/entry/start/Crank/sibling/support/fullcard credit. Lexi has EssenceIce. All4heroes live and actual defenderHandNAA7 retained makes target/discard branch nonempty; no absent target/hand mask. Positive tax/target-declaration timing never reached or certified. No Lexi activation. Sources: FaBSim/GeneratedCode/cardArrayCache.json#amulet_of_ice_blue"
+}

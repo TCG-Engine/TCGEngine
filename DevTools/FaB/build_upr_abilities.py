@@ -7,6 +7,7 @@ for filename in ['build_arc_abilities.py','build_mon_abilities.py','build_ele_ab
  for node in ast.parse(src).body:
   if isinstance(node,ast.FunctionDef) and not (filename=='build_mon_abilities.py' and node.name=='damage_body'):exec(ast.get_source_segment(src,node))
 UID="$uid = intval(FaBIdentityFromMZ($mzID)['object']->UniqueID);"
+READ_END_SOURCE="$uid = FaBUPRReadEndSourceUID($player, $mzID);\nif ($uid <= 0) return;\nFaBUPRDestroyReadEndSource($player, $uid);\n"
 def transform(dragon='aether_ashwing',count=1,invocation=False,optional=True):
  return f"$remaining = {count}; while ($remaining > 0) {{ "+choice("FaBUPRAsh($player)",'Transform_ash',optional and not invocation)+f" if ($chosen === 'PASS') {{ break; }} $dragonUID = FaBUPRTransform($player, $chosen, '{dragon}', "+('$uid' if invocation else '0')+"); $remaining = $remaining - 1; }"
 def prepare_target(hero=False,opposing=False):
@@ -17,6 +18,13 @@ def deal(n,targetUID='$targetUID',sourceUID='$uid',physical=False):
  if not physical:
   code+="$barriers = FaBUPRBarrierChoices($victim, $used, $packetSource); while ($packet > 0 && $barriers !== '') { $barrier = await $victim.MZMayChoose($barriers, \"Choose_arcane_barrier\"); if ($barrier === 'PASS') { break; } $barrierUID = intval(FaBIdentityFromMZ($barrier)['object']->UniqueID); $cost = FaBUPRBarrierValue($barrier); while (intval(GetResources($victim)) < $cost) { $pitchRefs = FaBARCPitchChoices($victim); $pitched = await $victim.MZChoose($pitchRefs, \"Pitch_for_arcane_barrier\"); FaBARCPitchForEffect($victim, $pitched); } AddResources($victim, intval(GetResources($victim)) - $cost); $prevented = min($packet, $cost); $packet = max(0, $packet - $cost); $used[] = $barrierUID; if (FaBUPRAlluvionReady($barrierUID, $prevented)) { $mode = await $victim.Modal(1, 1, \"Add_energy&Decline\", \"Alluvion_Constellas\"); FaBUPRAlluvion($barrierUID, $mode === '0'); } $barriers = FaBUPRBarrierChoices($victim, $used, $packetSource); } $voidRefs = FaBMONSpellvoidRefs($victim); while ($packet > 0 && $voidRefs !== '' && !FaBUPRUnpreventable($packetSource)) { $void = await $victim.MZMayChoose($voidRefs, \"Destroy_Spellvoid\"); if ($void === 'PASS') { break; } $packet = max(0, $packet - FaBMONSpellvoid($victim, $void)); $voidRefs = FaBMONSpellvoidRefs($victim); } "
  code+="$usedQuell = []; $quell = FaBUPRQuellChoices($victim, $usedQuell); while ($packet > 0 && $quell !== '' && !FaBUPRUnpreventable($packetSource)) { $item = await $victim.MZMayChoose($quell, \"Quell_damage\"); if ($item === 'PASS') { break; } $usedQuell[] = intval(FaBIdentityFromMZ($item)['object']->UniqueID); while (intval(GetResources($victim)) < 1) { $pitchRefs = FaBARCPitchChoices($victim); $pitched = await $victim.MZChoose($pitchRefs, \"Pitch_for_Quell\"); FaBARCPitchForEffect($victim, $pitched); } $packet = max(0, $packet - FaBUPRQuell($victim, $item)); $quell = FaBUPRQuellChoices($victim, $usedQuell); } } $dealt = FaBUPRDeal($player, $packetSource, $packetTarget, $packet, "+("'PHYSICAL'" if physical else "'ARCANE'")+"); }"
+ return code
+def captured_burn_source(code):
+ code=code.replace("$uid = intval(FaBIdentityFromMZ($mzID)['object']->UniqueID);",'$uid = FaBCapturedBurnSourceUID($player, $mzID);')
+ code=code.replace('FaBUPRDamageBonus($player, $packetSource, $packet,','FaBCapturedBurnDamageBonus($player, $mzID, $packetSource, $packet,')
+ code=code.replace('FaBUPRBarrierChoices($victim, $used, $packetSource)','FaBUPRBarrierChoices($victim, $used, $packetSource, $mzID)')
+ code=code.replace('FaBUPRUnpreventable($packetSource)','FaBUPRUnpreventable($packetSource, $mzID)')
+ code=code.replace('FaBUPRDeal($player, $packetSource, $packetTarget, $packet,','FaBCapturedBurnDeal($player, $mzID, $packetSource, $packetTarget, $packet,')
  return code
 cards=json.loads((HERE/'upr_catalog.json').read_text(encoding='utf-8'));existing={}
 for file in sorted(HERE.glob('*_abilities.json')):
@@ -122,7 +130,7 @@ for c in cards:
   add('ResolveAbility',target()+tax(2))
  if b=='isenhowl_weathervane':add('ResolveAbility',"$count = intval(DecisionQueueController::GetVariable('uprFrostCount'));"+target()+"FaBELEFrost($target, $count);")
  if b=='channel_the_bleak_expanse':add('StartTurn',UID+"$n = FaBELEFlow($uid); $refs = FaBELESelect($player, 'Pitch', 'Ice'); $chosen = 'PASS'; if (count(array_filter(explode('&', $refs))) >= $n) { $chosen = await $player.MZMultiChoose($refs, $n, $n, \"Bottom_Ice_to_keep_channel\"); } FaBELEChannelPay($player, $uid, $chosen, $n);")
- if b=='read_the_ripples':add('StartTurn',UID+"FaBMONDestroy($uid);"+f"for ($i = 0; $i < {v}; ++$i) {{ "+opt(1)+" } DoDrawCard($player, 1);")
+ if b=='read_the_ripples':add('StartTurn',READ_END_SOURCE+f"for ($i = 0; $i < {v}; ++$i) {{ "+opt(1)+" } DoDrawCard($player, 1);")
  if b=='strategic_planning':add('ResolveCard',choice(f"FaBUPRGraveActions($player, {v-1})",'Bottom_action',False)+"if ($chosen !== 'PASS') { FaBUPRBottom($chosen); } FaBUPRAdd($player, 'STRATEGIC');")
  if b=='rewind':add('ResolveCard',choice('FaBUPRRewindTargets($player)','Negate_non_attack_action',False)+"if ($chosen !== 'PASS') { FaBUPRRewind($chosen); }")
  if b=='tome_of_duplicity':add('ResolveCard',"$uids = FaBARCStageTop($player, 2);"+choice("FaBEVRUIDRefs($uids)",'Banish_card',False)+"if ($chosen !== 'PASS') { FaBUPRDuplicity($player, $chosen); } FaBUPRRestoreTop($player, $uids);")
@@ -137,7 +145,7 @@ for c in cards:
  if b=='searing_touch':add('AttackDeclared',UID+"if (intval(FaBGetState()['chainLink']) >= 4) { "+choice('FaBUPRAnyTargets($player)','Choose_damage_target',False)+"$targetUID = intval(FaBIdentityFromMZ($chosen)['object']->UniqueID);"+deal(2,physical=True)+' }')
  if b=='singe':add('ResolveCard',UID+target()+"$targets = [intval(FaBIdentityFromMZ($hero)['object']->UniqueID)]; $refs = FaBUPRFreezeChoices($target, 'Ally'); $maximum = min("+str(v)+", count(array_filter(explode('&', $refs)))); if ($maximum > 0) { $chosen = await $player.MZMultiChoose($refs, 0, $maximum, \"Choose_allies\"); $targets = array_merge($targets, FaBUPRUIDs($chosen)); } for ($i = 0; $i < count($targets); ++$i) { $targetUID = $targets[$i]; "+deal(1)+' }')
  if b=='burn_them_all':
-  add('ResolveAbility',UID+"$targets = FaBOpponents($player); for ($i = 0; $i < count($targets); ++$i) { $targetUID = FaBUPRHeroUID($targets[$i]); "+deal(1)+' }')
+  add('ResolveAbility',captured_burn_source(UID+"$targets = FaBOpponents($player); for ($i = 0; $i < count($targets); ++$i) { $targetUID = FaBUPRHeroUID($targets[$i]); "+deal(1)+' }'))
   add('StartTurn',UID+"$n = FaBUPRRaze($uid); $refs = implode('&', FaBChoiceRefs($player, 'Graveyard', ['pitch'=>1])); $chosen = 'PASS'; if (count(array_filter(explode('&', $refs))) >= $n) { $mode = await $player.Modal(1, 1, \"Destroy_aura&Banish_red_cards\", \"Keep_Burn_Them_All\"); if ($mode === '1') { $chosen = await $player.MZMultiChoose($refs, $n, $n, \"Banish_red_cards\"); } } FaBUPRPayRaze($player, $uid, $chosen, $n);")
  if b=='azvolai':add('AttackDeclared',UID+"$refs = FaBUPRAnyTargets($player, false, true); $maximum = min(2, count(array_filter(explode('&', $refs)))); $chosen = await $player.MZMultiChoose($refs, 0, $maximum, \"Choose_up_to_two_targets\"); $targets = FaBUPRUIDs($chosen); for ($i = 0; $i < count($targets); ++$i) { $targetUID = $targets[$i]; "+deal(1)+' }')
  if b in ['dominia','tomeltai','dracona_optimai']:

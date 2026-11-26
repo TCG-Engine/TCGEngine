@@ -1,0 +1,154 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "independent breadth_review1252",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1289-20261122.json",
+  "source_spec_sha256": "0a4bb8c05c08aa4373d034e919574e0b88a8cc38af7bc656247101e85eb661fc",
+  "input_sha256": "0a4bb8c05c08aa4373d034e919574e0b88a8cc38af7bc656247101e85eb661fc",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-moon-wish-red-four-live-sparse1289-real-hand-to-top-alternative-fully-blocked-no-search",
+      "card_id": "moon_wish_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "e4686f38f794d9e374078b2d73e5f354416357db1dcfa8fcc03f72df65f1a2a0",
+        "actions.json": "ecd75f99edfa6dd3b80c9da7853194aac6029d84dfd3072889d80a60d0dcb05c",
+        "assertions.json": "edac527289059ced4a6c9fbd08ba50accc0474ce937fd94423f55b69d8f5c985",
+        "expected_final_gamestate.txt": "b84ef10c584e145681600e9e56b2da2598e8c2377c7f8e5d72afe6435c4751bc",
+        "meta.json": "62d7c881a230f2a33dffc49af0f4f8e688ce14d151a4b65c3e5458a150c5a802"
+      },
+      "fixture_sha256": "6a0a71f9351d6248771470ebef39888ed8158ca15473e7ba19af19a69d820a16",
+      "actions": 30,
+      "native_assertions": 419,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1289-20261122.json",
+      "input_sha256": "0a4bb8c05c08aa4373d034e919574e0b88a8cc38af7bc656247101e85eb661fc",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1289-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-moon-wish-red-four-live-sparse1289-real-hand-to-top-alternative-fully-blocked-no-search",
+        "fixture_slug": "card-moon-wish-red-four-live-sparse1289-real-hand-to-top-alternative-fully-blocked-no-search",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-life-of-the-party-red-four-live-sparse1289-real-brew-discard-alternative-all-modes-fully-blocked",
+      "card_id": "life_of_the_party_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "304ce4ea1a55ee326e53d5fa471d604142204482c19a6a3732497c0f1246f782",
+        "actions.json": "ecd75f99edfa6dd3b80c9da7853194aac6029d84dfd3072889d80a60d0dcb05c",
+        "assertions.json": "b21ad71e3911081bf873471caa558e9a523ec9f16ea545c50d4e585bed8eb7b8",
+        "expected_final_gamestate.txt": "c3394d9be14f265eabf6c1efc1df5da25d24b9829d70e0f87d86a3de03d5bcb4",
+        "meta.json": "3ef30af6079a83421c7fb6c0e3c2e7182257b2e7a70ce250326f0552b188ab36"
+      },
+      "fixture_sha256": "c10a3d9308eb2dbc9ba7f6daf543b5606a0fcb187271e6b5f419325a2e77655b",
+      "actions": 30,
+      "native_assertions": 387,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1289-20261122.json",
+      "input_sha256": "0a4bb8c05c08aa4373d034e919574e0b88a8cc38af7bc656247101e85eb661fc",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1289-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-life-of-the-party-red-four-live-sparse1289-real-brew-discard-alternative-all-modes-fully-blocked",
+        "fixture_slug": "card-life-of-the-party-red-four-live-sparse1289-real-brew-discard-alternative-all-modes-fully-blocked",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "reviewer": "independent breadth_review1252",
+    "spec_sha256": "0a4bb8c05c08aa4373d034e919574e0b88a8cc38af7bc656247101e85eb661fc",
+    "source_note_sha256": "ca552e6468b8c5448391694ce9caffe23319957e473cce7a265950461ee88386",
+    "case_count": 2,
+    "active_seats": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "players": "four_live_manual",
+    "native_controls": 60,
+    "query_checks": 806,
+    "persistable_assertions": 806,
+    "author_only_checks_omitted": 0,
+    "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+    "coverage_category": "POSITIVE_ALTERNATIVE_COST_AND_FULL_DEFENSE_NO_HIT_ONLY",
+    "on_hit_credit": false,
+    "per_case": [
+      {
+        "card_id": "moon_wish_red",
+        "group_id": "pitch-cycle:moon_wish",
+        "native_controls": 30,
+        "persistable_assertions": 419
+      },
+      {
+        "card_id": "life_of_the_party_red",
+        "group_id": "pitch-cycle:life_of_the_party",
+        "native_controls": 30,
+        "persistable_assertions": 387
+      }
+    ],
+    "basis": [
+      "Two distinct uncovered Generic Red pitch-cycle groups, legal under four natural YoungDorinthea20/exact1234/manualUPF/no passives. No weapon attack, hero activation or Dori hit trigger is earned. Four-hero UID allocation gives primary5/costcard6, MoonWish actualSunKiss7Deck/defenders8and9Hand4 or LifeParty defenders7and8Hand4. No resources, alternative flags or bonuses seeded.",
+      "MoonWish printed resourcecost2 may be replaced by actual Hand card to ownDecktop. Native PrepareCard offers real soleHand6 after attackHero4 declaration; actual answer moves sameTitaniumBlue6 to top before preexistingSunKiss7 and sets pending resourcecost0 before payment/source responses. AP1to0/R0/Pitch0 and exactDeck6then7 prove positive alternative, not pitching or generic discount. Printedpower5/noGA is correct.",
+      "LifeParty printed resourcecost2 may be replaced by discarding or destroying controlledCrazyBrew. ActualHandCrazyBrew6 discarded into ownGY before payment/source responses; EVRLifeParty sets pendingcost0 and deterministically tags all three modes without random roll. Actual base4+2=6 and go-again are earned; granted When this hits heal2 is present but not triggered by this scenario. Brew is discarded, not activated or destroyed fromArena.",
+      "Both actualsource4-seat responses and attack/combat windows precede realHero4 hand blocks: actualWounding3defense then actualCriticalStrike3defense give6 total. No dominate, defense reaction or modifier blocks second card. Native DeclareBlock updates state defenseValue after each physical Hand-to-CombatChain move. Both5/6power fully blocked by6 means damage0, no hit event, no MoonWish search or LifeParty heal trigger/layer is earned.",
+      "Existing realSunKiss behind MoonWish costcard makes absence of hit-search observable; exactDeckorder6then7 stays unchanged. LifeParty actualgo-again refundsAP1 only after allfour Damage passes despite damage0; MoonWish keepsAP0. Full native cleanup pins ownedprimaryGY, BrewGY or Deckalternative, bothactualdefendersGY4, allHP20/R0/UIDstable/RNG0/cleanStackDQsCC. All806 query/state/power/go_again assertions persist across60 single native controls."
+    ],
+    "limits": [
+      "Semantic/source review only pending native saves and targeted replays; no native pass, replay or coverage credit claimed.",
+      "Only positive selected alternative costs, LifeParty power/go-again and fully blocked/no-hit controls. No positive hit/search/heal, resource payment/decline/randommode, ArenaBrew destruction/activation, otherpitch/support/whole-card credit.",
+      "Only W receipt written; no native/test/replay execution, T/source/engine/registry edits, authentication/network, Git or original checkout access."
+    ],
+    "source_sha256": {
+      "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+      "FaBSim/GeneratedCode/GeneratedMacroCode.php": "fe6a7982611df8f4de98ce2671b317b671b580146aa4b8c28e8f4b86d8461056",
+      "FaBSim/Custom/ARCCards.php": "f6b6a21d214e71fdcfd6a084f0671ce610f08a40c51a1266041877a5a12c0d52",
+      "FaBSim/Custom/EVRCards.php": "ae4e1ea2da09ac679821be116bc55f898ed8de2e5ceadf16f548e13d0495c275",
+      "FaBSim/Custom/GameLogic.php": "c60fa151561f959e4e3e341b814de0e2b47c9e9f153bbc8793a04c43b5075061",
+      "Schemas/FaBSim/GameSchema.txt": "7783800bd47bc85885cc915066aadca58cdf99f0c1180602ac312d9af5ebf643",
+      "Core/ShortcutPreferences.php": "25f300ea0b6fbc409f5b92e8bc3587a74b2ab0eaf31ccef38e18c455598eaba6",
+      "DevTools/FaB/CardRegression/record_card_regressions.php": "e53055b29e9ea641949b77019c4455607f41ca233325d716a9500637e19efd28"
+    },
+    "workspace_source_sha256": {
+      "author_breadth1289.py": "9de43da5da02e41e347149288220315dbb4a2e355d05dde283fb3a594c998bc9",
+      "breadth1068_helpers.py": "997f949ec26c7e494ad26a818f9f2078f6f4f2a0c49ca7f61aa8c71f3b091b0a"
+    }
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1289-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "5fd3b45999bbb92dc4a0133a08ccdf5b04562cc448beaac4e285b33fe686c1cb"
+  },
+  "full_suite_run": false
+}

@@ -1,0 +1,7 @@
+{
+    "name": "Glory Plate / Guardwell applies a real defense counter at Close after native Forged defense buff",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-25T13:58:28+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Four manual young20PleiadesReveredGuardian/Dori/Dori/Dori. PrimaryGlory5baseDEF0/Counters[] equipped legally, realPotion6Arena/Forged7Hand1/Wound8Hand2. ActualPotionInstantABI9all4responses producesR2/AP1; actualForgedNAA7cost2/R0/AP0 thenall4responses gives realpersistentAura7/equipment+1/ownGAAP1. Full4ACTIONpasses\u2192END_PHASE1 thenfull4END_PHASEpasses\u2192P2ACTION2Turn3; Hand1/Deck1/Pitch1empty means no Arsenal/pitch/refill choices. PersistentAura actualeffect survives perGL3098, noToughnessevercreated/left. P2actualWound8cost0targetsadjacentHero1beforeAPcost, actualAA4. Primary5realEquipmentdefends1viaAura, actualdamage3HP1=17. Guardwellcounter stays0throughResolution thenCR7.7automaticClose/HVYClose addsoneDEFENSEcounter(equalcurrentDEF1), returningphysical5toEquipment/CountersDEFENSE1/Aura7stillArena. NoordinaryClosepriority/triggerfateclaim beyondrequiredcounter. Noold224Toughnessbugretry/fix/credit, nofakeeffectseed/support/wholecardcredit orenginechange. Sources: FaBSim/GeneratedCode/cardArrayCache.json#glory_plate FaBSim/Custom/HVYCards.php#FaBHVYClose FaBSim/Custom/WTRCards.php#forged_for_war_yellow FaBSim/Custom/WTRAbilities.php FaBSim/Custom/GameLogic.php#FaBFinishEndTurn FaBSim/Custom/SUPCards.php https://rules.fabtcg.com/en/cr/08-keywords/ https://rules.fabtcg.com/en/cr/07-combat/"
+}

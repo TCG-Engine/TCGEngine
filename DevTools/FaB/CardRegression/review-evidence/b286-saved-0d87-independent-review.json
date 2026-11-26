@@ -1,0 +1,128 @@
+{
+  "status": "APPROVED_EXACT_SAVED_ONE_PAID_HOOD_OPT_PREVENTION_CASE_REPLAYS_SEPARATE",
+  "reviewer": "/root/nov2_metadata_review",
+  "reviewed_utc": "2026-11-03T04:39:51.416356+00:00",
+  "runtime_sha256": "0d877de49c131f29c152706e14bba3368630df61c59ef475c87a84f20b6e1a66",
+  "input_file": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch286.json",
+  "input_sha256": "30a41f6c23b370daedab017662c0261b5dcce26864b4bc12cd6ac327f4881e75",
+  "fixtures": [
+    {
+      "slug": "card-seekers-hood-four-live-sparse-paid-instant-retained-opt-and-one-real-damage-prevention",
+      "card_id": "seekers_hood",
+      "group_id": "identity:seekers_hood",
+      "fixture_sha256": "e19430ac550efcfe44afa12088a5bbd7047ca8c980efd3d951905e00d8964f92",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "597719d60c91ac719aeb9a48cdfd500335501a2b184ac0f054d8a2c723d9156e",
+        "actions.json": "74066cf7d18e7647d7252a704ceafbb3fa47b233d640635b4768aaab8e88d071",
+        "assertions.json": "10a51ac28cb4eadd3ed014cf9548027c85f4a1751268e01bb75611d7245b7d58",
+        "expected_final_gamestate.txt": "55294a5c777f8ac17beb96df70f13f7530502108cfc26f9e0dd4b18aff9c5aea",
+        "meta.json": "5e88b6f5a69bfa1db83436c5cd9b330f700c87b3e2ed29ae1ad37fc0e8ac28a0"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "597719d60c91ac719aeb9a48cdfd500335501a2b184ac0f054d8a2c723d9156e",
+        "actions.json": "74066cf7d18e7647d7252a704ceafbb3fa47b233d640635b4768aaab8e88d071",
+        "assertions.json": "10a51ac28cb4eadd3ed014cf9548027c85f4a1751268e01bb75611d7245b7d58",
+        "expected_final_gamestate.txt": "55294a5c777f8ac17beb96df70f13f7530502108cfc26f9e0dd4b18aff9c5aea",
+        "meta.json": "5e88b6f5a69bfa1db83436c5cd9b330f700c87b3e2ed29ae1ad37fc0e8ac28a0"
+      },
+      "actions": 38,
+      "native_assertions": 3602,
+      "actual_manual_passes": 32,
+      "manual_passes": 32,
+      "manual_pass_actor_counts": {
+        "1": 8,
+        "2": 8,
+        "3": 8,
+        "4": 8
+      },
+      "semantically_approved": true,
+      "every_native_action_and_assertion_exactly_maps_to_approved_source": true,
+      "initial_and_final_snapshots_fully_parsed": true,
+      "physical_uid_conservation_without_duplicates": true,
+      "final_graveyard_uid_sets": {
+        "1": [
+          7
+        ],
+        "2": [],
+        "3": [],
+        "4": [
+          5
+        ]
+      },
+      "final_pitch_uid_order": {
+        "1": [
+          8
+        ],
+        "2": [],
+        "3": [],
+        "4": [
+          6
+        ]
+      },
+      "final_deck_uid_order": {
+        "1": [],
+        "2": [],
+        "3": [],
+        "4": [
+          10,
+          11,
+          9
+        ]
+      },
+      "final_health": [
+        20,
+        20,
+        20,
+        14
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        2
+      ],
+      "final_action_points": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "physical_findings": "Actual Raging7targetP4/Blue8pitch3pay3/AP1. Four real source/combatrounds and reactionpasses1/2/3giveP4priority. ActualHood5Instant1sourceEquipmentwaitsR0beforephysicaldestroy; realBlue6pitch3pay1 leavesP4R2/AP0, owned5destroycostownpublicGYbeforefresh4,1,2,3source responses. Fourth actualresponse stagesphysicalRed9Temp/remainingDeck10,11 while virtualABILITY12/controller4/Source5 remainsStack and ownedARC_ABILITYawait pending. Private rawpriority/window/passcounts unpinned. ActualP4bottomanswer moves SAME9 behind10/11, exactDeck10,11,9/Tempempty; onlythen virtual12clears/turnP1REACTIONpriorityresumes. Actual7minusprevention1=6/P4HP14, allothers20; fullclose exactGY4{5}/GY1{7}/Pitch4{6}/Pitch1{8}/Deck4ordered10,11,9/P4R2/allAP0/cleanStackChainsEquipmentqueues/resolutionmarkers. AlloriginalphysicalUIDownershipconserved, virtual12ceased; no draw or earlysourcecleanup credit.",
+      "qualification": "One paid destroy Instant/acceptedOptbottom/onephysicalpacket Hood standalone. No top/emptyDeck/decline/otherSeekerpiece/normalblock/otherpackets/unpreventable/suppression/hero/support-primary/fullcard/control credit; no equipmententry or draw credit."
+    }
+  ],
+  "source_expectation_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch286-independent-source-review.json",
+    "sha256": "a0de38c39b92b577834b2fb7d46c06b3ff94bb1caf06cddc5f7164b706e88ef4",
+    "manifest_sha256": "1d5ef75eb6701ad9dce451173fb459632cec01b38f86c908f81357e91ead0450"
+  },
+  "immutable_native_archive": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch286-20261103T043548Z-6ae964a4e4c13.json",
+    "sha256": "42bddd6c4e41c0d3a794d6e567f7d5733308c3e3638673e9d6523cbafbf0576e"
+  },
+  "recording_results": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch286.recording-results.json",
+    "sha256": "03df6bfe76857db55d77b01823a4648c2b6336b2b65eb5d885a30f40d0949d5c"
+  },
+  "native_wrapper": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch286-native-r1\\receipt.json",
+    "sha256": "14179b65aeb85afb5852ddb8c9b3e912ca79d6d0fc6a0785ce612134a6a39fca",
+    "stdout_sha256": "36c3638fb7b440284b40b9726750b5842204df53ddff5bc35a35abaa07acbe39",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "exit_code": 0,
+    "stderr_bytes": 0,
+    "runtime_before": "0d877de49c131f29c152706e14bba3368630df61c59ef475c87a84f20b6e1a66",
+    "runtime_after": "0d877de49c131f29c152706e14bba3368630df61c59ef475c87a84f20b6e1a66"
+  },
+  "generic_readonly_review_prefix": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov3_batch285_saved_readonly.py",
+    "sha256": "6454b10b9bf38ed53b267adf6a5a2dc12e5bb7af7d6efef37c8e0f9c3ba58cd8",
+    "scope": "Own generic bindings/raw5/archive/schema/action/assertion parsing before any B285 semantic section; exact B286 bindings substituted, no author builder."
+  },
+  "method": "Independent read-only exact saved raw5 review. All38actualactors/modes/payloads and3602orderedassertions match independently approved exactsource; complete schema initial/final UID/ownership/Counters/economy/HP/GY/Pitch/orderedDeck parsed. All32manualactors and costsource5/retainedvirtual12/pendingOpt9/bottom10,11,9/actual6damage checked. NoPHP/native/replay/R/backend execution.",
+  "limits": [
+    "Saved creation review only; Root twofocusedreplays remain separate evidence, not executed by reviewer.",
+    "One paid destroy Instant/acceptedOptbottom/onephysicalpacket Hood standalone. No top/emptyDeck/decline/otherSeekerpiece/normalblock/otherpackets/unpreventable/suppression/hero/support-primary/fullcard/control credit; no equipmententry or draw credit.",
+    "Actual0d context retained; no repairsourceapplication/denied-action retry or oldGiletrequalification."
+  ]
+}

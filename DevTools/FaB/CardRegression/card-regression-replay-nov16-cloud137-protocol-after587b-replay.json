@@ -1,0 +1,27 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-repair-cloud137-protocol-after587b.json",
+  "runtime_sha256": "587be9dade3767b542cd4daf172f2cc5000c62c89af020ceaf2c094a5357540d",
+  "returncode": 0,
+  "completed_utc": "2026-11-16T18:47:52.741518+00:00",
+  "fixtures": [
+    {
+      "slug": "card-cloud-skiff-blue-four-live-correct-normal-cost-then-separate-cog-tap-instant-deals-four",
+      "fixture_sha256": "d71f3618d0080f808290d6fac6afd5da8de82439269047119403fc87a628d224",
+      "passed": true,
+      "result": "[PASS] cloud_skiff_blue / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-cloud-skiff-blue-four-live-correct-normal-cost-then-separate-cog-tap-instant-deals-four",
+      "returncode": 0,
+      "stdout": "[PASS] cloud_skiff_blue / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

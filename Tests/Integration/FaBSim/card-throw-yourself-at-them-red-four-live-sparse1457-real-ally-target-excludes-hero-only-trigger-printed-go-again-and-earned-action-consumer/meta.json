@@ -1,0 +1,7 @@
+{
+    "name": "Throw Yourself at Them / actual Ally target does not earn Hero-only trigger with printed go again",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-25T02:37:18+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "FourmanualyoungUPFuzuri1/Dori2/3/Dromai4all20. Realthrow_yourself_at_them_red5formallytargetsrealAshwing9Arena4withnativePERMANENTdescriptor/notHero4. CanonicalpriorAshmaterialUPR_ASH1/DYN_ASHash andMight10; actualController4HandPotion11/Razor12andDeck13nonempty. Printedcost1paidactualBlue6/7ifneeded\u2192R2/AP0; printedpower3; Hero-onlyWHENnotearned. Actual3physicalkillsAllyonly, allHeroHP20anduntouchedMight/Hand/Deckfatesretained. PrioractualownedSpiderBite16remainsWeaponsready, noDaggerdamageordestruction. PrintedGoAgaintrue/AP1refundthenrealPotionItem8spendsAP/allfourresponses/AP0; positiveprintedkeywordonly, noHeroeffectcredit. NoAllycreation/history/support/siblings/fullcardcredit/enginechange. Sources: FaBSim/GeneratedCode/cardArrayCache.json#throw_yourself_at_them_red FaBSim/GeneratedCode/GeneratedMacroCode.php#throw_yourself_at_them_red FaBSim/Custom/GameLogic.php FaBSim/Custom/FaiCards.php#FaBFaiHeroHit FaBSim/Custom/UPRCards.php#FaBUPRTransform FaBSim/Custom/UPRCards.php#FaBUPRDeal"
+}

@@ -1,0 +1,85 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "breadth_review independent source, saved-evidence and W-only endpoint-delta review",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1154-20261122.json",
+  "source_spec_sha256": "a8f49730656f798c7cae73012b08bf1f49556d875058493eb2fedd8af14b8029",
+  "input_sha256": "a8f49730656f798c7cae73012b08bf1f49556d875058493eb2fedd8af14b8029",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-skera-strapping-four-live-sparse1154-real-six-power-pitch-enables-spellvoid-and-prevents-arcane",
+      "card_id": "skera_strapping",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "2ea27e329017e4b24b0cbc970b211802ae54438bb2532e5d67e3dd2c4d59f14a",
+        "actions.json": "4ebefca438c542978b6a907854adb68e1f1cf7414e270f99d84d015ed5a726fc",
+        "assertions.json": "3bebe6f8d130473ab10dd73b655a01363a254695136a0e504ec5d9eec87132c7",
+        "expected_final_gamestate.txt": "a12d9955d20bc91197b692b68e8d878300ab66aea1459b0b4b761219784132c6",
+        "meta.json": "58869bc1a3fd4451fa6135de727442cd312376013ac66b6c56c06289406b1d64"
+      },
+      "fixture_sha256": "57a3356f098d5f16dad90140e27d70f2935cb170cf54d99f441161f5ac937fbe",
+      "actions": 17,
+      "native_assertions": 313,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 11,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1154-20261122.json",
+      "input_sha256": "a8f49730656f798c7cae73012b08bf1f49556d875058493eb2fedd8af14b8029",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1154-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-skera-strapping-four-live-sparse1154-real-six-power-pitch-enables-spellvoid-and-prevents-arcane",
+        "fixture_slug": "card-skera-strapping-four-live-sparse1154-real-six-power-pitch-enables-spellvoid-and-prevents-arcane",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "spec_sha256": "a8f49730656f798c7cae73012b08bf1f49556d875058493eb2fedd8af14b8029",
+    "reviewer": "breadth_review independent source, saved-evidence and W-only endpoint-delta review",
+    "native_status": "recorded_17_inputs_313_saved_assertions_pending_root_targeted_replay_and_registration",
+    "basis": [
+      "Actual Wrecker Romp Blue pitch produces the six-power-pitched condition and pays Club cost2, leaving R1/AP0. Skera Spellvoid3 is then used through the original advertised MZMAYCHOOSE against opposing Iyslander Blue Zap1. Natural heroes, actual payment, source ownership and four manual response seats remain pinned.",
+      "WITHDRAWN: the earlier missing-Spellvoid-reduction source prediction was caused by an incomplete filtered read. GeneratedMacroCode.php __RunAwait_368e3583a35ca8e1a4b0 case16 returns through case15 to case13; case13 line114249 applies damage=max(0,damage-prevented) before further Spellvoid enumeration and DealArcane. No engine defect, source change or relaxed HP oracle is claimed. This supersedes the contrary prediction retained in the original review/source-note.",
+      "Saved native receipt reports success,17 inputs and313 assertions. Read-only inspection confirms persisted final HP1=20/R1/AP0, Skera5 owned graveyard1, Zap8 owned graveyard4, no Equipment1, actual Pitch7 and physical Club6 retained, only Club attack9 still on combat chain, ATTACK open with no pending payment/reaction/stack/decision queues.",
+      "Exact W helper diff adds only SKERA_POST_PREVENTION_ATTACK with primary-card/open-ATTACK/attackUID9/only-Club9-chain/HP20/R1/Skera5-GY1/Zap8-GY4/no-Equipment guards. COMPLETE empty-combat-chain guard and existing other endpoint branches remain unchanged. The only batch call change selects the endpoint for b==1154 and COMPLETE otherwise; it recognizes the authored partial endpoint without changing native inputs, assertions or fixtures."
+    ],
+    "source_concern_status": "withdrawn_full_case13_path_verified_no_gameplay_defect",
+    "local_helper_sha256": {
+      "nov16_saved_repair_review_common.py": {
+        "before": "3cd87847e74d9183550c054cc69aab5cb99fb0602f43c5860a0e6868cf9450ce",
+        "after": "ac9b15a8661d0a642242e71302211d161dd19438814f64eb3bf2c185f08bc427"
+      },
+      "breadth_batch.py": {
+        "before": "7f0a13b83f5b42d9b90cb7b93a5419e267d4319a971ab1c6d6a692c33f244058",
+        "after": "e03ac8573fd668b0ee93a81bb1a767a46e38ea19937bc79cc03f488d6f1c9530"
+      }
+    },
+    "saved_receipt_sha256": "4c0d64409bfac3c30152d9276761bead441fcf1f30a19034c212a227d5633d2d",
+    "raw5_sha256": {
+      "actions.json": "4ebefca438c542978b6a907854adb68e1f1cf7414e270f99d84d015ed5a726fc",
+      "assertions.json": "3bebe6f8d130473ab10dd73b655a01363a254695136a0e504ec5d9eec87132c7",
+      "expected_final_gamestate.txt": "a12d9955d20bc91197b692b68e8d878300ab66aea1459b0b4b761219784132c6",
+      "initial_gamestate.txt": "2ea27e329017e4b24b0cbc970b211802ae54438bb2532e5d67e3dd2c4d59f14a",
+      "meta.json": "58869bc1a3fd4451fa6135de727442cd312376013ac66b6c56c06289406b1d64"
+    },
+    "limits": [
+      "Approval covers the named positive pitched-six/Spellvoid prevention endpoint only. The Club attack remains active; weapon damage, hit, close, later lifecycle, carryover prevention and other Spellvoid interactions are untested.",
+      "Root may qualify with this narrow endpoint and perform the one pending clean targeted replay; no native rerecord is required. No T/native/engine/source/framework/fixture writes or execution were performed by reviewer."
+    ]
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1154-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "08ce32ad14264e967cdf962e846b31a67ea2b3d63da04f8a20a3cebd9279d67f"
+  },
+  "full_suite_run": false
+}

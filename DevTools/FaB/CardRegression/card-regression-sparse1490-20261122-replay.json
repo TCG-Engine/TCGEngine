@@ -1,0 +1,56 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-astral-etchings-red-four-live-sparse1490-real-nonward-blue-aura-no-legal-target-spare-action",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-astral-etchings-red-four-live-sparse1490-real-nonward-blue-aura-no-legal-target-spare-action",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1490-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1490-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "05370ed9e602fef8255d13c91f611074c94ea8c3ba5edd22de0aa628a69917e6",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "1e9da95ab889510074f7d5a338909deab3aff6e739e0fa9d7101f05ffa4221b6",
+        "actions.json": "d9bb888e6c28da679352a927e71740b0d1598ca6ee6d15a0e836cf365b61b195",
+        "assertions.json": "59dc6505e11174ca57ce8f3afe940073ddf5b65c443e34e1bae9fd7cbcb7409c",
+        "expected_final_gamestate.txt": "53bcf31890f2cedc269c6b89a4e98b01b98e3529beea34a2387e95bd7b853357",
+        "meta.json": "c60214f563d11835530778801652781fd16391378e3f7bc18fe74c6311df0df2"
+      }
+    },
+    {
+      "slug": "card-cleansing-light-red-four-live-sparse1490-real-nonward-blue-aura-no-legal-target-spare-action",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-cleansing-light-red-four-live-sparse1490-real-nonward-blue-aura-no-legal-target-spare-action",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1490-local-20261122\\clean-replays\\01.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1490-local-20261122\\clean-replays\\01.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "e47ef8e33eceea17630a2271c36065f4e49c81463702d09b5350e691c3090337",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "d631ae200a069e80a762522aa3ec43b48562e481a11f5dc526702b4d3dfea2d0",
+        "actions.json": "d9bb888e6c28da679352a927e71740b0d1598ca6ee6d15a0e836cf365b61b195",
+        "assertions.json": "26dc3d8de5b5832cf3c9713b8ccf2a7bf16801b1695a0665ba4b59202f10b5f2",
+        "expected_final_gamestate.txt": "b55e3a24647b8443ef61bd98cc61a468f242941c18bf4138411cc0021d4d753c",
+        "meta.json": "6d5edde7a6aa5360f04c555ceb5992addda8941beb67ae5298a2db1da8b37ef4"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

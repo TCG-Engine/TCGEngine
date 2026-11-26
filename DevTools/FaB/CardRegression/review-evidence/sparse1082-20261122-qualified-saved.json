@@ -1,0 +1,63 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "breadth_review independent printed/Spellvoid/source/spec review",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1082-20261122.json",
+  "source_spec_sha256": "99b40c386bc811fcaa2efe13ce1dc7df46fa4958e5177139fbd020d7042fe174",
+  "input_sha256": "99b40c386bc811fcaa2efe13ce1dc7df46fa4958e5177139fbd020d7042fe174",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-third-eye-of-the-sphinx-four-live-sparse1082-actual-optional-spellvoid-one-destruction-prevents-one-arcane-without-resource-payment",
+      "card_id": "third_eye_of_the_sphinx",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "d518e00c4652b18d7135bd03b17b3090675f35c6e8cca9dd7c62905a08e3c7c9",
+        "actions.json": "63fcdec970afb6bec58eb589afcdcd7b550391da47a593b4cb3ee062b81befd8",
+        "assertions.json": "7f0a1644e19d939086f4ec5a071227dd89a17a9e7c0ba2c2428b95dce1b3d396",
+        "expected_final_gamestate.txt": "10d3e8351ac4fca58cc3cb21d06b897f07a5f9e9c3ed0148adeda5e81e60a5ae",
+        "meta.json": "37e597f6c204997596334ea61c334e565ff066bd94e42bef3e540c5083fa1433"
+      },
+      "fixture_sha256": "45b97f8e5f5f9c5b980aaa78e04efbe43d6c8d1fe94d06d7ad891f159485db97",
+      "actions": 7,
+      "native_assertions": 246,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 4,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1082-20261122.json",
+      "input_sha256": "99b40c386bc811fcaa2efe13ce1dc7df46fa4958e5177139fbd020d7042fe174",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1082-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-third-eye-of-the-sphinx-four-live-sparse1082-actual-optional-spellvoid-one-destruction-prevents-one-arcane-without-resource-payment",
+        "fixture_slug": "card-third-eye-of-the-sphinx-four-live-sparse1082-actual-optional-spellvoid-one-destruction-prevents-one-arcane-without-resource-payment",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "spec_sha256": "99b40c386bc811fcaa2efe13ce1dc7df46fa4958e5177139fbd020d7042fe174",
+    "reviewer": "breadth_review independent printed/Spellvoid/source/spec review",
+    "basis": [
+      "Third Eye has printed Spellvoid1 and Blade Break, no AB; Illusionist/Wizard equipment legal on young Prism20. Separate Instant resource/tap/Ponder-destroy draw ability is not activated. No combat/defending/Blade Break or own play/hero event occurs, so no extra earned body layer is omitted.",
+      "Actual Verdance20 Zap6 targets hero4 before payment, cost0/AP0, four live manual source responses; source6 remains Stack/GY0 while legitimate optional Spellvoid MZMAYCHOOSE asks for physical equipped5. MONCards490-496 verifies eligible owned Spellvoid reference, destroys it and returns1 prevention. Choosing actual5 therefore prevents1 of printed3: HP20\u219218, sameowned5 GGY4/Equipment0 and source6 ownedGGY1.",
+      "Real Blue7 remains Hand4/unpitched/R0, so no dummy AB resource payment or missing-asset mask. Persisted card IDs/UIDs/roles where relevant/owners/HP/AP/queues and actual destruction distinguish the keyword effect; all checks persist."
+    ],
+    "limits": [
+      "One positive Spellvoid1 destruction replacement only. No Instant/Ponder draw/tap or selected-cost-order branch, Blade Break, AB/other amounts/refusal/later packets, hero/support/sibling/full-card or prior-hold repair credit. No native/PHP/T/source/Git/original/network actions by reviewer."
+    ]
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1082-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "fc051c79858d71481b45a1260bd4b4db48bb3829515e4acab20f69f11e32adcf"
+  },
+  "full_suite_run": false
+}

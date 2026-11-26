@@ -1,0 +1,7 @@
+{
+    "name": "Invert Existence / four-live mixed graveyard and actual arcane",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-23T03:16:33+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "You may play this from your banished zone.\n\nBanish up to 2 cards in an opponent's graveyard. If an attack action card and a non-attack action card are banished this way, deal 2 arcane damage to them.\n\n**Blood Debt** LegalChane20HandInstant5printed1, Blue6reallypaysleavesR2/AP1 retainedsinceInstant. Allfourmanualsourcepriorityresponses beforelegitimateresolutionopponentchooser4thenMZMULTIupto2fromsameGY4; source5stillStack/GGY0throughbothchoices, HP4=20untilcompletion. Actualowned4AA7+NAA8banishedfaceup4, residualAA9remainsGY4, mixedconditiontrue=>2actualarcane/HP4=18 withnoBarrier/Spellvoid/preventionassets. Source5owned1GGY/Blue6Pitch/noAPcost, othersHP20/emptyArena/queues. No banishedpermission/BloodDebt/endphase/alternatecounts/targets/prevention/hero/support/siblings/fullcardcredit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#invert_existence_blue"
+}

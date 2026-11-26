@@ -1,0 +1,155 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-22T19:26:13.529091+00:00",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse930-20261122.json",
+  "source_spec_sha256": "34cf3645d6e6130f5564617aa9553d46ed63d9f09feb900bfc498a809fe14dc1",
+  "new_scenarios": 4,
+  "new_groups": 4,
+  "new_primary_ids": 4,
+  "actions": 112,
+  "native_assertions": 596,
+  "manual_passes": 100,
+  "totals": {
+    "saved_registered_scenarios": 4447,
+    "duels": 3075,
+    "four_live": 1372,
+    "recorded_primary_ids": 1595,
+    "identity_denominator": 5196,
+    "recorded_groups": 1469,
+    "group_denominator": 3324,
+    "four_live_groups": 1361,
+    "phase_qualified_scenarios_at_actual_contexts": 1084,
+    "phase_qualified_unique_groups": 1074,
+    "creation_replay_passes": 1826,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 245,
+  "scenarios": [
+    {
+      "card_id": "turn_the_crowd_grateful_red",
+      "group_id": "pitch-cycle:turn_the_crowd_grateful",
+      "scenario_id": "card-turn-the-crowd-grateful-red-four-live-sparse930-actual-seven-against-non-reviled-hero-without-cheer",
+      "effect_branches": [
+        "actual_seven_against_non_reviled_hero_without_cheer"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-turn-the-crowd-grateful-red-four-live-sparse930-actual-seven-against-non-reviled-hero-without-cheer",
+      "source_spec": "card-regression-sparse930-20261122.json",
+      "source_spec_sha256": "34cf3645d6e6130f5564617aa9553d46ed63d9f09feb900bfc498a809fe14dc1",
+      "review_evidence": "review-evidence/sparse930-20261122-qualified-saved.json",
+      "review_evidence_sha256": "c37d9e3048e706fb966837489acb0dd87eb68d4ceebc3e3d2c8bb39ca143ad1a",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse930-20261122-replay.json",
+          "sha256": "7249887c9d6e7b8be3d0ab2b2d08f5a80ccad55b647aa8c0209c21512aed2a2c",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "turn_the_crowd_hateful_red",
+      "group_id": "pitch-cycle:turn_the_crowd_hateful",
+      "scenario_id": "card-turn-the-crowd-hateful-red-four-live-sparse930-lyath-base-three-against-non-revered-hero-without-boo",
+      "effect_branches": [
+        "lyath_base_three_against_non_revered_hero_without_boo"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-turn-the-crowd-hateful-red-four-live-sparse930-lyath-base-three-against-non-revered-hero-without-boo",
+      "source_spec": "card-regression-sparse930-20261122.json",
+      "source_spec_sha256": "34cf3645d6e6130f5564617aa9553d46ed63d9f09feb900bfc498a809fe14dc1",
+      "review_evidence": "review-evidence/sparse930-20261122-qualified-saved.json",
+      "review_evidence_sha256": "c37d9e3048e706fb966837489acb0dd87eb68d4ceebc3e3d2c8bb39ca143ad1a",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse930-20261122-replay.json",
+          "sha256": "7249887c9d6e7b8be3d0ab2b2d08f5a80ccad55b647aa8c0209c21512aed2a2c",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "bash_brute_red",
+      "group_id": "identity:bash_brute_red",
+      "scenario_id": "card-bash-brute-red-four-live-sparse930-actual-seven-hits-non-brute-hero-preserving-real-aura",
+      "effect_branches": [
+        "actual_seven_hits_non_brute_hero_preserving_real_aura"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-bash-brute-red-four-live-sparse930-actual-seven-hits-non-brute-hero-preserving-real-aura",
+      "source_spec": "card-regression-sparse930-20261122.json",
+      "source_spec_sha256": "34cf3645d6e6130f5564617aa9553d46ed63d9f09feb900bfc498a809fe14dc1",
+      "review_evidence": "review-evidence/sparse930-20261122-qualified-saved.json",
+      "review_evidence_sha256": "c37d9e3048e706fb966837489acb0dd87eb68d4ceebc3e3d2c8bb39ca143ad1a",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse930-20261122-replay.json",
+          "sha256": "7249887c9d6e7b8be3d0ab2b2d08f5a80ccad55b647aa8c0209c21512aed2a2c",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "bash_guardian_red",
+      "group_id": "identity:bash_guardian_red",
+      "scenario_id": "card-bash-guardian-red-four-live-sparse930-actual-six-hits-non-guardian-hero-preserving-real-aura",
+      "effect_branches": [
+        "actual_six_hits_non_guardian_hero_preserving_real_aura"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-bash-guardian-red-four-live-sparse930-actual-six-hits-non-guardian-hero-preserving-real-aura",
+      "source_spec": "card-regression-sparse930-20261122.json",
+      "source_spec_sha256": "34cf3645d6e6130f5564617aa9553d46ed63d9f09feb900bfc498a809fe14dc1",
+      "review_evidence": "review-evidence/sparse930-20261122-qualified-saved.json",
+      "review_evidence_sha256": "c37d9e3048e706fb966837489acb0dd87eb68d4ceebc3e3d2c8bb39ca143ad1a",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse930-20261122-replay.json",
+          "sha256": "7249887c9d6e7b8be3d0ab2b2d08f5a80ccad55b647aa8c0209c21512aed2a2c",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

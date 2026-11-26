@@ -1,0 +1,7 @@
+{
+    "name": "No Hero Stands Alone / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T19:52:03+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "While this is in any zone, if you've controlled a Toughness token this turn, this gets +3{d} and **ambush**.\n\nWhen this defends, **clash** with the attacking hero. The winner may choose an attacking or defending card to get -3{p} -3{d} this chain link. Representative only: actual_six_attack_without_toughness_history_or_defended_clash. Other pitch siblings, alternate targets and unexercised branches receive no credit. All four live/manual; only native entry-point actions. Sources: FaBSim/GeneratedCode/cardArrayCache.json#no_hero_stands_alone_yellow"
+}

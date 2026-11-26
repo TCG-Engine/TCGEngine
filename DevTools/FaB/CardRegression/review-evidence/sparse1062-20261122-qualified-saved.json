@@ -1,0 +1,141 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "Root independent printed/source/spec delta review of breadth_review authored cases",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1062-20261122.json",
+  "source_spec_sha256": "3b6306f400ab75c67c2b86d9b10a4b80e0958db834e24dd0e0a3b518f420da3e",
+  "input_sha256": "3b6306f400ab75c67c2b86d9b10a4b80e0958db834e24dd0e0a3b518f420da3e",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-mask-of-recurring-nightmares-four-live-sparse1062-actual-printed-two-defense-and-blade-break-close",
+      "card_id": "mask_of_recurring_nightmares",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "d73ae6198e8409aefe791aabfdbde1f1c3ba4499154a10254d3e16fb3766981e",
+        "actions.json": "511bf2f3686ee96e12e3d9cdbe580febcac902b797e5ec827a96d5ccd74ac457",
+        "assertions.json": "069bd489c003600c6af7f1ea47024bd486e86c07bd483e991a4743fe18cc0146",
+        "expected_final_gamestate.txt": "a60e02bba4cd0269e9e0aa732b6f2d2ef0059f1934e874a0d3c8df32bf2f0522",
+        "meta.json": "2a114a78c788dfa77297b6fa9e847bb7e99cb6aca5263698666e4443e861629f"
+      },
+      "fixture_sha256": "b6c97eeae907748827c6d75438bb5c98c4ebec1369a127488f6c68a0a10016a7",
+      "actions": 30,
+      "native_assertions": 269,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1062-20261122.json",
+      "input_sha256": "3b6306f400ab75c67c2b86d9b10a4b80e0958db834e24dd0e0a3b518f420da3e",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1062-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-mask-of-recurring-nightmares-four-live-sparse1062-actual-printed-two-defense-and-blade-break-close",
+        "fixture_slug": "card-mask-of-recurring-nightmares-four-live-sparse1062-actual-printed-two-defense-and-blade-break-close",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-vestige-of-flagellation-four-live-sparse1062-actual-printed-two-defense-and-blade-break-close",
+      "card_id": "vestige_of_flagellation",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "b49960702d89c03823b2538cb8d02e2f4dc671797485d92b976f9ff19b9af746",
+        "actions.json": "511bf2f3686ee96e12e3d9cdbe580febcac902b797e5ec827a96d5ccd74ac457",
+        "assertions.json": "d8d7173332c074f4f0290cd169ba4135ed7009609a00caa4f9eaf9b2b8bdbeb3",
+        "expected_final_gamestate.txt": "0ecaa085f925205103f525904965eea582c14ddd5f089671ec99a39c120f55a0",
+        "meta.json": "b5f66796711a6c483686ab40407f3fbbb3f963d5bdf18930c2bd388d12e990a3"
+      },
+      "fixture_sha256": "e469ab4dc10b438e1e08f709e5d3989cd72f552e2fa24df1d74531783f41ac5e",
+      "actions": 30,
+      "native_assertions": 269,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1062-20261122.json",
+      "input_sha256": "3b6306f400ab75c67c2b86d9b10a4b80e0958db834e24dd0e0a3b518f420da3e",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1062-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-vestige-of-flagellation-four-live-sparse1062-actual-printed-two-defense-and-blade-break-close",
+        "fixture_slug": "card-vestige-of-flagellation-four-live-sparse1062-actual-printed-two-defense-and-blade-break-close",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-red-alert-boots-four-live-sparse1062-actual-printed-one-defense-and-blade-break-close",
+      "card_id": "red_alert_boots",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "80758e61b3e9bde7fde27c1247a0c40ce46655096f720a80eb26b4573a5d14c7",
+        "actions.json": "511bf2f3686ee96e12e3d9cdbe580febcac902b797e5ec827a96d5ccd74ac457",
+        "assertions.json": "9c7875664f9093d47f11797ee0628942102143ae469365726433ec6510d76163",
+        "expected_final_gamestate.txt": "5a71b6f92259c8302532a2a2f105cf9503e7041709af3a84601a9c75cb02e2e6",
+        "meta.json": "3804f7c7c540a2e6eef90addf5f3325a16960666e748330c8e3e9ba52141107b"
+      },
+      "fixture_sha256": "d2ccb6b162608279d95e185c3412772d442a89594eaacce8302e7eebcea791ae",
+      "actions": 30,
+      "native_assertions": 269,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1062-20261122.json",
+      "input_sha256": "3b6306f400ab75c67c2b86d9b10a4b80e0958db834e24dd0e0a3b518f420da3e",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1062-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-red-alert-boots-four-live-sparse1062-actual-printed-one-defense-and-blade-break-close",
+        "fixture_slug": "card-red-alert-boots-four-live-sparse1062-actual-printed-one-defense-and-blade-break-close",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-red-alert-vest-four-live-sparse1062-actual-printed-one-defense-and-blade-break-close",
+      "card_id": "red_alert_vest",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "4f393b322299bfbfc2534012044bc837e5924780214103a043b968e6f415e4c6",
+        "actions.json": "511bf2f3686ee96e12e3d9cdbe580febcac902b797e5ec827a96d5ccd74ac457",
+        "assertions.json": "51b33ab6e7cfaf30ee57105f955c77823932eeb698f8643d3bf902811db67439",
+        "expected_final_gamestate.txt": "4bbbc86734a19593fcfce4b1c9cf2ef4d118810e032cdd5e2d98ae5b45780d20",
+        "meta.json": "76cf66d451341b608f37b7ccec9746fa4a3f2efb58f2b6d12df394cf11f42024"
+      },
+      "fixture_sha256": "21b737abf169c4d4756d1b8d9658b4d01dcf051591fb59c2a7d954d0ed1f6f40",
+      "actions": 30,
+      "native_assertions": 269,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1062-20261122.json",
+      "input_sha256": "3b6306f400ab75c67c2b86d9b10a4b80e0958db834e24dd0e0a3b518f420da3e",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1062-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-red-alert-vest-four-live-sparse1062-actual-printed-one-defense-and-blade-break-close",
+        "fixture_slug": "card-red-alert-vest-four-live-sparse1062-actual-printed-one-defense-and-blade-break-close",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "spec_sha256": "3b6306f400ab75c67c2b86d9b10a4b80e0958db834e24dd0e0a3b518f420da3e",
+    "reviewer": "Root independent printed/source/spec delta review of breadth_review authored cases",
+    "basis": [
+      "CachedMaskRecurringMysticAssassin/Nuu20DEF2 andVestigeShadow/Levia20DEF2 legal; noactivatedMask/Chi, noLifeGainreplacementevent. RedAlertBoots/Vest hybridAssassinWarrior/Dori20DEF1, noAttackReactionplayed/activatedso+1defenseabsent. NoWHENDefends/WHENDestroyedbody.",
+      "Exactqualified1040 realEq2+NAA2vsClub4/Blue8pay2/R1 orEq1+NAA2vsSword3/Blue8pay1/R2. Allfourmanual/currentnumericDEF4or3/0damage/noHit/HP20/AP0; actualroles/owners/payments/physicalfatesguarded.",
+      "BladeBreakprimary5ownedGYbeforeHand6/Equipment0, noauthor-onlydiagnostics. Noactivebody/positiveReactionbonus/hero/support/wholecardoroldholdcredit. Nativepending."
+    ]
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1062-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "31b04bd5f6c5a09d996cb0e7d89101e7fbbd2bcb10855d169bc11f7707c905c2"
+  },
+  "full_suite_run": false
+}

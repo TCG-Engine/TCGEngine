@@ -1,0 +1,7 @@
+{
+    "name": "Be Like Water / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T20:53:26+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "When this hits, you may pay {r}. If you do, choose Head Jab, Surging Strike, or Twin Twisters. This gets the chosen name.\n\n**Go again** Representative only: actual_full_block_preserves_printed_go_again_without_hit_effect Sources: FaBSim/GeneratedCode/cardArrayCache.json#be_like_water_red"
+}

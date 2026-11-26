@@ -1,0 +1,82 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "/root/breadth_review1457",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1506-20261122.json",
+  "source_spec_sha256": "03be748c735da0ea26bd7229de45faa39da7253bcb0e22ba4587fcc8959d653d",
+  "input_sha256": "03be748c735da0ea26bd7229de45faa39da7253bcb0e22ba4587fcc8959d653d",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-shadowrealm-horror-red-four-live-sparse1506-only-two-real-graveyard-cards-cannot-pay-required-three-random-banish-cost",
+      "card_id": "shadowrealm_horror_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "6855c7e1159f10856727eb4aba0961cb023b00fe1fa6f29c28fd1bc4b4de9280",
+        "actions.json": "861a192f87f7de9b14e134b563b3147dff3f7480763d1c065ddc150843ceac39",
+        "assertions.json": "9ba1409b2ee424112853dfeefdfdafe850203ffa7fa0c9be5f9c9ac11fc10335",
+        "expected_final_gamestate.txt": "02604b11a4b6556b19adb28815145be1452b225f3a46c320aa917a0bd6627cca",
+        "meta.json": "697b6d10796a3d5ff51db418d88b34d8a36e598940258b959add81dddeba2d83"
+      },
+      "fixture_sha256": "caa70c43336194faf0530df11148b33379aaa9fab5aae996c67a444b64f851fc",
+      "actions": 6,
+      "native_assertions": 433,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 4,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1506-20261122.json",
+      "input_sha256": "03be748c735da0ea26bd7229de45faa39da7253bcb0e22ba4587fcc8959d653d",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1506-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-shadowrealm-horror-red-four-live-sparse1506-only-two-real-graveyard-cards-cannot-pay-required-three-random-banish-cost",
+        "fixture_slug": "card-shadowrealm-horror-red-four-live-sparse1506-only-two-real-graveyard-cards-cannot-pay-required-three-random-banish-cost",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "schema_version": 1,
+    "batch": 1506,
+    "reviewer": "/root/breadth_review1457",
+    "result": "approved_named_branches_only_pending_native_execution",
+    "reviewed_utc": "2026-11-25T06:34:02.831629+00:00",
+    "spec_sha256": "03be748c735da0ea26bd7229de45faa39da7253bcb0e22ba4587fcc8959d653d",
+    "source_note_sha256": "728cea6e27b40ba94a3c7bbc381254be37796e8e5d62e6aed687eec796c44c21",
+    "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+    "source_sha256": {
+      "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+      "FaBSim/Custom/GameLogic.php": "c60fa151561f959e4e3e341b814de0e2b47c9e9f153bbc8793a04c43b5075061"
+    },
+    "cases": 1,
+    "findings": [
+      "Mandatory3randomGY cost cannot be paid from exactly2real cards. Levia20/ShadowBrute/Action/AP1/actualBlue3 otherwise eligible.",
+      "GameLogic count<3 refuses before announcement/Prepare so no target/payment/randomness/Banish/failedplay effects.",
+      "Real Sigil follows rejection only, allfourmanualresponses add thirdGY card/HP21. No primary retry or entry into held039positive3card-before-assets route; hold remains unchanged."
+    ],
+    "limits": [
+      "Necessary insufficient additional-cost rejection only. Positive random cost order/bonuses/attack/BloodDebt and endpoint3GY admission untested. Source/spec review, no reviewer games."
+    ]
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1506-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "82bdb8e1a77c9c40560de87aef89d0921d6947aeb2439cd7c93b4f93756dcc41"
+  },
+  "full_suite_run": false
+}

@@ -1,0 +1,63 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "breadth_review independent printed-restriction/source/spec review",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1060-20261122.json",
+  "source_spec_sha256": "44949e33207ad0007908c99b5b2adb82ac26b6ab21ab643a4329de25fdba8b31",
+  "input_sha256": "44949e33207ad0007908c99b5b2adb82ac26b6ab21ab643a4329de25fdba8b31",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "confront-adversity-four-live-sparse1060-no-vigor-rejects-defense",
+      "card_id": "confront_adversity",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "305a1dfc8f1c91850d2dd189d55503d1905914b2f87b74a9a21b4729846a9e41",
+        "actions.json": "511bf2f3686ee96e12e3d9cdbe580febcac902b797e5ec827a96d5ccd74ac457",
+        "assertions.json": "b410b38ab805cb94be714b13d7848708ec3d280e1c1e4de02e071f3ecd93b303",
+        "expected_final_gamestate.txt": "ebfa18e263278d48620e19f0c72a63a6d1ad571e379054b7392c6f4cb7b95e63",
+        "meta.json": "17c1ce6a8957291c2870a71260e6a814c13b10d5524cb4ab4b19ca9791619842"
+      },
+      "fixture_sha256": "28839d71b71462ca67e1306e060e8e56dc562cfed20afd0cefa4d0259c586695",
+      "actions": 30,
+      "native_assertions": 280,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1060-20261122.json",
+      "input_sha256": "44949e33207ad0007908c99b5b2adb82ac26b6ab21ab643a4329de25fdba8b31",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1060-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "confront-adversity-four-live-sparse1060-no-vigor-rejects-defense",
+        "fixture_slug": "confront-adversity-four-live-sparse1060-no-vigor-rejects-defense",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "spec_sha256": "44949e33207ad0007908c99b5b2adb82ac26b6ab21ab643a4329de25fdba8b31",
+    "reviewer": "breadth_review independent printed-restriction/source/spec review",
+    "basis": [
+      "Printed Confront Adversity allows defense only if the attack controller destroyed Vigor this turn. Genuine Dori1 Sword7 attack at DEFEND_DECLARE4, all natural20; fresh turnEffects[] and only weapon payment/priority passes with no token moves establish no destroyed Vigor for either seat. Ready owned Eq5 is a legal generic DEF2 asset apart from this restriction, so the actual click must leave Equipment5 ready/CC0/Hand6 and all queues unchanged; no missing attack, timing, asset or cost mask.",
+      "Real owned WoundingRed6 DEF3 is then declared as sole CC DEFENSE, blocking actual Sword3: persisted defenseValue3/attackPower3/damage0/noHit/HP20. Actual Blue8 pays1/R2/AP0, all four live seats manually respond. After close Hand6 owned GGY0, never-defended Eq5 remains ready Equipment; Blade Break is not earned. Physical UID/role/payment/fates guarded, no author-only diagnostics.",
+      "HVYRuntime72-73 explicitly guards this equipment using defender p DESTROYED_vigor rather than attack controller a; the proposed both-zero branch has the same correct restriction result under either and cannot adjudicate the owner-asymmetric source concern. It is preserved as unrun source-only concern, without a native bug/shared-root/fix claim."
+    ],
+    "limits": [
+      "Only symmetric no-destroyed-Vigor defense rejection plus actual legal Hand block followthrough. No positive eligibility, owner attribution, current-Vigor substitution, actual equipment defense/BladeBreak destruction, activated body, hero/support/sibling/full-card or prior-hold closure credit. No native/PHP/T/source/Git/original/network actions by reviewer."
+    ]
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1060-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "7b0fe4de0fd482f9bd412c3254b7050bbe120a3c87d0a8797d70982eb77f144c"
+  },
+  "full_suite_run": false
+}

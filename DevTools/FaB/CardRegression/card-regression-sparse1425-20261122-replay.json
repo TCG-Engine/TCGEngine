@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-regicide-blue-four-live-sparse1425-same-name-other-pitch-hand-defense-rejected-different-name-legal-real-block-damage-prefix",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-regicide-blue-four-live-sparse1425-same-name-other-pitch-hand-defense-rejected-different-name-legal-real-block-damage-prefix",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1425-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1425-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "6b132cf30bf4347d4f854b0c86caf9c0331f2946d956ad3f76c4496a96d9c6a1",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "5aab7f9be05712a9e0090c03dd2d9217f01890161c57142ddb7ebeeff5dbb57f",
+        "actions.json": "05e1da4ef26319536b590ec06b2b9143a16a7bdf66fb06b3dc3652ae35bc014d",
+        "assertions.json": "22638f462cf5b58265e5058045f18bc0349ecb6aa3319d504e870aa1db340cdf",
+        "expected_final_gamestate.txt": "cc2636ed4d4b1bf059f8f24b1d1224852a784c8b347122a4852ae35a63fb9175",
+        "meta.json": "04cd95cd3c53fbf378625dc150fbd7bd6140fbef358e68571c034d0ccaf935bd"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

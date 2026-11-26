@@ -1,0 +1,142 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "Root independent of breadth_review author",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1013-20261122.json",
+  "source_spec_sha256": "dd46bd8515cd2f78bcf66faaec35495c8a6d83b36f815f70b28cc9c29fc9201f",
+  "input_sha256": "dd46bd8515cd2f78bcf66faaec35495c8a6d83b36f815f70b28cc9c29fc9201f",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-pitfall-trap-yellow-four-live-sparse1013-reject-hand-origin-at-legal-reaction-then-real-seven-damage",
+      "card_id": "pitfall_trap_yellow",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "79b1876eafa3e8a3440b6b6048beeccb907c72ac57ba463413c6719794318249",
+        "actions.json": "14051ab6b272c61f524964d7ed302117a042b1a71c97684dc14078b465592673",
+        "assertions.json": "3b2153fc33f2585ab7d283d1d5283fb93d406b76a547ae0210a65880c3e34390",
+        "expected_final_gamestate.txt": "303b00b94317f951c59bc74d2dd5ca730bc870241600bd2e4474bd08e26a2723",
+        "meta.json": "b24619bbd29fb6b98f7591cea8af5c2539dbeeb5a6edd793ac0323c4c86ec6ce"
+      },
+      "fixture_sha256": "104ee8677dd6730bb0c78fe1d19f931302483603c61de158989eed08d5b53262",
+      "actions": 29,
+      "native_assertions": 245,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1013-20261122.json",
+      "input_sha256": "dd46bd8515cd2f78bcf66faaec35495c8a6d83b36f815f70b28cc9c29fc9201f",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1013-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-pitfall-trap-yellow-four-live-sparse1013-reject-hand-origin-at-legal-reaction-then-real-seven-damage",
+        "fixture_slug": "card-pitfall-trap-yellow-four-live-sparse1013-reject-hand-origin-at-legal-reaction-then-real-seven-damage",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-rockslide-trap-blue-four-live-sparse1013-reject-hand-origin-at-legal-reaction-then-real-seven-damage",
+      "card_id": "rockslide_trap_blue",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "54b603615af14b0fdfc11eb8efde8e5981a67df0305c4b67dee129d7f68db63b",
+        "actions.json": "14051ab6b272c61f524964d7ed302117a042b1a71c97684dc14078b465592673",
+        "assertions.json": "d7f5beedace007047ec622f0e693094946675bf6539c8a410bd5f427aed4624d",
+        "expected_final_gamestate.txt": "d9ab9626a3dbc719563634373f6317e774c1948ead081196219774df67f58cb2",
+        "meta.json": "8b0fb5f7c79c08788ed960dad832e821cf4c73bac9123a8c57804450716f01a2"
+      },
+      "fixture_sha256": "4a9e00c10e1ba049b510537299d98b0bd82b9917f5130095b64bdbb1ae39bb2b",
+      "actions": 29,
+      "native_assertions": 245,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1013-20261122.json",
+      "input_sha256": "dd46bd8515cd2f78bcf66faaec35495c8a6d83b36f815f70b28cc9c29fc9201f",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1013-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-rockslide-trap-blue-four-live-sparse1013-reject-hand-origin-at-legal-reaction-then-real-seven-damage",
+        "fixture_slug": "card-rockslide-trap-blue-four-live-sparse1013-reject-hand-origin-at-legal-reaction-then-real-seven-damage",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-tripwire-trap-red-four-live-sparse1013-reject-hand-origin-at-legal-reaction-then-real-seven-damage",
+      "card_id": "tripwire_trap_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "c48bff04b2a6f007d6b5bf670d9216966ce162ed1c77ffe5cca3f84b6e151339",
+        "actions.json": "14051ab6b272c61f524964d7ed302117a042b1a71c97684dc14078b465592673",
+        "assertions.json": "4e50fd653c427647633208aa67a43690fb9ee2e9edfc03ae680f45683ca16315",
+        "expected_final_gamestate.txt": "6d10f348f20fcc1c36491aac5b73e4e021ac0fd799ddab8ca14d6e109583a6ed",
+        "meta.json": "08264af0c8778946ae3eb69d7639d320b36dcf1e5bc9efbb07375351e7265f46"
+      },
+      "fixture_sha256": "24fddb8ddbf18eeaa8bd0680d50c80aa5f63e287ff6b947dcba5c1c61e471956",
+      "actions": 29,
+      "native_assertions": 245,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1013-20261122.json",
+      "input_sha256": "dd46bd8515cd2f78bcf66faaec35495c8a6d83b36f815f70b28cc9c29fc9201f",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1013-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-tripwire-trap-red-four-live-sparse1013-reject-hand-origin-at-legal-reaction-then-real-seven-damage",
+        "fixture_slug": "card-tripwire-trap-red-four-live-sparse1013-reject-hand-origin-at-legal-reaction-then-real-seven-damage",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-virulent-touch-red-four-live-sparse1013-reject-hand-origin-then-real-generic-four-damage",
+      "card_id": "virulent_touch_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "059f44ea873b9f47d8d40908ac8544c2670ed01b9c67c546a6abb1c077c2946c",
+        "actions.json": "859908b25867f7a729e9bd7a61956b7e21fa6d471c4d12b6e4e99303b8602f74",
+        "assertions.json": "60c1db514844cae7bda3951c07575a11fb010c649875a93194df142db35d6121",
+        "expected_final_gamestate.txt": "c99016c74fd0428563914125b5168151c92e2a0bb8ffdbd5b86840bd1ceba0ad",
+        "meta.json": "15a63f9b096bbfdb0fb7164eb6047749c44cedb81d066bfbc9e3f54e785085ea"
+      },
+      "fixture_sha256": "b90cd2b12f713ae32d39b9a3105f59cdd3e96e311f5ff9b2a6a2abefef128373",
+      "actions": 28,
+      "native_assertions": 155,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1013-20261122.json",
+      "input_sha256": "dd46bd8515cd2f78bcf66faaec35495c8a6d83b36f815f70b28cc9c29fc9201f",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1013-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-virulent-touch-red-four-live-sparse1013-reject-hand-origin-then-real-generic-four-damage",
+        "fixture_slug": "card-virulent-touch-red-four-live-sparse1013-reject-hand-origin-then-real-generic-four-damage",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "reviewer": "Root independent of breadth_review author",
+    "batch": 1013,
+    "result": "approved_named_branches_only_pending_native_execution",
+    "spec_sha256": "dd46bd8515cd2f78bcf66faaec35495c8a6d83b36f815f70b28cc9c29fc9201f",
+    "findings": [
+      "Pitfall/Rockslide/Tripwire printedArsenal-onlyorigin, explicitCRUCardsCanPlayguard, actualDRownerLexi20atREACTION4vsrealincomingRaging7: cost0/noAPcost/window/class/ownsource allotherwiselegal. Hand5forbiddenmustnotadmit/queue/pay/moveoradddefense. ActualUnusedBlue6realHand retained; realattack7resolves7damageHP13/noDefendedevent. Traptypealoneisnotassumedrestriction.",
+      "VirulentTouch actualUzuri20atACTION1/cost0/liveHerotargets butprintedcannotplayfromHand/explicitOUTguard. Physical5Handretained/Stack0/queuesempty/AP1/R0, thenactualWounding6Hand1plays0/deals4/AP0/GGY6 throughfourmanualseats. Noemptytarget/cost/phase mask.",
+      "PersistentCardUID/owner/controllers/HP/damage/roles/costs/AP/fates/queues, noauthor-onlyqueries. PositiveArsenalplays/defense/trigger/tax/discard/ownership andsibling/hero/support/fullcardbranchesunrun. Native+onecleanreplayeachpending."
+    ]
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1013-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "9beef9739d65642a8109ebbe8de359f9f1b7889a9518b44f1f04bf5fd01c174f"
+  },
+  "full_suite_run": false
+}

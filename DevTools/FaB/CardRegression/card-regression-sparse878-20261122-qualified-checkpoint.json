@@ -1,0 +1,329 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-22T14:36:51.326352+00:00",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse878-20261122.json",
+  "source_spec_sha256": "37900f02ce9e28b52dcf511525e705c95f04a50a792f3c53e155b0bef368efd6",
+  "new_scenarios": 10,
+  "new_groups": 10,
+  "new_primary_ids": 10,
+  "actions": 64,
+  "native_assertions": 840,
+  "manual_passes": 40,
+  "totals": {
+    "saved_registered_scenarios": 4251,
+    "duels": 3075,
+    "four_live": 1176,
+    "recorded_primary_ids": 1399,
+    "identity_denominator": 5196,
+    "recorded_groups": 1273,
+    "group_denominator": 3324,
+    "four_live_groups": 1165,
+    "phase_qualified_scenarios_at_actual_contexts": 888,
+    "phase_qualified_unique_groups": 878,
+    "creation_replay_passes": 1629,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 49,
+  "scenarios": [
+    {
+      "card_id": "phoenix_bannerman_chest_red",
+      "group_id": "identity:phoenix_bannerman_chest_red",
+      "scenario_id": "card-phoenix-bannerman-chest-red-four-live-sparse878-finds-real-phoenix-flame-to-hand-and-creates-vigor",
+      "effect_branches": [
+        "finds_real_phoenix_flame_to_hand_and_creates_vigor"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-phoenix-bannerman-chest-red-four-live-sparse878-finds-real-phoenix-flame-to-hand-and-creates-vigor",
+      "source_spec": "card-regression-sparse878-20261122.json",
+      "source_spec_sha256": "37900f02ce9e28b52dcf511525e705c95f04a50a792f3c53e155b0bef368efd6",
+      "review_evidence": "review-evidence/sparse878-20261122-qualified-saved.json",
+      "review_evidence_sha256": "32290974e23d20556392d9ec03cc54aae934bd67d469f953bbfbadd979f8f7b4",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse878-20261122-replay.json",
+          "sha256": "8b58835f878d3974854238dc8b9e0375ff3213417a9548740ad9519acbe1092f",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "phoenix_bannerman_head_red",
+      "group_id": "identity:phoenix_bannerman_head_red",
+      "scenario_id": "card-phoenix-bannerman-head-red-four-live-sparse878-finds-real-phoenix-flame-to-hand-and-creates-ponder",
+      "effect_branches": [
+        "finds_real_phoenix_flame_to_hand_and_creates_ponder"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-phoenix-bannerman-head-red-four-live-sparse878-finds-real-phoenix-flame-to-hand-and-creates-ponder",
+      "source_spec": "card-regression-sparse878-20261122.json",
+      "source_spec_sha256": "37900f02ce9e28b52dcf511525e705c95f04a50a792f3c53e155b0bef368efd6",
+      "review_evidence": "review-evidence/sparse878-20261122-qualified-saved.json",
+      "review_evidence_sha256": "32290974e23d20556392d9ec03cc54aae934bd67d469f953bbfbadd979f8f7b4",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse878-20261122-replay.json",
+          "sha256": "8b58835f878d3974854238dc8b9e0375ff3213417a9548740ad9519acbe1092f",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "phoenix_bannerman_legs_red",
+      "group_id": "identity:phoenix_bannerman_legs_red",
+      "scenario_id": "card-phoenix-bannerman-legs-red-four-live-sparse878-finds-real-phoenix-flame-to-hand-and-creates-agility",
+      "effect_branches": [
+        "finds_real_phoenix_flame_to_hand_and_creates_agility"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-phoenix-bannerman-legs-red-four-live-sparse878-finds-real-phoenix-flame-to-hand-and-creates-agility",
+      "source_spec": "card-regression-sparse878-20261122.json",
+      "source_spec_sha256": "37900f02ce9e28b52dcf511525e705c95f04a50a792f3c53e155b0bef368efd6",
+      "review_evidence": "review-evidence/sparse878-20261122-qualified-saved.json",
+      "review_evidence_sha256": "32290974e23d20556392d9ec03cc54aae934bd67d469f953bbfbadd979f8f7b4",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse878-20261122-replay.json",
+          "sha256": "8b58835f878d3974854238dc8b9e0375ff3213417a9548740ad9519acbe1092f",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "pour_the_mold_red",
+      "group_id": "pitch-cycle:pour_the_mold",
+      "scenario_id": "card-pour-the-mold-red-four-live-sparse878-puts-real-eligible-hand-item-into-arena-with-its-three-steam-counters",
+      "effect_branches": [
+        "puts_real_eligible_hand_item_into_arena_with_its_three_steam_counters"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-pour-the-mold-red-four-live-sparse878-puts-real-eligible-hand-item-into-arena-with-its-three-steam-counters",
+      "source_spec": "card-regression-sparse878-20261122.json",
+      "source_spec_sha256": "37900f02ce9e28b52dcf511525e705c95f04a50a792f3c53e155b0bef368efd6",
+      "review_evidence": "review-evidence/sparse878-20261122-qualified-saved.json",
+      "review_evidence_sha256": "32290974e23d20556392d9ec03cc54aae934bd67d469f953bbfbadd979f8f7b4",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse878-20261122-replay.json",
+          "sha256": "8b58835f878d3974854238dc8b9e0375ff3213417a9548740ad9519acbe1092f",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "restvine_elixir_red",
+      "group_id": "identity:restvine_elixir_red",
+      "scenario_id": "card-restvine-elixir-red-four-live-sparse878-destroys-real-owned-inertia-and-gains-one-health",
+      "effect_branches": [
+        "destroys_real_owned_inertia_and_gains_one_health"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-restvine-elixir-red-four-live-sparse878-destroys-real-owned-inertia-and-gains-one-health",
+      "source_spec": "card-regression-sparse878-20261122.json",
+      "source_spec_sha256": "37900f02ce9e28b52dcf511525e705c95f04a50a792f3c53e155b0bef368efd6",
+      "review_evidence": "review-evidence/sparse878-20261122-qualified-saved.json",
+      "review_evidence_sha256": "32290974e23d20556392d9ec03cc54aae934bd67d469f953bbfbadd979f8f7b4",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse878-20261122-replay.json",
+          "sha256": "8b58835f878d3974854238dc8b9e0375ff3213417a9548740ad9519acbe1092f",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "rake_the_embers_red",
+      "group_id": "pitch-cycle:rake_the_embers",
+      "scenario_id": "card-rake-the-embers-red-four-live-sparse878-creates-actual-ash-then-transforms-it-into-owned-aether-ashwing",
+      "effect_branches": [
+        "creates_actual_ash_then_transforms_it_into_owned_aether_ashwing"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-rake-the-embers-red-four-live-sparse878-creates-actual-ash-then-transforms-it-into-owned-aether-ashwing",
+      "source_spec": "card-regression-sparse878-20261122.json",
+      "source_spec_sha256": "37900f02ce9e28b52dcf511525e705c95f04a50a792f3c53e155b0bef368efd6",
+      "review_evidence": "review-evidence/sparse878-20261122-qualified-saved.json",
+      "review_evidence_sha256": "32290974e23d20556392d9ec03cc54aae934bd67d469f953bbfbadd979f8f7b4",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse878-20261122-replay.json",
+          "sha256": "8b58835f878d3974854238dc8b9e0375ff3213417a9548740ad9519acbe1092f",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "read_the_glide_path_red",
+      "group_id": "pitch-cycle:read_the_glide_path",
+      "scenario_id": "card-read-the-glide-path-red-four-live-sparse878-opts-actual-top-card-to-bottom-and-completes-go-again",
+      "effect_branches": [
+        "opts_actual_top_card_to_bottom_and_completes_go_again"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-read-the-glide-path-red-four-live-sparse878-opts-actual-top-card-to-bottom-and-completes-go-again",
+      "source_spec": "card-regression-sparse878-20261122.json",
+      "source_spec_sha256": "37900f02ce9e28b52dcf511525e705c95f04a50a792f3c53e155b0bef368efd6",
+      "review_evidence": "review-evidence/sparse878-20261122-qualified-saved.json",
+      "review_evidence_sha256": "32290974e23d20556392d9ec03cc54aae934bd67d469f953bbfbadd979f8f7b4",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse878-20261122-replay.json",
+          "sha256": "8b58835f878d3974854238dc8b9e0375ff3213417a9548740ad9519acbe1092f",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "re_charge_red",
+      "group_id": "pitch-cycle:re_charge",
+      "scenario_id": "card-re-charge-red-four-live-sparse878-adds-one-steam-counter-to-real-owned-hyper-driver",
+      "effect_branches": [
+        "adds_one_steam_counter_to_real_owned_hyper_driver"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-re-charge-red-four-live-sparse878-adds-one-steam-counter-to-real-owned-hyper-driver",
+      "source_spec": "card-regression-sparse878-20261122.json",
+      "source_spec_sha256": "37900f02ce9e28b52dcf511525e705c95f04a50a792f3c53e155b0bef368efd6",
+      "review_evidence": "review-evidence/sparse878-20261122-qualified-saved.json",
+      "review_evidence_sha256": "32290974e23d20556392d9ec03cc54aae934bd67d469f953bbfbadd979f8f7b4",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse878-20261122-replay.json",
+          "sha256": "8b58835f878d3974854238dc8b9e0375ff3213417a9548740ad9519acbe1092f",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "painful_passage_red",
+      "group_id": "identity:painful_passage_red",
+      "scenario_id": "card-painful-passage-red-four-live-sparse878-banishes-real-attack-then-selects-power-mode",
+      "effect_branches": [
+        "banishes_real_attack_then_selects_power_mode"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-painful-passage-red-four-live-sparse878-banishes-real-attack-then-selects-power-mode",
+      "source_spec": "card-regression-sparse878-20261122.json",
+      "source_spec_sha256": "37900f02ce9e28b52dcf511525e705c95f04a50a792f3c53e155b0bef368efd6",
+      "review_evidence": "review-evidence/sparse878-20261122-qualified-saved.json",
+      "review_evidence_sha256": "32290974e23d20556392d9ec03cc54aae934bd67d469f953bbfbadd979f8f7b4",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse878-20261122-replay.json",
+          "sha256": "8b58835f878d3974854238dc8b9e0375ff3213417a9548740ad9519acbe1092f",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "ominous_excavation_blue",
+      "group_id": "identity:ominous_excavation_blue",
+      "scenario_id": "card-ominous-excavation-blue-four-live-sparse878-real-graveyard-instant-returns-to-deck-without-false-ponder",
+      "effect_branches": [
+        "real_graveyard_instant_returns_to_deck_without_false_ponder"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-ominous-excavation-blue-four-live-sparse878-real-graveyard-instant-returns-to-deck-without-false-ponder",
+      "source_spec": "card-regression-sparse878-20261122.json",
+      "source_spec_sha256": "37900f02ce9e28b52dcf511525e705c95f04a50a792f3c53e155b0bef368efd6",
+      "review_evidence": "review-evidence/sparse878-20261122-qualified-saved.json",
+      "review_evidence_sha256": "32290974e23d20556392d9ec03cc54aae934bd67d469f953bbfbadd979f8f7b4",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse878-20261122-replay.json",
+          "sha256": "8b58835f878d3974854238dc8b9e0375ff3213417a9548740ad9519acbe1092f",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

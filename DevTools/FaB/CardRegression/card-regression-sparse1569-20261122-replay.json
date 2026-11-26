@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-blessing-of-qi-red-four-live-sparse1569-real-next-own-start-banish-tiger-plus-three-and-allowed-play",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-blessing-of-qi-red-four-live-sparse1569-real-next-own-start-banish-tiger-plus-three-and-allowed-play",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1569-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1569-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "c3f77f61162950513cc9ed4b7e3bc3cdbbe88327037502fc97b0c650f479fc05",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "cb46947bff9e9bef89b857c77af5e9050c61df07df6087f66e203f705c66a08e",
+        "actions.json": "8803b55510b1790cecf11aea4ee7a3dc5e117941af637a6736a87e92f20d4736",
+        "assertions.json": "0c3a1d48cb6486e1a50fbad96d36e30a9bc1a766fb5868afb00b04ee8fda8409",
+        "expected_final_gamestate.txt": "fcc83e749413bc10b9174db574d23b2d7c5589da089e2b011adbba42976b9fb7",
+        "meta.json": "1fcbe750037606554c24b4e98929f62ce1a471f8739bc6e2db5b6ca693abcb66"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

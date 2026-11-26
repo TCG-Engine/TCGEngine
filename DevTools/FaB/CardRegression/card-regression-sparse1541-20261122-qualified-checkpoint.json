@@ -1,0 +1,68 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-25T11:33:33.227168+00:00",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1541-20261122.json",
+  "source_spec_sha256": "9e174ccb9fcf8a91e6fc11034bfc1646fb3b4840e2885cbe34136a5c33eb86d1",
+  "new_scenarios": 1,
+  "new_groups": 1,
+  "new_primary_ids": 1,
+  "actions": 27,
+  "native_assertions": 311,
+  "manual_passes": 25,
+  "totals": {
+    "saved_registered_scenarios": 5632,
+    "duels": 3136,
+    "four_live": 2496,
+    "recorded_primary_ids": 2780,
+    "identity_denominator": 5196,
+    "recorded_groups": 2654,
+    "group_denominator": 3324,
+    "four_live_groups": 2485,
+    "phase_qualified_scenarios_at_actual_contexts": 2269,
+    "phase_qualified_unique_groups": 2259,
+    "creation_replay_passes": 3011,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 1430,
+  "scenarios": [
+    {
+      "card_id": "spirit_of_war_red",
+      "group_id": "identity:spirit_of_war_red",
+      "scenario_id": "card-spirit-of-war-red-four-live-sparse1541-empty-hand-no-yellow-charge-real-hit-no-courage",
+      "effect_branches": [
+        "zero_optional_charge_does_not_generate_conditional_Courage_ability_actual_primary_attack_action_hits"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-spirit-of-war-red-four-live-sparse1541-empty-hand-no-yellow-charge-real-hit-no-courage",
+      "source_spec": "card-regression-sparse1541-20261122.json",
+      "source_spec_sha256": "9e174ccb9fcf8a91e6fc11034bfc1646fb3b4840e2885cbe34136a5c33eb86d1",
+      "review_evidence": "review-evidence/sparse1541-20261122-qualified-saved.json",
+      "review_evidence_sha256": "a0da11da0d3c7cd8c47a8a268aab0b3f75f2ec2cab08b498b026b8ce6b702b3c",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1541-20261122-replay.json",
+          "sha256": "7fac399c4d006008eaae0042f35033aaab578308b33ef314d499484302e565c9",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

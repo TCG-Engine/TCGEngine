@@ -1,0 +1,68 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-24T21:39:03.005023+00:00",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1445-20261122.json",
+  "source_spec_sha256": "f437a7e4338edb87f89c563a0ceee8e9da1f02ab453714cff6dac3aaf4798d27",
+  "new_scenarios": 1,
+  "new_groups": 1,
+  "new_primary_ids": 1,
+  "actions": 32,
+  "native_assertions": 307,
+  "manual_passes": 29,
+  "totals": {
+    "saved_registered_scenarios": 5456,
+    "duels": 3130,
+    "four_live": 2326,
+    "recorded_primary_ids": 2604,
+    "identity_denominator": 5196,
+    "recorded_groups": 2478,
+    "group_denominator": 3324,
+    "four_live_groups": 2315,
+    "phase_qualified_scenarios_at_actual_contexts": 2093,
+    "phase_qualified_unique_groups": 2083,
+    "creation_replay_passes": 2835,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 1254,
+  "scenarios": [
+    {
+      "card_id": "restless_shieldmaiden_red",
+      "group_id": "identity:restless_shieldmaiden_red",
+      "scenario_id": "card-restless-shieldmaiden-red-four-live-sparse1445-real-shadow-controlled-generic-damage-prevention-destruction-and-malice-followthrough",
+      "effect_branches": [
+        "optional_shadow_resist_destroys_real_owned_non_incarnate_ally_to_prevent_one_of_four_generic_attack_damage_controlled_by_shadow_hero_then_earned_malice_trigger_banishes_same_source_and_creates_distinct_corpse"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-restless-shieldmaiden-red-four-live-sparse1445-real-shadow-controlled-generic-damage-prevention-destruction-and-malice-followthrough",
+      "source_spec": "card-regression-sparse1445-20261122.json",
+      "source_spec_sha256": "f437a7e4338edb87f89c563a0ceee8e9da1f02ab453714cff6dac3aaf4798d27",
+      "review_evidence": "review-evidence/sparse1445-20261122-qualified-saved.json",
+      "review_evidence_sha256": "30dae757a01c59f13e5dd46f1a886c1e81a14290ed47611d54e3e0b552697c94",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1445-20261122-replay.json",
+          "sha256": "680699759a2d54644afc2f5e9d0b275afda10bc9730cb72a71f83fcb38d120f0",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

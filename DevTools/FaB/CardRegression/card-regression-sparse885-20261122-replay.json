@@ -1,0 +1,56 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-hadron-collider-red-four-live-sparse885-actual-four-steam-entry-then-positive-crank-removes-one-and-gains-action-point",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-hadron-collider-red-four-live-sparse885-actual-four-steam-entry-then-positive-crank-removes-one-and-gains-action-point",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse885-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse885-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "37c35372c1a36978d72a5719989d9ccc5da4094220fc85440d1992d43c168abb",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "2c7ab6259884a8be75edfe5c39eff6acc8f1f1377ba9c3e22b90420c1a02c798",
+        "actions.json": "ab9ba164390e567ba51e3636959e2adf186a796e6ee24d2acb857997c604f834",
+        "assertions.json": "ceda4038c3ce6a6546a1f639ab6815643390a936d8ca151c1c6ae9067c71748d",
+        "expected_final_gamestate.txt": "4a3ead9e92ac3ea085a13ff4beb7cba28c315f40984957694602a1db48a0a423",
+        "meta.json": "f9116a1cb55abd0d25ec7f7a91af965cd37bda9b3a5e6899fea6683b59ddd092"
+      }
+    },
+    {
+      "slug": "card-mini-forcefield-red-four-live-sparse885-actual-four-steam-entry-declines-crank-and-preserves-all-counters",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-mini-forcefield-red-four-live-sparse885-actual-four-steam-entry-declines-crank-and-preserves-all-counters",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse885-local-20261122\\clean-replays\\01.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse885-local-20261122\\clean-replays\\01.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "dc3e5f987ead794812039e2924d13d8ddf7198664174641fc5f91fddf1cc25d7",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "fa3189a639f151391d0bf154eeb62e3d3c8879fb98d1fbb1955503095c9710f6",
+        "actions.json": "649fe97f6e3484b44b741ac39f791c03f9b45239b0132adaf150fbce8f629bb6",
+        "assertions.json": "bd8f8c33a3e5024c3fbc7d30758a092b8a6d83bb29e1eb53839cbba671668601",
+        "expected_final_gamestate.txt": "8c9755173ba5a416a34e154e411883efb09594870245b8613ce334363d41b3e4",
+        "meta.json": "6c842216e808656c6afd80ea74b83e9595be1e5d7e9ea1481845c36435b8dab2"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

@@ -1,0 +1,102 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-evo-zoom-call-yellow-four-live-sparse1452-nonbase-matching-slot-and-wrong-slot-base-do-not-transform-real-other-slot-control",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-evo-zoom-call-yellow-four-live-sparse1452-nonbase-matching-slot-and-wrong-slot-base-do-not-transform-real-other-slot-control",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1452-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1452-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "88a084d7e750ab5777011be0df086d024e054cc4bae9ba1785265876c440c975",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "16f499d82b374a904253883bee2cd6598600ee7c16f972af1bc828342d396bf6",
+        "actions.json": "b8e1fa9ea909640dd935ddd95b91bba00f24423a7c8a2e13d00a8a5dfa6b5a7e",
+        "assertions.json": "77837e63150fd2a98da03f6c12b88b6eaeee24919cedf2f302b5c619bced6dfb",
+        "expected_final_gamestate.txt": "80f2e149e042606af2c301f74a066194f586b56512813d675f45fc65ef6ea37f",
+        "meta.json": "2ef8b03485482a5a4f2ff5a3caff45cd37e794a0fe95b3b4a3ad92dbf81a697a"
+      }
+    },
+    {
+      "slug": "card-evo-buzz-hive-yellow-four-live-sparse1452-nonbase-matching-slot-and-wrong-slot-base-do-not-transform-real-other-slot-control",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-evo-buzz-hive-yellow-four-live-sparse1452-nonbase-matching-slot-and-wrong-slot-base-do-not-transform-real-other-slot-control",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1452-local-20261122\\clean-replays\\01.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1452-local-20261122\\clean-replays\\01.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "5f01bfc6ca8078b5ea379f36a6e95e48eb406551338785987c23df00e1e97aab",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "9a73767d85ea962ace45ef366cf8482c488f8d1153ddd6b93525341bdd45de29",
+        "actions.json": "b8e1fa9ea909640dd935ddd95b91bba00f24423a7c8a2e13d00a8a5dfa6b5a7e",
+        "assertions.json": "50be3776417e99c1d5a2f391608d1cd6c6c919216e06d2e1fb30e1206b10d26c",
+        "expected_final_gamestate.txt": "5fcf2c3e8d5f039b017da2f4612a35738f19f8868c3c4b4991a3fa00972ea1e7",
+        "meta.json": "6924328dec188286ea9a6081929bc4c4058153a4949f3ae8c62af200957a1585"
+      }
+    },
+    {
+      "slug": "card-evo-whizz-bang-yellow-four-live-sparse1452-nonbase-matching-slot-and-wrong-slot-base-do-not-transform-real-other-slot-control",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-evo-whizz-bang-yellow-four-live-sparse1452-nonbase-matching-slot-and-wrong-slot-base-do-not-transform-real-other-slot-control",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1452-local-20261122\\clean-replays\\02.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1452-local-20261122\\clean-replays\\02.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "e19ba935543333f77d3da0e1090474a2e328e5bc9a05c01d9070fafdfc002a58",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "d9b4a97cc84627687a9ffca2a872d6b5cb6112f83d682d9538d2103c79f778a7",
+        "actions.json": "b8e1fa9ea909640dd935ddd95b91bba00f24423a7c8a2e13d00a8a5dfa6b5a7e",
+        "assertions.json": "37c750c4909febbde06643d38405ce14e8741a6883c9b5edf0888b5f32b0f58a",
+        "expected_final_gamestate.txt": "6279009446156ebebe94bfb9929dc6709df81311a999cb8925e2b3a8a6744d54",
+        "meta.json": "9f36f6f2faa248d622a94feac21926a045c9e2ca66b7bb59be839b6f7ba2695d"
+      }
+    },
+    {
+      "slug": "card-evo-zip-line-yellow-four-live-sparse1452-nonbase-matching-slot-and-wrong-slot-base-do-not-transform-real-other-slot-control",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-evo-zip-line-yellow-four-live-sparse1452-nonbase-matching-slot-and-wrong-slot-base-do-not-transform-real-other-slot-control",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1452-local-20261122\\clean-replays\\03.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1452-local-20261122\\clean-replays\\03.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "1fd9752e728214ceb5015294ddbbc9e0afab9ad8041a85a559a687394982cbbd",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "004075ac9389d260baa98485016f848f805efb20a5cf213f7cd0a407a33afed9",
+        "actions.json": "b8e1fa9ea909640dd935ddd95b91bba00f24423a7c8a2e13d00a8a5dfa6b5a7e",
+        "assertions.json": "28c1fbe68d7f8eaacba8445cedb664e302581769ae138426f1bcec5ae6f0c258",
+        "expected_final_gamestate.txt": "25838b24da731c6b35990dfad809216d3b714521ca87f6fd744294dd22fe4648",
+        "meta.json": "d84b0e511819433940721190dc30d1aa0cfafeb920c54d7048a43e61a552aa92"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

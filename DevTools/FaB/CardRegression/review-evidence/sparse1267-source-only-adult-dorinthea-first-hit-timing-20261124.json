@@ -1,0 +1,67 @@
+{
+  "result": "not_approved_source_only_selected_route_hold",
+  "classification": "APPROVED_PLANNING_LIMIT_ONLY_NOT_GAMEPLAY",
+  "reviewer": "independent breadth_review1252",
+  "card_id": "dorinthea_ironsong",
+  "spec_sha256": "f0a9e86d72897cf7d033f73ff0571fe74635e216ad6ef20b57701f0a1eff2a59",
+  "source_note_sha256": "f0403c92497148cdad0e56fa514bbb83397b1b21aac4cfd60f6b90bace8d2084",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "approval_scope": "Independent review of supplied official rules evidence and actual current source; hold selected first-weapon-hit route before native execution. Not runnable semantic approval.",
+  "rules_basis": [
+    {
+      "url": "https://rules.fabtcg.com/en/cr/06-effects/",
+      "clauses": [
+        "6.6.1",
+        "6.6.6"
+      ],
+      "support": "Parent supplied verified official CR evidence: The [ORDINAL] time is a triggered-effect format; earned trigger is placed as a responseable layer before priority. Reviewer independently applied this supplied primary evidence to printed text/source; no new network request."
+    },
+    {
+      "url": "https://legacy.fabtcg.com/en/resources/rules-and-policy-center/release-notes/welcome-rathe/",
+      "support": "Parent supplied publisher WTR note evidence: original Dorinthea When wording and assignment to the first hit weapon. It does not authorize immediate ability resolution or choosing a later weapon."
+    }
+  ],
+  "source_findings": [
+    "Current WTRCards.php819 matches both dorinthea and dorinthea_ironsong in direct hit processing. Lines820-822 immediately find actualweapon, assign Status2 and mark Hero USED_TURN. There is no AddStack/queue/owner event/optional continuation in that branch.",
+    "Current GameLogic OnHit reaches normal printed-hit dispatch and FaBDispatchOwnedHitListeners after the helper. Search of actual Custom card-specific occurrences finds only this WTR branch for adult/young Dorinthea relevant rules; no adult Dorinthea generated ability/listener body or alternate Dorinthea-specific queued route exists in GeneratedMacroCode.php. Generic dispatch machinery does not supply the missing named trigger.",
+    "Thus current draft expectation weaponStatus2 at actual Damage with no earned Dorinthea layer would affirm immediate trigger resolution. A later actual second weapon use does not cure omitted response timing. Do not weaken timing into an end-result-only qualification."
+  ],
+  "known_hold": {
+    "path": "DevTools/FaB/CardRegression/review-evidence/sparse693-dorinthea-encountered-ally-hit-trigger-unattempted-c53.json",
+    "sha256": "7aa94033aeed5e979900183576f1a80669c58ffd9128438fc052c1a2b51e72a5",
+    "card_id": "dorinthea",
+    "selected_route": "First controlled weapon hit an Ally, optional additional-attack trigger, source-only unattempted planning limit.",
+    "relationship": "Same direct WTR helper and triggered-effect timing concern, now encountered while planning adult first hit against a hero. Reuse known shared trigger-layer hold; no new native probe or issue allocation."
+  },
+  "planned_only": {
+    "controls": 32,
+    "assertions": 266,
+    "note": "Draft counts only; none executed or qualified."
+  },
+  "native_attempted": false,
+  "actual_native_inputs": 0,
+  "assertions_run": 0,
+  "fixture_saved": false,
+  "replay_run": false,
+  "coverage_credit_groups": 0,
+  "coverage_credit_scenarios": 0,
+  "confirmed_native_bug": false,
+  "source_fix_applied": false,
+  "new_issue_allocated": false,
+  "limits": [
+    "Selected adult Dorinthea first-hit timing route remains parked. No retroactive young-fixture judgment, historical corpus invalidation, global hero/body absence or whole-card verdict.",
+    "No native/replay/test execution, engine repair, T/repository/original-checkout writes/access, auth/network or Git operation. Only this W classification receipt written."
+  ],
+  "source_sha256": {
+    "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+    "FaBSim/GeneratedCode/GeneratedMacroCode.php": "fe6a7982611df8f4de98ce2671b317b671b580146aa4b8c28e8f4b86d8461056",
+    "FaBSim/Custom/WTRCards.php": "77d4452b30e45254a7199bc965396ded53e325717ecdd84a09b971f723f99f6a",
+    "FaBSim/Custom/GameLogic.php": "c60fa151561f959e4e3e341b814de0e2b47c9e9f153bbc8793a04c43b5075061",
+    "DevTools/FaB/CardRegression/review-evidence/sparse693-dorinthea-encountered-ally-hit-trigger-unattempted-c53.json": "7aa94033aeed5e979900183576f1a80669c58ffd9128438fc052c1a2b51e72a5"
+  },
+  "original_draft_local": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1267-local-20261122\\withdrawn-inline-ready-proposed.json",
+  "original_draft_sha256": "f0a9e86d72897cf7d033f73ff0571fe74635e216ad6ef20b57701f0a1eff2a59",
+  "nonqualifying_draft_local": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1267-local-20261122\\proposed.json",
+  "nonqualifying_draft_sha256": "42ca67fa74517b8ead31d492f8f641e92dc63c66b30db075e7319319b5f397d5",
+  "retained_by_root": "Root copied this compact planning classification into the ledger; reviewer performed no repository/native actions."
+}

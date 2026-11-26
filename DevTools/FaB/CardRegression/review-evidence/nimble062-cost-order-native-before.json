@@ -1,0 +1,62 @@
+{
+  "status": "CONFIRMED_NAMED_FOUR_LIVE_COST_ORDER_FAILURE_UNFIXED",
+  "utc": "2026-11-03T00:52:04.621341+00:00",
+  "issue_id": "FAB-REG-062",
+  "root_cause_group": "prepared_effect_costs",
+  "related_prior_issue": "FAB-REG-039",
+  "new_distinct_gameplay_defect_group": false,
+  "source_spec": "card-regression-batch271.json",
+  "input_sha256": "c468cea666c1729a7f3a6bcd73d7bc290f6d7db4dff113accb61437481599521",
+  "runtime_sha256": "f40e5a26ad74eab8ea9d2e3bd779a26c917d8102e67ad41fa9bad5ca7f22e6e7",
+  "source_approved_expectations": {
+    "path": "workspace nov3-batch271-independent-source-review.json",
+    "sha256": "44fdf3c7ad807f844e3ff67a917ae6c9510bb946b52e77142b5b4dd1a6d969db"
+  },
+  "immutable_native_archive": {
+    "path": "recording-runs/card-regression-batch271-20261103T004746Z-6ae92f3288eaf.json",
+    "sha256": "b9d5028b2a86af05ad83acb24ed896d8e0c743e4379ba3aa6df711228ba4e697"
+  },
+  "accepted_native_inputs": 8,
+  "first_failure": "Expected p1Banish count 0, got 1.",
+  "expected": "Declared optional Nimblism5 remains own Graveyard until resource1 and action-point assets are actually paid.",
+  "observed": {
+    "window": "PITCH",
+    "pending_payment": {
+      "player": 1,
+      "uid": 6,
+      "cost": 1,
+      "fromZone": "Hand",
+      "kind": "ATTACK",
+      "returnWindow": "ACTION",
+      "returnCombatStep": "NONE"
+    },
+    "resources": 0,
+    "action_points": 1,
+    "pitch_uids": [],
+    "graveyard_uids": [],
+    "banish_uids": [
+      5
+    ],
+    "stack_uid": 6,
+    "premature_stack_tag": "WTR_NIMBLE_PAID"
+  },
+  "observation": {
+    "method": "Existing negative_control_state.php prefix-only helper in a separate hash-matched current-runtime clone. Original ECCB comparison clone preserved.",
+    "helper_sha256": "72739371849c7f7df742e28489003cd12238cfae3425a21d8fee0bd1f48f233c",
+    "prefix_snapshot_sha256": "1564d8d15173ef3389d75f6dddc73f1fcb8efc662f6d54a0e50b7f9703f8ea6d",
+    "seed_initial_sha256": "03bab339b745d453adef99bcf8ae1524f60e8c85af86765b38cbcc6297d959d5",
+    "workspace_receipt": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-nimble271-failed-prefix\\receipt.json",
+    "workspace_receipt_sha256": "7b897e07be1eac843055c6afb8ff9d83c774b61876fcf19e7c0c2334feaec74a",
+    "mutation_keys": [],
+    "active_R_written_by_observation": false,
+    "active_runtime_unchanged": true,
+    "private_runtime_unchanged": true
+  },
+  "rule_sources": [
+    "https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/"
+  ],
+  "fixture_saved": false,
+  "coverage_credit": false,
+  "fix_applied": false,
+  "limits": "Named Red optional-cost branch only; no native sibling, decline, cancellation, underfunded total, other ownership or full-card credit. Healthy Open Center separate and not invalidated."
+}

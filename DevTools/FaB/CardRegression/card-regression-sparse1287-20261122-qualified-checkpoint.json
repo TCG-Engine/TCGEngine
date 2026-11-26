@@ -1,0 +1,68 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-24T02:09:31.560556+00:00",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1287-20261122.json",
+  "source_spec_sha256": "e6b66ee1ae78a16425ffe1c4b91e9597830487f3ee91285d46f52ce46f0cc2dc",
+  "new_scenarios": 1,
+  "new_groups": 1,
+  "new_primary_ids": 1,
+  "actions": 27,
+  "native_assertions": 415,
+  "manual_passes": 25,
+  "totals": {
+    "saved_registered_scenarios": 5194,
+    "duels": 3097,
+    "four_live": 2097,
+    "recorded_primary_ids": 2342,
+    "identity_denominator": 5196,
+    "recorded_groups": 2216,
+    "group_denominator": 3324,
+    "four_live_groups": 2086,
+    "phase_qualified_scenarios_at_actual_contexts": 1831,
+    "phase_qualified_unique_groups": 1821,
+    "creation_replay_passes": 2573,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 992,
+  "scenarios": [
+    {
+      "card_id": "battered_beaten_and_broken_yellow",
+      "group_id": "identity:battered_beaten_and_broken_yellow",
+      "scenario_id": "card-battered-beaten-and-broken-yellow-four-live-sparse1287-real-three-auras-plus-three-versus-ally-no-hero-intimidate",
+      "effect_branches": [
+        "actual_three_real_aura_threshold_adds_three_power_vs_real_ally_no_hero_intimidate_or_hero_hit_effect"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-battered-beaten-and-broken-yellow-four-live-sparse1287-real-three-auras-plus-three-versus-ally-no-hero-intimidate",
+      "source_spec": "card-regression-sparse1287-20261122.json",
+      "source_spec_sha256": "e6b66ee1ae78a16425ffe1c4b91e9597830487f3ee91285d46f52ce46f0cc2dc",
+      "review_evidence": "review-evidence/sparse1287-20261122-qualified-saved.json",
+      "review_evidence_sha256": "11401fee551cb587c255ebd202eceabf9eb1a378c1dc81d7f7884781a62d8b8f",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1287-20261122-replay.json",
+          "sha256": "5f4f3c3bde8f60683df4a0c537bdf88cd7d18d056ce503470006c5be2707c774",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

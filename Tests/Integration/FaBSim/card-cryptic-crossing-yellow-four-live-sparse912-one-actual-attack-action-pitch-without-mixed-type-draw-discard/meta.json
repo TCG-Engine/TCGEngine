@@ -1,0 +1,7 @@
+{
+    "name": "Cryptic Crossing / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T19:08:24+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "If an attack action card and a non-attack action card were pitched to play this, this gets \"The first time this deals damage to the defending hero, they discard a card and you draw a card.\" Representative only: one_actual_attack_action_pitch_without_mixed_type_draw_discard. Other pitch siblings, alternate targets and unexercised branches receive no credit. All four live/manual; only native entry-point actions. Sources: FaBSim/GeneratedCode/cardArrayCache.json#cryptic_crossing_yellow"
+}

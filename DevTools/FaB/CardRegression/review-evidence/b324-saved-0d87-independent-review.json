@@ -1,0 +1,262 @@
+{
+  "status": "APPROVED_ACTUAL_SAVED_B324_REAL_DISCARD_COST_ONE_NON_EQUIPMENT_DEFENDER_CONDITIONAL_GO_AGAIN_PENDING_ROOT_QUALIFICATION",
+  "approved": true,
+  "source_approved": true,
+  "semantically_approved": true,
+  "reviewer": "/root/nov2_next_author",
+  "created_utc": "2026-11-03T11:02:17.681436+00:00",
+  "source_spec": "card-regression-batch324.json",
+  "input_sha256": "038da871b5cfa84ea11c41bd7b9489c88665e10265a7d11aaba2fdc1b8d04a27",
+  "manifest_sha256": "7e2bd119109885033c13609b5e7da3688fba0b065a3f6e5427d1535c4aac780a",
+  "runtime_sha256": "0d877de49c131f29c152706e14bba3368630df61c59ef475c87a84f20b6e1a66",
+  "recorded_runtime_sha256": "0d877de49c131f29c152706e14bba3368630df61c59ef475c87a84f20b6e1a66",
+  "source_guards_verified": 16,
+  "semantic_approval": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch324-independent-source-review.json",
+    "sha256": "a31713fa053d2397b91eb938f8ea370a993093731eccd1545cf5de1f57248fc0"
+  },
+  "recording_receipt": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch324-20261103T105901Z-6ae9be753582b.json",
+    "sha256": "1dcae5d183ea5a9bc5709f06c20a0f1f532a0e35c0410f833cafb653f5296040"
+  },
+  "root_wrapper_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch324-native-r1\\receipt.json",
+    "sha256": "5255af03ee28e92f6be3d14dc2740be6a9af70f3614cda42889508048c1c9fc5"
+  },
+  "actual_comparison_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch324-independent-saved-review\\audit_saved.py",
+    "sha256": "ce65319da53089359cc086b2ac72fdd6d263f30c39b19e799c8ab3931977110c"
+  },
+  "stable_reader_template": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch317-independent-saved-review\\audit_saved.py",
+    "sha256": "bfc86eec29f579839f77d56a0c0c7d62bd3229ce3db1047fc544d2f6b312a333"
+  },
+  "review_method": "Reuse approved printed/source model. All29 actual actions and2515 assertions exact with all25 manual actors; strict fully parsed initial/final schema physical UID/card/owner/controller/economy/manual profiles, final assertions evaluated. Raw five/metadata/behavior/runtime stable. No renewed unchanged source audit or native/PHP/R work.",
+  "fixtures": [
+    {
+      "index": 0,
+      "card_id": "barraging_big_horn_red",
+      "slug": "card-barraging-big-horn-red-four-live-sparse-real-paid-random-discard-one-hand-defender-earns-go-again",
+      "source_spec": "card-regression-batch324.json",
+      "input_sha256": "038da871b5cfa84ea11c41bd7b9489c88665e10265a7d11aaba2fdc1b8d04a27",
+      "reviewer": "/root/nov2_next_author",
+      "runtime_sha256": "0d877de49c131f29c152706e14bba3368630df61c59ef475c87a84f20b6e1a66",
+      "recorded_runtime_sha256": "0d877de49c131f29c152706e14bba3368630df61c59ef475c87a84f20b6e1a66",
+      "approved": true,
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_NEW_FOUR_LIVE_REPRESENTATIVE",
+      "fixture_path": "Tests\\Integration\\FaBSim\\card-barraging-big-horn-red-four-live-sparse-real-paid-random-discard-one-hand-defender-earns-go-again",
+      "fixture_sha256": "28868169ada7525b868f43ddac4e12ec1b4b803be6269ab0250020a91978c6c9",
+      "raw4_sha256": {
+        "initial_gamestate.txt": "758e8a4a9bd2b459000d164b30de2ad6e712b92a5743fc655e89fbf4562ddf16",
+        "actions.json": "391d0c3198a3462eb041e6d636e4470fb6e77a744dbc147221d49725d7cc518a",
+        "assertions.json": "e9291ae82211d583c7f4996bba1356f36355d7873efa59af492560bf15713334",
+        "expected_final_gamestate.txt": "0005f11f0271721757ac90fe20e758ff8e14de344848c2caf792170b1526b298"
+      },
+      "raw5_sha256": {
+        "initial_gamestate.txt": "758e8a4a9bd2b459000d164b30de2ad6e712b92a5743fc655e89fbf4562ddf16",
+        "actions.json": "391d0c3198a3462eb041e6d636e4470fb6e77a744dbc147221d49725d7cc518a",
+        "assertions.json": "e9291ae82211d583c7f4996bba1356f36355d7873efa59af492560bf15713334",
+        "expected_final_gamestate.txt": "0005f11f0271721757ac90fe20e758ff8e14de344848c2caf792170b1526b298",
+        "meta.json": "bcd8bf4ebbe834e2ce8a743adbde8ee4157802d354cabef6e97d7e08de03552d"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "758e8a4a9bd2b459000d164b30de2ad6e712b92a5743fc655e89fbf4562ddf16",
+        "actions.json": "391d0c3198a3462eb041e6d636e4470fb6e77a744dbc147221d49725d7cc518a",
+        "assertions.json": "e9291ae82211d583c7f4996bba1356f36355d7873efa59af492560bf15713334",
+        "expected_final_gamestate.txt": "0005f11f0271721757ac90fe20e758ff8e14de344848c2caf792170b1526b298",
+        "meta.json": "bcd8bf4ebbe834e2ce8a743adbde8ee4157802d354cabef6e97d7e08de03552d"
+      },
+      "actions": 29,
+      "native_assertions": 2515,
+      "actual_manual_passes": 25,
+      "actual_priority_response_passes": 24,
+      "actual_defender_declaration_finish_inputs": 1,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4
+      ],
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "all_actions_and_assertions_exact": true,
+      "all_endpoint_physical_uid_card_zones_ownership_verified": true,
+      "all_terminal_assertions_evaluated_against_parsed_final_snapshot": true,
+      "initial_physical_uid_locations": {
+        "1": {
+          "card_id": "levia",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "5": {
+          "card_id": "barraging_big_horn_red",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "wounding_blow_red",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2
+        },
+        "8": {
+          "card_id": "wounding_blow_red",
+          "zone": "p4Hand",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_physical_uid_locations": {
+        "1": {
+          "card_id": "levia",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "7": {
+          "card_id": "wounding_blow_red",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "barraging_big_horn_red",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Pitch",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2
+        },
+        "8": {
+          "card_id": "wounding_blow_red",
+          "zone": "p4Graveyard",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_health": [
+        20,
+        20,
+        20,
+        16
+      ],
+      "final_resources": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "final_AP": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "final_Hero_Status": [
+        2,
+        2,
+        2,
+        2
+      ],
+      "checkpoint_count": 31,
+      "checkpoint_assertion_mapping_sha256": "0f59795b58c6bdffdb7d597eef4ee2d103eabc3b5fc24478e69a86edeecdc811",
+      "native_action_mapping_sha256": "efe3219cd046c271cab3624f235f1708ea4bb8f3ffb0b2008df76f2cf9d45bdb",
+      "native_assertion_mapping_sha256": "bab6ad652f8e95b8f3cacd7bd6ead52fb195c1621b7eeafecaed4f321f0c02cc"
+    }
+  ],
+  "blocked_attempts": [],
+  "total_actions": 29,
+  "total_native_assertions": 2515,
+  "total_manual_passes": 25,
+  "total_priority_response_passes": 24,
+  "total_defender_declaration_finish_inputs": 1,
+  "material_findings": [
+    "Initial four legal young Levia/Dorinthea heroes20, all alive/Status2/manualUPF, physical5primary/Blue6/Red7Hand1 andRed8Hand4, allR0/APonlyP1=1, no history/discard/power/GA seeds. Actual fresh P4 declaration keeps5Hand until answer; cost2 then pending with6/7Hand/GY0.",
+    "Actual Blue6pitch3 pays resource2/AP1 then sole remaining Hand7power4 discards to public ownGY, R1/AP0 before the first response. Internal asset-before-additional-cost ordering follows the approved unchanged guarded source path; one native input performs payment/discard, with strict native pre/post checkpoints and actual final sourceUID5 discardedPower4. No six-power condition or extra bonus is claimed.",
+    "Same physical5 remains Stack through first three source responses; fourth puts5Chain power7/emptyTurnEffects/computedintrinsicGA. Actual P4Hand8 becomes one non-equipment DEFENSE/FromHand card3; exactly one defending Chain object/no Equipment. The fewer-than-two while-static condition remains true. Actual7 minus3 deals4/HP16 while all seats remain alive.",
+    "All six actual four-seat priority rounds plus one P4 declaration finish match the ledger, actors6/6/6/7. AP remains0 through all DAMAGE checkpoints; only fourth DAMAGE response enters Resolution and earns AP1. Fully parsed final public ownGY unorderedUIDset5,7/P4GY8/Pitch6/R1AP1, original physical1-8 conserved/no newobjects, Stack/Chains/DQs/payment/reaction/awaitframes clear; all four ready/live/manual."
+  ],
+  "limits": [
+    "Only Red paid2/sole actual4-power random discard/one non-equipment defender/intrinsic conditional GA/4damage/fullcleanup. No two-defender false condition/equipment variation/six-discard benefit/second attack/other pitch/sibling/hero/support primary/full-card/control credit.",
+    "Intermediate evidence is the completed native action/assertion ledger plus unchanged source payment order; endpoint files are not extra per-input snapshots. Singleton RandomCounter0 is observed, not probabilistic RNG/control coverage. Root targeted replays/registration remain separate.",
+    "No R/native/PHP/source fix/generation/service/fullsuite/old replay or authorization retry."
+  ]
+}

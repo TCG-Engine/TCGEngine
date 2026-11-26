@@ -1,0 +1,144 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "breadth_review independent cached-text/source/spec review",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1068-20261122.json",
+  "source_spec_sha256": "68745fa456d646a2e0dbc1cafaba0bf870279dc7af1272042ff15de3e29837a7",
+  "input_sha256": "68745fa456d646a2e0dbc1cafaba0bf870279dc7af1272042ff15de3e29837a7",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "heirloom-of-snake-hide-four-live-sparse1068-face-down-cloaked-rejects-defense",
+      "card_id": "heirloom_of_snake_hide",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "428e5a75957d9cd3c730890d4f6e9c9f08ad3345cd740058adde78991f0c4495",
+        "actions.json": "511bf2f3686ee96e12e3d9cdbe580febcac902b797e5ec827a96d5ccd74ac457",
+        "assertions.json": "9722cc52d2a1742186ea85f63bbd8b36d654ec0ce93e1f998c413a651158b740",
+        "expected_final_gamestate.txt": "c9754330e9694ae861dce15eaba1175a2e1ac8a2d427faf403a279ce863188dc",
+        "meta.json": "5ea3c1ab8f918846116c31ea87649161c90e7d4b7c5933f7e15130c54bab19d7"
+      },
+      "fixture_sha256": "f47b56681c8c423f494f1a16918cb4b3c60039f7f9fdccd4998b6b882ca9f686",
+      "actions": 30,
+      "native_assertions": 283,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1068-20261122.json",
+      "input_sha256": "68745fa456d646a2e0dbc1cafaba0bf870279dc7af1272042ff15de3e29837a7",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1068-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "heirloom-of-snake-hide-four-live-sparse1068-face-down-cloaked-rejects-defense",
+        "fixture_slug": "heirloom-of-snake-hide-four-live-sparse1068-face-down-cloaked-rejects-defense",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "heirloom-of-tiger-hide-four-live-sparse1068-face-down-cloaked-rejects-defense",
+      "card_id": "heirloom_of_tiger_hide",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "864b39bbc88fabe4dee0f716afb4aa3d99ed405bed69811d6ebd0857232820c2",
+        "actions.json": "511bf2f3686ee96e12e3d9cdbe580febcac902b797e5ec827a96d5ccd74ac457",
+        "assertions.json": "035dbb372972c6ee6e4cb9dcb633b3d452becd08387efc20a77b2b4f232b5960",
+        "expected_final_gamestate.txt": "fb2ee2c210a386a12177613090238393695ea7b4dbe87fc9fc23dcbecdb632d2",
+        "meta.json": "596d4c07fef99ab1f1a1d3e87bd3dabb6512344940344f7acee3c859cd3fb3bf"
+      },
+      "fixture_sha256": "0ebb9af30d0e1a80d8c164f2cf48b8068fa8edc773ed886693843fde41c11add",
+      "actions": 30,
+      "native_assertions": 283,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1068-20261122.json",
+      "input_sha256": "68745fa456d646a2e0dbc1cafaba0bf870279dc7af1272042ff15de3e29837a7",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1068-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "heirloom-of-tiger-hide-four-live-sparse1068-face-down-cloaked-rejects-defense",
+        "fixture_slug": "heirloom-of-tiger-hide-four-live-sparse1068-face-down-cloaked-rejects-defense",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "aqua-laps-four-live-sparse1068-face-down-cloaked-rejects-defense",
+      "card_id": "aqua_laps",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "613c5e2f8b8903373d20c7f128241b82d1cf7eae2db21290871a62eefc9c6562",
+        "actions.json": "511bf2f3686ee96e12e3d9cdbe580febcac902b797e5ec827a96d5ccd74ac457",
+        "assertions.json": "671ccb1b20e5632263e112db5ce540fd3fdd601d57ae163adfb1c97bd2947930",
+        "expected_final_gamestate.txt": "399dff50c22661145844f158b6a4ab39abb2ff682a811be5b6afe50aa753f4fc",
+        "meta.json": "e8fdb689000c967b5909a9f9f675524618bb10aa2827434ff4951406f58c8b31"
+      },
+      "fixture_sha256": "ae093a7e563b751dabcd83a1d174cf75610b1c1d0e294e309ab666765848a72e",
+      "actions": 30,
+      "native_assertions": 283,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1068-20261122.json",
+      "input_sha256": "68745fa456d646a2e0dbc1cafaba0bf870279dc7af1272042ff15de3e29837a7",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1068-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "aqua-laps-four-live-sparse1068-face-down-cloaked-rejects-defense",
+        "fixture_slug": "aqua-laps-four-live-sparse1068-face-down-cloaked-rejects-defense",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "waves-of-aqua-marine-four-live-sparse1068-face-down-cloaked-rejects-defense",
+      "card_id": "waves_of_aqua_marine",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "1ddce9a90093d1454e3619b5afc629a40e256eeb9d486e730c8096482b3a0413",
+        "actions.json": "511bf2f3686ee96e12e3d9cdbe580febcac902b797e5ec827a96d5ccd74ac457",
+        "assertions.json": "4e0fd849a6609403abbf04de3368ddd889953c8f8267b78a0cfb83c37751adfe",
+        "expected_final_gamestate.txt": "2dc5530e0de6208463dc4bf53cf94e4ddff447787b841cf8f722fbe8d4596772",
+        "meta.json": "79fc0c84409181499fe359c9fda8056a9c6c85875f506df49260b9f857db5ba1"
+      },
+      "fixture_sha256": "8ac77a629c4a0cfe0cd95e67aaa3c284814f6acbe6f11580c4ee85e528476718",
+      "actions": 30,
+      "native_assertions": 283,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1068-20261122.json",
+      "input_sha256": "68745fa456d646a2e0dbc1cafaba0bf870279dc7af1272042ff15de3e29837a7",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1068-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "waves-of-aqua-marine-four-live-sparse1068-face-down-cloaked-rejects-defense",
+        "fixture_slug": "waves-of-aqua-marine-four-live-sparse1068-face-down-cloaked-rejects-defense",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "spec_sha256": "68745fa456d646a2e0dbc1cafaba0bf870279dc7af1272042ff15de3e29837a7",
+    "reviewer": "breadth_review independent cached-text/source/spec review",
+    "basis": [
+      "All four cached Cloaked cards and class/talent/natural20 owners checked: Mystic Assassin Snake Hide/Nuu, Mystic Ninja Tiger Hide/Zen, Mystic Aqua Laps/Waves on Nuu. Explicit never-flipped Equipment5 FaceDown1 is legitimate hidden state; no mstFlipped history needed. Root-supplied official Cloaked rule says face-down equipment cannot defend, consistent with MSTCards32 Hidden and GameLogic2097 rejecting hidden Equipment independently of printed defense.",
+      "Exact qualified1060 rejection/followthrough controls: real Dori Sword7/Blue8 pays1/R2/AP0/four manual seats to DEFEND_DECLARE4; actual ready owned hidden Equipment5 click must leave Equipment1/CC0/Hand6/FaceDown1. Actual Wounding6 DEF3 alone enters CC DEFENSE and blocks3; persisted defenseValue3/0damage/noHit/HP20, owned Hand6 GGY and Equipment5 still ready/hidden retained. No false positive 0-defense admission allowed; no author-only diagnostics.",
+      "No owner4 turn start/1life condition, turn-face-up payment/ability, equipping, durability, native flip or body trigger occurs. Positive Heirloom/Aqua/Mystic/hero branches remain untouched."
+    ],
+    "limits": [
+      "Four named intrinsic face-down defense-rejection branches only, with actual legal Hand-block followthrough. No native equip/flip/Chi/reaction/start-phase/trigger timing/positive durability/body/hero/support/sibling/full-card or prior-hold repair credit. Reviewer used supplied official rule evidence and local sources; no network/native/PHP/T/source/Git/original actions."
+    ]
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1068-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "80a2102e4136154239b4bb9a7df7fcf9d3d73161c4c671e6805fc15b9fe020a5"
+  },
+  "full_suite_run": false
+}

@@ -1,0 +1,102 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-arcanic-shockwave-red-four-live-sparse1306-unfused-normal-cost-and-no-fused-only-damage-effect",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-arcanic-shockwave-red-four-live-sparse1306-unfused-normal-cost-and-no-fused-only-damage-effect",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1306-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1306-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "33beb1788e26b196e0d644e15960d6c8d4d8c5e3917b2f05c59889589a6f45e2",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "9cbe7c9f81489b5051cb0fb7adab2efcb93dda426168c68a3cc8c2af5751dede",
+        "actions.json": "3ece9eb1058d5f26861429fe816c8baa3394f92d0fa31621dafcb031c7c89cdd",
+        "assertions.json": "44ea5f9e551f61fc8f29782dc61c037036b97232fbc38e4739a6831715641018",
+        "expected_final_gamestate.txt": "3295d7d99d0fa8b27fb719c41063983c9abdfa8a0ba32e465f40266dc64a7fa7",
+        "meta.json": "286089b2aa17b1c02a58a8c1f6ef8feeae27c7370d7435135ca680172f8536ae"
+      }
+    },
+    {
+      "slug": "card-blizzard-bolt-red-four-live-sparse1306-unfused-normal-cost-and-no-fused-only-damage-effect",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-blizzard-bolt-red-four-live-sparse1306-unfused-normal-cost-and-no-fused-only-damage-effect",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1306-local-20261122\\clean-replays\\01.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1306-local-20261122\\clean-replays\\01.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "35627b7943f6304a12ac4e45c93c424ce2069b657b3de8e4f2764cca2e482357",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "f81d3f33321dca768e39834f2ecdb32ffa0f5ba2f639d72e66277986edbe6c64",
+        "actions.json": "b96e8c04efb76e5837c8044bbe521bb58679cd607490b707f44b4b59901b066f",
+        "assertions.json": "71133266ec82569ddd7d02f12fa3613530f1198157cca6e132554ae39fdf5f81",
+        "expected_final_gamestate.txt": "1b8ae609ed33a57034389c557e04832f628d4141f7538edb7c00918a768f8923",
+        "meta.json": "58b18a4085ca3fbac56fe6ae95fb70d7e88953f258503bf3f98b9c53687d184f"
+      }
+    },
+    {
+      "slug": "card-buzz-bolt-red-four-live-sparse1306-unfused-normal-cost-and-no-fused-only-damage-effect",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-buzz-bolt-red-four-live-sparse1306-unfused-normal-cost-and-no-fused-only-damage-effect",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1306-local-20261122\\clean-replays\\02.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1306-local-20261122\\clean-replays\\02.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "10772afeaf28181a1fea80d2264be269660e8f620b7da8acc086ef12492bb7b1",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "698c6e26c54b4b6118b30d295fc2fc78f6d00009dc7d8d14ed1c2ca7d573b7ad",
+        "actions.json": "b96e8c04efb76e5837c8044bbe521bb58679cd607490b707f44b4b59901b066f",
+        "assertions.json": "d0fd92376462e0060df0e130e7a321cbe02dea48aa310072ab87e8ec667cf358",
+        "expected_final_gamestate.txt": "ef88482221cb94e6a6b334dbd80f1d8109969ff451a98e4da0c05064968816c9",
+        "meta.json": "1b5bb8f318d8fd852bb36302cd2de2e12da2924ceff468bf921694efbdadf98b"
+      }
+    },
+    {
+      "slug": "card-frazzle-red-four-live-sparse1306-unfused-normal-cost-and-no-fused-only-damage-effect",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-frazzle-red-four-live-sparse1306-unfused-normal-cost-and-no-fused-only-damage-effect",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1306-local-20261122\\clean-replays\\03.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1306-local-20261122\\clean-replays\\03.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "5e4107ec4318db32fdcaaaa7a98d30cddce69665bf4aaecf3b0428fb7f8ff4a6",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "3c4b12195f61e011cdd23ca06958a24f245211b93574470e0d4474d8974cf91c",
+        "actions.json": "b96e8c04efb76e5837c8044bbe521bb58679cd607490b707f44b4b59901b066f",
+        "assertions.json": "2e0383278f99136dcadc62c5fa905d646ea0ea32a36129a2b40ced448189ee85",
+        "expected_final_gamestate.txt": "b4aa0b907b78f4409f45b46ebfd36ad093317073aff050473dca02b36efe2eeb",
+        "meta.json": "8cb734342976d925891b24425ea1468312a0c10afee3e1a3be8626099a1999cf"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

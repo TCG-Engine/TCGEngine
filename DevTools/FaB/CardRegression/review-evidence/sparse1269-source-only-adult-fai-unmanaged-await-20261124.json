@@ -1,0 +1,50 @@
+{
+  "result": "not_approved_source_only_selected_route_hold",
+  "classification": "APPROVED_PLANNING_LIMIT_ONLY_NOT_GAMEPLAY",
+  "reviewer": "independent breadth_review1252",
+  "card_id": "fai_rising_rebellion",
+  "spec_sha256": "0666c5f55be92c64582b0bfa318f40175f9394352b593a7194673f1a4ec4101c",
+  "source_note_sha256": "7595105d0628a1396b3088f15bc8989681b3bd8bf08d12dc39fae2a41a38633e",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "scope": "Unattempted adult Fai full-cost Instant return selected route; existing unmanaged WTR ability lifecycle family, not a new repair/native bug allocation.",
+  "sound_planned_expectations": [
+    "FaiCards.php exists at the proposed path. It counts actual Draconic chain links and returns only actual owned PhoenixFlame UID from Graveyard to Hand. Zero links and no current-turn/departed history justify full printed cost3 with realBlue4pitch3/R0/AP0.",
+    "Printed return has no target phrase; actual graveyard choice during resolution is correct. SourceUID3 physical return, owner/controller/fates and no producer/start-game/discount/Flame-play credit would be appropriate if lifecycle support existed."
+  ],
+  "source_blocker": [
+    "AdultFai is supplied only by WTRAbilitySpec as Instant3; search of ARC merged ability rows and UPR rows finds no Fai ARC row. WTRAnnounceAbility constructs ABILITY5 with only returnWindow/returnCombatStep/attackUID Params; no arcSpec or rosTrigger marker.",
+    "GameLogic managed virtual selector recognizes ARC ability by arcSpec, generic ROS ability by rosTrigger and separately named triggers. This plain WTR ability class therefore remains unmanaged. At GameLogic1950-1954, after managed check returns empty, ordinary KindABILITY is removed=true before FaBWTRResolveAbility.",
+    "Generated Fai ResolveAbility then awaits a non-target PhoenixFlame MZCHOOSE. The correct spec retains StackABI5 through that choice, but current source would remove it first. This is the known unmanaged-ability lifecycle class concern. Do not approve a Stack0 oracle or launch another native reprobe/repair for this breadth route."
+  ],
+  "planned_only": {
+    "controls": 5,
+    "assertions": 190
+  },
+  "native_attempted": false,
+  "actual_native_inputs": 0,
+  "assertions_run": 0,
+  "fixture_saved": false,
+  "targeted_replay_run": false,
+  "coverage_credit_groups": 0,
+  "coverage_credit_scenarios": 0,
+  "confirmed_native_bug": false,
+  "source_fix_applied": false,
+  "new_issue_allocated": false,
+  "limits": [
+    "No card-family count, global Fai/body absence, starting setup result or historical fixture invalidation is established. No exact issue ID is inferred from historical numeric labels.",
+    "Only W planning classification receipt written. No native/test/replay execution, T/source/repository edits, authentication/network, Git or original-checkout access."
+  ],
+  "source_sha256": {
+    "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+    "FaBSim/GeneratedCode/GeneratedMacroCode.php": "fe6a7982611df8f4de98ce2671b317b671b580146aa4b8c28e8f4b86d8461056",
+    "FaBSim/Custom/FaiCards.php": "222e95c7670e2df62aaec1185f75e63b6cc563bbd8fcfd52b4dd8f1f14110786",
+    "FaBSim/Custom/WTRAbilities.php": "8c7b73f87e5151823dc8aab1546d7e0452e6a948e36fdf9b157d4aa5da0e2209",
+    "FaBSim/Custom/ARCAbilities.php": "e49ce4685f148ef423ea38aac544266b3298527ea8ca9eef11b12fb974e7c9f0",
+    "FaBSim/Custom/GameLogic.php": "c60fa151561f959e4e3e341b814de0e2b47c9e9f153bbc8793a04c43b5075061"
+  },
+  "correct_expectation_draft_local": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1269-local-20261122\\unexecuted-correct-expectation-proposed.json",
+  "correct_expectation_draft_sha256": "0666c5f55be92c64582b0bfa318f40175f9394352b593a7194673f1a4ec4101c",
+  "nonqualifying_draft_local": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1269-local-20261122\\proposed.json",
+  "nonqualifying_draft_sha256": "8f0d792242dcb080dd21f9873581c5dfa90df23f3045bb0e601b549c278bed70",
+  "retained_by_root": "Compact source-only classification copied by Root into ledger; no native attempt or engine change."
+}

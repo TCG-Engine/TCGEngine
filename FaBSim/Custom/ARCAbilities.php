@@ -147,8 +147,9 @@ function FaBARCActivate(int $player,array $f,int $index): bool {
         if (!FaBDeclareChaneShackleCost($player, intval($stack->UniqueID))) return true;
         return FaBTryCompletePayment();
     }
-    if((isset(FaBMONAbilityRows()[$o->CardID])||isset(FaBBoltynAbilityRows()[$o->CardID])||isset(FaBELEAbilityRows()[$o->CardID]))&&FaBRunSourceMacro('PrepareCard',$player,$o->CardID,['mzID'=>FaBFindUID(intval($stack->UniqueID))['mzID']]))return true;
-    if((in_array($o->CardID,FaBHNTAgents(),true)||in_array(FaBWTRBase($o->CardID),['war_cry_of_bellona','war_cry_of_themis'],true)||in_array($o->CardID,['oscilio','oscilio_constella_intelligence','bloodtorn_bodice'],true)||$o->CardID==='longdraw_half_glove')&&FaBRunSourceMacro('PrepareCard',$player,$o->CardID,['mzID'=>FaBFindUID(intval($stack->UniqueID))['mzID']]))return true;
+    // Halo's Hand-to-Soul choice is a resolution effect, never an activation cost.
+    if($o->CardID!=='halo_of_illumination'&&(isset(FaBMONAbilityRows()[$o->CardID])||isset(FaBBoltynAbilityRows()[$o->CardID])||isset(FaBELEAbilityRows()[$o->CardID]))&&FaBRunSourceMacro('PrepareCard',$player,$o->CardID,['mzID'=>FaBFindUID(intval($stack->UniqueID))['mzID']]))return true;
+    if((in_array($o->CardID,FaBHNTAgents(),true)||in_array(FaBWTRBase($o->CardID),['war_cry_of_bellona','war_cry_of_themis'],true)||in_array($o->CardID,['oscilio','oscilio_constella_intelligence','bloodtorn_bodice','tip_off_blue'],true)||$o->CardID==='longdraw_half_glove')&&FaBRunSourceMacro('PrepareCard',$player,$o->CardID,['mzID'=>FaBFindUID(intval($stack->UniqueID))['mzID']]))return true;
     if(in_array($o->CardID,['pleiades','pleiades_superstar','backspin_thrust_red','gallow_end_of_the_line_yellow','light_up_the_leaves_red'],true)&&FaBRunSourceMacro('PrepareCard',$player,$o->CardID,['mzID'=>FaBDTDSource(intval($stack->UniqueID))]))return true;
     if(FaBSEANeedsPrepare($o->CardID)&&FaBRunSourceMacro('PrepareCard',$player,$o->CardID,['mzID'=>FaBDTDSource(intval($stack->UniqueID))]))return true;
     if((FaBIARNeedsPrepare($o->CardID)||FaBPENNeedsPrepare($o->CardID)||FaBOMNNeedsPrepare($o->CardID))&&FaBRunSourceMacro('PrepareCard',$player,$o->CardID,['mzID'=>FaBDTDSource(intval($stack->UniqueID))]))return true;
@@ -195,7 +196,13 @@ function FaBARCResolveAbility(int $player,object $stack): void {
     DecisionQueueController::StoreVariable('arcAbilitySteam',intval(FaBARCCard(intval($stack->UniqueID),'steam')));
     DecisionQueueController::StoreVariable('arcAttackUID',intval($stack->Params['attackUID']??0));
     $f=FaBFindUID(intval($stack->SourceUniqueID));
+    if ($stack->CardID === 'great_library_of_solana' && intval($spec['index']) === 0) {
+        // Destruction follows the colon: after payment and the full response round.
+        if ($f !== null && $f['zone'] === 'Arena' && $f['object']->CardID === $stack->CardID)
+            FaBMONDestroy(intval($stack->SourceUniqueID));
+    } else {
     $GLOBALS['seaDrawSource']=$stack->CardID;try{FaBRunSourceMacro('ResolveAbility',$player,$stack->CardID,['mzID'=>$f['mzID']??'']);}finally{unset($GLOBALS['seaDrawSource']);}
+    }
     if(!FaBManagedAbilityResolutionOwns($stack)&&$spec['goAgain']&&FaBWTRMayGoAgain($player)){AddActionPoints($player,intval(GetActionPoints($player))+1);FaBROSGo($player,intval($stack->SourceUniqueID));}
 }
 function FaBARCSteam(object $o,int $change): void {

@@ -1,0 +1,271 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-23T13:42:48.457731+00:00",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1184-20261122.json",
+  "source_spec_sha256": "b5f4d9c3562b8bf860f9e33e9fd1b1e579345b4e515199a2c96e7a88a494164d",
+  "new_scenarios": 8,
+  "new_groups": 8,
+  "new_primary_ids": 8,
+  "actions": 56,
+  "native_assertions": 2000,
+  "manual_passes": 32,
+  "totals": {
+    "saved_registered_scenarios": 5074,
+    "duels": 3075,
+    "four_live": 1999,
+    "recorded_primary_ids": 2222,
+    "identity_denominator": 5196,
+    "recorded_groups": 2096,
+    "group_denominator": 3324,
+    "four_live_groups": 1988,
+    "phase_qualified_scenarios_at_actual_contexts": 1711,
+    "phase_qualified_unique_groups": 1701,
+    "creation_replay_passes": 2453,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 872,
+  "scenarios": [
+    {
+      "card_id": "aegis_archangel_of_protection",
+      "group_id": "identity:aegis_archangel_of_protection",
+      "scenario_id": "card-aegis-archangel-of-protection-four-live-sparse1184-ally-ward-four-prevents-three-and-dies-front-face",
+      "effect_branches": [
+        "existing_angel_ally_ward_four_prevents_real_three_arcane_destroyed_card_returns_front_face_graveyard"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-aegis-archangel-of-protection-four-live-sparse1184-ally-ward-four-prevents-three-and-dies-front-face",
+      "source_spec": "card-regression-sparse1184-20261122.json",
+      "source_spec_sha256": "b5f4d9c3562b8bf860f9e33e9fd1b1e579345b4e515199a2c96e7a88a494164d",
+      "review_evidence": "review-evidence/sparse1184-20261122-qualified-saved.json",
+      "review_evidence_sha256": "ab9233d0bac258e9b69f81ee616464e2b679b545b2284d2009705f9adbe02c06",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1184-20261122-replay.json",
+          "sha256": "e4baa90199f32c64329a2ca2d8903123aa22df04b793c19156dde1fbc06fd04c",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "avalon_archangel_of_rebirth",
+      "group_id": "identity:avalon_archangel_of_rebirth",
+      "scenario_id": "card-avalon-archangel-of-rebirth-four-live-sparse1184-ally-ward-four-prevents-three-and-dies-front-face",
+      "effect_branches": [
+        "existing_angel_ally_ward_four_prevents_real_three_arcane_destroyed_card_returns_front_face_graveyard"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-avalon-archangel-of-rebirth-four-live-sparse1184-ally-ward-four-prevents-three-and-dies-front-face",
+      "source_spec": "card-regression-sparse1184-20261122.json",
+      "source_spec_sha256": "b5f4d9c3562b8bf860f9e33e9fd1b1e579345b4e515199a2c96e7a88a494164d",
+      "review_evidence": "review-evidence/sparse1184-20261122-qualified-saved.json",
+      "review_evidence_sha256": "ab9233d0bac258e9b69f81ee616464e2b679b545b2284d2009705f9adbe02c06",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1184-20261122-replay.json",
+          "sha256": "e4baa90199f32c64329a2ca2d8903123aa22df04b793c19156dde1fbc06fd04c",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "bellona_archangel_of_war",
+      "group_id": "identity:bellona_archangel_of_war",
+      "scenario_id": "card-bellona-archangel-of-war-four-live-sparse1184-ally-ward-four-prevents-three-and-dies-front-face",
+      "effect_branches": [
+        "existing_angel_ally_ward_four_prevents_real_three_arcane_destroyed_card_returns_front_face_graveyard"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-bellona-archangel-of-war-four-live-sparse1184-ally-ward-four-prevents-three-and-dies-front-face",
+      "source_spec": "card-regression-sparse1184-20261122.json",
+      "source_spec_sha256": "b5f4d9c3562b8bf860f9e33e9fd1b1e579345b4e515199a2c96e7a88a494164d",
+      "review_evidence": "review-evidence/sparse1184-20261122-qualified-saved.json",
+      "review_evidence_sha256": "ab9233d0bac258e9b69f81ee616464e2b679b545b2284d2009705f9adbe02c06",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1184-20261122-replay.json",
+          "sha256": "e4baa90199f32c64329a2ca2d8903123aa22df04b793c19156dde1fbc06fd04c",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "metis_archangel_of_tenacity",
+      "group_id": "identity:metis_archangel_of_tenacity",
+      "scenario_id": "card-metis-archangel-of-tenacity-four-live-sparse1184-ally-ward-four-prevents-three-and-dies-front-face",
+      "effect_branches": [
+        "existing_angel_ally_ward_four_prevents_real_three_arcane_destroyed_card_returns_front_face_graveyard"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-metis-archangel-of-tenacity-four-live-sparse1184-ally-ward-four-prevents-three-and-dies-front-face",
+      "source_spec": "card-regression-sparse1184-20261122.json",
+      "source_spec_sha256": "b5f4d9c3562b8bf860f9e33e9fd1b1e579345b4e515199a2c96e7a88a494164d",
+      "review_evidence": "review-evidence/sparse1184-20261122-qualified-saved.json",
+      "review_evidence_sha256": "ab9233d0bac258e9b69f81ee616464e2b679b545b2284d2009705f9adbe02c06",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1184-20261122-replay.json",
+          "sha256": "e4baa90199f32c64329a2ca2d8903123aa22df04b793c19156dde1fbc06fd04c",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "sekem_archangel_of_ravages",
+      "group_id": "identity:sekem_archangel_of_ravages",
+      "scenario_id": "card-sekem-archangel-of-ravages-four-live-sparse1184-ally-ward-four-prevents-three-and-dies-front-face",
+      "effect_branches": [
+        "existing_angel_ally_ward_four_prevents_real_three_arcane_destroyed_card_returns_front_face_graveyard"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-sekem-archangel-of-ravages-four-live-sparse1184-ally-ward-four-prevents-three-and-dies-front-face",
+      "source_spec": "card-regression-sparse1184-20261122.json",
+      "source_spec_sha256": "b5f4d9c3562b8bf860f9e33e9fd1b1e579345b4e515199a2c96e7a88a494164d",
+      "review_evidence": "review-evidence/sparse1184-20261122-qualified-saved.json",
+      "review_evidence_sha256": "ab9233d0bac258e9b69f81ee616464e2b679b545b2284d2009705f9adbe02c06",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1184-20261122-replay.json",
+          "sha256": "e4baa90199f32c64329a2ca2d8903123aa22df04b793c19156dde1fbc06fd04c",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "suraya_archangel_of_erudition",
+      "group_id": "identity:suraya_archangel_of_erudition",
+      "scenario_id": "card-suraya-archangel-of-erudition-four-live-sparse1184-ally-ward-four-prevents-three-and-dies-front-face",
+      "effect_branches": [
+        "existing_angel_ally_ward_four_prevents_real_three_arcane_destroyed_card_returns_front_face_graveyard"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-suraya-archangel-of-erudition-four-live-sparse1184-ally-ward-four-prevents-three-and-dies-front-face",
+      "source_spec": "card-regression-sparse1184-20261122.json",
+      "source_spec_sha256": "b5f4d9c3562b8bf860f9e33e9fd1b1e579345b4e515199a2c96e7a88a494164d",
+      "review_evidence": "review-evidence/sparse1184-20261122-qualified-saved.json",
+      "review_evidence_sha256": "ab9233d0bac258e9b69f81ee616464e2b679b545b2284d2009705f9adbe02c06",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1184-20261122-replay.json",
+          "sha256": "e4baa90199f32c64329a2ca2d8903123aa22df04b793c19156dde1fbc06fd04c",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "themis_archangel_of_judgment",
+      "group_id": "identity:themis_archangel_of_judgment",
+      "scenario_id": "card-themis-archangel-of-judgment-four-live-sparse1184-ally-ward-four-prevents-three-and-dies-front-face",
+      "effect_branches": [
+        "existing_angel_ally_ward_four_prevents_real_three_arcane_destroyed_card_returns_front_face_graveyard"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-themis-archangel-of-judgment-four-live-sparse1184-ally-ward-four-prevents-three-and-dies-front-face",
+      "source_spec": "card-regression-sparse1184-20261122.json",
+      "source_spec_sha256": "b5f4d9c3562b8bf860f9e33e9fd1b1e579345b4e515199a2c96e7a88a494164d",
+      "review_evidence": "review-evidence/sparse1184-20261122-qualified-saved.json",
+      "review_evidence_sha256": "ab9233d0bac258e9b69f81ee616464e2b679b545b2284d2009705f9adbe02c06",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1184-20261122-replay.json",
+          "sha256": "e4baa90199f32c64329a2ca2d8903123aa22df04b793c19156dde1fbc06fd04c",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "victoria_archangel_of_triumph",
+      "group_id": "identity:victoria_archangel_of_triumph",
+      "scenario_id": "card-victoria-archangel-of-triumph-four-live-sparse1184-ally-ward-four-prevents-three-and-dies-front-face",
+      "effect_branches": [
+        "existing_angel_ally_ward_four_prevents_real_three_arcane_destroyed_card_returns_front_face_graveyard"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-victoria-archangel-of-triumph-four-live-sparse1184-ally-ward-four-prevents-three-and-dies-front-face",
+      "source_spec": "card-regression-sparse1184-20261122.json",
+      "source_spec_sha256": "b5f4d9c3562b8bf860f9e33e9fd1b1e579345b4e515199a2c96e7a88a494164d",
+      "review_evidence": "review-evidence/sparse1184-20261122-qualified-saved.json",
+      "review_evidence_sha256": "ab9233d0bac258e9b69f81ee616464e2b679b545b2284d2009705f9adbe02c06",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1184-20261122-replay.json",
+          "sha256": "e4baa90199f32c64329a2ca2d8903123aa22df04b793c19156dde1fbc06fd04c",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

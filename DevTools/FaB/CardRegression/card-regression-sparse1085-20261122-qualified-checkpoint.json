@@ -1,0 +1,68 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-23T06:01:05.167927+00:00",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1085-20261122.json",
+  "source_spec_sha256": "ca5ddab91a400a8ac738e8683be0910155be446484c44b2491f1c96f168a795a",
+  "new_scenarios": 1,
+  "new_groups": 1,
+  "new_primary_ids": 1,
+  "actions": 36,
+  "native_assertions": 281,
+  "manual_passes": 32,
+  "totals": {
+    "saved_registered_scenarios": 4943,
+    "duels": 3075,
+    "four_live": 1868,
+    "recorded_primary_ids": 2091,
+    "identity_denominator": 5196,
+    "recorded_groups": 1965,
+    "group_denominator": 3324,
+    "four_live_groups": 1857,
+    "phase_qualified_scenarios_at_actual_contexts": 1580,
+    "phase_qualified_unique_groups": 1570,
+    "creation_replay_passes": 2322,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 741,
+  "scenarios": [
+    {
+      "card_id": "no_fear_red",
+      "group_id": "identity:no_fear_red",
+      "scenario_id": "card-no-fear-red-four-live-sparse1085-zero-extra-banish-cost-then-real-four-damage-packet-prevent-two",
+      "effect_branches": [
+        "zero_extra_banish_cost_then_real_four_damage_packet_prevent_two"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-no-fear-red-four-live-sparse1085-zero-extra-banish-cost-then-real-four-damage-packet-prevent-two",
+      "source_spec": "card-regression-sparse1085-20261122.json",
+      "source_spec_sha256": "ca5ddab91a400a8ac738e8683be0910155be446484c44b2491f1c96f168a795a",
+      "review_evidence": "review-evidence/sparse1085-20261122-qualified-saved.json",
+      "review_evidence_sha256": "6a87a0145ce7fa0bcbf45311003c1e368b803feaf7f3af342336aa9942a6d78f",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1085-20261122-replay.json",
+          "sha256": "727346e9de2051c7e80c6ad591e2d0314ef5260cecebe6588222e62c2b906e3d",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

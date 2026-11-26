@@ -1,0 +1,74 @@
+{
+  "runtime": "7b5b41b0b7ec05e64c5566c69df398e3eb847253da9220211c5066b02be464b0",
+  "fixtures": [
+    {
+      "slug": "repair-lumina-lance-yellow-four-live-20261126-zero-soul-light-aa-legal-reaction",
+      "passed": true,
+      "runtime": "7b5b41b0b7ec05e64c5566c69df398e3eb847253da9220211c5066b02be464b0",
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=repair-lumina-lance-yellow-four-live-20261126-zero-soul-light-aa-legal-reaction",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\lumina235\\strict1.log"
+      ],
+      "returncode": 0,
+      "complete_log_sha256": "c2df1e80ec057d5c8b5eb1a7f30d4117784dd21efdbba79b7caed25b8025e700",
+      "raw5_unchanged": true
+    },
+    {
+      "slug": "card-ironsong-response-red-four-live-sparse-real-hand-defense-reprise-plus-three-weapon-damage",
+      "passed": true,
+      "runtime": "7b5b41b0b7ec05e64c5566c69df398e3eb847253da9220211c5066b02be464b0",
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-ironsong-response-red-four-live-sparse-real-hand-defense-reprise-plus-three-weapon-damage",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\lumina235\\strict2.log"
+      ],
+      "returncode": 0,
+      "complete_log_sha256": "50cb00c4821a8b4b1d43ea4811bc3440d92a1012a04f9d193a0662004333d5f2",
+      "raw5_unchanged": true
+    },
+    {
+      "slug": "card-pummel-red-cost-zero-attack-action-excluded",
+      "passed": true,
+      "runtime": "7b5b41b0b7ec05e64c5566c69df398e3eb847253da9220211c5066b02be464b0",
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-pummel-red-cost-zero-attack-action-excluded",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\lumina235\\strict3.log"
+      ],
+      "returncode": 0,
+      "complete_log_sha256": "fb9d58dcd46d1855d891568c7f58416c9fa71a8b1240735b678d71ce9edb7c13",
+      "raw5_unchanged": true
+    },
+    {
+      "slug": "card-pummel-red-attack-step-timing-rejected",
+      "passed": true,
+      "runtime": "7b5b41b0b7ec05e64c5566c69df398e3eb847253da9220211c5066b02be464b0",
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-pummel-red-attack-step-timing-rejected",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\lumina235\\strict4.log"
+      ],
+      "returncode": 0,
+      "complete_log_sha256": "06c7049ee0c6c389211eab27e931a84c3ff60c9b33e34972554fcaa0f73f5d68",
+      "raw5_unchanged": true
+    }
+  ],
+  "full_suite_run": false
+}

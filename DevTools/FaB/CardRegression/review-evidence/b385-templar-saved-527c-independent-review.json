@@ -1,0 +1,259 @@
+{
+  "status": "APPROVED_ACTUAL_SAVED_B385_TEMPLAR_ONLY_TWO_STEPS_ORACLE_CORRECTION_PENDING",
+  "approved": true,
+  "source_approved": true,
+  "semantically_approved": true,
+  "reviewer": "/root/nov2_metadata_review",
+  "created_utc": "2026-11-04T20:14:40.838747+00:00",
+  "source_spec": "card-regression-batch385.json",
+  "input_sha256": "f86ba60e27206e370df331d8a1a11d27db87e0c31e838cc471bf2df8cc9225e5",
+  "manifest_sha256": "106c43f7f56e26f5f2cc2aed4aaeb330dc689cab6f6b9a9140546110b512f917",
+  "runtime_sha256": "527c3e3bf7e18d626fbaf23ae221d77fc65bf1ec080080758a7009069800afa2",
+  "recorded_runtime_sha256": "527c3e3bf7e18d626fbaf23ae221d77fc65bf1ec080080758a7009069800afa2",
+  "source_guards_verified": 37,
+  "prior_independent_semantic_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov4-batch385-independent-source-review.json",
+    "sha256": "7d4fb10be2aecdc9dc1c37c8b2858cebe36d9a614454af194401f81ba763589a",
+    "unchangedTemplar_model_reused": true
+  },
+  "recording_receipt": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch385-20261104T201000Z-6aeb911890f1a.json",
+    "sha256": "279d28432b2ab142063cb198ee67c8f4c1a6fa7698d9b0809519c778478cc097"
+  },
+  "root_wrapper_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov4-b385-native-527c-r1\\receipt.json",
+    "sha256": "f773b8f1f81cba45f976b6cba75dc24923a0655308696cc4eab04e15e41ee7e7"
+  },
+  "two_steps_boundary_classification": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov4-batch385-two-steps-independent-boundary-classification.json",
+    "sha256": "3c3524c326b26f908b95463721ba43aac2c59d19f88976e2f95354bf27a9aed4"
+  },
+  "actual_comparison_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov4_batch385_templar_saved_readonly.py",
+    "sha256": "96d31b5037bbeadd19426b5fb1b6a4c720440a90b8fd18fc6e97c2a26f506e85"
+  },
+  "reviewer_independence": "Next authored scenario; Meta independently source-reviewed and saved-reviewed, performed no gameplay execution.",
+  "fixtures": [
+    {
+      "index": 1,
+      "card_id": "templar_spellbane",
+      "group_id": "identity:templar_spellbane",
+      "slug": "card-templar-spellbane-four-live-sparse-real-destroy-instant-prevents-one-of-three-arcane",
+      "source_spec": "card-regression-batch385.json",
+      "input_sha256": "f86ba60e27206e370df331d8a1a11d27db87e0c31e838cc471bf2df8cc9225e5",
+      "reviewer": "/root/nov2_metadata_review",
+      "approved": true,
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_TEMPLAR_BASE_ONE_ARCANE_PREVENTION_SUBSET",
+      "runtime_sha256": "527c3e3bf7e18d626fbaf23ae221d77fc65bf1ec080080758a7009069800afa2",
+      "recorded_runtime_sha256": "527c3e3bf7e18d626fbaf23ae221d77fc65bf1ec080080758a7009069800afa2",
+      "fixture_path": "Tests\\Integration\\FaBSim\\card-templar-spellbane-four-live-sparse-real-destroy-instant-prevents-one-of-three-arcane",
+      "fixture_sha256": "3bdb231372a84e60f579450fb672652fb0903fa5f448d736181e266d7c191468",
+      "raw4_sha256": {
+        "initial_gamestate.txt": "9994e71939aeeb48f9d2e92b03c0085991bf8ddd8b668dee38c9e980107e0c93",
+        "actions.json": "4fdb51eb45ad8a9062726d8224d6e196664038addf8f0ccc3674e22dba89673c",
+        "assertions.json": "43014797280813960f50acf4d44e96dc463fbf3102a7e3f5bb3baf1252317835",
+        "expected_final_gamestate.txt": "b13b0411648bfd623fd5cd4a52afc7fe1744238c5a8870c23fae776cb3516900"
+      },
+      "raw5_sha256": {
+        "initial_gamestate.txt": "9994e71939aeeb48f9d2e92b03c0085991bf8ddd8b668dee38c9e980107e0c93",
+        "actions.json": "4fdb51eb45ad8a9062726d8224d6e196664038addf8f0ccc3674e22dba89673c",
+        "assertions.json": "43014797280813960f50acf4d44e96dc463fbf3102a7e3f5bb3baf1252317835",
+        "expected_final_gamestate.txt": "b13b0411648bfd623fd5cd4a52afc7fe1744238c5a8870c23fae776cb3516900",
+        "meta.json": "a4e2c2dfcb2b0248597d99ab57c924dbd87bfe6329ed5191d995f9e67ea55ecb"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "9994e71939aeeb48f9d2e92b03c0085991bf8ddd8b668dee38c9e980107e0c93",
+        "actions.json": "4fdb51eb45ad8a9062726d8224d6e196664038addf8f0ccc3674e22dba89673c",
+        "assertions.json": "43014797280813960f50acf4d44e96dc463fbf3102a7e3f5bb3baf1252317835",
+        "expected_final_gamestate.txt": "b13b0411648bfd623fd5cd4a52afc7fe1744238c5a8870c23fae776cb3516900",
+        "meta.json": "a4e2c2dfcb2b0248597d99ab57c924dbd87bfe6329ed5191d995f9e67ea55ecb"
+      },
+      "actions": 14,
+      "native_assertions": 1173,
+      "actual_manual_passes": 11,
+      "actual_priority_response_passes": 11,
+      "actual_defender_declaration_finish_inputs": 0,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        1,
+        2,
+        3,
+        4
+      ],
+      "actual_manual_actor_counts": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 2
+      },
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "all_actions_and_assertions_exact": true,
+      "all_endpoint_physical_uid_card_zones_ownership_verified": true,
+      "all_terminal_assertions_evaluated_against_parsed_final_snapshot": true,
+      "initial_assertions_also_evaluated_against_parsed_initial_snapshot": true,
+      "initial_physical_uid_locations": {
+        "1": {
+          "card_id": "verdance",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "6": {
+          "card_id": "zap_red",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2
+        },
+        "5": {
+          "card_id": "templar_spellbane",
+          "zone": "p4Equipment",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_physical_uid_locations": {
+        "1": {
+          "card_id": "verdance",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "6": {
+          "card_id": "zap_red",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2
+        },
+        "5": {
+          "card_id": "templar_spellbane",
+          "zone": "p4Graveyard",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_health": [
+        20,
+        20,
+        20,
+        18
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_Hero_Status": [
+        2,
+        2,
+        2,
+        2
+      ],
+      "final_physical_uidset": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "final_UniqueIDCounter": 7,
+      "RandomCounter": 0,
+      "actual_arcane_dealt": 2,
+      "printed_Zap_packet": 3,
+      "selected_primary_prevention": 1,
+      "no_positive_ARC_PREVENT_remaining": true,
+      "no_P4_weapon_activated": true,
+      "checkpoint_assertion_mapping_sha256": "78f20084b483164bb2067768b18ca30fcc6f693c4234c325bac97776a136ea10",
+      "native_action_mapping_sha256": "979598bca5a1ab7052c95a1ed5a39738298bf84452c3f22a5cdfa80728a0ab17",
+      "native_assertion_mapping_sha256": "9f3e1537ea0b0a9166ff06f50e3817c0654edf4cd49011d1eb1dc17cf2d97ff1"
+    }
+  ],
+  "blocked_attempts": [
+    {
+      "index": 0,
+      "card_id": "two_steps_forward",
+      "slug": "card-two-steps-forward-four-live-sparse-real-two-kodachi-hits-same-chain-earns-destroy-agility",
+      "semantically_approved": false,
+      "fixture_saved": false,
+      "gameplay_bug_confirmed": false,
+      "reason": "Original pre-first-hit internal chainHits0 oracle; actual state omits the key before any hit, getter returns null while hit producer and eligibility use missing as0. Seven-input failed boundary only; no two-hit or primary outcome reached. Narrow13-check representation correction needs independent delta/native; no source fix or coverage.",
+      "attempted_actions": 7,
+      "coverage_credit": false
+    }
+  ],
+  "total_actions": 14,
+  "total_native_assertions": 1173,
+  "total_manual_passes": 11,
+  "total_priority_response_passes": 11,
+  "total_defender_declaration_finish_inputs": 0,
+  "material_findings": [
+    "Actual legalVerdance20 Wizard ZapRed6 targetP4, printed0/Action AP1 to0; three actualsource responses hand P4 priority. P4Dorinthea20 Head5 Instant0 destroys same5 to ownGY as cost before fresh4/1/2/3 source responses. Capturedvirtual7Controller4/SourceEquipment5 strictlyheld above originalphysical6Stack through firstthree.",
+    "Fourth Head response removesvirtual7 withoutdamage/APchange and resets priorityP1; originalsameZap6 remains for a FRESH1/2/3/4 round. Only finalZapresponse causesactual3arcane lessbase1prevention to2/P4HP18. Raw finalactual arcaneDealt1to4=2/noP4PEN_WEAPON_ACTIVATED/no positiveARC_PREVENT remains. Alternative2/unprevented3 would produce differentHP; basebranch source/typedconsumer previouslyverified, not fitted tooutput.",
+    "Exactrawfive/all14inputenvelopes1173persistedasserts11manual actors/fullinitial+finalsixUID/CardID/owner/controller zones/economy/all48endpointsettings verified. Same6P1GY/same5P4GY/virtual7ceased/Counter7RNG0/RAPChi0/queuesStackcombatpaymentawaitclean; otherHP20. No assumedemptyweaponCounters or armorwear/source resurrection."
+  ],
+  "limits": [
+    "Templar saved subset only; originalTwoSteps unsaved/prehit oracle representation failure remains unqualified, use --reviewed-subset. No gameplay defect credit for correcting it.",
+    "Selected base1 arcane prevention only; P4weaponactivation/alternate2/Battleworn/expiry/multiplepackets/physicaldamage/hero/sibling/fullcard/control branches unearned/uncredited.",
+    "Intermediatepositive ARC_PREVENT1 is source-model inference plus actual3to2causalwitness; no private per-inputrawstate or indexed effect assertion is invented. Finalabsence verified bytype.",
+    "Root twofocusedTemplarreplays/registration separate. NoPHP/native/replay/R/source/service/generator/full-suite by reviewer; tenoldholds/SmashItem preserved."
+  ]
+}

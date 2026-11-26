@@ -1,0 +1,7 @@
+{
+    "name": "Shield Beater / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T18:30:31+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "**Action** - {r}{r}{r}{r}, {t}: **Attack**\n\nCards you own named Visit Anvilheim get **go again**. Representative: actual four-resource/tap attack ability only. Two real Blue cards pay from zero; source weapon stays equipped and proxy deals five. Visit Anvilheim grant, future attacks and support groups untested. Sources: FaBSim/GeneratedCode/cardArrayCache.json#shield_beater"
+}

@@ -1,0 +1,158 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "independent breadth_review1252",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1323-20261122.json",
+  "source_spec_sha256": "80cbc7569fa0c13e12de4759a28f75b2b691ce4b6dfae258fb32deff312952b0",
+  "input_sha256": "80cbc7569fa0c13e12de4759a28f75b2b691ce4b6dfae258fb32deff312952b0",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-art-of-the-dragon-blood-red-four-live-sparse1323-ninja-card-not-draconic-does-not-earn-go-again",
+      "card_id": "art_of_the_dragon_blood_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "3e9cf292d422dab3c7ffeffd28dcdd8a8bb27ec4499166087527d13651d82cba",
+        "actions.json": "cb28b47f5dc15b249b3654ad141cf5f2ccf833368e3cb287e1fd2c33043e8215",
+        "assertions.json": "e83c0aafd308064faf657ee9ba646e8cb44104d86cffb9bf16c9a42a7c6292ab",
+        "expected_final_gamestate.txt": "dbaa388217042336b7924f2d86ddeac15f15aaee0eabf92dc3e372625d52382a",
+        "meta.json": "dd6cb9071a41e449cae5a33a4e99aaeac72ff53d62c1cd3fd7dcaeb02f47cb39"
+      },
+      "fixture_sha256": "dda86fef84ed2938b967c1d66a3da5bab089748dcfddac68b7098f85655925c0",
+      "actions": 28,
+      "native_assertions": 629,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1323-20261122.json",
+      "input_sha256": "80cbc7569fa0c13e12de4759a28f75b2b691ce4b6dfae258fb32deff312952b0",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1323-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-art-of-the-dragon-blood-red-four-live-sparse1323-ninja-card-not-draconic-does-not-earn-go-again",
+        "fixture_slug": "card-art-of-the-dragon-blood-red-four-live-sparse1323-ninja-card-not-draconic-does-not-earn-go-again",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-escalate-violence-blue-four-live-sparse1323-no-controlled-might-does-not-create-three-more",
+      "card_id": "escalate_violence_blue",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "6cf0163ec66cc3124b5a58c753b353f28321eab1426d0657f886bea4021eb11e",
+        "actions.json": "03d8ba6664b359988a254b0b85136b29a95f48d60e969fe7103afff3ef5a7a2a",
+        "assertions.json": "e818c2888738a772219e6405ee6d4e36e671708e7a969ab6682f736ae2fb6696",
+        "expected_final_gamestate.txt": "f2a42145b119c089206b6cdb21bdd268612c32c780050d31bae23dc4c01c90d7",
+        "meta.json": "4ac25085ea1a291ef1abdd0a591b3bb5ff99d4e30f0cdc8d6e883402c5398e2e"
+      },
+      "fixture_sha256": "44420b09166f7db618ca486936ea24e805fe59b620bc799367ade8b7e8510e46",
+      "actions": 29,
+      "native_assertions": 656,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1323-20261122.json",
+      "input_sha256": "80cbc7569fa0c13e12de4759a28f75b2b691ce4b6dfae258fb32deff312952b0",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1323-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-escalate-violence-blue-four-live-sparse1323-no-controlled-might-does-not-create-three-more",
+        "fixture_slug": "card-escalate-violence-blue-four-live-sparse1323-no-controlled-might-does-not-create-three-more",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "reviewer": "independent breadth_review1252",
+    "spec_sha256": "80cbc7569fa0c13e12de4759a28f75b2b691ce4b6dfae258fb32deff312952b0",
+    "source_note_sha256": "f7c93efe7cda9cd5f14ab2472d214cfba017c06829265f56433574c56e7732c9",
+    "case_count": 2,
+    "active_seats": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "players": "four_live_manual",
+    "native_controls": 57,
+    "query_checks": 1285,
+    "persistable_assertions": 1285,
+    "author_only_checks_omitted": 0,
+    "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+    "coverage_category": "NAMED_FALSE_ATTACK_CONDITION_WITH_REAL_DAMAGE_AND_UNEARNED_REFUND_OR_TOKEN_GUARD",
+    "per_case": [
+      {
+        "card_id": "art_of_the_dragon_blood_red",
+        "group_id": "identity:art_of_the_dragon_blood_red",
+        "native_controls": 28,
+        "persistable_assertions": 629
+      },
+      {
+        "card_id": "escalate_violence_blue",
+        "group_id": "identity:escalate_violence_blue",
+        "native_controls": 29,
+        "persistable_assertions": 656
+      }
+    ],
+    "basis": [
+      "Both fresh standalone groups unrepresented, group-ID holds absent. Natural Young Fai20 legal Ninja Art Blood and natural Young Reviled Kayo Strong Arm20 legal Reviled Escalate; actual initial HeroCardID checks match replaced identities. Three other real Young Dori20/manual four UPF, retained natural physical controls and empty effects/history. Held Insult group is not part of authored packet.",
+      "Art Blood printed Ninja AA0/power4 is not Draconic; Fai Hero talent does not grant card type. Implemented generated AttackDeclared obtains actualUID then FaBHNTUIDDraconic before GO_AGAIN and BLOOD_DISCOUNT3. Predicate false; no owned attack layer/grant is earned. Strict printed4 HeroDamage/HP16/noGA plus full-close AP0 actual affordable zero-cost Wounding6 Hand click rejection witnesses absent refund. Future eligible Draconic cost-discount consumer is not executed, so no independent functional absence claim for that effect.",
+      "Escalate Blue printed Reviled AA1/power3 intervening when-attacks IF controller Might is false with all four actual Arenas0 before attack. Implemented generated predicate count(FaBMONArena(player,might))>0 gates FaBHVYToken3. No token-producer event or Boo/Vigor event is earned by plain attack/Hero damage; Hero activated ability unused. Actual Generic Red6 pitch1 pays exact1/R0/AP0 then real3damage/HP17/allArena0/UID11 unchanged. Followup11 remains Hand and is actually rejected AP0; its no-refund witness is ordinary Action behavior, not a printed Escalate GA ability.",
+      "Template retains actual formal adjacent Hero4 target, four manual source/combat responses, physical source5 own GY/funder6 Pitch only Escalate, follow6or11 Hand, foreign HeadLens7 Status2/Counters[]/Hand8/Arsenal9/own Deck10. Full final state checks duplicate after real rejected click without new target/payment/card movement/UID/damage. AP/R0/RNG0/Stack decisions combat clean and all other Health20 coherent. Each629 or656 assertions across28/29 controls persists, total1285/57."
+    ],
+    "limits": [
+      "Only new bindings/differences semantic review pending native saves/replays; no native pass or coverage credit claimed.",
+      "Only false conditions with actual normal payment/Hero damage, Art Blood no-refund witness and Escalate token absence. No true Draconic/cost-discount consumer/Might producer/Hero/support/sibling/full-card credit. Insult and all other holds unchanged.",
+      "Only W receipt written; no native tests/games/replays, T/engine/original-checkout edit or access, auth/network or Git."
+    ],
+    "source_sha256": {
+      "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+      "FaBSim/GeneratedCode/GeneratedMacroCode.php": "fe6a7982611df8f4de98ce2671b317b671b580146aa4b8c28e8f4b86d8461056",
+      "FaBSim/Custom/GameLogic.php": "c60fa151561f959e4e3e341b814de0e2b47c9e9f153bbc8793a04c43b5075061",
+      "FaBSim/Custom/HNTCards.php": "8c58ea4998016d2883b8b44f840000e94bff848ec4c07b65f8f976b283422ccc",
+      "FaBSim/Custom/SUPCards.php": "d0cf162a89b60b29590121e4c97e1e5fe0e2dc790130bf181949ca068092c1fa",
+      "FaBSim/Custom/FaiCards.php": "222e95c7670e2df62aaec1185f75e63b6cc563bbd8fcfd52b4dd8f1f14110786",
+      "FaBSim/ZoneClasses.php": "874bb2ae00a80a8ba3dfe1789b4c932fd0b7cf1286504a62828e0055ca1cb355",
+      "Core/EngineActionRunner.php": "add14b53dc571d2a6e64407bfa4038a98d6554d6410de7a9233810d99c46ea2a",
+      "Schemas/FaBSim/GameSchema.txt": "7783800bd47bc85885cc915066aadca58cdf99f0c1180602ac312d9af5ebf643",
+      "DevTools/FaB/CardRegression/record_card_regressions.php": "e53055b29e9ea641949b77019c4455607f41ca233325d716a9500637e19efd28"
+    },
+    "workspace_source_sha256": {
+      "author_breadth1323.py": "7f045df4c6889a495306ffe4c65a75fff2913ca55c7c453baf6c782e6f12b8cb",
+      "breadth1068_helpers.py": "997f949ec26c7e494ad26a818f9f2078f6f4f2a0c49ca7f61aa8c71f3b091b0a"
+    },
+    "secondary_identity_credit": false,
+    "positive_conditional_effect_credit": false
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1323-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "2155a6d2e70d35b7289c4e8c92e37ba500b6aa413a7ae2591411b3d6af1d6b16"
+  },
+  "full_suite_run": false
+}

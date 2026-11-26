@@ -1,0 +1,27 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch447.json",
+  "runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+  "returncode": 0,
+  "completed_utc": "2026-11-05T10:35:12.407059+00:00",
+  "fixtures": [
+    {
+      "slug": "card-lay-waste-red-four-live-sparse-real-declined-boost-rejects-equipment-allows-hand-defense",
+      "fixture_sha256": "89f2476b4736734f2d4f8d69c50e07f617eda53eaa6ee102e4d3d964ae1276f4",
+      "passed": true,
+      "result": "[PASS] lay_waste_red / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-lay-waste-red-four-live-sparse-real-declined-boost-rejects-equipment-allows-hand-defense",
+      "returncode": 0,
+      "stdout": "[PASS] lay_waste_red / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

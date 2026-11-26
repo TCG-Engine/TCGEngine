@@ -1,0 +1,63 @@
+{
+  "issue": "FAB-REG-232",
+  "card_id": "chorus_of_ironsong_yellow",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1497-held-chorus-dawnblade-admission-20261125.json",
+  "source_spec_sha256": "dba72601b61688e91a2361d3da62fa01d17298683fc4f2adef1407859ce539a6",
+  "reviewer": "/root/breadth_review1457",
+  "independent_review_sha256": "1e46dcd2ba5774073e6997c249ab2124db6a42eb596eb779495ba443275439c5",
+  "native_accepted_inputs": 16,
+  "persisted_assertions_before_failure": 192,
+  "error": "Expected Stack count 1, got 0.",
+  "observed_window": "REACTION",
+  "observed_priority_context": "Own REACTION1 was asserted immediately before the actual primary click.",
+  "observed_pending_payment": null,
+  "observed_decisions": {
+    "1": [],
+    "2": [],
+    "3": [],
+    "4": []
+  },
+  "observed_hand_refs": {
+    "1": [
+      "p1Hand-0",
+      "p1Hand-1"
+    ],
+    "2": [],
+    "3": [],
+    "4": []
+  },
+  "expected": "Legal announcement of physical Chorus6 while actual owned Dawnblade8 is equipped, despite active generic Wounding5. Printed target is a Dawnblade permanent, not a Dawnblade attack.",
+  "source_cause": "DTDCanPlay maps chorus_of_ironsong to current-attack dawnblade selector, requiring active attack CardID to start with dawnblade. This overrestricts the printed weapon-permanent target.",
+  "validated_context": [
+    "Legal Dorinthea specialization caster, natural20/manual4.",
+    "Real owned Dawnblade8 equipped/ready, actual generic Wounding5 attack at own REACTION1.",
+    "Primary Chorus6 and actual Blue7 available3 for printedcost1; no class/owner/window/funding refusal.",
+    "After actual click Stack remains empty and all four DQs are empty; no legitimate pre-target prompt or payment is pending."
+  ],
+  "rules_basis": {
+    "kind": "Direct printed-target reading independently reviewed, not a published card-specific ruling.",
+    "cached_printed_text": "Until end of turn, target Dawnblade gets +1 power and damage cannot be prevented.",
+    "official_release_notes": "https://fabtcg.com/rules-and-policy-center/release-notes/dusk-till-dawn/",
+    "external_verification_limit": "Public official search index matched printed target wording; full release-note page fetch returned HTTP403. No unseen ruling or notes are claimed."
+  },
+  "full_native_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1497-local-20261122\\receipt.json",
+    "sha256": "1445be916aaa08f9474a129a28bc01e976af6a843a2e56bb9ad024ad825a5f6a",
+    "retained_outside_repository": true,
+    "required_for_replay": false
+  },
+  "fixture_saved": false,
+  "coverage_credit": false,
+  "engine_changes": false,
+  "full_suite_run": false,
+  "unrun": [
+    "target_declaration",
+    "payment",
+    "effect_or_unpreventable_damage",
+    "Unity",
+    "save",
+    "replay"
+  ],
+  "root_group_count_status": "No new distinct shared-root count allocated in breadth pass."
+}

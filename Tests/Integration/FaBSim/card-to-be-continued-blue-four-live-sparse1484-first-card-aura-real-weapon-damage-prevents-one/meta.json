@@ -1,0 +1,7 @@
+{
+    "name": "To Be Continued / first-card Aura prevents one real weapon damage",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-25T05:31:39+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Bravo4 plays the first actual physical Card as an Instant during Rhinar1 turn after three real priority passes. Four response passes put the same Aura5 into Arena4 with correct first-play FAB_PLAY_ORDER1 and SUSPENSE2; no ordinal2 or private history is assumed. Actual prior Romping Club7 activation declares adjacent Hero4 before payment, then real Blue6 pitch3 pays cost2 and leaves R1/AP0. This activation does not assign a new physical Card play ordinal. Four-power proxy8 has canonical weapon source7. Full manual combat has no blocks or other prevention: first four damage is reduced by the Aura to actual three, BravoHP17, other Heroes20. Full close removes proxy8, preserves Aura5 with counters1/2 and physical weapon7 tapped, Blue6Pitch/R1/AP0/no Graveyard or pending frame. No second packet/reset/expiry/later card-order/weapon-repeat/sibling credit. FAB150 remains unrepaired and unqualified outside this genuinely first-card setup. Sources: FaBSim/GeneratedCode/cardArrayCache.json#to_be_continued_blue FaBSim/Custom/SUPCards.php#FaBSUPPrevent FaBSim/Custom/SUPCards.php#FaBSUPAfterMove FaBSim/Custom/GameLogic.php#FaBPlayCard FaBSim/Custom/GameLogic.php#FaBTryCompletePayment"
+}

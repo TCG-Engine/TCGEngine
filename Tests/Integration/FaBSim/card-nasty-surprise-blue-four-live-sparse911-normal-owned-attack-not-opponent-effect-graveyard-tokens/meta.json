@@ -1,0 +1,7 @@
+{
+    "name": "Nasty Surprise / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T19:05:26+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "When an opponent's effect puts this into your graveyard from anywhere, create an Agility, Might, and Vigor token. Representative only: normal_owned_attack_not_opponent_effect_graveyard_tokens Sources: FaBSim/GeneratedCode/cardArrayCache.json#nasty_surprise_blue"
+}

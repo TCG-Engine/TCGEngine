@@ -1,0 +1,56 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-lubricate-blue-four-live-sparse890-real-instant-untaps-two-chosen-owned-cogs-preserves-unchosen-and-opponent-cogs",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-lubricate-blue-four-live-sparse890-real-instant-untaps-two-chosen-owned-cogs-preserves-unchosen-and-opponent-cogs",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse890-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse890-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "e3d746e307812ccce4da61783430b6915b5584974bdfee7f0bfda48d1ab6bbc0",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "5edff0e9709efa29c00d026e12af7a2a6f62ae1994b098839b1f03f62d19cd50",
+        "actions.json": "69c52829564653e66d82b3ab1ce07447d6905eafec5d774006465deb9ce3d307",
+        "assertions.json": "25304512e4612c04ed269470605625fced207daf3693482e96918fecd22ccea3",
+        "expected_final_gamestate.txt": "737027effa34df621b997b3b14bbcb004a0eb05f10c47412d7ffe9e5e5c5c880",
+        "meta.json": "0c69231da23ec9ab6d640c10a36df3cfd43fa24e40d7fd7cf5c6328fb1286726"
+      }
+    },
+    {
+      "slug": "card-tentacular-toll-red-four-live-sparse890-turn-two-real-allies-face-down-and-create-two-owned-gold-preserves-other-grave-card",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-tentacular-toll-red-four-live-sparse890-turn-two-real-allies-face-down-and-create-two-owned-gold-preserves-other-grave-card",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse890-local-20261122\\clean-replays\\01.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse890-local-20261122\\clean-replays\\01.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "7eaa63be70f16837165cfd62eb3ef094a490caa8e147d689bc32e66165e908be",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "665959b29821b19c8ced6e0a2099e1a104d1ba869cf379fd12ef9e2984cac0ce",
+        "actions.json": "236a8d9b30ed4f2aa22a5b720e4e12dbe8b360280dc2291078189bfa99a8886f",
+        "assertions.json": "18ea2652962222630cf020f36c691d06cec65ed977fed5044477721e479a49c7",
+        "expected_final_gamestate.txt": "d8bc1d018e1c0699543a1bec28a6a214fd5ede684ac5da8f86993ae0ce84cc02",
+        "meta.json": "c317259fa8534d4f89f8df0487077de4264326e0ca03b90f70429ed161801b9a"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

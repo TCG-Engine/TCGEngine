@@ -1,0 +1,157 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "/root/breadth_review1457",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1536-20261122.json",
+  "source_spec_sha256": "ec63235a96b360db000eb269d6cd115aa0c8ecb8585d63d798575059fe686531",
+  "input_sha256": "ec63235a96b360db000eb269d6cd115aa0c8ecb8585d63d798575059fe686531",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-arakni-black-widow-four-live-sparse1536-owned-weapon-is-not-assassin-attack",
+      "card_id": "arakni_black_widow",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "318f269a0e718873c87c6e871941c43cabd0142df105efe1a887f82ce04186cc",
+        "actions.json": "a185de60396b3148b0a4d502de4640eafe578d93b2fdfa704cdd7e0d49eb3d37",
+        "assertions.json": "392071b814ee038ccbe48a6f9519ec28d0bd1036d756a9b5afef3e6771909fda",
+        "expected_final_gamestate.txt": "0bf23ed45511e83c858e63ec82425304d9faab792cdb51634221f154b330e74b",
+        "meta.json": "a9e844cae2d9a0cacc08639dc43c2309624c5095c2a31eead84f48d40143f499"
+      },
+      "fixture_sha256": "38d586b8f97d795171326029b67c0df20b28d165e8489e5318711b240721403f",
+      "actions": 29,
+      "native_assertions": 489,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1536-20261122.json",
+      "input_sha256": "ec63235a96b360db000eb269d6cd115aa0c8ecb8585d63d798575059fe686531",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1536-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-arakni-black-widow-four-live-sparse1536-owned-weapon-is-not-assassin-attack",
+        "fixture_slug": "card-arakni-black-widow-four-live-sparse1536-owned-weapon-is-not-assassin-attack",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-arakni-funnel-web-four-live-sparse1536-owned-weapon-is-not-assassin-attack",
+      "card_id": "arakni_funnel_web",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "94cd17e777a7545e5287a8050b4c2934445fb5c381e30b418f3b2f1d58aeeabf",
+        "actions.json": "a185de60396b3148b0a4d502de4640eafe578d93b2fdfa704cdd7e0d49eb3d37",
+        "assertions.json": "75ac5ee4a0c9f80999d7cbd5d890ff812ed397cc50b3208c6f5153d48ac7c999",
+        "expected_final_gamestate.txt": "0238ba0c4143147823cd73052e613d1bdd1aa007fbb7dba5d50deb6c8a2989d4",
+        "meta.json": "f659b000bdcfe63109cf850f1b31cbff354e08b9db18bb1804b6f59695675d5d"
+      },
+      "fixture_sha256": "5dbb41199961b995d838bfe4dc9cdee207ad2bea3706db9d0a2e0e37458cb472",
+      "actions": 29,
+      "native_assertions": 489,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1536-20261122.json",
+      "input_sha256": "ec63235a96b360db000eb269d6cd115aa0c8ecb8585d63d798575059fe686531",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1536-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-arakni-funnel-web-four-live-sparse1536-owned-weapon-is-not-assassin-attack",
+        "fixture_slug": "card-arakni-funnel-web-four-live-sparse1536-owned-weapon-is-not-assassin-attack",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-arakni-redback-four-live-sparse1536-owned-weapon-is-not-assassin-attack",
+      "card_id": "arakni_redback",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "07ec6a69abf59d4a9f82bfc805404b83425da71ca9abb49b74dbd3f7405a792a",
+        "actions.json": "a185de60396b3148b0a4d502de4640eafe578d93b2fdfa704cdd7e0d49eb3d37",
+        "assertions.json": "31d7f909ff6fd27b3fb4a6bf8106c1add53fea7de865a5bf9bea21d11cfe86df",
+        "expected_final_gamestate.txt": "20a7a0aed7c1067b92deecb3c1d2499ff15d88e54091d8a2c5c9867d47ed6442",
+        "meta.json": "2ca150e4b647d9a7da970dfd2e223e8aa49e785ef7123359aea392ed91ce7b43"
+      },
+      "fixture_sha256": "4c82d6fa973ed1bea293041074c07669773881d04790b41299c5594e16462d0e",
+      "actions": 29,
+      "native_assertions": 489,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1536-20261122.json",
+      "input_sha256": "ec63235a96b360db000eb269d6cd115aa0c8ecb8585d63d798575059fe686531",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1536-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-arakni-redback-four-live-sparse1536-owned-weapon-is-not-assassin-attack",
+        "fixture_slug": "card-arakni-redback-four-live-sparse1536-owned-weapon-is-not-assassin-attack",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "schema_version": 1,
+    "batch": 1536,
+    "reviewer": "/root/breadth_review1457",
+    "result": "approved_named_branches_only_pending_native_execution",
+    "reviewed_utc": "2026-11-25T11:06:07.412229+00:00",
+    "spec_sha256": "ec63235a96b360db000eb269d6cd115aa0c8ecb8585d63d798575059fe686531",
+    "source_note_sha256": "52fb4d69c6ce5f70f0ad58d93729fab0c524efdd7b16fa7be06f91b4b300c198",
+    "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+    "source_sha256": {
+      "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+      "FaBSim/Custom/HNTRuntime.php": "d5554642848c3f271112e542c20d3744662c0007ebd7bb741d5d4d2dd1b210a1",
+      "FaBSim/Custom/HNTCards.php": "8c58ea4998016d2883b8b44f840000e94bff848ec4c07b65f8f976b283422ccc",
+      "FaBSim/Custom/DYNRuntime.php": "b8cec432428757988b02fa831b6311cc32ef5671b2fcc2dd9eecbf82d0c5e231",
+      "FaBSim/Custom/GameLogic.php": "c60fa151561f959e4e3e341b814de0e2b47c9e9f153bbc8793a04c43b5075061",
+      "DevTools/FaB/CardRegression/initial_agent_setup.php": "59c1b7d83b8b4ef070cb9ca6f0fe1f1c4481069dc729ddced2fd02f073851aea"
+    },
+    "cases": 3,
+    "findings": [
+      "Printed target Assassin attack excludes actual owned Generic Talishar. Actual Infect6 is Assassin and available; HNTRuntime18 requires both predicates before payment. Proper REACTION1/owned Hero/unused-once removes alternate gates.",
+      "Native young base->form, sameHero1/20/basecounter. Talishar2 paidBlue5/R1/AP0/Rust1/proxy8. No independent Hero-hit trigger; no endphase; actual4damageHP16 and full four manual close."
+    ],
+    "limits": [
+      "Necessary target-type rejection only; no positive AR/cost/payload/once-reset/endbrood or whole-card credit. Read-only source/spec review, no reviewer games/tests/writes."
+    ]
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1536-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "0bd15b32a7629fcff931ed070a5c2ae1b6259f897b38425356681d2ef311f003"
+  },
+  "full_suite_run": false
+}

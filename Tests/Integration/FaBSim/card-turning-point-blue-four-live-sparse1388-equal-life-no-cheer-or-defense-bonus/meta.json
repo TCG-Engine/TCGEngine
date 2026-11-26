@@ -1,0 +1,7 @@
+{
+    "name": "Turning Point / equal life no cheer or defense bonus",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-24T13:43:31+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "FOUR_REAL_MANUAL_UPF_DORI20_THREEOPP20/DEFENDER_pleiades. Nativecritical_strike_red5HandfundedbyactualBlue6/cost1/AP0/R2,actualadjacent4target/all4responses/base5/noGA. Primaryturning_point_blue7actuallydeclaredfromHand4todefendwithbase2; wrongTokenmight8(orTurningPointequalHP20)doesnotearnnamedVigor/Agility/Might/lessHPcondition. Noheal/retaliation/optionalGYreturn/Cheer/Confidence/extraDefense; actual5minus2=3damageP4HP17, attackerHP20. ActualoldAttackWounding9GY4andDeckWoundingBlue10remainunchanged, Token8same/UID10RNG0; properfullfates/StackDQquiet/AP0/resources. Onlynamedfalseconditionguardsandnativecost/attack/block/damage; positiveWHEN/timing/otherconditioncombinations/tokenproduction/Cheer/support/provenance/fullcardandpitchesuncredited. Noenginechange. Sources: FaBSim/GeneratedCode/cardArrayCache.json#turning_point_blue FaBSim/GeneratedCode/GeneratedMacroCode.php FaBSim/Custom/GameLogic.php FaBSim/Custom/HVYCards.php FaBSim/Custom/HVYRuntime.php FaBSim/Custom/SUPCards.php FaBSim/Custom/WTRCards.php"
+}

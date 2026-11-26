@@ -1,0 +1,639 @@
+{
+  "status": "APPROVED_ACTUAL_SAVED_B762_V2_RESTLESS_LOOTER_DISCARD_DRAW_AND_CORPORAL_RETURN_EARNED_GO_AGAIN",
+  "approved": true,
+  "source_approved": true,
+  "semantically_approved": true,
+  "reviewer": "/root/b753_review",
+  "reviewer_independent": true,
+  "author": "/root/b753_author",
+  "created_utc": "2026-11-09T01:26:12.567399+00:00",
+  "source_spec": "card-regression-batch762-v2-direct-activation.json",
+  "input_sha256": "63a1c556e1066b2136354261710c827f7d51bfe7707d54984ea78a48396f491f",
+  "manifest_sha256": "7e0d460e83cbb3e5fe1c359835659312c029f5a786c3b3e4e05ed24632ab618b",
+  "runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+  "recorded_runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+  "recorder_sha256": "ab33a3250462d0453f71d38dd4138cb9fbc3d595d2586742e989a52251c9c4a9",
+  "source_guards_verified": 71,
+  "source_guards": {
+    "AGENTS.md": "98e92f639d0768613c07759d84393fe2a58ff145e239bbd5bb0c3f8fdcf1f09d",
+    ".github/copilot-instructions.md": "27d6d8211b219cc826a4f2bf63d6d59765ed805feea6fb6571bfd225eb824543",
+    "FaBSim/Custom/GameLogic.php": "1cdad1555c8d2e3bd3fa98d69bf52791b84d21bf2269363ddea7249f4ee35a43",
+    "FaBSim/Custom/WTRCards.php": "5ead5cc6303b5e6760715b1a038e38d01014d8d42f16aa32bb24aa9df17e9515",
+    "FaBSim/Custom/WTRAbilities.php": "08b6d572e83e797848eaee02f9288bbe2bdc7de1dbe1ce522de0cd95a6c94d5c",
+    "FaBSim/Custom/ARCAbilities.php": "5330205cf8b98a1ba93cb15aa42f67c76d01dac3cb53b206669e7d00b0e9daca",
+    "FaBSim/Custom/ARCCards.php": "e8839553781cb4c3725eac1953d622a6f7bbd6998e375261813c4c4e249691e1",
+    "FaBSim/Custom/HVYCards.php": "aeee5080ba3096b2413fd1fbf33aa8d8f24685d219e13c8b942dda45f0c66c7d",
+    "FaBSim/Custom/HVYRuntime.php": "e133c543240f428e8d7f8488971dcfd929720b066342d0d72b4f8cdbb64faa73",
+    "FaBSim/Custom/MONCards.php": "50ccaa44bdd2c94db708dbf2b358aa066d71ceb2c56b8dad14bc2fd1d242953f",
+    "FaBSim/Custom/ROSCards.php": "881b788c96ac6fe7382461b82c23c0fc28a40c393f92784401bf5d8955ae8dfa",
+    "FaBSim/GeneratedCode/GeneratedMacroCode.php": "63113a3d140cfd13409e1ad7ee737f8ecfbbc1f78c4eb8c540658a3bacc73c54",
+    "FaBSim/GeneratedCode/GeneratedCardDictionaries.php": "1be127d10c8f7fe3fa10b8aa098678fa43b2790910c95666226b18eb79ea7c60",
+    "FaBSim/ZoneClasses.php": "874bb2ae00a80a8ba3dfe1789b4c932fd0b7cf1286504a62828e0055ca1cb355",
+    "FaBSim/ZoneAccessors.php": "9967567a9a10df81a6f22df820d4d77258828657e95c4ad145b8b13ce17866a7",
+    "Schemas/FaBSim/GameSchema.txt": "7783800bd47bc85885cc915066aadca58cdf99f0c1180602ac312d9af5ebf643",
+    "Core/DecisionQueueController.php": "65bfcf5b4f595d62d6dfb8bde0b884de42cd1a726618b5431fccf8939eed9a9d",
+    "Core/RegressionTestFramework.php": "670028e69e1a59c22aef5e6512edd2cd0dee5fdcaed4cf8c31374b8eb2b7ca6a",
+    "DevTools/FaB/hvy_abilities.json": "8efacf3b7fc39648144096451ba5b181b7d04f90896a8203eacbcd9ac98a146a",
+    "DevTools/FaB/arc_abilities.json": "ba33c47315cb5dd2a8116497b5525ec6d1b0fa917a0a3ee9424af5ccee16dce6",
+    "FaBSim/Custom/HNTCards.php": "2815741c96cd842e419d7216733efe1be1497e199ba13d65ad8e3d2331118270",
+    "FaBSim/Custom/HNTRuntime.php": "10907fc83993394946e489e3395fd2c1278a4784ce0a98391495231872b546d5",
+    "FaBSim/Custom/MSTCards.php": "52e9e34fbc2734c4b1b7b6040ebb4d784a27f32f748b53b961dd46c9f843e1ef",
+    "FaBSim/Custom/MSTRuntime.php": "b96f21727c089c90c21bf3aadaf913301b1ef7c922f2a17ac055258682ed45ce",
+    "FaBSim/Custom/DYNRuntime.php": "f521482b11084e2befb4a712cd47cf481b9139cc63d4ddb2027aa45047f3d89e",
+    "FaBSim/Custom/DYNCards.php": "769ba9ca4fc0e527144ee5b6e7bf90e612063a2974c78000845b0697862f340b",
+    "FaBSim/Custom/CardChoices.php": "6d1122598624a9ac61d99bfc41574d01e80de211e714eadaafb7b6b817a4f975",
+    "DevTools/FaB/hnt_abilities.json": "4252b725640c5014d9264c987067b71a036ff1f7fa6e98f5fc1da5e542e080d8",
+    "DevTools/FaB/mst_abilities.json": "c2bb091212e461c3a5f20be54b81c90fc81df1554d563d7c59289a17465bae35",
+    "FaBSim/Custom/SUPCards.php": "24c0fd00537f40209632e8386c8571db993d6d452b38061f93bae9c2d7acaf74",
+    "FaBSim/Custom/SEACards.php": "83e666cff3fb39ced8c52e5438ae0aa977b72be9bf2ccadcda562a89f7091ad8",
+    "FaBSim/Custom/SEARuntime.php": "61912a3f1e31e6d6e10c64fa92514c6ecf937fcbb1ca63af0ace0dfd3a9dc001",
+    "DevTools/FaB/sup_abilities.json": "92ca6f5909da4af9dcb9350b3d1f9e793611cae5326dce97e25a1a1d7c8fb85e",
+    "FaBSim/Custom/PENCards.php": "3e7a54b0fe8426e65e7d2baadec53bbda7caff5c0a8e48f79b2832e0b2376a94",
+    "FaBSim/Custom/EVRCards.php": "ad988b0e0e3d3f80bb0f9de0eb66bb826e32c8edbddbb15d5034926baa31e6af",
+    "DevTools/FaB/pen_abilities.json": "e50d82b686864b733032deae373b9825264b63a23ca8e6248c0c5f046c415054",
+    "DevTools/FaB/dyn_abilities.json": "0357acaa6e9b2ca3dfb895106270c4dc8f71515e7ff4b26801400bf5637247fe",
+    "FaBSim/Custom/ROSRuntime.php": "3b8c1f2c03339b46500221a61c83a2aef06eb2845331c6bcf18c6f72287c61e1",
+    "DevTools/FaB/evr_abilities.json": "3cfdd494730e34946cbfaa1c4bd75ee892901c157c43ebcaa3c486c99052fc2e",
+    "DevTools/FaB/mon_abilities.json": "a06c06aa49853536c865fabcbe72f36cba1eab95f010aad2b4a17be3a4e3f77b",
+    "DevTools/FaB/cru_abilities.json": "b4cd3462acf0484979b1d3321ed5357b65a7ed103cd84953dc921cf172bbf429",
+    "FaBSim/Custom/EVOCards.php": "dff20a12d7dd29417b34c9609dbc3fd27325e1c8d3be2b15da481fef7e277462",
+    "FaBSim/Custom/EVORuntime.php": "e38af5f56cd9ecc3c87e5ef6eb81fc03850151833fde02af8a4ae1a29600962b",
+    "DevTools/FaB/evo_abilities.json": "681df04ce6b2430623dbd34d7266c09131bff3eb7c7e1f946820e33549cb9552",
+    "FaBSim/Custom/OUTCards.php": "a52a5803ba36b488094a5284cd3ccd1fadd44e68acdd25cd9ea148b9ace0104a",
+    "FaBSim/Custom/OUTRuntime.php": "6f7accc2875279261e28f9d470a779b91fbfc0df1648bdf3539774b38addfd9f",
+    "DevTools/FaB/out_abilities.json": "6ba251fb5ef0d534096935d995d363be413ed82aa1388891228f1198121f47cf",
+    "FaBSim/Custom/MONAbilities.php": "0e50c426738ec083bf3357d9f0326b30d78d8278586178a6a465d11ece280cc6",
+    "DevTools/FaB/sea_abilities.json": "6e6916ff797cb956d9cce2018dc151644d26644d9b803482f04fd91094258c78",
+    "DevTools/FaB/ros_abilities.json": "2851433ce5bc948fec9532a33ffc709d4a595f74078fcb9d956c922a8ff18ff8",
+    "DevTools/FaB/build_ros_abilities.py": "48b89a4b9f3fb19956dc9bfa526dd984c60e07c27180f7f4938cb6947848da9f",
+    "DevTools/FaB/wtr_abilities.json": "1a1f6021e29d88fddc5ab6d8e656e55929e0fd8e708dd0ee5ad459b8b0b7a49b",
+    "Core/DeterministicRNG.php": "1dab74f1628bf52a89a1aca6941dfe5e4513fef660ef7b8b58fe057c70fa517a",
+    "FaBSim/Custom/CRUCards.php": "b747479f996a5207246c171efce73f899471b9b9608c116241b10086c2c7c292",
+    "FaBSim/Custom/CodeGeneration.php": "50b64d437d5c41ff475d20bacbc1d6ce3b720c8af49990c95f46d024b6bdea69",
+    "FaBSim/Custom/DTDCards.php": "059938626cc5e4e1675d231f9bb0f689a22ef70c7be5748224b2f13eedb7bddd",
+    "FaBSim/Custom/UPRCards.php": "144c369209e0a53f5f0ad540f2e549f4c4c0f0234b9a2c9bf703c2e22cd4e8af",
+    "DevTools/FaB/upr_abilities.json": "c83daf0e6e0a9894808e3eb5ed632db532256b5cd6621066d2429efcd4bca18f",
+    "FaBSim/Custom/FaiCards.php": "89678a2dd28ba283f21563fce488d286bea8153e88b123698e258bbc0994ba93",
+    "FaBSim/Custom/ProfessorCards.php": "6e5cc57b008552dc444d06831bd9dbec45db47214087de049da99b68deb96988",
+    "FaBSim/Custom/IARCards.php": "d7462a79d8deea9b6270c5c878972878177c44726e389d1918022b6368d7e82a",
+    "FaBSim/Custom/IARRuntime.php": "8aae2efda118e15daa34381505cba3c5060059819960884caeaeede0f578a7d9",
+    "FaBSim/Custom/AMXCards.php": "8b2f46e250e3622b06e417b10c9dc11dd769dc48744fbbdfe276cc132ecb6a32",
+    "DevTools/FaB/iar_abilities.json": "6b5db45b3a1cfd542bb2730f47347198055b7630486f6f32d51b11a781aa0fae",
+    "FaBSim/Custom/OMNCards.php": "3b827d9c98875c042daee925a5fe227fdce2195f303c08192fb76b9c806883c8",
+    "DevTools/FaB/omn_abilities.json": "6f3d1021628a3b676c1c60b3c6b7b3db486caea31057cdba3dcdbbc1c6ffef38",
+    "FaBSim/Custom/CustomInput.php": "91a368821f71a4f60bed8812c7cda2edeb91f481a0d6341557586e5e6ab5c2e6",
+    "Core/EngineActionRunner.php": "f64e3d31c9524103bc14aa6ace7611c90be6ae0a0d09a421b81d87593aefebec",
+    "FaBSim/Custom/ArakniCards.php": "0e0ccc29ba870212f63cc4dce8b50468c31408372aeb488b9112a7afeb595d7f",
+    "FaBSim/Custom/BoltynCards.php": "c69ec227eed13f4f21c6a8a5d0b7537f807f3c06b293a6d57fbcc66c2d02570d",
+    "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3"
+  },
+  "prior_independent_semantic_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov9-batch762-v2-direct-activation-independent-source-review.json",
+    "sha256": "9931dd0dddb81074ff050dcf8d0979158cda2ab9faa4681b46795b5f56370a59"
+  },
+  "independent_protocol_classification": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov9-batch762-single-action-dispatch-independent-classification.json",
+    "sha256": "f23993491d2f7dff63c31fb34a8e85cb6a7a9866e15310ac57836ef975f8b9f9"
+  },
+  "completed_material_analysis_reused": true,
+  "recording_receipt": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch762-v2-direct-activation-20261109T012213Z-6af1204531690.json",
+    "sha256": "1e4e49d8141fe2bea4c55637a023eb852f4d5c0b1d2a49836509964a1edc3bc5"
+  },
+  "specific_results": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch762-v2-direct-activation.recording-results.json",
+    "sha256": "417986cc81fdbeefb437ae27f441133976fe2b0258ca43b8ee78396edc6a26ed"
+  },
+  "root_wrapper_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov9-b762-v2-direct-activation-native-recording\\receipt.json",
+    "sha256": "7d2c98c4fd464b05818edb549243b62f7a864ebb47a9bb7d40a62c3d1f85e908"
+  },
+  "fixtures": [
+    {
+      "index": 0,
+      "card_id": "restless_looter_red",
+      "group_id": "identity:restless_looter_red",
+      "slug": "card-restless-looter-red-four-live-real-tap-resolution-discard-and-draw-same-uids",
+      "source_spec": "card-regression-batch762-v2-direct-activation.json",
+      "input_sha256": "63a1c556e1066b2136354261710c827f7d51bfe7707d54984ea78a48396f491f",
+      "reviewer": "/root/b753_review",
+      "approved": true,
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_SOLE_ZOMBIE_UTILITY_ACTIVATION_AND_POSITIVE_EFFECT",
+      "runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+      "recorded_runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+      "fixture_path": "Tests\\Integration\\FaBSim\\card-restless-looter-red-four-live-real-tap-resolution-discard-and-draw-same-uids",
+      "fixture_sha256": "b3fa3f61bf728a95c5d0e72778ca9f4975e091b2fd14d0407e5497580aa22706",
+      "raw4_sha256": {
+        "initial_gamestate.txt": "3f4cefff641ab3ddfb22ab024004f040636fa803f79cd6bc48fad9021db4c4e4",
+        "actions.json": "43bb21aa4a06bed44e8900cf4315d9ff07291ee99d8a58d408cd81e92f2048f1",
+        "assertions.json": "b738fd8beed663910c049b846484d9dabb8c6dcb4fb6b112dedadd42f01811a6",
+        "expected_final_gamestate.txt": "7f21c6fec92dd6f59902ab0e4bb1fd4481926674a749436eafab2518e73cadc6"
+      },
+      "raw5_sha256": {
+        "initial_gamestate.txt": "3f4cefff641ab3ddfb22ab024004f040636fa803f79cd6bc48fad9021db4c4e4",
+        "actions.json": "43bb21aa4a06bed44e8900cf4315d9ff07291ee99d8a58d408cd81e92f2048f1",
+        "assertions.json": "b738fd8beed663910c049b846484d9dabb8c6dcb4fb6b112dedadd42f01811a6",
+        "expected_final_gamestate.txt": "7f21c6fec92dd6f59902ab0e4bb1fd4481926674a749436eafab2518e73cadc6",
+        "meta.json": "cf1a1d346d81790829316393b45d4c1e360634b88e1d52fa8d9180fae202a1db"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "3f4cefff641ab3ddfb22ab024004f040636fa803f79cd6bc48fad9021db4c4e4",
+        "actions.json": "43bb21aa4a06bed44e8900cf4315d9ff07291ee99d8a58d408cd81e92f2048f1",
+        "assertions.json": "b738fd8beed663910c049b846484d9dabb8c6dcb4fb6b112dedadd42f01811a6",
+        "expected_final_gamestate.txt": "7f21c6fec92dd6f59902ab0e4bb1fd4481926674a749436eafab2518e73cadc6",
+        "meta.json": "cf1a1d346d81790829316393b45d4c1e360634b88e1d52fa8d9180fae202a1db"
+      },
+      "actions": 6,
+      "native_assertions": 708,
+      "schema_property_assertions": 218,
+      "checkpoints": 8,
+      "actual_manual_passes": 4,
+      "actual_priority_response_passes": 4,
+      "actual_defender_declaration_finish_inputs": 0,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "actual_manual_actor_counts": {
+        "1": 1,
+        "2": 1,
+        "3": 1,
+        "4": 1
+      },
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "all_actions_and_assertions_exact": true,
+      "no_recorder_only_assertions": true,
+      "all_terminal_assertions_evaluated_against_parsed_final_snapshot": true,
+      "initial_assertions_also_evaluated_against_parsed_initial_snapshot": true,
+      "all_endpoint_physical_uid_card_zones_ownership_verified": true,
+      "initial_physical_uid_locations": {
+        "1": {
+          "card_id": "malice",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "6": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "wounding_blow_red",
+          "zone": "p1Deck",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "restless_looter_red",
+          "zone": "p1Arena",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2
+        }
+      },
+      "final_physical_uid_locations": {
+        "1": {
+          "card_id": "malice",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "7": {
+          "card_id": "wounding_blow_red",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "restless_looter_red",
+          "zone": "p1Arena",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2
+        }
+      },
+      "final_physical_uidset": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "primary_UID": 5,
+      "primary_final_zone": "p1Arena",
+      "primary_final_Status": 1,
+      "primary_final_Damage": 0,
+      "primary_final_Counters": {},
+      "primary_remaining_life_source_printed_raw_derived": 3,
+      "AllyHP_native_getter_used": false,
+      "actual_virtual_ability_UID": 8,
+      "actual_sourceUniqueID": 5,
+      "virtual8_ceased": true,
+      "actual_tap_cost_paid": true,
+      "actual_activation_resource_cost": 0,
+      "actual_activation_AP_cost": 0,
+      "actual_GA_AP_refund": 0,
+      "actual_GA_consumer_UID": null,
+      "actual_positive_effect": "discard6_draw7",
+      "actual_attack_power": null,
+      "actual_physical_damage": 0,
+      "final_health": [
+        20,
+        20,
+        20,
+        20
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_AP": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "final_Chi": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_Hero_Status": [
+        2,
+        2,
+        2,
+        2
+      ],
+      "final_UniqueIDCounter": 8,
+      "RandomCounter": 0,
+      "full_card_certification": false,
+      "untested_siblings_credited": false,
+      "native_action_mapping_sha256": "f36150a310d99c270ed2f8338fe2645ac79082c1a04f8c0902e35564f9745a9a",
+      "native_assertion_mapping_sha256": "55673efd9a710e9516ddca6d293652a11462808834ab2f5a97fdda8e932eda75",
+      "checkpoint_assertion_mapping_sha256": "78becda2e1b86d88137a8329ca8a0e5ea9bfd184672d45be18db5145670bc561"
+    },
+    {
+      "index": 1,
+      "card_id": "restless_corporal_red",
+      "group_id": "identity:restless_corporal_red",
+      "slug": "card-restless-corporal-red-four-live-real-tap-banish-to-graveyard-earned-go-again-and-four-damage",
+      "source_spec": "card-regression-batch762-v2-direct-activation.json",
+      "input_sha256": "63a1c556e1066b2136354261710c827f7d51bfe7707d54984ea78a48396f491f",
+      "reviewer": "/root/b753_review",
+      "approved": true,
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_SOLE_ZOMBIE_UTILITY_ACTIVATION_AND_POSITIVE_EFFECT",
+      "runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+      "recorded_runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+      "fixture_path": "Tests\\Integration\\FaBSim\\card-restless-corporal-red-four-live-real-tap-banish-to-graveyard-earned-go-again-and-four-damage",
+      "fixture_sha256": "c5359640db6ab2dbdf615fe501147cc5c86bcee3135bf4a1edaa60f921765d12",
+      "raw4_sha256": {
+        "initial_gamestate.txt": "f97fe2c8a2ba51ae1d1e1a59a76e95fe3b943ec602cd593b880342848850b8d1",
+        "actions.json": "bde650f508cca7ded806300119d33a4d6bd348d8187064ac9d12c26add8fb249",
+        "assertions.json": "88a2989768b3ed72146ef53596d4788ed4ed2e543fcfb920ebdd691ed3b0abe6",
+        "expected_final_gamestate.txt": "9aa98cd227373f8763e33e58902e7cb8b2d811c6e168c4f407fb776152a859da"
+      },
+      "raw5_sha256": {
+        "initial_gamestate.txt": "f97fe2c8a2ba51ae1d1e1a59a76e95fe3b943ec602cd593b880342848850b8d1",
+        "actions.json": "bde650f508cca7ded806300119d33a4d6bd348d8187064ac9d12c26add8fb249",
+        "assertions.json": "88a2989768b3ed72146ef53596d4788ed4ed2e543fcfb920ebdd691ed3b0abe6",
+        "expected_final_gamestate.txt": "9aa98cd227373f8763e33e58902e7cb8b2d811c6e168c4f407fb776152a859da",
+        "meta.json": "7bb58d5cc8eadf32f4de3b103cb4d28d4609e26e7b96e773b968889bcb439dfd"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "f97fe2c8a2ba51ae1d1e1a59a76e95fe3b943ec602cd593b880342848850b8d1",
+        "actions.json": "bde650f508cca7ded806300119d33a4d6bd348d8187064ac9d12c26add8fb249",
+        "assertions.json": "88a2989768b3ed72146ef53596d4788ed4ed2e543fcfb920ebdd691ed3b0abe6",
+        "expected_final_gamestate.txt": "9aa98cd227373f8763e33e58902e7cb8b2d811c6e168c4f407fb776152a859da",
+        "meta.json": "7bb58d5cc8eadf32f4de3b103cb4d28d4609e26e7b96e773b968889bcb439dfd"
+      },
+      "actions": 33,
+      "native_assertions": 2853,
+      "schema_property_assertions": 843,
+      "checkpoints": 35,
+      "actual_manual_passes": 29,
+      "actual_priority_response_passes": 28,
+      "actual_defender_declaration_finish_inputs": 1,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4
+      ],
+      "actual_manual_actor_counts": {
+        "1": 7,
+        "2": 7,
+        "3": 7,
+        "4": 8
+      },
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "all_actions_and_assertions_exact": true,
+      "no_recorder_only_assertions": true,
+      "all_terminal_assertions_evaluated_against_parsed_final_snapshot": true,
+      "initial_assertions_also_evaluated_against_parsed_initial_snapshot": true,
+      "all_endpoint_physical_uid_card_zones_ownership_verified": true,
+      "initial_physical_uid_locations": {
+        "1": {
+          "card_id": "malice",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "7": {
+          "card_id": "wounding_blow_red",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "restless_corporal_red",
+          "zone": "p1Arena",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Banish",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2
+        }
+      },
+      "final_physical_uid_locations": {
+        "1": {
+          "card_id": "malice",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "5": {
+          "card_id": "restless_corporal_red",
+          "zone": "p1Arena",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "wounding_blow_red",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2
+        }
+      },
+      "final_physical_uidset": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "primary_UID": 5,
+      "primary_final_zone": "p1Arena",
+      "primary_final_Status": 1,
+      "primary_final_Damage": 0,
+      "primary_final_Counters": {},
+      "primary_remaining_life_source_printed_raw_derived": 3,
+      "AllyHP_native_getter_used": false,
+      "actual_virtual_ability_UID": 8,
+      "actual_sourceUniqueID": 5,
+      "virtual8_ceased": true,
+      "actual_tap_cost_paid": true,
+      "actual_activation_resource_cost": 0,
+      "actual_activation_AP_cost": 1,
+      "actual_GA_AP_refund": 1,
+      "actual_GA_consumer_UID": 7,
+      "actual_positive_effect": "Banish6_toGY_earnedGA_consumed_attack7",
+      "actual_attack_power": 4,
+      "actual_physical_damage": 4,
+      "final_health": [
+        20,
+        20,
+        20,
+        16
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_Chi": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_Hero_Status": [
+        2,
+        2,
+        2,
+        2
+      ],
+      "final_UniqueIDCounter": 8,
+      "RandomCounter": 0,
+      "full_card_certification": false,
+      "untested_siblings_credited": false,
+      "native_action_mapping_sha256": "6534e3afdaf0294d435a1c5a50acf11f53227195727503401bb998580f2cae45",
+      "native_assertion_mapping_sha256": "37a12caa15fd822cfc8fc74646601d848ac03f96d515becddf637e22d074e479",
+      "checkpoint_assertion_mapping_sha256": "80e960bc5c455b2eef99ac8f5154fb78be622dc2d53f0a8e60d7510e2b30d862"
+    }
+  ],
+  "blocked_attempts": [],
+  "total_actions": 39,
+  "total_native_assertions": 3561,
+  "total_schema_property_assertions": 1061,
+  "total_manual_passes": 33,
+  "current_Source_hold_rows": 223,
+  "original_author_dependency_snapshot_rows": 220,
+  "native_existing_fixture_baseline": 4017,
+  "original_failed_attempts_preserved": {
+    "native_input": {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch762.json",
+      "sha256": "32eb4c40dc0bc2f7e64e5fe5a2b376b179b4c94c40819c4b7a0bf6d0f763bdea"
+    },
+    "native_results": {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch762.recording-results.json",
+      "sha256": "85bae06bba28735d5096cced675b72e359dc0db48323eaeac1bfdbb235fdc5ad"
+    },
+    "native_receipt": {
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov9-b762-looter-corporal-native-recording\\receipt.json",
+      "sha256": "406ff5a7256df05922154159dadaa5ae5bd45165ac12357536861a04f070863f"
+    },
+    "actual_inputs_percase": [
+      1,
+      1
+    ],
+    "actual_successful_query_counts": [
+      null,
+      null
+    ],
+    "qualified": false
+  },
+  "material_findings": [
+    "Exact actualtwo rawfive/behavior sets and every39nativecontrol/3561orderedpersistedqueries/1061typed/33manual match correctedSource9931dd0d/input63a1c556. Completeinitial/finalassertions evaluated against parsedrawsnapshots; all48manualpreferences eachendpoint/fouroriginalownedlivinglegalyoung20Heroes verified. Current71/c53ab33 unchanged; oldoneclickfailedattempts/results/proofs/backup bytes preserved with no inventedquerycount.",
+    "Actualfirstclick directlyactivates soleARC_0 withoutVox/Attackoption; ABI8/controller1/SourceArenaUID5 captured and realtap5/CorpAPdebit paidbeforepriority. Freshresponders1,2,3,4 retainABI8, fourthopens owner1MZCHOOSE and exactmanagedmarker whileeffects/APrefund wait. Actualownedchoice thencompletes effects, clearsvirtual8 andreturnsACTION/P1/pass0. No hypotheticalmenu or rawpendingpriority1 assertion.",
+    "Looter actualBlue6Hand\u2192ownpublicGY triggerssuccessfuldiscard and actualsameRed7Decktop\u2192Hand; AP1unchanged/allHP20. Corporal actualownedfaceupBlue6Banish\u2192ownpublicGY, thenmanagedGA refundsAP0\u21921. ActualRed7 zeroresourceattack consumes thatAP after adjacentHero4 declaration andrealresponses; power4/DEF0 yields4physical/HP16. FullnormalClose leavesGY1[6,7]/BanishHandDeckempty.",
+    "Actualboth endpoints retain sameAlly5Arena/tappedStatus1/Damage0/Counters[]; remaininglife3 is source+printed/rawderived, never a queriedHPgetter. OriginalphysicalUID1..7 conserved/virtual8ceased/counter8/RNG0/allRChi0/AP1Looteror0Corp/fourreadyHeroes/StackChainsTempDQs/payment/awaitmanagerquiet. Inactive scalarIDs in decisionvariables do not represent pendingframes. No End/Zombiedeath/Malice/Dori/Allyattack/producer/sibling/support/fullcard behavior credited.",
+    "The absent135originalhypotheticalqueries are already classified:4impossiblemenuType/Param checks and131exactinitialduplicates stillretained in initialcheckpoint. Alloriginalpaid/effect/source/physical/economy/response/damage/cleanup queries survive in thisrawfixture afterreanchoring. CurrentSource223 recordedseparately from immutableauthor220snapshot; nativecreationbaseline4017 is receiptobserved, no selection timestamp or priornewnessframe inflated."
+  ],
+  "limits": [
+    "Looter only actualtap/positive resolvingdiscard6/draw7; Corporal only actualtap/AP/positivepublicBanish6return/earnedGAconsumedbyRed7fourdamage. No fullcard/sibling/support/Hero credit.",
+    "PublicAlly and ownedordinarydeck-cardBanish premises must be legally reachable; priorproducers/plays/payments/banishment unexecuted/uncredited. No inventory-card premise/privatehistory/asset/currenteffect seeds.",
+    "Both tap costs and CorporalAP are paid before responses; discard/draw/movement/GA occur only during/afteractual managedchoice. Firstclick directlydispatches solelegal ARC_0; Zombieattack admission requires Vox absentfromfixedsetup, so noMZMODAL/answer occurs.",
+    "Only current schema-supported queries; no invented currentAllyHP/finalDEF getter, no whole genericbookkeepingbank emptiness. Rawsnapshots only recorder endpoints.",
+    "No End or Zombie death: Decay/MaliceWHEN/lifereset not earned, no responseabletrigger falselyinlined. DoriweaponWHEN unearned with noownedWeapons/attacks.",
+    "Other independentSource beforeRootnative, exactSaved48preferences and twofocusedcleanreplays required; author no native/fixture/coverage/bug/fix approval.",
+    "Original failed modalrecipe and priorSourceproofs/nativefirstclick failures are immutable historical evidence; this narrow successor needs freshexactSource and newRootnative/Saved/replays. Actualoriginalpassedquerycounts remainnull, Source-mapped ordinals are separate.",
+    "Only exact corrected successor63a1c556 admitted. PrimaryAA/siblings/support/Hero/Allyattack/Decay/End/death/producer/fullcard credit remains false.",
+    "Rootnative/independentSaved/twofocusedcleanreplays/registration separate. Reviewer noPHP/native/game/replay/R/source/Git/remote/fullsuite/repair/deniedretry.",
+    "Only these exact selected positive utilityactivation routes. No ZombieAllyattack/Decay/End/death/HPreset/repeat/alternatechoices/producers/Hero/support/sibling/fullcard credit. PriorpublicAlly/Banishproducers unexecuted/uncredited and no privatehistory seeded.",
+    "Root twofocusedcleanreplays/registration separate; no qualification before registration. Reviewer noPHP/native/game/replay/R/source/Git/remote/fullsuite/repair/deniedretry. Only initial/finalrawsnapshots exist; intermediate effect timing is persistedqueries plus auditedSource, not inventedrawexports."
+  ],
+  "qualification_credit_before_registration": false,
+  "blockers": [],
+  "actual_comparison_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov9_batch762_direct_saved_readonly.py",
+    "sha256": "6c54e657c8656039ba8bcca3bc79045a20c7b4779381ce081c6012b42dbd7549"
+  }
+}

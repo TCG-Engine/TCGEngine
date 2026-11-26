@@ -1,0 +1,115 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "independent breadth_review1252",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1326-20261122.json",
+  "source_spec_sha256": "b52b34b5cab8557dd378ed795ce424c10d1cf5416f9c226657b53ffb39416eab",
+  "input_sha256": "b52b34b5cab8557dd378ed795ce424c10d1cf5416f9c226657b53ffb39416eab",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-belittle-red-four-live-sparse1326-unpaid-optional-reveal-keeps-real-tutor-target-and-go-again-funds-second-attack",
+      "card_id": "belittle_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "77b66ee460920ec16e3d27a4b3241f03042a744429ec32d355211221a31c55aa",
+        "actions.json": "65eeab4eb3b539ca0750ed8ff5ecf6b56c759270e22d5b31fddbc28e5e4a74a4",
+        "assertions.json": "47405b97ed87404493c21cc990490f6a750ea60c259a96e14d6c3527f45519c0",
+        "expected_final_gamestate.txt": "6434153509ecbac8b227d3fc6fc482c687c001d37799220bcc87283f369f7901",
+        "meta.json": "043896ec54cdd34cb34ab1e19ea6501518b0d42c64c54d88409abef04283211d"
+      },
+      "fixture_sha256": "0a4023043aa64c7d2c3e5550dafe8fa8be7ca3ed293a728f30a7ebb6abd36286",
+      "actions": 55,
+      "native_assertions": 624,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 50,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1326-20261122.json",
+      "input_sha256": "b52b34b5cab8557dd378ed795ce424c10d1cf5416f9c226657b53ffb39416eab",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1326-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-belittle-red-four-live-sparse1326-unpaid-optional-reveal-keeps-real-tutor-target-and-go-again-funds-second-attack",
+        "fixture_slug": "card-belittle-red-four-live-sparse1326-unpaid-optional-reveal-keeps-real-tutor-target-and-go-again-funds-second-attack",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "reviewer": "independent breadth_review1252",
+    "spec_sha256": "b52b34b5cab8557dd378ed795ce424c10d1cf5416f9c226657b53ffb39416eab",
+    "source_note_sha256": "48a4cf303923767a09b9be1e3db511a8704e8b3f83f271be71363d4ca6736b32",
+    "case_count": 1,
+    "active_seats": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "players": "four_live_manual",
+    "native_controls": 55,
+    "query_checks": 624,
+    "persistable_assertions": 624,
+    "author_only_checks_omitted": 0,
+    "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+    "coverage_category": "OPTIONAL_REVEAL_UNPAID_TUTOR_GUARD_AND_ACTUAL_GO_AGAIN_SECOND_ATTACK",
+    "per_case": [
+      {
+        "card_id": "belittle_red",
+        "group_id": "pitch-cycle:belittle",
+        "native_controls": 55,
+        "persistable_assertions": 624
+      }
+    ],
+    "basis": [
+      "Fresh unrepresented Belittle pitch-cycle group/no group hold. Legal Generic AA cost1/power3/own Go again under four natural Young Dori20/manual UPF. Four HeroUID1..4; actual primary5, real Generic CriticalStrikeRed6 Hand power5/pitch1, Generic WoundingRed7 Hand power4, foreign HandControl8, real MinnowismRed9 Deck. No effects/history/resource/AP or tutor seeds.",
+      "Printed optional additional reveal requires another current Hand card basepower<=3. Primary actual5 moves Stack before Prepare so cannot reveal itself. Compiled Prepare9265\u2192await94e8\u2026 uses MONSelectHand SMALL_AA; MONCards469 checks actual AA/basepower<=3. Both actual remaining Hand candidates5/4 exceed3, so optional cost remains unpaid, no reveal/StageSearch/paid-cost event or delayed tutor trigger is earned. No actual effect cost performed; known099 paid-reveal/positive trigger seam not exercised.",
+      "Real normal printed cost1 still requires actual Red6pitch1/R0/AP1to0, with real Wounding7 preserved. All four manual source/combat responses produce printed3/unblockedHeroDamage/HP17 and own GA refund1 only after last Damage response. Fullclose leaves primary5 own GY0/funder6 Pitch/actual7Hand; actual second zero-cost native attack7 spends earnedAP1to0, formally declares same adjacent Hero4 with fresh four responses and actual4damage/HP13/no secondGA. Two separate completed attacks functionally verify primary GA funding, not just tag query.",
+      "Real Minnowism9 same Deck/Owner/UID remains, making no-tutor control nonvacuous. Opponent actual HandControl8 remains unblocked, allArena0/UID9/RNG0. Final original5 and7 ownGY indices0/1, funder6Pitch, realDeck9/foreignHand8, APresources0/otherHealth20/empty Stack decisions combat match scope. All624 assertions across55 controls persist."
+    ],
+    "limits": [
+      "Only new binding/unpaid cost and actual two-attack GA semantic review pending native save/replay; no native pass or coverage claimed.",
+      "No paid reveal/tutor/earned paid-cost-trigger/otherpitch/Hero/support/sibling/full-card credit. One-card Deck/RNG0 is not an independent proof of every possible reveal or shuffle log; positive/direct shuffle behavior untested. Existing holds untouched.",
+      "Only W receipt written; no native tests/games/replays, T/engine/original-checkout edit or access, auth/network or Git."
+    ],
+    "source_sha256": {
+      "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+      "FaBSim/GeneratedCode/GeneratedMacroCode.php": "fe6a7982611df8f4de98ce2671b317b671b580146aa4b8c28e8f4b86d8461056",
+      "FaBSim/Custom/GameLogic.php": "c60fa151561f959e4e3e341b814de0e2b47c9e9f153bbc8793a04c43b5075061",
+      "FaBSim/Custom/CardChoices.php": "c68ae2b8e984bcc64b00289cc2d71bc0c980b2fbbeaeadbca8ae3a9f9579c515",
+      "FaBSim/Custom/WTRCards.php": "77d4452b30e45254a7199bc965396ded53e325717ecdd84a09b971f723f99f6a",
+      "FaBSim/Custom/MONCards.php": "2eb22bda6f1dba583df2879046f9f4dec94f47f2e9b28f369758f3af72c9c3ac",
+      "Schemas/FaBSim/GameSchema.txt": "7783800bd47bc85885cc915066aadca58cdf99f0c1180602ac312d9af5ebf643",
+      "DevTools/FaB/CardRegression/record_card_regressions.php": "e53055b29e9ea641949b77019c4455607f41ca233325d716a9500637e19efd28"
+    },
+    "workspace_source_sha256": {
+      "author_breadth1326.py": "6585463a11396ecf7a8b21e89c9d7bc13df877a5226b49203895d8be4d1b0c63",
+      "breadth1068_helpers.py": "997f949ec26c7e494ad26a818f9f2078f6f4f2a0c49ca7f61aa8c71f3b091b0a"
+    },
+    "secondary_identity_credit": false,
+    "positive_reveal_tutor_credit": false,
+    "hero_ability_credit": false
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1326-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "9f3ad1fb32b1f01d9adea26b320db310fb98db24e6d8b92a907c0dddfb71bc4d"
+  },
+  "full_suite_run": false
+}

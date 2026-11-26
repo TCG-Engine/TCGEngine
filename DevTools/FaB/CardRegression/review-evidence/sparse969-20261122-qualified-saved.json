@@ -1,0 +1,145 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "breadth_review independent source/semantic review",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse969-20261122.json",
+  "source_spec_sha256": "ecd4ebc92ba428aaa0edbd9d12570e3972fb4c4a12cd4c032095d098ef6a9e88",
+  "input_sha256": "ecd4ebc92ba428aaa0edbd9d12570e3972fb4c4a12cd4c032095d098ef6a9e88",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-devouring-doomwake-red-four-live-sparse969-actual-printed-payment-full-hand-block-no-hit-effect",
+      "card_id": "devouring_doomwake_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "5f7393e769942f813413be6c48efedd389878066ad172ce8cfdd70e718398415",
+        "actions.json": "b13a5c6357eefee8545eef3d84ffc45ae2693a805a3c988fca0b32df9c890957",
+        "assertions.json": "4b238f155e914e4adbfbaaf068d17a27fdb49369f7cb8d057bfb1d31564273d6",
+        "expected_final_gamestate.txt": "6ddf425e1c3711741e6440ab6faa85fd92fe60b079a3ef8c2e1669ee09285904",
+        "meta.json": "08831e2c3c2fbc21518cf9850159d64d4845517e0382d481069511a99dc16b5e"
+      },
+      "fixture_sha256": "6147549930e9d87f5cc9973a3db409ba5b76893e9f811444808004cc3997310a",
+      "actions": 33,
+      "native_assertions": 186,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse969-20261122.json",
+      "input_sha256": "ecd4ebc92ba428aaa0edbd9d12570e3972fb4c4a12cd4c032095d098ef6a9e88",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse969-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-devouring-doomwake-red-four-live-sparse969-actual-printed-payment-full-hand-block-no-hit-effect",
+        "fixture_slug": "card-devouring-doomwake-red-four-live-sparse969-actual-printed-payment-full-hand-block-no-hit-effect",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-strongest-survive-red-four-live-sparse969-actual-printed-payment-full-hand-block-no-hit-effect",
+      "card_id": "strongest_survive_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "468dc35487b7e4ab316025dfca62594f288885433c5ad8b0f36a79cbc27e68c3",
+        "actions.json": "b9996f47ad8378619b85a79eb0a8a53a9e095b4296bec37843ce3c891f30ed90",
+        "assertions.json": "2e4a81728c80c32537415be0c5d2c28bb61ee195e942c580312b10cc627bdd8c",
+        "expected_final_gamestate.txt": "9178a8e5ebd715bd97ee0b795b4e4b6527a811afa3861aa8c2e6465f751c38e7",
+        "meta.json": "1599003fb1ab77960375809c7e9c9695ad12e13552af0043c569c63d5521659e"
+      },
+      "fixture_sha256": "206fb1b3aa066697447b33e1adbbb221d51caa0becc790da65a75509936a5c5d",
+      "actions": 31,
+      "native_assertions": 169,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse969-20261122.json",
+      "input_sha256": "ecd4ebc92ba428aaa0edbd9d12570e3972fb4c4a12cd4c032095d098ef6a9e88",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse969-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-strongest-survive-red-four-live-sparse969-actual-printed-payment-full-hand-block-no-hit-effect",
+        "fixture_slug": "card-strongest-survive-red-four-live-sparse969-actual-printed-payment-full-hand-block-no-hit-effect",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-rumbling-hunger-red-four-live-sparse969-actual-printed-payment-full-hand-block-no-hit-effect",
+      "card_id": "rumbling_hunger_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "154cdaf8773d8a0f372e4b5af535ae7c225fb02eaf1967058f3b162b0a52e531",
+        "actions.json": "a44e24b9f9b348ce659c847e7dbea1e0cd33c5233e8ac4933f9391118d55ee4b",
+        "assertions.json": "6d2b50e348b81bba1b60e5da5facc66413ff6aa48e9cda6b6201d06ea5c7ca9e",
+        "expected_final_gamestate.txt": "bdc2286dcd53a07e1577cf8493e57dac1d804d9568b7c6e21b4f09a1cf79fe44",
+        "meta.json": "ed6ac7430bcb6ed8a872015e7dc73b6f2d13392d703e4a49f27af3a9eb81a14b"
+      },
+      "fixture_sha256": "799135954ac9618e2464b1e58b32cddc68cc6f637e4796f988f7ae3817685330",
+      "actions": 30,
+      "native_assertions": 152,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse969-20261122.json",
+      "input_sha256": "ecd4ebc92ba428aaa0edbd9d12570e3972fb4c4a12cd4c032095d098ef6a9e88",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse969-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-rumbling-hunger-red-four-live-sparse969-actual-printed-payment-full-hand-block-no-hit-effect",
+        "fixture_slug": "card-rumbling-hunger-red-four-live-sparse969-actual-printed-payment-full-hand-block-no-hit-effect",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-pack-call-red-four-live-sparse969-actual-attacking-role-seven-keeps-real-non-six-top-deck-order",
+      "card_id": "pack_call_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "e0ba4a5393aed441f4c013ea513888a687c5c488e7445ae849ac5427f5a4219c",
+        "actions.json": "25920dc16af50701b0be20453cc3345d5c14a09166881d7481930bfb87552093",
+        "assertions.json": "4375615b7cbb0f3472460fc60590d0bc620ff6e9e9d4d475a981945fb97239a2",
+        "expected_final_gamestate.txt": "c174be6f449548bbb730f51d0934cfb497ce493d55e3c10e284ab06284e2c2c2",
+        "meta.json": "abcb1a474df4fdc3ec9cad46ffb148d84919ba2adcf4b4475dbe160794ac976c"
+      },
+      "fixture_sha256": "18773c707c9997edfbaa381c97771494acfa84ea98970305524dce7333a8a0be",
+      "actions": 28,
+      "native_assertions": 155,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse969-20261122.json",
+      "input_sha256": "ecd4ebc92ba428aaa0edbd9d12570e3972fb4c4a12cd4c032095d098ef6a9e88",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse969-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-pack-call-red-four-live-sparse969-actual-attacking-role-seven-keeps-real-non-six-top-deck-order",
+        "fixture_slug": "card-pack-call-red-four-live-sparse969-actual-attacking-role-seven-keeps-real-non-six-top-deck-order",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "spec_sha256": "ecd4ebc92ba428aaa0edbd9d12570e3972fb4c4a12cd4c032095d098ef6a9e88",
+    "reviewer": "breadth_review independent source/semantic review",
+    "basis": [
+      "Cached types/health permit Levia20 Shadow Brute for Doomwake/Rumbling and Rhinar20 Brute for Strongest/Pack. Printed6/3/2/3 costs paid by actual Generic Blue6/7 for6 or Blue6 otherwise, leaveR0/0/1/0 and AP0. Doomwake first pitchR3/AP1 remains insufficient before second pays6; no additional discard/banish/ability activation. Initial counts/UIDs match setup.",
+      "Doomwake11/Strongest7/Rumbling6 are fully blocked by4/3/2 actual Hand AA defenses totaling12/9/6. Zero damage/HP20/attackHit=false/Stack0 means no hit is earned, including Rumbling later IF. Source5 owner1 graveyard and all blocker UIDs owner4 graveyard, both Banish0; Doomwake never banishes source or defenders. Strongest retains real NAA Hand10/Hand1; Rumbling Arenas0/AP0 and no token. Full four manual seats throughout.",
+      "Pack Call is an actual unblocked7-power attack with RoleATTACK, physical source5 owner1 graveyard and targetHP13. Its printed WHEN defends event is absent; generated producer is in defendedAbilities, not Hit/PrepareCard. Real own Deck7 Wounding Blow4 power then8 Raging Onslaught7 power retains both CardID/UID order; an incorrect defend-trigger would deterministically bottom the first. No reveal-log or positive defense inference.",
+      "All three hit-card producers verified; no PrepareCard entries for the four. No Rhinar6-power discard occurs, no Levia banish event or end phase is reached; Blood Debt/hero abilities remain outside this execution."
+    ],
+    "limits": [
+      "Only named cost/full block/no hit/physical fate or Pack attacking-main/type exclusion. No exact unblocked power for blocked cards, positive hit/banish/discard/reveal/defense, independent Rumbling banished6 predicate, Blasmophet/GA, Blood Debt/end phase/hero behavior, other pitches or whole-card certification. No shuffle-randomness claim from two-card deck. Native execution/replay pending."
+    ]
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse969-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "0b6c1cf9d487949c64bc23bfcd239326fc105d176132bde4eb966601d3c80c5f"
+  },
+  "full_suite_run": false
+}

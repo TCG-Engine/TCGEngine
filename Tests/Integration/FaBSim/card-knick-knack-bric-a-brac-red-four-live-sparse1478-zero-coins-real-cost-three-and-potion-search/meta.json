@@ -1,0 +1,7 @@
+{
+    "name": "Knick Knack Bric-a-Brac / zero coins, real cost three and Potion search",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-25T04:59:01+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "NoCoins/privatecoinvalue. ActualKnick5printed3requiresPITCH/Action1unspent; actualBlue6pitch3paysR0/AP0 beforeall4responses. NativeMZMAYCHOOSEDeckPotion7 onlyafterresponse4, samephysicalsource5Stackpending/noearlyArena orGY. ActualchooseDeck7 putsphysicalPotion7ArenaOwnerController1Status2, thenemptyshuffleRNG0, source5GY/Pitch6/R0/AP0/noGA/noHandDeck/newUID/StackDQawait. Positiveoneitemsearchonly; nonzeroassetcost/repeats/decline/alternatives/nonemptyshuffle/secondaryactivation/siblingsuncredited. Existingstructuralplainspelllife, noenginechange. Sources: FaBSim/GeneratedCode/cardArrayCache.json#knick_knack_bric_a_brac_red FaBSim/GeneratedCode/GeneratedMacroCode.php#knick_knack_bric_a_brac_red FaBSim/Custom/EVRCards.php#FaBEVRSearchItems FaBSim/Custom/EVRCards.php#FaBEVRPayObjects FaBSim/Custom/GameLogic.php#FaBPlainSpellResolutionIsManaged"
+}

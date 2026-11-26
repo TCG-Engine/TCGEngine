@@ -1,0 +1,7 @@
+{
+    "name": "Sigil of Fyendal / actual opposing destruction and separate owned life gain",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-23T15:23:59+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Legal young Briar20 caster1, two Dori20, young Kano15 victim4. Generic cost0 priorowned Sigil5Arena4; actual Vaporize6Hand1 chooses left Instant0 before four live responses. Untargeted resolution choice actually destroys5, parent6GY1 finishes before separate earned SigilABI7 controller4/source5. HP4 remains15 through all four fresh response seats, then16. No maximum starting-life cap. No other reward/token/UID growth; AP1 caster1/R0; physical5GY4/6GY1; final Stack/DQs/otherzones empty. Positive independent spell-driven departure only. Held beginning-action destruction remains unrun/unfixed, no producer/GoAgain/wholecard credit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#sigil_of_fyendal_blue FaBSim/Custom/ROSCards.php FaBSim/Custom/ROSRuntime.php FaBSim/GeneratedCode/GeneratedMacroCode.php"
+}

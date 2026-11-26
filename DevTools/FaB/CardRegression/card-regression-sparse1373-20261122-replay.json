@@ -1,0 +1,79 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-sigil-of-gravespawning-blue-four-live-sparse1373-actual-non-aura-action-leaves-graveyard-to-deck-no-earned-arcane-trigger",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-sigil-of-gravespawning-blue-four-live-sparse1373-actual-non-aura-action-leaves-graveyard-to-deck-no-earned-arcane-trigger",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1373-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1373-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "f6ee222d3961a12b2520bd59640a268095d5ec0dc3bff0cc6ceab12e85f5600b",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "73b1e0d14efa46a4bb11a936f1204e5653fb267a600206ff7f550dab0dd7e25e",
+        "actions.json": "2f761f232b976f1bcc0bbc44e202a781f746b4627d25330a911f43f2394105a9",
+        "assertions.json": "6967777e9ebf41136b02c5e36897d8f0a09c37b80a7c41216c818e426a30f5ab",
+        "expected_final_gamestate.txt": "cefb0da7810c3bedf55cb8755267c95aa176d4b17ca29025c0fd7c0d09b975f1",
+        "meta.json": "bc7a736d7bcf31365ab3d9a7f3b169b88529a79cf002a68b1304415be15b7db4"
+      }
+    },
+    {
+      "slug": "card-blessing-of-bellona-yellow-four-live-sparse1373-actual-action-moves-graveyard-to-deck-not-soul-no-courage",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-blessing-of-bellona-yellow-four-live-sparse1373-actual-action-moves-graveyard-to-deck-not-soul-no-courage",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1373-local-20261122\\clean-replays\\01.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1373-local-20261122\\clean-replays\\01.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "2f767ea7636ba3993b35f657cf637d49ad4c52f8edeacb21ba3589c781610e7c",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "bc14cced742494dbe1721494f79315eded268d0ed9c4ddc8164d93defcdc03d2",
+        "actions.json": "ec2059e4ca7192651ff8e7df8826e2a81be74d2809e26dadf6586891e0b3a3d4",
+        "assertions.json": "e65c83b3f5275092126852c49b3000c30adb8abec0f06af7c537a12a1d9c36e5",
+        "expected_final_gamestate.txt": "74c97c8595679ff89d12811a6b3ac32d53553c18b274daa1882a86b6ef8e2666",
+        "meta.json": "692fd30aaa15d0fc426f8d31d245ad0fa0a6a81580d540b3318c8f3bd400d502"
+      }
+    },
+    {
+      "slug": "card-merciful-retribution-yellow-four-live-sparse1373-actual-light-attack-action-recycled-from-graveyard-is-not-destroyed-no-arcane-or-soul",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-merciful-retribution-yellow-four-live-sparse1373-actual-light-attack-action-recycled-from-graveyard-is-not-destroyed-no-arcane-or-soul",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1373-local-20261122\\clean-replays\\02.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1373-local-20261122\\clean-replays\\02.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "657e5917fcaecda1091172cd95cd6835814bf8fe6faec1f589c06d308c9667b0",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "e1ff494501095ae1bfeb929a224ccf735d38b56f0141dc6994ed6d69a2e97f43",
+        "actions.json": "5fbe6da0e578007b6224f324e30861e51095e82c01624aa91b1f33ca41988633",
+        "assertions.json": "f66c98de44f34c07119067ad416e302cdfb97244bba033e8781cd36fc5cf7c6c",
+        "expected_final_gamestate.txt": "9de6349693b53d954bdf4a3803bfc1d42de7054ab33f428d89a0ea8a7f32f7fb",
+        "meta.json": "8bc61641c814436afc659edcdbc18ae460dffaf91d7cd8de28199ed7e66a63b7"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

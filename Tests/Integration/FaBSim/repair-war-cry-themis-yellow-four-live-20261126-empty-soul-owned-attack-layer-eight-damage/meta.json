@@ -1,0 +1,7 @@
+{
+    "name": "War Cry / empty Soul still earns Suraya attack layer",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-26T01:30:33+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "War Cry4 + Eruditionbase4 = actual8physical damage. Erudition(DTD) earns owned WHENattacks ABI with allfourfreshresponses even emptySoul. EmptySoul optionalcost unavailable: nodraw, no reward; ABI stillresponseable. PrismHP20 unchanged: Erudition is not Knowledge, no lifegain/arcane assertion. Preserve originalphysicalfates/cost/AP/proxyidentity/endstate. No pitchsibling or cardcomplete credit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#war_cry_of_themis_yellow FaBSim/GeneratedCode/GeneratedMacroCode.php FaBSim/Custom/HNTCards.php FaBSim/Custom/HNTRuntime.php FaBSim/Custom/MONAbilities.php FaBSim/Custom/GameLogic.php"
+}

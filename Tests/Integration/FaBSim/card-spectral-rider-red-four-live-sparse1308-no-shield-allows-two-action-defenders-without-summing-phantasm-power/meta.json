@@ -1,0 +1,7 @@
+{
+    "name": "Spectral Rider / native two-defender permission and per-card Phantasm guard",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-24T05:25:38+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "FOUR_REAL_MANUAL_UPF_NATURAL_YOUNG_PRISM20_AND_DORI20_NO_SHIELD_GUARDS_ONLY. NoArenaorShield/historyseed, actualprimary5HandformalHero4target/printedcost3actualBlue6pitch3/AP1to0/R0/fourfreshresponses. Rider8power: actualtwoAAHanddefendersCriticalStrikeRed7(base5,def3)andBlue8(base3,def3)bothaccepted. NoShieldmeansnoearnedOverpowerrestrictingsecondActiondefender. PhantasmchecksEACHnonIllusionistAAfor6power; separate5and3arebelow6evenwhilesum8. ThusnoPhantasmtrigger; actual6defenseand2physicalHeroDamageHP18/source5staysonCCuntilnormalclose/defenders7and8ownGY4/Blue6Pitch1. UID8/RNG0/allAPR0/StackDQsCCclean. NoShieldpositive/earnedGoAgain/Overpowerrestriction/Phantasmdestruction/PrismHero/support/otherpitch/fullcardcredit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#spectral_rider_red FaBSim/GeneratedCode/GeneratedMacroCode.php FaBSim/Custom/GameLogic.php FaBSim/Custom/DYNCards.php FaBSim/Custom/DYNRuntime.php FaBSim/Custom/MONCards.php"
+}

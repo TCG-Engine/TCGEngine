@@ -1,0 +1,31 @@
+{
+  "runtime_sha256": "e2e36a4d4ddf3847922ef24313feaf9fa355070d4c1f32746a419cfa3c51ca3c",
+  "status": "PASS",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "repair-count-your-blessings-blue-four-live-20261125-own-two-graves-opponent-excluded-retained-stack-source",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=repair-count-your-blessings-blue-four-live-20261125-own-two-graves-opponent-excluded-retained-stack-source",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\count-your-blessings\\witness\\replay.complete.log"
+      ],
+      "raw5_sha256": {
+        "initial_gamestate.txt": "c2f0e66b2aa3ced66695b1504102c7be2e64cb259b1d9f95c613ff11ca50300d",
+        "actions.json": "57b7a07731aff083ed8ecd7a6e44b3e05eeb874fe79ce1fc23633c1e75c61ad5",
+        "assertions.json": "0205bf3f55a7e594ca2e77a4d0bcd43f5a6c615a29f6f70b8517d09cb1a2cce1",
+        "expected_final_gamestate.txt": "fcd932d56084f40ec4e64743e899049eeeaaa8f02b9e6da1807509365ca7a5c3",
+        "meta.json": "680090107355049dbc501d6bf7b2a30a20f477a0aa7edb5a8554e03be32537b8"
+      },
+      "complete_log_sha256": "ea0080187ce9f687974dd4699725f82aa181ae6ceedf44988d179b722d9aa258"
+    }
+  ]
+}

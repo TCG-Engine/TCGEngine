@@ -1,0 +1,143 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer": "/root",
+  "reviewer_independent": false,
+  "runtime_sha256": "7d3ae36c63eb83c9e25afd21293da03797410bed3cbe81ff70dfbf362ca47cb5",
+  "source_spec": "card-regression-repair-light-the-way-red-hand-choice-20261126.json",
+  "input_sha256": "8686e519f6f29874214bac87af5ab420317356ddcbd793c88cf5e25e2a8f9cb0",
+  "fixtures": [
+    {
+      "slug": "repair-light-the-way-red-four-live-20261126-hand-cost-choice-and-attack-entry",
+      "card_id": "light_the_way_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "b9ef3fc573fb9d151093618c6a83b91f3c1e4e83220930c6ef7922e31affdca9",
+        "actions.json": "138fd9aa76d5c9b7199fdc8760f28ed4ba07e4eebfdd8992f5d255935103eb4e",
+        "assertions.json": "9e572d877347c6bd616b4cf0e20eb2d0f8299b4e8f496f2edf4455d9ce830538",
+        "expected_final_gamestate.txt": "de8306e6e4c8397588f23ff16b0f52568bd79b854fdc4cb4915964ed223f0996",
+        "meta.json": "650916797171337e5e87ced514db8fa546afcab3b3a4471d0fcd31f39b035fa4"
+      },
+      "fixture_sha256": "1b9abbc41166833f22f20232d82d5c23a52a392d291681a73b9983be7ea8fbc2",
+      "actions": 7,
+      "native_assertions": 157,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 4,
+      "recorded_runtime_sha256": "7d3ae36c63eb83c9e25afd21293da03797410bed3cbe81ff70dfbf362ca47cb5",
+      "runtime_sha256": "7d3ae36c63eb83c9e25afd21293da03797410bed3cbe81ff70dfbf362ca47cb5",
+      "source_spec": "card-regression-repair-light-the-way-red-hand-choice-20261126.json",
+      "input_sha256": "8686e519f6f29874214bac87af5ab420317356ddcbd793c88cf5e25e2a8f9cb0",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual"
+    }
+  ],
+  "repair_only": true,
+  "new_breadth_groups": 0,
+  "newly_represented_repair_group": 1,
+  "whole_card_complete": false,
+  "full_suite_run": false,
+  "source_proposal": {
+    "status": "APPLIED_PENDING_NATIVE_CALLER_QUALIFICATION",
+    "runtime_before": "55e463af3c1ff4d6bb4e60f450ba0c6115ef862ec071e994f8c1213a382e166a",
+    "path": "FaBSim/Custom/WTRCards.php",
+    "before_sha256": "34e00bac47d38444c032807f47429ac257c2a94bd1c07336464bca186b6defe3",
+    "candidate_sha256": "24bd9d8cc2db7bd88c324a4ed06f12b420518341581eefa2629aa3fdd952ea73",
+    "candidate": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\prepared-hand-226-229-231\\candidate\\WTRCards.php",
+    "scope": "One shared writer-coordinate mapper, exact five owned generated Prepare profiles. Clone only the matching decision; preserve live Hand/frame/callback/eligible identity sets and all RNG/material. No generated/Core changes.",
+    "runtime": "7d3ae36c63eb83c9e25afd21293da03797410bed3cbe81ff70dfbf362ca47cb5"
+  },
+  "targeted_replays": {
+    "runtime": "7d3ae36c63eb83c9e25afd21293da03797410bed3cbe81ff70dfbf362ca47cb5",
+    "fixtures": [
+      {
+        "slug": "repair-light-the-way-red-four-live-20261126-hand-cost-choice-and-attack-entry",
+        "passed": true,
+        "runtime": "7d3ae36c63eb83c9e25afd21293da03797410bed3cbe81ff70dfbf362ca47cb5",
+        "command": [
+          "C:\\xampp\\php\\php.exe",
+          "DevTools/RunIntegrationTests.php",
+          "--root=FaBSim",
+          "--test=repair-light-the-way-red-four-live-20261126-hand-cost-choice-and-attack-entry",
+          "--max-failures=1",
+          "--compact",
+          "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\prepared-hand-226-229-231\\light_the_way_red\\strict1.log"
+        ],
+        "returncode": 0,
+        "complete_log_sha256": "2ff790d106a2ae4c05dfeabe09001d6b6e4059cf5d365770a06ac4467da9dd7f",
+        "raw5_unchanged": true
+      },
+      {
+        "slug": "card-rise-above-red-four-live-sparse-actual-topdeck-alternative-cost-and-physical-defense",
+        "passed": true,
+        "runtime": "7d3ae36c63eb83c9e25afd21293da03797410bed3cbe81ff70dfbf362ca47cb5",
+        "command": [
+          "C:\\xampp\\php\\php.exe",
+          "DevTools/RunIntegrationTests.php",
+          "--root=FaBSim",
+          "--test=card-rise-above-red-four-live-sparse-actual-topdeck-alternative-cost-and-physical-defense",
+          "--max-failures=1",
+          "--compact",
+          "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\prepared-hand-226-229-231\\light_the_way_red\\strict2.log"
+        ],
+        "returncode": 0,
+        "complete_log_sha256": "7f25e71e36100d70d5b456033e1fc034ab96fc302e63f2a72b15fa09c12be6c1",
+        "raw5_unchanged": true
+      },
+      {
+        "slug": "fab-reg-039-rouse-the-ancients-four-live-declared-reveal-uids-assets-before-thirteen-power-cost",
+        "passed": true,
+        "runtime": "7d3ae36c63eb83c9e25afd21293da03797410bed3cbe81ff70dfbf362ca47cb5",
+        "command": [
+          "C:\\xampp\\php\\php.exe",
+          "DevTools/RunIntegrationTests.php",
+          "--root=FaBSim",
+          "--test=fab-reg-039-rouse-the-ancients-four-live-declared-reveal-uids-assets-before-thirteen-power-cost",
+          "--max-failures=1",
+          "--compact",
+          "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\prepared-hand-226-229-231\\light_the_way_red\\strict3.log"
+        ],
+        "returncode": 0,
+        "complete_log_sha256": "6d8d7d2e7289044e6b76525936d8a2b2a4af038661902433fb83a5eb97001905",
+        "raw5_unchanged": true
+      },
+      {
+        "slug": "card-entwine-earth-red-four-live-sparse-real-earth-fusion-reveal-paid-eight-power-attack",
+        "passed": true,
+        "runtime": "7d3ae36c63eb83c9e25afd21293da03797410bed3cbe81ff70dfbf362ca47cb5",
+        "command": [
+          "C:\\xampp\\php\\php.exe",
+          "DevTools/RunIntegrationTests.php",
+          "--root=FaBSim",
+          "--test=card-entwine-earth-red-four-live-sparse-real-earth-fusion-reveal-paid-eight-power-attack",
+          "--max-failures=1",
+          "--compact",
+          "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\prepared-hand-226-229-231\\light_the_way_red\\strict4.log"
+        ],
+        "returncode": 0,
+        "complete_log_sha256": "e07815390519497a3d0b610e2ed226309c272e56dcb0dd8a5ffdbe32d87d5fb4",
+        "raw5_unchanged": true
+      }
+    ],
+    "full_suite_run": false
+  },
+  "limits": [
+    "No sibling-pitch or whole-card credit.",
+    "Charge/Submerge witnesses end at real four-seat attack entry; their later hit rewards are untested.",
+    "Emerging Avalanche uses correct declined Fusion and owned entry; positive Fusion control proves only prepayment reservation.",
+    "Primary-agent semantic/saved review only; no separate-agent approval.",
+    "Default strict comparator unchanged; full suite not yet run."
+  ],
+  "scope": "Shared save-coordinate mapper retains original offered physical identities for five exact owned Prepare continuations after source-Hand removal; live Hand, generated continuation locals, eligibility and RNG untouched. This witness verifies the named caller, not unknown callers or untested branches.",
+  "additional_validation": {
+    "component_checks": 22,
+    "original_correct_reference_probes_pass": 5,
+    "unsaved_positive_Fusion_identity_control_pass": true,
+    "missing_mapper_causal_fault_control_pass": true,
+    "source_operation": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\prepared-hand-226-229-231\\apply-operation.json"
+  }
+}

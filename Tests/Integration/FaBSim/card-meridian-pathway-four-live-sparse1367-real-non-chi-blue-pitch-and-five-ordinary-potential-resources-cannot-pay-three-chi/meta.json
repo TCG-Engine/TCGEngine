@@ -1,0 +1,7 @@
+{
+    "name": "Meridian Pathway / ordinary resources and blue cards cannot pay Chi",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-24T11:47:33+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "FOUR_REAL_MANUAL_UPF_ENIGMA20_THREEDORI20. Meridian9Legsready, extraGenericWoundingBlue8realHand. ActualGenericCriticalRed5cost1paidCriticalBlue6PITCH3/R2/AP0, noChiTypepitch/noChiPool/noearnedMeridianWHEN/Ward3. AtownREACTIONfloatingR2plusrealBlue8pitch3canprovide5ordinaryresourcesbutZEROChi. NativeclickMeridian3CHIcostrejectbeforepayment/abilitylayer/permissiongrant; R2/Chi0/Hand8/Pitch6/Equipment9readyEffectsCountersunchanged/UID9/priority1/liveattack5power5. Bothnativepitchesarenotclaimed: onlyCritical6actuallypitched; Blue8retainedpotentialcostcontrol. All4responses/actual5damageHP4=15/final5GY1/6Pitch1/FDArsenal7/Hand8same/Equipment9same; actual0ArsenalconsumerrejectAP0. OnlyChi-vs-ordinarycostandnonChipitch/noWardguards/nativefunding/fates; positiveChi/pay/permission/aura-asInstant/Ward/prevention/timing/fullcard/supportuncredited. Sources: FaBSim/GeneratedCode/cardArrayCache.json#meridian_pathway FaBSim/GeneratedCode/GeneratedMacroCode.php FaBSim/Custom/GameLogic.php FaBSim/Custom/ARCAbilities.php FaBSim/Custom/MSTCards.php FaBSim/Custom/OMNCards.php FaBSim/Custom/WTRCards.php Schemas/FaBSim/GameSchema.txt"
+}

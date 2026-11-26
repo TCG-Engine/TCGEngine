@@ -1,0 +1,7 @@
+{
+    "name": "guardian_of_the_shadowrealm_red / four live distinctive effect",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-02T21:39:37+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Four living legal young Levia20/three Dorinthea20; manual UPF, AP only P1=1, resources0. Physical GuardianRed5 starts owned faceup Banish, GenericBlue6 Hand. Actual Banish click announces distinct virtual ABI7 SourceBanish/SourceUID5; physical5 remains Banish. Printed Action2 waits actual Blue6 pitch3, pays2 and AP1, leavesR1/AP0. First three actual responders1/2/3 preserve source5 Banish and ABI7 Stack. Fourth responder4 resolves exact source ability: same physical5 returns to own Hand, Banish empty, virtual7 ceases and never enters Graveyard; no go again, allHP20/AP0 and P1R1. Public source proof before return plus exact HandUID5/Owner1/Controller1 and PitchUID6 pin real effect. No end phase crossed: Blood Debt, later Defense Reaction play, repeated activation, facedown rejection, other heroes, source-removal and other branches untested; no seeded effects/history/resources/AP. One standalone representative only, no hero/support primary credit. Sources: https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/MON192.webp https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/DTD104.webp https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/FAI027.webp https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/"
+}

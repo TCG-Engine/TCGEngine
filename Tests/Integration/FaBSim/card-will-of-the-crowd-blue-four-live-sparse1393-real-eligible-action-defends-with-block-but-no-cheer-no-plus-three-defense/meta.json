@@ -1,0 +1,7 @@
+{
+    "name": "Will of the Crowd / real defending Action earns no uncheered bonus",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-24T14:20:57+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "FOUR_REAL_MANUAL_UPF_LEVIA20_TWODORI20_PLEIADES20. RealSmash5BruteAA7cost2paidbyBlue6(R1/AP0),realadjacent4target/all4responsewindows. ActualWounding7GenericActionAAdef3andWillCrowd8ReveredBlockdef2declaredFROMHAND4tosamechain. RealeligibleAction7controlpreventsempty-targetvacuity. NoCheerthisturn, sointerveningWHENfalse/no+3toAction7/noAbility/Confidence. BothrawTurnEffects[]/actualbaseD5corroboratedbyreal7minus5=2damageP4HP18(not0iffalse+3), ownHP20. Fullclose5GY1/6Pitch1/7GY4slot0/8GY4slot1/HandDeckempty/allArenas0/UID8RNG0/R1/AP0/StackDQquiet. OnlyfalseCheerguardwithrealeligibledefenders/damage, nopositiveCheerWHEN/timing/buffmultipleActions/BlockvsActionpositiveeligibility/support/fullcardcredit. Noenginechange. Sources: FaBSim/GeneratedCode/cardArrayCache.json#will_of_the_crowd_blue FaBSim/GeneratedCode/GeneratedMacroCode.php FaBSim/Custom/GameLogic.php FaBSim/Custom/SUPCards.php FaBSim/Custom/WTRCards.php"
+}

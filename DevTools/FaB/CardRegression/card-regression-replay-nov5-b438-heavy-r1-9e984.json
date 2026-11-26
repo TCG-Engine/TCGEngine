@@ -1,0 +1,27 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch438.json",
+  "runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+  "returncode": 0,
+  "completed_utc": "2026-11-05T09:52:30.928281+00:00",
+  "fixtures": [
+    {
+      "slug": "card-heavy-artillery-red-four-live-sparse-real-equipped-evo-rejects-cheap-attack-defender-allows-cost-three-block",
+      "fixture_sha256": "689de8eee8d3d87556d3d7bc41667149840210391f061d347f717cfaf75312e6",
+      "passed": true,
+      "result": "[PASS] heavy_artillery_red / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-heavy-artillery-red-four-live-sparse-real-equipped-evo-rejects-cheap-attack-defender-allows-cost-three-block",
+      "returncode": 0,
+      "stdout": "[PASS] heavy_artillery_red / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

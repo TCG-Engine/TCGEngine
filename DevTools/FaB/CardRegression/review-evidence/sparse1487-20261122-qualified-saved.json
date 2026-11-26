@@ -1,0 +1,14 @@
+{
+  "status": "HISTORICAL_BATCH_QUALIFICATION_REVOKED",
+  "approved": false,
+  "current_qualified_scenarios": [],
+  "withdrawn_scenarios": [
+    "card-a-bit-off-the-side-red-four-live-sparse1487-real-axe-hit-earned-layer-victim-discard"
+  ],
+  "historical_original_proof_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\conditional-trigger-quarantine-20261125\\repository-before\\review-evidence\\sparse1487-20261122-qualified-saved.json",
+  "historical_original_proof_sha256": "c2dd91986139d6e432d589933c4741a774620a52c26cad671bf617f564d439fb",
+  "historical_native_replay_result": "PASS, execution fact retained; wrong timing oracle is not semantic coverage.",
+  "current_retained_proof": null,
+  "withdrawal_evidence": "review-evidence/conditional-trigger-qualification-withdrawals-20261125.json",
+  "withdrawal_evidence_sha256": "649b64bf7ff93dad8b0a0fc54e75eb176bc02012e1d11769fd7938177e4a464d"
+}

@@ -1,0 +1,68 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-24T12:30:41.276520+00:00",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1386-20261122.json",
+  "source_spec_sha256": "e90e324f35a93647006e17cd2cf0580f9eb5189acc702aa2b6b8299ffccca38a",
+  "new_scenarios": 1,
+  "new_groups": 1,
+  "new_primary_ids": 1,
+  "actions": 36,
+  "native_assertions": 345,
+  "manual_passes": 29,
+  "totals": {
+    "saved_registered_scenarios": 5378,
+    "duels": 3113,
+    "four_live": 2265,
+    "recorded_primary_ids": 2526,
+    "identity_denominator": 5196,
+    "recorded_groups": 2400,
+    "group_denominator": 3324,
+    "four_live_groups": 2254,
+    "phase_qualified_scenarios_at_actual_contexts": 2015,
+    "phase_qualified_unique_groups": 2005,
+    "creation_replay_passes": 2757,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 1176,
+  "scenarios": [
+    {
+      "card_id": "korshem_crossroad_of_elements",
+      "group_id": "identity:korshem_crossroad_of_elements",
+      "scenario_id": "card-korshem-crossroad-of-elements-four-live-sparse1386-actual-pitching-under-live-landmark-is-not-revealing-no-reward",
+      "effect_branches": [
+        "native_landmark_play_then_two_real_blue_pitches_not_reveal_no_resource_health_or_power_reward"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-korshem-crossroad-of-elements-four-live-sparse1386-actual-pitching-under-live-landmark-is-not-revealing-no-reward",
+      "source_spec": "card-regression-sparse1386-20261122.json",
+      "source_spec_sha256": "e90e324f35a93647006e17cd2cf0580f9eb5189acc702aa2b6b8299ffccca38a",
+      "review_evidence": "review-evidence/sparse1386-20261122-qualified-saved.json",
+      "review_evidence_sha256": "4f3d733c9915b2405c26023888f05e1b4d6d2e9655c00198fab0ad298dea549a",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1386-20261122-replay.json",
+          "sha256": "d8cb6d2e3362f67fc70ff62ff7cdff5f7a4c1741adc6e8eb4e211a50f7771201",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

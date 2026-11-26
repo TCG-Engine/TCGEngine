@@ -1,0 +1,7 @@
+{
+    "name": "Miraging Metamorph / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T20:23:02+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "**Phantasm**\n\nWhen this is destroyed, create a token copy of an aura you control. Representative only: actual_unblocked_seven_without_phantasm_destruction_copy. Other pitch siblings, alternate targets and unexercised branches receive no credit. All four live/manual; only native entry-point actions. Sources: FaBSim/GeneratedCode/cardArrayCache.json#miraging_metamorph_red"
+}

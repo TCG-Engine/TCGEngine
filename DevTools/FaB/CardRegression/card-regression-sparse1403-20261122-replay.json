@@ -1,0 +1,79 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-flurry-stance-red-four-live-sparse1403-actual-other-hero-start-no-controller-aura-destroy-or-dagger-grant",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-flurry-stance-red-four-live-sparse1403-actual-other-hero-start-no-controller-aura-destroy-or-dagger-grant",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1403-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1403-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "748cfe61c26eea1ee5de5c9ed54d08248ebe35abc05102ffde34c8a9b921e3e9",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "71d38d5bd62114e3dd96835c7ab6201905c55469eee12cade44557f112cd04e7",
+        "actions.json": "73ef51e215e1504678b3e0f836f4d2cf64bb9c544b0fe52aa164cd428e12e720",
+        "assertions.json": "96afcfbf76da48b4a731f2928b71882b425235ea51d5406af3db7c06a042b462",
+        "expected_final_gamestate.txt": "28069ce81f9881ad9e93b194393677e2b5d86dfd788e84bb9aae9409ae9f734c",
+        "meta.json": "8c5ec1a6f0caa67ae84a3287547092c90dd03cdb378c26366cde437e134b68c1"
+      }
+    },
+    {
+      "slug": "card-draw-a-crowd-blue-four-live-sparse1403-actual-other-hero-action-phase-no-controller-aura-destroy-or-guardian-buff",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-draw-a-crowd-blue-four-live-sparse1403-actual-other-hero-action-phase-no-controller-aura-destroy-or-guardian-buff",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1403-local-20261122\\clean-replays\\01.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1403-local-20261122\\clean-replays\\01.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "afb9e70854eb1595f53f9cb66c1ae0997c3e7194ee7bd33776a77e0886b8f442",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "7e2cf47c44f11768accb0dc9c3219fb80b7cb6719d763d8ef80dc27e4cec1a79",
+        "actions.json": "73ef51e215e1504678b3e0f836f4d2cf64bb9c544b0fe52aa164cd428e12e720",
+        "assertions.json": "0457e71b1cb12d970bf2e25f66d5cc5426c3cf654acfc2eb004ac4908cbdadbb",
+        "expected_final_gamestate.txt": "b0add1e580c2d69b4b52d615c49b3499aeee4997eb9dd47d4e1957e16daf9471",
+        "meta.json": "5b9043427f5f424140cb7d6d078b229e79a21956612b2f2adcb66850ca7c5a66"
+      }
+    },
+    {
+      "slug": "card-rites-of-earthlore-blue-four-live-sparse1403-actual-other-hero-start-no-controller-aura-destroy-or-guardian-buff",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-rites-of-earthlore-blue-four-live-sparse1403-actual-other-hero-start-no-controller-aura-destroy-or-guardian-buff",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1403-local-20261122\\clean-replays\\02.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1403-local-20261122\\clean-replays\\02.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "dac74ee845da391a0dcbc46513ced2d788cc6c1875bffea90a76253690f62b48",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "2a1b770dab370f81e535ab41e24cd32b2f19288d3170eeb2f720637ff775941d",
+        "actions.json": "73ef51e215e1504678b3e0f836f4d2cf64bb9c544b0fe52aa164cd428e12e720",
+        "assertions.json": "1b23ca0021c02b915844dcac6ff03c11bd602bc9aee0b3a01a516f4d3a5ad16c",
+        "expected_final_gamestate.txt": "519da6e7cb10c280ec4faaac66c30fc78bfe77679633a25dd6e1f4d9e22e8685",
+        "meta.json": "6010624f7e46aa6bb82514f79780284cc37070b6dd08afed8f4c99e7d1846546"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

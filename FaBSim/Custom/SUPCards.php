@@ -7,8 +7,17 @@ function FaBSUPCrowd(int $p,bool $cheer): void {
     if(!FaBSeatIsLive($p))return;
     FaBSUPAdd($p,$cheer?'CHEER':'BOO');
     if($cheer && FaBSUPAllLife($p,true))foreach(FaBCRUEquipment($p,'comeback_kicks') as $r)FaBROSQueue($p,'comeback_kicks',FaBPENUID($r));
-    if(!FaBWTRHeroActive($p)||FaBSEAHeroCreationBlocked($p))return;
-    $id=GetHero($p)[0]->CardID??'';
+    if(!FaBWTRHeroActive($p))return;
+    $hero=GetHero($p)[0]??null;$id=$hero->CardID??'';
+    if($cheer&&in_array($id,['pleiades','pleiades_superstar'],true)){
+        $uid=intval($hero->UniqueID??0);
+        if($uid>0&&empty($hero->removed)){
+            $controller=intval($hero->Controller??$p)?:$p;
+            FaBROSQueue($controller,$id,$uid,['rosEvent'=>'supPleiadesCheered']);
+        }
+        return;
+    }
+    if(FaBSEAHeroCreationBlocked($p))return;
     $token=$cheer?(str_starts_with($id,'pleiades')?'confidence':(str_starts_with($id,'tuffnut')?'toughness':'')):(str_starts_with($id,'lyath_goldmane')?'might':(in_array($id,['kayo_strong_arm','kayo_underhanded_cheat'],true)?'vigor':''));
     if($token!=='')FaBHVYToken($p,$token,1,$p,false);
 }
@@ -25,7 +34,7 @@ function FaBSUPCounter(string $ref,int $n): bool {
 function FaBSUPZero(int $uid): void {$f=FaBFindUID($uid);if($f&&$f['zone']==='Arena'&&!HasNoAbilities($f['object'])&&intval(FaBObjectCounters($f['object'])['SUSPENSE']??0)===0)FaBMONDestroy($uid);}
 function FaBSUPAfterMove(int $p,object $o,string $from,string $to,?object $source=null): void {
     if($from==='Soul'&&$to==='Banish'){$s=FaBGetState();$s['supSoulBanished'][$p]=intval($s['supSoulBanished'][$p]??0)+1;FaBSetState($s);}
-    if($to==='Graveyard'&&$o->CardID==='kick_the_hornets_nest_yellow'&&intval($GLOBALS['fabEffectController']??$p)!==$p){foreach(['confidence','might','toughness','vigor'] as $t)FaBHVYToken($p,$t);}
+    if($to==='Graveyard'&&$o->CardID==='kick_the_hornets_nest_yellow'&&intval($GLOBALS['fabEffectController']??0)>0&&intval($GLOBALS['fabEffectController'])!==$p){foreach(['confidence','might','toughness','vigor'] as $t)FaBHVYToken($p,$t);}
     if($to==='Arena'&&$from!=='Arena'){
         if(FaBHasKeyword($o,'Suspense'))FaBSetObjectCounter($o,'SUSPENSE',2);
         if(in_array($o->CardID,['confidence','toughness','agility','might','vigor'],true))FaBHVYAdd($p,'CONTROLLED_'.$o->CardID);
@@ -162,7 +171,7 @@ function FaBSUPAbilityRows(): array {
     $r=[];foreach(['pleiades','pleiades_superstar','tuffnut','tuffnut_bumbling_hulkster','concealed_object_blue','wind_up_the_crowd_blue','outside_interference_blue','the_old_switcheroo_blue','light_up_the_leaves_red','gallow_end_of_the_line_yellow'] as $id)$r[$id]=[['INSTANT',0,false,false,false,0,'Use instant ability']];
     foreach(['kayo_strong_arm','kayo_underhanded_cheat'] as $id)$r[$id]=[['INSTANT',4,false,false,false,0,'Set attack base power to six']];
     foreach(['lyath_goldmane','lyath_goldmane_vile_savant'] as $id)$r[$id]=[['INSTANT',2,false,false,false,0,'Boo and defend']];
-    foreach(['hold_firm'=>2,'mightybone_knuckles'=>3,'overbearing_presence'=>3,'stand_strong'=>3,'punching_gloves'=>2] as $id=>$cost)$r[$id]=[['ACTION',$cost,true,true,false,0,'Use equipment']];
+    foreach(['hold_firm'=>3,'mightybone_knuckles'=>3,'overbearing_presence'=>3,'stand_strong'=>3,'punching_gloves'=>2] as $id=>$cost)$r[$id]=[['ACTION',$cost,true,true,false,0,'Use equipment']];
     $r['gauntlets_of_tyrannical_rex']=[['ACTION',1,false,true,false,0,'Empower next attack']];
     $r['helm_of_hindsight']=[['INSTANT',3,true,false,false,0,'Return attack to top']];
     $r['tiara_of_suspense']=[['INSTANT',0,true,false,false,0,'Add suspense counter']];
@@ -275,3 +284,44 @@ function FaBSUPTapOnly(int $p): void {$o=GetHero($p)[0]??null;if(!$o)return;$o->
 function FaBSUPAttackAction(int $p): string {$r=FaBHVYAttackTargets($p);$f=FaBIdentityFromMZ($r);return $f&&FaBWTRIsAttackAction($f['object'])?$r:'';}
 function FaBSUPStealTargets(int $p,string $names): string {return implode('&',array_filter(explode('&',FaBSUPTokens($p,$names,true)),function($r)use($p){$f=FaBIdentityFromMZ($r);return $f&&$f['player']!==$p;}));}
 function FaBSUPTruthPreview(int $p,array $uids): string {$f=FaBFindUID(intval($uids[0]??0));if(!$f)return '';$o=AddTemp($p,CardID:$f['object']->CardID);return 'p'.$p.'Temp-'.$o->mzIndex;}
+
+/** Physical minus-defense counters use positive DEFENSE wear, not negative modifiers. */
+function FaBSUPUnforgettingCondition(int $attacker): bool {
+    if(!FaBSeatIsLive($attacker))return false;
+    foreach(FaBLiveSeats() as $seat)foreach(['Hero','Equipment','Weapons','Arena','CombatChain'] as $zone){
+        foreach(FaBChoiceRefs($seat,$zone) as $ref){
+            $f=FaBIdentityFromMZ($ref);$o=$f['object']??null;
+            if($o&&intval($o->Controller??$seat)===$attacker&&FaBHasType($o,'Equipment')
+                &&intval(FaBObjectCounters($o)['DEFENSE']??0)>0)return true;
+        }
+    }
+    return false;
+}
+/** Keep only this search's original Deck UIDs; unrelated Temp cards are not choices. */
+function FaBSUPUnforgettingStage(int $p): string {
+    $uids=[];foreach(FaBChoiceRefs($p,'Deck',['base'=>'mangle']) as $r){
+        $f=FaBIdentityFromMZ($r);if($f&&CardName($f['object']->CardID)==='Mangle')$uids[]=intval($f['object']->UniqueID);
+    }
+    FaBStageSearch($p,['base'=>'mangle']);$refs=[];
+    foreach(FaBChoiceRefs($p,'Temp') as $r){$f=FaBIdentityFromMZ($r);
+        if($f&&in_array(intval($f['object']->UniqueID),$uids,true)&&CardName($f['object']->CardID)==='Mangle')$refs[]=$r;
+    }
+    return implode('&',$refs);
+}
+/** Face-up banishment does not emit a separate RevealCard event. Always finish the search. */
+function FaBSUPUnforgettingFinish(int $p,string $chosen,array $eligible): void {
+    $refs=array_values(array_filter(explode('&',$chosen),fn($r)=>$r!==''&&$r!=='-'));
+    if(count($refs)===1){
+        $f=FaBIdentityFromMZ($refs[0]);$o=$f['object']??null;$uid=intval($o->UniqueID??0);
+        if($f&&$f['player']===$p&&$f['zone']==='Temp'&&$o&&CardName($o->CardID)==='Mangle'
+            &&in_array($uid,$eligible,true)){
+            $o->FaceDown=0;FaBMoveUID($uid,'Banish',$p);$live=FaBFindUID($uid);
+            if($live&&$live['player']===$p&&$live['zone']==='Banish'&&empty($live['object']->FaceDown))FaBDTDGrant($p,$uid,true);
+        }
+    }
+    // FaBFinishSearch sweeps all Temp cards; retain unrelated suspended searches instead.
+    foreach(array_unique($eligible) as $uid){$f=FaBFindUID(intval($uid));
+        if($f&&$f['player']===$p&&$f['zone']==='Temp')FaBMoveUID(intval($uid),'Deck',$p,false);
+    }
+    FaBShuffleDeck($p);
+}

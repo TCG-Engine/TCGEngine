@@ -1,0 +1,7 @@
+{
+    "name": "Fight from Behind / real base attack with false grant condition",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-24T09:49:20+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "FOUR_REAL_MANUAL_UPF_NATURAL_TUFFNUT20_THREEDORI20. AllfournaturalHP20equalatdeclaration/attack, soactorisNOTstrictlylowerthaneachotherliveHero. Noearnedcheer/noTuffnutToughness. Actual6baseattack/cost2; no artificialhealthoreffecthistory. Allfourmanualsourceandcombatresponses/nativeactualbasepower6/damage6/HP4=14/AP1to0/R1. Originalprimary5GY1/fund6Pitch1/legalFDGenericWounding7Arsenal1/sameUIDandFaceDown/otherzonesempty/UID7/RNG0. Fullcloseactual0costArsenalresourceaffordablebutnativeclickrejectsAP0beforeTarget/StackDQ/payment/movement; finalresources/HP/physicalassetsunchanged. Onlynamedfalsecondition/baseattack/nativeconsumerGuard; positivecondition/WHENtiming/grants/GA/tokens/bloodDebt/Hero/support/siblings/fullcarduncredited. Sources: FaBSim/GeneratedCode/cardArrayCache.json#fight_from_behind_red FaBSim/GeneratedCode/GeneratedMacroCode.php FaBSim/Custom/GameLogic.php FaBSim/Custom/SUPCards.php FaBSim/Custom/ARCCards.php FaBSim/Custom/WTRCards.php"
+}

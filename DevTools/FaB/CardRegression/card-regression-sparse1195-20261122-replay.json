@@ -1,0 +1,79 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-sigil-of-astral-flow-blue-four-live-sparse1195-real-vaporize-departure-separate-owned-leave-token",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-sigil-of-astral-flow-blue-four-live-sparse1195-real-vaporize-departure-separate-owned-leave-token",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1195-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1195-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "4eca4d7e92f7da8d7be5bb6658305c5433dc7cfc6ebb1ff19e01861c01e95bd0",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "e41098fb0528e79e8751b0e84f1a5675886bd7efb49c082a0752fa38985c67b8",
+        "actions.json": "67bda00429ae507e6e5fdbc4c1cf83f2c7ab83d17689f0644b358087e2dc2e3d",
+        "assertions.json": "8b66ee6498d61db98cfe0ab3f7223d2ef3915e5870d2caf336624af93810d63f",
+        "expected_final_gamestate.txt": "1deb3e6e4b8dac1b1401a5b402c4caee84905bc321e0934f3f3ffd2fe68ffb06",
+        "meta.json": "d1cfdc551629dcd17233ea62cb741cb71b8cb6289ab81e39a9d1f55bed8cfbc3"
+      }
+    },
+    {
+      "slug": "card-circular-flowtide-yellow-four-live-sparse1195-real-ward-departure-separate-owned-leave-token",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-circular-flowtide-yellow-four-live-sparse1195-real-ward-departure-separate-owned-leave-token",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1195-local-20261122\\clean-replays\\01.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1195-local-20261122\\clean-replays\\01.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "0c62167d24442671566f3c889044c5c41ba59140cb6ff1f589f371414749cbbc",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "96eab5c8f89f5ea83aa52e450d425a81928f9d02277b8ad47618cf789ed2e290",
+        "actions.json": "e25a81b45dc1bf1b420de2d981952be88e8dc63c6b912bb0939266a3a08c344b",
+        "assertions.json": "dd0836964bb40991751de94ca714bc8fa4f46bab342f97115b3d5f88ecc2bf46",
+        "expected_final_gamestate.txt": "3937a09a54fe1cdf013eb9f103dc4b9227b1e5ea9e53dab14cac2cf5ebad07ea",
+        "meta.json": "48681656093a8ee6daff7821420f039de5f24bb07e9386afd769c96e9dbfd273"
+      }
+    },
+    {
+      "slug": "card-nebulus-cycle-yellow-four-live-sparse1195-real-ward-departure-separate-owned-leave-token",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-nebulus-cycle-yellow-four-live-sparse1195-real-ward-departure-separate-owned-leave-token",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1195-local-20261122\\clean-replays\\02.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1195-local-20261122\\clean-replays\\02.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "ca3d449a51b7c9ac63c3ae6c1256cef483ba1e2ad070c05be15baedccbd47388",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "532fdea5a2f331a0823e4b6b9cb67881fdf7384f8b8ba358705f86b18baeadbe",
+        "actions.json": "e25a81b45dc1bf1b420de2d981952be88e8dc63c6b912bb0939266a3a08c344b",
+        "assertions.json": "ebcc2a8add43938a50e98d0f2f018957fa43eeaed4dffcfb108aa2d6fcf7031e",
+        "expected_final_gamestate.txt": "9f53b2f1f3d24460f548a50089087f750dcb019ab1d430211ebbc27d91f38536",
+        "meta.json": "cf6093023c1f033aea89a2208be487e99cd706e907a0b1368a389b9d186b8b52"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

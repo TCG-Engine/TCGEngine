@@ -57,7 +57,7 @@ function FaBHNTEqpDaggers(int $p,string $zone='Weapons',bool $draconic=false): s
 // Kiss of Death is a dagger in play, but is not a weapon that can be equipped.
 function FaBHNTDaggers(int $p): string {$refs=FaBChoiceRefs($p,'Weapons',['type'=>'Dagger']);foreach(['Arena','CombatChain'] as $zone)foreach(FaBChoiceRefs($p,$zone,['type'=>'Dagger']) as $r){$o=FaBIdentityFromMZ($r)['object'];if(empty(FaBObjectCounters($o)['WEAPON_UID']))$refs[]=$r;}return implode('&',$refs);}
 function FaBHNTEquip(int $p,string $refs): void {foreach(FaBUPRUIDs($refs) as $u){$f=FaBFindUID($u);if(!$f||$f['player']!==$p||$f['zone']!=='Graveyard'||!FaBWTRIsWeapon($f['object'])||!FaBArakniWeaponSpace($p))continue;$o=FaBMoveUID($u,'Weapons',$p);if($o){$o->Status=2;$o->TurnEffects=[];$o->Counters=[];FaBARCSetCard($u,'hntPerforateTurn',-1);FaBARCSetCard($u,'hntMarkNextTurn',-1);}}}
-function FaBHNTGraphene(int $p): void {if(FaBArakniWeaponSpace($p))AddWeapons($p,CardID:'graphene_chelicera',Owner:$p,Controller:$p,Status:2);}
+function FaBHNTGraphene(int $p): void {if(FaBArakniWeaponSpace($p)){$o=AddWeapons($p,CardID:'graphene_chelicera',Owner:$p,Controller:$p,Status:2);if(is_object($o)&&empty($o->removed))FaBPENAfterMove($p,$o,'','Weapons');}}
 function FaBHNTNext(int $p,string $kind,int $power=0,string $tags='',bool $chain=false): void {FaBHNTAdd($p,'NEXT',$power,['kind'=>$kind,'tags'=>array_filter(explode(',',$tags)),'chain'=>$chain]);}
 function FaBHNTMatch(object $o,string $kind): bool {return match($kind){'ANY'=>true,'AA'=>FaBWTRIsAttackAction($o),'STEALTHAA'=>FaBWTRIsAttackAction($o)&&FaBHasKeyword($o,'Stealth'),'DRACONIC'=>FaBHasType($o,'Draconic'),'STEALTH'=>FaBHasKeyword($o,'Stealth'),'SMALL'=>intval(CardPower($o->CardID))<=3,'ANGEL'=>FaBHasType($o,'Angel'),default=>FaBDYNMatch($o,$kind)};}
 function FaBHNTAffectsAttack(int $p,string $kind): string {$s=FaBGetState();$f=FaBFindUID(intval($s['attackUID']));return $f&&$s['attacker']===$p&&FaBHNTMatch($f['object'],$kind)?$f['mzID']:'';}
@@ -87,8 +87,8 @@ function FaBHNTDefend(int $p,int $uid,bool $quick=false): void {$f=FaBFindUID($u
 function FaBHNTFaceUpInstant(string $r): void {$f=FaBIdentityFromMZ($r);if($f&&$f['zone']==='Arsenal'){$f['object']->FaceDown=0;FaBARCSetCard(intval($f['object']->UniqueID),'instantTurn',intval(GetTurnNumber()));}}
 function FaBHNTStealthAA(int $p,string $zone): string {return implode('&',array_filter(FaBChoiceRefs($p,$zone),fn($r)=>($o=FaBIdentityFromMZ($r)['object'])&&FaBWTRIsAttackAction($o)&&FaBHasKeyword($o,'Stealth')));}
 function FaBHNTCopy(int $uid,string $ref): void {$f=FaBFindUID($uid);$t=FaBIdentityFromMZ($ref);if(!$f||!$t)return;$id=$t['object']->CardID;FaBDYNBanishChoice($ref,$f['player']);$c=FaBObjectCounters($f['object']);$c['HNT_ORIGINAL']=$c['HNT_ORIGINAL']??$f['object']->CardID;$f['object']->Counters=$c;$f['object']->CardID=$id;}
-function FaBHNTDamageRecord(int $p,int $v,int $n,int $source,string $type): void {
- if($n<=0)return;$f=FaBFindUID($source);$u=$f&&FaBHasType($f['object'],'Ally')?FaBHNTWeaponUID($f['object']):FaBUPRHeroUID($p);FaBHNTAdd($v,'DAMAGED_BY',1,['uid'=>$u]);
+function FaBHNTDamageRecord(int $p,int $v,int $n,int $source,string $type,string $sourceRef=''): void {
+ if($n<=0)return;$f=FaBDamageSourceView($sourceRef,$source);$u=$f&&FaBDamageSourceHasType($f['object'],'Ally')?FaBHNTWeaponUID($f['object']):FaBUPRHeroUID($p);FaBHNTAdd($v,'DAMAGED_BY',1,['uid'=>$u]);
  FaBHNTOwnDamage($p,$n,$type);
 }
 function FaBHNTOwnDamage(int $p,int $n,string $type): void {if($n<=0)return;
@@ -115,6 +115,52 @@ function FaBHNTAllWeapons(int $p): string {$r=[];foreach(array_merge([$p],FaBAdj
 function FaBHNTAllBanish(int $p): string {$r=[];foreach(array_merge([$p],FaBAdjacentOpponents($p)) as $v)$r=array_merge($r,FaBChoiceRefs($v,'Banish'));return implode('&',$r);}
 function FaBHNTFaceDown(string $refs): void {foreach(FaBUPRUIDs($refs) as $u){$f=FaBFindUID($u);if($f&&$f['zone']==='Banish')$f['object']->FaceDown=1;}}
 function FaBHNTIsAbility(int $uid): bool {$f=FaBFindUID($uid);return $f&&($f['object']->Kind??'')==='ABILITY';}
-function FaBHNTBellona(int $p,int $source,int $amount): void {$f=FaBFindUID($source);if(!$f||$amount<=0||!FaBWTRIsWeapon($f['object']))return;$uid=FaBHNTWeaponUID($f['object']);$left=[];$triggers=0;foreach(FaBWTREffects($p) as $e){if(($e['type']??'')==='HNT_BELLONA'&&intval($e['uid'])===$uid&&$amount<=intval($e['amount']))++$triggers;else $left[]=$e;}FaBWTRSetEffects($p,$left);for($i=0;$i<$triggers;++$i)FaBROSQueue($p,'war_cry_of_bellona_yellow',0,['rosEvent'=>'reflect:'.$amount,'rosTarget'=>$f['player']]);}
+function FaBHNTBellona(int $p,int $source,int $amount,string $sourceRef=''): void {$f=FaBDamageSourceView($sourceRef,$source);if(!$f||$amount<=0||!FaBDamageSourceHasType($f['object'],'Weapon'))return;$uid=FaBHNTWeaponUID($f['object']);$left=[];$triggers=0;foreach(FaBWTREffects($p) as $e){if(($e['type']??'')==='HNT_BELLONA'&&intval($e['uid'])===$uid&&$amount<=intval($e['amount']))++$triggers;else $left[]=$e;}FaBWTRSetEffects($p,$left);for($i=0;$i<$triggers;++$i)FaBROSQueue($p,'war_cry_of_bellona_yellow',0,['rosEvent'=>'reflect:'.$amount,'rosTarget'=>FaBDamageSourceActor($sourceRef,$source,intval($f['player']))]);}
 function FaBHNTReflect(int $p,int $v,int $n): void {$GLOBALS['hntUnpreventableReflection']=true;try{DoDamage($p,'',$v,$n,'PHYSICAL');}finally{unset($GLOBALS['hntUnpreventableReflection']);}}
 function FaBHNTVengeanceTarget(int $p,?array $target=null): bool {if(!FaBHNTCount($p,'VENGEANCE'))return false;if($target!==null)return ($target['type']??'')==='HERO'&&FaBHNTArakni(intval($target['player']??0));foreach(FaBLegalAttackTargets($p) as $t)if(($t['type']??'')==='HERO'&&FaBHNTArakni(intval($t['player'])))return true;return false;}
+
+/** Capture the real printed Kiss hero-hit event; resolution never reads a later defender. */
+function FaBHNTQueueKissHeroHit(int $p,object $attack,int $amount): void {
+    $s=FaBGetState();$uid=intval($attack->UniqueID??0);$victim=intval($s['defender']??0);
+    if($attack->CardID!=='kiss_of_death_red'||$uid<1||$amount<=0||!FaBFaiHeroHit()
+        ||intval($s['attackUID']??0)!==$uid||intval($s['attacker']??0)!==$p
+        ||intval($attack->Controller??0)!==$p||!FaBSeatIsLive($p)||!FaBSeatIsLive($victim))return;
+    FaBROSQueue($p,'kiss_of_death_red',$uid,['rosEvent'=>'hntKissHeroHit',
+        'hntKissVictim'=>$victim,'hntKissVictimUID'=>FaBUPRHeroUID($victim)]);
+}
+
+/** The earned non-targeted life loss survives the physical source moving or losing abilities. */
+function FaBHNTResolveKissHeroHit(int $p,object $trigger): void {
+    $victim=intval($trigger->Params['hntKissVictim']??0);
+    $heroUID=intval($trigger->Params['hntKissVictimUID']??0);
+    if(($trigger->Params['rosEvent']??'')!=='hntKissHeroHit'||$trigger->CardID!=='kiss_of_death_red'
+        ||intval($trigger->Controller??0)!==$p||intval($trigger->SourceUniqueID??0)<1
+        ||!FaBSeatIsLive($p)||!FaBSeatIsLive($victim)||$heroUID<1||FaBUPRHeroUID($victim)!==$heroUID)return;
+    FaBARCLoseLife($victim,1,$p);
+}
+
+/** Capture the earned normal Smoke Out defend event before its response window. */
+function FaBHNTQueueSmokeDefended(int $p,object $defense): void {
+    $s=FaBGetState();$uid=intval($defense->UniqueID??0);$victim=intval($s['attacker']??0);
+    $attack=FaBFindUID(intval($s['attackUID']??0));$link=intval($s['chainLink']??0);
+    if($defense->CardID!=='smoke_out_red'||$uid<1||intval($defense->Controller??0)!==$p
+        ||!in_array($defense->Role??'',['DEFENSE','DEFENSE_REACTION'],true)||$link<1
+        ||intval($defense->ChainLink??0)!==$link||intval($s['defender']??0)!==$p
+        ||HasNoAbilities($defense)||!$attack||$attack['zone']!=='CombatChain'
+        ||FaBMSTObjectColor(intval($attack['player']),$attack['object'])!==1
+        ||!FaBSeatIsLive($p)||!FaBSeatIsLive($victim))return;
+    FaBROSQueue($p,'smoke_out_red',$uid,['rosEvent'=>'hntSmokeDefendedMark',
+        'hntSmokeVictim'=>$victim,'hntSmokeVictimUID'=>FaBUPRHeroUID($victim),
+        'hntSmokeAttackUID'=>intval($attack['object']->UniqueID),'hntSmokeLink'=>$link,'hntSmokeRed'=>true]);
+}
+
+/** The earned non-targeted mark uses its captured hero, not a later attack/defender. */
+function FaBHNTResolveSmokeDefended(int $p,object $trigger): void {
+    $v=intval($trigger->Params['hntSmokeVictim']??0);$hero=intval($trigger->Params['hntSmokeVictimUID']??0);
+    if(($trigger->Params['rosEvent']??'')!=='hntSmokeDefendedMark'||$trigger->CardID!=='smoke_out_red'
+        ||intval($trigger->Controller??0)!==$p||intval($trigger->SourceUniqueID??0)<1
+        ||intval($trigger->Params['hntSmokeAttackUID']??0)<1||intval($trigger->Params['hntSmokeLink']??0)<1
+        ||($trigger->Params['hntSmokeRed']??false)!==true||!FaBSeatIsLive($p)||!FaBSeatIsLive($v)
+        ||$hero<1||FaBUPRHeroUID($v)!==$hero)return;
+    FaBHNTMark($v);
+}

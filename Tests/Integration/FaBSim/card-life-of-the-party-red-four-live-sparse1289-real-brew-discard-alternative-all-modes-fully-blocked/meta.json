@@ -1,0 +1,7 @@
+{
+    "name": "Life of the Party / real alternative cost at zero resources, then fully blocked",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-24T03:25:45+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "FOUR_REAL_YOUNG_DORI20_MANUAL_UPF_POSITIVE_ALTERNATIVE_COST_FULLY_BLOCKED_ONLY. Actual5Hand printedcost2/R0/AP1, actualcost6Hand CrazyBrewdiscardedtoGYasrealalternativecostbeforeallresponses, not activated; allmodesearned2power+GA/noRNG. NativeactualHero4declaration, MZMAYCHOOSEreal6, AP1to0/R0/Pitch0, fourmanualresponses. Actualpower6/GATrue; twoactualGenericHanddefenders3+3defense6preventallphysicaldamage. NOhitsonohealingtrigger; earnedGAdespite0damage refundsAPonlyafterfourDamagepasses. Final5ownedGY/Brew6GY1/defendersownedGY4/allHP20/R0/UID8RNG0/StackDQsCCclean. NOpositivehit/heal/search/normalnumericcost/decline/randommode/Brewactivation/Arenadestroy/otherpitch/support/fullcardcredit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#life_of_the_party_red FaBSim/GeneratedCode/GeneratedMacroCode.php FaBSim/Custom/ARCCards.php FaBSim/Custom/EVRCards.php FaBSim/Custom/GameLogic.php"
+}

@@ -1,0 +1,27 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch342.json",
+  "runtime_sha256": "0d877de49c131f29c152706e14bba3368630df61c59ef475c87a84f20b6e1a66",
+  "returncode": 0,
+  "completed_utc": "2026-11-03T13:52:48.656508+00:00",
+  "fixtures": [
+    {
+      "slug": "card-soup-up-red-four-live-sparse-real-owned-item-destroy-cost-earns-conditional-go-again-and-action-point",
+      "fixture_sha256": "5a4a65d5a7ddbf67ce4cd60804dbfbb64fc445802dce6271892785f6742db15d",
+      "passed": true,
+      "result": "[PASS] soup_up_red / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-soup-up-red-four-live-sparse-real-owned-item-destroy-cost-earns-conditional-go-again-and-action-point",
+      "returncode": 0,
+      "stdout": "[PASS] soup_up_red / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

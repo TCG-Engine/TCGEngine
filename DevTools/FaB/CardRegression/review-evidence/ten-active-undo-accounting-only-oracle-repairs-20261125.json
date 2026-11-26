@@ -1,0 +1,840 @@
+{
+  "status": "EXACT_REVIEWED_STRICT_FINAL_ORACLES",
+  "review": {
+    "reviewer": "/root/breadth_review1457",
+    "approved": true,
+    "scope": "Exact10 accounting-only cases, all50 raw5 guards, full candidate equality, exact canonical accounting bags and ordered nonaccounting rows.46 changed GameState segments; every context and full Stack byte unchanged.40 affected Undo snapshots contain lower ZapRed/ZapBlue/VolticBolt or Aurora layers, allDQ/await/pending-resolution inactive. Decoded Stack Params have no effect/row/index/position binding; audited aggregate readers apply. No reference changes or other89 secondary candidates approved. Reviewer ran no games/tests and wrote nothing."
+  },
+  "review_manifest_sha256": "9a2e628ed463db169c3437d858ce2d2afbba21fcb0cb4491a0aeab485f1c4a45",
+  "runtime_sha256": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+  "fixtures": [
+    {
+      "number": 5,
+      "slug": "card-aether-flare-red-four-live-sparse-actual-three-arcane-earns-dynamic-next-spell-plus-three",
+      "passed": true,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "exit_code": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-aether-flare-red-four-live-sparse-actual-three-arcane-earns-dynamic-next-spell-plus-three",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\snapshot-cohort-445\\accounting10-005.log"
+      ],
+      "complete_log_sha256": "73b5230b5d2a2cd8570624c59322eed822e2909e582cabec1d9bfcf4ece0d709",
+      "before_expected_sha256": "ff475efc5ad907863e414e6227a18be32e4370cc8c9d123324345b65517ca608",
+      "expected_sha256": "54862ea195830cbdc715ec93bac9b6e50d4c8c5c662f138b2323d1af055032de",
+      "other_four_files_unchanged": true,
+      "failed_candidate_restored": false,
+      "edits": [
+        {
+          "location": "line90",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "1",
+          "accounting_bag_sha256": "023979e90e511ea03c2e00d63cfc8801b9230e52fc636afa03bcf25a8c320ef0",
+          "ordered_nonaccounting_sha256": "2993e3eea34fddd4fdc95d0225fa1bea98e74f49fe593024d889082877d3d265",
+          "before_rows_sha256": "d358675729e435c53fc441d11420f5ca6634fbf0d073c964f0a4afda76c35398",
+          "after_rows_sha256": "5d0368d45e646f23ae37608ae5ed1fe2879eea6ac3f841d337e99c7a44c41229"
+        },
+        {
+          "location": "line90",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "4",
+          "accounting_bag_sha256": "261860864d84f6204ad2783b4af049b18b1cb373f6722628851aa95ecc3d5316",
+          "ordered_nonaccounting_sha256": "04aadf2d6b0781eec35621fd23e7f55e5ed97639691fc897a49123c107ad9349",
+          "before_rows_sha256": "017274feb8b159f461e8af0ec4081c7392871c2316a12bb34155e672c4ed73dc",
+          "after_rows_sha256": "85dde8f7f6d089139da61260fe76b71b4caa04de4d14a9bc05a0e8f318e5adee"
+        },
+        {
+          "location": "line99/Versions/90",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "1",
+          "accounting_bag_sha256": "33440b91bc961bf2cb5c4194294bde5480c17bd9e626c0af9ae0cff092db3818",
+          "ordered_nonaccounting_sha256": "8c5c90f8448e27ecf7d727a57fcf0256a1f0d022a63e70e404fb2780ff602819",
+          "before_rows_sha256": "ca8189882bad8202ad4b06a3108fa9913a86e0f1ecfe235e1891a2b7b285de9e",
+          "after_rows_sha256": "3e57ac80030396bb3774900b5ebebd8987b3162403c3695b343bd8e08081f7a5"
+        },
+        {
+          "location": "line99/Versions/90",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "4",
+          "accounting_bag_sha256": "7cb0aad04ef69e33e5697517911e260d9559f5ab5227900049e147b29c991f84",
+          "ordered_nonaccounting_sha256": "8998c18e8e7007730540ab5427b464824539f1cb37d1f9404c7ca01247679a56",
+          "before_rows_sha256": "6ebbd974320a71afdc47ce2fe6dff6d67f8c63235bd2352a3a295621de281e89",
+          "after_rows_sha256": "65c206d8307c91a17e714fb0bee248f00e50eca23b06eafe78141c0db353f018"
+        },
+        {
+          "location": "line101/Versions/90",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "1",
+          "accounting_bag_sha256": "33440b91bc961bf2cb5c4194294bde5480c17bd9e626c0af9ae0cff092db3818",
+          "ordered_nonaccounting_sha256": "8c5c90f8448e27ecf7d727a57fcf0256a1f0d022a63e70e404fb2780ff602819",
+          "before_rows_sha256": "ca8189882bad8202ad4b06a3108fa9913a86e0f1ecfe235e1891a2b7b285de9e",
+          "after_rows_sha256": "3e57ac80030396bb3774900b5ebebd8987b3162403c3695b343bd8e08081f7a5"
+        },
+        {
+          "location": "line101/Versions/90",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "4",
+          "accounting_bag_sha256": "7cb0aad04ef69e33e5697517911e260d9559f5ab5227900049e147b29c991f84",
+          "ordered_nonaccounting_sha256": "8998c18e8e7007730540ab5427b464824539f1cb37d1f9404c7ca01247679a56",
+          "before_rows_sha256": "6ebbd974320a71afdc47ce2fe6dff6d67f8c63235bd2352a3a295621de281e89",
+          "after_rows_sha256": "65c206d8307c91a17e714fb0bee248f00e50eca23b06eafe78141c0db353f018"
+        },
+        {
+          "location": "line103/Versions/90",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "1",
+          "accounting_bag_sha256": "33440b91bc961bf2cb5c4194294bde5480c17bd9e626c0af9ae0cff092db3818",
+          "ordered_nonaccounting_sha256": "8c5c90f8448e27ecf7d727a57fcf0256a1f0d022a63e70e404fb2780ff602819",
+          "before_rows_sha256": "ca8189882bad8202ad4b06a3108fa9913a86e0f1ecfe235e1891a2b7b285de9e",
+          "after_rows_sha256": "3e57ac80030396bb3774900b5ebebd8987b3162403c3695b343bd8e08081f7a5"
+        },
+        {
+          "location": "line103/Versions/90",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "4",
+          "accounting_bag_sha256": "7cb0aad04ef69e33e5697517911e260d9559f5ab5227900049e147b29c991f84",
+          "ordered_nonaccounting_sha256": "8998c18e8e7007730540ab5427b464824539f1cb37d1f9404c7ca01247679a56",
+          "before_rows_sha256": "6ebbd974320a71afdc47ce2fe6dff6d67f8c63235bd2352a3a295621de281e89",
+          "after_rows_sha256": "65c206d8307c91a17e714fb0bee248f00e50eca23b06eafe78141c0db353f018"
+        },
+        {
+          "location": "line105/Versions/90",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "1",
+          "accounting_bag_sha256": "33440b91bc961bf2cb5c4194294bde5480c17bd9e626c0af9ae0cff092db3818",
+          "ordered_nonaccounting_sha256": "8c5c90f8448e27ecf7d727a57fcf0256a1f0d022a63e70e404fb2780ff602819",
+          "before_rows_sha256": "ca8189882bad8202ad4b06a3108fa9913a86e0f1ecfe235e1891a2b7b285de9e",
+          "after_rows_sha256": "3e57ac80030396bb3774900b5ebebd8987b3162403c3695b343bd8e08081f7a5"
+        },
+        {
+          "location": "line105/Versions/90",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "4",
+          "accounting_bag_sha256": "7cb0aad04ef69e33e5697517911e260d9559f5ab5227900049e147b29c991f84",
+          "ordered_nonaccounting_sha256": "8998c18e8e7007730540ab5427b464824539f1cb37d1f9404c7ca01247679a56",
+          "before_rows_sha256": "6ebbd974320a71afdc47ce2fe6dff6d67f8c63235bd2352a3a295621de281e89",
+          "after_rows_sha256": "65c206d8307c91a17e714fb0bee248f00e50eca23b06eafe78141c0db353f018"
+        }
+      ]
+    },
+    {
+      "number": 9,
+      "slug": "card-aether-wildfire-red-four-live-sparse-real-offturn-four-damage-increases-next-action-blue-arcane-to-five",
+      "passed": true,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "exit_code": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-aether-wildfire-red-four-live-sparse-real-offturn-four-damage-increases-next-action-blue-arcane-to-five",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\snapshot-cohort-445\\accounting10-009.log"
+      ],
+      "complete_log_sha256": "3d5c067bd81e30bb08442d9057407f56596ea656afe67942dc726b36bc927540",
+      "before_expected_sha256": "10a4bd91185ebd62476a49502ff3db99cb6b7ebe04b8f763638f20e9ce560a79",
+      "expected_sha256": "49c8252add24c38f3d55eb0f51343d64f17a594aaf1c6bd1968c40733c9672fd",
+      "other_four_files_unchanged": true,
+      "failed_candidate_restored": false,
+      "edits": [
+        {
+          "location": "line90",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "4",
+          "accounting_bag_sha256": "023979e90e511ea03c2e00d63cfc8801b9230e52fc636afa03bcf25a8c320ef0",
+          "ordered_nonaccounting_sha256": "88389bc0bc5fbc8fe1a6643e901397b039cd23a5ad0f443dd4f0151bf590d561",
+          "before_rows_sha256": "dd760641e72c09b5ee830d7d2c8377def4f9c4848dadade6161d6b255d2a2847",
+          "after_rows_sha256": "0a22f372ec353456bc0c7409f8e517f51603d9359f240f6e3097b786240cd736"
+        },
+        {
+          "location": "line90",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "1",
+          "accounting_bag_sha256": "261860864d84f6204ad2783b4af049b18b1cb373f6722628851aa95ecc3d5316",
+          "ordered_nonaccounting_sha256": "0c56aa22830c179e7c53edf2325b228e8828630dee1daea89517894d1d329fab",
+          "before_rows_sha256": "fc1abe9ce358a30f49cfc23a724fa8eddc2d611ca43b37b46439f9141bb1aaea",
+          "after_rows_sha256": "a6edfe35bff5d15becc7ae0c6603026d9cf89da9b16ff5788e48153b5b737ad9"
+        },
+        {
+          "location": "line90",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "2",
+          "accounting_bag_sha256": "261860864d84f6204ad2783b4af049b18b1cb373f6722628851aa95ecc3d5316",
+          "ordered_nonaccounting_sha256": "a43067bf012e852b3f0f007b28d1490b08b7a05abc1e14760788bf9630993865",
+          "before_rows_sha256": "7454ef3001a96fc9c4cd6a84d7adea54dd95cdd57667452409798a627fe044ce",
+          "after_rows_sha256": "09a7e66b6196166840d0185a4f9fe3182d06b0f130f330713a58cb0254162a6a"
+        },
+        {
+          "location": "line90",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "3",
+          "accounting_bag_sha256": "261860864d84f6204ad2783b4af049b18b1cb373f6722628851aa95ecc3d5316",
+          "ordered_nonaccounting_sha256": "a43067bf012e852b3f0f007b28d1490b08b7a05abc1e14760788bf9630993865",
+          "before_rows_sha256": "7454ef3001a96fc9c4cd6a84d7adea54dd95cdd57667452409798a627fe044ce",
+          "after_rows_sha256": "09a7e66b6196166840d0185a4f9fe3182d06b0f130f330713a58cb0254162a6a"
+        },
+        {
+          "location": "line99/Versions/90",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "4",
+          "accounting_bag_sha256": "7cb0aad04ef69e33e5697517911e260d9559f5ab5227900049e147b29c991f84",
+          "ordered_nonaccounting_sha256": "3ad390322e7c3bc47f185b4d5f2bb4c11e90f4dc9a13f1de944bd5c103a8a733",
+          "before_rows_sha256": "7dee6e7ed255a9dfb55c302077aa8c3e28a7cefab7f48d0983677a465dda6606",
+          "after_rows_sha256": "e328033e111fa2c6b03bc63745243cc18c85f817b1ce9bcb6655b3651ffbb826"
+        },
+        {
+          "location": "line99/Versions/90",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "1",
+          "accounting_bag_sha256": "7cb0aad04ef69e33e5697517911e260d9559f5ab5227900049e147b29c991f84",
+          "ordered_nonaccounting_sha256": "792ad9b277750c7670750f8fe6d2ef4fe6e5fc356c9a2a2e4f81c0c1f72a96c4",
+          "before_rows_sha256": "a27f46542378a980bba8208402812dadf1bb29a94bc9410676b344066419c0e7",
+          "after_rows_sha256": "aba98e572d22ead2f4f1b1a05ef9c8f7845384d6293ee81ca77b2aa393c0bcaa"
+        },
+        {
+          "location": "line99/Versions/90",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "2",
+          "accounting_bag_sha256": "7cb0aad04ef69e33e5697517911e260d9559f5ab5227900049e147b29c991f84",
+          "ordered_nonaccounting_sha256": "a43067bf012e852b3f0f007b28d1490b08b7a05abc1e14760788bf9630993865",
+          "before_rows_sha256": "0ff1b4975eb1c3193b3fdbab9d7c4b51f9781e6a1b2914b2dec52f1157716b34",
+          "after_rows_sha256": "317e482d7ba0212aa21fd4cd4e062e8f966c826a762767936c34adbbcf7231ae"
+        },
+        {
+          "location": "line99/Versions/90",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "3",
+          "accounting_bag_sha256": "7cb0aad04ef69e33e5697517911e260d9559f5ab5227900049e147b29c991f84",
+          "ordered_nonaccounting_sha256": "a43067bf012e852b3f0f007b28d1490b08b7a05abc1e14760788bf9630993865",
+          "before_rows_sha256": "0ff1b4975eb1c3193b3fdbab9d7c4b51f9781e6a1b2914b2dec52f1157716b34",
+          "after_rows_sha256": "317e482d7ba0212aa21fd4cd4e062e8f966c826a762767936c34adbbcf7231ae"
+        },
+        {
+          "location": "line101/Versions/90",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "4",
+          "accounting_bag_sha256": "7cb0aad04ef69e33e5697517911e260d9559f5ab5227900049e147b29c991f84",
+          "ordered_nonaccounting_sha256": "3ad390322e7c3bc47f185b4d5f2bb4c11e90f4dc9a13f1de944bd5c103a8a733",
+          "before_rows_sha256": "7dee6e7ed255a9dfb55c302077aa8c3e28a7cefab7f48d0983677a465dda6606",
+          "after_rows_sha256": "e328033e111fa2c6b03bc63745243cc18c85f817b1ce9bcb6655b3651ffbb826"
+        },
+        {
+          "location": "line101/Versions/90",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "1",
+          "accounting_bag_sha256": "7cb0aad04ef69e33e5697517911e260d9559f5ab5227900049e147b29c991f84",
+          "ordered_nonaccounting_sha256": "792ad9b277750c7670750f8fe6d2ef4fe6e5fc356c9a2a2e4f81c0c1f72a96c4",
+          "before_rows_sha256": "a27f46542378a980bba8208402812dadf1bb29a94bc9410676b344066419c0e7",
+          "after_rows_sha256": "aba98e572d22ead2f4f1b1a05ef9c8f7845384d6293ee81ca77b2aa393c0bcaa"
+        },
+        {
+          "location": "line101/Versions/90",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "2",
+          "accounting_bag_sha256": "7cb0aad04ef69e33e5697517911e260d9559f5ab5227900049e147b29c991f84",
+          "ordered_nonaccounting_sha256": "a43067bf012e852b3f0f007b28d1490b08b7a05abc1e14760788bf9630993865",
+          "before_rows_sha256": "0ff1b4975eb1c3193b3fdbab9d7c4b51f9781e6a1b2914b2dec52f1157716b34",
+          "after_rows_sha256": "317e482d7ba0212aa21fd4cd4e062e8f966c826a762767936c34adbbcf7231ae"
+        },
+        {
+          "location": "line101/Versions/90",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "3",
+          "accounting_bag_sha256": "7cb0aad04ef69e33e5697517911e260d9559f5ab5227900049e147b29c991f84",
+          "ordered_nonaccounting_sha256": "a43067bf012e852b3f0f007b28d1490b08b7a05abc1e14760788bf9630993865",
+          "before_rows_sha256": "0ff1b4975eb1c3193b3fdbab9d7c4b51f9781e6a1b2914b2dec52f1157716b34",
+          "after_rows_sha256": "317e482d7ba0212aa21fd4cd4e062e8f966c826a762767936c34adbbcf7231ae"
+        },
+        {
+          "location": "line103/Versions/90",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "4",
+          "accounting_bag_sha256": "7cb0aad04ef69e33e5697517911e260d9559f5ab5227900049e147b29c991f84",
+          "ordered_nonaccounting_sha256": "3ad390322e7c3bc47f185b4d5f2bb4c11e90f4dc9a13f1de944bd5c103a8a733",
+          "before_rows_sha256": "7dee6e7ed255a9dfb55c302077aa8c3e28a7cefab7f48d0983677a465dda6606",
+          "after_rows_sha256": "e328033e111fa2c6b03bc63745243cc18c85f817b1ce9bcb6655b3651ffbb826"
+        },
+        {
+          "location": "line103/Versions/90",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "1",
+          "accounting_bag_sha256": "7cb0aad04ef69e33e5697517911e260d9559f5ab5227900049e147b29c991f84",
+          "ordered_nonaccounting_sha256": "792ad9b277750c7670750f8fe6d2ef4fe6e5fc356c9a2a2e4f81c0c1f72a96c4",
+          "before_rows_sha256": "a27f46542378a980bba8208402812dadf1bb29a94bc9410676b344066419c0e7",
+          "after_rows_sha256": "aba98e572d22ead2f4f1b1a05ef9c8f7845384d6293ee81ca77b2aa393c0bcaa"
+        },
+        {
+          "location": "line103/Versions/90",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "2",
+          "accounting_bag_sha256": "7cb0aad04ef69e33e5697517911e260d9559f5ab5227900049e147b29c991f84",
+          "ordered_nonaccounting_sha256": "a43067bf012e852b3f0f007b28d1490b08b7a05abc1e14760788bf9630993865",
+          "before_rows_sha256": "0ff1b4975eb1c3193b3fdbab9d7c4b51f9781e6a1b2914b2dec52f1157716b34",
+          "after_rows_sha256": "317e482d7ba0212aa21fd4cd4e062e8f966c826a762767936c34adbbcf7231ae"
+        },
+        {
+          "location": "line103/Versions/90",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "3",
+          "accounting_bag_sha256": "7cb0aad04ef69e33e5697517911e260d9559f5ab5227900049e147b29c991f84",
+          "ordered_nonaccounting_sha256": "a43067bf012e852b3f0f007b28d1490b08b7a05abc1e14760788bf9630993865",
+          "before_rows_sha256": "0ff1b4975eb1c3193b3fdbab9d7c4b51f9781e6a1b2914b2dec52f1157716b34",
+          "after_rows_sha256": "317e482d7ba0212aa21fd4cd4e062e8f966c826a762767936c34adbbcf7231ae"
+        },
+        {
+          "location": "line105/Versions/90",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "4",
+          "accounting_bag_sha256": "7cb0aad04ef69e33e5697517911e260d9559f5ab5227900049e147b29c991f84",
+          "ordered_nonaccounting_sha256": "3ad390322e7c3bc47f185b4d5f2bb4c11e90f4dc9a13f1de944bd5c103a8a733",
+          "before_rows_sha256": "7dee6e7ed255a9dfb55c302077aa8c3e28a7cefab7f48d0983677a465dda6606",
+          "after_rows_sha256": "e328033e111fa2c6b03bc63745243cc18c85f817b1ce9bcb6655b3651ffbb826"
+        },
+        {
+          "location": "line105/Versions/90",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "1",
+          "accounting_bag_sha256": "7cb0aad04ef69e33e5697517911e260d9559f5ab5227900049e147b29c991f84",
+          "ordered_nonaccounting_sha256": "792ad9b277750c7670750f8fe6d2ef4fe6e5fc356c9a2a2e4f81c0c1f72a96c4",
+          "before_rows_sha256": "a27f46542378a980bba8208402812dadf1bb29a94bc9410676b344066419c0e7",
+          "after_rows_sha256": "aba98e572d22ead2f4f1b1a05ef9c8f7845384d6293ee81ca77b2aa393c0bcaa"
+        },
+        {
+          "location": "line105/Versions/90",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "2",
+          "accounting_bag_sha256": "7cb0aad04ef69e33e5697517911e260d9559f5ab5227900049e147b29c991f84",
+          "ordered_nonaccounting_sha256": "a43067bf012e852b3f0f007b28d1490b08b7a05abc1e14760788bf9630993865",
+          "before_rows_sha256": "0ff1b4975eb1c3193b3fdbab9d7c4b51f9781e6a1b2914b2dec52f1157716b34",
+          "after_rows_sha256": "317e482d7ba0212aa21fd4cd4e062e8f966c826a762767936c34adbbcf7231ae"
+        },
+        {
+          "location": "line105/Versions/90",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "3",
+          "accounting_bag_sha256": "7cb0aad04ef69e33e5697517911e260d9559f5ab5227900049e147b29c991f84",
+          "ordered_nonaccounting_sha256": "a43067bf012e852b3f0f007b28d1490b08b7a05abc1e14760788bf9630993865",
+          "before_rows_sha256": "0ff1b4975eb1c3193b3fdbab9d7c4b51f9781e6a1b2914b2dec52f1157716b34",
+          "after_rows_sha256": "317e482d7ba0212aa21fd4cd4e062e8f966c826a762767936c34adbbcf7231ae"
+        }
+      ]
+    },
+    {
+      "number": 13,
+      "slug": "card-arc-ramp-red-four-live-real-timesnap-actionpoints-fund-amp-three-and-six-arcane-zap-no-flow-choice",
+      "passed": true,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "exit_code": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-arc-ramp-red-four-live-real-timesnap-actionpoints-fund-amp-three-and-six-arcane-zap-no-flow-choice",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\snapshot-cohort-445\\accounting10-013.log"
+      ],
+      "complete_log_sha256": "73626ba2b1dba021b812ba13add5653a906ff67f8f696cb7762c3cc3cb747452",
+      "before_expected_sha256": "b70cbe027ab8be3453b3f19fe019dc877725703e4d738fad8029fbbcd1f25a21",
+      "expected_sha256": "cdcc3a5cdf2de58fca7ffa808adf73bd4b064502283c1d64878b30e37e8f87ab",
+      "other_four_files_unchanged": true,
+      "failed_candidate_restored": false,
+      "edits": [
+        {
+          "location": "line98/Versions/90",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "1",
+          "accounting_bag_sha256": "33440b91bc961bf2cb5c4194294bde5480c17bd9e626c0af9ae0cff092db3818",
+          "ordered_nonaccounting_sha256": "fc7c9d71d57045ef6dcf0709869821c861e1c608fa339f6ffb7c38c613889df9",
+          "before_rows_sha256": "812b73990c829af421e40223a7a1016282b865384da821569ac8310771d70389",
+          "after_rows_sha256": "103943cd05faf479d48e77a1d9820ac562fceaf751877585f4f535694941d83c"
+        },
+        {
+          "location": "line100/Versions/90",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "1",
+          "accounting_bag_sha256": "33440b91bc961bf2cb5c4194294bde5480c17bd9e626c0af9ae0cff092db3818",
+          "ordered_nonaccounting_sha256": "fc7c9d71d57045ef6dcf0709869821c861e1c608fa339f6ffb7c38c613889df9",
+          "before_rows_sha256": "812b73990c829af421e40223a7a1016282b865384da821569ac8310771d70389",
+          "after_rows_sha256": "103943cd05faf479d48e77a1d9820ac562fceaf751877585f4f535694941d83c"
+        },
+        {
+          "location": "line102/Versions/90",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "1",
+          "accounting_bag_sha256": "33440b91bc961bf2cb5c4194294bde5480c17bd9e626c0af9ae0cff092db3818",
+          "ordered_nonaccounting_sha256": "fc7c9d71d57045ef6dcf0709869821c861e1c608fa339f6ffb7c38c613889df9",
+          "before_rows_sha256": "812b73990c829af421e40223a7a1016282b865384da821569ac8310771d70389",
+          "after_rows_sha256": "103943cd05faf479d48e77a1d9820ac562fceaf751877585f4f535694941d83c"
+        },
+        {
+          "location": "line104/Versions/90",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "1",
+          "accounting_bag_sha256": "33440b91bc961bf2cb5c4194294bde5480c17bd9e626c0af9ae0cff092db3818",
+          "ordered_nonaccounting_sha256": "fc7c9d71d57045ef6dcf0709869821c861e1c608fa339f6ffb7c38c613889df9",
+          "before_rows_sha256": "812b73990c829af421e40223a7a1016282b865384da821569ac8310771d70389",
+          "after_rows_sha256": "103943cd05faf479d48e77a1d9820ac562fceaf751877585f4f535694941d83c"
+        }
+      ]
+    },
+    {
+      "number": 59,
+      "slug": "card-aurora-four-live-sparse-actual-lightning-action-earns-condition-then-paid-instant-creates-owned-embodiment",
+      "passed": true,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "exit_code": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-aurora-four-live-sparse-actual-lightning-action-earns-condition-then-paid-instant-creates-owned-embodiment",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\snapshot-cohort-445\\accounting10-059.log"
+      ],
+      "complete_log_sha256": "b5991c4fc7b851e1c1a653c34d32e2c00ba9f6c23248c1c49e9d2d7d43d27a3b",
+      "before_expected_sha256": "2eaf7d3183eb23ffe72e194875cc79566c4c7f0b9d3f772655012017765aaeeb",
+      "expected_sha256": "0933ec0bc018f40be69e93a732645dcf33320b41de8ba2c428e71e29c3504785",
+      "other_four_files_unchanged": true,
+      "failed_candidate_restored": false,
+      "edits": [
+        {
+          "location": "line89",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "1",
+          "accounting_bag_sha256": "ab0dd064cabbea75055979d6180a7ddb1bec489fa32c64c0fd864d7af8364fc6",
+          "ordered_nonaccounting_sha256": "a47e2a88d2025d9679399108cd0050f1a4e96c70c158ab96745ad76ca484244a",
+          "before_rows_sha256": "7a04d5420d1a1f7a1acff1a547ca938f69b375c2c8d7337c68618d58b0803b6d",
+          "after_rows_sha256": "70bdd36c0c459869daa92c441c68aab26d865f189b74b08b65b79e1c7969e7f6"
+        },
+        {
+          "location": "line98/Versions/90",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "1",
+          "accounting_bag_sha256": "ab0dd064cabbea75055979d6180a7ddb1bec489fa32c64c0fd864d7af8364fc6",
+          "ordered_nonaccounting_sha256": "cd42663c7d3ad9b1223465b028bce715f235be58111c9b5a7e5a7d9d4d2339e8",
+          "before_rows_sha256": "8d890606da4ec550512c1024ea724a1817874f2102d4aff66eb277709008f957",
+          "after_rows_sha256": "d5855b1155059559df06323902c3e591013c7857c0afdb65be974985581ac104"
+        },
+        {
+          "location": "line100/Versions/90",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "1",
+          "accounting_bag_sha256": "ab0dd064cabbea75055979d6180a7ddb1bec489fa32c64c0fd864d7af8364fc6",
+          "ordered_nonaccounting_sha256": "cd42663c7d3ad9b1223465b028bce715f235be58111c9b5a7e5a7d9d4d2339e8",
+          "before_rows_sha256": "8d890606da4ec550512c1024ea724a1817874f2102d4aff66eb277709008f957",
+          "after_rows_sha256": "d5855b1155059559df06323902c3e591013c7857c0afdb65be974985581ac104"
+        },
+        {
+          "location": "line102/Versions/90",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "1",
+          "accounting_bag_sha256": "ab0dd064cabbea75055979d6180a7ddb1bec489fa32c64c0fd864d7af8364fc6",
+          "ordered_nonaccounting_sha256": "cd42663c7d3ad9b1223465b028bce715f235be58111c9b5a7e5a7d9d4d2339e8",
+          "before_rows_sha256": "8d890606da4ec550512c1024ea724a1817874f2102d4aff66eb277709008f957",
+          "after_rows_sha256": "d5855b1155059559df06323902c3e591013c7857c0afdb65be974985581ac104"
+        },
+        {
+          "location": "line104/Versions/90",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "1",
+          "accounting_bag_sha256": "ab0dd064cabbea75055979d6180a7ddb1bec489fa32c64c0fd864d7af8364fc6",
+          "ordered_nonaccounting_sha256": "cd42663c7d3ad9b1223465b028bce715f235be58111c9b5a7e5a7d9d4d2339e8",
+          "before_rows_sha256": "8d890606da4ec550512c1024ea724a1817874f2102d4aff66eb277709008f957",
+          "after_rows_sha256": "d5855b1155059559df06323902c3e591013c7857c0afdb65be974985581ac104"
+        }
+      ]
+    },
+    {
+      "number": 146,
+      "slug": "card-exploding-aether-red-four-live-sparse-actual-paid-amp-three-consumed-by-real-six-arcane",
+      "passed": true,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "exit_code": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-exploding-aether-red-four-live-sparse-actual-paid-amp-three-consumed-by-real-six-arcane",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\snapshot-cohort-445\\accounting10-146.log"
+      ],
+      "complete_log_sha256": "8a12eb50cca961e9cd486da6dd1b7d5a68f23f475647fbc8fa0c94217341227a",
+      "before_expected_sha256": "bd06f9643983571fb6f3390992b1479627893048bff5431190656b9bf8019030",
+      "expected_sha256": "a27240e619fa68e113e5b9bb19a020e78844c158d70a893d9e9b8dd52b58c68f",
+      "other_four_files_unchanged": true,
+      "failed_candidate_restored": false,
+      "edits": [
+        {
+          "location": "line98/Versions/90",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "1",
+          "accounting_bag_sha256": "ab0dd064cabbea75055979d6180a7ddb1bec489fa32c64c0fd864d7af8364fc6",
+          "ordered_nonaccounting_sha256": "4aaf6c307d33ae9e9d2b8e15a0f2bd3e54afc577fc9c33786e557151d7b9214c",
+          "before_rows_sha256": "20c6559cc02a0e71e8efa7f9d6541534a5ce23dd3036a906a4c96137e22e6ccc",
+          "after_rows_sha256": "b02d4b7722d3527b6bf63c79e7ac2f88b3035014bb1056d9e4c1818a5623a718"
+        },
+        {
+          "location": "line100/Versions/90",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "1",
+          "accounting_bag_sha256": "ab0dd064cabbea75055979d6180a7ddb1bec489fa32c64c0fd864d7af8364fc6",
+          "ordered_nonaccounting_sha256": "4aaf6c307d33ae9e9d2b8e15a0f2bd3e54afc577fc9c33786e557151d7b9214c",
+          "before_rows_sha256": "20c6559cc02a0e71e8efa7f9d6541534a5ce23dd3036a906a4c96137e22e6ccc",
+          "after_rows_sha256": "b02d4b7722d3527b6bf63c79e7ac2f88b3035014bb1056d9e4c1818a5623a718"
+        },
+        {
+          "location": "line102/Versions/90",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "1",
+          "accounting_bag_sha256": "ab0dd064cabbea75055979d6180a7ddb1bec489fa32c64c0fd864d7af8364fc6",
+          "ordered_nonaccounting_sha256": "4aaf6c307d33ae9e9d2b8e15a0f2bd3e54afc577fc9c33786e557151d7b9214c",
+          "before_rows_sha256": "20c6559cc02a0e71e8efa7f9d6541534a5ce23dd3036a906a4c96137e22e6ccc",
+          "after_rows_sha256": "b02d4b7722d3527b6bf63c79e7ac2f88b3035014bb1056d9e4c1818a5623a718"
+        },
+        {
+          "location": "line104/Versions/90",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "1",
+          "accounting_bag_sha256": "ab0dd064cabbea75055979d6180a7ddb1bec489fa32c64c0fd864d7af8364fc6",
+          "ordered_nonaccounting_sha256": "4aaf6c307d33ae9e9d2b8e15a0f2bd3e54afc577fc9c33786e557151d7b9214c",
+          "before_rows_sha256": "20c6559cc02a0e71e8efa7f9d6541534a5ce23dd3036a906a4c96137e22e6ccc",
+          "after_rows_sha256": "b02d4b7722d3527b6bf63c79e7ac2f88b3035014bb1056d9e4c1818a5623a718"
+        }
+      ]
+    },
+    {
+      "number": 256,
+      "slug": "card-high-voltage-blue-four-live-sparse-actual-lightning-instant-amp-one-increases-real-targeted-zap-three-to-four",
+      "passed": true,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "exit_code": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-high-voltage-blue-four-live-sparse-actual-lightning-instant-amp-one-increases-real-targeted-zap-three-to-four",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\snapshot-cohort-445\\accounting10-256.log"
+      ],
+      "complete_log_sha256": "288eb210ab46cf68f3e3a60d75a9f033a2f6cd6705ad444ee52c93a03d104b62",
+      "before_expected_sha256": "022386687b2e551e822910c2a862dd5140e462b8b9c0fb930e9493fb16f548f2",
+      "expected_sha256": "a138227d15032025e94a915137abd34e68a9eb15f9c8510fb1faced57a287842",
+      "other_four_files_unchanged": true,
+      "failed_candidate_restored": false,
+      "edits": [
+        {
+          "location": "line97/Versions/90",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "1",
+          "accounting_bag_sha256": "261dfde05729517e382a05c743f5a4c2144ada1f5086e41407e96d21c945f230",
+          "ordered_nonaccounting_sha256": "a4a76dce94f42d298ec4d53f29bb8ab6f4078fa10077d9ff321fa57372884103",
+          "before_rows_sha256": "973d56cd8cfa44df56fe9b1c4bc4cf88c35d29beaed72521bc36e9ab41a6a553",
+          "after_rows_sha256": "ba3dfe25f69cedefbeef64aa4d329f493f2ff647540c4ea23bdad5cceb047fa7"
+        },
+        {
+          "location": "line99/Versions/90",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "1",
+          "accounting_bag_sha256": "261dfde05729517e382a05c743f5a4c2144ada1f5086e41407e96d21c945f230",
+          "ordered_nonaccounting_sha256": "a4a76dce94f42d298ec4d53f29bb8ab6f4078fa10077d9ff321fa57372884103",
+          "before_rows_sha256": "973d56cd8cfa44df56fe9b1c4bc4cf88c35d29beaed72521bc36e9ab41a6a553",
+          "after_rows_sha256": "ba3dfe25f69cedefbeef64aa4d329f493f2ff647540c4ea23bdad5cceb047fa7"
+        },
+        {
+          "location": "line101/Versions/90",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "1",
+          "accounting_bag_sha256": "261dfde05729517e382a05c743f5a4c2144ada1f5086e41407e96d21c945f230",
+          "ordered_nonaccounting_sha256": "a4a76dce94f42d298ec4d53f29bb8ab6f4078fa10077d9ff321fa57372884103",
+          "before_rows_sha256": "973d56cd8cfa44df56fe9b1c4bc4cf88c35d29beaed72521bc36e9ab41a6a553",
+          "after_rows_sha256": "ba3dfe25f69cedefbeef64aa4d329f493f2ff647540c4ea23bdad5cceb047fa7"
+        },
+        {
+          "location": "line103/Versions/90",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "1",
+          "accounting_bag_sha256": "261dfde05729517e382a05c743f5a4c2144ada1f5086e41407e96d21c945f230",
+          "ordered_nonaccounting_sha256": "a4a76dce94f42d298ec4d53f29bb8ab6f4078fa10077d9ff321fa57372884103",
+          "before_rows_sha256": "973d56cd8cfa44df56fe9b1c4bc4cf88c35d29beaed72521bc36e9ab41a6a553",
+          "after_rows_sha256": "ba3dfe25f69cedefbeef64aa4d329f493f2ff647540c4ea23bdad5cceb047fa7"
+        }
+      ]
+    },
+    {
+      "number": 340,
+      "slug": "card-rampant-growth-life-yellow-four-live-sparse-real-meld-life-earns-one-amp-paid-zap-damage",
+      "passed": true,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "exit_code": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-rampant-growth-life-yellow-four-live-sparse-real-meld-life-earns-one-amp-paid-zap-damage",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\snapshot-cohort-445\\accounting10-340.log"
+      ],
+      "complete_log_sha256": "205fc1dff9f4fd9cfe71c5fcdc857eab99f57f7792b694a980e7becd3eea4980",
+      "before_expected_sha256": "a9f819e5d7e155a7c593cff81f9a492474bb4ff02595c5d26366a433e0e29365",
+      "expected_sha256": "ba93fc51abd02a99a19f5be986182f59a85959b1c09e8d718b0c9d324ab6356e",
+      "other_four_files_unchanged": true,
+      "failed_candidate_restored": false,
+      "edits": [
+        {
+          "location": "line97/Versions/90",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "1",
+          "accounting_bag_sha256": "550396da3877d417e5f46ea4429382bd2a97e24f03509266870c2781496fbce9",
+          "ordered_nonaccounting_sha256": "0ee31cb09a06ab3c4f97dad062cd06c6dced818750cf8e0526a90ca8963a711c",
+          "before_rows_sha256": "66fd4c15c2795b9a9cc4d24597c1244750dcbb851d292d69303b6ebec87405ba",
+          "after_rows_sha256": "956bc118277ee9a7b1669096dc92d54f002bc871fce61b82a9a92bd412281579"
+        },
+        {
+          "location": "line99/Versions/90",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "1",
+          "accounting_bag_sha256": "550396da3877d417e5f46ea4429382bd2a97e24f03509266870c2781496fbce9",
+          "ordered_nonaccounting_sha256": "0ee31cb09a06ab3c4f97dad062cd06c6dced818750cf8e0526a90ca8963a711c",
+          "before_rows_sha256": "66fd4c15c2795b9a9cc4d24597c1244750dcbb851d292d69303b6ebec87405ba",
+          "after_rows_sha256": "956bc118277ee9a7b1669096dc92d54f002bc871fce61b82a9a92bd412281579"
+        },
+        {
+          "location": "line101/Versions/90",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "1",
+          "accounting_bag_sha256": "550396da3877d417e5f46ea4429382bd2a97e24f03509266870c2781496fbce9",
+          "ordered_nonaccounting_sha256": "0ee31cb09a06ab3c4f97dad062cd06c6dced818750cf8e0526a90ca8963a711c",
+          "before_rows_sha256": "66fd4c15c2795b9a9cc4d24597c1244750dcbb851d292d69303b6ebec87405ba",
+          "after_rows_sha256": "956bc118277ee9a7b1669096dc92d54f002bc871fce61b82a9a92bd412281579"
+        },
+        {
+          "location": "line103/Versions/90",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "1",
+          "accounting_bag_sha256": "550396da3877d417e5f46ea4429382bd2a97e24f03509266870c2781496fbce9",
+          "ordered_nonaccounting_sha256": "0ee31cb09a06ab3c4f97dad062cd06c6dced818750cf8e0526a90ca8963a711c",
+          "before_rows_sha256": "66fd4c15c2795b9a9cc4d24597c1244750dcbb851d292d69303b6ebec87405ba",
+          "after_rows_sha256": "956bc118277ee9a7b1669096dc92d54f002bc871fce61b82a9a92bd412281579"
+        }
+      ]
+    },
+    {
+      "number": 353,
+      "slug": "card-robe-of-resourcefulness-four-live-sparse-real-cash-out-cost-leave-trigger-earns-two-mana-paid-wizard",
+      "passed": true,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "exit_code": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-robe-of-resourcefulness-four-live-sparse-real-cash-out-cost-leave-trigger-earns-two-mana-paid-wizard",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\snapshot-cohort-445\\accounting10-353.log"
+      ],
+      "complete_log_sha256": "3aa78c6b16d2bfb1aedfa9a5a8c39f33071b0da5232a2abbcb8c8029a8f7858e",
+      "before_expected_sha256": "0c66ddcdc0acebe492f9a123778e26c576668bbacdad8754002ded17de87064c",
+      "expected_sha256": "762d643128005d379bd250d85cb6a9ef3d84b186d1c48fc451c2989ae9182038",
+      "other_four_files_unchanged": true,
+      "failed_candidate_restored": false,
+      "edits": [
+        {
+          "location": "line90",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "1",
+          "accounting_bag_sha256": "2d3af8036e516d6f92e4e454bcf3693ccedf402d9ef3f4a7797c5319e44cc88b",
+          "ordered_nonaccounting_sha256": "3e41aa6b7a76230f1cbf276fc15888da84baddce44fd8ee5fa93f4453cf3561a",
+          "before_rows_sha256": "32e3effbba9e8d24d600c2f2a27d119567a632eff964e34815b17c037ea44ac1",
+          "after_rows_sha256": "8ed23b8d05906272c24f3f53bcb0d01941b29a2dcd6cb4c7c244a4dda81ce273"
+        },
+        {
+          "location": "line99/Versions/90",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "1",
+          "accounting_bag_sha256": "33440b91bc961bf2cb5c4194294bde5480c17bd9e626c0af9ae0cff092db3818",
+          "ordered_nonaccounting_sha256": "e3b09ae9a78cd448e25effb7855828f33e1797b7d041e02051c494e8ddf4298b",
+          "before_rows_sha256": "855c89216eb706566cd0dc32e16e64f5a5a84f81c81907ce55914f6705cd3109",
+          "after_rows_sha256": "ba93abcf93958cdda0dc8b37380ce4bdbc7e6be4f2c7d6e159c7cbcf2880f7e7"
+        },
+        {
+          "location": "line101/Versions/90",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "1",
+          "accounting_bag_sha256": "33440b91bc961bf2cb5c4194294bde5480c17bd9e626c0af9ae0cff092db3818",
+          "ordered_nonaccounting_sha256": "e3b09ae9a78cd448e25effb7855828f33e1797b7d041e02051c494e8ddf4298b",
+          "before_rows_sha256": "855c89216eb706566cd0dc32e16e64f5a5a84f81c81907ce55914f6705cd3109",
+          "after_rows_sha256": "ba93abcf93958cdda0dc8b37380ce4bdbc7e6be4f2c7d6e159c7cbcf2880f7e7"
+        },
+        {
+          "location": "line103/Versions/90",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "1",
+          "accounting_bag_sha256": "33440b91bc961bf2cb5c4194294bde5480c17bd9e626c0af9ae0cff092db3818",
+          "ordered_nonaccounting_sha256": "e3b09ae9a78cd448e25effb7855828f33e1797b7d041e02051c494e8ddf4298b",
+          "before_rows_sha256": "855c89216eb706566cd0dc32e16e64f5a5a84f81c81907ce55914f6705cd3109",
+          "after_rows_sha256": "ba93abcf93958cdda0dc8b37380ce4bdbc7e6be4f2c7d6e159c7cbcf2880f7e7"
+        },
+        {
+          "location": "line105/Versions/90",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "1",
+          "accounting_bag_sha256": "33440b91bc961bf2cb5c4194294bde5480c17bd9e626c0af9ae0cff092db3818",
+          "ordered_nonaccounting_sha256": "e3b09ae9a78cd448e25effb7855828f33e1797b7d041e02051c494e8ddf4298b",
+          "before_rows_sha256": "855c89216eb706566cd0dc32e16e64f5a5a84f81c81907ce55914f6705cd3109",
+          "after_rows_sha256": "ba93abcf93958cdda0dc8b37380ce4bdbc7e6be4f2c7d6e159c7cbcf2880f7e7"
+        }
+      ]
+    },
+    {
+      "number": 425,
+      "slug": "card-twinkle-toes-four-live-sparse-real-instant-card-play-earns-destroy-prevent-two-gate",
+      "passed": true,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "exit_code": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-twinkle-toes-four-live-sparse-real-instant-card-play-earns-destroy-prevent-two-gate",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\snapshot-cohort-445\\accounting10-425.log"
+      ],
+      "complete_log_sha256": "97acab4627a6df25697fe8f54bf0668c8c72f10f3ef26ed91fb1d66cc9f41e95",
+      "before_expected_sha256": "1fc0a7fa3784899fa3734659d3f2f7ac2cff547940540f037fe0f7c2f0c9a19e",
+      "expected_sha256": "f39e4a3f6bd27250b61ecd07cecf642307283fd5e3e857d81e03f1be4ae85a0d",
+      "other_four_files_unchanged": true,
+      "failed_candidate_restored": false,
+      "edits": [
+        {
+          "location": "line89",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "4",
+          "accounting_bag_sha256": "1ad72713f4c4b7d4d72521391bfccdc364b040356799d755107eec7fb5857ff4",
+          "ordered_nonaccounting_sha256": "0cbd0b026011955d6510a8f4e6449bbce2af50c79152c59c8bfb1a9944f2ee51",
+          "before_rows_sha256": "c6392ce86b885613914094d32ca6d05b78e1075e2677837190e9facb5cda6bbc",
+          "after_rows_sha256": "d54cf7139ed3fffeffb9d841e3dc664104ca7500db14a3275916a99a720f44be"
+        },
+        {
+          "location": "line98/Versions/90",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "4",
+          "accounting_bag_sha256": "b6b4b9ec21be7211a507c2c43784bc209e3fe92e0a995e781c3681e9d9ecae63",
+          "ordered_nonaccounting_sha256": "0457523e2d00736be1d9ce97883b383199707b0aad886a230ff05d06c3eaa822",
+          "before_rows_sha256": "e30acd31cb42fa42df43f025ef4953fa451787b6d9130eb2d89a551eb95c90b3",
+          "after_rows_sha256": "c76219d3c1b45d65a11fc9122e63f35dc67f558203ccfda32eba08a939d3b305"
+        },
+        {
+          "location": "line100/Versions/90",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "4",
+          "accounting_bag_sha256": "b6b4b9ec21be7211a507c2c43784bc209e3fe92e0a995e781c3681e9d9ecae63",
+          "ordered_nonaccounting_sha256": "0457523e2d00736be1d9ce97883b383199707b0aad886a230ff05d06c3eaa822",
+          "before_rows_sha256": "e30acd31cb42fa42df43f025ef4953fa451787b6d9130eb2d89a551eb95c90b3",
+          "after_rows_sha256": "c76219d3c1b45d65a11fc9122e63f35dc67f558203ccfda32eba08a939d3b305"
+        },
+        {
+          "location": "line102/Versions/90",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "4",
+          "accounting_bag_sha256": "b6b4b9ec21be7211a507c2c43784bc209e3fe92e0a995e781c3681e9d9ecae63",
+          "ordered_nonaccounting_sha256": "0457523e2d00736be1d9ce97883b383199707b0aad886a230ff05d06c3eaa822",
+          "before_rows_sha256": "e30acd31cb42fa42df43f025ef4953fa451787b6d9130eb2d89a551eb95c90b3",
+          "after_rows_sha256": "c76219d3c1b45d65a11fc9122e63f35dc67f558203ccfda32eba08a939d3b305"
+        },
+        {
+          "location": "line104/Versions/90",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "4",
+          "accounting_bag_sha256": "b6b4b9ec21be7211a507c2c43784bc209e3fe92e0a995e781c3681e9d9ecae63",
+          "ordered_nonaccounting_sha256": "0457523e2d00736be1d9ce97883b383199707b0aad886a230ff05d06c3eaa822",
+          "before_rows_sha256": "e30acd31cb42fa42df43f025ef4953fa451787b6d9130eb2d89a551eb95c90b3",
+          "after_rows_sha256": "c76219d3c1b45d65a11fc9122e63f35dc67f558203ccfda32eba08a939d3b305"
+        }
+      ]
+    },
+    {
+      "number": 432,
+      "slug": "card-volzar-meteor-storm-four-live-real-instant-graveyard-tap-and-amped-four-arcane",
+      "passed": true,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "exit_code": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-volzar-meteor-storm-four-live-real-instant-graveyard-tap-and-amped-four-arcane",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\snapshot-cohort-445\\accounting10-432.log"
+      ],
+      "complete_log_sha256": "afddd6d78701cc9985b5e9269a881c8d0ba1855fdb3d659238676ab7f33b670b",
+      "before_expected_sha256": "89abf657ec76d1a5b7f820bc66e69cf5737a8e56dfd3a23375b6ea6203467c59",
+      "expected_sha256": "f4331f51d2365490beaf7af293db14e237d053ae79be9c1102088118bad861a3",
+      "other_four_files_unchanged": true,
+      "failed_candidate_restored": false,
+      "edits": [
+        {
+          "location": "line89",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "1",
+          "accounting_bag_sha256": "c6027c2c47e3a4175cb381e2387e19e72069b1048f9a73e4896f3a3747a8c0fb",
+          "ordered_nonaccounting_sha256": "905d4eb338f7868d26e53e84796ae561af68d908b954245e1c859fdceb48a3bd",
+          "before_rows_sha256": "172ea6f1ec00fee9b6acf24492cad6d5a36ab47b60a4da7e09cb8ae1fc65547b",
+          "after_rows_sha256": "afdf944bc24ed021a04395867c8f07fae6648a64bb3aaed55fb737064c6fe0a9"
+        },
+        {
+          "location": "line98/Versions/90",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "1",
+          "accounting_bag_sha256": "1bac5483f760b687d52655f913eb3345bc15ec65fe8cdc2bb28f5fd7697130a3",
+          "ordered_nonaccounting_sha256": "f5aadf79251cd5f496d7de9af30cfe94d62463bdec22578803bf65c851f88f6f",
+          "before_rows_sha256": "065515105ce75f941ac1b02a05442b3432c72295f063e78badfa6425176f3622",
+          "after_rows_sha256": "527df6cf98bd9db0bc55544781024039396dc285f8e6a247948f0ae483deaec7"
+        },
+        {
+          "location": "line100/Versions/90",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "1",
+          "accounting_bag_sha256": "1bac5483f760b687d52655f913eb3345bc15ec65fe8cdc2bb28f5fd7697130a3",
+          "ordered_nonaccounting_sha256": "f5aadf79251cd5f496d7de9af30cfe94d62463bdec22578803bf65c851f88f6f",
+          "before_rows_sha256": "065515105ce75f941ac1b02a05442b3432c72295f063e78badfa6425176f3622",
+          "after_rows_sha256": "527df6cf98bd9db0bc55544781024039396dc285f8e6a247948f0ae483deaec7"
+        },
+        {
+          "location": "line102/Versions/90",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "1",
+          "accounting_bag_sha256": "1bac5483f760b687d52655f913eb3345bc15ec65fe8cdc2bb28f5fd7697130a3",
+          "ordered_nonaccounting_sha256": "f5aadf79251cd5f496d7de9af30cfe94d62463bdec22578803bf65c851f88f6f",
+          "before_rows_sha256": "065515105ce75f941ac1b02a05442b3432c72295f063e78badfa6425176f3622",
+          "after_rows_sha256": "527df6cf98bd9db0bc55544781024039396dc285f8e6a247948f0ae483deaec7"
+        },
+        {
+          "location": "line104/Versions/90",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "1",
+          "accounting_bag_sha256": "1bac5483f760b687d52655f913eb3345bc15ec65fe8cdc2bb28f5fd7697130a3",
+          "ordered_nonaccounting_sha256": "f5aadf79251cd5f496d7de9af30cfe94d62463bdec22578803bf65c851f88f6f",
+          "before_rows_sha256": "065515105ce75f941ac1b02a05442b3432c72295f063e78badfa6425176f3622",
+          "after_rows_sha256": "527df6cf98bd9db0bc55544781024039396dc285f8e6a247948f0ae483deaec7"
+        }
+      ]
+    }
+  ],
+  "full_suite_run": false,
+  "new_groups_or_scenarios": 0,
+  "comparison_or_gameplay_changes": false,
+  "preserved": "All original actions, assertions, initial snapshots, metadata and every final byte outside the exact reviewed edits."
+}

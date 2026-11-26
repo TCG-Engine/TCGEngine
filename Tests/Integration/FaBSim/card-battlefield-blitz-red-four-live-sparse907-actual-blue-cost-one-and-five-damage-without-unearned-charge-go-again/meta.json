@@ -1,0 +1,7 @@
+{
+    "name": "Battlefield Blitz / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T18:43:08+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "If you've **charged** this turn, this gets **go again**. Representative only: actual_blue_cost_one_and_five_damage_without_unearned_charge_go_again. Other pitch siblings, alternate targets and unexercised branches receive no credit. All four live/manual; only native entry-point actions. Sources: FaBSim/GeneratedCode/cardArrayCache.json#battlefield_blitz_red"
+}

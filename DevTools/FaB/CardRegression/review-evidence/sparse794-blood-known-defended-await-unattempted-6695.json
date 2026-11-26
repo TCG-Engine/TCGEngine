@@ -1,0 +1,68 @@
+{
+  "batch": 794,
+  "author": "/root/breadth787_author",
+  "created_utc": "2026-11-14T21:07:49.445131+00:00",
+  "firm": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov14-batch794-firm-reservation.json",
+    "sha256": "9146d933271bb93f6e6b51a6038de3f5b2002c9c6a52e407b17ce7d181ebf3c1"
+  },
+  "existing_family_metadata_preflight": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov14-batch794-primary-support-family-metadata-preflight.json",
+    "sha256": "12e55cd404210ba3a2a19c29f6580a32e738b7472ccbb39a0d81134e6ab431ac"
+  },
+  "existing_82_guard_witness": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov14-batch791-dark-arcanite-helm-generic-source-shadow-controller-resist-author\\manifest.json",
+    "sha256": "301dc8c172d020563a4e0d7719399469362b6a19d6dbaba104878a883c90e0a7"
+  },
+  "runtime_reported_unchanged_by_Root": "6695d68163d313f4f61cb20ad9122c7038e621a60c847909598150fe8da09d11",
+  "Root_reported_current_metadata": {
+    "issues_sha256": "9b83dc5d69a272c674229ba2893da0871490ef18e333bfc560875e46d12caa80",
+    "holds_sha256": "1af56d552f7d2da4d7ba93c898b3c8c76231b79bf7a3017d9b74a02014ecf516",
+    "qualified_scenarios": 4056,
+    "pending": 0,
+    "note": "Parent forwarded new180/241-row metadata; no source/code/metadata re-audit during this recovery. Existing preflight predates those additions."
+  },
+  "recovery": {
+    "partial_hold_notes_found": false,
+    "prior_tools_in_this_session_completed": true,
+    "CIM_process_inventory": "Read-only Get-CimInstance denied: Access to a CIM resource was not available to the client. No process-state success claimed.",
+    "no_PHP_native_R_operation_was_initiated_by_author": true,
+    "scope": "First serialization of two compact W-only planning notes from already established facts; no retry of native/source/repair action."
+  },
+  "counts": {
+    "runnable_cases": 0,
+    "recipes": 0,
+    "controls": 0,
+    "queries": 0,
+    "native_inputs": 0,
+    "new_native_bug_claims": 0,
+    "fixtures": 0,
+    "coverage_credit": 0
+  },
+  "native_attempted": false,
+  "confirmed_gameplay_bug": false,
+  "fixture_saved": false,
+  "coverage_credit": false,
+  "source_fix": false,
+  "B787_denied_operation_untouched": true,
+  "status": "B794_BLOOD_FIXED_WATERY_GRAVE_ROUTE_KNOWN_DEFENDED_AWAIT_FAMILY_UNATTEMPTED",
+  "card_id": "blood_in_the_water_red",
+  "group_id": "identity:blood_in_the_water_red",
+  "fixed_route": "P1Betsy realRagingRed7 cost3 fundedordinaryBlue3; P4youngGravyBones20 realBloodDR0/base4. Correct earnedWHEN aftersourcebecomesdefending choosesDestroyTopDeck ownedBarnacleYellow WateryGrave\u2192GY/+2defense6, then7\u22126=1/HP4_19. NoHeroGoldability/reanimation/BlueGYpermission, privateflag or substitute.",
+  "established_source_facts": [
+    "The selected ability is Defended, not ResolveCard. Existing managed DR path correctly moves the physical reaction from Stack onto CombatChain with Role DEFENSE_REACTION before OnDefended.",
+    "OnDefended GL1226 calls the selected Defended macro; current special capture GL1316..1318 is Smoke Red only, then generic GL1322 invokes Blood generated Defended frame.",
+    "Blood directly begins its discard-or-destroy-top modal/await and potential +2 defense during Defended dispatch before a separately captured responseable WHEN layer. Source concern is choice before earned-layer resolution, NOT choice while physical source is still Stack."
+  ],
+  "known_dependency": "Exact existing managed-DR/Defended-inline-await family: DragDown .holds[210], AdaptivePlating[161], WhispersWithin[176]; named Smoke capture does not admit Blood. Recent Bastion180 is separately retained; no inferred native premature-prevention/damage claim from it. Parent and peer agreed Blood held unattempted.",
+  "source_anchors": [
+    "GameLogic1495..1508: DR attaches before OnDefended",
+    "GameLogic1220..1227,1316..1322: selected event dispatch/capture scope",
+    "sea_abilities.json blood_in_the_water_red Defended",
+    "SEACards6,28,60: Watery qualification, actual top destruction, modal options"
+  ],
+  "limits": [
+    "No executable/probe/native/choice/Deck-loss/defense6/damage/cleanup certificate.",
+    "No basic4-only, declined-choice, discard-route or producer substitute; no new bug or repair."
+  ]
+}

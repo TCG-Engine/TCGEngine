@@ -1,0 +1,7 @@
+{
+    "name": "Prism / Herald pitched is not Herald entering soul",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-24T11:31:40+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "FOUR_REAL_MANUAL_UPF_NATURAL_YOUNGPRISMADVENT16_THREEDORI20. ActualGenericCriticalRed5cost1paidHeraldRavagesBlue6pitch3/R2/AP0/base5/5damageHP4=15. TrueHeraldnamecard6movesHand\u2192PITCH\u2014notSoul; noHeraldSoulWHEN/search/chooser/Shuffle/figmententry/Ponder. OwnrealDeckFigment8iseligiblepotentialsearchcardbutremainsonecard/sameownedUID/order, Soul0throughout. Figmententryheldbranchnotperformed/credited; deckobjectonly. Final5GY1/Herald6Pitch1/FDArsenalWounding7same/Deck8same/UID8RNG0/allArena0/ownHP16/AP0R2. Actuallegal0ArsenalconsumerrejectsAP0unchanged. OnlyPitch-vs-Soulorigingate/realHeraldpitch/fiveDamage/noSearch/consumer; positiveHeraldSoul/WHENtiming/search/entry/awaken/adult/support/sibling/fullcarduncredited. Sources: FaBSim/GeneratedCode/cardArrayCache.json#prism_advent_of_thrones FaBSim/GeneratedCode/GeneratedMacroCode.php FaBSim/Custom/GameLogic.php FaBSim/Custom/OUTRuntime.php FaBSim/Custom/OUTCards.php FaBSim/Custom/DTDRuntime.php FaBSim/Custom/DTDCards.php FaBSim/Custom/WTRCards.php FaBSim/Custom/ARCCards.php"
+}

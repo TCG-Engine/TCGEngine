@@ -1,0 +1,7 @@
+{
+    "name": "Enact Vengeance / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T20:41:00+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "**Combo** - If Edge of Autumn or a card with Vengeance in its name was the last attack this combat chain, this gets \"When this hits a hero, destroy all cards in their arsenal.\" Representative only: actual_first_chain_six_without_combo_keeps_real_arsenal. Actual printed payment, four manual live seats/full unblocked combat, real health loss and physical owned source in graveyard. No positive typed-hit/Combo/Draconic threshold or pitch sibling credit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#enact_vengeance_red"
+}

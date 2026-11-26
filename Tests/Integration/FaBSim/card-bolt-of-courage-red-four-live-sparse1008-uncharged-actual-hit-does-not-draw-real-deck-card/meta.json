@@ -1,0 +1,7 @@
+{
+    "name": "Bolt of Courage / four-live uncharged actual-hit branch",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-23T01:55:37+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "As an additional cost to play this, you may **charge** your hero's soul.\n\nIf you've **charged** this turn, this gets \"When this hits, draw a card.\" Named uncharged branch only. Legalnatural20Boltyn/source5soleHand beforeannouncement, nootherHandchargeasset aftersourceStack, cost0/AP0. InitialturnEffects[] andnochargeaction thisturn; realDeck6mustnotdrawonactual3hit/HP4=17, Hand0/Deck1/source5ownedGGY/AP0. Fourmanualseats, exactsourcecost/roles/fates/persistedHPanddamage/cleanqueues. ConditionalIfchargedgrantneverexists, so noearnedHit ability omitted. Positivecharge/hero/support/siblings/fullcardunrun. Sources: FaBSim/GeneratedCode/cardArrayCache.json#bolt_of_courage_red"
+}

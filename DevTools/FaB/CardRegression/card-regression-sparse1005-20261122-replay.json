@@ -1,0 +1,102 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-red-lure-harpoon-blue-four-live-sparse1005-real-full-block-keeps-eligible-red-graveyard-card-without-hit",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-red-lure-harpoon-blue-four-live-sparse1005-real-full-block-keeps-eligible-red-graveyard-card-without-hit",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1005-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1005-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "494a5589b2a0d5c5ace16f9a738742989c16185581a2ed2df9e34a977a030200",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "028a733f61922bde95c0c3500d3d0d79e2b83b17adbc72e0b3193baf6e74d9cf",
+        "actions.json": "93f50488e0f312b4020445b2819360dd950e8b021a9e4ab90b9924171869c098",
+        "assertions.json": "8cfe369370d3e63a85fae6bc6cda492c1d18a51e9d298e13fc97f61bcf6da644",
+        "expected_final_gamestate.txt": "0e040ffc90ef6bd75de9c5660f556622ab692194d6e2e2e58d28932f72d91d85",
+        "meta.json": "afa5a3c63f71ae13bff4f2aa6bdb7092bd823d6a8bb2b851a455c61eb7462ae5"
+      }
+    },
+    {
+      "slug": "card-shallow-water-shark-harpoon-yellow-four-live-sparse1005-real-full-block-keeps-facedown-enemy-arsenal-without-hit",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-shallow-water-shark-harpoon-yellow-four-live-sparse1005-real-full-block-keeps-facedown-enemy-arsenal-without-hit",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1005-local-20261122\\clean-replays\\01.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1005-local-20261122\\clean-replays\\01.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "cc3b9afe101141f86f36c428d2590dab6ddc2ded3281a7dcfbeee4f71924e6f1",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "5f84a844e3b5995dbc9e4699f874b134612c97631d5fa43e90128ebfafeb6b89",
+        "actions.json": "93f50488e0f312b4020445b2819360dd950e8b021a9e4ab90b9924171869c098",
+        "assertions.json": "7cacdbfdc700530f2b256d8fe53449654b49c99b9a5ddf719f2a01bc20492398",
+        "expected_final_gamestate.txt": "95eb41591832a1650ba26d87445f5412e6c6917bea838126c6a1764e3d2081b7",
+        "meta.json": "260583c7dbfe11c0c67d8b1ec942e90295ba9eb03a5f7b4e73a750474d5e3e8f"
+      }
+    },
+    {
+      "slug": "card-evo-tekloscope-blue-four-live-sparse1005-real-paid-base-head-transforms-and-equips-without-weapon-target-claim",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-evo-tekloscope-blue-four-live-sparse1005-real-paid-base-head-transforms-and-equips-without-weapon-target-claim",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1005-local-20261122\\clean-replays\\02.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1005-local-20261122\\clean-replays\\02.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "ea315c17051c467e0a7034c4b7ac5698a38f4c9d0a0d81bdd7302d3fed27a881",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "f165d2f796a764b34f2ba0c9963bbb6c7be9835374a587603ec45b3fbd721b38",
+        "actions.json": "c9e30c252fa7ee7dec5f8a364eea8e728c688845dd8df7f54427b2bc62c71d2d",
+        "assertions.json": "95e8c3b73fa687176e260a170059c0b1799915669831d2c369a1b36c31dfe978",
+        "expected_final_gamestate.txt": "52e026ca4b85e0d53fff379c2a9c6ddf0ee64d6a86a5ca74686057768b55e38b",
+        "meta.json": "03815af6fe743bd48b9953961e735c73478f89a463389818882b04126d4c98eb"
+      }
+    },
+    {
+      "slug": "card-evo-magneto-blue-four-live-sparse1005-real-paid-base-arms-transforms-and-equips-without-defend-event",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-evo-magneto-blue-four-live-sparse1005-real-paid-base-arms-transforms-and-equips-without-defend-event",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1005-local-20261122\\clean-replays\\03.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1005-local-20261122\\clean-replays\\03.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "fc56e9f43dc1c118cbe543932a8f26e27e507ecf6562b320f24273194120f3a2",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "e697c834edc7113bbda3648614ac39de8e375510f724e23d18352023353b6a34",
+        "actions.json": "c9e30c252fa7ee7dec5f8a364eea8e728c688845dd8df7f54427b2bc62c71d2d",
+        "assertions.json": "a72c4c877e57fc3cae6509694f71e8dd0b435b011fbf629746eadb6b165fa1fa",
+        "expected_final_gamestate.txt": "f51848d86d17a3fb20276dd6af3985da03b130644ae71036730a0aca4edcc97c",
+        "meta.json": "408ebbfe49e76f69960f00a0a8e02843543c0db7f1fba973c49733ebaad09a41"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

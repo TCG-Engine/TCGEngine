@@ -1,0 +1,7 @@
+{
+    "name": "Burn Bare / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T15:14:33+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Deal 6 arcane damage to any target.\n\n**Instant** - Discard this: Destroy target card with phantasm that is attacking you. Representative only: printed_six_arcane_with_real_blue_pitch. Other pitch siblings, alternate targets and unexercised branches receive no credit. All four live/manual; only native entry-point actions. Sources: FaBSim/GeneratedCode/cardArrayCache.json#burn_bare"
+}

@@ -2589,5 +2589,15 @@
         "isImplemented": true
       }
     ]
+  },
+  {
+    "cardId": "unforgetting_unforgiving_red",
+    "abilities": [
+      {
+        "macroName": "Defended",
+        "abilityCode": "$attacker = intval(DecisionQueueController::GetVariable('supUnforgetAttacker'));\n\nif (FaBSUPUnforgettingCondition($attacker)) {\n\n    $mode = await $player.Modal(1, 1, \"Decline&Search\", \"Search_for_a_Mangle\");\n\n    if ($mode === \"1\") {\n\n        $refs = FaBSUPUnforgettingStage($player);\n\n        $eligible = FaBUPRUIDs($refs);\n\n        $chosen = \"-\";\n\n        if ($refs !== \"\") {\n $chosen = await $player.MZMultiChoose($refs, 0, 1, \"Banish_a_Mangle\");\n \n}\n\n        FaBSUPUnforgettingFinish($player, $chosen, $eligible);\n\n    \n}\n\n\n}\n",
+        "isImplemented": true
+      }
+    ]
   }
 ]

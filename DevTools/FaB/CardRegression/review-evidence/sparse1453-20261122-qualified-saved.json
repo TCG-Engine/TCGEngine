@@ -1,0 +1,80 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "/root/breadth_review1449 independent read-only source-spec semantic review",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1453-20261122.json",
+  "source_spec_sha256": "11629fd9d3ce5f6b5ec8a4cb35d8783e14147e248ebc605b8a09617b9e22307a",
+  "input_sha256": "11629fd9d3ce5f6b5ec8a4cb35d8783e14147e248ebc605b8a09617b9e22307a",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-riptide-lurker-of-the-deep-two-live-sparse1453-real-arsenal-instant-does-not-earn-hand-play-trigger-with-positive-loading-control",
+      "card_id": "riptide_lurker_of_the_deep",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "56a44ff740b908a3e06144052a40cbb7bb0998baa6a94d38c9884bcf3c2fb5da",
+        "actions.json": "55d7adcb0d693876d4cd5824a2fea35606272af04658a30dcaca44b5b2cdc984",
+        "assertions.json": "3007ad6f560fd59abea75f433b8bc7638dc4583b3701682201c52c9932c651c4",
+        "expected_final_gamestate.txt": "10d11a2f649cd8d6ba8bb28b798be15246e9c97c3c4d122bad7c32932cc4d455",
+        "meta.json": "1ea8f4874f2582431b3d19349e7a645e8d77f2002d5cb088791a9b058e0b4b03"
+      },
+      "fixture_sha256": "8a0afe4f290deeff3a3cf83ea369b91f1ba607c07e5d836063dcd123765f9f2f",
+      "actions": 7,
+      "native_assertions": 208,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 4,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1453-20261122.json",
+      "input_sha256": "11629fd9d3ce5f6b5ec8a4cb35d8783e14147e248ebc605b8a09617b9e22307a",
+      "active_seats": [
+        1,
+        2
+      ],
+      "players": "two_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1453-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-riptide-lurker-of-the-deep-two-live-sparse1453-real-arsenal-instant-does-not-earn-hand-play-trigger-with-positive-loading-control",
+        "fixture_slug": "card-riptide-lurker-of-the-deep-two-live-sparse1453-real-arsenal-instant-does-not-earn-hand-play-trigger-with-positive-loading-control",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "spec_sha256": "11629fd9d3ce5f6b5ec8a4cb35d8783e14147e248ebc605b8a09617b9e22307a",
+    "reviewer": "/root/breadth_review1449 independent read-only source-spec semantic review",
+    "review_scope": "Limited adultRiptide Arsenal-source negative with actualSigilheal and realpositive sameArrowloading control; no positive Hand-play trigger or Trap credit. Exact2manualadultseats/natural38and40/realUID3Bracers4Sigil5Arrow/FaceDown1initial bound.",
+    "basis": [
+      "PrintedRiptide requires playfromHand. OUTRuntime FaBOUTPlayed explicitly checksfrom===Hand; MONHero prefixrecognizesadultRiptide, so neither missingHeroidentity nornoeligibleasset explainsnegative. ActualSigil playedfromArsenal isnotHandplay andputsreal3life38to41, opensArsenalwhileHandArrow5remains. No startinglifecap or earnedHandtrigger exists.",
+      "ActualBracers Action0destroysownEquipment3andspendsAP1to0 beforebothresponses. Generated6495BullsEye ability onlythen offersrealHandArrow5 ifArsenalempty. Printedput isnot atargetedresolutioneffect orcardplay. SearingShot isrealRangerArrow; nobanished/foreignowner/barelylegalassetshortcut.",
+      "ARCmanagedvirtualability remainsStackthroughMZMAYCHOOSE, noearlyGA; selectingreal5physicallyloadsfaceupArsenal, completionclearsabilityandreturnsAP1. NoHandcardisplayed anywhere, so controldoesnotearnRiptideHandtrigger. Bracers+1powerconsumer andArrowhit areexplicitlyunrun."
+    ],
+    "limits": [
+      "positive_Hand_play_trigger_and_timing",
+      "trap_trigger_damage",
+      "support_Arrow_attack_or_hit_effect",
+      "Bracers_power_bonus_consumer",
+      "four_live_young_identity_or_pitch_siblings"
+    ],
+    "positive_primary_ability_credit": false,
+    "whole_card_credit": false,
+    "secondary_identity_credit": false,
+    "native_execution": "PENDING",
+    "independent_saved_file_review": false
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1453-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "55fc1e49717448145f6d2b528f5c4342ff50f007d2117a4ecb98e254ffe0bf33"
+  },
+  "full_suite_run": false
+}

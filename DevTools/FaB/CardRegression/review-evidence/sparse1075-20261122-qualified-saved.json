@@ -1,0 +1,64 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "breadth_review independent printed/source/spec review",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1075-20261122.json",
+  "source_spec_sha256": "6816bdf641d71eadb3540782eff753a199fbfaa514ed237f775383b0041adfb3",
+  "input_sha256": "6816bdf641d71eadb3540782eff753a199fbfaa514ed237f775383b0041adfb3",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-tear-through-the-portal-red-four-live-sparse1075-real-red-banished-attack-selection-and-consumed-go-again",
+      "card_id": "tear_through_the_portal_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "0bbe4f4a98d00060a33940e3bf81907668052b8bdddcc4df90232045981e0c88",
+        "actions.json": "0adb7daa58e467b2eb7f6003c782ec2b96ccd89500b406680e0d733b641da616",
+        "assertions.json": "c0d37f0a2e0754c39ccd261cf34cd82832f509d2bfc4ba52935060193db6eba1",
+        "expected_final_gamestate.txt": "17b12df757c5c13d221c5ccc7bc03dc1279327b1ab3f928cca900e97c8bab07d",
+        "meta.json": "a5bd376899bf0afe85d2af5c830826a73d2e69fc4a77c3b7bb75df3365b028dd"
+      },
+      "fixture_sha256": "4038b26afa54d1bd185c787a388db6fccf04e2e0c4ae36a12735cd0aa46467ed",
+      "actions": 34,
+      "native_assertions": 296,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 29,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1075-20261122.json",
+      "input_sha256": "6816bdf641d71eadb3540782eff753a199fbfaa514ed237f775383b0041adfb3",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1075-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-tear-through-the-portal-red-four-live-sparse1075-real-red-banished-attack-selection-and-consumed-go-again",
+        "fixture_slug": "card-tear-through-the-portal-red-four-live-sparse1075-real-red-banished-attack-selection-and-consumed-go-again",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "spec_sha256": "6816bdf641d71eadb3540782eff753a199fbfaa514ed237f775383b0041adfb3",
+    "reviewer": "breadth_review independent printed/source/spec review",
+    "basis": [
+      "Printed Tear Red cost0/Go Again chooses a red Action in own Banish and grants go again this turn; not a formal Target or play-permission grant. Actual Shadow Chane20, red Action Ghostly7 face-up/initialTurnEffects[]; Ghostly printed cost1/base4 has intrinsic Banish permission and no go again. Generated await1afdb9 uses DTDPortal1 actual faceup/red/Action filter then DYNTag GO_AGAIN after resolution choice.",
+      "Actual zero-cost source5 AP0 and four manual responses hold source Stack/GY0 through legit choice; selected7 gains only GO_AGAIN, source5 ownedGGY/AP1/R0. Native Banish7 play announces adjacent Dori4 before cost; pending PITCH AP1/R0 correctly waits for Blue6, then pays1/R2/AP0. No generated play-from-Banish/hit trigger is earned by plain Ghostly; Chane ability unactivated.",
+      "Four manual combat windows/no blocks yield unchanged basepower4/damage4/HP16/AP0 at Damage; only derived go again returns AP1 at Resolution. Final ownedGGY[5,7]/Pitch6/R2/AP1/Banish0/queues clear prove actual buff consumption and proper physical fates. No manually seeded buff or author-only checks."
+    ],
+    "limits": [
+      "Positive red selection and actual go-again consumption only; no permission-production/expiry/endphase/BloodDebt/nonred filters/other colors/hero/support/sibling/full-card/prior-hold credit.",
+      "No native/PHP/T/source/Git/original/network actions by reviewer."
+    ]
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1075-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "003aaf9d031dbba7dedf2aed07f5aa019c973a60183371e171a0dfcd177fb7a8"
+  },
+  "full_suite_run": false
+}

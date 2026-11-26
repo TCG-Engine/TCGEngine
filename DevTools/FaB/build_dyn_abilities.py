@@ -51,7 +51,7 @@ for c in cards:
  if b=='blessing_of_savagery':add('StartTurn',UID+"FaBMONDestroy($uid);"+next_('SIX',v))
  if b=='blessing_of_spirits':add('StartTurn',UID+f"FaBMONDestroy($uid); FaBEVRCreate($player, 'spectral_shield', {v});")
  if b=='blessing_of_steel':add('StartTurn',UID+"FaBMONDestroy($uid);"+next_('WEAPON',v))
- if b=='mindstate_of_tiger':add('StartTurn',UID+"FaBMONDestroy($uid); AddHand($player, CardID:'crouching_tiger');")
+ if b=='mindstate_of_tiger':add('StartTurn',UID+"FaBMONDestroy($uid); AddHand($player, CardID:'crouching_tiger', Owner:$player, Controller:$player);")
  if b=='tome_of_aeo':add('StartTurn',UID+"FaBMONDestroy($uid); DoDrawCard($player, 1);")
  if b=='never_yield':add('StartTurn',UID+"FaBMONDestroy($uid); FaBDYNNeverYield($player); if (FaBDYNFewestEquipment($player)) {"+pick("FaBDYNEquipment($player, 'DAMAGED')",'Repair_equipment')+"FaBDYNCounter($chosen, 'DEFENSE', 1); }")
  if b=='predatory_streak':add('ResolveCard',f'FaBCreateTigers($player, {v});')
@@ -108,7 +108,7 @@ for c in cards:
  if b=='looming_doom':
   add('ResolveCard',UID+"FaBDYNLoom($player, $uid);")
   add('ResolveAbility',UID+"if (FaBDYNTickDoom($uid)) { "+pick('FaBDYNAnyTargets($player)','Choose_arcane_target',False)+"$targetUID = intval(FaBIdentityFromMZ($chosen)['object']->UniqueID ?? 0); "+deal(2)+" }")
- if b=='bios_update':add('ResolveCard',"FaBDYNAdd($player, 'BIOS_POWER'); FaBDYNAdd($player, 'BIOS_ITEM');")
+ if b=='bios_update':add('ResolveCard',"FaBDYNAdd($player, 'BIOS_POWER'); FaBDYNArmBIOSItem($player, $mzID);")
  if b=='crankshaft':add('ResolveAbility',pick("implode('&', FaBChoiceRefs($player, 'Arena', ['base'=>'hyper_driver']))",'Add_steam_to_Hyper_Driver',False)+"FaBDYNDriverSteam($chosen);")
  if b=='urgent_delivery':add('Hit',"$maximum = FaBCRUCount($player, 'CHAIN_BOOST'); "+pick("FaBARCSelect($player, 'Hand', 'Mechanologist', 'Item', $maximum)",'Put_item_into_arena')+"FaBDYNMoveSelected($player, $chosen, 'Arena');")
  if b=='pulsewave_harpoon':add('AttackDeclared',"if (FaBFaiHeroHit()) { $victim = intval(FaBGetState()['defender']); $maximum = min(FaBCRUCount($player, 'CHAIN_BOOST'), FaBHandCount($victim)); if ($maximum > 0) { $refs = implode('&', FaBChoiceRefs($victim, 'Hand')); $shown = await $victim.MZMultiChoose($refs, $maximum, $maximum, \"Reveal_cards_for_Harpoon\"); FaBRevealChoices($victim, $shown); $refs = FaBDYNHarpoonTargets($shown, FaBCRUCount($player, 'CHAIN_BOOST')); if ($refs !== '') { $chosen = await $player.MZChoose($refs, \"Choose_defending_action\"); FaBDYNHarpoon($victim, $chosen); } } }")

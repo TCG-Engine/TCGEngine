@@ -1,0 +1,7 @@
+{
+    "name": "Fact-Finding Mission / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T21:27:37+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "When this hits a hero, you may look at a face-down card in their arsenal or equipment zones. Representative only: actual two Hand AA each defense3 fully block. No hit event, zero damage/HP20/attackHitfalse/Stack0; actual eligible facedown Arsenal9 retained/facedown, herounchanged, Banish0. Cost1/2 via real Blue6, source/blockers owned GY. Positive hit effects/mark/look/type suppression not claimed. Sources: FaBSim/GeneratedCode/cardArrayCache.json#fact_finding_mission_red"
+}

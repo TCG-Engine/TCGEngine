@@ -1,0 +1,51 @@
+{
+  "status": "CHANNEL202_NATIVE57_6902_AND_ONE_CLEAN_REPLAY_PASS",
+  "reviewer": "root independent exact Source/Saved/physical consumer inspection; separate source review71a25c14 retained",
+  "reviewer_independent": true,
+  "approved": true,
+  "semantically_approved": true,
+  "runtime_sha256": "5236478ae934523591ff0be6f7aaa491ce9bec24ea3580e38e0f7b7d44274eae",
+  "source_spec": "card-regression-repair-channel202-after5236-protocol-v2.json",
+  "input_sha256": "02b9ad194a9800466942b1b3f7105debbf279b8fb697fc62606215796c79af2f",
+  "fixtures": [
+    {
+      "slug": "card-channel-lightning-valley-yellow-four-live-first-damage-earned-draw-real-consumer-repair",
+      "card_id": "channel_lightning_valley_yellow",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "c7a9e50aad5b2b0bdd141ffd3bcfd680e13de3b2a643670b922f03dd99f397bb",
+        "actions.json": "6d5dec4fdc4dccea5669379de0f5542d12026d40929037fb28b433a79c7d7b2e",
+        "assertions.json": "9e8a0cf3c122763b01a8df3d7bbd83ebf4a593daba589af6b9c991136b9eebac",
+        "expected_final_gamestate.txt": "67cb32a16631d8a41288f2307ed51740d040b6078e27d4fcd7d660e947dcbc43",
+        "meta.json": "81313aae4189198ab29d35117d85947a2fbb16c947fc53694da0ba893e6fe5d7"
+      },
+      "fixture_sha256": "ac5a6a41b2ab1ee0b4b516055073d95e6589599a9bc5873b4c6befa0e1ae9b7c",
+      "actions": 57,
+      "native_assertions": 6902,
+      "actual_manual_pass_inputs": 54,
+      "captured_trigger_four_actual_priority_responses": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "source_spec": "card-regression-repair-channel202-after5236-protocol-v2.json",
+      "input_sha256": "02b9ad194a9800466942b1b3f7105debbf279b8fb697fc62606215796c79af2f",
+      "runtime_sha256": "5236478ae934523591ff0be6f7aaa491ce9bec24ea3580e38e0f7b7d44274eae",
+      "recorded_runtime_sha256": "5236478ae934523591ff0be6f7aaa491ce9bec24ea3580e38e0f7b7d44274eae"
+    }
+  ],
+  "basis": "All native inputs, actual actors and6902persisted assertions match reviewed originalcorrect Source plus documented4protocolwindow corrections/4explicitcombatstepguards. Both raw48manual profiles checked. Actual freshChannelresponses1/2/3/4 beforeDraw; sameDrawnBlue7 then real2damage; firstScar4damage+second2 leavesHero4HP14 and originalDeckRed8undrawn. Originalfailingrecord retained; no snapshotonlyblessing.",
+  "replay": {
+    "path": "card-regression-replay-nov16-channel202-after5236-protocol-v2-replay.json",
+    "sha256": "42339a11fbb54925bdf8c09c39cd94853dc793af9c55438c51aa139759bcdf11",
+    "passed": true
+  },
+  "oracle_correction": "Four pending ABI windows DAMAGE->PRIORITY; addedcombatStepDAMAGE. After-child DAMAGE windows unchanged. Gameplay quantities/targets/responsecounts/once-per-turn consumer unchanged.",
+  "limits": [
+    "Named firstdamage/drawncardconsumer branch only; cast/upkeep/late-entry and multi-Aura scenarios are not native-qualified.",
+    "Recorded manual PASS envelopes include defense finalizers; do not equate every PASS with a fresh triggered response.",
+    "Source-removal/control/failure cases have20isolatedchecks, not newnativebranch coverage.",
+    "No fullsuite, historicalcorpus revalidation or newdistinctCore root claim."
+  ]
+}

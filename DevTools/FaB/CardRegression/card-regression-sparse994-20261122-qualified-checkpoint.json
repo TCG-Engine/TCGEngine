@@ -1,0 +1,68 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-22T23:59:18.385588+00:00",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse994-20261122.json",
+  "source_spec_sha256": "dde4a65ee0858f2bebeb33bca828b6337a414c28780bed4e3893790823edd959",
+  "new_scenarios": 1,
+  "new_groups": 1,
+  "new_primary_ids": 1,
+  "actions": 28,
+  "native_assertions": 186,
+  "manual_passes": 25,
+  "totals": {
+    "saved_registered_scenarios": 4697,
+    "duels": 3075,
+    "four_live": 1622,
+    "recorded_primary_ids": 1845,
+    "identity_denominator": 5196,
+    "recorded_groups": 1719,
+    "group_denominator": 3324,
+    "four_live_groups": 1611,
+    "phase_qualified_scenarios_at_actual_contexts": 1334,
+    "phase_qualified_unique_groups": 1324,
+    "creation_replay_passes": 2076,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 495,
+  "scenarios": [
+    {
+      "card_id": "tiara_of_suspense",
+      "group_id": "identity:tiara_of_suspense",
+      "scenario_id": "card-tiara-of-suspense-four-live-sparse994-real-suspense-target-without-cheer",
+      "effect_branches": [
+        "no_cheer_rejection_with_real_suspense_aura_then_legal_attack"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-tiara-of-suspense-four-live-sparse994-real-suspense-target-without-cheer",
+      "source_spec": "card-regression-sparse994-20261122.json",
+      "source_spec_sha256": "dde4a65ee0858f2bebeb33bca828b6337a414c28780bed4e3893790823edd959",
+      "review_evidence": "review-evidence/sparse994-20261122-qualified-saved.json",
+      "review_evidence_sha256": "8da78056962df814118ccfa4459625ddd57ea8a0f70eb95585111d8bb35ff6c1",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse994-20261122-replay.json",
+          "sha256": "2fa9ebbb2318ca3931bf95de2b31d1cd52681294924bb2817519103a2fa2de5a",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

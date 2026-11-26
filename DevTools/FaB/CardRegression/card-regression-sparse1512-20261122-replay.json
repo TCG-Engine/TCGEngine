@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-twinning-blade-yellow-four-live-sparse1512-actual-generic-attack-with-ready-axe-no-sword-anywhere",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-twinning-blade-yellow-four-live-sparse1512-actual-generic-attack-with-ready-axe-no-sword-anywhere",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1512-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1512-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "41fc4164ae91901b2ce3a2f6233754b07eeb43c760ae3ff0eae1fb115bda0b2f",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "b1286af655a9028bbecdf5c9894fa5cb3420dda17dff6424661d0abb65cb3765",
+        "actions.json": "33011af21c84c32e1d3403a2fc580d1e46c0bef8b774f34c7533978a762bb108",
+        "assertions.json": "d2c613b68e282969b219a91c78f3d0bc860e5a3d8c6817599dd7549029c2c977",
+        "expected_final_gamestate.txt": "1d5cf9a0a46a7d2843c527bdfb7195753982cdd62d60b5bee7e3a15315e3c76e",
+        "meta.json": "aa205e2936b912fa55a72ba19af49e40ac25dc490c9a53bd420fb1a01fb0a837"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

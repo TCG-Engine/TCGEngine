@@ -1,0 +1,115 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "Root independent review of breadth_review authored final source-spec and current cached card text/source producers",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1024-20261122.json",
+  "source_spec_sha256": "30ab5d42d2f1a5f9d43f0e6688c6324bfdc8c016600003c4113c586a8df33ad4",
+  "input_sha256": "30ab5d42d2f1a5f9d43f0e6688c6324bfdc8c016600003c4113c586a8df33ad4",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-twist-and-turn-red-four-live-sparse1024-actual-dagger-plus-four-full-block-no-extra-attack",
+      "card_id": "twist_and_turn_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "01c58c6801545d13682dbdeac8adcd6e3b7e9d88b9bb274debdad08978d0c0da",
+        "actions.json": "dd790a33bd5a3648af3b6d7becaa3a22f1d19a78a1dd1aaba0d430cf08cfddce",
+        "assertions.json": "d66aea050d349b75fa9458b4ef888f600f99a36d8196b884a5424ebacee446d6",
+        "expected_final_gamestate.txt": "7daed3740e34df80afff67fd3e9477a4bbd65491f5d01f9af27dc71d1e4802dc",
+        "meta.json": "35f2f95cf0082d179e4441d1d74091a4ac2e60a6b391a94ed2a1d47b633f80e0"
+      },
+      "fixture_sha256": "6f128d8eb190b5f79acc57b75c6ab204d2897f6f73b044c91dc9846c0df33f0a",
+      "actions": 35,
+      "native_assertions": 249,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 29,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1024-20261122.json",
+      "input_sha256": "30ab5d42d2f1a5f9d43f0e6688c6324bfdc8c016600003c4113c586a8df33ad4",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1024-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-twist-and-turn-red-four-live-sparse1024-actual-dagger-plus-four-full-block-no-extra-attack",
+        "fixture_slug": "card-twist-and-turn-red-four-live-sparse1024-actual-dagger-plus-four-full-block-no-extra-attack",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-mercurial-skies-red-four-live-sparse1024-matching-aa-gains-go-again-and-quickstrike-full-block",
+      "card_id": "mercurial_skies_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "3dc33bbf124f8049123139b4a7f4e8358d0ece2730c457e24b91c34a71ea650f",
+        "actions.json": "db6de1e5d161a06aa6f777f51cf01fdf0b2c3f93f797b1ff872183ab152427b4",
+        "assertions.json": "5cbcaa9d1238c23580e2cab6655830e7bae4311fab1684442f95bf1f4fb66228",
+        "expected_final_gamestate.txt": "eb11f903e9167d4fa389159b5a97a391eb6dc8ce555fc939cd643ef08c5c3d5a",
+        "meta.json": "e3857829cc3646c7b47f7bfd674fc9efb266f4a7410b2d9af74c3ccba2920ef1"
+      },
+      "fixture_sha256": "630806c77d9821ee8bfb8757d57a830ba5e9dba3f5a5a81849e1bdcf406fa972",
+      "actions": 35,
+      "native_assertions": 239,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 29,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1024-20261122.json",
+      "input_sha256": "30ab5d42d2f1a5f9d43f0e6688c6324bfdc8c016600003c4113c586a8df33ad4",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1024-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-mercurial-skies-red-four-live-sparse1024-matching-aa-gains-go-again-and-quickstrike-full-block",
+        "fixture_slug": "card-mercurial-skies-red-four-live-sparse1024-matching-aa-gains-go-again-and-quickstrike-full-block",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-step-through-realms-red-four-live-sparse1024-actual-shadow-plus-four-two-cost-then-one-cost-full-block",
+      "card_id": "step_through_realms_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "b23e1cd09c6a5c194a9023ddbf20b62f1e79c33adf95484d525f9d6abe2a8378",
+        "actions.json": "ff5b5e1b9430f781eafc7ed3e67336353d1cb8bc51b4b5a911b1c6c7493603e8",
+        "assertions.json": "18dce0c746d13842f048dfb0782134855aadb0b6d143b6a45f720d8dd6cafa54",
+        "expected_final_gamestate.txt": "b7c69ebd4e67a273318c0879bd6f9c813e21c7a12b50818d0490a5f947a54dcc",
+        "meta.json": "e009e7adeca576533c3935eae8d14bd2056911cc44199303a8e64852972daa4e"
+      },
+      "fixture_sha256": "369eda064729fac31b2eca6c1949bb81314fafa7c23288db5eaf57a57bdeb90c",
+      "actions": 36,
+      "native_assertions": 247,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 29,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1024-20261122.json",
+      "input_sha256": "30ab5d42d2f1a5f9d43f0e6688c6324bfdc8c016600003c4113c586a8df33ad4",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1024-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-step-through-realms-red-four-live-sparse1024-actual-shadow-plus-four-two-cost-then-one-cost-full-block",
+        "fixture_slug": "card-step-through-realms-red-four-live-sparse1024-actual-shadow-plus-four-two-cost-then-one-cost-full-block",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "reviewer": "Root independent review of breadth_review authored final source-spec and current cached card text/source producers",
+    "spec_sha256": "30ab5d42d2f1a5f9d43f0e6688c6324bfdc8c016600003c4113c586a8df33ad4",
+    "basis": [
+      "TwistprintednextDAGGER+4/source0/GA; actualDori20WarriorQSDagger7base1+4=5, genericBlue6reallypaysweapon1/R2. Real2AADEF6/noHit/noextraattack/noDoriHIT/noQSotherweaponGA. Propertarget-beforepay andphysicalWEAPON_UID7 source7used retained.",
+      "MercurialmatchingLightningRunebladeFleetfoot6base3 actualgrantedGO_AGAIN enablesprintedQuickstrike+1=4/DEF9/noHit/AP1atResolution, primary0/GA1/Blue7unusedHand. Noearnedherodamage/Flow3Arcaneevent, no futurebranchcredit.",
+      "StepRealmslegalChane20/primary2+actualHandGhostlyVisit1 fundedoneBlue7total3/R0, realShadowAA4+4=8/DEF9/noHit/AP0/noGate. NoGhostlyownBanish-playevent.",
+      "All4manual/source5lifecycle/nativecosts/computedpower/realblocks/actualdamageHP/AP/orderedownedfatespersist; no author-onlydiagnostics orpositivehit/hero/support/sibling/fullcardcredit."
+    ]
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1024-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "61c6d30bf782c40a2f8d97753250e348aa81bef020e112afab17acfb39e952df"
+  },
+  "full_suite_run": false
+}

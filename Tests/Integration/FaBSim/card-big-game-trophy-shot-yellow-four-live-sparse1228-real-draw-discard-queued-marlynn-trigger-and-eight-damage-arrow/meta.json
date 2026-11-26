@@ -1,0 +1,7 @@
+{
+    "name": "Big Game Trophy Shot / real draw/discard, owed Marlynn trigger and +4 arrow",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-23T21:08:48+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "DRAW_DISCARD_PLUS4_AND_OWED_DRAW_TRIGGER. FourmanualYoungMarlynn20/3Dori20. Source5Hand1Blue6Hand1, realImmobilizing7faceupArsenal/noAim, DeathDealer8equipped/notactivated, singleWounding9Deck. Actualprimarycost2realBlue3R1/AP0/fourresponses. ResolveaddsnextArrow+4thenrealDraw9earnsMarlynn10WHEN; primary5remainsownedStackthroughmandatorydiscard9despiteearnedHeroLayer10aboveit. Discard9GYbeforeprimary5GY/GArefund1; Hero10getsitsownfreshfourresponsesandresolveswithfullArsenal(nooptionalloadchoice), thenACTION1/AP1. ActualImmobilizing7fromArsenalwithbowformalHero4target/cost0/AP0/fourfreshsourceandcombatrounds, print4plus4=8actualdamageHP12. NonharpoonnoGoldHit; noAimmeansImmobilizingWHENhitisnotgranted. NoHeroHandload/HeroabilityActivation/Bowactivation/buffseeding. FinalGY1[draw9,primary5,arrow7]/Blue6Pitch1/Bow8retained/noArsenalHandDeckArenaStackDQCC/UID10/RNG0/R1/AP0/sameTurn2ACTION. NoHarpoonGold/aimcontrol/clientreveal/Hero/support/fullcardcredit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#big_game_trophy_shot_yellow FaBSim/Custom/SEACards.php FaBSim/Custom/SEARuntime.php FaBSim/Custom/DYNCards.php FaBSim/Custom/GameLogic.php FaBSim/GeneratedCode/GeneratedMacroCode.php"
+}

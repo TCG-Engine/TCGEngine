@@ -1,0 +1,124 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "independent breadth_review1252",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1416-20261122.json",
+  "source_spec_sha256": "1a83c6b6a3ba4bd34923f390335357ffbf11ff7e33f9722817f7f3e642f20e54",
+  "input_sha256": "1a83c6b6a3ba4bd34923f390335357ffbf11ff7e33f9722817f7f3e642f20e54",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-cheap-shot-yellow-two-live-sparse1416-default-opponent-actually-discards-to-avoid-damage-source-awaits-foreign-choice",
+      "card_id": "cheap_shot_yellow",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "a8cac4fea70e96a354adf16a1839567790b30323af10cc4b363431fa4b12c968",
+        "actions.json": "14c2daa568517f1f6457f30a03bbf8157cd409cff2e641aa38c5ea5cad282e8b",
+        "assertions.json": "2174ebb2fa9907b870ba2dd3151806d10ffba4c8f14ba2343546f5d4a87c311e",
+        "expected_final_gamestate.txt": "ffd11950507c29f2c93fadbfe710ed61d082b2cb6d76d2ad2b090befe21d7281",
+        "meta.json": "343b1f7f7d35a4ef68df6da54bb3f6244888eaa91ceaffc1f915604d6e13a416"
+      },
+      "fixture_sha256": "ad90920cc90f147bb1fd29727635385340116414e2aeb2b211a34580039718c0",
+      "actions": 5,
+      "native_assertions": 226,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 2,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1416-20261122.json",
+      "input_sha256": "1a83c6b6a3ba4bd34923f390335357ffbf11ff7e33f9722817f7f3e642f20e54",
+      "active_seats": [
+        1,
+        2
+      ],
+      "players": "two_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1416-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-cheap-shot-yellow-two-live-sparse1416-default-opponent-actually-discards-to-avoid-damage-source-awaits-foreign-choice",
+        "fixture_slug": "card-cheap-shot-yellow-two-live-sparse1416-default-opponent-actually-discards-to-avoid-damage-source-awaits-foreign-choice",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "reviewer": "independent breadth_review1252",
+    "spec_sha256": "1a83c6b6a3ba4bd34923f390335357ffbf11ff7e33f9722817f7f3e642f20e54",
+    "source_note_sha256": "4e53f254fc3cd5a32b78d16167c88fe90d8803e57ca927f47aef3c6766dd4929",
+    "case_count": 1,
+    "active_seats": [
+      1,
+      2
+    ],
+    "players": "two_live_manual",
+    "native_controls": 5,
+    "query_checks": 226,
+    "persistable_assertions": 226,
+    "author_only_checks_omitted": 0,
+    "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+    "coverage_category": "POSITIVE_OPPONENT_DISCARD_AVOIDS_DAMAGE_WITH_PHYSICAL_SOURCE_HELD_THROUGH_FOREIGN_CHOICE",
+    "per_case": [
+      {
+        "card_id": "cheap_shot_yellow",
+        "group_id": "identity:cheap_shot_yellow",
+        "native_controls": 5,
+        "persistable_assertions": 226
+      }
+    ],
+    "basis": [
+      "Unrepresented/unheld CheapShotYellow ReviledAction0 under legal adultReviledBruteKayoUnderhanded40 vs adultDori40, cached CC-legal/notbanned, genuine two manual seats/defaultgameMode empty. Actualsource3Hand1/BlueWounding4Hand2/RedWounding5Deck2; no initialBoo/history/effect seed. Printed firstclause instant permission is conditional and false, so ordinaryAction spendsAP1->0/KindACTION/resource0.",
+      "Printed deal2damage to targethero unless they discard is an effect-damage target, so published TRP5.14 sole-opponentHero2 default applies to this precommitted fixed line. Native laterMZCHOOSE answer repeats2, no new target selection/information or implementation-binding/UPF claim. Bothmanual responses firsthold source3Stack/noDiscard/noDamage; no optional prior trigger layer is involved in this resolution ability.",
+      "Generated CheapShotawait45262-45349 determinesactualvictim2 then ownHandrefs; actualforeignPlayer2 MZMULTICHOOSE0|1|p2Hand0 must remain pending while originalowned1 physical3 staysStack/KindACTION/AP0. Choosing realWounding4 satisfies unless; generated45281 FaBDiscardChoice(victim,chosen) moves same owned4 fromHand2 toGY2 and skips damage branch. No damageprevention effect assumed, and neither DoriDiscard nor KayoBooVigor is earned by this actualcard event.",
+      "Finalsame3GY1/4GY2/originalDeck5 unchanged/Handempty/HPboth40/Heroesready/AP0R0/noArena/UID5RNG0/quietStackDQs/combatclosed are coherent. Five actualsource controls including bothseatresponses and foreignanswer,226persistablechecks. Positive actualdiscard/no-damage/foreign-frame continuation is observed, not just an absence of damage without a discard witness."
+    ],
+    "limits": [
+      "Only actualopponent discard avoids2damage, physicalsource held through foreignchoice and ordinaryAction/AP economy. No declined-discard damage packet, Booed-as-Instant permission, damage-type/prevention/alternate targets/targetbinding/UPF, Hero abilities, secondary identities/support/siblings/whole-card credit.",
+      "Approval pending native execution; no game/test/replay, engine/repository edit, original checkout access, auth/network, full suite or Git operation. No duplicate successful recording or replay."
+    ],
+    "source_sha256": {
+      "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+      "FaBSim/GeneratedCode/GeneratedMacroCode.php": "fe6a7982611df8f4de98ce2671b317b671b580146aa4b8c28e8f4b86d8461056",
+      "FaBSim/Custom/GameLogic.php": "c60fa151561f959e4e3e341b814de0e2b47c9e9f153bbc8793a04c43b5075061",
+      "FaBSim/Custom/SUPCards.php": "d0cf162a89b60b29590121e4c97e1e5fe0e2dc790130bf181949ca068092c1fa",
+      "FaBSim/Custom/CardChoices.php": "c68ae2b8e984bcc64b00289cc2d71bc0c980b2fbbeaeadbca8ae3a9f9579c515",
+      "FaBSim/ZoneAccessors.php": "9967567a9a10df81a6f22df820d4d77258828657e95c4ad145b8b13ce17866a7",
+      "Schemas/FaBSim/GameSchema.txt": "7783800bd47bc85885cc915066aadca58cdf99f0c1180602ac312d9af5ebf643",
+      "Core/EngineActionRunner.php": "add14b53dc571d2a6e64407bfa4038a98d6554d6410de7a9233810d99c46ea2a",
+      "Core/ShortcutPreferences.php": "25f300ea0b6fbc409f5b92e8bc3587a74b2ab0eaf31ccef38e18c455598eaba6",
+      "DevTools/FaB/CardRegression/record_card_regressions.php": "e53055b29e9ea641949b77019c4455607f41ca233325d716a9500637e19efd28"
+    },
+    "workspace_source_sha256": {
+      "author_breadth1416.py": "8db7880071334470657c8a823d08fda930bbb8bae2e8f34e21455fe81cda8b90",
+      "breadth1068_helpers.py": "997f949ec26c7e494ad26a818f9f2078f6f4f2a0c49ca7f61aa8c71f3b091b0a",
+      "duel_breadth1261_helpers.py": "786de4cb45fa4cb12016e55b204ba1aa5f823bb576c7778732623fae7ed05dbd",
+      "author_breadth1413.py": "907980f3c4884bd3fbd58b4dc812fe1d1fd1ab8d395826bbfae9f1c6676f9286"
+    },
+    "secondary_identity_credit": false,
+    "whole_card_credit": false,
+    "official_rules_evidence": [
+      {
+        "url": "https://rules.fabtcg.com/en/trp/05-gameplay-logistics/",
+        "section": "5.14 Default Decisions",
+        "retrieval_scope": "Official public content retrieved during B1410 review: omitted effect-damage target defaults to opposingHero if soleopponent; with multipleopponents no default. Fixed sameHero2 choices here use that default, not delayed target-selection license."
+      }
+    ],
+    "four_player_or_target_binding_credit": false,
+    "positive_damage_or_boo_instant_credit": false,
+    "positive_opponent_discard_avoids_damage_scope": true,
+    "foreign_choice_source_lifecycle_scope": true
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1416-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "3ed9cdd75ec37aa8ce35bc920f2234882261796c41e2e0e107c271a1585f366b"
+  },
+  "full_suite_run": false
+}

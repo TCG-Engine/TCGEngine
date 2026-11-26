@@ -1,0 +1,27 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch736.json",
+  "runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+  "returncode": 0,
+  "completed_utc": "2026-11-08T19:17:28.689176+00:00",
+  "fixtures": [
+    {
+      "slug": "card-laced-lightning-four-live-paid-destruction-real-one-prevention-and-earned-embodiment",
+      "fixture_sha256": "09cea99d0b6f5be3780b6a7e0ceed0c2dc207d7943f1c9cd9f20e7376478c11d",
+      "passed": true,
+      "result": "[PASS] laced_lightning / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-laced-lightning-four-live-paid-destruction-real-one-prevention-and-earned-embodiment",
+      "returncode": 0,
+      "stdout": "[PASS] laced_lightning / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

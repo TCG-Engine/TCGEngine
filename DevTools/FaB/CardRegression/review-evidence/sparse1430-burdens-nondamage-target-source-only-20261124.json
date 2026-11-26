@@ -1,0 +1,16 @@
+{
+  "batch": 1430,
+  "card_id": "burdens_of_the_past_blue",
+  "status": "UNRUN_INDEPENDENT_REVIEW_DEFERRED_LATE_NON_DAMAGE_TARGET",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "native_attempted": false,
+  "fixture_saved": false,
+  "coverage_credit": false,
+  "confirmed_gameplay_bug": false,
+  "new_distinct_gameplay_root_credit": 0,
+  "source_spec_local_sha256": "a236c615482db9ee8d8ef017a78f38fe26bf010e9660bc1d02a2e0139d2eb37b",
+  "reviewer": "/root/breadth_review1252",
+  "review_result": "WITHHELD_BEFORE_NATIVE",
+  "review_reason": "TRP5.14 default applies to effect/attack DAMAGE targets, not this non-damage target hero. Generated43531-43538 asks Choose_hero during ResolveCard after responses;43524-43526 uses that late-selected hero for BURDENS and ten-card count. OUTRuntime89 consumes installed restriction, no early target binder found in inspected sources. Own and opponent heroes both exist. Selected draw depends on same targeted hero, so omitting lock credit does not cure timing.",
+  "scope": "Known non-damage target declaration family; source-only concern, no newly confirmed native defect, no probe or repair. Draft remains workspace-only/unapproved."
+}

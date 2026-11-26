@@ -1,0 +1,304 @@
+{
+  "schema_version": 1,
+  "status": "INDEPENDENT_SEMANTIC_WITHDRAWALS_ARCHIVE_AND_DISCOVERY_VERIFIED",
+  "issue": "FAB-REG-233",
+  "utc": "2026-11-25T07:48:01.732845+00:00",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "reviewer": "/root/breadth_review1457",
+  "review_scope": "Seven firm current-pass1457..1511 qualifications only. No historical corpus audit or new games. Primary review and independent review previously treated false effect conditions as false trigger conditions; both approvals corrected.",
+  "official_rules": [
+    "https://rules.fabtcg.com/en/cr/06-effects/"
+  ],
+  "rules": [
+    "CR6.6.1c",
+    "CR6.6.5",
+    "CR6.6.6"
+  ],
+  "reason": "The attack/defend/entry event still earns a trigger layer when a generated effect condition is false. These saved flows omit its response round; reproducible final outcomes do not qualify their timing. A Bit Off has a correct later discard layer but omits its earlier supporting Hatchet layer.",
+  "withdrawals": [
+    {
+      "batch": 1461,
+      "card_id": "snap_shot_red",
+      "group_id": "pitch-cycle:snap_shot",
+      "scenario_id": "card-snap-shot-red-four-live-sparse1461-declined-fusion-no-instant-bow-permission-with-real-spare-action",
+      "missing_boundary": "attack",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "historical_native_actions": 41,
+      "historical_persisted_assertions": 602,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "41e502c25f7e3a8e37731cebce38d9333ff7295d76efcb6d3b10b543064ed7cc",
+        "actions.json": "44384c3981ca1088b1d5322e2a724f2d2ac6ff7de979578323546002d79ed7d2",
+        "assertions.json": "360700739484416a27cc02c4238fe9cd63ee86a9a10c893f0897a2fa8f6831a6",
+        "expected_final_gamestate.txt": "9eade050a10148d6e5b269c4ccc218458976463f06d0286f71376545d8060abf",
+        "meta.json": "205feef62d548334ab5dc1894f685a24da449610b35c8c391b3fc5673c2dd6b4"
+      },
+      "source_spec": "card-regression-sparse1461-20261122.json",
+      "historical_source_spec_sha256": "e39070f8bef0bd2feef8353375849adb0dcb82f22f92c6abfba94a68c05020e7",
+      "historical_native_replay_passed": true,
+      "current_semantic_qualification": false,
+      "new_native_correct_expectation_probe_run": false,
+      "new_distinct_gameplay_root_credit": 0
+    },
+    {
+      "batch": 1462,
+      "card_id": "deathly_duet_red",
+      "group_id": "pitch-cycle:deathly_duet",
+      "scenario_id": "card-deathly-duet-red-four-live-sparse1462-real-resource-pitch-does-not-satisfy-either-action-type-guard",
+      "missing_boundary": "attack",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "historical_native_actions": 29,
+      "historical_persisted_assertions": 340,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "f42a417af0a6a8d9ff734c60b0e7e35112c6afdcf3d3c29077f87cbb6b38dea6",
+        "actions.json": "03d8ba6664b359988a254b0b85136b29a95f48d60e969fe7103afff3ef5a7a2a",
+        "assertions.json": "e52f2cfbab4fa37d2e6113828c6cb891e2b229e91244ad6c87f880bdd307cc61",
+        "expected_final_gamestate.txt": "92eaee1380d06c765c6e5e21eb7f1cbf74927ed87126c94f79df6e55b2fec25a",
+        "meta.json": "351597634b11dae793e2411198b9d9d80e3586cc08f5f79201c28103ad7fbdb6"
+      },
+      "source_spec": "card-regression-sparse1462-20261122.json",
+      "historical_source_spec_sha256": "29cd70a8a9f82d9b24c3ee64d923f2b955a37d16d1c77c80dc22d286e4698e88",
+      "historical_native_replay_passed": true,
+      "current_semantic_qualification": false,
+      "new_native_correct_expectation_probe_run": false,
+      "new_distinct_gameplay_root_credit": 0
+    },
+    {
+      "batch": 1462,
+      "card_id": "bracken_rap_red",
+      "group_id": "pitch-cycle:bracken_rap",
+      "scenario_id": "card-bracken-rap-red-four-live-sparse1462-real-resource-pitch-does-not-satisfy-earth-bond",
+      "missing_boundary": "attack",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "historical_native_actions": 29,
+      "historical_persisted_assertions": 340,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "59d6e27e22fd3e0e4b3484bf6438461ec33759aaafc0056d4b3d7c0a81945b4f",
+        "actions.json": "03d8ba6664b359988a254b0b85136b29a95f48d60e969fe7103afff3ef5a7a2a",
+        "assertions.json": "43906ba0f022b52fbcac4c943fd1ae8c725e835756f2b8d6c66c7fcbf49fc832",
+        "expected_final_gamestate.txt": "a689c8f6725b216b1e7dc5f69176321cdc418ea2f208a0da57385824b7165230",
+        "meta.json": "ecd70f0af480e6b7e75fe88ed44a6790f0958940456bf846827fc11b93098ce4"
+      },
+      "source_spec": "card-regression-sparse1462-20261122.json",
+      "historical_source_spec_sha256": "29cd70a8a9f82d9b24c3ee64d923f2b955a37d16d1c77c80dc22d286e4698e88",
+      "historical_native_replay_passed": true,
+      "current_semantic_qualification": false,
+      "new_native_correct_expectation_probe_run": false,
+      "new_distinct_gameplay_root_credit": 0
+    },
+    {
+      "batch": 1464,
+      "card_id": "unforgetting_unforgiving_red",
+      "group_id": "identity:unforgetting_unforgiving_red",
+      "scenario_id": "card-unforgetting-unforgiving-red-two-live-sparse1464-real-defense-without-qualifying-attacker-equipment-has-minus-one-defense-counter",
+      "missing_boundary": "defend",
+      "active_seats": [
+        1,
+        2
+      ],
+      "historical_native_actions": 16,
+      "historical_persisted_assertions": 376,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "89d047f218523d3a4e1f842c13ec6a55957507f1d5715050782ab81cd37352de",
+        "actions.json": "b98dd282e93d38d3298d6b3caf279162f1e654bc6ed9e70eae550e41cf3b1f5e",
+        "assertions.json": "b26ee094802a68921e41234f98a1c9bddbe4405a8cad5e5ac10714a695db9d2b",
+        "expected_final_gamestate.txt": "6c77dd046af6354e8acab255d59afe3fac3e7595529cddd2eca11bf1c8529127",
+        "meta.json": "9bae53a4b0db35a0a8fd30574371dfa96e0596b6f7ccc2a609ee069339b16d01"
+      },
+      "source_spec": "card-regression-sparse1464-20261122.json",
+      "historical_source_spec_sha256": "f197edd93e6135dc770097c628eca0150b44b59f9ccffcdc701e1803285fdbfe",
+      "historical_native_replay_passed": true,
+      "current_semantic_qualification": false,
+      "new_native_correct_expectation_probe_run": false,
+      "new_distinct_gameplay_root_credit": 0
+    },
+    {
+      "batch": 1487,
+      "card_id": "a_bit_off_the_side_red",
+      "group_id": "identity:a_bit_off_the_side_red",
+      "scenario_id": "card-a-bit-off-the-side-red-four-live-sparse1487-real-axe-hit-earned-layer-victim-discard",
+      "missing_boundary": "supporting_Hatchet_attack",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "historical_native_actions": 38,
+      "historical_persisted_assertions": 695,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "50feccccc4f36da3546dcc1a989244e8ee127d97e1b2caeea37279f8b123e2cf",
+        "actions.json": "7f3e8023029af8e300a3c0fa28936a54eaba63835d69c1ac4e128305cd80ebe0",
+        "assertions.json": "b9c823e17c0f367610d7a5d483dee3c9a78697d42033122ded87fc0b04ba0ebf",
+        "expected_final_gamestate.txt": "5ce27f52063de29a8213ac9375ea66c72738698547bee51f87f24955ec513ad2",
+        "meta.json": "3a13b525f2a79e303c2657af304b0c324f735aaf4a309dad64bd8c6ea5dbfd12"
+      },
+      "source_spec": "card-regression-sparse1487-20261122.json",
+      "historical_source_spec_sha256": "05cac4081f45c839a638e72260b37ddab931f8f73b62096f7da59b5dc9ad1eba",
+      "historical_native_replay_passed": true,
+      "current_semantic_qualification": false,
+      "new_native_correct_expectation_probe_run": false,
+      "new_distinct_gameplay_root_credit": 0
+    },
+    {
+      "batch": 1495,
+      "card_id": "emerging_avalanche_red",
+      "group_id": "pitch-cycle:emerging_avalanche",
+      "scenario_id": "card-emerging-avalanche-red-four-live-sparse1495-arsenal-source-declined-fusion-real-go-again-ice-pitch-is-not-fusion",
+      "missing_boundary": "entry_and_target",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "historical_native_actions": 12,
+      "historical_persisted_assertions": 337,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "764ddbc9c431dba918253e6fecd7bcb14064615760c0692c46d92bd383a278d4",
+        "actions.json": "d24a4abdcae74b6ce70a9b03a7bfeb75e4b4971bc93f9c609fbd946f3320ab68",
+        "assertions.json": "c9427c99a329620b39c4fc243599fe8f5630862a1ff6ef0d634bf79227e8d860",
+        "expected_final_gamestate.txt": "a333a72de2f5368a9ec1e4616480caae7c8a534f6b3796341a8c1374d999e2f9",
+        "meta.json": "b082e322f2c6adde8b522a26835b4a6e41d83fe98dfd8b7baa8823545aa935a9"
+      },
+      "source_spec": "card-regression-sparse1495-20261122.json",
+      "historical_source_spec_sha256": "ff2cddcad197d0318a25313a4fce0d3f16ee10ca496f4cc03715659e09ca45e7",
+      "historical_native_replay_passed": true,
+      "current_semantic_qualification": false,
+      "new_native_correct_expectation_probe_run": false,
+      "new_distinct_gameplay_root_credit": 0
+    },
+    {
+      "batch": 1496,
+      "card_id": "shift_the_tide_of_battle_yellow",
+      "group_id": "identity:shift_the_tide_of_battle_yellow",
+      "scenario_id": "card-shift-the-tide-of-battle-yellow-four-live-sparse1496-unbuffed-warrior-weapon-not-above-base",
+      "missing_boundary": "supporting_Hatchet_attack",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "historical_native_actions": 29,
+      "historical_persisted_assertions": 387,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "b33cf3a076517f106954f3a6d0cf9e322975e9bef298b7b5fa6bf30c2d2b746c",
+        "actions.json": "2b3989014040b1b4e9ea0955e8d55317c37c6c0f3dbb068b9c96b550f1dec305",
+        "assertions.json": "1f6f82e9656823613bda2b5d183a77283a0217c500c0e43f6bbd5164bd15c1c1",
+        "expected_final_gamestate.txt": "c1ae133afed3443f7a38ab54928e1c4327663e0d7db599aca7f2efd72aaf5156",
+        "meta.json": "c17cfd833cb2bc5995a6cc43b867cbd4389adfd64d4cf41301fa0f8cfe5b45a5"
+      },
+      "source_spec": "card-regression-sparse1496-20261122.json",
+      "historical_source_spec_sha256": "f167a9c112da489164431ea8596ad0d0e11256537da056c801d2b1f849b91420",
+      "historical_native_replay_passed": true,
+      "current_semantic_qualification": false,
+      "new_native_correct_expectation_probe_run": false,
+      "new_distinct_gameplay_root_credit": 0
+    }
+  ],
+  "archive_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\conditional-trigger-quarantine-20261125",
+  "archive_manifest_sha256": "45354c6c0c5e935222aed129d7ceca0da59164aee0e42966fba13be048fc20e7",
+  "preserved_raw_fixture_files": 35,
+  "registered_totals_before": {
+    "saved_registered_scenarios": 5600,
+    "duels": 3136,
+    "four_live": 2464,
+    "recorded_primary_ids": 2748,
+    "identity_denominator": 5196,
+    "recorded_groups": 2622,
+    "group_denominator": 3324,
+    "four_live_groups": 2453,
+    "phase_qualified_scenarios_at_actual_contexts": 2237,
+    "phase_qualified_unique_groups": 2227,
+    "creation_replay_passes": 2979,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "registered_totals_after_required": {
+    "saved_registered_scenarios": 5593,
+    "duels": 3135,
+    "four_live": 2458,
+    "recorded_primary_ids": 2741,
+    "identity_denominator": 5196,
+    "recorded_groups": 2615,
+    "group_denominator": 3324,
+    "four_live_groups": 2447,
+    "phase_qualified_scenarios_at_actual_contexts": 2230,
+    "phase_qualified_unique_groups": 2220,
+    "creation_replay_passes": 2972,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "recorder_diagnostic_sources": {
+    "1461": "card-regression-sparse1461-20261122.json",
+    "1462": "card-regression-sparse1462-20261122.json",
+    "1464": "card-regression-sparse1464-held-trigger-boundary-20261125.json",
+    "1487": "card-regression-sparse1487-20261122.json",
+    "1495": "card-regression-sparse1495-held-trigger-boundary-20261125.json",
+    "1496": "card-regression-sparse1496-held-trigger-boundary-20261125.json"
+  },
+  "current_safe_and_diagnostic_source_sha256": {
+    "card-regression-sparse1461-20261122.json": "f72c0fcb0033c6743525235a9fb5e360e36f9c90d70192758e5076b33920357f",
+    "card-regression-sparse1462-20261122.json": "ae926cf4cf5f9ef31aed31312db56f07188fd8861e206e28c4df73a8484627f7",
+    "card-regression-sparse1464-20261122.json": "53d4fd131ae12a816aa19fa0bceae04255b3aa3e1421919bdde10fc56e182a43",
+    "card-regression-sparse1464-held-trigger-boundary-20261125.json": "5e5ec3c13dcdc760265973a433a873cbd1abe4af4e4239575b3ff7e530bb4733",
+    "card-regression-sparse1487-20261122.json": "816b5010c080806be4b79a0c91821c301104f991fec1f2ee206a73d3bf9f09b2",
+    "card-regression-sparse1495-20261122.json": "61e0171cc2290d4eb08d40a712495e57b6c012e8ac00d1ab6fc7a5d8d52be4db",
+    "card-regression-sparse1495-held-trigger-boundary-20261125.json": "fb3015e072662c261bcc3bdd0c8203e2e5273db526b859c11fb12659c6f3fefa",
+    "card-regression-sparse1496-20261122.json": "028f9e05c32c3f58191812f7353f207c857ab6c95b80a87d438b5842ed4d25c7",
+    "card-regression-sparse1496-held-trigger-boundary-20261125.json": "7ebbb65e680dcc760006310256e9271a721aa1d1683ad77766c02be1b7c9333f"
+  },
+  "source_guard_tests": [
+    {
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "C:\\Users\\maxim\\AppData\\Local\\Temp\\fm1122\\DevTools\\FaB\\CardRegression\\record_card_regressions.php",
+        "C:\\Users\\maxim\\AppData\\Local\\Temp\\fm1122\\DevTools\\FaB\\CardRegression\\card-regression-sparse1461-20261122.json"
+      ],
+      "exit_code": 2,
+      "output": "[DIAGNOSTIC ONLY] card-snap-shot-red-four-live-sparse1461-declined-fusion-no-instant-bow-permission-with-real-spare-action requires --probe-only; no game started.\n",
+      "no_game_started": true,
+      "new_fault_control_credit": 0
+    },
+    {
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "C:\\Users\\maxim\\AppData\\Local\\Temp\\fm1122\\DevTools\\FaB\\CardRegression\\record_card_regressions.php",
+        "C:\\Users\\maxim\\AppData\\Local\\Temp\\fm1122\\DevTools\\FaB\\CardRegression\\card-regression-sparse1495-held-trigger-boundary-20261125.json"
+      ],
+      "exit_code": 2,
+      "output": "[DIAGNOSTIC ONLY] card-emerging-avalanche-red-four-live-sparse1495-arsenal-source-declined-fusion-real-go-again-ice-pitch-is-not-fusion requires --probe-only; no game started.\n",
+      "no_game_started": true,
+      "new_fault_control_credit": 0
+    }
+  ],
+  "runner_discovery_count": 5593,
+  "new_native_games_or_replays": 0,
+  "full_suite_run": false,
+  "engine_changes": false,
+  "root_count_credit": 0,
+  "retained_nuances": [
+    "ForceNature1495: actual0damage means no hit event; unaffected.",
+    "SendPacking1460: return sentence is inferred delayed trigger generated by first Hero-attack layer, which never exists for Ally target. GenericCR6.6.3/6.6.5a inference, not published card-specific ruling. Official HeavyHitters full page was unavailable; not retried."
+  ],
+  "limits": [
+    "Current issue identifies rejected timing oracles and entered known trigger gaps, not seven separately allocated root bugs.",
+    "Historical replay PASS receipts remain immutable; they are no longer passing semantic coverage for withdrawn cases.",
+    "No assertion that other legacy cases were comprehensively re-reviewed."
+  ]
+}

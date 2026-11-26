@@ -1,0 +1,7 @@
+{
+    "name": "Rhinar, Reckless Rampage / native pitch event distinction at printed adult health",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-24T11:39:21+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "TWO_REAL_MANUAL_ADULT_RHINAR40_DORI40. ActualCriticalRed3cost1paidWreckerBlue4pitch3/power6/R2/AP0. RealPITCHnotDISCARD, soHeroIntimidateWHENunearneddespite6powerfunderandrealvictimHandCritical6. Allnativebothseatresponses/actual5damageHP2=35. Victim6remainsHand2owned2/noBanish/noRNG; source3GY1/fund4Pitch1/FDArsenalWounding5retained/UID6/ownHP40. Real0ArsenalconsumerrejectAP0samefates. OnlyadultID/pitch-vs-discardguard/nativefunding/damage/noIntimidate, positiveWHEN/timing/Intimidatereturn/support/siblings/fullcarduncredited. Sources: FaBSim/GeneratedCode/cardArrayCache.json#rhinar_reckless_rampage FaBSim/GeneratedCode/GeneratedMacroCode.php FaBSim/Custom/GameLogic.php FaBSim/Custom/CRUCards.php FaBSim/Custom/WTRCards.php FaBSim/Custom/ARCCards.php FaBSim/Custom/HVYCards.php FaBSim/Custom/DeckImport.php"
+}

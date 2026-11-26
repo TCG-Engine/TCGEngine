@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-to-be-continued-blue-four-live-sparse1484-first-card-aura-real-weapon-damage-prevents-one",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-to-be-continued-blue-four-live-sparse1484-first-card-aura-real-weapon-damage-prevents-one",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1484-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1484-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "f2f3cc43c07fda34dfb6583cbcc8bd070667602a942871c88a0e524111425db4",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "b9a2cbd73ffd7d34f37329ec7e17490ab99a21d47d092ee11dd26300cfcb44a0",
+        "actions.json": "07152634be6d22d26293c3b3287ed7dab70045b5f33ea6d4b068fd9f269a39bb",
+        "assertions.json": "02a914e768edf085b70cb6941136f7d8d3713d4b4de360a3ae1bbc267692aa7a",
+        "expected_final_gamestate.txt": "841a5b3d270db4b6c0d5883a034643e9706c97c1af2f94da34f53a83f03d30e7",
+        "meta.json": "cc72b66096d0f021dae78286755527fa3e7ef502b0657126ac59191e6e2502f4"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

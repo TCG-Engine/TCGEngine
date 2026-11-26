@@ -1,0 +1,97 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-23T07:07:06.304726+00:00",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1103-20261122.json",
+  "source_spec_sha256": "5d83a684b919936daf8e22f435504cca582a116f2daf3d49ebfae79c7b262111",
+  "new_scenarios": 2,
+  "new_groups": 2,
+  "new_primary_ids": 2,
+  "actions": 58,
+  "native_assertions": 478,
+  "manual_passes": 50,
+  "totals": {
+    "saved_registered_scenarios": 4973,
+    "duels": 3075,
+    "four_live": 1898,
+    "recorded_primary_ids": 2121,
+    "identity_denominator": 5196,
+    "recorded_groups": 1995,
+    "group_denominator": 3324,
+    "four_live_groups": 1887,
+    "phase_qualified_scenarios_at_actual_contexts": 1610,
+    "phase_qualified_unique_groups": 1600,
+    "creation_replay_passes": 2352,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 771,
+  "scenarios": [
+    {
+      "card_id": "blunt_retort",
+      "group_id": "identity:blunt_retort",
+      "scenario_id": "card-blunt-retort-four-live-sparse1103-real-nonweapon-attack-exact-block-and-blade-break-without-weapon-defense-event",
+      "effect_branches": [
+        "real_nonweapon_attack_exact_block_and_blade_break_without_weapon_defense_event"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-blunt-retort-four-live-sparse1103-real-nonweapon-attack-exact-block-and-blade-break-without-weapon-defense-event",
+      "source_spec": "card-regression-sparse1103-20261122.json",
+      "source_spec_sha256": "5d83a684b919936daf8e22f435504cca582a116f2daf3d49ebfae79c7b262111",
+      "review_evidence": "review-evidence/sparse1103-20261122-qualified-saved.json",
+      "review_evidence_sha256": "d4ddde397add2b3bb02bd3732ff0ad3a60abfba8b90d55b35310f791dccc86d3",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1103-20261122-replay.json",
+          "sha256": "a2ef8715de7344f04b4f8f2f073b174fb8b80e12bf4cf7269c23e120a0a94c77",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "hot_top",
+      "group_id": "identity:hot_top",
+      "scenario_id": "card-hot-top-four-live-sparse1103-real-nonweapon-attack-exact-block-and-blade-break-without-weapon-defense-event",
+      "effect_branches": [
+        "real_nonweapon_attack_exact_block_and_blade_break_without_weapon_defense_event"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-hot-top-four-live-sparse1103-real-nonweapon-attack-exact-block-and-blade-break-without-weapon-defense-event",
+      "source_spec": "card-regression-sparse1103-20261122.json",
+      "source_spec_sha256": "5d83a684b919936daf8e22f435504cca582a116f2daf3d49ebfae79c7b262111",
+      "review_evidence": "review-evidence/sparse1103-20261122-qualified-saved.json",
+      "review_evidence_sha256": "d4ddde397add2b3bb02bd3732ff0ad3a60abfba8b90d55b35310f791dccc86d3",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1103-20261122-replay.json",
+          "sha256": "a2ef8715de7344f04b4f8f2f073b174fb8b80e12bf4cf7269c23e120a0a94c77",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

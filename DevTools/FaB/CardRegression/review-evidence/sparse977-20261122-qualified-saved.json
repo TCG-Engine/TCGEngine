@@ -1,0 +1,172 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "breadth_review independent source/semantic review",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse977-20261122.json",
+  "source_spec_sha256": "486c8c64b800ebe76c6dfa4c249cae6f791ea7233b61735ff0b32bd8eb591252",
+  "input_sha256": "486c8c64b800ebe76c6dfa4c249cae6f791ea7233b61735ff0b32bd8eb591252",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-entangle-red-four-live-sparse977-actual-unfused-seven-without-earth-reveal",
+      "card_id": "entangle_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "a71a096e76a82df77fb63b691402fd5bce2ed5ee901e416d48b12648e23534b2",
+        "actions.json": "25920dc16af50701b0be20453cc3345d5c14a09166881d7481930bfb87552093",
+        "assertions.json": "4bdc5abceddfe082c740aec67321bc5ed83666b1022647815143f6a6b2f868cd",
+        "expected_final_gamestate.txt": "e17f7a48f5d10bf651b637198fcccd2665c6fa109bd85d40bd32c2f1f96244ec",
+        "meta.json": "045ad062cd70af90e46c877862f6a9d69905f5d56cfebcc9be662da481039448"
+      },
+      "fixture_sha256": "13d925de302abcb148d438c8ec37fefec5b8566dbd0a30bacdcffd2721dfd143",
+      "actions": 28,
+      "native_assertions": 150,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse977-20261122.json",
+      "input_sha256": "486c8c64b800ebe76c6dfa4c249cae6f791ea7233b61735ff0b32bd8eb591252",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse977-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-entangle-red-four-live-sparse977-actual-unfused-seven-without-earth-reveal",
+        "fixture_slug": "card-entangle-red-four-live-sparse977-actual-unfused-seven-without-earth-reveal",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-oaken-old-red-four-live-sparse977-actual-unfused-base-seven-retains-real-hand-and-deck",
+      "card_id": "oaken_old_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "755b9b5537028630ff73d8892bc89ba00b87ea7ef508232f73f2d6480c05ee1a",
+        "actions.json": "25920dc16af50701b0be20453cc3345d5c14a09166881d7481930bfb87552093",
+        "assertions.json": "da5cdd892a7ebc08acb2196214e26bb833b2d2f6bb6f76718cff238dc98a6d08",
+        "expected_final_gamestate.txt": "07084bec45b617bed8ae7a5b47d65a7de58db456e19330c988d76c2e691f7575",
+        "meta.json": "a9b65abf2515b59a16579c80c599b3d8006a0de088f0f61d4316f3bcc9a02450"
+      },
+      "fixture_sha256": "ccdf0d6ed040eca7255aa055493d1dfd6ddb5e4761638b0bb670b03b90db36e6",
+      "actions": 28,
+      "native_assertions": 172,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse977-20261122.json",
+      "input_sha256": "486c8c64b800ebe76c6dfa4c249cae6f791ea7233b61735ff0b32bd8eb591252",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse977-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-oaken-old-red-four-live-sparse977-actual-unfused-base-seven-retains-real-hand-and-deck",
+        "fixture_slug": "card-oaken-old-red-four-live-sparse977-actual-unfused-base-seven-retains-real-hand-and-deck",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-snow-under-red-four-live-sparse977-actual-unfused-seven-creates-no-frostbite",
+      "card_id": "snow_under_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "cd99bb01a3d85fa1414ff86c17f8fb3095ae8ee2a3531ad02e42a7dcd63cde71",
+        "actions.json": "25920dc16af50701b0be20453cc3345d5c14a09166881d7481930bfb87552093",
+        "assertions.json": "dcd465851af1d1b3a60912f6bd4419ef4e942bda2068d61cd0ef827d0ba54157",
+        "expected_final_gamestate.txt": "79cda8f4f1fe6df6993bc13c80fe381992705174af192d0849d17b0b1a75f04a",
+        "meta.json": "93e68e558622ba424f65ea533c13caa8e0cd71fea06db6cd93bd6c159394ebff"
+      },
+      "fixture_sha256": "b00f86ffdd7afa6fd17b234fbb5281e35c4a54eb6e5ccda93b9ba30a628f7928",
+      "actions": 28,
+      "native_assertions": 150,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse977-20261122.json",
+      "input_sha256": "486c8c64b800ebe76c6dfa4c249cae6f791ea7233b61735ff0b32bd8eb591252",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse977-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-snow-under-red-four-live-sparse977-actual-unfused-seven-creates-no-frostbite",
+        "fixture_slug": "card-snow-under-red-four-live-sparse977-actual-unfused-seven-creates-no-frostbite",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-mulch-red-four-live-sparse977-actual-unfused-eight-retains-real-arsenal",
+      "card_id": "mulch_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "7be8511230f5bd35052995c10a7bf622d453a52d1890bfbb557d3b20754daa4f",
+        "actions.json": "e22a6cb0fbc57b85cb4c085dff11ef900ce5afc681d1998045a7b38700519346",
+        "assertions.json": "d91ec6091047ffde166ad77a04031bded50a0d858afff60eeaf2f02227e76c52",
+        "expected_final_gamestate.txt": "350e8245a82b073d4c09d3f1d0471cead8345f958d2c22bfd00cb6bd684763a0",
+        "meta.json": "3509024dc6c97443b46c43c5a973eef221d9e231e9c296bff5bd2aabcd275dd3"
+      },
+      "fixture_sha256": "7506577006ebba42bf4f33df67c4b4aad01de0aa35f9d583edce7cdf5ec93a4c",
+      "actions": 29,
+      "native_assertions": 178,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse977-20261122.json",
+      "input_sha256": "486c8c64b800ebe76c6dfa4c249cae6f791ea7233b61735ff0b32bd8eb591252",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse977-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-mulch-red-four-live-sparse977-actual-unfused-eight-retains-real-arsenal",
+        "fixture_slug": "card-mulch-red-four-live-sparse977-actual-unfused-eight-retains-real-arsenal",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-endless-winter-red-four-live-sparse977-actual-unfused-hand-defenses-create-no-frostbite",
+      "card_id": "endless_winter_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "0e7d9ff221aba23137d434bab5d5ae70da8dacbbb925b8ad6540d270b298cd5d",
+        "actions.json": "400c7ef141316ef795234399abbf4c39ff912cb043b7eeb5490a65df81f266b4",
+        "assertions.json": "b1498246d08fdd611c64ac4fd274ff9a703e810abfd861f9703965c19a589739",
+        "expected_final_gamestate.txt": "e6b4e61583a6106fe2b268d85be1ca68977a54ec9e2dfb987b2925b353321a95",
+        "meta.json": "e441c5c4e17b642e493202e618427e152effafcb62ee2e3bbc4d453f1bc57b33"
+      },
+      "fixture_sha256": "8da8c0c03a15be6b0397e694cfe4ef5aa1b993f0f3a072d0c741a71d10c44df4",
+      "actions": 32,
+      "native_assertions": 192,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse977-20261122.json",
+      "input_sha256": "486c8c64b800ebe76c6dfa4c249cae6f791ea7233b61735ff0b32bd8eb591252",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse977-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-endless-winter-red-four-live-sparse977-actual-unfused-hand-defenses-create-no-frostbite",
+        "fixture_slug": "card-endless-winter-red-four-live-sparse977-actual-unfused-hand-defenses-create-no-frostbite",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "spec_sha256": "486c8c64b800ebe76c6dfa4c249cae6f791ea7233b61735ff0b32bd8eb591252",
+    "reviewer": "breadth_review independent source/semantic review",
+    "basis": [
+      "Cached Elemental Guardian types/Oldhim specialization are legal for young Oldhim20 Essence of Earth and Ice. Own Hand contains only the source and Generic Critical Strike Blue6/7, no eligible Earth/Ice fusion card. Generated Prepare awaits select required Hand elements and bypass reveal choice when empty; Oaken requires both before offering fusion. FaBELEFinishFusion records missing required elements as false, so no fuse/reveal expense is undertaken.",
+      "Actual adjacent Hero4 target before assets, Blue6 pays3/R0 for first3; Mulch and Endless use two real Blues6/7, firstR3/AP1/PITCH thenR2/AP0 for4. Final Endless corrected canonical includes remaining Blue7 after first pitch and second paidR2; no Yellow remains. Four manual live seats and physical source5 owned graveyard.",
+      "Entangle/Oaken/Snow actual unfused7 damage to targetHP13/AP0, Mulch8 toHP12. Conditional fused-granted hit abilities are absent, not unconditional WHEN with later IF. Oaken actual7 not9 plus real enemy Hand7/8 and Deck9 retained; Mulch facedown Arsenal8 retained; allArenas0 excludes conditional Frostbite creation.",
+      "Endless is actually blocked by three Hand AA defenses9 against8, damage0/HP20/attackHit=false/Stack0; its unconditional hit never occurs. Unfused-on-defense condition is false, so actual defense and finalArena0 do not depend on Frostbite ownership behavior. Physical blockers8/9/10 owner4 graveyards; initial count/UID and shifted native click flow are consistent."
+    ],
+    "limits": [
+      "Only named unfused/main/payment/physical retention or Endless full-block. No positive fusion/reveal/choice/cost ordering, future Entangle modifier, dominate admission, exact unblocked Endless power, conditional Frostbite ownership/tax or future ability restriction, other pitches or whole-card certification. Native execution/replay pending."
+    ]
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse977-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "2ba0f9321c9b73c9c6e9ac1b1449f1225eda65df44b85c48cc85a8b55b0a62a3"
+  },
+  "full_suite_run": false
+}

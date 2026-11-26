@@ -1,0 +1,7 @@
+{
+    "name": "Mindstate of Tiger / sparse natural start effect representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-26T03:09:52+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "At the start of your turn, destroy this, then create a Crouching Tiger in your hand. Representative only: natural_start_destroys_real_aura_and_creates_actual_owned_tiger_in_hand. Actual owned existing Arena source and natural turn transition; no source entry/cost, supporting-card or whole-card credit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#mindstate_of_tiger_blue"
+}

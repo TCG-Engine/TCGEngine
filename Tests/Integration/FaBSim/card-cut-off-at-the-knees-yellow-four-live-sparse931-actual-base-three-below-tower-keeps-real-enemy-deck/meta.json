@@ -1,0 +1,7 @@
+{
+    "name": "Cut Off at the Knees / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T20:30:15+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "If this has {p} greater than its base, it gets +1{p}.\n\n**Tower** - If this has 13 or more {p}, it gets \"When this hits a hero, destroy the top 3 cards of their deck.\" Representative only: actual_base_three_below_tower_keeps_real_enemy_deck. Actual printed zero-cost Hand attack, four manual live seats/full unblocked combat, real HP loss and owned physical source in graveyard. No positive Tower/Combo/greater-than-base bonus or pitch sibling credit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#cut_off_at_the_knees_yellow"
+}

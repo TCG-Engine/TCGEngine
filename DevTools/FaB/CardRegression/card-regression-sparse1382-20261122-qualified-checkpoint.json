@@ -1,0 +1,68 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-24T12:07:28.789272+00:00",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1382-20261122.json",
+  "source_spec_sha256": "2f56c125554d9f8c0a514a723a25b8c39a3b62ef7f8bf537592be418a2cb5748",
+  "new_scenarios": 1,
+  "new_groups": 1,
+  "new_primary_ids": 1,
+  "actions": 28,
+  "native_assertions": 966,
+  "manual_passes": 25,
+  "totals": {
+    "saved_registered_scenarios": 5373,
+    "duels": 3113,
+    "four_live": 2260,
+    "recorded_primary_ids": 2521,
+    "identity_denominator": 5196,
+    "recorded_groups": 2395,
+    "group_denominator": 3324,
+    "four_live_groups": 2249,
+    "phase_qualified_scenarios_at_actual_contexts": 2010,
+    "phase_qualified_unique_groups": 2000,
+    "creation_replay_passes": 2752,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 1171,
+  "scenarios": [
+    {
+      "card_id": "levia_redeemed",
+      "group_id": "identity:levia_redeemed",
+      "scenario_id": "card-levia-redeemed-four-live-sparse1382-thirteen-banished-cards-but-only-twelve-blood-debt-no-inventory-transform-or-face-down-cost",
+      "effect_branches": [
+        "inventory_action_rejects_twelve_blood_debt_despite_thirteen_total_banished_no_face_down_payment_or_transform"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-levia-redeemed-four-live-sparse1382-thirteen-banished-cards-but-only-twelve-blood-debt-no-inventory-transform-or-face-down-cost",
+      "source_spec": "card-regression-sparse1382-20261122.json",
+      "source_spec_sha256": "2f56c125554d9f8c0a514a723a25b8c39a3b62ef7f8bf537592be418a2cb5748",
+      "review_evidence": "review-evidence/sparse1382-20261122-qualified-saved.json",
+      "review_evidence_sha256": "d39a712860cfb077fadd11368e34d304d562b9b89a4cee8e125c676884b0844b",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1382-20261122-replay.json",
+          "sha256": "f3bcfd53c4ab369b1536e6ef85481b02fdd6ab46212d392f49914b803789db67",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

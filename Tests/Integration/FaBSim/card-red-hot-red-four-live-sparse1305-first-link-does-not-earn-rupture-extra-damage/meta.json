@@ -1,0 +1,7 @@
+{
+    "name": "Red Hot / first-link Rupture guard",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-24T05:09:27+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "FOUR_MANUAL_NATURAL_YOUNG_FAI20_AND_DORI20_UPF_FIRST_LINK_RUPTURE_GUARD_ONLY. RedHot5islegalFaiSpecialization/Draconic; SearingTouch5legalDraconic. ActualprimaryHand+Genericfunder6pitch2paysexactnormalcost/R0/AP1to0/nohistoryorRuptureseed. ActualadjacentHero4formaltargetandallfourfreshresponses. NativechainLink1<4, so Ruptureabilitynotgranted/noearnedattacktrigger. RealredTopDeckWoundingBlow7stayssameownedposition; nofalseemptyDeckvacuity, reveal/shuffleroutepositiveuntested. Actualprinted4physicalHeroDamageHP4=16/otherHero20excludesextraRupturedamage; noRNG/extraUID/GA. Final5ownGY1/6Pitch1/7Deck1/allAPR0/StackDQsCCclean. NofourthlinkRupture/reveal/target/shuffle/Faiability/support/sibling/fullcardcredit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#red_hot_red FaBSim/GeneratedCode/GeneratedMacroCode.php FaBSim/Custom/FaiCards.php FaBSim/Custom/UPRCards.php FaBSim/Custom/GameLogic.php"
+}

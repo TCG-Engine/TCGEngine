@@ -1,0 +1,21 @@
+{
+  "batch": 1467,
+  "card_id": "show_no_mercy_red",
+  "reviewer": "/root/breadth_review1457",
+  "classification": "KNOWN_LEGACY_INTIMIDATE_CALL_WITHOUT_HERO_TARGET_PREDICATE_OR_RESPONSEABLE_EVENT_CAPTURE",
+  "status": "SOURCE_ONLY_DEFERRED_NO_NATIVE_PROBE",
+  "reason": "Generated Show No Mercy AttackDeclared unconditionally calls FaBRequestIntimidate(player). Actual Ally target does not earn printed attacks-a-Hero trigger, but helper still asks for adjacent Hero to intimidate and uses no named responseable source profile. Do not record a quiet-queue expectation as passing or reprobe the known shared legacy helper.",
+  "source_sha256": {
+    "FaBSim/GeneratedCode/GeneratedMacroCode.php": "fe6a7982611df8f4de98ce2671b317b671b580146aa4b8c28e8f4b86d8461056",
+    "FaBSim/Custom/GameLogic.php": "c60fa151561f959e4e3e341b814de0e2b47c9e9f153bbc8793a04c43b5075061"
+  },
+  "native_attempted": false,
+  "fixture_saved": false,
+  "qualified": false,
+  "coverage_credit": false,
+  "confirmed_gameplay_bug": false,
+  "new_distinct_gameplay_root_credit": 0,
+  "source_changed": false,
+  "local_draft": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1467-local-20261122\\proposed.json",
+  "local_draft_sha256": "ba3c61f76c1e6b2092ff5c6cebb723e8bac8716b07cb54560c8e1c5408f7c4c5"
+}

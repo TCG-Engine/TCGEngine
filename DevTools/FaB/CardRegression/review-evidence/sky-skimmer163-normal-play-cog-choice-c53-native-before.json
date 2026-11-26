@@ -1,0 +1,218 @@
+{
+  "id": "FAB-REG-163",
+  "status": "NATIVE_CONFIRMED_UNFIXED_SELECTED_SKY_SKIMMER_ORDINARY_PLAY_COG_COST_FAILURE",
+  "reviewer": "/root/b106_semantic_review",
+  "reviewer_independent": true,
+  "independent_review_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov8-batch733-sky-skimmer-independent-native-before-review.json",
+  "independent_review_sha256": "8a79a819823648f425a33e6df3ff4a12f69463f657e9142bd35df1dd09518d58",
+  "runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+  "source_spec": "card-regression-batch733-sky-skimmer-play-probe.json",
+  "input_sha256": "25fbaf5fbbe72231ae82ea769727a9424c7d79b3e38296a995d3a10b5a7b6ed7",
+  "scenario_id": "diagnostic-sky-skimmer-blue-four-live-normal-play-no-illegal-cog-cost",
+  "first_failure": {
+    "source_pointer": "/0/steps/4/checks/0",
+    "source_step": 4,
+    "check_index": 0,
+    "after_native_actions": 2,
+    "native_assertion_ordinal": 219,
+    "query_ordinal": 219,
+    "passed_assertions_before": 218,
+    "type": "decision_queue_empty",
+    "player": "1",
+    "expected": "empty",
+    "observed": "MZCHOOSE",
+    "observed_Param": "p1Arena-0",
+    "observed_Tooltip": "Tap_a_cog",
+    "observed_selected_prepare_callback": "sky_skimmer_blue:0:PrepareCard-await|sky_skimmer_blue:0:PrepareCard#1|1|chosen",
+    "error": "Expected decision queue for player 1 to be empty."
+  },
+  "actual_native_prefix": {
+    "native_actions": 2,
+    "actual_actions": 2,
+    "manual_inputs": 0,
+    "manual_actor_counts": {},
+    "actual_priority_response_inputs": 0,
+    "actual_defender_declaration_finish_inputs": 0,
+    "successful_native_assertions": 218,
+    "successful_checkpoint_counts": [
+      {
+        "source_step": 0,
+        "after_action": 0,
+        "native_assertions": 143,
+        "checkpoint_complete": true
+      },
+      {
+        "source_step": 2,
+        "after_action": 1,
+        "native_assertions": 75,
+        "checkpoint_complete": true
+      }
+    ],
+    "actual_action_envelopes_sha256": "ebf4f4553fb31744ca893da0438e6fbb62161c2840f44f183f0874b931b43f18",
+    "actual_passed_native_assertions_sha256": "07b7fbb38ef346acf75d309f5ed3fd6147d94b979ddf8e5ff6ef36625678c9b8",
+    "recording_actions_exact": true,
+    "recording_assertions_exact": true,
+    "initial_manual_preference_values_verified": 48,
+    "actual_normal_Hand_AA_click_UID5": true,
+    "actual_adjacent_Hero4_target_answer": true,
+    "actual_Cog_cost_answer": false,
+    "observed_pending_kind": "ATTACK",
+    "observed_pending_fromZone": "Hand",
+    "observed_pending_cost": 0,
+    "observed_pending_UID": 5,
+    "observed_window": "PITCH",
+    "observed_unexpected_decisions": [
+      {
+        "Type": "MZCHOOSE",
+        "Param": "p1Arena-0",
+        "Block": 1,
+        "Tooltip": "Tap_a_cog",
+        "DontSkipOnPass": 0,
+        "removed": null,
+        "Location": "",
+        "PlayerID": 0,
+        "mzIndex": -1,
+        "_sourceZone": null
+      },
+      {
+        "Type": "CUSTOM",
+        "Param": "sky_skimmer_blue:0:PrepareCard-await|sky_skimmer_blue:0:PrepareCard#1|1|chosen",
+        "Block": 1,
+        "Tooltip": "",
+        "DontSkipOnPass": 0,
+        "removed": null,
+        "Location": "",
+        "PlayerID": 0,
+        "mzIndex": -1,
+        "_sourceZone": null
+      },
+      {
+        "Type": "PASSPARAMETER",
+        "Param": "1",
+        "Block": 99,
+        "Tooltip": "",
+        "DontSkipOnPass": 0,
+        "removed": null,
+        "Location": "DecisionQueue",
+        "PlayerID": 1,
+        "mzIndex": 2,
+        "_sourceZone": null
+      },
+      {
+        "Type": "SYSTEM",
+        "Param": "PlayCard_AfterAction",
+        "Block": 99,
+        "Tooltip": "",
+        "DontSkipOnPass": 0,
+        "removed": null,
+        "Location": "DecisionQueue",
+        "PlayerID": 1,
+        "mzIndex": 3,
+        "_sourceZone": null
+      }
+    ],
+    "postanswer_Stack_source_or_AP_or_Cog_tap_queried": false,
+    "postfailure_full_final_UID_inventory_certificate": false
+  },
+  "classification": "Normal Sky Skimmer AA0 play incorrectly enters its separate activated-Instant Cog-tap preparation: after the ordinary Hand click and legal Hero4 declaration, an unprinted Tap_a_cog chooser remains. Actual pending state is ATTACK/fromHand/cost0, with the selected Prepare await and PlayCard_AfterAction continuation; no activation was submitted. This confirms only the selected ordinary-play extraneous-cost admission discrepancy, with source-supported unguarded Prepare attribution and no global Core/root claim.",
+  "expected": "Sky Skimmer's ordinary zero-resource attack-action play does not have a Cog-tap additional cost. After the normal Hand play and legal Hero4 selection, it must proceed through the ordinary attack declaration without a Tap_a_cog chooser. Cog tapping belongs to its distinct Once per Turn Instant activation.",
+  "observed": "Two actual native inputs and218 assertions passed. Query219 required an empty player-one decision queue but found MZCHOOSE p1Arena-0 with Tooltip Tap_a_cog, a sky_skimmer_blue PrepareCard await continuation and PlayCard_AfterAction. Pending ATTACK/fromHand/cost0 confirms ordinary play. No illegal choice was answered. All573 later queries and all four manual response actions were unrun; no later AP, Cog tap, Stack/Chain, power, activation or damage certificate. Mandatory probe-only mode saved no fixture and preserved3991 fixtures. Initial ready-Cog provenance is rules-only fixture context, not a prior producer execution.",
+  "source_evidence": {
+    "relevant_source_hashes": {
+      "FaBSim/Custom/GameLogic.php": "1cdad1555c8d2e3bd3fa98d69bf52791b84d21bf2269363ddea7249f4ee35a43",
+      "FaBSim/Custom/ARCAbilities.php": "5330205cf8b98a1ba93cb15aa42f67c76d01dac3cb53b206669e7d00b0e9daca",
+      "FaBSim/Custom/SEARuntime.php": "61912a3f1e31e6d6e10c64fa92514c6ecf937fcbb1ca63af0ace0dfd3a9dc001",
+      "FaBSim/Custom/SEACards.php": "83e666cff3fb39ced8c52e5438ae0aa977b72be9bf2ccadcda562a89f7091ad8",
+      "FaBSim/Custom/CardChoices.php": "6d1122598624a9ac61d99bfc41574d01e80de211e714eadaafb7b6b817a4f975",
+      "FaBSim/Custom/WTRCards.php": "5ead5cc6303b5e6760715b1a038e38d01014d8d42f16aa32bb24aa9df17e9515",
+      "DevTools/FaB/sea_abilities.json": "6e6916ff797cb956d9cce2018dc151644d26644d9b803482f04fd91094258c78",
+      "FaBSim/GeneratedCode/GeneratedMacroCode.php": "63113a3d140cfd13409e1ad7ee737f8ecfbbc1f78c4eb8c540658a3bacc73c54",
+      "FaBSim/GeneratedCode/GeneratedCardDictionaries.php": "1be127d10c8f7fe3fa10b8aa098678fa43b2790910c95666226b18eb79ea7c60",
+      "Core/DecisionQueueController.php": "65bfcf5b4f595d62d6dfb8bde0b884de42cd1a726618b5431fccf8939eed9a9d",
+      "FaBSim/ZoneAccessors.php": "9967567a9a10df81a6f22df820d4d77258828657e95c4ad145b8b13ce17866a7"
+    },
+    "normative_contract": "Viewed SEA029 ordinary AA0 has no Cog cost; tapping a controlled Cog belongs solely to its own Once-per-Turn Instant.",
+    "selected_dispatch": "Normal Hand play GL990 invokes PrepareCard; full SourceMacro1264-1297 and selected compiled12423-12427/144753-144790 have no activation-kind prerequisite and queue readyCog selection before FinishPrepared. Actual selected callback and ATTACK/Hand pending state match this route.",
+    "existing_later_body": "Correct later physical-source binding ARC198-199 and managed ability retention exist; no activation, mode, tap, power or lifetime failure is alleged.",
+    "attribution_limit": "Selected ordinary-play extra Cog-cost route only. Source-supported dispatch is not separately instrumented native internal tracing. No global family/Core/new distinct root or issue allocation, repair or source change.",
+    "source_executed_by_reviewer": false
+  },
+  "validated_relevant_source_hashes": {
+    "FaBSim/Custom/GameLogic.php": "1cdad1555c8d2e3bd3fa98d69bf52791b84d21bf2269363ddea7249f4ee35a43",
+    "FaBSim/Custom/ARCAbilities.php": "5330205cf8b98a1ba93cb15aa42f67c76d01dac3cb53b206669e7d00b0e9daca",
+    "FaBSim/Custom/SEARuntime.php": "61912a3f1e31e6d6e10c64fa92514c6ecf937fcbb1ca63af0ace0dfd3a9dc001",
+    "FaBSim/Custom/SEACards.php": "83e666cff3fb39ced8c52e5438ae0aa977b72be9bf2ccadcda562a89f7091ad8",
+    "FaBSim/Custom/CardChoices.php": "6d1122598624a9ac61d99bfc41574d01e80de211e714eadaafb7b6b817a4f975",
+    "FaBSim/Custom/WTRCards.php": "5ead5cc6303b5e6760715b1a038e38d01014d8d42f16aa32bb24aa9df17e9515",
+    "DevTools/FaB/sea_abilities.json": "6e6916ff797cb956d9cce2018dc151644d26644d9b803482f04fd91094258c78",
+    "FaBSim/GeneratedCode/GeneratedMacroCode.php": "63113a3d140cfd13409e1ad7ee737f8ecfbbc1f78c4eb8c540658a3bacc73c54",
+    "FaBSim/GeneratedCode/GeneratedCardDictionaries.php": "1be127d10c8f7fe3fa10b8aa098678fa43b2790910c95666226b18eb79ea7c60",
+    "Core/DecisionQueueController.php": "65bfcf5b4f595d62d6dfb8bde0b884de42cd1a726618b5431fccf8939eed9a9d",
+    "FaBSim/ZoneAccessors.php": "9967567a9a10df81a6f22df820d4d77258828657e95c4ad145b8b13ce17866a7"
+  },
+  "native_evidence": {
+    "native_recording_results": {
+      "path": "card-regression-batch733-sky-skimmer-play-probe.recording-results.json",
+      "sha256": "31c0debf6837446dcc1acad62e0f0b6564320f52c7db54c7410656ca24185dcd"
+    },
+    "immutable_archive": {
+      "path": "recording-runs/card-regression-batch733-sky-skimmer-play-probe-20261108T185630Z-6af0c5dea9f2b.json",
+      "sha256": "b3d2a11c908bf72b94238d48d59f2d2d34b6505c3c55cd550b3b4e0e795a7b63"
+    }
+  },
+  "source_expectation_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov8-batch733-sky-skimmer-independent-diagnostic-source-review.json",
+    "sha256": "90b1899d113903aa2f02150d7cf3aacb2b84953f9ab23eace2a5e15c17f54a5f"
+  },
+  "primary_sources": [
+    {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\WebpImages\\sky_skimmer_blue.webp",
+      "sha256": "de2cc9e924360d43a9dad220bda38dfc4bd4f85738bab7cdb21ab294e16e6f7c",
+      "printing": "SEA029",
+      "actually_viewed": true
+    },
+    {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\WebpImages\\puffin.webp",
+      "sha256": "6b668dddcd6aa03c036fce880516ba1e9ff374a1baec7ec82e34e8a9199339fe",
+      "printing": "SEA002",
+      "actually_viewed": true
+    },
+    {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\WebpImages\\golden_cog.webp",
+      "sha256": "4c56a2ac51f7bc38048bac493487bfbb5f7593af5ba7d0b714e3dbf62de92d4a",
+      "printing": "FAB353",
+      "actually_viewed": true
+    },
+    {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\WebpImages\\golden_tipple_red.webp",
+      "sha256": "63d80b59e39cecf509a110b5e1c9a10d5c0e559acd05153af9233d48646ded66",
+      "printing": "SEA159",
+      "actually_viewed": true
+    },
+    {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\WebpImages\\wounding_blow_blue.webp",
+      "sha256": "0bac5819f4f68f52d7bec10c8acaab4dacc0feaffde26a1cf0a1346dec8fa086",
+      "printing": "MST217",
+      "actually_viewed": true
+    },
+    {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\WebpImages\\wounding_blow_yellow.webp",
+      "sha256": "7344a3e44d2c97f703d6eee8e3aebd13914c161d735481917f2230b044b5d0a8",
+      "printing": "MST216",
+      "actually_viewed": true
+    }
+  ],
+  "limits": [
+    "Only selected ordinary AA play with the permitted initial readyCog is individually reproduced. No later activated-Instant cost/effect/mode/Once/source-retention outcome, otherCog setup, otherpitch or sibling/fullcard/support/Hero credit.",
+    "No illegal Cog answer or pass was sent; all four planned manual responses remained unrun. Configured four living manual seats do not establish completed four-seat response qualification.",
+    "No fixture/Saved/qualification/coverage/replay/fullsuite/fix/source application or reviewer PHP/R writes. Root alone handles individual issue retention and globaldedup; none allocated by reviewer. Original input/Source/results/archive and correct no-Cog-cost expectations are preserved."
+  ],
+  "fixture_saved": false,
+  "coverage_credit": false,
+  "fix_applied": false,
+  "source_application_attempted": false,
+  "denied_repair_retried": false,
+  "new_core_root": false,
+  "new_distinct_gameplay_root_group": false,
+  "created_utc": "2026-11-08T19:00:41.415492+00:00"
+}

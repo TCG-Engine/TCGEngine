@@ -1,0 +1,88 @@
+{
+  "status": "APPROVED_EXACT_KNOWN_DEPENDENCY_PLANNING_HOLDS_UNATTEMPTED",
+  "batch": 794,
+  "reviewer": "/root/sand_saved_recovery",
+  "reviewer_independent": true,
+  "approved": true,
+  "planning_classification_approved": true,
+  "planning_only": true,
+  "native_execution_approved": false,
+  "qualification_permitted": false,
+  "created_utc": "2026-11-14T21:18:24.142876+00:00",
+  "runtime_sha256": "6695d68163d313f4f61cb20ad9122c7038e621a60c847909598150fe8da09d11",
+  "runtime_provenance": "Existing selected-path review at6695 plus Root unchanged-runtime report; no fresh source/82-guard recertification during recovery.",
+  "firm": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov14-batch794-firm-reservation.json",
+    "sha256": "9146d933271bb93f6e6b51a6038de3f5b2002c9c6a52e407b17ce7d181ebf3c1"
+  },
+  "metadata_preflight": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov14-batch794-primary-support-family-metadata-preflight.json",
+    "sha256": "12e55cd404210ba3a2a19c29f6580a32e738b7472ccbb39a0d81134e6ab431ac"
+  },
+  "reused_source_guard_witness": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov14-batch791-dark-arcanite-helm-generic-source-shadow-controller-resist-author\\manifest.json",
+    "sha256": "301dc8c172d020563a4e0d7719399469362b6a19d6dbaba104878a883c90e0a7"
+  },
+  "holds": [
+    {
+      "card_id": "open_the_flood_gates_blue",
+      "planning_input": {
+        "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov14-batch794-open-known-lifetime-unattempted-planning-hold.json",
+        "sha256": "3f16bf891f8bac0e9eaf85b1eb66c780398569156448cd04b1f723a771ee3b8f"
+      },
+      "classification_approved": true,
+      "classification": "KNOWN_UNMANAGED_ORDINARY_PHYSICAL_SPELL_LIFETIME_UNATTEMPTED",
+      "finding": "Open has a correct early Prepare target and real full damage/Surge draw body. Its exact ordinary-spell managed predicates exclude it; GL1823 moves the physical source to Graveyard before ResolveRules and the damage/draw instructions. This inherits the retained Index/Solace/Sigil source-lifetime family; no late-target, missing-body or native-outcome claim."
+    },
+    {
+      "card_id": "blood_in_the_water_red",
+      "planning_input": {
+        "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov14-batch794-blood-known-defended-await-unattempted-planning-hold.json",
+        "sha256": "69a540fa511e511b9306c83193f35bbfa268b3e84c94384aaf4edf9520ad6d29"
+      },
+      "classification_approved": true,
+      "classification": "KNOWN_DEFENDED_INLINE_AWAIT_TRIGGER_FAMILY_UNATTEMPTED",
+      "finding": "Blood is registered as Defended. The managed defense-reaction completion first attaches it to CombatChain as DEFENSE_REACTION, then OnDefended invokes its generated modal/await directly. Its required separate earned WHEN layer and responses precede that choice. This matches the retained DragDown[210]/AdaptivePlating[161]/WhispersWithin[176] family; the named Smoke capture does not admit Blood. The concern is inline Defended choice after physical attachment, not a chooser while the source remains Stack."
+    }
+  ],
+  "support_and_future_route_limits": "Real Crucible funding/amplifier and Blood top-deck Watery-Grave/+2 bodies exist. This planning approval certifies none of the future activation, damage, draw, top-deck destruction, defense6, health19, cleanup, reanimation or Hero branches. No substitute producer or reduced route is approved.",
+  "historical_metadata_context": {
+    "issues_sha256": "9b83dc5d69a272c674229ba2893da0871490ef18e333bfc560875e46d12caa80",
+    "holds_sha256": "1af56d552f7d2da4d7ba93c898b3c8c76231b79bf7a3017d9b74a02014ecf516",
+    "qualified_scenarios": 4056,
+    "pending": 0,
+    "note": "Parent forwarded new180/241-row metadata; no source/code/metadata re-audit during this recovery. Existing preflight predates those additions."
+  },
+  "metadata_provenance": "Author preflight is retained at its frozen hash. The4056/0pending totals and180/241-row context are Parent-reported snapshots, not freshly counted or retagged by this review.",
+  "recovery": {
+    "prior_independent_B794_review_partial_files_found": false,
+    "existing_review_output_found": false,
+    "prior_PHP_native_R_action_initiated": false,
+    "CIM_process_inventory_verified": false,
+    "CIM_inventory_limit": "Author reported CIM read unavailable; reviewer did not retry it or claim process enumeration.",
+    "review_recovery_scope": "W-only first serialization from already established selected facts and two exact frozen notes."
+  },
+  "counts": {
+    "executable_cases": 0,
+    "recipes": 0,
+    "native_inputs": 0,
+    "new_issues": 0,
+    "new_native_bug_claims": 0,
+    "fixtures": 0,
+    "coverage_credit": 0
+  },
+  "native_attempted": false,
+  "fixture_saved": false,
+  "coverage_credit": false,
+  "confirmed_gameplay_bug": false,
+  "source_fix": false,
+  "repair_proposal": false,
+  "B787_denied_operation_untouched": true,
+  "limits": [
+    "Planning classifications only; no Source gate for an executable/probe and no native execution authorized.",
+    "No new native bug, issue allocation, fixture, RGB/full-card or passing-coverage credit.",
+    "No fresh source hunt, broad engine audit, helper admission or82-map copy. Prior selected traces and immutable witness reused.",
+    "No PHP/native/replay/R/source/Git/repair/B787 operation performed."
+  ],
+  "blockers": []
+}

@@ -1,0 +1,68 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-23T10:30:54.129167+00:00",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1148-20261122.json",
+  "source_spec_sha256": "96f4956e7b777804da72cd600346cbcdb1238480b70d7a3a4762df37338d391b",
+  "new_scenarios": 1,
+  "new_groups": 1,
+  "new_primary_ids": 1,
+  "actions": 27,
+  "native_assertions": 334,
+  "manual_passes": 25,
+  "totals": {
+    "saved_registered_scenarios": 5019,
+    "duels": 3075,
+    "four_live": 1944,
+    "recorded_primary_ids": 2167,
+    "identity_denominator": 5196,
+    "recorded_groups": 2041,
+    "group_denominator": 3324,
+    "four_live_groups": 1933,
+    "phase_qualified_scenarios_at_actual_contexts": 1656,
+    "phase_qualified_unique_groups": 1646,
+    "creation_replay_passes": 2398,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 817,
+  "scenarios": [
+    {
+      "card_id": "corrupted_corpse",
+      "group_id": "identity:corrupted_corpse",
+      "scenario_id": "card-corrupted-corpse-four-live-sparse1148-real-zombie-attack-tap-and-intrinsic-go-again",
+      "effect_branches": [
+        "existing_zombie_native_vox_attack_one_resource_tap_has_intrinsic_go_again"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-corrupted-corpse-four-live-sparse1148-real-zombie-attack-tap-and-intrinsic-go-again",
+      "source_spec": "card-regression-sparse1148-20261122.json",
+      "source_spec_sha256": "96f4956e7b777804da72cd600346cbcdb1238480b70d7a3a4762df37338d391b",
+      "review_evidence": "review-evidence/sparse1148-20261122-qualified-saved.json",
+      "review_evidence_sha256": "f6577b36845e59c6b3f71ac3cfa38bbface806ee23cc697dc3ab3068385ef311",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1148-20261122-replay.json",
+          "sha256": "cede9a3dc6765c48a62afb92310bc0a15a5379fcb706d2377a85bfb9afe0661a",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

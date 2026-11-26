@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-recede-to-mistform-blue-four-live-sparse1124-paid-one-turns-revealed-cloaked-equipment-facedown",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-recede-to-mistform-blue-four-live-sparse1124-paid-one-turns-revealed-cloaked-equipment-facedown",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1124-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1124-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "4b38a469e341577685a8157ddea015a382724a0c8ac8e7e1481089714f4c0c63",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "4292b70b73d8f73963333d32db62378dbdc6ea8e66fb36d64d0b6e793394badb",
+        "actions.json": "01cd465586c24b1e052201acbcb1836094af5ce77296311c0fad9c4a3d718310",
+        "assertions.json": "ec1911bba2ee534888ce4242b4decbfe72d736780b003bfcca6913b213cbb829",
+        "expected_final_gamestate.txt": "1cba3afa64ccda094aff201e1b6607a3921b2349fb054c1a578f37725bac5a45",
+        "meta.json": "eb1882f9f113e2e0820c2e8bae34b95fa52d5967ca10ef56f3e70a5de4090aa6"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

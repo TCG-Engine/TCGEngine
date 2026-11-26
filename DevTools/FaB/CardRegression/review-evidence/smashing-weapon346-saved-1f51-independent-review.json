@@ -1,0 +1,134 @@
+{
+  "status": "APPROVED_EXACT_SAVED_SMASHING_WEAPON_THEN_AA_FOCUSED_REPAIR_WITNESS_REPLAYS_SEPARATE",
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer": "/root/nov2_metadata_review",
+  "reviewed_utc": "2026-11-03T15:56:31.635625+00:00",
+  "runtime_sha256": "1f5122763a098fc452b0d810b2131d979a18b39e8a26633f59541507ea78de80",
+  "input_file": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch346-smashing-weapon-witness.json",
+  "input_sha256": "4f3c5e16a16a15e5b00fd9c84f8d097846fd58310d1b6aa8bfc2cce145bfaf26",
+  "fixtures": [
+    {
+      "slug": "card-smashing-good-time-red-four-live-repair-real-weapon-retains-next-attack-action-bonus",
+      "card_id": "smashing_good_time_red",
+      "group_id": "pitch-cycle:smashing_good_time",
+      "fixture_sha256": "95fc072d97f5d1ff3ba71aee2d4b1b10026f6b9da403c14055177850fa7f7f38",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "c7fc34d2838ef68fa7e409b4f548cda52820642aef9a5b2ec8f61c53a87da2c3",
+        "actions.json": "cc33e7b66ec9e6eadbe43241708feea11aa69c2b1cf7003f7baa1935c84ef79d",
+        "assertions.json": "3d5921f2f5aa92382a75376d0ba8d7d995ef1616c76ace915a7a97e633fdd6af",
+        "expected_final_gamestate.txt": "9d5265e8a89f27cc2cada29872c4e5380449c20894ee9e4dc5456013a5ffd8a4",
+        "meta.json": "edb4f2106ba6cd7fcef9fd60947ff5a9e328e61b901450384388ad37ffed20ec"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "c7fc34d2838ef68fa7e409b4f548cda52820642aef9a5b2ec8f61c53a87da2c3",
+        "actions.json": "cc33e7b66ec9e6eadbe43241708feea11aa69c2b1cf7003f7baa1935c84ef79d",
+        "assertions.json": "3d5921f2f5aa92382a75376d0ba8d7d995ef1616c76ace915a7a97e633fdd6af",
+        "expected_final_gamestate.txt": "9d5265e8a89f27cc2cada29872c4e5380449c20894ee9e4dc5456013a5ffd8a4",
+        "meta.json": "edb4f2106ba6cd7fcef9fd60947ff5a9e328e61b901450384388ad37ffed20ec"
+      },
+      "actions": 69,
+      "native_assertions": 5894,
+      "actual_manual_passes": 62,
+      "manual_passes": 62,
+      "priority_response_passes": 60,
+      "defender_declaration_finish_inputs": 2,
+      "manual_pass_actor_counts": {
+        "1": 15,
+        "2": 15,
+        "3": 15,
+        "4": 17
+      },
+      "semantically_approved": true,
+      "new_primary_ID_credit": 0,
+      "new_group_credit": 0,
+      "existing_group_repair_witness": true,
+      "every_native_action_and_assertion_exactly_maps_to_approved_source": true,
+      "initial_and_final_snapshots_fully_parsed": true,
+      "original_uid_ownership_conserved": true,
+      "original_physical_uidset": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "final_graveyard_uidset": [
+        5,
+        6,
+        9
+      ],
+      "final_pitch_uid_order": [
+        8
+      ],
+      "retained_used_weapon_uid": 7,
+      "weapon_counters": {
+        "WEAPON_ATTACK_TURN": 2,
+        "WEAPON_ATTACKS": 1
+      },
+      "weapon_POWER_counter_absent": true,
+      "virtual_uids_10_11_12_absent": true,
+      "raw_positive_SUP_NEXT_AA_EVR_SMASH_remaining": [],
+      "raw_final_GameState_sha256": "9d5265e8a89f27cc2cada29872c4e5380449c20894ee9e4dc5456013a5ffd8a4",
+      "UniqueIDCounter": 12,
+      "RandomCounter": 0,
+      "final_health": [
+        20,
+        20,
+        20,
+        10
+      ],
+      "final_resources": [
+        2,
+        0,
+        0,
+        0
+      ],
+      "final_action_points": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "physical_findings": "ActualreadyyoungKassai20/threeDori20/manualfour/priorlegalTimesnap6+FDArsenalSmash5+2HDawnblade7+Blue8/AA9, noeffect/AP/historyseed. ActualTimesnapActiondestroy/AP1->0/four->AP2. ActualArsenalSmashspendsoneAP/four->same5GY/ownGAAP2. ActualDawnbladeONEresourcepending paidbyBlue8pitch3->R2/AP1, source4responders->UNBUFFEDpower3/noGA, emptyrealdefense/combat->3damageHP17/Stack0/noSmashtrigger; fullclose retainsused7/noPOWER. ActualremainingAP1 fundsnormalAA9cost0 afterfreshadjacenttarget, four->4+reserved3=7/noGA. Actual7damageHP10earnsABI12CardIDSmash/Controller1/SourceUID5whileAA9Chain, fresh4responders1/2/3/4, noItemssoonlyfourthtriggerceases/returnDAMAGE. FullcloseGY5,6,9/Pitch8/used7WEAPON_ATTACKS1/noPOWER/proxies10,11,12gone/counter12/RNG0/R2AP0/fullqueuescleanup; no positiveSUP_NEXT_AA/EVR_SMASHleft. Exactactual69actor-mode-payloads+5894orderedassertions equalindependentlyapprovedsource, nooutputfitting.",
+      "qualification": "Focusedexisting-group weapon-versus-AArepairdiscriminatoronly; ZEROnewID/group/cyclecredit. NoItemchoice/destruction/trigger-awaitlifetime/siblings/thirdAA/stacking/Dawnbladesecondhit/KassaiCopperEndPhase/heroactivation/supportprimary/fullcard/control/fullsuitecredit."
+    }
+  ],
+  "new_primary_ID_credit": 0,
+  "new_group_credit": 0,
+  "source_expectation_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-smashing-weapon-aa-independent-source-review.json",
+    "sha256": "00af671c23584a53e0cd60a0d10f9fc61e95bad12857406b56509c41a20806ac",
+    "manifest_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-smashing-weapon-aa-runtime-1f51\\manifest.json",
+    "manifest_sha256": "bd889ebb441510c3b0a1119cde4906643d36b3799a3c29b9adf6cc69a902cc50"
+  },
+  "immutable_native_archive": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch346-smashing-weapon-witness-20261103T155112Z-6aea02f07d368.json",
+    "sha256": "ff5680302012f4b483ba9b3da212e47bdedd9835b7838e6aaf111e0615201c4a"
+  },
+  "recording_results": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch346-smashing-weapon-witness.recording-results.json",
+    "sha256": "19692eacf4cdbf5e58de4f945d435ff2c5cd4b6aab9e324d3c24aed9670d5a9a"
+  },
+  "native_wrapper": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-smashing-weapon346-native-r1\\receipt.json",
+    "sha256": "b8233eb604392fdf1b91298babece81623b3a4e67fae3e7c858ba30cec08f7f0",
+    "stdout_sha256": "229df68073983467f0aa2257ff1642ec2a1c3de14ad548b5712d99d33237d59f",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "exit_code": 0,
+    "stderr_bytes": 0,
+    "runtime_before": "1f5122763a098fc452b0d810b2131d979a18b39e8a26633f59541507ea78de80",
+    "runtime_after": "1f5122763a098fc452b0d810b2131d979a18b39e8a26633f59541507ea78de80"
+  },
+  "source_guards_verified": 19,
+  "method": "Independentraw5savedreview: exactall69actions/5894assertionsvsNextapprovedsource00af, parsedallinitial/finalphysicalUID/ownership/economy/manualprofiles/weaponcounter/exhaustedraweffectrows, explicitfirstweapon3vsAA7/HP17then10/separatefreshtrigger4checked. StableASTparsers/normalizer/actionmatcherreusedonly; noauthorbuilder/PHP/native/replay/R/sourcewrites.",
+  "limits": [
+    "Savedcreationreviewonly; Roottwofreshfocusedonly-case replaysseparateevidence,notrunbyreviewer.",
+    "Focusedexisting-group weapon-versus-AArepairdiscriminatoronly; ZEROnewID/group/cyclecredit. NoItemchoice/destruction/trigger-awaitlifetime/siblings/thirdAA/stacking/Dawnbladesecondhit/KassaiCopperEndPhase/heroactivation/supportprimary/fullcard/control/fullsuitecredit.",
+    "Actual1f51only; historicalsource2193/oldV1beforeprobes preserved, no oldchecksretagged."
+  ]
+}

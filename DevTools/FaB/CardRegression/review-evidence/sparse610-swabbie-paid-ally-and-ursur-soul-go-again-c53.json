@@ -1,0 +1,308 @@
+{
+  "status": "APPROVED",
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer": "/root/b105_semantic_review",
+  "reviewer_independent": true,
+  "author": "/root/nov2_sparse_author",
+  "reviewed_utc": "2026-11-06T13:42:50.592125+00:00",
+  "runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+  "runtime_fingerprint_verified": true,
+  "input_file": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch610.json",
+  "input_sha256": "b66c6d04e85fe5a547d4003ce7018769700b24667a0db3dc409beff606014c36",
+  "source_case_count": 2,
+  "fixtures": [
+    {
+      "slug": "card-swabbie-yellow-four-live-real-paid-ally-seven-damage-and-physical-cleanup",
+      "card_id": "swabbie_yellow",
+      "group_id": "identity:swabbie_yellow",
+      "fixture_sha256": "14a51d08fbb8cd7fd3e336dc639cd3aee2decb1ff1cc36a9707de4a1ac57fb4e",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "29a7a4a67abd0cbc6f9fe8971cd358281a14f6ae5a009c56872a8d52205bd4de",
+        "actions.json": "633f7250e47f75034b699ad38092ac45af050fd88cc9320a561aa10b07dd4fd2",
+        "assertions.json": "39a1b8b6a81389731f19d9b182fb16deae3574e37e4b61ff66e2717c35a98022",
+        "expected_final_gamestate.txt": "971b861aa53f1249c07bd5b0f27dc103e14dab1abef32ef93ff52ce047978518",
+        "meta.json": "424169b7bcf0ef9f7e112583d50e3693c4f97656a717dd35f8c34bf50c3cff96"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "29a7a4a67abd0cbc6f9fe8971cd358281a14f6ae5a009c56872a8d52205bd4de",
+        "actions.json": "633f7250e47f75034b699ad38092ac45af050fd88cc9320a561aa10b07dd4fd2",
+        "assertions.json": "39a1b8b6a81389731f19d9b182fb16deae3574e37e4b61ff66e2717c35a98022",
+        "expected_final_gamestate.txt": "971b861aa53f1249c07bd5b0f27dc103e14dab1abef32ef93ff52ce047978518",
+        "meta.json": "424169b7bcf0ef9f7e112583d50e3693c4f97656a717dd35f8c34bf50c3cff96"
+      },
+      "actions": 28,
+      "native_assertions": 2444,
+      "actual_manual_passes": 25,
+      "manual_passes": 25,
+      "manual_pass_actor_counts": {
+        "1": 6,
+        "2": 6,
+        "3": 6,
+        "4": 7
+      },
+      "semantically_approved": true,
+      "ordered_native_assertion_equality": true,
+      "every_native_action_and_assertion_exactly_maps_to_approved_source": true,
+      "initial_and_final_snapshots_fully_parsed": true,
+      "native_initial_assertions_independently_checked_against_raw_initial": 125,
+      "native_final_input_assertions_independently_checked_against_raw_final": 188,
+      "all48_manual_settings_raw_initial_and_final_verified": true,
+      "initial_standalone_UIDs": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "final_standalone_UIDs": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "physical_uid_conservation_without_duplicates": true,
+      "created_physical_UIDs": [],
+      "final_health": [
+        20,
+        20,
+        20,
+        13
+      ],
+      "final_resources": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "final_action_points": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "physical_findings": [
+        "Exact native target-before-payment actions allocate ATTACK proxy7 from physical Arena5; actual Blue6 pitch3 pays attack resource2 and AP1, pins R1/AP0 and real source tap/use bookkeeping before fresh1,2,3,4 responses.",
+        "Passed current-chain power7/noGA and actual DAMAGE native20 establish physical7 against defense0 giving P4HP13. Raw final independently confirms HP13/R1/AP0, same physical5 retained Arena1 owner/controller1 used/undamaged and Blue6Pitch.",
+        "Full Close ceases virtual7 without putting physical5 or7 into GY. Raw originalUID1..6 conserved with no duplicate, counter7/RNG0 and quiet Stack/chains/DQs/payment/await; no death or earned Watery Grave."
+      ]
+    },
+    {
+      "slug": "card-ursur-the-soul-reaper-four-live-real-soul-target-go-again-funds-four-damage-consumer",
+      "card_id": "ursur_the_soul_reaper",
+      "group_id": "identity:ursur_the_soul_reaper",
+      "fixture_sha256": "1faf30aa21f563312b684fed52f45244e79c5e0b69d0b91384e3db674353bfea",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "5842671c06b2da197511f8a0b6790312ff54de0e02dd82c3014119c7a6000e3b",
+        "actions.json": "a743f6217df490081c30a49ece8b0a9000e6893ba63fe60764d4ad1e07a4c369",
+        "assertions.json": "056548733f3e836a309af4333f535fdd810eaadd17418fbc136d2fc66b352a79",
+        "expected_final_gamestate.txt": "c6cd1028a25ab4a81c527f105183e3d66e6471d5e2ea7cd7dd615d67dbe10f77",
+        "meta.json": "402515ded2429d4654c0acafa974f52778b8542943cbeec086bd798c8c15a2a0"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "5842671c06b2da197511f8a0b6790312ff54de0e02dd82c3014119c7a6000e3b",
+        "actions.json": "a743f6217df490081c30a49ece8b0a9000e6893ba63fe60764d4ad1e07a4c369",
+        "assertions.json": "056548733f3e836a309af4333f535fdd810eaadd17418fbc136d2fc66b352a79",
+        "expected_final_gamestate.txt": "c6cd1028a25ab4a81c527f105183e3d66e6471d5e2ea7cd7dd615d67dbe10f77",
+        "meta.json": "402515ded2429d4654c0acafa974f52778b8542943cbeec086bd798c8c15a2a0"
+      },
+      "actions": 54,
+      "native_assertions": 7173,
+      "actual_manual_passes": 50,
+      "manual_passes": 50,
+      "manual_pass_actor_counts": {
+        "1": 12,
+        "2": 12,
+        "3": 12,
+        "4": 14
+      },
+      "semantically_approved": true,
+      "ordered_native_assertion_equality": true,
+      "every_native_action_and_assertion_exactly_maps_to_approved_source": true,
+      "initial_and_final_snapshots_fully_parsed": true,
+      "native_initial_assertions_independently_checked_against_raw_initial": 175,
+      "native_final_input_assertions_independently_checked_against_raw_final": 292,
+      "all48_manual_settings_raw_initial_and_final_verified": true,
+      "initial_standalone_UIDs": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16
+      ],
+      "final_standalone_UIDs": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16
+      ],
+      "physical_uid_conservation_without_duplicates": true,
+      "created_physical_UIDs": [],
+      "final_health": [
+        20,
+        20,
+        20,
+        10
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_action_points": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "physical_findings": [
+        "Physical6 remains in defender4 Soul through both attacks and Closes, with actual Soul schema only CardID/UID. PriorHalo7GY4/Blue16Deck4 and producerEclipse8+sixFasting9..14 publicGY1 remain unchanged; no current charge/producer/Shackle event is credited.",
+        "Actual zero-resource Ursur Action pays AP1 to0 before fresh1,2,3,4 responses and uses captured Arena-source ATTACK proxy17. Passed current-chain6/conditionalGA true and physical DAMAGE native19 establish6/HP14. Status1/use counters are native bookkeeping, not a printed tap cost.",
+        "Native23 Resolution boundary pins ONE refunded AP1. Native27 fully closes first chain/ceases17 and still pins AP1; native28/29 actual normal GenericRed15 play/target consume that earned AP to0 after Close. New current attack15 is4/noGA; DAMAGE native46 establishes four more physical damage/HP10.",
+        "Raw final independently confirms HP10/allRAPChi0, same physicalUrsur5 Arena1 owner/controller1 used/undamaged, Soul6 retained, all producer/support UID identities and two-per-color Fasting multiplicity,15 ownGY,16Deck4, physicalUID1..16 conserved/proxy17ceased/counter17/RNG0, quiet live queues and completion state."
+      ]
+    }
+  ],
+  "blocked_attempts": [],
+  "total_actions": 82,
+  "total_native_assertions": 9617,
+  "total_manual_pass_inputs": 75,
+  "source_expectation_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch610-independent-source-review.json",
+    "sha256": "e89bfd864fc32d518cf8585661f8099d9ad42cc8f4ea598b9d4b2c67cb724b83"
+  },
+  "current_guard_manifest": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch610-swabbie-and-ursur-real-ally-attacks-author\\manifest.json",
+    "sha256": "3823ea14b3c34ba62a89787dabbb390158fdcad5889f48d68a2d5b258539f5c0"
+  },
+  "immutable_native_archive": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch610-20261106T133947Z-6aedd8a359092.json",
+    "sha256": "c117a3be2797770b1b88869ccfa314bad20770e42cccd22bbd2cd97eeb6ec434"
+  },
+  "recording_results": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch610.recording-results.json",
+    "sha256": "ce49fd60a73c0cb4ddec61dcaf84dcc9478bbf7951d5be59db93c953f18732d3"
+  },
+  "native_wrapper": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch610-native-c53\\receipt.json",
+    "sha256": "e6676077771f39dc05e49ae8866ef7f939a104c022d96d3670b771c98d33eedd",
+    "status": "COMPLETE",
+    "exit_code": 0,
+    "stderr_bytes": 0,
+    "new_fixture_count": 2
+  },
+  "source_guards_verified": 70,
+  "source_guards": {
+    "AGENTS.md": "98e92f639d0768613c07759d84393fe2a58ff145e239bbd5bb0c3f8fdcf1f09d",
+    ".github/copilot-instructions.md": "27d6d8211b219cc826a4f2bf63d6d59765ed805feea6fb6571bfd225eb824543",
+    "FaBSim/Custom/GameLogic.php": "1cdad1555c8d2e3bd3fa98d69bf52791b84d21bf2269363ddea7249f4ee35a43",
+    "FaBSim/Custom/WTRCards.php": "5ead5cc6303b5e6760715b1a038e38d01014d8d42f16aa32bb24aa9df17e9515",
+    "FaBSim/Custom/WTRAbilities.php": "08b6d572e83e797848eaee02f9288bbe2bdc7de1dbe1ce522de0cd95a6c94d5c",
+    "FaBSim/Custom/ARCAbilities.php": "5330205cf8b98a1ba93cb15aa42f67c76d01dac3cb53b206669e7d00b0e9daca",
+    "FaBSim/Custom/ARCCards.php": "e8839553781cb4c3725eac1953d622a6f7bbd6998e375261813c4c4e249691e1",
+    "FaBSim/Custom/HVYCards.php": "aeee5080ba3096b2413fd1fbf33aa8d8f24685d219e13c8b942dda45f0c66c7d",
+    "FaBSim/Custom/HVYRuntime.php": "e133c543240f428e8d7f8488971dcfd929720b066342d0d72b4f8cdbb64faa73",
+    "FaBSim/Custom/MONCards.php": "50ccaa44bdd2c94db708dbf2b358aa066d71ceb2c56b8dad14bc2fd1d242953f",
+    "FaBSim/Custom/ROSCards.php": "881b788c96ac6fe7382461b82c23c0fc28a40c393f92784401bf5d8955ae8dfa",
+    "FaBSim/GeneratedCode/GeneratedMacroCode.php": "63113a3d140cfd13409e1ad7ee737f8ecfbbc1f78c4eb8c540658a3bacc73c54",
+    "FaBSim/GeneratedCode/GeneratedCardDictionaries.php": "1be127d10c8f7fe3fa10b8aa098678fa43b2790910c95666226b18eb79ea7c60",
+    "FaBSim/ZoneClasses.php": "874bb2ae00a80a8ba3dfe1789b4c932fd0b7cf1286504a62828e0055ca1cb355",
+    "FaBSim/ZoneAccessors.php": "9967567a9a10df81a6f22df820d4d77258828657e95c4ad145b8b13ce17866a7",
+    "Schemas/FaBSim/GameSchema.txt": "7783800bd47bc85885cc915066aadca58cdf99f0c1180602ac312d9af5ebf643",
+    "Core/DecisionQueueController.php": "65bfcf5b4f595d62d6dfb8bde0b884de42cd1a726618b5431fccf8939eed9a9d",
+    "Core/RegressionTestFramework.php": "670028e69e1a59c22aef5e6512edd2cd0dee5fdcaed4cf8c31374b8eb2b7ca6a",
+    "DevTools/FaB/hvy_abilities.json": "8efacf3b7fc39648144096451ba5b181b7d04f90896a8203eacbcd9ac98a146a",
+    "DevTools/FaB/arc_abilities.json": "ba33c47315cb5dd2a8116497b5525ec6d1b0fa917a0a3ee9424af5ccee16dce6",
+    "FaBSim/Custom/HNTCards.php": "2815741c96cd842e419d7216733efe1be1497e199ba13d65ad8e3d2331118270",
+    "FaBSim/Custom/HNTRuntime.php": "10907fc83993394946e489e3395fd2c1278a4784ce0a98391495231872b546d5",
+    "FaBSim/Custom/MSTCards.php": "52e9e34fbc2734c4b1b7b6040ebb4d784a27f32f748b53b961dd46c9f843e1ef",
+    "FaBSim/Custom/MSTRuntime.php": "b96f21727c089c90c21bf3aadaf913301b1ef7c922f2a17ac055258682ed45ce",
+    "FaBSim/Custom/DYNRuntime.php": "f521482b11084e2befb4a712cd47cf481b9139cc63d4ddb2027aa45047f3d89e",
+    "FaBSim/Custom/DYNCards.php": "769ba9ca4fc0e527144ee5b6e7bf90e612063a2974c78000845b0697862f340b",
+    "FaBSim/Custom/CardChoices.php": "6d1122598624a9ac61d99bfc41574d01e80de211e714eadaafb7b6b817a4f975",
+    "DevTools/FaB/hnt_abilities.json": "4252b725640c5014d9264c987067b71a036ff1f7fa6e98f5fc1da5e542e080d8",
+    "DevTools/FaB/mst_abilities.json": "c2bb091212e461c3a5f20be54b81c90fc81df1554d563d7c59289a17465bae35",
+    "FaBSim/Custom/SUPCards.php": "24c0fd00537f40209632e8386c8571db993d6d452b38061f93bae9c2d7acaf74",
+    "FaBSim/Custom/SEACards.php": "83e666cff3fb39ced8c52e5438ae0aa977b72be9bf2ccadcda562a89f7091ad8",
+    "FaBSim/Custom/SEARuntime.php": "61912a3f1e31e6d6e10c64fa92514c6ecf937fcbb1ca63af0ace0dfd3a9dc001",
+    "DevTools/FaB/sup_abilities.json": "92ca6f5909da4af9dcb9350b3d1f9e793611cae5326dce97e25a1a1d7c8fb85e",
+    "FaBSim/Custom/PENCards.php": "3e7a54b0fe8426e65e7d2baadec53bbda7caff5c0a8e48f79b2832e0b2376a94",
+    "FaBSim/Custom/EVRCards.php": "ad988b0e0e3d3f80bb0f9de0eb66bb826e32c8edbddbb15d5034926baa31e6af",
+    "DevTools/FaB/pen_abilities.json": "e50d82b686864b733032deae373b9825264b63a23ca8e6248c0c5f046c415054",
+    "DevTools/FaB/dyn_abilities.json": "0357acaa6e9b2ca3dfb895106270c4dc8f71515e7ff4b26801400bf5637247fe",
+    "FaBSim/Custom/ROSRuntime.php": "3b8c1f2c03339b46500221a61c83a2aef06eb2845331c6bcf18c6f72287c61e1",
+    "DevTools/FaB/evr_abilities.json": "3cfdd494730e34946cbfaa1c4bd75ee892901c157c43ebcaa3c486c99052fc2e",
+    "DevTools/FaB/mon_abilities.json": "a06c06aa49853536c865fabcbe72f36cba1eab95f010aad2b4a17be3a4e3f77b",
+    "DevTools/FaB/cru_abilities.json": "b4cd3462acf0484979b1d3321ed5357b65a7ed103cd84953dc921cf172bbf429",
+    "FaBSim/Custom/EVOCards.php": "dff20a12d7dd29417b34c9609dbc3fd27325e1c8d3be2b15da481fef7e277462",
+    "FaBSim/Custom/EVORuntime.php": "e38af5f56cd9ecc3c87e5ef6eb81fc03850151833fde02af8a4ae1a29600962b",
+    "DevTools/FaB/evo_abilities.json": "681df04ce6b2430623dbd34d7266c09131bff3eb7c7e1f946820e33549cb9552",
+    "FaBSim/Custom/OUTCards.php": "a52a5803ba36b488094a5284cd3ccd1fadd44e68acdd25cd9ea148b9ace0104a",
+    "FaBSim/Custom/OUTRuntime.php": "6f7accc2875279261e28f9d470a779b91fbfc0df1648bdf3539774b38addfd9f",
+    "DevTools/FaB/out_abilities.json": "6ba251fb5ef0d534096935d995d363be413ed82aa1388891228f1198121f47cf",
+    "FaBSim/Custom/MONAbilities.php": "0e50c426738ec083bf3357d9f0326b30d78d8278586178a6a465d11ece280cc6",
+    "DevTools/FaB/sea_abilities.json": "6e6916ff797cb956d9cce2018dc151644d26644d9b803482f04fd91094258c78",
+    "DevTools/FaB/ros_abilities.json": "2851433ce5bc948fec9532a33ffc709d4a595f74078fcb9d956c922a8ff18ff8",
+    "DevTools/FaB/build_ros_abilities.py": "48b89a4b9f3fb19956dc9bfa526dd984c60e07c27180f7f4938cb6947848da9f",
+    "DevTools/FaB/wtr_abilities.json": "1a1f6021e29d88fddc5ab6d8e656e55929e0fd8e708dd0ee5ad459b8b0b7a49b",
+    "Core/DeterministicRNG.php": "1dab74f1628bf52a89a1aca6941dfe5e4513fef660ef7b8b58fe057c70fa517a",
+    "FaBSim/Custom/CRUCards.php": "b747479f996a5207246c171efce73f899471b9b9608c116241b10086c2c7c292",
+    "FaBSim/Custom/CodeGeneration.php": "50b64d437d5c41ff475d20bacbc1d6ce3b720c8af49990c95f46d024b6bdea69",
+    "FaBSim/Custom/DTDCards.php": "059938626cc5e4e1675d231f9bb0f689a22ef70c7be5748224b2f13eedb7bddd",
+    "FaBSim/Custom/UPRCards.php": "144c369209e0a53f5f0ad540f2e549f4c4c0f0234b9a2c9bf703c2e22cd4e8af",
+    "DevTools/FaB/upr_abilities.json": "c83daf0e6e0a9894808e3eb5ed632db532256b5cd6621066d2429efcd4bca18f",
+    "FaBSim/Custom/FaiCards.php": "89678a2dd28ba283f21563fce488d286bea8153e88b123698e258bbc0994ba93",
+    "FaBSim/Custom/ProfessorCards.php": "6e5cc57b008552dc444d06831bd9dbec45db47214087de049da99b68deb96988",
+    "FaBSim/Custom/IARCards.php": "d7462a79d8deea9b6270c5c878972878177c44726e389d1918022b6368d7e82a",
+    "FaBSim/Custom/IARRuntime.php": "8aae2efda118e15daa34381505cba3c5060059819960884caeaeede0f578a7d9",
+    "FaBSim/Custom/AMXCards.php": "8b2f46e250e3622b06e417b10c9dc11dd769dc48744fbbdfe276cc132ecb6a32",
+    "DevTools/FaB/iar_abilities.json": "6b5db45b3a1cfd542bb2730f47347198055b7630486f6f32d51b11a781aa0fae",
+    "FaBSim/Custom/OMNCards.php": "3b827d9c98875c042daee925a5fe227fdce2195f303c08192fb76b9c806883c8",
+    "DevTools/FaB/omn_abilities.json": "6f3d1021628a3b676c1c60b3c6b7b3db486caea31057cdba3dcdbbc1c6ffef38",
+    "FaBSim/Custom/CustomInput.php": "91a368821f71a4f60bed8812c7cda2edeb91f481a0d6341557586e5e6ab5c2e6",
+    "Core/EngineActionRunner.php": "f64e3d31c9524103bc14aa6ace7611c90be6ae0a0d09a421b81d87593aefebec",
+    "FaBSim/Custom/ArakniCards.php": "0e0ccc29ba870212f63cc4dce8b50468c31408372aeb488b9112a7afeb595d7f",
+    "FaBSim/Custom/BoltynCards.php": "c69ec227eed13f4f21c6a8a5d0b7537f807f3c06b293a6d57fbcc66c2d02570d"
+  },
+  "method": [
+    "All82 native action envelopes and9617 ordered persisted assertions exactly equal the approved original recipes after supported normalization;75 actual manual pass actors25+50 match6/6/6/7 and12/12/12/14. No assertions removed or adapted.",
+    "All10 saved files hash-bound; both fully typed endpoint snapshots parsed, every initial/final native assertion independently checked against raw endpoint values, all48 manual preferences per endpoint/four living heroes and full physical UID/owner/controller relationships verified. Soul6 intentionally has no invented Owner/Controller fields.",
+    "Intermediate power/GA/payment/refund/damage/chain transitions are passed exact native assertions under the independently approved source model, not invented intermediate raw snapshots. Actual Root COMPLETE receipt/results/immutable archive bound. Root targeted replays are separate; no game execution by reviewer."
+  ],
+  "limits": [
+    "Swabbie only printed attack2+tap/7damage/noGA branch. No Ally cast/producer/Gravy permission/Gold/death/Watery Grave/reset/other defender/pitch/sibling/full-card credit.",
+    "Ursur only positive retained-Soul Hero target/6damage/conditionalGA/oneAPrefund survives Close/actual4damage consumer. No empty/removedSoul, control/foreign owner/suppression/repeat/reset/end heal/creator/ChaneShackle/Boltyncharge or Halo/Eclipse/Fasting support execution/full-card credit. Status1 is native use bookkeeping, not a printed tap cost.",
+    "Historical518 Hand7/Chane/Eclipse/six Fasting and Halo funding are legal initial-state provenance only; prior executions are not retagged c53 or imported as current qualification. Ordinary turn history is not globally claimed empty; explicit live completion/economy/queue boundaries are quiet.",
+    "Quantum144 remains denied/unexecuted; all current source guards are c53, with no repair application inferred. No R/PHP/native/replay/source/codegen/service/Git/remote/full-suite action by reviewer."
+  ],
+  "native_executed_by_reviewer": false,
+  "repository_writes": false,
+  "replay_or_control_credit_claimed_by_this_review": false
+}

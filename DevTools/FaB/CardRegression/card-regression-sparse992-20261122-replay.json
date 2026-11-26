@@ -1,0 +1,79 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-graphene-chelicera-four-live-sparse992-actual-paid-unmarked-weapon-full-block-no-go-again",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-graphene-chelicera-four-live-sparse992-actual-paid-unmarked-weapon-full-block-no-go-again",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse992-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse992-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "a2c4db9e8d7a6b3c6d2715e6ded1af4b25d2984140118dae0306bff97d275e41",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "6b8a1a80d28c257dd844a1344afb99d8442e6c57bd3d0d900827d8b2e3542e03",
+        "actions.json": "4ff186c6adb584eb1b6641fe635420989eee7886f133ff4fa25707225e9caa60",
+        "assertions.json": "7a071d44ee6fa1e7d3d59f64b2fd72c70e30e7a3726424ef23cec0f87345a74b",
+        "expected_final_gamestate.txt": "1e57c9551778c8160d47226c8eacbdd950076bae8b3dc0e58a5e9bd40c417e3c",
+        "meta.json": "6bb945007a5abe6ad68c224b089ddee5807bc39052e7088b27f8ba91c4716b38"
+      }
+    },
+    {
+      "slug": "card-beckoning-mistblade-four-live-sparse992-actual-paid-nonstealth-weapon-full-block-printed-go-again",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-beckoning-mistblade-four-live-sparse992-actual-paid-nonstealth-weapon-full-block-printed-go-again",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse992-local-20261122\\clean-replays\\01.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse992-local-20261122\\clean-replays\\01.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "75f0822e098785d78cd20127feca665eba99cf807a04f7a45ffe57b2ba9c3d5d",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "83f9e0b255a6242a993161faa242af1703f76b600503ccb5d4cadf6b01fc38fb",
+        "actions.json": "4ff186c6adb584eb1b6641fe635420989eee7886f133ff4fa25707225e9caa60",
+        "assertions.json": "caa2321ad6038706a479c8d3ccacaee43117507929cedb7fb94d6d3fd7baf80b",
+        "expected_final_gamestate.txt": "579aa31bb47c39f07c5e2d1a091712b70ba28cc5dfb29313c4388ffec5c7b7d5",
+        "meta.json": "3cf65565e2c6642d6b86582b2148973032ec14491579de1536216178e591b548"
+      }
+    },
+    {
+      "slug": "card-jubeel-spellbane-four-live-sparse992-actual-paid-weapon-exact-full-block-no-aegis",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-jubeel-spellbane-four-live-sparse992-actual-paid-weapon-exact-full-block-no-aegis",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse992-local-20261122\\clean-replays\\02.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse992-local-20261122\\clean-replays\\02.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "7f20693fd7f64b81a60a75cf92a6d29a45253b301505fc66d1755f9a8b56ba5b",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "0d9e1731e7f3072ae7b8781c0f4bf71cca80bc20afd4ba68f7bed4007a0cb0db",
+        "actions.json": "4ff186c6adb584eb1b6641fe635420989eee7886f133ff4fa25707225e9caa60",
+        "assertions.json": "b4b310a2b663e56793e70a81517a5bcbffb76a1ebac79c5eeffac643edda1360",
+        "expected_final_gamestate.txt": "1a4914fafb720caf70e984cb74a5d5392bb64f232571cee9c3b00cfd2cbe89ec",
+        "meta.json": "9c2b0a39a6df7526320f4ba27b1c6daaea560f3f163d304d78bb4ecc3bd7352c"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

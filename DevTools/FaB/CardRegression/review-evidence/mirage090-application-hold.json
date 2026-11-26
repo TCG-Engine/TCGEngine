@@ -1,0 +1,40 @@
+{
+  "status": "AUTO_REVIEW_DENIED_BEFORE_CREATEPROCESS_KNOWN_UNEXECUTED",
+  "utc": "2026-11-05T00:36:42.531014+00:00",
+  "action": [
+    "python",
+    "apply_nov5_mirage090_v3_guarded_final_r1.py",
+    "--execute",
+    "--confirm-idle",
+    "--confirm-all-qualified",
+    "--operational-review",
+    "nov5-mirage090-v3-final-r1-independent-operational-review.json",
+    "--operational-review-sha256",
+    "7fd62ee20a41fcb372533e2b52378a3a4af088716fb1ce7c39d8a5e1e9c657a6"
+  ],
+  "targets": [
+    {
+      "path": "FaBSim/Custom/DTDRuntime.php",
+      "actual_sha256": "b5dcaff474c60a21cb71a7b4923bdf2192c3f9d63de24e60e54fa0067e9f19f2",
+      "equals_preimage": true
+    },
+    {
+      "path": "FaBSim/Custom/GameLogic.php",
+      "actual_sha256": "1cdad1555c8d2e3bd3fa98d69bf52791b84d21bf2269363ddea7249f4ee35a43",
+      "equals_preimage": true
+    },
+    {
+      "path": "FaBSim/Custom/ROSCards.php",
+      "actual_sha256": "881b788c96ac6fe7382461b82c23c0fc28a40c393f92784401bf5d8955ae8dfa",
+      "equals_preimage": true
+    }
+  ],
+  "source_application_executed": false,
+  "generator_invocations": 0,
+  "runtime_verified_unchanged": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+  "application_directory_exists": false,
+  "reason": "This applies a persistent gameplay-rule change to three shared PHP files; the user authorized regression testing but explicitly instructed not to change game rules to force passing tests, and no direct approval for this repair is present.",
+  "instruction": "Do not bypass this rejection through a workaround or indirect execution.",
+  "requested_resolution": "Fresh specific authorization requested via async question; no answer yet. UI accepted is not approval. No retry or alternate execution without new relevant authorization.",
+  "independent_coverage_may_continue": true
+}

@@ -1,0 +1,148 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "breadth_review independent printed-text/source/oracle review",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse986-20261122.json",
+  "source_spec_sha256": "74f94575a13f44edf998a33107702e5361d8248118eabf082b8e328a7ffbe4db",
+  "input_sha256": "74f94575a13f44edf998a33107702e5361d8248118eabf082b8e328a7ffbe4db",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-scorpio-comet-tail-four-live-sparse986-reject-no-controlled-lightning-attack",
+      "card_id": "scorpio_comet_tail",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "f8f4fdc42d9f6d9843c71971c36003ff8b88622e9b4071d654a47720b77cde06",
+        "actions.json": "19b24ff11f47b70ecd3e4ab201d93ac34f752dc17bb1c0b9a0c494a066cb3b82",
+        "assertions.json": "5e09f1aee0c11b6c12a26b3f21a7eaf03da9243a19e25e0c1ac12b991fae8bb7",
+        "expected_final_gamestate.txt": "76174492a96650bba13dd50942d9682b7a0453e9210a88b4e44fd5ffb71e517a",
+        "meta.json": "a3a4be164330f7c1703af6d95c188ee0f810742976d0960fe1b046ad32efc7a0"
+      },
+      "fixture_sha256": "43ca266faca216827c5b9309f942e3f180bdff1dab71e79c77fa320ef0f3608c",
+      "actions": 28,
+      "native_assertions": 173,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse986-20261122.json",
+      "input_sha256": "74f94575a13f44edf998a33107702e5361d8248118eabf082b8e328a7ffbe4db",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse986-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-scorpio-comet-tail-four-live-sparse986-reject-no-controlled-lightning-attack",
+        "fixture_slug": "card-scorpio-comet-tail-four-live-sparse986-reject-no-controlled-lightning-attack",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-bank-breaker-four-live-sparse986-reject-no-crank-this-turn",
+      "card_id": "bank_breaker",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "bc002776798e61444910b5d2bed1189abd2f2f2966f63b80a0a07356dbcf13fd",
+        "actions.json": "19b24ff11f47b70ecd3e4ab201d93ac34f752dc17bb1c0b9a0c494a066cb3b82",
+        "assertions.json": "33bc1dba1f1d17e06ac16e2c50f7323b9fc3ec73ed9c03de1895af57f5242ed1",
+        "expected_final_gamestate.txt": "d8c0b14bcd553e50b44c8a1a4a54f093c47aa3c51740c5e5e058dd84ec355374",
+        "meta.json": "1ae832e921ca02d84c53c552568cda42dd12d8e14b64760db7ec700e93974a94"
+      },
+      "fixture_sha256": "85c098a5d4ab385231f68c587cf9660ca0730296d1d8ef10f049e46468a4b4bc",
+      "actions": 28,
+      "native_assertions": 173,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse986-20261122.json",
+      "input_sha256": "74f94575a13f44edf998a33107702e5361d8248118eabf082b8e328a7ffbe4db",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse986-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-bank-breaker-four-live-sparse986-reject-no-crank-this-turn",
+        "fixture_slug": "card-bank-breaker-four-live-sparse986-reject-no-crank-this-turn",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-rugged-roller-four-live-sparse986-reject-no-six-roll-this-turn",
+      "card_id": "rugged_roller",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "8a7ebd3eacfeb468cef980a8f93c60130c54e6cf86d530b7c324b0b33761f7ce",
+        "actions.json": "19b24ff11f47b70ecd3e4ab201d93ac34f752dc17bb1c0b9a0c494a066cb3b82",
+        "assertions.json": "00c48fbca268d593dd4e488a5327098af90865c9e7c3b1643302c27a2dff4f75",
+        "expected_final_gamestate.txt": "8204c4d820ad5386859e3b6696ea1da66ea4674fcb43e2ab02628985d36f25da",
+        "meta.json": "5511b2aa4824249a575c7af427f5bd94d80d943d4f530ad5a4ea4f152c25ad6c"
+      },
+      "fixture_sha256": "08b46d7a503bda9196019a672fef02ec709967bc7b82452051b7eff0dc314e62",
+      "actions": 28,
+      "native_assertions": 173,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse986-20261122.json",
+      "input_sha256": "74f94575a13f44edf998a33107702e5361d8248118eabf082b8e328a7ffbe4db",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse986-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-rugged-roller-four-live-sparse986-reject-no-six-roll-this-turn",
+        "fixture_slug": "card-rugged-roller-four-live-sparse986-reject-no-six-roll-this-turn",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-rok-four-live-sparse986-reject-real-nonempty-hand",
+      "card_id": "rok",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "be2aa18bd32624ca1c3abf65666ce8ecc87df67d47ac7f792c77f93768e0ee33",
+        "actions.json": "19b24ff11f47b70ecd3e4ab201d93ac34f752dc17bb1c0b9a0c494a066cb3b82",
+        "assertions.json": "b9eaa557cc6df249e83aa382e5e58d2d99f0d167320d9c594a500c1f989a3fb6",
+        "expected_final_gamestate.txt": "47a8913e7015798f0267e1fd348b21029cf735c44687fe20c6a89f133f98fa00",
+        "meta.json": "9df821eb405e5c6927fa37038ba7045a1a857c521778366b10b024a60b3d7a19"
+      },
+      "fixture_sha256": "72e0459a3099f19286f057fb5294ef456bcf6323f70dea0fdf9b96d5e87aebeb",
+      "actions": 28,
+      "native_assertions": 173,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse986-20261122.json",
+      "input_sha256": "74f94575a13f44edf998a33107702e5361d8248118eabf082b8e328a7ffbe4db",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse986-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-rok-four-live-sparse986-reject-real-nonempty-hand",
+        "fixture_slug": "card-rok-four-live-sparse986-reject-real-nonempty-hand",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "spec_sha256": "74f94575a13f44edf998a33107702e5361d8248118eabf082b8e328a7ffbe4db",
+    "reviewer": "breadth_review independent printed-text/source/oracle review",
+    "basis": [
+      "Four printed activation restrictions independently match the fixtures: Scorpio requires a controlled Lightning attack, Bank Breaker a prior crank, Rugged Roller a prior accepted six roll, Rok no cards in Hand. Fresh ACTION/empty combat/history excludes the firstthree, while actual owned Wounding6 Hand1 falsifies Rok requirement at the attempted activation. Natural20 Aurora EssenceLightning/Runeblade, Dash Mechanologist, and Rhinar Brute are legal respective actors; ready sole2H Weapon5 fits legal equipment setup.",
+      "Actual source exists with UID5/Owner1/Controller1/Status2 and turn-player/AP1/priority1. Resource assets0/1/1/3 independently cover the printed activation costs0/1/1/3, so affordability is not a rejecting alternative. They are declared starting fixture assets, not a paid-cost/pitch/funding demonstration. Rok Hand condition later changes after the follow-through, but the rejected click is checked while Hand1, and no second weapon activation occurs.",
+      "Real mapped native weapon route is present: DYNRuntime.php:25 explicit cost map, :26-35 CanAttack with Scorpio:29, Roller:30, Rok:32 and other ownership/readiness/AP/timing/assets gates; EVORuntime.php:17 requires actual CRANKED for Bank Breaker. OMNCards.php:362-364 requires a controlled Lightning attack for Scorpio. WTRCards.php:880-905 and:908-915 validate/dispatch the native weapon path; DYNRuntime.php:37-44 claims target/creates paid attack only after CanAttack. No missing activation route is being treated as a passing restriction.",
+      "Each first Weapon0 click is immediately followed by ready owned physicalWeapon5, Hand1, unchanged exact resources/AP1/Stack0/noGYPitch/ACTION/no pending payment/allqueuesempty. Actual support Hand0 UID6 then declares adjacent Hero4, plays cost0/AP0, receives25 explicit phase/seat passes, deals4/HP16 and reaches owned graveyard; primaryWeapon5 remains ready/owned and resources unchanged. All p1Resource assertions match the declared individual asset, no stale UID5 Hand/Stack/CombatChain/GY assertion is required, Equipment count0 remains correct.",
+      "Exact current group union independently shows allfour primary groups unrepresented and current issue-ledger exact matches0. Each case has28 controls including the attempted rejection and only one primary group representative."
+    ],
+    "limits": [
+      "False-prerequisite admission/rejection plus legal support progression only. No positive weapon activation/attack, funding/payment, bank material banish/attack-trigger timing, arcane hit, roll replacement, unpreventable damage, hero ability, ownership creation, siblings/support/full-card credit.",
+      "Native rejection, raw recording retention of initial rejected click, saved fixture and one clean replay remain Root-owned and pending. Any mismatch must be held without qualification, not weakened or repaired.",
+      "Reviewer made no PHP/native game/test/T/source/original/Git/network/auth/engine changes; only this W review receipt was written."
+    ]
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse986-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "4caf41a6f7b970d9cd045bbb4674d47f4631a1c746abf38bd0f9e2db4c1d1e63"
+  },
+  "full_suite_run": false
+}

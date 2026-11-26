@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-luminaris-celestial-fury-four-live-sparse1493-real-non-angel-non-herald-attack-ability-rejection",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-luminaris-celestial-fury-four-live-sparse1493-real-non-angel-non-herald-attack-ability-rejection",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1493-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1493-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "343d5caa87cf036d82fb44ec5cbf2c0f56e5bf8e68ca5948f21c04efef3e9a51",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "99551c977cfe40a41b64683341ab3e27a884c2e04c09e09da9487c91fec2228b",
+        "actions.json": "0c814bc074c8fd0339ed7928c53d3648fdafc3593f2a633ef2ae809620cf53ac",
+        "assertions.json": "eb7698a5b805f5d4d6aaa28868285755d07d08998fd0d37cb750df7ee623ee41",
+        "expected_final_gamestate.txt": "017119dfd025b13680360c661e923519ff3c21a06a9a7c988b5048cbb6e66de8",
+        "meta.json": "05ea6de82137bee49cf9b89aa6526bc32576f301d28b159239e57af86d1d600f"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

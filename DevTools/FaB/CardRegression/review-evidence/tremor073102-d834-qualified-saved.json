@@ -1,0 +1,121 @@
+{
+  "status": "TREMOR073102_SINGLE_PRINTED_BONUS_FIXED_ORIGINAL_ROUTES_PASS_SINGLE_SAVED_ANCHOR",
+  "approved": true,
+  "reviewer_independent": true,
+  "reviewer": "Independent saved/source review by /root/b104_saved_review; Root joins actual creation/replay/no-save receipts",
+  "runtime_sha256": "d8345acccd130cce07e72fc43c1746609ca5860ecb5d1dcc9c2ddab28bf2697c",
+  "input_sha256": "191a50829b8e997bae2be9ed512c496c15de2bcff3512aa05b3b0dbd93f49c56",
+  "source_spec": "card-regression-batch423-tremor-protocol-v2.json",
+  "fixtures": [
+    {
+      "slug": "card-tremor-of-iarathael-red-four-live-original-correct-real-boost-banish-earns-two-power-once",
+      "card_id": "tremor_of_iarathael_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "92f6d836264e80dd122f80ed2098b859eee45fc252fdd36ac4c0dc729bff959d",
+        "actions.json": "c0ca3ce0c7c34feb282b129438c6ba809b98eb1d40262ed0c9ad5b110d1bdfd4",
+        "assertions.json": "9eab9fd10d1fdad114239592a8604ed40bc1a5752bebc14fa8a10f05c8834dd3",
+        "expected_final_gamestate.txt": "210288cd6ff841983de9c90ba7db5e96624d8c9fcc02eea1caec5acd49d457f5",
+        "meta.json": "8e0bec28f7988eda05d4121a19353bce6327c0548c553179010ed9a7dfc635d2"
+      },
+      "fixture_sha256": "ca66331d550bf8cc1b4257ad7d47314671a68230fb11ed9f6b0cdb87d3e60727",
+      "actions": 56,
+      "native_assertions": 4389,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 50,
+      "recorded_runtime_sha256": "d8345acccd130cce07e72fc43c1746609ca5860ecb5d1dcc9c2ddab28bf2697c",
+      "runtime_sha256": "d8345acccd130cce07e72fc43c1746609ca5860ecb5d1dcc9c2ddab28bf2697c",
+      "source_spec": "card-regression-batch423-tremor-protocol-v2.json",
+      "input_sha256": "191a50829b8e997bae2be9ed512c496c15de2bcff3512aa05b3b0dbd93f49c56",
+      "file_sha256": {
+        "initial_gamestate.txt": "92f6d836264e80dd122f80ed2098b859eee45fc252fdd36ac4c0dc729bff959d",
+        "actions.json": "c0ca3ce0c7c34feb282b129438c6ba809b98eb1d40262ed0c9ad5b110d1bdfd4",
+        "assertions.json": "9eab9fd10d1fdad114239592a8604ed40bc1a5752bebc14fa8a10f05c8834dd3",
+        "expected_final_gamestate.txt": "210288cd6ff841983de9c90ba7db5e96624d8c9fcc02eea1caec5acd49d457f5",
+        "meta.json": "8e0bec28f7988eda05d4121a19353bce6327c0548c553179010ed9a7dfc635d2"
+      },
+      "actual_manual_passes": 50,
+      "manual_passes": 50,
+      "source_semantic_review_sha256": "f753d07ec4ec24465be1b945d298f83b631373c7f5fe39a3cf5afb4819503ce4",
+      "physical_endpoints": {
+        "initial_tremor_uid": 5,
+        "real_boost_card_uid": 6,
+        "real_boost_banished_original_deck_uid": 7,
+        "real_blue_funder_uid": 8,
+        "final_graveyard_uid_set": [
+          5,
+          6
+        ],
+        "final_pitch_uid": 8,
+        "final_banish_uid": 7,
+        "final_health": [
+          20,
+          20,
+          20,
+          10
+        ],
+        "final_resources": [
+          2,
+          0,
+          0,
+          0
+        ],
+        "final_action_points": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "full_combat_close": true,
+        "all_uid_1_through_8_preserved": true,
+        "raw_manual_preferences_checked": 48,
+        "actual_manual_pass_actors": {
+          "1": 12,
+          "2": 12,
+          "3": 12,
+          "4": 14
+        }
+      }
+    }
+  ],
+  "replay": {
+    "path": "card-regression-replay-nov17-tremor102-d834-replay.json",
+    "sha256": "1f266af03884820a04e8e5a7539789d9b0e041dd9b10d2b54bec1c624844fc98",
+    "passed": true
+  },
+  "independent_saved_review": {
+    "path": "nov17-tremor073102-saved423-independent-review.json",
+    "sha256": "bac69070f0bf41ab0dc6d4394cc796adab238752630dbe70855a391058f24d71"
+  },
+  "source_review": {
+    "path": "nov17-tremor073102-independent-single-removal-source-review.json",
+    "sha256": "f753d07ec4ec24465be1b945d298f83b631373c7f5fe39a3cf5afb4819503ce4"
+  },
+  "source_application": {
+    "path": "nov17-tremor073102-root-application/receipt.json",
+    "sha256": "7a2b404d67fab8f2f8117bc393884fdd1f837f8ef83df092e7910de4f0c072e0"
+  },
+  "creation": {
+    "path": "nov17-tremor102-d834-native\\receipt.json",
+    "sha256": "75fe332532e7cad24501d81f8aa2cd7cc21abfb57f2041bc344e7464f151edd9"
+  },
+  "duplicate_original073_no_save": {
+    "receipt": "nov17-tremor073-d834-no-save\\receipt.json",
+    "receipt_sha256": "af3e7c93980e3ecd77448d595017691c21f498d711a78630eaa72872492c353b",
+    "results_sha256": "13e7c545545447b9fb32e8b08f16072f303b66ec25b821caa11650d55bc278f9",
+    "actions": 61,
+    "native_assertions": 4675,
+    "fixture_saved": false,
+    "extra_scenario_or_group_credit": false
+  },
+  "components": 25,
+  "component_receipt_sha256": "022459d488fc199be42410875558829b46926b90e6b8f94df1f2fdeedc5cb854",
+  "basis": "Remove only duplicate IAR Tremor conditional contribution; canonical/emitted MONOwnPower still earns printed +2 once. Original423 Boost full56/4389 and original073 Nimble full61/4675 both pass unchanged, actual Tremor6 damage and full combat cleanup; P4HP10/HP6 respectively. Save only423 as durable representative, independently exact-reviewed and clean replayed once.073 shares that anchor plus its original no-save passing witness; no extra sibling/scenario/group credit.",
+  "limits": [
+    "Only Red positive real same-turn banishment routes Native-qualified. False-condition and other pitches are isolated-function evidence only.",
+    "Bound Marks/Feasting byte preservation and isolated checks do not qualify every branch.",
+    "Aggregate NoAbilities suppression remains inherited/unqualified; this repair removes duplicate power only.",
+    "No full suite or historical corpus rerun; historical qualifications keep actual runtimes."
+  ],
+  "full_suite_run": false
+}

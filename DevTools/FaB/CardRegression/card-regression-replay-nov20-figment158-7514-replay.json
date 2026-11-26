@@ -1,0 +1,27 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-repair-figment158-entry-ponder.json",
+  "runtime_sha256": "7514ce8e6cf71bf22ce5f023d22b2c9543390e4bb3e00f5fe2ecc59968ea30e6",
+  "returncode": 0,
+  "completed_utc": "2026-11-20T15:58:02.202115+00:00",
+  "fixtures": [
+    {
+      "slug": "card-figment-of-erudition-yellow-four-live-paid-instant-entry-when-then-ponder",
+      "fixture_sha256": "5bd4ad22cc7b582261a85122d54aac7441113fc3c93552fff0cd1b37021ad5b0",
+      "passed": true,
+      "result": "[PASS] Figment of Erudition / paid Instant entry WHEN and delayed Ponder"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-figment-of-erudition-yellow-four-live-paid-instant-entry-when-then-ponder",
+      "returncode": 0,
+      "stdout": "[PASS] Figment of Erudition / paid Instant entry WHEN and delayed Ponder\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

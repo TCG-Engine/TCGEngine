@@ -1,0 +1,102 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-alpha-rampage-red-four-live-sparse1091-sufficient-resource-bank-but-no-other-hand-card-for-mandatory-random-discard",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-alpha-rampage-red-four-live-sparse1091-sufficient-resource-bank-but-no-other-hand-card-for-mandatory-random-discard",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1091-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1091-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "5f18839d8865c7897c798afc2cf22c95f4184cac19aafbb4141f05936aff3b44",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "35e9b440316c05c31ed36a21af9fef623be8f9204e2a49b8fd85f8e20236c46d",
+        "actions.json": "c3cc60062f3cd85fd2652359f2ad427efac98fede1dac6175f450ef85780e407",
+        "assertions.json": "852b0c93df30c8c8aeb416bdf7b41b9371d9176f6f4c29f8ee0592737ceabfd7",
+        "expected_final_gamestate.txt": "09c1896547a35dd97d28e383c9ed4e859e4c1f8be3fc7811ebe521e166aa994a",
+        "meta.json": "9ea4dcbacb66f297ba837a0508b3962d844c47b26ccf7f5bf052fb3d221071d9"
+      }
+    },
+    {
+      "slug": "card-ram-raider-red-four-live-sparse1091-sufficient-resource-bank-but-no-other-hand-card-for-mandatory-random-banish",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-ram-raider-red-four-live-sparse1091-sufficient-resource-bank-but-no-other-hand-card-for-mandatory-random-banish",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1091-local-20261122\\clean-replays\\01.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1091-local-20261122\\clean-replays\\01.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "b5f6df7e8be03ce2ccddf1544783e71e84a66dfdd5355b9f79609c5536de9868",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "6e24751f7df59f7402e30111d8213cd1f576aa4964a8e8f3a0543c76843d0499",
+        "actions.json": "c3cc60062f3cd85fd2652359f2ad427efac98fede1dac6175f450ef85780e407",
+        "assertions.json": "2b0e27a2000c0cf380b93e9497b1aedf0b74c03af4292bf377220becb09d9c22",
+        "expected_final_gamestate.txt": "23dd5f8a46152cde850f8416b71986e1cc3fc36d554d4290b912c7d98e4d5c48",
+        "meta.json": "7dedd2d10a66e72ec647d8f7d7290fea9cb41ebce20fe6b4641c8f60558fc93d"
+      }
+    },
+    {
+      "slug": "card-shaden-swing-red-four-live-sparse1091-sufficient-resource-bank-but-no-other-hand-card-for-mandatory-random-banish",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-shaden-swing-red-four-live-sparse1091-sufficient-resource-bank-but-no-other-hand-card-for-mandatory-random-banish",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1091-local-20261122\\clean-replays\\02.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1091-local-20261122\\clean-replays\\02.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "932e64b95ad3f3879018ce3af5b192f0dd0e605203b0836df2c3e3c4ad1dd5f4",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "8420d80a2105624ba5de830d575e8e88fd9720fda446b1ebc863751cb130b860",
+        "actions.json": "c3cc60062f3cd85fd2652359f2ad427efac98fede1dac6175f450ef85780e407",
+        "assertions.json": "8a3081f6f338176980d259bb8925408c007cdaa91544759d547942ab439f7222",
+        "expected_final_gamestate.txt": "1d00412641e0f910d14c135492b327234b04fa3427b32691564138fbf4533840",
+        "meta.json": "6f657cfa9b7dd0b76feaac265643f3c1b94ea948b5f7a8fe1ce8b31f8ea98641"
+      }
+    },
+    {
+      "slug": "card-shaden-scream-red-four-live-sparse1091-sufficient-resource-bank-but-no-other-hand-card-for-mandatory-random-banish",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-shaden-scream-red-four-live-sparse1091-sufficient-resource-bank-but-no-other-hand-card-for-mandatory-random-banish",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1091-local-20261122\\clean-replays\\03.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1091-local-20261122\\clean-replays\\03.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "c599af46a43ecd0bd350a117dacf84e39e8146b464a7638673d09e11a8aa5bd4",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "97271d54faf523b97821083a187994b910a52fe759e0a3bfd8db1d82b27e1baa",
+        "actions.json": "c3cc60062f3cd85fd2652359f2ad427efac98fede1dac6175f450ef85780e407",
+        "assertions.json": "2c7cd4e9c2c315ca163baa42c1c005f9091e63ec43885a75e4431c885927b9b9",
+        "expected_final_gamestate.txt": "99723fbaab99e61b51c8173be3b5621d2f6feea5497682ee1b14f249b72b01c3",
+        "meta.json": "f51607cec7fc9fd04243f2d0739c5739d6d04193ce635138118261d9ce61d6c7"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

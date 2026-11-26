@@ -1,0 +1,79 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-smash-up-red-four-live-sparse946-actual-two-hand-blocks-keep-real-arsenal-and-hero-unchanged",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-smash-up-red-four-live-sparse946-actual-two-hand-blocks-keep-real-arsenal-and-hero-unchanged",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse946-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse946-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "1ec41bfd606372d8914d247ad5493b9a8d8e184667181197ee2fb335ad903f5b",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "fa69e16d3fe6b6de5cc3d7b1632e4c5cf0e8bf5f703fe017a81d4a778e017052",
+        "actions.json": "a44e24b9f9b348ce659c847e7dbea1e0cd33c5233e8ac4933f9391118d55ee4b",
+        "assertions.json": "f078ef615c1ecdf0389e312c046413e8f92101b66900e8b78429cbc14aae0830",
+        "expected_final_gamestate.txt": "d7b0b0741609e4890a8db9b063610f8e64141e03dc61b4ba6bf6073c220cfbfd",
+        "meta.json": "62e29f379343fec8719b0205b5422ee247bee94f469807236d6f7f3bb971026b"
+      }
+    },
+    {
+      "slug": "card-fact-finding-mission-red-four-live-sparse946-actual-two-hand-blocks-keep-real-arsenal-and-hero-unchanged",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-fact-finding-mission-red-four-live-sparse946-actual-two-hand-blocks-keep-real-arsenal-and-hero-unchanged",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse946-local-20261122\\clean-replays\\01.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse946-local-20261122\\clean-replays\\01.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "2db5f0f46f3b6e02f7f72e64fd2b93bcb89694099b4552f38f3ded1b30ac801d",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "7cbcd4549dd01069fce6d563d87c98fb9fc1a5288836c9304238b6c1a84c0e12",
+        "actions.json": "a44e24b9f9b348ce659c847e7dbea1e0cd33c5233e8ac4933f9391118d55ee4b",
+        "assertions.json": "50af9b779aa580eadc637094f02a251294ec0a37884d8c791fbe3746acc46028",
+        "expected_final_gamestate.txt": "64a1dc3c4bcfbfc664d4dfda4e0027624d3f714692ade8d678e059603c672931",
+        "meta.json": "791139784f23bea7d2911c1990b6304296c8f8dfdfc2b77a2c127076bb13dcb8"
+      }
+    },
+    {
+      "slug": "card-pursue-to-the-pits-of-despair-red-four-live-sparse946-actual-two-hand-blocks-keep-real-arsenal-and-hero-unchanged",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-pursue-to-the-pits-of-despair-red-four-live-sparse946-actual-two-hand-blocks-keep-real-arsenal-and-hero-unchanged",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse946-local-20261122\\clean-replays\\02.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse946-local-20261122\\clean-replays\\02.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "8e5799c1bb9736b45f96428e10ee5acbe9cf5e74ff5c3dbc7f6e9ce88a943062",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "6d5689266a0827a980cf0a091f6d4cc937f3e6ce3b20b2cee5acc8e58751c09d",
+        "actions.json": "a44e24b9f9b348ce659c847e7dbea1e0cd33c5233e8ac4933f9391118d55ee4b",
+        "assertions.json": "4d9479e40004661b1b31150334ba0b2b0987500834b47903febc22ec1d7acc44",
+        "expected_final_gamestate.txt": "375438e9109a00a1d84dfd27eb6ffc20331cc913772eb170a4d45366ed7192b5",
+        "meta.json": "d8431c954d0ad4696c24de39cf20d79f9d98f5db0425bb673061f5be911b2d5b"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

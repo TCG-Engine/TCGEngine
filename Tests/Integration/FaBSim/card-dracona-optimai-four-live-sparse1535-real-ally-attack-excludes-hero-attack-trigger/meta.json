@@ -1,0 +1,7 @@
+{
+    "name": "Dracona Optimai / actual Ally attack excludes Hero-attack reward with real Red deck and opposing assets",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-25T11:57:27+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "LegalDromai20/Storm5/priorInvokeddracona_optimai6canonicalfront/Ashrepresentation. ActualDragonAction0formallytargetsAshwing10Ally/AP0/tap6/proxy13power6/noGA. Hero-attackeventnotearned, so no separateHero-attacklayer/reward; actualDeckRed7/8/9, victimHandBlue11/readyHelmet12retained. Actual6physicalkillsTokenAllyonly/allHero20; no Phantasmdefense/RedDromaitriggers. Fourmanualfullcloseprimary6Arenaused/Storm5ready/Deck3/Hand4one/Equipment4one/UID13/APR0/StackDQclean. OnlyHero-attackconditionexclusion, notpositivepayload/reveal/producer/siblingcoverage. Noenginechange. Sources: FaBSim/GeneratedCode/cardArrayCache.json#dracona_optimai FaBSim/Custom/UPRCards.php#FaBUPRInvoke FaBSim/Custom/MONAbilities.php#FaBMONArenaAttackSpec FaBSim/GeneratedCode/GeneratedMacroCode.php#dracona_optimai:0:AttackDeclared FaBSim/Custom/GameLogic.php#FaBFaiHeroAttack"
+}

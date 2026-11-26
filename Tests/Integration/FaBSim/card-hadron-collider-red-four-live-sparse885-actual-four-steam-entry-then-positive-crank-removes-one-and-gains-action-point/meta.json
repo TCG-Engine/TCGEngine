@@ -1,0 +1,7 @@
+{
+    "name": "Hadron Collider / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T16:34:04+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "**Crank**\n\nThis enters the arena with 4 steam counters. At the start of your turn, destroy this unless you remove a steam counter from it.\n\nWhen you **boost** an attack, destroy this. If you do, the attack gets +X{p}, where X is the number of steam counters on this. Representative only: actual_four_steam_entry_then_positive_crank_removes_one_and_gains_action_point. Other pitch siblings, alternate targets and unexercised branches receive no credit. All four live/manual; only native entry-point actions. Sources: FaBSim/GeneratedCode/cardArrayCache.json#hadron_collider_red"
+}

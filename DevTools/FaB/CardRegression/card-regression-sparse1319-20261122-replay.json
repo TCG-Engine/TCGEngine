@@ -1,0 +1,79 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-art-of-the-dragon-claw-red-four-live-sparse1319-non-draconic-hero-hit-does-not-destroy-real-arsenal",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-art-of-the-dragon-claw-red-four-live-sparse1319-non-draconic-hero-hit-does-not-destroy-real-arsenal",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1319-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1319-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "41af2c7402c5780fca5932458b9a8a32c54dd0a57400a7898f7949d2043206cd",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "6a5d3936c1d3f6d9f91ec7466eb1e44c257083ed9ee9ba94f66e2058a84ef8df",
+        "actions.json": "25920dc16af50701b0be20453cc3345d5c14a09166881d7481930bfb87552093",
+        "assertions.json": "88a36451ea1111aacf913e16363f89d06f366effc3ad7a54a6ee1f27d012a511",
+        "expected_final_gamestate.txt": "e92e82796dab51a1092073ee25ee9858625caf65f419cbace39db00c7bfd7f40",
+        "meta.json": "72eb7838a381fe1dae9bb31bcdbe0214d8b6ec5f95b658c670e7373e09fbca38"
+      }
+    },
+    {
+      "slug": "card-art-of-the-dragon-scale-red-four-live-sparse1319-non-draconic-hero-hit-does-not-debuff-or-destroy-zero-defense-equipment",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-art-of-the-dragon-scale-red-four-live-sparse1319-non-draconic-hero-hit-does-not-debuff-or-destroy-zero-defense-equipment",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1319-local-20261122\\clean-replays\\01.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1319-local-20261122\\clean-replays\\01.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "c9f525cf8e88fd6c6f8e4e2ac7d0eb207a1fe0b9eee953eaee9e7a0a195363ad",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "c3922881f761c5367d50e0025cfb2e9efbf872e35935ef2189e580aca118c6fb",
+        "actions.json": "25920dc16af50701b0be20453cc3345d5c14a09166881d7481930bfb87552093",
+        "assertions.json": "270164930b8b0d7275c614a1bff63fb24cdf3741324a6ea33998387feae2aeda",
+        "expected_final_gamestate.txt": "bcebe2a28810d35afddb93615ee6b4ea75787d01d2bd13c4d101252b58b06d9a",
+        "meta.json": "82428a7c45a92be08e97651e6e8f7f80ebef43d983f316a56e268b05ec95686f"
+      }
+    },
+    {
+      "slug": "card-dragon-power-red-four-live-sparse1319-non-draconic-attack-does-not-gain-three-power-despite-draconic-hero",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-dragon-power-red-four-live-sparse1319-non-draconic-attack-does-not-gain-three-power-despite-draconic-hero",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1319-local-20261122\\clean-replays\\02.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1319-local-20261122\\clean-replays\\02.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "4e11191764d40f206548a25bdc4d536482449742136b0bcc0b8b602459b1751f",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "fe9ac160d08e7ef84ea020460e4eb1ea3680c573c426ef3321a554ec0f7d145c",
+        "actions.json": "25920dc16af50701b0be20453cc3345d5c14a09166881d7481930bfb87552093",
+        "assertions.json": "8c79aad47efe08c6f688f04ca73b60892b465548ca4a112f7178bc32c2fb91d9",
+        "expected_final_gamestate.txt": "18835c9943c374852f05c00750d855eab926310c1e59b68003962dfe6750b5af",
+        "meta.json": "17dfdf291e3d79aeaf3474c0e2ef70b83f32b224e44b8f8201b3b9ee63f76c5b"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

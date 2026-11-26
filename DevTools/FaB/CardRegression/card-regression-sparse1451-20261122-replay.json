@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-submerge-red-four-live-sparse1451-arsenal-source-real-additional-hand-card-fifth-deck-cost-before-priority-six-damage",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-submerge-red-four-live-sparse1451-arsenal-source-real-additional-hand-card-fifth-deck-cost-before-priority-six-damage",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1451-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1451-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "e543938bc499eceb3762401e6d1ea7ea73e9d5fd8e0e942fc77d52902c588d6a",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "c611d87dbf9f43fd88d06bfc1d105b01a888f861d39bb1729dd0f6275c43282d",
+        "actions.json": "27972d29d0f2a8d579029a99843e6aa62b855e50778965e846e43bdd2a3b411a",
+        "assertions.json": "45d82ff79bd268a844262ccbae03b87ace0cef75d1880b533d2984832c1efbba",
+        "expected_final_gamestate.txt": "64ec3a36fcf099c2ca26f61599f8d34a481faf1f231bb5607d16d3a8cdbf887b",
+        "meta.json": "a71ab889f3040a8f3dd69d6fc5c3a2b69a6a77e81f258ac7a9b028380ebe9a7a"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

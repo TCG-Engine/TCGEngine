@@ -1,0 +1,125 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-swing-big-red-four-live-sparse1292-real-hit-prevents-miss-quicken-gift",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-swing-big-red-four-live-sparse1292-real-hit-prevents-miss-quicken-gift",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1292-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1292-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "21fcb318bfb7a15776fd4e922a145f03b79876f67a6fad7ee70f07d34e27e636",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "f2f252010fd93bd32366f7dc17070de0b0e813167ed510aaff76b3a60e01cb54",
+        "actions.json": "25920dc16af50701b0be20453cc3345d5c14a09166881d7481930bfb87552093",
+        "assertions.json": "b961451ae97512153fc0fbccfd9635e87643fcc530df8f1ec6d36d92d8ffc8b7",
+        "expected_final_gamestate.txt": "64612e1a308371e29ea5b046cf9ec85dceff2ee28e8cfb0804deecb995f75e30",
+        "meta.json": "7c30fd4992df3f73900a4dd86068c7df4e551367f06de1912e0b08d3cae2836c"
+      }
+    },
+    {
+      "slug": "card-give-em-a-piece-of-your-mind-red-four-live-sparse1292-real-hit-prevents-miss-vigor-gift",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-give-em-a-piece-of-your-mind-red-four-live-sparse1292-real-hit-prevents-miss-vigor-gift",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1292-local-20261122\\clean-replays\\01.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1292-local-20261122\\clean-replays\\01.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "59ce85d3416f2679a45d9335c2485677817ebfa18def36f807b5c8b382268c7e",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "8edb9ef673cf620c4d295fd3eb2599231e1e1b12f719cb3b6d6ec7956e6d5342",
+        "actions.json": "25920dc16af50701b0be20453cc3345d5c14a09166881d7481930bfb87552093",
+        "assertions.json": "ffec3a352e99f446c2baeabfb197b2f25d9bb5702329a57db2239d2f2122b246",
+        "expected_final_gamestate.txt": "af129ca3cf2b6ed81844150845402ee463f85002c7caa7f5a0eab729dea03d08",
+        "meta.json": "4157751c9b9ee162bc51bbbf6ef9265599ed498c150f78ad6cdb607eb136edd4"
+      }
+    },
+    {
+      "slug": "card-shoot-your-mouth-off-red-four-live-sparse1292-real-hit-prevents-miss-confidence-gift",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-shoot-your-mouth-off-red-four-live-sparse1292-real-hit-prevents-miss-confidence-gift",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1292-local-20261122\\clean-replays\\02.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1292-local-20261122\\clean-replays\\02.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "8ce347ad7d177f7c18bbd63593518d43b0d77cfff11cb456ed1761b4c994c886",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "8ef9b56cba1fcafdaa8da74d964c96552687c48e45570b4cdabb782bad6da991",
+        "actions.json": "25920dc16af50701b0be20453cc3345d5c14a09166881d7481930bfb87552093",
+        "assertions.json": "a493e6cc84f44ad747c1bfc220d32ad1dc6dea425b2a4ba1ae2abf66f1a42347",
+        "expected_final_gamestate.txt": "f8cd78a06ec64db31c074ddc97d25f052bd4fef3b458f9aa717d94e8c0a2b3b9",
+        "meta.json": "0449a30e35bf76a979458ceb0978a8e9c3ae35169d5b3768ae5018b20a788954"
+      }
+    },
+    {
+      "slug": "card-take-that-red-four-live-sparse1292-real-hit-prevents-miss-might-gift",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-take-that-red-four-live-sparse1292-real-hit-prevents-miss-might-gift",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1292-local-20261122\\clean-replays\\03.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1292-local-20261122\\clean-replays\\03.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "3531945de8f2b8680c8b7f8df6d245d7269a5568c85189a673e78e316a445ebf",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "a45cc959f39ba0455137288d57184aa04796b1d2369ce9690d15b173c6c60afa",
+        "actions.json": "71f0d0f07cf85244a3ec27fdb1f824cd62aa3126d639c98c13ca23327907bd8b",
+        "assertions.json": "200d76087eabae3000f5b3fba33d627702e7f0b060b1538d6aef8b76b5167c5e",
+        "expected_final_gamestate.txt": "b590c3f0c2004d2ebb0d1cf4ddf8f84735d84f69b424709f245de218cc5cfc6c",
+        "meta.json": "99bc8d7d46aef8a72e50f3823849d29710b24a9ee1de68ae5c6f404acc893ea3"
+      }
+    },
+    {
+      "slug": "card-whos-the-tough-guy-red-four-live-sparse1292-real-hit-prevents-miss-toughness-gift",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-whos-the-tough-guy-red-four-live-sparse1292-real-hit-prevents-miss-toughness-gift",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1292-local-20261122\\clean-replays\\04.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1292-local-20261122\\clean-replays\\04.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "d2cc56fc762126d9dbd3b6621afa33bcd29a538c6972c90b745219d36755ea05",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "3a37122877ee96be00357aab8e2496a2d9be0fa8a4d62d2c85c49f70c04d0bfc",
+        "actions.json": "25920dc16af50701b0be20453cc3345d5c14a09166881d7481930bfb87552093",
+        "assertions.json": "55858fcd545b0dc1b1c51af33408cff94abb287e04341e47729efaea3d9cbf2c",
+        "expected_final_gamestate.txt": "41e6fb8bfabadff2f056931087523066009ace9264ce449971cbdacf0b0bfc48",
+        "meta.json": "13d9bf3434dd61cc587fd14db7b5805807e5a2b10cbadbaa6f71db805aea28a0"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

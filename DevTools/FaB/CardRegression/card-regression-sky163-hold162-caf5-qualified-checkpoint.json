@@ -1,0 +1,97 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-16T20:59:29.415367+00:00",
+  "runtime_sha256": "caf5b80cc699e255920cd0c904e2589e4bc5ba01122af79e77cba38ff9855b8c",
+  "source_spec": "card-regression-repair-sky163-hold162-bounded.json",
+  "source_spec_sha256": "53d1070b35a2037baea4edde069986e749b81f53d67d20ac9ee3608212ca6ece",
+  "new_scenarios": 2,
+  "new_groups": 2,
+  "new_primary_ids": 2,
+  "actions": 12,
+  "native_assertions": 1470,
+  "manual_passes": 8,
+  "totals": {
+    "saved_registered_scenarios": 4126,
+    "duels": 3074,
+    "four_live": 1052,
+    "recorded_primary_ids": 1279,
+    "identity_denominator": 5196,
+    "recorded_groups": 1153,
+    "group_denominator": 3324,
+    "four_live_groups": 1045,
+    "phase_qualified_scenarios_at_actual_contexts": 763,
+    "phase_qualified_unique_groups": 758,
+    "creation_replay_passes": 1504,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 2,
+  "scenarios": [
+    {
+      "card_id": "sky_skimmer_blue",
+      "group_id": "pitch-cycle:sky_skimmer",
+      "scenario_id": "diagnostic-sky-skimmer-blue-four-live-normal-play-no-illegal-cog-cost",
+      "effect_branches": [
+        "diagnostic-sky-skimmer-blue-four-live-normal-play-no-illegal-cog-cost"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/diagnostic-sky-skimmer-blue-four-live-normal-play-no-illegal-cog-cost",
+      "source_spec": "card-regression-repair-sky163-hold162-bounded.json",
+      "source_spec_sha256": "53d1070b35a2037baea4edde069986e749b81f53d67d20ac9ee3608212ca6ece",
+      "review_evidence": "review-evidence/sky163-hold162-caf5-qualified-saved.json",
+      "review_evidence_sha256": "5fb29394e542daf9ceb2df70aef3dda13fff0b8aef1e59e77d72d68798d44530",
+      "recorded_runtime_sha256": "caf5b80cc699e255920cd0c904e2589e4bc5ba01122af79e77cba38ff9855b8c",
+      "qualification_runtime_sha256": "caf5b80cc699e255920cd0c904e2589e4bc5ba01122af79e77cba38ff9855b8c",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-replay-nov16-sky163-hold162-replay.json",
+          "sha256": "63768c1399907a3572be46d0956d6821fd36aaed152ef336d7a99aa579bd943b",
+          "runtime_sha256": "caf5b80cc699e255920cd0c904e2589e4bc5ba01122af79e77cba38ff9855b8c",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "hold_firm",
+      "group_id": "identity:hold_firm",
+      "scenario_id": "diagnostic-hold-firm-four-live-original-three-resource-cost-and-three-toughness",
+      "effect_branches": [
+        "diagnostic-hold-firm-four-live-original-three-resource-cost-and-three-toughness"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/diagnostic-hold-firm-four-live-original-three-resource-cost-and-three-toughness",
+      "source_spec": "card-regression-repair-sky163-hold162-bounded.json",
+      "source_spec_sha256": "53d1070b35a2037baea4edde069986e749b81f53d67d20ac9ee3608212ca6ece",
+      "review_evidence": "review-evidence/sky163-hold162-caf5-qualified-saved.json",
+      "review_evidence_sha256": "5fb29394e542daf9ceb2df70aef3dda13fff0b8aef1e59e77d72d68798d44530",
+      "recorded_runtime_sha256": "caf5b80cc699e255920cd0c904e2589e4bc5ba01122af79e77cba38ff9855b8c",
+      "qualification_runtime_sha256": "caf5b80cc699e255920cd0c904e2589e4bc5ba01122af79e77cba38ff9855b8c",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-replay-nov16-sky163-hold162-replay.json",
+          "sha256": "63768c1399907a3572be46d0956d6821fd36aaed152ef336d7a99aa579bd943b",
+          "runtime_sha256": "caf5b80cc699e255920cd0c904e2589e4bc5ba01122af79e77cba38ff9855b8c",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

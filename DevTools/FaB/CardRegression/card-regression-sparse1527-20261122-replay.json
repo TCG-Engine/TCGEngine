@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-arcanic-reproach-blue-four-live-sparse1527-earned-first-damage-layer-with-no-lightning-card-to-reveal",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-arcanic-reproach-blue-four-live-sparse1527-earned-first-damage-layer-with-no-lightning-card-to-reveal",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1527-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1527-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "860136f0e5e128f1f290f149d872dce505990e7e4a32acaef64312f5810b9a35",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "fcad5b40838048b85f8b2eb34bb6ab37fd1c64653ef87025d9f77b15ab5637d1",
+        "actions.json": "59f6ec8f58b5db7e3ba459dcd6522428bfb3fa81214520752dbf6af86f25f7af",
+        "assertions.json": "58e545470f5528e94fbdb6337216b7dd0bbf6dea7507c0785d7fc287a63140bb",
+        "expected_final_gamestate.txt": "89e13bce33ed61c8ae3c037a06568354a6267a21730f552672f6074ff3371243",
+        "meta.json": "b48ebbef242fa77edfab18df969a1ab8f30467e20b219ffec8bbccf1c1eaa0d0"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

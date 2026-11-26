@@ -1,0 +1,7 @@
+{
+    "name": "Fatigue Shot / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T23:23:34+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "When this hits a hero, the base {p} of the first attack action card they play during their next turn is halved, rounded up. Named main/full-block representative: actual Lexi20 ElementalRanger with owned controlled Shiver7(or6zeroCost), source5 facedownArsenal/Counters[] initially, no Bow/Hero activation. Actual cost0or1/physicalBlue6ifpositive/R2/AP0; exact2+2def4or3+2def5 realHand cards, actual0damage/noHit/Stack0/all4manual. No Hit event is earned; positive next-turn damage/cost/action/ability/dominate restrictions remain untested. Remorseless source starts facedown, never put into Arsenal faceup, so that entry event is absent. Physical source and both defenders ownedGY. Salvage keeps real ownDeckmarker10 and source5GY instead of bottom. No equipment-defend Piercing, positive Aim/hit/tokens/ownership/future abilities or pitch sibling credit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#fatigue_shot_red"
+}

@@ -1,0 +1,327 @@
+{
+  "status": "APPROVED_ACTUAL_SAVED_B585_PUFFER_ONLY_ENTRY_REPLACEMENT",
+  "approved": true,
+  "source_approved": true,
+  "semantically_approved": true,
+  "reviewer": "/root/b106_semantic_review",
+  "reviewer_independent": true,
+  "created_utc": "2026-11-06T07:15:33.778701+00:00",
+  "source_spec": "card-regression-batch585-puffer-only.json",
+  "input_sha256": "582b6469008c52d29f9fce852de1bede851d1e1d4a4a185db7a907ba23daa4ee",
+  "manifest_sha256": "9ebbe44192d050b28ad8d4b344863844dca2aaaf868b56b93627d351cef2d17b",
+  "runtime_sha256": "9fbaaee63ccedad1dc7cad440f09376d21106a761ce61bad719156bdd7d20709",
+  "recorded_runtime_sha256": "9fbaaee63ccedad1dc7cad440f09376d21106a761ce61bad719156bdd7d20709",
+  "source_guards_verified": 71,
+  "prior_independent_semantic_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch585-independent-source-review.json",
+    "sha256": "57c6c45740146aa52e537316784cf70f29736b98f7a1a7e8ab5570077a614dfc",
+    "unchanged_normative_source_reused": true
+  },
+  "exact_subset_lineage": {
+    "original_input": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch585-weapon-defense-and-driver-entry-author\\batch585-blade-beckoner-helm-and-puffer-jacket-two-real-equipment-static-groups.json",
+    "original_input_sha256": "78ec02788fd906637d8cbc8060f15b74bc8ac76239fb1af1597f52ab5a149421",
+    "original_manifest_sha256": "02bb62553195f1ff3736ec3ed3e879475f9bc3adfd1906404237e851e07e6d51",
+    "original_index": 1,
+    "all_selected_JSON_leaves_identical": true,
+    "selected_serialized_object_sha256": "66451f7d0f78d15058eab94088c9e13b5e3528a3356287c1738a3fe47a7b16b2",
+    "selected_object_bytes_identical": true,
+    "full_original_CRLF_inverse": true,
+    "whole_input_byteidentical": false
+  },
+  "recording_receipt": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch585-puffer-only-20261106T071306Z-6aed7e02bfafd.json",
+    "sha256": "498dfd7213a58773b49f9e178486841ff7f898aab6afa074a235a7209b474eb5"
+  },
+  "specific_results": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch585-puffer-only.recording-results.json",
+    "sha256": "f49a959dda77e3ddbd92cdf895b30e39715587a9c5b2d63c70486a3fc9a60a4f"
+  },
+  "root_wrapper_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch585-puffer-native-r1-9fbaa\\receipt.json",
+    "sha256": "59d07a335dd2acd2584efce586aaf9f2d8c875eca0d3f86f75530f41f43d34fe"
+  },
+  "fixtures": [
+    {
+      "index": 0,
+      "card_id": "puffer_jacket",
+      "group_id": "identity:puffer_jacket",
+      "slug": "card-puffer-jacket-four-live-real-paid-nontoken-hyper-driver-enters-with-four-steam",
+      "source_spec": "card-regression-batch585-puffer-only.json",
+      "input_sha256": "582b6469008c52d29f9fce852de1bede851d1e1d4a4a185db7a907ba23daa4ee",
+      "reviewer": "/root/b106_semantic_review",
+      "approved": true,
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_REAL_NONTOKEN_DRIVER_ENTRY_ADDITIONAL_STEAM",
+      "runtime_sha256": "9fbaaee63ccedad1dc7cad440f09376d21106a761ce61bad719156bdd7d20709",
+      "recorded_runtime_sha256": "9fbaaee63ccedad1dc7cad440f09376d21106a761ce61bad719156bdd7d20709",
+      "fixture_path": "Tests\\Integration\\FaBSim\\card-puffer-jacket-four-live-real-paid-nontoken-hyper-driver-enters-with-four-steam",
+      "fixture_sha256": "1d0c2fbb928c616701e22843605bddf348505802695bf77e9915b1dcfca64054",
+      "raw4_sha256": {
+        "initial_gamestate.txt": "2909e82b4b41a927141eab1a061e0c3cdf8719e111e793c39ae40026207248e9",
+        "actions.json": "c9e30c252fa7ee7dec5f8a364eea8e728c688845dd8df7f54427b2bc62c71d2d",
+        "assertions.json": "e3419a2cd3a2242c2085952a4c83d1d8b4295541aa53124d05ee14cae846a24e",
+        "expected_final_gamestate.txt": "667d5b65cdb558a4d39d32b2b1dacb8c190f9af6895a7ecea5f2ced99d1950a2"
+      },
+      "raw5_sha256": {
+        "initial_gamestate.txt": "2909e82b4b41a927141eab1a061e0c3cdf8719e111e793c39ae40026207248e9",
+        "actions.json": "c9e30c252fa7ee7dec5f8a364eea8e728c688845dd8df7f54427b2bc62c71d2d",
+        "assertions.json": "e3419a2cd3a2242c2085952a4c83d1d8b4295541aa53124d05ee14cae846a24e",
+        "expected_final_gamestate.txt": "667d5b65cdb558a4d39d32b2b1dacb8c190f9af6895a7ecea5f2ced99d1950a2",
+        "meta.json": "93b3bd8f7affa10db03ffe562481962489e92e15f7b6e79b4c283ec673223493"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "2909e82b4b41a927141eab1a061e0c3cdf8719e111e793c39ae40026207248e9",
+        "actions.json": "c9e30c252fa7ee7dec5f8a364eea8e728c688845dd8df7f54427b2bc62c71d2d",
+        "assertions.json": "e3419a2cd3a2242c2085952a4c83d1d8b4295541aa53124d05ee14cae846a24e",
+        "expected_final_gamestate.txt": "667d5b65cdb558a4d39d32b2b1dacb8c190f9af6895a7ecea5f2ced99d1950a2",
+        "meta.json": "93b3bd8f7affa10db03ffe562481962489e92e15f7b6e79b4c283ec673223493"
+      },
+      "actions": 6,
+      "native_assertions": 742,
+      "actual_manual_passes": 4,
+      "actual_priority_response_passes": 4,
+      "actual_defender_declaration_finish_inputs": 0,
+      "actual_administrative_END_PHASE_passes": 0,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "actual_manual_actor_counts": {
+        "1": 1,
+        "2": 1,
+        "3": 1,
+        "4": 1
+      },
+      "schema_property_assertions": 209,
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "all_actions_and_assertions_exact": true,
+      "no_recorder_only_assertions": true,
+      "all_endpoint_physical_uid_card_zones_ownership_verified": true,
+      "all_terminal_assertions_evaluated_against_parsed_final_snapshot": true,
+      "initial_assertions_also_evaluated_against_parsed_initial_snapshot": true,
+      "initial_physical_uid_locations": {
+        "1": {
+          "card_id": "dash",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "6": {
+          "card_id": "hyper_driver_red",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "puffer_jacket",
+          "zone": "p1Equipment",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2
+        }
+      },
+      "final_physical_uid_locations": {
+        "1": {
+          "card_id": "dash",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "5": {
+          "card_id": "puffer_jacket",
+          "zone": "p1Equipment",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "hyper_driver_red",
+          "zone": "p1Arena",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Pitch",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2
+        }
+      },
+      "final_health": [
+        20,
+        20,
+        20,
+        20
+      ],
+      "final_resources": [
+        2,
+        0,
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_Arena1_exact_UIDs": [
+        6
+      ],
+      "final_Pitch1_exact_UIDs": [
+        7
+      ],
+      "final_Equipment1_exact_UIDs": [
+        5
+      ],
+      "actual_Driver6_Counters": {
+        "FAB_PLAY_ORDER": 1,
+        "STEAM": 4
+      },
+      "actual_Driver6_Status": 2,
+      "actual_Driver6_Damage": 0,
+      "printed_steam": 3,
+      "primary_additional_steam": 1,
+      "actual_total_steam": 4,
+      "actual_earned_entry_boundary": 6,
+      "no_new_object_or_trigger_allocation": true,
+      "final_physical_uidset": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "final_UniqueIDCounter": 7,
+      "RandomCounter": 0,
+      "Temper_earned": false,
+      "full_card_certification": false,
+      "checkpoint_assertion_mapping_sha256": "60afc6a528dbbc96200a411f228847ca9d5fa029e8ed4fa95eea079c9227c0e3",
+      "native_action_mapping_sha256": "b2490aec25cba8e564ad7e38bd669fd7d50735f1ef493f9036c15ddece01d92e",
+      "native_assertion_mapping_sha256": "7f4e055dcd6db9bae33e365a3cd9921a24206d070d5801b4dd5745900df07f2b"
+    }
+  ],
+  "blocked_attempts": [],
+  "total_actions": 6,
+  "total_native_assertions": 742,
+  "total_manual_passes": 4,
+  "total_priority_response_passes": 4,
+  "total_defender_declaration_finish_inputs": 0,
+  "total_schema_property_assertions": 209,
+  "material_findings": [
+    "Actual native COMPLETE0/stderr0/one newfixture at unchanged9fbaa. All6 nativeenvelopes/742 orderedpersisted assertions equal the independently source-approved Puffer-only model. Four actualmanual responders1/2/3/4,71currentguards and48rawmanualpreferences perendpoint verified.",
+    "Actual Driver6Handplay opens printed1cost atR0/AP1. RealBlue7 normalpitch generates3 andpays1+Action1 beforefour source responses, leavingR2/AP0. SameDriver6 remainsStack andArenaempty throughfirstthree; onlyfourth moves actualsame6ownedreadyArena/Damage0/CountersFAB1+STEAM4. No initialSteam/item/history/permission or assetseed, no manufacturedtoken/triggerUID.",
+    "The extraSteam is passive entry replacement, not WHEN. Actual four counters preserve printed3 plus onePuffer, with realFAB_PLAY_ORDER1. No boost/zeroSteam/Crank/Temper effect earned; no resourcegeneration/driverproducer/fullcard certification. Jacket5wholeproperties and allfourwholeHeroobjects remainunchanged.",
+    "Complete currentphysicalUID1..7/owner-controller/zones, source6Arena/Blue7Pitch/Puffer5Equipment, counter7/RNG0/allHP20/R2/AP0 and DQ/Stack/Chain/ownedawait/payment/combatcleanup independently verified. OpaqueundoVersions file-hash-bound but excluded from currentinventory. Exactunchanged originalcase1 subset lineage retained; Helm is excluded/unattemptedknown131 dependency, no sibling nativecredit. Root focusedreplay gates remain separate/unclaimed."
+  ],
+  "primary_sources": [
+    {
+      "kind": "issuer_faces",
+      "actually_viewed": true,
+      "faces": {
+        "puffer_jacket": {
+          "path": "FaBSim/WebpImages/puffer_jacket.webp",
+          "sha256": "b0eea8500a3100eca6bbd5994b6fba7592ffb7d463419e3836629aa7554e0a20",
+          "current_catalog_text": "Non-token Hyper Drivers you control enter the arena with an additional steam counter.\nTemper"
+        },
+        "hyper_driver_red": {
+          "path": "FaBSim/WebpImages/hyper_driver_red.webp",
+          "sha256": "87b4373f474c5408103eabb4eeb9a617d1e4836dab1d2c8ae2ef4558d2c7cab1",
+          "current_catalog_text": "This enters the arena with 3 steam counters. When this has none, destroy it.\nOnce per turn, when you boost a card, remove a steam counter from this and gain {r}."
+        }
+      }
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/06-effects/",
+      "rules": [
+        "6.4.8"
+      ],
+      "finding": "Entry-counter identity replacement; actual HyperDriver is the currentrule example."
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/08-keywords/",
+      "rules": [
+        "8.3.10"
+      ],
+      "finding": "PufferTemper requires defending/close and is unearned here."
+    }
+  ],
+  "excluded_prior_planning_only_Helm": {
+    "card_id": "blade_beckoner_helm",
+    "planning_review": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch585-helm-independent-planning-limit-review.json",
+    "known_dependency": "FAB-REG-131",
+    "native_executed": false,
+    "fixture_saved": false,
+    "coverage_credit": false,
+    "strict_two_counters_preserved": true,
+    "planning_review_sha256": "de3137279963824fefa7857fb3f5f779b2ebe5efbebd51d30d9ae75ad5d99b6f"
+  },
+  "limits": [
+    "Only actualpaid non-tokenRedDriver entry3+1=4 branch. No token-exclusion/otherdriver/extraPuffer/Boost/resourcegeneration/zeroSteam/destruction/Maxx/startingItem/Hero/support/sibling/fullcard credit. PufferTemperunearned.",
+    "OriginalHelmcase remains excluded and unattemptedknown131 dependency; original strictGuardwell2 preserved, no Helmfixture/bug/coverage/fix credit.",
+    "Persisted orderedledger plus rawinitial/final only, no invented per-input snapshots/privatecallbackinstrumentation. No reviewer PHP/native/replay/R/source/fullsuite/remote/denied action."
+  ],
+  "blockers": [],
+  "actual_comparison_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov6_batch585_puffer_saved_readonly.py",
+    "sha256": "3e7f6f25db453288ed282f66b90a90e17876a33470e5766a67535ec793ab50ad"
+  },
+  "retained_independent_static_checker": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov6_batch585_puffer_source_readonly.py",
+    "sha256": "a5239298d3d82f39396034e6fc997f428582fd5418966200c8f5226088d3938c",
+    "portion": "Own declarative Puffer six-input schema/action/checkpoint ledger only; no source/rule/old131 re-audit or authorbuilder/game execution"
+  }
+}

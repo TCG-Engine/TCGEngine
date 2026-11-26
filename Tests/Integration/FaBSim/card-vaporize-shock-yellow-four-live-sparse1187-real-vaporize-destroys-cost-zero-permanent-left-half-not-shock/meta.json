@@ -1,0 +1,7 @@
+{
+    "name": "Vaporize // Shock / actual owned Aura destruction",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-23T15:08:32+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "LegalYoungBriar20EssenceEarth+LightningRuneblade/3Dori20manual. Priorownedrealcost0nonTokenAuramalefic_incantation_blue5Arena1, actualVaporizeShock6Hand. ActualPrepareMZMODAL0selectsVaporizeonlyLEFT_INSTANTbeforecost/responses, noShocktarget(noformalTargetinlefttext), printedcost0/R0/AP1unchanged. Fourmanualsource responseshold6and5; actualuntargetedresolutionMZMULTICHOOSE0|1|Arena5 choosesreal5. ARCANE_OPP0naturallyfreshmeansX0butrealcost0permanentlegal, actuallydestroyed; tokenmaximum0skipsonlyinapplicabletokenchooserAFTERpositivepermanentdestruction, notempty-effectfallback. SameplayerawaitUID6heldthroughchoice then5ownGY/6ownGY. Malefic5priorlegalVERSE1; InstantcarrierplaysnoAAsoMaleficonce-per-turnWHENnotearned; leavinghasnoownWHENbody. Nochild/noToken/maxUID6. AllHP20(noShock), AP1/R0/noRNG/Stack/DQs/material/shuffle. BriarAA-hit/second-NAAWHENnotearnedbecausecarrierisInstantandnoAttack. NoSigilbeginphase/producer/tokenuse/fullcard; noShock/both-halves/Xpositive/foreignowner/extraaura/secondaryprimarycredit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#vaporize_shock_yellow FaBSim/Custom/ROSCards.php FaBSim/Custom/ROSRuntime.php FaBSim/GeneratedCode/GeneratedMacroCode.php"
+}

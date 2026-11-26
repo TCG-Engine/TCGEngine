@@ -1,0 +1,243 @@
+{
+  "status": "APPROVED_ACTUAL_SAVED_B796_OVAL",
+  "phase": "SAVED",
+  "approved": true,
+  "saved_approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "/root/sand_saved_recovery",
+  "created_utc": "2026-11-14T22:01:01.127670+00:00",
+  "source_spec": "card-regression-batch796-bloodied_oval.json",
+  "input_sha256": "a8bca0608cf861fa0c2f04da2e7f5d8f7264f075a10fb2dda7af2245a5fb3e20",
+  "manifest_sha256": "63dd6f2905055c28ca9ff0775fdb3a585c0a027082493d5913ea20b2967b8cd3",
+  "runtime_sha256": "6695d68163d313f4f61cb20ad9122c7038e621a60c847909598150fe8da09d11",
+  "recorded_runtime_sha256": "6695d68163d313f4f61cb20ad9122c7038e621a60c847909598150fe8da09d11",
+  "recorder_sha256": "ab33a3250462d0453f71d38dd4138cb9fbc3d595d2586742e989a52251c9c4a9",
+  "manifest": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov14-batch796-oval-natural-kano-three-opponents-defense-three-author\\manifest.json",
+    "sha256": "63dd6f2905055c28ca9ff0775fdb3a585c0a027082493d5913ea20b2967b8cd3"
+  },
+  "prior_independent_source_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov14-batch796-oval-independent-correct-positive-source-review.json",
+    "sha256": "dee673701ba791a6265be9b57e196a75fef5b3128a624a1e155a459e551ba8ad"
+  },
+  "root_wrapper_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov14-b796-oval-native-correct-three-opponents\\receipt.json",
+    "sha256": "c6ce49aeec0e53854e68666b6d441574f3be640cca6c05b87382cc15457642c7"
+  },
+  "recording_receipt": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch796-bloodied_oval-20261114T215551Z-6af8d8e7aa284.json",
+    "sha256": "b5e69632f09e6cf7bf47e52d2970f0818b56d6c4fd123656fd4c6d8e511b71f7"
+  },
+  "specific_results": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch796-bloodied_oval.recording-results.json",
+    "sha256": "fe15d699e092bc2a5255a130e1246523fed6404777275ac7c30bca7df27887eb"
+  },
+  "fixtures": [
+    {
+      "slug": "card-oval-natural-kano-three-opponents-defense-three",
+      "card_id": "bloodied_oval",
+      "group_id": "identity:bloodied_oval",
+      "source_spec": "card-regression-batch796-bloodied_oval.json",
+      "input_sha256": "a8bca0608cf861fa0c2f04da2e7f5d8f7264f075a10fb2dda7af2245a5fb3e20",
+      "runtime_sha256": "6695d68163d313f4f61cb20ad9122c7038e621a60c847909598150fe8da09d11",
+      "recorded_runtime_sha256": "6695d68163d313f4f61cb20ad9122c7038e621a60c847909598150fe8da09d11",
+      "approved": true,
+      "semantically_approved": true,
+      "reviewer_independent": true,
+      "fixture_path": "Tests/Integration/FaBSim/card-oval-natural-kano-three-opponents-defense-three",
+      "fixture_sha256": "a78ea15b70cb266a024472b2965d599396cb83628749da66b2fd76144fd1cffe",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "7e4976853a1b5dea5404fe13ccf8068935ef352d236b9229a4227729cd70e067",
+        "actions.json": "509bcdea7fbc462f31160b22cad73dd3280882251ac65e0f9dee57fac574ee78",
+        "assertions.json": "19bbabccbc62d9a525cb30a54a6b1414ed84c30280d308dc3dfc6da5e85e83f9",
+        "expected_final_gamestate.txt": "d1f81dc77e1e9aae0b0331db0faa72bb1506d04b8e8b9c8be0c93bc62df98aea",
+        "meta.json": "cda7bb5ed77ca0c9fde745310b10464db1698ddff275fe4119d2a4ff3468b7ec"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "7e4976853a1b5dea5404fe13ccf8068935ef352d236b9229a4227729cd70e067",
+        "actions.json": "509bcdea7fbc462f31160b22cad73dd3280882251ac65e0f9dee57fac574ee78",
+        "assertions.json": "19bbabccbc62d9a525cb30a54a6b1414ed84c30280d308dc3dfc6da5e85e83f9",
+        "expected_final_gamestate.txt": "d1f81dc77e1e9aae0b0331db0faa72bb1506d04b8e8b9c8be0c93bc62df98aea",
+        "meta.json": "cda7bb5ed77ca0c9fde745310b10464db1698ddff275fe4119d2a4ff3468b7ec"
+      },
+      "raw4_sha256": {
+        "initial_gamestate.txt": "7e4976853a1b5dea5404fe13ccf8068935ef352d236b9229a4227729cd70e067",
+        "actions.json": "509bcdea7fbc462f31160b22cad73dd3280882251ac65e0f9dee57fac574ee78",
+        "assertions.json": "19bbabccbc62d9a525cb30a54a6b1414ed84c30280d308dc3dfc6da5e85e83f9",
+        "expected_final_gamestate.txt": "d1f81dc77e1e9aae0b0331db0faa72bb1506d04b8e8b9c8be0c93bc62df98aea"
+      },
+      "actions": 28,
+      "native_assertions": 1844,
+      "manual_passes": 25,
+      "actual_manual_passes": 25,
+      "actual_priority_response_passes": 24,
+      "actual_defender_declaration_finish_inputs": 1,
+      "actual_manual_actor_counts": {
+        "1": 6,
+        "2": 6,
+        "3": 6,
+        "4": 7
+      },
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4
+      ],
+      "schema_property_assertions": 471,
+      "checkpoint_count": 30,
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "endpoint_assertions_evaluated": {
+        "0": 126,
+        "28": 178
+      },
+      "all_actions_and_assertions_exact": true,
+      "all_terminal_assertions_evaluated_against_parsed_final_snapshot": true,
+      "initial_assertions_also_evaluated_against_parsed_initial_snapshot": true,
+      "initial_physical_uid_locations": {
+        "1": {
+          "card_id": "betsy",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "wounding_blow_red",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "betsy",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2
+        },
+        "3": {
+          "card_id": "betsy",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3
+        },
+        "4": {
+          "card_id": "kano",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4
+        },
+        "6": {
+          "card_id": "bloodied_oval",
+          "zone": "p4Equipment",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_physical_uid_locations": {
+        "1": {
+          "card_id": "betsy",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "wounding_blow_red",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "betsy",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2
+        },
+        "3": {
+          "card_id": "betsy",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3
+        },
+        "4": {
+          "card_id": "kano",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4
+        },
+        "6": {
+          "card_id": "bloodied_oval",
+          "zone": "p4Graveyard",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "native_action_mapping_sha256": "e5482a60d858e876286c1cdff4d188b6209ea09e21880ada18bde9f9969d6be9",
+      "native_assertion_mapping_sha256": "6b8a931c918d033cb08e423d34d62eef81827a6f15c806b20c7328c8eadd4629",
+      "checkpoint_assertion_mapping_sha256": "09410c040738d3bff85c0a62b333aabefb5e7d1027f5918248df5f0d1362252c",
+      "intermediate_equipment_CombatChain_UID_Role_directly_queried": false,
+      "full_card_certification": false
+    }
+  ],
+  "source_guard_count": 82,
+  "selected_support_guard_count": 10,
+  "all_current_guards_matched": true,
+  "total_actions": 28,
+  "total_native_assertions": 1844,
+  "total_manual_passes": 25,
+  "total_schema_property_assertions": 471,
+  "total_checkpoints": 30,
+  "total_endpoint_assertions_evaluated": 304,
+  "actual_initial_health": [
+    20,
+    20,
+    20,
+    15
+  ],
+  "actual_final_health": [
+    20,
+    20,
+    20,
+    14
+  ],
+  "material_findings": [
+    "Actual raw naturalKano15 and threeBetsy20 exist before the first query, with ownOval6 equipped. RealRed5 computes4 and sole native equipment block/formal finish yields actual1damage/HP4_14. Post-damage defense3 cache corroborates the actual life loss. Same ownedOval6GY4/Red5GY1, no counter/HP/defense seed.",
+    "Every actual native envelope/25 individual manual actors and ordered successful query matches exact Source. Raw endpoints independently confirm48 manual values EACH, all original physical owned identities and complete terminal Stack/chain/queues/targets/payment/manager/await cleanup.",
+    "Same equipment identity is bound at actual raw initial/final endpoints. Actual equipment click, separate formal finish, slot/GY/Arena transitions and physical damage/payment are verified. Intermediate equipment CombatChain UID/Role is not directly queried and is not certified as a direct observation."
+  ],
+  "intermediate_equipment_CombatChain_UID_Role_directly_queried": false,
+  "limits": [
+    "One bounded fixed positive only; no self/two-Crossers/comparison universe, dynamic life changes, other set/equipment, suppression/elimination/copy, full-card or Hero ability/crowd/draw/Gold/Seismic/Yoji111 credit.",
+    "No intermediate equipment Chain identity query claim; cached defense is post-HP corroboration, not sole oracle. Cost for Crossers is evidenced by actual one-Blue funding and resumption, not cached cost.",
+    "Root focused replays and registration remain separate. Reviewer ran no PHP/game/native/replay/fullsuite/R/source/Git/remote mutation/new-agent/B787 operation."
+  ],
+  "qualification_credit_before_registration": false,
+  "replays_executed_by_reviewer": false,
+  "B787_denied_operation_untouched": true,
+  "blockers": [],
+  "comparison_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov14_batch796_equipment_saved.py",
+    "sha256": "2207c9b5b015d12ca2212d7dc7b0c3bf0b8d3a24932d6ba2b0607ba401f0bacc"
+  }
+}

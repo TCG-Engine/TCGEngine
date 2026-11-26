@@ -1,0 +1,7 @@
+{
+    "name": "Construct Bank Breaker / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T15:42:26+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "If you have a wrench weapon equipped, **transform** it and 3 Hyper Drivers you control into Bank Breaker, then equip Bank Breaker.\n\n**Go again** Representative only: real_wrench_and_three_hyper_drivers_transform_into_equipped_bank_breaker. Other pitch siblings, alternate targets and unexercised branches receive no credit. All four live/manual; only native entry-point actions. Sources: FaBSim/GeneratedCode/cardArrayCache.json#construct_bank_breaker_yellow"
+}

@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-the-hand-that-pulls-the-strings-four-live-sparse1192-real-face-up-reaction-grants-first-contract-go-again-and-royal-power",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-the-hand-that-pulls-the-strings-four-live-sparse1192-real-face-up-reaction-grants-first-contract-go-again-and-royal-power",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1192-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1192-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "af94824d68f9105b50055d1fd6288152c0fcc046284944690b97dc865ab4743a",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "c41c46c22c1de33c6140205b5691c586e13a212747fd6ed50894a1f4ee65df5b",
+        "actions.json": "8c2bcdb0a9801f30e190935f4c6c1e7675f9a2b52f2280a5c65e7fd5ea341f74",
+        "assertions.json": "36ed33644324cc1369d2b664d5d490bb69f30519e25e1ab09cb99fd1faefd299",
+        "expected_final_gamestate.txt": "9dd0e5a89cb4b1296a6025119b3947188ffb765500b83ae83e5a215975c15e89",
+        "meta.json": "f87f6ceb35e578f4cd1592e7f1c7148737080a4ecad5aec5b176bfa212a3dfce"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

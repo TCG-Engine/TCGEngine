@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-tear-down-the-idols-red-four-live-sparse1488-non-revered-hero-no-intimidate-or-discard",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-tear-down-the-idols-red-four-live-sparse1488-non-revered-hero-no-intimidate-or-discard",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1488-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1488-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "eb25abf0f438a15c3fe0b61e69e01fb8e1adfe59ea2651ae470a40445f987f21",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "da695041798b816520100a9b5d71b6f53e97f0f2ffa4718ecf03a73cfcb322bb",
+        "actions.json": "25920dc16af50701b0be20453cc3345d5c14a09166881d7481930bfb87552093",
+        "assertions.json": "4beffe8f1e219db044b08d93d46bac7f6edc9c5399773470d1b2aa7cb231c676",
+        "expected_final_gamestate.txt": "a565349cbff3f75360a87777276c77e38c7a0b6dda55a6d0fb06ef35704959e5",
+        "meta.json": "66ed2f6a3ac7f5bf8834d7a4f5b6ea0ac64549034ab47e08f922d710f757fd30"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

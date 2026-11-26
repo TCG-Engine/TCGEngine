@@ -1,0 +1,149 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "independent breadth_review1252",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1409-20261122.json",
+  "source_spec_sha256": "02ab24fa8ad61f7c974b05d731862d6e9f7acbadb693badc98553b74c513a394",
+  "input_sha256": "02ab24fa8ad61f7c974b05d731862d6e9f7acbadb693badc98553b74c513a394",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-sonata-dystopia-blue-four-live-sparse1409-zero-x-still-grants-overpower-real-hand-rejection-and-equipment-block",
+      "card_id": "sonata_dystopia_blue",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "09a006558909c5e39482f0d0db74a1b04d5cf6f0ddc795f5ef0f54e40e58e3fa",
+        "actions.json": "1ef8eec5aed2154c7817a39af9ff3c09b288ce5243af0af010ba4466389c4188",
+        "assertions.json": "b20f753e81cda5a244c3fa057f8afe350913a73331e4fe8a22ddccd3e69f6932",
+        "expected_final_gamestate.txt": "9071085bfde3680bcd8babc994e39ed70fc18caa7d75d1e832952b486b715997",
+        "meta.json": "6adf7f337dc6cbb03b36cf5e992633e436dbd374ebb6d092fd6ad1b6622d2fbb"
+      },
+      "fixture_sha256": "2859781ed970631aec3f7c73283f4dbbb5082676e9eb66e2abd5790b3461f933",
+      "actions": 27,
+      "native_assertions": 325,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 21,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1409-20261122.json",
+      "input_sha256": "02ab24fa8ad61f7c974b05d731862d6e9f7acbadb693badc98553b74c513a394",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "qualification_endpoint": "SONATA_OVERPOWER_DAMAGE_BOUNDARY",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1409-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-sonata-dystopia-blue-four-live-sparse1409-zero-x-still-grants-overpower-real-hand-rejection-and-equipment-block",
+        "fixture_slug": "card-sonata-dystopia-blue-four-live-sparse1409-zero-x-still-grants-overpower-real-hand-rejection-and-equipment-block",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "reviewer": "independent breadth_review1252",
+    "spec_sha256": "02ab24fa8ad61f7c974b05d731862d6e9f7acbadb693badc98553b74c513a394",
+    "source_note_sha256": "c8e8d5a28709073474dc2b90ed995dc2d0134ba3f8e45730541a6c59e85084d5",
+    "case_count": 1,
+    "active_seats": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "players": "four_live_manual",
+    "native_controls": 27,
+    "query_checks": 325,
+    "persistable_assertions": 325,
+    "author_only_checks_omitted": 0,
+    "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+    "coverage_category": "POSITIVE_OVERPOWER_AT_ZERO_X_WITH_SECOND_ACTION_DEFENSE_REJECTION_AND_LEGAL_EQUIPMENT_CONTROL",
+    "per_case": [
+      {
+        "card_id": "sonata_dystopia_blue",
+        "group_id": "identity:sonata_dystopia_blue",
+        "native_controls": 27,
+        "persistable_assertions": 325
+      }
+    ],
+    "basis": [
+      "Unrepresented/unheld SonataDystopiaBlue RunebladeAction costX with additional destroyXownRunechants, grants nextAA cost-X/power+X/Overpower/hitRunechants plus ownGA. NaturalYoungViserai20/threeDori20 manual4UPF/cachedallowed. AllRunechants and resources zero, no hand pitch card; forced only legal X0 is source-generated rather than seeded state.",
+      "GeneratedPrepare145190-145230 counts actual Runechant refs, max0 skips MZMULTICHOOSE and invokes FaBIARPayRunes on dash; IARRuntime245-248 destroys no objects/returns0, writes actual iarSonata0 then completes prepared card. Native0payment spendsAP before four responses; generated7222-7227 adds IAR_SONATA effect with0 amount, WTRCards19-24 retains zero-valued effect. Realprimary5GY and printedGA return1AP.",
+      "ActualWounding6GenericAA0 consumes thatAP. IARCards96-98 tags OVERPOWER unconditionally for IAR_SONATA even amount0 while power/cost delta remain0. Viserai firstRunebladeNAA has no earlier otherNAA (ARCCards397-399); WoundingGeneric notRuneblade, so noHeroRunechant. Fourmanual source/combat windows preserve base4/noGA.",
+      "ActualfirstHandWounding7Actiondef3 allowed; secondHandCritical8Actiondef3 must reject and remain sameUIDHand while firstblock unchanged. RealIronrotHelm9Equipmentdef1 then allowed because equipment is notAction. PhysicalCCRoleDEFENSE/FromZoneHand orEquipment and counts assert admission matrix, then actualdefense4/damage0/allHP20 verifies effect. NoHit means granted WHEN createX is not earned at all; no skipped zero-token trigger asserted. Prefix stopsDAMAGE beforeBladeBreakchainclose, so future helm destruction/cleanup untested."
+    ],
+    "limits": [
+      "Only positive Overpower at forced X0, actual one-Action admission/second-Action rejection/equipment allowance and observable blocked damage prefix, with real primary payment/GA. NonzeroX declaration/payment/Runechant destruction, positivehit/WHEN timing, BladeBreakclose/cleanup, siblings/support/whole-card untested.",
+      "Approval pending native execution; no game/test/replay, engine/repository edit, original checkout access, auth/network, full suite or Git operation. Strict game-effect expectations must remain if native differs."
+    ],
+    "source_sha256": {
+      "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+      "FaBSim/GeneratedCode/GeneratedMacroCode.php": "fe6a7982611df8f4de98ce2671b317b671b580146aa4b8c28e8f4b86d8461056",
+      "FaBSim/Custom/GameLogic.php": "c60fa151561f959e4e3e341b814de0e2b47c9e9f153bbc8793a04c43b5075061",
+      "FaBSim/Custom/IARCards.php": "0abc78c4d25203b2a0ae489bc183e5687e3375a2a7a29dc9401bbbd7df670783",
+      "FaBSim/Custom/IARRuntime.php": "a867233dd027ea6466d776cb9c3bfdbbeedc5e4e535f67f09b1c6e7d9cb3924e",
+      "FaBSim/Custom/WTRCards.php": "77d4452b30e45254a7199bc965396ded53e325717ecdd84a09b971f723f99f6a",
+      "FaBSim/Custom/ARCCards.php": "f6b6a21d214e71fdcfd6a084f0671ce610f08a40c51a1266041877a5a12c0d52",
+      "FaBSim/ZoneAccessors.php": "9967567a9a10df81a6f22df820d4d77258828657e95c4ad145b8b13ce17866a7",
+      "Schemas/FaBSim/GameSchema.txt": "7783800bd47bc85885cc915066aadca58cdf99f0c1180602ac312d9af5ebf643",
+      "Core/EngineActionRunner.php": "add14b53dc571d2a6e64407bfa4038a98d6554d6410de7a9233810d99c46ea2a",
+      "Core/ShortcutPreferences.php": "25f300ea0b6fbc409f5b92e8bc3587a74b2ab0eaf31ccef38e18c455598eaba6",
+      "DevTools/FaB/CardRegression/record_card_regressions.php": "e53055b29e9ea641949b77019c4455607f41ca233325d716a9500637e19efd28"
+    },
+    "workspace_source_sha256": {
+      "author_breadth1409.py": "960a121153e4e988ab836ca188382aa4ad8aec1479d5fc70cc779d0325e59484",
+      "breadth1068_helpers.py": "997f949ec26c7e494ad26a818f9f2078f6f4f2a0c49ca7f61aa8c71f3b091b0a",
+      "nov24_sonata_prefix_review.py": "8f7c455563449c16b28d5cb07c08a142b25b4860685873d72ffd29f7a687ec36",
+      "nov16_saved_repair_review_common.py": "9f6dee765a3433840bd6886579faf6b8ab24ec290120b5999581053e2276ba0c",
+      "breadth_batch.py": "c996b5dcb5318f3b01313e9c1817e39b50c46739c92f1ef370f4db5b73a27cf3",
+      "sparse1409-local-20261122/endpoint-binding.json": "7884f760a419be0c8cc06145def422d0f296a6554ef35c0b8d438488536c509b",
+      "sparse1409-local-20261122/qualification-complete-assumption-first-attempt/independent-review-source-semantic-original.json": "c93384345d6af64d8292cc2246df3ccba424f715096b45537f99da17663d0b3a"
+    },
+    "secondary_identity_credit": false,
+    "whole_card_credit": false,
+    "positive_nonzero_runechant_cost_credit": false,
+    "positive_hit_runechant_credit": false,
+    "blade_break_close_credit": false,
+    "positive_overpower_zero_x_scope": true,
+    "official_rules_evidence": [
+      {
+        "url": "https://rules.fabtcg.com/en/cr/08-keywords/",
+        "scope": "Public primary rules directly read in this review session: CR8.3.22 limits defending Action cards to one, equipment does not count; 8.3.22a disallows adding another Action once an Action defends."
+      }
+    ],
+    "qualification_gate_result": "approved_first_targeted_replay_at_declared_damage_endpoint",
+    "qualification_endpoint": "SONATA_OVERPOWER_DAMAGE_BOUNDARY",
+    "qualification_endpoint_binding_sha256": "7884f760a419be0c8cc06145def422d0f296a6554ef35c0b8d438488536c509b",
+    "qualification_native_raw5_sha256": {
+      "actions.json": "1ef8eec5aed2154c7817a39af9ff3c09b288ce5243af0af010ba4466389c4188",
+      "assertions.json": "b20f753e81cda5a244c3fa057f8afe350913a73331e4fe8a22ddccd3e69f6932",
+      "expected_final_gamestate.txt": "9071085bfde3680bcd8babc994e39ed70fc18caa7d75d1e832952b486b715997",
+      "initial_gamestate.txt": "09a006558909c5e39482f0d0db74a1b04d5cf6f0ddc795f5ef0f54e40e58e3fa",
+      "meta.json": "6adf7f337dc6cbb03b36cf5e992633e436dbd374ebb6d092fd6ad1b6622d2fbb"
+    },
+    "qualification_adapter_review": [
+      "No new semantic review or game: original primary branch approval retained. Exact adapter reverse-diff removes only named Sonata endpoint branch and qualification_endpoint proof-row field to restore original common text; original helper SHA unchanged. All existing exact action/assertion normalization, manual-seat/shortcut preferences, initial-zone/hero setup, final Stack/DQs/payment/await-frame and raw5 hashing checks retained.",
+      "New endpoint strictly requires Sonata identity, openDAMAGE/attackUID6, actual4power/4defense/0damage and declaredBlockUIDs7,9; actual physical attacker/Handdefender/Equipmentdefender, rejected8Hand,5GY, allHP20/R0/AP0, noextraDeck/Arena/Pitch/Soul/Banish and UID9/RNG0. This matches declared prefix; COMPLETE emptyCombatChain condition is intentionally replaced only for this named boundary, with BladeBreakclose uncredited.",
+      "breadth_batch selects adapter only b1409, binds specSHA and adapterSHA, passes exactnamed endpoint; final corrected pipeline syntax parsed successfully, endpoint-binding pipeline SHA matches. Previous failed qualifier stopped in common COMPLETE validation before PHP replay command; its PID ended and clean-replays remains empty.",
+      "All five native files independently rehashed unchanged against prequalification bindings; 27 actions/325 assertions unchanged. No recording/assertion/runtime/engine alteration or duplicate replay. Gate authorizes first targeted replay through normal workflow, not a claimed replay pass."
+    ]
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1409-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "f37c90603172c208ce945624759dac997a9b082261f6289da0a7dd2a788a155c"
+  },
+  "full_suite_run": false
+}

@@ -1,0 +1,30 @@
+{
+  "status": "DUPLICATE126_RESOLVED_BY071_DIRECT_UNSAVED_ORIGINAL6_609_PASS",
+  "reviewer": "Root independent of original correct126 author",
+  "reviewer_independent": true,
+  "runtime_sha256": "abbeb00cfd0e743e7c8beafe7530e4ee354538d82e4c269ecef7671507b0544c",
+  "source_spec": "card-regression-batch485-mold-v2.json",
+  "input_sha256": "e545b541c3b04986cd06cd792f04524ca7f202adafd6a4192050b62518bfb290",
+  "probe_receipt_sha256": "fc5ba4690a7300882ca09f3120d2f86f2ae48dedf56ef10a20e3a17345bac832",
+  "full_native_result_sha256": "e9cb8ceb3e915ff5370eaf93fb2aeccd11c3f380e718d1ee577e156cab0de8f6",
+  "native_inputs": 6,
+  "native_assertions": 609,
+  "original_assertions_unchanged": true,
+  "fixture_saved": false,
+  "new_scenario_credit": false,
+  "new_group_credit": false,
+  "existing_primary_regression": "Tests/Integration/FaBSim/card-adaptive-alpha-mold-four-live-sparse-real-action-moves-modular-chest-to-another-arms-zone",
+  "existing_saved_proof": {
+    "path": "review-evidence/alpha071-qualified-saved-e5af.json",
+    "sha256": "6764b6c57d959ba37478a7fd08aa5b36ebc75cdf81a841b3951c6583bf664919"
+  },
+  "existing_saved_replay_checkpoint": {
+    "path": "card-regression-alpha071-qualified-e5af-checkpoint.json",
+    "sha256": "ee4cd105408512b64613fe99080d6addc37ef0967ae68ea7717f069edb939d12"
+  },
+  "basis": "071 and126 share the same current-modular-slot omission. Direct original126 Head-to-Chest native probe now retains same physical owned UID5 through four live responses; actual resolving modal exactly Chest&Arms&Legs excludes currentHead, then same5Chest, AP0/R0 and queues cleared. All609 original assertions pass. Existing071 savedChest-to-Arms regression and its earlier clean replay remain the durable regression; no redundant126 fixture or new coverage claimed.",
+  "limits": [
+    "126 branch is direct no-save diagnostic evidence, not a new saved or replayed fixture. Existing071 replay retains its actual historical runtime; not claimed rerun atcurrentcode.",
+    "No source changes, new breadth or full suite."
+  ]
+}

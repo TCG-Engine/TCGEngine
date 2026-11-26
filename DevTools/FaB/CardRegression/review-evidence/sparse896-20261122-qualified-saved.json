@@ -1,0 +1,117 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "Root independent of /root/breadth_review author",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse896-20261122.json",
+  "source_spec_sha256": "794324018ef67fb58dd8bb24c62ca31581250f2fb0270770d84bc4c6470bb0bd",
+  "input_sha256": "794324018ef67fb58dd8bb24c62ca31581250f2fb0270770d84bc4c6470bb0bd",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-blessing-of-occult-red-four-live-sparse896-natural-start-destroys-real-aura-then-creates-three-owned-runechants",
+      "card_id": "blessing_of_occult_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "a7791ef67e10ddc8a5083727612985d55fa37cc7328b07f7be6377d3691b31be",
+        "actions.json": "428361a0de200568d722608d01d74a10ee09bda5c08f41bd3b024c61c2943037",
+        "assertions.json": "2f6b90769ac48bf0b44b76168218b5606af4d1b55f747670619d31c029ef622e",
+        "expected_final_gamestate.txt": "12d043e951b627be8fc08ea48c589629490a8898aca352d0ab89ebef5ce0e5e2",
+        "meta.json": "4a37f04a4f7faba1ae06649d12ebcd01cedd25f33ebf7ac919919c0db33e3566"
+      },
+      "fixture_sha256": "5696afc8e04683358d59ba2a58cd25748a898d982eb82f69a552ea0a45810a77",
+      "actions": 8,
+      "native_assertions": 122,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 8,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse896-20261122.json",
+      "input_sha256": "794324018ef67fb58dd8bb24c62ca31581250f2fb0270770d84bc4c6470bb0bd",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse896-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-blessing-of-occult-red-four-live-sparse896-natural-start-destroys-real-aura-then-creates-three-owned-runechants",
+        "fixture_slug": "card-blessing-of-occult-red-four-live-sparse896-natural-start-destroys-real-aura-then-creates-three-owned-runechants",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-blessing-of-ingenuity-red-four-live-sparse896-natural-start-returns-three-actual-hyper-drivers-from-graveyard-and-banish",
+      "card_id": "blessing_of_ingenuity_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "523239dc9e26140d22deedb0bf9ec88df73813fb3e9faa40b3cb8010a2b2f0ac",
+        "actions.json": "3fb6355eb31eaa9b5ab1b129dffdc805266f6af46efd30b5f428e35bbaf65375",
+        "assertions.json": "5339479ea822d2887ed9914a047263192b99a4312ef11eabb989d3fbb8faf611",
+        "expected_final_gamestate.txt": "b59f7c78661796a8d675403db31e989aa124f3031cfd9817f8691fe3d45f5eb9",
+        "meta.json": "75f30765ae9efb574effc5e7f1933ef10fa1469413c191961851f2a38157796c"
+      },
+      "fixture_sha256": "5d62b71bae8a3677eb86c16aad8efab469f57ead37c3e9649192e08c1f12bfab",
+      "actions": 9,
+      "native_assertions": 153,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 8,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse896-20261122.json",
+      "input_sha256": "794324018ef67fb58dd8bb24c62ca31581250f2fb0270770d84bc4c6470bb0bd",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse896-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-blessing-of-ingenuity-red-four-live-sparse896-natural-start-returns-three-actual-hyper-drivers-from-graveyard-and-banish",
+        "fixture_slug": "card-blessing-of-ingenuity-red-four-live-sparse896-natural-start-returns-three-actual-hyper-drivers-from-graveyard-and-banish",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-blessing-of-focus-red-four-live-sparse896-natural-start-opt-three-reorders-real-middeck-arrow-to-faceup-arsenal-with-aim",
+      "card_id": "blessing_of_focus_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "622cf8a4d5bda435be112c5d86e9314e56a3ff8a977684814905f7eae8871cf5",
+        "actions.json": "382a140b42a45b34050d85fdd76cb8fb1b565d04c2cb6e0a57d1cf7c86cbbfeb",
+        "assertions.json": "91c1426537c074f3fc29ec84ead2ac6b62e7d1c1fe56e3e6824a6c13f5ea1c4f",
+        "expected_final_gamestate.txt": "8e4bbafd490009d750db37ee2c166ee358fce55bdbbdd0a5d523114575f29b90",
+        "meta.json": "ed4a2da2f64de95097d57c3757a17e8f2ead6ac2c123a0bfcb0264160618a168"
+      },
+      "fixture_sha256": "1abd82c1493c40af202877e7ead7444923134b4f34a113fe96b003c9f620758f",
+      "actions": 9,
+      "native_assertions": 147,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 8,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse896-20261122.json",
+      "input_sha256": "794324018ef67fb58dd8bb24c62ca31581250f2fb0270770d84bc4c6470bb0bd",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse896-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-blessing-of-focus-red-four-live-sparse896-natural-start-opt-three-reorders-real-middeck-arrow-to-faceup-arsenal-with-aim",
+        "fixture_slug": "card-blessing-of-focus-red-four-live-sparse896-natural-start-opt-three-reorders-real-middeck-arrow-to-faceup-arsenal-with-aim",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "reviewer": "Root independent of /root/breadth_review author",
+    "result": "approved_named_branches_only_pending_native_execution",
+    "spec_sha256": "794324018ef67fb58dd8bb24c62ca31581250f2fb0270770d84bc4c6470bb0bd",
+    "evidence": [
+      "Root independently checked actual printed text, source-spec transport and DYN StartTurn dispatch. Existing AuraUID5 natural8controls, no casting/entry credit; allfourmanual/naturalHP20 and empty buffs/resources.",
+      "Occult red destroys5 thencreates3Runechants via FaBARCCreateRunes/FaBHVYToken; no Mordred modifier; require distinct6/7/8OwnerController1.",
+      "Ingenuity printedup3fromGY/Banish is nontarget selection during resolution. FaBDYNMoveSelected capturesUIDs before mutations, moves real6/7/8andcallsFaBARCEnterItem; requireexactSteam3/2/1andSource5GY, no copies or lostUIDs.",
+      "Focus actualOpt3: top7,8bottom6 thenreveal/load7faceupArsenal withAIM1; Deck8,6 remaining; noBowneededbecauseArrownotplayed. BarbedBarragehasnopendingentryeffect, optionaladditionalattackcostuninvoked.",
+      "No newtarget/mode announcement gap introduced: owned start layers auto-resolve beforefirstpriority; necessary choices mayinterruptauto beginning phase. Alternativechoices/futuretoken/boost/Arrowattack/supportgroupsuncredited."
+    ],
+    "native_games_by_reviewer": false
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse896-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "afa6ee46ddae6edcc0f5ecdb59d8c5bbb4a065886053766fea33629239c1c580"
+  },
+  "full_suite_run": false
+}

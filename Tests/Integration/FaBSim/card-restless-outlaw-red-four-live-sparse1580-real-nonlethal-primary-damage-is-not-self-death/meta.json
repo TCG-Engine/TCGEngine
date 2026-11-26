@@ -1,0 +1,7 @@
+{
+    "name": "Restless Outlaw / actual nonlethal damage preserves the primary and earns no self-death reward",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-25T16:58:43+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Four genuine manual young Hala, Dori, Dori and Malice at 20 health. Proper Shadow Necromancer Malice4 owns the real prior Restless Outlaw5, undamaged with printed three life. Actual Hala1 Wounding Blow Blue6 attacks the adjacent Outlaw permanent, not its Hero. Real two damage leaves the PRIMARY alive with Damage2 and one remaining life, through full Close; all Hero health remains20. No self-death occurred, so neither Outlaw WHEN this dies nor Malice WHEN a controlled Zombie dies is earned, and no Corrupted Corpse or Banish card appears. This is a limited printed-life and self-death event guard; its incremental trigger coverage after Templar is modest, and no positive death reward or new mechanism is claimed. Positive Outlaw corpse-trigger timing remains held; no Decay activation, Incarnate/death LKI, prior production or support identity credit. No engine change. Sources: FaBSim/GeneratedCode/cardArrayCache.json#restless_outlaw_red FaBSim/GeneratedCode/GeneratedMacroCode.php FaBSim/Custom/IARRuntime.php FaBSim/Custom/IARCards.php FaBSim/Custom/MONCards.php FaBSim/Custom/GameLogic.php FaBSim/Custom/WTRCards.php FaBSim/ZoneClasses.php"
+}

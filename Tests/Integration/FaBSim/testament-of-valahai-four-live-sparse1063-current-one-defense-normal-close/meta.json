@@ -1,0 +1,7 @@
+{
+    "name": "Testament of Valahai / four-live current defense and close",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-23T05:31:21+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "If you control three or more Seismic Surge tokens, this gets +2{d}. If you control six or more, instead this gets +4{d}.\n\n**Guardwell** Legalnatural20OldhimownsEq5. ActualArena0/noSeismicSurgesmeansprintedbaseDEF1/no+2/+4. ActualGuardwellCloseaddsDEFENSE1/current0andretainsEquipment; EOTnotreached. ActualGenericNAA6DEF2pluscurrentEquipment1blocksrealDoriDawnblade7power3/Blue8pay1/R2/AP0/0damage/noHit/HP20/allfourmanual; physicalEq5/Hand6RoleDEFENSE/currentnumericDEF3/ownedfatesguarded. Noequiptriggerexecution/returnfromGY/positiveSurgethreshold/futurephase/hero/support/fullcardcredit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#testament_of_valahai"
+}

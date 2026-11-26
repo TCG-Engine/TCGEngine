@@ -1,0 +1,7 @@
+{
+    "name": "Stir the Pot / real prior blue play transcends same physical spell into Chi",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-25T04:43:46+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "No priorBLUEPLAYED/TRANSCEND/Chi seed; legalZenMystic20/manual4. ActualSigilBlue5instantcost0 fourresponses thenHP21/GY5; otherblueearnedbyplaynotpitch. ActualStirBlue6instantcost0 retainsphysicalStack6 forresponses1..3, Hand0/GYonly5/AP1/R0/Chi0/Deck7/RNG0. Fourthresponsebody shufflesonephysicalDeckcard (no randomness/orderproof), actualOtherBluecondition true thenTranscend SAMEUID6 intoInnerChiHandownercontroller1; noearlygrave/duplicate/newUID/resourcegain. EndStackDQawaitquiet, GYonlySigil5/Deck7/HandChi6, allotherHP20/AP1/R0/Chi0/UID7. Positivecondition/transformationonly; Chiusage/no-other-blue/shufflerandomness/siblingsuncredited. Existingcurrentstructuralspellmanagement resolveshistoricalsource-onlylifetimeconcern; noenginechange. Sources: FaBSim/GeneratedCode/cardArrayCache.json#stir_the_pot_blue FaBSim/GeneratedCode/GeneratedMacroCode.php#stir_the_pot_blue FaBSim/Custom/GameLogic.php#FaBPlainSpellResolutionIsManaged FaBSim/Custom/GameLogic.php#DoResolveCard FaBSim/Custom/MSTCards.php#FaBMSTOtherBlue FaBSim/Custom/MSTCards.php#FaBMSTTranscend"
+}

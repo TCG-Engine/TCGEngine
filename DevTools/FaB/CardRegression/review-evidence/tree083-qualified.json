@@ -1,0 +1,47 @@
+{
+  "status": "QUALIFIED_TREE083_ENTRY_ONLY_WITH_DIRECT_NATIVE_AMP_TIMING_GUARDS",
+  "utc": "2026-11-03T22:05:13.767900+00:00",
+  "runtime_sha256": "0a2a062faba12b15a119fa82f44fab56e0a6e02970b8d8d26f47f16b24397256",
+  "issue": "FAB-REG-083",
+  "existing_family": "FAB-REG-043",
+  "scenario": "card-channel-the-millennium-tree-red-four-live-original-correct-entry-trigger-amp-three-before-real-zap-six",
+  "passing_source": "card-regression-batch371-tree083-amp-v2.json",
+  "passing_source_sha256": "9b714f12a591acabe8283189ba6683ca805c20d24fb07969d6848e7758dbfc3b",
+  "original_correct_source": "card-regression-batch371.json",
+  "original_correct_source_sha256": "cabb55b4e1279343b8799d29ebb2313c4188aea3ef78fcb696c35feaff59744f",
+  "actions": 16,
+  "native_assertions": 1378,
+  "manual_inputs": 12,
+  "all_original_1373_assertions_preserved": true,
+  "added_native_AMP_guards": 5,
+  "native_witness": "At gameplay inputs6/7/8/9 the exact seven legitimate pitch/play/Aura records contain no AMP; input10 appends AMP3/uses1. Later actual Zap deals6, P4HP14, finalAMP consumed. No raw AMP inference from the earlier1373-only recording.",
+  "initial_actions_final_byte_identical": true,
+  "original_five_file_backup": "W/nov3-tree083-native-amp-v2-rerecord-0a2a-r1/before",
+  "source_delta_review": "review-evidence/tree083-amp-v2-source-delta-review.json",
+  "native_rerecord": "review-evidence/tree083-native-amp-v2-rerecord.json",
+  "independent_saved_review": {
+    "path": "review-evidence/tree083-saved-v2-0a2a-independent-review.json",
+    "sha256": "51a6181693369bee1c8f12ed08a384afe2f59fdf37f1945e9d2839502c1372ef"
+  },
+  "clean_replays": [
+    {
+      "path": "card-regression-replay-nov3-b371-tree083-amp-v2-0a2a-r1.json",
+      "sha256": "b8a90b49cf9c85dbde848d9f781be71087db4d023194ab2b4fb187f228183cfd"
+    },
+    {
+      "path": "card-regression-replay-nov3-b371-tree083-amp-v2-0a2a-r2.json",
+      "sha256": "de523496b8218e497410df976439217d621f687687512c33be36771605c38535"
+    }
+  ],
+  "actual_emission_review": "review-evidence/tree083-actual-emission-review.json",
+  "source_application": "review-evidence/tree083-source-application.json",
+  "component_scope": "13 isolated after contracts/42 assertions,5lints,JSONonepath/builderAST; not native helper controls. Unchanged caller/ABI-pop integration separately exercised by the real16 actions.",
+  "qualification_limits": [
+    "Native own-controller entry branch only; no native foreign entry/reentry/suppression/removal/countered-trigger credit",
+    "Future beginning-Actionphase and ChannelEarth branches unchanged and unattempted",
+    "Earlier1373-only replays are historical partial proof; final1378 replay receipts govern qualification",
+    "No full-suite run, new Core/global-root count, sibling or full-card credit"
+  ],
+  "ten_old_holds_unchanged": true,
+  "Smashing_Item_choice": "SOURCE_ONLY_UNATTEMPTED_UNCREDITED"
+}

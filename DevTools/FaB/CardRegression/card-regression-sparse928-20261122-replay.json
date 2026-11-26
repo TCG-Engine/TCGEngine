@@ -1,0 +1,102 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-miraging-metamorph-red-four-live-sparse928-actual-unblocked-seven-without-phantasm-destruction-copy",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-miraging-metamorph-red-four-live-sparse928-actual-unblocked-seven-without-phantasm-destruction-copy",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse928-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse928-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "e4aa7e730c0b397064aa14330e083927e040193321fdfe92d098fa0caf8150fb",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "7a1486864f3234bde96855d5ec62af4e92fa0f27355de9d037ece6852d44449b",
+        "actions.json": "25920dc16af50701b0be20453cc3345d5c14a09166881d7481930bfb87552093",
+        "assertions.json": "2b4188bfd24d1934e319a05e2aebe7385cd687ed7d85cbc9d63701c234d3a92b",
+        "expected_final_gamestate.txt": "e9c2add5afe44e62a8ca4a365c54dd1d071854ff2b8565bd137d9f4c7f135528",
+        "meta.json": "1939130cf2bae357a5f922ebeb041e395821068d73e3a6fe5fc0290abc5f6669"
+      }
+    },
+    {
+      "slug": "card-bloodfrenzy-gloomblade-red-four-live-sparse928-actual-three-damage-to-defender-earns-static-go-again",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-bloodfrenzy-gloomblade-red-four-live-sparse928-actual-three-damage-to-defender-earns-static-go-again",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse928-local-20261122\\clean-replays\\01.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse928-local-20261122\\clean-replays\\01.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "171d4796d1f5c88672b69948fde78ae39c989fb470e15692abb5f73903c234b5",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "b61e6f1412e2cf08ebf33469b2da1b069e12732e7b343ac1bb92ca834b1c0f68",
+        "actions.json": "25920dc16af50701b0be20453cc3345d5c14a09166881d7481930bfb87552093",
+        "assertions.json": "6cf60bb204fcf8fbc89d100e4b36fdb3d9562461ea78a5a48601e397c8318b7e",
+        "expected_final_gamestate.txt": "9c745f44783cfeb5a84ede6360570672f270adc1c89a6685012498c81cde423d",
+        "meta.json": "7c3f4eb0a90c4188db3bbfbc67860ffdc113f77b7c59e62b52bc1928ad76a9b4"
+      }
+    },
+    {
+      "slug": "card-demonbound-gloomblade-red-four-live-sparse928-actual-hand-three-with-no-runechant-for-usurp",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-demonbound-gloomblade-red-four-live-sparse928-actual-hand-three-with-no-runechant-for-usurp",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse928-local-20261122\\clean-replays\\02.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse928-local-20261122\\clean-replays\\02.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "64264e18fea409debc585d1d2e356bf136f482b7197b9c2c8fe5df6af39b0f35",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "29071eec323e224f1af58ae58376a77bbdda16de065a96b17c1d9a35e398782f",
+        "actions.json": "71f0d0f07cf85244a3ec27fdb1f824cd62aa3126d639c98c13ca23327907bd8b",
+        "assertions.json": "b1764e6ba8ff9bd58c933b815ba9c1972cf859669577a747ab632b9c28d294e8",
+        "expected_final_gamestate.txt": "e1f690f10fbb41f97066a9d2c203689b3e44f337b310474718d7d6233f14048b",
+        "meta.json": "44a1c768560bb02ab01669c3891aea3637a5623c1a7bc609101f942cea2b03ab"
+      }
+    },
+    {
+      "slug": "card-mutated-mass-blue-four-live-sparse928-one-actual-distinct-pitch-cost-sets-star-power-to-two",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-mutated-mass-blue-four-live-sparse928-one-actual-distinct-pitch-cost-sets-star-power-to-two",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse928-local-20261122\\clean-replays\\03.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse928-local-20261122\\clean-replays\\03.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "5cc96ae236d95b7b26b62ce8fef58d98925586c42737417956c01f506091030d",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "9e84a9cc79b81bebe4c2f16f53622b023014b83220eb521887af5c4d4f3eea76",
+        "actions.json": "25920dc16af50701b0be20453cc3345d5c14a09166881d7481930bfb87552093",
+        "assertions.json": "e92142e8737987f91c55a4d9fe9804de332a6056bb75e6aef51dfdb5c70c81a6",
+        "expected_final_gamestate.txt": "5cad8f8adb78d09a707b55781d3c3a7133def90f51b6b0993a5dd970ac29aa71",
+        "meta.json": "ecf886f665d79cab68724192d17370773907186891e6140838e59270a5924c0b"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

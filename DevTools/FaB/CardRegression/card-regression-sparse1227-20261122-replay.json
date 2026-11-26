@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-lumina-ascension-yellow-four-live-sparse1227-real-sword-plus-one-consumes-ward-after-two-defense-without-a-hit",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-lumina-ascension-yellow-four-live-sparse1227-real-sword-plus-one-consumes-ward-after-two-defense-without-a-hit",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1227-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1227-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "9125958e69a78cdfdc16194816b5599cac2483d2d5d81d5887ad4a2e768ccac8",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "a0173be2fb23038e9f3afdb291a10c03d2c39b54b012d44582882c3f4e04c97c",
+        "actions.json": "b949a689d9844f089f728b0ff8886e4c0f5355b6523369b0a349d293baceb90a",
+        "assertions.json": "a8d28ccc4a65816fecf74bc462dc7dcc9867091963954acf4b8c72e0ab484295",
+        "expected_final_gamestate.txt": "d90f16210364f38d551f862d1826f7926af5f92f07e977c4dca0a167dc587bf6",
+        "meta.json": "47547a0794d548cf8332f00dbfdffb0518d205192ce0065d366ae3a0a6d618e5"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

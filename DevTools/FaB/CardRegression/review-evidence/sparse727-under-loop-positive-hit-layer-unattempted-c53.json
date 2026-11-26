@@ -1,0 +1,142 @@
+{
+  "status": "APPROVED_AS_SOURCE_ONLY_UNATTEMPTED_SELECTED_POSITIVE_HIT_SELF_BOTTOM_TRIGGER_LAYER_LIMIT",
+  "planning_limits_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "/root/b106_semantic_review",
+  "created_utc": "2026-11-08T17:59:14.107690+00:00",
+  "card_id": "under_loop_blue",
+  "primary_id": "under_loop_blue",
+  "group_id": "pitch-cycle:under_loop",
+  "kind": "selected_positive_hit_self_bottom_trigger_layer_limit",
+  "author_model_error": false,
+  "input": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov8-batch727-under-loop-positive-hit-self-bottom-layer-limit\\under_loop_blue-selected-positive-hit-self-bottom-trigger-limit.json",
+  "input_sha256": "a2e94b29ffc1e1fc47ea43dbded73aa9ff55c37c2f265ec16b96680875f1686c",
+  "planning_hold": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov8-batch727-under-loop-positive-hit-self-bottom-layer-limit\\under_loop_blue-selected-positive-hit-self-bottom-trigger-limit.json",
+    "sha256": "a2e94b29ffc1e1fc47ea43dbded73aa9ff55c37c2f265ec16b96680875f1686c"
+  },
+  "manifest": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov8-batch727-under-loop-positive-hit-self-bottom-layer-limit\\manifest.json",
+    "sha256": "e88bc7d5c5b78e32f72ba0305115d3a250067d5044e961f44f9b079c5642fbec"
+  },
+  "manifest_sha256": "e88bc7d5c5b78e32f72ba0305115d3a250067d5044e961f44f9b079c5642fbec",
+  "author_QA": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov8-batch727-under-loop-positive-hit-self-bottom-layer-limit\\frozen-author-QA.json",
+    "sha256": "952bcc451cf8e702b0f9fe62c9b1eb4c600a8154811d6abb83780f86dbe1b781"
+  },
+  "runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+  "recorder_sha256": "ab33a3250462d0453f71d38dd4138cb9fbc3d595d2586742e989a52251c9c4a9",
+  "source_guards_verified": 73,
+  "source_only": true,
+  "native_confirmed": false,
+  "findings": [
+    "Independently viewed EVO218: Mechanologist AA1/base2/DEF3, Boost, and normal WHEN-this-hits self movement to its owner Deck bottom; no formal target. Viewed fixed Come to Fight Red ARC203 gives+3 nextAA/GA at cost1, so a legal real5 versus fixedDEF3 can earn two damage and the distinctive Hit. This is only a rules/source concept, not a runnable scenario or native damage/deck result.",
+    "Full selected OnHit1225-1244 reaches direct own Hit at1242; WTRHit725ff and exact PureTokenHitSpec94-108 do not capture this ability. Current canonical and compiled31245-31251 invoke actual FaBARCToDeck immediately. Selected quiet EVO/DYN delegates and direct SourceMacro1264-1297 establish no separate normal responseable UnderLoop Hit layer before this own payload. Body and movement helpers exist; retain only this first earned-WHEN boundary concern.",
+    "Additional bounded source fact: ARCCards122-133 calls FaBARCPreserveAttack before the move and stores current attackGoAgain. Therefore this proof does not allege missing LKI/GA preservation. Actual departure/deck order/UIDs, subsequent LKI/refund/target/consumer behavior remain unattempted and unqualified. Root positive-effect refinement preceded any executable freeze; the original fullblock-only proposal is not approved group coverage."
+  ],
+  "primary_sources": [
+    {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\WebpImages\\under_loop_blue.webp",
+      "sha256": "b2e40e5aff3a528d3f1c55c27f829c05551fff5a7cf11585d4f426d0224040de",
+      "printing": "EVO218",
+      "actually_viewed": true
+    },
+    {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\WebpImages\\come_to_fight_red.webp",
+      "sha256": "2bdf88c142a1619e4f748c5af93edae749b4dd8875c405d2a40bcfda3ebc2e5c",
+      "printing": "ARC203",
+      "actually_viewed": true,
+      "scope": "Fixed necessary support, no producer/support credit"
+    }
+  ],
+  "normative_sources": [
+    {
+      "url": "https://rules.fabtcg.com/en/cr/06-effects/",
+      "independently_retrieved": true,
+      "clauses": [
+        "6.6.1",
+        "6.6.4",
+        "6.6.5",
+        "6.6.6"
+      ],
+      "scope": "Earned normal WHEN creates its triggered layer before next priority"
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/07-combat/",
+      "independently_retrieved": true,
+      "scope": "Positive attack damage earns hit; normal hit is not automatic Close resolution"
+    }
+  ],
+  "source_evidence": {
+    "relevant_source_hashes": {
+      "FaBSim/Custom/GameLogic.php": "1cdad1555c8d2e3bd3fa98d69bf52791b84d21bf2269363ddea7249f4ee35a43",
+      "FaBSim/Custom/WTRCards.php": "5ead5cc6303b5e6760715b1a038e38d01014d8d42f16aa32bb24aa9df17e9515",
+      "FaBSim/Custom/WTRAbilities.php": "08b6d572e83e797848eaee02f9288bbe2bdc7de1dbe1ce522de0cd95a6c94d5c",
+      "FaBSim/Custom/ARCAbilities.php": "5330205cf8b98a1ba93cb15aa42f67c76d01dac3cb53b206669e7d00b0e9daca",
+      "FaBSim/Custom/ARCCards.php": "e8839553781cb4c3725eac1953d622a6f7bbd6998e375261813c4c4e249691e1",
+      "FaBSim/Custom/DYNRuntime.php": "f521482b11084e2befb4a712cd47cf481b9139cc63d4ddb2027aa45047f3d89e",
+      "FaBSim/Custom/EVORuntime.php": "e38af5f56cd9ecc3c87e5ef6eb81fc03850151833fde02af8a4ae1a29600962b",
+      "FaBSim/Custom/EVOCards.php": "dff20a12d7dd29417b34c9609dbc3fd27325e1c8d3be2b15da481fef7e277462",
+      "FaBSim/Custom/ROSCards.php": "881b788c96ac6fe7382461b82c23c0fc28a40c393f92784401bf5d8955ae8dfa",
+      "FaBSim/Custom/DTDRuntime.php": "b5dcaff474c60a21cb71a7b4923bdf2192c3f9d63de24e60e54fa0067e9f19f2",
+      "FaBSim/Custom/ELEAbilities.php": "bf8c0531d2ff8817cf2c9b9a778d235675280fab1517c1fcf6956a6a4940ef55",
+      "FaBSim/Custom/MPGCards.php": "75bacd40bf08b76f2a5af3d6c1a8b033d6b942bdcf52045a73a4244f992eeca6",
+      "DevTools/FaB/evo_abilities.json": "681df04ce6b2430623dbd34d7266c09131bff3eb7c7e1f946820e33549cb9552",
+      "DevTools/FaB/arc_abilities.json": "ba33c47315cb5dd2a8116497b5525ec6d1b0fa917a0a3ee9424af5ccee16dce6",
+      "FaBSim/GeneratedCode/GeneratedMacroCode.php": "63113a3d140cfd13409e1ad7ee737f8ecfbbc1f78c4eb8c540658a3bacc73c54"
+    },
+    "completed_selected_preflight_reused": true,
+    "selected_anchors": [
+      "GL1225-1244/1264-1297",
+      "WTRCards725-772/WTRAbilities94-108",
+      "evo canonical UnderLoop Hit/Generated31245-31251",
+      "EVORuntime88-92/DYNRuntime110-121",
+      "ARCCards122-133"
+    ],
+    "source_executed": false
+  },
+  "limits": [
+    "Zeroexecutable/native/probe/replay/fixture/coverage/fix/issueapproval; currentruntimeonlysourceobservation.",
+    "PositiveHit/source-self-bottom payload exists; normalresponse-layer boundary only, not formal-target/ordinaryawait/lifetimeabsence.",
+    "No fullblockfallback/Deckemptytrick/sourceflagseed/forgedStack/API/alternateprimary/producer or deniedretry.",
+    "Other7candidatebodiesunread; datedcandidatehints are metadataonly and do not establishcurrentimplementation or denominator.",
+    "RootsoleR/nativewriter; authorW-only staticbindings/noPHP/R/source/framework/Git/remote/fullsuite.",
+    "Only the first positive played-card Hit/self-bottom response-layer boundary is retained. No missing LKI/GA, formal-target, ordinary choice/lifetime, global body/Boost absence, current-corpus invalidation or native-confirmed bug claim.",
+    "All post-trigger physical movement, Deck order, source identity/LKI, GA/refund and follow-through targets/consumer remain unqualified. No fullblock fallback, zero-hit substitute, invented stack/API/seed or alternative primary/support hunt. Original claim and frozen note remain immutable.",
+    "Exact note/manifest/QA/all73 actual c53 guards plus ab33 bound. Reviewer performs only read-only evidence/source checks and W proof writes, no PHP/native/probe/replay/R/source/framework/Git/remote/fullsuite or denied retry."
+  ],
+  "blockers": [],
+  "comparison_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov8_batch727_under_loop_planning_readonly.py",
+    "sha256": "dcde9dffa2269df527fa05c92534cc9a0ac909e0d713cab113299d196addff09"
+  },
+  "source_approved": false,
+  "source_spec_approved": false,
+  "gameplay_approved": false,
+  "semantically_approved": false,
+  "semantic_gameplay_approved": false,
+  "runnable": false,
+  "runnable_approved": false,
+  "installable": false,
+  "installable_approved": false,
+  "native_approved": false,
+  "native_attempted": false,
+  "fixture_approved": false,
+  "fixture_saved": false,
+  "coverage_approved": false,
+  "coverage_credit": false,
+  "coverage_qualified": false,
+  "confirmed_bug_approved": false,
+  "confirmed_engine_bug": false,
+  "confirmed_gameplay_bug": false,
+  "new_gameplay_bug_claim": false,
+  "issue_allocated": false,
+  "source_fix": false,
+  "source_fix_applied": false,
+  "prototype_created": false,
+  "executable_cases": 0,
+  "executable_case_count": 0,
+  "prototype_cases": 0,
+  "native_actions": 0,
+  "native_assertions": 0
+}

@@ -1,0 +1,79 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-blessing-of-occult-red-four-live-sparse896-natural-start-destroys-real-aura-then-creates-three-owned-runechants",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-blessing-of-occult-red-four-live-sparse896-natural-start-destroys-real-aura-then-creates-three-owned-runechants",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse896-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse896-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "cf1e9fa62752880801874454c9f9559415364ace53748b191013cfc92869566a",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "a7791ef67e10ddc8a5083727612985d55fa37cc7328b07f7be6377d3691b31be",
+        "actions.json": "428361a0de200568d722608d01d74a10ee09bda5c08f41bd3b024c61c2943037",
+        "assertions.json": "2f6b90769ac48bf0b44b76168218b5606af4d1b55f747670619d31c029ef622e",
+        "expected_final_gamestate.txt": "12d043e951b627be8fc08ea48c589629490a8898aca352d0ab89ebef5ce0e5e2",
+        "meta.json": "4a37f04a4f7faba1ae06649d12ebcd01cedd25f33ebf7ac919919c0db33e3566"
+      }
+    },
+    {
+      "slug": "card-blessing-of-ingenuity-red-four-live-sparse896-natural-start-returns-three-actual-hyper-drivers-from-graveyard-and-banish",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-blessing-of-ingenuity-red-four-live-sparse896-natural-start-returns-three-actual-hyper-drivers-from-graveyard-and-banish",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse896-local-20261122\\clean-replays\\01.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse896-local-20261122\\clean-replays\\01.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "ed5b3843468f84ff307f17bba695dfd70cb22d0d069505e90a236aacbb7803f5",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "523239dc9e26140d22deedb0bf9ec88df73813fb3e9faa40b3cb8010a2b2f0ac",
+        "actions.json": "3fb6355eb31eaa9b5ab1b129dffdc805266f6af46efd30b5f428e35bbaf65375",
+        "assertions.json": "5339479ea822d2887ed9914a047263192b99a4312ef11eabb989d3fbb8faf611",
+        "expected_final_gamestate.txt": "b59f7c78661796a8d675403db31e989aa124f3031cfd9817f8691fe3d45f5eb9",
+        "meta.json": "75f30765ae9efb574effc5e7f1933ef10fa1469413c191961851f2a38157796c"
+      }
+    },
+    {
+      "slug": "card-blessing-of-focus-red-four-live-sparse896-natural-start-opt-three-reorders-real-middeck-arrow-to-faceup-arsenal-with-aim",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-blessing-of-focus-red-four-live-sparse896-natural-start-opt-three-reorders-real-middeck-arrow-to-faceup-arsenal-with-aim",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse896-local-20261122\\clean-replays\\02.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse896-local-20261122\\clean-replays\\02.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "240dfba1fafe995a9d9fcf0dbc3e23fc939e1aa16e62180f35f084fb88f0465e",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "622cf8a4d5bda435be112c5d86e9314e56a3ff8a977684814905f7eae8871cf5",
+        "actions.json": "382a140b42a45b34050d85fdd76cb8fb1b565d04c2cb6e0a57d1cf7c86cbbfeb",
+        "assertions.json": "91c1426537c074f3fc29ec84ead2ac6b62e7d1c1fe56e3e6824a6c13f5ea1c4f",
+        "expected_final_gamestate.txt": "8e4bbafd490009d750db37ee2c166ee358fce55bdbbdd0a5d523114575f29b90",
+        "meta.json": "ed4a2da2f64de95097d57c3757a17e8f2ead6ac2c123a0bfcb0264160618a168"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

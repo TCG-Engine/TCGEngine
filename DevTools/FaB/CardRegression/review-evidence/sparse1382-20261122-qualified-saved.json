@@ -1,0 +1,123 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "independent breadth_review1252",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1382-20261122.json",
+  "source_spec_sha256": "2f56c125554d9f8c0a514a723a25b8c39a3b62ef7f8bf537592be418a2cb5748",
+  "input_sha256": "2f56c125554d9f8c0a514a723a25b8c39a3b62ef7f8bf537592be418a2cb5748",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-levia-redeemed-four-live-sparse1382-thirteen-banished-cards-but-only-twelve-blood-debt-no-inventory-transform-or-face-down-cost",
+      "card_id": "levia_redeemed",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "7ab93bffcedefd8aaf7e8556444bcabd3e2b9572c936dbfd26bc70ee075e5b32",
+        "actions.json": "3aaec34458f34606dfe27a6b3ca08e84ba7329e2ab79941756a716b6dbd40b66",
+        "assertions.json": "6316cb7789c9b28ea08178e6cc24c4e9e2db618c875d5f8e2b6ee92841a66a7e",
+        "expected_final_gamestate.txt": "eebd76f0cad8064e912aaa4ef00ae96eb3b088f91f46612a5ed4608b7903074f",
+        "meta.json": "81ffe48852dbc76aea5f505177a36c62372ab960126d10eaf0b0cc0539a4266e"
+      },
+      "fixture_sha256": "7065db5224febc1c35f1aee0c5dd5ba218d4329011ccc67c3c15d7d3eca1820f",
+      "actions": 28,
+      "native_assertions": 966,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1382-20261122.json",
+      "input_sha256": "2f56c125554d9f8c0a514a723a25b8c39a3b62ef7f8bf537592be418a2cb5748",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1382-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-levia-redeemed-four-live-sparse1382-thirteen-banished-cards-but-only-twelve-blood-debt-no-inventory-transform-or-face-down-cost",
+        "fixture_slug": "card-levia-redeemed-four-live-sparse1382-thirteen-banished-cards-but-only-twelve-blood-debt-no-inventory-transform-or-face-down-cost",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "reviewer": "independent breadth_review1252",
+    "spec_sha256": "2f56c125554d9f8c0a514a723a25b8c39a3b62ef7f8bf537592be418a2cb5748",
+    "source_note_sha256": "51fdbc05f911572c788e964feade152ef2ded96ec4a34f6c71a2a75133754fb6",
+    "case_count": 1,
+    "active_seats": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "players": "four_live_manual",
+    "native_controls": 28,
+    "query_checks": 966,
+    "persistable_assertions": 966,
+    "author_only_checks_omitted": 0,
+    "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+    "coverage_category": "INVENTORY_TRANSFORM_BLOOD_DEBT_COUNT_TYPE_FILTER_GUARD_WITH_NATIVE_ACTION_FOLLOWTHROUGH",
+    "per_case": [
+      {
+        "card_id": "levia_redeemed",
+        "group_id": "identity:levia_redeemed",
+        "native_controls": 28,
+        "persistable_assertions": 966
+      }
+    ],
+    "basis": [
+      "Legendary Levia Specialization/Demi-Hero primary is correctly Inventory6 under active Young Shadow Brute Levia20, not a starting Demi-Hero/health8. Three Dori20/four manual UPF; all cached UPF flags valid, group unrepresented/unheld. Prior banish positions are possible with prior Levia debt suppression and do not require current-turn banish history or end-phase execution.",
+      "Four legal Shadow/ShadowBrute BloodDebt identities each three copies give physicalUID7-18 twelve face-up owned Blood Debt cards. Each cached card_keywords includes Blood Debt; Generic WoundingBlue19 adds a thirteenth face-up banished card but no debt. Counts/owner/controller/FaceDown0 pinned. Primary Inventory static loss-of-debt not active: GameLogic359 checks actual Hero levia_redeemed, which remains initial Levia.",
+      "ARCAbilities59 explicitly permits Redeemed Inventory; DTDCards113/126 requires Action0/properInventory/activeLevia and FaBMONBloodDebt>=13. MONCards13-14 counts face-up BloodDebt filtered cards, so12 rejects despite total13. All other activation timing/AP/resource conditions satisfied, no physical-cost099/flip/Transform path entered. Rejection must retain AP1/source6/HeroLevia/13faces/UID19/RNG0/emptyStackDQs.",
+      "Real FD Arsenal Wounding5 then spends retained AP, formally targets adjacent Hero4, uses actual four manual response/combat windows and deals4 HP4=16. Final Wounding5 ownedGY, Inventory6 and all Banish7-19 original faces retained; Hand/Arsenal empty/AP0/R0/no layer or token consistent. No final redundant consumer click remains."
+    ],
+    "limits": [
+      "Only filtered12-versus13 BloodDebt inventory activation threshold with actual action retention/attack/fates. Positive13trueDebt activation, face-down cost, transform/health reset/active Demi-Hero static, Blasmophet, end-phase debt/suppression, banish/asset provenance, support/siblings/whole-card untested.",
+      "Approval pending native execution. No game/test/replay, engine/repository edit, original checkout access, auth/network, full suite or Git operation."
+    ],
+    "source_sha256": {
+      "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+      "FaBSim/GeneratedCode/GeneratedMacroCode.php": "fe6a7982611df8f4de98ce2671b317b671b580146aa4b8c28e8f4b86d8461056",
+      "FaBSim/Custom/GameLogic.php": "c60fa151561f959e4e3e341b814de0e2b47c9e9f153bbc8793a04c43b5075061",
+      "FaBSim/Custom/DTDCards.php": "3b31d7627858a24d9e6444285de1671c448e5a79d3a71f4d7dfcb2824a5273d4",
+      "FaBSim/Custom/DTDRuntime.php": "4393481861f97f02c611e9c2cc3c65ff53a7ea5c39db05d97d5b1dc93d0de4f0",
+      "FaBSim/Custom/MONCards.php": "2eb22bda6f1dba583df2879046f9f4dec94f47f2e9b28f369758f3af72c9c3ac",
+      "FaBSim/Custom/ARCAbilities.php": "e49ce4685f148ef423ea38aac544266b3298527ea8ca9eef11b12fb974e7c9f0",
+      "FaBSim/Custom/WTRCards.php": "77d4452b30e45254a7199bc965396ded53e325717ecdd84a09b971f723f99f6a",
+      "FaBSim/ZoneAccessors.php": "9967567a9a10df81a6f22df820d4d77258828657e95c4ad145b8b13ce17866a7",
+      "Schemas/FaBSim/GameSchema.txt": "7783800bd47bc85885cc915066aadca58cdf99f0c1180602ac312d9af5ebf643",
+      "Core/EngineActionRunner.php": "add14b53dc571d2a6e64407bfa4038a98d6554d6410de7a9233810d99c46ea2a",
+      "Core/ShortcutPreferences.php": "25f300ea0b6fbc409f5b92e8bc3587a74b2ab0eaf31ccef38e18c455598eaba6",
+      "DevTools/FaB/CardRegression/record_card_regressions.php": "e53055b29e9ea641949b77019c4455607f41ca233325d716a9500637e19efd28"
+    },
+    "workspace_source_sha256": {
+      "author_breadth1382.py": "8512ef117dccc467a1ac3c500d4af7d9a538e48c42c82bd2e4123cdc4156267f",
+      "breadth1068_helpers.py": "997f949ec26c7e494ad26a818f9f2078f6f4f2a0c49ca7f61aa8c71f3b091b0a"
+    },
+    "secondary_identity_credit": false,
+    "whole_card_credit": false,
+    "positive_condition_credit": false,
+    "positive_trigger_timing_credit": false,
+    "positive_hero_trigger_credit": false,
+    "positive_ability_credit": false,
+    "initial_position_provenance_credit": false
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1382-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "f3bcfd53c4ab369b1536e6ef85481b02fdd6ab46212d392f49914b803789db67"
+  },
+  "full_suite_run": false
+}

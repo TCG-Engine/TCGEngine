@@ -1,0 +1,106 @@
+{
+  "runtime": "3e817745b728fa5861d07de58cb7d165355266c78b68e9f9be5a7816eadb7d23",
+  "fixtures": [
+    {
+      "slug": "repair-deathly-duet-red-four-live-20261125-false-pitch-condition-still-earns-layer",
+      "passed": true,
+      "returncode": 0,
+      "runtime_sha256": "3e817745b728fa5861d07de58cb7d165355266c78b68e9f9be5a7816eadb7d23",
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=repair-deathly-duet-red-four-live-20261125-false-pitch-condition-still-earns-layer",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\deathly-trigger\\replay01.log"
+      ],
+      "complete_log_sha256": "e8472e6a2609fb52fc45f24caaddcfa05d3e5109c74a06d66693b7b7ca992abe",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "f42a417af0a6a8d9ff734c60b0e7e35112c6afdcf3d3c29077f87cbb6b38dea6",
+        "actions.json": "f6bcf0f5cbfdcfd96fc1a2adf0646b23cefec70a9ba16dcc1793b4a016495944",
+        "assertions.json": "7196abace5c215471c69c2117f7bbaada65d3c21ed26b22dafb175d8f3b024b9",
+        "expected_final_gamestate.txt": "c3ddbfe4796040797ca1dd136d75c68ac5baf903126a6cf7ed0246907f997e7b",
+        "meta.json": "856586fef29e0df5e52227e72818a37b0563df748f90584b642cde84319eb625"
+      },
+      "is_new_repair_witness": true,
+      "error_lines": []
+    },
+    {
+      "slug": "repair-deathly-duet-red-four-live-20261125-both-real-pitch-types-delayed-power-and-runes-six-damage",
+      "passed": true,
+      "returncode": 0,
+      "runtime_sha256": "3e817745b728fa5861d07de58cb7d165355266c78b68e9f9be5a7816eadb7d23",
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=repair-deathly-duet-red-four-live-20261125-both-real-pitch-types-delayed-power-and-runes-six-damage",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\deathly-trigger\\replay02.log"
+      ],
+      "complete_log_sha256": "eb1c25856ac04de0b48c8c7941e663003b062f8c936bc48993e67fb9a9b9ea05",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "d950b46d84b5d48ce28c46f65af28d0cde5b1db39f0f5c7b6180d07c04a51b69",
+        "actions.json": "b003a959c08bde17471755a40ff34b604eca9088e71d34ae1a3df7af17df7fb3",
+        "assertions.json": "4702943628be3010c79eda34a4c47a4aebfc0b3ae1116632e6b147690e9baaa2",
+        "expected_final_gamestate.txt": "61bafae28556233f624e5eae4a662813ae903d95e6fb3905ac08fa189a033c2c",
+        "meta.json": "8001b784ee5c751fb9b8ebaf27e097427b6ddb9ff895c303922fac442fb99ff4"
+      },
+      "is_new_repair_witness": true,
+      "error_lines": []
+    },
+    {
+      "slug": "card-head-leads-the-tail-red-four-live-correct-attack-trigger-name-earns-real-same-chain-head-jab-power",
+      "passed": true,
+      "returncode": 0,
+      "runtime_sha256": "3e817745b728fa5861d07de58cb7d165355266c78b68e9f9be5a7816eadb7d23",
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-head-leads-the-tail-red-four-live-correct-attack-trigger-name-earns-real-same-chain-head-jab-power",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\deathly-trigger\\replay03.log"
+      ],
+      "complete_log_sha256": "cb1a9963ed878eb17906249ca56c97f0e64986475a561a031e08acf18aee0d38",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "caabf59681b451903a7debebbf4daaf30078849ee0e863966e9dc74b08686da0",
+        "actions.json": "03a227138c9be875f00b03cfce8e63242ea69e103bd848ced2aa6fab933e97e6",
+        "assertions.json": "a5020e6e437b6a630692d221196a360d2b2c129a2a839991fb001d6a7038832f",
+        "expected_final_gamestate.txt": "968aa83c83e0e895259f3d301209c92c9fedd022b727dc8c71c1b16f0aaadb9d",
+        "meta.json": "dccf81a0260ee5ab7e07fe6be2ea4bab4bf122020088fae063f4e292406743e8"
+      },
+      "is_new_repair_witness": false,
+      "error_lines": []
+    },
+    {
+      "slug": "card-drowning-dire-red-four-live-original-correct-aura-dominate-hit-layer-and-optional-naa-bottom",
+      "passed": true,
+      "returncode": 0,
+      "runtime_sha256": "3e817745b728fa5861d07de58cb7d165355266c78b68e9f9be5a7816eadb7d23",
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-drowning-dire-red-four-live-original-correct-aura-dominate-hit-layer-and-optional-naa-bottom",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\deathly-trigger\\replay04.log"
+      ],
+      "complete_log_sha256": "fb592922f0d82a1f3133a4e7309dea5a60a8268b4f15b59aef6d2363b86ad88c",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "9bd12c83a806a5df3501d21cecdddc024ccfe79379005b7f0fcd4a068ae76615",
+        "actions.json": "475446982305e198bf964d32ac19d043b82fb7ba6d1e6f1761305f0209ff9db4",
+        "assertions.json": "6c21597c755bc991dcb30768a10adb68455da877c843cedc90c49e18d962829e",
+        "expected_final_gamestate.txt": "eb8c13142ebc82fd15883f155fa5bd969e7db1629b8d361c8ce931a42b26274b",
+        "meta.json": "37db0c63ee3ad800841bc262e826a04513f832c039a12b2f739ee466822e60a3"
+      },
+      "is_new_repair_witness": false,
+      "error_lines": []
+    }
+  ],
+  "full_suite_run": false
+}

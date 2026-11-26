@@ -19,7 +19,7 @@ function FaBROSPlayed(int $p,object $o,string $from): void {
  if($aa)foreach(FaBMONArena($p,'malefic_incantation') as $r){$a=FaBIdentityFromMZ($r)['object'];$c=FaBObjectCounters($a);if(intval($c['ROS_VERSE_TURN']??-1)===intval(GetTurnNumber()))continue;FaBSetObjectCounter($a,'ROS_VERSE_TURN',intval(GetTurnNumber()));$n=intval($c['VERSE']??0);if($n>0){FaBSetObjectCounter($a,'VERSE',$n-1);FaBARCCreateRunes($p,1);if($n===1)FaBMONDestroy(intval($a->UniqueID));}}
  if(!$aa&&$action&&FaBROSAsInstant($p,$o)&&FaBROSCount($p,'MAGNETISM'))FaBROSClear($p,'MAGNETISM');
 }
-function FaBROSPower(int $p,object $o): int {$b=FaBWTRBase($o->CardID);$n=0;if(in_array($b,['strength_of_four_seasons','plow_under','felling_of_the_crown'],true)&&FaBROSEarth($p)>=4)$n+=4;if($b==='arcanic_spike'&&FaBROSCount($p,'ARCANE'))$n+=2;if(in_array($b,['rotwood_reaper','hit_the_high_notes'],true)&&FaBROSCount($p,'AURA'))$n+=2;if($b==='star_fall'&&FaBROSCount($p,'LIGHTNING'))++$n;return $n;}
+function FaBROSPower(int $p,object $o): int {$b=FaBWTRBase($o->CardID);$n=0;if(in_array($b,['strength_of_four_seasons','plow_under','felling_of_the_crown'],true)&&FaBROSEarth($p)>=4)$n+=4;if($b==='arcanic_spike'&&FaBROSCount($p,'ARCANE'))$n+=2;if(in_array($b,['rotwood_reaper','hit_the_high_notes'],true)&&FaBROSCount($p,'AURA'))$n+=2;if($b==='star_fall'&&FaBROSCount($p,'LIGHTNING'))++$n;if($o->CardID==='crackling_red'&&!HasNoAbilities($o)&&FaBROSCount($p,'LIGHTNING')>0)++$n;return $n;}
 function FaBROSDefense(int $p,object $o): int {if($o->CardID==='helm_of_lignum_vitae')return FaBROSEarth($p)>=4?1:0;if($o->CardID==='arcanite_fortress')return FaBROSArcanite($p)-intval(CardDefense($o->CardID));return 0;}
 function FaBROSGoAgain(int $p,object $o): bool {$b=FaBWTRBase($o->CardID);return ($b==='star_fall'&&FaBROSCount($p,'LIGHTNING'))||($b==='flittering_charge'&&FaBARCCard(intval($o->UniqueID),'rosInstant'))||(($b==='runerager_swarm'||in_array('ROS_AURA_GO',(array)($o->TurnEffects??[]),true))&&FaBROSCount($p,'AURA'));}
 function FaBROSAsInstant(int $p,object $o): bool {return (FaBWTRBase($o->CardID)==='succumb_to_temptation'&&FaBROSCount($p,'ARCANE'))||(FaBHasType($o,'Action')&&!FaBHasType($o,'Attack')&&FaBROSCount($p,'MAGNETISM')&& !empty(FaBGetState()['combatOpen']))||FaBARCCard(intval($o->UniqueID),'rosTemporalTurn',-1)===intval(GetTurnNumber());}
@@ -29,6 +29,83 @@ function FaBROSDeclared(int $p,object $o): void {if(in_array('ROS_UNSHEATHED',(a
 function FaBROSHit(int $p,object $o): void {if(!FaBFaiHeroHit())return;$v=intval(FaBGetState()['defender']);if(FaBROSCount($p,'BURN')){FaBROSQueue($p,'burn_up_shock_red',FaBROSStoredSource($p,'BURN'),['rosEvent'=>'hit','rosTarget'=>$v]);FaBROSClear($p,'BURN');}if(FaBHasType($o,'Runeblade')&&FaBWTRIsAttackAction($o)&&FaBROSCount($p,'TEMPTATION')){FaBROSClear($p,'TEMPTATION');FaBROSQueue($p,'succumb_to_temptation_yellow',intval($o->UniqueID),['rosTarget'=>$v]);}}
 function FaBROSGo(int $p,int $source=0): void {if($p!==intval(GetTurnPlayer())||GetCurrentPhase()!=='MAIN')return;if(FaBROSCount($p,'ARC_LIGHTNING'))for($i=0;$i<FaBROSCount($p,'ARC_LIGHTNING');++$i)FaBROSQueue($p,'arc_lightning_yellow',FaBROSStoredSource($p,'ARC_LIGHTNING'));}
 function FaBROSChainEnd(): void {foreach(FaBLiveSeats() as $p){foreach(FaBChoiceRefs($p,'CombatChain') as $r){$o=FaBIdentityFromMZ($r)['object'];if(FaBARCCard(intval($o->UniqueID),'rosReturn')){FaBARCSetCard(intval($o->UniqueID),'rosReturn',false);FaBROSReturn($r);}}FaBROSClear($p,'MAGNETISM');}}
-function FaBROSStart(int $p): void {foreach(FaBChoiceRefs($p,'Arena') as $r){$o=FaBIdentityFromMZ($r)['object'];$b=FaBWTRBase($o->CardID);if($b==='channel_the_millennium_tree')FaBMSTAdd($p,'AMP',3);if(in_array($b,['harvest_season','strong_yield','sigil_of_aether','sigil_of_brilliance','sigil_of_cycles','sigil_of_deadwood','sigil_of_earth','sigil_of_forethought','sigil_of_fyendal','sigil_of_lightning','sigil_of_temporal_manipulation','sigil_of_the_arknight'],true)){FaBMONDestroy(intval($o->UniqueID));if($b==='harvest_season')FaBCRUGainLife($p,4-intval(CardPitch($o->CardID)));if($b==='strong_yield')FaBMSTNext($p,4-intval(CardPitch($o->CardID)),'');}}}
+function FaBROSStart(int $p): void {foreach(FaBChoiceRefs($p,'Arena') as $r){$o=FaBIdentityFromMZ($r)['object'];$b=FaBWTRBase($o->CardID);if($b==='channel_the_millennium_tree')FaBMSTAdd($p,'AMP',3);if(in_array($b,['strong_yield','sigil_of_aether','sigil_of_brilliance','sigil_of_cycles','sigil_of_deadwood','sigil_of_earth','sigil_of_forethought','sigil_of_fyendal','sigil_of_lightning','sigil_of_temporal_manipulation','sigil_of_the_arknight'],true)){FaBMONDestroy(intval($o->UniqueID));if($b==='strong_yield')FaBMSTNext($p,4-intval(CardPitch($o->CardID)),'');}}}
+
+/** Tiny shared epoch operations; callers supply fixed audited keys, never layer input. */
+function FaBArmCapturedSourceEpoch(int $uid,string $key): int {
+ if($uid<1||$key==='')return 0;
+ $epoch=max(1,intval(FaBARCCard($uid,$key,0)));
+ FaBARCSetCard($uid,$key,$epoch);return $epoch;
+}
+function FaBAdvanceCapturedSourceEpochs(object $o,string $from,string $to,array $keys): void {
+ if($from===$to)return;$uid=intval($o->UniqueID??0);if($uid<1)return;
+ foreach(array_unique($keys) as $key){
+  if(!is_string($key)||$key==='')continue;
+  $epoch=intval(FaBARCCard($uid,$key,0));
+  if($epoch>0)FaBARCSetCard($uid,$key,$epoch+1);
+ }
+}
+/** Only audited simple beginning-Action destroy-then-scalar abilities. */
+function FaBROSBeginningActionScalarDefinitions(): array {
+ $harvest=['event'=>'rosHarvestBeginningAction','effect'=>'life','epoch'=>'rosHarvestSourceEpoch',
+  'turn'=>'rosHarvestQueuedTurn','value'=>'rosHarvestLife'];
+ return [
+  'emerging_avalanche_red'=>['event'=>'eleEmergingBeginningAction','effect'=>'nextAA','amount'=>3,'epoch'=>'rosEmergingSourceEpoch','turn'=>'rosEmergingQueuedTurn','value'=>'rosEmergingPower'],
+  'emerging_avalanche_yellow'=>['event'=>'eleEmergingBeginningAction','effect'=>'nextAA','amount'=>2,'epoch'=>'rosEmergingSourceEpoch','turn'=>'rosEmergingQueuedTurn','value'=>'rosEmergingPower'],
+  'emerging_avalanche_blue'=>['event'=>'eleEmergingBeginningAction','effect'=>'nextAA','amount'=>1,'epoch'=>'rosEmergingSourceEpoch','turn'=>'rosEmergingQueuedTurn','value'=>'rosEmergingPower'],
+  'harvest_season_red'=>$harvest+['amount'=>3],
+  'harvest_season_yellow'=>$harvest+['amount'=>2],
+  'harvest_season_blue'=>$harvest+['amount'=>1],
+  'tome_of_aeo_blue'=>['event'=>'dynTomeBeginningAction','effect'=>'draw','amount'=>1,
+   'epoch'=>'rosTomeSourceEpoch','turn'=>'rosTomeQueuedTurn','value'=>'rosTomeDraw']
+ ];
+}
+function FaBROSBeginningActionScalarCapture(int $p): void {
+ $state=FaBGetState();
+ if(!FaBSeatIsLive($p)||$p!==intval(GetTurnPlayer())||GetCurrentPhase()!=='MAIN'||!empty($state['dtdStarting']))return;
+ $definitions=FaBROSBeginningActionScalarDefinitions();$turn=intval(GetTurnNumber());
+ foreach(FaBChoiceRefs($p,'Arena') as $ref){
+  $found=FaBIdentityFromMZ($ref);if($found===null)continue;$o=$found['object'];
+  $id=(string)$o->CardID;$uid=intval($o->UniqueID??0);$definition=$definitions[$id]??null;
+  if($uid<1||$definition===null||(intval($o->Controller??0)>0&&intval($o->Controller)!==$p)||HasNoAbilities($o))continue;
+  if(intval(FaBARCCard($uid,$definition['turn'],-1))===$turn)continue;
+  $epoch=FaBArmCapturedSourceEpoch($uid,$definition['epoch']);
+  FaBARCSetCard($uid,$definition['turn'],$turn);
+  FaBROSQueue($p,$id,$uid,['rosEvent'=>$definition['event'],
+   $definition['value']=>$definition['amount'],$definition['epoch']=>$epoch]);
+ }
+}
+function FaBROSBeginningActionScalarAfterMove(object $o,string $from,string $to): void {
+ $keys=array_column(FaBROSBeginningActionScalarDefinitions(),'epoch');
+ FaBAdvanceCapturedSourceEpochs($o,$from,$to,$keys);
+}
+function FaBROSResolveBeginningActionScalar(int $p,object $layer): void {
+ $params=is_array($layer->Params??null)?$layer->Params:[];
+ $id=(string)($layer->CardID??'');$definition=FaBROSBeginningActionScalarDefinitions()[$id]??null;
+ if($definition===null)return;
+ $uid=intval($layer->SourceUniqueID??0);$epoch=intval($params[$definition['epoch']]??0);
+ $amount=intval($params[$definition['value']]??0);
+ if(!FaBSeatIsLive($p)||($layer->Kind??'')!=='ABILITY'||intval($layer->Controller??0)!==$p
+  ||($params['rosEvent']??'')!==$definition['event']||$uid<1||$epoch<1||$amount!==$definition['amount'])return;
+ $source=FaBFindUID($uid);$previous=$GLOBALS['fabEffectController']??0;$GLOBALS['fabEffectController']=$p;
+ try {
+  if($source!==null&&$source['zone']==='Arena'
+   &&intval(FaBARCCard($uid,$definition['epoch'],0))===$epoch)FaBMONDestroy($uid);
+  // Neither audited text says "if you do": later effect survives a failed destroy.
+  if($definition['effect']==='life')FaBCRUGainLife($p,$amount);
+  elseif($definition['effect']==='draw')DoDrawCard($p,$amount);
+  elseif($definition['effect']==='nextAA')FaBWTRAddEffect($p,'NEXT_AA',$amount);
+ } finally {$GLOBALS['fabEffectController']=$previous;}
+}
+/** Preserve the installed phase-hook and component entry point; share audited capture. */
+function FaBROSHarvestBeginningAction(int $p): void {FaBROSBeginningActionScalarCapture($p);}
+/** Preserve the installed move hook; do not include Single-Minded's MST-owned epoch. */
+function FaBROSHarvestAfterMove(object $o,string $from,string $to): void {FaBROSBeginningActionScalarAfterMove($o,$from,$to);}
+/** Preserve the existing Harvest event API and Params; no fixture protocol rewrite. */
+function FaBROSResolveHarvestBeginningAction(int $p,object $layer): void {
+ if(!is_array($layer->Params??null)||($layer->Params['rosEvent']??'')!=='rosHarvestBeginningAction')return;
+ FaBROSResolveBeginningActionScalar($p,$layer);
+}
+
 function FaBROSEnd(int $p): void {foreach(FaBMONArena($p,'earths_embrace') as $r){FaBWTRCreateArena($p,'embodiment_of_earth');if(!FaBROSCount($p,'EARTH_BANISHED'))FaBMONDestroy(intval(FaBIdentityFromMZ($r)['object']->UniqueID));}foreach(FaBLiveSeats() as $v){foreach(FaBMONArena($v,'truce') as $r){$o=FaBIdentityFromMZ($r)['object'];if(intval(FaBObjectCounters($o)['ROS_OPP']??0)===$p){FaBMONDestroy(intval($o->UniqueID));FaBCRUGainLife($p,3);FaBCRUGainLife($v,3);}}foreach(FaBChoiceRefs($v,'Hero') as $r){$o=FaBIdentityFromMZ($r)['object'];if($v===$p&&!empty(FaBObjectCounters($o)['ROS_PLAN'])){FaBSetObjectCounter($o,'ROS_PLAN',0);foreach(FaBChoiceRefs($p,'Hand') as $h)FaBDiscardChoice($p,$h);foreach(FaBUPRUIDs(implode('&',FaBChoiceRefs($p,'Arsenal'))) as $u)FaBMONDestroy($u);}}foreach(FaBMONArena($v,'sanctuary_of_aria') as $r)if(!empty(FaBObjectCounters(FaBIdentityFromMZ($r)['object'])['ROS_SANCTUARY']))FaBMONDestroy(intval(FaBIdentityFromMZ($r)['object']->UniqueID));}}
 function FaBROSWeaponEffects(int $p,object $o): void {$effects=[];foreach(FaBWTREffects($p) as $e){$k=$e['type']??'';if($k==='ROS_RUNE_NEXT'&&FaBHasType($o,'Runeblade')||$k==='ROS_UNSHEATHED'&&FaBHasType($o,'Sword')){FaBWTRTag($o,'WTR_POWER:'.$e['amount']);if($k==='ROS_UNSHEATHED')FaBWTRTag($o,'ROS_UNSHEATHED');}else $effects[]=$e;}FaBWTRSetEffects($p,$effects);}

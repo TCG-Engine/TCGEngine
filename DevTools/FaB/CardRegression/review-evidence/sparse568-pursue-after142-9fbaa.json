@@ -1,0 +1,344 @@
+{
+  "status": "APPROVED_ACTUAL_SAVED_B568_R3_AFTER142_CAPTURED_HIT_MARK",
+  "approved": true,
+  "source_approved": true,
+  "semantically_approved": true,
+  "reviewer": "/root/b106_semantic_review",
+  "reviewer_independent": true,
+  "created_utc": "2026-11-06T04:52:08.392961+00:00",
+  "source_spec": "card-regression-batch568-after142-r3.json",
+  "input_sha256": "8ad37836567d2bd9b033a656a7a442f90cdd7e7a6eb716d8eec69e7c915b168a",
+  "manifest_sha256": "c8d8ffec2b2df2336a73e386408ba1ffebfacf3f4eb1df4f172d3d56d738e9e6",
+  "runtime_sha256": "9fbaaee63ccedad1dc7cad440f09376d21106a761ce61bad719156bdd7d20709",
+  "recorded_runtime_sha256": "9fbaaee63ccedad1dc7cad440f09376d21106a761ce61bad719156bdd7d20709",
+  "source_guards_verified": 70,
+  "prior_independent_semantic_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch568-r3-independent-source-review.json",
+    "sha256": "990cea3f10ea0a02cc172af2f88a5140ae9d03257cf1c6cb70820c2cb0d171b1"
+  },
+  "counter_representation_classification": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch568-after142-unmarked-counter-oracle-classification.json",
+    "sha256": "41130b6af5c6547d2ecda6f8156568900c1cfd70e26c009450ca8eb0f47c08d5"
+  },
+  "independent_source_patch_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-pursue142-independent-source-review.json",
+    "sha256": "77e61350d692675dfc4131322067a9105f1c020ca1860217daa45aabd244540d"
+  },
+  "prior_current_context_bridge": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch568-after142-independent-source-review.json",
+    "sha256": "a185c29bde0ea94b793ef46cb5013d80e1db814394920ccd65aa7c530f833b62"
+  },
+  "recording_receipt": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch568-after142-r3-20261106T044833Z-6aed5c21aeb11.json",
+    "sha256": "c8f999ccd61f434d122f619ba711175fb8a98daaeb20a6b5aeeccb0a201b30ae"
+  },
+  "specific_results": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch568-after142-r3.recording-results.json",
+    "sha256": "c51e7070cfc90fd35c60db5877b2ec582b1455bc6265db742410c0b34b804bb0"
+  },
+  "root_wrapper_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch568-native-after-r3-9fbaa\\receipt.json",
+    "sha256": "4fb6eff81555900c0afeabcefbfcabefda30d91987fe6e78856adb60298c88fa"
+  },
+  "fixtures": [
+    {
+      "index": 0,
+      "card_id": "pursue_to_the_edge_of_oblivion_red",
+      "group_id": "identity:pursue_to_the_edge_of_oblivion_red",
+      "slug": "card-pursue-edge-oblivion-red-four-live-correct-four-damage-and-responseable-hit-mark-probe",
+      "source_spec": "card-regression-batch568-after142-r3.json",
+      "input_sha256": "8ad37836567d2bd9b033a656a7a442f90cdd7e7a6eb716d8eec69e7c915b168a",
+      "reviewer": "/root/b106_semantic_review",
+      "approved": true,
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_RESPONSEABLE_HIT_THEN_MARK",
+      "runtime_sha256": "9fbaaee63ccedad1dc7cad440f09376d21106a761ce61bad719156bdd7d20709",
+      "recorded_runtime_sha256": "9fbaaee63ccedad1dc7cad440f09376d21106a761ce61bad719156bdd7d20709",
+      "fixture_path": "Tests\\Integration\\FaBSim\\card-pursue-edge-oblivion-red-four-live-correct-four-damage-and-responseable-hit-mark-probe",
+      "fixture_sha256": "e61e6be15c6daa4c9410c851503d64722632053107e8f9698c82f9ac0a67f08d",
+      "raw4_sha256": {
+        "initial_gamestate.txt": "8286555d84d1858cae49c4e668739cedf0537221660d9694ca3418040d697b27",
+        "actions.json": "59f6ec8f58b5db7e3ba459dcd6522428bfb3fa81214520752dbf6af86f25f7af",
+        "assertions.json": "1b05caa77b90964f36cbd2e6a4b96f8a266339aa3176cf6116d0caec0fbf3947",
+        "expected_final_gamestate.txt": "db04caca368e5385f10be8062e05b0c07df5184c696d6a1b6b9dc62514d5de0f"
+      },
+      "raw5_sha256": {
+        "initial_gamestate.txt": "8286555d84d1858cae49c4e668739cedf0537221660d9694ca3418040d697b27",
+        "actions.json": "59f6ec8f58b5db7e3ba459dcd6522428bfb3fa81214520752dbf6af86f25f7af",
+        "assertions.json": "1b05caa77b90964f36cbd2e6a4b96f8a266339aa3176cf6116d0caec0fbf3947",
+        "expected_final_gamestate.txt": "db04caca368e5385f10be8062e05b0c07df5184c696d6a1b6b9dc62514d5de0f",
+        "meta.json": "76804d0a4ebdc0b9d8117ea3033c2fd2a28e520a0fff4e28376a6792ac983d4e"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "8286555d84d1858cae49c4e668739cedf0537221660d9694ca3418040d697b27",
+        "actions.json": "59f6ec8f58b5db7e3ba459dcd6522428bfb3fa81214520752dbf6af86f25f7af",
+        "assertions.json": "1b05caa77b90964f36cbd2e6a4b96f8a266339aa3176cf6116d0caec0fbf3947",
+        "expected_final_gamestate.txt": "db04caca368e5385f10be8062e05b0c07df5184c696d6a1b6b9dc62514d5de0f",
+        "meta.json": "76804d0a4ebdc0b9d8117ea3033c2fd2a28e520a0fff4e28376a6792ac983d4e"
+      },
+      "actions": 31,
+      "native_assertions": 2297,
+      "actual_manual_passes": 29,
+      "actual_priority_response_passes": 28,
+      "actual_defender_declaration_finish_inputs": 1,
+      "actual_administrative_END_PHASE_passes": 0,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4
+      ],
+      "actual_manual_actor_counts": {
+        "1": 7,
+        "2": 7,
+        "3": 7,
+        "4": 8
+      },
+      "schema_property_assertions": 409,
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "all_actions_and_assertions_exact": true,
+      "no_recorder_only_assertions": true,
+      "all_endpoint_physical_uid_card_zones_ownership_verified": true,
+      "all_terminal_assertions_evaluated_against_parsed_final_snapshot": true,
+      "initial_assertions_also_evaluated_against_parsed_initial_snapshot": true,
+      "initial_physical_uid_locations": {
+        "1": {
+          "card_id": "dorinthea",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2,
+          "marked": false
+        },
+        "5": {
+          "card_id": "pursue_to_the_edge_of_oblivion_red",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2,
+          "marked": false
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2,
+          "marked": false
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2,
+          "marked": false
+        }
+      },
+      "final_physical_uid_locations": {
+        "1": {
+          "card_id": "dorinthea",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2,
+          "marked": false
+        },
+        "5": {
+          "card_id": "pursue_to_the_edge_of_oblivion_red",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2,
+          "marked": false
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2,
+          "marked": false
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2,
+          "marked": true
+        }
+      },
+      "final_health": [
+        20,
+        20,
+        20,
+        16
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "actual_primary_UID": 5,
+      "actual_printed_resource_cost": 0,
+      "actual_AP_cost": 1,
+      "actual_physical_damage": 4,
+      "actual_required_hit_Stack_count": 1,
+      "actual_captured_controller": 1,
+      "actual_captured_source_UID": 5,
+      "actual_hit_response_inputs": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "actual_unmarked_counter_value_before_four": "[]",
+      "actual_mark_counter_after_four": {
+        "HNT_MARKED": 1
+      },
+      "final_GY1_exact_UIDs": [
+        5
+      ],
+      "final_physical_uidset": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "future_virtual_UID_unpinned": true,
+      "actual_final_UniqueIDCounter": 6,
+      "final_counter_is_observation_not_oracle_pin": true,
+      "RandomCounter": 0,
+      "checkpoint_assertion_mapping_sha256": "5c2ca0b55f79fea8f6e246cd5e53dacf013f3e97c735d16416d3ab108e27ed3e",
+      "native_action_mapping_sha256": "e42c4894b8302c553ec9314456fa54e6338006d0f222e65078528036fbf5e933",
+      "native_assertion_mapping_sha256": "d4d9800dbcd8b5efa5858d0bca509c300519ffaad762a551bbe3d0346ad1a7fc"
+    }
+  ],
+  "blocked_attempts": [],
+  "total_actions": 31,
+  "total_native_assertions": 2297,
+  "total_manual_passes": 29,
+  "total_priority_response_passes": 28,
+  "total_defender_declaration_finish_inputs": 1,
+  "total_schema_property_assertions": 409,
+  "material_findings": [
+    "Actual Root native COMPLETE0/stderr0/one newfixture at9fbaa. All rawfive files,31 actual native envelopes/2297 ordered persisted assertions/409 properties,29 actual four-manual inputs,70 source guards and48 raw manual preference values at each endpoint independently verified.",
+    "Physicalprimary5 leaves Hand only after real adjacentHero4 declaration and AP1spent/printed0 resources. Four source responses put same5 on chain/current4/noGA; actual unblocked4 physical damage takesHP20to16 before the required earned hitStack1 query.",
+    "Same captured hit-layer controller1/source5 remains through three further actual responses, with Hero4 Counters[] and HP16 unchanged. Exactly the fourth fresh response clears the layer and produces Hero4 Mark1. All later Damage/Resolution/fullclose checks and raw final Hero4 retain Mark1; otherHero wholeobjects remain unchanged.",
+    "Full close leaves same5 publicGY1, all original physicalUID1..5 conserved, allR/AP/Chi0, no entropy and no current chain/Stack/DQ/payment/await residue. Virtual identity/privatepayload/allocator were not invented in native assertions; final allocator is a raw observation only.",
+    "R3 differs from old06aa in exactlyfour expected pre-Mark counter values (queries1353/1423/1493/1563), with all original actions and first Stack1307 failure prefix unchanged. Earlier1352-pass after run did not execute the three future corrected values; this distinct actual R3 pass now verifies allfour. Historicalbefore333 and failedafter9 receipts are not retagged.",
+    "Immutable input/meta prose inherited the earlier literal-zero assumption; external R3 binding/classification and this review explicitly supersede that representation statement. Logical unmarked means no marked condition; no current rawzero-key storage claim is approved. Root focused replays and named repair qualification remain separate/unclaimed."
+  ],
+  "primary_sources": [
+    {
+      "kind": "issuer_face",
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\WebpImages\\pursue_to_the_edge_of_oblivion_red.webp",
+      "sha256": "295515d1c98720b1f67c9a33899fdaf92bd68acce21c7add549cfe84b86ab4ce",
+      "printing": "HNT224",
+      "actually_viewed": true,
+      "finding": "Generic0/base4/DEF3 and hero-hit WHEN mark; no fabricated JudgeHub ID."
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/06-effects/",
+      "rules": [
+        "6.6.1c-d",
+        "6.6.5",
+        "6.6.6"
+      ],
+      "finding": "Hit event earns separate layer; its effect occurs on resolution before clearing, with priority first."
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/07-combat/",
+      "rules": [
+        "7.5.2",
+        "7.5.3",
+        "7.5.5"
+      ],
+      "finding": "Four unblocked power causes physical4 hit before turnplayer Damage priority."
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/08-keywords/",
+      "rules": [
+        "8.5.50"
+      ],
+      "finding": "Mark applies marked condition to referenced hero."
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/09-additional-rules/",
+      "rules": [
+        "9.3.2b",
+        "9.3.3"
+      ],
+      "finding": "Old mark removed within opponent hit; newly resolved mark lasts until another opponent hit or ceasing."
+    }
+  ],
+  "representation_delta": {
+    "prior_input_sha256": "06aa36f22c167b1e2d378cda00d24632bc681224c67c83f0a833cfe490d1c6ff",
+    "current_input_sha256": "8ad37836567d2bd9b033a656a7a442f90cdd7e7a6eb716d8eec69e7c915b168a",
+    "exact_four_changed_one_based_query_ordinals": [
+      1353,
+      1423,
+      1493,
+      1563
+    ],
+    "whole_input_byte_identical": false,
+    "first_failed_Stack1307_prefix_unchanged": true
+  },
+  "limits": [
+    "Only selected Generic hero-hit responseable Mark effect at current runtime; no priorMarked/secondhit/unmark/multipleHero/othertarget/source-loss/native sibling/support/fullcard or generalqueue certification.",
+    "No per-input raw snapshots or private event instrumentation are invented; actual persisted assertions and full initial/final raw state are the evidence. Raw undoVersions remain hash-bound but outside current physical UID inventory.",
+    "Root two focused replays/compatibility/repair qualification are separate gates, not performed or claimed here. No reviewer PHP/native/replay/R/source/fullsuite/denied retry."
+  ],
+  "blockers": [],
+  "actual_comparison_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov6_batch568_saved_after142_readonly.py",
+    "sha256": "4332b029858bfe44532958dd336b4dbbd4d6a772f1641febd8e281ecac3e4ffe"
+  }
+}

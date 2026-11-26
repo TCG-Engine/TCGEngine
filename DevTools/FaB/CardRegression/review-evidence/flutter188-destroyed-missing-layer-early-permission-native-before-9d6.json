@@ -1,0 +1,180 @@
+{
+  "status": "ACTUAL_FLUTTER_R3_CONFIRMED_MISSING_EARNED_LAYER_AND_RAW_EARLY_PERMISSION",
+  "phase": "ACTUAL_FAILED_ATTEMPT",
+  "batch": 835,
+  "reviewer": "/root/ebbing_recovery_review",
+  "reviewer_independent": true,
+  "independent_Source": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-batch835-flutter-r3-independent-diagnostic-source-review.json",
+    "sha256": "6d9919010b97b31c657c4f7b7e3351885b22cfc59b3a884e87a0fc61114396ce"
+  },
+  "source": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-batch835-flutter-r3-readonly-permission-row-probe-author\\flutter-real-ward-earned-offturn-permission-probe-r3.json",
+    "sha256": "3377c39f7280dcce35d20318c94a044176a8da16cb511475d5f8c1df85722ac1"
+  },
+  "source_spec": "card-regression-batch835-flutter-original-correct-ward-offturn-permission-probe-r3.json",
+  "input_sha256": "3377c39f7280dcce35d20318c94a044176a8da16cb511475d5f8c1df85722ac1",
+  "manifest": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-batch835-flutter-r3-readonly-permission-row-probe-author\\manifest.json",
+    "sha256": "33c1cf64d5aed109fabace40ff654484422a19a8569853bd811112af3184ab20"
+  },
+  "manifest_sha256": "33c1cf64d5aed109fabace40ff654484422a19a8569853bd811112af3184ab20",
+  "runtime_sha256": "9d6f6c4592a45778ac4deb2c5fa292747472a59a64f6a1d68b839caca788de55",
+  "recorded_runtime_sha256": "9d6f6c4592a45778ac4deb2c5fa292747472a59a64f6a1d68b839caca788de55",
+  "root_native_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-b835-flutter-r3-full-original-correct-unsaved-before-9d6\\receipt.json",
+    "sha256": "c72a42183cce9138b147ab5e12bdc0b68d6280ac6e707eda3913eddbc017580a"
+  },
+  "actual_result": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-b835-flutter-r3-full-original-correct-unsaved-before-9d6\\actual-result.json",
+    "sha256": "5d5765f3715b4b456b47a394069ea105d074bfd9e49fc982d94c713931c72f70"
+  },
+  "identical_Native_result": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch835-flutter-original-correct-ward-offturn-permission-probe-r3.recording-results.json",
+    "sha256": "5d5765f3715b4b456b47a394069ea105d074bfd9e49fc982d94c713931c72f70"
+  },
+  "actual_immutable_archive": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch835-flutter-original-correct-ward-offturn-permission-probe-r3-20261116T000559Z-6afa48e7726be.json",
+    "sha256": "0eac918cc698149837f7789f750aea576c5ca3dd1f7bb33864606ed6f982162a"
+  },
+  "actual_inputs": 20,
+  "planned_inputs": 40,
+  "actual_manual_passes": 17,
+  "actual_manual_actor_counts": {
+    "1": 4,
+    "2": 4,
+    "3": 4,
+    "4": 5
+  },
+  "exact_action_prefix_matched": true,
+  "exact_successful_recorded_query_prefix_matched": true,
+  "initial_raw_48_manual_controls": true,
+  "failed_query": {
+    "ordinal_one_based": 2346,
+    "source_step_index": 40,
+    "source_check_index": 105,
+    "control": 20,
+    "query": {
+      "type": "zone_count",
+      "zone": "Stack",
+      "value": 1,
+      "viewerPlayerID": 1,
+      "step": 20
+    },
+    "actual_value": 0
+  },
+  "query_counts": {
+    "planned": 4720,
+    "successful_recorded_prefix": 2345,
+    "failed_unpersisted": 1,
+    "later_unrun": 2374,
+    "not_passed_including_failed": 2375
+  },
+  "remaining_inputs_unrun": 20,
+  "separate_raw_permission_witness": {
+    "observed_state_path": [
+      "turnEffects",
+      "4"
+    ],
+    "actual_rows": [
+      {
+        "type": "SEA_ATTACKED_HERO",
+        "amount": 1,
+        "uses": 1
+      },
+      {
+        "type": "EVR_GRAVEYARD",
+        "amount": 1,
+        "uses": 1
+      },
+      {
+        "type": "MST_AURA_INSTANT",
+        "amount": 1,
+        "uses": 1
+      }
+    ],
+    "permission_row_count": 1,
+    "not_a_passed_native_assertion": true
+  },
+  "unrun_permission_assertion": {
+    "ordinal_one_based": 2353,
+    "query": {
+      "type": "game_state_field",
+      "rootName": "FaBSim",
+      "path": [
+        "_regression",
+        "turnEffectRows",
+        "4",
+        "MST_AURA_INSTANT"
+      ],
+      "comparison": "missing_or_null",
+      "viewerPlayerID": 1,
+      "step": 20
+    }
+  },
+  "classification": "CONFIRMED_GAMEPLAY_TRIGGER_TIMING_FAILURE_NOT_PRIOR_R2_HISTORY_ORACLE_ERROR",
+  "native_Flutter_bug_confirmed": true,
+  "distinct_root_group_allocated": false,
+  "direct_observations": [
+    "All20 actual input envelopes and2345 persisted successful assertions exactly match the frozen R3 Source. The first failed query directly reports Stack0 where one earned layer is required.",
+    "Before that failure, physical Flutter6 is in P4 Graveyard owner/controller4 and Equipment is empty; Pierce7 remains P4 Hand owner/controller4. All fourHP20/R0/AP0 assertions passed. Prior control19 computed HeadJab power1/go-again1 passed.",
+    "The raw observed state independently contains MST_AURA_INSTANT amount1/uses1 before any earned-response inputs. The card-specific projection absence query2353 never executed and must not be reported as passed or failed.",
+    "Raw initial snapshot has all48 manual shortcut controls, four live ordered seats, UPF and no passive seats. Actual17 manual actors are4/4/4/5. No final raw snapshot or passing fixture exists."
+  ],
+  "source_causality": [
+    "Recorded9d6 ROS preimage175628 is frozen in the Kimono proposal backup and explicitly bound here, rather than treating a later runtime as the played code.",
+    "MONDestroy238 clones then243 moves the physical source. GameLogic FaBMoveUID invokes MONAfterMove; MONCards29 calls ROSAfterMove during that movement. Frozen ROS82 calls FaBMSTAdd directly for Flutter Equipment/CombatChain toGraveyard.",
+    "MSTCards4 prefixes AURA_INSTANT as MST_AURA_INSTANT and appends through WTR effect helper. The branch neither queues an earned responseable layer nor waits for its resolution; this matches Stack failure plus raw early permission.",
+    "This is the fresh ROS Flutter producer. Prior R2 stopped on unrelated attack-target history before Ward and supplied no card-behavior defect evidence. No distinct engine-wide root count or relation to deniedOMN184 is certified."
+  ],
+  "primary_rules": [
+    {
+      "url": "https://rules.fabtcg.com/en/cr/06-effects/",
+      "paragraphs": [
+        "6.6.5",
+        "6.6.6"
+      ],
+      "meaning": "A triggered effect produces a layer before priority; its effect must await resolution."
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/08-keywords/",
+      "paragraphs": [
+        "8.3.20",
+        "8.1.1d"
+      ],
+      "meaning": "Ward replacement completes atomically; the earned permission must resolve separately before a later off-turn Action-as-Instant consumer."
+    }
+  ],
+  "unrun_limits": [
+    "All20 later inputs and2374 later queries are unrun. Earned ABI CardID/controller/kind/source fields following the failed count, no-permission projection2353, four earned responses, actual off-turn/AP0 consumer, grant consumption and full go-again/cleanup are not executed witnesses.",
+    "No assertion about the exact missing virtual UID/event name, source layer properties or legal Pierce play outcome is supported by the stopped trace.",
+    "No new fix, successor probe or promotion is approved here. Preserve original R2 and R3 evidence; any repair needs separate source review and full original-correct diagnostic qualification."
+  ],
+  "frozen_recorded_ROS_preimage": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-kimono187-r3-physical-weapon-defender-two-file-unapplied-proposal\\ROSCards.php.before",
+    "sha256": "1756288be1d397b56dc221cd8f94bd55f55817f9ddd85e13b9b7d3914419dca9"
+  },
+  "source_approved": false,
+  "native_probe_approved": false,
+  "normal_save_approved": false,
+  "diagnostic_review_complete": true,
+  "actual_no_save_route_approved": false,
+  "positive_promotion_recommended": false,
+  "fixture_saved": false,
+  "qualification": false,
+  "coverage_credit": false,
+  "source_fix": false,
+  "corpus_before": 4093,
+  "corpus_after": 4093,
+  "full_suite_run": false,
+  "historical_corpus_replay": false,
+  "PHP_native_network_executed_by_reviewer": false,
+  "R_writes_by_reviewer": false,
+  "B787_denied_operation_untouched": true,
+  "Elliptical184_denied_operation_untouched": true,
+  "review_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov16_batch835_flutter_r3_actual_failure.py",
+    "sha256": "c3eca92408e54e8b671c9c5395dc010f99f08de1dc151e17130dfe052dd7fedf"
+  },
+  "created_utc": "2026-11-16T00:13:06.972209+00:00"
+}

@@ -1,0 +1,7 @@
+{
+    "name": "Frostbite / actual affordability tax then foreign removal unlocks zero-cost attack",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-23T23:54:46+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "EXISTING_FROSTBITE_AFFORDABILITY_ONLY_WITH_ACTUAL_UNLOCK. FourmanualnaturalYoungOldhim20/2Dori20/Briar20. AdmittedphysicalFrostbite5OwnerController1, ownWounding6zero-costHand1/noextraPitch/R0/AP1; priorTokenproduction/creatorownershipnotcredited. NativeotherwiselegalownAAclickmustnotmoveCard,creatependingTarget/payment,spendAPorremoveTokenbecause+1resourcecostcannotbepaidandselectedcardcannotpitchitself. ThisdoesnotactuallyplayoractivateanythingunderFrostbite, soitsknownplay/activationdestroyWHENunearned. ForeignBriar4realShock7declaresadjacentHero3anddeals1HP19afterfourresponses, earningactualX1; itdoesnotplayundercontroller1. ForeignVaporize8leftafterfreshfourresponsesselectsactualFrostbite5intokenchooser(upTo1,nonTokenpermchooserlegitimatelyabsent), actuallydestroysTokenwithoutGYexport. OnlythenownsameWounding6reallydeclares4/pays0R/AP1to0/fullfourlivecombatdeals4HP4to16. Noextraresourceorabilityflagseed, noowner-creationroute,noEndphase. Noactualextra1payment/FrostbiteWHENtiming/expiration/stackedtax/otherownership/secondary/fullcardcredit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#frostbite FaBSim/Custom/ELECards.php FaBSim/Custom/ELEAbilities.php FaBSim/Custom/ROSCards.php FaBSim/Custom/ROSRuntime.php FaBSim/Custom/GameLogic.php FaBSim/GeneratedCode/GeneratedMacroCode.php"
+}

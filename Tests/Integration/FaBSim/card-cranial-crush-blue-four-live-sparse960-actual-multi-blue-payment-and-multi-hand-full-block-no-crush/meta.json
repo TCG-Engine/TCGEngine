@@ -1,0 +1,7 @@
+{
+    "name": "Cranial Crush / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T21:57:55+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "**Crush** - When this deals 4 or more damage to a hero, they can't draw cards during their next action phase. LegalBravo20/actualtwoBlue6and7payprinted6or4/R0or2/AP0, actual3/4/2HandAAdef9/12/6fullyblock8/10/6, damage0/HP20/nohit/Stack0/sourceblockersownGY. NoearnedCrush. HeadbuttnoownHead/realenemyHead10retained/counters[], no+1. Otherfutureeffect/preventionbranches nottested. Sources: FaBSim/GeneratedCode/cardArrayCache.json#cranial_crush_blue"
+}

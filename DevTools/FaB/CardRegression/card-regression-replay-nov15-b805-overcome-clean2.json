@@ -1,0 +1,27 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch805-overcome_adversity.json",
+  "runtime_sha256": "6695d68163d313f4f61cb20ad9122c7038e621a60c847909598150fe8da09d11",
+  "returncode": 0,
+  "completed_utc": "2026-11-15T00:44:50.145257+00:00",
+  "fixtures": [
+    {
+      "slug": "card-overcome-real-four-seat-round-agility-destroy-red-block-blue-consumer",
+      "fixture_sha256": "39ccca3824a2fae6a265ca21fb965cb11e34eb9f24574fa733dc0b69a06236e7",
+      "passed": true,
+      "result": "[PASS] Overcome Adversity / actual Agility destruction permits Legs block and real GA consumer"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-overcome-real-four-seat-round-agility-destroy-red-block-blue-consumer",
+      "returncode": 0,
+      "stdout": "[PASS] Overcome Adversity / actual Agility destruction permits Legs block and real GA consumer\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

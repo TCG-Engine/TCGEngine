@@ -1,0 +1,328 @@
+{
+  "status": "APPROVED_ACTUAL_SAVED_B440_SEEK_ENLIGHTENMENT_ONE_PARTIAL_BRANCH_GROUP",
+  "approved": true,
+  "source_approved": true,
+  "semantically_approved": true,
+  "reviewer": "/root/b106_semantic_review",
+  "reviewer_independent": true,
+  "created_utc": "2026-11-05T10:04:06.712842+00:00",
+  "source_spec": "card-regression-batch440.json",
+  "input_sha256": "1dad8dc04c83779e93865bf829920d4214ce3666a1c255f1344fd35dc624d1eb",
+  "manifest_sha256": "d2c6ec8221331c063f109669bf775c9d548d5e576cdfceb80282d680472ba1ae",
+  "runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+  "recorded_runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+  "source_guards_verified": 69,
+  "prior_independent_semantic_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch440-independent-source-review.json",
+    "sha256": "557cefff3f71e16c5b5e582dc065856db62f81f233e8775e7a8c614ea03d2c17",
+    "unchanged_rules_model_reused": true
+  },
+  "recording_receipt": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch440-20261105T100148Z-6aec540cbca00.json",
+    "sha256": "69ed0e08552f8e24b32456f39237d45b278426dfbea39e3f1719fa038ee77389"
+  },
+  "specific_results": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch440.recording-results.json",
+    "sha256": "e5d0ef307f95e8677987cd10c2bd2d510f1d3c8c15ef394c30842dae8a6729bf"
+  },
+  "root_wrapper_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch440-native-r1-9e984\\receipt.json",
+    "sha256": "90245ca2788a7582f589a365c2d4e7ffd4976c0e76d947492702365f6816b7fb"
+  },
+  "fixtures": [
+    {
+      "index": 0,
+      "card_id": "seek_enlightenment_red",
+      "group_id": "pitch-cycle:seek_enlightenment",
+      "slug": "card-seek-enlightenment-red-four-live-sparse-real-paid-light-action-buffs-next-attack-action-to-seven-fully-blocked",
+      "source_spec": "card-regression-batch440.json",
+      "input_sha256": "1dad8dc04c83779e93865bf829920d4214ce3666a1c255f1344fd35dc624d1eb",
+      "reviewer": "/root/b106_semantic_review",
+      "approved": true,
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_NEW_FOUR_LIVE_PARTIAL_BRANCH_REPRESENTATIVE",
+      "runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+      "recorded_runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+      "fixture_path": "Tests\\Integration\\FaBSim\\card-seek-enlightenment-red-four-live-sparse-real-paid-light-action-buffs-next-attack-action-to-seven-fully-blocked",
+      "fixture_sha256": "f745f4d4f288a209036747e82dde43f89a48e1438d0902c12f91aaba3d631452",
+      "raw4_sha256": {
+        "initial_gamestate.txt": "8ac5a4bba87153338ebfc51bdd6f6ae2ea6575a52eaf65903911e03ab795d382",
+        "actions.json": "a502d82b05ec9f30fc66d5ca62b69b440b1f5a0d723a5219eeb29ead4c41cb57",
+        "assertions.json": "43ca7e717e982eca5c2e57f7d45e73a3df8cab6151088eaf255f5e016597cb92",
+        "expected_final_gamestate.txt": "9f640b15874077abc71a6cc8243e45012a5c6a7e1f87de0b6108a86110c90274"
+      },
+      "raw5_sha256": {
+        "initial_gamestate.txt": "8ac5a4bba87153338ebfc51bdd6f6ae2ea6575a52eaf65903911e03ab795d382",
+        "actions.json": "a502d82b05ec9f30fc66d5ca62b69b440b1f5a0d723a5219eeb29ead4c41cb57",
+        "assertions.json": "43ca7e717e982eca5c2e57f7d45e73a3df8cab6151088eaf255f5e016597cb92",
+        "expected_final_gamestate.txt": "9f640b15874077abc71a6cc8243e45012a5c6a7e1f87de0b6108a86110c90274",
+        "meta.json": "15ea594239c48399b89c8442ce0d6278420ffff6424ab125051376273dcf1606"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "8ac5a4bba87153338ebfc51bdd6f6ae2ea6575a52eaf65903911e03ab795d382",
+        "actions.json": "a502d82b05ec9f30fc66d5ca62b69b440b1f5a0d723a5219eeb29ead4c41cb57",
+        "assertions.json": "43ca7e717e982eca5c2e57f7d45e73a3df8cab6151088eaf255f5e016597cb92",
+        "expected_final_gamestate.txt": "9f640b15874077abc71a6cc8243e45012a5c6a7e1f87de0b6108a86110c90274",
+        "meta.json": "15ea594239c48399b89c8442ce0d6278420ffff6424ab125051376273dcf1606"
+      },
+      "actions": 36,
+      "native_assertions": 3521,
+      "actual_manual_passes": 29,
+      "actual_priority_response_passes": 28,
+      "actual_defender_declaration_finish_inputs": 1,
+      "actual_administrative_END_PHASE_passes": 0,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4
+      ],
+      "actual_manual_actor_counts": {
+        "1": 7,
+        "2": 7,
+        "3": 7,
+        "4": 8
+      },
+      "schema_property_assertions": 1407,
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "all_actions_and_assertions_exact": true,
+      "no_recorder_only_assertions": true,
+      "all_endpoint_physical_uid_card_zones_ownership_verified": true,
+      "all_terminal_assertions_evaluated_against_parsed_final_snapshot": true,
+      "initial_assertions_also_evaluated_against_parsed_initial_snapshot": true,
+      "initial_physical_uid_locations": {
+        "1": {
+          "card_id": "boltyn",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "seek_enlightenment_red",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "wounding_blow_red",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4
+        },
+        "8": {
+          "card_id": "driving_blade_red",
+          "zone": "p4Hand",
+          "owner": 4,
+          "controller": 4
+        },
+        "9": {
+          "card_id": "driving_blade_yellow",
+          "zone": "p4Hand",
+          "owner": 4,
+          "controller": 4
+        },
+        "10": {
+          "card_id": "driving_blade_blue",
+          "zone": "p4Hand",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_physical_uid_locations": {
+        "1": {
+          "card_id": "boltyn",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "seek_enlightenment_red",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "wounding_blow_red",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Pitch",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4
+        },
+        "8": {
+          "card_id": "driving_blade_red",
+          "zone": "p4Graveyard",
+          "owner": 4,
+          "controller": 4
+        },
+        "9": {
+          "card_id": "driving_blade_yellow",
+          "zone": "p4Graveyard",
+          "owner": 4,
+          "controller": 4
+        },
+        "10": {
+          "card_id": "driving_blade_blue",
+          "zone": "p4Graveyard",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_health": [
+        20,
+        20,
+        20,
+        20
+      ],
+      "final_resources": [
+        2,
+        0,
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_physical_uidset": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "final_UniqueIDCounter": 10,
+      "RandomCounter": 0,
+      "checkpoint_assertion_mapping_sha256": "c237e416fff060cc955fc06ca1b775d5c63c4f309c3cd514b43f67461a0c1cc2",
+      "native_action_mapping_sha256": "846db06a3cf66c7ccbfa61523b9f37afebd05aaf0bda19c648eb69fc5848956d",
+      "native_assertion_mapping_sha256": "9cc314c852a80211b3e591eabc74c20066f71d1ac9f5fd21eb29900f7d6ee855"
+    }
+  ],
+  "total_actions": 36,
+  "total_native_assertions": 3521,
+  "total_manual_passes": 29,
+  "total_priority_response_passes": 28,
+  "total_defender_declaration_finish_inputs": 1,
+  "total_administrative_END_PHASE_passes": 0,
+  "total_schema_property_assertions": 1407,
+  "material_findings": [
+    "Allrawfivefiles/36actualenvelopes/3521orderedchecks/1407properties matchunchangedcorrectinput/sourcegate.29manual=28priority+oneP4defenderfinish, actors7/7/7/8; all48rawmanualsettingsatbothendpoints/all69guards/actual9verified.",
+    "RealBlue6pitch3paysSeek5cost1/R2AP0; same5heldfirstthreefreshresponses, fourthresolvesGY5/ownGAAP1. RealWounding7cost0 thenusesearnedAP1->0 afteradjacentHeroP4target, actualoncegrantWTR_POWER3/MON_SOUL_HIT/noGO_AGAIN; freshsourcefouryieldcomputed4+3=7.",
+    "ActualP4DrivingRed8/Yellow9/Blue10arethreelegalphysicalNAAdefenders3each, notplayedcards: exactactualDEFENSEroles/UIDs retained; realfullblock9against7/zeroDamage/attackHitfalse/allHP20. Nocharge/Boltynactivation/SoulWHENconditionearned; fullfinalrawSoulempty andunplayedDrivingeffectsnotearned.",
+    "Fullfinalraworiginal1..10uniqueconserved: GY1Seek5thenWounding7/GY4Driving8,9,10/Pitch1samewholeBlue6. Allrawheroesunchanged/counter10/RNG0/noextraobject, R1=2/allotherRAPChi0. ActualNEXTgrantabsentafterconsumer/nochargeorhitstate, allStack/chain/frame/queue/payment/target/combatclear."
+  ],
+  "excluded_source_only_concerns": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch440-seek-enlightenment-author\\excluded-weapon-and-hit-source-only-note.json",
+    "sha256": "a1532575eced9dd52e91d849de6704cfbdbfaf3761e60c969a7f2db02713f507",
+    "status": "RETAINED_UNATTEMPTED_UNQUALIFIED_NO_NATIVE_BUG_CLAIM",
+    "findings": [
+      {
+        "kind": "AA-onlyprintedproducerusesNEXT_ATTACKalsoacceptingweapon",
+        "canonical": "FaBWTRAddEffect($player,'NEXT_ATTACK',3,monSoultrue)",
+        "consumer": "WTRCards536 accepts Attack OR weapon",
+        "selected_branch": "ActualGenericAA7matchesprintedAAcondition; weaponrouteunexecuted"
+      },
+      {
+        "kind": "GrantedWHENhitdirectmovement_and_hero_onlygate",
+        "caller": "GLOnHit1236 -> FaBMONHit290..293",
+        "actual_source": "if(!FaBFaiHeroHit())return; MON_SOUL_HIT -> FaBMONToSoul immediately",
+        "selected_branch": "Real7fullyblockedby9defense, so noOnHit/WHENearned; no hit-routequalification"
+      }
+    ],
+    "bounds": "NEXT_ATTACKalsoacceptsweaponalthoughprimaryspecifiesAA; selectedAAislegal. MON_SOUL_HITdirectHeroHit-gatedmovement hasunexecutedWHEN/nonherohitscope concerns. No fix/issue/globalrootallocation."
+  },
+  "current_hit_wording_limit": "Guardedcatalog usesWHEN, viewedMON081/legacyofficialrelease usesIf. No freshJudgeHubSeekentry wasretrieved; notclaimed. SelectedrealfullyblockedAAearnsnohitunderbothwordings, so nohit-semanticorresponse-windowqualification is granted.",
+  "limits": [
+    "OneRedrepresentativepositivepaidLightNAA/ownGA/nextactualAA+3nativepower7/fullblock/nohit/fullUIDcleanup only. No fullcard/sibling/supportprimary/secondconsumer/falsecondition/suppression/expiry/Hero/charge/weaponnegative/WHEN-hit/Soul/nonherohitscopecredit.",
+    "Preservedexcludedsource-onlynotea153: genericNEXT_ATTACKalsoacceptsweaponalthoughprintedAA-only; directHero-gatedMON_SOUL_HITpath remainsunattempted/unqualified. Thispassingnohitcase doesnotcertifythosebranches or allocatebug/fix/globalrootcredit.",
+    "Intermediatefacts are completednativeassertions/actionsequence; onlyinitial/finalrawsnapshotscomplete. HistoricalcachedDecisionQueueVariables aftercleanup isnotaliveobject; opaqueVersions omittedfromcurrentinventory.",
+    "Roottargetedreplays/registration separatereceipts, notclaimedhere. No PHP/native/replay/R/source/service/gen/fullsuite/remote or deniedrepairretry/integration byreviewer."
+  ],
+  "actual_comparison_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov5_batch440_saved_readonly.py",
+    "sha256": "e9fb50fa55904d100e526c43fd2ddb24029c6af9261ad6d84c1dd43c6809cfc6"
+  },
+  "read_only_helper": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\saved_fixture_review_tools.py",
+    "sha256": "57cb7672feb98a00216f1e194fd1df0395826af02e0d76f7042af920851c39e8"
+  }
+}

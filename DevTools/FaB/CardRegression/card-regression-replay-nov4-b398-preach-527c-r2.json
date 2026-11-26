@@ -1,0 +1,29 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch398.json",
+  "runtime_sha256": "527c3e3bf7e18d626fbaf23ae221d77fc65bf1ec080080758a7009069800afa2",
+  "returncode": 0,
+  "completed_utc": "2026-11-04T23:01:30.413841+00:00",
+  "fixtures": [
+    {
+      "slug": "card-preach-modesty-red-four-live-sparse-real-hero-creation-cost-rejects-chane-and-legal-attack-followthrough",
+      "fixture_sha256": "f94e89cf363be825dc7f848090f04596109658c26f8cfb5b7aa0006a09b7a067",
+      "passed": true,
+      "result": "[PASS] preach_modesty_red / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-preach-modesty-red-four-live-sparse-real-hero-creation-cost-rejects-chane-and-legal-attack-followthrough",
+      "returncode": 0,
+      "stdout": "[PASS] preach_modesty_red / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [
+    "card-surface-shaking-blue-four-live-correct-probe-real-aura-entry-trigger-before-three-seismic-tokens"
+  ],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

@@ -1,0 +1,7 @@
+{
+    "name": "Ram Raider / four-live missing mandatory other-Hand cost",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-23T07:27:08+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "As an additional cost to play this, banish a random card from your hand. If a card with 6 or more {p} is banished this way, this gets **go again**.\n\n**Blood Debt** Named unavailable mandatory other-Hand banish branch only. Natural legal levia20 owns primary5 as sole Hand card, ready RompingClub6; existing bank2 affords printed primary cost2 and Club cost2. Primary cannot pay its own additional cost. Actual Hand0 attempt must leave owned5Hand/AP1/R2, Stack0, no pending target/payment, no queues, Banish0/GY0/Pitch0. Then actual Club6 declares adjacent hero4 and really pays2 from bank2 to0/AP0. All four live seats manually respond in each native combat window; no discard/banish occurred, so Club stays printed4 and deals actual4 damage/HP4=16. Primary5 remains Hand, same Club6 is used Status1, no GA/AP0, no Banish/GY/Pitch. Initial bank production is outside scope. No positive primary play, additional-cost payment/order/random selection, attack trigger/intimidate, buff/GA/dominate/Gate, Blood Debt/end phase, hero/support identity, pitch sibling or whole-card credit. Existing positive source timing holds are unchanged. Sources: FaBSim/GeneratedCode/cardArrayCache.json#ram_raider_red"
+}

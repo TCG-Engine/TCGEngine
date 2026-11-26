@@ -1,0 +1,147 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "independent breadth_review1252",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1440-20261122.json",
+  "source_spec_sha256": "796d6b14ea33197476e85665b483299daf160ffa2d1483d905d7cff311b12048",
+  "input_sha256": "796d6b14ea33197476e85665b483299daf160ffa2d1483d905d7cff311b12048",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-omens-of-arcana-two-live-sparse1440-bound-native-limited-macro-setup-grants-flow-spellvoid-one",
+      "card_id": "omens_of_arcana",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "f13f0ca93af869dff2f7c935e5e91c4a58ff5152fb86f5f5ec6e3ba3bbbaf43c",
+        "actions.json": "94144925ac34dff327955991d7d628f5021df90ac07ec4ddc2ab19a179305f35",
+        "assertions.json": "57979b1c7557622943339a20ee710ff0a120752f4bdc04f689287d17dbd064f7",
+        "expected_final_gamestate.txt": "da56661a3f48641a4a482ee6e14af81305a571317c7bb942d9a5c52804c77a7c",
+        "meta.json": "852c23e940859e859feecb3f7f4c2693e39d0ddcd0ce973a9ab4e9089a6dd3a6"
+      },
+      "fixture_sha256": "8a109bd0e0b75a6531aa575e27f1da4f31aa3cf9d293e18feda61cae77aef13b",
+      "actions": 6,
+      "native_assertions": 252,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 2,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1440-20261122.json",
+      "input_sha256": "796d6b14ea33197476e85665b483299daf160ffa2d1483d905d7cff311b12048",
+      "active_seats": [
+        1,
+        2
+      ],
+      "players": "two_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1440-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-omens-of-arcana-two-live-sparse1440-bound-native-limited-macro-setup-grants-flow-spellvoid-one",
+        "fixture_slug": "card-omens-of-arcana-two-live-sparse1440-bound-native-limited-macro-setup-grants-flow-spellvoid-one",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "reviewer": "independent breadth_review1252",
+    "spec_sha256": "796d6b14ea33197476e85665b483299daf160ffa2d1483d905d7cff311b12048",
+    "source_note_sha256": "8fb6b958c60081a35db52832b0a5f771e8a55104e47fb0342770668430ca9711",
+    "case_count": 1,
+    "active_seats": [
+      1,
+      2
+    ],
+    "players": "two_live_manual",
+    "native_controls": 6,
+    "query_checks": 252,
+    "persistable_assertions": 252,
+    "author_only_checks_omitted": 0,
+    "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+    "coverage_category": "POSITIVE_NATIVE_BOUND_OMN_LIMITED_MACRO_CONTINUOUS_SPELLVOID_GRANT_AND_ACTUAL_ARCANE_PREVENTION",
+    "per_case": [
+      {
+        "card_id": "omens_of_arcana",
+        "group_id": "identity:omens_of_arcana",
+        "native_controls": 6,
+        "persistable_assertions": 252
+      }
+    ],
+    "approved_qualification_endpoint": "COMPLETE",
+    "required_initial_snapshot_sha256": "f13f0ca93af869dff2f7c935e5e91c4a58ff5152fb86f5f5ec6e3ba3bbbaf43c",
+    "basis": [
+      "ActualOMNLimitedscope, notconstructed/UPFcacheflaginference. Macrosharednoncard Owner0Controller0/publicArena1representation, actualOMNScion19/Zyggy20 andOMNFlashBoltRed/CometBlue classlegal/naturalhealth. Primaryuncovered/unheld checked. Component derivesMacroconfiguration withnativeFaBOMNSetup448-452, notdirectlyassigningtestedflag: noMacro/noFlow, actualneutralMacro3, eachnativeFlow4/5, computedSpellvoid1 andidempotence checks. Durableparentcommandreceipt20checks/exit0/log/source/rawhash verified byread-onlyreview; reusableportablecomponent16checks/exit0/log/sourceverified separately. Reviewer didnotexecuteeither.",
+      "Fullnative-derivedinitialraw f13f0ca9... containsexactMacro3Owner0Controller0/Flow4owner1/Flow5owner2/HandFlash6Comet7/HP19,20/AP1,0/preferences/R0/UID7 andactualderivedstate includingomnMacro/creationbookkeeping. Case state equalsderivedreceipt andrawparsedGameState exactly. Recorder270-271 +initial_snapshot_guard.php failclosed onthat exactSHA256 beforecaseactions/save. This bindscomponent-derivedstate tofixture, removingtheformerhandwritteneffectflagobjection. No claimfrontendCreateGame/authenticatedstartuporstartingtokenproduction is replayed; normalgameinitialization remains separatecomponent evidence.",
+      "Pre-nativeorderingcorrection verified: FlashhasnoPrepare; click->PITCH, actualCometBlue7pitch3pays2/R1 whileInstantpreservesAP1, defaultduelPP2thenmanual2pass->PP1 andmanual1pass->ResolveCardHerochooser. Sourceheld/noearlydamage. TRP5.14soleopposingHero2damage default precommittedbeforeannouncement, lateractualHero2answer afteronlypublicknownpitch/passes; noearlybinding/UPF/retarget claim. OriginalPITCH/paid/prevention/finalcheckpoints preserved exactly, onlyUIorder/newtargetprompt/prose revisedbeforeanycaseactions.",
+      "GeneratedFlash61790-61799 queuesdamageHerochoice onresolution; target2 yields3arcanepacket61779-61784, then61665-61682 victim2MZMAYCHOOSE/Destroy_Spellvoid onlyownFlow5. GameLogic350 computesSpellvoid1 fromactualderivedMacroconfig; MONSpellvoid destroysselected5/prevents1, Tokenceases viaGameLogic866-871. Expectedactual3-1=2arcaneHP2=18/HP1=19, Flash6ownedGY/Comet7Pitch, casterFlow4andneutralMacro3unchanged/AP1/R1/UID7RNG0/StackDQCCquiet. Noheroclick/start/end/otherFloweffects earned. OrdinaryCOMPLETE endpoint fitsfullyfinishedInstant;6controls252persistableassertions."
+    ],
+    "limits": [
+      "Only native-boundformatconfiguredcontinuousMacroSpellvoidgrant andrealprevention/tokenconsumption. No frontend/authenticatedCreateGame/replayedsetup/startingFlowproductioncoverage, UPF/fourseatMacrolegality, alternateFlowabilities, Hero/support/secondaryidentity/fullcard credit.",
+      "Approval conditional onexistingexactinitialSHAguard succeeding; ifitfails, stopbeforeactions/uncredited andpreserveevidence, do notreplaceexpectedhash/statewithobservedfixtureoutputtofit. Componentsetup evidence is separatefromfuturegameplayrecord/replay.",
+      "Pending native only. Reviewer performedno game/test/replay/componentexecution, source/engine/repository edit, original checkout access, authentication/fullsuite/Git operation. Onlythisworkspaceapprovalreceipt written."
+    ],
+    "secondary_identity_credit": false,
+    "whole_card_credit": false,
+    "native_setup_component_evidence_separate": true,
+    "native_initial_binding": {
+      "component": "omens_macro_setup1440.php",
+      "component_sha256": "ecfdac476d5d876ce769de229b04615dde37bea490baee3bcda80581f705eb93",
+      "command_receipt_sha256": "77abbd48aa1c1ca3ada1611af1e6539a7f8a1f7468da3edf019c0129209274c1",
+      "derived_receipt_sha256": "7265caf3f936a59320cb9325f07cb43f6835fc482fe7c9a6b4fcb07fc64ffce8",
+      "raw_initial_sha256": "f13f0ca93af869dff2f7c935e5e91c4a58ff5152fb86f5f5ec6e3ba3bbbaf43c",
+      "scope": "Actual native FaBOMNSetup derives the flag/Flows in isolated setup. Existing recorder hash guard must match that exact full initial state before any gameplay/save. Setup component is separate evidence; game initialization is not a replayed action."
+    },
+    "component_evidence_sha256": {
+      "native-initial-derivation.json": "7265caf3f936a59320cb9325f07cb43f6835fc482fe7c9a6b4fcb07fc64ffce8",
+      "native-derived-initial-gamestate.txt": "f13f0ca93af869dff2f7c935e5e91c4a58ff5152fb86f5f5ec6e3ba3bbbaf43c",
+      "component-command-receipt.json": "77abbd48aa1c1ca3ada1611af1e6539a7f8a1f7468da3edf019c0129209274c1",
+      "component-output.log": "e2fbe71af0d7db05ea4af6f84cba8e1070d1eac634e564e5347abd6d25c6a090",
+      "reusable-component-receipt.json": "773cb1a56e2a54210c95d86c2554276fe22606a14900947432f42716c012ba8f",
+      "reusable-component-output.log": "a1a4c1e2a4e186dde62a947d502e908f0d6916e28b4120ff0e943db1cfe3d11e",
+      "pre-native-target-correction.json": "0d9d7697f541a4c584ad6e1eb1d48b3f43f8e536e9f0bc2abce97a1e8aaf4ac1",
+      "pre-native-target-ui-correction/proposed.json": "8709947120665562feb55a4bafa37eeeb203f60c35f08a37f1f3ecca09b058bf",
+      "pre-native-target-ui-correction/source-note.json": "f97770a6930b0bf9e149e106447464ab0fb057603c2d3f08825e625017d89b24"
+    },
+    "source_sha256": {
+      "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+      "FaBSim/Custom/OMNCards.php": "f679d81ac69c6d5d23fa3b0d4cd5ee3e44a0a180f7d0a896f31d2e9817090284",
+      "FaBSim/Custom/GameLogic.php": "c60fa151561f959e4e3e341b814de0e2b47c9e9f153bbc8793a04c43b5075061",
+      "FaBSim/Custom/ARCCards.php": "f6b6a21d214e71fdcfd6a084f0671ce610f08a40c51a1266041877a5a12c0d52",
+      "DevTools/FaB/CardRegression/initial_snapshot_guard.php": "5839a952b70c8c20f12c17aa044061cb492f4bf830789dc1c113e6d927fea36f",
+      "FaBSim/GeneratedCode/GeneratedMacroCode.php": "fe6a7982611df8f4de98ce2671b317b671b580146aa4b8c28e8f4b86d8461056",
+      "FaBSim/Custom/MONCards.php": "2eb22bda6f1dba583df2879046f9f4dec94f47f2e9b28f369758f3af72c9c3ac",
+      "FaBSim/Custom/UPRCards.php": "62798bd281afc17805c396e92deab22497b9c80d881f99e943833cb82d449321",
+      "FaBSim/Custom/PENCards.php": "9d4f443c833ec535bdae15c1973910925c1b7a1223fbfab7fcb89a5b204a7ed8",
+      "FaBSim/ZoneAccessors.php": "9967567a9a10df81a6f22df820d4d77258828657e95c4ad145b8b13ce17866a7",
+      "Schemas/FaBSim/GameSchema.txt": "7783800bd47bc85885cc915066aadca58cdf99f0c1180602ac312d9af5ebf643",
+      "FaBSim/ZoneClasses.php": "874bb2ae00a80a8ba3dfe1789b4c932fd0b7cf1286504a62828e0055ca1cb355",
+      "Core/EngineActionRunner.php": "add14b53dc571d2a6e64407bfa4038a98d6554d6410de7a9233810d99c46ea2a",
+      "Core/RegressionTestFramework.php": "670028e69e1a59c22aef5e6512edd2cd0dee5fdcaed4cf8c31374b8eb2b7ca6a",
+      "Core/ShortcutPreferences.php": "25f300ea0b6fbc409f5b92e8bc3587a74b2ab0eaf31ccef38e18c455598eaba6",
+      "DevTools/FaB/CardRegression/record_card_regressions.php": "e53055b29e9ea641949b77019c4455607f41ca233325d716a9500637e19efd28",
+      "DevTools/FaB/CardRegression/test_omens_macro_setup.php": "1031ba8cf80d6433cc5380441d54f386ed169db2be9b875b63e7fc2a80d66cab"
+    },
+    "workspace_source_sha256": {
+      "author_breadth1440.py": "92bfdb2977bab9c93a2b219cce2b506e28e4d8c3ccdc69cac2bf3d17f58e40fe",
+      "correct_breadth1440_target_route.py": "fa53a8c242eb860adee1580c5d53894e509685514522d9b68a9f40c60146b4a1",
+      "omens_macro_setup1440.php": "ecfdac476d5d876ce769de229b04615dde37bea490baee3bcda80581f705eb93",
+      "breadth1068_helpers.py": "997f949ec26c7e494ad26a818f9f2078f6f4f2a0c49ca7f61aa8c71f3b091b0a",
+      "duel_breadth1261_helpers.py": "786de4cb45fa4cb12016e55b204ba1aa5f823bb576c7778732623fae7ed05dbd",
+      "breadth_batch.py": "1d0bc84b4fcbf1a859a9d0adad91bde44746f1ce8542cf91ea0449cf55152cb2",
+      "nov16_saved_repair_review_common.py": "9f6dee765a3433840bd6886579faf6b8ab24ec290120b5999581053e2276ba0c",
+      "saved_fixture_review_tools.py": "83b8841d614dd53e5222ddf25f45e44950053c1e393a7313098f4b6f1bd8aae5"
+    }
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1440-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "9a64323d7940bef3912baf082cbf27af0d685ae040f8111a8a8f0b178bc4f888"
+  },
+  "full_suite_run": false
+}

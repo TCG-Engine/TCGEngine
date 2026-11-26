@@ -1,0 +1,377 @@
+{
+  "runtime_sha256": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+  "fixtures": [
+    {
+      "slug": "card-anaphylactic-shock-blue-four-live-sparse-real-opposing-hero-damage-earned-before-life-loss",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "5290a4b9101d4834dbdce60e034b4cf26d67322163e8aa9ff212e11b2b7fe360"
+    },
+    {
+      "slug": "card-arcane-polarity-blue-conditional-heal-fully-prevented-arcane-negative",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "398df88f165d9362d9d8a4866c2f36519d1463980a408fbd7f20e6a66a4a583f"
+    },
+    {
+      "slug": "card-arcane-polarity-blue-conditional-heal-only-opponent-was-dealt-arcane-negative",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "31cec0d22deb8fb3d8e7bc354425ea2076f2ee914ef0ee63b8fbea19ea759bda"
+    },
+    {
+      "slug": "card-arcane-polarity-blue-conditional-heal-physical-damage-only-negative",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "6ba3157745d70f74279c3775a68966b1a238043d9fa146e60ce926c408f6f53b"
+    },
+    {
+      "slug": "card-arcane-polarity-blue-conditional-heal-positive-real-opponent-arcane-before-play",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "074edd8c504fa4505b08660f30f9d44a33b7d4be429df7515d5cddb5aea8639d"
+    },
+    {
+      "slug": "card-arcane-polarity-blue-conditional-heal-positive-real-self-arcane-before-play",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "6471568040a5d6dc2169c6f66bd79f5e1da841da5c0093e56af1f6668e983ea9"
+    },
+    {
+      "slug": "card-arcane-polarity-blue-conditional-heal-prior-turn-arcane-history-expires",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "c1d4721034ea1f4270c56c4bf653dbea9843366e2dea5f5c8daa14df40184bef"
+    },
+    {
+      "slug": "card-arcane-polarity-red-conditional-heal-fully-prevented-arcane-negative",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "fde58aba522dff708fde31c82e3c0fa426a28a2251f3b46cc3d2f1db433ab8a9"
+    },
+    {
+      "slug": "card-arcane-polarity-red-conditional-heal-only-opponent-was-dealt-arcane-negative",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "e108299e3ad54e31e128d8455c533ad551cb47f5813fb4094d6bd262c769ebff"
+    },
+    {
+      "slug": "card-arcane-polarity-red-conditional-heal-physical-damage-only-negative",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "234ac5535fde4ab19a736b909e3f03c41a21bf4273ae0b25d4d6e9473088b72e"
+    },
+    {
+      "slug": "card-arcane-polarity-red-conditional-heal-positive-real-opponent-arcane-before-play",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "ea79027e2b803a37984b59c41bc03c33e8a677a2655f94ac6a0e33c90faec9f0"
+    },
+    {
+      "slug": "card-arcane-polarity-red-conditional-heal-prior-turn-arcane-history-expires",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "e784a83e6ca957522480471dce74b5388ae34de52a7847e8cf9758d52b9457b9"
+    },
+    {
+      "slug": "card-arcane-polarity-red-conditional-heal-real-self-dart-at-zero-ap",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "5d05277ac76f557eb6b51c17281f624c42cc3467b06dbd76432e314790a405c0"
+    },
+    {
+      "slug": "card-arcane-polarity-yellow-conditional-heal-fully-prevented-arcane-negative",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "687cba70cbe3f178f61b2955188b90ef1f4a52bc8028ecc5e0e2bd652e959718"
+    },
+    {
+      "slug": "card-arcane-polarity-yellow-conditional-heal-only-opponent-was-dealt-arcane-negative",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "da65d5c65e55f8a46519e2d5af0cd0482801ae68f2dbdd080ae5b2c2b4a622ec"
+    },
+    {
+      "slug": "card-arcane-polarity-yellow-conditional-heal-physical-damage-only-negative",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "3a6cf5ec48023e8171823a0ac5db13486fa854ccf244828e29453f41786eb92c"
+    },
+    {
+      "slug": "card-arcane-polarity-yellow-conditional-heal-positive-real-opponent-arcane-before-play",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "9b77c8ae0dd92aee0b90c45cf979b27964dde6e5f07b668aaa441905f296c319"
+    },
+    {
+      "slug": "card-arcane-polarity-yellow-conditional-heal-positive-real-self-arcane-before-play",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "7e67c427640ec5c3c9671e7bd9eac92ca3175b65694d3372f020781ff7456dc3"
+    },
+    {
+      "slug": "card-arcane-polarity-yellow-conditional-heal-prior-turn-arcane-history-expires",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "45c4fb546fb9e8665b06750aee72cca64716205e88d308041a7f1ffbfaad7c9c"
+    },
+    {
+      "slug": "card-arcane-seeds-life-red-four-live-sparse-real-declared-meld-life-then-two-runechants-separate-responses",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "0290e0f6a450d0e5ffd7462ac1c6c0bbf42cef2f865f70a4a0551264ebec6c2d"
+    },
+    {
+      "slug": "card-arcane-twining-red-four-live-sparse-real-hand-discard-instant-amp-consumed-by-earned-snapback",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "8ab679921074d95e1c72d6ab6e1be98b561fe9654c74092b29a7b17c1812b9c6"
+    },
+    {
+      "slug": "card-beat-the-same-drum-blue-four-live-sparse-real-goblet-history-repeats-agility-and-vigor",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "81ca4cbf059affd0f876654037dcd0300ac645ca7d94765f35958bf528cc5ae4"
+    },
+    {
+      "slug": "card-blazing-aether-red-four-live-sparse-real-earlier-one-arcane-earned-x-one-on-same-hero",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "79c704a67b186c9bf02a3e3dd46a7755b24bed702ab1417726fd4734497fb5f0"
+    },
+    {
+      "slug": "card-blinding-beam-red-four-live-sparse-actual-declared-shadow-target-costs-zero-and-reduces-real-attack-by-three",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "a28146ac530296927c167199613302211420841bc71bfbb6d8b33ebbe57d9abf"
+    },
+    {
+      "slug": "card-bloodsheath-skeleta-four-live-sparse-actual-instant-destroy-discounts-real-paid-nonattack-by-one-runechant",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "64c058884b60c49ecb6d87fb923194196fabf949ae667629ed89448da5cce6a6"
+    },
+    {
+      "slug": "card-cash-out-blue-four-live-sparse-real-two-permanent-additional-destroy-cost-creates-two-silver",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "94ae0eb1862251bb3f1f84ce5d9b220aeda6f2802e0bb9289533d043165abe7c"
+    },
+    {
+      "slug": "card-compass-of-sunken-depths-four-live-actual-private-owner-look-restored-order-real-paid-tome-draws-same-two",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "d9bde06b5f6b9e28062ab74449048cacc15b202919e6caaba89cb9b8008a4584"
+    },
+    {
+      "slug": "card-eclipse-blue-four-live-six-real-blood-debt-plays-create-owned-ursur",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "d7eff5129bf5bbf0bafe03e38e71818fc79947c86dfa1667743fa518dff7165b"
+    },
+    {
+      "slug": "card-emeritus-scolding-blue-four-live-sparse-real-iyslander-arsenal-instant-deals-four-on-opponents-turn",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "dac4c79420372f907898474c496ff3c58009c0bdb00cc8d8c65e759be7a95b2e"
+    },
+    {
+      "slug": "card-forked-lightning-red-four-live-sparse-actual-two-declared-hero-targets-and-two-arcane-each",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "c688dfad592be51570cb8dd2eb4ff6e6b25ae42a21d3b06344141e937421d89b"
+    },
+    {
+      "slug": "card-haven-veil-blue-four-live-entry-when-next-one-arcane-two-target-real-consumer",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "111b3d4a84c8eef016f516c1ed36b778966d3e0b8f45136284590765ffdeb9d2"
+    },
+    {
+      "slug": "card-healing-balm-blue-double-copies-two-paid-action-points",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "f1c2267ab1e043d2de7c1369b7ffae02212d21d4b685def1a794ae4f39b11381"
+    },
+    {
+      "slug": "card-healing-balm-red-double-copies-two-paid-action-points",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "5b3be48e96aedce64a0a838844466f6c0378591e8eda573bf691beed1b7f07e4"
+    },
+    {
+      "slug": "card-healing-balm-yellow-double-copies-two-paid-action-points",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "1912fbf9ce049e52b0596ec77c0b313a48a83189a7ce17d8be379221ef7b1ed6"
+    },
+    {
+      "slug": "card-heart-of-ice-four-live-sparse-actual-ice-action-tax-charges-opposing-printed-zero-instant-with-real-blue-pitch",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "59d0605ad3eb1a3e7d57cef1bc15cab2f3cb4bb09f0f223f13ba1c12b3e1c30d"
+    },
+    {
+      "slug": "card-lightning-greaves-four-live-sparse-actual-paid-destroy-instant-grants-real-instant-card-go-again-and-extra-action-point",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "46af5d6c840181aa4b7631b39c45a491b6045416a587fa3de5c8348996ff6353"
+    },
+    {
+      "slug": "card-mage-master-boots-four-live-sparse-real-paid-legs-destroy-and-next-nonattack-go-again",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "b51d8848e345b8becb3c9bae35125968aec40c1b569bb46475fff6575f866856"
+    },
+    {
+      "slug": "card-mordred-tide-red-four-live-sparse-actual-read-three-replaced-by-four-owned-runechants",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "34a129c38a4123ef436018f7a58b7cf0e8a4a290a9ff2da429e280a6b0e5f696"
+    },
+    {
+      "slug": "card-ominous-respite-yellow-conditional-heal-only-opponent-aura-destroyed-negative",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "3a1460194fdd85fa5945773027756af8713e970fe670136ae2f12282b9f35c75"
+    },
+    {
+      "slug": "card-ominous-respite-yellow-conditional-heal-own-shield-real-opponent-physical-destroyed",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "b9a733296d2cada1972589e368c98dc27695830dd04ff198e49d70a4922eba4c"
+    },
+    {
+      "slug": "card-ominous-respite-yellow-conditional-heal-prior-turn-aura-destruction-expires",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "2bd3cae5348713ad9d2288d1ded128a4523058ac56772c728554a65ec8c69ec2"
+    },
+    {
+      "slug": "card-poison-the-well-blue-four-live-sparse-real-instant-then-real-sun-kiss-gain-three-becomes-lose-three",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "e8cd0c766a235c83644f6f59d614917082deaec75b0886f246d57ef3026c7545"
+    },
+    {
+      "slug": "card-quartermasters-boots-four-live-sparse-actual-paid-equipment-real-nonattack-go-again",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "b7445c128b1ae9fb29e9d6d25d6315d4c3d99d8eabbd089ee88f954fbc0fa2af"
+    },
+    {
+      "slug": "card-reaping-blade-four-live-sparse-actual-heal-earns-unique-life-lead-then-blade-prevents-second-heal",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "44045b44cd203056022fc8496dc640a6009377f329173147e488736338ec097c"
+    },
+    {
+      "slug": "card-revel-in-runeblood-red-four-live-sparse-real-other-nonattack-and-attack-earns-four-owned-runechants",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "7cfb0b710af2a52e4f63e5314517f19f59fd47b6978585c4a2bde8b0aa1342d1"
+    },
+    {
+      "slug": "card-ripple-away-blue-four-live-sparse-real-offturn-discard-reduces-opponent-three-runechant-batch-to-two",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "42c71eb9cef36f71a3ecb0a380e1dcf7d29cb11dff0f8f68786f0f5b7958bad8"
+    },
+    {
+      "slug": "card-snapback-red-four-live-sparse-real-earlier-wizard-action-earns-instant-at-zero-ap",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "7d24b03c382cfa3c1bbb75196b25800c07b12cbc511e06cec5bff3f70de5f2c8"
+    },
+    {
+      "slug": "card-sonata-fantasmia-blue-four-live-real-x-one-pays-two-creates-one-runechant",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "4732b32295590cce61b6101f2b7079dd6f74a2d00579d7cf45607630e1bc0713"
+    },
+    {
+      "slug": "card-spellbound-creepers-four-live-sparse-earned-attack-real-bind-cost-and-action-played-as-instant-at-zero-ap",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "f9d4b56a81c943e4e5874477a53576797511d1092c15a7541c808aee5e41826a"
+    },
+    {
+      "slug": "card-strike-twice-red-four-live-real-prior-arcane-earns-instant-at-zero-action-and-three-more-damage",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "91ed62510ddc8608ce0e976d2a15be4bea7b25dcd6e0debbeaac7ea36c77f92a"
+    },
+    {
+      "slug": "card-tectonic-rift-blue-four-live-sparse-real-x-two-declaration-and-payment-create-two-owned-seismic-surges",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "2ec1c658626604a3f5c62d16b0b0481b2d4eda0984fa6b33403392fa3425217c"
+    },
+    {
+      "slug": "card-thistle-bloom-life-yellow-four-live-sparse-real-three-life-gain-earns-left-half-three-runechants",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "31e9576444b49107be88cb21b6a4c2b931b25b3a8a4898981f7980a566b9a4ff"
+    },
+    {
+      "slug": "card-tome-of-firebrand-red-four-live-real-four-draconic-links-paid-instant-draw-two",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "5802798149cf2b237dd3c5ff984320f00f2c3fc28256736f99934796f8f87ed7"
+    }
+  ],
+  "full_suite_run": false
+}

@@ -1,0 +1,167 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "independent breadth_review1240",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1247-20261122.json",
+  "source_spec_sha256": "2ac1362d143cc84552e57a3afcf9757ea7e771fb9028eb04ca39421d1a64bf4e",
+  "input_sha256": "2ac1362d143cc84552e57a3afcf9757ea7e771fb9028eb04ca39421d1a64bf4e",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-dust-from-the-golden-plains-red-four-live-sparse1247-real-material-under-themai-six-power-block-does-not-earn-phantasm",
+      "card_id": "dust_from_the_golden_plains_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "07d1c070ec5469290df314695c59cbc3f954591ffd950bc8f927b0cf126d4f29",
+        "actions.json": "d507b1d15f44902b7598df9051e42b8acba1d10ef6b50af37a5b2afabef2a5f3",
+        "assertions.json": "155c439315edb115f8e2c42aa9da622109596a75e184ab580148ba7719e4d106",
+        "expected_final_gamestate.txt": "4944582719ef087a9230297829354dee7711b7fea6d28b7ca9dd3e6129041178",
+        "meta.json": "fcb01bb0ad56788b9cfb965b5af4f872664184b05b5649d0bc70ae7439b8a3d6"
+      },
+      "fixture_sha256": "c91d5b0ba445c66ad6ba911d5dc11df39e8912ce01f1d3a0ff96385d6896c427",
+      "actions": 35,
+      "native_assertions": 310,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 29,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1247-20261122.json",
+      "input_sha256": "2ac1362d143cc84552e57a3afcf9757ea7e771fb9028eb04ca39421d1a64bf4e",
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1247-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-dust-from-the-golden-plains-red-four-live-sparse1247-real-material-under-themai-six-power-block-does-not-earn-phantasm",
+        "fixture_slug": "card-dust-from-the-golden-plains-red-four-live-sparse1247-real-material-under-themai-six-power-block-does-not-earn-phantasm",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-dust-from-the-shadow-crypts-red-four-live-sparse1247-real-material-under-nekria-six-power-block-does-not-earn-phantasm",
+      "card_id": "dust_from_the_shadow_crypts_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "8f7209a2f8b692771cc0855e5d5d8b454337fc9970ac06e2e9b4be76cc894ee0",
+        "actions.json": "4e6d97624e470a4b93fe9530883be104238807416a3a8e2458977a7e57b46704",
+        "assertions.json": "1bb03668b1b0f2cadc7b16350c8b53f28056fa7ed4f85195ab06fdbacb252502",
+        "expected_final_gamestate.txt": "14c20812f3c5148595afeb563b77a90fae234b5511d3105032cd73a10d11bc72",
+        "meta.json": "ea4f3dd9b01cddee4126da5f1587245f7431bbce4864efeafd391a577540cdc3"
+      },
+      "fixture_sha256": "3df93a86c77ed49aaa58ed5835da8923ae14b4e9493bccc0e0619e3099c7746a",
+      "actions": 36,
+      "native_assertions": 328,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 29,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1247-20261122.json",
+      "input_sha256": "2ac1362d143cc84552e57a3afcf9757ea7e771fb9028eb04ca39421d1a64bf4e",
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1247-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-dust-from-the-shadow-crypts-red-four-live-sparse1247-real-material-under-nekria-six-power-block-does-not-earn-phantasm",
+        "fixture_slug": "card-dust-from-the-shadow-crypts-red-four-live-sparse1247-real-material-under-nekria-six-power-block-does-not-earn-phantasm",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-dust-from-the-red-desert-red-four-live-sparse1247-real-material-under-vynserakai-six-power-block-does-not-earn-phantasm",
+      "card_id": "dust_from_the_red_desert_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "402fb2b211c3eda7798836131fb56b56a67457a96e1db0d26488288dc9353aa3",
+        "actions.json": "4e6d97624e470a4b93fe9530883be104238807416a3a8e2458977a7e57b46704",
+        "assertions.json": "25f53c0a71f9c76c28d0c36f85c5454562cb71963f4307bb628247cfe0287792",
+        "expected_final_gamestate.txt": "79b006071b00bce4792b1af4e444680ae7bcbbe20aaee93138a03daea08d479a",
+        "meta.json": "98e2a3996f72dd34dcd378fa3a933c689e907e2a5c78e0cebc1920ea4065ddca"
+      },
+      "fixture_sha256": "bb334cf0322ae0dd35e58189d2ecb1b7c721012f611b5edc50d5af1d7dbdf21a",
+      "actions": 36,
+      "native_assertions": 328,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 29,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1247-20261122.json",
+      "input_sha256": "2ac1362d143cc84552e57a3afcf9757ea7e771fb9028eb04ca39421d1a64bf4e",
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1247-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-dust-from-the-red-desert-red-four-live-sparse1247-real-material-under-vynserakai-six-power-block-does-not-earn-phantasm",
+        "fixture_slug": "card-dust-from-the-red-desert-red-four-live-sparse1247-real-material-under-vynserakai-six-power-block-does-not-earn-phantasm",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "reviewer": "independent breadth_review1240",
+    "spec_sha256": "2ac1362d143cc84552e57a3afcf9757ea7e771fb9028eb04ca39421d1a64bf4e",
+    "source_note_sha256": "3bfd5531cc4955f74c6c2be1533534030c982b4ab11e7c172c7bafe534a0f56f",
+    "case_count": 3,
+    "native_controls": 107,
+    "query_checks": 966,
+    "persistable_assertions": 966,
+    "author_only_checks_omitted": 0,
+    "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+    "coverage_category": "THREE_DISTINCT_NAMED_DRAGON_MATERIAL_EXCEPTIONS",
+    "basis": [
+      "Three distinct unrepresented material identities, no source-only holds on primaries: Golden Plains/Themai, Shadow Crypts/Nekria, Red Desert/Vynserakai. These are functionally different named exceptions, not pitch siblings. Existing real non-token Ash5 is a lawful admitted prior permanent; four natural Young Dromai20/Dori20 seats, no passive/history/permission seeds.",
+      "Reuse unchanged1176/1246 invocation mechanics: real Ash target declaration before assets, actual Generic Blue7 pitch/pay printed cost2 for Themai or3 for Nekria/Vynserakai, AP spent then Invocation GA refunded after four manual responses. No red pitch Ash observer. Physical Invocation6 becomes named Dragon with real consumed material encoded UPR_ASH1 and exact DYN_ASH primary ID; no stored material UID conservation claim. Real Storm8 grants the Dragon attack ability; attackproxy10 for Themai or11 for other cases spends AP and taps host6.",
+      "DYNMaterialPhantasm explicitly maps each material to its exact exception host. No other Phantasm source/removal/Miragai is present. Real six-power non-Illusionist Brutal9 declared as defender would earn ordinary-Ash Phantasm; here finish group must leave Stack empty and host/attack alive. This is a meaningful material exception outcome, not basic play or persistence alone. Ordinary Ash contrast is prior1246 evidence, not a new rerun claimed here.",
+      "Themai power3 is fully blocked by Brutal defense3. Nekria power4 and Vynserakai power6 are fully blocked by Brutal3 plus Wounding10 defense3. Actual physical defenders/roles, active power, reached Damage0/hitfalse, HPall20 and hostDamage0 are persisted. No Nekria deal/receive-damage or Vynserakai hit event is earned, so held support timing branches are not required. Themai restrictions prevent playing/activation, not normal declaration of defending cards.",
+      "All cases continue native four-live DEFEND_PRIORITY/REACTION/DAMAGE/RESOLUTION, host6 survives tapped with encoded material, normal Dromai Dragon GA refunds AP1 from actual red Invocation play, defenders really move GY4, proxy retires without export, Storm8 ready/Blue7Pitch, resources1 for Themai or0 otherwise, UID10/11/RNG0 and empty Stack/DQs/CC.",
+      "Only the three postattack exact host Counters assertions now include normal usage fields WEAPON_ATTACK_TURN2/WEAPON_ATTACKS1. Actual Arena Dragon attack uses weaponUID=host6; TryCompletePayment calls CRUUseWeapon for Arena source, which writes these bookkeeping fields and taps. Preattack transformed material assertions remain unchanged. No material/Phantasm, ownership, cost, damage, survival or GA expectation was weakened."
+    ],
+    "limits": [
+      "One semantic batch review only; native save and targeted replay pending, no success/coverage credit claimed.",
+      "Only named-host exception for each existing material and fully blocked attack survival. No Dust main play/other host/default Phantasm/material retrieval or UID storage/Dragon hit or damage/support/Hero/whole-card credit.",
+      "Only W receipt written; no native/test/T/source/auth/network/Git/original access."
+    ],
+    "cases": [
+      {
+        "primary": "dust_from_the_golden_plains_red",
+        "native_controls": 35,
+        "query_checks": 310
+      },
+      {
+        "primary": "dust_from_the_shadow_crypts_red",
+        "native_controls": 36,
+        "query_checks": 328
+      },
+      {
+        "primary": "dust_from_the_red_desert_red",
+        "native_controls": 36,
+        "query_checks": 328
+      }
+    ],
+    "source_sha256": {
+      "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+      "FaBSim/Custom/UPRCards.php": "62798bd281afc17805c396e92deab22497b9c80d881f99e943833cb82d449321",
+      "FaBSim/Custom/DYNCards.php": "c3460cf12b68a92af4d9c4f836de4c2495d117e3a97e73fb23e8c026aa2f20f4",
+      "FaBSim/Custom/MONAbilities.php": "7e5a6ba9e0523c03c7ece084793564d87ecd9d6fbba55b9252cb83f3d952b4fa",
+      "FaBSim/Custom/MONCards.php": "2eb22bda6f1dba583df2879046f9f4dec94f47f2e9b28f369758f3af72c9c3ac",
+      "FaBSim/Custom/GameLogic.php": "c60fa151561f959e4e3e341b814de0e2b47c9e9f153bbc8793a04c43b5075061",
+      "FaBSim/GeneratedCode/GeneratedMacroCode.php": "fe6a7982611df8f4de98ce2671b317b671b580146aa4b8c28e8f4b86d8461056",
+      "DevTools/FaB/CardRegression/record_card_regressions.php": "e53055b29e9ea641949b77019c4455607f41ca233325d716a9500637e19efd28",
+      "FaBSim/Custom/CRUCards.php": "5f0ff2122f9e033b8ad9ced75e9ee2210f459c868633f3f1741f419bc437c12d"
+    },
+    "supersedes_bookkeeping_oracle_review": {
+      "path": "first-bookkeeping-oracle/independent-review.json",
+      "sha256": "600d9d9eabf91607f0cecd1ada3c05f99d4f1b88fc49875147d3d2feaf2d6aba",
+      "previous_spec_sha256": "12bd7a31f8efbead3641e6da898cda0f8a1ee0bcd8e169c04e4c0ff912bb3e02",
+      "classification": "bookkeeping-classification.json"
+    }
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1247-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "43af48c016e11a48fc1d95a61d58ec9b517b7b2da33c6010badcde6cb5ea388f"
+  },
+  "full_suite_run": false
+}

@@ -1,0 +1,7 @@
+{
+    "name": "Enflame the Firebrand / first draconic chain link does not earn second link go again or fourth link power",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-24T06:38:44+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "FOUR_REAL_MANUAL_UPF_NATURAL_YOUNG_fai20_AND_DORI20. This is actualfirstDraconicchainlink, so count1<2GAthreshold and<3typegrant/<4powerthreshold; noearlierlinksseeded. Primary5normalHandactualcost0/realWoundingBlowRed6retained/AP1to0/formaladjacentHero4/allfourresponses. Actualprinted2HeroDamageHP18; noGA/noextraUIDorArena. RealzeroCostGenericWoundingBlow6remainsinHand1throughfullcloseAP0/R0/StackDQCCempty; actualnativeHandclickcannotplayActionwithoutAP despiteaffordability, fullstateunchanged. OpponentHandBlue8/ArsenalRed9/EquipmentLens7Counters[]/ownDeckBlue10retained. Positiveordinarypayment/damageandnegativecondition/refundwitnessonly; positivecondition/extraGA/power/typegrant/Boo/Vigor/Hero/support/sibling/fullcarduntested. Sources: FaBSim/GeneratedCode/cardArrayCache.json#enflame_the_firebrand_red FaBSim/GeneratedCode/GeneratedMacroCode.php FaBSim/Custom/GameLogic.php FaBSim/Custom/OMNCards.php FaBSim/Custom/PENCards.php FaBSim/Custom/SEACards.php FaBSim/Custom/UPRCards.php"
+}

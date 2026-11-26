@@ -1,0 +1,7 @@
+{
+    "name": "Infectious Host / real base attack with false grant condition",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-24T09:54:48+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "FOUR_REAL_MANUAL_UPF_NATURAL_DORINTHEA20_THREEDORI20. RealFrailty7ArenaPlayer2ownedcontrolled2, actor1ArenaemptyhasnoFrailty/Inertia/Pox. Mustnotborrowotherseattokencondition/copyit. Actual4HerodamageHP16/noadditionaltoken/Arena2exactoneoriginalFrailty7/sameUID7; allotherArena0/UID7/RNG0. Allfourmanualsourceandcombatresponses/nativeactualbasepower4/damage4/HP4=16/AP1to0/R0. Originalprimary5GY1/legalFDGenericWounding6Arsenal1/sameUIDandFaceDown/realwrongseatArenaOrOwnedDagger7unchanged/otherzonesempty/UID7/RNG0. Fullcloseactual0costArsenalresourceaffordablebutnativeclickrejectsAP0beforeTarget/StackDQ/payment/movement; finalresources/HP/physicalassetsunchanged. Onlynamedfalsecondition/baseattack/nativeconsumerGuard; positivecondition/WHENtiming/grants/GA/tokens/bloodDebt/Hero/support/siblings/fullcarduncredited. Sources: FaBSim/GeneratedCode/cardArrayCache.json#infectious_host_red FaBSim/GeneratedCode/GeneratedMacroCode.php FaBSim/Custom/GameLogic.php FaBSim/Custom/HNTCards.php FaBSim/Custom/HNTRuntime.php FaBSim/Custom/OUTCards.php FaBSim/Custom/SUPCards.php FaBSim/Custom/WTRCards.php FaBSim/Custom/ARCCards.php"
+}

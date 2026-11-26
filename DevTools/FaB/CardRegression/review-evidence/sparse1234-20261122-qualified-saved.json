@@ -1,0 +1,86 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "independent breadth_review1225",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1234-20261122.json",
+  "source_spec_sha256": "4d7958b0b3019f7e119451ac9d18717eb3d36bb694fc0a118f0d003ad7251fe0",
+  "input_sha256": "4d7958b0b3019f7e119451ac9d18717eb3d36bb694fc0a118f0d003ad7251fe0",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-channel-iceloch-glaze-blue-four-live-sparse1234-real-aura-freezes-frostbitten-opponent-arsenal-while-other-opponent-plays-identical-instant",
+      "card_id": "channel_iceloch_glaze_blue",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "8b16dd0cf02bed635ca9976647938f1eab2f43714d9e54115aaa7026519253ab",
+        "actions.json": "82e26cc985258276b1d215e134ef8be9a1f2300b8362291dea8ebaf4951ecd6b",
+        "assertions.json": "bfcef3df3eaafcf0b169446b4feac0b0b23e8eb05224db3dd281d55dbc25f5c9",
+        "expected_final_gamestate.txt": "5a33ae028ab5e8fe122117ea26e46f3ef0f80af4a4e7c2ba7ac47b460f747a45",
+        "meta.json": "224c93bc5b9c0295417ae2dd70c690bd51f008a1cabafdc2da0d3d78db3bb818"
+      },
+      "fixture_sha256": "7ba3e02a8dd53b7134ee1406b03d4f3a6d07af1d00e3d14e81378f5ac288a57e",
+      "actions": 40,
+      "native_assertions": 359,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 35,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1234-20261122.json",
+      "input_sha256": "4d7958b0b3019f7e119451ac9d18717eb3d36bb694fc0a118f0d003ad7251fe0",
+      "non_unit_pass_control_counts": {
+        "12": 3
+      },
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1234-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-channel-iceloch-glaze-blue-four-live-sparse1234-real-aura-freezes-frostbitten-opponent-arsenal-while-other-opponent-plays-identical-instant",
+        "fixture_slug": "card-channel-iceloch-glaze-blue-four-live-sparse1234-real-aura-freezes-frostbitten-opponent-arsenal-while-other-opponent-plays-identical-instant",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "reviewer": "independent breadth_review1225",
+    "spec_sha256": "4d7958b0b3019f7e119451ac9d18717eb3d36bb694fc0a118f0d003ad7251fe0",
+    "source_note_sha256": "ca2f1c25a1865e647d726df319f41c073cadc118544b199067299a6a5e631ecb",
+    "case_count": 1,
+    "native_controls": 38,
+    "query_checks": 359,
+    "persistable_assertions": 359,
+    "author_only_checks_omitted": 0,
+    "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+    "coverage_category": "POSITIVE_CONTINUOUS_FROSTBITE_ARSENAL_FREEZE_WITH_REAL_OTHER_SEAT_CONTROL",
+    "basis": [
+      "The frozen case contains 38 native controls and 359 persistable assertions, with no author-only checks. Natural Young Iyslander18/Dorinthea20/Dorinthea20/Iyslander18 are legal; primary Ice Aura is admitted by Essence of Ice. Its group is unrepresented with no source-only hold.",
+      "Real cost0 Aura5 resolves after four responses into owned Arena and printed go again funds actual Wounding6. PENFrozenObject769-778 sees opposing active Glaze and actual owned Frostbite9 under P4; UPRFrozen8 calls that helper, UPRCanPlay83 rejects the frozen arsenal card, and the normal CanPlayCard path includes that check. The prior lawful self-created Frostbite is admitted without exercising or crediting a producer.",
+      "P3 without Frostbite really plays the identical face-up Generic Instant Sigil7 at priority3. It starts its response round at3; after the pass to4, actual P4 Arsenal8 click is a normal mode10002 FSM input. Core568-600 ignores ActionMap return, so the case asserts no movement/payment/pitch/priority change rather than inventing a strict API error. Real Blue10 is available to fund the Frostbite tax if the card were legal.",
+      "From priority4, the pass-until condition includes Stack count1, so it passes4,1,2 to resolve P3 Sigil and then stops at newly reset turn-player priority1. Actual P3 HP20->21 and owned graveyard7 establish the positive control. Wounding then receives its own fresh four-seat round before normal combat deals4 to P4, HP18->14; no blocked Sigil heal is earned.",
+      "P1 plays Ice Glaze during its own turn, so Iyslander cannot earn its opponent-turn Ice trigger. P3 Sigil is Generic and its controller is Dorinthea; P4 does not successfully play a card. No Iyslander Frostbite creation, Hero activation, end phase or Channel upkeep occurs. Final physical Glaze/Frostbite/blocked Arsenal8/Hand10 remain, source6 and actual response7 reach their respective owners graves, and AP/RNG/UID/empty Stack-DQ-CC outcomes fit the branch."
+    ],
+    "limits": [
+      "Semantic/source-spec approval only, pending native saving and targeted replay. The no-op input has not been executed by this reviewer and earns no strict rejection-error claim.",
+      "Only the continuous Frostbite-controlled arsenal-freeze branch with a real other-seat instant control. No Frostbite producer/tax payment, other frozen permanent, condition removal, upkeep, owner-arsenal, Hero/support or full-card credit.",
+      "Only this W review receipt was written; no native actions, tests, T/source changes, Git, authentication, network or original-checkout access."
+    ],
+    "source_sha256": {
+      "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+      "FaBSim/Custom/PENCards.php": "9d4f443c833ec535bdae15c1973910925c1b7a1223fbfab7fcb89a5b204a7ed8",
+      "FaBSim/Custom/UPRCards.php": "62798bd281afc17805c396e92deab22497b9c80d881f99e943833cb82d449321",
+      "FaBSim/Custom/GameLogic.php": "c60fa151561f959e4e3e341b814de0e2b47c9e9f153bbc8793a04c43b5075061",
+      "Core/EngineActionRunner.php": "add14b53dc571d2a6e64407bfa4038a98d6554d6410de7a9233810d99c46ea2a",
+      "DevTools/FaB/CardRegression/record_card_regressions.php": "e53055b29e9ea641949b77019c4455607f41ca233325d716a9500637e19efd28"
+    }
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1234-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "9acf16771e65116117e19526b59cb692abbf96e68ab3437aa3a69b185419cadb"
+  },
+  "full_suite_run": false
+}

@@ -1,0 +1,68 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-24T11:55:28.224062+00:00",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1379-20261122.json",
+  "source_spec_sha256": "73bb338a8f1112e15311f59c0b1f88bb2f46eddb4d5b59dc13bb82925ad04fba",
+  "new_scenarios": 1,
+  "new_groups": 1,
+  "new_primary_ids": 1,
+  "actions": 17,
+  "native_assertions": 247,
+  "manual_passes": 15,
+  "totals": {
+    "saved_registered_scenarios": 5370,
+    "duels": 3113,
+    "four_live": 2257,
+    "recorded_primary_ids": 2518,
+    "identity_denominator": 5196,
+    "recorded_groups": 2392,
+    "group_denominator": 3324,
+    "four_live_groups": 2246,
+    "phase_qualified_scenarios_at_actual_contexts": 2007,
+    "phase_qualified_unique_groups": 1997,
+    "creation_replay_passes": 2749,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 1168,
+  "scenarios": [
+    {
+      "card_id": "valda_seismic_impact",
+      "group_id": "identity:valda_seismic_impact",
+      "scenario_id": "card-valda-seismic-impact-two-live-sparse1379-real-self-draw-from-arsenal-shuffle-not-opponent-draw-no-seismic-then-drawn-card-attack",
+      "effect_branches": [
+        "actual_self_draw_after_arsenal_shuffle_not_opponent_no_seismic_then_native_drawn_card_attack"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-valda-seismic-impact-two-live-sparse1379-real-self-draw-from-arsenal-shuffle-not-opponent-draw-no-seismic-then-drawn-card-attack",
+      "source_spec": "card-regression-sparse1379-20261122.json",
+      "source_spec_sha256": "73bb338a8f1112e15311f59c0b1f88bb2f46eddb4d5b59dc13bb82925ad04fba",
+      "review_evidence": "review-evidence/sparse1379-20261122-qualified-saved.json",
+      "review_evidence_sha256": "183186eea27d3cfe4afeb32c086b37d27a19ec5dfb00d94916d2f8b6ceada785",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1379-20261122-replay.json",
+          "sha256": "a348089e54aab10c66e91cedd6b0f6cde5005db9633722c6bd97749624bf07da",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "two_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

@@ -1,0 +1,7 @@
+{
+    "name": "Danger Digits / opposing dagger is not your target",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-24T11:40:35+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "FOUR_REAL_MANUAL_UPF_ARAKNI20_DORI20_DORI20_ARAKNI20. NativeGenericCritical5cost1paidactualCriticalBlue6pitch3/R2/AP0/5damage. DangerDigits8equippedArms; ownWeapons0, realopponentNerveScalpel9Weapons4ready/owned4. AtownREACTIONpriority1actualnoContractAA5unmodified5power, clickDangerwithnoCONTROLLEDdagger. RejectbeforeDestroycost/abilitylayer/targetchooser; Digits8sameEquipmentreadyCounters/Effectsunchanged/R2/AP0/UID9/priority1. Oppdagger9neverthrown/damaged/destroyed; all4manualresponse/native5damageHP4=15/final5GY1/6Pitch1/Arsenal7retained. Actual0ArsenalconsumerrejectAP0. Onlyno-owned-targetguard, notactive-daggerexclusion/paidactivation/throw/pseudohit/destruction/timing/wholecard/support. Sources: FaBSim/GeneratedCode/cardArrayCache.json#danger_digits FaBSim/GeneratedCode/GeneratedMacroCode.php FaBSim/Custom/GameLogic.php FaBSim/Custom/ARCAbilities.php FaBSim/Custom/ArakniCards.php FaBSim/Custom/HNTCards.php FaBSim/Custom/OMNCards.php FaBSim/Custom/WTRCards.php"
+}

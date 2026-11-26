@@ -1,0 +1,7 @@
+{
+    "name": "Great Library of Solana / any Hero pays actual two-yellow discard cost; destruction waits for resolution",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-26T03:26:58+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "FOUR_REAL_YOUNG_HEROES_MANUAL_UPF20. LightPrism4ownsactualLibrary7Arena, activeDori1hastwoactualGenericYellow5/6Hand/AP1/R0/noYellowPitch. PrintedAnyHero clauseallowsrealplayer1clickforeignp4Arena0. PrintedActioncostbeforecolonistwoYellowDISCARDSonly; Destroythisisaftercolonresolutioneffect, mustNOTbecomeadditionalcost. ActualcostMZMultiChoose2|2ownHandkeepsLibrary7Arena/AP1untilanswer; actualanswerdiscardsSAME5/6toGY1/AP0whileLibrary7MUSTstayownedArena4throughallfourfreshresponsesandABI8held. OnlyresolutionafterallfouractuallydestroysLibrary7toGY4andGAreturnsAP1, discarded5/6remainGY1/Pitch0/HP20all/R0/UID8/RNG0clean. CurrentMONabilityrowdestroy=trueisSOURCECONCERN, notoracle: strictLibraryArena1mustnotweakenorblessGYbeforepriority. Stopfirstmismatch/nofixtureorcreditonfailure. NoLibraryfromHandplay/Legendary/INTELLECTendphase/pitchYellow/nativeownerotherthan4/othercolors/discardchoice/support/fullcardcredit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#great_library_of_solana FaBSim/GeneratedCode/GeneratedMacroCode.php FaBSim/Custom/MONAbilities.php FaBSim/Custom/WTRCards.php FaBSim/Custom/ARCAbilities.php FaBSim/Custom/GameLogic.php"
+}

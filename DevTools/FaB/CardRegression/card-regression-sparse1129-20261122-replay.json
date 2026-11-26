@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-professor-teklovossen-four-live-sparse1129-all-three-opponents-discount-real-banished-evo-three-to-zero",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-professor-teklovossen-four-live-sparse1129-all-three-opponents-discount-real-banished-evo-three-to-zero",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1129-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1129-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "6337d0d5475ff08060bdc4accaa27dfc5c94c031851d1b859e94a7141066530e",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "cec972277f9709dd1a9662c29061dae42bdef79cfe39b414e57fb1e1d2fc14f4",
+        "actions.json": "c4478d4063e4c3862a11efbd13ed94696d6b5de7ece429fdc4c431cde72cb513",
+        "assertions.json": "90d714dff369738594fef93843f89f5a576dfc02cd18e85455382afa13418337",
+        "expected_final_gamestate.txt": "9dcccd8c9bc8ca0dec36c782e85240fee04207fb4febe3a04cfc9daec7b347ae",
+        "meta.json": "6ecac83941fcc9b23fe0f08f06bdea0bbdf55137d8b3d92c801c29c58f7aa313"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

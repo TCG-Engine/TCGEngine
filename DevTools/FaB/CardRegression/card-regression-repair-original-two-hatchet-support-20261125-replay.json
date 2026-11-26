@@ -1,0 +1,40 @@
+{
+  "runtime": "e30e2324afd40422257209774e9b99674b7727aabcc26689df6507e9fb606169",
+  "full_suite_run": false,
+  "fixtures": [
+    {
+      "slug": "repair-a-bit-off-the-side-red-four-live-20261125-original-hatchet-support-route-restored",
+      "passed": true,
+      "runtime": "e30e2324afd40422257209774e9b99674b7727aabcc26689df6507e9fb606169",
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=repair-a-bit-off-the-side-red-four-live-20261125-original-hatchet-support-route-restored",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\original-two-hatchet\\clean1.log"
+      ],
+      "complete_log_sha256": "6a503ac052ea2b5e412638ffce6f75082ba82da17f76552f5e0b97bbf0c1bfe2",
+      "raw5_unchanged": true
+    },
+    {
+      "slug": "repair-shift-the-tide-of-battle-yellow-four-live-20261125-original-hatchet-support-route-restored",
+      "passed": true,
+      "runtime": "e30e2324afd40422257209774e9b99674b7727aabcc26689df6507e9fb606169",
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=repair-shift-the-tide-of-battle-yellow-four-live-20261125-original-hatchet-support-route-restored",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\original-two-hatchet\\clean2.log"
+      ],
+      "complete_log_sha256": "74ad1fb8ecd0a28881ab0230104082833879ca8da464caa05d7bd901cba66ddb",
+      "raw5_unchanged": true
+    }
+  ]
+}

@@ -1,0 +1,229 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "/root/breadth_review independent cached-text/source-spec batch semantic review; Root exact saved mapping and native clean replay",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse883-20261122.json",
+  "source_spec_sha256": "9e9b1e9ad34cfc09eec85540fcf61011951eaf47d6163443fe6051fc9b80fe8c",
+  "input_sha256": "9e9b1e9ad34cfc09eec85540fcf61011951eaf47d6163443fe6051fc9b80fe8c",
+  "recorded_input_scope": "Exact original native input, possibly containing unsaved failed cases excluded from this qualified subset; each retained case compared verbatim.",
+  "fixtures": [
+    {
+      "slug": "card-looking-for-a-scrap-red-four-live-sparse883-actual-one-power-graveyard-cost-earns-five-damage-and-go-again",
+      "card_id": "looking_for_a_scrap_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "e53c6985743d259f580603624eb4987599ced6cc5255222d2ed73d6c6ff4c754",
+        "actions.json": "7bd9f55b9d73cb6cf39daf6ce506235b4285a93a20b6cfa90ff1bc25c55fe928",
+        "assertions.json": "605d6bf3e3fea1077f674b6ef1ac542280df4eeab3f381cfe4e782aabf5e141f",
+        "expected_final_gamestate.txt": "13c5bd9316b1565c684fb463102cd9952d9d3743b41a3c3293c1435942dc69e2",
+        "meta.json": "714ca0406aa502109f7637a185a642f3beaec40bdf7ad427270d149ee9572d98"
+      },
+      "fixture_sha256": "4dfeb2dd3adef85af99893db209d96a3b263b253875f5d61bb18a2023844f0a1",
+      "actions": 29,
+      "native_assertions": 101,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse883-20261122.json",
+      "input_sha256": "9e9b1e9ad34cfc09eec85540fcf61011951eaf47d6163443fe6051fc9b80fe8c",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse883-local-20261122\\save\\selected.json",
+      "additional_cost_physical_uid_conservation": {
+        "Graveyard": [
+          5
+        ],
+        "Pitch": [
+          6
+        ],
+        "Banish": [
+          7
+        ]
+      }
+    },
+    {
+      "slug": "card-burn-away-red-four-live-sparse883-actual-phoenix-flame-banish-cost-earns-four-damage-and-go-again",
+      "card_id": "burn_away_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "b63e5956bedad2177e4740bcaa6dbcfdee5ca6766d096ce527e544f4ffc1966d",
+        "actions.json": "f28c213bb6a3c605981c5daa43df59747fbe2ccf8ee65fa91dd318cb7da7d4d2",
+        "assertions.json": "b9ad02487f0c0cefd36198c699b52547eb570b56340e54b95b748e352d732285",
+        "expected_final_gamestate.txt": "2698cf7fb0d2e38c558e62d3a9f9a5bdccc0eb61ca18d2d4d503c3273f4278ec",
+        "meta.json": "1e916635438e17f5dff2011fc252dea8a3600a7a10ef08f61c614a814308182c"
+      },
+      "fixture_sha256": "fcbeb848600bd371da496415253067330f7043737476d444d73219c6037a3489",
+      "actions": 28,
+      "native_assertions": 95,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse883-20261122.json",
+      "input_sha256": "9e9b1e9ad34cfc09eec85540fcf61011951eaf47d6163443fe6051fc9b80fe8c",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse883-local-20261122\\save\\selected.json",
+      "additional_cost_physical_uid_conservation": {
+        "Graveyard": [
+          5
+        ],
+        "Banish": [
+          6
+        ]
+      }
+    },
+    {
+      "slug": "card-beaming-bravado-red-four-live-sparse883-actual-yellow-charge-cost-earns-four-unblocked-damage",
+      "card_id": "beaming_bravado_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "33c27ddbbf6864690e0a689b035ed72a1c7b1174a1ca6ce4af73cd0003a69dbc",
+        "actions.json": "9dc6f3d7ee2230e11d18d663d812f852981beb6f9aed04156dfa0d5bc551da3f",
+        "assertions.json": "7a61078839a9fb1b281a4afe27076fc940ba150090bf23dc5be533b0f931f880",
+        "expected_final_gamestate.txt": "8cc4120ab5871f962a5880b7828b5c7aa16bab7b65b1fade6a6b9fd497f6d756",
+        "meta.json": "270cd121876542fa64efce10edeac6241e9e80e1706f604c0a02b5f69e2cd731"
+      },
+      "fixture_sha256": "9b8c8acb7d4acc235bf84e660d576dfc295975775ceabbe41feef1227afe1b0e",
+      "actions": 28,
+      "native_assertions": 95,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse883-20261122.json",
+      "input_sha256": "9e9b1e9ad34cfc09eec85540fcf61011951eaf47d6163443fe6051fc9b80fe8c",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse883-local-20261122\\save\\selected.json",
+      "additional_cost_physical_uid_conservation": {
+        "Graveyard": [
+          5
+        ],
+        "Soul": [
+          6
+        ]
+      }
+    },
+    {
+      "slug": "card-elemental-strike-red-four-live-sparse883-actual-earth-banish-cost-earns-seven-unblocked-damage",
+      "card_id": "elemental_strike_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "0944e9c31e3fd6b82658a0ee4fc2884757ed2e09d565032f0cf954123cbbc6fd",
+        "actions.json": "9dc6f3d7ee2230e11d18d663d812f852981beb6f9aed04156dfa0d5bc551da3f",
+        "assertions.json": "f78a1947fd0513a50029a5112aac6e8d2a24cecdaa412939fa6ac867a07772e8",
+        "expected_final_gamestate.txt": "f5831fb282bca9a4e43e97e160346925b7cbc1a10bdb1691f9cc156860588ef7",
+        "meta.json": "00f23dee0b8a0600c9593d69bdcc53da2dcaab8e5d15ad072500f74144a4896e"
+      },
+      "fixture_sha256": "8c048e553e44b628d2017970d6c4ea90053df76dc7ca39d33e7cf5276f811d3f",
+      "actions": 28,
+      "native_assertions": 95,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse883-20261122.json",
+      "input_sha256": "9e9b1e9ad34cfc09eec85540fcf61011951eaf47d6163443fe6051fc9b80fe8c",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse883-local-20261122\\save\\selected.json",
+      "additional_cost_physical_uid_conservation": {
+        "Graveyard": [
+          5
+        ],
+        "Banish": [
+          6
+        ]
+      }
+    },
+    {
+      "slug": "card-endless-maw-red-four-live-sparse883-actual-three-random-graveyard-cost-cards-earn-nine-unblocked-damage",
+      "card_id": "endless_maw_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "e3ce506497a887d6ef76e309ad8e25d4e8c6226ee0de57e96457d746efd8a3bc",
+        "actions.json": "25920dc16af50701b0be20453cc3345d5c14a09166881d7481930bfb87552093",
+        "assertions.json": "0e8cc6b86040b72d44df9b3d51790128cfcb062334ecc1bda0f59a3f96704388",
+        "expected_final_gamestate.txt": "0882c1f366869be47d3a014ebc73c5a4837ce267b06ffcaed704343ff81e01e3",
+        "meta.json": "a07cb95596dbbf1e485b1aacadbd6b2bfdc37c6c421e39bd827e9a0635fc7629"
+      },
+      "fixture_sha256": "afadd6363eaf008f6ee1d9e2ab79b343dc99c147f1439534d7490834ed91032c",
+      "actions": 28,
+      "native_assertions": 99,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse883-20261122.json",
+      "input_sha256": "9e9b1e9ad34cfc09eec85540fcf61011951eaf47d6163443fe6051fc9b80fe8c",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse883-local-20261122\\save\\selected.json",
+      "additional_cost_physical_uid_conservation": {
+        "Graveyard": [
+          5
+        ],
+        "Pitch": [
+          6
+        ],
+        "Banish": [
+          7,
+          8,
+          9
+        ]
+      }
+    }
+  ],
+  "basis": {
+    "review_type": "independent_static_semantic_review",
+    "result": "approved_named_branches_only_pending_native_execution",
+    "spec_sha256": "9e9b1e9ad34cfc09eec85540fcf61011951eaf47d6163443fe6051fc9b80fe8c",
+    "reviewed": [
+      {
+        "card": "looking_for_a_scrap_red",
+        "branch": "actual_one_power_graveyard_cost_earns_five_damage_and_go_again"
+      },
+      {
+        "card": "burn_away_red",
+        "branch": "actual_phoenix_flame_banish_cost_earns_four_damage_and_go_again"
+      },
+      {
+        "card": "beaming_bravado_red",
+        "branch": "actual_yellow_charge_cost_earns_four_unblocked_damage"
+      },
+      {
+        "card": "elemental_strike_red",
+        "branch": "actual_earth_banish_cost_earns_seven_unblocked_damage"
+      },
+      {
+        "card": "endless_maw_red",
+        "branch": "actual_three_random_graveyard_cost_cards_earn_nine_unblocked_damage"
+      }
+    ],
+    "evidence": [
+      "Five printed texts, base powers/costs, real additional-cost card types/powers/colors and natural hero health20 checked against cache. Initial empty effects and real cards establish costs rather than seeded bonus markers.",
+      "All actors legal: Generic Looking for Scrap on Dorinthea with Generic Brandish Blue(power1), Draconic Burn Away on Fai, Light Warrior Bravado on Boltyn, Elemental Strike/Earth card on Oldhim, Shadow Brute Endless Maw on Levia. Dorinthea substitution avoids unrelated Katsu hit trigger.",
+      "P4 is adjacent to P1 in live seat order1234; attack target announced while source still owned in hand before additional costs. Preparation routes perform actual own-zone costs, then real blue pitch pays Looking cost1/residue2 and Endless cost3/residue0. Other three costs are0.",
+      "Expected unblocked damage independently derived: Looking4+1=5; Burn2+2=4; Bravado3+yellow1=4; Earth Strike5+2=7; Endless6+3=9 once for any qualifying card, not per banished card. Boltyn extra power requires an attack-action defender, absent here.",
+      "Actual additional-cost outcomes require correct owned UID in Banish/Soul before source response window; Endless requires all three real distinct seven-power graveyard cards banished and original graveyard emptied. Native random cost uses EngineRandomInt, not strong-entropy shuffle.",
+      "Source must enter physical chain as UID5/Role ATTACK, defender takes native no-block branch, health remains20 until actual damage, and target health/damageDealt assert final packet. Other heroes remain unchanged.",
+      "Four manual seats traverse native source, attack, defense-priority, reaction, damage and resolution windows. Native Role assignment and damage-to-resolution transitions checked read-only; go-again is evaluated at resolution, so AP0 through damage then1 only for Looking/Burn. Passing resolution closes chain and requires actual source graveyard UID5 with quiet public state."
+    ],
+    "oracle_or_flow_errors": [],
+    "engine_concerns": [],
+    "limitations": [
+      "Static source-spec review only; no native game, tests, recordings, old fixture execution, T edits or network performed.",
+      "Only named positive additional-cost/unblocked branches approved. No pitch siblings, declined/missing/invalid costs, alternative element/charge colors, zero qualifying graveyard powers, blockers, prevention, reactions or follow-on attacks.",
+      "Endless uses exact three-card graveyard and does not certify random selection distribution/order across larger pools.",
+      "No Fai hero activation, Boltyn reaction/defended bonus, Oldhim defense reaction, Levia end-phase blood debt or unrelated hero trigger behavior certified."
+    ],
+    "mutation_scope": "Only this independent-review.json written.",
+    "previous_spec_sha256": "ce5ba9f012655970528cdcdf2a7952c5a087d03323bec39a2772fa63559c398c",
+    "guard_delta_review": "Final physical-cost guards independently checked: Hand0 all five; paid Pitch1 with actual owned blueUID6 for Looking/Endless; Pitch0 for three zero-cost cases. Earlier printed-rule, legal-actor, power/damage, cost ordering and combat-phase review basis retained. No native game executed; prior driver verdict-schema mismatch was an admission-format issue, not a safety denial or gameplay failure."
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay.",
+    "Root additionally checked exact final UID conservation for every real cost card, including unordered random graveyard banish7/8/9; no second independent saved-file review."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse883-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "b90925bdf5851da32296b0fa965f3c07971e1a03838b3da6f00ab77c5d150089"
+  },
+  "full_suite_run": false
+}

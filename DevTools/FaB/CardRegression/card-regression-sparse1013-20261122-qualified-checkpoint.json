@@ -1,0 +1,155 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-23T01:23:13.107443+00:00",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1013-20261122.json",
+  "source_spec_sha256": "dd46bd8515cd2f78bcf66faaec35495c8a6d83b36f815f70b28cc9c29fc9201f",
+  "new_scenarios": 4,
+  "new_groups": 4,
+  "new_primary_ids": 4,
+  "actions": 115,
+  "native_assertions": 890,
+  "manual_passes": 100,
+  "totals": {
+    "saved_registered_scenarios": 4753,
+    "duels": 3075,
+    "four_live": 1678,
+    "recorded_primary_ids": 1901,
+    "identity_denominator": 5196,
+    "recorded_groups": 1775,
+    "group_denominator": 3324,
+    "four_live_groups": 1667,
+    "phase_qualified_scenarios_at_actual_contexts": 1390,
+    "phase_qualified_unique_groups": 1380,
+    "creation_replay_passes": 2132,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 551,
+  "scenarios": [
+    {
+      "card_id": "pitfall_trap_yellow",
+      "group_id": "identity:pitfall_trap_yellow",
+      "scenario_id": "card-pitfall-trap-yellow-four-live-sparse1013-reject-hand-origin-at-legal-reaction-then-real-seven-damage",
+      "effect_branches": [
+        "reject_hand_origin_at_legal_reaction_then_real_seven_damage"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-pitfall-trap-yellow-four-live-sparse1013-reject-hand-origin-at-legal-reaction-then-real-seven-damage",
+      "source_spec": "card-regression-sparse1013-20261122.json",
+      "source_spec_sha256": "dd46bd8515cd2f78bcf66faaec35495c8a6d83b36f815f70b28cc9c29fc9201f",
+      "review_evidence": "review-evidence/sparse1013-20261122-qualified-saved.json",
+      "review_evidence_sha256": "6e6f502e71873df1b8f79db9b391093fe9254ae6db346657a718dbd0b1458900",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1013-20261122-replay.json",
+          "sha256": "9beef9739d65642a8109ebbe8de359f9f1b7889a9518b44f1f04bf5fd01c174f",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "rockslide_trap_blue",
+      "group_id": "identity:rockslide_trap_blue",
+      "scenario_id": "card-rockslide-trap-blue-four-live-sparse1013-reject-hand-origin-at-legal-reaction-then-real-seven-damage",
+      "effect_branches": [
+        "reject_hand_origin_at_legal_reaction_then_real_seven_damage"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-rockslide-trap-blue-four-live-sparse1013-reject-hand-origin-at-legal-reaction-then-real-seven-damage",
+      "source_spec": "card-regression-sparse1013-20261122.json",
+      "source_spec_sha256": "dd46bd8515cd2f78bcf66faaec35495c8a6d83b36f815f70b28cc9c29fc9201f",
+      "review_evidence": "review-evidence/sparse1013-20261122-qualified-saved.json",
+      "review_evidence_sha256": "6e6f502e71873df1b8f79db9b391093fe9254ae6db346657a718dbd0b1458900",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1013-20261122-replay.json",
+          "sha256": "9beef9739d65642a8109ebbe8de359f9f1b7889a9518b44f1f04bf5fd01c174f",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "tripwire_trap_red",
+      "group_id": "identity:tripwire_trap_red",
+      "scenario_id": "card-tripwire-trap-red-four-live-sparse1013-reject-hand-origin-at-legal-reaction-then-real-seven-damage",
+      "effect_branches": [
+        "reject_hand_origin_at_legal_reaction_then_real_seven_damage"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-tripwire-trap-red-four-live-sparse1013-reject-hand-origin-at-legal-reaction-then-real-seven-damage",
+      "source_spec": "card-regression-sparse1013-20261122.json",
+      "source_spec_sha256": "dd46bd8515cd2f78bcf66faaec35495c8a6d83b36f815f70b28cc9c29fc9201f",
+      "review_evidence": "review-evidence/sparse1013-20261122-qualified-saved.json",
+      "review_evidence_sha256": "6e6f502e71873df1b8f79db9b391093fe9254ae6db346657a718dbd0b1458900",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1013-20261122-replay.json",
+          "sha256": "9beef9739d65642a8109ebbe8de359f9f1b7889a9518b44f1f04bf5fd01c174f",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "virulent_touch_red",
+      "group_id": "pitch-cycle:virulent_touch",
+      "scenario_id": "card-virulent-touch-red-four-live-sparse1013-reject-hand-origin-then-real-generic-four-damage",
+      "effect_branches": [
+        "reject_hand_origin_then_real_generic_four_damage"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-virulent-touch-red-four-live-sparse1013-reject-hand-origin-then-real-generic-four-damage",
+      "source_spec": "card-regression-sparse1013-20261122.json",
+      "source_spec_sha256": "dd46bd8515cd2f78bcf66faaec35495c8a6d83b36f815f70b28cc9c29fc9201f",
+      "review_evidence": "review-evidence/sparse1013-20261122-qualified-saved.json",
+      "review_evidence_sha256": "6e6f502e71873df1b8f79db9b391093fe9254ae6db346657a718dbd0b1458900",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1013-20261122-replay.json",
+          "sha256": "9beef9739d65642a8109ebbe8de359f9f1b7889a9518b44f1f04bf5fd01c174f",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

@@ -1,0 +1,136 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "independent breadth_review1252",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1419-20261122.json",
+  "source_spec_sha256": "8232035efef0ac040f9d9e3a995be40a9da1d2d488e7205859a5985f18f83472",
+  "input_sha256": "8232035efef0ac040f9d9e3a995be40a9da1d2d488e7205859a5985f18f83472",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-viserai-the-forsaken-two-live-sparse1419-real-three-runechants-one-creation-hero-layer-banish-one-and-traverse",
+      "card_id": "viserai_the_forsaken",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "970371d9d126c8a46c57327557ab1a2f14466c59b4d3f1ac30b1d87d5a20e19d",
+        "actions.json": "bea815f125883ae4155d972b135236047252d46caf9c1dbb9fa48e064f697361",
+        "assertions.json": "a52c1f9195a8c0e9751f775d782b15c29d201a2c221e4a7fd6a3784e712a67f1",
+        "expected_final_gamestate.txt": "8c1fe6c125ab8050a07ae70d3faca4a45ad00b3ddb72afc1997e3f113a253ef8",
+        "meta.json": "093e4c403d506ebb07417e6b28524108b75149eadff108ceca8588815f2dedfb"
+      },
+      "fixture_sha256": "e76d8a6da6a426e49e71166b88bf9d1c89d3efc7e33735477e7d081311ac2b12",
+      "actions": 5,
+      "native_assertions": 212,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 4,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1419-20261122.json",
+      "input_sha256": "8232035efef0ac040f9d9e3a995be40a9da1d2d488e7205859a5985f18f83472",
+      "active_seats": [
+        1,
+        2
+      ],
+      "players": "two_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {
+        "2": 2
+      },
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1419-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-viserai-the-forsaken-two-live-sparse1419-real-three-runechants-one-creation-hero-layer-banish-one-and-traverse",
+        "fixture_slug": "card-viserai-the-forsaken-two-live-sparse1419-real-three-runechants-one-creation-hero-layer-banish-one-and-traverse",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "reviewer": "independent breadth_review1252",
+    "spec_sha256": "8232035efef0ac040f9d9e3a995be40a9da1d2d488e7205859a5985f18f83472",
+    "source_note_sha256": "e0a4a5e193db07bec677fa7d6838df149803489a360c068327e5fc6441a2d317",
+    "case_count": 1,
+    "active_seats": [
+      1,
+      2
+    ],
+    "players": "two_live_manual",
+    "native_controls": 4,
+    "expected_native_inputs": 5,
+    "query_checks": 212,
+    "persistable_assertions": 212,
+    "author_only_checks_omitted": 0,
+    "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+    "coverage_category": "POSITIVE_BULK_CREATION_QUANTIFIER_ONE_HERO_LAYER_BANISH_ONE_AND_ACTUAL_TRAVERSE",
+    "per_case": [
+      {
+        "card_id": "viserai_the_forsaken",
+        "group_id": "identity:viserai_the_forsaken",
+        "native_controls": 4,
+        "expected_native_inputs": 5,
+        "persistable_assertions": 212
+      }
+    ],
+    "basis": [
+      "Unrepresented/unheld adultForsakenShadowRunebladeHero40 with actualadultDori40, cachedCClegal/notbanned/two physical manual seats/defaultgameMode empty. Initialproperfront40, Read3Hand/orderedDeckBlue4thenRed5, noRunecreation/history/effectseed or forgedbackhealth*. SecondarybackUsurperability getsnoidentity/effectcredit.",
+      "ActualReadRunes3NAA0 spendssoleAP thenbothresponses before bulkcreate3Runechants6..8. Already-reviewed ARCCreateRunes->HVYToken calls IARRuntime135-137 once for one bulkcreationevent, incrementscreated3 and queuesone actualForsakenHeroABI9 SourceHeroUID1/Controller1. Sourcecheck exactStack1/ABI9/threeTokens/Read3GY whilefrontstillForsaken/Deck4,5 untouched/Banish0 pins one-or-more quantifier and separate trigger.",
+      "Sourceboundcontrol2 correctly executes2nativepasses: oldsourcefinalP1 resolvesRead; GameLogic1729-1744 returnsfreshHeroStack/priorityTurnPlayer1/passcount0; freshHeroP1 pass reachesP2 withABI9held/noearlybanish orTraverse. FinalcontrolP2 response resolvesactualHero. Generated18427-18435 banishesoneactualtop4 thenRUNES_CREATED>=3 callsFaBIARTraverse(Forsaken); IARRuntime139-145 changes sameHeroUID1 activeface toUsurper withouthealthreset40, matchingCR8.5.60. OnlyoneDeckcardbanished andsecondtop5 retained explicitly distinguishes bulk-one trigger fromper-token repeatedeffects.",
+      "FinalownedRunechants6..8 remainArena (notactivated), originalRead3GY, originalBlue4Banish/Red5Deck, HeroUsurperUID1ready/HPboth40/AP0R0/UID9RNG0/quietStackDQs/combatclosed coherent. Four authoredcontrols/five expectednativeinputs/212persistablechecks; no Runechanttarget declarations ornewcost routes exercised."
+    ],
+    "limits": [
+      "Only adultfront one-or-more Runechantcreation quantifier, oneactualtopbanish and>=3 actualTraverse/healthcarry. Backface firstDebt/endTraverse/Gate abilities, othercreationamounts/thresholdnegative, Runechantactivation/targets/prevention, support/secondaryidentities/siblings/whole-card untested.",
+      "Approval pending native execution; no game/test/replay, engine/repository edit, original checkout access, auth/network, full suite or Git operation. Reuses approvedbulk/Traverse andfreshpriority patterns without historical fixture replay or broadtooling audit."
+    ],
+    "source_sha256": {
+      "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+      "FaBSim/GeneratedCode/GeneratedMacroCode.php": "fe6a7982611df8f4de98ce2671b317b671b580146aa4b8c28e8f4b86d8461056",
+      "FaBSim/Custom/GameLogic.php": "c60fa151561f959e4e3e341b814de0e2b47c9e9f153bbc8793a04c43b5075061",
+      "FaBSim/Custom/IARRuntime.php": "a867233dd027ea6466d776cb9c3bfdbbeedc5e4e535f67f09b1c6e7d9cb3924e",
+      "FaBSim/Custom/ARCCards.php": "f6b6a21d214e71fdcfd6a084f0671ce610f08a40c51a1266041877a5a12c0d52",
+      "FaBSim/Custom/HVYCards.php": "1387ecf0971fae9aa4bfb7bc99baec47a46e9c8770030884b722915eb87a31f1",
+      "FaBSim/Custom/ROSCards.php": "c79f80e918be279dde3c7fe5323ea3031228c131e3e2d0b2b254619e0944b59a",
+      "FaBSim/ZoneAccessors.php": "9967567a9a10df81a6f22df820d4d77258828657e95c4ad145b8b13ce17866a7",
+      "Schemas/FaBSim/GameSchema.txt": "7783800bd47bc85885cc915066aadca58cdf99f0c1180602ac312d9af5ebf643",
+      "Core/EngineActionRunner.php": "add14b53dc571d2a6e64407bfa4038a98d6554d6410de7a9233810d99c46ea2a",
+      "Core/ShortcutPreferences.php": "25f300ea0b6fbc409f5b92e8bc3587a74b2ab0eaf31ccef38e18c455598eaba6",
+      "DevTools/FaB/CardRegression/record_card_regressions.php": "e53055b29e9ea641949b77019c4455607f41ca233325d716a9500637e19efd28"
+    },
+    "workspace_source_sha256": {
+      "author_breadth1419.py": "ce3301ca74db4f24535928b7b21d0f02716b58dd26a8815e660f03b4b17f39d3",
+      "breadth1068_helpers.py": "997f949ec26c7e494ad26a818f9f2078f6f4f2a0c49ca7f61aa8c71f3b091b0a",
+      "duel_breadth1261_helpers.py": "786de4cb45fa4cb12016e55b204ba1aa5f823bb576c7778732623fae7ed05dbd",
+      "nov16_saved_repair_review_common.py": "9f6dee765a3433840bd6886579faf6b8ab24ec290120b5999581053e2276ba0c",
+      "breadth_batch.py": "c996b5dcb5318f3b01313e9c1817e39b50c46739c92f1ef370f4db5b73a27cf3",
+      "sparse1419-local-20261122/expected-pass-counts.json": "0fcbe5db1be3fc03c88365e1247a8e013b4bb5ddbfecb22ff444997be1db8698"
+    },
+    "required_pass_counts_by_control": {
+      "card-viserai-the-forsaken-two-live-sparse1419-real-three-runechants-one-creation-hero-layer-banish-one-and-traverse": {
+        "2": 2
+      }
+    },
+    "back_form_ability_credit": false,
+    "secondary_identity_credit": false,
+    "whole_card_credit": false,
+    "positive_bulk_creation_quantifier_scope": true,
+    "positive_actual_front_traverse_scope": true,
+    "official_rules_evidence": [
+      {
+        "url": "https://rules.fabtcg.com/en/cr/08-keywords/",
+        "section": "8.5.60 Traverse",
+        "retrieval_scope": "Official publicpage directly read in preceding1418review: nonactiveface becomes active; sameHero/currenthealth preserved rather than independentbackstartinghealth."
+      }
+    ]
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1419-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "ef96a6546f5cb0eb7dbb766c4de42e238b3e84eb56faddf639e47d51f52bab26"
+  },
+  "full_suite_run": false
+}

@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-double-down-red-four-live-sparse1031-real-two-cost-nonwager-sword-no-power-or-overpower",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-double-down-red-four-live-sparse1031-real-two-cost-nonwager-sword-no-power-or-overpower",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1031-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1031-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "c340d93c7924775c23e23e14a92219177abcaa4418a2252e75aaa6149a5413cf",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "10deaf59d40ec894a11277734564377504b3a4d15e61dd0a70882e6cc0907053",
+        "actions.json": "61fb93699972b6a8043fb3e32dcd2e28aa924acd00042d81d53b137bc08db94b",
+        "assertions.json": "540816278701850f2d9821b3ce33b48f3d4e321c0358635b9cd754771925f180",
+        "expected_final_gamestate.txt": "554ad2912b2affabc2bfa89b015e040f88d88ea114c4f24fcfbaf8730203959c",
+        "meta.json": "d44cdf89862cb911896b11906e8197143718f38b7a5c83892daac0d50772cb38"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

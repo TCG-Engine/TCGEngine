@@ -1,0 +1,378 @@
+{
+  "status": "HELD_CONFIRMED_NATIVE_FAILURE_NO_PASSING_FIXTURE",
+  "issue": "FAB-REG-216",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "card_id": "peaceful_sanctuary_red",
+  "group_id": "identity:peaceful_sanctuary_red",
+  "slug": "card-peaceful-sanctuary-red-four-live-sparse1239-real-aura-prevents-other-player-prismatic-shield-token-after-paid-spell",
+  "native_inputs_executed": 14,
+  "setup": {
+    "heroes": [
+      "dorinthea",
+      "dorinthea",
+      "dorinthea",
+      "prism"
+    ],
+    "health": [
+      20,
+      20,
+      20,
+      20
+    ],
+    "resources": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "actionPoints": [
+      1,
+      0,
+      0,
+      0
+    ],
+    "state": {
+      "gameMode": "UPF",
+      "passiveSeats": []
+    },
+    "zones": [
+      {
+        "cardID": "peaceful_sanctuary_red",
+        "zone": "Hand",
+        "player": 1,
+        "properties": {}
+      },
+      {
+        "cardID": "prismatic_shield_blue",
+        "zone": "Hand",
+        "player": 4,
+        "properties": {}
+      },
+      {
+        "cardID": "sigil_of_solace_blue",
+        "zone": "Hand",
+        "player": 4,
+        "properties": {}
+      }
+    ],
+    "activeSeats": [
+      1,
+      2,
+      3,
+      4
+    ]
+  },
+  "native_prefix": [
+    {
+      "playerID": 1,
+      "mode": 10002,
+      "buttonInput": "",
+      "cardID": "p1Hand-0!FSM",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 1,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 2,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 3,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 4,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 1,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 2,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 3,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 4,
+      "mode": 10002,
+      "buttonInput": "",
+      "cardID": "p4Hand-0!FSM",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 4,
+      "mode": 10002,
+      "buttonInput": "",
+      "cardID": "p4Hand-0!FSM",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 4,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 1,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 2,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 3,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    }
+  ],
+  "expected": "While the actual Peaceful Sanctuary remains in the arena, player4 cannot create an aura token, including from a card effect. Prismatic Shield is still playable and its full resource cost remains paid; resolving it must leave player4 Arena empty.",
+  "observed": "After14 native inputs, Aura5 was verified still owned in Arena1, actual Prismatic Shield6 in Graveyard4 and actual Blue7 in Pitch4 before the zero-Arena assertion failed: expected player4 Arena0, observed1. Observed state also records player4 PEN_CREATED1 and a new arcCards8 entry. Costs had been verified paid before responses. Later resource/UID/final cleanup assertions were not run.",
+  "first_error": "Expected p4Arena count 0, got 1.",
+  "postresolve_prerequisite_checks_passed": [
+    "Sanctuary5 still Arena1, owner/controller1",
+    "Prismatic Shield6 Graveyard4, owner/controller4",
+    "Blue7 Pitch4, owner/controller4"
+  ],
+  "native_observed_state_subset": {
+    "window": "ACTION",
+    "pendingPayment": null,
+    "passiveSeats": [],
+    "gameMode": "UPF",
+    "cardsPlayedThisTurn": {
+      "1": [
+        "peaceful_sanctuary_red"
+      ],
+      "4": [
+        "prismatic_shield_blue"
+      ]
+    },
+    "turnEffects": {
+      "1": [
+        {
+          "type": "PEN_AURAS",
+          "amount": 1,
+          "uses": 1
+        },
+        {
+          "type": "ROS_AURA",
+          "amount": 1,
+          "uses": 1
+        },
+        {
+          "type": "EVR_PLAYED",
+          "amount": 1,
+          "uses": 1
+        },
+        {
+          "type": "EVR_AURAS",
+          "amount": 1,
+          "uses": 1
+        },
+        {
+          "type": "ROS_AURA",
+          "amount": 1,
+          "uses": 1
+        },
+        {
+          "type": "EVR_GRAVEYARD",
+          "amount": 1,
+          "uses": 1
+        }
+      ],
+      "4": [
+        {
+          "type": "MST_BLUE_PITCHED",
+          "amount": 1,
+          "uses": 1
+        },
+        {
+          "type": "SUP_COST_ONE",
+          "amount": 1,
+          "uses": 1
+        },
+        {
+          "type": "PEN_INSTANT_CHAIN",
+          "amount": 1,
+          "uses": 1
+        },
+        {
+          "type": "MST_BLUE_PLAYED",
+          "amount": 1,
+          "uses": 1
+        },
+        {
+          "type": "ROS_INSTANT",
+          "amount": 1,
+          "uses": 1
+        },
+        {
+          "type": "EVR_PLAYED",
+          "amount": 1,
+          "uses": 1
+        },
+        {
+          "type": "EVR_AURAS",
+          "amount": 1,
+          "uses": 1
+        },
+        {
+          "type": "ROS_AURA",
+          "amount": 1,
+          "uses": 1
+        },
+        {
+          "type": "PEN_AURAS",
+          "amount": 1,
+          "uses": 1
+        },
+        {
+          "type": "PEN_CREATED",
+          "amount": 1,
+          "uses": 1
+        },
+        {
+          "type": "EVR_GRAVEYARD",
+          "amount": 1,
+          "uses": 1
+        },
+        {
+          "type": "SEA_BLUE_GRAVE",
+          "amount": 1,
+          "uses": 1
+        }
+      ],
+      "2": [
+        {
+          "type": "EVR_GRAVEYARD",
+          "amount": 1,
+          "uses": 1
+        }
+      ],
+      "3": [
+        {
+          "type": "EVR_GRAVEYARD",
+          "amount": 1,
+          "uses": 1
+        }
+      ]
+    },
+    "arcCards": {
+      "5": {
+        "iarOrigin": 1,
+        "mstChiPitched": 0,
+        "rosMeld": -1,
+        "rosSurgeGo": false,
+        "evoDashPlay": false,
+        "omnFirstDamage": false,
+        "iarPlayedFrom": "Hand",
+        "mstFree": false,
+        "rosLastLightning": false,
+        "iarPermission": []
+      },
+      "6": {
+        "iarOrigin": 4,
+        "mstChiPitched": 0,
+        "rosMeld": -1,
+        "rosSurgeGo": false,
+        "evoDashPlay": false,
+        "penPitchTypes": [
+          "Generic",
+          "Instant"
+        ],
+        "omnFirstDamage": false,
+        "iarPlayedFrom": "Hand",
+        "mstFree": false,
+        "mstBluePlayedTurn": 2,
+        "mstBluePlayedPlayer": 4,
+        "iarPermission": []
+      },
+      "7": {
+        "iarPermission": []
+      },
+      "8": {
+        "iarPermission": []
+      }
+    }
+  },
+  "observed_decisions": {
+    "1": [],
+    "2": [],
+    "3": [],
+    "4": []
+  },
+  "initial_gamestate_sha256": "804c88fc05e7d2d19ce55cf33ce3ab9893ce60e502fed2f24878418ce8ebc563",
+  "source_explanation": [
+    "Generated Prismatic Shield Blue ResolveCard uses the normal Shield creation pathway. Independent failure review corroborates its token identity from that source; the native receipt directly observes Arena count1 and creation state, not a captured Arena object record.",
+    "The publisher Mastery Pack Warrior release note says the first ability prevents aura-token creation. CR1.1.2b identifies player and hero in card text;8.5.2c identifies the instructed player creating the token. There is no source-type exception for card effects.",
+    "No source repair, second native probe, failure-fitting expectation change or corpus replay was attempted. This is one new card finding; no broader root-group allocation or affected-card count."
+  ],
+  "rules_urls": [
+    "https://judge.fabtcg.com/cards/detail/5073/",
+    "https://fabtcg.com/rules-and-policy-center/release-notes/mastery-pack-warrior/",
+    "https://rules.fabtcg.com/en/cr/01-game-concepts/",
+    "https://rules.fabtcg.com/en/cr/08-keywords/"
+  ],
+  "full_correct_spec_local": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1239-local-20261122\\proposed.json",
+  "source_spec_sha256": "94857fb3f86b21ecf22f51845b09fb3914e4bd38e65e03485f464a5fb636a749",
+  "full_native_receipt_local": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1239-local-20261122\\save\\receipt.json",
+  "full_native_receipt_sha256": "34e7714343b6ea3a46844c8f7ce01824572f3ac0eeddbee9fecf8b2d6f96c968",
+  "independent_failure_review_local": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1239-local-20261122\\failure-review.json",
+  "independent_failure_review_sha256": "a042523ae1030ce659902597a78cd0a364d95ebc5fd2a63d3ab5fc8b0dfb6846",
+  "fixture_saved": false,
+  "qualified": false,
+  "coverage_credit": false,
+  "engine_changed": false,
+  "full_suite_run": false,
+  "later_branches": "Post-failure final-state queries, expiry/removal, Hero abilities, non-Aura tokens and other creation events are unrun/uncredited."
+}

@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-gang-robbery-yellow-four-live-sparse1290-real-three-aura-bonus-ally-target-does-not-steal-opposing-aura",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-gang-robbery-yellow-four-live-sparse1290-real-three-aura-bonus-ally-target-does-not-steal-opposing-aura",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1290-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1290-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "4ccb009940d7de5d7f81c20d04258c8985944033229c6e32037cfffda8e538d4",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "a039f577ab94ead2b961661ff0af6d96ae4b316eadec364bfe5a849e61e62d99",
+        "actions.json": "3ece9eb1058d5f26861429fe816c8baa3394f92d0fa31621dafcb031c7c89cdd",
+        "assertions.json": "7e477eaae77da2ba2c3fa6d54f9c955e6089b82784b5dff151f562ec0146104c",
+        "expected_final_gamestate.txt": "4b71f7d6fb00b5c6e4008602b7e9a83de2121688ea36e7373a2f48fe99c267ec",
+        "meta.json": "759d283a45f86e278a323dff80238dcfc71b522552eaa9c843ab1e81ac4d0c86"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

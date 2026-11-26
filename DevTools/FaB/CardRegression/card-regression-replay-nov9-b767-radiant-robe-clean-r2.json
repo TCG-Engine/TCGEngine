@@ -1,0 +1,39 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch767.json",
+  "runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+  "returncode": 0,
+  "completed_utc": "2026-11-09T02:10:40.239842+00:00",
+  "fixtures": [
+    {
+      "slug": "card-radiant-view-four-live-real-self-and-soul-banish-costs-prevent-two-of-seven",
+      "fixture_sha256": "49022a291f2281ac4d409d5e143022fac3398baffff937bac001b715be201dba",
+      "passed": true,
+      "result": "[PASS] radiant_view / four live distinctive effect"
+    },
+    {
+      "slug": "card-runebleed-robe-four-live-real-self-and-runechant-destruction-prevents-one-arcane",
+      "fixture_sha256": "f6ceb183d60e160fd26d4fca31c0088fd45513b0e9f29f1d4304c8ed7a2e94d8",
+      "passed": true,
+      "result": "[PASS] runebleed_robe / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-radiant-view-four-live-real-self-and-soul-banish-costs-prevent-two-of-seven",
+      "returncode": 0,
+      "stdout": "[PASS] radiant_view / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-runebleed-robe-four-live-real-self-and-runechant-destruction-prevents-one-arcane",
+      "returncode": 0,
+      "stdout": "[PASS] runebleed_robe / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 2,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

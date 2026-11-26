@@ -1,0 +1,7 @@
+{
+    "name": "Smashing Ground / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T21:13:08+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "If this has 6 or more {p}, it gets \"When this hits a hero, destroy a card in their arsenal.\" Representative only: actual_base_five_keeps_real_arsenal_below_six_power_grant. Actual printed payment/four live manual seats/full unblocked combat/real HP loss/same owned source in graveyard. No positive Combo or power-threshold hit ability is claimed. Sources: FaBSim/GeneratedCode/cardArrayCache.json#smashing_ground_blue"
+}

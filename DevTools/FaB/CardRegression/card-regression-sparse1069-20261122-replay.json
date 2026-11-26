@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-rippling-wave-four-live-sparse1069-already-revealed-three-defense-and-blade-break-close",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-rippling-wave-four-live-sparse1069-already-revealed-three-defense-and-blade-break-close",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1069-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1069-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "ec9958146624e2bbaae40ed9ac3542d80d0c680c8ffda05d71d9181fb18b201e",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "6a0af51773c4cf6a168528fc1da4b209f4e06b9adc70c03269d2860630144320",
+        "actions.json": "511bf2f3686ee96e12e3d9cdbe580febcac902b797e5ec827a96d5ccd74ac457",
+        "assertions.json": "944b4922ea2e2fc51cf606d4bcdb5698daffe6252114ab379d3bcad6590988d5",
+        "expected_final_gamestate.txt": "8f8fb056664c78162507469539ecff207282c4b27935897ea6040750ad0fab6b",
+        "meta.json": "ec1cb2ab79831630c0a7587cea8209de2df2a42433785373d0e1e1a4612df5e2"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

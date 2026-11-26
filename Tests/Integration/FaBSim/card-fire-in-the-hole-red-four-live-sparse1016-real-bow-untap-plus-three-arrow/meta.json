@@ -1,0 +1,7 @@
+{
+    "name": "Fire in the Hole / four-live actual arrow follow-through",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-23T02:44:26+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Your next arrow attack this turn gets +3{p}.\n\nYou may {u} a bow you control.\n\n**Go again** LegalLexi20, source5cost0, actualinitialtappedDeathDealer7 withArsenalBoltNShot6. Printedoptionaluntap duringresolution isnotTarget; Stack5/AP0/GGY0 untilnativeMZMULTICHOOSE7. ThenphysicalBow7ready2/5GGY/AP1. NativeArsenal6realpower4+3=7vsactual3HandblocksDEF9/0damage/noHit/HP20, BoltstaticGAAP1; 5and6ownedGGY/Bow7ready/all4manual/queuesclear. NoBowactivation/load/hit/othercardcredit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#fire_in_the_hole_red"
+}

@@ -1,0 +1,97 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-22T22:56:08.013032+00:00",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse983-20261122.json",
+  "source_spec_sha256": "ad419b71b1bb52dc80ca5b42cc8da06402e2a39d3a0afcdea052da174414cf39",
+  "new_scenarios": 2,
+  "new_groups": 2,
+  "new_primary_ids": 2,
+  "actions": 47,
+  "native_assertions": 542,
+  "manual_passes": 36,
+  "totals": {
+    "saved_registered_scenarios": 4672,
+    "duels": 3075,
+    "four_live": 1597,
+    "recorded_primary_ids": 1820,
+    "identity_denominator": 5196,
+    "recorded_groups": 1694,
+    "group_denominator": 3324,
+    "four_live_groups": 1586,
+    "phase_qualified_scenarios_at_actual_contexts": 1309,
+    "phase_qualified_unique_groups": 1299,
+    "creation_replay_passes": 2051,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 470,
+  "scenarios": [
+    {
+      "card_id": "diabolic_ultimatum_red",
+      "group_id": "identity:diabolic_ultimatum_red",
+      "scenario_id": "card-diabolic-ultimatum-red-four-live-sparse983-actual-four-seat-aura-choices-after-naa-pitch",
+      "effect_branches": [
+        "actual_non_attack_pitch_four_heroes_choose_destroy_own_aura_keep_alternative"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-diabolic-ultimatum-red-four-live-sparse983-actual-four-seat-aura-choices-after-naa-pitch",
+      "source_spec": "card-regression-sparse983-20261122.json",
+      "source_spec_sha256": "ad419b71b1bb52dc80ca5b42cc8da06402e2a39d3a0afcdea052da174414cf39",
+      "review_evidence": "review-evidence/sparse983-20261122-qualified-saved.json",
+      "review_evidence_sha256": "ac374aeb94149db13ddc79a1d1b37bb081d4347c599a8f7580a5e894e833bbe7",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse983-20261122-replay.json",
+          "sha256": "6ec553dfe09b6f3648741ce9899b9f238813f6cb55ca51aee9e95567a7fa842b",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "biting_gale_red",
+      "group_id": "pitch-cycle:biting_gale",
+      "scenario_id": "card-biting-gale-red-four-live-sparse983-unfused-defender-real-blue-four-defense-three-damage",
+      "effect_branches": [
+        "unfused_defender_real_blue_paid_four_defense_three_damage_no_fused_tax"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-biting-gale-red-four-live-sparse983-unfused-defender-real-blue-four-defense-three-damage",
+      "source_spec": "card-regression-sparse983-20261122.json",
+      "source_spec_sha256": "ad419b71b1bb52dc80ca5b42cc8da06402e2a39d3a0afcdea052da174414cf39",
+      "review_evidence": "review-evidence/sparse983-20261122-qualified-saved.json",
+      "review_evidence_sha256": "ac374aeb94149db13ddc79a1d1b37bb081d4347c599a8f7580a5e894e833bbe7",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse983-20261122-replay.json",
+          "sha256": "6ec553dfe09b6f3648741ce9899b9f238813f6cb55ca51aee9e95567a7fa842b",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

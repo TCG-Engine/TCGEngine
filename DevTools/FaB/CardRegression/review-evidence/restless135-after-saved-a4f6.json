@@ -1,0 +1,287 @@
+{
+  "status": "APPROVED_ACTUAL_SAVED_RESTLESS135_AUTHORIZED_READY_AURA_COUNTER_PAYMENT_AND_SHIELD_CREATION",
+  "approved": true,
+  "source_approved": true,
+  "semantically_approved": true,
+  "reviewer": "/root/b106_semantic_review",
+  "reviewer_independent": true,
+  "created_utc": "2026-11-06T00:10:27.755636+00:00",
+  "source_spec": "card-regression-batch519-after135.json",
+  "input_sha256": "ede2e6a7b216f11865cb261f0493478df23e7bc0fb0fed070b240b8283d52a4d",
+  "manifest_sha256": "b6a2a1ed4766a31ed19937c7592cd2a5d2b94ca981f600759ea022277d691a99",
+  "runtime_sha256": "a4f6dce9193c6e6f859f92e28121b1bdc0b78195500eba765f61f72524be40ba",
+  "recorded_runtime_sha256": "a4f6dce9193c6e6f859f92e28121b1bdc0b78195500eba765f61f72524be40ba",
+  "source_guards_verified": 69,
+  "original_normative_source_gate": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch519-independent-source-review.json",
+    "sha256": "a7a14df451a358c4d0d67737df89b534ccc22d5b862c1ef049940c767581d632"
+  },
+  "prior_independent_semantic_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-restless135-independent-source-rebinding-review.json",
+    "sha256": "d8b497977e475cb87d4c72a57acb1da2863af4bf22c60d2f33653b1cd6e60897",
+    "unchanged_normative_model_reused": true
+  },
+  "applied_source_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-restless135-independent-applied-source-review.json",
+    "sha256": "286d98f277be2d7404fb5d9e20f20e4e8964910d3e6607b2889d8a2adc857167"
+  },
+  "recording_receipt": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch519-after135-20261106T000631Z-6aed1a07d071f.json",
+    "sha256": "6db7f3f30255d0f75b4a5d9b74a00cd7cff419c267d27027c0d57a1caa5ac9e6"
+  },
+  "specific_results": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch519-after135.recording-results.json",
+    "sha256": "54cdf616c86e66bd09c83202af74a6067797ddee687d6ab66357dce327e20bba"
+  },
+  "root_wrapper_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-restless135-native-after-a4f6\\receipt.json",
+    "sha256": "ac80664afd66f4c4e46b124e8eac4a666d8f35e32ae1798081356c65b2ad3c21"
+  },
+  "fixtures": [
+    {
+      "index": 0,
+      "card_id": "restless_coalescence_yellow",
+      "group_id": "identity:restless_coalescence_yellow",
+      "slug": "card-restless-coalescence-yellow-four-live-real-power-counter-cost-creates-one-owned-spectral-shield",
+      "source_spec": "card-regression-batch519-after135.json",
+      "input_sha256": "ede2e6a7b216f11865cb261f0493478df23e7bc0fb0fed070b240b8283d52a4d",
+      "reviewer": "/root/b106_semantic_review",
+      "approved": true,
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_READY_AURA_COUNTER_COST_AND_ONE_OWNED_SHIELD",
+      "runtime_sha256": "a4f6dce9193c6e6f859f92e28121b1bdc0b78195500eba765f61f72524be40ba",
+      "recorded_runtime_sha256": "a4f6dce9193c6e6f859f92e28121b1bdc0b78195500eba765f61f72524be40ba",
+      "fixture_path": "Tests\\Integration\\FaBSim\\card-restless-coalescence-yellow-four-live-real-power-counter-cost-creates-one-owned-spectral-shield",
+      "fixture_sha256": "71b08eae76d26de092d5b3e6bc0ba6585d445cf430fcb2280421d59309181f8a",
+      "raw4_sha256": {
+        "initial_gamestate.txt": "8b89457bd673a1da9a7fb1f49e149cfac46c59c080f1b06594aec47e8ea6c1a4",
+        "actions.json": "a77a409609aea8b2937979ca6dda61acf4734be25e60540eea22383b00eeebb9",
+        "assertions.json": "e4107bad9fe3f837c4e2a5d29bad6e96b824cee2fb70947eed9436d88f0facf3",
+        "expected_final_gamestate.txt": "6b43b5ec7760f0e3cebe1e2762a4da92a515fdaf61d24699a89b659f004c875a"
+      },
+      "raw5_sha256": {
+        "initial_gamestate.txt": "8b89457bd673a1da9a7fb1f49e149cfac46c59c080f1b06594aec47e8ea6c1a4",
+        "actions.json": "a77a409609aea8b2937979ca6dda61acf4734be25e60540eea22383b00eeebb9",
+        "assertions.json": "e4107bad9fe3f837c4e2a5d29bad6e96b824cee2fb70947eed9436d88f0facf3",
+        "expected_final_gamestate.txt": "6b43b5ec7760f0e3cebe1e2762a4da92a515fdaf61d24699a89b659f004c875a",
+        "meta.json": "79599378289ec062bf5953f4996283af9a1db18bf1360ed5fcfdfcda13e31015"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "8b89457bd673a1da9a7fb1f49e149cfac46c59c080f1b06594aec47e8ea6c1a4",
+        "actions.json": "a77a409609aea8b2937979ca6dda61acf4734be25e60540eea22383b00eeebb9",
+        "assertions.json": "e4107bad9fe3f837c4e2a5d29bad6e96b824cee2fb70947eed9436d88f0facf3",
+        "expected_final_gamestate.txt": "6b43b5ec7760f0e3cebe1e2762a4da92a515fdaf61d24699a89b659f004c875a",
+        "meta.json": "79599378289ec062bf5953f4996283af9a1db18bf1360ed5fcfdfcda13e31015"
+      },
+      "actions": 5,
+      "native_assertions": 576,
+      "actual_manual_passes": 4,
+      "actual_priority_response_passes": 4,
+      "actual_defender_declaration_finish_inputs": 0,
+      "actual_administrative_END_PHASE_passes": 0,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "actual_manual_actor_counts": {
+        "1": 1,
+        "2": 1,
+        "3": 1,
+        "4": 1
+      },
+      "schema_property_assertions": 149,
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "all_actions_and_assertions_exact": true,
+      "no_recorder_only_assertions": true,
+      "all_endpoint_physical_uid_card_zones_ownership_verified": true,
+      "all_terminal_assertions_evaluated_against_parsed_final_snapshot": true,
+      "initial_assertions_also_evaluated_against_parsed_initial_snapshot": true,
+      "initial_physical_uid_locations": {
+        "1": {
+          "card_id": "enigma",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "5": {
+          "card_id": "restless_coalescence_yellow",
+          "zone": "p1Arena",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2
+        }
+      },
+      "final_physical_uid_locations": {
+        "1": {
+          "card_id": "enigma",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "5": {
+          "card_id": "restless_coalescence_yellow",
+          "zone": "p1Arena",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "7": {
+          "card_id": "spectral_shield",
+          "zone": "p1Arena",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2
+        }
+      },
+      "final_health": [
+        20,
+        20,
+        20,
+        20
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_AP": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "final_physical_uidset": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        7
+      ],
+      "Aura5_final_Status": 2,
+      "Aura5_final_Counters": {
+        "POWER": 0,
+        "ARC_USED_0": 2
+      },
+      "Shield7_Owner": 1,
+      "Shield7_Controller": 1,
+      "Shield7_final_Status": 2,
+      "Shield7_final_Damage": 0,
+      "Shield7_final_Counters": {},
+      "final_UniqueIDCounter": 7,
+      "RandomCounter": 0,
+      "checkpoint_assertion_mapping_sha256": "9869094b95df020983919e449e3dee02b70f6ada78d483ac220676975a8c9a73",
+      "native_action_mapping_sha256": "7fdae2b6610653637476c4eac8c6bc6822727515177124ed7511b082d9cf920b",
+      "native_assertion_mapping_sha256": "d55d73972a0da059bd0b828d653522f3c72fe6f21dbe3ab7c4e60ad86d0c3637"
+    }
+  ],
+  "blocked_attempts": [],
+  "total_actions": 5,
+  "total_native_assertions": 576,
+  "total_manual_passes": 4,
+  "total_priority_response_passes": 4,
+  "total_defender_declaration_finish_inputs": 0,
+  "total_schema_property_assertions": 149,
+  "material_findings": [
+    "Actual native COMPLETE0/stderr0/one new fixture at actual a4f6. Every five supported action envelopes and all 576 ordered checks match the byte-identical original correct probe and independently reviewed hashes; all 69 current guards, actual four manual actors and 48 preferences per endpoint verified.",
+    "Actual physical Aura5 retains ready Status2, Owner/Controller1 and Damage0. Counter POWER1 to POWER0 plus ARC_USED_0:2 are paid before first response; ABI6 captures SourceArena UID5 and is held through the first three passes. Arena count remains one until fourth; then one owned ready Damage0 SpectralShield7 appears, ABI6 ceases, source5 remains ready and counter-paid.",
+    "Parsed raw endpoints independently establish exact original physical UID1..5 retained plus only new token7, counter7/RNG0, unchanged HP20/all RChi0/AP1 only P1. Entire Aura5 raw object except Counters and all quiet Heroes remain unchanged. Full queues/Stack/Chain/owned-await/payment/combat cleanup verified; cached last-source metadata is not a live pending layer.",
+    "Prior public counter legality, entry/transfer/Chi creator and earlier Ward provenance remain rules-only. No entry WHEN, Ward damage, attacks, second activation/once rejection, other counter amounts/choices, foreign-control/suppression, support-primary/sibling/full-card certification. Original failed before evidence remains separate; Root focused replays and repair qualification are not inferred from this Saved gate."
+  ],
+  "primary_sources": [
+    {
+      "url": "https://judge.fabtcg.com/cards/detail/3111/",
+      "finding": "Currentcounter-costInstant and distinctentryWHEN/Shieldresolution/Ward2."
+    },
+    {
+      "url": "https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/MST133.webp",
+      "finding": "Primary issuer face independently viewed locally."
+    },
+    {
+      "url": "https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/MST026.webp",
+      "finding": "CurrentyoungEnigma issuerface independently viewed locally:3Chi creates Shield+1."
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/08-keywords/",
+      "rules": [
+        "8.1.6a",
+        "8.3.20"
+      ],
+      "finding": "Instant priority legality and Wardstatic replacement, not extra entry trigger from activation."
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/06-effects/",
+      "rules": [
+        "6.4.2",
+        "6.4.4",
+        "6.4.10a"
+      ],
+      "finding": "PriorWard1 can prevent full1packet; no remaining damage activates otherWard."
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/",
+      "finding": "Counter beforecolon is activation cost, token onlyresolves after responses."
+    }
+  ],
+  "limits": [
+    "ONEpriorpublicPOWERcounter->actualcountercost/onecreatedownedSpectralShieldpositiveactivation. EntryWHEN/transfer/HeroChi/Ward/attacks/expiry/support/sibling/fullcardcreditexcluded.",
+    "Concretelegalcounterprovenanceprovidedasrules-onlyfixturejustification, notcompletegame/nativehistory/certifiedengineproducerorprivatehistoryseed. Currentallinitialhistory/permissions/Chi/onceflagsunseeded.",
+    "Noauthornative/pass/fixture/coverage/bug/sourceapproval; OTHERpeer/Rootnative/Saved/replayspending. NoR/PHP/native/sourcefix/gen/service/fullsuite/git/remote/deniedretry/sharedhelperedits.",
+    "No entryWHEN/countertransfer/EnigmaChi producer/Ward1or2/prevention/attack/costdiscount/secondactivation/expiry/othercounteramount/foreigncontrol/suppression/supportprimary/sibling/fullcard/nativecontrol credit. Priorcounter provenance rules-only, not certified native path.",
+    "NoPHP/native/replay/R/source/service/gen/fullsuite/git/remote/denied retry. Rootnative/exactSaved/twofocusedreplays separate.",
+    "Exact after fixture at actual a4f6 only; no old qualification context retagging or reviewer native/replay/PHP/source operation. Root focused replay/compatibility receipt review is separate."
+  ],
+  "blockers": [],
+  "actual_comparison_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov6_restless135_saved_readonly.py",
+    "sha256": "84bda5b3ff5017b6ea9cbf6bc6326097077aa2416ea90e907b8a0a0929031519"
+  }
+}

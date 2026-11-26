@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-embody-greatness-yellow-four-live-sparse1135-real-resolution-name-changes-same-hero-identity-and-preserves-current-life",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-embody-greatness-yellow-four-live-sparse1135-real-resolution-name-changes-same-hero-identity-and-preserves-current-life",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1135-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1135-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "4800d96f639e2718ce4e3a324d2d1ca2ad0def01fe397a10d994d0653972b3f8",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "5de3b39fddcaa8790f086f8a6e0de967311bdb08ef554c05c29fd8a704db7ca4",
+        "actions.json": "0b48b70c4ee76215a8a8c4ab5ca41b841d7a0e2e6e9fa52ff39da165b1caed5f",
+        "assertions.json": "e2747d8a11d039c9f56759bb7b56a2dbd9b9bf59f3a01c909eb895a0f3c197d2",
+        "expected_final_gamestate.txt": "52eb4535d311ec4cb42196f5b0aa878592c26ae28222e2ea4a7b1f7ab56c55c5",
+        "meta.json": "b8ac3e11dcb63342fff98c77fa089d1b26aa53ebf570487103b62dda1e180262"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

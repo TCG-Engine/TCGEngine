@@ -1,0 +1,7 @@
+{
+    "name": "Mental Block / actual discard cost, prevention and delayed Ponder trigger",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-23T14:45:11+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "LegalYoungVerdance20Wizardvictim4/caster1+twoDori20manual. ActualZap6target4/AP1->0andrealpriorityresponses1,2,3to4. P4actuallyactivatesMental5printedHandInstant0(discardcost, NOTplayBLOCK): actual5ownedGY4beforefreshupper4,1,2,3responses, ABI7aboveZap6. Resolve7grantsnext2preventionbutnoPonder/HP20; fourfreshlower1,2,3,4responses resolveZap6: real3minus2prevention=1damageHP19, source6ownedGY1, separateearnedMentalABI8Source5/controller4, noPonderyet. Fourfresh1,2,3,4responsesresolve8andcreateexactlyPonder9owned/controller4; source5staysownedGY4. FinalHP19/R0/AP0/UID9/noStack/DQs/otherzones/RNG. NoVerdanceheal/Earthbanish/AB/Ward/otherobserver/secondpacket/expiry/BLOCKdefense/Ponderendphase/Hero/support/wholecardcredit. Actualsource-independentpaidHandabilityandqueuedfirst-preventionWHENbothpinned. Sources: FaBSim/GeneratedCode/cardArrayCache.json#mental_block_blue FaBSim/Custom/ROSRuntime.php FaBSim/Custom/ROSCards.php FaBSim/GeneratedCode/GeneratedMacroCode.php"
+}

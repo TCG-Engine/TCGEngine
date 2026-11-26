@@ -1,0 +1,92 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "breadth_review independent printed-text/source/transport review",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1004-20261122.json",
+  "source_spec_sha256": "4f770664dacdb32329488607dccaaa166aec9049541452e5196234ef035b695d",
+  "input_sha256": "4f770664dacdb32329488607dccaaa166aec9049541452e5196234ef035b695d",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-sutcliffes-suede-hides-four-live-sparse1004-real-attack-and-unplayed-hand-nonattacks-not-played-history",
+      "card_id": "sutcliffes_suede_hides",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "f33a13983583bcbbb30adff7a72dc830506b4c6f469ab841ff02a79917d8da3b",
+        "actions.json": "a35c59d2c69e1a2df994b0b24692ac4efc98987b57c72d2eb349640d4b5e0955",
+        "assertions.json": "b0043d970cc6c43bc3b6cba393d3fa8c19fd56202be784507383352895c3c244",
+        "expected_final_gamestate.txt": "25148fc1e2d24f139b88a5c618ee72f93f600886aff2c5c526db34851517fce4",
+        "meta.json": "ea97bd3e1a7fc788579d66457da42fcac61073a6cd31de8779350f8ee5cdb1fb"
+      },
+      "fixture_sha256": "abd1f468547e1e2c389ecfab8a811d541b10e3556dbed786a2d0c19d614f9cf4",
+      "actions": 28,
+      "native_assertions": 235,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1004-20261122.json",
+      "input_sha256": "4f770664dacdb32329488607dccaaa166aec9049541452e5196234ef035b695d",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1004-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-sutcliffes-suede-hides-four-live-sparse1004-real-attack-and-unplayed-hand-nonattacks-not-played-history",
+        "fixture_slug": "card-sutcliffes-suede-hides-four-live-sparse1004-real-attack-and-unplayed-hand-nonattacks-not-played-history",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-seeker-kunai-red-four-live-sparse1004-generic-attack-not-assassin-despite-assassin-hero",
+      "card_id": "seeker_kunai_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "01fd9def36dc2a0253362d1476144af16b52ef709dce50b13795d25a2b67c99f",
+        "actions.json": "ebd69b8728f67425a19902ede6958cef89fcb54101b6cde40f61f18abf275484",
+        "assertions.json": "fc43b8752e0b804020bbd8c40d2f6158cfbf943a34bc9ae7a11659abb8e26af9",
+        "expected_final_gamestate.txt": "f85e406eb1fe7fd13117c13bd4b2099daed9b6ae24753fe9b06cebbc33e36864",
+        "meta.json": "ec323bebca5cf1a70dbd2e33c570b3e699f83965f8cc84d1f75428cf50fcd1e0"
+      },
+      "fixture_sha256": "9646dbb53e247c41449398fdf61b4fea0943dae41d3273382d3db35f5a13e58c",
+      "actions": 28,
+      "native_assertions": 237,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1004-20261122.json",
+      "input_sha256": "4f770664dacdb32329488607dccaaa166aec9049541452e5196234ef035b695d",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1004-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-seeker-kunai-red-four-live-sparse1004-generic-attack-not-assassin-despite-assassin-hero",
+        "fixture_slug": "card-seeker-kunai-red-four-live-sparse1004-generic-attack-not-assassin-despite-assassin-hero",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "spec_sha256": "4f770664dacdb32329488607dccaaa166aec9049541452e5196234ef035b695d",
+    "reviewer": "breadth_review independent printed-text/source/transport review",
+    "basis": [
+      "Both cached costs are AttackReaction resource1 plus destroy source, and explicit supported rows exist (ELEAbilities20 Hides, PENCards368 Seeker). Actual ready owned source5 is in correct Equipment/Arena zone; declaredR1 covers resource cost and source exists. Current own Generic Wounding6 ATTACK is already on combat chain at REACTION attacker1 priority, so AP0 does not mask legal reaction timing.",
+      "Hides: legal Runeblade Viserai20; ELEAbilities31 requires an actual played non-attack action and eligible currentAA. ActualAA6 provides valid target; Hand7/9 are real but unplayed NAAs, no prior NAA. Viserai is not triggered by playing Generic Wounding6. Rejection preserves Equipment5 andR1 with no Stack/destroy/choice/payment. Final AP0 after actual4damage also rules out leaked go again.",
+      "Seeker: legal Assassin Uzuri20; printed target must itself be an Assassin attack action, not simply controlled by Assassin hero. Actual current GenericAA6 is not Assassin, so PENCards460 FaBDYNAttacks ASSASSIN selector has no eligible target. Correct target-eligibility-negative rejection leaves readyArena5/R1/CC6/Hand3/Deck2/queues unchanged. No positive formal target selection is claimed.",
+      "Both finish actual unblocked4/HP4=16 and same ownedAA6 graveyard while source5, remaining Hand7/8/9 and exact Deck10/11 are retained. All four seats manual, naturalHP20, costs/IDs/fates/window guards and no forbidden diagnostic kinds; groups independently uncovered/no exact primary-ID issue-ledger match."
+    ],
+    "limits": [
+      "Only named static/main or false-prerequisite branches. Positive banished play/Hit/arcane/Runechant/GoAgain/Assassin-target grant, own-start Silver return, creator ownership, hero ability, pitch siblings/support identities and full-card behavior remain untested.",
+      "Root owns native input retention, saved-assertion review and one clean replay. Reviewer ran no native/PHP/game/test and made no T/source/original/network/auth/Git/engine changes; only this W receipt."
+    ]
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1004-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "341f8ddb37c883f9ae4c6ce4457d2b314e60831d838a671e76e5ce3793ec7520"
+  },
+  "full_suite_run": false
+}

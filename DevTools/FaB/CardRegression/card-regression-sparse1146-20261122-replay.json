@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-inner-chi-blue-four-live-sparse1146-real-three-chi-pitch-funds-native-chi-ability-and-shield",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-inner-chi-blue-four-live-sparse1146-real-three-chi-pitch-funds-native-chi-ability-and-shield",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1146-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1146-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "8377815cb4a3232341d7b0af4f34f3de17ea381efec09551506f3d2180a14b73",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "d6ff3aaa42832a65360b38661a68fb03357bd5e9f85cd75afab4954a115d884b",
+        "actions.json": "814e7718d72ddc7f7e93fdea11d66d9b31b6d4a9925eff4af8583a9daaef7559",
+        "assertions.json": "74088503dead0e7aca5ecf3f144fe56870d87138e623413fe606e39bd9f860dc",
+        "expected_final_gamestate.txt": "f9cba02911ec0b780e36847c261c951467bee049dda7920d3f10709d6e495017",
+        "meta.json": "6562021a6dcd3a1833750c8fe4e41d3d1c7e170edfb2acc8138010c9d8110005"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

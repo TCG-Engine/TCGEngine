@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-boltyn-four-live-sparse1331-banish-real-soul-to-grant-empowered-attack-go-again-and-fund-followup",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-boltyn-four-live-sparse1331-banish-real-soul-to-grant-empowered-attack-go-again-and-fund-followup",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1331-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1331-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "b173b9be50d8a7a3559e8815121b7996fd7b5abff2cd18c56270ca6c100b88ef",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "45ab70d540f72ee2acba9ebd56d5609a1b3add397ccdc9679fe37b86e5e1a04d",
+        "actions.json": "b8ee89fd20d62e6298a793186de00c32ad1d622358b446f2da34be5b954e8e16",
+        "assertions.json": "6057900de29766474b4c3b6c5e0dc0ed6c77c5ba363f5a0d771aff94ae6834a7",
+        "expected_final_gamestate.txt": "8cbdfaf41f7a8212cb3dca992a0da05b5cff16a590e13379196b008a7444707a",
+        "meta.json": "3ea8742b9059e5a6bd81e1fddbc70621542dd78c11127d3017a1eaf5aa1f2918"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

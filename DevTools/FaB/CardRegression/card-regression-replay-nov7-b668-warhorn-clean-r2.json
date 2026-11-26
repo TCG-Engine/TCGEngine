@@ -1,0 +1,27 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch668-warhorn.json",
+  "runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+  "returncode": 0,
+  "completed_utc": "2026-11-07T00:41:53.342902+00:00",
+  "fixtures": [
+    {
+      "slug": "card-imperial-warhorn-red-four-live-real-paid-nonroyal-delegated-item-destruction",
+      "fixture_sha256": "fc87b31b765dd80d7a75d98e5b9e0f907da4b2fc7ca67adc6d911630a21eed86",
+      "passed": true,
+      "result": "[PASS] imperial_warhorn_red / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-imperial-warhorn-red-four-live-real-paid-nonroyal-delegated-item-destruction",
+      "returncode": 0,
+      "stdout": "[PASS] imperial_warhorn_red / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

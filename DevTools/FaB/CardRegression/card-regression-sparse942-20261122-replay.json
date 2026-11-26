@@ -1,0 +1,102 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-coax-a-commotion-red-four-live-sparse942-actual-two-hand-blocks-prevent-hit-and-primary-effect",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-coax-a-commotion-red-four-live-sparse942-actual-two-hand-blocks-prevent-hit-and-primary-effect",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse942-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse942-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "2264e9fe184d5e089e1c30242e61768c7c811e3c49bb571bc1fdddca9910f6a9",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "bef1d1c70936ae7829ea73110069e3d92c0196e794827426b08293db3c8012d6",
+        "actions.json": "9f2158a76a224facb898cc12561b10d89380d0d90e15b49131c1d4359e991d29",
+        "assertions.json": "ae4c399c92b22cbdb2452dd4fdba95a0ad7c8226a9e575f8d2b09e13ec6b9600",
+        "expected_final_gamestate.txt": "352a92c2c9aade039b9201531136059d1b5a95785237407da13bc35897c66632",
+        "meta.json": "c05a2658e21935c0202cdcf1cfb6200589e574000a90d6965b6f1cc24fda16ba"
+      }
+    },
+    {
+      "slug": "card-mischievous-meeps-red-four-live-sparse942-actual-two-hand-blocks-prevent-hit-and-primary-effect",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-mischievous-meeps-red-four-live-sparse942-actual-two-hand-blocks-prevent-hit-and-primary-effect",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse942-local-20261122\\clean-replays\\01.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse942-local-20261122\\clean-replays\\01.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "148086b1d728c325c303ea3f6edc8eb7a6889161bdd4750754577735858754ef",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "be3dc63cc8973613846e4ae848e4690ac5d91a3b013cdd4b7e5c926c109b32e9",
+        "actions.json": "a44e24b9f9b348ce659c847e7dbea1e0cd33c5233e8ac4933f9391118d55ee4b",
+        "assertions.json": "86cc5a9c838ee71f5ed146b9f2d15b4cfe73155017b16d31d3cb05cfab2ca322",
+        "expected_final_gamestate.txt": "b25fb112c42a60a441204d3d0179777666f00ae94ec53b31d4d837e967b7c5a6",
+        "meta.json": "5a50a7559c63d6bcf39a1244352e6b40883ee75f5cd8d560c6e463a772b86dd9"
+      }
+    },
+    {
+      "slug": "card-vipox-red-four-live-sparse942-actual-two-hand-blocks-prevent-hit-and-primary-effect",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-vipox-red-four-live-sparse942-actual-two-hand-blocks-prevent-hit-and-primary-effect",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse942-local-20261122\\clean-replays\\02.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse942-local-20261122\\clean-replays\\02.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "4eba853a3dc97d017be52b158d61ec8ad72a6c6be2d3a9dc23558709cf43f741",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "4f2b9095508c784ba930976d8cf8dabc9a2e2dba05f52aeb2923c179344b6f41",
+        "actions.json": "9f2158a76a224facb898cc12561b10d89380d0d90e15b49131c1d4359e991d29",
+        "assertions.json": "3491b34e119490a6a3add17fde2a3b9f5b50d5c90675885496c8f59cdbdd0fd5",
+        "expected_final_gamestate.txt": "e785139b71562eddf68ec18bf8f876560447647e377ab98085083b23b955c270",
+        "meta.json": "f04ebc06f9fd71c4d58a9bc2b1a8724f04eeb5ea11454229a34e724beef9f89d"
+      }
+    },
+    {
+      "slug": "card-cadaverous-contraband-red-four-live-sparse942-actual-two-hand-blocks-prevent-hit-and-primary-effect",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-cadaverous-contraband-red-four-live-sparse942-actual-two-hand-blocks-prevent-hit-and-primary-effect",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse942-local-20261122\\clean-replays\\03.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse942-local-20261122\\clean-replays\\03.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "cc14f31c98b740a80098d79abe6760a8904595ee3621de30644b886af1b766c7",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "ad0be823751e117aac44b446b1bb63d0c5ebdbe742b3c086253bad1d6b145845",
+        "actions.json": "a44e24b9f9b348ce659c847e7dbea1e0cd33c5233e8ac4933f9391118d55ee4b",
+        "assertions.json": "6e37a890ad68942fc935716a5ce59e53783ae89393e6be6c13acc4d8680eae24",
+        "expected_final_gamestate.txt": "48d0742c0b63895b2b4d21b05e704a1cdd918ae509f236db6c27b7adbee39cf9",
+        "meta.json": "046ff8b06733c316d3db8b9c819d96b869de5ddcf367b547e3a74f9b79298b5a"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

@@ -1,0 +1,32 @@
+{
+  "status": "SOURCE_VERIFIED_SCHEMA_ORACLE_CORRECTED_FINAL_NATIVE_AND_REPLAY_PASSED",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "classification": "UNSUPPORTED_STACK_FACEDOWN_PROPERTY_REPLACED_WITH_SUPPORTED_ATTACK_KIND",
+  "original_input_local": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1249-local-20261122\\first-schema-oracle\\proposed.json",
+  "original_input_sha256": "57d07443fa237d4c0d00deacece23b3e14d3ee2163428a0e15dc71b2235f0f9d",
+  "corrected_source_spec": "card-regression-sparse1249-20261122.json",
+  "corrected_source_sha256": "ab83f699406954f13a0a2728b1905e3ea1d5a216380556b4fcbe3cd5069176ba",
+  "failed_receipt_local": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1249-local-20261122\\failed-schema-save\\receipt.json",
+  "failed_receipt_sha256": "9ecc4529bcd4704e41409802eb7181c27bc759c1bd241cfaabcc75020e66f6f7",
+  "independent_classification_local": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1249-local-20261122\\schema-classification.json",
+  "independent_classification_sha256": "9a55549d411a2cbd069a7e6a2a725a8585ee80a429e025f55c4d44db00381835",
+  "failed_cases": [
+    {
+      "slug": "card-chains-of-eminence-red-four-live-sparse1249-existing-global-name-lock-foreign-destruction-unlocks-real-attack",
+      "native_inputs": 13,
+      "error": "Expected Stack-0.FaceDown to equal '0', got ''.",
+      "initial_gamestate_sha256": "658e4511a4568896a1e3c99cc88fb6f98643cab8d674b0a4caf585cca7f34cdf"
+    },
+    {
+      "slug": "card-null-time-zone-blue-four-live-sparse1249-existing-hand-name-lock-allows-same-name-from-real-arsenal",
+      "native_inputs": 3,
+      "error": "Expected Stack-0.FaceDown to equal '0', got ''.",
+      "initial_gamestate_sha256": "1c906f8e2378ae8b768a2ecf85622b99ebca467e52cf21ed28de3288ea5206dd"
+    }
+  ],
+  "basis": [
+    "Stack schema does not declare or serialize FaceDown; Arsenal does. The initial real Arsenal FaceDown1 guard remains.",
+    "Only unsupported Stack FaceDown0 queries were replaced by supported KindATTACK; all native controls, costs, identity, name restrictions, actual damage and fates retained. Cosmetic checkpoint/oracle claims no longer assert dedicated render visibility.",
+    "No fixture or replay resulted from the two original failed attempts. Corrected complete native recordings and one replay each passed. No engine change or new gameplay-defect claim."
+  ]
+}

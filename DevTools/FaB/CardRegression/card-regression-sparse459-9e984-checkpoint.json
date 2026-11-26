@@ -1,0 +1,73 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-05T12:20:31.623241+00:00",
+  "runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+  "source_spec": "card-regression-batch459.json",
+  "source_spec_sha256": "80987fae043f02cc9359cc64fd2bf0ccf6aec287be473a2c25d878e8a2984fb7",
+  "new_scenarios": 1,
+  "new_groups": 1,
+  "new_primary_ids": 1,
+  "actions": 45,
+  "native_assertions": 4165,
+  "manual_passes": 39,
+  "totals": {
+    "saved_registered_scenarios": 3780,
+    "duels": 3074,
+    "four_live": 706,
+    "recorded_primary_ids": 934,
+    "identity_denominator": 5196,
+    "recorded_groups": 808,
+    "group_denominator": 3324,
+    "four_live_groups": 699,
+    "phase_qualified_scenarios_at_actual_contexts": 417,
+    "phase_qualified_unique_groups": 412,
+    "creation_replay_passes": 834,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 60,
+  "scenarios": [
+    {
+      "card_id": "territorial_domain_blue",
+      "group_id": "identity:territorial_domain_blue",
+      "scenario_id": "card-territorial-domain-blue-four-live-sparse-real-chi-paid-tiger-creation-earns-five-defense-and-two-damage",
+      "effect_branches": [
+        "territorial-domain-blue-four-live-sparse-real-chi-paid-tiger-creation-earns-five-defense-and-two-damage"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-territorial-domain-blue-four-live-sparse-real-chi-paid-tiger-creation-earns-five-defense-and-two-damage",
+      "source_spec": "card-regression-batch459.json",
+      "source_spec_sha256": "80987fae043f02cc9359cc64fd2bf0ccf6aec287be473a2c25d878e8a2984fb7",
+      "review_evidence": "review-evidence/sparse459-territorial-exact-saved-9e984.json",
+      "review_evidence_sha256": "7e4944f2e1b6bbc936983011792ab2a5c7563e9d339ece95d79be843a3934611",
+      "recorded_runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+      "qualification_runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+      "matches_current_runtime": true,
+      "two_clean_replays": [
+        {
+          "path": "card-regression-replay-nov5-b459-territorial-r1-9e984.json",
+          "sha256": "542a40cde40a941caabd328557715bbf5eafe01aef6477baba929f56a4aa97f1",
+          "runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+          "passed": true
+        },
+        {
+          "path": "card-regression-replay-nov5-b459-territorial-r2-9e984.json",
+          "sha256": "d423ba895de43f4779e9ecdc5aa37954f007ee0f546abdec585df6dc716b8e14",
+          "runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+          "passed": true
+        }
+      ],
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

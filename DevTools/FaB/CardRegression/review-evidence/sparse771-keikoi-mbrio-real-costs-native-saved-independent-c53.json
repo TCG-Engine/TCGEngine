@@ -1,0 +1,681 @@
+{
+  "status": "APPROVED_ACTUAL_SAVED_B771_SKYWALKER_KEIKOI_AND_MBRIO_BASE_VIZIER",
+  "approved": true,
+  "source_approved": true,
+  "semantically_approved": true,
+  "reviewer": "/root/b753_review",
+  "reviewer_independent": true,
+  "author": "/root/b753_author",
+  "created_utc": "2026-11-09T03:11:03.625255+00:00",
+  "source_spec": "card-regression-batch771.json",
+  "input_sha256": "9c286d8d5f2898a558a6e6d2bd0e2a0b4c9727041af23705e77336404c1a95e7",
+  "manifest_sha256": "589a1b653eb43667fcb258715144b36a964621cb43c0a309c7c3542a9daceb62",
+  "runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+  "recorded_runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+  "recorder_sha256": "ab33a3250462d0453f71d38dd4138cb9fbc3d595d2586742e989a52251c9c4a9",
+  "source_guards_verified": 72,
+  "source_guards": {
+    "AGENTS.md": "98e92f639d0768613c07759d84393fe2a58ff145e239bbd5bb0c3f8fdcf1f09d",
+    ".github/copilot-instructions.md": "27d6d8211b219cc826a4f2bf63d6d59765ed805feea6fb6571bfd225eb824543",
+    "FaBSim/Custom/GameLogic.php": "1cdad1555c8d2e3bd3fa98d69bf52791b84d21bf2269363ddea7249f4ee35a43",
+    "FaBSim/Custom/WTRCards.php": "5ead5cc6303b5e6760715b1a038e38d01014d8d42f16aa32bb24aa9df17e9515",
+    "FaBSim/Custom/WTRAbilities.php": "08b6d572e83e797848eaee02f9288bbe2bdc7de1dbe1ce522de0cd95a6c94d5c",
+    "FaBSim/Custom/ARCAbilities.php": "5330205cf8b98a1ba93cb15aa42f67c76d01dac3cb53b206669e7d00b0e9daca",
+    "FaBSim/Custom/ARCCards.php": "e8839553781cb4c3725eac1953d622a6f7bbd6998e375261813c4c4e249691e1",
+    "FaBSim/Custom/HVYCards.php": "aeee5080ba3096b2413fd1fbf33aa8d8f24685d219e13c8b942dda45f0c66c7d",
+    "FaBSim/Custom/HVYRuntime.php": "e133c543240f428e8d7f8488971dcfd929720b066342d0d72b4f8cdbb64faa73",
+    "FaBSim/Custom/MONCards.php": "50ccaa44bdd2c94db708dbf2b358aa066d71ceb2c56b8dad14bc2fd1d242953f",
+    "FaBSim/Custom/ROSCards.php": "881b788c96ac6fe7382461b82c23c0fc28a40c393f92784401bf5d8955ae8dfa",
+    "FaBSim/GeneratedCode/GeneratedMacroCode.php": "63113a3d140cfd13409e1ad7ee737f8ecfbbc1f78c4eb8c540658a3bacc73c54",
+    "FaBSim/GeneratedCode/GeneratedCardDictionaries.php": "1be127d10c8f7fe3fa10b8aa098678fa43b2790910c95666226b18eb79ea7c60",
+    "FaBSim/ZoneClasses.php": "874bb2ae00a80a8ba3dfe1789b4c932fd0b7cf1286504a62828e0055ca1cb355",
+    "FaBSim/ZoneAccessors.php": "9967567a9a10df81a6f22df820d4d77258828657e95c4ad145b8b13ce17866a7",
+    "Schemas/FaBSim/GameSchema.txt": "7783800bd47bc85885cc915066aadca58cdf99f0c1180602ac312d9af5ebf643",
+    "Core/DecisionQueueController.php": "65bfcf5b4f595d62d6dfb8bde0b884de42cd1a726618b5431fccf8939eed9a9d",
+    "Core/RegressionTestFramework.php": "670028e69e1a59c22aef5e6512edd2cd0dee5fdcaed4cf8c31374b8eb2b7ca6a",
+    "DevTools/FaB/hvy_abilities.json": "8efacf3b7fc39648144096451ba5b181b7d04f90896a8203eacbcd9ac98a146a",
+    "DevTools/FaB/arc_abilities.json": "ba33c47315cb5dd2a8116497b5525ec6d1b0fa917a0a3ee9424af5ccee16dce6",
+    "FaBSim/Custom/HNTCards.php": "2815741c96cd842e419d7216733efe1be1497e199ba13d65ad8e3d2331118270",
+    "FaBSim/Custom/HNTRuntime.php": "10907fc83993394946e489e3395fd2c1278a4784ce0a98391495231872b546d5",
+    "FaBSim/Custom/MSTCards.php": "52e9e34fbc2734c4b1b7b6040ebb4d784a27f32f748b53b961dd46c9f843e1ef",
+    "FaBSim/Custom/MSTRuntime.php": "b96f21727c089c90c21bf3aadaf913301b1ef7c922f2a17ac055258682ed45ce",
+    "FaBSim/Custom/DYNRuntime.php": "f521482b11084e2befb4a712cd47cf481b9139cc63d4ddb2027aa45047f3d89e",
+    "FaBSim/Custom/DYNCards.php": "769ba9ca4fc0e527144ee5b6e7bf90e612063a2974c78000845b0697862f340b",
+    "FaBSim/Custom/CardChoices.php": "6d1122598624a9ac61d99bfc41574d01e80de211e714eadaafb7b6b817a4f975",
+    "DevTools/FaB/hnt_abilities.json": "4252b725640c5014d9264c987067b71a036ff1f7fa6e98f5fc1da5e542e080d8",
+    "DevTools/FaB/mst_abilities.json": "c2bb091212e461c3a5f20be54b81c90fc81df1554d563d7c59289a17465bae35",
+    "FaBSim/Custom/SUPCards.php": "24c0fd00537f40209632e8386c8571db993d6d452b38061f93bae9c2d7acaf74",
+    "FaBSim/Custom/SEACards.php": "83e666cff3fb39ced8c52e5438ae0aa977b72be9bf2ccadcda562a89f7091ad8",
+    "FaBSim/Custom/SEARuntime.php": "61912a3f1e31e6d6e10c64fa92514c6ecf937fcbb1ca63af0ace0dfd3a9dc001",
+    "DevTools/FaB/sup_abilities.json": "92ca6f5909da4af9dcb9350b3d1f9e793611cae5326dce97e25a1a1d7c8fb85e",
+    "FaBSim/Custom/PENCards.php": "3e7a54b0fe8426e65e7d2baadec53bbda7caff5c0a8e48f79b2832e0b2376a94",
+    "FaBSim/Custom/EVRCards.php": "ad988b0e0e3d3f80bb0f9de0eb66bb826e32c8edbddbb15d5034926baa31e6af",
+    "DevTools/FaB/pen_abilities.json": "e50d82b686864b733032deae373b9825264b63a23ca8e6248c0c5f046c415054",
+    "DevTools/FaB/dyn_abilities.json": "0357acaa6e9b2ca3dfb895106270c4dc8f71515e7ff4b26801400bf5637247fe",
+    "FaBSim/Custom/ROSRuntime.php": "3b8c1f2c03339b46500221a61c83a2aef06eb2845331c6bcf18c6f72287c61e1",
+    "DevTools/FaB/evr_abilities.json": "3cfdd494730e34946cbfaa1c4bd75ee892901c157c43ebcaa3c486c99052fc2e",
+    "DevTools/FaB/mon_abilities.json": "a06c06aa49853536c865fabcbe72f36cba1eab95f010aad2b4a17be3a4e3f77b",
+    "DevTools/FaB/cru_abilities.json": "b4cd3462acf0484979b1d3321ed5357b65a7ed103cd84953dc921cf172bbf429",
+    "FaBSim/Custom/EVOCards.php": "dff20a12d7dd29417b34c9609dbc3fd27325e1c8d3be2b15da481fef7e277462",
+    "FaBSim/Custom/EVORuntime.php": "e38af5f56cd9ecc3c87e5ef6eb81fc03850151833fde02af8a4ae1a29600962b",
+    "DevTools/FaB/evo_abilities.json": "681df04ce6b2430623dbd34d7266c09131bff3eb7c7e1f946820e33549cb9552",
+    "FaBSim/Custom/OUTCards.php": "a52a5803ba36b488094a5284cd3ccd1fadd44e68acdd25cd9ea148b9ace0104a",
+    "FaBSim/Custom/OUTRuntime.php": "6f7accc2875279261e28f9d470a779b91fbfc0df1648bdf3539774b38addfd9f",
+    "DevTools/FaB/out_abilities.json": "6ba251fb5ef0d534096935d995d363be413ed82aa1388891228f1198121f47cf",
+    "FaBSim/Custom/MONAbilities.php": "0e50c426738ec083bf3357d9f0326b30d78d8278586178a6a465d11ece280cc6",
+    "DevTools/FaB/sea_abilities.json": "6e6916ff797cb956d9cce2018dc151644d26644d9b803482f04fd91094258c78",
+    "DevTools/FaB/ros_abilities.json": "2851433ce5bc948fec9532a33ffc709d4a595f74078fcb9d956c922a8ff18ff8",
+    "DevTools/FaB/build_ros_abilities.py": "48b89a4b9f3fb19956dc9bfa526dd984c60e07c27180f7f4938cb6947848da9f",
+    "DevTools/FaB/wtr_abilities.json": "1a1f6021e29d88fddc5ab6d8e656e55929e0fd8e708dd0ee5ad459b8b0b7a49b",
+    "Core/DeterministicRNG.php": "1dab74f1628bf52a89a1aca6941dfe5e4513fef660ef7b8b58fe057c70fa517a",
+    "FaBSim/Custom/CRUCards.php": "b747479f996a5207246c171efce73f899471b9b9608c116241b10086c2c7c292",
+    "FaBSim/Custom/CodeGeneration.php": "50b64d437d5c41ff475d20bacbc1d6ce3b720c8af49990c95f46d024b6bdea69",
+    "FaBSim/Custom/DTDCards.php": "059938626cc5e4e1675d231f9bb0f689a22ef70c7be5748224b2f13eedb7bddd",
+    "FaBSim/Custom/UPRCards.php": "144c369209e0a53f5f0ad540f2e549f4c4c0f0234b9a2c9bf703c2e22cd4e8af",
+    "DevTools/FaB/upr_abilities.json": "c83daf0e6e0a9894808e3eb5ed632db532256b5cd6621066d2429efcd4bca18f",
+    "FaBSim/Custom/FaiCards.php": "89678a2dd28ba283f21563fce488d286bea8153e88b123698e258bbc0994ba93",
+    "FaBSim/Custom/ProfessorCards.php": "6e5cc57b008552dc444d06831bd9dbec45db47214087de049da99b68deb96988",
+    "FaBSim/Custom/IARCards.php": "d7462a79d8deea9b6270c5c878972878177c44726e389d1918022b6368d7e82a",
+    "FaBSim/Custom/IARRuntime.php": "8aae2efda118e15daa34381505cba3c5060059819960884caeaeede0f578a7d9",
+    "FaBSim/Custom/AMXCards.php": "8b2f46e250e3622b06e417b10c9dc11dd769dc48744fbbdfe276cc132ecb6a32",
+    "DevTools/FaB/iar_abilities.json": "6b5db45b3a1cfd542bb2730f47347198055b7630486f6f32d51b11a781aa0fae",
+    "FaBSim/Custom/OMNCards.php": "3b827d9c98875c042daee925a5fe227fdce2195f303c08192fb76b9c806883c8",
+    "DevTools/FaB/omn_abilities.json": "6f3d1021628a3b676c1c60b3c6b7b3db486caea31057cdba3dcdbbc1c6ffef38",
+    "FaBSim/Custom/CustomInput.php": "91a368821f71a4f60bed8812c7cda2edeb91f481a0d6341557586e5e6ab5c2e6",
+    "Core/EngineActionRunner.php": "f64e3d31c9524103bc14aa6ace7611c90be6ae0a0d09a421b81d87593aefebec",
+    "FaBSim/Custom/ArakniCards.php": "0e0ccc29ba870212f63cc4dce8b50468c31408372aeb488b9112a7afeb595d7f",
+    "FaBSim/Custom/BoltynCards.php": "c69ec227eed13f4f21c6a8a5d0b7537f807f3c06b293a6d57fbcc66c2d02570d",
+    "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+    "FaBSim/Custom/DTDRuntime.php": "b5dcaff474c60a21cb71a7b4923bdf2192c3f9d63de24e60e54fa0067e9f19f2"
+  },
+  "prior_independent_semantic_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov9-batch771-keikoi-mbrio-independent-source-review.json",
+    "sha256": "69d560a4baa8e5335221b97a8c88c941d26e31e8a5c940c07a39c425a5b14d54"
+  },
+  "completed_material_analysis_reused": true,
+  "recording_receipt": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch771-20261109T030817Z-6af139213bae1.json",
+    "sha256": "9121883e2fec12a5eb44dc93e44161016ce82e78692892ca05853712bde958bd"
+  },
+  "specific_results": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch771.recording-results.json",
+    "sha256": "8309dc6450c96afbf81cbd8f2f92661b232341147568983e2d907f57dfaa8286"
+  },
+  "root_wrapper_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov9-b771-cloaked-keikoi-mbrio-native-recording\\receipt.json",
+    "sha256": "e896d6697476de541500361fb946c6a603f122890d4cf7742f0d049c2bedf0b4"
+  },
+  "fixtures": [
+    {
+      "index": 0,
+      "card_id": "skywalker_keikoi",
+      "group_id": "identity:skywalker_keikoi",
+      "slug": "card-skywalker-keikoi-four-live-real-cloaked-destroy-cost-prevents-one-of-seven",
+      "source_spec": "card-regression-batch771.json",
+      "input_sha256": "9c286d8d5f2898a558a6e6d2bd0e2a0b4c9727041af23705e77336404c1a95e7",
+      "reviewer": "/root/b753_review",
+      "approved": true,
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_CLOAKED_COST_OR_REAL_STEAM_PREVENTION",
+      "runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+      "recorded_runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+      "fixture_path": "Tests\\Integration\\FaBSim\\card-skywalker-keikoi-four-live-real-cloaked-destroy-cost-prevents-one-of-seven",
+      "fixture_sha256": "a3e7529a441bffd168c8d022d10e843d423a0a2c60c9a87d3c8ef99aa67a4f15",
+      "raw4_sha256": {
+        "initial_gamestate.txt": "5b1609d3e02501cb6a1f40cbb1eb8146019972de41e1045bda7b9f262a17929a",
+        "actions.json": "3a9956973de917fca024920a8fed81812eebc72b76d6d583f57de4fb9b34ebad",
+        "assertions.json": "42547e40f454232224400ee3d8dcea042610f460f7f9246f31a7ed2c0a0089c9",
+        "expected_final_gamestate.txt": "4611c234da4f4f98aca8b171bcc024f0b8636f07b34f1c939e7eead1158b536c"
+      },
+      "raw5_sha256": {
+        "initial_gamestate.txt": "5b1609d3e02501cb6a1f40cbb1eb8146019972de41e1045bda7b9f262a17929a",
+        "actions.json": "3a9956973de917fca024920a8fed81812eebc72b76d6d583f57de4fb9b34ebad",
+        "assertions.json": "42547e40f454232224400ee3d8dcea042610f460f7f9246f31a7ed2c0a0089c9",
+        "expected_final_gamestate.txt": "4611c234da4f4f98aca8b171bcc024f0b8636f07b34f1c939e7eead1158b536c",
+        "meta.json": "ff2df54faa11fab876586fc3e87cdddd6fb531a8b8d87c163dcbda6f9ee09fa1"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "5b1609d3e02501cb6a1f40cbb1eb8146019972de41e1045bda7b9f262a17929a",
+        "actions.json": "3a9956973de917fca024920a8fed81812eebc72b76d6d583f57de4fb9b34ebad",
+        "assertions.json": "42547e40f454232224400ee3d8dcea042610f460f7f9246f31a7ed2c0a0089c9",
+        "expected_final_gamestate.txt": "4611c234da4f4f98aca8b171bcc024f0b8636f07b34f1c939e7eead1158b536c",
+        "meta.json": "ff2df54faa11fab876586fc3e87cdddd6fb531a8b8d87c163dcbda6f9ee09fa1"
+      },
+      "actions": 36,
+      "native_assertions": 3114,
+      "schema_property_assertions": 868,
+      "checkpoints": 38,
+      "actual_manual_passes": 32,
+      "actual_priority_response_passes": 31,
+      "actual_defender_declaration_finish_inputs": 1,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4
+      ],
+      "actual_manual_actor_counts": {
+        "1": 8,
+        "2": 8,
+        "3": 8,
+        "4": 8
+      },
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "all_actions_and_assertions_exact": true,
+      "no_recorder_only_assertions": true,
+      "all_terminal_assertions_evaluated_against_parsed_final_snapshot": true,
+      "initial_assertions_also_evaluated_against_parsed_initial_snapshot": true,
+      "all_endpoint_physical_uid_card_zones_ownership_verified": true,
+      "initial_physical_uid_locations": {
+        "1": {
+          "card_id": "dorinthea",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "6": {
+          "card_id": "raging_onslaught_red",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "nuu",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2
+        },
+        "5": {
+          "card_id": "skywalker_keikoi",
+          "zone": "p4Equipment",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_physical_uid_locations": {
+        "1": {
+          "card_id": "dorinthea",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "6": {
+          "card_id": "raging_onslaught_red",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Pitch",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "nuu",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2
+        },
+        "5": {
+          "card_id": "skywalker_keikoi",
+          "zone": "p4Graveyard",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_physical_uidset": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "primary_UID": 5,
+      "primary_final_zone": "p4Graveyard",
+      "primary_initial_FaceDown": 1,
+      "primary_final_FaceDown": 0,
+      "actual_virtual_ability_UID": 8,
+      "actual_sourceUniqueID": 5,
+      "actual_prevention_amount": 1,
+      "prevention_internal_timing_source_derived": true,
+      "prevention_material_outcome_observed": true,
+      "selected_prevention_absent_in_final_raw": true,
+      "actual_incoming_damage": 7,
+      "actual_damage": 6,
+      "damage_type": "PHYSICAL",
+      "actual_HyperDriver_UID": null,
+      "initial_STEAM": null,
+      "final_STEAM": null,
+      "final_health": [
+        20,
+        20,
+        20,
+        14
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_Chi": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_Hero_Status": [
+        2,
+        2,
+        2,
+        2
+      ],
+      "final_UniqueIDCounter": 8,
+      "RandomCounter": 0,
+      "typed_Cloaked_properties_are_opponent_visibility_test": false,
+      "full_card_certification": false,
+      "untested_siblings_credited": false,
+      "native_action_mapping_sha256": "074be72494037aefe3a67a161fe5b4fde2638a005fd38007cfc5895245ed2a96",
+      "native_assertion_mapping_sha256": "791f55f5f76660949b9b84f4e2efe3f20e25c4f6baa1438efbd13c30c176bb93",
+      "checkpoint_assertion_mapping_sha256": "0f25265152582df8a68b9f7cc4b0436fcdfe545ce9e62cc41975dd28942b745d"
+    },
+    {
+      "index": 1,
+      "card_id": "mbrio_base_vizier",
+      "group_id": "identity:mbrio_base_vizier",
+      "slug": "card-mbrio-base-vizier-four-live-real-hyper-driver-steam-cost-prevents-one-arcane",
+      "source_spec": "card-regression-batch771.json",
+      "input_sha256": "9c286d8d5f2898a558a6e6d2bd0e2a0b4c9727041af23705e77336404c1a95e7",
+      "reviewer": "/root/b753_review",
+      "approved": true,
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_CLOAKED_COST_OR_REAL_STEAM_PREVENTION",
+      "runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+      "recorded_runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+      "fixture_path": "Tests\\Integration\\FaBSim\\card-mbrio-base-vizier-four-live-real-hyper-driver-steam-cost-prevents-one-arcane",
+      "fixture_sha256": "8b1275db5a690a79518eb8330e4044dedaf93ec8b9051c69286535cd8c946234",
+      "raw4_sha256": {
+        "initial_gamestate.txt": "33e3976c773728d418203dd04ca77852a45f40fb91e6a469df0040de4f8b85c4",
+        "actions.json": "84e9df45f06b849340f223d10945c33f889a6d4943efe4dad877a5b9127f1950",
+        "assertions.json": "6d5b2990dbcbbddcd7b76722f54a5426f960ed77bdc6e0122d355376b091475f",
+        "expected_final_gamestate.txt": "b6da756f8434494728d8ff6e62d80410a15aff2a9a47c185256aa392d05beb81"
+      },
+      "raw5_sha256": {
+        "initial_gamestate.txt": "33e3976c773728d418203dd04ca77852a45f40fb91e6a469df0040de4f8b85c4",
+        "actions.json": "84e9df45f06b849340f223d10945c33f889a6d4943efe4dad877a5b9127f1950",
+        "assertions.json": "6d5b2990dbcbbddcd7b76722f54a5426f960ed77bdc6e0122d355376b091475f",
+        "expected_final_gamestate.txt": "b6da756f8434494728d8ff6e62d80410a15aff2a9a47c185256aa392d05beb81",
+        "meta.json": "e1900b73943d31cc107ed69f36707fd57ee1a26a7560e2e248c514aecf759b82"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "33e3976c773728d418203dd04ca77852a45f40fb91e6a469df0040de4f8b85c4",
+        "actions.json": "84e9df45f06b849340f223d10945c33f889a6d4943efe4dad877a5b9127f1950",
+        "assertions.json": "6d5b2990dbcbbddcd7b76722f54a5426f960ed77bdc6e0122d355376b091475f",
+        "expected_final_gamestate.txt": "b6da756f8434494728d8ff6e62d80410a15aff2a9a47c185256aa392d05beb81",
+        "meta.json": "e1900b73943d31cc107ed69f36707fd57ee1a26a7560e2e248c514aecf759b82"
+      },
+      "actions": 7,
+      "native_assertions": 802,
+      "schema_property_assertions": 263,
+      "checkpoints": 9,
+      "actual_manual_passes": 4,
+      "actual_priority_response_passes": 4,
+      "actual_defender_declaration_finish_inputs": 0,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "actual_manual_actor_counts": {
+        "1": 1,
+        "2": 1,
+        "3": 1,
+        "4": 1
+      },
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "all_actions_and_assertions_exact": true,
+      "no_recorder_only_assertions": true,
+      "all_terminal_assertions_evaluated_against_parsed_final_snapshot": true,
+      "initial_assertions_also_evaluated_against_parsed_initial_snapshot": true,
+      "all_endpoint_physical_uid_card_zones_ownership_verified": true,
+      "initial_physical_uid_locations": {
+        "1": {
+          "card_id": "verdance",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "7": {
+          "card_id": "zap_red",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "dash",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2
+        },
+        "5": {
+          "card_id": "mbrio_base_vizier",
+          "zone": "p4Equipment",
+          "owner": 4,
+          "controller": 4
+        },
+        "6": {
+          "card_id": "hyper_driver_red",
+          "zone": "p4Arena",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_physical_uid_locations": {
+        "1": {
+          "card_id": "verdance",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "7": {
+          "card_id": "zap_red",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "dash",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2
+        },
+        "5": {
+          "card_id": "mbrio_base_vizier",
+          "zone": "p4Equipment",
+          "owner": 4,
+          "controller": 4
+        },
+        "6": {
+          "card_id": "hyper_driver_red",
+          "zone": "p4Arena",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_physical_uidset": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "primary_UID": 5,
+      "primary_final_zone": "p4Equipment",
+      "primary_initial_FaceDown": 0,
+      "primary_final_FaceDown": 0,
+      "actual_virtual_ability_UID": null,
+      "actual_sourceUniqueID": 7,
+      "actual_prevention_amount": 1,
+      "prevention_internal_timing_source_derived": true,
+      "prevention_material_outcome_observed": true,
+      "selected_prevention_absent_in_final_raw": true,
+      "actual_incoming_damage": 3,
+      "actual_damage": 2,
+      "damage_type": "ARCANE",
+      "actual_HyperDriver_UID": 6,
+      "initial_STEAM": 3,
+      "final_STEAM": 2,
+      "final_health": [
+        20,
+        20,
+        20,
+        18
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_Chi": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_Hero_Status": [
+        2,
+        2,
+        2,
+        2
+      ],
+      "final_UniqueIDCounter": 7,
+      "RandomCounter": 0,
+      "typed_Cloaked_properties_are_opponent_visibility_test": false,
+      "full_card_certification": false,
+      "untested_siblings_credited": false,
+      "native_action_mapping_sha256": "49f80db65d44566e4d1cb0d9d484f7374deed13bc8272b52e7b7390832960432",
+      "native_assertion_mapping_sha256": "b67594051c889af2fd5423ce35827610fdc7fad03d0487db5b475dedf642478c",
+      "checkpoint_assertion_mapping_sha256": "9483f1107f2d7b86664fe5a70b37b7b87df92cac9f1f8430650114260e7dda4b"
+    }
+  ],
+  "blocked_attempts": [],
+  "total_actions": 43,
+  "total_native_assertions": 3916,
+  "total_schema_property_assertions": 1131,
+  "total_manual_passes": 36,
+  "current_Source_hold_rows": 231,
+  "current_issue_rows": 164,
+  "author_selection_frame_preserved": {
+    "pool": {
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov9-batch771-permanent-activation-printed-metadata-pool.json",
+      "sha256": "c948e864c69a99757d5e48bd7eaf76c90fd12970c3779f16803a673d19ce5fb8"
+    },
+    "reservation": {
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov9-batch771-firm-reservation.json",
+      "sha256": "9c347a68d1a0236e14ed136ca0a9ed753705b2ac52524f2be6f9cc1fe3c53ec4"
+    },
+    "resume": {
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov9-resume4024-access-check.json",
+      "sha256": "80494747d765fc9d2b6c03d15e6c423e06f40e1572de06eea25ffebf883ab214"
+    },
+    "all_eight_printed_texts_actually_read": true,
+    "both_firm_before_primary_bodies": true,
+    "other_six_primary_bodies_unread": true,
+    "no_primary_replacement": true,
+    "metadata_sha256": {
+      "cycle-coverage-current.json": "eb7943efb968fddc355551dc6055fc670093760528ef23a4b39c773f17843d09",
+      "coverage-additions-after218.json": "dc75ace2894afc387bc04ecaa201ea0ab89976b78f1d87239cfe670b2c5757d4",
+      "card-regression-review.json": "352f4c1c25f5d157c46f781c4d342be7d73f2ed1df24bb67c955627acb39f0b2",
+      "card-regression-coverage.json": "b24ca2c9c4b3dfcbc86fd87dc8345817fb1a57e02101d8adefba60bb27209b94",
+      "sparse-source-only-holds.json": "6ae4d7b06827f17816da3283d97644f0a9a57f643da4711aa03dcfae3bc7ea2d",
+      "card-regression-issues.json": "6476e887f07acb5fd1851d8192cdcb97b74187a3b9aa6d5a5659d774dcc5e0c6",
+      "continuation-planning-holds-20261105.json": "21edaeb7b4d117fbaf769e422c24d3a800ea2858603ee268d8fca8d906a68ba3"
+    },
+    "registered_through": "card-regression-sparse769-dance-actual-damage-replacement-c53-checkpoint.json",
+    "totals_at_read": {
+      "saved_registered_scenarios": 4024,
+      "duels": 3074,
+      "four_live": 950,
+      "recorded_primary_ids": 1178,
+      "identity_denominator": 5196,
+      "recorded_groups": 1052,
+      "group_denominator": 3324,
+      "four_live_groups": 943,
+      "phase_qualified_scenarios_at_actual_contexts": 661,
+      "phase_qualified_unique_groups": 656,
+      "creation_replay_passes": 1322,
+      "phase_native_helper_controls": 33,
+      "global_native_helper_controls": 117
+    },
+    "source_hold_rows": 230,
+    "issue_rows": 164,
+    "ranking_hints_not_current_Source_approval": true
+  },
+  "source_dependency_frames_preserved": {
+    "sparse-source-only-holds.json": {
+      "author_snapshot_sha256": "6ae4d7b06827f17816da3283d97644f0a9a57f643da4711aa03dcfae3bc7ea2d",
+      "current_sha256": "ad2ebcf6bcb5a5e1b929a03399d06f2226f86608a6fcc9b746115e498999b3e3",
+      "current_rows": 231,
+      "same_snapshot": false,
+      "selected_support_references_unchanged": true
+    },
+    "card-regression-issues.json": {
+      "author_snapshot_sha256": "6476e887f07acb5fd1851d8192cdcb97b74187a3b9aa6d5a5659d774dcc5e0c6",
+      "current_sha256": "6476e887f07acb5fd1851d8192cdcb97b74187a3b9aa6d5a5659d774dcc5e0c6",
+      "current_rows": 164,
+      "same_snapshot": true,
+      "selected_support_references_unchanged": true
+    },
+    "continuation-planning-holds-20261105.json": {
+      "author_snapshot_sha256": "21edaeb7b4d117fbaf769e422c24d3a800ea2858603ee268d8fca8d906a68ba3",
+      "current_sha256": "21edaeb7b4d117fbaf769e422c24d3a800ea2858603ee268d8fca8d906a68ba3",
+      "current_rows": 30,
+      "same_snapshot": true,
+      "selected_support_references_unchanged": true
+    }
+  },
+  "native_existing_fixture_baseline": 4025,
+  "material_findings": [
+    "Exactactualtwo rawfive/every43control3916orderedpersistedqueries1131typed36manual match Source69d560a4/input9c286d8d/manifest589a1b65/current72c53ab33. Allinitial/finalassertions evaluatedagainstparsedraw; completephysicalUID/card/zone/order/ownership andall48manualpreferences/fouroriginalownedlivingyoung20 eachendpoint verified.",
+    "Skywalker same5initialCloakedFD1inEquipment4, actualsoleARC0click atP4Reactionpriority destroys5toownpublicGYFD0 beforefresh4/1/2/3. ActualABI8capturesController4/SourceEquipmentUID5 andretainedthroughfirstthree. Resolution grantsPREVENT1source,ABIceases, freshReaction1..4; actual7physical/zeroDEFminus1=6HP14, ordinaryDamagefour/Resolutionfour fullClose. Same6GY1/Blue7Pitch1,originalUID1..7/counter8/virtual8ceased. Typedphysicalproperties do not certifyopponentvisibility.",
+    "mBrio sameHead5andHyperDriverRED6 remainphysicalownedP4. ActualZap7declaration/formalHero4target/AP1payment andfreshsource1..4; fourthopensP4optionalMZMULTIwhilemanagedPLAIN_SPELLphysicalZap7stillStack/controller1. Actualchoice decrementsDriverSTEAM3\u21922,sourcePENmarksprimaryusedonce/prevents1; packetconsumption yields3arcane\u22121=2HP18 beforeZap7clearsownGY. No equipmentactivation/ABI/newUID/extraresponsepriority, noBoost/resource/zeroSteam destruction; noABpayment/R0emptyHand.",
+    "Rawfinalselectedpreventionabsent/consumed with unrelatedbookkeepingpreserved. Internalgrant/packetgeneration source-derived; actualcost/counter/damage/HP are nativepersisted andendpointraw observed. BothfulloriginalphysicalUID1..7 conserved/counters8or7/RNG0/allRAPChi0/fourreadyHeroes/StackchainsTempDQs/paymentawaitquiet. NoNuuChi/Stealth/Dashstart/Driverentry/Boost/zeroSteam/ABpayment/producer/sibling/Hero/support/wholecardcredit. AuthorselectionframeandSource231dependencyframesremain dated, notinflatedbylaterSavedbaseline4025."
+  ],
+  "limits": [
+    "Skywalker onlytrueCloakedFD1activation/destroypublicGY0/actual1prevention of7; no arbitraryflip/privatehistory/visibilityUI/otherKeikoi/Hero/fullcardcredit.",
+    "mBrio onlycontrolledRedDrivernatural3Steam\u21922/removes1/once-per-event1arcaneprevention/2damage; Item/primaryretained. Priorentry/Dashstart/Boost/noSteam/AB1/Evo/producer/otherDriver/fullcardcredit excluded.",
+    "NativeInstantpriority andoptionalreplacementdecision flow are Source-derived; Zap7 managedsource persistsduringowner4choice/caster1context. No Instantduringresolution, fakepriority, inventedABI or unsupportedgetter.",
+    "Allfourinitialyoungnatural20/living/manual, printedlegalpublicCloaked/ItemSteam premises, no privatehistory/currenteffect/AP/resource seed or falseprimarycondition. TypedCloakedCardIDqueries do not certifyopponentknowledge.",
+    "No whole effect/history/bookkeepingbankempty or rawintermediatesnapshot. Onlyexisting schemaqueries and stablehelpers; rawsnapshots onlyrecorderendpoints.",
+    "OtherexactSource gate beforeRootnative; exactSaved48manualpreferences andtwofocusedcleanreplays separate. No authorPHP/native/R/source/Git/remote/fullsuite/repair/newcohort.",
+    "Sourceapproval only exacttwo selectedpositiveprintedpreventionroutes; no othercondition/alternatepacket/ABpayment/Boost/zeroSteam/producer/Hero/sibling/support/wholecard credit.",
+    "Rootnative/independentSaved/twofocusedcleanreplays/registration separate. No reviewerPHP/game/native/replay/R/source/Git/remote/fullsuite/held-deniedrepairretry.",
+    "Only these exactselectedpositivepreventionroutes. NoopponentCloakedvisibility, repeatedcounterremoval, otherpacket/ABpayment/entry/Boost/zeroSteam/Hero/producers/sibling/fullcard certification.",
+    "Roottwofocusedcleanreplays/registration separate; noqualification before registration. Reviewer noPHP/native/game/replay/R/source/Git/remote/fullsuite/repair. Onlyrecordedinitial/finalrawsnapshots; intermediatepersistedqueries+Source are not inventedrawexports."
+  ],
+  "qualification_credit_before_registration": false,
+  "blockers": [],
+  "actual_comparison_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov9_batch771_saved_readonly.py",
+    "sha256": "97d00b9ae9928fedbc158c2ff05b1f6d6dbe0fb56fbb54821694076c99a2e45a"
+  }
+}

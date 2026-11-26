@@ -1,0 +1,183 @@
+{
+  "status": "APPROVED_EXACT_SAVED_TWO_STATIC_PREVENTION_CASES_REPLAYS_SEPARATE",
+  "reviewer": "/root/nov2_metadata_review",
+  "reviewed_utc": "2026-11-03T02:53:22.636570+00:00",
+  "runtime_sha256": "0d877de49c131f29c152706e14bba3368630df61c59ef475c87a84f20b6e1a66",
+  "input_file": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch277.json",
+  "input_sha256": "d97741ca1cc912277b79677e8707605525e06f4aee91086c922706b667059e38",
+  "fixtures": [
+    {
+      "slug": "card-quelling-slippers-four-live-sparse-real-effect-pitch-paid-quell-prevents-one-of-seven",
+      "card_id": "quelling_slippers",
+      "group_id": "identity:quelling_slippers",
+      "fixture_sha256": "fb64dddf7241e43715a2ed34d902c14088e78177f3928767f8483fd60635bdba",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "0ef9cafc058d877d7f072071f7aef6b8c663bf4222ed068b40e96701cac03e9a",
+        "actions.json": "9353eaa0323651be15ffc46142dd1f193467a43084df60e2133276d750553071",
+        "assertions.json": "f6a7253cb6138afcd229dff45a790b651be5e6a7aaad9ec01718b63eb1f2d107",
+        "expected_final_gamestate.txt": "a22b03d0b4f6387fd5b8ee2244f2aebfe654a3f168a04428d6c9f77ee47a5cb1",
+        "meta.json": "869eb515281a96b3e5f2480f140c2d3ac22ec6ae669ecd13bce5b49ff658d6a2"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "0ef9cafc058d877d7f072071f7aef6b8c663bf4222ed068b40e96701cac03e9a",
+        "actions.json": "9353eaa0323651be15ffc46142dd1f193467a43084df60e2133276d750553071",
+        "assertions.json": "f6a7253cb6138afcd229dff45a790b651be5e6a7aaad9ec01718b63eb1f2d107",
+        "expected_final_gamestate.txt": "a22b03d0b4f6387fd5b8ee2244f2aebfe654a3f168a04428d6c9f77ee47a5cb1",
+        "meta.json": "869eb515281a96b3e5f2480f140c2d3ac22ec6ae669ecd13bce5b49ff658d6a2"
+      },
+      "actions": 30,
+      "native_assertions": 2431,
+      "actual_manual_passes": 25,
+      "manual_passes": 25,
+      "manual_pass_actor_counts": {
+        "1": 6,
+        "2": 6,
+        "3": 6,
+        "4": 7
+      },
+      "semantically_approved": true,
+      "every_native_action_and_assertion_exactly_maps_to_approved_source": true,
+      "initial_and_final_snapshots_fully_parsed": true,
+      "physical_uid_conservation_without_duplicates": true,
+      "final_graveyard_uid_sets": {
+        "1": [
+          7
+        ],
+        "2": [],
+        "3": [],
+        "4": []
+      },
+      "final_pitch_uid_order": {
+        "1": [
+          8
+        ],
+        "2": [],
+        "3": [],
+        "4": [
+          6
+        ]
+      },
+      "final_health": [
+        20,
+        20,
+        20,
+        14
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        2
+      ],
+      "final_action_points": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "physical_findings": "ActualRaging7/Blue8pitch3 paysprinted3/AP1, adjacentP4 realtarget; fullsource/attack/defending responses retain readyownedSlippers5 andP4Blue6. OneactualfourthP4reactionresponse enters staticQuellchoice before damage. P4actuallyselectsphysicalEquipment5 thenactuallyeffect-pitchesBlue6, gains3/paysQuell1, leavesR2/AP0. Staticreplacement prevents1of7, real6damage/P4HP14; no invented ability layer. Slippers5 staysreadyownedEquipment withUPR_DESTROY_END1. Fullclose GY1{7}, Pitch1{8}/Pitch4{6}, all otherR0/AP0/HP20/emptyHandsStackChainsqueues. Laterendphase destruction not crossed or credited.",
+      "qualification": "Accepted Quell1 with real resource payment/effect-pitch and one physical damage packet only. No decline/otherdamage/arcane/preventionordering/endphase destruction/cast/hero/support/full-card/sibling/control credit."
+    },
+    {
+      "slug": "card-sigil-of-solitude-red-four-live-sparse-real-mandatory-ward-four-destroys-aura-prevents-four-of-seven",
+      "card_id": "sigil_of_solitude_red",
+      "group_id": "pitch-cycle:sigil_of_solitude",
+      "fixture_sha256": "924af2d08616a331d179f4d02ef45f72b473c4ab1048a326d6bca825e3051952",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "148aa85d2a9f09cacdf80e8537abef3a370fa4dd48e0d68d6554eff4b758ad6c",
+        "actions.json": "627e6257c48305183c5b1ac8f7a6299fb04cf2f4230c1d4013f63220cf0fd327",
+        "assertions.json": "356a5c759153ff976f6bd20951cb1d7b6ff9f7ac81c138faaed4fb02d6826a7f",
+        "expected_final_gamestate.txt": "5d7d7272b8ae49d89112f61bc653c8aea4d042e66acf232566f92c6a9db9b755",
+        "meta.json": "c2cf06243b02b160ea33650386b9b642f607006b009347160173fa68c1e526c4"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "148aa85d2a9f09cacdf80e8537abef3a370fa4dd48e0d68d6554eff4b758ad6c",
+        "actions.json": "627e6257c48305183c5b1ac8f7a6299fb04cf2f4230c1d4013f63220cf0fd327",
+        "assertions.json": "356a5c759153ff976f6bd20951cb1d7b6ff9f7ac81c138faaed4fb02d6826a7f",
+        "expected_final_gamestate.txt": "5d7d7272b8ae49d89112f61bc653c8aea4d042e66acf232566f92c6a9db9b755",
+        "meta.json": "c2cf06243b02b160ea33650386b9b642f607006b009347160173fa68c1e526c4"
+      },
+      "actions": 29,
+      "native_assertions": 2205,
+      "actual_manual_passes": 25,
+      "manual_passes": 25,
+      "manual_pass_actor_counts": {
+        "1": 6,
+        "2": 6,
+        "3": 6,
+        "4": 7
+      },
+      "semantically_approved": true,
+      "every_native_action_and_assertion_exactly_maps_to_approved_source": true,
+      "initial_and_final_snapshots_fully_parsed": true,
+      "physical_uid_conservation_without_duplicates": true,
+      "final_graveyard_uid_sets": {
+        "1": [
+          6
+        ],
+        "2": [],
+        "3": [],
+        "4": [
+          5
+        ]
+      },
+      "final_pitch_uid_order": {
+        "1": [
+          7
+        ],
+        "2": [],
+        "3": [],
+        "4": []
+      },
+      "final_health": [
+        20,
+        20,
+        20,
+        17
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_action_points": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "physical_findings": "LegitimateownedP4Aura5alreadyArena, no cast/startturn credit. ActualRaging6/Blue7pitch3 paysprinted3/AP1 andtargetsadjacentP4. Fullfourlivingsource/attack/defending responses, oneactualfourthP4reactionresponse reaches mandatoryWardreplacement before damage; actualWard chooser selectssoleAura5, destroysSAMEphysical5 toownpublicGY andprevents4of7. Actual3damage/P4HP17, noresourcepayment/APgrant/triggerlayer. Fullclose leavesGY4{5}/GY1{6}, Pitch1{7}, allRAP0/othersHP20/emptyArenaHandsStackChainsqueues; everyoriginalphysicalUID/ownership conserved.",
+      "qualification": "Mandatory Ward4 on one actual physical packet from legitimate existingAura only. No Aura cast/Goagain/startturn condition/otherdamage/preventionordering/sibling/hero/support/full-card/control credit."
+    }
+  ],
+  "source_expectation_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch277-independent-source-review\\review.json",
+    "sha256": "de574421dc15ba3ae0ec01b4945afb09dee240b6acb1fffb502140a0222cc82d",
+    "manifest_sha256": "e0f33a75cf99252d0ae154bb388cc1f09f73777d599ccf416e2f803fb9638d2e"
+  },
+  "immutable_native_archive": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch277-20261103T024144Z-6ae949e8be909.json",
+    "sha256": "3ed022c5a19f99b12b167282e6c37a0f9cb0e82f46085453d4ed1942c0ca2e60"
+  },
+  "recording_results": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch277.recording-results.json",
+    "sha256": "3fb054fdacdb19d67c4a043ee11f2ad425366ad55071ff377281b2f394aef8c2"
+  },
+  "native_wrapper": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch277-native-r1\\receipt.json",
+    "sha256": "a6fdf5d8f1cc70eeed187ad6f5d24d9a4a7143bb3bd0f11626f96175b028d78d",
+    "stdout_sha256": "690925348c2b47dd3bf6375a45da8bb9fec02180d217726fffa6b48066da2b7f",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "exit_code": 0,
+    "stderr_bytes": 0,
+    "runtime_before": "0d877de49c131f29c152706e14bba3368630df61c59ef475c87a84f20b6e1a66",
+    "runtime_after": "0d877de49c131f29c152706e14bba3368630df61c59ef475c87a84f20b6e1a66"
+  },
+  "method": "Independentread-only raw5/saved review. All59actualactors/modes/payloads andall4636assertions/order/steps exactlymatch independently approvedsource. Fullinitial/finalschema-backed snapshots parsed; physicalsourceUID/cost/Counter/ownership/HP/AP and GY/Pitch sets verified. Pure prior parser/action/normalizer definitions reused via AST only; no authorbuilder/PHP/native/replay/R/backend executed.",
+  "limits": [
+    "Savedrecordingreview only; root twofocusedcreationreplays are separate evidence.",
+    "Only optionalacceptedQuell1 actualpayment and mandatoryWard4 physicaldestruction on realpacket; no rawprivate replacement priority/window assertion added.",
+    "No sibling/fullcard/support/hero/endphase/startturn/cast/legacy/fullsuite or isolatedfault credit; retain actual0d native context."
+  ]
+}

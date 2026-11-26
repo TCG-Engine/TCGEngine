@@ -1,0 +1,156 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "independent breadth_review1252",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1314-20261122.json",
+  "source_spec_sha256": "940effdd49aebb62144a926ec7bc9431ad10726038ac1549250e8f078b8140c5",
+  "input_sha256": "940effdd49aebb62144a926ec7bc9431ad10726038ac1549250e8f078b8140c5",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-talisman-of-cremation-blue-four-live-sparse1314-real-hand-play-does-not-earn-banish-zone-trigger",
+      "card_id": "talisman_of_cremation_blue",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "dc33fbf26c0b26729493421b5bb7220ba33a41271832e24dcb07f7093853925d",
+        "actions.json": "71f0d0f07cf85244a3ec27fdb1f824cd62aa3126d639c98c13ca23327907bd8b",
+        "assertions.json": "773a68a176f1f3a50d8fc8157651ee1930c82d8ae50d980ee229ba54e7a090c0",
+        "expected_final_gamestate.txt": "f9c23ca36171b81bedd5ddd45c8d72cf8101c9e20df6345991a278ff3800e306",
+        "meta.json": "511f36e11abffec9d9fc67dc8100d8fe1a5e7d81d8a30cf54770ba4a66ddf43a"
+      },
+      "fixture_sha256": "1d988dbeb52613bdbd9685f6c7fd9ca20395cfc2510636aff9c9f9987cd80954",
+      "actions": 27,
+      "native_assertions": 438,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1314-20261122.json",
+      "input_sha256": "940effdd49aebb62144a926ec7bc9431ad10726038ac1549250e8f078b8140c5",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1314-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-talisman-of-cremation-blue-four-live-sparse1314-real-hand-play-does-not-earn-banish-zone-trigger",
+        "fixture_slug": "card-talisman-of-cremation-blue-four-live-sparse1314-real-hand-play-does-not-earn-banish-zone-trigger",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-dimenxxional-crossroads-yellow-four-live-sparse1314-real-hand-play-does-not-earn-banish-zone-trigger",
+      "card_id": "dimenxxional_crossroads_yellow",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "154b6ce483afcc3b320f539d997bb0769347ab61c2003fb6eb1c299e69278399",
+        "actions.json": "71f0d0f07cf85244a3ec27fdb1f824cd62aa3126d639c98c13ca23327907bd8b",
+        "assertions.json": "48ab6d7a44c3f0bd7d013efa5b7cb61473a9c6c371d2766a9bc760277b44dfde",
+        "expected_final_gamestate.txt": "16afda6b014c9db55a9663e11b89078605f5d4fbb72ac080768e088e9d951a35",
+        "meta.json": "f2cf7a235aa76a13f5716253a41d3fefe3fa5bb4741cba4f7c896dda09273c59"
+      },
+      "fixture_sha256": "a2474192af6ff46ef017fdce0085f44789efd5b682ecd3770c2431afbe2cdd08",
+      "actions": 27,
+      "native_assertions": 438,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1314-20261122.json",
+      "input_sha256": "940effdd49aebb62144a926ec7bc9431ad10726038ac1549250e8f078b8140c5",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1314-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-dimenxxional-crossroads-yellow-four-live-sparse1314-real-hand-play-does-not-earn-banish-zone-trigger",
+        "fixture_slug": "card-dimenxxional-crossroads-yellow-four-live-sparse1314-real-hand-play-does-not-earn-banish-zone-trigger",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "reviewer": "independent breadth_review1252",
+    "spec_sha256": "940effdd49aebb62144a926ec7bc9431ad10726038ac1549250e8f078b8140c5",
+    "source_note_sha256": "c4bbb5dccb1c199845f034bdc6c5cc4996c82a199eb5ae0227d43fdc9a31afc4",
+    "case_count": 2,
+    "active_seats": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "players": "four_live_manual",
+    "native_controls": 54,
+    "query_checks": 876,
+    "persistable_assertions": 876,
+    "author_only_checks_omitted": 0,
+    "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+    "coverage_category": "HAND_NOT_BANISH_PLAY_TRIGGER_GUARD_WITH_REAL_PERMANENT_AND_OPPONENT_GRAVEYARD_CONTROLS",
+    "per_case": [
+      {
+        "card_id": "talisman_of_cremation_blue",
+        "group_id": "identity:talisman_of_cremation_blue",
+        "native_controls": 27,
+        "persistable_assertions": 438
+      },
+      {
+        "card_id": "dimenxxional_crossroads_yellow",
+        "group_id": "identity:dimenxxional_crossroads_yellow",
+        "native_controls": 27,
+        "persistable_assertions": 438
+      }
+    ],
+    "basis": [
+      "Both standalone groups are unrepresented and absent exact source holds. Prior own Generic Item Talisman is legal for natural Young Dorinthea20; prior Shadow Runeblade Aura Crossroads is legal for natural Young Chane20. All four active natural20/manual UPF seats remain correct. Prior Arena admission is setup, not primary entry/play/producer credit. Physical primary5/source6 and real opponent Wounding Blue7/8/9 graveyards are distinct and correctly owned.",
+      "Talisman printed When play card from banished zone is an event requiring Banish origin; actual native Wounding Red6 has SourceZone Hand at every response checkpoint, not Banish. EVRCards150 also guards exact from Banish before consumption/name route. No triggering event occurs, so no owed name/consume layer. Three actual matching named opponent graveyard controls make preservation nonvacuous, and all Banish zones stay empty.",
+      "Crossroads printed Banish-origin attack/nonattack play plus first-of-type requirement has false origin despite this being first real attack. MONCards202-206 encloses its dispatch in from Banish guard. No arcane target/damage layer is earned. Separate printed when-you-lose-life-during-your-turn event requires controller1 life loss; actual opponent Hero4 loses four physical damage while controller1 stays20. MONCards336 checks life-loss player equals turn player; no own loss and no destroy event occur. No primary entry go-again or Chane activation is used.",
+      "Actual zero-cost Generic attack6 spends original AP1 to0, formal adjacent Hero4 target and four response/combat rounds produce printed4/no go again/HP4=16. Same own permanent5 survives through full same-turn close; actual source6 appends own graveyard1 while original7/8/9 remain opponent graveyards. Exact AP/resources0/UID9/RNG0/empty Stack decisions combat and all other final zone counts are coherent. All876 assertions across54 controls persist."
+    ],
+    "limits": [
+      "Review only new bindings and false event guards; native saves/replays pending. No native pass or coverage credit claimed.",
+      "Positive Banish play/name/arcane/consumption, primary entry/go-again, own life-loss destruction, Hero abilities, producer/support/full-card/sibling credit remain untested. Existing holds untouched.",
+      "Only W receipt written; no native tests/games/replays, T/engine/original-checkout edit or access, auth/network or Git."
+    ],
+    "source_sha256": {
+      "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+      "FaBSim/GeneratedCode/GeneratedMacroCode.php": "fe6a7982611df8f4de98ce2671b317b671b580146aa4b8c28e8f4b86d8461056",
+      "FaBSim/Custom/GameLogic.php": "c60fa151561f959e4e3e341b814de0e2b47c9e9f153bbc8793a04c43b5075061",
+      "FaBSim/Custom/EVRCards.php": "ae4e1ea2da09ac679821be116bc55f898ed8de2e5ceadf16f548e13d0495c275",
+      "FaBSim/Custom/MONCards.php": "2eb22bda6f1dba583df2879046f9f4dec94f47f2e9b28f369758f3af72c9c3ac",
+      "Schemas/FaBSim/GameSchema.txt": "7783800bd47bc85885cc915066aadca58cdf99f0c1180602ac312d9af5ebf643",
+      "DevTools/FaB/CardRegression/record_card_regressions.php": "e53055b29e9ea641949b77019c4455607f41ca233325d716a9500637e19efd28"
+    },
+    "workspace_source_sha256": {
+      "author_breadth1314.py": "1fb41eb0cb270a4e785bf3942296de6e1fbc0001565fc111143280c58ae1fd5b",
+      "breadth1068_helpers.py": "997f949ec26c7e494ad26a818f9f2078f6f4f2a0c49ca7f61aa8c71f3b091b0a"
+    },
+    "secondary_identity_credit": false,
+    "positive_banish_trigger_credit": false,
+    "primary_entry_credit": false
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1314-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "47fdbe10b681c998c6fbc58118c8d14d2b5c9745287cf6544566e355b86d9565"
+  },
+  "full_suite_run": false
+}

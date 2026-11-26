@@ -1,0 +1,7 @@
+{
+    "name": "Cintari Sellsword / actual prior weapon attack enables real ally attack and go again",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-23T11:42:00+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "ExistingCintariToken5 canlegitimatelybecontrolledbyyoungFai20; tokenproductionunrecorded, notdeckconstruction. RealKodachi6Action1 firstattacksadjacent4, actualcost0Blue7pitch3pays1/R2 and enablesKodachiGA. Fourlivecombatpasses actual1damageHP19/AP1. OnlynowactualSellsword5click islegallyenabled byrealweaponattackhistory; nativeAction1consumesR2to1/AP1to0, virtualAttack9SourceArena5. Fourlivecombatpasses printed3actualdamageHP16, intrinsicGoAgainrestoresAP1. PhysicalAlly5/weapon6/Pitch7 retained, proxies8/9clearwithoutGY. No fakeseededweaponhistory orGoAgain, noHeroDraconic chain/activatedPhoenix orproducercredit. No negativegate/secondactivation, literalpostuseAllytap-status, expiry/death/fullcard/Hero/support credit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#cintari_sellsword"
+}

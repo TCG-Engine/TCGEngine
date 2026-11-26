@@ -1,0 +1,155 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-22T23:17:14.471811+00:00",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse986-20261122.json",
+  "source_spec_sha256": "74f94575a13f44edf998a33107702e5361d8248118eabf082b8e328a7ffbe4db",
+  "new_scenarios": 4,
+  "new_groups": 4,
+  "new_primary_ids": 4,
+  "actions": 112,
+  "native_assertions": 692,
+  "manual_passes": 100,
+  "totals": {
+    "saved_registered_scenarios": 4681,
+    "duels": 3075,
+    "four_live": 1606,
+    "recorded_primary_ids": 1829,
+    "identity_denominator": 5196,
+    "recorded_groups": 1703,
+    "group_denominator": 3324,
+    "four_live_groups": 1595,
+    "phase_qualified_scenarios_at_actual_contexts": 1318,
+    "phase_qualified_unique_groups": 1308,
+    "creation_replay_passes": 2060,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 479,
+  "scenarios": [
+    {
+      "card_id": "scorpio_comet_tail",
+      "group_id": "identity:scorpio_comet_tail",
+      "scenario_id": "card-scorpio-comet-tail-four-live-sparse986-reject-no-controlled-lightning-attack",
+      "effect_branches": [
+        "reject_weapon_no_controlled_lightning_attack_then_real_four_live_attack"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-scorpio-comet-tail-four-live-sparse986-reject-no-controlled-lightning-attack",
+      "source_spec": "card-regression-sparse986-20261122.json",
+      "source_spec_sha256": "74f94575a13f44edf998a33107702e5361d8248118eabf082b8e328a7ffbe4db",
+      "review_evidence": "review-evidence/sparse986-20261122-qualified-saved.json",
+      "review_evidence_sha256": "7c2f190ba362c287670cc31cb36a005baafbb30950748c0dda8c2f9f1d6884ea",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse986-20261122-replay.json",
+          "sha256": "4caf41a6f7b970d9cd045bbb4674d47f4631a1c746abf38bd0f9e2db4c1d1e63",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "bank_breaker",
+      "group_id": "identity:bank_breaker",
+      "scenario_id": "card-bank-breaker-four-live-sparse986-reject-no-crank-this-turn",
+      "effect_branches": [
+        "reject_weapon_no_crank_this_turn_then_real_four_live_attack"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-bank-breaker-four-live-sparse986-reject-no-crank-this-turn",
+      "source_spec": "card-regression-sparse986-20261122.json",
+      "source_spec_sha256": "74f94575a13f44edf998a33107702e5361d8248118eabf082b8e328a7ffbe4db",
+      "review_evidence": "review-evidence/sparse986-20261122-qualified-saved.json",
+      "review_evidence_sha256": "7c2f190ba362c287670cc31cb36a005baafbb30950748c0dda8c2f9f1d6884ea",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse986-20261122-replay.json",
+          "sha256": "4caf41a6f7b970d9cd045bbb4674d47f4631a1c746abf38bd0f9e2db4c1d1e63",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "rugged_roller",
+      "group_id": "identity:rugged_roller",
+      "scenario_id": "card-rugged-roller-four-live-sparse986-reject-no-six-roll-this-turn",
+      "effect_branches": [
+        "reject_weapon_no_six_roll_this_turn_then_real_four_live_attack"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-rugged-roller-four-live-sparse986-reject-no-six-roll-this-turn",
+      "source_spec": "card-regression-sparse986-20261122.json",
+      "source_spec_sha256": "74f94575a13f44edf998a33107702e5361d8248118eabf082b8e328a7ffbe4db",
+      "review_evidence": "review-evidence/sparse986-20261122-qualified-saved.json",
+      "review_evidence_sha256": "7c2f190ba362c287670cc31cb36a005baafbb30950748c0dda8c2f9f1d6884ea",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse986-20261122-replay.json",
+          "sha256": "4caf41a6f7b970d9cd045bbb4674d47f4631a1c746abf38bd0f9e2db4c1d1e63",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "rok",
+      "group_id": "identity:rok",
+      "scenario_id": "card-rok-four-live-sparse986-reject-real-nonempty-hand",
+      "effect_branches": [
+        "reject_weapon_real_nonempty_hand_then_real_four_live_attack"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-rok-four-live-sparse986-reject-real-nonempty-hand",
+      "source_spec": "card-regression-sparse986-20261122.json",
+      "source_spec_sha256": "74f94575a13f44edf998a33107702e5361d8248118eabf082b8e328a7ffbe4db",
+      "review_evidence": "review-evidence/sparse986-20261122-qualified-saved.json",
+      "review_evidence_sha256": "7c2f190ba362c287670cc31cb36a005baafbb30950748c0dda8c2f9f1d6884ea",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse986-20261122-replay.json",
+          "sha256": "4caf41a6f7b970d9cd045bbb4674d47f4631a1c746abf38bd0f9e2db4c1d1e63",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

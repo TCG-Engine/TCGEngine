@@ -1,0 +1,139 @@
+{
+  "status": "APPROVED_EXACT_SAVED_PROG065_V2_REAL_FOUR_ARCANE_EARNED_OPT_SOURCE_RETAINED_THEN_BOTTOM_CLEANUP_REPLAYS_SEPARATE",
+  "approved": true,
+  "reviewer": "/root/nov2_sparse_author",
+  "reviewed_utc": "2026-11-03T15:02:50.089972+00:00",
+  "runtime_sha256": "2193d53b1dff3b62f59a0fc2d1de83e95653f9973a587dfb9e6a3cc637b5e26b",
+  "input_file": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch275-prognosticate-managed-opt-v2.json",
+  "input_sha256": "75e5e182a1bd06b90714d465d4c9341ca8fdb1db746565dc9adfa3c24126f489",
+  "manifest_sha256": "b8fe4de8979c2d754c67d4c3b2b306a11af1e166d46a5eec21a7d8e520210265",
+  "fixtures": [
+    {
+      "slug": "card-prognosticate-red-four-live-correct-probe-real-crucible-four-arcane-earns-opt-one-source-retained",
+      "card_id": "prognosticate_red",
+      "group_id": "pitch-cycle:prognosticate",
+      "fixture_sha256": "c1802a439eb2a9d2177748a51263dc6ad50101b58844c310707b7b483b4a6173",
+      "behavior_sha256": "c1802a439eb2a9d2177748a51263dc6ad50101b58844c310707b7b483b4a6173",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "78c276d9c33bf99c3a9bd70e52b7e59758047528dae5bdaa73d12f4f8a31f531",
+        "actions.json": "87c3729964db53f75cd39c896d8f7da579e761b495dee7a4b69e7984850e3fdc",
+        "assertions.json": "44dc190243c59aeaa79d9b6309af3603ea40c7dc7265596847f195eccf6abbd6",
+        "expected_final_gamestate.txt": "56202e9dffe719d178a28483925cce3b712f61d5e1d3c37f9ee2ab4ff2698962",
+        "meta.json": "a6c807a8e9248e01b2e6364c4bc92ecd5e5de4eac604966d536f8573996ebb12"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "78c276d9c33bf99c3a9bd70e52b7e59758047528dae5bdaa73d12f4f8a31f531",
+        "actions.json": "87c3729964db53f75cd39c896d8f7da579e761b495dee7a4b69e7984850e3fdc",
+        "assertions.json": "44dc190243c59aeaa79d9b6309af3603ea40c7dc7265596847f195eccf6abbd6",
+        "expected_final_gamestate.txt": "56202e9dffe719d178a28483925cce3b712f61d5e1d3c37f9ee2ab4ff2698962",
+        "meta.json": "a6c807a8e9248e01b2e6364c4bc92ecd5e5de4eac604966d536f8573996ebb12"
+      },
+      "actions": 13,
+      "native_assertions": 1177,
+      "actual_manual_pass_inputs": 8,
+      "actual_manual_passes": 8,
+      "manual_passes": 8,
+      "priority_pass_inputs": 8,
+      "defending_declaration_finish_inputs": 0,
+      "manual_pass_actor_counts": {
+        "1": 2,
+        "2": 2,
+        "3": 2,
+        "4": 2
+      },
+      "semantically_approved": true,
+      "every_native_action_and_assertion_exactly_maps_to_approved_source": true,
+      "initial_and_final_snapshots_fully_parsed": true,
+      "all_four_live_and_all_48_manual_preferences_verified": true,
+      "physical_uid_conservation_without_duplicates": true,
+      "original_physical_uids": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "virtual10_absent": true,
+      "final_graveyard_uid_sets": {
+        "1": [
+          5
+        ],
+        "2": [],
+        "3": [],
+        "4": []
+      },
+      "final_deck_uids": [
+        9,
+        8
+      ],
+      "final_pitch_uids": [
+        7
+      ],
+      "retained_ready_weapon_uid": 6,
+      "weapon_actual_once_counter": {
+        "ARC_USED_0": 2
+      },
+      "final_health": [
+        20,
+        20,
+        20,
+        16
+      ],
+      "final_resources": [
+        2,
+        0,
+        0,
+        0
+      ],
+      "final_action_points": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "physical_findings": "ActuallegalyoungVerdance20/threeDorinthea20 allmanual/live. Crucible6Instantcost1 actualBlue7pitch3\u2192R2/AP1, retainedready6onceARC_USED_0=2, virtual10throughfour1..4 thenceases/earnednextarcane1. Actualprimary5resource0/targetP4/spendAP1\u21920; sourcefreshfour1..4. Onlyfourthactual3+1=4arcane/P4HP16 earnsOpt1. SAME5stillStack/GY0 duringactualP1MZREARRANGE/TemporiginalRed8/remainingDeckYellow9; actorP4fourthpassstopsbydecisionwithoutprivateprioritypin. ActualTopempty/BottomRed8 answer reordersrealDeck9,8 thenandonlythen same5ownpublicGY. FullcleanuporiginalUID1..9/counter10/RNG0/no10/Staff6retained/Pitch7/R2/AP0/allqueuesframesclear. Historicalfailedprefixesremainhistoricalnotretagged.",
+      "qualification": "RedactualearnedCrucible4arcane/SurgeOpt1/bottom/source-lifetime only. No otherSurgecount/falsecondition/barrier/Spellvoid/Quell/Staffrepeat/hero/expiry/sibling/fullcard/controlcredit."
+    }
+  ],
+  "blocked_attempts": [],
+  "source_expectation_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-prognosticate065-v2-independent-transport-review.json",
+    "sha256": "ed999a941af21340951391fbc6a81fb45acb19fcff4103c3384fc326fb109c62",
+    "original_material_peer": {
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch275-prognosticate-v3-independent-source-review.json",
+      "sha256": "5675ef2e7feaa2bb50f4bebb56fec5523e0d78bb70ca98fdda355e7cbda2fdac"
+    }
+  },
+  "source_guards_verified": 19,
+  "immutable_native_archive": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch275-prognosticate-managed-opt-v2-20261103T145949Z-6ae9f6e5426c1.json",
+    "sha256": "e539172b1a81cbdceff62a1b17c19ae8742ed50812d13236b5a0b598c8a42da2"
+  },
+  "recording_results": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch275-prognosticate-managed-opt-v2.recording-results.json",
+    "sha256": "d09c9bc2868635da266be1a4271db826214f94d2f6ecac3dcfc1c34df0d8c71f"
+  },
+  "native_wrapper": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-prognosticate065-native-v2-after-lifecycle-r1\\receipt.json",
+    "sha256": "33cd81aafd8398ea4ff7131681d9578ece083f9490bfa735b5d81de2f326e2ec"
+  },
+  "reused_pure_readonly_helpers": {
+    "review_nov3_batch269_saved_readonly.py": "e339d37f4f4da91e01b26ae282f6302b1b1c4c6ec4a13715e4f7726016fb0641",
+    "review_nov3_batch270_saved_readonly.py": "16278de0c810a2c4909430c44e4d3e76dc4e716e92172eb403b4e33089adf8a0",
+    "review_nov3_batch271_saved_readonly.py": "e3b66ee7901ab0c0b5ebbec9176e4b29c02b97b67a93254d6dee572237058813"
+  },
+  "saved_fixture_review_tools_sha256": "57cb7672feb98a00216f1e194fd1df0395826af02e0d76f7042af920851c39e8",
+  "behavior_digest_definition": "SHA256 ordered filenames and rawbytes initial/actions/assertions/expected_final; allfive individual hashes bound.",
+  "focused_controls": "NOT_RUN_NOT_CLAIMED",
+  "replays": "NOT_CLAIMED_BY_THIS_SAVED_REVIEW",
+  "independence": "OriginalMeta author andtransportNext author bothdistinctfromreviewer; unionclassificationreviewseparatefromnativefixture approval.",
+  "limits": [
+    "Actualnew2193 RootnativeCOMPLETE0/stderr0/exact13actions1177asserts/rawfive; no oldfailedprefix/saved/replay credit retagged.",
+    "Originalmaterialoraclesunchanged; sourceStackduringearnedOpt andexactbottomorder independentlyverified.",
+    "No PHP/native/R/sourcefix/generation/backend/service/fullsuite byreviewer; Rootreplaysseparate."
+  ]
+}

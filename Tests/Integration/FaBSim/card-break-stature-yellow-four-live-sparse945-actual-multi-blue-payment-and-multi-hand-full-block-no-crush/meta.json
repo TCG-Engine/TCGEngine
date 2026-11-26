@@ -1,0 +1,7 @@
+{
+    "name": "Break Stature / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T21:26:54+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "**Crush** - When this deals 4 or more damage to a hero, destroy an aura token they control. They can't create auras with that token's name until the end of their next turn. Actual printed payment via physical Blue pitches; legal Guardian defender Bravo declares real three/four Hand AA defense9/12, actual damage0/HP20/attackHitfalse, so no Crush event/choice/effect. Meaningful object markers retained. Positive Crush, exact unblocked power and siblings untested. Sources: FaBSim/GeneratedCode/cardArrayCache.json#break_stature_yellow"
+}

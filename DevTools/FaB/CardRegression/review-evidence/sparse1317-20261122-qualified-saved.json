@@ -1,0 +1,116 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "independent breadth_review1252",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1317-20261122.json",
+  "source_spec_sha256": "2528c09d153a53b1df724e900561890630960e50de254ad7a1e1040d2cea46e0",
+  "input_sha256": "2528c09d153a53b1df724e900561890630960e50de254ad7a1e1040d2cea46e0",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-isenhowl-weathervane-red-four-live-sparse1317-real-go-again-funds-non-fusion-attack-without-ice-fuse-token-trigger",
+      "card_id": "isenhowl_weathervane_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "fba3d4420b3420890fd8018f0b1150343fc543a0ab52858e9835d0ac31b8750c",
+        "actions.json": "ac86f7cb09704a75eaf795ed4d0a4f1122328f650ff501b111749b96249d552e",
+        "assertions.json": "438c6e75c916f64716957dddf895f6c30ea668d73ac54e5f46f39efd43b9efe5",
+        "expected_final_gamestate.txt": "99e2d617ae0f7e087ddfdd5ad4c29acb0a772aa3377221c10e690a6951c92f23",
+        "meta.json": "16097c6e0341b7eb4fbfa6dfbde25d3050f3490a6cba44aa575615a08403d8ed"
+      },
+      "fixture_sha256": "9cda406098802b35ad0707d62d008a3250439c897ff80289f39372763cd40242",
+      "actions": 33,
+      "native_assertions": 481,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 29,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1317-20261122.json",
+      "input_sha256": "2528c09d153a53b1df724e900561890630960e50de254ad7a1e1040d2cea46e0",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1317-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-isenhowl-weathervane-red-four-live-sparse1317-real-go-again-funds-non-fusion-attack-without-ice-fuse-token-trigger",
+        "fixture_slug": "card-isenhowl-weathervane-red-four-live-sparse1317-real-go-again-funds-non-fusion-attack-without-ice-fuse-token-trigger",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "reviewer": "independent breadth_review1252",
+    "spec_sha256": "2528c09d153a53b1df724e900561890630960e50de254ad7a1e1040d2cea46e0",
+    "source_note_sha256": "6e6764dae5790b9839179f4004656b7e6959bacd3fbe9865a023400b6fc7a29d",
+    "case_count": 1,
+    "active_seats": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "players": "four_live_manual",
+    "native_controls": 33,
+    "query_checks": 481,
+    "persistable_assertions": 481,
+    "author_only_checks_omitted": 0,
+    "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+    "coverage_category": "POSITIVE_GO_AGAIN_FUNDING_AND_UNMATCHED_ICE_FUSE_EVENT_GUARD_ONLY",
+    "per_case": [
+      {
+        "card_id": "isenhowl_weathervane_red",
+        "group_id": "pitch-cycle:isenhowl_weathervane",
+        "native_controls": 33,
+        "persistable_assertions": 481
+      }
+    ],
+    "basis": [
+      "Fresh Red pitch-cycle group unrepresented and absent exact holds. Natural Young Lexi20 Essence Ice makes printed Ice Action class/talent legal, versus three real Young Dorinthea20 in manual UPF. Actual primary5 cost1 uses real Generic Critical Strike Red6 pitch1; same physical funder moves Pitch, R0/AP1to0 before four responses, own primary5 graveyard then unconditional printed Go again refunds original AP1.",
+      "Printed delayed next Ice-fuse event is not an entry trigger or targeting requirement on playing the NAA. Isenhowl itself has no Fusion; actual followup Wounding Red7 Generic AA also has no Fusion ability and Hero Essence does not confer it. No reveal/fusion/history flags are seeded. Normal compiled resolve adds UPR_WEATHERVANE4; ELECards66 calls UPRFused only when actual source is Ice-fused, and UPRCards238-240 consumes the weather effect/dispatches target only on that event. No event occurs, so no owed target/token/trigger layer is bypassed. Positive timing and Frostbite ownership remain outside scope.",
+      "Only new binding/differences from authored Flashfreeze template reviewed. Real zero-cost followup7 actually uses refunded AP1to0, formal adjacent Hero4 target and four fresh response/combat rounds give printed4/no GA/HP16. Opponent real legal Hand control8 remains unblocked; all Arenas0, other health20, UID8/RNG0, source5/driver7 own graveyard0/1, funder6 Pitch, AP/resources0 and Stack decisions combat clean. All481 checks across33 controls persist; no copied recording or legacy re-execution."
+    ],
+    "limits": [
+      "Semantic review only pending native save/replay; no native pass or coverage credit claimed.",
+      "Only normal payment/actual Go-again funding and unmatched Ice-fuse event guard. Positive Ice Fusion/Frostbite ownership/targeting/Hero/support/sibling/full-card behavior untested; existing holds unchanged.",
+      "Only W receipt written; no native games/tests/replays, T/engine/original-checkout edit or access, auth/network or Git."
+    ],
+    "source_sha256": {
+      "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+      "FaBSim/GeneratedCode/GeneratedMacroCode.php": "fe6a7982611df8f4de98ce2671b317b671b580146aa4b8c28e8f4b86d8461056",
+      "FaBSim/Custom/GameLogic.php": "c60fa151561f959e4e3e341b814de0e2b47c9e9f153bbc8793a04c43b5075061",
+      "FaBSim/Custom/UPRCards.php": "62798bd281afc17805c396e92deab22497b9c80d881f99e943833cb82d449321",
+      "FaBSim/Custom/ELECards.php": "5319104c32fb648c9ef90ee5e7e3a6a22e29c35a26c2cca31b338aada0e6110f",
+      "FaBSim/Custom/ELEAbilities.php": "d0da7637932733ee6c0e77f4786c4950fbaa4e41eb74c5d1f5d536961fa27ab8",
+      "Schemas/FaBSim/GameSchema.txt": "7783800bd47bc85885cc915066aadca58cdf99f0c1180602ac312d9af5ebf643",
+      "DevTools/FaB/CardRegression/record_card_regressions.php": "e53055b29e9ea641949b77019c4455607f41ca233325d716a9500637e19efd28"
+    },
+    "workspace_source_sha256": {
+      "author_breadth1317.py": "b819eaa1f988e61ce9980a69dcf603587045c2169c70c996254278af2aded704",
+      "breadth1068_helpers.py": "997f949ec26c7e494ad26a818f9f2078f6f4f2a0c49ca7f61aa8c71f3b091b0a"
+    },
+    "secondary_identity_credit": false,
+    "positive_conditional_effect_credit": false,
+    "fusion_credit": false,
+    "banish_play_credit": false,
+    "hero_ability_credit": false
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1317-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "b5eb999e9663ef838adced0e4d7299f9f44df40293d023346edad760dc5412c6"
+  },
+  "full_suite_run": false
+}

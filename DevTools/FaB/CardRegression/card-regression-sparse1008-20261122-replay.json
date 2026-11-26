@@ -1,0 +1,79 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-bolt-of-courage-red-four-live-sparse1008-uncharged-actual-hit-does-not-draw-real-deck-card",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-bolt-of-courage-red-four-live-sparse1008-uncharged-actual-hit-does-not-draw-real-deck-card",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1008-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1008-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "ddfa10e2ec0b9e1b5104bdd9d2a572670a34266688aa24801bbeead6baa6a3fa",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "21058b94f410f76d91aac2bbd98ae974b7f52386d985f966bc2b38841d519148",
+        "actions.json": "71f0d0f07cf85244a3ec27fdb1f824cd62aa3126d639c98c13ca23327907bd8b",
+        "assertions.json": "e7ff560388638d4dbf1b8e80d0546792d83263bcd0e513a3a21d353d375f064f",
+        "expected_final_gamestate.txt": "44fea036b15d37aa6b4a2b5538749a2f329ed6da113a3a2cafe7f01a6d5a48e9",
+        "meta.json": "20db25abe27aeee894990fb5d7ed04c03d178d0f22ccaf634c9c114722837725"
+      }
+    },
+    {
+      "slug": "card-engulfing-light-red-four-live-sparse1008-old-soul-card-is-not-charge-history-source-goes-graveyard",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-engulfing-light-red-four-live-sparse1008-old-soul-card-is-not-charge-history-source-goes-graveyard",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1008-local-20261122\\clean-replays\\01.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1008-local-20261122\\clean-replays\\01.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "6e3d3c34ecdd8cc520cb7e030244832243a9d09121e73bb23dcf55143f1f6211",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "8f688054c73f159f0db4c8705879bc57fe045e7d448d4598dad76ef76ab1da26",
+        "actions.json": "71f0d0f07cf85244a3ec27fdb1f824cd62aa3126d639c98c13ca23327907bd8b",
+        "assertions.json": "d0280973bb9d892921ce976b716320439ba387a7e860cc14c2be11b64b06e9ff",
+        "expected_final_gamestate.txt": "90c3cd290b238becc5c97b9330828732689d009370ff549e8fec1bcf13a7b677",
+        "meta.json": "b825e56280a72f02dea1f5c95e5f9759c96abcf2ef59a5e5bb25ab3243994092"
+      }
+    },
+    {
+      "slug": "card-hunt-to-the-ends-of-rathe-red-four-live-sparse1008-unmarked-non-arakni-printed-go-again",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-hunt-to-the-ends-of-rathe-red-four-live-sparse1008-unmarked-non-arakni-printed-go-again",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1008-local-20261122\\clean-replays\\02.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1008-local-20261122\\clean-replays\\02.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "f237c8b5e64e677438f41ffe68be199f67320f2642f48a4e9e1b40183587b2dd",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "c30567103116cc6d73ef08567918148a441bc55f4c5bf44bd9cb40ed75ce3966",
+        "actions.json": "71f0d0f07cf85244a3ec27fdb1f824cd62aa3126d639c98c13ca23327907bd8b",
+        "assertions.json": "0bf081dda1629fb353816bc6053b52a36954f8d406c8eeeb7865d4fa0e477ee1",
+        "expected_final_gamestate.txt": "e2dbf05ba2a9a77afbefaba6d113442310c57aae95a8023a5e622193a12a3087",
+        "meta.json": "fd4c0a8a09bcb5458060dc48accbb85b2bd24ffc35f4c2dbf577acb50693ddb4"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

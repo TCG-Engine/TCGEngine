@@ -1,0 +1,101 @@
+{
+  "batch": 1426,
+  "status": "UNQUALIFIED_NATIVE_SETUP_CONTEXT_MENU_NOT_HANDLED",
+  "card_id": "nebula_duality_red",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "native_attempted": true,
+  "fixture_saved": false,
+  "coverage_credit": false,
+  "confirmed_gameplay_bug": false,
+  "new_distinct_gameplay_root_credit": 0,
+  "attempted_native_inputs": 1,
+  "observed": {
+    "slug": "card-nebula-duality-red-two-live-sparse1426-normal-action-real-three-arcane-single-opponent-default-and-owned-grave",
+    "status": "blocked_or_incorrect",
+    "error": "state window expected \"PRIORITY\" got \"ACTION\"",
+    "attempted_actions": [
+      {
+        "playerID": 1,
+        "mode": 10002,
+        "buttonInput": "",
+        "cardID": "p1Hand-0!FSM",
+        "chkInput": [],
+        "inputText": ""
+      }
+    ],
+    "setup_completed": true,
+    "observed_state": {
+      "window": "ACTION",
+      "combatOpen": false,
+      "combatStep": "NONE",
+      "chainLink": 0,
+      "attacker": 0,
+      "defender": 0,
+      "attackUID": 0,
+      "attackTarget": null,
+      "pendingAttackTarget": null,
+      "previousAttackCardID": "",
+      "handBlockUIDs": [],
+      "intimidated": [],
+      "pendingPayment": null,
+      "lastAttackName": "",
+      "attackHit": false,
+      "attackPower": 0,
+      "defenseValue": 0,
+      "damageDealt": 0,
+      "declaredBlockUIDs": [],
+      "passiveSeats": [],
+      "gameMode": "",
+      "turnEffects": [],
+      "nextTurnEffects": [],
+      "hitsThisTurn": [],
+      "cardsPlayedThisTurn": [],
+      "eleKorshemActiveTurn": 2
+    },
+    "observed_decisions": {
+      "1": [
+        {
+          "Type": "MZMODAL",
+          "Param": "1|1|PLAY:_Play&ARC_0:_Use_instant_ability",
+          "Block": 1,
+          "Tooltip": "Choose_card_action",
+          "DontSkipOnPass": 0,
+          "removed": null,
+          "Location": "",
+          "PlayerID": 0,
+          "mzIndex": -1,
+          "_sourceZone": null
+        },
+        {
+          "Type": "CUSTOM",
+          "Param": "FAB_CONTEXT_ACTION|p1Hand-0|PLAY,ARC_0",
+          "Block": 1,
+          "Tooltip": "",
+          "DontSkipOnPass": 0,
+          "removed": null,
+          "Location": "",
+          "PlayerID": 0,
+          "mzIndex": -1,
+          "_sourceZone": null
+        }
+      ],
+      "2": []
+    },
+    "observed_hand_refs": {
+      "1": [
+        "p1Hand-0"
+      ],
+      "2": []
+    }
+  },
+  "native_receipt_sha256": "f5e39e837a760bb71a0a7c227ddf852e7b3c6bbd6eaff92db7c381a85eb06ebc",
+  "original_source_sha256": "95c6106f8b9a6da8c9b8ee0d455cd358d35d6c2de410fd82a02201404079cff1",
+  "reason": "Initial native click correctly opens Play versus Use instant ability modal. Draft omitted this supported context-action selection and expected priority too soon. No Play menu answer/payment/arcane/card mode effect executed. Preserve and move on after first unexpected result, without retry/debug/repair.",
+  "unrun": [
+    "Select normal Play in native context menu",
+    "regular Action payment/priority/damage/fates",
+    "activated-discard mode",
+    "fixture/replay"
+  ],
+  "next_step": "Future authoring may add independently reviewed native Play selection; no engine repair indicated by this attempt."
+}

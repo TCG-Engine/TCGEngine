@@ -1,0 +1,7 @@
+{
+    "name": "Succumb to Winter / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T18:33:02+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "**Ice Fusion**\n\nDeal 5 arcane damage to any target. If this was **fused** and targets a hero, destroy a **frozen** card in their arsenal. If this was **fused** and targets a **frozen** ally, destroy that ally. Representative only: no_other_ice_card_so_unfused_actual_5_arcane_after_declared_hero_target_and_real_cost. Other pitch siblings, alternate targets and unexercised branches receive no credit. All four live/manual; only native entry-point actions. Sources: FaBSim/GeneratedCode/cardArrayCache.json#succumb_to_winter_red"
+}

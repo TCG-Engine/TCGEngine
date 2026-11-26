@@ -1,0 +1,7 @@
+{
+    "name": "Miragai / first ordinary ash dragon attack survives real power six blocker without phantasm",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-23T17:26:59+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "FourmanualYoungDromai20/threeDori20; lawfulpriorinvokedMiragai5Arena1withordinaryAshmaterialUPR_ASH1/DYN_ASHash(notStillwaterNO_PHANTASM), StormSandikai6Weapon1, actualGenericBrutalAssaultRed7power6DEF3Hand4. NativeSceptergrantedAllyattack0actuallydeclaresHero4/spendsAP1to0/marksphysical5used/createsattackproxy8. Fourmanualresponses; firstDragonattackloses/cannotgainPhantasm viaMiragai. NoRedcardplayed/pitchedsogaFalse, noDromaiAsh. Allcombatwindows; realNonIllusionistAApower6block7wouldtriggerordinaryAshPhantasmwithoutstaticprotection, but Stack0/noPhantasm and real2attackreachesDAMAGEfullyblockedby3/HP20/attackHitFalse, notearlyPhantasmclose. Finalphysical5Arena1survivesused, support6Weapon1ready, realblock7GY4/proxy8removed/UID8/noGY1/Soul/Hand/AP/R0/queues. Noinvoke/production/export/secondDragon/othermaterial/GA/Hero/support/fullcardcredit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#miragai FaBSim/Custom/UPRCards.php FaBSim/Custom/MONAbilities.php FaBSim/Custom/MONCards.php FaBSim/Custom/GameLogic.php"
+}

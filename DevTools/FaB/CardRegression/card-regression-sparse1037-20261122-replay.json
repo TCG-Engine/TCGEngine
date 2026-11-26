@@ -1,0 +1,79 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-aether-bindings-of-the-third-age-four-live-sparse1037-real-armor-block-and-battleworn-close",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-aether-bindings-of-the-third-age-four-live-sparse1037-real-armor-block-and-battleworn-close",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1037-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1037-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "83d0a7195c641cc0d1e5d7ccd3595aff544c89d32c7efa93a54f1335c2859546",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "c3d3a1ad2050cbad7527b6999490473dbf7fd655cfcf2b2730b29fc59ab9c0e1",
+        "actions.json": "511bf2f3686ee96e12e3d9cdbe580febcac902b797e5ec827a96d5ccd74ac457",
+        "assertions.json": "c6254e0e85d14e18766ec9af2277bb863c8d4f8c020870481952e4485eb7ffe7",
+        "expected_final_gamestate.txt": "3062f7c28b436d3d4454789371ae1125cdf4a9fbec114387498e63492d7a9f7b",
+        "meta.json": "43ad2380f0d13acab7cdab178710bb73def1d933df357d1fe6967a4ab55a3a44"
+      }
+    },
+    {
+      "slug": "card-beckoning-haunt-four-live-sparse1037-real-armor-block-and-guardwell-close",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-beckoning-haunt-four-live-sparse1037-real-armor-block-and-guardwell-close",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1037-local-20261122\\clean-replays\\01.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1037-local-20261122\\clean-replays\\01.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "4ae12e757599208c663a06282adce0fa9398d9435b019199ea38bb0d3faf1759",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "b29ee78ba89bda27e807d23b26d48d05756b54b3d55f2a22f7124203e7527d49",
+        "actions.json": "511bf2f3686ee96e12e3d9cdbe580febcac902b797e5ec827a96d5ccd74ac457",
+        "assertions.json": "8d34067e5304083c1583927dcab42ca50928722a65c1b9aa150d83c28d82ed2a",
+        "expected_final_gamestate.txt": "59359aaab07be395ce1591ef1132887bfaa68fb3989c849a7229bb9cfc12717d",
+        "meta.json": "8de0543e10a0f43b4c428828f8f3dd18391473cd62fd54071095c1234635770d"
+      }
+    },
+    {
+      "slug": "card-steelbraid-buckler-four-live-sparse1037-real-armor-block-and-temper-close",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-steelbraid-buckler-four-live-sparse1037-real-armor-block-and-temper-close",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1037-local-20261122\\clean-replays\\02.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1037-local-20261122\\clean-replays\\02.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "c3fe5cc150cc105c5c15206ff24e91537011e95c13e57092eb96199202f1d7e7",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "6eddcae5ef9c7c5db3bea63c150360c20875fff5250b328eaed327b8e93ad575",
+        "actions.json": "511bf2f3686ee96e12e3d9cdbe580febcac902b797e5ec827a96d5ccd74ac457",
+        "assertions.json": "cda4e8711933e29da8909d113b426b757c2015dbdc33f221bf11ad4b5f35d0ad",
+        "expected_final_gamestate.txt": "d6c077ab9d8badb300f43485c8143927cd999aa73585b70dd4d94c921c337150",
+        "meta.json": "2dfec4fac1a66f5ca1b24119141351366f21f8b67ee9123c4aa174cfd57a09da"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

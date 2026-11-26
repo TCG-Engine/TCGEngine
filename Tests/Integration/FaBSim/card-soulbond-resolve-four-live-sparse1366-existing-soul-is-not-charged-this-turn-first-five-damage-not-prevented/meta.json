@@ -1,0 +1,7 @@
+{
+    "name": "Soulbond Resolve / an existing soul card is not charged this turn",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-24T11:45:03+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "FOUR_REAL_MANUAL_UPF_DORI20_DORI20_DORI20_BOLTYN20. Soulbond8ChestreadyandrealSoulEngulfingLight9initialpositiononly, noChargeevent/history/TurnEffects, noSouladdthisturn. ActualGenericCriticalRed5cost1paidBlue6pitch3/R2/AP0/base5/noGA; noactualEquipmentdefense/charge/Temper. Firstactualdamage5toBoltyn4not4, HP20to15: existingSoul9doesNOTmeanCHARGEDthisturn. Sourcepreventconditionfalse/nopreventionearned, bothSoul9andEquipment8same/status2/CountersEffectsunchanged. Fullclose5GY1/6Pitch1/FDArsenal7retained/UID9RNG0/allArena0/HP1=20; actual0ArsenalconsumerrejectAP0samefates. Onlyuncharged-first-damageguardwithrealSoul/native5damage; positivechargedprevention/Charge/defendWHEN/Temper/timing/provenance/support/fullcarduncredited. Sources: FaBSim/GeneratedCode/cardArrayCache.json#soulbond_resolve FaBSim/GeneratedCode/GeneratedMacroCode.php FaBSim/Custom/GameLogic.php FaBSim/Custom/DTDRuntime.php FaBSim/Custom/MONCards.php FaBSim/Custom/ELEAbilities.php FaBSim/Custom/ELECards.php FaBSim/Custom/WTRCards.php FaBSim/Custom/ARCCards.php"
+}

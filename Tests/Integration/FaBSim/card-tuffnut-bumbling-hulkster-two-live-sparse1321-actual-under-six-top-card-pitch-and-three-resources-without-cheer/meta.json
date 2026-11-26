@@ -1,0 +1,7 @@
+{
+    "name": "Tuffnut, Bumbling Hulkster / actual under six top card pitch and three resources without cheer",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-24T06:53:49+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "TWO_REAL_MANUAL_ADULT_tuffnut_bumbling_hulkster40_DORI40. DistinctunrepresentedadultHeroidentity; youngcounterpartnotcredited. ActualprintedInstantwithNOresourceorAPassetcost, realtapandselectedeffectcostbeforefreshresponses2then1; AP1preserved/R0beforebody. RealHero1tap2to1, virtualABI4; realtopCriticalStrikeBlue3power3<6staysDeckuntilbothresponses, thenmovesSAME3toownedPitch/resources0to3/AP1stays. NoCheer/Toughnessproducerowed; allArena0. Actualassets/HP40both/UID/RNG/pendingpayments/queues/virtualsourcecleanupstrict. Noextraactivations/otherHeroabilities/tokenproducer/positiveconditional/othermode/UPF/wholecardcredit. Known099nonzeroassetseamnotused. Sources: FaBSim/GeneratedCode/cardArrayCache.json#tuffnut_bumbling_hulkster FaBSim/GeneratedCode/GeneratedMacroCode.php FaBSim/Custom/GameLogic.php FaBSim/Custom/ARCAbilities.php FaBSim/Custom/SEARuntime.php FaBSim/Custom/SUPCards.php"
+}

@@ -1,0 +1,68 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-23T06:53:32.034997+00:00",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1098-20261122.json",
+  "source_spec_sha256": "2fc952b7353398f9636e6c681ead93c97b9aa21b4c84d54df8ffe8fdf0d60294",
+  "new_scenarios": 1,
+  "new_groups": 1,
+  "new_primary_ids": 1,
+  "actions": 8,
+  "native_assertions": 299,
+  "manual_passes": 4,
+  "totals": {
+    "saved_registered_scenarios": 4966,
+    "duels": 3075,
+    "four_live": 1891,
+    "recorded_primary_ids": 2114,
+    "identity_denominator": 5196,
+    "recorded_groups": 1988,
+    "group_denominator": 3324,
+    "four_live_groups": 1880,
+    "phase_qualified_scenarios_at_actual_contexts": 1603,
+    "phase_qualified_unique_groups": 1593,
+    "creation_replay_passes": 2345,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 764,
+  "scenarios": [
+    {
+      "card_id": "awakening_blue",
+      "group_id": "identity:awakening_blue",
+      "scenario_id": "card-awakening-blue-four-live-sparse1098-unfused-three-life-gap-creates-three-surges-and-searches-real-cost-three-guardian",
+      "effect_branches": [
+        "unfused_three_life_gap_creates_three_surges_and_searches_real_cost_three_guardian"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-awakening-blue-four-live-sparse1098-unfused-three-life-gap-creates-three-surges-and-searches-real-cost-three-guardian",
+      "source_spec": "card-regression-sparse1098-20261122.json",
+      "source_spec_sha256": "2fc952b7353398f9636e6c681ead93c97b9aa21b4c84d54df8ffe8fdf0d60294",
+      "review_evidence": "review-evidence/sparse1098-20261122-qualified-saved.json",
+      "review_evidence_sha256": "9474134509e2fa1feafe8c9b241bfdc9d8f4d4353781c42bb952c04ac04b050b",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1098-20261122-replay.json",
+          "sha256": "728b4e9ce0251e60f4fab592943d1c94e9ccd476d1eee097d2c6c1c079930a26",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

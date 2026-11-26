@@ -1,0 +1,7 @@
+{
+    "name": "Ice Aged Oak / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-23T02:19:35+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "When this hits a hero, create an Embodiment of Earth token.\n\n**Ice Bond** - If an Ice card was pitched to play this, this gets **dominate** and \"When this hits a hero, create a Frostbite token in each of their exposed head, chest, arms, and legs zones.\" Named branch real_generic_blue_no_ice_bond_two_hand_blocks_no_hit. NaturalOldhim20 EssenceEarth legal; actualGenericBlue6 pays3/R0/AP0 and is notIce, so IceBond Dominate/hit grant absent. Two real Hand AA7/8def6 fullyblockbase4/noHit/0damage/HP20/sourceblockersownedGY; no earned hit Embodiment/Frostbite event. No fusion or209ownership dependence, no positive token/creator claim. Allfour live/manual, actualprintedcost/power/HP/roles/physicalfates. No supporting identities/pitch siblings/full-card credit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#ice_aged_oak_blue"
+}

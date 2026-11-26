@@ -1,0 +1,7 @@
+{
+    "name": "Daily Grind / non-attack action defense earns no Clash",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-24T12:15:48+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "FOUR_REAL_MANUAL_UPF_DORI20_DORI20_DORI20_BRAVO20. DailyGrind10Arena4readyinitialpositiononly/noentry/startturncredit. NativeGenericCriticalRed5cost1paidBlue6pitch3/R2/AP0/base5. Actualdefender4HandComeToFightRed7isNAA\u2014notAA\u2014usedas3defense, notplayed/no+3grant. GuardianHeroclassdoesnotturnNAAintoAttacktype. DailyGrindgrantsWhenThisDefendsONLYtoAA, soactualNAAblockearnsnoClashability/choice/deckdestruction. RealbothdecksnonemptywithUNEQUALAApowers: attackerWoundingRed8base4, defenderWoundingBlue9base2; a mistakenClashwouldhaveawinneranddestroy9soexactdeckretentionisnonvacuous. All4manualwindows/5minus3=2physicaldamageHP4=18. Fullclose5GY1/6Pitch1/block7GY4/attackerDeck8anddefenderDeck9sameownedUID/order/Aura10same/UID10RNG0/allotherArena0/noextraLayer/Cardmovement. No directreveal-logclaim. Onlygranted-abilitycardtypefilter/nativeblock/damage/deckfates, notpositiveAAClash/triggerSourceidentity/timing/reveals/winner/destruction/startturn/entry/support/fullcarduncredited. Sources: FaBSim/GeneratedCode/cardArrayCache.json#daily_grind_blue FaBSim/GeneratedCode/GeneratedMacroCode.php FaBSim/Custom/GameLogic.php FaBSim/Custom/MPGCards.php FaBSim/Custom/HVYCards.php FaBSim/Custom/ROSCards.php FaBSim/Custom/WTRCards.php"
+}

@@ -1,0 +1,7 @@
+{
+    "name": "Brandish / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T21:06:50+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "When this hits, your next weapon attack this turn gets +1{p}.\n\n**Go again** ActualtwoHandAA3defeachfullyblock, zeroHP/nohit, samephysicalcardsGY; positivehits/exactunblockedpower untested. Sources: FaBSim/GeneratedCode/cardArrayCache.json#brandish_red"
+}

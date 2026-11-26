@@ -1,0 +1,120 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "breadth_review independent source/semantic review",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse932-20261122.json",
+  "source_spec_sha256": "0dad2eab52375b4c24dede7c02ee84c820dfe887c78563c7a278472c9aeaf6a1",
+  "input_sha256": "0dad2eab52375b4c24dede7c02ee84c820dfe887c78563c7a278472c9aeaf6a1",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-leave-no-witnesses-red-four-live-sparse932-actual-two-hand-blocks-prevent-hit-banish",
+      "card_id": "leave_no_witnesses_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "32ab23d615172572879171e336e1e36b60b656652eaf05797b3cab40ed4eb582",
+        "actions.json": "9f2158a76a224facb898cc12561b10d89380d0d90e15b49131c1d4359e991d29",
+        "assertions.json": "e41801625d0011d041b6f5c32f0697719975ea831e633ee6c0aeb0e98f8d185f",
+        "expected_final_gamestate.txt": "bc8eddfea3e36a9e791da2ecb5330b1bbac3778d02d4ea89a6bd27bb9cf480c7",
+        "meta.json": "51bb101ce965e92fb89052ad8aaa64c8e3ef0db4a81eec20fd09a23933ab5d1f"
+      },
+      "fixture_sha256": "4b82f0ce9c1e85b0beb09df22a4aba2c54b990d5f64e408f6e51c423935fab65",
+      "actions": 29,
+      "native_assertions": 157,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse932-20261122.json",
+      "input_sha256": "0dad2eab52375b4c24dede7c02ee84c820dfe887c78563c7a278472c9aeaf6a1",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse932-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-leave-no-witnesses-red-four-live-sparse932-actual-two-hand-blocks-prevent-hit-banish",
+        "fixture_slug": "card-leave-no-witnesses-red-four-live-sparse932-actual-two-hand-blocks-prevent-hit-banish",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-already-dead-red-four-live-sparse932-actual-two-hand-blocks-prevent-hit-deck-and-defender-banish",
+      "card_id": "already_dead_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "529cdb23ab1a3666516802e9230054cf881ba9095f8f6bf27c98af7f070f3099",
+        "actions.json": "a44e24b9f9b348ce659c847e7dbea1e0cd33c5233e8ac4933f9391118d55ee4b",
+        "assertions.json": "61979e41fd04e8494ff5c255a67150670eeda894f2ecd0c0e3a4f30035c3669b",
+        "expected_final_gamestate.txt": "353b4b490434bc44a9dfa90a260967c0c1f9cbe6180d40bcab7b4f4026ea5358",
+        "meta.json": "6e7fd7bcb3f4d5622a03960e46b780913ba1007847e8514a91678e2f528954b2"
+      },
+      "fixture_sha256": "cd574170ffae6a818ab1b113a3a52a5c9d2a149d48e944e3da063cbaa0bc9230",
+      "actions": 30,
+      "native_assertions": 169,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse932-20261122.json",
+      "input_sha256": "0dad2eab52375b4c24dede7c02ee84c820dfe887c78563c7a278472c9aeaf6a1",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse932-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-already-dead-red-four-live-sparse932-actual-two-hand-blocks-prevent-hit-deck-and-defender-banish",
+        "fixture_slug": "card-already-dead-red-four-live-sparse932-actual-two-hand-blocks-prevent-hit-deck-and-defender-banish",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-death-touch-red-four-live-sparse932-actual-arsenal-play-and-two-hand-blocks-prevent-hit-token-choice",
+      "card_id": "death_touch_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "e06dbe46b985f3a5243eeca66fa38d01c66bf340e32453116ee6a11703fec91d",
+        "actions.json": "93f50488e0f312b4020445b2819360dd950e8b021a9e4ab90b9924171869c098",
+        "assertions.json": "963ed0eed6be262d54df822f6fef9c956c502afcd46aeba27dbdb5f275a2cdfd",
+        "expected_final_gamestate.txt": "1d333b322d8b27bcf43b5369c1fb4ed19a04f897dadf497e334a898538e85b60",
+        "meta.json": "4bf3a6f409c418b4f932c43ff406e919b65579b2ddb21b67cf2cd5eabc77944d"
+      },
+      "fixture_sha256": "ba3f32e784ba60014f650f5ab38f90f14cbfab20c3afc6c278559489ef049c9e",
+      "actions": 30,
+      "native_assertions": 173,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse932-20261122.json",
+      "input_sha256": "0dad2eab52375b4c24dede7c02ee84c820dfe887c78563c7a278472c9aeaf6a1",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse932-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-death-touch-red-four-live-sparse932-actual-arsenal-play-and-two-hand-blocks-prevent-hit-token-choice",
+        "fixture_slug": "card-death-touch-red-four-live-sparse932-actual-arsenal-play-and-two-hand-blocks-prevent-hit-token-choice",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "spec_sha256": "0dad2eab52375b4c24dede7c02ee84c820dfe887c78563c7a278472c9aeaf6a1",
+    "reviewer": "breadth_review independent source/semantic review",
+    "basis": [
+      "Legal natural20 Assassin Uzuri plays Leave No Witnesses and Already Dead from actual Hand5; hybrid Assassin/Ranger DeathTouch is legal for matching Assassin and plays real facedownArsenal5. OUTRuntime86 only forbids DeathTouch Hand origin; this non-Arrow needs no Bow. No additional cost or alternate activation/menu is required for these plays.",
+      "Native costs0/2/1, actual Blue6 only on cost-bearing cases, expectedR0/1/2 andAP0 are correct. DeathTouch soleBlue is correctly initialHand0, not an obsolete Hand1; source remainsArsenal during target preflight and latersameUID5 enters Stack/Chain/GY.",
+      "Two real Generic opponent Hand cards Wounding Blow Red and Critical Strike Red each have defense3 and no defender-trigger abilities. Consecutive native P4Hand0 clicks in DEFEND_DECLARE are valid: first moves Wounding to defense, second remainingHand0 moves Critical, while current priority/declaration remains P4. Checks track both RoleDEFENSE and owned physical UIDs6,7 or7,8, then both in owner4graveyard.",
+      "Six actual defense fully blocks printed4/6/6; expected0damage/HP20/AP0 means no positive Hit event. GameLogic2529-2531 only invokes OnHit on actualpositiveamount, so no hit layer, banish or DeathTouch token-choice decision is earned. No opponent card is banished by these blocked cases, hence no contract completed/Silver reward.",
+      "Leave retains real enemyDeck8 and Arsenal9; both defenders of AlreadyDead reach graveyard rather thanBanish; enemyArena0/Banish0 and DeathTouch finalownArsenal0 make the named absent effects and legal origin observable. Four manual response rounds/full combat and physical source fate retained, without whole turnEffects-empty oracle."
+    ],
+    "limits": [
+      "Source/spec review only; native recording and targeted clean replay pending Root. No PHP/native execution, T edits, network or Git mutation.",
+      "Only actualtwo-card blocking/payment/legalArsenalorigin/sourcefate/no-hit branches. Does not establish exact unblockedpower, positive hit timing/Contract/Silver/token choice/ownership/Banish permission, second turn, siblings/support identities or whole-card coverage. Existing positive shared concerns remain unresolved."
+    ]
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse932-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "1a013a8f48d5b91678926e109199371a4cf7eef609c7b69897751fd7460164a1"
+  },
+  "full_suite_run": false
+}

@@ -1,0 +1,7 @@
+{
+    "name": "Lubricate / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T17:23:55+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "{u} up to 3 cogs you control. Representative only: real_instant_untaps_two_chosen_owned_cogs_preserves_unchosen_and_opponent_cogs. Other pitch siblings, alternate targets and unexercised branches receive no credit. All four live/manual; only native entry-point actions. Sources: FaBSim/GeneratedCode/cardArrayCache.json#lubricate_blue"
+}

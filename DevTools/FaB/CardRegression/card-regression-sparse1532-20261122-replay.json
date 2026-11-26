@@ -1,0 +1,56 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-restless-magister-red-four-live-sparse1532-real-play-and-ally-hit-preserves-opponent-hand",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-restless-magister-red-four-live-sparse1532-real-play-and-ally-hit-preserves-opponent-hand",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1532-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1532-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "c42f39e1916ce824666b060f798a04a4876e808e68e318328f5e388cb221d37e",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "f04dd4e5fe5e11326140830df0a4d2e57aea879b533040a0f0130dda35b2c659",
+        "actions.json": "1b6d57e00ccbb2e10f3eb0b813e3ba9192b731fa3f45ead90ca5fec1d102522c",
+        "assertions.json": "0bf081cca608d8f3ddfaba3e06cc621fbc94499cabc60738ab863116047996a3",
+        "expected_final_gamestate.txt": "3510fb68e24bb95c0da33f48f540a92e315b6dbe2204988fc74e9ed44d1e38a1",
+        "meta.json": "c52e96a72db878356b6d7a362121adfeb81f2e921f746c7c5d881dcfb4d7f5a7"
+      }
+    },
+    {
+      "slug": "card-restless-quartermaster-red-four-live-sparse1532-real-play-and-ally-hit-preserves-opponent-arsenal",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-restless-quartermaster-red-four-live-sparse1532-real-play-and-ally-hit-preserves-opponent-arsenal",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1532-local-20261122\\clean-replays\\01.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1532-local-20261122\\clean-replays\\01.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "b180005b6de29bca5065155566a2ec61f23413a01a156babb845a6cd7ac4df16",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "340fd8b7e2cc3640f6074acef7dc8ef813ece3f2cefee256b2948e13b3675679",
+        "actions.json": "1b6d57e00ccbb2e10f3eb0b813e3ba9192b731fa3f45ead90ca5fec1d102522c",
+        "assertions.json": "4127dae990401fcff313619c0f52fdd79f92d7a802202c8198b4e54b33059a6c",
+        "expected_final_gamestate.txt": "bb6ddd69d9b99ebe1016a4f7ea87075c7777eff8a1742b26508f77f49262dac3",
+        "meta.json": "ffe1aca8e517990e19cb034a9c0df41182a7a6c2308e17da659cc1b53770df5c"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

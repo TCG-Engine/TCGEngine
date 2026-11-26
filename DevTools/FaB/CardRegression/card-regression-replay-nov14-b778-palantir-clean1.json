@@ -1,0 +1,27 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch778-palantir-full.json",
+  "runtime_sha256": "bd31baaf013603be800137bf4524fd9bdcc09866beb4f96b6abdda1bd360f11e",
+  "returncode": 0,
+  "completed_utc": "2026-11-14T02:39:20.053629+00:00",
+  "fixtures": [
+    {
+      "slug": "card-palantir-aeronought-red-four-live-real-two-payment-equipment-defense-three-cogs-destroy-nine-damage",
+      "fixture_sha256": "11d86952bec10dc8ff1f7a503764b9f702af0e6d5c39ccc3c5c4aa6ac9d15e76",
+      "passed": true,
+      "result": "[PASS] Palantir Aeronought / paid attack and three real Cog activations"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-palantir-aeronought-red-four-live-real-two-payment-equipment-defense-three-cogs-destroy-nine-damage",
+      "returncode": 0,
+      "stdout": "[PASS] Palantir Aeronought / paid attack and three real Cog activations\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

@@ -1,0 +1,72 @@
+{
+  "status": "FOCUSED_REPAIR_BATCH_QUALIFIED_REGISTERED",
+  "utc": "2026-11-20T21:57:09.201045+00:00",
+  "runtime_sha256": "0e7817837e772fde21e98830ecbb5671c11566788c816a5822791ce7a7e102b8",
+  "source_spec": "card-regression-burn125-departure-repair-20261120.json",
+  "source_spec_sha256": "82d3ee741c2e7d462eabcd9f476278914fefd6e9c49cb56345a0ceedac66b64e",
+  "new_scenarios": 1,
+  "new_groups": 0,
+  "new_primary_ids": 0,
+  "actions": 25,
+  "native_assertions": 438,
+  "manual_passes": 19,
+  "totals": {
+    "saved_registered_scenarios": 4199,
+    "duels": 3074,
+    "four_live": 1125,
+    "recorded_primary_ids": 1349,
+    "identity_denominator": 5196,
+    "recorded_groups": 1223,
+    "group_denominator": 3324,
+    "four_live_groups": 1115,
+    "phase_qualified_scenarios_at_actual_contexts": 836,
+    "phase_qualified_unique_groups": 828,
+    "creation_replay_passes": 1577,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 1,
+  "scenarios": [
+    {
+      "card_id": "burn_them_all_red",
+      "group_id": "identity:burn_them_all_red",
+      "scenario_id": "repair-burn125-four-live-real-shock-departed-dragon-earned-arcane",
+      "effect_branches": [
+        "Actual same setup/prior Dragon6-specific prevention, one legal opponent Shock half kills Dragon before the earned Burn layer resolves; no physical damage or go-again refund."
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/repair-burn125-four-live-real-shock-departed-dragon-earned-arcane",
+      "source_spec": "card-regression-burn125-departure-repair-20261120.json",
+      "source_spec_sha256": "82d3ee741c2e7d462eabcd9f476278914fefd6e9c49cb56345a0ceedac66b64e",
+      "review_evidence": "review-evidence/burn125-20261120-qualified-saved.json",
+      "review_evidence_sha256": "374e036efb31771da0cc63d6d6e37816fb6215fef00cd0b12aeb1634d9fbd7ef",
+      "recorded_runtime_sha256": "0e7817837e772fde21e98830ecbb5671c11566788c816a5822791ce7a7e102b8",
+      "qualification_runtime_sha256": "0e7817837e772fde21e98830ecbb5671c11566788c816a5822791ce7a7e102b8",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-burn125-departure-repair-20261120-replay.json",
+          "sha256": "9868ae4a0b578713ebff2757f4f1d6c636276a2a2519468f644d80ef76801586",
+          "runtime_sha256": "0e7817837e772fde21e98830ecbb5671c11566788c816a5822791ce7a7e102b8",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS",
+      "coverage_kind": "EXISTING_GROUP_FOCUSED_REPAIR_WITNESS",
+      "new_group_credit": false,
+      "new_primary_id_credit": false
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "existing_group_witnesses": 1,
+  "source_scenarios_not_in_this_qualification": []
+}

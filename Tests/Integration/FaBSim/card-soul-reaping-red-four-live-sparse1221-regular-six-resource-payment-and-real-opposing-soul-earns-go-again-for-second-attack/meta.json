@@ -1,0 +1,7 @@
+{
+    "name": "Soul Reaping / real regular six-resource payment and opposing-Soul go again",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-23T19:44:49+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "REGULAR6COST+POSITIVEOPPOSINGSOULGAONLY. LegalYoungChane20/2Dori20/YoungPrism20manualUPF4. Realprimary5/Blue6/Blue7/Wounding8Hand1, lawfulpriorWartune9Soul4. Soul schema hasCardID/UIDonly, so location/UID/cardcount pinned, notunsupportedOwner/Controllerfieldsorforeignprovenance. NativeformalHero4beforepayment; affordable7pitch allowsminimum0alternativechooser, chooseemptyminusNoBanish. Costremains6, firstrealBlue6produces3/AP1, secondBlue7paysfull6/R0/AP0beforeallfourresponses. Actual6powerattackhasstaticGAONLYbecauseactualtargetHero4hasSoul1; real6damageHP14/AP0, ResolutionreturnsAP1. RealWounding8spendsthatAPanddeals4HP10withGAfalse/noadditionalrefund despiteSoulstill1. Final5then8GY1/6then7Pitch1/Soul9unchanged/APR0/UID9/RNG0/noBanishStackDQsCC/sameTurn2ACTION. Noalternativebanish/resourcegain, zeroSoulcontrol, Soulproducer, foreignSoulownership, Hero/support/fullcard/siblingcredit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#soul_reaping_red FaBSim/Custom/MONCards.php FaBSim/Custom/GameLogic.php FaBSim/GeneratedCode/GeneratedMacroCode.php Schemas/FaBSim/GameSchema.txt"
+}

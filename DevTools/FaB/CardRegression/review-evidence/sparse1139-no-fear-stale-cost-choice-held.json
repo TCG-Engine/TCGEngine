@@ -1,0 +1,288 @@
+{
+  "status": "CONFIRMED_NATIVE_ADVERTISED_COST_REFERENCE_FAILURE_UNQUALIFIED",
+  "batch": 1139,
+  "related_issue_family": [
+    "FAB-REG-025",
+    "FAB-REG-075",
+    "FAB-REG-154"
+  ],
+  "new_distinct_root_count": 0,
+  "affected_card_id": "no_fear_red",
+  "intended_primary_group": "kayo",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec_sha256": "e0ef08b9658451ab1a2a7e3eadea659fb96488d23200e2ed5989e62d60344632",
+  "native_receipt_sha256": "c843e5ec2ba08dbb78fdb0719007735e7a1b251d768ecbbb6fa467b474428569",
+  "initial_gamestate_sha256": "24a00899e6c9329163ef520599ac23c12baa8a6489d91cd1ff759e77bb07f9e2",
+  "setup": {
+    "activeSeats": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "heroes": [
+      "rhinar",
+      "dorinthea",
+      "dorinthea",
+      "kayo"
+    ],
+    "health": [
+      20,
+      20,
+      20,
+      20
+    ],
+    "resources": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "actionPoints": [
+      1,
+      0,
+      0,
+      0
+    ],
+    "state": {
+      "gameMode": "UPF",
+      "passiveSeats": []
+    },
+    "zones": [
+      {
+        "cardID": "no_fear_red",
+        "zone": "Hand",
+        "player": 4,
+        "properties": {}
+      },
+      {
+        "cardID": "critical_strike_red",
+        "zone": "Hand",
+        "player": 4,
+        "properties": {}
+      },
+      {
+        "cardID": "romping_club",
+        "zone": "Weapons",
+        "player": 1,
+        "properties": {}
+      },
+      {
+        "cardID": "critical_strike_blue",
+        "zone": "Hand",
+        "player": 1,
+        "properties": {}
+      }
+    ]
+  },
+  "native_action_prefix": [
+    {
+      "playerID": 1,
+      "mode": 10002,
+      "buttonInput": "",
+      "cardID": "p1Weapons-0!FSM",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 1,
+      "mode": 100,
+      "buttonInput": "",
+      "cardID": "p4Hero-0",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 1,
+      "mode": 10002,
+      "buttonInput": "",
+      "cardID": "p1Hand-0!FSM",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 1,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 2,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 3,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 4,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 1,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 2,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 3,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 4,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 4,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 1,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 2,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 3,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 4,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 1,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 2,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 3,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 4,
+      "mode": 10002,
+      "buttonInput": "",
+      "cardID": "p4Hand-0!FSM",
+      "chkInput": [],
+      "inputText": ""
+    }
+  ],
+  "native_inputs": 20,
+  "expected_choice": "0|1|p4Hand-0",
+  "observed_decision": {
+    "Type": "MZMULTICHOOSE",
+    "Param": "0|1|p4Hand-1",
+    "Block": 1,
+    "Tooltip": "Banish_six_power_cards",
+    "DontSkipOnPass": 0,
+    "removed": null,
+    "Location": "DecisionQueue",
+    "PlayerID": 4,
+    "mzIndex": 0,
+    "_sourceZone": null
+  },
+  "observed_live_hand_refs": [
+    "p4Hand-0"
+  ],
+  "observed_pending_payment": {
+    "player": 4,
+    "uid": 5,
+    "cost": 0,
+    "fromZone": "Hand",
+    "kind": "INSTANT",
+    "returnWindow": "REACTION",
+    "returnCombatStep": "REACTION"
+  },
+  "independent_failure_review": [
+    "Actual cached CriticalStrikeRed is printed5, and current HVYCards35-43 + MONCards12 gives ownedKayo outsideChain+1, so legal six-power eligibility is independently correct. NoFear is Instant0, so no resource/AP-asset ordering defect is needed to reach this choice. The oracle expects the real surviving physical card reference, not a reference inferred from invalid output.",
+    "Current GameLogic1040 marks sourceHand0 removed,1048 publishes same5 onStack, and1086 calls Prepare before normal request completion. CardChoices194-197 iterates existing array indices while skipping removed objects, so remaining physicalCritical6 is emitted as oldHand1. Generated NoFearPrepare awaitcca6ddab230623e7b86a135387 stores those stringrefs in frame and decision; it does not capture/refresh by physicalUID.",
+    "Receipt independently confirms source5 pendingInstant fromHand/cost0, queued MZMULTICHOOSE0|1|p4Hand-1 with Prepare continuation, while actual serialized/live Hand refs only p4Hand-0. Thus the advertised choice cannot name the intended extant card. This is a native cost-selection/UI reference failure, not a wrong power or target oracle. No invalid/stale answer was submitted.",
+    "Related exact historical classifications: FAB-REG-025 removed-Hand-slot save compaction; FAB-REG-075 existing025 card-caller extension; FAB-REG-154 persisted optional additional-cost Hand choices retaining removed-source indices. This NoFear observation is a new affected caller of that known reference-compaction family; no distinct new root cause is claimed. Exact compaction call timing was not instrumented."
+  ],
+  "reached": {
+    "cost_choice_answered": false,
+    "banish_paid": false,
+    "effect_resolved": false,
+    "prevention_damage_verified": false
+  },
+  "fixture_saved": false,
+  "qualified": false,
+  "coverage_credit": false,
+  "engine_changed": false,
+  "evidence_local_only": {
+    "original_spec": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1139-local-20261122\\proposed.json",
+    "initial_snapshot_and_complete_receipt": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1139-local-20261122\\save\\receipt.json",
+    "required_by_runner": false
+  },
+  "disposition": "New caller extension of existing partially repaired reference-compaction family. Held; do not answer stale1, use unadvertised0, reorder hand or weaken oracle. No passing fixture. No engine repair within breadth scope."
+}

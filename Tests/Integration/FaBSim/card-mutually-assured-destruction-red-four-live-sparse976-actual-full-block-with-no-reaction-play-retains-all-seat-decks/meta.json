@@ -1,0 +1,7 @@
+{
+    "name": "Mutually Assured Destruction / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T23:18:46+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "**Contract** - You are contracted to banish infected opponents' cards. Whenever you complete this contract, create a Silver token.\n\nThe first time each hero plays a reaction card this chain link, create a Bloodrot Pox token under each hero's control, then banish the top card of each hero's deck. Representative only: actual_full_block_with_no_reaction_play_retains_all_seat_decks. Actual Hand5 play with real printed payment, real Hand AA defenses, four live/manual seats, zero damage/nohit/Stack0/AP0/source and defenders in owned graveyards. Legitimate physical cards/counters retained; no positive hit/reaction/banish/steal/random/entry/ownership credit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#mutually_assured_destruction_red"
+}

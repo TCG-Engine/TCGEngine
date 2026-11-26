@@ -1,0 +1,126 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-24T14:42:08.386118+00:00",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1403-20261122.json",
+  "source_spec_sha256": "352df1424334fce93d111e722b4745433c69d25ecb27511dad321494aa3e8383",
+  "new_scenarios": 3,
+  "new_groups": 3,
+  "new_primary_ids": 3,
+  "actions": 105,
+  "native_assertions": 1266,
+  "manual_passes": 99,
+  "totals": {
+    "saved_registered_scenarios": 5409,
+    "duels": 3113,
+    "four_live": 2296,
+    "recorded_primary_ids": 2557,
+    "identity_denominator": 5196,
+    "recorded_groups": 2431,
+    "group_denominator": 3324,
+    "four_live_groups": 2285,
+    "phase_qualified_scenarios_at_actual_contexts": 2046,
+    "phase_qualified_unique_groups": 2036,
+    "creation_replay_passes": 2788,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 1207,
+  "scenarios": [
+    {
+      "card_id": "flurry_stance_red",
+      "group_id": "identity:flurry_stance_red",
+      "scenario_id": "card-flurry-stance-red-four-live-sparse1403-actual-other-hero-start-no-controller-aura-destroy-or-dagger-grant",
+      "effect_branches": [
+        "actual_other_hero_start_no_controller_aura_destroy_or_dagger_grant_then_real_next_seat_attack_and_damage"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-flurry-stance-red-four-live-sparse1403-actual-other-hero-start-no-controller-aura-destroy-or-dagger-grant",
+      "source_spec": "card-regression-sparse1403-20261122.json",
+      "source_spec_sha256": "352df1424334fce93d111e722b4745433c69d25ecb27511dad321494aa3e8383",
+      "review_evidence": "review-evidence/sparse1403-20261122-qualified-saved.json",
+      "review_evidence_sha256": "aaafaab2f1404fa9c2ed1d138bcb6b853e75cf52389cc8c821816b5983cf1944",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1403-20261122-replay.json",
+          "sha256": "8e41b8bc6ca993e22b3480c264225f5942295fe226cbaf99b3259e30b0eb252d",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "draw_a_crowd_blue",
+      "group_id": "identity:draw_a_crowd_blue",
+      "scenario_id": "card-draw-a-crowd-blue-four-live-sparse1403-actual-other-hero-action-phase-no-controller-aura-destroy-or-guardian-buff",
+      "effect_branches": [
+        "actual_other_hero_action_phase_no_controller_aura_destroy_or_guardian_buff_then_real_next_seat_attack_and_damage"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-draw-a-crowd-blue-four-live-sparse1403-actual-other-hero-action-phase-no-controller-aura-destroy-or-guardian-buff",
+      "source_spec": "card-regression-sparse1403-20261122.json",
+      "source_spec_sha256": "352df1424334fce93d111e722b4745433c69d25ecb27511dad321494aa3e8383",
+      "review_evidence": "review-evidence/sparse1403-20261122-qualified-saved.json",
+      "review_evidence_sha256": "aaafaab2f1404fa9c2ed1d138bcb6b853e75cf52389cc8c821816b5983cf1944",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1403-20261122-replay.json",
+          "sha256": "8e41b8bc6ca993e22b3480c264225f5942295fe226cbaf99b3259e30b0eb252d",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "rites_of_earthlore_blue",
+      "group_id": "pitch-cycle:rites_of_earthlore",
+      "scenario_id": "card-rites-of-earthlore-blue-four-live-sparse1403-actual-other-hero-start-no-controller-aura-destroy-or-guardian-buff",
+      "effect_branches": [
+        "actual_other_hero_start_no_controller_aura_destroy_or_guardian_buff_then_real_next_seat_attack_and_damage"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-rites-of-earthlore-blue-four-live-sparse1403-actual-other-hero-start-no-controller-aura-destroy-or-guardian-buff",
+      "source_spec": "card-regression-sparse1403-20261122.json",
+      "source_spec_sha256": "352df1424334fce93d111e722b4745433c69d25ecb27511dad321494aa3e8383",
+      "review_evidence": "review-evidence/sparse1403-20261122-qualified-saved.json",
+      "review_evidence_sha256": "aaafaab2f1404fa9c2ed1d138bcb6b853e75cf52389cc8c821816b5983cf1944",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1403-20261122-replay.json",
+          "sha256": "8e41b8bc6ca993e22b3480c264225f5942295fe226cbaf99b3259e30b0eb252d",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

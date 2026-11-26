@@ -1,0 +1,169 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "independent breadth_review1252",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1428-20261122.json",
+  "source_spec_sha256": "794bc660cb9e5088e2fbb8b26305215ea51bb690ce9c6cbf7bc291dae90d1dec",
+  "input_sha256": "794bc660cb9e5088e2fbb8b26305215ea51bb690ce9c6cbf7bc291dae90d1dec",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-blink-of-an-eye-red-four-live-sparse1428-real-zero-defense-equipment-does-not-fragment-seven-power-or-earn-extra-effect",
+      "card_id": "blink_of_an_eye_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "e626af11ed11094dd84f551e5ffa77623aa7cb293e69740ec1065349ca9c94b6",
+        "actions.json": "fa3667850ede7c4d898da212b8d6208f4c575774cbcb47e049baf90eab7af6d0",
+        "assertions.json": "faad40171fee1321285fc3e8ef2c5eeec592ddd660d3e415dc8f2dcb0a8f6297",
+        "expected_final_gamestate.txt": "068ecb68e57408c8e1bcfdad2a8fe5f035d02ebaa51ed8a91f8a63e14f61944d",
+        "meta.json": "fa9f92da5f9ef55cb837e7b5e1bf29975b0270634c4e89c98f66f94766e62a79"
+      },
+      "fixture_sha256": "a70468bec61a0c0a322b41c4a2b1fffe3787446906ba6fcdae7420de0b3cd91b",
+      "actions": 29,
+      "native_assertions": 407,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1428-20261122.json",
+      "input_sha256": "794bc660cb9e5088e2fbb8b26305215ea51bb690ce9c6cbf7bc291dae90d1dec",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1428-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-blink-of-an-eye-red-four-live-sparse1428-real-zero-defense-equipment-does-not-fragment-seven-power-or-earn-extra-effect",
+        "fixture_slug": "card-blink-of-an-eye-red-four-live-sparse1428-real-zero-defense-equipment-does-not-fragment-seven-power-or-earn-extra-effect",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-polarus-pulse-ray-red-four-live-sparse1428-real-zero-defense-equipment-does-not-fragment-seven-power-or-earn-extra-effect",
+      "card_id": "polarus_pulse_ray_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "4bf8664a5d4a0079661efb7fb295199310a72ddc3718c3c9575fb174d26bb417",
+        "actions.json": "fa3667850ede7c4d898da212b8d6208f4c575774cbcb47e049baf90eab7af6d0",
+        "assertions.json": "5926e1ad21237305bb5151463f5138690b97231f74afcfc5f24feb13db750d4d",
+        "expected_final_gamestate.txt": "67a0d9e070dc18898acacb95709f50cf49e13feb89e64f9a83e58d88ae518cd4",
+        "meta.json": "2bd84d6cef4951770845d86c6d84f334576386025b06ec32c81431f36e38b646"
+      },
+      "fixture_sha256": "e48c8eabb150fa4af771ba050ac38df9db62bb674dd663942ad2e448739dd993",
+      "actions": 29,
+      "native_assertions": 407,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1428-20261122.json",
+      "input_sha256": "794bc660cb9e5088e2fbb8b26305215ea51bb690ce9c6cbf7bc291dae90d1dec",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1428-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-polarus-pulse-ray-red-four-live-sparse1428-real-zero-defense-equipment-does-not-fragment-seven-power-or-earn-extra-effect",
+        "fixture_slug": "card-polarus-pulse-ray-red-four-live-sparse1428-real-zero-defense-equipment-does-not-fragment-seven-power-or-earn-extra-effect",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "reviewer": "independent breadth_review1252",
+    "spec_sha256": "794bc660cb9e5088e2fbb8b26305215ea51bb690ce9c6cbf7bc291dae90d1dec",
+    "source_note_sha256": "be86f731b4ca20ad85eb98a2e417716423253fdc44daf448f582c105a20c159a",
+    "case_count": 2,
+    "active_seats": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "players": "four_live_manual",
+    "native_controls": 58,
+    "query_checks": 814,
+    "persistable_assertions": 814,
+    "author_only_checks_omitted": 0,
+    "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+    "coverage_category": "FRAGMENT_ZERO_DEFENSE_DOES_NOT_MEET_TWO_THRESHOLD_ACTUAL_COST_POWER_DAMAGE",
+    "per_case": [
+      {
+        "card_id": "blink_of_an_eye_red",
+        "group_id": "identity:blink_of_an_eye_red",
+        "native_controls": 29,
+        "persistable_assertions": 407
+      },
+      {
+        "card_id": "polarus_pulse_ray_red",
+        "group_id": "pitch-cycle:polarus_pulse_ray",
+        "native_controls": 29,
+        "persistable_assertions": 407
+      }
+    ],
+    "basis": [
+      "Both unrepresented/unheld LightningIllusionistAA2/base7 cycles are cachedUPFallowed with actualYoungZyggy20/threeDori20/manual4. Hero has activated-only printed ability and is not activated; no shared positive effect-cost route is exercised. One existing owned nonholoHoloShieldRed5 is persistent LightningInstantAura Ward1 with no entry/startturn event owed in the selected phase; provenance/creation/warduse uncredited.",
+      "Official CR8.3.43 and43a independently retrieved: Fragment triggers only on a defending card with defense at least2; fragmented event is when that layer resolves. NullruneHood is actualGenericEquipmentHead/printedDEF0, staticArcaneBarrier1 only, no wear/destruction. Its real equipment block cannot meet threshold; no Fragment layer or whenever-fragments followup is earned.",
+      "OMNCards56-67 FaBOMNDefended explicitly checks activeFragment attack then FaBCurrentDefense(defender)>=2 before queue. OriginalHood8Equipment4 moves to realDEFENSE/FromZoneEquipmentCC;0def leaves7power unchanged. Blink eligible realLightningAura5/noHOLO remains unchanged; Polarus noearnedarcane means opponentHP exactly13 from7physical, allotherHP20. No positive Fragment/secondary followup implementation is certified.",
+      "FormalHero4 target precedes actual2resource payment; actualCriticalBlue7pitch3 leavesR1/AP0, originalprimary6Stack held through fourmanual responses. Fourmanual attack/defense/reaction/damage/Resolution/close sequence, real7damage, original6GY1/7Pitch1/8readyEquipment4 no counters/5sameownedArenaCounter[]Status2/UID8RNG0/HandDeckStackDQsCCquiet/AP0/R1 are consistent.29controls407persistableassertions each; ordinaryCOMPLETE endpoint."
+    ],
+    "official_rules": [
+      {
+        "url": "https://rules.fabtcg.com/en/cr/08-keywords/",
+        "sections": [
+          "8.3.43",
+          "8.3.43a"
+        ],
+        "retrieval": "Independent public official-page retrieval in this review; paraphrase only."
+      }
+    ],
+    "limits": [
+      "Only below2 Fragment threshold with real0def equipment, normalpayment/basepower/7physicaldamage and unchanged physical controls. No2+Fragment/powerreduction, Blinkbanishreturn/holo, Polarusarcane, positiveWHENtiming, ArcaneBarrier/prevention, Auraentry/provenance, Heroactivation, supporting/sibling/whole-card credit.",
+      "Pending native execution only. No game/test/replay, engine/repository edit, original checkout access, authenticated request, fullsuite or Git operation performed. Public rules read only. Moveon first unexpected result, no expectation fitting/repair."
+    ],
+    "positive_fragment_or_followup_credit": false,
+    "secondary_identity_credit": false,
+    "whole_card_credit": false,
+    "source_sha256": {
+      "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+      "FaBSim/GeneratedCode/GeneratedMacroCode.php": "fe6a7982611df8f4de98ce2671b317b671b580146aa4b8c28e8f4b86d8461056",
+      "FaBSim/Custom/GameLogic.php": "c60fa151561f959e4e3e341b814de0e2b47c9e9f153bbc8793a04c43b5075061",
+      "FaBSim/Custom/OMNCards.php": "f679d81ac69c6d5d23fa3b0d4cd5ee3e44a0a180f7d0a896f31d2e9817090284",
+      "FaBSim/Custom/WTRCards.php": "77d4452b30e45254a7199bc965396ded53e325717ecdd84a09b971f723f99f6a",
+      "FaBSim/Custom/ROSCards.php": "c79f80e918be279dde3c7fe5323ea3031228c131e3e2d0b2b254619e0944b59a",
+      "FaBSim/ZoneAccessors.php": "9967567a9a10df81a6f22df820d4d77258828657e95c4ad145b8b13ce17866a7",
+      "Schemas/FaBSim/GameSchema.txt": "7783800bd47bc85885cc915066aadca58cdf99f0c1180602ac312d9af5ebf643",
+      "Core/EngineActionRunner.php": "add14b53dc571d2a6e64407bfa4038a98d6554d6410de7a9233810d99c46ea2a",
+      "Core/ShortcutPreferences.php": "25f300ea0b6fbc409f5b92e8bc3587a74b2ab0eaf31ccef38e18c455598eaba6",
+      "DevTools/FaB/CardRegression/record_card_regressions.php": "e53055b29e9ea641949b77019c4455607f41ca233325d716a9500637e19efd28"
+    },
+    "workspace_source_sha256": {
+      "author_breadth1428.py": "e063b4a73d548a6f5f9cf0dfd557dc551c10fdc03cae29e158066acfa99b862b",
+      "breadth1068_helpers.py": "997f949ec26c7e494ad26a818f9f2078f6f4f2a0c49ca7f61aa8c71f3b091b0a"
+    }
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1428-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "c6b264994dd5c38b0576845464871f7b5a5486b55d4c6fa8633b459f94cf5123"
+  },
+  "full_suite_run": false
+}

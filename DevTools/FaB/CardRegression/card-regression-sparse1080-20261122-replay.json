@@ -1,0 +1,125 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-arcbane-grasp-blue-four-live-sparse1080-real-arcane-barrier-one-paid-by-blue-pitch-equipment-retained",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-arcbane-grasp-blue-four-live-sparse1080-real-arcane-barrier-one-paid-by-blue-pitch-equipment-retained",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1080-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1080-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "02224d5445d7360f276eb981a9f09583fef69afca0675d240947eaabd86c87fd",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "fcbbce0fd039af140b3538c00667a8656a964f80bec22886b4bc6b364e6645f8",
+        "actions.json": "abeb3c8b027bfa26d05afb7a0c385c41d6388c2ae6f8105e03a2cd84dc242119",
+        "assertions.json": "dc8fabc2812cff1e1a01bc9bd1ac9f92fa41e93979dc689239760caa3264bb85",
+        "expected_final_gamestate.txt": "4d21279f2d4d12c8721001b9e763906391b7b6837c8ace27815f536515c91bb7",
+        "meta.json": "67146476fa31e19fb974a2a159210df72d5d3aa0fc0e9aa026e7019c6f8dd5ea"
+      }
+    },
+    {
+      "slug": "card-evo-heartdrive-blue-four-live-sparse1080-real-arcane-barrier-one-paid-by-blue-pitch-equipment-retained",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-evo-heartdrive-blue-four-live-sparse1080-real-arcane-barrier-one-paid-by-blue-pitch-equipment-retained",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1080-local-20261122\\clean-replays\\01.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1080-local-20261122\\clean-replays\\01.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "e37ca0144253baf404d91a9f2a3f438d26308af8ef95bbc9ae935dc6b1af2a03",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "92b97a75f1f7bd7016cb6e74a3ff9dd25ded6553df1824ec856b5fc4cef90b74",
+        "actions.json": "abeb3c8b027bfa26d05afb7a0c385c41d6388c2ae6f8105e03a2cd84dc242119",
+        "assertions.json": "d27cff00e65fb901d97dfb83df06007bceea78e9a4a14903e6332acfe390b8d1",
+        "expected_final_gamestate.txt": "b30c5af367d9288816a240b04b22782eaa3958d5c9e0f6bbae2c4a8479331b7d",
+        "meta.json": "e6e47aa2897ea9886306ac739f4f3d7f02c60e880b0d0d87372ed71b91aa288b"
+      }
+    },
+    {
+      "slug": "card-evo-recall-blue-four-live-sparse1080-real-arcane-barrier-one-paid-by-blue-pitch-equipment-retained",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-evo-recall-blue-four-live-sparse1080-real-arcane-barrier-one-paid-by-blue-pitch-equipment-retained",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1080-local-20261122\\clean-replays\\02.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1080-local-20261122\\clean-replays\\02.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "cdd3a17aa59338182d04372ee533b803f68921f3a6b39c0d7f9a081f2ef4664a",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "8eea1f69eafaf458c0f75fb57d643450708e16096a51b341746649cc4376b48f",
+        "actions.json": "abeb3c8b027bfa26d05afb7a0c385c41d6388c2ae6f8105e03a2cd84dc242119",
+        "assertions.json": "d51c8553dd96c83c7a61cbb21141cbaf9ef7d5f79c9f8d28312f3c52348915cf",
+        "expected_final_gamestate.txt": "b1891ee9e9f015ed82a2a4da8829cc5f8c9f2a71865f5ca6391bcbbe0c3c0801",
+        "meta.json": "3376282dbab1815281acd7aadba19f40b04d71078a996eccfeed96d371bbf1c1"
+      }
+    },
+    {
+      "slug": "card-evo-shortcircuit-blue-four-live-sparse1080-real-arcane-barrier-one-paid-by-blue-pitch-equipment-retained",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-evo-shortcircuit-blue-four-live-sparse1080-real-arcane-barrier-one-paid-by-blue-pitch-equipment-retained",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1080-local-20261122\\clean-replays\\03.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1080-local-20261122\\clean-replays\\03.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "9e888063ae6fc010bd37537c16e4275c5b132e35c2ad25b0a0ed097feb7e7f70",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "be5d0bcdf63e5b06a8e86db014ad3581359f3e7a335d6ff161838e13085fa685",
+        "actions.json": "abeb3c8b027bfa26d05afb7a0c385c41d6388c2ae6f8105e03a2cd84dc242119",
+        "assertions.json": "3c3dcb9e5428174670c2932db899496572349525c07ec2910dbbdb064843017e",
+        "expected_final_gamestate.txt": "6e3033c278f71222d48b43706984ff512ac6bb0e6ec6b8f33fdbc591ba599e84",
+        "meta.json": "19ecf4a65bc38236dde7fb97676daa0926f821a7e685dbefb5d7e49d63598341"
+      }
+    },
+    {
+      "slug": "card-evo-speedslip-blue-four-live-sparse1080-real-arcane-barrier-one-paid-by-blue-pitch-equipment-retained",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-evo-speedslip-blue-four-live-sparse1080-real-arcane-barrier-one-paid-by-blue-pitch-equipment-retained",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1080-local-20261122\\clean-replays\\04.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1080-local-20261122\\clean-replays\\04.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "d95ec91ce55f6b96e0db13f58b30273801a981f8fd7a00cfb5df1475ca47b885",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "e5f596cea5f5b8a0d7b76eae1122d04cf1c8b21fafa619a7bf57a969f34f954a",
+        "actions.json": "abeb3c8b027bfa26d05afb7a0c385c41d6388c2ae6f8105e03a2cd84dc242119",
+        "assertions.json": "492088be810894a969e0206fbce035b76d511e36b28f3270bf892c0f1b01ff3a",
+        "expected_final_gamestate.txt": "94d1941341082508af8395e71662410961effa3ea584373bd5f404bf2fe7da37",
+        "meta.json": "6ccb2cbabba86e4067386fa168926d06a2a69ea30c477fd734a67e5f697612b5"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

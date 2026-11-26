@@ -1,0 +1,97 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-23T11:08:57.426044+00:00",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1159-20261122.json",
+  "source_spec_sha256": "04a62acceddbca033dab7b8573152f31f344045925bf6aa17e986ce488fffc44",
+  "new_scenarios": 2,
+  "new_groups": 2,
+  "new_primary_ids": 2,
+  "actions": 14,
+  "native_assertions": 546,
+  "manual_passes": 8,
+  "totals": {
+    "saved_registered_scenarios": 5029,
+    "duels": 3075,
+    "four_live": 1954,
+    "recorded_primary_ids": 2177,
+    "identity_denominator": 5196,
+    "recorded_groups": 2051,
+    "group_denominator": 3324,
+    "four_live_groups": 1943,
+    "phase_qualified_scenarios_at_actual_contexts": 1666,
+    "phase_qualified_unique_groups": 1656,
+    "creation_replay_passes": 2408,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 827,
+  "scenarios": [
+    {
+      "card_id": "grasp_of_darkness",
+      "group_id": "identity:grasp_of_darkness",
+      "scenario_id": "card-grasp-of-darkness-four-live-sparse1159-real-optional-banish-prevents-incoming-arcane",
+      "effect_branches": [
+        "native_optional_banish_replacement_prevents_actual_arcane_damage_without_endphase"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-grasp-of-darkness-four-live-sparse1159-real-optional-banish-prevents-incoming-arcane",
+      "source_spec": "card-regression-sparse1159-20261122.json",
+      "source_spec_sha256": "04a62acceddbca033dab7b8573152f31f344045925bf6aa17e986ce488fffc44",
+      "review_evidence": "review-evidence/sparse1159-20261122-qualified-saved.json",
+      "review_evidence_sha256": "28092e79020c5e579661f3b9c219e261b3c408897dd2d075d831926569d71b4b",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1159-20261122-replay.json",
+          "sha256": "96edc56f15784058b3445698cfe6012cf886454563e25a274a3a959ac5e88145",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "shroud_of_darkness",
+      "group_id": "identity:shroud_of_darkness",
+      "scenario_id": "card-shroud-of-darkness-four-live-sparse1159-real-optional-banish-prevents-incoming-arcane",
+      "effect_branches": [
+        "native_optional_banish_replacement_prevents_actual_arcane_damage_without_endphase"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-shroud-of-darkness-four-live-sparse1159-real-optional-banish-prevents-incoming-arcane",
+      "source_spec": "card-regression-sparse1159-20261122.json",
+      "source_spec_sha256": "04a62acceddbca033dab7b8573152f31f344045925bf6aa17e986ce488fffc44",
+      "review_evidence": "review-evidence/sparse1159-20261122-qualified-saved.json",
+      "review_evidence_sha256": "28092e79020c5e579661f3b9c219e261b3c408897dd2d075d831926569d71b4b",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1159-20261122-replay.json",
+          "sha256": "96edc56f15784058b3445698cfe6012cf886454563e25a274a3a959ac5e88145",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

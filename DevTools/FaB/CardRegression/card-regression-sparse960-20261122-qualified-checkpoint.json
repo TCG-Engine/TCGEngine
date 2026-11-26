@@ -1,0 +1,155 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-22T20:58:06.359117+00:00",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse960-20261122.json",
+  "source_spec_sha256": "0266facda787997c5670129fbbebaf472905ceafd35ea4fd814c927f06e514b5",
+  "new_scenarios": 4,
+  "new_groups": 4,
+  "new_primary_ids": 4,
+  "actions": 125,
+  "native_assertions": 673,
+  "manual_passes": 100,
+  "totals": {
+    "saved_registered_scenarios": 4573,
+    "duels": 3075,
+    "four_live": 1498,
+    "recorded_primary_ids": 1721,
+    "identity_denominator": 5196,
+    "recorded_groups": 1595,
+    "group_denominator": 3324,
+    "four_live_groups": 1487,
+    "phase_qualified_scenarios_at_actual_contexts": 1210,
+    "phase_qualified_unique_groups": 1200,
+    "creation_replay_passes": 1952,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 371,
+  "scenarios": [
+    {
+      "card_id": "cranial_crush_blue",
+      "group_id": "identity:cranial_crush_blue",
+      "scenario_id": "card-cranial-crush-blue-four-live-sparse960-actual-multi-blue-payment-and-multi-hand-full-block-no-crush",
+      "effect_branches": [
+        "actual_multi_blue_payment_and_multi_hand_full_block_no_crush"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-cranial-crush-blue-four-live-sparse960-actual-multi-blue-payment-and-multi-hand-full-block-no-crush",
+      "source_spec": "card-regression-sparse960-20261122.json",
+      "source_spec_sha256": "0266facda787997c5670129fbbebaf472905ceafd35ea4fd814c927f06e514b5",
+      "review_evidence": "review-evidence/sparse960-20261122-qualified-saved.json",
+      "review_evidence_sha256": "f73f6adc20df2a0ac86fbfc46b122d6953b5f6314329b0634982d0bb5466db20",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse960-20261122-replay.json",
+          "sha256": "f4ea0567abc3f8a589ec9b87667dbce2e71d6bdb8cf454198e63a4676c512abe",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "batter_to_a_pulp_red",
+      "group_id": "identity:batter_to_a_pulp_red",
+      "scenario_id": "card-batter-to-a-pulp-red-four-live-sparse960-actual-multi-blue-payment-and-multi-hand-full-block-no-crush",
+      "effect_branches": [
+        "actual_multi_blue_payment_and_multi_hand_full_block_no_crush"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-batter-to-a-pulp-red-four-live-sparse960-actual-multi-blue-payment-and-multi-hand-full-block-no-crush",
+      "source_spec": "card-regression-sparse960-20261122.json",
+      "source_spec_sha256": "0266facda787997c5670129fbbebaf472905ceafd35ea4fd814c927f06e514b5",
+      "review_evidence": "review-evidence/sparse960-20261122-qualified-saved.json",
+      "review_evidence_sha256": "f73f6adc20df2a0ac86fbfc46b122d6953b5f6314329b0634982d0bb5466db20",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse960-20261122-replay.json",
+          "sha256": "f4ea0567abc3f8a589ec9b87667dbce2e71d6bdb8cf454198e63a4676c512abe",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "headbutt_blue",
+      "group_id": "identity:headbutt_blue",
+      "scenario_id": "card-headbutt-blue-four-live-sparse960-actual-multi-blue-payment-and-multi-hand-full-block-no-crush",
+      "effect_branches": [
+        "actual_multi_blue_payment_and_multi_hand_full_block_no_crush"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-headbutt-blue-four-live-sparse960-actual-multi-blue-payment-and-multi-hand-full-block-no-crush",
+      "source_spec": "card-regression-sparse960-20261122.json",
+      "source_spec_sha256": "0266facda787997c5670129fbbebaf472905ceafd35ea4fd814c927f06e514b5",
+      "review_evidence": "review-evidence/sparse960-20261122-qualified-saved.json",
+      "review_evidence_sha256": "f73f6adc20df2a0ac86fbfc46b122d6953b5f6314329b0634982d0bb5466db20",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse960-20261122-replay.json",
+          "sha256": "f4ea0567abc3f8a589ec9b87667dbce2e71d6bdb8cf454198e63a4676c512abe",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "colossal_bearing_red",
+      "group_id": "identity:colossal_bearing_red",
+      "scenario_id": "card-colossal-bearing-red-four-live-sparse960-actual-eight-below-tower-threshold-keeps-real-equipment",
+      "effect_branches": [
+        "actual_eight_below_tower_threshold_keeps_real_equipment"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-colossal-bearing-red-four-live-sparse960-actual-eight-below-tower-threshold-keeps-real-equipment",
+      "source_spec": "card-regression-sparse960-20261122.json",
+      "source_spec_sha256": "0266facda787997c5670129fbbebaf472905ceafd35ea4fd814c927f06e514b5",
+      "review_evidence": "review-evidence/sparse960-20261122-qualified-saved.json",
+      "review_evidence_sha256": "f73f6adc20df2a0ac86fbfc46b122d6953b5f6314329b0634982d0bb5466db20",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse960-20261122-replay.json",
+          "sha256": "f4ea0567abc3f8a589ec9b87667dbce2e71d6bdb8cf454198e63a4676c512abe",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

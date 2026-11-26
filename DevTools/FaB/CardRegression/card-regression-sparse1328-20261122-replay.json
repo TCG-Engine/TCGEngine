@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-kayo-armed-and-dangerous-two-live-sparse1328-off-turn-five-power-discard-becomes-six-and-reckless-swing-deals-two",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-kayo-armed-and-dangerous-two-live-sparse1328-off-turn-five-power-discard-becomes-six-and-reckless-swing-deals-two",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1328-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1328-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "4c2dceab88cc61ebe9450563c3e5708c54c2b81527eda432238cda015a1586cd",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "9e4c6630d73c4b74c111c97091f7f3e54bb3560fb9869f832dd9e0d1f7a89262",
+        "actions.json": "d8a7aac6159eb83dafa0d92dd4c8283546054fe9f3a2107c6d15d56a8b7cf321",
+        "assertions.json": "8570b73fe39c352346e8a2cf4ffd492c6ddb3db0021cef3aee063f4958be2b0e",
+        "expected_final_gamestate.txt": "45d887da2b32b49d920ce8ee09bad75ec8d037f31324acbba0b7474150edfe72",
+        "meta.json": "1424d555190273133063b7a6250238d4c161b5158bb4705f98f3dbca7e9290ff"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

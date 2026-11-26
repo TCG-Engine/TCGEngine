@@ -1,0 +1,221 @@
+{
+  "status": "APPROVED_EXACT_SOURCE_SPEC_B371_HEALTHY_SEEDS_AND_ORIGINAL_CORRECT_TREE_ENTRY_TRIGGER_PROBE_NATIVE_PENDING",
+  "approved": true,
+  "source_approved": true,
+  "semantically_approved": true,
+  "implementation_approved": false,
+  "reviewer": "/root/nov2_metadata_review",
+  "reviewed_utc": "2026-11-03T20:58:39.262811+00:00",
+  "input": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch371-two-earth-effects-author\\batch371-seeds-healthy-and-tree-original-correct-entry-trigger-probe.json",
+  "source_spec": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch371-two-earth-effects-author\\batch371-seeds-healthy-and-tree-original-correct-entry-trigger-probe.json",
+  "input_sha256": "cabb55b4e1279343b8799d29ebb2313c4188aea3ef78fcb696c35feaff59744f",
+  "manifest": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch371-two-earth-effects-author\\manifest.json",
+  "manifest_sha256": "06017563f007c837da46e3d11386cc035e7d3c4765dd2eb57f2cb4c4ed046dc1",
+  "author_QA_sha256": "893b453d8e397e98b9a4a2b48eabbb9bc404dfaa6bcb0e9e2fe347d1a9d1c3e9",
+  "runtime_sha256": "bc14dcabff3f9b4b1592a0afc364de72de1c9bd326e0204056369b1c1ff9574b",
+  "source_guards": {
+    "AGENTS.md": "98e92f639d0768613c07759d84393fe2a58ff145e239bbd5bb0c3f8fdcf1f09d",
+    ".github/copilot-instructions.md": "27d6d8211b219cc826a4f2bf63d6d59765ed805feea6fb6571bfd225eb824543",
+    "FaBSim/Custom/GameLogic.php": "7d475db6dcd99f151b41818ad0dca7111329e951af68e97badf943333d927a23",
+    "FaBSim/Custom/WTRCards.php": "4c1331a4f5c53d231f94bff6f08cefec875047ff424aa443ed22eedc8644652c",
+    "FaBSim/Custom/WTRAbilities.php": "f33a915de3a95208a7d29b7acb5dbbc8c5b0f4f2d56ace281c3c9c7b8bbc5448",
+    "FaBSim/Custom/ARCAbilities.php": "5330205cf8b98a1ba93cb15aa42f67c76d01dac3cb53b206669e7d00b0e9daca",
+    "FaBSim/Custom/ARCCards.php": "542227b196338a40c49f83966d9d2b0979a98676d4c9d39d00b0f5cc9a32323f",
+    "FaBSim/Custom/UPRCards.php": "144c369209e0a53f5f0ad540f2e549f4c4c0f0234b9a2c9bf703c2e22cd4e8af",
+    "FaBSim/Custom/MSTCards.php": "52e9e34fbc2734c4b1b7b6040ebb4d784a27f32f748b53b961dd46c9f843e1ef",
+    "FaBSim/Custom/MSTRuntime.php": "b96f21727c089c90c21bf3aadaf913301b1ef7c922f2a17ac055258682ed45ce",
+    "FaBSim/Custom/ROSCards.php": "fd52fcc1ce037db4c8204509713c6d743e494a5ffd26cd6ed71348efd76c4a9d",
+    "FaBSim/Custom/ROSRuntime.php": "3b8c1f2c03339b46500221a61c83a2aef06eb2845331c6bcf18c6f72287c61e1",
+    "FaBSim/GeneratedCode/GeneratedMacroCode.php": "d914a1e15dc334dd4951fea75c1ccaa14f67ff5b85d3a0f2e5ebcdbc8125e4e3",
+    "FaBSim/GeneratedCode/GeneratedCardDictionaries.php": "1be127d10c8f7fe3fa10b8aa098678fa43b2790910c95666226b18eb79ea7c60",
+    "FaBSim/ZoneClasses.php": "874bb2ae00a80a8ba3dfe1789b4c932fd0b7cf1286504a62828e0055ca1cb355",
+    "FaBSim/ZoneAccessors.php": "9967567a9a10df81a6f22df820d4d77258828657e95c4ad145b8b13ce17866a7",
+    "Schemas/FaBSim/GameSchema.txt": "7783800bd47bc85885cc915066aadca58cdf99f0c1180602ac312d9af5ebf643",
+    "Core/DecisionQueueController.php": "65bfcf5b4f595d62d6dfb8bde0b884de42cd1a726618b5431fccf8939eed9a9d",
+    "Core/RegressionTestFramework.php": "670028e69e1a59c22aef5e6512edd2cd0dee5fdcaed4cf8c31374b8eb2b7ca6a",
+    "DevTools/FaB/ros_abilities.json": "b123b36f73a7bb45210eee6dcd4ce2326e2be071ef5366444376c9484e4ed229",
+    "DevTools/FaB/arc_abilities.json": "ca670664228ddd31ad2a9475434ecb2bc95b83721503772f091c75239e1aa909"
+  },
+  "source_guards_verified": 21,
+  "runtime_fingerprint_verified": true,
+  "cases": [
+    {
+      "card_id": "seeds_of_tomorrow_blue",
+      "group_id": "identity:seeds_of_tomorrow_blue",
+      "slug": "card-seeds-of-tomorrow-blue-four-live-sparse-real-arsenal-bottom-cost-and-five-prevention",
+      "source_approved": true,
+      "semantically_approved": true,
+      "correct_expectation_probe": false,
+      "implementation_approved": false,
+      "actions": 37,
+      "authored_assertions": 3386,
+      "schema_property_checks": 1129,
+      "manual_pass_inputs": 32,
+      "manual_pass_actor_counts": {
+        "1": 8,
+        "2": 8,
+        "3": 8,
+        "4": 8
+      },
+      "every_action_and_assertion_reconciled_to_independent_ledger": true
+    },
+    {
+      "card_id": "channel_the_millennium_tree_red",
+      "group_id": "identity:channel_the_millennium_tree_red",
+      "slug": "card-channel-the-millennium-tree-red-four-live-original-correct-entry-trigger-amp-three-before-real-zap-six",
+      "source_approved": true,
+      "semantically_approved": true,
+      "correct_expectation_probe": true,
+      "implementation_approved": false,
+      "actions": 16,
+      "authored_assertions": 1373,
+      "schema_property_checks": 382,
+      "manual_pass_inputs": 12,
+      "manual_pass_actor_counts": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "every_action_and_assertion_reconciled_to_independent_ledger": true
+    }
+  ],
+  "strict_installer_slug_regex_pass": true,
+  "independent_semantic_findings": [
+    "Actual Seeds and Tree printed faces independently viewed. Seeds EarthInstant0 has mandatory Arsenal-to-bottom additional cost, a play-static effect-cost paid before responses (CR5.4.4a/5.1.9). Selected P4Florian has EssenceEarth and ownArsenal6; no resource/AP is owed by zero-cost Instant. Normal declaration chooser keeps6Arsenal, actual answer movesSAME6 behind existingDeck9 before sourcefour; no speculative zero/zero asset subordering claim.",
+    "Seeds direct next5 prevention is a replacement/continuous instruction, not a WHEN layer. Current ROS_PREVENT5 has no token payload/earned extra round. Real paid Raging7 is reduced to2/HP18, allotherHP20; final Deck4 strict9,6/source5ownGY/Pitch8/attack7ownGY/allRAP0, no initialhistory/preventionseed. Four source responders are4,1,2,3 and fresh combat rounds remain.",
+    "Tree EarthActionAura3/ownGA and actual When-this-enters AMP3 were independently read. CR6.6.1/.4/.5/.6 requires a separate earned layer before priority; CR5.3.5/.6a grants ownGA and puts permanent inArena during completed original resolution. Correct probe requires SAME5ownedArena plus capturedABILITY/CardIDTree/Controller1/SourceUniqueID5/Stack1, then FOUR fresh1,2,3,4responses; current direct canonicalAMP is not accepted as equivalent. Generic virtualUID/Params/SourceZone/privatewindow are deliberately unpinned, normal counter8 expects one layer allocation only.",
+    "Amp itself is the continuous replacement of the next controlled arcane damage event (CR8.5.47), so it adds3 to actualZap3 after entrytrigger resolution; no extra amp-use WHEN layer is owed. Verdance permits Earth and Wizard, Banish0/noLifegain means no heroWHEN. RealBlue6pays3/AP1 beforeoriginalfour, ownGAAP1 afterAuraentry, realZap0paysAP1/declaresadjacentP4 beforefour\u21926arcaneHP14/fullownedcleanup. No private AMP-field guess substitutes for strict entrylayer/timing or materialdamage.",
+    "Independent physical/economy/priority ledger reconciled every53input and4759authored/persistedcheck,1511schema properties,44manualpasses and allfour ready/live/manual guards. Input/manifest/QA/21actualsourceguards/runtime/catalog/recorder/group map/currentprimarymetadata verified. No old fixture-content crawl or fresh engine execution.",
+    "Tree current canonical ResolveCard directly adds AMP3; anticipated missing responseable entrylayer remains SOURCE_ONLY until Root native. Beginning Actionphase and ChannelEarth EndPhase/flow obligations are future/unreached, not certified. Correct-probe approval is not implementation approval or predicted native success."
+  ],
+  "official_rules": [
+    {
+      "url": "https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/",
+      "sections": [
+        "5.1.1",
+        "5.1.6b",
+        "5.1.9",
+        "5.3.5",
+        "5.3.6a",
+        "5.4.4a"
+      ]
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/06-effects/",
+      "sections": [
+        "6.6.1",
+        "6.6.4",
+        "6.6.5",
+        "6.6.6"
+      ]
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/08-keywords/",
+      "sections": [
+        "8.5.47"
+      ]
+    }
+  ],
+  "printed_faces_actually_viewed": {
+    "seeds_of_tomorrow_blue": {
+      "path": "FaBSim/WebpImages/seeds_of_tomorrow_blue.webp",
+      "sha256": "8377baff8e313cdcc87fc1a1b190afe83763250f03e39321c916f4c3508746f2"
+    },
+    "channel_the_millennium_tree_red": {
+      "path": "FaBSim/WebpImages/channel_the_millennium_tree_red.webp",
+      "sha256": "d0b3d2cefdb00b62e9a6aa7aa105615e844874b82f8525f791c3cf723966b008"
+    }
+  },
+  "current_newness": {
+    "incremental_sha256": "a86e8e904e1cbee541f20c3c82833ce7da5ef3963203bb934df9b949be3a871a",
+    "primary_reviews_sha256": "11cf69b6643db8f90b096d487c4e2fb80e495c694fb2ea5f8efff9f97df4c595",
+    "both_groups_primary_absent": true,
+    "base_effect_branches_empty": true,
+    "old_fixture_contents_scanned": false
+  },
+  "required_exact_saved_outcomes": [
+    {
+      "card_id": "seeds_of_tomorrow_blue",
+      "health": [
+        20,
+        20,
+        20,
+        18
+      ],
+      "R": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "AP": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "GY1_UIDs": [
+        7
+      ],
+      "GY4_UIDs": [
+        5
+      ],
+      "Pitch1_UIDs": [
+        8
+      ],
+      "Deck4_UIDs": [
+        9,
+        6
+      ],
+      "Arsenal4empty": true,
+      "counter": 9,
+      "RNG": 0,
+      "no_positive_ROS_PREVENT_residue": true
+    },
+    {
+      "card_id": "channel_the_millennium_tree_red",
+      "correct_probe_only": true,
+      "health": [
+        20,
+        20,
+        20,
+        14
+      ],
+      "R": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "AP": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "Arena1_UIDs": [
+        5
+      ],
+      "GY1_UIDs": [
+        7
+      ],
+      "Pitch1_UIDs": [
+        6
+      ],
+      "earned_entry_ABILITY_SourceUniqueID5_responseable_before_AMP": true,
+      "virtual_source_ceased": true,
+      "counter": 8,
+      "RNG": 0,
+      "no_positive_MST_AMP_residue": true
+    }
+  ],
+  "limits": [
+    "Source/spec approval only; Root native stop first mismatch/no incorrect fixture, independent exact saved review and focused replays remain required. Healthy Seeds may qualify separately if Tree correctly fails.",
+    "No native-confirmed bug/count/repair proposal from anticipated Tree source concern; no current inline behavior approval.",
+    "Future Tree beginningActionphase/ChannelEarth/endphase/expiry and Seeds falseArsenal/multiplepacket/expiry/hero/sibling/supportprimary/fullcard/control branches unexecuted/uncredited.",
+    "No PHP/native/R/service/source/generation/fullsuite by reviewer; old ten holds/SmashingItem unchanged."
+  ],
+  "native_credit": false,
+  "holds": []
+}

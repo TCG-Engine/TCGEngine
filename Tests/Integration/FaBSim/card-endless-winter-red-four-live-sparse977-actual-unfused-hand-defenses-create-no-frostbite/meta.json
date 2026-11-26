@@ -1,0 +1,7 @@
+{
+    "name": "Endless Winter / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T23:20:57+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "**Oldhim Specialization**\n\n**Ice Fusion**\n\nIf this was **fused**, whenever the defending hero adds a defending card to this chain link, create a Frostbite token under their control.\n\nWhen this hits a hero, until the end of their next turn, whenever they activate an ability, create a Frostbite token under their control. Named unfused representative: legal natural Oldhim20, ordinary Hand play with ONLY Generic Blue3 pitch cards, no Earth/Ice reveal candidate, no hero ability or extra action. Actual printed cost/pitches/all4manual combat/owned sourceGY/AP0. Unblocked actualbase7or8, Oaken realHand+Deck retained, Mulch realfacedownArsenal retained; Snow no Frostbite. Endless three actual HandAAdef9 fullyblock8, no fused-on-defense Frostbite and noHit, allArenas0. Positive fusion, future debuff, dominate admission, Frostbite ownership/tax and Hero abilities untested. Sources: FaBSim/GeneratedCode/cardArrayCache.json#endless_winter_red"
+}

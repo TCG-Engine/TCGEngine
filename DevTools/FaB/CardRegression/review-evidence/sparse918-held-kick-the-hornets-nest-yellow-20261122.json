@@ -1,0 +1,257 @@
+{
+  "card_id": "kick_the_hornets_nest_yellow",
+  "title": "Kick the Hornets Nest incorrectly creates tokens on normal own combat resolution",
+  "classification": "GAMEPLAY_OPPONENT_EFFECT_CAUSE_FALSE_POSITIVE",
+  "expected": "Normal own Hand attack, paid with own Blue and unblocked after four manual seats, resolves six damage and moves original owned source from CombatChain to own Graveyard by game resolution. No opponent card ability/effect acted; printed opponent-effect trigger must not create tokens. Own Arena remains empty.",
+  "observed": "After28 native inputs, final no-opponent-effect guard Expected p1Arena count0 got4. Prior six damage/source UID5 owned Graveyard/payment checks passed. No passing fixture saved.",
+  "root_relationship": "UNALLOCATED_NO_NEW_DISTINCT_ROOT_CREDIT; FaBSUPAfterMove uses raw effect-controller inequality for Kick; unlike adjacent Nasty Surprise it does not require nonzero controller. Exact controller value not captured and not claimed.",
+  "source_analysis": {
+    "file": "FaBSim/Custom/SUPCards.php",
+    "function": "FaBSUPAfterMove",
+    "line": 42,
+    "finding": "Graveyard +cardID+effectController!=owner directly creates confidence,might,toughness,vigor; lacks meaningful-opponent-effect/cause test."
+  },
+  "unrun_suffix": "Further token identity/ownership, turn/end consumers and positive opponent-discard branch unrun; only Arena count4 observed.",
+  "source_changed": false,
+  "independent_review": {
+    "reviewer": "/root/breadth_review",
+    "result": "CONFIRMED_CORRECT_EXPECTATION_GAMEPLAY_FALSE_POSITIVE",
+    "basis": "Native receipt28inputs; opponents performed only Pass. Printed opponent-effect event absent; observed Arena4 contradicts expected0. Actual controller/global root value not established. No source fix or passing fixture claimed."
+  },
+  "status": "CONFIRMED_NATIVE_FAILURE_NO_FIXTURE_SAVED",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse918-held-kick-the-hornets-nest-yellow-20261122.json",
+  "source_spec_sha256": "e805cf73df7a3d48cfe522d14b3d297beb2ff6edad871ed58810be335db0657f",
+  "original_native_input_sha256": "a7879c5b67aabb9d514863b24a746f4ba262d06a3b12f3f2ca8f2493567ea1b6",
+  "initial_gamestate_sha256": "7dd0b9d03bb62c1fa3be4b151bf5411ab875216f8fca688ac992dc065628f1c5",
+  "native_inputs": [
+    {
+      "playerID": 1,
+      "mode": 10002,
+      "buttonInput": "",
+      "cardID": "p1Hand-0!FSM",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 1,
+      "mode": 100,
+      "buttonInput": "",
+      "cardID": "p4Hero-0",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 1,
+      "mode": 10002,
+      "buttonInput": "",
+      "cardID": "p1Hand-0!FSM",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 1,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 2,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 3,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 4,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 1,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 2,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 3,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 4,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 4,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 1,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 2,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 3,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 4,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 1,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 2,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 3,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 4,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 1,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 2,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 3,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 4,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 1,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 2,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 3,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 4,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    }
+  ],
+  "first_failure": "Expected p1Arena count 0, got 4.",
+  "fixture_saved": false,
+  "coverage_credit": false,
+  "full_suite_run": false
+}

@@ -1,0 +1,7 @@
+{
+    "name": "Cogwerx Base Arms / actual paid ability buffs next Mechanologist attack",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-23T13:59:40+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "ActualYoungDash20/3Dori20manual. EqArms5priorlawfulSTEAM1(noentryproducercredit), ZeroToSixtyRed6cost0/targetHero4 realBoost0banishesrealMechAA7fromDeck; nonMechBlueDeckmarker10remains. RealBlue8paysEqInstant1/R2/STEAM1removed/usedTurn2/ABI11; allfour upperresponses. AbilitygrantsnextMechAttack+1, notretroactive: currentactualsource6power4/GAtrue/damage4HP16/AP1afterGA. RealnextThrottle9Hand printed2resource/base6 targetsHero4; realremainingDeckmarker10 meansBoostchoiceexists, actualDoNotBoost1 explicitlydeclined. RemainingR2pays2/AP1->0; freshfour responses, actualnextpower7/noGA then7damageHP9. OwnedGY[6,9], Pitch8, Banish7, Deckmarker10, Eq5Steamabsent/used2/ready, R0/AP0/UID11/noRNG/token/Stack/DQs. NoemptyDeckchoicefallback, noseededBoostorprivatebuff; actualconsumerdamageproves+1andnonretroactivity. NoequipentryWHEN/negativegates/expiry/secondabilityuse/thirdconsumer/futureboost/Hero/support/sibling/fullcardcredit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#cogwerx_base_arms FaBSim/Custom/EVORuntime.php FaBSim/Custom/ARCCards.php FaBSim/GeneratedCode/GeneratedMacroCode.php"
+}

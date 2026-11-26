@@ -1,0 +1,7 @@
+{
+    "name": "Light it Up / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-23T02:19:37+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "**Lexi Specialization**\n\n**Lightning Fusion**\n\nIf this was **fused**, it gets \"When this hits a hero, deal damage to them equal to the number of equipment they control.\"\n\nWhenever this deals damage to a hero equal to or greater than the number of equipment they control, equipment they control lose and can't gain activated abilities until the end of their next turn. Named branch actual_unfused_arsenal_full_block_no_damage_event. ActualLexi20 ownSpecialization and ownedShiverBow7, sourceFaceDownArsenal5/realGenericBlue6pays1/R2/AP0. No Lightning inHand, canonical optionalFusion auto-skips. ActualAA8def3+NAA9def2 fullblockbase4/0damage/noHit/HP20; no damage event/equipment-lock layer. Source5 and defenders reach ownerGY; no positive fused/lock/hero/Arsenalentry claim. Allfour live/manual, actualprintedcost/power/HP/roles/physicalfates. No supporting identities/pitch siblings/full-card credit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#light_it_up_yellow"
+}

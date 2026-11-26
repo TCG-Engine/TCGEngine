@@ -1,0 +1,97 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-25T09:51:38.279488+00:00",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1525-20261122.json",
+  "source_spec_sha256": "6ac163f67e7b0d26ae405b64dc7fb7d4fc5709f647f3762c6a3ff8b9874bfaec",
+  "new_scenarios": 2,
+  "new_groups": 2,
+  "new_primary_ids": 2,
+  "actions": 58,
+  "native_assertions": 886,
+  "manual_passes": 50,
+  "totals": {
+    "saved_registered_scenarios": 5609,
+    "duels": 3135,
+    "four_live": 2474,
+    "recorded_primary_ids": 2757,
+    "identity_denominator": 5196,
+    "recorded_groups": 2631,
+    "group_denominator": 3324,
+    "four_live_groups": 2463,
+    "phase_qualified_scenarios_at_actual_contexts": 2246,
+    "phase_qualified_unique_groups": 2236,
+    "creation_replay_passes": 2988,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 1407,
+  "scenarios": [
+    {
+      "card_id": "fisticuffs",
+      "group_id": "identity:fisticuffs",
+      "scenario_id": "card-fisticuffs-four-live-sparse1525-real-weapon-fails-attack-action-required-but-actual-weapon",
+      "effect_branches": [
+        "necessary_target_exclusion_attack_action_required_but_actual_weapon_in_actual_own_REACTION_with_cost_available"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-fisticuffs-four-live-sparse1525-real-weapon-fails-attack-action-required-but-actual-weapon",
+      "source_spec": "card-regression-sparse1525-20261122.json",
+      "source_spec_sha256": "6ac163f67e7b0d26ae405b64dc7fb7d4fc5709f647f3762c6a3ff8b9874bfaec",
+      "review_evidence": "review-evidence/sparse1525-20261122-qualified-saved.json",
+      "review_evidence_sha256": "b0cad8049af6d362e4f045c2ea6d2059a9547d57aff0cfe3b94adaa659ad5d6d",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1525-20261122-replay.json",
+          "sha256": "7a34c5c4c80115f80fcd97e62c3e90b2b0d93b76849c632b9ca1deedc1ab2123",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "fleet_foot_sandals",
+      "group_id": "identity:fleet_foot_sandals",
+      "scenario_id": "card-fleet-foot-sandals-four-live-sparse1525-real-weapon-fails-base-power-at-most-one-required-but-actual-four",
+      "effect_branches": [
+        "necessary_target_exclusion_base_power_at_most_one_required_but_actual_four_in_actual_own_REACTION_with_cost_available"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-fleet-foot-sandals-four-live-sparse1525-real-weapon-fails-base-power-at-most-one-required-but-actual-four",
+      "source_spec": "card-regression-sparse1525-20261122.json",
+      "source_spec_sha256": "6ac163f67e7b0d26ae405b64dc7fb7d4fc5709f647f3762c6a3ff8b9874bfaec",
+      "review_evidence": "review-evidence/sparse1525-20261122-qualified-saved.json",
+      "review_evidence_sha256": "b0cad8049af6d362e4f045c2ea6d2059a9547d57aff0cfe3b94adaa659ad5d6d",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1525-20261122-replay.json",
+          "sha256": "7a34c5c4c80115f80fcd97e62c3e90b2b0d93b76849c632b9ca1deedc1ab2123",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

@@ -1,0 +1,56 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-malefic-incantation-red-four-live-sparse1032-real-three-verse-aura-entry-go-again",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-malefic-incantation-red-four-live-sparse1032-real-three-verse-aura-entry-go-again",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1032-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1032-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "86f4e60673149a241c42ef6d82fba7a87d6baf04f7f3dc582c1230062335a493",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "2733b8b45d72b62ae8e1e681ddda38b86f1674e9534e728cb60e6fea709ff30d",
+        "actions.json": "ecfc3b356d170d3adcd369c59f64176c3b17ffe7af3900115b2de1a20afbaf7c",
+        "assertions.json": "afc69d05c78509e48c93656ea0b6a7cdae016f304460d5f22e922aa03a051b61",
+        "expected_final_gamestate.txt": "9a4c6d9e9334f63905b9d6a3628e9e47217fb8b3c235b4b722cda43610f2f44c",
+        "meta.json": "dcabe616f9e1c73afc8d07fe47b6f3fcda732c294dd091c8408fb22c2dea5b00"
+      }
+    },
+    {
+      "slug": "card-promise-of-power-yellow-four-live-sparse1032-real-hand-attack-not-banished-play-no-runechants",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-promise-of-power-yellow-four-live-sparse1032-real-hand-attack-not-banished-play-no-runechants",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1032-local-20261122\\clean-replays\\01.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1032-local-20261122\\clean-replays\\01.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "d739e815bfaa46e0b40d4bf3536a3d4cde78a28889576559438eabd059594c5b",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "897e87203433e8f4a7ebc486962a6eb8ab0bdfc40437ff678bc34e98c1a4f46a",
+        "actions.json": "ff5b5e1b9430f781eafc7ed3e67336353d1cb8bc51b4b5a911b1c6c7493603e8",
+        "assertions.json": "9b36770ef7f7de4aea204b043cf76eaac7f5960a5db8511e18c466d04c0a52e2",
+        "expected_final_gamestate.txt": "067114051573580be699279385046916de15acd826b611530440ff09489e2f50",
+        "meta.json": "1122a89676ad6e1141a2f819f0d084b41576ac6a0b3690f11b9cbddfb88ad67b"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

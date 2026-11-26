@@ -1,0 +1,163 @@
+{
+  "id": "FAB-REG-139",
+  "status": "CONFIRMED_NATIVE_FAILURE",
+  "reviewer": "/root/b105_semantic_review",
+  "reviewer_independent": true,
+  "independent_review_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch539-independent-native-before-classification.json",
+  "independent_review_sha256": "b0f40e8c9207d1a2f0f2aebfd8e27a99b6f0cf7f69c05931f4d92d648545065b",
+  "runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+  "source_spec": "card-regression-batch539.json",
+  "input_sha256": "9e5c33afc7d038776ab6144123468ec7c059fa90f615ebe51050a4e625a671a1",
+  "scenario_id": "card-become-the-cup-blue-four-live-correct-additional-red-play-earns-blaze-go-again-and-real-refund-consumer",
+  "first_failure": {
+    "error": "Expected p1CombatChain-1 computed go again to equal 1, got 0.",
+    "source_step_index": 58,
+    "check_index": 78,
+    "check_ordinal_in_checkpoint": 79,
+    "global_check_ordinal": 2306,
+    "passed_checks_before_failure": 2305,
+    "check": {
+      "type": "computed_go_again_equals",
+      "mzId": "p1CombatChain-1",
+      "value": 1
+    },
+    "actual_computed_go_again": 0,
+    "failed_checkpoint_remaining_checks": 0
+  },
+  "actual_native_prefix": {
+    "accepted_inputs": 29,
+    "actual_manual_passes": 25,
+    "manual_pass_actor_counts": {
+      "1": 6,
+      "2": 6,
+      "3": 6,
+      "4": 7
+    },
+    "all_input_envelopes_exactly_match_approved_recipe_prefix": true,
+    "initial_gamestate_sha256": "db3b562ba2b7130057367e8dec5a85e48c6c1a68cea659922902f10842451502",
+    "observed_window": "ATTACK",
+    "observed_combat_step": "ATTACK",
+    "chain_link": 2,
+    "attack_uid": 6,
+    "passed_material_facts": [
+      "Cup Blue UID5 was actually announced from Hand, target P4 chosen, MZMODAL Red answer0 supplied, penColor1 established before AP/response completion; no initial history/color seed.",
+      "Same physical Cup UID5 remains printed Blue CardID and owned/controller1 on chain link1. Native earlier checks establish fresh power1/own go again, actual1 damage to P4HP19, then AP1 at open-chain Resolution.",
+      "Actual Blaze Red UID6 is played from Hand on the same chain; printed0 resource cost leavesR0, spends AP1 toAP0, and all four source responses complete.",
+      "Before the failed getter, current checkpoint passed: actual two-card chain (Cup5 then Blaze6), Blaze roleATTACK/FromZoneHand/link2/controller1/owner1, P4HP19, no payment or decisions, primary Cup penColor1, allR/Chi0/counter7/RNG0, Wounding UID7 still Hand, and fresh computed Blaze power4."
+    ],
+    "unexecuted_inputs": 43,
+    "unexecuted_checks_after_failed_check": 3624,
+    "initial_four_manual_profiles_validated": true,
+    "initial_manual_preference_settings_validated": 48,
+    "raw_corroboration": {
+      "cardsPlayedThisTurn": {
+        "1": [
+          "become_the_cup_blue",
+          "blaze_headlong_red"
+        ]
+      },
+      "cup_penColor": 1,
+      "previousAttackCardID": "become_the_cup_blue",
+      "attackGoAgain": false,
+      "attackHit": false,
+      "damageDealt": 0,
+      "attackPower_cached": 0
+    }
+  },
+  "classification": {
+    "type": "GAMEPLAY_SEMANTIC_FAILURE_NOT_ORACLE_OR_UI_PROTOCOL",
+    "confirmed": "Blaze Headlong lacks its required current go-again keyword after an actually played Red-and-Blue Cup. The correct prior-Red condition was earned without seeded history, and the fresh computed keyword query returnedfalse.",
+    "basis": "Current Cup announcement rule plus publisher additive-color clarification makes the chosen Red apply in addition to printed Blue when played. Blaze requires another red card played this turn; the earlier Cup satisfies it. Its unchanged Blue CardID does not remove its added Red.",
+    "boundary": "Failure is at beginning of Blaze ATTACK/link2, after fresh power4 passed and before any Blaze damage/chain resolution. No actual final AP-refund or consumer failure is claimed."
+  },
+  "expected": "Become the Cup Blue choosing Red as it is played is additionally Red. That prior real Red play must satisfy Blaze Headlong Red's another-Red-card condition, so the actual current Blaze attack has go again. Printed Blue identity alone must not exclude the chosen-Red play from this consumer.",
+  "observed": "Exactly29 accepted native inputs/25 manual passes ran;2305 checks passed. Check2306/sourceStep58/query78 finds current Blaze UID6 on chain link2 with computed go again0 instead of1. Prior checks establish actual Cup UID5 chosen-Red marker/unchanged Blue identity, one physical damage/P4HP19 and its actual AP refund consumed by Blaze; fresh Blaze power4 passed. Raw history stores CupBlue and BlazeRed printed IDs, and the selected Fai consumer counts only Blaze itself via printed pitch.43 laterinputs/3624 checks including Blaze damage/refund, Generic followup, HP11 and cleanup were unrun. No fixture saved; no effective-Blue/general-color or broad consumer claim.",
+  "source_evidence": [
+    {
+      "path": "FaBSim/Custom/PENCards.php",
+      "lines": "124-126",
+      "finding": "FaBPENColor stores UID5 penColor1. Actual raw state and previously passed game_state_field checks establish that marker; no color-choice protocol failure."
+    },
+    {
+      "path": "FaBSim/Custom/WTRCards.php",
+      "lines": "530-532,559-560",
+      "finding": "FaBWTRCardPlayed appends only printed CardID to cardsPlayedThisTurn before calling FaBFaiCardPlayed. Raw history is exactly become_the_cup_blue,blaze_headlong_red."
+    },
+    {
+      "path": "FaBSim/Custom/FaiCards.php",
+      "lines": "36-38",
+      "finding": "Selected Blaze consumer filters those IDs through printed CardPitch==1, then requires count>1. Cup Blue has printedpitch3, so only Blaze Red itself counts; the earlier Cup added-Red event is missed and this route does not add GO_AGAIN. This is the bounded source explanation for the observed failure, not a catalogue-wide absence claim."
+    },
+    {
+      "path": "FaBSim/Custom/GameLogic.php",
+      "lines": "429-451",
+      "finding": "Actual attack-go-again getter consults attack effects and current keyword/modifier paths. Its fresh native result is false; raw attackGoAgainfalse corroborates it. Cached attackPower0 is not a recomputed power result and does not override the passed freshpower4 assertion."
+    }
+  ],
+  "validated_relevant_source_hashes": {
+    "FaBSim/Custom/PENCards.php": "3e7a54b0fe8426e65e7d2baadec53bbda7caff5c0a8e48f79b2832e0b2376a94",
+    "FaBSim/Custom/WTRCards.php": "eab18b7298617eabc10f5b5cf4d706b1c6cb242d7470049d6807806b4ba7b517",
+    "FaBSim/Custom/FaiCards.php": "89678a2dd28ba283f21563fce488d286bea8153e88b123698e258bbc0994ba93",
+    "FaBSim/Custom/GameLogic.php": "1cdad1555c8d2e3bd3fa98d69bf52791b84d21bf2269363ddea7249f4ee35a43"
+  },
+  "native_evidence": {
+    "native_recording_results": {
+      "path": "card-regression-batch539.recording-results.json",
+      "sha256": "567fa109faa03aac6e43f03de2a80b456d5a28bdba274c28dab7d877a878e6e2"
+    },
+    "immutable_archive": {
+      "path": "recording-runs/card-regression-batch539-20261105T233010Z-6aed1182a0241.json",
+      "sha256": "df728e918a1ab96bcbea3e5dabccae27da22ffbc156199c696f3270f4727df8e"
+    }
+  },
+  "source_expectation_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch539-independent-source-review.json",
+    "sha256": "3b75fe6592bec378f9ddfacf1b7a60d16e12a9471c5ff332a0bde2df8021a8a4"
+  },
+  "primary_sources": [
+    {
+      "url": "https://judge.fabtcg.com/cards/detail/4422/",
+      "basis": "Current Cup Blue: Ninja attack action, printed cost0/power1/defense2, choose a color as played, gets that color, own go again."
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/",
+      "basis": "Current CR5.1.2a explicitly names Cup color choice as an announcement effect. Choice applies before completion of announcement/payment/play; it is not a paid effect-cost movement."
+    },
+    {
+      "url": "https://fabtcg.com/articles/rules-reprise-compendium-of-rathe/",
+      "basis": "Publisher search-index text independently corroborates chosen color is gained in addition to existing colors. Applying this general rule to printed Blue choosing Red yields a Red-and-Blue card when played. Full publisher article retrieval was unavailable; no full-page reading or updated publisher-image verification claimed."
+    },
+    {
+      "url": "https://legacy.fabtcg.com/en/resources/rules-and-policy-center/release-notes/uprising/",
+      "basis": "Blaze Headlong Red conditional go again after another red card has been played, cost0/power4; local issuer face and current catalog agree."
+    },
+    {
+      "url": "https://judge.fabtcg.com/cards/detail/316/",
+      "basis": "Required Generic Wounding Blow Red consumer cost0/power4/no go again."
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/07-combat/",
+      "basis": "Go again AP refund at chain-link resolution and continued attacks from open-chain resolution; actual third attack spends the Blaze refund."
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/trp/09-special-formats/",
+      "basis": "Four live UPF seats; initial attack options P2/P4 are adjacent legal hero targets and actual target P4 remains defender for subsequent same-chain attacks."
+    }
+  ],
+  "limits": [
+    "No Blaze physical4damage, P4HP15, Blaze APrefund, actual third Generic consumer, P4HP11 or final physical cleanup was reached. These remain unchanged strict unexecuted suffix expectations.",
+    "Raw observed_state is not a full postfailure zone snapshot. Physical identity/ownership/zone facts above rely only on earlier passed checks; no unqueried TurnEffects contents or later zones invented.",
+    "Raw damageDealt0 and attackHitfalse describe the early Blaze ATTACK boundary, not a final damage result. Raw cached attackPower0 is not the getter; fresh native power4 already passed.",
+    "Only Blue Cup choosingRed feeding this selected Blaze consumer is established. General effectiveBlue retention, othercolors/colorconsumers, expiry, alternate chronology, sibling/support/fullcard branches remain unqualified.",
+    "Publisher full-page fetch limitation from the source review is retained; local issuer faces/current Judge/CR and indexed publisher additive-color clarification are distinguished.",
+    "No source repair, rerun, native game, passing fixture/control, root/Core/dedup allocation or held-operation integration by this reviewer."
+  ],
+  "fixture_saved": false,
+  "coverage_credit": false,
+  "fix_applied": false,
+  "source_application_attempted": false,
+  "denied_repair_retried": false,
+  "new_core_root": false,
+  "new_distinct_gameplay_root_group": false,
+  "created_utc": "2026-11-05T23:38:35.480959+00:00"
+}

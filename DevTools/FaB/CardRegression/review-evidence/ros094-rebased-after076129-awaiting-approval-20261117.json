@@ -1,0 +1,36 @@
+{
+  "status": "SPECIFIC_APPROVAL_PENDING_KNOWN_DENIED_REPOSITORY_WRITE_UNEXECUTED",
+  "issue": "FAB-REG-094",
+  "target": "FaBSim/Custom/GameLogic.php",
+  "current_gl_sha256": "b24b632d04eb40f7a8b7de2a538c56da1fe59a21cc3ccd7327a193b10b6dab51",
+  "proposed_gl_sha256": "4a12327e751f559d020fc7e388f96f3cdc2e611801f2522fa356b2b323f375d7",
+  "local_proposal": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov17-ros094-four-function-proposal-after076129-for-specific-approval\\manifest.json",
+    "sha256": "877785f8f4d4315fbef5b5c62cc7b51f80cce3660c06777d34f5ea38b5ca1abf",
+    "portability": "Local approval artifact, not runnable regression input."
+  },
+  "functions": [
+    "FaBFinishReactionResolution",
+    "FaBManagedVirtualResolutionClass",
+    "FaBResolveManagedVirtualLayer",
+    "FaBTrackReactionAwaitFrames"
+  ],
+  "delta_groups": 6,
+  "exact_inverse": true,
+  "scope": "Retain generic ABILITY+rosTrigger with empty/absent/literal ability rosEvent through actual ResolveAbility choices, then finalize virtual layer once. All named events including iarBound excluded; no added source movement, cost or trigger go-again. Preserve current076/129 macro branches, physical R4/R5, MON Arcanic and unrelated currentbytes.",
+  "denied_action": {
+    "known_not_executed": true,
+    "state": "DENIED_NO_RETRY_WITHOUT_NEW_SPECIFIC_USER_AUTHORIZATION",
+    "historical_record": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-blood-vest094-auto-review-denial.json",
+    "sha256": "0c0717ef85a621856608f1811732f84b5a082788d986aa7a1c4d3806c1cd725e",
+    "reason": "Automatic approval review required explicit user approval for the persistent gameplay-source repair."
+  },
+  "current_tests": "UNRUN: syntax/components/Native/replay. Historical67/189 not current evidence.",
+  "planned_tests": "After specific approval only: current hash/source guarded actual-functions and generated Vest await checks, original33/2935 Native/Saved/one clean targeted replay, direct ARC/Runechant/MON/syncgeneric/named/physical compatibility. No full suite.",
+  "risks": [
+    "Frame ownership/all-seat work can complete early or late.",
+    "Avoid repeated callback/cost/AP and unrelated Stack/source ownership changes.",
+    "Newly admitted generic cards need individual native verification; not whole-cohort qualification."
+  ],
+  "approval_readiness": "Concrete current preimage/candidate prepared for specific approval. Four proposed function blocks are byte-identical to prior independently scope-reviewed proposal; current rebase preserves all other bytes. No application or denied retry executed."
+}

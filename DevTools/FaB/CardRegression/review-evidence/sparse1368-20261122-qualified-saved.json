@@ -1,0 +1,169 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "independent breadth_review1252",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1368-20261122.json",
+  "source_spec_sha256": "ec93939d60502b3996c13e565a446aa4520c1628f9c79bf69af15beb2dafbcad",
+  "input_sha256": "ec93939d60502b3996c13e565a446aa4520c1628f9c79bf69af15beb2dafbcad",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-plasma-mainline-red-four-live-sparse1368-actual-generic-item-entry-not-mechanologist-no-steam-transfer",
+      "card_id": "plasma_mainline_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "51a8b374e83ea959346dcc954d29a9e1e2f63a5ae5e1e7e7f9a661f7fb3b2925",
+        "actions.json": "2fc498690b4373cb4bfedec828403596e6afc9cf12487c75e6b03be6d20cbc46",
+        "assertions.json": "716d7a5dd2bc9109d3571ae421e4956779708a7122f4f4037ced8f4d50b77a01",
+        "expected_final_gamestate.txt": "9555bdb00affeff6f22218733c12bfcec000fa6cb8f8325a224c6578c5d0f4b2",
+        "meta.json": "defd99e36505934ed1a4cbbab06d4d1a4dbcb4f1725833d0159e194d5d439e77"
+      },
+      "fixture_sha256": "b62d99bbb79cf5c4a6e32f773bb510ca12b00734fa3537aca64f66a372eb9c34",
+      "actions": 6,
+      "native_assertions": 329,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 4,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1368-20261122.json",
+      "input_sha256": "ec93939d60502b3996c13e565a446aa4520c1628f9c79bf69af15beb2dafbcad",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1368-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-plasma-mainline-red-four-live-sparse1368-actual-generic-item-entry-not-mechanologist-no-steam-transfer",
+        "fixture_slug": "card-plasma-mainline-red-four-live-sparse1368-actual-generic-item-entry-not-mechanologist-no-steam-transfer",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-hyper-driver-four-live-sparse1368-actual-unboosted-generic-attack-no-steam-removal-or-extra-resource",
+      "card_id": "hyper_driver",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "2f1a22d3636bed92d27db3ec77939483b58a79467a73a9b0f2ced1ff2841890f",
+        "actions.json": "0c005a52a51dc48a24f481bec6cbd5cfe2cb93ecd847ec1063490764f1d7d9ea",
+        "assertions.json": "27163992293236c753ef0e80352ceea6efa83704f0e638e4cc2f1d8a78bba26d",
+        "expected_final_gamestate.txt": "0bb63c327c8ac1f6c1880e7d6af0c05dbe54e95ef69103701f012042b9467e9b",
+        "meta.json": "f10d8b64e39f21f86d72e64e97968c38a3a8d676f8b98e3f7f87660ef86edac6"
+      },
+      "fixture_sha256": "052b6a183b4da355b8d6d3d2ef19cca4ce5d7caed20198a0209d0b0dc896e757",
+      "actions": 29,
+      "native_assertions": 498,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1368-20261122.json",
+      "input_sha256": "ec93939d60502b3996c13e565a446aa4520c1628f9c79bf69af15beb2dafbcad",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1368-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-hyper-driver-four-live-sparse1368-actual-unboosted-generic-attack-no-steam-removal-or-extra-resource",
+        "fixture_slug": "card-hyper-driver-four-live-sparse1368-actual-unboosted-generic-attack-no-steam-removal-or-extra-resource",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "reviewer": "independent breadth_review1252",
+    "spec_sha256": "ec93939d60502b3996c13e565a446aa4520c1628f9c79bf69af15beb2dafbcad",
+    "source_note_sha256": "8955836603d1db159ea150e176d36c786123d20768f3cbe84ed92b18b7ac6de7",
+    "case_count": 2,
+    "active_seats": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "players": "four_live_manual",
+    "native_controls": 35,
+    "query_checks": 827,
+    "persistable_assertions": 827,
+    "author_only_checks_omitted": 0,
+    "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+    "coverage_category": "MECHANOLOGIST_ITEM_FALSE_ENTER_CLASS_OR_BOOST_EVENT_GUARDS",
+    "per_case": [
+      {
+        "card_id": "plasma_mainline_red",
+        "group_id": "identity:plasma_mainline_red",
+        "native_controls": 6,
+        "persistable_assertions": 329
+      },
+      {
+        "card_id": "hyper_driver",
+        "group_id": "identity:hyper_driver",
+        "native_controls": 29,
+        "persistable_assertions": 498
+      }
+    ],
+    "basis": [
+      "Two unrepresented/unheld standaloneMechanologistItemgroups undernaturalYoungDash20orMaxxNitro20/manual4UPF+threeDori20. PlasmaMainline admittedArenaUID7/STEAM5 matchesprintedentryamount; Dashcanstartcost2MechanologistItem, noinitialentry/startupprovenance credited. HyperDriverTokenUID8/STEAM2 reachablefromprintedMaxxcreation withoptionalCrankdeclined; tokenprintednozeroSteamtrigger isfalseat2, nocreation/Crankentry/upkeep provenorcredited. Localcached upf_banned=false only.",
+      "Mainline printedWheneverMechanologistItemcost<=2entersundercontrol; actualPotionLuck5GenericActionItem0cost doesnotinheritDashMechanologist. DYNRuntime160-163 checksactualincomingobjectMechanologist beforeMainlineability, falseforGenericPotion evenwhenrealcost0Itemqualifiesotherparts. ActualHandPotion5spendsAP1to0 andresolvesonlyafterfourmanualresponses intoArenaindex1 behindpriorMainline7index0; sameUID/OwnerController1/Status2. FirstrealcardplayGameLogic1059markerFAB_PLAY_ORDER1 retainedthroughmove; expectedCounters exactlythat/noSTEAM. MainlineSTEAM5unchanged/nochooser/transfer/layer/newUID. ActualzeroWounding6HandconsumerrejectsAP0, GY0/Arena2/allHP20/R0/UID7/RNG0.",
+      "HyperDriver: actualplainGenericCritical5AAcost1paidactualBlue6pitch3/R2/AP0, noBoostkeyword/option, Deck0 andnoBoosthistory. ARCAbilities351-366 appliesHyperDriveronceSteamremoval/resourcegain onlyinsideactualBoostConsequences; absentBooste vent meansneitherARC_DRIVER_TURN norSTEAM2-to1/R2-to3earned. ActualfivephysicalDamageHP4=15/noGA, allfourmanualcombatafterward/finalCritical5GY1/Blue6Pitch1/FDArsenal7/Driver8ready/STEAM2/TurnEffects[]/UID8/RNG0. ActualzeroArsenalconsumerrejectsAP0 unchanged.",
+      "All15objectCounterexpectations nowcompactJSON strings withsameexactkeys/values: STEAM5,STEAM2,FAB_PLAY_ORDER1. RegressionTestFramework1098-1108 comparesjson_encode(actual); earlierPythonreprstrings wereinvalidoracles andcorrectedbeforeanynative. Noabilitypositivebehaviorrelaxed. Physicalzones/owners/counterkeys/postPotionArenaindex1 andfatesconsistent; counts6Mainlinecontrols+29Drivercontrols=35."
+    ],
+    "limits": [
+      "OnlyfalseGeneric-versus-Mechanologistentry andnoBoosteventguards withactualGenericItementry/fundedattack/damage/counterresourcepreservation/consumers approvedpendingnative. No passorcoverageclaimed.",
+      "PositiveMainlineentry/transfer/earnedWHENtiming/removeLastSteam/destroy, positiveBoostWHEN/Steamcost/resourcegain/Crank/Maxxcreation/zeroDestroy/support/fullcardbehavioruntested/uncredited. InitialItemsadmittedphysicalpositionsonly; known207normalMechanologistentryhold notperformedorcredited.",
+      "Only W reviewreceiptwritten; no nativegame/test/replay, engine/repositoryedit, originalcheckoutaccess, auth/network, fullsuite orGitoperation."
+    ],
+    "source_sha256": {
+      "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+      "FaBSim/GeneratedCode/GeneratedMacroCode.php": "fe6a7982611df8f4de98ce2671b317b671b580146aa4b8c28e8f4b86d8461056",
+      "FaBSim/Custom/GameLogic.php": "c60fa151561f959e4e3e341b814de0e2b47c9e9f153bbc8793a04c43b5075061",
+      "FaBSim/Custom/ARCAbilities.php": "e49ce4685f148ef423ea38aac544266b3298527ea8ca9eef11b12fb974e7c9f0",
+      "FaBSim/Custom/ARCCards.php": "f6b6a21d214e71fdcfd6a084f0671ce610f08a40c51a1266041877a5a12c0d52",
+      "FaBSim/Custom/DYNRuntime.php": "b8cec432428757988b02fa831b6311cc32ef5671b2fcc2dd9eecbf82d0c5e231",
+      "FaBSim/Custom/DYNCards.php": "c3460cf12b68a92af4d9c4f836de4c2495d117e3a97e73fb23e8c026aa2f20f4",
+      "FaBSim/Custom/EVOCards.php": "7e946cadb04817da7a0c0b17d94cf5a6bd03655adba07b714d39654329b54dbe",
+      "FaBSim/Custom/WTRCards.php": "77d4452b30e45254a7199bc965396ded53e325717ecdd84a09b971f723f99f6a",
+      "FaBSim/ZoneAccessors.php": "9967567a9a10df81a6f22df820d4d77258828657e95c4ad145b8b13ce17866a7",
+      "Core/RegressionTestFramework.php": "670028e69e1a59c22aef5e6512edd2cd0dee5fdcaed4cf8c31374b8eb2b7ca6a",
+      "Core/EngineActionRunner.php": "add14b53dc571d2a6e64407bfa4038a98d6554d6410de7a9233810d99c46ea2a",
+      "Schemas/FaBSim/GameSchema.txt": "7783800bd47bc85885cc915066aadca58cdf99f0c1180602ac312d9af5ebf643",
+      "Core/ShortcutPreferences.php": "25f300ea0b6fbc409f5b92e8bc3587a74b2ab0eaf31ccef38e18c455598eaba6",
+      "DevTools/FaB/CardRegression/record_card_regressions.php": "e53055b29e9ea641949b77019c4455607f41ca233325d716a9500637e19efd28"
+    },
+    "workspace_source_sha256": {
+      "author_breadth1368.py": "86ad12c5f9542bb2e4b9a2c097483d8a0468a6d833706cd76219c86c14e2e481",
+      "breadth1068_helpers.py": "997f949ec26c7e494ad26a818f9f2078f6f4f2a0c49ca7f61aa8c71f3b091b0a"
+    },
+    "secondary_identity_credit": false,
+    "whole_card_credit": false,
+    "positive_condition_credit": false,
+    "positive_trigger_timing_credit": false,
+    "positive_hero_trigger_credit": false,
+    "adult_credit": false,
+    "positive_equipment_ability_credit": false,
+    "positive_ability_credit": false
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1368-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "e6cf7eeef4cee3f18a6b1a706e79ff2ed6f43c204a0f62ef8be198604989b016"
+  },
+  "full_suite_run": false
+}

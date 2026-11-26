@@ -1,0 +1,7 @@
+{
+    "name": "Cheating Scoundrel / next attack action effect does not apply to actual weapon attack",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-25T10:47:01+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Printed next attack action excludes Weapon. Real CheatingAction0/GY5/GA restoresAP1; realGenericTalishar7activation2 targetsadjacentHero4beforecost, realBlue6pitch3 pays2/AP0/R1 thenrust1, proxy8Weapon4 not7/noGA/noearnedwager/noGold. Fourmanualseatresponses/fullactual4damageHP16/physicalclose checked. No positiveeligibleAA/wager/lossreplacement or secondarycardcredit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#cheating_scoundrel_red FaBSim/GeneratedCode/GeneratedMacroCode.php#cheating_scoundrel_red:0:ResolveCard FaBSim/Custom/PENCards.php#FaBPENPlayed FaBSim/Custom/GameLogic.php#FaBTryCompletePayment FaBSim/Custom/WTRCards.php#FaBWTRCanActivate"
+}

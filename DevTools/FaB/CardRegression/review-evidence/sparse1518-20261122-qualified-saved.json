@@ -1,0 +1,85 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "/root/breadth_review1457",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1518-20261122.json",
+  "source_spec_sha256": "4bf7e9b7662a60f3920007e869faf237bfa38db6860c48a13135cb6eafa37343",
+  "input_sha256": "4bf7e9b7662a60f3920007e869faf237bfa38db6860c48a13135cb6eafa37343",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-crown-of-seeds-four-live-sparse1518-real-face-up-arsenal-card-cannot-pay-face-down-cost",
+      "card_id": "crown_of_seeds",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "78c916701aadea9c50f0a40fcd258fd95752f4a0b3061a0c1ac96498d119012c",
+        "actions.json": "02e014fcbc767be35abb52b1fba8950f602a853b060793ec33880f9f114fa6e5",
+        "assertions.json": "d467a5dca3e094e80314f8dd50b9a7cf489efb5bde3a13c5633649db011ea283",
+        "expected_final_gamestate.txt": "40ac853a9eb8e085cf0a980d2a1e9e915bdc792466f10125cd6dc8e98cd1124d",
+        "meta.json": "e6d9850de0a7533a43eeda002293c5c0877bef8d33ab1c94a1f3f599a15c4a96"
+      },
+      "fixture_sha256": "c03fb842edeba89075dea395ea0848782bdaefa662d4e8c2ee2026ab71f302a6",
+      "actions": 6,
+      "native_assertions": 300,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 4,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1518-20261122.json",
+      "input_sha256": "4bf7e9b7662a60f3920007e869faf237bfa38db6860c48a13135cb6eafa37343",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1518-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-crown-of-seeds-four-live-sparse1518-real-face-up-arsenal-card-cannot-pay-face-down-cost",
+        "fixture_slug": "card-crown-of-seeds-four-live-sparse1518-real-face-up-arsenal-card-cannot-pay-face-down-cost",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "schema_version": 1,
+    "batch": 1518,
+    "reviewer": "/root/breadth_review1457",
+    "result": "approved_named_branches_only_pending_native_execution",
+    "reviewed_utc": "2026-11-25T08:34:47.872412+00:00",
+    "spec_sha256": "4bf7e9b7662a60f3920007e869faf237bfa38db6860c48a13135cb6eafa37343",
+    "source_note_sha256": "92a3b85022129513d8e8aabba09fa30ad418cc9298f3f0fb0a2e83ec7f7264a3",
+    "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+    "source_sha256": {
+      "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+      "FaBSim/Custom/ELEAbilities.php": "d0da7637932733ee6c0e77f4786c4950fbaa4e41eb74c5d1f5d536961fa27ab8",
+      "FaBSim/Custom/ELECards.php": "5319104c32fb648c9ef90ee5e7e3a6a22e29c35a26c2cca31b338aada0e6110f",
+      "FaBSim/Custom/GameLogic.php": "c60fa151561f959e4e3e341b814de0e2b47c9e9f153bbc8793a04c43b5075061",
+      "FaBSim/Custom/WTRCards.php": "77d4452b30e45254a7199bc965396ded53e325717ecdd84a09b971f723f99f6a"
+    },
+    "cases": 1,
+    "findings": [
+      "Oldhim20EarthIceEssencelegallyequipsEarthCrown; GenericWoundingArsenal6legal. CachedWreckHavocmayexposeitwithoutdestroyingnonDR, lawfulinitialfaceupstateinference, no producer/historyexecutioncredit.",
+      "ELEFaceDownrequiresFaceDown1; actual0failspre-cost/once/Stack despiteBlueSigil3funding1/correctownACTION1/AP1/readyCrown5emptyCounters.",
+      "Exact6inputs/fates/HP21 correct; noOldhimDefenseability/Arrow/Bowevent. Original039positivecostorderholdandLexirejecteddraftpreserved."
+    ],
+    "limits": [
+      "Only facedown additionalcost exclusion; no positiveCrowndraw/prevention/costorder/lifetime/once or priorfaceupexposure/wholecardcredit. Reviewer read-only source/spec review only."
+    ]
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1518-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "17bbea8cb863358738bfdfb86d2056c330ff84cf5c71cc08a6ad4d3e50e9a02f"
+  },
+  "full_suite_run": false
+}

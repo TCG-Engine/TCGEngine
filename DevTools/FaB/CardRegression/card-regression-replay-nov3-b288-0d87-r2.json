@@ -1,0 +1,27 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch288.json",
+  "runtime_sha256": "0d877de49c131f29c152706e14bba3368630df61c59ef475c87a84f20b6e1a66",
+  "returncode": 0,
+  "completed_utc": "2026-11-03T04:54:11.826865+00:00",
+  "fixtures": [
+    {
+      "slug": "card-bruised-leather-four-live-sparse-real-kodachi-hit-earns-destroy-instant-prevents-one-of-next-seven",
+      "fixture_sha256": "1b0771e316c6fec8dba9857ef4704c98637ca4f6870246a04cde6bb6780860f1",
+      "passed": true,
+      "result": "[PASS] bruised_leather / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-bruised-leather-four-live-sparse-real-kodachi-hit-earns-destroy-instant-prevents-one-of-next-seven",
+      "returncode": 0,
+      "stdout": "[PASS] bruised_leather / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

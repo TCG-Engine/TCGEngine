@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-villainous-pose-red-four-live-sparse1471-second-boo-real-plus-four-and-go-again-action-consumer",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-villainous-pose-red-four-live-sparse1471-second-boo-real-plus-four-and-go-again-action-consumer",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1471-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1471-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "13d529a6fb27e71a5c0eb119f92b2e2577210639473905fc1e1414dfe9dd897e",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "04591b561a09e01eaa7eb34a85f58e06fb27ead119e5347b8fb2d14d9b66ec10",
+        "actions.json": "0af8a1ea1ec8c5c1cd86d16e2bbdc5cce415580ef97f75c13ce0010d1f71cfc6",
+        "assertions.json": "82b96372335259327661c7f8c7b8e7647f22a320e4522990a201479e17ff0e64",
+        "expected_final_gamestate.txt": "688d0e4d1102b38c11b3e75a3ff660ec78a1f2c4cf08b51aa1006ac3a4031a16",
+        "meta.json": "de362de2799dc91e279283dfab339961412a5e964af65edbf1ab4fa12a89ffa1"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

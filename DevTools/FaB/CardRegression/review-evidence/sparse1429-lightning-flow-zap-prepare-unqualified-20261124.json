@@ -1,0 +1,457 @@
+{
+  "batch": 1429,
+  "card_id": "lightning_flow",
+  "status": "UNQUALIFIED_AUTHOR_SETUP_PREPARE_TARGET_OMITTED",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "native_attempted": true,
+  "attempted_native_inputs": 13,
+  "fixture_saved": false,
+  "coverage_credit": false,
+  "confirmed_gameplay_bug": false,
+  "new_distinct_gameplay_root_credit": 0,
+  "observed": {
+    "slug": "card-lightning-flow-two-live-sparse1429-native-creation-consumption-token-ceases-and-earned-go-again-spent",
+    "status": "blocked_or_incorrect",
+    "error": "state window expected \"PRIORITY\" got \"PITCH\"",
+    "attempted_actions": [
+      {
+        "playerID": 1,
+        "mode": 10002,
+        "buttonInput": "",
+        "cardID": "p1Arena-0!FSM",
+        "chkInput": [],
+        "inputText": ""
+      },
+      {
+        "playerID": 2,
+        "mode": 10001,
+        "buttonInput": "",
+        "cardID": "!CustomInput!Pass",
+        "chkInput": [],
+        "inputText": ""
+      },
+      {
+        "playerID": 1,
+        "mode": 10001,
+        "buttonInput": "",
+        "cardID": "!CustomInput!Pass",
+        "chkInput": [],
+        "inputText": ""
+      },
+      {
+        "playerID": 1,
+        "mode": 10002,
+        "buttonInput": "",
+        "cardID": "p1Hand-0!FSM",
+        "chkInput": [],
+        "inputText": ""
+      },
+      {
+        "playerID": 2,
+        "mode": 10001,
+        "buttonInput": "",
+        "cardID": "!CustomInput!Pass",
+        "chkInput": [],
+        "inputText": ""
+      },
+      {
+        "playerID": 1,
+        "mode": 10001,
+        "buttonInput": "",
+        "cardID": "!CustomInput!Pass",
+        "chkInput": [],
+        "inputText": ""
+      },
+      {
+        "playerID": 1,
+        "mode": 100,
+        "buttonInput": "",
+        "cardID": "p2Hero-0",
+        "chkInput": [],
+        "inputText": ""
+      },
+      {
+        "playerID": 1,
+        "mode": 100,
+        "buttonInput": "",
+        "cardID": "1",
+        "chkInput": [],
+        "inputText": ""
+      },
+      {
+        "playerID": 1,
+        "mode": 10002,
+        "buttonInput": "",
+        "cardID": "p1Hand-0!FSM",
+        "chkInput": [],
+        "inputText": ""
+      },
+      {
+        "playerID": 2,
+        "mode": 10001,
+        "buttonInput": "",
+        "cardID": "!CustomInput!Pass",
+        "chkInput": [],
+        "inputText": ""
+      },
+      {
+        "playerID": 1,
+        "mode": 10001,
+        "buttonInput": "",
+        "cardID": "!CustomInput!Pass",
+        "chkInput": [],
+        "inputText": ""
+      },
+      {
+        "playerID": 1,
+        "mode": 100,
+        "buttonInput": "",
+        "cardID": "p1Arena-0",
+        "chkInput": [],
+        "inputText": ""
+      },
+      {
+        "playerID": 1,
+        "mode": 10002,
+        "buttonInput": "",
+        "cardID": "p1Hand-0!FSM",
+        "chkInput": [],
+        "inputText": ""
+      }
+    ],
+    "setup_completed": true,
+    "observed_state": {
+      "window": "PITCH",
+      "combatOpen": false,
+      "combatStep": "NONE",
+      "chainLink": 0,
+      "attacker": 0,
+      "defender": 0,
+      "attackUID": 0,
+      "attackTarget": null,
+      "pendingAttackTarget": null,
+      "previousAttackCardID": "",
+      "handBlockUIDs": [],
+      "intimidated": [],
+      "pendingPayment": {
+        "player": 1,
+        "uid": 6,
+        "cost": 0,
+        "fromZone": "Hand",
+        "kind": "ACTION",
+        "returnWindow": "ACTION",
+        "returnCombatStep": "NONE"
+      },
+      "lastAttackName": "",
+      "attackHit": false,
+      "attackPower": 0,
+      "defenseValue": 0,
+      "damageDealt": 0,
+      "declaredBlockUIDs": [],
+      "passiveSeats": [],
+      "gameMode": "",
+      "turnEffects": {
+        "1": [
+          {
+            "type": "EVR_ACTIVATED",
+            "amount": 1,
+            "uses": 1
+          },
+          {
+            "type": "EVR_GRAVEYARD",
+            "amount": 1,
+            "uses": 1
+          },
+          {
+            "type": "SEA_BLUE_GRAVE",
+            "amount": 1,
+            "uses": 1
+          },
+          {
+            "type": "DYN_SURGENT_USED",
+            "amount": 1,
+            "uses": 1
+          },
+          {
+            "type": "ROS_LIGHTNING",
+            "amount": 1,
+            "uses": 1
+          },
+          {
+            "type": "EVR_PLAYED",
+            "amount": 1,
+            "uses": 1
+          },
+          {
+            "type": "ROS_DAMAGE",
+            "amount": 3,
+            "uses": 1
+          },
+          {
+            "type": "ROS_ARCANE",
+            "amount": 3,
+            "uses": 1
+          },
+          {
+            "type": "ROS_ARCANE_OPP",
+            "amount": 3,
+            "uses": 1
+          },
+          {
+            "type": "ROS_VALLEY_HIT",
+            "amount": 1,
+            "uses": 1
+          },
+          {
+            "type": "HNT_ARCANE_DEALT",
+            "amount": 1,
+            "uses": 1
+          },
+          {
+            "type": "EVR_AURAS",
+            "amount": 1,
+            "uses": 1
+          },
+          {
+            "type": "ROS_AURA",
+            "amount": 1,
+            "uses": 1
+          },
+          {
+            "type": "PEN_AURAS",
+            "amount": 1,
+            "uses": 1
+          },
+          {
+            "type": "PEN_CREATED",
+            "amount": 1,
+            "uses": 1
+          },
+          {
+            "type": "EVR_GRAVEYARD",
+            "amount": 1,
+            "uses": 1
+          },
+          {
+            "type": "ROS_LIGHTNING",
+            "amount": 1,
+            "uses": 1
+          },
+          {
+            "type": "ROS_LAST_LIGHTNING",
+            "amount": 1,
+            "uses": 1
+          },
+          {
+            "type": "EVR_PLAYED",
+            "amount": 1,
+            "uses": 1
+          },
+          {
+            "type": "MST_AMP",
+            "amount": 3,
+            "uses": 1
+          },
+          {
+            "type": "EVR_GRAVEYARD",
+            "amount": 1,
+            "uses": 1
+          }
+        ],
+        "2": [
+          {
+            "type": "EVR_GRAVEYARD",
+            "amount": 1,
+            "uses": 1
+          },
+          {
+            "type": "DTD_DAMAGE_EVENT",
+            "amount": 1,
+            "uses": 1
+          },
+          {
+            "type": "CRU_DAMAGED",
+            "amount": 3,
+            "uses": 1
+          },
+          {
+            "type": "ROS_ARCANE_TAKEN",
+            "amount": 3,
+            "uses": 1
+          },
+          {
+            "type": "HNT_DAMAGED_BY",
+            "amount": 1,
+            "uses": 1,
+            "uid": 1
+          },
+          {
+            "type": "DTD_LOST",
+            "amount": 3,
+            "uses": 1
+          },
+          {
+            "type": "ELE_DAMAGED",
+            "amount": 3,
+            "uses": 1
+          },
+          {
+            "type": "EVR_GRAVEYARD",
+            "amount": 1,
+            "uses": 1
+          },
+          {
+            "type": "EVR_GRAVEYARD",
+            "amount": 1,
+            "uses": 1
+          }
+        ]
+      },
+      "nextTurnEffects": [],
+      "hitsThisTurn": [],
+      "cardsPlayedThisTurn": {
+        "1": [
+          "enion_surge_red",
+          "arc_ramp_red"
+        ]
+      },
+      "eleKorshemActiveTurn": 2,
+      "arcActions": {
+        "1": 3
+      },
+      "arcCards": {
+        "3": {
+          "penFreezeSources": [],
+          "iarPermission": []
+        },
+        "4": {
+          "iarOrigin": 1,
+          "mstChiPitched": 0,
+          "rosMeld": -1,
+          "rosSurgeGo": false,
+          "evoDashPlay": false,
+          "omnFirstDamage": false,
+          "iarPlayedFrom": "Hand",
+          "mstFree": false,
+          "rosLastLightning": false,
+          "iarPermission": []
+        },
+        "8": {
+          "iarPermission": []
+        },
+        "5": {
+          "iarOrigin": 1,
+          "mstChiPitched": 0,
+          "rosMeld": -1,
+          "rosSurgeGo": false,
+          "evoDashPlay": false,
+          "omnFirstDamage": false,
+          "iarPlayedFrom": "Hand",
+          "mstFree": false,
+          "rosLastLightning": true,
+          "iarPermission": []
+        },
+        "6": {
+          "iarOrigin": 1,
+          "mstChiPitched": 0,
+          "rosMeld": -1,
+          "rosSurgeGo": false,
+          "evoDashPlay": false
+        }
+      },
+      "omn": {
+        "2": {
+          "2": {
+            "ARCANE_TAKEN": 1,
+            "REPROACH": 1
+          },
+          "1": {
+            "AURA_DESTROYED": 1,
+            "FLOW_DESTROYED": 1
+          }
+        }
+      },
+      "iar": {
+        "2": {
+          "1": {
+            "DAMAGE:2": 1
+          }
+        }
+      },
+      "arcaneDealt": {
+        "1": {
+          "2": 3
+        }
+      }
+    },
+    "observed_decisions": {
+      "1": [
+        {
+          "Type": "MZCHOOSE",
+          "Param": "p1Hero-0&p2Hero-0",
+          "Block": 1,
+          "Tooltip": "Choose_arcane_damage_target",
+          "DontSkipOnPass": 0,
+          "removed": null,
+          "Location": "",
+          "PlayerID": 0,
+          "mzIndex": -1,
+          "_sourceZone": null
+        },
+        {
+          "Type": "CUSTOM",
+          "Param": "zap_red:0:PrepareCard-await|zap_red:0:PrepareCard#1|1|chosen",
+          "Block": 1,
+          "Tooltip": "",
+          "DontSkipOnPass": 0,
+          "removed": null,
+          "Location": "",
+          "PlayerID": 0,
+          "mzIndex": -1,
+          "_sourceZone": null
+        },
+        {
+          "Type": "PASSPARAMETER",
+          "Param": "1",
+          "Block": 99,
+          "Tooltip": "",
+          "DontSkipOnPass": 0,
+          "removed": null,
+          "Location": "",
+          "PlayerID": 0,
+          "mzIndex": -1,
+          "_sourceZone": null
+        },
+        {
+          "Type": "SYSTEM",
+          "Param": "PlayCard_AfterAction",
+          "Block": 99,
+          "Tooltip": "",
+          "DontSkipOnPass": 0,
+          "removed": null,
+          "Location": "",
+          "PlayerID": 0,
+          "mzIndex": -1,
+          "_sourceZone": null
+        }
+      ],
+      "2": []
+    },
+    "observed_hand_refs": {
+      "1": [],
+      "2": []
+    }
+  },
+  "original_native_input_sha256": "b05788a43f20ad9f0c68b5af682337bc35a0539455ead1dc1853710b7a28f0e4",
+  "native_receipt_sha256": "44b4a46e959d9b3c22e4174c6cc29ddc35e2e53efcecf7488dd6d20bf01435e2",
+  "review_sha256": "dc96aa0bd5757cdc9ffb3978b91905c0124f5be9c7cac442867d5b4ab7042866",
+  "limits": [
+    "Actual token creation and consumption checks passed in prefix, but no saved fixture or coverage credit.",
+    "Zap final click starts normal PrepareCard target declaration in PITCH; draft wrongly expected immediate PRIORITY. No target answer, amplified damage, clean replay or re-recording occurred."
+  ],
+  "original_spec_backup_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1429-local-20261122\\normal-spec-before-quarantine.json",
+  "original_spec_sha256": "b05788a43f20ad9f0c68b5af682337bc35a0539455ead1dc1853710b7a28f0e4",
+  "diagnostic_source": "card-regression-sparse1429-held-zap-prepare-omission-20261124.json",
+  "diagnostic_source_sha256": "0961c59f34d7af5a383dd1a326d44509a497c94355584d1c17a660379a1c5de6",
+  "engine_changes": false
+}

@@ -1,0 +1,39 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch415.json",
+  "runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+  "returncode": 0,
+  "completed_utc": "2026-11-05T03:50:48.641060+00:00",
+  "fixtures": [
+    {
+      "slug": "card-path-of-repentance-four-live-sparse-real-destroy-cost-and-owned-blood-debt-banish-turn-down",
+      "fixture_sha256": "282c0fdb8d8c923344a2b6f0f77dbcdb0f05d6d1656325bf1c361913cc0196eb",
+      "passed": true,
+      "result": "[PASS] path_of_repentance / four live distinctive effect"
+    },
+    {
+      "slug": "card-symbiosis-shot-four-live-sparse-real-steam-counter-activation-cost-and-two-damage",
+      "fixture_sha256": "967ede9950b0b710929517539b7f96ecfaac92924d3de1a399b3f512b4a13730",
+      "passed": true,
+      "result": "[PASS] symbiosis_shot / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-path-of-repentance-four-live-sparse-real-destroy-cost-and-owned-blood-debt-banish-turn-down",
+      "returncode": 0,
+      "stdout": "[PASS] path_of_repentance / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-symbiosis-shot-four-live-sparse-real-steam-counter-activation-cost-and-two-damage",
+      "returncode": 0,
+      "stdout": "[PASS] symbiosis_shot / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 2,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

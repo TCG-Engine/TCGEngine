@@ -1,0 +1,168 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "Root independent of breadth_review author",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse931-20261122.json",
+  "source_spec_sha256": "55a9057307be44a58e99249e13c263d16ab603212c3db1fc20781b0f30b55258",
+  "input_sha256": "55a9057307be44a58e99249e13c263d16ab603212c3db1fc20781b0f30b55258",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-cut-off-at-the-knees-yellow-four-live-sparse931-actual-base-three-below-tower-keeps-real-enemy-deck",
+      "card_id": "cut_off_at_the_knees_yellow",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "6a255599227af2931224c0323377b7c0996270352b3d4370923156ef2fed7e6f",
+        "actions.json": "71f0d0f07cf85244a3ec27fdb1f824cd62aa3126d639c98c13ca23327907bd8b",
+        "assertions.json": "7705c66ba219630f8b296ae204d418a532e0f4204ec2f4c7e52e714624782538",
+        "expected_final_gamestate.txt": "59e8be171bedc8e5ad17b62b49a2ba5891e8dede4b5eeb8211fdfe5ac755546b",
+        "meta.json": "d2e91c85baa5d67be3aa6c4b5b0979c571109e906540e04fb7bf8eaf7582bddb"
+      },
+      "fixture_sha256": "401afb7a66e25d465338269a108aef844eb76a06a76407fdf6be425d6c7e98ee",
+      "actions": 27,
+      "native_assertions": 131,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse931-20261122.json",
+      "input_sha256": "55a9057307be44a58e99249e13c263d16ab603212c3db1fc20781b0f30b55258",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse931-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-cut-off-at-the-knees-yellow-four-live-sparse931-actual-base-three-below-tower-keeps-real-enemy-deck",
+        "fixture_slug": "card-cut-off-at-the-knees-yellow-four-live-sparse931-actual-base-three-below-tower-keeps-real-enemy-deck",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-cut-the-small-talk-yellow-four-live-sparse931-actual-base-three-below-tower-keeps-real-enemy-aura",
+      "card_id": "cut_the_small_talk_yellow",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "7553d8072dc4eee42705a0ce8ae644786fa622f4580ba2d52984e47ce56f1f57",
+        "actions.json": "71f0d0f07cf85244a3ec27fdb1f824cd62aa3126d639c98c13ca23327907bd8b",
+        "assertions.json": "1d568f1420a0216f8b5091a3f286e93ce4c894158c35c21ffdbfdbaa357418e4",
+        "expected_final_gamestate.txt": "482f255abe206b32777c63f742edb5214eaffb04610e6e625475ce9071c4c8e3",
+        "meta.json": "5ab0b60bf0fcbd1cb14ea529ad9d6094c22f53b53a5cf183acafe37e14835183"
+      },
+      "fixture_sha256": "968bf237958d229542f188c7d67745f67e31d428c77d46d8f4b53bfb0bf360d2",
+      "actions": 27,
+      "native_assertions": 131,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse931-20261122.json",
+      "input_sha256": "55a9057307be44a58e99249e13c263d16ab603212c3db1fc20781b0f30b55258",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse931-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-cut-the-small-talk-yellow-four-live-sparse931-actual-base-three-below-tower-keeps-real-enemy-aura",
+        "fixture_slug": "card-cut-the-small-talk-yellow-four-live-sparse931-actual-base-three-below-tower-keeps-real-enemy-aura",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-no-tall-tales-yellow-four-live-sparse931-actual-base-three-without-tower-granted-hit-ability",
+      "card_id": "no_tall_tales_yellow",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "0e88623398a9161546d5ef1042f8e7f14b02e876578ddbc49af1093d300babbc",
+        "actions.json": "71f0d0f07cf85244a3ec27fdb1f824cd62aa3126d639c98c13ca23327907bd8b",
+        "assertions.json": "58e75fecc4eb2bd6fc1690bb54184c5577fe39c53ff4f7588db3c63f0da54d80",
+        "expected_final_gamestate.txt": "665aad112e5f1648105328a536e1a91cfc6a98e33352e41ca0eb780c6f835451",
+        "meta.json": "24fb2ee0277293cfd775cb0d5d867b9565ab22da3567b249597d338914fda632"
+      },
+      "fixture_sha256": "39eab0ba262e8c92916b8998580e17dba99c90aa9279e6c675b8ee2548e021fb",
+      "actions": 27,
+      "native_assertions": 123,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse931-20261122.json",
+      "input_sha256": "55a9057307be44a58e99249e13c263d16ab603212c3db1fc20781b0f30b55258",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse931-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-no-tall-tales-yellow-four-live-sparse931-actual-base-three-without-tower-granted-hit-ability",
+        "fixture_slug": "card-no-tall-tales-yellow-four-live-sparse931-actual-base-three-without-tower-granted-hit-ability",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-find-center-blue-four-live-sparse931-actual-first-attack-two-without-crane-dance-combo",
+      "card_id": "find_center_blue",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "4ca10d1d41b5ee38ab15c58710a17eb81addb09e4db2d8840e803fc401dec08b",
+        "actions.json": "71f0d0f07cf85244a3ec27fdb1f824cd62aa3126d639c98c13ca23327907bd8b",
+        "assertions.json": "316a984eab760185ae8a5b68a42f5375a9309ddea93187ae2241e31907c8e159",
+        "expected_final_gamestate.txt": "7d7f80fbeb96a90d3e68e97a17583976e754b283cc3b5abbb49a74371dbbc7f3",
+        "meta.json": "7c0086d4190e81f66a05c96be1316fd44a3c313c50d3781d60a453f33fca5653"
+      },
+      "fixture_sha256": "d131c9d3e056a1bc2a7a5e48bc172a75635e9f777a2a132df99f49ca54a4a5a2",
+      "actions": 27,
+      "native_assertions": 123,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse931-20261122.json",
+      "input_sha256": "55a9057307be44a58e99249e13c263d16ab603212c3db1fc20781b0f30b55258",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse931-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-find-center-blue-four-live-sparse931-actual-first-attack-two-without-crane-dance-combo",
+        "fixture_slug": "card-find-center-blue-four-live-sparse931-actual-first-attack-two-without-crane-dance-combo",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-break-tide-yellow-four-live-sparse931-actual-first-attack-two-without-combo-keeps-real-own-deck",
+      "card_id": "break_tide_yellow",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "480442dd0714ff029ec682302d704716c0c3fd098ac2e0ec2b321e12efd59556",
+        "actions.json": "71f0d0f07cf85244a3ec27fdb1f824cd62aa3126d639c98c13ca23327907bd8b",
+        "assertions.json": "4b9452528c3578c8a7366cd0826fdf1c22c54b2fb3e51a46d222a0f3c9a8dbe9",
+        "expected_final_gamestate.txt": "218ce1c638cc7bc8a72efbde70df9e672d26d5a80183446ddb5cb90d23037247",
+        "meta.json": "024716596484198695afd6f77cda4bb5cb22927a951f76c6fddabc28fb1b3dde"
+      },
+      "fixture_sha256": "97f133a0e7e0a91d125303fde4fb63575788563c1b52304b76545d105b31d617",
+      "actions": 27,
+      "native_assertions": 131,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse931-20261122.json",
+      "input_sha256": "55a9057307be44a58e99249e13c263d16ab603212c3db1fc20781b0f30b55258",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse931-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-break-tide-yellow-four-live-sparse931-actual-first-attack-two-without-combo-keeps-real-own-deck",
+        "fixture_slug": "card-break-tide-yellow-four-live-sparse931-actual-first-attack-two-without-combo-keeps-real-own-deck",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "spec_sha256": "55a9057307be44a58e99249e13c263d16ab603212c3db1fc20781b0f30b55258",
+    "reviewer": "Root independent of breadth_review author",
+    "basis": [
+      "Printed Tower/Combo abilities are conditional grants; actual3below13 or firstchain withno namedpreviousattack grantsno Hit ability. No unconditionalWHEN layer omitted. Staticgreater-than-base bonusfalse withactualbase3.",
+      "Legalnatural20 Oldhim/Fai, source5Hand actualcost0/noPitch/R0/AP0, real3/2HP loss/fullmanual4 andsamephysicalownGY. No heroactivatedability or Katsu/Nuu passive.",
+      "RealDeck/Aura markers preserved; no positiveTower/Combo/ZenState/Banishpermission/denial/admission/pitchsibling/fullcard credit. Native save/cleanreplay still required."
+    ]
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse931-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "6490744ebc1ac56ac8cdfdaaf52e33992aab98577a334d22b961dd68a400e52b"
+  },
+  "full_suite_run": false
+}

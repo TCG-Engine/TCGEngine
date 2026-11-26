@@ -1,0 +1,97 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-22T22:38:01.356493+00:00",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse981-20261122.json",
+  "source_spec_sha256": "b6413765b36040d8966e7f8084411b3c5e1dc8325d0480892c8b2568d960226c",
+  "new_scenarios": 2,
+  "new_groups": 2,
+  "new_primary_ids": 2,
+  "actions": 56,
+  "native_assertions": 306,
+  "manual_passes": 50,
+  "totals": {
+    "saved_registered_scenarios": 4666,
+    "duels": 3075,
+    "four_live": 1591,
+    "recorded_primary_ids": 1814,
+    "identity_denominator": 5196,
+    "recorded_groups": 1688,
+    "group_denominator": 3324,
+    "four_live_groups": 1580,
+    "phase_qualified_scenarios_at_actual_contexts": 1303,
+    "phase_qualified_unique_groups": 1293,
+    "creation_replay_passes": 2045,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 464,
+  "scenarios": [
+    {
+      "card_id": "frightmare_red",
+      "group_id": "identity:frightmare_red",
+      "scenario_id": "card-frightmare-red-four-live-sparse981-reject-no-prior-phantasm-destroyed-illusionist-attack",
+      "effect_branches": [
+        "reject_no_prior_phantasm_destroyed_illusionist_attack_then_real_four_live_attack"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-frightmare-red-four-live-sparse981-reject-no-prior-phantasm-destroyed-illusionist-attack",
+      "source_spec": "card-regression-sparse981-20261122.json",
+      "source_spec_sha256": "b6413765b36040d8966e7f8084411b3c5e1dc8325d0480892c8b2568d960226c",
+      "review_evidence": "review-evidence/sparse981-20261122-qualified-saved.json",
+      "review_evidence_sha256": "792c17223c9b40cffcead2da557d6be62ff300d01f0a594f2904d32e2b0a1bb7",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse981-20261122-replay.json",
+          "sha256": "72184ca217d04c5a5ea3a3838c2ca624d2bece4c0edde41e3501755b475d87ef",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "even_bigger_than_that_red",
+      "group_id": "pitch-cycle:even_bigger_than_that",
+      "scenario_id": "card-even-bigger-than-that-red-four-live-sparse981-reject-no-prior-physical-damage",
+      "effect_branches": [
+        "reject_no_prior_physical_damage_then_real_four_live_attack"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-even-bigger-than-that-red-four-live-sparse981-reject-no-prior-physical-damage",
+      "source_spec": "card-regression-sparse981-20261122.json",
+      "source_spec_sha256": "b6413765b36040d8966e7f8084411b3c5e1dc8325d0480892c8b2568d960226c",
+      "review_evidence": "review-evidence/sparse981-20261122-qualified-saved.json",
+      "review_evidence_sha256": "792c17223c9b40cffcead2da557d6be62ff300d01f0a594f2904d32e2b0a1bb7",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse981-20261122-replay.json",
+          "sha256": "72184ca217d04c5a5ea3a3838c2ca624d2bece4c0edde41e3501755b475d87ef",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

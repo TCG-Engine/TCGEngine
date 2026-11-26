@@ -1,0 +1,79 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-herald-of-protection-red-four-live-sparse937-three-low-power-hand-blocks-prevent-phantasm-and-hit",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-herald-of-protection-red-four-live-sparse937-three-low-power-hand-blocks-prevent-phantasm-and-hit",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse937-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse937-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "f8851ecc17e20af2d5fa7af39c11571981a714827ac2c90b178ced5692afe37e",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "d4ecf7c78e6986b703e368f617c9d451800f41cee0d4a0b18b715530af20dc6f",
+        "actions.json": "b9996f47ad8378619b85a79eb0a8a53a9e095b4296bec37843ce3c891f30ed90",
+        "assertions.json": "525d1b0032d1b9a3886483894f6b3dd873c5722254da1dec571a76a46e90a2a5",
+        "expected_final_gamestate.txt": "13436a2187060598c5b298701f2b9f2e064c8715578cab10f72f2f92cc4f5c6c",
+        "meta.json": "2a4307623db04b33bf701d6b4076bdb5514669ddf9918f8201a9fb300b533955"
+      }
+    },
+    {
+      "slug": "card-herald-of-ravages-red-four-live-sparse937-three-low-power-hand-blocks-prevent-phantasm-and-hit",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-herald-of-ravages-red-four-live-sparse937-three-low-power-hand-blocks-prevent-phantasm-and-hit",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse937-local-20261122\\clean-replays\\01.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse937-local-20261122\\clean-replays\\01.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "4313846f5f9fdda6a26a9aa240d516e9b79929c8fdb242abb69b47c91f70b4ab",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "b54fc7bdd0e63a6feba23da46b51460cb0181b82eb7f3428035fcbff18fb30ab",
+        "actions.json": "b9996f47ad8378619b85a79eb0a8a53a9e095b4296bec37843ce3c891f30ed90",
+        "assertions.json": "6018666f56e27b225a8fe160b537f692a25b17f7392231fd9567d7f3307c0f8a",
+        "expected_final_gamestate.txt": "7db4e7831213adef72ff0387e5e3deeb80b488f9cc167fb0ea190dd4de90ee65",
+        "meta.json": "506337f3c62297b08116ba0b7aa8cbc661c9d2513b2eb439d0ba4a4373fc13cf"
+      }
+    },
+    {
+      "slug": "card-herald-of-rebirth-red-four-live-sparse937-three-low-power-hand-blocks-prevent-phantasm-and-hit",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-herald-of-rebirth-red-four-live-sparse937-three-low-power-hand-blocks-prevent-phantasm-and-hit",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse937-local-20261122\\clean-replays\\02.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse937-local-20261122\\clean-replays\\02.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "6e6c27bee4194ee5769d1496793d87b68ed5ee9f64d0126c93561a2f33a1c3ac",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "f491e864a7865f0043c48d105292460692a0008cdcbcca6fae2da8938b349d38",
+        "actions.json": "b9996f47ad8378619b85a79eb0a8a53a9e095b4296bec37843ce3c891f30ed90",
+        "assertions.json": "839593c9bc2a715f9683c11b853254eb07efcb14c5782a17e014f91a8407cf29",
+        "expected_final_gamestate.txt": "d6ee314401eb25f7716628a5ae1ded667e1d233841b7d4cc8736db9c40d4949a",
+        "meta.json": "4dd1cff943f3d6d606a36f77637ec90defc8162392a4012803926ae3114edb0f"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

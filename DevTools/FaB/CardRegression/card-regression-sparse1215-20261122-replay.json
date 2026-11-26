@@ -1,0 +1,56 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-anka-drag-under-yellow-four-live-sparse1215-printed-main-action-attack-resource-1-power-5-taps-actual-ally-and-preserves-it-after-real-damage-only",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-anka-drag-under-yellow-four-live-sparse1215-printed-main-action-attack-resource-1-power-5-taps-actual-ally-and-preserves-it-after-real-damage-only",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1215-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1215-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "07fd14dc8273afd36706663d159ffa4fa2ff194c1302f23e7963b9fc09b88030",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "222a13acfcbe1f2972ba1690eb9fc741118d34b509d67c930952c93b9ebb596f",
+        "actions.json": "633f7250e47f75034b699ad38092ac45af050fd88cc9320a561aa10b07dd4fd2",
+        "assertions.json": "efd2791f23173c02831ba7228f541b090546db54e8139de6d2b95bb3e54ba476",
+        "expected_final_gamestate.txt": "4fdd766ee5206b49520d556c9585d569f7434afb65c3934424dfd90762849ccc",
+        "meta.json": "103f0bf174e2d5f8a61a78bbbe1922b60bb5d4c6a2b9423d3ad30ca3e16188e0"
+      }
+    },
+    {
+      "slug": "card-kelpie-tangled-mess-yellow-four-live-sparse1215-printed-main-action-attack-resource-0-power-1-taps-actual-ally-and-preserves-it-after-real-damage-only",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-kelpie-tangled-mess-yellow-four-live-sparse1215-printed-main-action-attack-resource-0-power-1-taps-actual-ally-and-preserves-it-after-real-damage-only",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1215-local-20261122\\clean-replays\\01.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1215-local-20261122\\clean-replays\\01.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "0890e920313471dec88319e2d6486dd3fa28c9ac51ca7aca301a64460e7c082b",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "94dbebff1e7cefdb6adf595df50bd1d6efbb4665b0925e843ad1ba50e531b0d7",
+        "actions.json": "a768bf0dcca7fe78ad4748b146f2162f29630c2be755b170d0430eecb855d1d5",
+        "assertions.json": "c8662372e0cc3d2566f6477c4041bdbc4dac5c160d375ba89d2416d53fd6e7bc",
+        "expected_final_gamestate.txt": "da94e89b028a8f7b24af12ff560359444e8e87deb8dc4730465d1e75a2776411",
+        "meta.json": "093382038460ca305bd64efefcff2bf10d25c6bfceafc3eda57031b189d3dd9a"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

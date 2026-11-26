@@ -1,0 +1,142 @@
+{
+  "runtime": "a3c009660bae17b9f6b1e6c1b9bc5fe0d26559c017d1359c74a38268cf66cefa",
+  "full_suite_run": false,
+  "fixtures": [
+    {
+      "slug": "repair-emerging-avalanche-red-four-live-20261125-declined-fusion-declared-target-false-owned-entry-layer-no-frostbite",
+      "passed": true,
+      "runtime": "a3c009660bae17b9f6b1e6c1b9bc5fe0d26559c017d1359c74a38268cf66cefa",
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=repair-emerging-avalanche-red-four-live-20261125-declined-fusion-declared-target-false-owned-entry-layer-no-frostbite",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\emerging-avalanche\\final-clean1.log"
+      ],
+      "returncode": 0,
+      "complete_log_sha256": "2f7d21300212cc5750ab7a1b90111dc0463a263a16690097b7fd0f52b67328fe",
+      "raw5_unchanged": true
+    },
+    {
+      "slug": "repair-emerging-avalanche-red-four-live-20261125-paid-ice-declared-target-owned-frost-replacement-next-action-weapon-then-seven-damage-aa",
+      "passed": true,
+      "runtime": "a3c009660bae17b9f6b1e6c1b9bc5fe0d26559c017d1359c74a38268cf66cefa",
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=repair-emerging-avalanche-red-four-live-20261125-paid-ice-declared-target-owned-frost-replacement-next-action-weapon-then-seven-damage-aa",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\emerging-avalanche\\final-clean2.log"
+      ],
+      "returncode": 0,
+      "complete_log_sha256": "d684e6575df0900598933863ef98fc8c085b25d2ec04ba3278ee12b44f4e9770",
+      "raw5_unchanged": true
+    },
+    {
+      "slug": "repair-snap-shot-red-four-live-20261125-declined-fusion-earned-layer-then-bow-rejection-and-action-control",
+      "passed": true,
+      "runtime": "a3c009660bae17b9f6b1e6c1b9bc5fe0d26559c017d1359c74a38268cf66cefa",
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=repair-snap-shot-red-four-live-20261125-declined-fusion-earned-layer-then-bow-rejection-and-action-control",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\emerging-avalanche\\final-clean3.log"
+      ],
+      "returncode": 0,
+      "complete_log_sha256": "fa15cca04afa749a5f43e36b185644d2e3ddd3bfbb76eef07ca6036ec176c3fe",
+      "raw5_unchanged": true
+    },
+    {
+      "slug": "repair-snap-shot-red-four-live-20261125-real-fusion-delayed-instant-bow-two-uses-cap-four-damage",
+      "passed": true,
+      "runtime": "a3c009660bae17b9f6b1e6c1b9bc5fe0d26559c017d1359c74a38268cf66cefa",
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=repair-snap-shot-red-four-live-20261125-real-fusion-delayed-instant-bow-two-uses-cap-four-damage",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\emerging-avalanche\\final-clean4.log"
+      ],
+      "returncode": 0,
+      "complete_log_sha256": "010bee0d2953990de2bcc08c85c6de4eb56c426ee3265de3dd48ba1b25c1359c",
+      "raw5_unchanged": true
+    },
+    {
+      "slug": "repair-snap-shot-red-four-live-20261125-channel-tax-reserved-fusion-paid-assets-before-effects",
+      "passed": true,
+      "runtime": "a3c009660bae17b9f6b1e6c1b9bc5fe0d26559c017d1359c74a38268cf66cefa",
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=repair-snap-shot-red-four-live-20261125-channel-tax-reserved-fusion-paid-assets-before-effects",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\emerging-avalanche\\final-clean5.log"
+      ],
+      "returncode": 0,
+      "complete_log_sha256": "a8a9147ddc6ad848aab8137253c8e52302dc1d0902aeecd783f2b7f818ca7d12",
+      "raw5_unchanged": true
+    },
+    {
+      "slug": "card-harvest-season-blue-four-live-real-next-action-earned-destroy-life-repair",
+      "passed": true,
+      "runtime": "a3c009660bae17b9f6b1e6c1b9bc5fe0d26559c017d1359c74a38268cf66cefa",
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-harvest-season-blue-four-live-real-next-action-earned-destroy-life-repair",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\emerging-avalanche\\final-clean6.log"
+      ],
+      "returncode": 0,
+      "complete_log_sha256": "7ef3b7fff9c1307b0676ca61eb25812952f5ae4eb6e8e051a4cb26a955190686",
+      "raw5_unchanged": true
+    },
+    {
+      "slug": "card-tome-of-aeo-blue-four-live-real-next-action-earned-destroy-draw-repair",
+      "passed": true,
+      "runtime": "a3c009660bae17b9f6b1e6c1b9bc5fe0d26559c017d1359c74a38268cf66cefa",
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-tome-of-aeo-blue-four-live-real-next-action-earned-destroy-draw-repair",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\emerging-avalanche\\final-clean7.log"
+      ],
+      "returncode": 0,
+      "complete_log_sha256": "a1eef765c7af433595f03c41828bb91e3b5616d37fe3962366c2e3181bb4f196",
+      "raw5_unchanged": true
+    },
+    {
+      "slug": "card-embolden-red-four-live-original-correct-responseable-entry-draw-with-retained-deck-tail",
+      "passed": true,
+      "runtime": "a3c009660bae17b9f6b1e6c1b9bc5fe0d26559c017d1359c74a38268cf66cefa",
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-embolden-red-four-live-original-correct-responseable-entry-draw-with-retained-deck-tail",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\emerging-avalanche\\final-clean8.log"
+      ],
+      "returncode": 0,
+      "complete_log_sha256": "b3ef78cddf2d90e4c278a715f00f4dbba57f6c5e3ef8d97220c4f03e60dade4f",
+      "raw5_unchanged": true
+    }
+  ]
+}

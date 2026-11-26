@@ -1,0 +1,7 @@
+{
+    "name": "Arcane Cussing / foreign destruction on controller turn earns owned three Runechants",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-23T23:13:11+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "EXISTING_AURA_LEAVE_ON_OWN_TURN_ONLY. NaturalYoungViserai20ownsRunebladeAura5Arena1duringhisTurn2; foreignYoungBriar20hasrealLightningRunebladeMeldInstants6/7. Noartificialarcanehistory. AllmanualACTIONresponsesreach4; actualShockrightdeclaresHero3beforefour4/1/2/3responsesanddealsreal1HP20to19. Owner1neitherdealsnorreceivesdamage, soCussingdamage-destructionWHENnotearned; Aura5staysArena. Againactualpriorityreaches4, secondrealVaporizeleftafterfourresponsesofferscost1Aura5becauseX1earnedbyactualShock. UntargetedMZMULTICHOOSEdestroys5; trigger8controller1Source5earnedonTurnPlayer1evenforeignactor4. Runechantsmustnotexistbeforefresh1/2/3/4responses; thenownedRune9/10/11Arena1, source5GY1andspells6/7GY4. Noattack/NAAplayedby1thereforenaturalViseraiheroWHENnotearned; Briar4playsInstantsnotAAorNAAsoHeroobserversnotearned. NoAuraentry/GA/damage-selfdestroy/otherturn/Runespending/secondaryorfullcardcredit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#arcane_cussing_red FaBSim/Custom/ROSCards.php FaBSim/Custom/ROSRuntime.php FaBSim/Custom/GameLogic.php FaBSim/GeneratedCode/GeneratedMacroCode.php"
+}

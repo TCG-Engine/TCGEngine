@@ -1,0 +1,97 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-23T16:27:06.311355+00:00",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1209-20261122.json",
+  "source_spec_sha256": "8d4f5b3c326e7abc81419354e39bd78482b7d440469abcf55359cb9812220d98",
+  "new_scenarios": 2,
+  "new_groups": 2,
+  "new_primary_ids": 2,
+  "actions": 56,
+  "native_assertions": 693,
+  "manual_passes": 50,
+  "totals": {
+    "saved_registered_scenarios": 5111,
+    "duels": 3075,
+    "four_live": 2036,
+    "recorded_primary_ids": 2259,
+    "identity_denominator": 5196,
+    "recorded_groups": 2133,
+    "group_denominator": 3324,
+    "four_live_groups": 2025,
+    "phase_qualified_scenarios_at_actual_contexts": 1748,
+    "phase_qualified_unique_groups": 1738,
+    "creation_replay_passes": 2490,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 909,
+  "scenarios": [
+    {
+      "card_id": "miragai",
+      "group_id": "identity:miragai",
+      "scenario_id": "card-miragai-four-live-sparse1209-first-ordinary-ash-dragon-attack-survives-real-power-six-blocker-without-phantasm",
+      "effect_branches": [
+        "first_ordinary_ash_dragon_attack_survives_real_power_six_blocker_without_phantasm"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-miragai-four-live-sparse1209-first-ordinary-ash-dragon-attack-survives-real-power-six-blocker-without-phantasm",
+      "source_spec": "card-regression-sparse1209-20261122.json",
+      "source_spec_sha256": "8d4f5b3c326e7abc81419354e39bd78482b7d440469abcf55359cb9812220d98",
+      "review_evidence": "review-evidence/sparse1209-20261122-qualified-saved.json",
+      "review_evidence_sha256": "d9f8ad613656a9637f0331350bc7ce23b843831ee7c4c285fed977ec80ae81ad",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1209-20261122-replay.json",
+          "sha256": "148c63f1b9408f38bfad1dcee903a3c37053c7782b4a247f86ce42df49b29b5c",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "themai",
+      "group_id": "identity:themai",
+      "scenario_id": "card-themai-four-live-sparse1209-own-turn-static-lock-stops-real-opposing-instant-response-then-attack-deals-four",
+      "effect_branches": [
+        "own_turn_static_lock_stops_real_opposing_instant_response_then_attack_deals_four"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-themai-four-live-sparse1209-own-turn-static-lock-stops-real-opposing-instant-response-then-attack-deals-four",
+      "source_spec": "card-regression-sparse1209-20261122.json",
+      "source_spec_sha256": "8d4f5b3c326e7abc81419354e39bd78482b7d440469abcf55359cb9812220d98",
+      "review_evidence": "review-evidence/sparse1209-20261122-qualified-saved.json",
+      "review_evidence_sha256": "d9f8ad613656a9637f0331350bc7ce23b843831ee7c4c285fed977ec80ae81ad",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1209-20261122-replay.json",
+          "sha256": "148c63f1b9408f38bfad1dcee903a3c37053c7782b4a247f86ce42df49b29b5c",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

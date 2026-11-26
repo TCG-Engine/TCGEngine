@@ -1,0 +1,127 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "/root/breadth_review1457",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1573-20261122.json",
+  "source_spec_sha256": "b7c0ebb5a20f1d1c8e8b88d8cbe9fd2436075efd769508cd2f5ad0cf9cb5c2d9",
+  "input_sha256": "b7c0ebb5a20f1d1c8e8b88d8cbe9fd2436075efd769508cd2f5ad0cf9cb5c2d9",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-lady-barthimont-four-live-sparse1573-real-own-start-optional-mentor-reveal",
+      "card_id": "lady_barthimont",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "ff6a8f9aad75eb4121ea297af5bc9df8383bf9301dd67ce80ba679cd44492769",
+        "actions.json": "2705eed4429a453578482ecc415544e5a11f3361bb22723a7dfe0c9f6e09d220",
+        "assertions.json": "67ac66dbdda7e143c0309364d0e19c1ae3b93bbcdf7c8217856131a3a0a1141b",
+        "expected_final_gamestate.txt": "14b110263350637505400923ed3630b30d59c50c6558ba4783574afcbe128ffd",
+        "meta.json": "91e4b6f4b75a30fae075652996480693abdf992426474b4a8b7d362effba4c95"
+      },
+      "fixture_sha256": "b89d852f5a1de67304c8bdeda1c86785f0105bc648f84a5d9c9dfef3e922956d",
+      "actions": 9,
+      "native_assertions": 193,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 8,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1573-20261122.json",
+      "input_sha256": "b7c0ebb5a20f1d1c8e8b88d8cbe9fd2436075efd769508cd2f5ad0cf9cb5c2d9",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1573-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-lady-barthimont-four-live-sparse1573-real-own-start-optional-mentor-reveal",
+        "fixture_slug": "card-lady-barthimont-four-live-sparse1573-real-own-start-optional-mentor-reveal",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-the-librarian-four-live-sparse1573-real-own-start-optional-mentor-reveal",
+      "card_id": "the_librarian",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "21286b2623a2a6f800932dbb1c867711d08313898ad8ac9aac850daebb6b495f",
+        "actions.json": "2705eed4429a453578482ecc415544e5a11f3361bb22723a7dfe0c9f6e09d220",
+        "assertions.json": "ca2f64274a0ff8142057cde19d110715cb0da65afd1b3cc5d918666d96a1b983",
+        "expected_final_gamestate.txt": "90815e97d40fa0aa52e9d6776427e5fc2c3bd890beb66d7412e1f52349acbb7c",
+        "meta.json": "c27033e2e3667976b6fa5b893f89d2995d284e381b266e53b54fe320db98b72a"
+      },
+      "fixture_sha256": "0b472c8e7ee3f03163334e5468a6e5901a20368071587eb05a3be8dd68a33f0a",
+      "actions": 9,
+      "native_assertions": 193,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 8,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1573-20261122.json",
+      "input_sha256": "b7c0ebb5a20f1d1c8e8b88d8cbe9fd2436075efd769508cd2f5ad0cf9cb5c2d9",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1573-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-the-librarian-four-live-sparse1573-real-own-start-optional-mentor-reveal",
+        "fixture_slug": "card-the-librarian-four-live-sparse1573-real-own-start-optional-mentor-reveal",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "schema_version": 1,
+    "batch": 1573,
+    "reviewer": "/root/breadth_review1457",
+    "result": "approved_named_branches_only_pending_native_execution",
+    "reviewed_utc": "2026-11-25T15:12:25.828320+00:00",
+    "spec_sha256": "b7c0ebb5a20f1d1c8e8b88d8cbe9fd2436075efd769508cd2f5ad0cf9cb5c2d9",
+    "source_note_sha256": "682bbb4d3d79e13df7aff553da615a419763a4cb5bab6cce09a55c682b480939",
+    "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+    "source_sha256": {
+      "FaBSim/Custom/DeckImport.php": "4dca611703690fd10e932e18ad7b3301cfd346c32ace44437a81f253be98865e",
+      "FaBSim/Custom/GameLogic.php": "c60fa151561f959e4e3e341b814de0e2b47c9e9f153bbc8793a04c43b5075061",
+      "FaBSim/Custom/LeviaCards.php": "dc53dbdb9e53987813a5381c91e1b276be6a2b367b42d20156dc5ca8a07132a4",
+      "FaBSim/Custom/PrismCards.php": "19bb386a4580244e1a9cc4d20610dcb29c3fb7062ace38b333d4c82e0838459c",
+      "FaBSim/GeneratedCode/GeneratedMacroCode.php": "fe6a7982611df8f4de98ce2671b317b671b580146aa4b8c28e8f4b86d8461056",
+      "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+      "FaBSim/ZoneClasses.php": "874bb2ae00a80a8ba3dfe1789b4c932fd0b7cf1286504a62828e0055ca1cb355"
+    },
+    "cases": 2,
+    "findings": [
+      "Independent exact review approved both distinct own-Start optional faceup branches. Appropriate class and young20Hero restrictions satisfied; physical Mentor5 is in a valid prior Arsenal state. The compact source prose Mentor5invalidpriorstate means Mentor5 in a valid prior state, not invalid setup.",
+      "ActualP1End and allfourmanualpasses reach P2Start3, sameP2modaloption1 re-finds liveUID5 and reveals it without moving zones or adding lessons. Arsenal Counters schema supports empty array checks.",
+      "NoAAplay/Shieldcreation, so no faceup WHEN reward has been earned or omitted. Primary source/spec approval concerns only optional Start reveal, not later trigger/search/threshold behavior."
+    ],
+    "limits": [
+      "Source/spec review only; native/save/replay pending.",
+      "face_up_triggered_lesson_reward_search_and_banish_effects",
+      "decline_or_already_faceup_Start_behavior",
+      "prior_Arsenal_insertion_or_legal_deck_construction",
+      "support_identity_or_whole_card_credit"
+    ]
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1573-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "769b7528318bf56f117e4f827c05c8f9d684835c24c4d5418a5236f359991f35"
+  },
+  "full_suite_run": false
+}

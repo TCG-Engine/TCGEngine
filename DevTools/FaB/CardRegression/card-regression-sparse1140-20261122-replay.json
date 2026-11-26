@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-channel-the-bleak-expanse-blue-four-live-sparse1140-foreign-global-static-denies-real-sift-effect-draw",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-channel-the-bleak-expanse-blue-four-live-sparse1140-foreign-global-static-denies-real-sift-effect-draw",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1140-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1140-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "d39e5c13da8d67ab1cdd0292d1aa946207d7d6301953398ca7ced50765cd26e9",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "d55a1e8178a4892b845f8291c9317e2d2d9702ae6581d184476f91614669696b",
+        "actions.json": "fd41a737eb3a336e908a0167e41f583c2015a2192736fb6658abdb26f3dc7e30",
+        "assertions.json": "3d0351c605b92695450507a31953b74038e994e80d8665ffa734d9264ffbcb01",
+        "expected_final_gamestate.txt": "33f0ecb0a099a0c4a777dd71c3de664c2b90c2ac25c143347e728b8404178ff7",
+        "meta.json": "9ada628eb8a2d00ada0dc0b4ad7a93badf327ad3276aa13aae41cfcfc6a16beb"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

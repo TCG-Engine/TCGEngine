@@ -1,0 +1,125 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-tome-of-necrosis-red-four-live-sparse1088-no-ally-cost-available",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-tome-of-necrosis-red-four-live-sparse1088-no-ally-cost-available",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1088-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1088-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "549ee0b7a20b3a1e64d069fc983cea2309283466676213c3237c525426c94510",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "d81a859efa84e750cf645068587ca2c65ee6b0b6961a83647e5535084c37aff5",
+        "actions.json": "861a192f87f7de9b14e134b563b3147dff3f7480763d1c065ddc150843ceac39",
+        "assertions.json": "41b4d3efa9d066ca72e711555e92dadb43d35248b6c105246ada227b95ca16ea",
+        "expected_final_gamestate.txt": "dad67c5bca3cea4f436218f1fb7efa6d87d000cb419f2a71c64f507490899828",
+        "meta.json": "2816ecd817289981efc7625100f6333bfffc258dd5d47d077a673fdd02da6125"
+      }
+    },
+    {
+      "slug": "card-convulsions-from-the-bellows-of-hell-red-four-live-sparse1088-only-two-graveyard-cards-for-mandatory-three-banish",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-convulsions-from-the-bellows-of-hell-red-four-live-sparse1088-only-two-graveyard-cards-for-mandatory-three-banish",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1088-local-20261122\\clean-replays\\01.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1088-local-20261122\\clean-replays\\01.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "c39e5b49adbf6c88d98295ff9998078ef964b25eb9bcf5f72dae8b19dc3bf616",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "b975413bef996e03d262203c4f06fc20913c347c367858a56064e2a556b24b2a",
+        "actions.json": "861a192f87f7de9b14e134b563b3147dff3f7480763d1c065ddc150843ceac39",
+        "assertions.json": "4b7fe6e14c49981064191f0190dda9a074ace2604683a77edbbf539bba018426",
+        "expected_final_gamestate.txt": "4e03815cd0ccc702a17cde0410f4929d139332ef3dd49cb8d496ef0fe92e4375",
+        "meta.json": "ef882b29b600efc62071401958d78b130871b3fdace86c731d208d7e9dae194d"
+      }
+    },
+    {
+      "slug": "card-boneyard-marauder-red-four-live-sparse1088-only-two-graveyard-cards-for-mandatory-three-banish",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-boneyard-marauder-red-four-live-sparse1088-only-two-graveyard-cards-for-mandatory-three-banish",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1088-local-20261122\\clean-replays\\02.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1088-local-20261122\\clean-replays\\02.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "37996c4713f0deaceea927d10858c0b2b9a782ed6f88685f66bc63544622e3ba",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "6abe218862db2a6805d6e1279c88329da9505dfbfeba344875d684af34d8c3ef",
+        "actions.json": "861a192f87f7de9b14e134b563b3147dff3f7480763d1c065ddc150843ceac39",
+        "assertions.json": "79562e53949159e26316dac153d60e76eb6ec2676cbf4c6e4faf16c583fc56a4",
+        "expected_final_gamestate.txt": "42a8911db0e902378c156d1ccd7d57b930aed89f87a6930d5c1f6adde74daf8d",
+        "meta.json": "4c51900c48e64075bb262a38772cb2b28a8064bf7f77d52dd51fecd28c7313f9"
+      }
+    },
+    {
+      "slug": "card-hungering-slaughterbeast-red-four-live-sparse1088-only-two-graveyard-cards-for-mandatory-three-banish",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-hungering-slaughterbeast-red-four-live-sparse1088-only-two-graveyard-cards-for-mandatory-three-banish",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1088-local-20261122\\clean-replays\\03.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1088-local-20261122\\clean-replays\\03.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "e2351f1e032ec0fba24549b81007b2c7d663e55ea8655ac815d65e439c698722",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "9d5b6a6b47ff1acf3a7faba94b6b524846b37842d210c38435999098630cdc47",
+        "actions.json": "861a192f87f7de9b14e134b563b3147dff3f7480763d1c065ddc150843ceac39",
+        "assertions.json": "d7dd4cdb32b3aa2a61c31c9a3fe56a3c50518536adeb3efc2ef19b81239cd963",
+        "expected_final_gamestate.txt": "0fd69fd4087ef588129614e276a49a8bad6c5059a43ec30b1888c92c7d8fb900",
+        "meta.json": "c56b6b15f81af2b50163599d66f23667254757cb926bb5906c7d63ff055926cb"
+      }
+    },
+    {
+      "slug": "card-writhing-beast-hulk-red-four-live-sparse1088-only-two-graveyard-cards-for-mandatory-three-banish",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-writhing-beast-hulk-red-four-live-sparse1088-only-two-graveyard-cards-for-mandatory-three-banish",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1088-local-20261122\\clean-replays\\04.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1088-local-20261122\\clean-replays\\04.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "5683b2fa82739b3e9cd70553393d98a5f9f803f47ab2c60e4df18a9e0669a88f",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "526f46d57aa4dda289c047e010a7b45aadce1ee5617f179f5c7c74b023ce6e5f",
+        "actions.json": "861a192f87f7de9b14e134b563b3147dff3f7480763d1c065ddc150843ceac39",
+        "assertions.json": "6c2843f8e05550626a3555c81adb08f33f4c06cecb6aa00c5f96c3f43f487a06",
+        "expected_final_gamestate.txt": "152fcd32633b9c503f1ceb064354d84a8b5576ca853db2c7d9f50f3e8cf615ef",
+        "meta.json": "5d3c4147971cb3b5b6a55cf53324b49334c1382fb3a8f63cc14fc8501feea831"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

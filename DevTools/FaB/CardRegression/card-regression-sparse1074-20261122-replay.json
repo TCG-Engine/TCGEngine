@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-gloves-of-azure-waves-four-live-sparse1074-two-actual-blue-pitch-cards-enable-three-defense-and-blade-break",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-gloves-of-azure-waves-four-live-sparse1074-two-actual-blue-pitch-cards-enable-three-defense-and-blade-break",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1074-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1074-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "3b084315affb6fbeae0c1a0da787cc241fe13821a70a69d29f70cad9cc7e5307",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "31430f57a27e85ca1bcec2192232778d21efea2dd5d282fab4235bb796e64e74",
+        "actions.json": "511bf2f3686ee96e12e3d9cdbe580febcac902b797e5ec827a96d5ccd74ac457",
+        "assertions.json": "aec1697af182e321f5f53cd05f0279531526cfd41de31ad12e35fc04cc151fde",
+        "expected_final_gamestate.txt": "147c9872e31e670391f53db2c25d13a48092f8c20ba26cdd3c94a86ebb664a9a",
+        "meta.json": "277949a45fac7cca5af627559d9ac7bc99a949ff750a8a1a1079ceca0696436e"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

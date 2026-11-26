@@ -1,0 +1,123 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "independent breadth_review1252",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1374-20261122.json",
+  "source_spec_sha256": "460bc16c1b624ad1bf6d095799035af0568ab8d43d83f22296b47095749b89ae",
+  "input_sha256": "460bc16c1b624ad1bf6d095799035af0568ab8d43d83f22296b47095749b89ae",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-daily-grind-blue-four-live-sparse1374-real-nonattack-hand-defense-does-not-earn-clash-with-nonempty-unequal-decks",
+      "card_id": "daily_grind_blue",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "57d0477a612401875874db4db12dc5d8c3ebd394a9fa43df29b0f1fa41821791",
+        "actions.json": "391d0c3198a3462eb041e6d636e4470fb6e77a744dbc147221d49725d7cc518a",
+        "assertions.json": "9531a86906944b4e26844ee2bbd97bd1e155e2d18303263310a0558b8e0c49ca",
+        "expected_final_gamestate.txt": "129fb752c56cff0f5bea0e03e2698c98297f209897fee88536634df07b3257f3",
+        "meta.json": "9af78be9f363a9fff3d11b05883d2e96d4a7ed8dc2d3a2915eac78a333426677"
+      },
+      "fixture_sha256": "23d1f42d1480c8602a79d85d73c84f1ec27a13657a5d8ac5954f2443f1a0a40f",
+      "actions": 29,
+      "native_assertions": 498,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1374-20261122.json",
+      "input_sha256": "460bc16c1b624ad1bf6d095799035af0568ab8d43d83f22296b47095749b89ae",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1374-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-daily-grind-blue-four-live-sparse1374-real-nonattack-hand-defense-does-not-earn-clash-with-nonempty-unequal-decks",
+        "fixture_slug": "card-daily-grind-blue-four-live-sparse1374-real-nonattack-hand-defense-does-not-earn-clash-with-nonempty-unequal-decks",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "reviewer": "independent breadth_review1252",
+    "spec_sha256": "460bc16c1b624ad1bf6d095799035af0568ab8d43d83f22296b47095749b89ae",
+    "source_note_sha256": "6de8b66c00633ceb0f93e3d7febdd3ce67b0272f66c069c344365a6ff5324fcd",
+    "case_count": 1,
+    "active_seats": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "players": "four_live_manual",
+    "native_controls": 29,
+    "query_checks": 498,
+    "persistable_assertions": 498,
+    "author_only_checks_omitted": 0,
+    "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+    "coverage_category": "AURA_GRANTED_TRIGGER_CARD_TYPE_GUARD_WITH_REAL_DEFENSE_AND_UNEQUAL_DECK_CONTROLS",
+    "per_case": [
+      {
+        "card_id": "daily_grind_blue",
+        "group_id": "identity:daily_grind_blue",
+        "native_controls": 29,
+        "persistable_assertions": 498
+      }
+    ],
+    "basis": [
+      "Unrepresented/unheldGuardianAuraDailyGrindBlue10underlegalYoungBravo20seat4withthreeYoungDori20/manual4UPF. InitialsourceArena4duringopponentTurnPlayer1doesnotcrossownersstartturn; itcanbeadmittedfromearlierownturnwithoutoutstandingcurrentstarttrigger. Noentry/startturnprovenancevalidatedorcredited. GenericComeFightRed7HandlegalNAA/printed3defense; cachedlocalupf_bannedfalse only.",
+      "DailyGrindprintsAttackActioncardsgetWhenThisDefendsClash; actualHandComeFight7isGenericActionNAA, notAA/despitedefenderGuardianHero. MPGCards72 queuesmpgDaily onlyifFaBWTRIsAttackAction(defenderobject), false. OrdinaryblockisnotplayingComeFight/sodoesnotgrantits+3nextattackeffect; realnativeRoleDEFENSE/FromZoneHand andactual3defenseconsistent. NoearnedClashability/queue/choice/deckdestruction.",
+      "NonvacuousbothDeckcontrols: actorWoundingRed8AApower4 anddefenderWoundingBlue9AApower2 areactualdistinctownedDeck0objects/nonempty. ErroneousordinaryClashwouldhaveactorwinner anddestroyopponent9, notatie; exactDeck8/9retentionthereforepinsnoresultingdestruction, while noreveal-logcoverageclaimed. SourceAura10sameownedready/Counters[]/TurnEffects[]/Arena4only; UID10/RNG0/noextracards/queue.",
+      "ExistingHanddefenseflowpreserved: actualCriticalRed5cost1/Blue6pitch3/R2/AP0/base5, allfourmanualresponses/defender4Hand7block,5-3=2physicaldamageHP4=18; final5GY1/6Pitch1/block7GY4/Deck8+9same/Aura10same/allotherArena0/ownHP20/quietStackDQsCC. Physicalbundles/zonecounts andUID5-10 mappingconsistent. Counts29nativecontrols498persistableassertions."
+    ],
+    "limits": [
+      "OnlyNAA-versus-AAgrantedtriggercardtypeguard withrealnativeHanddefense/damage/deckfates approvedpendingnative; no passorcoverageclaimed.",
+      "PositiveAAClash/grantedtriggerSourceidentity/WHENtiming/reveal-log/winner/destruction/startturn/entry/Hero/support/sibling/fullcard behavior untested/uncredited. Counterfactualwinnerexplainsthenonvacuouscontrol, notanactualClashpassclaim. Existingholdsuntouched.",
+      "Only W reviewreceiptwritten; no nativegame/test/replay, engine/repositoryedit, originalcheckoutaccess, auth/network, fullsuite orGitoperation."
+    ],
+    "source_sha256": {
+      "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+      "FaBSim/GeneratedCode/GeneratedMacroCode.php": "fe6a7982611df8f4de98ce2671b317b671b580146aa4b8c28e8f4b86d8461056",
+      "FaBSim/Custom/GameLogic.php": "c60fa151561f959e4e3e341b814de0e2b47c9e9f153bbc8793a04c43b5075061",
+      "FaBSim/Custom/MPGCards.php": "75bacd40bf08b76f2a5af3d6c1a8b033d6b942bdcf52045a73a4244f992eeca6",
+      "FaBSim/Custom/HVYCards.php": "1387ecf0971fae9aa4bfb7bc99baec47a46e9c8770030884b722915eb87a31f1",
+      "FaBSim/Custom/ROSCards.php": "c79f80e918be279dde3c7fe5323ea3031228c131e3e2d0b2b254619e0944b59a",
+      "FaBSim/Custom/WTRCards.php": "77d4452b30e45254a7199bc965396ded53e325717ecdd84a09b971f723f99f6a",
+      "Core/EngineActionRunner.php": "add14b53dc571d2a6e64407bfa4038a98d6554d6410de7a9233810d99c46ea2a",
+      "Schemas/FaBSim/GameSchema.txt": "7783800bd47bc85885cc915066aadca58cdf99f0c1180602ac312d9af5ebf643",
+      "Core/ShortcutPreferences.php": "25f300ea0b6fbc409f5b92e8bc3587a74b2ab0eaf31ccef38e18c455598eaba6",
+      "DevTools/FaB/CardRegression/record_card_regressions.php": "e53055b29e9ea641949b77019c4455607f41ca233325d716a9500637e19efd28"
+    },
+    "workspace_source_sha256": {
+      "author_breadth1374.py": "376e167bacac129a0fea8b85687463fde00eb56602529f33791395e38dba6061",
+      "breadth1068_helpers.py": "997f949ec26c7e494ad26a818f9f2078f6f4f2a0c49ca7f61aa8c71f3b091b0a"
+    },
+    "secondary_identity_credit": false,
+    "whole_card_credit": false,
+    "positive_condition_credit": false,
+    "positive_trigger_timing_credit": false,
+    "positive_hero_trigger_credit": false,
+    "adult_credit": false,
+    "positive_equipment_ability_credit": false,
+    "positive_ability_credit": false
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1374-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "6ad3c14173cec3fa3ffdc076000fbd999e457fcea553b3075891a17efa97f759"
+  },
+  "full_suite_run": false
+}

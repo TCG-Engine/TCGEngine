@@ -1,0 +1,7 @@
+{
+    "name": "Barbed Barrage / actual extra three paid and two declared heroes each take five",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-23T17:39:20+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "FourmanualYoungAzalea20/3Dori20. RealRedarrow5facedownArsenal1/Bow6ready/twoBlue7,8Hand1. ActualfirstformalHero2target, exactPreparePay3mode1thenadditionalformalHero4 BEFOREcost. Realbase1+extra3=4: firstBlue3insufficientR3/AP1, secondBlue3pays4R2/AP0beforefour1/2/3/4responses. Realfivepowerarrow5CC/noGA; actualclockwiseDEFEND_DECLAREHero2index0thenHero4index1, emptydefenders, thenall4defense/reactionresponses. Real2then4damagepacketsfiveeach/HP2=15/HP4=15/HP1,3=20/targetDamagefiveperHero/total10. Nochangingpower/prevention/observers/elimination, soprecomputedamountsdo notchange thisselectedsequentialoutcome. Finalsinglearrow5GY1/Bow6ready/Blue7,8Pitch1/R2/AP0/UID8/nootherzonesDQschains. ONLYfirstTarget2additional4clockwiseroute; noarbitrarydeclarationorder/globalprecomputationalgorithmcertificate. Earlierunrun4then2draftheldundersource-onlyCR7.3.2f/7.5.2cdependency,noNativeornewconfirmedbug. Nootherpitches/blocks/prevention/ally/opposite/decline/Hero/support/fullcardcredit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#barbed_barrage_red FaBSim/Custom/SEACards.php FaBSim/Custom/MultiTargetCombat.php FaBSim/Custom/GameLogic.php FaBSim/GeneratedCode/GeneratedMacroCode.php https://rules.fabtcg.com/en/cr/07-combat/"
+}

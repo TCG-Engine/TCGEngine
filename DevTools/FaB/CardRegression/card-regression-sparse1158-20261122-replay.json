@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-dust-from-stillwater-shrine-red-four-live-sparse1158-basic-ash-action-play-only-no-material-ability-credit",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-dust-from-stillwater-shrine-red-four-live-sparse1158-basic-ash-action-play-only-no-material-ability-credit",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1158-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1158-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "9e41f2d68565fcfa50e873857c6c6106edd6e344dd67bcd471e0352f145f88ea",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "ddea193f2acac4f5fbc2955d5fbe625302453aff05def3df21e2e5bc9e096ada",
+        "actions.json": "ecfc3b356d170d3adcd369c59f64176c3b17ffe7af3900115b2de1a20afbaf7c",
+        "assertions.json": "0ac4aeec6e6439455fcb09f8ea24fa3047dcaf75cdbb16d5703721a87ac242ad",
+        "expected_final_gamestate.txt": "79e6bae0c04de41c2fe9682573e9ed15c78b1d20ccbeaff5a72e795091a83877",
+        "meta.json": "a69d97508622e48ff69c2d83172f0e3272237cb2b1a109c55c04784f43814aaa"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

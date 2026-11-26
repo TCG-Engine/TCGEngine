@@ -1,0 +1,96 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "Root independent cached-text/source-spec review of packet authored by /root/breadth_review; Root native/saved checks and replay",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse885-20261122.json",
+  "source_spec_sha256": "1bb36c108b70fb7ba6f6bc0fabb19a9b0e8c677009ead98d52e8bd1d5e8b3b7e",
+  "input_sha256": "f22dd73c533039d2667f5a7f04ae59f5f0b0e42ac22d0c92b2bd40557e5f8548",
+  "recorded_input_scope": "Exact original native input, possibly containing unsaved failed cases excluded from this qualified subset; each retained case compared verbatim.",
+  "fixtures": [
+    {
+      "slug": "card-hadron-collider-red-four-live-sparse885-actual-four-steam-entry-then-positive-crank-removes-one-and-gains-action-point",
+      "card_id": "hadron_collider_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "2c7ab6259884a8be75edfe5c39eff6acc8f1f1377ba9c3e22b90420c1a02c798",
+        "actions.json": "ab9ba164390e567ba51e3636959e2adf186a796e6ee24d2acb857997c604f834",
+        "assertions.json": "ceda4038c3ce6a6546a1f639ab6815643390a936d8ca151c1c6ae9067c71748d",
+        "expected_final_gamestate.txt": "4a3ead9e92ac3ea085a13ff4beb7cba28c315f40984957694602a1db48a0a423",
+        "meta.json": "f9116a1cb55abd0d25ec7f7a91af965cd37bda9b3a5e6899fea6683b59ddd092"
+      },
+      "fixture_sha256": "3283d54196668627a63bbda612d1d9fb7d7cbf93370db0ce65fb46b997907e3a",
+      "actions": 7,
+      "native_assertions": 112,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 4,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse885-20261122.json",
+      "input_sha256": "f22dd73c533039d2667f5a7f04ae59f5f0b0e42ac22d0c92b2bd40557e5f8548",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse885-local-20261122\\save\\selected.json"
+    },
+    {
+      "slug": "card-mini-forcefield-red-four-live-sparse885-actual-four-steam-entry-declines-crank-and-preserves-all-counters",
+      "card_id": "mini_forcefield_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "fa3189a639f151391d0bf154eeb62e3d3c8879fb98d1fbb1955503095c9710f6",
+        "actions.json": "649fe97f6e3484b44b741ac39f791c03f9b45239b0132adaf150fbce8f629bb6",
+        "assertions.json": "bd8f8c33a3e5024c3fbc7d30758a092b8a6d83bb29e1eb53839cbba671668601",
+        "expected_final_gamestate.txt": "8c9755173ba5a416a34e154e411883efb09594870245b8613ce334363d41b3e4",
+        "meta.json": "6c842216e808656c6afd80ea74b83e9595be1e5d7e9ea1481845c36435b8dab2"
+      },
+      "fixture_sha256": "9c17f5556217ce8f69ba5aec9f424ad01a0de7af18d9366a46dc9fa205e998da",
+      "actions": 7,
+      "native_assertions": 112,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 4,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse885-20261122.json",
+      "input_sha256": "f22dd73c533039d2667f5a7f04ae59f5f0b0e42ac22d0c92b2bd40557e5f8548",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse885-local-20261122\\save\\selected.json"
+    }
+  ],
+  "basis": {
+    "review_type": "independent_static_semantic_review",
+    "reviewer": "Root independent cached-text/source-spec review of packet authored by /root/breadth_review; Root native/saved checks and replay",
+    "result": "approved_named_branches_only_pending_native_execution",
+    "spec_sha256": "f22dd73c533039d2667f5a7f04ae59f5f0b0e42ac22d0c92b2bd40557e5f8548",
+    "reviewed": [
+      {
+        "card": "hadron_collider_red",
+        "branch": "actual_four_steam_entry_then_positive_crank_removes_one_and_gains_action_point"
+      },
+      {
+        "card": "mini_forcefield_red",
+        "branch": "actual_four_steam_entry_declines_crank_and_preserves_all_counters"
+      },
+      {
+        "card": "copper_cog_blue",
+        "branch": "actual_two_steam_entry_then_positive_crank_removes_one_and_gains_action_point"
+      }
+    ],
+    "evidence": [
+      "Root checked printed costs, sourceUID5, natural Dash20, bluePitchUID6 and printed steam4 for red Hadron/Mini, Crank branch math AP1+steam3 or AP0+steam4.",
+      "Crank is static as-entry choice per official CR8.3.29, not WHEN entry trigger: https://rules.fabtcg.com/en/cr/08-keywords/",
+      "Copper expected entry2steam and positiveCrank1steam/AP1 is correct printed behavior, but reachable initialization is unverified. FaBEVOEnter contains rule; current normal fallback route inspected does not call it. Its direct5-input entry guard is a valid no-save probe; no implementation or passing coverage claimed before execution."
+    ],
+    "limits": [
+      "No Hadron boost bonus, Mini Ward/prevention, future upkeep or sibling pitch evidence.",
+      "Missing Copper route inferred from source only until native probe; no fix/new root claimed."
+    ]
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse885-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "ee15064cb3e1d9b17f293412dfd5aa1a832b1e74510475fff590dbdd96caa0b5"
+  },
+  "full_suite_run": false
+}

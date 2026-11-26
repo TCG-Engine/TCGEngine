@@ -1,0 +1,445 @@
+{
+  "status": "APPROVED_ACTUAL_SAVED_BY_BOOK_SUBSET_WITH_BURN_BLOCKED_UNSAVED",
+  "approved": true,
+  "source_approved": true,
+  "semantically_approved": true,
+  "reviewer": "/root/b106_semantic_review",
+  "reviewer_independent": true,
+  "created_utc": "2026-11-05T15:53:30.580812+00:00",
+  "source_spec": "card-regression-batch481.json",
+  "input_sha256": "da8fd73580a433ae9173753724c6d249629fd2b5a6948bcc73d99e6464fc07e3",
+  "manifest_sha256": "8bf994185cda8dd62eeb8ff8b60d5cc86621445781b2bd5fc130b2c01a81212c",
+  "runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+  "recorded_runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+  "source_guards_verified": 69,
+  "reviewed_subset": true,
+  "prior_independent_semantic_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch481-independent-source-review.json",
+    "sha256": "a1c4f0e65bee120a2b7f3d62153ecf30ed4a00b3c25df43efdb8c4b729f6bbfd",
+    "unchanged_normative_source_reused": true
+  },
+  "recording_receipt": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch481-20261105T154237Z-6aeca3ed25c89.json",
+    "sha256": "71a7b621fe05a1f413cc9e93d5872f33995b7d606011172ae66aebf2b83f8463"
+  },
+  "specific_results": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch481.recording-results.json",
+    "sha256": "64d45ef1f9e9dea742945e5615640886098d14c2b763d554db143545c4069ef8"
+  },
+  "root_wrapper_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch481-native-r1-9e984\\receipt.json",
+    "sha256": "46adb237212463f3c4344e3f26a0e647a5d729f88b2eff412dde0f61aa8e481e",
+    "whole_process_exit": 1,
+    "mixed_partial_failure_honestly_retained": true
+  },
+  "fixtures": [
+    {
+      "index": 0,
+      "card_id": "by_the_book_blue",
+      "group_id": "identity:by_the_book_blue",
+      "slug": "card-by-the-book-blue-four-live-real-potion-funding-global-action-phase-draw-prohibition-all-four-heroes",
+      "source_spec": "card-regression-batch481.json",
+      "input_sha256": "da8fd73580a433ae9173753724c6d249629fd2b5a6948bcc73d99e6464fc07e3",
+      "reviewer": "/root/b106_semantic_review",
+      "approved": true,
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_NEW_FOUR_LIVE_GLOBAL_ACTION_PHASE_DRAW_PROHIBITION",
+      "runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+      "recorded_runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+      "fixture_path": "Tests\\Integration\\FaBSim\\card-by-the-book-blue-four-live-real-potion-funding-global-action-phase-draw-prohibition-all-four-heroes",
+      "fixture_sha256": "8c12c3a4f8474df57d6b59f4eba18106df7db52c923896e8b45444a11434e699",
+      "raw4_sha256": {
+        "initial_gamestate.txt": "34e500b7aefbef5d7db83c6c68cdef7a8bd98e131f846300a13190174c89c804",
+        "actions.json": "08ca4085226e2b91bdecee2feff08b5ebdeb31f0151031036e78232358a04762",
+        "assertions.json": "0479c4833d119b57e6d5746f046e230a583cbc941eaef38ec55f8ca5cd75b74b",
+        "expected_final_gamestate.txt": "b972c967d22d05042b565c4f883dd86ae4de1072b58b39417ac594d2344bfe99"
+      },
+      "raw5_sha256": {
+        "initial_gamestate.txt": "34e500b7aefbef5d7db83c6c68cdef7a8bd98e131f846300a13190174c89c804",
+        "actions.json": "08ca4085226e2b91bdecee2feff08b5ebdeb31f0151031036e78232358a04762",
+        "assertions.json": "0479c4833d119b57e6d5746f046e230a583cbc941eaef38ec55f8ca5cd75b74b",
+        "expected_final_gamestate.txt": "b972c967d22d05042b565c4f883dd86ae4de1072b58b39417ac594d2344bfe99",
+        "meta.json": "6089a27b53e45ba592fd9556f0f3715e19785a6cb16a40872ef213351baebc63"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "34e500b7aefbef5d7db83c6c68cdef7a8bd98e131f846300a13190174c89c804",
+        "actions.json": "08ca4085226e2b91bdecee2feff08b5ebdeb31f0151031036e78232358a04762",
+        "assertions.json": "0479c4833d119b57e6d5746f046e230a583cbc941eaef38ec55f8ca5cd75b74b",
+        "expected_final_gamestate.txt": "b972c967d22d05042b565c4f883dd86ae4de1072b58b39417ac594d2344bfe99",
+        "meta.json": "6089a27b53e45ba592fd9556f0f3715e19785a6cb16a40872ef213351baebc63"
+      },
+      "actions": 16,
+      "native_assertions": 2102,
+      "actual_manual_passes": 12,
+      "actual_priority_response_passes": 12,
+      "actual_defender_declaration_finish_inputs": 0,
+      "actual_administrative_END_PHASE_passes": 0,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4
+      ],
+      "actual_manual_actor_counts": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "schema_property_assertions": 1048,
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "all_actions_and_assertions_exact": true,
+      "no_recorder_only_assertions": true,
+      "all_endpoint_physical_uid_card_zones_ownership_verified": true,
+      "all_terminal_assertions_evaluated_against_parsed_final_snapshot": true,
+      "initial_assertions_also_evaluated_against_parsed_initial_snapshot": true,
+      "initial_physical_uid_locations": {
+        "1": {
+          "card_id": "pleiades",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "by_the_book_blue",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "this_rounds_on_me_blue",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "8": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "9": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Deck",
+          "owner": 1,
+          "controller": 1
+        },
+        "10": {
+          "card_id": "wounding_blow_red",
+          "zone": "p1Deck",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "timesnap_potion_blue",
+          "zone": "p1Arena",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2
+        },
+        "11": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p2Deck",
+          "owner": 2,
+          "controller": 2
+        },
+        "12": {
+          "card_id": "wounding_blow_red",
+          "zone": "p2Deck",
+          "owner": 2,
+          "controller": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3
+        },
+        "13": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p3Deck",
+          "owner": 3,
+          "controller": 3
+        },
+        "14": {
+          "card_id": "wounding_blow_red",
+          "zone": "p3Deck",
+          "owner": 3,
+          "controller": 3
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4
+        },
+        "15": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p4Deck",
+          "owner": 4,
+          "controller": 4
+        },
+        "16": {
+          "card_id": "wounding_blow_red",
+          "zone": "p4Deck",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_physical_uid_locations": {
+        "1": {
+          "card_id": "pleiades",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1
+        },
+        "9": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Deck",
+          "owner": 1,
+          "controller": 1
+        },
+        "10": {
+          "card_id": "wounding_blow_red",
+          "zone": "p1Deck",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "by_the_book_blue",
+          "zone": "p1Arena",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "timesnap_potion_blue",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "this_rounds_on_me_blue",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "8": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Pitch",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2
+        },
+        "11": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p2Deck",
+          "owner": 2,
+          "controller": 2
+        },
+        "12": {
+          "card_id": "wounding_blow_red",
+          "zone": "p2Deck",
+          "owner": 2,
+          "controller": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3
+        },
+        "13": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p3Deck",
+          "owner": 3,
+          "controller": 3
+        },
+        "14": {
+          "card_id": "wounding_blow_red",
+          "zone": "p3Deck",
+          "owner": 3,
+          "controller": 3
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4
+        },
+        "15": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p4Deck",
+          "owner": 4,
+          "controller": 4
+        },
+        "16": {
+          "card_id": "wounding_blow_red",
+          "zone": "p4Deck",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_health": [
+        20,
+        20,
+        20,
+        20
+      ],
+      "final_resources": [
+        2,
+        0,
+        0,
+        0
+      ],
+      "final_AP": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "final_physical_uidset": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16
+      ],
+      "final_UniqueIDCounter": 17,
+      "RandomCounter": 0,
+      "all_four_decks_raw_unchanged": true,
+      "TRoM_actual_continuation_effect_all_four": true,
+      "checkpoint_assertion_mapping_sha256": "98cddf3ea29c9bcc4052897eba848203e0240a9341bc996027d18224a185bf34",
+      "native_action_mapping_sha256": "9a9bc97105fb9073fd87f7a9b169ebb399c3ae02b9d256e3e2db9ff0f295d5aa",
+      "native_assertion_mapping_sha256": "37f30c81edc296bbd74a5337ecad529a17a63710557c097471f2e106c1e5af13"
+    }
+  ],
+  "blocked_attempts": [
+    {
+      "index": 1,
+      "card_id": "burn_them_all_red",
+      "group_id": "identity:burn_them_all_red",
+      "slug": "card-burn-them-all-red-four-live-real-dragon-attack-trigger-before-one-arcane-each-opponent-correct-probe",
+      "semantically_approved": false,
+      "approved": false,
+      "fixture_saved": false,
+      "fixture_exists": false,
+      "coverage_credit": false,
+      "classification": {
+        "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch481-burn-independent-native-before-classification.json",
+        "sha256": "dadbd085544cc7867104b7b450d03c72f62a34a4b4f9b6d6900b13546d30eb63"
+      },
+      "first_failure": "Expected p2Health20 got19 before anyfreshWHENtrigger response; laterP3/P4HP andStackqueriesunrun; rawrecipientarcanehistoryseparatelyobserved.",
+      "source_expectations_unchanged": true
+    }
+  ],
+  "total_actions": 16,
+  "total_native_assertions": 2102,
+  "total_manual_passes": 12,
+  "total_priority_response_passes": 12,
+  "total_defender_declaration_finish_inputs": 0,
+  "total_schema_property_assertions": 1048,
+  "material_findings": [
+    "Exactraw5/all16nativeactions/2102orderedassertions/1048properties/12manualthreeperseat/48endpointpreferences/69guards/current9 verified. OnlyByBook savedcase qualifies; Burn originalcorrectprobe remainsfailed/unsaved/semanticallyfalse.",
+    "ActualpriorPotion6Actiondestroys6/AP1->0, ABI17sourceArena6freshfour ->realAP2; actualBook5Action0spendsone->AP1, four->Aura5/nofalseGA. RealTRoM7cost1Blue8pitch3->R2AP0, sourcefour->ownGAAP1. AllHP20/noCheer/Hero effects or currenthistory seeded.",
+    "PrimaryAura5 actualpresent during sameMAINActionphase. CurrentactualDoDrawCard calls FaBPENCanDraw first; activeByBook presence returnsfalse globallyduringMAIN. ActualemittedTRoM ResolveCardclosure loopsallFaBLiveSeats andDoDrawCard(seat,1), thenFaBEVRRound. Finalnative EVR_ROUNDrecord existsforeachseat afterloop, independentlycorroborating noninertbody completion; nohelperexecution/instrumentation claimed byreviewer.",
+    "All4actualDecks have2nonemptycards/explicitCardIDUIDOwnerCtl ateverycheckpoint and rawinitial/finalDeckarraysmatchbytefieldforfield forUID9..16. AllHands0afterfunding12andthroughcompletion, noDTD_DRAWN/SEA_DRAWNhistory, so everyhero\u2014includingP1controllerandnonadjacentP3\u2014actually failsdrawunderactiveprohibition. No falsepositiveduetoemptyDeck oronlycontrollerassertions.",
+    "CompletephysicaloriginalUID1..16 conserved: Book5ArenaReady/CountersFAB_PLAY_ORDER1, Potion6+TRoM7publicownGY, Blue8Pitch unchanged, all8Deckcards unchanged, original4Heroeswholeunchanged. Onlyearnedvirtual17ceased/counter17; R2AP1onlyP1/Chi0/HP20/allStackChainsDQawaitpaymentcombatclear."
+  ],
+  "TRoM_and_primary_source_verification": {
+    "files": {
+      "FaBSim\\Custom\\GameLogic.php": "1cdad1555c8d2e3bd3fa98d69bf52791b84d21bf2269363ddea7249f4ee35a43",
+      "FaBSim\\Custom\\PENCards.php": "3e7a54b0fe8426e65e7d2baadec53bbda7caff5c0a8e48f79b2832e0b2376a94",
+      "FaBSim\\Custom\\EVRCards.php": "ad988b0e0e3d3f80bb0f9de0eb66bb826e32c8edbddbb15d5034926baa31e6af",
+      "DevTools\\FaB\\evr_abilities.json": "3cfdd494730e34946cbfaa1c4bd75ee892901c157c43ebcaa3c486c99052fc2e",
+      "FaBSim\\GeneratedCode\\GeneratedMacroCode.php": "63113a3d140cfd13409e1ad7ee737f8ecfbbc1f78c4eb8c540658a3bacc73c54"
+    },
+    "actual_emitted_TRoM_closure": {
+      "start": 433498,
+      "bytes": 357,
+      "sha256": "bb8ff8980c9890909468835957ace7634895f57fef65aef0345d04578223a707",
+      "line": 8047
+    },
+    "actual_continuation_effect_observed": "EVR_ROUND1/target1/expiresAtStartOf1 recorded onallfour afterallheroDrawloop",
+    "native_function_instrumentation_or_reviewer_execution_claimed": false
+  },
+  "primary_sources": [
+    {
+      "url": "https://judge.fabtcg.com/cards/detail/1494/",
+      "finding": "Fresh current Burn0/ownGA/once-per-turn controlledDragon WHENattack/1arcaneeachopponent and unearnedendphaseupkeep."
+    },
+    {
+      "url": "https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/PEN289.webp",
+      "finding": "PublisherByBook face independentlyviewed locally/currentcatalog: globalactionphase drawprohibition/noGA/conditionalInstant and futureownstartdestroy."
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/06-effects/",
+      "rules": [
+        "6.6.1",
+        "6.6.5",
+        "6.6.6"
+      ],
+      "finding": "Actualattackevent earns separate responseableAura layer beforeeffectdamage; no inline substitution."
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/07-combat/",
+      "rules": [
+        "7.2.2",
+        "7.2.3",
+        "7.6.2"
+      ],
+      "finding": "Dragon becomes activeattack onChain, thenattackevent; actualDragonGA atResolution."
+    },
+    {
+      "url": "https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/1HP383.webp",
+      "finding": "ActualPotionActiondestroycost then gain2AP, noGA."
+    },
+    {
+      "url": "https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/ANQ024.webp",
+      "finding": "CurrentTRoM1 EachheroDraw1 then ownGA."
+    }
+  ],
+  "limits": [
+    "ByBook only currentallheroactionphaseDrawprohibitionpartialbranch. No outsideActionphase/conditionalInstant/lowerLife/nextownstartdestroy/Potioncreation/TRoMfutureattackreduction/Hero/supportprimary/fullcard credit. Staticemittedbody/sourcepath and observedcontinuation are explicitcorroboration; no separatecalltraceinstrumentation or oldcontrolrerun invented.",
+    "Completeinitial/final snapshots only; intermediatefacts actualnativeassertions. Rawhashesbindhistoricalundo bytes butopaqueVersions excludedfromcurrentinventory; no reviewerundo/replay execution. HistoricalDQsourcerefs are notcurrentphysicalcards.",
+    "Burn125 remainsunsaved/strictoriginalexpectations/current9; no sourcefix/globalRoot/Core allocation or inheritedpositivecredit. Rootfocusedreplays/registration separate; noPHP/native/replay/R/source/service/gen/fullsuite/remote/deniedretry byreviewer."
+  ],
+  "blockers": [],
+  "actual_comparison_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov5_batch481_saved_readonly.py",
+    "sha256": "f10afc5fa06ae052e9bf03304fdeb3652a3a9bb769824dc2d3d146c8549ab42f"
+  },
+  "read_only_helper": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\saved_fixture_review_tools.py",
+    "sha256": "57cb7672feb98a00216f1e194fd1df0395826af02e0d76f7042af920851c39e8"
+  }
+}

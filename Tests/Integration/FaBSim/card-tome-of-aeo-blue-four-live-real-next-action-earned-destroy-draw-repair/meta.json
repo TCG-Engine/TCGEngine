@@ -1,0 +1,7 @@
+{
+    "name": "Tome of Aeo / real next Action phase earned destroy and draw",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-16T18:37:42+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "STRICToriginalcorrectnoSaveevenPASS. FourmanualYoungBetsy1/Prism2/Betsy3&4/all20; legitimateownedTome5alreadyArena2/actualDecktop6/noHeroability/Wardbranch. P1emptyHandDeckArsenal/noEndeffects. FourordinaryP1Actionpasses then4pureexistingENDproceduretransports advanceactualTurn; End/StartNOpriorityclaimed. StopFIRSTnewP2Action bylastfrom4untilpriority2, immediatelyverifyglobalTurnPlayer2/TurnNumber3/phaseMAIN/AP2=1 so notprematureP1priority2. InternalwindownotforcedACTIONbecauseproperqueuedABIcouldusePRIORITY; no extrauntil-windowpassesmayconsumeearnedlayer. BeforeANYTomeActionresponses realTome5Arena2/Deck6unchanged/Hand0/capturedABILITYcontroller2physicalSource5 (noevent/virtualUIDguess). FourGENUINElegalActionresponses2/3/4/1 thenactualdestroy5ownerGY2/drawreal6toHand2. StableP2MAIN/AP1/allHP20/R0/P1noRefill/Stackqueuesclear. No phase/AP/draw/triggerseed/helper/oldprooftagging. Priorcasting/Ward/otherphasecopy/hero/support/siblings/fullcard untested. Operational repair successor only: native setup/actions/queries/order unchanged; normal Save only after all correct original assertions pass. Sources: https://rules.fabtcg.com/en/cr/04-game-structure/"
+}

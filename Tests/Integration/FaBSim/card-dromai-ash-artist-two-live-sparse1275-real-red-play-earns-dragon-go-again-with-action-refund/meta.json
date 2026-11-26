@@ -1,0 +1,7 @@
+{
+    "name": "Dromai, Ash Artist / earned printed go again through actual combat",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-24T02:04:33+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "NATURAL_ADULT_TWO_LIVE40_VS40_ONLY; bothactualmanualplayersrespond. RealNimblismRed3Action0paysAP1to0beforebothresponses, thenownGAAP1/GY3andactualRedPLAYhistory(noRedpitch). RealAshwing4priorlegitimateoneAshencodedmaterial UPRAsh1/DYNAshash; actualStorm5WeaponsgrantsDragonAttack0. Same4actualattackpaysAP1to0/taps4/proxy6/sourceArena4beforebothresponses. Actualpower1(notNimblism+3becauseAllynotattackAction), HeroearnedGAtrue, no6powerdefenderPhantasmWHEN. Actual1damageHP39/AP0untilbothDamagepassesthenAP1, final4stillArena/tapped/undamaged/Storm5ready/Nimblism3GY/R0. NoAshpitchtrigger/producer/transform/materialUIDretrieval/Phantasm/Barrier/otherDragon/Young/Stormsupportcredit. Noalternatebranch/pitchsibling/fullHerocredit. ProvenYoungpatterns429/296reusedasdesignonly; theirchecksarenotreplayed/requalifiedorcredited. Sources: FaBSim/GeneratedCode/cardArrayCache.json#dromai_ash_artist FaBSim/Custom/GameLogic.php FaBSim/Custom/UPRCards.php FaBSim/Custom/UPRAbilities.php FaBSim/Custom/ARCCards.php FaBSim/Custom/WTRCards.php"
+}

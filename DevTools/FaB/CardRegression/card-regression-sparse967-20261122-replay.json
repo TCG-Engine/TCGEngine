@@ -1,0 +1,125 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-corrupt-and-conquer-red-four-live-sparse967-actual-hand-play-full-block-retains-enemy-arsenal",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-corrupt-and-conquer-red-four-live-sparse967-actual-hand-play-full-block-retains-enemy-arsenal",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse967-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse967-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "5e458ac97691e10560dfe482ea6831a1cc8cf2bc1b70a047d006e8edc2c55aec",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "ccba2f678c86aa4d11f8b53d7333eb9b92d9740deceb67d6fca887be0f0a2f84",
+        "actions.json": "a44e24b9f9b348ce659c847e7dbea1e0cd33c5233e8ac4933f9391118d55ee4b",
+        "assertions.json": "e4ca24aba3bc6a9a3613ecfe5fe3803d7dc11a73e7dea1339a369b48ce0a9f45",
+        "expected_final_gamestate.txt": "881f8780629af54137f14003e599f7db72099f8c30ad5bf571b8ca4a7e3ecb2d",
+        "meta.json": "8df88c7de115410251efa7ebb9b23f43e4210f9ad3ffcc51a5c2d4cd0e9cda58"
+      }
+    },
+    {
+      "slug": "card-breach-flesh-red-four-live-sparse967-actual-hand-play-full-block-no-gate-creation",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-breach-flesh-red-four-live-sparse967-actual-hand-play-full-block-no-gate-creation",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse967-local-20261122\\clean-replays\\01.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse967-local-20261122\\clean-replays\\01.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "fb81b88a0187a1747956f4ae3a8917788ad054bfc1e539e30d6508f51bbb86f7",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "310bd3c1d0ff62bf7433468d0ab70a429012ad003af020b7bb538d1d12a11476",
+        "actions.json": "9f2158a76a224facb898cc12561b10d89380d0d90e15b49131c1d4359e991d29",
+        "assertions.json": "61c22a55ab7781931e50ecea792ecb1edffa858998783e7923b734c1b4499ca4",
+        "expected_final_gamestate.txt": "83a95f48e244226efa3b3e2b9e74daac5edae9590029d3d57e69296994ed4b75",
+        "meta.json": "b1f3e6570189fe906c55c32db1cfca3979bb00e49394cbc30e8c31059cdf629f"
+      }
+    },
+    {
+      "slug": "card-open-the-gate-to-iarathael-red-four-live-sparse967-actual-hand-play-full-block-no-hit-or-banish-gate-event",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-open-the-gate-to-iarathael-red-four-live-sparse967-actual-hand-play-full-block-no-hit-or-banish-gate-event",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse967-local-20261122\\clean-replays\\02.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse967-local-20261122\\clean-replays\\02.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "31965deab1708cac451f0cb2ec8721a9f5ce732f35f80c0f7d11e4d21d6d3e7e",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "393ca2b9415c65b56c06e89a4bdc57bb48edc6bd53234e7f8da3951996bb29f5",
+        "actions.json": "9f2158a76a224facb898cc12561b10d89380d0d90e15b49131c1d4359e991d29",
+        "assertions.json": "220e3826fe4b42980cf2e083a98d5a6ba96e2c4c8de395e04ca5ce514d788a4e",
+        "expected_final_gamestate.txt": "30d7c8e33f88c1365ce43e0e146569ed15d371809a1e5dbc70dc11628c6997cf",
+        "meta.json": "56436a7675a20537001703d8eea27e608f01928471e5c4a6524e5dcca3254731"
+      }
+    },
+    {
+      "slug": "card-corporeal-chasm-yellow-four-live-sparse967-actual-yellow-hand-play-full-block-no-gate-creation",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-corporeal-chasm-yellow-four-live-sparse967-actual-yellow-hand-play-full-block-no-gate-creation",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse967-local-20261122\\clean-replays\\03.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse967-local-20261122\\clean-replays\\03.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "df89be71911a391ff22498523a21d1cef894bb88bf81afb9c586008955807254",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "13290f2ecc86041d1c5d39e5f4a24029d25fdf0f2563d900a1b4fe89a361c3e2",
+        "actions.json": "a44e24b9f9b348ce659c847e7dbea1e0cd33c5233e8ac4933f9391118d55ee4b",
+        "assertions.json": "32d811ae7b140057cbc039ad4b3e04d70cfc10d37c6704f8470407937bcf3d2f",
+        "expected_final_gamestate.txt": "8d759c62d3dcac9f6bbe0e0db5d96759f2d4fafdcf067478a9ce3643e1a47b0a",
+        "meta.json": "90d0a61d2d2363fcf93bd035e463c9f3c4dbf3dd2479da2c6bbeec80effed908"
+      }
+    },
+    {
+      "slug": "card-hungering-demigon-red-four-live-sparse967-actual-hand-play-full-block-retains-real-enemy-soul",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-hungering-demigon-red-four-live-sparse967-actual-hand-play-full-block-retains-real-enemy-soul",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse967-local-20261122\\clean-replays\\04.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse967-local-20261122\\clean-replays\\04.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "1381b3e019629a5596567a99734ad20cfa9b2a3e392abf11c689b5541e5710b6",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "89333774ae82fc2747f434f3bd2e6b36163b7d45290e9165efd8b21758d979a1",
+        "actions.json": "a44e24b9f9b348ce659c847e7dbea1e0cd33c5233e8ac4933f9391118d55ee4b",
+        "assertions.json": "c189fb9049d77ab9882ff652577ef56f33e8d8e96721457c021ce509d1bdaed4",
+        "expected_final_gamestate.txt": "32d9dc6096019905d9de03c1970c9623bf55c7322d9d0a541f387b5081b0c1d3",
+        "meta.json": "ba01ca9d21022300873186d978ad778003083fc26fb2573680372a69f84c5990"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

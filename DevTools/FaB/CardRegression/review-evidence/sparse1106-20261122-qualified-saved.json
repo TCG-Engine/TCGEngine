@@ -1,0 +1,195 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "breadth_review independent five-card intrinsic-delta review",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1106-20261122.json",
+  "source_spec_sha256": "29a5665167e33f69e6928c231bfbb2bbf47efc7285c19310ff89e7c0de70eaa3",
+  "input_sha256": "29a5665167e33f69e6928c231bfbb2bbf47efc7285c19310ff89e7c0de70eaa3",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-ollin-ice-cap-four-live-sparse1106-actual-ordinary-block-and-blade-break-with-strictly-absent-body-event",
+      "card_id": "ollin_ice_cap",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "d2e23f053f72f2233bbf24fd73795ea7bdb1401f1fa92381934b5980f4fb9ef8",
+        "actions.json": "5e66c904371c6df1bdcfce3c48fa00e040d5b51953374c60e180e1ced402c6ea",
+        "assertions.json": "a854f739f2afdbb165f2fa482b7ade2c3ed0da38a55e6a724f2c92b45f075ffb",
+        "expected_final_gamestate.txt": "f29decdabaad8de3d300628fb841a8c87a17f4e3eedf39af2ea930fbfe657bc3",
+        "meta.json": "ef00363ee6226b3e0ddb818a99d2354e98532c35086751bdcb1ef416e3fb9c21"
+      },
+      "fixture_sha256": "62a4e01b40c9bce6eb8ea95281db2b207c4927ccca6e390340c0d44402116f85",
+      "actions": 29,
+      "native_assertions": 239,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1106-20261122.json",
+      "input_sha256": "29a5665167e33f69e6928c231bfbb2bbf47efc7285c19310ff89e7c0de70eaa3",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1106-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-ollin-ice-cap-four-live-sparse1106-actual-ordinary-block-and-blade-break-with-strictly-absent-body-event",
+        "fixture_slug": "card-ollin-ice-cap-four-live-sparse1106-actual-ordinary-block-and-blade-break-with-strictly-absent-body-event",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-root-bound-trunks-four-live-sparse1106-actual-ordinary-block-and-blade-break-with-strictly-absent-body-event",
+      "card_id": "root_bound_trunks",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "efca7bac7728f13a7018c2a50ac473344dc5f99acdb8acc4c9ff5f9dc7d14d7c",
+        "actions.json": "5e66c904371c6df1bdcfce3c48fa00e040d5b51953374c60e180e1ced402c6ea",
+        "assertions.json": "b0e31500ee704c77340333fdf4aba8415d1b15a58c07d537c4554fea70a08bed",
+        "expected_final_gamestate.txt": "266416b4e00ab309adcabcc85fe6232ac84cbe3be5f62ecdb3dc389653212b6d",
+        "meta.json": "f03524a8e008e995e7ddb6f11fcacb6c5177df3677b37527bd274a9754963cd5"
+      },
+      "fixture_sha256": "24284d1d565079b791a41072836d31a98ee0df56c2d318b586f6f1d45ce81dc4",
+      "actions": 29,
+      "native_assertions": 239,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1106-20261122.json",
+      "input_sha256": "29a5665167e33f69e6928c231bfbb2bbf47efc7285c19310ff89e7c0de70eaa3",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1106-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-root-bound-trunks-four-live-sparse1106-actual-ordinary-block-and-blade-break-with-strictly-absent-body-event",
+        "fixture_slug": "card-root-bound-trunks-four-live-sparse1106-actual-ordinary-block-and-blade-break-with-strictly-absent-body-event",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-stonewall-gauntlet-four-live-sparse1106-actual-ordinary-block-and-blade-break-with-strictly-absent-body-event",
+      "card_id": "stonewall_gauntlet",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "56ddff05e0b590edcda3fee232978af440ee5291c66112831a6691c592ff0c8f",
+        "actions.json": "5e66c904371c6df1bdcfce3c48fa00e040d5b51953374c60e180e1ced402c6ea",
+        "assertions.json": "4a6eced246fdf47b54ba29fa771827f2f5038f4713ba01c60924fba47ad0ad57",
+        "expected_final_gamestate.txt": "79cf968a9421fb310c6041fcd15458f39c543df8dbb4dc43329ab62766844713",
+        "meta.json": "480ff99439819128fefb9da672e049d99e9281179504d25c8b71bef22462849c"
+      },
+      "fixture_sha256": "08d2542959073a7dcf5ee7d00521f79bdf4b8dde82f7e770996e5949f1d48e33",
+      "actions": 29,
+      "native_assertions": 239,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1106-20261122.json",
+      "input_sha256": "29a5665167e33f69e6928c231bfbb2bbf47efc7285c19310ff89e7c0de70eaa3",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1106-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-stonewall-gauntlet-four-live-sparse1106-actual-ordinary-block-and-blade-break-with-strictly-absent-body-event",
+        "fixture_slug": "card-stonewall-gauntlet-four-live-sparse1106-actual-ordinary-block-and-blade-break-with-strictly-absent-body-event",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-grains-of-bloodspill-four-live-sparse1106-actual-ordinary-block-and-temper-with-strictly-absent-body-event",
+      "card_id": "grains_of_bloodspill",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "421ea14d558c61aace0b850ea76824a4d14a6b87303d0ac5e61df6ebd752c0db",
+        "actions.json": "511bf2f3686ee96e12e3d9cdbe580febcac902b797e5ec827a96d5ccd74ac457",
+        "assertions.json": "5117da38d2db02eb244ebe23f4fe7a7acfa296af743ac177d5080b3d5b5cb857",
+        "expected_final_gamestate.txt": "75f6e32c70f2447f333b9d9c04536e93e2fe5b5b1b41a238a41f7c588424f6f4",
+        "meta.json": "7211dfe70e0a8629e0359604c853c0ac0d5940f93607dfcd4a09135628e98301"
+      },
+      "fixture_sha256": "cee1cf8b099cd6df1f7569b9cebcd856cc8daa30a20df5b68b7740274e652ea5",
+      "actions": 30,
+      "native_assertions": 270,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1106-20261122.json",
+      "input_sha256": "29a5665167e33f69e6928c231bfbb2bbf47efc7285c19310ff89e7c0de70eaa3",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1106-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-grains-of-bloodspill-four-live-sparse1106-actual-ordinary-block-and-temper-with-strictly-absent-body-event",
+        "fixture_slug": "card-grains-of-bloodspill-four-live-sparse1106-actual-ordinary-block-and-temper-with-strictly-absent-body-event",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-tectonic-crust-four-live-sparse1106-actual-ordinary-block-and-temper-with-strictly-absent-body-event",
+      "card_id": "tectonic_crust",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "0971bbf76140cd18ddd1b79d0d09c6d747af78780641090db8f6fa168cd7380f",
+        "actions.json": "511bf2f3686ee96e12e3d9cdbe580febcac902b797e5ec827a96d5ccd74ac457",
+        "assertions.json": "aa41d1084e3ea9e669586d88171b3bd4cca8002208630b2676c804df8c972ee1",
+        "expected_final_gamestate.txt": "a754cf5d5ff0c802aaf860923f3324c58b9916ac391d0ea45397bcb83698db39",
+        "meta.json": "7c0d6f1b824cd94c3555e14469dc43532a61394c2c2a1a54719939af0ad3e186"
+      },
+      "fixture_sha256": "6c4399ffcc10c8002cea3d05225508c299dfd1cb8c666d856ec84c883bf1de0a",
+      "actions": 30,
+      "native_assertions": 270,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1106-20261122.json",
+      "input_sha256": "29a5665167e33f69e6928c231bfbb2bbf47efc7285c19310ff89e7c0de70eaa3",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1106-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-tectonic-crust-four-live-sparse1106-actual-ordinary-block-and-temper-with-strictly-absent-body-event",
+        "fixture_slug": "card-tectonic-crust-four-live-sparse1106-actual-ordinary-block-and-temper-with-strictly-absent-body-event",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "spec_sha256": "29a5665167e33f69e6928c231bfbb2bbf47efc7285c19310ff89e7c0de70eaa3",
+    "reviewer": "breadth_review independent five-card intrinsic-delta review",
+    "reviewed": [
+      {
+        "card": "ollin_ice_cap",
+        "scope": "DEF1/BladeBreak; Generic Critical Blue partner is not Ice."
+      },
+      {
+        "card": "root_bound_trunks",
+        "scope": "DEF1/BladeBreak; Generic Critical Blue AA partner is not Aura."
+      },
+      {
+        "card": "stonewall_gauntlet",
+        "scope": "DEF1/BladeBreak; real Wounding base/current power4 is not greater than base."
+      },
+      {
+        "card": "grains_of_bloodspill",
+        "scope": "DEF2/Temper; controller4 neither attacks nor controls a weapon; opposing Club is fully blocked, so no own-weapon-hit event."
+      },
+      {
+        "card": "tectonic_crust",
+        "scope": "DEF2/Temper; Generic Lead the Charge Red partner is not Earth; equipment itself is not its own together-with partner."
+      }
+    ],
+    "basis": [
+      "Every qualifying event is strictly absent; none relies on false IF after an earned WHEN. All four actual heroes in each case are young/natural20. Oldhim Guardian/Earth-Ice Essence permits Ice/Earth Guardian gear; Dorinthea permits Warrior/Generic gear. Defending cards are not played, and neither hero activates.",
+      "First three reuse1103 physical AA7 cost0/printed4, actual Critical Blue6 DEF3 plus Equipment5 DEF1, fullblock0damage/noHit/HP20. Normal Close BladeBreak yields owner4graveyard [6,5] and owner1attack7graveyard, with source identity/AP0 and empty arenas preserved.",
+      "Last two reuse1094 real Club7 cost2 from Blue8 pitch3/R1/AP0. Actual Lead the Charge6 DEF2 plus Equipment5 DEF2 exactly fullblock4. Normal Close single Temper wear leaves same owned Equipment5 DEFENSE1/current1, Hand6ownergraveyard; no token body is earned.",
+      "All source/declare/normal combat windows have four manual responders. CR7.7 Close exception handles isolated durability automatically without player priority; no competing close effects are tested. Physical CardIDs/UIDs/owners/controllers and costs/fates remain coherent; all assertions persist."
+    ],
+    "limits": [
+      "Only ordinary defense/intrinsic durability and listed event-absence branches. No Frostbite/Embodiment/Seismic/Vigor creation or ownership, boosted-attack modifier, own-weapon-hit/other positive body/hero/native equip/support/whole-card claim.",
+      "Positive body/timing/ownership holds remain unrun/unrepaired. Exact native recording and clean replay pending."
+    ]
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1106-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "9f03ab1ebdcf0a0b0ee2343f91a55be6b24b69102d317ef9ae6c4d817d697cd9"
+  },
+  "full_suite_run": false
+}

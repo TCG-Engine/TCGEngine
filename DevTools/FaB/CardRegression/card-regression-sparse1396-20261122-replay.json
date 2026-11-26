@@ -1,0 +1,79 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-haze-bending-blue-four-live-sparse1396-real-item-not-illusionist-non-token-aura-no-spectral-shield",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-haze-bending-blue-four-live-sparse1396-real-item-not-illusionist-non-token-aura-no-spectral-shield",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1396-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1396-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "32037cdb4fe1f4367d7c92d53bbad508856188d6b86c63638067b0dfdf98697c",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "5c79a65591b4cadbe7d7c4e3f936abbf2d8162535e608ebc4f5d71e45393b45a",
+        "actions.json": "6fe9468c40cb1e401d54d890b029e90e347c3ad222e50a9d9a1df61d0b0514d8",
+        "assertions.json": "48ae41d0b6041c011ae9bd3f007297666f896ec6eec3a5304441976fad0ebd47",
+        "expected_final_gamestate.txt": "c96e8b170570e3aec3384ab6005b5c4e30ea8c41730aa77f8f19c094ceabd5d6",
+        "meta.json": "800ec0c75cfaf2b395f8418306a7d3c8ec2289b55120844e330bb170dc908d1a"
+      }
+    },
+    {
+      "slug": "card-phantasmal-footsteps-four-live-sparse1396-real-item-not-illusionist-attack-action-no-payment-or-extra-action",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-phantasmal-footsteps-four-live-sparse1396-real-item-not-illusionist-attack-action-no-payment-or-extra-action",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1396-local-20261122\\clean-replays\\01.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1396-local-20261122\\clean-replays\\01.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "14a3d4c4d9259cb7318ee06c2348df2ecf2abf1051e1412e7f78c577531708dd",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "d08365f7cd05939d99649dd0c60f564bc6a99ac97731c1aea01c5c637ef6d23b",
+        "actions.json": "6fe9468c40cb1e401d54d890b029e90e347c3ad222e50a9d9a1df61d0b0514d8",
+        "assertions.json": "d1d140bdc6614456e95516fb5b59e4403f383cb6351282812893ae58c62b4121",
+        "expected_final_gamestate.txt": "12701a1028722df1a62edf6205d5b60943fc11bc82c4fd42ebd1e6f503555bab",
+        "meta.json": "1f522062b5d3dcf49c2954e6a67eda5f84aa718894d3b8966ee81feac25fe435"
+      }
+    },
+    {
+      "slug": "card-wave-of-reality-four-live-sparse1396-real-other-item-destroyed-not-this-equipment-no-spectral-shield",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-wave-of-reality-four-live-sparse1396-real-other-item-destroyed-not-this-equipment-no-spectral-shield",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1396-local-20261122\\clean-replays\\02.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1396-local-20261122\\clean-replays\\02.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "d883013518a49006cc1331cf032f1c698049e2f8e4f9ed1c83f67778200a75c7",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "54e35173849f6a35393e00fd7dbfa43259e2f064f8a9086ae2004d9ef8bdc2cd",
+        "actions.json": "6fe9468c40cb1e401d54d890b029e90e347c3ad222e50a9d9a1df61d0b0514d8",
+        "assertions.json": "e3f4506ab72ff8d2d23ce9f8928cea8e7c838b6b5729cf716ffe59a234717418",
+        "expected_final_gamestate.txt": "af4e84020f07377f469a5dc3c005dbde6c6d7de4af2d619701ffdb7545646ffc",
+        "meta.json": "644b47ba4a76d3e0ade916823bd13ea8e73c44290c710f421e2d174c6f2d91e2"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

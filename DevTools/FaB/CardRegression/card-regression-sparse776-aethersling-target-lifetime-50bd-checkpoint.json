@@ -1,0 +1,73 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-14T01:37:48.965227+00:00",
+  "runtime_sha256": "50bd28fa11b34fdf78c3759086009f7ffb036fc04158c3588f5a538babc48ce0",
+  "source_spec": "card-regression-batch776-aethersling-full-managed.json",
+  "source_spec_sha256": "4843ced53d7cf54581af920eff7ec55c8f00b04b9b151216c75af660e9063799",
+  "new_scenarios": 1,
+  "new_groups": 1,
+  "new_primary_ids": 1,
+  "actions": 35,
+  "native_assertions": 2556,
+  "manual_passes": 29,
+  "totals": {
+    "saved_registered_scenarios": 4037,
+    "duels": 3074,
+    "four_live": 963,
+    "recorded_primary_ids": 1191,
+    "identity_denominator": 5196,
+    "recorded_groups": 1065,
+    "group_denominator": 3324,
+    "four_live_groups": 956,
+    "phase_qualified_scenarios_at_actual_contexts": 674,
+    "phase_qualified_unique_groups": 669,
+    "creation_replay_passes": 1348,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 1,
+  "scenarios": [
+    {
+      "card_id": "aethersling_red",
+      "group_id": "identity:aethersling_red",
+      "scenario_id": "card-aethersling-red-four-live-declared-target-arcane-tap-earned-action-real-consumer",
+      "effect_branches": [
+        "formal-target-before-cost-source-retention-through-tap-true-go-again-real-consumer"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-aethersling-red-four-live-declared-target-arcane-tap-earned-action-real-consumer",
+      "source_spec": "card-regression-batch776-aethersling-full-managed.json",
+      "source_spec_sha256": "4843ced53d7cf54581af920eff7ec55c8f00b04b9b151216c75af660e9063799",
+      "review_evidence": "review-evidence/sparse776-aethersling-full-managed-independent-50bd.json",
+      "review_evidence_sha256": "716874c66601ee7e4b14b92ae24a3fbdc7baaeb8a267d5ae32004654118c087f",
+      "recorded_runtime_sha256": "50bd28fa11b34fdf78c3759086009f7ffb036fc04158c3588f5a538babc48ce0",
+      "qualification_runtime_sha256": "50bd28fa11b34fdf78c3759086009f7ffb036fc04158c3588f5a538babc48ce0",
+      "matches_current_runtime": true,
+      "two_clean_replays": [
+        {
+          "path": "card-regression-replay-nov14-b776-aethersling-clean1.json",
+          "sha256": "226f9ec1267945e43a553c057b5b0e3fa3cd8ca9cabf1fb9f864557df7166ef4",
+          "runtime_sha256": "50bd28fa11b34fdf78c3759086009f7ffb036fc04158c3588f5a538babc48ce0",
+          "passed": true
+        },
+        {
+          "path": "card-regression-replay-nov14-b776-aethersling-clean2.json",
+          "sha256": "a4b651461e6030872cbfa908ae3f503a0b5b59e7ebb6e9e439d3b2ead6c192de",
+          "runtime_sha256": "50bd28fa11b34fdf78c3759086009f7ffb036fc04158c3588f5a538babc48ce0",
+          "passed": true
+        }
+      ],
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

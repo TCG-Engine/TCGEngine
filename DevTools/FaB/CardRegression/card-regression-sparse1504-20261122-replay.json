@@ -1,0 +1,56 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-gesture-of-goodwill-blue-four-live-sparse1504-actual-own-hero-block-is-not-protecting-another-hero-with-token-available",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-gesture-of-goodwill-blue-four-live-sparse1504-actual-own-hero-block-is-not-protecting-another-hero-with-token-available",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1504-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1504-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "fb58c4bcd0bc5fc4929fd30e0e46419c9ed5eef326560d16ecbf757bed04418a",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "3f14420eff5a8b90e9afdf149bb23f9553467fc196ae1780e972540bc29a1a3f",
+        "actions.json": "5af67ec73dd5988db1a058227e5dcccf44c896ddc4b34170fb8eb2fb4f3ccefb",
+        "assertions.json": "ce99bdb487426da9b3b40059c0312d94c34a18acb9e5af36127ef36347084ca6",
+        "expected_final_gamestate.txt": "737fc8a4941ff9d92803ae210e787877ec757654fbd5e195438c68c8b37d80f9",
+        "meta.json": "d4f16cb52908382b17a404a45d71292ac65fff6e3ffde9416d57996d45b7e7d8"
+      }
+    },
+    {
+      "slug": "card-not-so-tuff-blue-four-live-sparse1504-actual-non-revered-attack-does-not-destroy-real-toughness-or-create-might",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-not-so-tuff-blue-four-live-sparse1504-actual-non-revered-attack-does-not-destroy-real-toughness-or-create-might",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1504-local-20261122\\clean-replays\\01.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1504-local-20261122\\clean-replays\\01.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "073dbf5ab9d01b399c615aef92718fb1807c94f53cc5741bf318749eabd8306a",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "391a92bfdf5ea3b6761cbd164e965558945631767ceaf45756daf496ebb3a0b1",
+        "actions.json": "5af67ec73dd5988db1a058227e5dcccf44c896ddc4b34170fb8eb2fb4f3ccefb",
+        "assertions.json": "13b05f6a57595817524808a8b064c704d036e90370ccbc2bf7a141a11190d82a",
+        "expected_final_gamestate.txt": "b148c3137b50670da3019fc1c897c0c2359c93ecaf31d448de90ca136d250fd4",
+        "meta.json": "70f4a0b7ac87fc121655741836f1d5a3d2b189a1cc61d9e5421bc4b2f7563911"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

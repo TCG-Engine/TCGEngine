@@ -1,0 +1,103 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "independent breadth_review1252",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1281-20261122.json",
+  "source_spec_sha256": "e2ea6a302043a50814a0fe932a8271e297a4dce99be37376361aecde9b9e1d1f",
+  "input_sha256": "e2ea6a302043a50814a0fe932a8271e297a4dce99be37376361aecde9b9e1d1f",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-zen-tamer-of-purpose-two-live-sparse1281-real-chi-paid-tiger-and-combo-search-earns-actual-banish-play",
+      "card_id": "zen_tamer_of_purpose",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "7003eec163b3bcfa41a21f5fbedd5b211b1a8db7ec1bb66b6b3b0cd8e8c4de83",
+        "actions.json": "c38a76db40690df114e5143cf181042f53ad2a9da11ed2abc4b2203b66f755ee",
+        "assertions.json": "629e30f6c19756fd5cc86dce31a726a0cb888964aa21f38622b00b8fdb40ac19",
+        "expected_final_gamestate.txt": "9208d9aaff3753d962ddc6218b30b075d59d5c3c56a55d1d0ab92e11e9de1c58",
+        "meta.json": "9b2284041da7f58186da9942eb4ed4d18e1792e93f7297a78ab7cb08e661b785"
+      },
+      "fixture_sha256": "8018be78ab3146b3dde98c5c444c6ad8d1a8ce2c3fb8134860cd71a796d25a7c",
+      "actions": 19,
+      "native_assertions": 247,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 15,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1281-20261122.json",
+      "input_sha256": "e2ea6a302043a50814a0fe932a8271e297a4dce99be37376361aecde9b9e1d1f",
+      "active_seats": [
+        1,
+        2
+      ],
+      "players": "two_live_manual",
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1281-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-zen-tamer-of-purpose-two-live-sparse1281-real-chi-paid-tiger-and-combo-search-earns-actual-banish-play",
+        "fixture_slug": "card-zen-tamer-of-purpose-two-live-sparse1281-real-chi-paid-tiger-and-combo-search-earns-actual-banish-play",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "reviewer": "independent breadth_review1252",
+    "spec_sha256": "e2ea6a302043a50814a0fe932a8271e297a4dce99be37376361aecde9b9e1d1f",
+    "source_note_sha256": "4bf7812c9a45acb2da4644d4b45ce78966bbfd12147030e4c484373209d7d67c",
+    "case_count": 1,
+    "active_seats": [
+      1,
+      2
+    ],
+    "players": "two_live_manual",
+    "native_controls": 19,
+    "query_checks": 247,
+    "persistable_assertions": 247,
+    "author_only_checks_omitted": 0,
+    "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+    "coverage_category": "ACTUAL_ADULT_ZEN_DUEL_CHI_PAID_TIGER_COMBO_SEARCH_AND_EARNED_BANISH_ATTACK",
+    "basis": [
+      "Natural adultZen40 versus adultDorintheaIronsong40, omitted activeSeats native legacy duel/exact12/default empty mode/no passives/both manual. InitialChi3Hand and Combo4Deck UIDs match two-hero allocation. Legitimate prior InnerChi asset does not claim fresh Transcend or starting-deck legality; no resources, Tiger, permission or history is seeded. Adult identity absent from both coverage indexes.",
+      "Printed once-per-turn Instant costs3Chi. Current merged MST/ARC row and Chi payment require actualInnerChi3 pitch before resolution, leaving RChi0/AP1 and originalDeck4 untouched with ABI5 held through manual response2 then response1. Managed ARC frame retains sourceHero1 ABI5 during awaited search.",
+      "Only resolution creates actual owned CrouchingTiger6Hand, then native Combo keyword filter stages original HundredWindsRed4Deck to Temp preserving UID. Printed choice has no target phrase; actual non-target MZMULTICHOOSE selects original4 while ABI5 remainsStack. SearchBanish moves same4 faceup to ownBanish with PlayableFromBanish1 and finishes search. Empty remaining Deck gives no meaningful shuffle-order/reveal-log evidence.",
+      "Actual native play of same permitted4 from Banish at printedcost0 still spends action AP1to0, preserves physicalUID4 and SourceZoneBanish, and waits fresh response2then1. Singleton legal opposing hero supplies attack target. No prior attack exists, so printed power3 with no Combo bonus plus unconditional printed go-again are correct. Actual unblocked3damage leaves opposingHP37 and AP0 in Damage; refund AP1 requires both Damage passes before Resolution.",
+      "Final actual4GY1/Chi3Pitch1/newTiger6Hand1, noTemp/Banish/Stack/queues/combat, HP40vs37/RChi0/UID6/RNG0 match selected branch. Tiger remains unplayed; its Ephemeral end-phase behavior is not reached. All247 query/state/power/go_again assertions persist, with19 controls."
+    ],
+    "limits": [
+      "Semantic/source review only pending actual native save and targeted replay; no native pass, replay or coverage credit claimed.",
+      "Only adult paid Tiger creation and positive actual Combo search/banish/earned native attack. No Tiger consumer, other Combo, optional decline, repeat/once enforcement, permission expiry, Transcend producer, shuffle ordering, reveal-log, young/four-live, support or whole-card credit. ExistingYoung245 is design-only and not replayed.",
+      "Only W review receipt written; no native/test/replay execution, T/source/engine/registry edits, authentication/network, Git or original checkout access."
+    ],
+    "source_sha256": {
+      "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+      "FaBSim/GeneratedCode/GeneratedMacroCode.php": "fe6a7982611df8f4de98ce2671b317b671b580146aa4b8c28e8f4b86d8461056",
+      "FaBSim/Custom/MSTCards.php": "cd98a9b734b984bfc19af7d0e4a3eebd5496f298d08c7c79d7f6d43c363513c7",
+      "FaBSim/Custom/MSTRuntime.php": "b96f21727c089c90c21bf3aadaf913301b1ef7c922f2a17ac055258682ed45ce",
+      "FaBSim/Custom/CardChoices.php": "c68ae2b8e984bcc64b00289cc2d71bc0c980b2fbbeaeadbca8ae3a9f9579c515",
+      "FaBSim/Custom/SEACards.php": "5400728b0cfe26f7f9e60f7e135e0ee9b28ac85d39420f64aaade0fa9826f00f",
+      "FaBSim/Custom/ARCAbilities.php": "e49ce4685f148ef423ea38aac544266b3298527ea8ca9eef11b12fb974e7c9f0",
+      "FaBSim/Custom/GameLogic.php": "c60fa151561f959e4e3e341b814de0e2b47c9e9f153bbc8793a04c43b5075061",
+      "Schemas/FaBSim/GameSchema.txt": "7783800bd47bc85885cc915066aadca58cdf99f0c1180602ac312d9af5ebf643",
+      "Core/ShortcutPreferences.php": "25f300ea0b6fbc409f5b92e8bc3587a74b2ab0eaf31ccef38e18c455598eaba6",
+      "DevTools/FaB/CardRegression/record_card_regressions.php": "e53055b29e9ea641949b77019c4455607f41ca233325d716a9500637e19efd28"
+    },
+    "workspace_source_sha256": {
+      "author_breadth1281_py": "4ab40daf12e7fd8253799e1b1c3f97500a53407c57d73cbee0567047560a4ec5",
+      "duel_breadth1261_helpers_py": "786de4cb45fa4cb12016e55b204ba1aa5f823bb576c7778732623fae7ed05dbd"
+    }
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1281-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "d6e7010adda12fe44ed4fd95bbe4c31f502091a28a5ddea3e1fb8031a3b46c02"
+  },
+  "full_suite_run": false
+}

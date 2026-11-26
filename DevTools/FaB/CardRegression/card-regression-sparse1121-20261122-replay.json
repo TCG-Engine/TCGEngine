@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-northern-winds-blue-four-live-sparse1121-actual-opponent-equipment-freeze",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-northern-winds-blue-four-live-sparse1121-actual-opponent-equipment-freeze",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1121-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1121-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "e55547601c1ee140e80c22e5668ae91d3d5e3acc1bc0f3b4e8ee90b706b7fcc2",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "7e903a2dacceb9248d18c1d8e9ed05db9ea69c8cebd60257f7e1f530c4c20f9b",
+        "actions.json": "8d6819d5ed592449beeffbb60553073935dc93c327b0703899e3044c22ec6c35",
+        "assertions.json": "908ab69ce30e0642d2cc02ce193be3fd340176789643fa59dd7b2b8129d14750",
+        "expected_final_gamestate.txt": "c148f24060aafa13221ebdc5ff9938a22781dfa97141cbb70a05d1d7736bdf75",
+        "meta.json": "910130c4eec1519d492c59aeb9cd62becae054b6bb3564b3ecb1c5b902cc5c20"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

@@ -1,0 +1,117 @@
+{
+  "status": "APPROVED_EXACT_SAVED_ONE_BUNKER_ARSENAL_DEFENSE_CASE_REPLAYS_SEPARATE",
+  "reviewer": "/root/nov2_metadata_review",
+  "reviewed_utc": "2026-11-03T04:42:10.518078+00:00",
+  "runtime_sha256": "0d877de49c131f29c152706e14bba3368630df61c59ef475c87a84f20b6e1a66",
+  "input_file": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch287.json",
+  "input_sha256": "4da0a73a366ccbf2cab5535ce29141979cf159a6903dd6719fc84ba3407aece3",
+  "fixtures": [
+    {
+      "slug": "card-bunker-beard-four-live-sparse-real-destroy-defense-reaction-adds-owned-arsenal-action-block-three",
+      "card_id": "bunker_beard",
+      "group_id": "identity:bunker_beard",
+      "fixture_sha256": "ab7cb97f15bb41673a8f80fef2297b7e7a5ff220cd532e9cb65667b8245edf6e",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "7a973c356c0e3b9b19eb489d73b4303e848032705dc605ace33c214bbf760afa",
+        "actions.json": "06e2e831e97615adfa26feb2e7534590ec92fa38db61e3db07a12a69713913cb",
+        "assertions.json": "57193069d925e3bada0d0b0c4297462157aef7873ee5f7919658036f3ecccd77",
+        "expected_final_gamestate.txt": "5d5ead40515ba34513804f54dd1a4ecf14e0a25dc38c0b8034d0f10f8ec7dad5",
+        "meta.json": "1f3ba18634c6d704f05e7a8261be6041df98f7bc25f36e667f87883bd08caf14"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "7a973c356c0e3b9b19eb489d73b4303e848032705dc605ace33c214bbf760afa",
+        "actions.json": "06e2e831e97615adfa26feb2e7534590ec92fa38db61e3db07a12a69713913cb",
+        "assertions.json": "57193069d925e3bada0d0b0c4297462157aef7873ee5f7919658036f3ecccd77",
+        "expected_final_gamestate.txt": "5d5ead40515ba34513804f54dd1a4ecf14e0a25dc38c0b8034d0f10f8ec7dad5",
+        "meta.json": "1f3ba18634c6d704f05e7a8261be6041df98f7bc25f36e667f87883bd08caf14"
+      },
+      "actions": 37,
+      "native_assertions": 2933,
+      "actual_manual_passes": 32,
+      "manual_passes": 32,
+      "manual_pass_actor_counts": {
+        "1": 8,
+        "2": 8,
+        "3": 8,
+        "4": 8
+      },
+      "semantically_approved": true,
+      "every_native_action_and_assertion_exactly_maps_to_approved_source": true,
+      "initial_and_final_snapshots_fully_parsed": true,
+      "physical_uid_conservation_without_duplicates": true,
+      "final_graveyard_uid_sets": {
+        "1": [
+          7
+        ],
+        "2": [],
+        "3": [],
+        "4": [
+          5,
+          6
+        ]
+      },
+      "final_pitch_uid_order": {
+        "1": [
+          8
+        ],
+        "2": [],
+        "3": [],
+        "4": []
+      },
+      "final_health": [
+        20,
+        20,
+        20,
+        16
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_action_points": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "physical_findings": "ActualP1Raging7targetsP4/Blue8pitch3pays3/AP1\u2192R0AP0. Four source/combatrounds andactualreactionpasses1/2/3giveP4legalDRpriority. ActualownedHead5destroycostresource0/noAPmoves5toownpublicGYbeforefresh4,1,2,3responses; sameownedArsenal6staysfacedown/HP20. DistinctABILITYCardIDBunker/Controller4/SourceEquipment5remainsStackthroughactualoptional0..1Arsenalchooserafterfourthresponse; correctedV2decisionstopreachesitwithoutprivatepriorityoracle. ActualP4selectsame6: nowDEFENSE/FromArsenal/ChainLink1/DEFENDING_HERO4, originalphysical5stillGY; sourcevirtualceases/Stackqueuesandmanagerclear. NoArsenalplay/resource/AP/cardplayevent. Fourfreshreactionresponsesyieldprinted7minusdefense3=actual4damage/P4HP16, allothers20. FullDamage/Resolution/close exactunorderedGY4{5,6}/GY1{7}/Pitch8/allRAP0/alloriginalUIDownershipconserved/virtual9ceased/allHandArsenalDeckEquipmentStackChainsqueuesempty.",
+      "qualification": "One optionalyes ownArsenalAction add after actualdestroyDR0, printeddef3/actual4damage. No optionaldecline/emptyArsenal/illegalDRtiming/foreignaction/otherdefenders/hero/supportprimary/fullcard/control credit. V1heldpacketneverexecuted; V2transportcorrectionnotanenginebug."
+    }
+  ],
+  "source_expectation_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch287-v2-independent-source-review.json",
+    "sha256": "471714dbff8f0df7da35e019acadf3ad32330035f5f0674c1c74d3d1bba4c486",
+    "manifest_sha256": "c0af667c1339b906ac37560fb7da172405bc417b135a9cb6fe0a90f84992efe7"
+  },
+  "immutable_native_archive": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch287-20261103T044019Z-6ae965b3352c2.json",
+    "sha256": "dbcb78787155e7369fd3e03e5b5295cd13cbfe65b25751213bbaed74654aae24"
+  },
+  "recording_results": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch287.recording-results.json",
+    "sha256": "afa0d642957e8d09543b09d9028d1b0d1e87a39fc6a6ba79c898e39836775f14"
+  },
+  "native_wrapper": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch287-native-r1\\receipt.json",
+    "sha256": "7c895151829f205d192ee9385ed2901b761c2b72a17e4e18cdf320bf8cd712c1",
+    "stdout_sha256": "54c3ab7ae0b031ddaf70c8dc6e97772a7085fa34f3660a81f4e09adcf0877b4c",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "exit_code": 0,
+    "stderr_bytes": 0,
+    "runtime_before": "0d877de49c131f29c152706e14bba3368630df61c59ef475c87a84f20b6e1a66",
+    "runtime_after": "0d877de49c131f29c152706e14bba3368630df61c59ef475c87a84f20b6e1a66"
+  },
+  "generic_readonly_review_prefix": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov3_batch285_saved_readonly.py",
+    "sha256": "6454b10b9bf38ed53b267adf6a5a2dc12e5bb7af7d6efef37c8e0f9c3ba58cd8",
+    "scope": "Own generic raw5/archive/schema/action/assertion parser prefix only, exact V2B287 bindings substituted before any unrelated semantics; no author builder."
+  },
+  "method": "Independent exact saved read-only raw5 review. All37actualactors/modes/payloads and2933orderedassertions exactly map approvedV2; fullschema initial/final UID/ownership/Counters/economy/HP/GY/Pitch parsed. All32manualactors and livevirtualsourcewhileawait/actualArsenal6DEFENSEFromArsenal/def3/4damage checked. NoPHP/native/replay/R/backend execution.",
+  "limits": [
+    "Saved creation review only; Roottwofocusedreplays remainseparate evidence and were not executed by reviewer.",
+    "One optionalyes ownArsenalAction add after actualdestroyDR0, printeddef3/actual4damage. No optionaldecline/emptyArsenal/illegalDRtiming/foreignaction/otherdefenders/hero/supportprimary/fullcard/control credit. V1heldpacketneverexecuted; V2transportcorrectionnotanenginebug.",
+    "Actual0d context retained; no repairsourceapplication or denied-action retry/legacy audit."
+  ]
+}

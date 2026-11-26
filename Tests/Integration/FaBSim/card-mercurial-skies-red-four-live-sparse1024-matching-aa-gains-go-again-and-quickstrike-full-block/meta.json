@@ -1,0 +1,7 @@
+{
+    "name": "Mercurial Skies / four-live actual buff consumer",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-23T03:12:49+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "The next Runeblade or Lightning attack action card you play this turn gets go again and \"The first time this deals damage to a hero, you may destroy a Lightning Flow you control. If you do, deal 3 arcane damage to them.\"\nGo again Named positive grant only. Legal Aurora20 EssenceLightning, actual0-cost NAA5 all-four resolution givesAP1, then actual LightningRuneblade DestructiveFleetfoot6 fromHand cost0. Its printed base3 plus Quickstrike1 because Mercurial grants GA gives actual4, asserted on chain and DAMAGE against three real HandAA DEF9, zero damage/no hit/HP20. GA returnsAP1 only at resolution even blocked; source5/AA6 ownedGY[0,1], Blue7 remainsHand. No damage event is earned, so no Mercurial Flow-destroy/arcane or Fleetfoot aura-destroy trigger. No Instant or hero activation, created Flow, hit timing, sibling or whole-card claim. Sources: FaBSim/GeneratedCode/cardArrayCache.json#mercurial_skies_red"
+}

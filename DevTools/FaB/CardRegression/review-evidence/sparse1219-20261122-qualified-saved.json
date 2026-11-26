@@ -1,0 +1,103 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "independent breadth_review",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1219-20261122.json",
+  "source_spec_sha256": "899004c7d0e53d636d4e98776b6819068d9019dab2e08ef0cb69c13498c3542f",
+  "input_sha256": "899004c7d0e53d636d4e98776b6819068d9019dab2e08ef0cb69c13498c3542f",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-breaker-helm-protos-four-live-sparse1219-existing-base-head-transforms-under-real-tekloscope-only",
+      "card_id": "breaker_helm_protos",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "24ff73e607e381f6288baaaa4dbeccc5e1b96a85863e79434b0fc64ba5edfb35",
+        "actions.json": "c9e30c252fa7ee7dec5f8a364eea8e728c688845dd8df7f54427b2bc62c71d2d",
+        "assertions.json": "414710f7558ce56c54cdfe793def317dde34441088ddfaa0c988eb801fa5d2cd",
+        "expected_final_gamestate.txt": "13c7c5c3aca780e43a3a340ff754fb417b8445ae3f448e5f7e3f1927b35add36",
+        "meta.json": "8bf4335c478baedf1b6a8134f190c875c316ff6610bdd234c8bfee30e7fd5a0c"
+      },
+      "fixture_sha256": "56546be6784bfb0c5d485edd5a6cf721cfb025594ae559a4c3799108a8909fd1",
+      "actions": 6,
+      "native_assertions": 312,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 4,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1219-20261122.json",
+      "input_sha256": "899004c7d0e53d636d4e98776b6819068d9019dab2e08ef0cb69c13498c3542f",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1219-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-breaker-helm-protos-four-live-sparse1219-existing-base-head-transforms-under-real-tekloscope-only",
+        "fixture_slug": "card-breaker-helm-protos-four-live-sparse1219-existing-base-head-transforms-under-real-tekloscope-only",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "reviewer": "independent breadth_review",
+    "spec_sha256": "899004c7d0e53d636d4e98776b6819068d9019dab2e08ef0cb69c13498c3542f",
+    "source_note_sha256": "9a021d915a9502050b098d7b111987aae3229a34edad8dd8ab5ad47d9adb25f5",
+    "case_count": 1,
+    "native_controls": 6,
+    "query_checks": 312,
+    "persistable_assertions": 312,
+    "author_only_checks_omitted": 0,
+    "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+    "runtime_verification_scope": "Root fresh isolation/runtime/HEAD verification reused. Every source hash bound in the independent1218 review was independently recomputed unchanged; no native/engine/Git execution.",
+    "coverage_category": "BASE_TRANSFORMATION_MATERIAL_ONLY_DEFEND_WHEN_AND_TEMPER_UNTESTED",
+    "cases": [
+      {
+        "card_id": "breaker_helm_protos",
+        "group_id": "identity:breaker_helm_protos",
+        "support_evo": "evo_tekloscope_blue",
+        "native_controls": 6,
+        "persistable_assertions": 312,
+        "starting_base_uid": 5,
+        "resulting_evo_uid": 6,
+        "actual_resource_cost": 3,
+        "final_resources": 0,
+        "final_action_points": 0
+      }
+    ],
+    "delta_review": {
+      "qualified_donor": "sparse1218-local-20261122/proposed.json case2 ProtoBaseHead",
+      "donor_spec_sha256": "5b18d22d8d474682ac337ecc8f019cee48bc8c8176bc5f40123629db9ba655cd",
+      "donor_independent_review_sha256": "5e66fa9c7729c359b7f7eaa3fe7564ac6676839c11ac2047ef3689631c355174",
+      "exact_comparison": "All heroes/HP/resources/AP/state/zones/steps/checks/planned_controls equal qualified1218Head after only proto_base_head->breaker_helm_protos substitution. Descriptive identity/printed-text/scope metadata separately reviewed; no other native action/query delta."
+    },
+    "basis": [
+      "Current cache defines BreakerHelmProtos as Mechanologist Equipment/Base/Head, DEF1/Temper, with When this defends optionalHyperDriverdiscard body. Legal prior equipped Base5 under youngDash20/threeyoungDorinthea20; actual identity group remains unrepresented and has no matching issue/source-only hold. Initial Counters[] uses the unchanged Equipment constructor contract.",
+      "ProfessorCards22-29 selects Base+matchingHead type, not a proto_base name prefix, so real Breaker5 is eligible for the same exact compiled Tekloscope ResolveCard wrapper2732-2735->FaBEvoEquip->EVOCards45-52. ActualGenericBlue7 pays support6cost3/AP1->0/R0; source6heldStack and ownedreadyBase5 stay separate through allfourmanualsource responses.",
+      "On actual resolution oldBase5 is removed and its CardID is encoded as the only SUBCARDS[breaker_helm_protos] under actualTekloscope6 owned/controller1/ready2. Full Counters reset is explicit EVOCards51; no private play-order inference. Exactly one Equipment remains, allGraveyard/Arena/Banish/Temp empty, Blue7Pitch1/maxUID7/AP0/allHP20. Encoded material has no retained under-card UID claim.",
+      "No attack, defend declaration, defense role or combat occurs anywhere in the identical six-control flow. Therefore the primary WHENdefends event and defended-dependent Temper are unearned; this does not omit a required WHEN layer by assuming a false resolution condition. Old Base is notEvo so no SteelSoul trigger; selected support has no entryWHEN/hook. No Tekloscope continuous-target effect is exercised."
+    ],
+    "limits": [
+      "Only actual matching BaseHead-as-transformation-material; no native success/coverage claimed before Root save and targeted replay.",
+      "No printed defense/WHENdefends/Temper/HyperDriverdiscard/draw, inventoryequip/wrongslot/rejection, underlyingUID/foreignmaterial/export, Evo/support-primary identity, Tekloscope targeting/Hero/full-card credit. All existing holds remain unchanged.",
+      "Only this W review receipt written; no native/PHP/tests/replay/T/source/framework/Git/original/network actions."
+    ],
+    "source_sha256": {
+      "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+      "FaBSim/Custom/ProfessorCards.php": "6e5cc57b008552dc444d06831bd9dbec45db47214087de049da99b68deb96988",
+      "FaBSim/Custom/EVOCards.php": "7e946cadb04817da7a0c0b17d94cf5a6bd03655adba07b714d39654329b54dbe",
+      "FaBSim/Custom/GameLogic.php": "c60fa151561f959e4e3e341b814de0e2b47c9e9f153bbc8793a04c43b5075061",
+      "FaBSim/ZoneClasses.php": "874bb2ae00a80a8ba3dfe1789b4c932fd0b7cf1286504a62828e0055ca1cb355",
+      "FaBSim/GeneratedCode/GeneratedMacroCode.php": "fe6a7982611df8f4de98ce2671b317b671b580146aa4b8c28e8f4b86d8461056"
+    }
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1219-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "966fd324f6ba397892e7ee0e1620dad7ea175b897a4b3248e841cf7984ed0f32"
+  },
+  "full_suite_run": false
+}

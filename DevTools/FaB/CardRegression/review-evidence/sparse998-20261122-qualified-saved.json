@@ -1,0 +1,88 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "Root independent of breadth_review author",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse998-20261122.json",
+  "source_spec_sha256": "31cb451c6b63f68e1578e74cbf938587c2bc3bd95557fdcbb91aeab01c3196d5",
+  "input_sha256": "31cb451c6b63f68e1578e74cbf938587c2bc3bd95557fdcbb91aeab01c3196d5",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-amulet-of-earth-blue-four-live-sparse998-no-earth-fusion-rejects-destroy-buff-then-real-base-attack",
+      "card_id": "amulet_of_earth_blue",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "faac811bb41d76eefef99eb1f31feb59f3bd2f46d4476811f5766d9398e4486d",
+        "actions.json": "135f7e103758ae5362798979e3707659d4c74433be73bf0179ce6c49e55d45c2",
+        "assertions.json": "f39cffe5594a5bd416dc821e26f6b5c9e99ebbfd1bb30fc47c9e03d494cb02ee",
+        "expected_final_gamestate.txt": "f55de2097c081067d24d5021bc1a731d3c04ae7615244666dc68aa597479aba3",
+        "meta.json": "2361ab7878f3208f3b94f585efe68d6e8ff3b8c9d1c58a6f0ed35e178aecdbde"
+      },
+      "fixture_sha256": "7819b4491a6e16ab0045b4c041290a957943f9f08567ec0c77f78b0eaa2cc807",
+      "actions": 28,
+      "native_assertions": 171,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse998-20261122.json",
+      "input_sha256": "31cb451c6b63f68e1578e74cbf938587c2bc3bd95557fdcbb91aeab01c3196d5",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse998-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-amulet-of-earth-blue-four-live-sparse998-no-earth-fusion-rejects-destroy-buff-then-real-base-attack",
+        "fixture_slug": "card-amulet-of-earth-blue-four-live-sparse998-no-earth-fusion-rejects-destroy-buff-then-real-base-attack",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-amulet-of-ice-blue-four-live-sparse998-no-ice-fusion-rejects-before-target-tax-then-real-attack",
+      "card_id": "amulet_of_ice_blue",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "12a4d492fb00cd3f920422e500c4cac3097913c06c332481eba02c41e79a6bd1",
+        "actions.json": "135f7e103758ae5362798979e3707659d4c74433be73bf0179ce6c49e55d45c2",
+        "assertions.json": "06f92ccc443d49b34ba48daf953df87f7d77ceb21a88a02710b5da7036c2ef14",
+        "expected_final_gamestate.txt": "5495a948ea995dbe3abe0da86dfa44fc7cd1948d0319c35f4f05f9a3eb64e30e",
+        "meta.json": "eb4f38d3171c227c67ab662c727ea0617b05b8e5b6ca36a826f1fb0f528e9aef"
+      },
+      "fixture_sha256": "a17ee1ced7e16e68319ec681facc9dc84f9e67e1611ca14c25f5208cd8e390df",
+      "actions": 28,
+      "native_assertions": 183,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse998-20261122.json",
+      "input_sha256": "31cb451c6b63f68e1578e74cbf938587c2bc3bd95557fdcbb91aeab01c3196d5",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse998-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-amulet-of-ice-blue-four-live-sparse998-no-ice-fusion-rejects-before-target-tax-then-real-attack",
+        "fixture_slug": "card-amulet-of-ice-blue-four-live-sparse998-no-ice-fusion-rejects-before-target-tax-then-real-attack",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "reviewer": "Root independent of breadth_review author",
+    "batch": 998,
+    "result": "approved_named_branches_only_pending_native_execution",
+    "spec_sha256": "31cb451c6b63f68e1578e74cbf938587c2bc3bd95557fdcbb91aeab01c3196d5",
+    "findings": [
+      "ExplicitELE Instant0destroy rows andfusionguards supported. InitialrealownedArena5ready with noEarth/Icefusionhistory, legalVerdance20EssenceEarth /Lexi20EssenceIce. Noresourcecost/additionalpayment/tap/timingmask; neitherfalseprerequisite opens targetchoice or destroysactual5.",
+      "ActualHand6GenericAA laterplayed/all4manual/fourdamage/AP0/ownedGGY6 anditem5retained. Eartheffect leakagewouldincorrectlymake5damage, expected4. Ice actualHero4Hand7NAAretained, noemptyHandmask; all4liveherotargets exist, no formalTargetpositivebranch attempted.",
+      "AmuletprintedGoAgainbelongscardplay, notunexecutedInstantactivation or laterAA; AP0afterlegalAAcorrect. Verdanceonlylifegainheroabilityunearned, avoidsBriarAA-hittrigger. Nohero/positivefusion/entry/casting/targettiming/support/sibling/fullcardcredit. Noauthor-onlyqueries. Cerebellum unsupportedrouteconcernisunrun/notnativebug."
+    ]
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse998-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "4eedca9e040efca8a6e70f2ede80025681b9130a926cc8bc1373c25ecc17a485"
+  },
+  "full_suite_run": false
+}

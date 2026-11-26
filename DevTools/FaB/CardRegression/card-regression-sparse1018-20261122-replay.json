@@ -1,0 +1,79 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-leech-memory-red-four-live-sparse1018-real-buff-full-block-unearned-rider",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-leech-memory-red-four-live-sparse1018-real-buff-full-block-unearned-rider",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1018-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1018-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "0926805f016f7df902ad69c063933d8982513151c436f4b80d21164040fc2e3f",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "e0ef99bc38b9b1d77b70658aaff3d2c116f56e72d925eb689dcfdf644b1f73b8",
+        "actions.json": "ff5b5e1b9430f781eafc7ed3e67336353d1cb8bc51b4b5a911b1c6c7493603e8",
+        "assertions.json": "7531b7b897c8b43aa9fd9cda59763f3889e591e39936a9d1a11a96d02ecc2b2a",
+        "expected_final_gamestate.txt": "6f28389445cc6bcf51c4529436818b5abfa171fca88cf6367f9ff3ba06095810",
+        "meta.json": "8d0e44b8ad6df8881d9ef6321eba81e7ad82d0e8d3d3b6ce729223f7adca76ff"
+      }
+    },
+    {
+      "slug": "card-shadow-puppetry-red-four-live-sparse1018-real-buff-full-block-unearned-rider",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-shadow-puppetry-red-four-live-sparse1018-real-buff-full-block-unearned-rider",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1018-local-20261122\\clean-replays\\01.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1018-local-20261122\\clean-replays\\01.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "1530b036d1e827c5e847c78b18f303c30d56500a12a3f853b466173d2bcf2e1c",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "8fc68be0f83f20f621d5b684b9b3f64299538d41120a7fb0faa1c667061cbdeb",
+        "actions.json": "db6de1e5d161a06aa6f777f51cf01fdf0b2c3f93f797b1ff872183ab152427b4",
+        "assertions.json": "1e4ef9b3bfe33e3cca84f67489121f4cfb8279627008625a668d4bcbfd703595",
+        "expected_final_gamestate.txt": "44f8203118d97c4593897e007210ef382ed737811370905a533fada4c1aaf50e",
+        "meta.json": "4b844674009af8a3ca37b6951ff39d8fef5fd30545110bcab89be904d9959eea"
+      }
+    },
+    {
+      "slug": "card-commit-to-corruption-red-four-live-sparse1018-real-buff-full-block-unearned-rider",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-commit-to-corruption-red-four-live-sparse1018-real-buff-full-block-unearned-rider",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1018-local-20261122\\clean-replays\\02.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1018-local-20261122\\clean-replays\\02.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "e37d30e646b37c2fc962bdb2b4be097038700976618fb1feb910e0b613c4aabb",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "c3c8eeab1b9868a4637c901f053f3f71f18028d43cc1569c05bec951379b9463",
+        "actions.json": "db6de1e5d161a06aa6f777f51cf01fdf0b2c3f93f797b1ff872183ab152427b4",
+        "assertions.json": "921a21cfbc763d47cc9c844d2223fab5dc891fe9e4a1b564269617e9abac1867",
+        "expected_final_gamestate.txt": "1c9d64e8cb16057a7034214c4fbc19720b646922b57ef45967e3fa0028ee154e",
+        "meta.json": "7b0bf62223a7af971b152860e1ee6b51a60cdf852cfe0311c0028a23ec50c72f"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

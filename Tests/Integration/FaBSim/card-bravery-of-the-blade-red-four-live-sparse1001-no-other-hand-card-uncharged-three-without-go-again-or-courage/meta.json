@@ -1,0 +1,7 @@
+{
+    "name": "Bravery of the Blade / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-23T01:40:36+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "As an additional cost to play this, you may **charge** your soul.\n\nIf you've charged this turn, this gets **go again** and \"When this hits, create a Courage token.\" Named partial branch: no_other_hand_card_uncharged_three_without_go_again_or_courage. Natural legal Boltyn20, only source Hand5, printed cost0/no Pitch. After source is announced there is no other Hand card to charge; no charged history or Soul card. AP0. Four live manual seats, adjacent target4 announced before payment, actual unblocked3 damage/HP17, same owned physical5 Stack-to-ATTACK-to-Graveyard. No go again or created token. No positive marked-hero/charge/Courage/Fealty/recursion, alternative hero ability, support identity, pitch sibling or full-card credit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#bravery_of_the_blade_red"
+}

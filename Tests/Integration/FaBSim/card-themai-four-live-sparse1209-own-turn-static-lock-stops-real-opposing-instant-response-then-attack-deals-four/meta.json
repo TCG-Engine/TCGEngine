@@ -1,0 +1,7 @@
+{
+    "name": "Themai / own turn static lock stops real opposing instant response then attack deals four",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-23T17:27:03+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "FourmanualYoungDromai20/threeDori20; lawfulownedThemai5priorinvokedArena1ordinaryAshCounter, actualGenericWounding6Hand1/realopposingSigilSolaceRed7Instant0Hand4. ActualownWounding0legalformalHero4/paysAP1to0; native1/2/3passesreachopponent4withPRIORITYandnonoDQ/nocost/validgenericInstant. Actual4cardclickmustnotplaythatInstantduringcontroller1turn: Hand7/Stackonly6/HP20/AP/R0/UID7/priority4allunchanged, nocardheal3. Allfourseatscanstillpasspriority; finishactualfourpowerunblockedcombat->HP16. Final5Arena1ready,6GY1,opponent7stillHand4/noopposingGY/actualcards/sourcekept/AP/R0/emptyqueues. Staticopposingcard-playlockonly; noactivateability/otheropponentattempt/otherturn/unlock/Dragonattack/invoke/export/Hero/support/fullcardcredit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#themai FaBSim/Custom/UPRCards.php FaBSim/Custom/MONAbilities.php FaBSim/Custom/MONCards.php FaBSim/Custom/GameLogic.php"
+}

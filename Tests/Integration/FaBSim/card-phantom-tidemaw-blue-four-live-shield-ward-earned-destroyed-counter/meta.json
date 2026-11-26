@@ -1,0 +1,7 @@
+{
+    "name": "Phantom Tidemaw Blue / strict Shield Ward then responseable destroyed counter",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-15T23:53:40+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "The real Shield Ward1 prevents Head Jab1; surviving Phantom gains POWER1 only after all four responses to its earned trigger. Full original physical ownership/source, zero damage, Head Jab go-again and cleanup are pinned. One named branch only; own Ward/Phantasm, interposition, return/control/suppression and support-card coverage are not awarded. Sources: https://rules.fabtcg.com/en/cr/08-keywords/ https://rules.fabtcg.com/en/cr/06-effects/ https://rules.fabtcg.com/en/cr/01-game-concepts/ https://rules.fabtcg.com/en/cr/07-combat/ https://rules.fabtcg.com/en/cr/03-zones/"
+}

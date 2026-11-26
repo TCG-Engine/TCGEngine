@@ -1,0 +1,68 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-23T21:28:30.573271+00:00",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1237-20261122.json",
+  "source_spec_sha256": "b99a6531e7347bd5320b8d0f9c8e51d5eac697b017982c1ba493b6ea0a6c04cc",
+  "new_scenarios": 1,
+  "new_groups": 1,
+  "new_primary_ids": 1,
+  "actions": 54,
+  "native_assertions": 295,
+  "manual_passes": 50,
+  "totals": {
+    "saved_registered_scenarios": 5142,
+    "duels": 3075,
+    "four_live": 2067,
+    "recorded_primary_ids": 2290,
+    "identity_denominator": 5196,
+    "recorded_groups": 2164,
+    "group_denominator": 3324,
+    "four_live_groups": 2056,
+    "phase_qualified_scenarios_at_actual_contexts": 1779,
+    "phase_qualified_unique_groups": 1769,
+    "creation_replay_passes": 2521,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 940,
+  "scenarios": [
+    {
+      "card_id": "mistcloak_gully",
+      "group_id": "identity:mistcloak_gully",
+      "scenario_id": "card-mistcloak-gully-four-live-sparse1237-only-first-resolved-attack-at-controller-loses-one-power",
+      "effect_branches": [
+        "existing_owned_landmark_reduces_first_actual_attack_at_its_controller_from_three_to_two_then_second_attack_deals_unreduced_four_same_turn"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-mistcloak-gully-four-live-sparse1237-only-first-resolved-attack-at-controller-loses-one-power",
+      "source_spec": "card-regression-sparse1237-20261122.json",
+      "source_spec_sha256": "b99a6531e7347bd5320b8d0f9c8e51d5eac697b017982c1ba493b6ea0a6c04cc",
+      "review_evidence": "review-evidence/sparse1237-20261122-qualified-saved.json",
+      "review_evidence_sha256": "449fec972e9fdcd340f98cfdf69a88de0fc424f7e8294b0637aeff9322e06c40",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1237-20261122-replay.json",
+          "sha256": "419ae9e2119b97311b239be23573e69cafd6ac2d23d578d98372de5c3b7edd0e",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

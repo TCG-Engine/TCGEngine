@@ -1,0 +1,7 @@
+{
+    "name": "Blossom of Spring / real Action destruction, one resource and go again",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-26T01:36:48+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Exact original printed Action/destroy/Gain1/GA oracle unchanged; priornative missingABI repro fixed by exact named metadata+body in existing WTRcommonactivation path. No new breadth. Sources: FaBSim/GeneratedCode/cardArrayCache.json#blossom_of_spring FaBSim/Custom/WTRAbilities.php#FaBWTRAbilitySpec FaBSim/Custom/ARCAbilities.php#FaBARCAbilitySpec"
+}

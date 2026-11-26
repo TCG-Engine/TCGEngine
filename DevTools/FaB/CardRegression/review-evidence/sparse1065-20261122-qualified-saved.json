@@ -1,0 +1,63 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "breadth_review independent printed/source/spec review",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1065-20261122.json",
+  "source_spec_sha256": "996118b1b9e51a7b89d152ea43c8bff2d224008928eb73fef8b6dba657c8812b",
+  "input_sha256": "996118b1b9e51a7b89d152ea43c8bff2d224008928eb73fef8b6dba657c8812b",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "pay-day-blue-four-live-sparse1065-no-current-contract-old-banish-marker",
+      "card_id": "pay_day_blue",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "05a18a582acbff992e3ff9c35d6e18bb4b6d73252c7ef17c703ae623b49c81c2",
+        "actions.json": "ecfc3b356d170d3adcd369c59f64176c3b17ffe7af3900115b2de1a20afbaf7c",
+        "assertions.json": "02d819bbda4cd40e22e1049f7b71880e30c4ad3b1de1026d1e5578a87bad645c",
+        "expected_final_gamestate.txt": "f59a2d298003cca5b1b07b0aae94587c0f97e89f054760fa2bb6c4dcc089d7d2",
+        "meta.json": "c921614566fbac293b3f8dfe3c8d581fdbc6d7e4c522cc29407b8f0d2ebc0a5f"
+      },
+      "fixture_sha256": "97d49698de64e01cddff0404cab5209b5dbd5fd755b60a8d074a66e9dec61a86",
+      "actions": 5,
+      "native_assertions": 147,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 4,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1065-20261122.json",
+      "input_sha256": "996118b1b9e51a7b89d152ea43c8bff2d224008928eb73fef8b6dba657c8812b",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1065-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "pay-day-blue-four-live-sparse1065-no-current-contract-old-banish-marker",
+        "fixture_slug": "pay-day-blue-four-live-sparse1065-no-current-contract-old-banish-marker",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "spec_sha256": "996118b1b9e51a7b89d152ea43c8bff2d224008928eb73fef8b6dba657c8812b",
+    "reviewer": "breadth_review independent printed/source/spec review",
+    "basis": [
+      "Printed Pay Day Blue is Assassin Action cost0 with plain resolution IF completed-contract-this-turn; no Go Again and no Contract ability/card keyword. Legal young Arakni20 owns physical Hand5, AP1\u21920, no target/additional-cost requirement. DYNCards26 explicit Contract map excludes Pay Day; DYNRuntime74 hero WHEN play card with Contract is therefore not earned, rather than an omitted WHEN/thenIF layer.",
+      "Fresh initial turnEffects[]/no actual contract action establishes zero current CONTRACTS. Old opponent4 faceup Banish Blue6 is retained physical state, not current completion history; DYNCards28 completion requires an actual opposing banish while a matching contract attacks. Actual nonempty opponent Deck7 and clean decision queues also pin absence of a wrongly classified Arakni look.",
+      "Explicit Generated ResolveCard pay_day_blue:0 checks FaBDYNCount(CONTRACTS) before creating four Silver. Actual click plus four manual source passes ends source5 owned GGY, AP0/R0/HP20/allfourArena0, Banish6/Deck7 retained/queues clean. Plain false conditional branch and correct no-GA physical fate are observed by persisted assertions, no author-only diagnostics."
+    ],
+    "limits": [
+      "No-current-contract negative payout branch only. No actual completed contract/positive Silver creation/ownership/Arakni ability/history-positive/hero/support/pitch sibling/full-card credit or prior-hold repair. No native/PHP/T/source/Git/original/network actions by reviewer."
+    ]
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1065-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "d6ae0cb65ae20e86e9b3390a783465e9f90896c7bd47eac0aab7d6d87db56d1f"
+  },
+  "full_suite_run": false
+}

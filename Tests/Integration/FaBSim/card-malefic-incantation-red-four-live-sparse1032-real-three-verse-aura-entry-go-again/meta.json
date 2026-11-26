@@ -1,0 +1,7 @@
+{
+    "name": "Malefic Incantation / four-live actual Aura entry",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-23T03:49:31+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "**Go again**\n\nThis enters the arena with 3 verse counters. When it has none, destroy it.\n\nOnce per turn, when you play an attack action card, remove a verse counter from this. If you do, create a Runechant token. LegalChane20Runeblade/noViseraiorautomaticproducer. ActualHand5cost0/AP0 heldphysicalStackthroughfourmanualsourcepriorityresponses, thenpersistentAura5ownedArena1/GGY0 withprinted3Verse(FAB_PLAY_ORDER1) andownprintedGA/AP1. ThisENTERSWITHreplacementdoesnotcreateearnedWHEN-entrylayer. NoAAplayed/Runechant/Verse-removal/upkeep/eventtriggerpositive/hero/support/siblings/fullcardcredit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#malefic_incantation_red"
+}

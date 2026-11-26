@@ -1,0 +1,68 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-17T04:26:27.937954+00:00",
+  "runtime_sha256": "1b38ff271b35d26ef5b022618082ef84122b0c0f0387748587c4ee8989af86c9",
+  "source_spec": "card-regression-repair-pound134-resolution-condition.json",
+  "source_spec_sha256": "7e4388ee341bf2a8259a5809489815321a1de53215250136f92e000f16a87958",
+  "new_scenarios": 1,
+  "new_groups": 1,
+  "new_primary_ids": 1,
+  "actions": 42,
+  "native_assertions": 3762,
+  "manual_passes": 36,
+  "totals": {
+    "saved_registered_scenarios": 4161,
+    "duels": 3074,
+    "four_live": 1087,
+    "recorded_primary_ids": 1314,
+    "identity_denominator": 5196,
+    "recorded_groups": 1188,
+    "group_denominator": 3324,
+    "four_live_groups": 1080,
+    "phase_qualified_scenarios_at_actual_contexts": 798,
+    "phase_qualified_unique_groups": 793,
+    "creation_replay_passes": 1539,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 1,
+  "scenarios": [
+    {
+      "card_id": "pound_for_pound_red",
+      "group_id": "pitch-cycle:pound_for_pound",
+      "scenario_id": "card-pound-for-pound-red-four-live-real-opposing-heal-earns-responseable-play-dominate-one-hand-block-and-three-damage",
+      "effect_branches": [
+        "pound-for-pound-red-four-live-real-opposing-heal-earns-responseable-play-dominate-one-hand-block-and-three-damage"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-pound-for-pound-red-four-live-real-opposing-heal-earns-responseable-play-dominate-one-hand-block-and-three-damage",
+      "source_spec": "card-regression-repair-pound134-resolution-condition.json",
+      "source_spec_sha256": "7e4388ee341bf2a8259a5809489815321a1de53215250136f92e000f16a87958",
+      "review_evidence": "review-evidence/pound134-1b38-qualified-saved.json",
+      "review_evidence_sha256": "053ed13ce86b580ea79482ea625287f683a91af91cdba3b958bc8b5df1c25160",
+      "recorded_runtime_sha256": "1b38ff271b35d26ef5b022618082ef84122b0c0f0387748587c4ee8989af86c9",
+      "qualification_runtime_sha256": "1b38ff271b35d26ef5b022618082ef84122b0c0f0387748587c4ee8989af86c9",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-replay-nov17-pound134-replay.json",
+          "sha256": "31c88c0af27ac4fbe2aabf5e43d02d5e89f6ee201750821e5f9c040115771754",
+          "runtime_sha256": "1b38ff271b35d26ef5b022618082ef84122b0c0f0387748587c4ee8989af86c9",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

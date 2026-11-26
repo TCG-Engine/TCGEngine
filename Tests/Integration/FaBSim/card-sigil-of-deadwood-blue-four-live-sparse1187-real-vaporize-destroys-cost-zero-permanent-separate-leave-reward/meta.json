@@ -1,0 +1,7 @@
+{
+    "name": "Sigil of Deadwood / actual owned Aura destruction and separate leave reward",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-23T15:08:37+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "LegalYoungBriar20EssenceEarth+LightningRuneblade/3Dori20manual. Priorownedrealcost0nonTokenAurasigil_of_deadwood_blue5Arena1, actualVaporizeShock6Hand. ActualPrepareMZMODAL0selectsVaporizeonlyLEFT_INSTANTbeforecost/responses, noShocktarget(noformalTargetinlefttext), printedcost0/R0/AP1unchanged. Fourmanualsource responseshold6and5; actualuntargetedresolutionMZMULTICHOOSE0|1|Arena5 choosesreal5. ARCANE_OPP0naturallyfreshmeansX0butrealcost0permanentlegal, actuallydestroyed; tokenmaximum0skipsonlyinapplicabletokenchooserAFTERpositivepermanentdestruction, notempty-effectfallback. SameplayerawaitUID6heldthroughchoice then5ownGY/6ownGY. OnlythenearnedSigilABI7Source5/controller1withnoearlytoken; fourfreshmanualresponsescreateexactownedrunechant8Arena1. AllHP20(noShock), AP1/R0/noRNG/Stack/DQs/material/shuffle. BriarAA-hit/second-NAAWHENnotearnedbecausecarrierisInstantandnoAttack. NoSigilbeginphase/producer/tokenuse/fullcard; noShock/both-halves/Xpositive/foreignowner/extraaura/secondaryprimarycredit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#sigil_of_deadwood_blue FaBSim/Custom/ROSCards.php FaBSim/Custom/ROSRuntime.php FaBSim/GeneratedCode/GeneratedMacroCode.php"
+}

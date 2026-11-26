@@ -1,0 +1,7 @@
+{
+    "name": "Restless Commander / passive power on another owned zombie",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-26T02:53:17+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Four genuine manual young Malice20/3Dori20; real ready Commander5 and CorruptedCorpse6 owned Arena1, no tags/counters/history. Commander says Zombies you control get+1power; Corpse is3basepower Zombie, so actual attackproxy9Source6 must deal4 to unblocked adjacent Hero4, HP20to16. Actual Vox7Weapons grants zombie Action1/tap6, realBlue8pitch3 pays1/R2/AP1to0, formal target4, allfourfreshresponses and completecombat. Do not stop or qualify based solely on cached defenseValue or a source-only power inference: assert realHero4HP16 and damage4 atDamage, plus livecomputedPower4 and inherentCorpseGA. No deaths/Decay/End phase: Malice death and commanderDecay unearned. Fullclose noProxy9/Stack/CC/DQ, realCommander5ready/Corpse6tappedsameArena, allHeroReady/allotherHP20/AP1earnedonlyCorpseGA/R2/Blue8Pitch1/Vox7sameWeapons/UID9RNG0. No wholecard/support/pitchsibling credit or engine fix. First unexpected native result stops unsaved, preserve exact diagnostic for later repair. Sources: FaBSim/GeneratedCode/cardArrayCache.json#restless_commander_red FaBSim/Custom/GameLogic.php FaBSim/Custom/IARCards.php FaBSim/Custom/IARRuntime.php FaBSim/Custom/UPRCards.php FaBSim/Custom/MONAbilities.php"
+}

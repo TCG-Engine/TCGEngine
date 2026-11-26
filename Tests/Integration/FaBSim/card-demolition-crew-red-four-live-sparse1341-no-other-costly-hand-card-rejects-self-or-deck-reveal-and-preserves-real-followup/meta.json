@@ -1,0 +1,7 @@
+{
+    "name": "Demolition Crew / mandatory other-Hand reveal unavailable; real followup preserved",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-24T09:35:09+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "FOUR_REAL_MANUAL_UPF_NATURAL_FOUR_DORI20. Demolition5Handprintedcost2, otherHandBlue6printedcost1pitch3; onlysourceitselfmeetsHandcost>=2butcannotrevealplayedsourceasitsownHandcost. RealGenericBrutalAssaultBlue8Deckcost2isnotHand. ResourcepotentialBlue3andAP1sufficebasecost2, somandatoryotherHandrevealabsenceisspecificgate. Nativeprimaryclickrejectsearly(supportedexplicitWTRCanPlayguardexcludesownUID), sameHand5and6/Deck8/FDArsenal7/AP1R0/UID8/noTargetStackDQorPayment/movement. NoCardrevealed/physicaleffectcostperformed; known099positivecostpathnotexercised. ActualnativeArsenalWounding7thenlegalHero4declaration/pays0spendspreservedAP/allfourresponses/actual4power4damageHP16provesnofailed-costlockorspending. FinalonlyWounding7GY1/primary5fund6Hand1/Deck8same/APR0/UID8RNG0/StackDQCCquiet. Primaryrejectiononly; successfulreveal/paidcost/primaryattack/dominate/targettiming/secondary/Hero/siblings/fullcarduncredited. Sources: FaBSim/GeneratedCode/cardArrayCache.json#demolition_crew_red FaBSim/GeneratedCode/GeneratedMacroCode.php FaBSim/Custom/GameLogic.php FaBSim/Custom/WTRCards.php FaBSim/Custom/ARCCards.php FaBSim/Custom/CardChoices.php"
+}

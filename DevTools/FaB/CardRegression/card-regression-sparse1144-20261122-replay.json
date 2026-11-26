@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-farflight-longbow-four-live-sparse1144-actual-arrow-targets-opposite-live-seat-and-deals-four",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-farflight-longbow-four-live-sparse1144-actual-arrow-targets-opposite-live-seat-and-deals-four",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1144-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1144-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "3ff9fe8103fd56ab2114b71fdfc10edaa1462d103cfeef0d740cd91eb9fe54c7",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "8504f6f5a3f77f466988ecbc6e630825a0bdf31e96eea7d0594545620df24c9e",
+        "actions.json": "17f2acdaed4add8c580f68cab85bc4b5c57fc0c0ac0a8acb103c4221c6c6e859",
+        "assertions.json": "6bea610e0e605535a973e866b4093a7c0ad5b52e31c941edcbb32a32555b4dc1",
+        "expected_final_gamestate.txt": "fb308216dc76bb77ee2478d122acb1a3f55926362155d9b2ef8c281cecd76d1e",
+        "meta.json": "058a88c5d8644e77eabebc0a3c5dfe645215cfac0e9f63ba57ffeb0be87fdb43"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

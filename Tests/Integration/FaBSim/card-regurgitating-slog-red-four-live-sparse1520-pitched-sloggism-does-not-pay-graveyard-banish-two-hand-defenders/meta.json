@@ -1,0 +1,7 @@
+{
+    "name": "Regurgitating Slog / pitched Sloggism is not a paid graveyard cost; two Hand cards defend",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-25T09:55:03+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "SloggismBlue6HandnotGY; primary5declaresadjacentHero4, noeligibleoptionalGYcost, realBlue6pitch3pays2/R1/AP0. Source6Pitchnotplayed/banished; primary6power/noGA. AtactualDEFEND_DECLARE4 Wounding7Handthen8HandbothacceptedtoCCRoleDEFENSE/3+3=6. Actual6attackfullyblocked0damage/allHP20, thenfullmanualfourclose primary5GYowner1/6Pitch anddefenders7,8GYowner4. NoDominatefromunpaidcost/HandorpresenceinPitch, noSloggismspellbonus. Necessaryfalseconditiononly, positiveDominate/paidGYbanishandsecondblockrejectionunrun. Noenginechange. Sources: FaBSim/GeneratedCode/cardArrayCache.json#regurgitating_slog_red FaBSim/GeneratedCode/GeneratedMacroCode.php#regurgitating_slog_red FaBSim/Custom/GameLogic.php#FaBCanBlock FaBSim/Custom/WTRCards.php#WTR_SLOG_PAID"
+}

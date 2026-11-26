@@ -1,0 +1,261 @@
+{
+  "status": "APPROVED_ACTUAL_SAVED_B739_BOOTS_OF_OMNIS_WARD",
+  "approved": true,
+  "source_approved": true,
+  "semantically_approved": true,
+  "reviewer": "/root/b106_semantic_review",
+  "reviewer_independent": true,
+  "created_utc": "2026-11-08T19:40:56.242722+00:00",
+  "source_spec": "card-regression-batch739.json",
+  "input_sha256": "eb3c6fbcb601991ce691a3850beadea664ef83515bfd3577410c2f457ab0dca9",
+  "manifest_sha256": "c4818018593ef88e19c7ac7d33fed5e3daedc5f306f84af7b0cbfaf70ca58e14",
+  "runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+  "recorded_runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+  "recorder_sha256": "ab33a3250462d0453f71d38dd4138cb9fbc3d595d2586742e989a52251c9c4a9",
+  "source_guards_verified": 70,
+  "prior_independent_semantic_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov8-batch739-boots-omnis-ward-independent-source-review.json",
+    "sha256": "d468068d12be4ceef413e3e3defca6053800f7c6c417139915d1f8f8acda0bf3",
+    "unchanged_semantics_reused": true
+  },
+  "recording_receipt": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch739-20261108T193710Z-6af0cf66e780e.json",
+    "sha256": "41c723e21d653b5e084e3b3408cffeae3bbdd5649cce1910762f269c4d21076e"
+  },
+  "specific_results": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch739.recording-results.json",
+    "sha256": "e7a488574b9c5b4ac4b2433898a88666813c69842965c77ae3a633ce880edfaf"
+  },
+  "root_wrapper_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov8-b739-boots-omnis-ward-native-recording\\receipt.json",
+    "sha256": "e2b663c065de3dc6dc1a6e7e3c79bc436ed53b4e07fdfc9b438e9833a0fbd5d2"
+  },
+  "fixtures": [
+    {
+      "index": 0,
+      "card_id": "boots_of_omnis_ward",
+      "group_id": "identity:boots_of_omnis_ward",
+      "slug": "card-boots-of-omnis-ward-four-live-real-hero-tap-destruction-and-one-prevention",
+      "source_spec": "card-regression-batch739.json",
+      "input_sha256": "eb3c6fbcb601991ce691a3850beadea664ef83515bfd3577410c2f457ab0dca9",
+      "reviewer": "/root/b106_semantic_review",
+      "approved": true,
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_HERO_TAP_COST_AND_ONE_PREVENTION",
+      "runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+      "recorded_runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+      "fixture_path": "Tests\\Integration\\FaBSim\\card-boots-of-omnis-ward-four-live-real-hero-tap-destruction-and-one-prevention",
+      "fixture_sha256": "583f84a9ca69e77efdb171020447a712a4c8787021540b2a959ae733a2abc789",
+      "raw4_sha256": {
+        "initial_gamestate.txt": "b073dd6cfed577fd293504964517cb5ebffe0dc09a35820341b3bdd92c9373e7",
+        "actions.json": "4fdb51eb45ad8a9062726d8224d6e196664038addf8f0ccc3674e22dba89673c",
+        "assertions.json": "4fc35f6c1153dbeaeb6ee6088594d6ae17151aa7211038bda26944ce8a69dd13",
+        "expected_final_gamestate.txt": "8eadd0d761a70b4a6f32b993b6397ba6c8998fd000abef6ed9a5805e10257888"
+      },
+      "raw5_sha256": {
+        "initial_gamestate.txt": "b073dd6cfed577fd293504964517cb5ebffe0dc09a35820341b3bdd92c9373e7",
+        "actions.json": "4fdb51eb45ad8a9062726d8224d6e196664038addf8f0ccc3674e22dba89673c",
+        "assertions.json": "4fc35f6c1153dbeaeb6ee6088594d6ae17151aa7211038bda26944ce8a69dd13",
+        "expected_final_gamestate.txt": "8eadd0d761a70b4a6f32b993b6397ba6c8998fd000abef6ed9a5805e10257888",
+        "meta.json": "65a65c0831dcec3064a3ea43b00c547b6bf9d0b65a41e4de358a56b916430033"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "b073dd6cfed577fd293504964517cb5ebffe0dc09a35820341b3bdd92c9373e7",
+        "actions.json": "4fdb51eb45ad8a9062726d8224d6e196664038addf8f0ccc3674e22dba89673c",
+        "assertions.json": "4fc35f6c1153dbeaeb6ee6088594d6ae17151aa7211038bda26944ce8a69dd13",
+        "expected_final_gamestate.txt": "8eadd0d761a70b4a6f32b993b6397ba6c8998fd000abef6ed9a5805e10257888",
+        "meta.json": "65a65c0831dcec3064a3ea43b00c547b6bf9d0b65a41e4de358a56b916430033"
+      },
+      "actions": 14,
+      "native_assertions": 1174,
+      "actual_manual_passes": 11,
+      "actual_priority_response_passes": 11,
+      "actual_defender_declaration_finish_inputs": 0,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        1,
+        2,
+        3,
+        4
+      ],
+      "actual_manual_actor_counts": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 2
+      },
+      "schema_property_assertions": 312,
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "all_actions_and_assertions_exact": true,
+      "no_recorder_only_assertions": true,
+      "all_endpoint_physical_uid_card_zones_ownership_verified": true,
+      "all_terminal_assertions_evaluated_against_parsed_final_snapshot": true,
+      "initial_assertions_also_evaluated_against_parsed_initial_snapshot": true,
+      "initial_physical_uid_locations": {
+        "1": {
+          "card_id": "verdance",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "6": {
+          "card_id": "zap_red",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2
+        },
+        "5": {
+          "card_id": "boots_of_omnis_ward",
+          "zone": "p4Equipment",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_physical_uid_locations": {
+        "1": {
+          "card_id": "verdance",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "6": {
+          "card_id": "zap_red",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 1
+        },
+        "5": {
+          "card_id": "boots_of_omnis_ward",
+          "zone": "p4Graveyard",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_physical_uidset": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "actual_primary_resources_paid": 0,
+      "actual_primary_AP_paid": 0,
+      "actual_Zap_Action_AP_paid": 1,
+      "actual_Hero_tap_UID": 4,
+      "final_Hero4_Status": 1,
+      "all_other_Hero_Status": 2,
+      "actual_primary_cost_destroyed_UID": 5,
+      "actual_prevented_damage": 1,
+      "actual_arcane_damage": 2,
+      "actual_created_tokens": 0,
+      "ceased_ability_UID": 7,
+      "final_UniqueIDCounter": 7,
+      "RandomCounter": 0,
+      "final_health": [
+        20,
+        20,
+        20,
+        18
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_Chi": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "full_card_certification": false,
+      "native_action_mapping_sha256": "979598bca5a1ab7052c95a1ed5a39738298bf84452c3f22a5cdfa80728a0ab17",
+      "native_assertion_mapping_sha256": "df3210659934ce7b006cad5f704c355a14c704a6a7ebaca85fd1f748126221be"
+    }
+  ],
+  "blocked_attempts": [],
+  "total_actions": 14,
+  "total_native_assertions": 1174,
+  "total_manual_passes": 11,
+  "total_schema_property_assertions": 312,
+  "material_findings": [
+    "Exact rawfive/behavior/all14controls1174queries11manual3/3/3/2/48preferences both endpoints match Source d468. COMPLETE0/stderr0 receipt/results/archive/current70c53ab33 bound; full physical endpoints/all initial-final queries independently parsed.",
+    "Actual Hero4Status2→1 and same5 costdestroy precede heldABI7 fresh4/1/2/3 aboveZap6. Every postactivation checkpoint and parsed final snapshot strictly requires Hero4Status1, otherHeroes2; LiveSeats1234/passiveSeats[]/HPpositive/manual actor4 participation remain strict. No blanketstatus relaxation or false elimination/autopass equivalence.",
+    "Actual freshZap quorum then3minus1=2 arcane/HP18/noToken. OriginalUID1..6 retained/source5GY4/spell6GY1/ABI7ceased/counter7/RNG0/RAPChi0/fullStackChainsDQpaymentawaitquiet. No conditionalDEF/Temper/Heroability/secondarysupport/otherbranch/fullcard certificate."
+  ],
+  "limits": [
+    "OneactualHeroTap/destroy/consume1of3preventionbranch; noDEFconditional/Temper/Heroability/support/fullcardcredit.",
+    "AllfourLIVE/manualwhileHero4Status1; status1strictfromcostthroughendpoint, nofakeuntap/Endreset.",
+    "ActualHero4Zaptargetstrict/wholemenuunqualified; optionalbanks/privatehistory/FABmetadataunqualified.",
+    "Rootnative/exactSaved/all48manualpreferences/twoNEWfocusedreplaysremainseparategates.",
+    "Only actual Hero-tap/destroy/next1 of Zap3 positive activation. No conditionalDEF/Temper, secondactivation/untap, differentHero/secondaryability, multievent prevention, sibling/support/fullcard credit. All four living/manual participation remains separate from tapped Hero status.",
+    "Whole Zap menu and all optional private history/FAB/effect bank metadata are unqualified. Indexed official Omens timing text is author evidence, viewed issuer face is independent printed basis; no invented exactJudgeID/fetch success. Actual raw5/48preferences/Saved/replays/registration remain separate gates. No reviewer PHP/native/replay/R/source/Git/remote/fullsuite/deniedretry.",
+    "Only this actual tap-your-Hero/destroy/next1 prevention branch executed. Hero untap/secondactivation/DEF/Temper/multiple events/alternateHeroes/support/siblings/fullcard remain unqualified.",
+    "Root new-only replays/registration/index/promotion remain separate; no qualification before registration. RawVersions hash-bound/excluded from physical inventory. No reviewer PHP/native/replay/R/source/Git/remote/fullsuite/deniedretry."
+  ],
+  "qualification_credit_before_registration": false,
+  "blockers": [],
+  "actual_comparison_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov8_batch739_boots_omnis_saved_readonly.py",
+    "sha256": "76d2ebb069dad725d70cac2ee93aaba578df3f29fb47c4dcbee6c072e4125ec1"
+  }
+}

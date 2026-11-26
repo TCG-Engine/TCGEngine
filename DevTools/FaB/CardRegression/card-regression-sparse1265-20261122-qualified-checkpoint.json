@@ -1,0 +1,68 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-24T00:11:59.341255+00:00",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1265-20261122.json",
+  "source_spec_sha256": "09dff08902668bb48b720f33efd6024b03ccb60e33e5068a65bba7b88b2193cf",
+  "new_scenarios": 1,
+  "new_groups": 1,
+  "new_primary_ids": 1,
+  "actions": 18,
+  "native_assertions": 246,
+  "manual_passes": 15,
+  "totals": {
+    "saved_registered_scenarios": 5171,
+    "duels": 3081,
+    "four_live": 2090,
+    "recorded_primary_ids": 2319,
+    "identity_denominator": 5196,
+    "recorded_groups": 2193,
+    "group_denominator": 3324,
+    "four_live_groups": 2079,
+    "phase_qualified_scenarios_at_actual_contexts": 1808,
+    "phase_qualified_unique_groups": 1798,
+    "creation_replay_passes": 2550,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 969,
+  "scenarios": [
+    {
+      "card_id": "chane_bound_by_shadow",
+      "group_id": "identity:chane_bound_by_shadow",
+      "scenario_id": "card-chane-bound-by-shadow-two-live-sparse1265-real-soul-shackle-cost-before-responses-then-actual-shadow-attack-go-again",
+      "effect_branches": [
+        "adult_duel_actual_soul_shackle_creation_cost_before_both_responses_then_granted_go_again_on_real_paid_shadow_attack_returns_action"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-chane-bound-by-shadow-two-live-sparse1265-real-soul-shackle-cost-before-responses-then-actual-shadow-attack-go-again",
+      "source_spec": "card-regression-sparse1265-20261122.json",
+      "source_spec_sha256": "09dff08902668bb48b720f33efd6024b03ccb60e33e5068a65bba7b88b2193cf",
+      "review_evidence": "review-evidence/sparse1265-20261122-qualified-saved.json",
+      "review_evidence_sha256": "12087e9c3f38a710a4526d9fd1928aef41bc26aad9eb5d2dc20af3c99d60cec1",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1265-20261122-replay.json",
+          "sha256": "aff4ee8b1c0b0ff682ff207ea0f802a5881e80158aade0e01b9486d6b2d0865b",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "two_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

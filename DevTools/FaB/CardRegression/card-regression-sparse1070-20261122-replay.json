@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-reinforce-steel-red-four-live-sparse1070-actual-red-guardian-offhand-selection-removes-one-existing-minus-defense-counter",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-reinforce-steel-red-four-live-sparse1070-actual-red-guardian-offhand-selection-removes-one-existing-minus-defense-counter",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1070-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1070-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "d0a9914197f422b52bf60e0916a82423a5c522eedb02e9599215489d9ee35263",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "7c5312cb7cdacc2047baf32774e596968b6914453062e2d87de8da9b84dfc4bf",
+        "actions.json": "1dba6bce7886075fef763316c563ee31d8aa590647c36cc94aa1a4513c77f4bc",
+        "assertions.json": "b6425647c67b711b9aa9e0504b2ac7c8d62839cce57eaba39f23ddcd39ebe3b8",
+        "expected_final_gamestate.txt": "76f564a4890464a9bd04841e7d9fb2e0c7ccd97397b18cebf018ab246d502adb",
+        "meta.json": "348eb99c7f131697ddfea762169ce8b3801a6d4d4234d1f4e4808137a9562f69"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

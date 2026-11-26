@@ -1,0 +1,68 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-25T10:12:11.681448+00:00",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1529-20261122.json",
+  "source_spec_sha256": "d55dab7a20d5d31663641db135ca6ec1666ec3436e02bfa49a1ba9f6613ee8f8",
+  "new_scenarios": 1,
+  "new_groups": 1,
+  "new_primary_ids": 1,
+  "actions": 28,
+  "native_assertions": 418,
+  "manual_passes": 25,
+  "totals": {
+    "saved_registered_scenarios": 5613,
+    "duels": 3135,
+    "four_live": 2478,
+    "recorded_primary_ids": 2761,
+    "identity_denominator": 5196,
+    "recorded_groups": 2635,
+    "group_denominator": 3324,
+    "four_live_groups": 2467,
+    "phase_qualified_scenarios_at_actual_contexts": 2250,
+    "phase_qualified_unique_groups": 2240,
+    "creation_replay_passes": 2992,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 1411,
+  "scenarios": [
+    {
+      "card_id": "arakni_tarantula",
+      "group_id": "identity:arakni_tarantula",
+      "scenario_id": "card-arakni-tarantula-four-live-sparse1529-owned-dagger-hits-real-ally-without-hero-life-loss",
+      "effect_branches": [
+        "owned_Dagger_actual_Ally_hit_not_Hero_hit_no_Tarantula_life_loss_or_Hero_hit_layer"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-arakni-tarantula-four-live-sparse1529-owned-dagger-hits-real-ally-without-hero-life-loss",
+      "source_spec": "card-regression-sparse1529-20261122.json",
+      "source_spec_sha256": "d55dab7a20d5d31663641db135ca6ec1666ec3436e02bfa49a1ba9f6613ee8f8",
+      "review_evidence": "review-evidence/sparse1529-20261122-qualified-saved.json",
+      "review_evidence_sha256": "80d6578c66e3103e229609655a6107aa2bb7b336956d53200b4626cfa5f0bfb5",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1529-20261122-replay.json",
+          "sha256": "6e79bbd5e493b45a38461fbdbbdfbfecf9ffa15cdcce2f53cfc7011139f8b28a",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

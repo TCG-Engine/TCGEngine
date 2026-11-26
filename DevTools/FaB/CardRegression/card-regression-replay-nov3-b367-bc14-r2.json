@@ -1,0 +1,27 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch367.json",
+  "runtime_sha256": "bc14dcabff3f9b4b1592a0afc364de72de1c9bd326e0204056369b1c1ff9574b",
+  "returncode": 0,
+  "completed_utc": "2026-11-03T20:25:37.026135+00:00",
+  "fixtures": [
+    {
+      "slug": "card-blaze-headlong-red-four-live-sparse-real-other-red-play-earns-go-again-and-seven-damage",
+      "fixture_sha256": "742a72aae3e35a136e9e539eb15a56f1cd63069555bfd7e5e8296466bf70d70e",
+      "passed": true,
+      "result": "[PASS] blaze_headlong_red / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-blaze-headlong-red-four-live-sparse-real-other-red-play-earns-go-again-and-seven-damage",
+      "returncode": 0,
+      "stdout": "[PASS] blaze_headlong_red / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

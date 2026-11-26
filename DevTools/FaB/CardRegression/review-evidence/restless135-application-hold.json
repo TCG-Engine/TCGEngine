@@ -1,0 +1,32 @@
+{
+  "issue": "FAB-REG-135",
+  "status": "AUTOMATIC_APPROVAL_DENIED_BEFORE_CREATEPROCESS_KNOWN_UNEXECUTED",
+  "command": [
+    "python",
+    "apply_nov5_restless135_family_guard.py"
+  ],
+  "command_workdir": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task",
+  "target": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\Custom\\IARRuntime.php",
+  "reason": "This mutates gameplay source to apply a bug fix, but the trusted user request authorizes recording/reporting regressions and says not to change rules to force green; independent review and a backup do not authorize this source change. Do not bypass through workaround or indirect execution.",
+  "target_unchanged_sha256": "d207744512e201922507c2d6f2ba2cc7b132ced4935b928ce2faed72c4c28c0a",
+  "runtime_unchanged": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+  "source_application_directory_exists": false,
+  "source_application_executed": false,
+  "candidate_runtime_active": false,
+  "specific_new_authorization_requested": true,
+  "retry_without_new_authorization": false,
+  "completed_before_denial": [
+    "Correct-original-oracle native reproduction and independent classification retained as135",
+    "Exact one-line candidate source independently reviewed",
+    "14-contract preparation independently reviewed",
+    "PHP lint candidate and harness passed",
+    "Unchanged-source component characterization12pass2normativefail"
+  ],
+  "unrun": [
+    "Candidate/actual-patched component after mode",
+    "Source application",
+    "Fixed-runtime native519 and replays",
+    "Postfix420/474 compatibility"
+  ],
+  "utc": "2026-11-05T20:46:01.339016+00:00"
+}

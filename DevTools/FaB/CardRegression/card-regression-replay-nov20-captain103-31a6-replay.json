@@ -1,0 +1,29 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch427.json",
+  "runtime_sha256": "31a60f4a25d69b6ae80e964d7fc5018e7771e99eb9adc347283c3494dc74b394",
+  "returncode": 0,
+  "completed_utc": "2026-11-20T16:39:49.550391+00:00",
+  "fixtures": [
+    {
+      "slug": "card-captains-call-red-four-live-original-correct-mode-before-assets-and-real-next-attack-two-power",
+      "fixture_sha256": "3ffe7d54d6f9bdba3c3cbd55ab3ca906bc38fe3bf494107c2111c42509b42ec7",
+      "passed": true,
+      "result": "[PASS] captains_call_red / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-captains-call-red-four-live-original-correct-mode-before-assets-and-real-next-attack-two-power",
+      "returncode": 0,
+      "stdout": "[PASS] captains_call_red / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixture only",
+  "omitted_source_scenarios": [
+    "card-remembrance-yellow-four-live-original-correct-resolving-choice-recycles-owned-action-and-self-banishes"
+  ],
+  "qualification": "Targeted new Captain replay only; existing Remembrance fixture/review untouched, not rerun."
+}

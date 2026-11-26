@@ -1,0 +1,164 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "independent breadth_review1252",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1387-20261122.json",
+  "source_spec_sha256": "c9ec5018897729bc45235205a893f28623f734b47151351d0bf5cc6cb64aef46",
+  "input_sha256": "c9ec5018897729bc45235205a893f28623f734b47151351d0bf5cc6cb64aef46",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-blessing-of-aegis-yellow-four-live-sparse1387-native-aura-and-real-graveyard-to-deck-not-soul-no-reward",
+      "card_id": "blessing_of_aegis_yellow",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "a7aad10a86fcc84202772f5c9487b4b307752560859c09fad6545dc9d4555cbf",
+        "actions.json": "89aa8a741eeaece75c653751c152e1b71bf2011605ef582223a0fa9a934c2ee5",
+        "assertions.json": "3e2f0a2b3c1958ba771f6f02f6f297b57e151be274f841c9bca9309872afcb30",
+        "expected_final_gamestate.txt": "3e32f83101edd90f9f1129bff8e013c410ea47fba02848aa4289e3681d0e7dfa",
+        "meta.json": "c83a502c61df1efa244af1014c849aaa6b128a3739d0264f0e7d0b7fcc1891bb"
+      },
+      "fixture_sha256": "0e2457de9ac7687ce1fad0dec109f5635868a649e54a1f8588d8f832cae5b09d",
+      "actions": 11,
+      "native_assertions": 311,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 8,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1387-20261122.json",
+      "input_sha256": "c9ec5018897729bc45235205a893f28623f734b47151351d0bf5cc6cb64aef46",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1387-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-blessing-of-aegis-yellow-four-live-sparse1387-native-aura-and-real-graveyard-to-deck-not-soul-no-reward",
+        "fixture_slug": "card-blessing-of-aegis-yellow-four-live-sparse1387-native-aura-and-real-graveyard-to-deck-not-soul-no-reward",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-blessing-of-suraya-yellow-four-live-sparse1387-native-aura-and-real-graveyard-to-deck-not-soul-no-reward",
+      "card_id": "blessing_of_suraya_yellow",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "ef9f03a292239908b2593a0ba5782623024f9c3861e1237db815609c7ff93e50",
+        "actions.json": "89aa8a741eeaece75c653751c152e1b71bf2011605ef582223a0fa9a934c2ee5",
+        "assertions.json": "e3a52ee1c344fcbf30141f4abef317b08ef27d5a09c2e4f33cb5fac38535b6e9",
+        "expected_final_gamestate.txt": "144094f4b15357562df8c0cf559e530e7bd453fb74201543c11c86410a7533d2",
+        "meta.json": "e3d3c093a37f44ca5263198afbeadbc57cb0a490224574090354c19f5c7832d9"
+      },
+      "fixture_sha256": "ee03781ab1b57468da0283b120e10824bd68239762c7cf9de8b5bb1c86b12464",
+      "actions": 11,
+      "native_assertions": 311,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 8,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1387-20261122.json",
+      "input_sha256": "c9ec5018897729bc45235205a893f28623f734b47151351d0bf5cc6cb64aef46",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1387-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-blessing-of-suraya-yellow-four-live-sparse1387-native-aura-and-real-graveyard-to-deck-not-soul-no-reward",
+        "fixture_slug": "card-blessing-of-suraya-yellow-four-live-sparse1387-native-aura-and-real-graveyard-to-deck-not-soul-no-reward",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "reviewer": "independent breadth_review1252",
+    "spec_sha256": "c9ec5018897729bc45235205a893f28623f734b47151351d0bf5cc6cb64aef46",
+    "source_note_sha256": "5656469a04b0424280fba7a88c3260a97797fb285819f9c27d03ac68ff5fe7f4",
+    "case_count": 2,
+    "active_seats": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "players": "four_live_manual",
+    "native_controls": 22,
+    "query_checks": 622,
+    "persistable_assertions": 622,
+    "author_only_checks_omitted": 0,
+    "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+    "coverage_category": "SOUL_DESTINATION_EVENT_FILTER_WITH_NATIVE_AURA_GO_AGAIN_AND_ACTUAL_GRAVEYARD_RECYCLE",
+    "per_case": [
+      {
+        "card_id": "blessing_of_aegis_yellow",
+        "group_id": "identity:blessing_of_aegis_yellow",
+        "native_controls": 11,
+        "persistable_assertions": 311
+      },
+      {
+        "card_id": "blessing_of_suraya_yellow",
+        "group_id": "identity:blessing_of_suraya_yellow",
+        "native_controls": 11,
+        "persistable_assertions": 311
+      }
+    ],
+    "basis": [
+      "Two distinct unrepresented/unheld LightAura identities cached0cost/printedGoAgain, legal under naturalYoungLightBoltyn20/threeDori20/manual4UPF. Each actualprimary5Hand Action spendsAP1to0; four manual responses precede persistentArena5/printedGAAP1. No ambiguous initialAura surviving own start-turn; current turn already begun, later startturn not entered.",
+      "Only normal supported native Remembrance continuation reused: Instant6/AP1 allfourresponses retains6Stack through actualMZMULTICHOOSE0|3|p1Graveyard0; eligible Wounding7GY moves to singletonDeck/shuffle, source6selfBanish faceup. UID5Aura/6Instant/7Action and GY/Deck indices/zone totals/no newUID7/RNG0 are coherent.",
+      "Actual destinations Deck and Banish are not Soul. OMNCards17 Aegis requires toSoul/fromnotSoul; IARRuntime126 Suraya requires toSoul. Thus neither Soul-trigger is earned, no healing/layer/Ponder expected. AllSoul0/ownHP20not21 and sameoneArenaAura5/UID7not8 make negative results observable; no positive inline-trigger route certified.",
+      "Final AP1/R0/HandGYempty/Deck7/Banish6/Aura5ready/sameTurnEffects and quietStack/DQs/allHP20 match rules and actual control sequence. SingletonRNG0 is a setup property, not broader shuffle assurance."
+    ],
+    "limits": [
+      "Only native primary0play/entry/printedGA plus Soul-destination negative guard and real recycle fates. Positive Soul-entry WHEN/reward/timing, startturn moving AuraSoul, other pitches, supporting identities, priorGY provenance and whole-card untested.",
+      "Approval pending native execution. No game/test/replay, engine/repository edit, original checkout access, auth/network, full suite or Git operation."
+    ],
+    "source_sha256": {
+      "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+      "FaBSim/GeneratedCode/GeneratedMacroCode.php": "fe6a7982611df8f4de98ce2671b317b671b580146aa4b8c28e8f4b86d8461056",
+      "FaBSim/Custom/GameLogic.php": "c60fa151561f959e4e3e341b814de0e2b47c9e9f153bbc8793a04c43b5075061",
+      "FaBSim/Custom/IARRuntime.php": "a867233dd027ea6466d776cb9c3bfdbbeedc5e4e535f67f09b1c6e7d9cb3924e",
+      "FaBSim/Custom/OMNCards.php": "f679d81ac69c6d5d23fa3b0d4cd5ee3e44a0a180f7d0a896f31d2e9817090284",
+      "FaBSim/Custom/WTRCards.php": "77d4452b30e45254a7199bc965396ded53e325717ecdd84a09b971f723f99f6a",
+      "FaBSim/ZoneAccessors.php": "9967567a9a10df81a6f22df820d4d77258828657e95c4ad145b8b13ce17866a7",
+      "Schemas/FaBSim/GameSchema.txt": "7783800bd47bc85885cc915066aadca58cdf99f0c1180602ac312d9af5ebf643",
+      "Core/EngineActionRunner.php": "add14b53dc571d2a6e64407bfa4038a98d6554d6410de7a9233810d99c46ea2a",
+      "Core/ShortcutPreferences.php": "25f300ea0b6fbc409f5b92e8bc3587a74b2ab0eaf31ccef38e18c455598eaba6",
+      "DevTools/FaB/CardRegression/record_card_regressions.php": "e53055b29e9ea641949b77019c4455607f41ca233325d716a9500637e19efd28"
+    },
+    "workspace_source_sha256": {
+      "author_breadth1387.py": "8d5e67152836fe3c5149a7183904d57fde3de9f99e8742c75b9a6c0903c95408",
+      "breadth1068_helpers.py": "997f949ec26c7e494ad26a818f9f2078f6f4f2a0c49ca7f61aa8c71f3b091b0a"
+    },
+    "secondary_identity_credit": false,
+    "whole_card_credit": false,
+    "positive_condition_credit": false,
+    "positive_trigger_timing_credit": false,
+    "positive_hero_trigger_credit": false,
+    "positive_soul_entry_credit": false,
+    "positive_start_turn_credit": false,
+    "initial_position_provenance_credit": false
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1387-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "2aeefa273504151440354d273e79ad3a45fb969c38342ac4533e09464d04e999"
+  },
+  "full_suite_run": false
+}

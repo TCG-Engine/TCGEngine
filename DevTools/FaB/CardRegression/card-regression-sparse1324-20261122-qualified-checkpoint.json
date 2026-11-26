@@ -1,0 +1,68 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-24T06:07:16.070301+00:00",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1324-20261122.json",
+  "source_spec_sha256": "ab7220d86c429436859f6c737145b2d32f3228019d93f58d58aaf351c4da17a9",
+  "new_scenarios": 1,
+  "new_groups": 1,
+  "new_primary_ids": 1,
+  "actions": 34,
+  "native_assertions": 469,
+  "manual_passes": 29,
+  "totals": {
+    "saved_registered_scenarios": 5277,
+    "duels": 3100,
+    "four_live": 2177,
+    "recorded_primary_ids": 2425,
+    "identity_denominator": 5196,
+    "recorded_groups": 2299,
+    "group_denominator": 3324,
+    "four_live_groups": 2166,
+    "phase_qualified_scenarios_at_actual_contexts": 1914,
+    "phase_qualified_unique_groups": 1904,
+    "creation_replay_passes": 2656,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 1075,
+  "scenarios": [
+    {
+      "card_id": "talk_a_big_game_blue",
+      "group_id": "identity:talk_a_big_game_blue",
+      "scenario_id": "card-talk-a-big-game-blue-four-live-sparse1324-real-number-choice-and-go-again-funds-four-power-attack-dealing-two-below-three",
+      "effect_branches": [
+        "actual_resolving_number_three_choice_retains_primary_source_then_go_again_funds_four_power_attack_two_defense_two_damage_below_threshold"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-talk-a-big-game-blue-four-live-sparse1324-real-number-choice-and-go-again-funds-four-power-attack-dealing-two-below-three",
+      "source_spec": "card-regression-sparse1324-20261122.json",
+      "source_spec_sha256": "ab7220d86c429436859f6c737145b2d32f3228019d93f58d58aaf351c4da17a9",
+      "review_evidence": "review-evidence/sparse1324-20261122-qualified-saved.json",
+      "review_evidence_sha256": "ace77082e30c13f56e9bc39e61b4dc8e5b48ef3a0f3f8bf01f6cfdd9fceba80c",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1324-20261122-replay.json",
+          "sha256": "69b7599f13505022c413ab88d809fa20b7a72f317c227b9664714fc19591f5b2",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

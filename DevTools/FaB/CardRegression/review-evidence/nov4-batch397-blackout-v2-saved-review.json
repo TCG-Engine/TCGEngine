@@ -1,0 +1,343 @@
+{
+  "status": "APPROVED_ACTUAL_SAVED_B397_BLACKOUT_V2_ONE_NEW_FOUR_LIVE_REPRESENTATIVE",
+  "approved": true,
+  "source_approved": true,
+  "semantically_approved": true,
+  "reviewer": "/root/nov2_metadata_review",
+  "created_utc": "2026-11-04T23:01:00.556605+00:00",
+  "source_spec": "card-regression-batch397-blackout-self-power-v2.json",
+  "input_sha256": "96ce16819729d52c8ede8310234825e9ce81e943f5b7a10c792ea27eaa719a04",
+  "manifest_sha256": "531ef3ec6ccbb6527e77b963c0f5e44d3d6c0d1aa903ad34b9997a8de204ef35",
+  "runtime_sha256": "527c3e3bf7e18d626fbaf23ae221d77fc65bf1ec080080758a7009069800afa2",
+  "recorded_runtime_sha256": "527c3e3bf7e18d626fbaf23ae221d77fc65bf1ec080080758a7009069800afa2",
+  "source_guards_verified": 27,
+  "prior_independent_semantic_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov4-batch397-blackout-v2-independent-source-review.json",
+    "sha256": "c032a1122a167549be92bbc2ffec8555099ce9d92bf3a09b48acf39f6c4b5d00",
+    "source_backed64_value_only_oracle_delta_reused": true
+  },
+  "recording_receipt": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch397-blackout-self-power-v2-20261104T225523Z-6aebb7dbe58e6.json",
+    "sha256": "ae11bb4f6f6bad7723a8ea32abee4f0bbd22947f1910475eb6c0364eb6c0093c"
+  },
+  "root_wrapper_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov4-b397-blackout-v2-native-527c-r1\\receipt.json",
+    "sha256": "650e2da970e8a5fcf7bfbd281e6ac0abe1ed75054f6c798c3d173dcf21022319"
+  },
+  "actual_comparison_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov4_batch397_blackout_v2_saved_readonly.py",
+    "sha256": "1f1a34e3d2b3a5f3233e18b552990f8f23c6db4e71e04973f435446459109057"
+  },
+  "reviewer_independence": "b105 authored scenario/V2; reviewer independently source-reviewed but authored neither scenario nor implementation/native recording.",
+  "fixtures": [
+    {
+      "index": 0,
+      "card_id": "blackout_kick_red",
+      "group_id": "pitch-cycle:blackout_kick",
+      "slug": "card-blackout-kick-red-four-live-sparse-real-leg-tap-rising-knee-thrust-chain-earns-seven-power-combo",
+      "source_spec": "card-regression-batch397-blackout-self-power-v2.json",
+      "input_sha256": "96ce16819729d52c8ede8310234825e9ce81e943f5b7a10c792ea27eaa719a04",
+      "reviewer": "/root/nov2_metadata_review",
+      "approved": true,
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_NEW_FOUR_LIVE_REPRESENTATIVE",
+      "runtime_sha256": "527c3e3bf7e18d626fbaf23ae221d77fc65bf1ec080080758a7009069800afa2",
+      "recorded_runtime_sha256": "527c3e3bf7e18d626fbaf23ae221d77fc65bf1ec080080758a7009069800afa2",
+      "fixture_path": "Tests\\Integration\\FaBSim\\card-blackout-kick-red-four-live-sparse-real-leg-tap-rising-knee-thrust-chain-earns-seven-power-combo",
+      "fixture_sha256": "a6aa0c31236756ad8ea5250df40627b95e3de63ae725b42cff32288d866771f3",
+      "raw4_sha256": {
+        "initial_gamestate.txt": "79049d55b65aabb0b52fbde148d1c300aab5c7a24b7e27fb06ccfcc97ffc7beb",
+        "actions.json": "3daddb6abece02f85b58e50ee9503f61427dab653c73c75f173cef8061483c6a",
+        "assertions.json": "d807a5fbfe06cf321c05e15cf5fb6e2377fd9f37b0afe490474d55c42515e64f",
+        "expected_final_gamestate.txt": "a1bfcfff324c55cabfb89e92debf2cbe62f87a9e9038af18d980113a9517f7ae"
+      },
+      "raw5_sha256": {
+        "initial_gamestate.txt": "79049d55b65aabb0b52fbde148d1c300aab5c7a24b7e27fb06ccfcc97ffc7beb",
+        "actions.json": "3daddb6abece02f85b58e50ee9503f61427dab653c73c75f173cef8061483c6a",
+        "assertions.json": "d807a5fbfe06cf321c05e15cf5fb6e2377fd9f37b0afe490474d55c42515e64f",
+        "expected_final_gamestate.txt": "a1bfcfff324c55cabfb89e92debf2cbe62f87a9e9038af18d980113a9517f7ae",
+        "meta.json": "643e52d6915b55e4eaad4cf6d5450257234f5135ea51aab45f04cd62bc7906f1"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "79049d55b65aabb0b52fbde148d1c300aab5c7a24b7e27fb06ccfcc97ffc7beb",
+        "actions.json": "3daddb6abece02f85b58e50ee9503f61427dab653c73c75f173cef8061483c6a",
+        "assertions.json": "d807a5fbfe06cf321c05e15cf5fb6e2377fd9f37b0afe490474d55c42515e64f",
+        "expected_final_gamestate.txt": "a1bfcfff324c55cabfb89e92debf2cbe62f87a9e9038af18d980113a9517f7ae",
+        "meta.json": "643e52d6915b55e4eaad4cf6d5450257234f5135ea51aab45f04cd62bc7906f1"
+      },
+      "actions": 72,
+      "native_assertions": 6284,
+      "actual_manual_passes": 67,
+      "actual_priority_response_passes": 64,
+      "actual_defender_declaration_finish_inputs": 3,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4
+      ],
+      "actual_manual_actor_counts": {
+        "1": 16,
+        "2": 16,
+        "3": 16,
+        "4": 19
+      },
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "all_actions_and_assertions_exact": true,
+      "no_recorder_only_assertions": true,
+      "all_endpoint_physical_uid_card_zones_ownership_verified": true,
+      "all_terminal_assertions_evaluated_against_parsed_final_snapshot": true,
+      "initial_assertions_also_evaluated_against_parsed_initial_snapshot": true,
+      "initial_physical_uid_locations": {
+        "1": {
+          "card_id": "fai",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "5": {
+          "card_id": "blackout_kick_red",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "leg_tap_red",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "rising_knee_thrust_red",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "8": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2
+        }
+      },
+      "final_physical_uid_locations": {
+        "1": {
+          "card_id": "fai",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "6": {
+          "card_id": "leg_tap_red",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "rising_knee_thrust_red",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "blackout_kick_red",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "8": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Pitch",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2
+        }
+      },
+      "actual_primary_power": 7,
+      "actual_primary_bonus": 3,
+      "actual_chainlink_powers": [
+        4,
+        5,
+        7
+      ],
+      "actual_damage_event_history": [
+        4,
+        5,
+        7
+      ],
+      "actual_same_chain_attack_uids": [
+        6,
+        7,
+        5
+      ],
+      "actual_supplemental_marker_values_verified": 64,
+      "SNAG_positive_remaining": false,
+      "final_health": [
+        20,
+        20,
+        20,
+        4
+      ],
+      "final_resources": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_Hero_Status": [
+        2,
+        2,
+        2,
+        2
+      ],
+      "final_physical_uidset": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "final_UniqueIDCounter": 8,
+      "RandomCounter": 0,
+      "checkpoint_assertion_mapping_sha256": "24507ed339e1ed1fdecf510dc746c15c7245fc0e37d9ced6bfef6f978080d0f6",
+      "native_action_mapping_sha256": "c51d2f860d19a753013eab872395b3587ab93babd29cbaa01cf6a2539d526148",
+      "native_assertion_mapping_sha256": "7cf16bed60a78d040eeea7231ee4f64cb85650ee61c825cbd9e0c53f039c14f0"
+    }
+  ],
+  "blocked_attempts": [],
+  "total_actions": 72,
+  "total_native_assertions": 6284,
+  "total_manual_passes": 67,
+  "total_priority_response_passes": 64,
+  "total_defender_declaration_finish_inputs": 3,
+  "oracle_only_successor": true,
+  "gameplay_source_changes": false,
+  "engine_defect_credit": false,
+  "material_findings": [
+    "All72 actual native inputs/6284ordered assertions/67 manual inputs (64priority plus3actualP4declarationfinish), dynamic computedpower/GA refs, source27guards/raw5/behavior/fullphysicalinitial-finalUIDs and48manual endpoint settings verified at actualunchanged527c. Only64 strict bookkeeping values changed versusoriginalapprovedmaterialcase; no source/rule/gameplayrepair.",
+    "ActualLeg6printed1/Blue8pitch3 leavesR2AP0, physicalChain1power4/intrinsicGA, actual4damageHP16. OnlyfourthDAMAGE response24 grantsAP1/RESOLUTION; actualRising7 immediatelyplaysfromResolution/APspent, sameopenchain/priorLeg6 retained. NewChain2/current7 earned exactPOWER2,SUPPRESS2,GA; actualpower5/5damageHP11, onlyfourthDAMAGE response46 refundsAP1. ActualBlackout5 immediatelyspendsfloating1/R1AP0; Chain3/current5 has previousactualRising7 andexactPOWER3,SUPPRESS3, computed7/noGA. Actual7damageHP4; finalResolutionroundonlythen closesallthreeownGY. No early whole-chain closure/history seed.",
+    "Supplemental CRU_SUPPRESS_POWER metadata is observed in all64 persisted checkpoint arrays. No positiveCRU_SNAG in actualfinalstate; no negative-modifier branch credited. Final raw ROS_DAMAGE events4,5,7/hitsUID6,7,5/cardsPlayedLeg,Rising,Blackout andrememberedpriornames corroborate retained physical link1/2/3 ledger. FinalGY1UIDset5,6,7/Pitch8/R1AP0/alloriginal1..8/counter8/RNG0; allStack/chains/DQs/payment/target/awaitframes clear. SolidGround earlier qualified subset is neither repeated nor retagged."
+  ],
+  "limits": [
+    "Only Red Blackout representative/positive actualsamechainLeg\u2192Rising\u2192Blackout; no sibling/fullcard/control/support-primary credit.",
+    "No SNAG/suppression/name-change/falseCombo/otherCombo/extraattack/hero/FaiPhoenix orDraconic-only branch credit. The metadata correction is not an engine defect/fix.",
+    "Original failed fullpacket/archive preserved; this new V2 has its ownactualsuccessfulnative. Intermediate facts supported by exact passed assertions/completed recording; full raw snapshots only at endpoints. Root focusedreplays/registration remain separate.",
+    "No PHP/native/R/source/service/generator/fullsuite/089retry/rerouting by reviewer. B399 review belongs to Sparse, no duplicate gate; oldholds/SmashItem preserved."
+  ]
+}

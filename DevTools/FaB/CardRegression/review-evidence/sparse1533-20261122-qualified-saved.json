@@ -1,0 +1,86 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "/root/breadth_review1457",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1533-20261122.json",
+  "source_spec_sha256": "5310f313edd0be9694bbe75a46e2999440f2567825ac77df96a4ccfa9e76846b",
+  "input_sha256": "5310f313edd0be9694bbe75a46e2999440f2567825ac77df96a4ccfa9e76846b",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-kyloria-four-live-sparse1533-real-ally-hit-preserves-opposing-item-and-own-nonempty-deck",
+      "card_id": "kyloria",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "8094eb2d8498ee287d0d64bb513d86bfb4f78f6b49e1f9d18657ce03032dac4c",
+        "actions.json": "513c2814fc74bc2f0b4552b21cd858bfe880b173cc7f005465420c16657173e7",
+        "assertions.json": "c200e660c99e8bcd6d85023e66fe236251ce316f7598342dc4e49fd9b9c57829",
+        "expected_final_gamestate.txt": "fde5d4ca08b930b198e5d98a632b6d1d41d34501764fede7331da5fa1a0d80c0",
+        "meta.json": "aa26d6d49f0220fb575fdcedfad64ddf921e9a04626fcef4b98dbac6c0c688e0"
+      },
+      "fixture_sha256": "aabd3583ddbb2d1e21121b006fb9d0474994fd1b6b8ddc957fada61212716034",
+      "actions": 27,
+      "native_assertions": 387,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1533-20261122.json",
+      "input_sha256": "5310f313edd0be9694bbe75a46e2999440f2567825ac77df96a4ccfa9e76846b",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1533-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-kyloria-four-live-sparse1533-real-ally-hit-preserves-opposing-item-and-own-nonempty-deck",
+        "fixture_slug": "card-kyloria-four-live-sparse1533-real-ally-hit-preserves-opposing-item-and-own-nonempty-deck",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "schema_version": 1,
+    "batch": 1533,
+    "reviewer": "/root/breadth_review1457",
+    "result": "approved_named_branches_only_pending_native_execution",
+    "reviewed_utc": "2026-11-25T10:44:03.438833+00:00",
+    "spec_sha256": "5310f313edd0be9694bbe75a46e2999440f2567825ac77df96a4ccfa9e76846b",
+    "source_note_sha256": "29ce0627dc9223c741e7030f4f29ee87e7114b943d262f60eff010bfd0e77140",
+    "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+    "source_sha256": {
+      "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+      "FaBSim/GeneratedCode/GeneratedMacroCode.php": "fe6a7982611df8f4de98ce2671b317b671b580146aa4b8c28e8f4b86d8461056",
+      "FaBSim/Custom/UPRCards.php": "62798bd281afc17805c396e92deab22497b9c80d881f99e943833cb82d449321",
+      "FaBSim/Custom/MONAbilities.php": "7e5a6ba9e0523c03c7ece084793564d87ecd9d6fbba55b9252cb83f3d952b4fa",
+      "FaBSim/Custom/GameLogic.php": "c60fa151561f959e4e3e341b814de0e2b47c9e9f153bbc8793a04c43b5075061"
+    },
+    "cases": 1,
+    "findings": [
+      "LegalDromai20/StormScepter grantsAction0; priorKyloria canonicalInvoke/Ashrepresentation matchesUPRTransform, printedpower4HP2.",
+      "Proxy10source6canonicalfourcounters/tappedphysical6 correct. NoRedplay/pitch/defender meansnoDromaiGA/AshorPhantasm event.",
+      "OtherwiseDrawisinsideprintedHero-hitevent. Generatedrunnercase7usesFaBFaiHeroHit beforeItem/drawbranch, soactualAlly8damage4/TokenDeathdoesnotearnit; realPotion9/Deck7remainnonvacuous.",
+      "Prose-onlyStormScepter correction carriedtofinalhash; allcontrolsandassertions unchanged."
+    ],
+    "limits": [
+      "OnlyAlly-vsHero-hitcondition. NoactualInvocationplay/positiveItemsteal/draw/Hero-hitlifetime/secondary/siblingcredit. Reviewer source/spec only; no games/tests/writes."
+    ]
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1533-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "700a386d1397d6c6a3c090c99388c06fd2d52bbba6c852bd78129bac750de861"
+  },
+  "full_suite_run": false
+}

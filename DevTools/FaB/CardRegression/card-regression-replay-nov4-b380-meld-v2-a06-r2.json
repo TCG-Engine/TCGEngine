@@ -1,0 +1,27 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch380-meld-kind-v2.json",
+  "runtime_sha256": "a06b73d86676fe07a17afc400f983d03f85d55356c2347621ccd8196ad6645d3",
+  "returncode": 0,
+  "completed_utc": "2026-11-04T19:28:07.955326+00:00",
+  "fixtures": [
+    {
+      "slug": "card-arcane-seeds-life-red-four-live-sparse-real-declared-meld-life-then-two-runechants-separate-responses",
+      "fixture_sha256": "ae732474b40fea0d0493b28c44e8e19cf86e181408c5b85ed94c625de6163f92",
+      "passed": true,
+      "result": "[PASS] arcane_seeds_life_red / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-arcane-seeds-life-red-four-live-sparse-real-declared-meld-life-then-two-runechants-separate-responses",
+      "returncode": 0,
+      "stdout": "[PASS] arcane_seeds_life_red / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

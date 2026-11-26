@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-valda-brightaxe-four-live-sparse1353-own-actual-two-card-draw-is-not-opponent-draw-no-seismic-surge",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-valda-brightaxe-four-live-sparse1353-own-actual-two-card-draw-is-not-opponent-draw-no-seismic-surge",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1353-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1353-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "afbe351898068c850454833b063ff281f4df49c465bf919de8cd96e0eaa73a9c",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "0ecbb12e3153c79380dcb20c37ef5a60cdabbe02d6693c354e7d969191fe32ea",
+        "actions.json": "fc41e745e0ead7eb7e10181842235d84b5eb3991bb81565669d5dd7e76577296",
+        "assertions.json": "568e975a0295f659b21fdc7d4ce702a52a9bcf4ffb944721fe8f5b7366eaacc8",
+        "expected_final_gamestate.txt": "75c98106d7840f36ef525a5cc39a37c1b557a3be5ae5ff15c9bfb2b8b2aeaf2c",
+        "meta.json": "0185f1ff7952b3aad992c64292138a25af1a12319ccb470909e747688b8ab681"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

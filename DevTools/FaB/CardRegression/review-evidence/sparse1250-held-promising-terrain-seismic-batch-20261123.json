@@ -1,0 +1,199 @@
+{
+  "issue": "FAB-REG-217",
+  "status": "CONFIRMED_NATIVE_BATCH_TOKEN_OVERCREATION_NO_PASSING_FIXTURE",
+  "card_id": "promising_terrain_blue",
+  "support_card_id": "seismic_stir_red",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "classification": "CREATION_REPLACEMENT_APPLIED_PER_PHYSICAL_TOKEN_CALL_INSTEAD_OF_SINGLE_BATCH_INSTRUCTION",
+  "expected": "One printed create-three Seismic Surge instruction under one Promising Terrain becomes four Surges; Aura plus four tokens means Arena5.",
+  "first_failure": "Expected p1Arena count 5, got 7.",
+  "native_inputs": 11,
+  "setup": {
+    "heroes": [
+      "bravo",
+      "dorinthea",
+      "dorinthea",
+      "dorinthea"
+    ],
+    "health": [
+      20,
+      20,
+      20,
+      20
+    ],
+    "resources": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "actionPoints": [
+      1,
+      0,
+      0,
+      0
+    ],
+    "state": {
+      "gameMode": "UPF",
+      "passiveSeats": []
+    },
+    "zones": [
+      {
+        "cardID": "promising_terrain_blue",
+        "zone": "Hand",
+        "player": 1,
+        "properties": {}
+      },
+      {
+        "cardID": "seismic_stir_red",
+        "zone": "Hand",
+        "player": 1,
+        "properties": {}
+      },
+      {
+        "cardID": "titanium_bauble_blue",
+        "zone": "Hand",
+        "player": 1,
+        "properties": {}
+      }
+    ]
+  },
+  "attempted_native_actions": [
+    {
+      "playerID": 1,
+      "mode": 10002,
+      "buttonInput": "",
+      "cardID": "p1Hand-0!FSM",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 1,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 2,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 3,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 4,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 1,
+      "mode": 10002,
+      "buttonInput": "",
+      "cardID": "p1Hand-0!FSM",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 1,
+      "mode": 10002,
+      "buttonInput": "",
+      "cardID": "p1Hand-0!FSM",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 1,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 2,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 3,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 4,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    }
+  ],
+  "initial_gamestate_sha256": "f2b674fca70349f387c36b0ad8eeb8233c845710dedcacceb6461faa333446f9",
+  "direct_native_evidence": [
+    "Actual primary mainplay, AP payment and four responses leave real Aura5Arena1; real paid Stir6 uses Blue7Pitch3, cost2/R1 and AP0 before four fresh responses.",
+    "At postresolve checkpoint20, queries before failing Arena-count query pass: ACTION1/Stack0; exact Aura5, Stir6GY1, Blue7Pitch1 identities and owners/controllers; R1/AP1/emptyDQs; first four actual Seismic Surges8/9/10/11 owned/controlled1.",
+    "Strict totalArena5 fails with actual7. The queried primary and first four Surges identify five of seven arena objects directly.",
+    "Observed native creation bookkeeping totals6 for PEN_SURGE_CREATED/HNT_SEISMIC/MPG_CONTROLLED_SURGE, with arcCards entries8..13. Actual cardsPlayedThisTurn contains only Terrain and Stir."
+  ],
+  "creation_state_totals": {
+    "PEN_SURGE_CREATED": 6,
+    "HNT_SEISMIC": 6,
+    "MPG_CONTROLLED_SURGE": 6
+  },
+  "source_explanation": [
+    "Printed Stir is a single Create3 Seismic Surge instruction. Terrain replaces create1or more with that many plus1; correct single event3 becomes4, not three independent1-to2 events.",
+    "Generated Stir calls EVRCreate(p,seismic_surge,3); EVRCreate loops3 WTRCreateArena calls. Each Token1 delegates HVYToken(n1), which separately calls MPGTokenCount; active one Terrain adds1 each time. This explains3x2=6 and two surplus arena objects.",
+    "No other permanent, replacement source or current-history marker seeded; natural Bravo has no token-creation observer. HVYToken Florian/wager/Ripple/PEN paths have no eligible sources here. Terrain beginning-action reward and Surge start-turn abilities are unearned mid-action."
+  ],
+  "limits": [
+    "Exact identities/owners of surplus Arena objects12/13 were not individually captured or asserted. Their Seismic Surge identity is inferred from the exclusive creation path plus observed creation counters, not direct Arena object evidence.",
+    "ExpectedUID11 query after failing total count and final checkpoint21 were never executed. Do not report final UID, all final HP/zone/fate assertions or a passing replay as verified.",
+    "No new native execution, test or source change by reviewer. Correct failing expectations retained; no expectation changed to six."
+  ],
+  "fixture_saved": false,
+  "qualified": false,
+  "coverage_credit": false,
+  "source_fix_applied": false,
+  "full_suite_run": false,
+  "correct_probe_source_local": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1250-local-20261122\\proposed.json",
+  "correct_probe_sha256": "c779589b5a2a8173c140a67234fb2e03d801c41c23d6eb8e42d030cfc3f1d8c5",
+  "native_receipt_local": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1250-local-20261122\\save\\receipt.json",
+  "native_receipt_sha256": "a380fb14f2d8076a1e31cd0ee94b9af79c415d1f1f42434670a3d6a8acd06889",
+  "independent_failure_review_local": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1250-local-20261122\\independent-failure-review.json",
+  "independent_failure_review_sha256": "16819ec1769f747fb15d37c1bc49b32e6a27189345fe71c6cb7da2214c5a6eec",
+  "source_sha256": {
+    "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+    "FaBSim/GeneratedCode/GeneratedMacroCode.php": "fe6a7982611df8f4de98ce2671b317b671b580146aa4b8c28e8f4b86d8461056",
+    "FaBSim/Custom/EVRCards.php": "ae4e1ea2da09ac679821be116bc55f898ed8de2e5ceadf16f548e13d0495c275",
+    "FaBSim/Custom/WTRCards.php": "77d4452b30e45254a7199bc965396ded53e325717ecdd84a09b971f723f99f6a",
+    "FaBSim/Custom/HVYCards.php": "1387ecf0971fae9aa4bfb7bc99baec47a46e9c8770030884b722915eb87a31f1",
+    "FaBSim/Custom/MPGCards.php": "75bacd40bf08b76f2a5af3d6c1a8b033d6b942bdcf52045a73a4244f992eeca6"
+  },
+  "reproducer_command": [
+    "C:\\xampp\\php\\php.exe",
+    "C:\\Users\\maxim\\AppData\\Local\\Temp\\fm1122\\DevTools\\FaB\\CardRegression\\record_card_regressions.php",
+    "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1250-local-20261122\\proposed.json",
+    "--probe-only"
+  ],
+  "repair_status": "Held for separate repair pass; no engine repair authorized in this breadth continuation."
+}
