@@ -2604,7 +2604,12 @@ function GameAfterEngineAction($action, $result): void {
         return;
     }
     FaBRepairMultiTargetDefender();$state=FaBGetState();
-    if (!empty($state['combatOpen']) && (!FaBSeatIsLive(intval($state['attacker'])) || !FaBSeatIsLive(intval($state['defender'])))) FaBCloseCombatChain();
+    // A defending hero can leave after damage without erasing the attack's earned
+    // hit choices or go again. Keep the chain focused until its normal close.
+    if (!empty($state['combatOpen']) && (!FaBSeatIsLive(intval($state['attacker']))
+        || (!FaBSeatIsLive(intval($state['defender'])) && !in_array($state['combatStep'], ['DAMAGE', 'RESOLUTION'], true)))) {
+        FaBCloseCombatChain();
+    }
     if (!FaBSeatIsLive(intval(GetTurnPlayer()))) {
         SetTurnPlayer(FaBNextInteractiveSeat(intval(GetTurnPlayer())));
         SetTurnNumber(intval(GetTurnNumber()) + 1);
