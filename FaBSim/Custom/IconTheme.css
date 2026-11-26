@@ -87,6 +87,7 @@ button.fab-chain-link>span{position:absolute;inset:0;display:grid;place-items:ce
 #fab-upf-board .fab-upf-summary-counter:before{display:none}
 #fab-upf-board .fab-upf-summary-counter[hidden]{display:none}
 #fab-upf-board [data-stat="health"]{--upf-stat-icon:url('../Assets/Icons/health.png');left:50%;right:auto;top:auto;bottom:-10px;transform:translateX(-50%)}
+#fab-upf-board .fab-upf-seat.is-mine [data-stat="health"]{--fab-upf-counter-size:30px;--fab-upf-counter-font:17px;bottom:5px}
 #fab-upf-board [data-stat="resource"]{--upf-stat-icon:url('../Assets/Icons/resource.png');left:50%;right:auto;top:50%;bottom:auto;transform:translate(-50%,-50%)}
 #fab-upf-board [data-stat="chi"]{--upf-stat-icon:url('../Assets/Icons/chi.svg');left:0;right:auto;top:auto;bottom:-10px;transform:translateX(-50%)}
 #fab-upf-board .fab-upf-zone[data-zone="Chi"]{display:none}

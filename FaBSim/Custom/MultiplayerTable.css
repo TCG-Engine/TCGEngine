@@ -2,11 +2,7 @@
    Absolute positioning is local to a seat, so the same surface works when inspecting an opponent. */
 /* The shared renderer sets the turn overlay's display inline. UPF uses the seat border. */
 .fab-upf-active #turn-miasma-overlay { display:none!important; }
-/* Card art has an inline transparent border; retain the engine's action/choice colors. */
-.fab-upf-active .selectable-card img:not(.counter-image-icon) {
-  border-color:var(--highlight-color)!important;
-}
-.fab-upf-active #fab-upf-board { inset:0; padding:8px 12px 12px; gap:8px; background:#202224; }
+.fab-upf-active #fab-upf-board { inset:0; padding:8px 12px 12px; gap:8px; background:var(--fab-surface); }
 .fab-upf-tools { display:flex; flex:0 0 auto; flex-wrap:wrap; align-items:center; gap:6px; }
 .fab-upf-lobby-link { text-decoration:none; }
 #fab-upf-announcement { position:absolute; width:1px; height:1px; overflow:hidden; clip-path:inset(50%); white-space:nowrap; }
@@ -17,17 +13,22 @@
 #fab-upf-events-mount .is-expanded > .macro-card-toast { display:none; }
 .fab-upf-active #chatWidget { top:auto!important; bottom:12px!important; left:auto!important; right:12px; max-width:calc(100vw - 24px)!important; }
 .fab-upf-active #chatWidgetControls { flex-wrap:wrap; justify-content:flex-end; }
+.fab-upf-active #chatToggleBtn { display:grid; place-items:center; width:30px; padding:0!important; }
+.fab-upf-active #chatToggleLabel { position:absolute; width:1px; height:1px; overflow:hidden; clip-path:inset(50%); }
+.fab-upf-active #chatToggleBtn::before { content:'💬'; content:'💬' / ''; }
+.fab-upf-active #chatToggleBtn[aria-expanded=true]::before { content:'×'; content:'×' / ''; }
 .fab-upf-active #chatToastHost { left:auto!important; right:12px; }
 .fab-upf-active #chatComposer { flex:0 0 100%; }
 .fab-upf-active #chatWidget:not(:has(#chatToggleBtn[aria-expanded=true])) #chatComposer,
 .fab-upf-active #cardMotionToggleBtn { display:none; }
 .fab-upf-active #chatLog { max-height:40vh; }
 .fab-upf-status { color:#ddd5c6; }
-.fab-upf-opponents { min-height:0!important; flex:0 0 32%; gap:8px; }
+.fab-upf-opponents { display:flex; min-height:0!important; flex:0 0 32%; gap:8px; }
+.fab-upf-opponents > .fab-upf-seat { flex:1 1 0px; transition:flex-grow 250ms ease, flex-basis 250ms ease; }
 #fab-upf-own { display:flex; flex:1 0 auto; min-height:52%; }
-.fab-upf-seat { position:relative; border-radius:7px; border:1px solid #ffffff12; box-shadow:none; background:radial-gradient(ellipse at 70% 0,#52707a77,transparent 75%),linear-gradient(150deg,#243b49,#192833 80%); }
-.fab-upf-seat.is-mine { display:flex; flex-direction:column; flex:1; min-height:0; height:auto; padding:0; border-top:1px solid #a67754; background:radial-gradient(ellipse at 65% 5%,#b34f2d55,transparent 75%),linear-gradient(135deg,#4f342f,#292629 75%); }
-.fab-upf-seat.has-priority { box-shadow:inset 0 0 0 1px #d4b16b88; border-color:#d4b16b77; }
+.fab-upf-seat { position:relative; border-radius:7px; border:1px solid var(--fab-field-line); background:var(--fab-opponent-playmat,radial-gradient(ellipse at 70% 0,var(--fab-light-cool),transparent 75%)),var(--fab-field-cool); background-size:cover; background-position:center; background-repeat:no-repeat; }
+.fab-upf-seat.is-mine { display:flex; flex-direction:column; flex:1; min-height:0; height:auto; padding:0; background:var(--fab-local-playmat,radial-gradient(ellipse at 65% 5%,var(--fab-light-warm),transparent 75%)),var(--fab-field-warm); background-size:cover; background-position:center; background-repeat:no-repeat; }
+.fab-upf-seat.has-priority { border-color:#bb9a64; }
 .fab-upf-seat:not(.is-summary) { min-height:390px; }
 .fab-upf-seat:not(.is-summary) .fab-upf-seat-header { position:absolute; bottom:4px; left:8px; right:8px; z-index:4; margin:0; pointer-events:none; }
 .fab-upf-seat.is-mine .fab-upf-seat-header { display:none; }
@@ -38,7 +39,7 @@
 .fab-upf-seat:not(.is-summary) .fab-upf-zone { position:absolute; margin:0; padding:0; border:0; border-radius:5px; background:none; width:var(--fab-table-card); min-width:0; overflow:visible; }
 .fab-upf-seat:not(.is-summary) .fab-upf-zone>div { overflow:visible; max-width:none; }
 .fab-upf-seat:not(.is-summary) .fab-upf-zone h3 { display:none; }
-.fab-upf-seat:not(.is-summary) .fab-upf-zone[data-empty=true] { height:var(--fab-table-card); background:#121a2438; }
+.fab-upf-seat:not(.is-summary) .fab-upf-zone[data-empty=true] { height:var(--fab-table-card); background:#14151830; }
 .fab-upf-seat:not(.is-summary) .fab-upf-zone[data-empty=true] h3 { display:grid; place-items:center; height:100%; margin:0; font:500 10px system-ui; color:#e0e0df; text-transform:none; letter-spacing:0; }
 .fab-upf-seat:not(.is-summary) [data-zone=Equipment] { left:12px; top:12px; width:calc(var(--fab-table-card)*2 + 10px); height:calc(var(--fab-table-card)*3 + 18px); }
 .fab-upf-seat:not(.is-summary) [data-zone=Equipment]>div { max-width:none; margin:0; }
@@ -99,7 +100,7 @@
   .fab-upf-seat.is-summary .fab-upf-zone[data-zone=Pitch],
   .fab-upf-seat.is-summary .fab-upf-zone[data-zone=Banish],
   .fab-upf-seat.is-summary .fab-upf-zone[data-zone=Arena] { display:block!important; }
-  .fab-upf-seat.is-summary .fab-upf-zone[data-empty=true] { height:var(--fab-table-card); background:#121a2438; border-radius:4px; }
+  .fab-upf-seat.is-summary .fab-upf-zone[data-empty=true] { height:var(--fab-table-card); background:#14151830; border-radius:4px; }
   .fab-upf-seat.is-summary .fab-upf-zone[data-empty=true] h3 { display:grid; place-items:center; height:100%; margin:0; font:500 8px system-ui; text-transform:none; letter-spacing:0; color:#bac8ce; }
   .fab-upf-seat.is-summary [data-zone=Equipment] { left:0; top:0; width:calc(var(--fab-table-card)*2 + 4px); }
   .fab-upf-seat.is-summary [id$=Equipment] { display:block!important; position:relative; }
@@ -149,12 +150,55 @@
   .fab-upf-seat.is-summary [data-zone=Arena] { top:calc(var(--fab-table-card) + var(--fab-summary-combat-card) + 8px); }
 }
 @media(min-width:900px) {
+  /* Leave room for the collapsed chat button below the piles. */
+  .fab-upf-active #fab-upf-board { padding-bottom:20px; }
+  .fab-upf-active #chatWidget { bottom:4px!important; }
+  .fab-upf-active #chatToggleBtn { height:28px!important; }
   /* Both fields share the available board height, including in inspection mode. */
   .fab-upf-opponents { flex:.48 1 0; min-height:0!important; }
   .fab-upf-opponents.is-focused { flex:.85 1 0; min-height:0!important; }
-  #fab-upf-own { flex:1 1 0; min-height:0; }
+  /* Let the board scroll on very short screens. Three 40px cards fit with 42px of spacing and the seat border. */
+  #fab-upf-own { flex:1 1 0; min-height:164px; }
   .fab-upf-seat:not(.is-summary) { display:flex; flex-direction:column; min-height:0; overflow:auto; }
   .fab-upf-seat:not(.is-summary) .fab-upf-zones { flex:1; height:auto; min-height:0; }
+  .fab-upf-seat.is-mine { overflow:visible; }
+  .fab-upf-seat.is-mine .fab-upf-zones {
+    --fab-hero-top:calc(50% - var(--fab-table-card) - 3px);
+    --fab-field-inset:12px;
+    min-height:0;
+  }
+  .fab-upf-seat.is-mine :is([data-zone=Hero],[data-zone=Weapons]) { top:var(--fab-hero-top); }
+  .fab-upf-seat.is-mine [data-zone=Arsenal] {
+    top:calc(var(--fab-hero-top) + var(--fab-table-card) + 6px);
+    left:calc(50% - var(--fab-compact-card)/2);
+    width:var(--fab-compact-card);
+  }
+  .fab-upf-seat.is-mine [data-zone=Arsenal][data-empty=true] { height:var(--fab-compact-card); }
+  .fab-upf-seat.is-mine [data-zone=Equipment] { top:var(--fab-field-inset); bottom:var(--fab-field-inset); left:var(--fab-field-inset); height:auto; }
+  .fab-upf-seat.is-mine :is([id$=EquipmentSlot],[id$=Equipment]) { height:100%; }
+  .fab-upf-seat.is-mine :is([data-equipment-slot=chest],[data-equipment-slot=arms],[data-zone=Deck],[data-zone=Pitch]) { top:calc(50% - var(--fab-table-card)/2); }
+  .fab-upf-seat.is-mine [data-equipment-slot=legs] { top:auto; bottom:0; }
+  .fab-upf-seat.is-mine :is([data-zone=Graveyard],[data-zone=Deck],[data-zone=Banish]) { right:var(--fab-field-inset); }
+  .fab-upf-seat.is-mine :is([data-zone=Graveyard],[data-zone=Soul]) { top:var(--fab-field-inset); }
+  .fab-upf-seat.is-mine [data-zone=Banish] { top:auto; bottom:var(--fab-field-inset); }
+  .fab-upf-seat.is-mine [data-zone=ActionPoints] { top:auto; bottom:calc(var(--fab-field-inset) + (var(--fab-table-card) - 40px)/2); }
+  /* Keep long rows scrollable between the equipment, piles and pass button. */
+  .fab-upf-seat.is-mine :is([data-zone=Arena],[data-zone=Hand]) {
+    width:auto;
+    max-height:none;
+    overflow:auto;
+    scrollbar-width:thin;
+  }
+  .fab-upf-seat.is-mine [data-zone=Arena] { top:4px; left:calc(var(--fab-table-card) + 32px); right:calc(var(--fab-table-card)*2 + 40px); }
+  .fab-upf-seat.is-mine [data-zone=Hand] { bottom:2px; inset-inline:max(calc(var(--fab-table-card)*2 + 40px),calc(var(--fab-table-card) + 191px)); }
+  .fab-upf-seat.is-mine :is([id$=Arena],[id$=Hand]) {
+    width:max-content;
+    min-width:100%;
+    box-sizing:border-box;
+    padding:5px 10px 3px;
+    flex-wrap:nowrap!important;
+  }
+  .fab-upf-seat.is-mine [id$=Arena] { justify-content:flex-start!important; }
 }
 @media(max-width:899px) {
   .fab-upf-active #fab-upf-board { padding:8px; }
@@ -199,4 +243,36 @@
 }
 @media(max-width:699px) {
  .fab-upf-seat.is-summary .fab-upf-zone[data-zone=Soul] { display:block!important; position:relative; width:40px; }
+}
+
+/* An eliminated seat keeps its original Hero slot and its inspect action. */
+.fab-upf-opponents > .fab-upf-seat.is-memorial {
+  flex:0 1 clamp(64px, 7.5vw, 112px);
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:safe center;
+  gap:6px;
+  overflow:auto;
+  background:var(--fab-surface);
+}
+.fab-upf-seat.is-memorial .fab-upf-seat-header { display:contents; }
+.fab-upf-seat.is-memorial .fab-upf-identity { display:grid; gap:2px; text-align:center; }
+.fab-upf-seat.is-memorial .fab-upf-badges { display:block; margin:0; color:#b6b8ba; font-size:10px; }
+.fab-upf-seat.is-memorial :is(.fab-upf-hand-count,.fab-upf-summary-counter,.fab-upf-zone:not([data-zone=Hero])) { display:none!important; }
+.fab-upf-seat.is-memorial .fab-upf-zones { flex:none; order:1; margin:0; }
+.fab-upf-seat.is-memorial .fab-upf-zone[data-zone=Hero] { position:static; width:48px; }
+.fab-upf-seat.is-memorial [data-zone=Hero] img { filter:saturate(.6); }
+.fab-upf-seat.is-memorial .fab-upf-inspect { order:2; }
+
+@media (max-width:699px) {
+  .fab-upf-opponents.has-one-survivor { flex:0 0 auto; flex-wrap:wrap; }
+  .fab-upf-opponents.has-one-survivor > .fab-upf-seat:not(.is-memorial) { flex-basis:100%; min-height:120px; }
+  .fab-upf-opponents.has-one-survivor > .is-memorial { flex:0 0 auto; flex-direction:row; }
+  .fab-upf-opponents.has-one-survivor .is-memorial .fab-upf-zones { order:-1; }
+  .fab-upf-opponents.has-one-survivor .is-memorial [data-zone=Hero] { width:32px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fab-upf-opponents > .fab-upf-seat { transition:none; }
 }

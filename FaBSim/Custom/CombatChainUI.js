@@ -102,6 +102,8 @@
     previews.replaceChildren();
     target.classList.add('fab-chain-view');
     target.replaceChildren();
+    const headerTotals = target.closest('#fab-upf-chain-panel')?.querySelector('[data-fab-chain-totals]');
+    headerTotals?.replaceChildren();
     const history = document.createElement('div'); history.className = 'fab-chain-history';
     target.appendChild(history);
     const labels = { ATTACK: 'Attack', DEFENSE: 'Block', ATTACK_REACTION: 'Attack reaction', DEFENSE_REACTION: 'Defense reaction' };
@@ -144,7 +146,8 @@
           addTotal(Number(totals.attack), 'Total attack', false);
           const blocks = Object.entries(totals.blocks || {});
           blocks.forEach(([seat, value]) => addTotal(Number(value), 'Total block for player ' + seat, true, blocks.length > 1 ? seat : ''));
-          row.prepend(summary);
+          if (headerTotals) headerTotals.appendChild(summary);
+          else row.prepend(summary);
         }
         row.setAttribute('aria-label', 'Current link ' + link.number);
         target.appendChild(row);

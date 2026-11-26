@@ -3,19 +3,23 @@ $fabHomeHref = '/TCGEngine/SharedUI/Sites/FaBSim/MainMenu.php';
 include __DIR__ . '/GameOver.php';
 include __DIR__ . '/CombatPanel.php';
 include __DIR__ . '/MultiplayerLayout.php';
+include __DIR__ . '/Playmats.php';
 ?>
 <link rel="stylesheet" href="./FaBSim/Custom/IconTheme.css?v=<?= filemtime(__DIR__ . '/IconTheme.css') ?>">
 <link rel="stylesheet" href="./FaBSim/Custom/Interaction.css?v=<?= filemtime(__DIR__ . '/Interaction.css') ?>">
 <link rel="stylesheet" href="./FaBSim/Custom/Shortcuts.css?v=<?= filemtime(__DIR__ . '/Shortcuts.css') ?>">
 <style>
-#bug-report-button{position:fixed;top:8px;right:8px;z-index:2600}
+.fab-duel-utilities{position:fixed;top:8px;right:8px;z-index:2600;display:flex;gap:6px}
 .fab-duel-header{position:fixed;inset:0 0 auto;height:48px;z-index:30;background:#2a2a2a}
 .fab-duel-header a{display:inline-block;margin:5px;padding:3px;border-radius:5px;background:#333;color:#fff;font-size:14px;text-decoration:none}
 .fab-duel-header a:hover{background:#444}
 </style>
 <div id="fab-duel-layout">
 <header class="fab-duel-header"><a href="<?= $fabHomeHref ?>">Home</a></header>
-<button id="bug-report-button" class="fab-overlay-button" type="button" onclick="openBugReportModal()">Report Bug</button>
+<div class="fab-duel-utilities">
+  <button class="fab-overlay-button" type="button" data-fab-playmat-open aria-haspopup="dialog">Playmats</button>
+  <button id="bug-report-button" class="fab-overlay-button" type="button" onclick="openBugReportModal()">Report Bug</button>
+</div>
 <style>
 :root{
   --fab-gold:#d6aa4d;
@@ -25,16 +29,11 @@ include __DIR__ . '/MultiplayerLayout.php';
   --fab-line:rgba(255,255,255,.1);
   --fab-card-size:clamp(68px,4.8vw,92px);
 }
-html,body{margin:0;overflow:hidden;background:#090d0f;color:#f3eee5;font-family:Inter,Segoe UI,sans-serif}
-.fab-board{position:fixed;inset:48px 0 0;background:
-  linear-gradient(180deg,transparent calc(50% - 2px),rgba(211,170,78,.13) calc(50% - 1px),rgba(211,170,78,.13) calc(50% + 1px),transparent calc(50% + 2px)),
-  radial-gradient(ellipse at 50% 50%,rgba(49,72,71,.42),transparent 55%),
-  linear-gradient(135deg,#111a1d,#071014 48%,#11191a);
-  border-top:1px solid rgba(214,170,77,.18)
-}
-.fab-board:before,.fab-board:after{content:"";position:absolute;left:0;right:0;height:50%;pointer-events:none}
-.fab-board:before{top:0;background:linear-gradient(180deg,rgba(0,0,0,.34),transparent 55%)}
-.fab-board:after{bottom:0;background:linear-gradient(0deg,rgba(0,0,0,.3),transparent 55%)}
+html,body{margin:0;overflow:hidden;background:var(--fab-surface);color:#f3eee5;font-family:Inter,Segoe UI,sans-serif}
+.fab-board{position:fixed;inset:48px 0 0;border-top:1px solid var(--fab-field-line)}
+.fab-board-field{position:absolute;left:0;right:0;height:50%;pointer-events:none;box-sizing:border-box;background-size:cover;background-position:center;background-repeat:no-repeat}
+.fab-board-opponent{top:0;border-bottom:1px solid var(--fab-field-line);background-color:var(--fab-field-cool);background-image:var(--fab-opponent-playmat,radial-gradient(ellipse at 50% 90%,var(--fab-light-cool),transparent 75%))}
+.fab-board-local{bottom:0;background-color:var(--fab-field-warm);background-image:var(--fab-local-playmat,radial-gradient(ellipse at 50% 10%,var(--fab-light-warm),transparent 75%))}
 
 .fab-zone{position:fixed;z-index:20;box-sizing:border-box;width:calc(var(--fab-card-size) + 10px);height:calc(var(--fab-card-size) + 10px);border:1px solid var(--fab-line);border-radius:9px;background:var(--fab-slot);padding:16px 4px 4px;overflow:visible;box-shadow:inset 0 0 22px rgba(0,0,0,.16)}
 .fab-zone:has([data-mzid]){border-color:transparent;background:transparent;box-shadow:none}
@@ -121,7 +120,8 @@ html,body{margin:0;overflow:hidden;background:#090d0f;color:#f3eee5;font-family:
 #myActionPointsSlot{right:calc(var(--fab-card-size)*2 + 39px);bottom:calc(4% + var(--fab-card-size)/2 - 14px)}
 #theirActionPointsSlot{right:calc(var(--fab-card-size)*2 + 39px);top:calc(4% + var(--fab-card-size)/2 - 14px)}
 #theirActionPointsSlot .widget-button-pass{display:none!important}
-.fab-stat .widget-button-pass{position:fixed;right:18px;top:calc(50% + 10px);width:104px;padding:9px 12px;border:1px solid #cf7376;border-radius:8px;background:#8c1d23;font-size:13px;font-weight:800;box-shadow:0 4px 14px rgba(0,0,0,.45)}
+.fab-stat .widget-button-pass{position:fixed;right:18px;top:calc(50% + 10px);width:104px;padding:9px 12px;border:1px solid #e5c980;border-radius:8px;background:#c9a755;color:#192127;font-size:13px;font-weight:800;box-shadow:0 4px 14px rgba(0,0,0,.45)}
+.fab-stat .widget-button-pass:hover{background:#e5c980}
 
 /* One shared combat-chain window, fed by both controller-specific serialized arrays. */
 .fab-overlay-toolbar{position:fixed;z-index:72;top:55px;left:50%;transform:translateX(-50%);display:flex;gap:7px}
@@ -169,7 +169,10 @@ body.fab-lunge-active .fab-floating-window:not([hidden]){opacity:0;visibility:hi
 }
 </style>
 
-<div class="fab-board" aria-hidden="true"></div>
+<div class="fab-board" aria-hidden="true">
+  <div class="fab-board-field fab-board-opponent"></div>
+  <div class="fab-board-field fab-board-local"></div>
+</div>
 <?php
 $zones = [
   'theirHand' => 'Hand', 'theirArena' => 'Arena', 'theirHero' => 'Hero',

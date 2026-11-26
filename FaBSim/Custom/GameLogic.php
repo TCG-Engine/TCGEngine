@@ -2831,15 +2831,15 @@ function FaBSelectionMetadata($obj): string {
     $mzID = 'p' . $owner . $location . '-' . $index;
     // Prefer the window-specific action color when a card also has a legal
     // play/activation (for example, an instant that can be put in arsenal).
-    if (CanPitchCard($actor, $mzID)) return json_encode(['color' => 'rgba(80, 165, 255, 0.92)']);
-    if (FaBCanBlock($actor, $mzID)) return json_encode(['color' => 'rgba(180, 185, 195, 0.92)']);
-    if (FaBCanArsenal($actor, $mzID)) return json_encode(['color' => 'rgba(255, 155, 55, 0.92)']);
+    if (CanPitchCard($actor, $mzID)) return json_encode(['color' => 'var(--fab-action-pitch)']);
+    if (FaBCanBlock($actor, $mzID)) return json_encode(['color' => 'var(--fab-action-block)']);
+    if (FaBCanArsenal($actor, $mzID)) return json_encode(['color' => 'var(--fab-action-arsenal)']);
 
     $legal = CanPlayCard($actor, $mzID)
         || (function_exists('FaBWTRCanActivate') && FaBWTRCanActivate($actor, $mzID));
 
     return $legal
-        ? json_encode(['color' => 'rgba(86, 255, 126, 0.92)'])
+        ? json_encode(['color' => 'var(--fab-action-play)'])
         : json_encode(['highlight' => false]);
 }
 
