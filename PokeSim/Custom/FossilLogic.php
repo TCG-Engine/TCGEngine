@@ -24,7 +24,7 @@ function PokeRareCandyTargets(int $player): string {
     return implode('&',array_filter(PokeFieldRefs($player),fn($ref)=>PokeRareCandyEvolutions($player,$ref)!==''));
 }
 function PokeAncientBulwark(int $player, $attacker): int {
-    if (!$attacker || $attacker->Controller === $player || count($attacker->Energy) > 2) return 0;
+    if (!$attacker || $attacker->Controller === $player || array_sum(array_map(fn($id) => PokeEnergyUnits($id, $attacker), $attacker->Energy)) > 2) return 0;
     foreach (PokeObjects($player,'Bench') as $obj)
         if ($obj->CardID === 'me05-062' && !HasNoAbilities($obj)) return 1;
     return 0;

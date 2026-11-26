@@ -33,6 +33,38 @@ function PokeTCGdexRequest(string $url, ?array $body = null, bool $allowPartial 
 
 /** Narrow corrections to upstream metadata, retained across cached and refreshed imports. */
 function PokeTCGdexApplyCorrections(array $card): array {
+    if (($card['id'] ?? '') === 'sv10.5w-086') {
+        $card['energyType'] = 'Special';
+        $card['types'] = 'Colorless';
+    }
+    if (($card['id'] ?? '') === 'sv10.5b-067') {
+        $card['weaknesses'] ??= [['type'=>'Fire', 'value'=>'×2']];
+        $card['resistances'] ??= [['type'=>'Grass', 'value'=>'-30']];
+    }
+    // The printed Azurill has a zero-Energy attack. TCGdex lists it as an Ability.
+    if (($card['id'] ?? '') === 'me06-080' && empty($card['attacks'])) {
+        $card['attacks'] = [[
+            'name' => 'Bouncy-Bounce Charge',
+            'cost' => [],
+            'damage' => null,
+            'effect' => 'Search your deck for an Energy card and attach it to 1 of your Benched Pokémon. Then, shuffle your deck.',
+        ]];
+        unset($card['abilities']);
+    }
+    if (($card['id'] ?? '') === 'me06-089') {
+        $card['effect'] ??= 'Search your deck for up to 3 in any combination of Supporter and Stadium cards, reveal them, and put them into your hand. Then, shuffle your deck.';
+    }
+    if (in_array($card['id'] ?? '', ['me06-096', 'me06-097'], true)) {
+        $card['effect'] ??= 'Combine two different halves of Legendary Summit from your hand to play one Stadium. When an opponent’s attack Knocks Out a Colorless Pokémon with damage, the attacking player takes 1 fewer Prize card.';
+    }
+    // Live REST and GraphQL omit Lantern's text/mark as of 2026-11-08.
+    // Printed text: https://limitlesstcg.com/cards/en/DLR/90
+    if (($card['id'] ?? '') === 'me06-090') {
+        $card['effect'] ??= 'Search your deck for a Basic Fire Energy card and a Basic Lightning Energy card, reveal them, and put them into your hand. Then, shuffle your deck.';
+        $card['regulationMark'] ??= 'J';
+        $card['legal']['standard'] = true;
+        $card['legal']['expanded'] = true;
+    }
     // Printed J-mark Stage 1: https://www.pokemon.com/uk/pokemon-tcg/pokemon-cards/series/30th/92
     // Upstream incorrectly reports Basic, no evolution/mark, uppercase EX and non-Standard.
     if (($card['id'] ?? '') === '30th-092') {
@@ -73,6 +105,7 @@ function PokeTCGdexImport(bool $refresh = false, ?array $ids = null, bool $image
         $cards[$card['id']] = PokeTCGdexApplyCorrections($card);
     }
     if ($ids !== null) {
+        $loadedSets = [];
         foreach (array_unique($ids) as $id) {
             if (!preg_match('/^[A-Za-z0-9.!%_-]+$/D', $id)) throw new InvalidArgumentException('Unsafe card identifier');
             if (!isset($cards[$id]) || $refresh || is_file("$root/GeneratedCode/tcgdex/cards/$id.json")) {
@@ -80,7 +113,8 @@ function PokeTCGdexImport(bool $refresh = false, ?array $ids = null, bool $image
                 $card = !$refresh && is_file($rawPath) ? json_decode(file_get_contents($rawPath), true, 512, JSON_THROW_ON_ERROR)
                     : PokeTCGdexRequest('https://api.tcgdex.net/v2/en/cards/' . rawurlencode($id));
                 $setPath = "$root/GeneratedCode/tcgdex/sets/" . $card['set']['id'] . '.json';
-                if (!is_file($setPath) || $refresh) PokeImportWriteJson($setPath, PokeTCGdexRequest('https://api.tcgdex.net/v2/en/sets/' . $card['set']['id']));
+                if (!isset($loadedSets[$card['set']['id']]) && (!is_file($setPath) || $refresh)) PokeImportWriteJson($setPath, PokeTCGdexRequest('https://api.tcgdex.net/v2/en/sets/' . $card['set']['id']));
+                $loadedSets[$card['set']['id']] = true;
                 $set = json_decode(file_get_contents($setPath), true, 512, JSON_THROW_ON_ERROR);
                 $card['set']['releaseDate'] = $set['releaseDate'] ?? '';
                 $cards[$id] = PokeTCGdexNormalize($card);

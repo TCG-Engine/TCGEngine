@@ -12,7 +12,16 @@
                 bin.counts[row.damage] = (bin.counts[row.damage] || 0) + 1;
             }
         }
-        return [...bins.values()].sort((a,b)=>a.turn-b.turn || a.order.localeCompare(b.order));
+        return [...bins.values()].map(bin=>{
+            const lower=Math.floor((bin.count-1)/2), upper=Math.floor(bin.count/2);
+            let seen=0, left, right;
+            for(const [damage,count] of Object.entries(bin.counts).sort((a,b)=>Number(a[0])-Number(b[0]))){
+                seen+=count;
+                if(left===undefined && seen>lower)left=Number(damage);
+                if(seen>upper){right=Number(damage);break;}
+            }
+            return {...bin, average:bin.sum/bin.count, median:(left+right)/2};
+        }).sort((a,b)=>a.turn-b.turn || a.order.localeCompare(b.order));
     }
     function el(tag, value) { const e=document.createElement(tag); if(value!==undefined)e.textContent=value; return e; }
     function chart(container, series, label) {
@@ -67,23 +76,29 @@
         table(container,['Player','Turn','Damage','Status'],rows.map(r=>[names[r.player-1],r.turn,r.damage,r.complete?'Finished':'In progress']));
     }
     function averages(container,games){
-        const selected=container.querySelector('select')?.value||'all';
-        container.replaceChildren(el('h3','Average damage by deck and starting order'));
+        const selected=container.querySelector('[data-damage-deck]')?.value||'all';
+        const metric=container.querySelector('[data-damage-metric]')?.value==='median'?'median':'average';
+        const metricName=metric==='median'?'Median':'Average';
+        container.replaceChildren(el('h3',metricName+' damage by deck and starting order'));
         const decks=Array.from(new Set(games.flatMap(g=>(g.damageTurns||[]).map(r=>r.deck)))).filter(Boolean).sort();
         const deckName=key=>key==='ceruledge-ex'?'Ceruledge ex':key==='galarian-meowth'?'Galarian Meowth':key==='sinistcha'?'Dhelmise / Sinistcha':key==='dhelmise-v2'?'dhelmise v2':key==='fan-rotom-lopunny'?'Fan Rotom / Mega Lopunny':key==='brisbane-lopunny'?'Brisbane Lopunny':key==='relicanth-v2-draw'?'relicanth v2 - draw':key==='relicanth-v3-meta-tune'?'Relicanth-v3-meta-tune':key==='relicanth-v4-colress'?'Relicanth v4 - Colress':key==='relicanth-v5-bastiodon'?'Relicanth v5 - Bastiodon':key==='relicanth-v6-explorers-guidance'?"Relicanth v6 - Explorer's Guidance":key==='relicanth-v7-lanas-aid'?"Relicanth v7 - Lana's Aid":key;
-        const label=el('label','Deck '),select=el('select');select.setAttribute('aria-label','Damage statistics deck');
+        const controls=el('div');controls.className='damage-controls';
+        const label=el('label','Deck '),select=el('select');select.setAttribute('aria-label','Damage statistics deck');select.setAttribute('data-damage-deck','');
         for(const [key,name] of [['all',decks.length===2?'Both decks':'All decks'],...decks.map(key=>[key,deckName(key)])]){const option=el('option',name);option.value=key;select.append(option);}
-        select.value=selected;if(!select.value)select.value='all';select.onchange=()=>averages(container,games);label.append(select);container.append(label);
+        select.value=selected;if(!select.value)select.value='all';select.onchange=()=>{averages(container,games);container.querySelector('[data-damage-deck]').focus();};label.append(select);controls.append(label);
+        const metricLabel=el('label','Measure '),metricSelect=el('select');metricSelect.setAttribute('aria-label','Damage statistic');metricSelect.setAttribute('data-damage-metric','');
+        for(const [key,name] of [['average','Average'],['median','Median']]){const option=el('option',name);option.value=key;metricSelect.append(option);}
+        metricSelect.value=metric;metricSelect.onchange=()=>{averages(container,games);container.querySelector('[data-damage-metric]').focus();};metricLabel.append(metricSelect);controls.append(metricLabel);container.append(controls);
         container.append(el('p','Completed games only. Zero-damage turns count; turns never reached do not. Damage includes opposing Active and Bench Pokémon, after modifiers and counters. Self-damage and Checkup are excluded.'));
-        container.append(el('p','Each deck has its own color. Solid lines show going first; dashed lines show going second. These values are average damage, not attack success percentages.'));
+        container.append(el('p','Each deck has its own color. Solid lines show going first; dashed lines show going second. These values are '+metric+' damage, not attack success percentages.'));
         const series=(select.value==='all'?decks:[select.value]).flatMap(deck=>{
             const bins=aggregate(games,deck);
             const color=deck==='sinistcha'?'#287357':deck==='brisbane-lopunny'?'#b85c32':['#446cad','#8154a3','#9b711d'][decks.indexOf(deck)%3];
-            return ['first','second'].map(order=>({name:deckName(deck)+' · Going '+order,color,dashed:order==='second',points:bins.filter(b=>b.order===order).map(b=>({turn:b.turn,damage:b.sum/b.count,details:deckName(deck)+'\nTurn '+b.turn+' · Going '+b.order+'\nAverage damage: '+(b.sum/b.count).toFixed(1)+'\nSamples: '+b.count+'\nDamage → count\n'+Object.entries(b.counts).sort((a,c)=>Number(a[0])-Number(c[0])).map(([d,n])=>d+' → '+n).join(' · ')}))}));
+            return ['first','second'].map(order=>({name:deckName(deck)+' · Going '+order,color,dashed:order==='second',points:bins.filter(b=>b.order===order).map(b=>({turn:b.turn,damage:b[metric],details:deckName(deck)+'\nTurn '+b.turn+' · Going '+b.order+'\n'+metricName+' damage: '+b[metric].toFixed(1)+'\nSamples: '+b.count+'\nDamage → count\n'+Object.entries(b.counts).sort((a,c)=>Number(a[0])-Number(c[0])).map(([d,n])=>d+' → '+n).join(' · ')}))}));
         }).filter(s=>s.points.length);
-        if(!series.length){container.append(el('p','Complete a tracked game to see averages and damage counts. Older games without tracking are excluded.'));return;}
-        container.append(el('p','Hover, focus, or tap a dot to see its average damage, samples, and damage counts.'));
-        chart(container,series,'Average damage per turn by deck, going first and second');
+        if(!series.length){container.append(el('p','Complete a tracked game to see damage statistics and counts. Older games without tracking are excluded.'));return;}
+        container.append(el('p','Hover, focus, or tap a dot to see its '+metric+' damage, samples, and damage counts.'));
+        chart(container,series,metricName+' damage per turn by deck, going first and second');
     }
     root.PokeDamageStats={aggregate,match,averages};
     if(typeof module!=='undefined')module.exports=root.PokeDamageStats;

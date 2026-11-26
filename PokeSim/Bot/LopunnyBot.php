@@ -9,7 +9,7 @@ function PokeLopunnyLines(array $ctx,string $line): int {
     return PokeBotFieldCount($ctx,$line==='bunny'?['me02-083','me02-084']:['sv09-120','sv05-129','sv09-121']);
 }
 function PokeLopunnyCanPay(array $card,array $cost): bool {
-    return PokeHasAttackEnergy((object)['Energy'=>$card['energy']],$cost);
+    return PokeHasAttackEnergy((object)['CardID'=>$card['id'],'Energy'=>$card['energy']],$cost);
 }
 function PokeLopunnyDamage(array $ctx,array $attacker,string $attackID,int $index,array $target,bool $moved=false): int {
     if (PokeBotEnemyBulwark($ctx)&&count($attacker['energy'])<=2) return 0;

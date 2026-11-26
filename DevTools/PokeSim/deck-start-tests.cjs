@@ -36,6 +36,9 @@ async function launch(search, savedState = null, extraDeck = null) {
             assert.equal(requests[0].deckKey2, 'fan-rotom-lopunny');
             assert.equal(requests[0].mode, mode);
         }
+        const doublade = await launch(`?mode=${mode}&new=1&deck1=doublade&deck2=doublade`);
+        assert.equal(doublade[0].deckKey1, 'doublade', 'Doublade starts as the player deck');
+        assert.equal(doublade[0].deckKey2, 'doublade', 'Doublade starts as the opposing deck');
     }
     const fork = await launch('?mode=bot&new=1&deck1=ceruledge-budew&deck2=ceruledge-budew', null);
     assert.equal(fork[0].deckKey1, 'ceruledge-budew', 'Budew fork starts as the player deck');

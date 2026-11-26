@@ -9,6 +9,15 @@ $customDQHandlers['PokeFinishAttack'] = function($player, $parts, $lastDecision)
     PokeOpeningResolved((int)$player);
     PokeResolveKnockouts(); if (GetCurrentPhase() === 'MAIN') PokeSetVar('endAttack', true);
 };
+$customDQHandlers['PokeRepeatAttack'] = function($player, $parts, $lastDecision) {
+    $attack = PokeVar('repeatAttack');
+    PokeSetVar('repeatAttack', null);
+    if ($lastDecision !== 'YES' || !$attack) return;
+    PokeSetVar('endAttack', false);
+    PokeSetVar('repeatingAttack', true);
+    PokePerformAttack($player, $attack);
+    PokeSetVar('repeatingAttack', false);
+};
 $customDQHandlers['PokePromote'] = function($player, $parts, $lastDecision) {
     if (!PokeCount($player,'Active') && is_string($lastDecision) && str_starts_with($lastDecision, "p{$player}Bench-")) PokeSwitch($player, $lastDecision, false);
 };
@@ -199,9 +208,17 @@ function PokeEnergyTypes(string $id): array {
     foreach (['Grass','Fire','Water','Lightning','Psychic','Fighting','Darkness','Metal','Fairy'] as $type) if (str_contains(CardName($id) ?? '', $type)) return [$type];
     return [];
 }
+function PokeEnergyUnits(string $id, $pokemon): int {
+    return 1 + EvaluateEnergyUnitModifier($id, $pokemon->Controller ?? 0, $pokemon, $pokemon);
+}
 function PokeHasAttackEnergy($pokemon, array $cost): bool {
     $cost = array_values(array_filter($cost, fn($type)=>!in_array($type,['None','Free'],true)));
-    $energies = array_map('PokeEnergyTypes', $pokemon->Energy);
+    $energies = [];
+    foreach ($pokemon->Energy as $id) {
+        $types = PokeEnergyTypes($id);
+        $units = PokeEnergyUnits($id, $pokemon);
+        for ($i = 0; $i < $units; ++$i) $energies[] = $types;
+    }
     // Backtracking avoids spending a flexible Energy on the wrong colored pip.
     usort($cost, fn($a, $b) => ($a === 'Colorless') <=> ($b === 'Colorless'));
     $match = function($i, $remaining) use (&$match, $cost) {
@@ -220,6 +237,23 @@ function PokeRetreatCost($pokemon): int {
     $modifier=EvaluateRetreatCostModifier($pokemon->CardID,$pokemon->Controller,$pokemon,$base,$pokemon);
     if ($pokemon->Tool !== '-' && PokeToolsEnabled()) $modifier+=EvaluateRetreatCostModifier($pokemon->Tool,$pokemon->Controller,$pokemon,$base,$pokemon);
     return max(0,$base+$modifier);
+}
+function PokeRetreatPayments($pokemon): array {
+    $cost = PokeRetreatCost($pokemon);
+    $indices = array_keys($pokemon->Energy);
+    $units = array_map(fn($id) => PokeEnergyUnits($id, $pokemon), $pokemon->Energy);
+    if (array_sum($units) < $cost) return [];
+    if (array_sum($units) === count($units)) return PokeCombinations($indices, $cost);
+
+    $payments = [];
+    // A multi-unit Energy is discarded as a whole card. At most one card can be
+    // selected for each pip in the retreat cost.
+    for ($size = 1; $size <= min($cost, count($indices)); ++$size) {
+        foreach (PokeCombinations($indices, $size) as $payment) {
+            if (array_sum(array_intersect_key($units, array_flip($payment))) >= $cost) $payments[] = $payment;
+        }
+    }
+    return $cost === 0 ? [[]] : $payments;
 }
 function PokeCombinations(array $values, int $size): array {
     if ($size === 0) return [[]];
@@ -258,7 +292,7 @@ function PokeLegalActions(int $player): array {
         }
         $activeRef = PokeFirstRef($player, 'Active'); $active = $activeRef ? GetZoneObject($activeRef) : null;
         if ($active && !PokeIsFossil($active->CardID) && !GetRetreatUsed($player) && empty($active->Conditions['Asleep']) && empty($active->Conditions['Paralyzed']) && ($active->TurnEffects['noRetreatThrough'] ?? -1) < GetTurnNumber()) {
-            foreach (PokeCombinations(array_keys($active->Energy), PokeRetreatCost($active)) as $payment) {
+            foreach (PokeRetreatPayments($active) as $payment) {
                 foreach (PokeObjects($player, 'Bench') as $i => $obj) $actions[] = ['type' => 'retreat', 'target' => PokeRef($player, 'Bench', $i), 'payment' => $payment];
             }
         }
@@ -314,19 +348,26 @@ function PokeApplyAction(array $action): void {
             foreach ($action['payment'] as $index) { PokeAdd($player, 'Discard', $active->Energy[$index]); unset($active->Energy[$index]); }
             $active->Energy = array_values($active->Energy); AddRetreatUsed($player, true); PokeSwitch($player, $action['target']); break;
         case 'attack':
-            $active = GetZoneObject($action['source']);
-            PokeSetVar('copiedAttack',isset($action['copySource']) ? GetZoneObject($action['copySource'])->CardID : null);
-            if (!empty($active->Conditions['Confused']) && PokeRandom(1) === 0) {
-                $active->Counters['opposingAttackKO']=false;
-                $active->Damage += 30; PokeResolveKnockouts(); PokeSetVar('endAttack', true);
-            } else Attack($player, $action['source'], $action['index']);
-            break;
+            PokePerformAttack($player, $action); break;
         case 'ability':
             PokeSetVar('resolvingAbility',true); ActivateAbility($player, $action['source'], $action['index']); PokeSetVar('resolvingAbility',false); break;
         case 'end': PokeEndTurn(); break;
     }
     PokeDrain();
     $GLOBALS['updateNumber'] = ($GLOBALS['updateNumber'] ?? 0) + 1;
+}
+
+function PokePerformAttack(int $player, array $action): void {
+    $active = GetZoneObject($action['source']);
+    PokeSetVar('copiedAttack', isset($action['copySource']) ? GetZoneObject($action['copySource'])->CardID : null);
+    if (!empty($active->Conditions['Confused']) && PokeRandom(1) === 0) {
+        $active->Counters['opposingAttackKO'] = false;
+        $active->Damage += 30;
+        PokeResolveKnockouts();
+        PokeSetVar('endAttack', true);
+    } else {
+        Attack($player, $action['source'], $action['index']);
+    }
 }
 
 function PokeAnswerDecision(int $player, string $value): void {
@@ -379,7 +420,27 @@ function PokeDrain(): void {
         if (GetWinner()) return;
         foreach ([1,2] as $seat) { $GLOBALS['playerID'] = $seat; (new DecisionQueueController())->ExecuteStaticMethods($seat, '-'); }
         if ((new DecisionQueueController())->AnyQueuePending()) return;
-        if (PokeVar('endAttack', false)) { PokeSetVar('endAttack', false); PokeEndTurn(); continue; }
+        if (PokeVar('endAttack', false)) {
+            $repeat = PokeVar('repeatAttack');
+            $player = GetTurnPlayer();
+            if ($repeat && $repeat['source'] === PokeFirstRef($player, 'Active') && PokeFirstRef(3 - $player, 'Active') !== '') {
+                $obj = GetZoneObject($repeat['source']);
+                $index = $repeat['index'];
+                if ($obj->CardID === $repeat['card'] && !HasNoAbilities($obj)
+                    && empty($obj->Conditions['Asleep']) && empty($obj->Conditions['Paralyzed'])
+                    && EvaluateRepeatAttackAllowed($obj->CardID, $player, $obj, $obj) > 0
+                    && PokeCanUseAttack($player, $repeat['source'], $obj->CardID, $index)
+                    && PokeHasAttackEnergy($obj, PokeAttackCost($obj, CardAttacks($obj->CardID)[$index]['cost'] ?? []))) {
+                    DecisionQueueController::AddDecision($player, 'YESNO', '', 1, 'Festival_Lead:_attack_again?');
+                    DecisionQueueController::AddDecision($player, 'CUSTOM', 'PokeRepeatAttack', 1, '', 1);
+                    return;
+                }
+            }
+            PokeSetVar('repeatAttack', null);
+            PokeSetVar('endAttack', false);
+            PokeEndTurn();
+            continue;
+        }
         PokeCompact(); $GLOBALS['playerID'] = GetTurnPlayer(); PokeOpeningObserve(); return;
     }
     throw new RuntimeException('PokeSim decision loop exceeded its bound');
@@ -387,7 +448,15 @@ function PokeDrain(): void {
 function PokeEndTurn(): void {
     PokeOpeningFinishTurn();
     PokeDamageFinishTurn();
-    PokeSetVar('blackBelt:' . GetTurnPlayer(), null);
+    $player = GetTurnPlayer();
+    PokeSetVar('blackBelt:' . $player, null);
+    foreach (PokeFieldRefs($player) as $ref) {
+        $pokemon = GetZoneObject($ref);
+        // Discard from the highest index first because removal reindexes Energy.
+        foreach (array_reverse($pokemon->Energy, true) as $index => $id) {
+            if (EvaluateDiscardEnergyAtEndTurn($id, $player, $pokemon, $pokemon) > 0) PokeDiscardAttachedEnergy($ref, $index);
+        }
+    }
     SetCurrentPhase('CHECKUP'); PokeCheckupPhase(); AutoAdvance();
 }
 function PokeSetupPhase(): void {}

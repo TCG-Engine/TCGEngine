@@ -42,7 +42,7 @@ $chosen = await $player.MZMultiChoose($targets, 0, $maximum, "Brilliant_Blender:
 PokeDiscardSelection($player, $chosen);
 PokeShuffle($player);
 CODE);
-$cards['me02.5-196'][] = $ability('TrainerPlayed','Night Stretcher', <<<'CODE'
+foreach (['me02.5-196', 'me01-173'] as $id) $cards[$id][] = $ability('TrainerPlayed','Night Stretcher', <<<'CODE'
 $targets = PokeCandidates($player, 'Discard', 'pokemonOrEnergy');
 $chosen = await $player.MZChoose($targets, "Night_Stretcher:_recover_a_Pokémon_or_basic_Energy");
 PokeResolveRecovery($player, $chosen);
@@ -53,6 +53,13 @@ $maximum = min(2, count(explode('&', $targets)));
 $chosen = await $player.MZMultiChoose($targets, 0, $maximum, "Energy_Retrieval:_recover_up_to_two_basic_Energy");
 PokeResolveRecovery($player, $chosen);
 CODE, 'return PokeCandidates($player, "Discard", "basicEnergy") !== "";');
+$cards['me02-094'][] = $ability('TrainerPlayed', 'Wondrous Patch', <<<'CODE'
+$energies = PokeCandidates($player, 'Discard', 'basicPsychicEnergy');
+$energy = await $player.MZChoose($energies, 'Wondrous_Patch:_choose_a_Basic_Psychic_Energy');
+$targets = PokeCandidates($player, 'Bench', 'psychicPokemon');
+$target = await $player.MZChoose($targets, 'Wondrous_Patch:_choose_a_Benched_Psychic_Pokémon');
+PokeAttachEnergyFromZone($player, $energy, $target);
+CODE, 'return PokeCandidates($player, "Discard", "basicPsychicEnergy") !== "" && PokeCandidates($player, "Bench", "psychicPokemon") !== "";');
 $cards['me02.5-183'][] = $ability('TrainerPlayed',"Boss's Orders", <<<'CODE'
 $targets = PokeCandidates(3 - $player, 'Bench');
 $chosen = await $player.MZChoose($targets, "Boss's_Orders:_choose_an_opposing_Benched_Pokémon");

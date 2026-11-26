@@ -59,7 +59,7 @@ $chosen = await $player.MZMayChoose($targets, 'Last-Ditch_Catch:_search_for_a_Su
 PokeResolveSearch($player, $chosen);
 CODE, 'return PokeVar("LastDitch:" . $player) !== GetTurnNumber();');
 $cards['me03-062'][]=$ability('Attack','Tuck Tail', 'PokeDealAttackDamage($player, $mzID, 60); PokeReturnPokemonStack($player, $mzID, "Hand");');
-$cards['sv05-144'][]=$ability('TrainerPlayed','Buddy-Buddy Poffin', <<<'CODE'
+foreach (['sv05-144', 'me01-167'] as $id) $cards[$id][]=$ability('TrainerPlayed','Buddy-Buddy Poffin', <<<'CODE'
 $targets = PokeCandidates($player, 'Deck', 'poffin');
 $maximum = min(2, 5 - PokeCount($player, 'Bench'));
 $chosen = await $player.MZMultiChoose($targets, 0, $maximum, 'Buddy-Buddy_Poffin:_Bench_small_Basic_Pokémon');
