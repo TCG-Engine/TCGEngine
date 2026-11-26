@@ -99,6 +99,29 @@ body {
   color: #a99882;
 }
 
+.site-legal-page {
+  box-sizing: border-box;
+  max-width: 820px;
+  margin: 0 auto;
+  padding: 0 20px 32px;
+  line-height: 1.6;
+  overflow-wrap: anywhere;
+}
+
+.site-legal-page h2 {
+  margin: 1.5em 0 0.4em;
+  font-size: 1.25rem;
+}
+
+.site-legal-page p {
+  margin: 0.6em 0;
+}
+
+.site-legal-page a {
+  color: #d4b477;
+  text-decoration: underline;
+}
+
 @media (max-width: 768px) {
   .home-header {
     width: 100%;
