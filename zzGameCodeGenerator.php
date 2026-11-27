@@ -95,7 +95,7 @@ if ($macroCodeOnlyCLI) {
     }
     GenerateMacroCode();
   } catch (Throwable $e) {
-    fwrite(STDERR, 'Macro-only generation failed: ' . $e->getMessage() . "\n");
+    fwrite(STDERR, 'Macro-only generation failed: ' . $e->getMessage() . ' at ' . $e->getFile() . ':' . $e->getLine() . "\n");
     $generatorExitCode = 1;
   } finally {
     foreach ($generatorMacroOutputHandles as $generatorHandle) if (is_resource($generatorHandle)) fclose($generatorHandle);
@@ -4151,6 +4151,7 @@ function TransformAwaitCodeLegacy($code, $cardId, $abilityName, &$continuationHa
         $awaitEntry['multiTooltip'] = isset($multiArgs[3]) ? trim(trim($multiArgs[3]), '"\'') : '';
       }
       if ($isModal && isset($modalArgs)) {
+        if (count($modalArgs) < 3) throw new RuntimeException('Invalid Modal arguments for ' . $cardId . ': ' . $rawParams);
         $awaitEntry['modalMin'] = trim($modalArgs[0]);
         $awaitEntry['modalMax'] = trim($modalArgs[1]);
         $awaitEntry['modalOptions'] = trim($modalArgs[2], '"\'');
@@ -5225,6 +5226,7 @@ function GenerateMacroCode() {
         foreach ($abilities as $ability) {
           $cardId = $ability['card_id'];
           $code = $ability['ability_code'];
+          if ($rootName === 'GrandArchiveSim') { require_once __DIR__ . '/GrandArchiveSim/Custom/CodeGeneration.php'; $code = GAPrepareLegacyModalCode($code); }
           if ($rootName === 'GrandArchiveSim' && $macroName === 'Reveal') { require_once __DIR__ . '/GrandArchiveSim/Custom/CodeGeneration.php'; $code = GAPrepareRevealCode($code, $cardId); }
           if ($rootName === 'FaBSim') { require_once __DIR__ . '/FaBSim/Custom/CodeGeneration.php'; $code = FaBPrepareDamageCode(FaBPrepareHeroCreationCode($code,$cardId)); }
           $prereqCode = $ability['prereq_code'] ?? '';

@@ -4,7 +4,7 @@
 // Core/EngineActionRunner.php -> SWUSim/BotController.php's ProcessBotControllerStep(), which
 // enumerates legal actions via SWUSim/BotLegalActions.php and executes the chosen one via
 // EngineExecuteLoadedAction()), but calls that function directly in one CLI process — the same
-// shape as DevTools/GABotSelfPlayTest.php, which this is modelled on.
+// shape as DevTools/grand-archive/GABotSelfPlayTest.php, which this is modelled on.
 //
 // This is the FIRST thing that runs the Bot Practice machinery against a real SWU game. Its job is
 // to find, empirically, which of SWUSim's decision types the DecisionQueue bridge does not cover,

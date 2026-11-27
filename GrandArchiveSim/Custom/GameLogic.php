@@ -7076,7 +7076,7 @@ $customDQHandlers["FacetTogetherSacrifice"] = function($player, $parts, $lastDec
     if($count <= 0) return;
     global $playerID;
     $myZone = $player == $playerID ? "myField" : "theirField";
-    $weapons = ZoneSearch($myZone, ["WEAPON"]);
+    $weapons = FilterSpellshroudTargets(ZoneSearch($myZone, ["WEAPON"]));
     if(empty($weapons)) {
         // No weapon target, but still put sheen on mastery
         AddSheenToMastery($player, $count);
@@ -7821,7 +7821,7 @@ function OnCardActivated($player, $mzCard) {
         $decisionsBefore = [];
         if($isSpellCard) foreach(GetDecisionQueue($player) as $queuedBefore) $decisionsBefore[] = $queuedBefore;
         $resolutionAbility($player);
-        if($isSpellCard) GASpellshroudFilterNewDecisions($player, $decisionsBefore);
+        if($isSpellCard) GASpellshroudFilterNewDecisions($player, $decisionsBefore, $obj->CardID);
     }
     // Queue the deferred PREPARED tag (see the ATTACK branch above) only now -- AFTER the card's
     // own CardActivated ability macro just above has had the chance to queue its "Pay Prepare N?"
@@ -10582,7 +10582,7 @@ function TriggerGameOver($loserPlayer) {
     DecisionQueueController::StoreVariable("GAMEOVER_WINNER", strval($winner));
 }
 
-function DoAllyDestroyed($player, $mzCard) {
+function DoAllyDestroyed($player, $mzCard, $uniqueRule = false) {
     global $customDQHandlers;
     $obj = GetZoneObject($mzCard);
     if($obj === null) return;
@@ -10594,7 +10594,8 @@ function DoAllyDestroyed($player, $mzCard) {
     }
     // Immortality: object survives destruction/sacrifice/death checks.
     // Damage is intentionally preserved; immortality prevents dying, not damage.
-    if(HasImmortality($obj)) {
+    // The Unique rule explicitly overrides immortality and still counts as dying.
+    if(!$uniqueRule && HasImmortality($obj)) {
         return;
     }
     if(TryLinkShieldReplacement($player, $mzCard, $obj)) {
@@ -15806,6 +15807,7 @@ function ObjectCurrentPower($obj) {
             case "7cx66hjlgx": // Verdigris Decree: target ally gets +2 POWER until end of turn
                 $power += 2;
                 break;
+            case "ipl6gt7lh9": // Declared-target resolution uses the card ID.
             case "ipl6gt7lh9-debuff": // Cerulean Decree: target unit's attacks get -3 POWER until end of turn
                 $power -= 3;
                 break;
@@ -18928,13 +18930,13 @@ function DoRevealCard($player, $revealedMZ) {
 }
 $revealAbilities = [];
 
-function DoSacrificeFighter($player, $mzCard) {
+function DoSacrificeFighter($player, $mzCard, $uniqueRule = false) {
     $obj = GetZoneObject($mzCard);
     $isHerb = $obj !== null && PropertyContains(CardSubtypes($obj->CardID), "HERB");
     $controller = $obj !== null ? $obj->Controller : $player;
     $isAlly = $obj !== null && PropertyContains(EffectiveCardType($obj), "ALLY");
     $isIschemicSoldier = $obj !== null && $obj->CardID === "Hb9JCa6lM5" && !HasNoAbilities($obj);
-    DoAllyDestroyed($player, $mzCard);
+    DoAllyDestroyed($player, $mzCard, $uniqueRule);
     if($isHerb) TriggerHerbSacrificeEffects($controller, 1);
     if($isIschemicSoldier) DrawIntoMemory($controller, 2);
     if($isAlly) {
@@ -26508,13 +26510,34 @@ function GetRangedValue($obj) {
  */
 // Strip spellshroud objects from the explicit-target choices a Spell's opener just queued (decisions not in $decisionsBefore). A choice left with no legal target is dropped together with its
 // continuation (the CUSTOM handler queued right behind it), so the Spell fizzles instead of offering an illegal target.
-function GASpellshroudFilterNewDecisions($player, $decisionsBefore) {
+function GASpellshroudFilterNewDecisions($player, $decisionsBefore, $sourceCardID = null) {
+    // Audited non-targeting spell choices. Do not infer targeting from the chooser
+    // type, field zone, variable name, or tooltip. These spells have no targets.
+    // Keep this explicit rather than interpreting printed rules text at runtime.
+    static $nonTargetingChoices = [
+        'aIbBhTilEN' => true, // Return to the Archive: sacrifice a regalia
+        '4zEOAaLdap' => true, // Ethereal Absorption: return a regalia
+        'jgyx38zpl0' => true, // Bagua of Cardinal Fate: choose an ally
+        'N0ipz8UWwf' => true, // Spirit Blade: Ascension: return a Sword regalia
+        'NidqQ6MOuy' => true, // Lesser Boon of Parvati: put durability on a domain
+        'qaA3sXFRFY' => true, // Spirit's Blessing: return a regalia
+        'u1xhs5jwsl' => true, // Exorcise Curses: choose a lineage
+        'vZH2xr4yq2' => true, // Auspicious Manifestation: banish a Shenju
+        'x79cuuw5vo' => true, // Frostnip Pirouette: choose non-champions
+    ];
+    if(isset($nonTargetingChoices[$sourceCardID ?? ''])) return;
+    // These target PLAYERS. The UI represents each player with their champion;
+    // the champion's protection does not protect the player.
+    if(in_array($sourceCardID, ['4a8hl5dben', 'pgt4lhko8w', 'yuo7dbge3b'], true)) return;
     $queue = &GetDecisionQueue($player);
     for($i = 0; $i < count($queue); ++$i) {
         $decision = $queue[$i];
         if(in_array($decision, $decisionsBefore, true)) continue;
         if($decision->Type !== "MZCHOOSE" && $decision->Type !== "MZMAYCHOOSE") continue;
         if(!preg_match('/^(?:my|their)(?:Field)-\d+(?:&(?:my|their)Field-\d+)*$/', strval($decision->Param))) continue;
+        // Facet Together mixes a non-targeting sacrifice with a later weapon
+        // target. Exempt only the sacrifice continuation, never the whole spell.
+        if($sourceCardID === 'XmsEbk19Iu' && ($queue[$i + 1]->Param ?? '') === 'FacetTogetherSacrifice') continue;
         $options = explode("&", $decision->Param);
         $legal = FilterSpellshroudTargets($options);
         if(count($legal) === count($options)) continue;
@@ -27524,7 +27547,7 @@ $customDQHandlers["ResolveUniqueRule"] = function($player, $parts, $lastDecision
         if($chosenObj !== null && !$chosenObj->removed
             && $chosenObj->CardID === $cardID
             && PropertyContains(EffectiveCardType($chosenObj), "UNIQUE")) {
-            DoSacrificeFighter($player, $lastDecision);
+            DoSacrificeFighter($player, $lastDecision, uniqueRule: true);
             DecisionQueueController::CleanupRemovedCards();
         }
     }

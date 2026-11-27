@@ -15,8 +15,10 @@
 //
 // Usage (run inside the GA web-server container, where the live card dictionary + DB are set up):
 //   docker exec -w /var/www/html/TCGEngine <container> \
-//     php -d apc.enable_cli=1 -d xdebug.mode=off DevTools/GABotSelfPlayTest.php \
+//     php -d apc.enable_cli=1 -d xdebug.mode=off DevTools/grand-archive/GABotSelfPlayTest.php \
 //     [--deck=<path>] [--deck2=<path>] [--max-steps=2000] [--verbose]
+// Evaluation: --seed=N --baseline=<snapshot-dir> --candidate-seat=1|2 --report-out=<json>
+// See GrandArchiveSim/docs/bot-evaluation.md for the paired tournament runner.
 //
 // `apc.enable_cli=1` is required — GASetupGame() stores auth metadata via APCu
 // (SimGameWriteAuthKeysFromLobby) and throws if that store fails; CLI SAPI disables APCu by
@@ -62,8 +64,8 @@ if (!function_exists('apcu_store')) {
   }
 }
 
-require_once __DIR__ . '/../Core/EngineActionRunner.php';
-require_once __DIR__ . '/../APIs/Lobbies/Classes/Player.php';
+require_once __DIR__ . '/../../Core/EngineActionRunner.php';
+require_once __DIR__ . '/../../APIs/Lobbies/Classes/Player.php';
 // Loads the same runtime a real request has for GA actions (Core/NetworkingLibraries.php in
 // particular — WriteCache() etc. — which EngineExecuteLoadedAction's cache bookkeeping needs but
 // CreateGame.php's own include list doesn't pull in on its own).
@@ -71,7 +73,7 @@ EngineLoadRootRuntime('GrandArchiveSim');
 if (!empty($GLOBALS['GABotTestUsingApcuFallback'])) $GLOBALS['APCuEnabled'] = true;
 // No ambient $lobby here, so CreateGame.php's auto-run guard stays quiet; this just defines
 // GASetupGame() (and pulls in GameLogic.php, which in turn pulls in Telemetry/BotController/etc).
-require_once __DIR__ . '/../GrandArchiveSim/CreateGame.php';
+require_once __DIR__ . '/../../GrandArchiveSim/CreateGame.php';
 
 function BotTestParseArgs($argv) {
   $args = ['deck' => null, 'deck2' => null, 'maxSteps' => 2000, 'verbose' => false, 'deterministic' => true, 'payloadOut' => null];
@@ -79,6 +81,10 @@ function BotTestParseArgs($argv) {
     if (str_starts_with($arg, '--deck=')) $args['deck'] = substr($arg, 7);
     elseif (str_starts_with($arg, '--deck2=')) $args['deck2'] = substr($arg, 8);
     elseif (str_starts_with($arg, '--max-steps=')) $args['maxSteps'] = intval(substr($arg, 12));
+    elseif (str_starts_with($arg, '--seed=')) $args['seed'] = intval(substr($arg, 7));
+    elseif (str_starts_with($arg, '--baseline=')) $args['baseline'] = substr($arg, 11);
+    elseif (str_starts_with($arg, '--candidate-seat=')) $args['candidateSeat'] = intval(substr($arg, 17));
+    elseif (str_starts_with($arg, '--report-out=')) $args['reportOut'] = substr($arg, 13);
     elseif ($arg === '--verbose') $args['verbose'] = true;
     elseif ($arg === '--random-shuffle') $args['deterministic'] = false;
     elseif (str_starts_with($arg, '--payload-out=')) $args['payloadOut'] = substr($arg, 14);
@@ -87,7 +93,15 @@ function BotTestParseArgs($argv) {
 }
 
 $args = BotTestParseArgs($argv);
-$fixtureDir = __DIR__ . '/../GrandArchiveSim/Tests/BotFixtures';
+if (isset($args['seed']) && (!$args['deterministic'] || $args['seed'] < 0)) {
+  fwrite(STDERR, "--seed requires a nonnegative seed and cannot be combined with --random-shuffle\n"); exit(1);
+}
+if (!empty($args['baseline']) && empty($args['reportOut'])) { fwrite(STDERR, "--baseline requires --report-out\n"); exit(1); }
+if ($args['maxSteps'] < 1) { fwrite(STDERR, "--max-steps must be positive\n"); exit(1); }
+require_once __DIR__ . '/GABotEvaluation.php';
+$evaluation = new GABotEvaluation($args);
+$evaluation->install();
+$fixtureDir = __DIR__ . '/../../GrandArchiveSim/Tests/BotFixtures';
 $deckPath1 = $args['deck'] ?? ($fixtureDir . '/worlds2026_deck_a.txt');
 $deckPath2 = $args['deck2'] ?? ($fixtureDir . '/worlds2026_deck_b.txt');
 
@@ -149,7 +163,7 @@ $lobby->players = [
   new Player(2, file_get_contents($deckPath2), ''),
 ];
 
-$gameName = GASetupGame($lobby, ['deterministicShuffle' => $args['deterministic']]);
+$gameName = GASetupGame($lobby, ['deterministicShuffle' => $args['deterministic'], 'randomSeed' => $args['seed'] ?? 0]);
 $lastChampions = ['1' => GASnapshotChampion(1), '2' => GASnapshotChampion(2)];
 if ($args['verbose']) echo "[INFO] game created: {$gameName}\n";
 
@@ -163,7 +177,7 @@ $stalled = false;
 $gameOver = false;
 $winner = 0;
 
-$gaDir = __DIR__ . '/../GrandArchiveSim/';
+$gaDir = __DIR__ . '/../../GrandArchiveSim/';
 
 for (; $steps < $args['maxSteps']; $steps++) {
   // Re-parse before every step, mirroring what a real HTTP request does on every poll (mode 10017):
@@ -289,4 +303,5 @@ foreach ($checks as [$label, $passed, $detail]) {
 }
 echo "[SUMMARY] Total: " . count($checks) . " | Pass: " . (count($checks) - $failures) . " | Fail: {$failures}\n";
 
+$evaluation->save(['gameName' => $gameName, 'winner' => $winner, 'completed' => $gameOver, 'steps' => $steps, 'stalled' => $stalled, 'failures' => $failures, 'checks' => $checks]);
 exit($failures > 0 ? 1 : 0);

@@ -504,8 +504,8 @@ gaScenario('cerulean-decree-not-imbued-chooses-minus-three-power-for-a-units-att
     ->readyFor('Cerulean Decree')
     ->seed('myHand', 'Cerulean Decree')
     ->seed('myField', 'Giant Tortoise', player: 2)
-    ->play('Cerulean Decree')->answer(1, 'NO')->pay(3)->passBoth()->answer(1, '1')->answer(1, 'theirField-1')
-    ->expectProperty('p2Field-1', 'TurnEffects', '["ENTERED_THIS_TURN","ipl6gt7lh9-debuff"]', 'The unit\'s attacks get -3 POWER until end of turn')
+    ->play('Cerulean Decree')->answer(1, '1')->answer(1, 'theirField-1')->answer(1, 'NO')->pay(3)->passBoth()
+    ->expectProperty('p2Field-1', 'TurnEffects', '["ENTERED_THIS_TURN","ipl6gt7lh9"]', 'The unit\'s attacks get -3 POWER until end of turn')
     ->tested('Cerulean Decree')
     ->covers(['modal-spell', 'imbue', 'stat-change', 'targeting'], 'Choose one. If CARDNAME is **imbued**, choose two instead— Up to one target unit’s attacks get -3 [POWER] until end of turn.')
     ->register();

@@ -8,6 +8,10 @@
 //   Player-scoped zones: my{BindTo} and their{BindTo}
 //   Global zones:        {BindTo}  (no prefix)
 require_once __DIR__ . '/GameLayoutDevice.php';
+include __DIR__ . '/MatchClarity.php';
+include __DIR__ . '/RevealHistory.php';
+include __DIR__ . '/FieldRows.php';
+include __DIR__ . '/CleanUI.php';
 if (GrandArchiveSimIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; return; }
 ?>
 <style>
@@ -1822,6 +1826,15 @@ if (GrandArchiveSimIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php
           var gaPollStarted = false;
           window.GAShowEndGameMenu = function(prebuiltStats){
                statsHtml = prebuiltStats || ((typeof BuildMacroGameStatsHtml === 'function') ? BuildMacroGameStatsHtml(pid) : '');
+               // The gamestate already declares the winner. Match metadata may lag or fail;
+               // show the result now, then enrich it with series/rematch controls when available.
+               try {
+                    var result = JSON.parse(window.DecisionQueueVariablesData || '{}');
+                    var winner = parseInt(result.GAMEOVER_WINNER, 10);
+                    if (winner === 1 || winner === 2) {
+                         gaRenderOverlay({didWin: winner === parseInt(pid, 10)});
+                    }
+               } catch (e) {}
                gaCheckMatchEnd(true);
                if (!gaPollStarted) { gaPollStarted = true; setInterval(gaCheckMatchEnd, 3000); }
           };
@@ -2289,16 +2302,18 @@ if (GrandArchiveSimIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php
                     restoreScrollLeft();
                 }
 
+               var layoutFrame = null;
                new MutationObserver(function() {
-                    ensureButtons();
-                    bindButtonHandlers(leftBtn, -1);
-                    bindButtonHandlers(rightBtn, 1);
-                    bindWrapper();
-                    window.requestAnimationFrame(function() {
+                    if (layoutFrame !== null) return;
+                    layoutFrame = window.requestAnimationFrame(function() {
+                         layoutFrame = null;
+                         ensureButtons();
+                         bindButtonHandlers(leftBtn, -1);
+                         bindButtonHandlers(rightBtn, 1);
+                         bindWrapper();
                          restoreScrollLeft();
                          updateButtons();
                     });
-                    updateButtons();
                }).observe(slot, { childList: true, subtree: true });
 
                lastKnownScrollLeft = readSavedScrollLeft();

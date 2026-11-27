@@ -48,7 +48,7 @@
           padding-top: 36px;
           overflow: hidden;
           display: grid;
-          grid-template-rows: 54px minmax(76px, 1fr) 58px minmax(76px, 1fr) 98px 56px;
+          grid-template-rows: 48px minmax(96px, 1fr) 58px minmax(96px, 1fr) 124px 48px;
           color: rgba(244, 236, 219, 0.96);
           font-family: var(--ga-font-ui);
           background:
@@ -477,7 +477,7 @@
           display: grid !important;
           grid-template-columns: repeat(var(--ga-field-columns), var(--ga-field-card-size));
           grid-auto-rows: var(--ga-field-card-size);
-          place-content: center !important;
+          place-content: start !important;
           justify-items: center !important;
           align-items: center !important;
           gap: var(--ga-field-gap-y) var(--ga-field-gap-x);
@@ -896,7 +896,7 @@
 
      @media (max-height: 560px) {
           #gaMobileRoot {
-               grid-template-rows: 48px minmax(62px, 1fr) 48px minmax(62px, 1fr) 82px 50px;
+               grid-template-rows: 42px minmax(70px, 1fr) 48px minmax(70px, 1fr) 104px 42px;
           }
 
           .ga-m-band {
@@ -937,6 +937,20 @@
                height: 48px !important;
           }
      }
+     #myFieldSlot, #theirFieldSlot, #myHandSlot { min-height: 0; min-width: 0; }
+     @media (max-height: 460px) { #gaMobileRoot { overflow-y: auto; } }
+     /* Leave a visible scrollbar as a cue that the lane continues. */
+     #myFieldWrapper, #theirFieldWrapper, #myHandWrapper {
+          overflow: auto !important;
+          scrollbar-width: thin;
+     }
+     #myFieldWrapper::-webkit-scrollbar, #theirFieldWrapper::-webkit-scrollbar,
+     #myHandWrapper::-webkit-scrollbar { display: block; height: 5px; width: 5px; }
+     #myField, #theirField { min-width: 100%; width: max-content; height: auto; min-height: 100%; }
+     #myHand { width: max-content; min-width: 100%; justify-content: flex-start !important; overflow: visible; gap: 6px; padding: 4px; }
+     #myHand > * + * { margin-left: 0 !important; }
+     #myHand > [id^="myHand-"] > a > img:not(.counter-image-icon) { height: 96px !important; width: auto !important; max-width: none; }
+     .ga-m-pile, .ga-m-pass, .ga-m-hand-summary { height: 40px; }
 </style>
 
 <div id="gaMobileRoot">
@@ -1140,6 +1154,15 @@
           var gaPollStarted = false;
           window.GAShowEndGameMenu = function(prebuiltStats){
                statsHtml = prebuiltStats || ((typeof BuildMacroGameStatsHtml === 'function') ? BuildMacroGameStatsHtml(pid) : '');
+               // The gamestate already declares the winner. Match metadata may lag or fail;
+               // show the result now, then enrich it with series/rematch controls when available.
+               try {
+                    var result = JSON.parse(window.DecisionQueueVariablesData || '{}');
+                    var winner = parseInt(result.GAMEOVER_WINNER, 10);
+                    if (winner === 1 || winner === 2) {
+                         gaRenderOverlay({didWin: winner === parseInt(pid, 10)});
+                    }
+               } catch (e) {}
                gaCheckMatchEnd(true);
                if (!gaPollStarted) {
                     gaPollStarted = true;
@@ -1192,77 +1215,29 @@
      }
 
      function refreshEmptyState(slot) {
+          if (slot.id === 'myHandSlot') {
+               var wrapper = document.getElementById('myHandWrapper');
+               if (wrapper) {
+                    wrapper.tabIndex = 0;
+                    wrapper.setAttribute('role', 'region');
+                    wrapper.setAttribute('aria-label', 'My hand. Scroll for more cards.');
+               }
+          }
           slot.classList.toggle('ga-m-empty', !hasCards(slot));
      }
 
      function getMobileFieldCards(field) {
           if (!field) return [];
-          return Array.prototype.filter.call(field.children, function(child) {
+          return Array.prototype.filter.call(field.querySelectorAll('[id]'), function(child) {
                return !!(child && child.id && /^(myField|theirField)-\d+$/.test(child.id) && child.querySelector('a > img:not(.counter-image-icon)'));
           });
      }
 
-     function maxMobileFieldCardSize(count) {
-          if (count <= 1) return 112;
-          if (count <= 2) return 104;
-          if (count <= 3) return 94;
-          if (count <= 4) return 90;
-          if (count <= 6) return 80;
-          if (count <= 9) return 70;
-          if (count <= 12) return 62;
-          return 54;
-     }
-
-     function mobileFieldGap(count) {
-          if (count <= 2) return 8;
-          if (count <= 6) return 6;
-          return 4;
-     }
-
-     function preferredMobileFieldColumns(count) {
-          if (count <= 1) return 1;
-          if (count <= 3) return count;
-          if (count <= 4) return 2;
-          if (count <= 9) return 3;
-          if (count <= 12) return 4;
-          return Math.max(4, Math.ceil(Math.sqrt(count * 1.35)));
-     }
-
+     // Preserve readable cards; crowded fields scroll instead of shrinking.
      function chooseMobileFieldLayout(count, width, height) {
-          var gap = mobileFieldGap(count);
-          var maxSize = maxMobileFieldCardSize(count);
-          var minSize = 36;
-          var preferredCols = preferredMobileFieldColumns(count);
-          var best = { cols: Math.max(1, Math.min(count, preferredCols)), rows: 1, size: minSize, score: -1 };
-
-          for (var cols = 1; cols <= count; ++cols) {
-               var rows = Math.ceil(count / cols);
-               var sizeFromWidth = (width - gap * (cols - 1)) / cols;
-               var sizeFromHeight = (height - gap * (rows - 1)) / rows;
-               var size = Math.floor(Math.min(maxSize, sizeFromWidth, sizeFromHeight));
-               if (!Number.isFinite(size)) size = minSize;
-               size = Math.max(minSize, size);
-
-               var score = size * 100;
-               score -= Math.abs(cols - preferredCols) * 6;
-               score -= Math.abs((cols / rows) - (width / Math.max(height, 1))) * 2;
-               if (count <= 3 && rows === 1) score += 40;
-               if (count === 4 && cols === 2) score += 45;
-               if (count >= 5 && count <= 6 && cols === 3) score += 35;
-               if (count >= 7 && count <= 9 && cols === 3) score += 35;
-               if (count >= 10 && count <= 12 && cols === 4) score += 35;
-
-               if (score > best.score) {
-                    best = { cols: cols, rows: rows, size: size, score: score };
-               }
-          }
-
-          return {
-               cols: Math.max(1, Math.min(count, best.cols)),
-               rows: Math.max(1, best.rows),
-               size: best.size,
-               gap: gap
-          };
+          var size = Math.max(88, Math.min(112, Math.floor(height - 8)));
+          var rows = Math.max(1, Math.floor((height + 6) / (size + 6)));
+          return { cols: Math.max(1, Math.ceil(count / rows)), rows: rows, size: size, gap: 6 };
      }
 
      function refreshMobileFieldLayout(slotID) {
@@ -1274,6 +1249,12 @@
 
           var cards = getMobileFieldCards(field);
           var count = cards.length;
+          var wrapper = document.getElementById(fieldID + 'Wrapper');
+          if (wrapper) {
+               wrapper.tabIndex = 0;
+               wrapper.setAttribute('role', 'region');
+               wrapper.setAttribute('aria-label', (fieldID === 'myField' ? 'My' : 'Opponent') + ' field, ' + count + ' cards. Scroll for more.');
+          }
           slot.setAttribute('data-card-count', String(count));
           field.setAttribute('data-card-count', String(count));
           if (count === 0) {
@@ -1285,7 +1266,7 @@
                return;
           }
 
-          var rect = field.getBoundingClientRect();
+          var rect = slot.getBoundingClientRect();
           var usableWidth = Math.max(1, rect.width - 8);
           var usableHeight = Math.max(1, rect.height - 8);
           var layout = chooseMobileFieldLayout(count, usableWidth, usableHeight);
@@ -1358,6 +1339,7 @@
           var track = document.getElementById('gaPhaseTrack');
           if (!track) return;
           var raw = (typeof window.CurrentPhaseData === 'string') ? window.CurrentPhaseData : '';
+          if (track.getAttribute('data-raw-phase') === (raw || '-')) return;
           var normalized = normalizePhaseStep(raw);
           track.setAttribute('data-raw-phase', raw || '-');
           var steps = track.querySelectorAll('[data-phase-step]');
@@ -1383,10 +1365,13 @@
           }).length;
      }
 
+     var lastOpponentHandCount = null;
      function renderOpponentHandSummary() {
           var summary = document.getElementById('theirHandSummary');
           if (!summary) return;
           var count = parseZoneCount('theirHandData');
+          if (count === lastOpponentHandCount) return;
+          lastOpponentHandCount = count;
           summary.innerHTML =
                '<div class="ga-m-summary-thumb"><img alt="" src="./GrandArchiveSim/concat/CardBack.webp"></div>' +
                '<div class="ga-m-summary-meta">' +
@@ -1605,7 +1590,6 @@
      }
      window.setInterval(function() {
           updatePhaseTrack();
-          refreshMobileFieldLayouts();
           renderOpponentHandSummary();
      }, 400);
 })();

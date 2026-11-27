@@ -1,0 +1,9 @@
+{
+  "decks": [
+    {"name": "Genbu", "path": "genbu.txt"},
+    {"name": "Diana starter", "path": "diana-starter.txt"},
+    {"name": "Ciel Worlds", "path": "worlds2026_deck_a.txt"},
+    {"name": "Lorraine Worlds", "path": "worlds2026_deck_b.txt"}
+  ],
+  "seeds": [101, 202, 303, 404, 505]
+}

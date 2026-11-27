@@ -208,6 +208,10 @@ function ProcessBotControllerStep($requestingPlayer = 0, $folderPath = '', $game
         $afterHash = GABotComparableGamestateHash($activeGameName);
         $noOp = ($beforeHash !== null && $afterHash !== null && $beforeHash === $afterHash);
         if (!$noOp) break;
+        error_log('GABot: rejected action context ' . json_encode([
+            'phase' => GetCurrentPhase(), 'turn' => GetTurnNumber(),
+            'reason' => GetFlashMessage(),
+        ]));
         error_log("GABot: action produced no gamestate change for seat $pendingPlayer (mode={$cleanAction['mode']}, cardID={$cleanAction['cardID']}) — excluding and retrying.");
         $remaining = array_values(array_filter($remaining, fn($a) => strval($a['cardID'] ?? '') !== $cleanAction['cardID']));
     }

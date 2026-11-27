@@ -264,3 +264,7 @@ DevTools/rl/azuki_raizan.txt`.
 vanilla allies, intended to keep action paths comparable across targeting changes.
 It is not a tournament-legal deck. The report includes the final replay action hash
 so equal step counts can also be checked against the recorded decisions.
+
+## Grand Archive tooling
+
+Grand Archive training, evaluations, replay review, and rotation instructions are in [../grand-archive/rl/README.md](../grand-archive/rl/README.md).

@@ -3670,3 +3670,29 @@ $activationCostModifierAbilities["AJeuUDTPmV:0"] = function($player, $subjectObj
 // the existing resolution path and its historical choice protocol.
 GAWrapDeclaredTargetResolvers($cardActivatedAbilities, $declaredCardResolutionAbilities ?? []);
 GAWrapDeclaredTargetResolvers($playCardAbilities, $declaredPlayResolutionAbilities ?? []);
+
+// Return to the Archive: sacrificing is a choice, not a target. Queue it after
+// the legacy spell-opener target filter, as with Auspicious Manifestation above.
+$cardActivatedAbilities["aIbBhTilEN:0"] = function($player) {
+    DecisionQueueController::AddDecision($player, "CUSTOM", "ReturnToArchiveChoose", 1);
+};
+$customDQHandlers["ReturnToArchiveChoose"] = function($player, $parts, $lastDecision) {
+    $regalia = ZoneSearch("myField", ["REGALIA"]);
+    if(empty($regalia)) return;
+    DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", implode("&", $regalia), 1, tooltip:"Choose_a_regalia_to_sacrifice");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "ReturnToArchiveProcess", 1);
+};
+
+// Frostnip Pirouette chooses objects; it never targets them. Spellshroud and
+// Omnishroud therefore do not remove objects from this candidate set.
+$cardActivatedAbilities["x79cuuw5vo:0"] = function($player) {
+    $choices = [];
+    foreach(["myField", "theirField"] as $zone) {
+        foreach(GetZone($zone) as $i => $obj) {
+            if(!$obj->removed && !PropertyContains(EffectiveCardType($obj), "CHAMPION")) $choices[] = $zone . "-" . $i;
+        }
+    }
+    if(empty($choices)) return;
+    DecisionQueueController::AddDecision($player, "MZMULTICHOOSE", "0|" . count($choices) . "|" . implode("&", $choices), 1, tooltip:"Choose_cards_to_wither");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "FrostnipPirouetteWitherLoop", 1);
+};
